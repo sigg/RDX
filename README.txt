@@ -1,2 +1,9 @@
-Welcome to the repository of RDX
-The branch master is valid for the current version of WoW
+Welcome to the RDX
+
+For more informations:
+http://www.wowrdx.com
+
+You can contact sigg by email:
+sigg@wowrdx.com
+
+Cheers

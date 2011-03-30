@@ -1,0 +1,115 @@
+## Interface: 40000
+## Title: |c007ffcffVFL|r
+## Notes: VFL (Venificus Function Library) is a set of reusable UI elements, objects, and functions designed to accelerate UI mod development.
+## Author: Venificus
+## Version: 8.0.0
+## SavedVariables: VFLModuleData, VFLConfig, VFL_Profiler_Data
+VFL.xml
+
+# Lifeguard (protect VFL Frames)
+Core\Lifeguard.lua
+
+# Core VFL
+Core\Kernel.lua
+Core\Io.lua
+Core\Table.lua
+Core\Function.lua
+Core\String.lua
+Core\Math.lua
+Core\Color.lua
+Core\Serialization.lua
+Core\IntervalTree.lua
+Core\RadixCodec.lua
+Core\Snippet.lua
+Core\Signal.lua
+Core\DispatchTable.lua
+Core\Pool.lua
+Core\Literator.lua
+
+# Profilers VFLP 
+Profilers\Profiler.lua
+Metadata\Profilers.lua
+
+# Errors VFLE
+Errors\Error.lua
+
+# Timers VFLT
+Timers\Schedulers.lua
+Timers\Countup.lua
+Timers\Epoch.lua
+Timers\Formats.lua
+
+# Graphics VFLG
+Graphics\Math.lua
+Graphics\Layer.lua
+Graphics\TextureBundle.lua
+
+# Internationalize VFLI
+Internationalize\Internationalize.lua
+
+# UI VFLUI
+UI\EscapeHandler.lua
+UI\Core.lua
+UI\Assets.lua
+Metadata\Textures.lua
+Metadata\Sounds.lua
+Metadata\Fonts.lua
+UI\Indent.lua
+UI\Grid.lua
+
+# Frame classes
+UI\FrameClasses\Frame.lua
+UI\FrameClasses\Button.lua
+UI\FrameClasses\List.lua
+UI\FrameClasses\Edit.lua
+UI\FrameClasses\Scroll.lua
+UI\FrameClasses\Selectable.lua
+UI\FrameClasses\Window.lua
+UI\FrameClasses\WindowFraming.lua
+UI\FrameClasses\TabBar.lua
+UI\FrameClasses\TabBox.lua
+UI\FrameClasses\Dropdown.lua
+UI\FrameClasses\GroupBox.lua
+UI\FrameClasses\ListEditor.lua
+UI\FrameClasses\ColorSwatch.lua
+UI\FrameClasses\TextEditor.lua
+UI\FrameClasses\Text.lua
+UI\FrameClasses\Timer.lua
+UI\FrameClasses\IconPicker.lua
+UI\FrameClasses\DisjointRadioGroup.lua
+UI\FrameClasses\CheckList.lua
+UI\FrameClasses\StatusBarTexture.lua
+UI\FrameClasses\StatusBar.lua
+UI\FrameClasses\Cooldown.lua
+
+# Higher order objects
+UI\MessageBox.lua
+UI\DragDrop.lua
+UI\PopupMenu.lua
+UI\Shortcuts.lua
+UI\Resolutions.lua
+
+# Helpers
+UI\Helpers\CheckEmbedRight.lua
+UI\Helpers\CreateElementEdit.lua
+UI\Helpers\EmbedRight.lua
+UI\Helpers\SelectEmbed.lua
+
+# Pickers
+UI\Pickers\ColorPicker.lua
+UI\Pickers\FontPicker.lua
+UI\Pickers\TexturePicker.lua
+UI\Pickers\BackdropPicker.lua
+UI\Pickers\SoundPicker.lua
+UI\Pickers\CooldownPicker.lua
+UI\Pickers\SBTIBPicker.lua
+
+# Viewers
+Viewers\ErrorViewer.lua
+Viewers\ProfilerViewer.lua
+Viewers\CodeViewer.lua
+Viewers\ModuleViewer.lua
+
+# INIT MUST LOAD LAST
+Init.lua
+

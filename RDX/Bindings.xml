@@ -1,0 +1,23 @@
+<!--
+			KEYBINDINGS
+-->
+<Bindings>
+	<Binding name="RDXHIDEUI" runOnUp="false" header="RDX">
+		RDXDK.ToggleRDX();
+	</Binding>
+	<!--<Binding name="RDXMENU" runOnUp="false">
+		RDX.ShowMainMenu();
+	</Binding>-->
+	<Binding name="RDXEXPLORER" runOnUp="false">
+		RDXDB.ToggleObjectBrowser(VFLDIALOG, nil, VFL.True, VFL.Noop);
+	</Binding>
+	<Binding name="DESKTOP" runOnUp="false">
+		RDXDK.ToggleDesktopLock();
+	</Binding>
+	<Binding name="RDXWL" runOnUp="false">
+		RDXDK.WindowList();
+	</Binding>
+	<Binding name="RDXROSTER" runOnUp="false">
+		RDX.OpenRosterWindow();
+	</Binding>
+</Bindings>	

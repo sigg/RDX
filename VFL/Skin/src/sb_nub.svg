@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.0"
+   x="0.00000000"
+   y="0.00000000"
+   width="16.000000"
+   height="16.000000"
+   id="svg3521">
+  <defs
+     id="defs3523">
+    <linearGradient
+       id="linearGradient4257">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1.0000000"
+         offset="0.00000000"
+         id="stop4259" />
+      <stop
+         style="stop-color:#464646;stop-opacity:1.0000000"
+         offset="1.0000000"
+         id="stop4261" />
+    </linearGradient>
+    <radialGradient
+       cx="8.1539602"
+       cy="8.4316835"
+       r="7.2574258"
+       fx="8.1539602"
+       fy="8.4316835"
+       id="radialGradient4263"
+       xlink:href="#linearGradient4257"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     id="layer1">
+    <path
+       d="M 14.911386 8.4316835 A 6.7574258 6.7574258 0 1 1  1.3965344,8.4316835 A 6.7574258 6.7574258 0 1 1  14.911386 8.4316835 z"
+       transform="matrix(1.027898,0.000000,0.000000,1.037244,-0.326733,-0.758586)"
+       style="fill:url(#radialGradient4263);fill-opacity:1.0000000;fill-rule:evenodd;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+       id="path3529" />
+  </g>
+</svg>

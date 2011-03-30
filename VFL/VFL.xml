@@ -1,0 +1,32 @@
+<!--
+VFL.xml
+VFL
+(C)2005-2006 The VFL Project
+
+Master XML manifest for VFL.
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<!--
+VFL orphan frame.
+Stores all "orphaned" UI objects that require a parent frame.
+-->
+<Frame name="VFLOrphan" hidden="true">
+	<Animations> <AnimationGroup name="VFLOrphanAnimGroup" looping="BOUNCE" /> </Animations>
+</Frame>
+<!-- 
+VFL root frame.
+Serves as the main processing hub for WoW events for all VFL mods.
+-->
+<Frame name="VFLParent" hidden="false" parent="UIParent" setAllPoints="true"/>
+<!-- VFL top frame - a high stratum frame -->
+<Frame name="VFLTOOLTIP" hidden="false" parent="UIParent" frameStrata="TOOLTIP"/>
+<Frame name="VFLFULLSCREEN_DIALOG" hidden="false" parent="UIParent" frameStrata="FULLSCREEN_DIALOG"/>
+<Frame name="VFLFULLSCREEN" hidden="false" parent="UIParent" frameStrata="FULLSCREEN"/>
+<Frame name="VFLDIALOG" hidden="false" parent="UIParent" frameStrata="DIALOG"/>
+<Frame name="VFLHIGH" hidden="false" parent="UIParent" frameStrata="HIGH"/>
+<Frame name="VFLMEDIUM" hidden="false" parent="UIParent" frameStrata="MEDIUM"/>
+<Frame name="VFLLOW" hidden="false" parent="UIParent" frameStrata="LOW"/>
+<Frame name="VFLBACKGROUND" hidden="false" parent="UIParent" frameStrata="BACKGROUND"/>
+<!-- VFL reusable tooltip -->
+<GameTooltip name="VFLTip" inherits="GameTooltipTemplate"/>
+</Ui>

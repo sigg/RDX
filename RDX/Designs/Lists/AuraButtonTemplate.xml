@@ -1,0 +1,164 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Button name="RDXAB40x40Template" inherits="SecureActionButtonTemplate" virtual="true">
+		<Size x="40" y="40"/>
+		<Attributes>
+			<Attribute name="type" value="cancelaura"/>
+		</Attributes>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("RightButtonUp");
+			</OnLoad>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
+				GameTooltip:SetFrameLevel(self:GetFrameLevel() + 2);
+				if self:GetAttribute("target-slot") == 16 or self:GetAttribute("target-slot") == 17 or self:GetAttribute("target-slot") == 18 then
+					GameTooltip:SetInventoryItem("player", self:GetID());
+				else
+					GameTooltip:SetUnitAura("player", self:GetID(), self:GetParent():GetAttribute("filter"));
+				end
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+	<Button name="RDXAB30x30Template" inherits="SecureActionButtonTemplate" virtual="true">
+		<Size x="30" y="30"/>
+		<Attributes>
+			<Attribute name="type" value="cancelaura"/>
+		</Attributes>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("RightButtonUp");
+			</OnLoad>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
+				GameTooltip:SetFrameLevel(self:GetFrameLevel() + 2);
+				if self:GetAttribute("target-slot") == 16 or self:GetAttribute("target-slot") == 17 or self:GetAttribute("target-slot") == 18 then
+					GameTooltip:SetInventoryItem("player", self:GetID());
+				else
+					GameTooltip:SetUnitAura("player", self:GetID(), self:GetParent():GetAttribute("filter"));
+				end
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+	<Button name="RDXAB20x20Template" inherits="SecureActionButtonTemplate" virtual="true">
+		<Size x="20" y="20"/>
+		<Attributes>
+			<Attribute name="type" value="cancelaura"/>
+		</Attributes>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("RightButtonUp");
+			</OnLoad>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
+				GameTooltip:SetFrameLevel(self:GetFrameLevel() + 2);
+				if self:GetAttribute("target-slot") == 16 or self:GetAttribute("target-slot") == 17 or self:GetAttribute("target-slot") == 18 then
+					GameTooltip:SetInventoryItem("player", self:GetID());
+				else
+					GameTooltip:SetUnitAura("player", self:GetID(), self:GetParent():GetAttribute("filter"));
+				end
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+	<Button name="RDXAB30x90Template" inherits="SecureActionButtonTemplate" virtual="true">
+		<Size x="30" y="90"/>
+		<Attributes>
+			<Attribute name="type" value="cancelaura"/>
+		</Attributes>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("RightButtonUp");
+			</OnLoad>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
+				GameTooltip:SetFrameLevel(self:GetFrameLevel() + 2);
+				if self:GetAttribute("target-slot") == 16 or self:GetAttribute("target-slot") == 17 or self:GetAttribute("target-slot") == 18 then
+					GameTooltip:SetInventoryItem("player", self:GetID());
+				else
+					GameTooltip:SetUnitAura("player", self:GetID(), self:GetParent():GetAttribute("filter"));
+				end
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+	<Button name="RDXAB20x60Template" inherits="SecureActionButtonTemplate" virtual="true">
+		<Size x="20" y="60"/>
+		<Attributes>
+			<Attribute name="type" value="cancelaura"/>
+		</Attributes>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("RightButtonUp");
+			</OnLoad>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
+				GameTooltip:SetFrameLevel(self:GetFrameLevel() + 2);
+				if self:GetAttribute("target-slot") == 16 or self:GetAttribute("target-slot") == 17 or self:GetAttribute("target-slot") == 18 then
+					GameTooltip:SetInventoryItem("player", self:GetID());
+				else
+					GameTooltip:SetUnitAura("player", self:GetID(), self:GetParent():GetAttribute("filter"));
+				end
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+	<Button name="RDXAB90x30Template" inherits="SecureActionButtonTemplate" virtual="true">
+		<Size x="90" y="30"/>
+		<Attributes>
+			<Attribute name="type" value="cancelaura"/>
+		</Attributes>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("RightButtonUp");
+			</OnLoad>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
+				GameTooltip:SetFrameLevel(self:GetFrameLevel() + 2);
+				if self:GetAttribute("target-slot") == 16 or self:GetAttribute("target-slot") == 17 or self:GetAttribute("target-slot") == 18 then
+					GameTooltip:SetInventoryItem("player", self:GetID());
+				else
+					GameTooltip:SetUnitAura("player", self:GetID(), self:GetParent():GetAttribute("filter"));
+				end
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+	<Button name="RDXAB60x20Template" inherits="SecureActionButtonTemplate" virtual="true">
+		<Size x="60" y="20"/>
+		<Attributes>
+			<Attribute name="type" value="cancelaura"/>
+		</Attributes>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("RightButtonUp");
+			</OnLoad>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
+				GameTooltip:SetFrameLevel(self:GetFrameLevel() + 2);
+				if self:GetAttribute("target-slot") == 16 or self:GetAttribute("target-slot") == 17 or self:GetAttribute("target-slot") == 18 then
+					GameTooltip:SetInventoryItem("player", self:GetID());
+				else
+					GameTooltip:SetUnitAura("player", self:GetID(), self:GetParent():GetAttribute("filter"));
+				end
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+</Ui>

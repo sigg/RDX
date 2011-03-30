@@ -1,0 +1,8 @@
+## Interface: 40000
+## Title: |c007ffcff00BE|r - WoWRDX
+## Notes: WoWRDX Builtins
+## LoadOnDemand: 1
+## RequiredDeps: RDX
+## X-RDX-OOBEName: WoWRDX
+## X-RDX-OOBEVersion: 13
+WoWRDX.lua
