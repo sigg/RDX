@@ -228,7 +228,7 @@ local plainBackdrop = {
 	insets = { left = 0, right = 0, top = 0, bottom = 0 }
 };
 
-function VFLUI.Framing.Sleek(self, bkd)
+function VFLUI.Framing.Sleek(self, titleHeight, bkd)
 	------------------------------------ WINDOW DECOR
 	
 	self.bkd = bkd or plainBackdrop;
@@ -362,7 +362,7 @@ end
 -----------------------------------------------
 -- FAT FRAMING (used to be Lightweight (rofl))
 -----------------------------------------------
-function VFLUI.Framing.Fat(self)
+function VFLUI.Framing.Fat(self, titleHeight, bkd)
 	-------------------------- DECOR
 	local decor = VFLUI.AcquireFrame("Frame");
 	decor:SetParent(self);
@@ -464,7 +464,7 @@ end
 -----------------------------------------------
 -- BOX FRAMING
 -----------------------------------------------
-function VFLUI.Framing.Box(self)
+function VFLUI.Framing.Box(self, titleHeight, bkd)
 	
     -------------------------- DECOR
 	local decor = VFLUI.AcquireFrame("Frame");

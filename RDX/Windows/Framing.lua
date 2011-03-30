@@ -67,6 +67,8 @@ RDX.RegisterFeature({
 		return true;
 	end,
 	ExposeFeature = function(desc, state)
+		if not desc then return nil; end
+		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
 		state:AddSlot("Frame");
 		state:AddSlot("SetTitleText");
 		return true;
@@ -113,6 +115,7 @@ RDX.RegisterFeature({
 	end,
 	ExposeFeature = function(desc, state)
 		if not desc then return nil; end
+		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
 		state:AddSlot("Frame");
 		state:AddSlot("SetTitleText");
 		return true;
@@ -125,7 +128,7 @@ RDX.RegisterFeature({
 		
 		state:_Attach(state:Slot("Create"), true, function(w)
 			win = w;
-			w:SetFraming(VFLUI.Framing.Default, 18);
+			w:SetFraming(VFLUI.Framing.Default, 18, desc.bkd);
 			w:SetText(title); w:SetTitleColor(0,0,0.6);
 			
 			if desc.defaultbuttons then
@@ -199,6 +202,7 @@ RDX.RegisterFeature({
 	end,
 	ExposeFeature = function(desc, state)
 		if not desc then return nil; end
+		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
 		state:AddSlot("Frame");
 		state:AddSlot("SetTitleText");
 		return true;
@@ -206,14 +210,14 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local win, title = nil, (desc.title or VFLI.i18n("(No title)"));
 		local titleColor = desc.titleColor or _black;
-		local bkdColor = desc.bkdColor or _alphaBlack;
+		--local bkdColor = desc.bkdColor or _alphaBlack;
 		local btnReduce, btnClose;
 		--local st = desc.showtitlebar;
 		if not desc.texicon then desc.texicon = VFL.copy(VFLUI.ErrorTexture); end
 		
 		state:_Attach(state:Slot("Create"), true, function(w)
 			win = w;
-			w:SetFraming(VFLUI.Framing.Sleek);
+			w:SetFraming(VFLUI.Framing.Sleek, 18, desc.bkd);
 			win:SetText(title);
 			win:SetTitleColor(VFL.explodeRGBA(titleColor));
 			win:SetBackdropColor(VFL.explodeRGBA(bkdColor));
@@ -276,8 +280,13 @@ RDX.RegisterFeature({
 		local titleColor = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Title color"));
 		if desc and desc.titleColor then titleColor:SetColor(VFL.explodeRGBA(desc.titleColor)); end
 
-		local bkdColor = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Background color"));
-		if desc and desc.bkdColor then bkdColor:SetColor(VFL.explodeRGBA(desc.bkdColor)); end
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop style"));
+		local bkd = VFLUI.MakeBackdropSelectButton(er, desc.bkd); bkd:Show();
+		er:EmbedChild(bkd); er:Show();
+		ui:InsertFrame(er);
+		
+		--local bkdColor = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Background color"));
+		--if desc and desc.bkdColor then bkdColor:SetColor(VFL.explodeRGBA(desc.bkdColor)); end
 
 		--local chk_showtitlebar = VFLUI.Checkbox:new(ui); chk_showtitlebar:Show();
 		--chk_showtitlebar:SetText(VFLI.i18n("Show Title Bar"));
@@ -299,7 +308,8 @@ RDX.RegisterFeature({
 				feature = "Frame: Lightweight"; 
 				title = title.editBox:GetText();
 				titleColor = titleColor:GetColor();
-				bkdColor = bkdColor:GetColor();
+				bkd = bkd:GetSelectedBackdrop();
+				--bkdColor = bkdColor:GetColor();
 				--showtitlebar = chk_showtitlebar:GetChecked();
 				defaultbuttons = chk_defaultbuttons:GetChecked();
 				texicon = texicon:GetSelectedTexture();
@@ -312,7 +322,7 @@ RDX.RegisterFeature({
 		return {
 			feature = "Frame: Lightweight";
 			titleColor = { r=0,g=0,b=0,a=1 };
-			bkdColor = {r=0,g=0,b=0,a=0};
+			--bkdColor = {r=0,g=0,b=0,a=0};
 			--showtitlebar = true;
 			texicon = VFL.copy(VFLUI.ErrorTexture);
 		}; 
@@ -333,6 +343,7 @@ RDX.RegisterFeature({
 	end,
 	ExposeFeature = function(desc, state)
 		if not desc then return nil; end
+		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
 		state:AddSlot("Frame");
 		state:AddSlot("SetTitleText");
 		return true;
@@ -345,10 +356,10 @@ RDX.RegisterFeature({
 		
 		state:_Attach(state:Slot("Create"), true, function(w)
 			win = w;
-			w:SetFraming(VFLUI.Framing.Sleek);
+			w:SetFraming(VFLUI.Framing.Sleek, 18, desc.bkd);
 			win:SetText(title);
 			win:SetTitleColor(VFL.explodeColor(_black));
-			win:SetBackdropColor(VFL.explodeRGBA(_alphaBlack));
+			--win:SetBackdropColor(VFL.explodeRGBA(_alphaBlack));
 			
 			if desc.defaultbuttons then
 				btnClose = VFLUI.TexturedButton:new(w, 16, "Interface\\AddOns\\VFL\\Skin\\x");
@@ -466,7 +477,7 @@ RDX.RegisterFeature({
 		
 		state:_Attach(state:Slot("Create"), true, function(w)
 			win = w;
-			w:SetFraming(VFLUI.Framing.Fat);
+			w:SetFraming(VFLUI.Framing.Fat, 18, desc.bkd);
 			win:SetText(title);
 			
 			if desc.defaultbuttons then
@@ -585,10 +596,10 @@ RDX.RegisterFeature({
 		
 		state:_Attach(state:Slot("Create"), true, function(w)
 			win = w;
-			w:SetFraming(VFLUI.Framing.Box);
+			w:SetFraming(VFLUI.Framing.Box, 18, desc.bkd);
 			win:SetText(title);
 			win:SetTitleColor(VFL.explodeColor(titleColor));
-			win:SetBackdropColor(VFL.explodeRGBA(bkdColor));
+			--win:SetBackdropColor(VFL.explodeRGBA(bkdColor));
 			
 			if desc.defaultbuttons then
 				btnClose = VFLUI.TexturedButton:new(w, 16, "Interface\\AddOns\\VFL\\Skin\\x");
