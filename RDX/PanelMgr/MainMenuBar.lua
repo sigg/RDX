@@ -931,6 +931,6 @@ RDXPM.MainMenu:RegisterMenuFunction(function(ent)
 		{ text = VFLI.i18n("Store Compiled Code"), checked = RDXM_Debug.IsStoreCompilerActive, func = RDXM_Debug.ToggleStoreCompiler },
 		{ text = VFLI.i18n("     Wipe CooldownDB"), notCheckable = true, func = RDXCD.WipeCooldownDB },
 		{ text = VFLI.i18n("     Print CooldownDB"), notCheckable = true, func = RDXCD.DebugCooldownDB },
-
+		{ text = VFLI.i18n("     Reset Chatframes"), notCheckable = true, func = function() FCF_ResetChatWindows(); ReloadUI(); end },
 	};
 end);
