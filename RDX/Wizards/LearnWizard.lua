@@ -10,8 +10,9 @@ title_text[3] = "Blizzard UI";
 title_text[4] = "Windows";
 title_text[5] = "KeyBindings";
 title_text[6] = "MouseBindings";
-title_text[7] = "RDX Theme UI";
-title_text[8] = "Done";
+title_text[7] = "Chatframes";
+title_text[8] = "RDX Theme UI";
+title_text[9] = "Done";
 
 local content_text = {};
 
@@ -113,6 +114,17 @@ Some windows have many clickable field, so you will have many Edit Bindings.
 ]];
 
 content_text[11] = [[
+The layout engine of RDX is quite similar to the Blizard Chat layout engine.
+Position, docking, alpha size of windows.
+But RDX do not manage Tab for the moment. This feature may be added in the next major release.
+
+It is possible that you have some strange behaviours with chatframes, after installing RDX.
+Go to the menu Settings, Debugging and click on Reset Chatframes link.
+Your UI will be reloaded.
+]];
+
+
+content_text[12] = [[
 By default, you are customizing the theme AUI link to your character.
 You can load some predefined theme.
 Click on the menu UI, Theme AUI and select the theme you wish to load.
@@ -121,7 +133,7 @@ More AUIs are available on WoWInterface at this link:
 http://www.wowinterface.com/downloads/cat117.html
 ]];
 
-content_text[12] = [[
+content_text[13] = [[
 Each theme come with 10 predefined desktop.
 SOLO, PARTY, RAID, ARENA, PVP and smae with the second spec.
 
@@ -129,7 +141,7 @@ Click on the menu UI, States, and select the state you want.
 You can also enable the automatic state switch.
 ]];
 
-content_text[13] = [[
+content_text[14] = [[
 The tutorial is done.
 You have finished to learn basic usage of RDX.
 
@@ -153,6 +165,8 @@ elseif GetLocale() == "deDE" and VFL.titledeDE and VFL.contentdeDE then
 	content_text = VFL.contentdeDE;
 end
 
+local maxpage = 14;
+
 local ww = RDXUI.Wizard:new();
 
 ---------------------------------------------
@@ -172,7 +186,7 @@ ww:RegisterPage(1, {
 		chk_hideLW:SetText("Not show this guide at startup.");
 		if RDXG and RDXG.hideLW then chk_hideLW:SetChecked(true); else chk_hideLW:SetChecked(); end
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "1/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "1/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 
@@ -205,7 +219,7 @@ ww:RegisterPage(2, {
 		lbl:SetWidth(250); lbl:SetHeight(160);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "2/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "2/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 		
@@ -232,7 +246,7 @@ ww:RegisterPage(3, {
 		lbl:SetWidth(250); lbl:SetHeight(160);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "3/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "3/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 		
@@ -260,7 +274,7 @@ ww:RegisterPage(4, {
 		lbl:SetWidth(250); lbl:SetHeight(160);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "4/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "4/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 		
@@ -288,7 +302,7 @@ ww:RegisterPage(5, {
 		lbl:SetWidth(250); lbl:SetHeight(190);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "5/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "5/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 		
@@ -316,7 +330,7 @@ ww:RegisterPage(6, {
 		lbl:SetWidth(250); lbl:SetHeight(160);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "6/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "6/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 		
@@ -344,7 +358,7 @@ ww:RegisterPage(7, {
 		lbl:SetWidth(250); lbl:SetHeight(160);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "7/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "7/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 		
@@ -372,7 +386,7 @@ ww:RegisterPage(8, {
 		lbl:SetWidth(250); lbl:SetHeight(160);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "8/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "8/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 		
@@ -400,7 +414,7 @@ ww:RegisterPage(9, {
 		lbl:SetWidth(250); lbl:SetHeight(160);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "9/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "9/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 		
@@ -428,7 +442,7 @@ ww:RegisterPage(10, {
 		lbl:SetWidth(250); lbl:SetHeight(160);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "10/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "10/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 		
@@ -456,7 +470,7 @@ ww:RegisterPage(11, {
 		lbl:SetWidth(250); lbl:SetHeight(160);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "11/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "11/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 		
@@ -478,13 +492,13 @@ ww:RegisterPage(11, {
 
 ww:RegisterPage(12, {
 	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[7]);
+		local page = RDXUI.GenerateStdWizardPage(parent, title_text[8]);
 		
 		local lbl = VFLUI.MakeLabel(nil, page, content_text[12], "LEFT", "TOP");
 		lbl:SetWidth(250); lbl:SetHeight(160);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "12/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "12/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 		
@@ -512,7 +526,35 @@ ww:RegisterPage(13, {
 		lbl:SetWidth(250); lbl:SetHeight(160);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local lb2 = VFLUI.MakeLabel(nil, page, "13/13", "CENTER", "CENTER");
+		local lb2 = VFLUI.MakeLabel(nil, page, "13/"..maxpage, "CENTER", "CENTER");
+		lb2:SetWidth(250); lb2:SetHeight(10);
+		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
+		
+		RDXG.learnNum = 1;
+		
+		function page:GetDescriptor()
+			return {};
+		end
+		
+		wizard:OnNext(function(wiz) wiz:SetPage(14); end);
+		
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		--if RDXDK.IsBlizzardManageOpen() then errs:AddError("Panel Blizzard UI Element is still open."); end
+		return not errs:HasError();
+	end;
+});
+
+ww:RegisterPage(14, {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, title_text[9]);
+		
+		local lbl = VFLUI.MakeLabel(nil, page, content_text[14], "LEFT", "TOP");
+		lbl:SetWidth(250); lbl:SetHeight(160);
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+		
+		local lb2 = VFLUI.MakeLabel(nil, page, "14/"..maxpage, "CENTER", "CENTER");
 		lb2:SetWidth(250); lb2:SetHeight(10);
 		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
 		
