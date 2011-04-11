@@ -51,7 +51,7 @@ function VFLUI.Framing.None(self, titleHeight, bkd)
 		end
 	end
 	
-	if self.bkd then self:SetBackdrop(self.bkd); end
+	if self.bkd then VFLUI.SetBackdrop(self, self.bkd); end
 
 	----------------------------- LAYOUT OPERATORS
 	function self:_FrameLayout() end
@@ -79,7 +79,7 @@ function VFLUI.Framing.None(self, titleHeight, bkd)
 			ca:SetWidth(self:GetWidth()); ca:SetHeight(self:GetHeight());
 		end
 		
-		if self.bkd then self:SetBackdrop(self.bkd); end
+		if self.bkd then VFLUI.SetBackdrop(self, self.bkd); end
 	end
 
 	function self:_FrameDestroy()
@@ -104,8 +104,6 @@ function VFLUI.Framing.Default(self, titleHeight, bkd)
 	-------------------------- WINDOW DECOR
 	
 	self.bkd = bkd or VFLUI.BlackDialogBackdrop;
-	
-	--self:SetBackdrop(bkd or VFLUI.BlackDialogBackdrop);
 
 	local titleBar = self:GetTitleBar();
 	titleBar:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -5);
@@ -166,7 +164,9 @@ function VFLUI.Framing.Default(self, titleHeight, bkd)
 		end
 	end
 	
-	if self.bkd then self:SetBackdrop(self.bkd); end
+	if self.bkd then
+		VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
+	end
 
 	----------------------------- LAYOUT OPERATORS
 	function self:_FrameLayout()
@@ -194,7 +194,9 @@ function VFLUI.Framing.Default(self, titleHeight, bkd)
 			ca:SetWidth(tw - 10); ca:SetHeight(self:GetHeight() - titleHeight - 7);
 		end
 		
-		if self.bkd then self:SetBackdrop(self.bkd); end
+		if self.bkd then
+			VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
+		end
 	end
 
 	function self:_FrameDestroy()
@@ -231,16 +233,18 @@ local plainBackdrop = {
 function VFLUI.Framing.Sleek(self, titleHeight, bkd)
 	------------------------------------ WINDOW DECOR
 	
-	self.bkd = bkd or plainBackdrop;
+	self.bkd = bkd;
 
 	local decor = VFLUI.AcquireFrame("Frame");
 	decor:SetParent(self);
 	decor:ClearAllPoints();
 	decor:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0); decor:SetHeight(14);
-	decor:SetBackdrop(plainBackdrop); decor:Show();	
+	decor:SetBackdrop(plainBackdrop);
+	decor:Show();	
 
 	local titleBar = self:GetTitleBar();
-	titleBar:ClearAllPoints(); 	titleBar:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0);
+	titleBar:ClearAllPoints(); 	
+	titleBar:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0);
 	titleBar:SetHeight(14);
 	titleBar:Show();
 
@@ -308,8 +312,10 @@ function VFLUI.Framing.Sleek(self, titleHeight, bkd)
 			self:SetWidth(dx + 2); self:SetHeight(dy + 15);
 		end
 	end
-	
-	if self.bkd then self:SetBackdrop(self.bkd); end
+
+	if self.bkd then
+		VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
+	end
 
 	----------------------------- LAYOUT OPERATORS
 	function self:_FrameLayout()
@@ -339,7 +345,9 @@ function VFLUI.Framing.Sleek(self, titleHeight, bkd)
 			ca:SetWidth(tw - 2); ca:SetHeight(self:GetHeight() - 15);
 		end
 		
-		if self.bkd then self:SetBackdrop(self.bkd); end
+		if self.bkd then 
+			VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
+		end
 	end
 
 	function self:_FrameDestroy()
@@ -349,7 +357,10 @@ function VFLUI.Framing.Sleek(self, titleHeight, bkd)
 			perf:ClearAllPoints();
 			perf:Destroy(); perf = nil;
 		end
-		self:SetBackdrop(nil); 
+		local clientArea = self:GetClientArea();
+		if clientArea then
+			clientArea:SetBackdrop(nil);
+		end 
 		decor:Destroy(); decor = nil;
 		titleText:ClearAllPoints();
 		VFLUI.ReleaseRegion(titleText); titleText = nil;
@@ -363,6 +374,9 @@ end
 -- FAT FRAMING (used to be Lightweight (rofl))
 -----------------------------------------------
 function VFLUI.Framing.Fat(self, titleHeight, bkd)
+
+	self.bkd = bkd;
+	
 	-------------------------- DECOR
 	local decor = VFLUI.AcquireFrame("Frame");
 	decor:SetParent(self);
@@ -372,7 +386,8 @@ function VFLUI.Framing.Fat(self, titleHeight, bkd)
 	decor:Show();	
 
 	local titleBar = self:GetTitleBar();
-	titleBar:ClearAllPoints(); 	titleBar:SetPoint("LEFT", decor, "LEFT", 0, 0);
+	titleBar:ClearAllPoints(); 
+	titleBar:SetPoint("LEFT", decor, "LEFT", 0, 0);
 	titleBar:SetHeight(22);
 	titleBar:Show();
 
@@ -415,6 +430,10 @@ function VFLUI.Framing.Fat(self, titleHeight, bkd)
 			self:SetWidth(dx); self:SetHeight(dy + 22);
 		end
 	end
+	
+	if self.bkd then
+		VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
+	end
 
 	----------------------------- LAYOUT OPERATORS
 	function self:_FrameLayout()
@@ -442,7 +461,10 @@ function VFLUI.Framing.Fat(self, titleHeight, bkd)
 			local ca = self:GetClientArea();
 			ca:SetWidth(tw); ca:SetHeight(self:GetHeight() - 22);
 		end
-		--decor:SetBackdrop(VFLUI.DefaultDialogBackdrop);
+		
+		if self.bkd then 
+			VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
+		end
 	end
 
 	function self:_FrameDestroy()
@@ -465,8 +487,10 @@ end
 -- BOX FRAMING
 -----------------------------------------------
 function VFLUI.Framing.Box(self, titleHeight, bkd)
+
+	self.bkd = bkd;
 	
-    -------------------------- DECOR
+	-------------------------- DECOR
 	local decor = VFLUI.AcquireFrame("Frame");
 	decor:SetParent(self);
 	decor:ClearAllPoints();
@@ -503,6 +527,10 @@ function VFLUI.Framing.Box(self, titleHeight, bkd)
 			self:SetWidth(dx+60); self:SetHeight(dy + 60);
 		end
 	end
+	
+	if self.bkd then
+		VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
+	end
 
 	----------------------------- LAYOUT OPERATORS
 	function self:_FrameLayout()
@@ -522,7 +550,9 @@ function VFLUI.Framing.Box(self, titleHeight, bkd)
 			local ca = self:GetClientArea();
 			ca:SetWidth(tw-30); ca:SetHeight(self:GetHeight() - 30);
 		end
-		--decor:SetBackdrop(VFLUI.DefaultDialogBackdrop); 
+		if self.bkd then 
+			VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
+		end
 	end
 
 	function self:_FrameDestroy()
