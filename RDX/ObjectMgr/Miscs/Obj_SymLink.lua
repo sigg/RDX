@@ -309,6 +309,173 @@ RDXDB.RegisterSymLinkClass({
 	end;
 });
 
+RDXDB.RegisterSymLinkClass({
+	name = "classtalent";
+	title = "class&talent";
+	GetTargetPath = function(data)
+		return data["targetpath_" .. RDXMD.GetClassID(select(2, UnitClass("PLAYER"))) .. "_" .. GetActiveTalentGroup()];
+	end;
+	Register = function(path)
+		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() RDXDB.NotifyUpdate(path); end, "symlink_" .. path);
+	end;
+	Unregister = function(path)
+		VFLEvents:Unbind("symlink_" .. path);
+	end;
+	GetUI = function(parent, desc)
+		local ui = VFLUI.CompoundFrame:new(parent);
+		
+		local ff1_1 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff1_1:SetLabel(VFLI.i18n("PRIEST TALENT 1"));
+		if desc and desc.targetpath_1_1 then ff1_1:SetPath(desc.targetpath_1_1); end
+		ff1_1:Show();
+		ui:InsertFrame(ff1_1);
+		
+		local ff1_2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff1_2:SetLabel(VFLI.i18n("PRIEST TALENT 2"));
+		if desc and desc.targetpath_1_2 then ff1_2:SetPath(desc.targetpath_1_2); end
+		ff1_2:Show();
+		ui:InsertFrame(ff1_2);
+		
+		local ff2_1 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff2_1:SetLabel(VFLI.i18n("DRUID TALENT 1"));
+		if desc and desc.targetpath_2_1 then ff2_1:SetPath(desc.targetpath_2_1); end
+		ff2_1:Show();
+		ui:InsertFrame(ff2_1);
+		
+		local ff2_2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff2_2:SetLabel(VFLI.i18n("DRUID TALENT 2"));
+		if desc and desc.targetpath_2_2 then ff2_2:SetPath(desc.targetpath_2_2); end
+		ff2_2:Show();
+		ui:InsertFrame(ff2_2);
+		
+		local ff3_1 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff3_1:SetLabel(VFLI.i18n("PALADIN TALENT 1"));
+		if desc and desc.targetpath_3_1 then ff3_1:SetPath(desc.targetpath_3_1); end
+		ff3_1:Show();
+		ui:InsertFrame(ff3_1);
+		
+		local ff3_2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff3_2:SetLabel(VFLI.i18n("PALADIN TALENT 2"));
+		if desc and desc.targetpath_3_2 then ff3_2:SetPath(desc.targetpath_3_2); end
+		ff3_2:Show();
+		ui:InsertFrame(ff3_2);
+		
+		local ff4_1 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff4_1:SetLabel(VFLI.i18n("SHAMAN TALENT 1"));
+		if desc and desc.targetpath_4_1 then ff4_1:SetPath(desc.targetpath_4_1); end
+		ff4_1:Show();
+		ui:InsertFrame(ff4_1);
+		
+		local ff4_2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff4_2:SetLabel(VFLI.i18n("SHAMAN TALENT 2"));
+		if desc and desc.targetpath_4_2 then ff4_2:SetPath(desc.targetpath_4_2); end
+		ff4_2:Show();
+		ui:InsertFrame(ff4_2);
+		
+		local ff5_1 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff5_1:SetLabel(VFLI.i18n("WARRIOR TALENT 1"));
+		if desc and desc.targetpath_5_1 then ff5_1:SetPath(desc.targetpath_5_1); end
+		ff5_1:Show();
+		ui:InsertFrame(ff5_1);
+		
+		local ff5_2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff5_2:SetLabel(VFLI.i18n("WARRIOR TALENT 2"));
+		if desc and desc.targetpath_5_2 then ff5_2:SetPath(desc.targetpath_5_2); end
+		ff5_2:Show();
+		ui:InsertFrame(ff5_2);
+		
+		local ff6_1 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff6_1:SetLabel(VFLI.i18n("WARLOCK TALENT 1"));
+		if desc and desc.targetpath_6_1 then ff6_1:SetPath(desc.targetpath_6_1); end
+		ff6_1:Show();
+		ui:InsertFrame(ff6_1);
+		
+		local ff6_2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff6_2:SetLabel(VFLI.i18n("WARLOCK TALENT 2"));
+		if desc and desc.targetpath_6_2 then ff6_2:SetPath(desc.targetpath_6_2); end
+		ff6_2:Show();
+		ui:InsertFrame(ff6_2);
+		
+		local ff7_1 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff7_1:SetLabel(VFLI.i18n("MAGE TALENT 1"));
+		if desc and desc.targetpath_7_1 then ff7_1:SetPath(desc.targetpath_7_1); end
+		ff7_1:Show();
+		ui:InsertFrame(ff7_1);
+		
+		local ff7_2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff7_2:SetLabel(VFLI.i18n("MAGE TALENT 2"));
+		if desc and desc.targetpath_7_2 then ff7_2:SetPath(desc.targetpath_7_2); end
+		ff7_2:Show();
+		ui:InsertFrame(ff7_2);
+		
+		local ff8_1 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff8_1:SetLabel(VFLI.i18n("ROGUE TALENT 1"));
+		if desc and desc.targetpath_8_1 then ff8_1:SetPath(desc.targetpath_8_1); end
+		ff8_1:Show();
+		ui:InsertFrame(ff8_1);
+		
+		local ff8_2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff8_2:SetLabel(VFLI.i18n("ROGUE TALENT 2"));
+		if desc and desc.targetpath_8_2 then ff8_2:SetPath(desc.targetpath_8_2); end
+		ff8_2:Show();
+		ui:InsertFrame(ff8_2);
+		
+		local ff9_1 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff9_1:SetLabel(VFLI.i18n("HUNTER TALENT 1"));
+		if desc and desc.targetpath_9_1 then ff9_1:SetPath(desc.targetpath_9_1); end
+		ff9_1:Show();
+		ui:InsertFrame(ff9_1);
+		
+		local ff9_2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff9_2:SetLabel(VFLI.i18n("HUNTER TALENT 2"));
+		if desc and desc.targetpath_9_2 then ff9_2:SetPath(desc.targetpath_9_2); end
+		ff9_2:Show();
+		ui:InsertFrame(ff9_2);
+		
+		local ff10_1 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff10_1:SetLabel(VFLI.i18n("DEATHKNIGHT TALENT 1"));
+		if desc and desc.targetpath_10_1 then ff10_1:SetPath(desc.targetpath_10_1); end
+		ff10_1:Show();
+		ui:InsertFrame(ff10_1);
+		
+		local ff10_2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff10_2:SetLabel(VFLI.i18n("DEATHKNIGHT TALENT 2"));
+		if desc and desc.targetpath_10_2 then ff10_2:SetPath(desc.targetpath_10_2); end
+		ff10_2:Show();
+		ui:InsertFrame(ff10_2);
+
+		ui.GetDescriptor = function(x)
+			return {
+				class = "classtalent",
+				targetpath_1_1 = ff1_1:GetPath(),
+				targetpath_2_1 = ff2_1:GetPath(),
+				targetpath_3_1 = ff3_1:GetPath(),
+				targetpath_4_1 = ff4_1:GetPath(),
+				targetpath_5_1 = ff5_1:GetPath(),
+				targetpath_6_1 = ff6_1:GetPath(),
+				targetpath_7_1 = ff7_1:GetPath(),
+				targetpath_8_1 = ff8_1:GetPath(),
+				targetpath_9_1 = ff9_1:GetPath(),
+				targetpath_10_1 = ff10_1:GetPath(),
+				targetpath_1_2 = ff1_2:GetPath(),
+				targetpath_2_2 = ff2_2:GetPath(),
+				targetpath_3_2 = ff3_2:GetPath(),
+				targetpath_4_2 = ff4_2:GetPath(),
+				targetpath_5_2 = ff5_2:GetPath(),
+				targetpath_6_2 = ff6_2:GetPath(),
+				targetpath_7_2 = ff7_2:GetPath(),
+				targetpath_8_2 = ff8_2:GetPath(),
+				targetpath_9_2 = ff9_2:GetPath(),
+				targetpath_10_2 = ff10_2:GetPath(),
+			};
+		end;
+
+		ui.Destroy = VFL.hook(function(s) s.GetDescriptor = nil; end, ui.Destroy);
+
+		return ui;
+	end;
+});
+
 local _objectsadd = {
 	{ text = "AuraFilter" },
 	{ text = "MouseBindings" },
