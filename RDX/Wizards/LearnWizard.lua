@@ -27,6 +27,7 @@ The tutorial will explain the following topics:
 - Windows Desktop
 - KeyBindings
 - MouseBindings
+- ChatFrames
 - RDX Theme UI
 ]];
 

@@ -164,9 +164,7 @@ function VFLUI.Framing.Default(self, titleHeight, bkd)
 		end
 	end
 	
-	if self.bkd then
-		VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
-	end
+	if self.bkd then VFLUI.SetBackdrop(self, self.bkd); end
 
 	----------------------------- LAYOUT OPERATORS
 	function self:_FrameLayout()
@@ -194,9 +192,7 @@ function VFLUI.Framing.Default(self, titleHeight, bkd)
 			ca:SetWidth(tw - 10); ca:SetHeight(self:GetHeight() - titleHeight - 7);
 		end
 		
-		if self.bkd then
-			VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
-		end
+		if self.bkd then VFLUI.SetBackdrop(self, self.bkd); end
 	end
 
 	function self:_FrameDestroy()
@@ -313,9 +309,7 @@ function VFLUI.Framing.Sleek(self, titleHeight, bkd)
 		end
 	end
 
-	if self.bkd then
-		VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
-	end
+	if self.bkd then VFLUI.SetBackdrop(self, self.bkd); end
 
 	----------------------------- LAYOUT OPERATORS
 	function self:_FrameLayout()
@@ -345,9 +339,7 @@ function VFLUI.Framing.Sleek(self, titleHeight, bkd)
 			ca:SetWidth(tw - 2); ca:SetHeight(self:GetHeight() - 15);
 		end
 		
-		if self.bkd then 
-			VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
-		end
+		if self.bkd then VFLUI.SetBackdrop(self, self.bkd); end
 	end
 
 	function self:_FrameDestroy()
@@ -431,9 +423,7 @@ function VFLUI.Framing.Fat(self, titleHeight, bkd)
 		end
 	end
 	
-	if self.bkd then
-		VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
-	end
+	if self.bkd then VFLUI.SetBackdrop(self, self.bkd); end
 
 	----------------------------- LAYOUT OPERATORS
 	function self:_FrameLayout()
@@ -462,9 +452,7 @@ function VFLUI.Framing.Fat(self, titleHeight, bkd)
 			ca:SetWidth(tw); ca:SetHeight(self:GetHeight() - 22);
 		end
 		
-		if self.bkd then 
-			VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
-		end
+		if self.bkd then VFLUI.SetBackdrop(self, self.bkd); end
 	end
 
 	function self:_FrameDestroy()
@@ -528,9 +516,7 @@ function VFLUI.Framing.Box(self, titleHeight, bkd)
 		end
 	end
 	
-	if self.bkd then
-		VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
-	end
+	if self.bkd then VFLUI.SetBackdrop(self, self.bkd); end
 
 	----------------------------- LAYOUT OPERATORS
 	function self:_FrameLayout()
@@ -550,9 +536,7 @@ function VFLUI.Framing.Box(self, titleHeight, bkd)
 			local ca = self:GetClientArea();
 			ca:SetWidth(tw-30); ca:SetHeight(self:GetHeight() - 30);
 		end
-		if self.bkd then 
-			VFLUI.SetBackdrop(self:GetClientArea(), self.bkd);
-		end
+		if self.bkd then VFLUI.SetBackdrop(self, self.bkd); end
 	end
 
 	function self:_FrameDestroy()
