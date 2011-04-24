@@ -18,7 +18,7 @@ local function ErrorHandler(msg)
 		err.count = 1;
 		errsByTitle[msg] = err;
 		table.insert(errs, 1, err);
-		--VFL.print("|cFFFF0000[*] Lua error:|r |cFFFFFFFF" .. msg .. "|r - Type /err to view extended info.");
+		VFL.print("|cFFFF0000[*] Lua error:|r |cFFFFFFFF" .. msg .. "|r - Type /err to view extended info.");
 		VFLEvents:Dispatch("ERRORLUA", "|cFFFF0000[*] Lua error:|r |cFFFFFFFF" .. msg .. "|r - Type /err to view extended info.");
 	end
 end

@@ -224,6 +224,18 @@ function RDXMD.GetSelfTalent()
 	end
 end
 
+function RDXMD.GetSelfTalentNoIndex()
+	local tabPSTmp, idtab = 0, 1;
+	for i=1,GetNumTalentTabs() do
+		local _, _, _, _, tabPS = GetTalentTabInfo(i);
+		if tabPS > tabPSTmp then
+			tabPSTmp = tabPS;
+			idtab = i;
+		end;
+	end;
+	return idtab;
+end
+
 local function UpdateTalent()
 	local myunit = RDXDAL.GetMyUnit();
 	if not myunit then return; end

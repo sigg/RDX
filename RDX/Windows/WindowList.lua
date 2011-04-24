@@ -141,7 +141,7 @@ local dlg = nil;
 function RDXDK.WindowList(parent)
 	if dlg then return nil; end
 	dlg = VFLUI.Window:new(parent);
-	dlg:SetFraming(VFLUI.Framing.Sleek, VFLUI.DarkDialogBackdrop);
+	dlg:SetFraming(VFLUI.Framing.Sleek, nil, VFLUI.DarkDialogBackdrop);
 	--dlg:SetBackdropColor(0,0,0,.8);
 	dlg:SetTitleColor(0,.5,0);
 	dlg:SetText(VFLI.i18n("Window List"));

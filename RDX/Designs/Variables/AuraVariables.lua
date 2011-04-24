@@ -6,10 +6,10 @@
 -- Buff Debuff Info by Sigg Rashgarroth eu
 -------------------------------------
 
-local i, name, icon, apps, dur, expirationTime, caster, fdur, ftimeleft, possible, start, bn;
+local i, name, icon, apps, dur, expirationTime, caster, fdur, timeleft, possible, start, bn;
 
 function __rdxloadbuff(uid, buffname, auracache, playerauras, othersauras, petauras, targetauras, focusauras)
-	i, name, icon, apps, dur, expirationTime, caster, fdur, ftimeleft, possible, start, bn = 1, nil, "", nil, nil, nil, nil, 0, 0, false, 0, nil;
+	i, name, icon, apps, dur, expirationTime, caster, fdur, timeleft, possible, start, bn = 1, nil, "", nil, nil, nil, nil, 0, 0, false, 0, nil;
 	if type(buffname) == "number" then
 		bn = GetSpellInfo(buffname);
 		if not bn then bn = buffname; end
@@ -21,16 +21,16 @@ function __rdxloadbuff(uid, buffname, auracache, playerauras, othersauras, petau
 		possible = true;
 		if dur and dur > 0 then
 			fdur = dur;
-			ftimeleft = expirationTime - GetTime();
+			timeleft = expirationTime - GetTime();
 			start = expirationTime - dur;
 		else
 			fdur = 0;
-			ftimeleft = 0;
+			timeleft = 0;
 			start = 0;
 		end
 		if (playerauras and caster ~= "player") or (othersauras and caster == "player") or (petauras and caster ~= "pet") or (targetauras and caster ~= "target") or (focusauras and caster ~= "focus") then
 			fdur = 0;
-			ftimeleft = 0;
+			timeleft = 0;
 			start = 0;
 			possible = false;
 		end
@@ -39,7 +39,7 @@ function __rdxloadbuff(uid, buffname, auracache, playerauras, othersauras, petau
 end
 
 function __rdxloaddebuff(uid, debuffname, auracache, playerauras, othersauras, petauras, targetauras, focusauras)
-	i, name, icon, apps, dur, expirationTime, caster, fdur, ftimeleft, possible, start, bn = 1, nil, "", nil, nil, nil, nil, 0, 0, false, 0, nil;
+	i, name, icon, apps, dur, expirationTime, caster, fdur, timeleft, possible, start, bn = 1, nil, "", nil, nil, nil, nil, 0, 0, false, 0, nil;
 	if type(debuffname) == "number" then
 		bn = GetSpellInfo(debuffname);
 		if not bn then bn = debuffname; end
@@ -51,26 +51,56 @@ function __rdxloaddebuff(uid, debuffname, auracache, playerauras, othersauras, p
 		possible = true;
 		if dur and dur > 0 then
 			fdur = dur;
-			ftimeleft = expirationTime - GetTime();
 			start = expirationTime - dur;
+			timeleft = expirationTime - GetTime();
 		else
 			fdur = 0;
-			ftimeleft = 0;
+			timeleft = 0;
 			start = 0;
 		end
 		if (playerauras and caster ~= "player") or (othersauras and caster == "player") or (petauras and caster ~= "pet") or (targetauras and caster ~= "target") or (focusauras and caster ~= "focus") then
 			fdur = 0;
-			ftimeleft = 0;
+			timeleft = 0;
 			start = 0;
 			possible = false;
 		end
 	end
 	return possible, apps, icon, start, fdur, caster, timeleft;
 end
+-----------------------ADD FOR SINESTRA WRACK -------------------------------
+function __rdxloadInverseDebuff(uid, debuffname, auracache, playerauras, othersauras, petauras, targetauras, focusauras)
+	i, name, icon, apps, dur, expirationTime, caster, fdur, timeleft, possible, start, bn = 1, nil, "", nil, nil, nil, nil, 0, 0, false, 0, nil;
+	if type(debuffname) == "number" then
+		bn = GetSpellInfo(debuffname);
+		if not bn then bn = debuffname; end
+	else
+		bn = debuffname;
+	end
+	name, _, icon, apps, _, dur, expirationTime, caster, isStealable = UnitDebuff(uid, bn);
+	if (name == bn) then
+		possible = true;
+		-------- dur = 6
+		-------- expirtime = 24856
+		-------- start = 24856 - 6 = 24850
+		-------- time = 24853 - 24850 =3
+		if dur and dur > 0 then
+			fdur = dur;
+			start = expirationTime - dur;
+			timeleft = GetTime() - start;
+		else
+			fdur = 0;
+			ftimeleft = 0;
+			start = 0;
+		end
+	end
+	return possible, apps, icon, start, fdur, caster, timeleft;
+end
 
+-------------------------------------------------------------------------------
 local _types = {
 	{ text = "BUFFS" },
 	{ text = "DEBUFFS" },
+	{ text = "INV_DEBUFFS" },
 };
 local function _dd_types() return _types; end
 
@@ -91,7 +121,9 @@ RDX.RegisterFeature({
 		state:AddSlot("TimerVar_" .. desc.name .."_aura");
 		state:AddSlot("TextData_" .. desc.name .."_aura_name");
 		state:AddSlot("TextData_" .. desc.name .."_aura_stack");
+		state:AddSlot("TextData_" .. desc.name .."_time");
 		state:AddSlot("NumberVar_" .. desc.name .. "_stack");
+		state:AddSlot("ColorVar_" .. desc.name .. "_color");
 		--state:AddSlot("TextData_" .. desc.name .."_aura_caster");
 		state:AddSlot("TexVar_" .. desc.name .."_icon");
 		state:AddSlot("Var_" .. desc.name .. "_timeleft");
@@ -113,6 +145,10 @@ RDX.RegisterFeature({
 			mask = mux:GetPaintMask("DEBUFFS");
 			mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
 			loadCode = "__rdxloaddebuff";
+		elseif desc.auraType == "INV_DEBUFFS" then
+			mask = mux:GetPaintMask("DEBUFFS");
+			mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
+			loadCode = "__rdxloadInverseDebuff";
 		else
 			mask = mux:GetPaintMask("BUFFS");
 			mux:Event_UnitMask("UNIT_BUFF_*", mask);
@@ -135,6 +171,7 @@ local ]] .. desc.name .. [[_possible, ]] .. desc.name .. [[_stack, ]] .. desc.na
 local ]] .. desc.name .. [[_aura_name = "";
 local ]] .. desc.name .. [[_aura_stack = 0;
 local ]] .. desc.name .. [[_aura_caster = "";
+local ]] .. desc.name .. [[_color = ]] .. Serialize(desc.color0) .. [[;
 if not ]] .. reverse .. [[ then
 	]] .. desc.name .. [[_possible = not ]] .. desc.name .. [[_possible;
 end
@@ -153,6 +190,21 @@ end
 --		]] .. desc.name .. [[_aura_caster = ]] .. desc.name .. [[_caster;
 --	end
 --end
+
+if ]] .. desc.name .. [[_timeleft then ]] .. desc.name .. [[_time = strformat("%0.f",]] .. desc.name .. [[_timeleft); end
+if not ]] .. desc.name .. [[_timeleft then ]] .. desc.name .. [[_timeleft = 0; end
+if ]] .. desc.name .. [[_timeleft < ]] .. desc.timer1 .. [[ and ]] .. desc.name .. [[_timeleft > 0 then
+	]] .. desc.name .. [[_color = ]] .. Serialize(desc.color1) .. [[;
+elseif (]] .. desc.name .. [[_timeleft < ]] .. desc.timer2 .. [[ and ]] .. desc.name .. [[_timeleft >= ]] .. desc.timer1 .. [[) then
+	]] .. desc.name .. [[_color = ]] .. Serialize(desc.color2) .. [[;
+elseif ]] .. desc.name .. [[_timeleft > ]] .. desc.timer2 .. [[ then
+	]] .. desc.name .. [[_color = ]] .. Serialize(desc.color3) .. [[;
+elseif ]] .. desc.name .. [[_timeleft == 0 then
+	]] .. desc.name .. [[_color =  ]] .. Serialize(desc.color0) .. [[;
+else
+	]] .. desc.name .. [[_color =  ]] .. Serialize(desc.color0) .. [[; 
+end
+
 ]]);
 		end);
 	end;
@@ -239,7 +291,41 @@ end
 		chk_reverse:SetText(VFLI.i18n("Reverse filtering (report when NOT possible)"));
 		if desc and desc.reverse then chk_reverse:SetChecked(true); else chk_reverse:SetChecked(); end
 		ui:InsertFrame(chk_reverse);
-
+		
+	
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Color (timer elapsed)")));
+-----------------
+		local itimer1 = VFLUI.LabeledEdit:new(ui, 100); 
+		itimer1:Show();
+		itimer1:SetText(VFLI.i18n("First Timer after Application (Color1)"));
+		if desc and desc.timer1 then itimer1.editBox:SetText(desc.timer1); end
+		ui:InsertFrame(itimer1);
+		
+		local itimer2 = VFLUI.LabeledEdit:new(ui, 100); 
+		itimer2:Show();
+		itimer2:SetText(VFLI.i18n(" Second Timer (Color2 & Color3)"));
+		if desc and desc.timer2 then itimer2.editBox:SetText(desc.timer2); end
+		ui:InsertFrame(itimer2);
+		
+		--local itimer3 = VFLUI.LabeledEdit:new(ui, 100); 
+		--itimer3:Show();
+		--itimer3:SetText(VFLI.i18n(" Third Timer ("));
+		--if desc and desc.timer3 then itimer3.editBox:SetText(desc.timer3); end
+		--ui:InsertFrame(itimer3);
+		local color0 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Color0 (Color nothing)"));
+		if desc and desc.color0 then color0:SetColor(VFL.explodeRGBA(desc.color0)); end
+		
+		local color1 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Color1 (Color when elapsed < timer1)"));
+		if desc and desc.color1 then color1:SetColor(VFL.explodeRGBA(desc.color1)); end
+		
+		local color2 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Color2 (Color when timer1 < elapsed < timer2)"));
+		if desc and desc.color2 then color2:SetColor(VFL.explodeRGBA(desc.color2)); end
+		
+		local color3 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Color3 (Color when elapsed > timer2)"));
+		if desc and desc.color3 then color3:SetColor(VFL.explodeRGBA(desc.color3)); end
+		
+	
+-----------------
 		function ui:GetDescriptor()
 			local t = cd.editBox:GetText();
 			return {
@@ -253,6 +339,15 @@ end
 				targetauras = chk_targetauras:GetChecked();
 				focusauras = chk_focusauras:GetChecked();
 				reverse = chk_reverse:GetChecked();
+				
+				timer1 = itimer1.editBox:GetText();
+				timer2 = itimer2.editBox:GetText();
+				--timer3 = itimer3.editBox:GetText();
+				color0 = color0:GetColor();
+				color1 = color1:GetColor();
+				color2 = color2:GetColor();
+				color3 = color3:GetColor();
+				
 			};
 		end
 		
@@ -261,6 +356,15 @@ end
 		return ui;
 	end;
 	CreateDescriptor = function()
-		return { feature = "Variables: Buffs Debuffs Info"; name = "aurai"; auraType = "BUFFS"; };
+		return { feature = "Variables: Buffs Debuffs Info"; 
+		name = "aurai"; auraType = "BUFFS"; 
+		
+		timer1 = "0"; timer2 = "0"; --timer3 = "0";
+		color0 = {r=0,g=0,b=0,a=0}; 
+		color1 = {r=1,g=1,b=1,a=1}; 
+		color2 = {r=1,g=1,b=1,a=1}; 
+		color3 = {r=1,g=1,b=1,a=1};
+		
+		};
 	end;
 });
