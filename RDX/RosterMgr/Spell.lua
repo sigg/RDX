@@ -507,7 +507,7 @@ end
 
 local subVal, spellId, spellName, spellSchool, rank, norank;
 
-local function __RDXParser(timestamp, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
+local function __RDXParser(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
 	subVal = strsub(event, 1, 5);
 	spellId, spellName, spellSchool = nil, nil, nil;
 	norank = nil;

@@ -296,7 +296,7 @@ local subVal;
 local lr = {};
 local tu;
 
-local function AddLogRow(timestamp, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
+local function AddLogRow(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
 	empty(lr);
 	unitsrc = nil;
 	unittgt = nil;

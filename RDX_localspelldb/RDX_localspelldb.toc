@@ -1,4 +1,4 @@
-## Interface: 40000
+## Interface: 40100
 ## Title: |c007ffcffRDX|r - Local Spell DB
 ## Notes: store local spell name with id for localization
 ## Author: Sigg / Rashgarroth

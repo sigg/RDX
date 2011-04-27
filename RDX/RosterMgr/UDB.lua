@@ -1557,7 +1557,7 @@ local cdFrame = CreateFrame("Frame");
 cdFrame:SetScript("OnUpdate", ProcessCDQueue);
 
 -- see the roster cooldown folder.
-local function ParseSpellSuccess(timestamp, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellid, spellname)
+local function ParseSpellSuccess(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellid, spellname)
 	if (event == "SPELL_CAST_SUCCESS") or (event == "SPELL_ENERGIZE") then
 		local unit = _rtouched[strlower(sourceName)];
 		if unit then
