@@ -785,7 +785,7 @@ local function _CreateLongRPCWindow(parent)
 	-- Build the long RPC window from features.
 	local state = RDX.GenericWindowState:new();
 	-- Add window frame
-	state:AddFeature({feature = "Frame: Default", title = "Data Streams"});
+	state:AddFeature({feature = "Frame: Default", title = "Data Streams", bkd = VFL.copy(VFLUI.BlizzardDialogBackdrop)});
 	
 	-- ApplyData invokes a user provided function
 	state:AddSlot("_ApplyData");

@@ -71,7 +71,7 @@ function RDX.CreateLogisticsWindow(id, title, periodicRepaint, totalWidth, t1wid
 	local win = RDX.Window:new(RDXParent);
 	
 	-- Add window frame
-	state:AddFeature({feature = "Frame: Lightweight", title = title, titleColor = {r=0,g=0,b=0,a=1}, bkdColor = {r=0,g=.15,b=.15,a=1}, showtitlebar = true});
+	state:AddFeature({feature = "Frame: Lightweight", title = title, titleColor = {r=0,g=0,b=0,a=1}, bkdColor = {r=0,g=.15,b=.15,a=1}, showtitlebar = true, bkd = VFL.copy(VFLUI.DarkDialogBackdrop)});
 	
 	-- ApplyData invokes a user provided function
 	local applyData = VFL.Noop;

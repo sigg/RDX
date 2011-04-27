@@ -327,7 +327,7 @@ end
 local function _IntegrateSendUI(parent, data)
 	if not data then return; end
 
-	RDX.OpenRosterWindow();
+	RDX.OpenRosterWindow(parent);
 
 	local dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 24);

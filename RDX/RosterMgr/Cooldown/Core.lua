@@ -36,6 +36,9 @@ function RDXCD.GetCDBs() return cdb; end
 local cdg = {};
 function RDXCD.GetCDGs() return cdg; end
 
+-- Cooldowns based on spell damage event
+local cddmgspell = {};
+
 ------------------------------------------
 -- Cooldown registration
 ------------------------------------------
@@ -44,7 +47,7 @@ function RDXCD.GetCDGs() return cdg; end
 -- CLASS PRIEST DRUID PALADIN SHAMAN WARRIOR WARLOCK MAGE ROGUE HUNTER DEATHKNIGHT
 -- text : race:class:talentindex:spellname
 
-function RDXCD.RegisterCooldown(race, boss, class, talent, spellid, duration, group)
+function RDXCD.RegisterCooldown(race, boss, class, talent, spellid, duration, group, spelldamage)
 	if not spellid then VFL.print(VFLI.i18n("|cFFFF0000[RDX]|r Info : Attempt to register an anonymous omni cooldown.")); return; end
 	if cd[spellid] then VFL.print(VFLI.i18n("|cFFFF0000[RDX]|r Info : Attempt to register duplicate object type ") .. spellid .. "."); return; end
 	local spellname, _, icon = GetSpellInfo(spellid);
@@ -70,6 +73,7 @@ function RDXCD.RegisterCooldown(race, boss, class, talent, spellid, duration, gr
 	if boss then cdb[spellid] = cdtemp; end
 	if talent then cdt[spellid] = cdtemp; end
 	if not talent and not boss then cdc[spellid] = cdtemp; end
+	if spelldamage then cddmgspell[spellid] = true; end
 	return true;
 end
 
@@ -92,6 +96,9 @@ function RDXCD.GetGroupCooldowns(group)
 	return cdg[group];
 end
 
+function RDXCD.IsDamageSpell(spellid)
+	return cddmgspell[spellid];
+end
 
 --- Reproduce an cooldown tooltip from an entry
 local cdtmp;

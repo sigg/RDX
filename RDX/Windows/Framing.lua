@@ -115,7 +115,7 @@ RDX.RegisterFeature({
 	end,
 	ExposeFeature = function(desc, state)
 		if not desc then return nil; end
-		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
+		desc.bkd = VFL.copy(VFLUI.BlizzardDialogBackdrop);
 		state:AddSlot("Frame");
 		state:AddSlot("SetTitleText");
 		return true;

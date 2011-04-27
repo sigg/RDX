@@ -84,9 +84,9 @@ Logistics.RegisterCooldown({
 
 -- PRIEST SPELL
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 17, 3); --  Mot de pouvoir : Bouclier
-RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 8092, 8); -- Attaque mentale
+RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 8092, 8, nil, true); -- Attaque mentale
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 8122, 30); -- Cri psychique
-RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 14914, 10); -- Flammes sacrées
+RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 14914, 10, nil, true); -- Flammes sacrées
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 88684, 15); -- Mot sacré : Sérénité
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 586, 30); -- Oubli
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 32379, 10); -- Mot de l'ombre : Mort
@@ -103,7 +103,7 @@ RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Discipline", 10060, 2*60); -- Infusi
 RDXCD.RegisterCooldown(nil, nil, "PRIEST","Discipline", 33206, 3*60); -- Suppression de la douleur
 RDXCD.RegisterCooldown(nil, nil, "PRIEST","Holy", 47755, 12); -- Extase
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Holy", 19236, 2*60); -- Prière du désespoir
---RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Holy", 724, 3*60); -- Puits de lumière, see totem fire lol
+RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Holy", 724, 3*60); -- Puits de lumière, see totem fire lol
 --RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Holy", 14751, 30); -- Chakra
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Holy", 34861, 10); -- Cercle de soins
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Holy", 47788, 3*60); -- Esprit gardien
@@ -117,6 +117,10 @@ RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Shadow", 47585, 2*60); -- Dispersion
 -- PRIEST SPECIALISATION
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Holy", 88625, 30); -- Mot sacré : Châtier
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Discipline", 47540, 12); -- Pénitence
+
+--SPELL_AURA_APPLIED 81209 chakra chatier 60
+--SPELL_AURA_APPLIED   81206 chakra sanctuaire 60
+-- SPELL_AURA_REMOVED 14751, 30 -- Chakra
 
 -- PALADIN SPELL
 RDXCD.RegisterCooldown(nil, nil, "PALADIN", nil, 35395, 4.5); --  Frappe du croise
@@ -249,7 +253,7 @@ RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 100, 15); -- Charge
 RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 6343, 6); -- Coup de tonnerre
 RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 355, 8); -- Provocation
 RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 78, 3); -- Frappe heroique
-RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 72, 12); -- Coup de bouclier
+--RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 72, 12); -- Coup de bouclier not existing anymore
 RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 6673, 60); -- Cri de guerre
 RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 845, 3); -- Enchainement
 RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 2565, 60); -- Maitrise du blocage

@@ -42,7 +42,7 @@ local fdlg = nil; -- Generic subdialog variable
 
 local dlg = VFLUI.Window:new();
 VFLUI.Window.SetDefaultFraming(dlg, 24);
-dlg:SetText("RDX Addons Updater (Beta)");
+dlg:SetText("RDX Packages Updater (Beta)");
 dlg:SetTitleColor(0,0,.6);
 dlg:SetWidth(660); dlg:SetHeight(380);
 dlg:SetPoint("CENTER", VFLParent, "CENTER");
@@ -82,7 +82,7 @@ local function CellOnClick(self, arg1)
 				text = "Info Package", 
 				OnClick = function() 
 					-- who, packagename, version
-					RDXDB.PackageMetadataDialog(self.col[1]:GetText());
+					RDXDB.PackageMetadataDialog(self.col[1]:GetText(), self);
 					VFL.poptree:Release(); 
 				end
 			});

@@ -1556,9 +1556,11 @@ end
 local cdFrame = CreateFrame("Frame");
 cdFrame:SetScript("OnUpdate", ProcessCDQueue);
 
+local IsDamageSpell = RDXCD.IsDamageSpell;
 -- see the roster cooldown folder.
 local function ParseSpellSuccess(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellid, spellname)
-	if (event == "SPELL_CAST_SUCCESS") or (event == "SPELL_ENERGIZE") then
+	--if event and spellid and spellname then VFL.print(event .. " " .. spellid .. " " .. spellname); end
+	if (event == "SPELL_CAST_SUCCESS") or (event == "SPELL_ENERGIZE") or (event == "SPELL_SUMMON") or ((event == "SPELL_DAMAGE") and IsDamageSpell(spellid)) then
 		local unit = _rtouched[strlower(sourceName)];
 		if unit then
 			--local cd = {spellname = spellname, spellid = spellid, duration = cdInfo.duration, start = GetTime()};
@@ -1585,7 +1587,6 @@ local function ParseSpellSuccess(timestamp, event, hideCaster, sourceGUID, sourc
 			--	ndata:AddCooldown(spellid);
 			--end
 		end
-
 	end
 end
 

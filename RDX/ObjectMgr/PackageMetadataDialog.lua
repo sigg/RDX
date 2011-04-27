@@ -7,12 +7,12 @@
 ---------------------------------------------------------------
 
 local dlg = nil;
-function RDXDB.PackageMetadataDialog(pkg)
+function RDXDB.PackageMetadataDialog(pkg, parent)
 	if dlg then return; end
 	
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
-	dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
+	--dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:SetWidth(260); dlg:SetHeight(275);
 	dlg:SetTitleColor(0,.6,0);
@@ -143,6 +143,6 @@ end
 
 RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 	table.insert(mnu, {
-		text = VFLI.i18n("Info Package"), OnClick = function() VFL.poptree:Release(); RDXDB.PackageMetadataDialog(pkg); end
+		text = VFLI.i18n("Info Package"), OnClick = function() VFL.poptree:Release(); RDXDB.PackageMetadataDialog(pkg, dialog); end
 	});
 end);

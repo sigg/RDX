@@ -92,7 +92,7 @@ end
 -----------------------------------------------------
 function VFLUI.Framing.Default(self, titleHeight, bkdp)
 	-------------------------- WINDOW DECOR
-	self.bkdp = bkdp or VFLUI.BlackDialogBackdrop;
+	self.bkdp = bkdp or VFLUI.BlizzardDialogBackdrop;
 
 	local titleBar = self:GetTitleBar();
 	titleBar:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -5);

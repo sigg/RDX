@@ -15,13 +15,13 @@ local groupOrder = {1,3,5,7,2,4,6,8};
 
 local dlg = nil;
 
-local function OpenRaidWindow()
+local function OpenRaidWindow(parent)
 	if dlg then -- window's already open.
 		return;
 	end
 
 	-- Create window
-	dlg = VFLUI.Window:new(); 
+	dlg = VFLUI.Window:new(parent); 
 	VFLUI.Window.SetDefaultFraming(dlg, 24);
 	dlg:SetMovable(true);
 	dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
