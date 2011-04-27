@@ -351,7 +351,7 @@ function RDXDK.DisablePetFrames()
 	PetFrame:Hide();
 	PetFrameHealthBar:UnregisterAllEvents();
 	PetFrameManaBar:UnregisterAllEvents();
-	PetFrameHappiness:UnregisterAllEvents();
+	--PetFrameHappiness:UnregisterAllEvents();
 	PetCastingBarFrame_OnLoad = VFL.Noop;
 	PetCastingBarFrame_OnEvent = VFL.Noop;
 	PetCastingBarFrame:UnregisterAllEvents();
