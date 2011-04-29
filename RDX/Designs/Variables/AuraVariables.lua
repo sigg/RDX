@@ -117,6 +117,12 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)		
 		if not desc then VFL.AddError(errs, VFLI.i18n( "No descriptor.")); return nil; end
 		if not desc.cd then VFL.AddError(errs, VFLI.i18n( "No aura selected.")); return nil; end
+		if not desc.timer1 then desc.timer1 = "0"; end
+		if not desc.timer2 then desc.timer2 = "0"; end
+		if not desc.color0 then desc.color0 = {r=0,g=0,b=0,a=0}; end
+		if not desc.color1 then desc.color1 = {r=1,g=1,b=1,a=1}; end
+		if not desc.color2 then desc.color2 = {r=1,g=1,b=1,a=1}; end
+		if not desc.color3 then desc.color3 = {r=1,g=1,b=1,a=1}; end
 		state:AddSlot("BoolVar_" .. desc.name .."_possible");
 		state:AddSlot("TimerVar_" .. desc.name .."_aura");
 		state:AddSlot("TextData_" .. desc.name .."_aura_name");
