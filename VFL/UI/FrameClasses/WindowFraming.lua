@@ -206,7 +206,7 @@ end
 
 --- COMPAT: A lot of code uses this.
 function VFLUI.Window.SetDefaultFraming(self, titleHeight, bkdp)
-	self:SetFraming(VFLUI.Framing.Default, titleHeight, bkdp);
+	self:SetFraming(VFLUI.Framing.Default, titleHeight, bkdp or VFLUI.BlackDialogBackdrop);
 end
 
 -----------------------------------------------------
