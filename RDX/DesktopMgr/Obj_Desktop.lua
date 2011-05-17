@@ -186,7 +186,7 @@ function RDXDK.Desktop:new(parent)
 			end
 		else
 			--frame:SetClampedToScreen(frameprops.cts);
-			--frame:WMGetPositionalFrame():SetClampedToScreen(frameprops.cts);
+			frame:WMGetPositionalFrame():SetClampedToScreen(true); --frameprops.cts);
 			local ap, l = frameprops.ap, frameprops.l;
 			if name == "root" then
 				frame:WMGetPositionalFrame():SetAllPoints(RDXParent);
