@@ -319,7 +319,7 @@ local function NewEData(idx)
 					if (_debuffsset[i].name == _debuffscache[j].name) then 
 						found = true;
 						-- test debuff stack different, send a signal to repaint raid windows
-						if (_debuffsset[j].count ~= _debuffscache[i].count) then
+						if (_debuffsset[i].count ~= _debuffscache[j].count) then
 							debuffchangeflag = true;
 						end
 					end
