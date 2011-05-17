@@ -74,6 +74,7 @@ reservedWords["infoIsShare"] =  true;
 reservedWords["infoIsImmutable"] = true;
 reservedWords["infoIsIndelible"] = true;
 reservedWords["infoRunAutoexec"] = true;
+reservedWords["infoRequiredRDXVersion"] = true;
 
 function RDXDB.IsReserveWord(name)
 	return reservedWords[name];
