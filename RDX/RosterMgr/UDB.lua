@@ -1573,31 +1573,33 @@ local IsDamageSpell = RDXCD.IsDamageSpell;
 local function ParseSpellSuccess(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellid, spellname)
 	--if event and spellid and spellname then VFL.print(event .. " " .. spellid .. " " .. spellname); end
 	if (event == "SPELL_CAST_SUCCESS") or (event == "SPELL_ENERGIZE") or (event == "SPELL_SUMMON") or ((event == "SPELL_DAMAGE") and IsDamageSpell(spellid)) then
-		local unit = _rtouched[strlower(sourceName)];
-		if unit then
-			--local cd = {spellname = spellname, spellid = spellid, duration = cdInfo.duration, start = GetTime()};
-			--duration = unit:GetCooldownDuration(spellid);
-			--if not duration then duration = cdInfo.duration; end
-			--if cdInfo.group then
-			--	local cdgroup = RDXCD.GetGroupCooldowns(cdInfo.group);
-			--	for f,v in pairs(cdgroup) do
-			--		unit:AddCooldown(v.spellname, v.spellid, GetTime() + duration);
-			--	end
-			--else
-				unit:AddCooldown(spellid);
-			--end
-		else
-			-- no unit, but we still want to create the unit data.
-			-- need a lot of test, may be huge memory usage
-			--local _, class, _, race = GetPlayerInfoByGUID(sourceGUID);
-			--if class then
-			--	local ndata, create = GetNData(strlower(sourceName));
-			--	ndata.timestamp = GetTime();
-			--	if create then
-			--		ndata:ProcessCooldown(class, race);
-			--	end
-			--	ndata:AddCooldown(spellid);
-			--end
+		if sourceName then
+			local unit = _rtouched[strlower(sourceName)];
+			if unit then
+				--local cd = {spellname = spellname, spellid = spellid, duration = cdInfo.duration, start = GetTime()};
+				--duration = unit:GetCooldownDuration(spellid);
+				--if not duration then duration = cdInfo.duration; end
+				--if cdInfo.group then
+				--	local cdgroup = RDXCD.GetGroupCooldowns(cdInfo.group);
+				--	for f,v in pairs(cdgroup) do
+				--		unit:AddCooldown(v.spellname, v.spellid, GetTime() + duration);
+				--	end
+				--else
+					unit:AddCooldown(spellid);
+				--end
+			else
+				-- no unit, but we still want to create the unit data.
+				-- need a lot of test, may be huge memory usage
+				--local _, class, _, race = GetPlayerInfoByGUID(sourceGUID);
+				--if class then
+				--	local ndata, create = GetNData(strlower(sourceName));
+				--	ndata.timestamp = GetTime();
+				--	if create then
+				--		ndata:ProcessCooldown(class, race);
+				--	end
+				--	ndata:AddCooldown(spellid);
+				--end
+			end
 		end
 	end
 end
