@@ -178,7 +178,7 @@ ww:RegisterPage(1, {
 		local page = RDXUI.GenerateStdWizardPage(parent, title_text[1]);
 		
 		local lbl = VFLUI.MakeLabel(nil, page, content_text[1], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(120);
+		lbl:SetWidth(250); lbl:SetHeight(150);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
 		local chk_hideLW = VFLUI.Checkbox:new(page); chk_hideLW:Show();

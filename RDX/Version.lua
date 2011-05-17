@@ -8,7 +8,7 @@
 -- Raidwide version check.
 
 -- alpha, beta, RC (Release candidate) or nothing (General Availability)
-local version_flag = "_beta";
+local version_flag = "";
 
 function RDX.GetVersion()
 	return RDX.version[1] .. "." .. RDX.version[2] .. "." .. RDX.version[3] .. version_flag;
