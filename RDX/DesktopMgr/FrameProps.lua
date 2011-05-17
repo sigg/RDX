@@ -174,16 +174,16 @@ function RDXDK.LayoutPropsDialog(frameprops)
 	chkNoHold:SetText(VFLI.i18n("Prevent other windows from attaching to this one"));
 	chkNoHold:SetChecked(dd.nohold);
 
-	local lblNudge = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Nudge"));
-	lblNudge:SetPoint("TOPLEFT", chkNoHold, "BOTTOMLEFT", 0, -25);
-	local nudgeLeft = _MakeNudgeButton(dlg, "Interface\\Addons\\VFL\\Skin\\sb_left", dgp, -1, 0);
-	nudgeLeft:SetPoint("LEFT", lblNudge, "RIGHT");
-	local nudgeUp = _MakeNudgeButton(dlg, "Interface\\Addons\\VFL\\Skin\\sb_up", dgp, 0, 1);
-	nudgeUp:SetPoint("BOTTOMLEFT", nudgeLeft, "RIGHT");
-	local nudgeDown = _MakeNudgeButton(dlg, "Interface\\Addons\\VFL\\Skin\\sb_down", dgp, 0, -1);
-	nudgeDown:SetPoint("TOPLEFT", nudgeLeft, "RIGHT");
-	local nudgeRight = _MakeNudgeButton(dlg, "Interface\\Addons\\VFL\\Skin\\sb_right", dgp, 1, 0);
-	nudgeRight:SetPoint("LEFT", nudgeDown, "TOPRIGHT");
+	--local lblNudge = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Nudge"));
+	--lblNudge:SetPoint("TOPLEFT", chkNoHold, "BOTTOMLEFT", 0, -25);
+	--local nudgeLeft = _MakeNudgeButton(dlg, "Interface\\Addons\\VFL\\Skin\\sb_left", dgp, -1, 0);
+	--nudgeLeft:SetPoint("LEFT", lblNudge, "RIGHT");
+	--local nudgeUp = _MakeNudgeButton(dlg, "Interface\\Addons\\VFL\\Skin\\sb_up", dgp, 0, 1);
+	--nudgeUp:SetPoint("BOTTOMLEFT", nudgeLeft, "RIGHT");
+	--local nudgeDown = _MakeNudgeButton(dlg, "Interface\\Addons\\VFL\\Skin\\sb_down", dgp, 0, -1);
+	--nudgeDown:SetPoint("TOPLEFT", nudgeLeft, "RIGHT");
+	--local nudgeRight = _MakeNudgeButton(dlg, "Interface\\Addons\\VFL\\Skin\\sb_right", dgp, 1, 0);
+	--nudgeRight:SetPoint("LEFT", nudgeDown, "TOPRIGHT");
 
 	local txtCurDock = VFLUI.CreateFontString(dlg);
 	txtCurDock:SetPoint("TOPRIGHT", chkNoHold, "BOTTOMRIGHT");
@@ -245,8 +245,8 @@ function RDXDK.LayoutPropsDialog(frameprops)
 		ddStrata:Destroy(); ddStrata = nil;ddAP:Destroy(); ddAP = nil;
 		chkCTS:Destroy(); chkCTS = nil; chkNoAttach:Destroy(); chkNoAttach = nil;
 		chkNoHold:Destroy(); chkNoHold = nil;
-		nudgeLeft:Destroy(); nudgeLeft = nil; nudgeRight:Destroy(); nudgeRight = nil;
-		nudgeUp:Destroy(); nudgeUp = nil; nudgeDown:Destroy(); nudgeDown = nil;
+		--nudgeLeft:Destroy(); nudgeLeft = nil; nudgeRight:Destroy(); nudgeRight = nil;
+		--nudgeUp:Destroy(); nudgeUp = nil; nudgeDown:Destroy(); nudgeDown = nil;
 		VFLUI.ReleaseRegion(txtCurDock); txtCurDock = nil;
 	end, dlg.Destroy);
 end
