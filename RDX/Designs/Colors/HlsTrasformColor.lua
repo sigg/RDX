@@ -19,7 +19,7 @@ RDX.RegisterFeature({
 	category = VFLI.i18n("Colors");
 	multiple = true;
 	IsPossible = function(state)
-		if not state:HasSlots("UnitFrame", "EmitClosure", "EmitPaintPreamble") then return nil; end
+		if not state:HasSlots("DesignFrame", "EmitClosure", "EmitPaintPreamble") then return nil; end
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
