@@ -95,13 +95,13 @@ end
 --- Repoint the given symlink at another destination.
 function RDXDB.SetSymLinkTarget(linkPath, targetPath)
 	-- Sanity check
-	--local data = RDXDB._AccessPathRaw(RDXDB.ParsePath(linkPath));
-	--if (not data) or (data.ty ~= "SymLink") then return; end
+	local data = RDXDB._AccessPathRaw(RDXDB.ParsePath(linkPath));
+	if (not data) or (data.ty ~= "SymLink") then return; end
 	-- Update the link
-	--data.data = targetPath;
+	data.data = {class = "simple"; targetpath = targetPath;};
 	-- Notify of update
-	--RDXDB.NotifyUpdate(linkPath);
-	VFL.print("DEPRECATED FUNCTION RDXDB.SetSymLinkTarget");
+	RDXDB.NotifyUpdate(linkPath);
+	--VFL.print("DEPRECATED FUNCTION RDXDB.SetSymLinkTarget");
 end
 
 RDXDB.RegisterObjectType({
