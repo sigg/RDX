@@ -43,6 +43,9 @@ local BlizzButtons = {
 	{ text = "MiniMapBattlefieldFrame" },
 	{ text = "GameTimeFrame" },
 	{ text = "FeedbackUIButton" },
+	{ text = "MiniMapRecordingButton" },
+	{ text = "MiniMapInstanceDifficulty" },
+	{ text = "GuildInstanceDifficulty" },
 };
 
 local function amOnBuild() return BlizzButtons; end
