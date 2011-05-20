@@ -30,8 +30,8 @@ end
 ----------------------------
 BINDING_HEADER_RDX = "RDX";
 BINDING_NAME_RDXHIDEUI = VFLI.i18n("Show/Hide RDX");
-BINDING_NAME_RDXMENU = VFLI.i18n("Open RDX Main Menu");
-BINDING_NAME_RDXEXPLORER = VFLI.i18n("Open RDX Explorer");
+BINDING_NAME_RDXMENU = VFLI.i18n("RDX Main Menu");
+BINDING_NAME_RDXEXPLORER = VFLI.i18n("RDX Explorer");
 BINDING_NAME_RDXWL = VFLI.i18n("Window List");
 BINDING_NAME_RDXROSTER = VFLI.i18n("Open Roster Window");
 
@@ -46,7 +46,7 @@ RDXEvents.name = "RDXEvents";
 -------------------
 -- Spam RDX-type chat
 function RDX.print(str)
-	VFL.print("* |cFFAAAAAAOpenRDX:|r " .. str);
+	VFL.print("* |cFFAAAAAARDX:|r " .. str);
 end
 
 function RDX.printI(str)
