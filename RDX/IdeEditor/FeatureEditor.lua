@@ -57,6 +57,8 @@ function RDXIE.FeatureEditor(state, callback, path, parent)
 	dlg:SetWidth(700); dlg:SetHeight(500);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:Show();
+	dlg:SetClampedToScreen(true);
+	
 	-- OpenRDX 7.1 RDXPM
 	if RDXPM.Ismanaged("FeatureEditor") then RDXPM.RestoreLayout(dlg, "FeatureEditor"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
