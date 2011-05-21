@@ -395,7 +395,7 @@ end
 -- Cleanup a LayoutFrame.
 local function CleanupLayoutFrame(x)
 	x:Hide(); x:SetParent(VFLParent); x:ClearAllPoints();
-	x:SetHeight(0); x:SetWidth(0); x:SetAlpha(1); 
+	x:SetHeight(1); x:SetWidth(1); x:SetAlpha(1); 
 end
 VFLUI._CleanupLayoutFrame = CleanupLayoutFrame;
 

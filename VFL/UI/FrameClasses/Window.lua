@@ -61,7 +61,7 @@ local function AW_TearDown(self)
 	for _,btn in pairs(self.ctlButtons) do btn:Destroy(); end
 	VFL.empty(self.ctlButtons);
 	-- Quash the title area
-	self.titleArea:ClearAllPoints(); self.titleArea:SetWidth(0); self.titleArea:SetHeight(0);
+	self.titleArea:ClearAllPoints(); self.titleArea:SetWidth(1); self.titleArea:SetHeight(1);
 	-- Bring the API back to where we want it
 	self.GetTitleBar = AW_GetTitle;	self.SetText = VFL.Noop; self.SetTitleColor = VFL.Noop; self.SetPerfText = VFL.Noop; self.AddButton = AW_AddButton;
 	self.HideTitleBar = AW_HideTitle; self.ShowTitleBar = AW_ShowTitle; self.IsHiddenTitleBar = AW_IsHiddenTitle;
