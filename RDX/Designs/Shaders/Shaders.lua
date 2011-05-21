@@ -23,6 +23,9 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
+		if (not desc.flag) or (not state:Slot("BoolVar_" .. desc.flag)) then
+			VFL.AddError(errs, VFLI.i18n("Invalid condition")); return nil;
+		end
 		local flg = true;
 		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 		return flg;

@@ -115,7 +115,8 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)		
-		if not desc then VFL.AddError(errs, VFLI.i18n( "No descriptor.")); return nil; end
+		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+		if not RDX._CheckVariableNameValidity(desc.name, state, errs) then return nil; end
 		if not desc.cd then VFL.AddError(errs, VFLI.i18n( "No aura selected.")); return nil; end
 		if not desc.timer1 then desc.timer1 = "0"; end
 		if not desc.timer2 then desc.timer2 = "0"; end
