@@ -30,6 +30,7 @@ WINDOW events
 DesktopEvents:Dispatch("WINDOW_OPEN", name, wtype);
 DesktopEvents:Dispatch("WINDOW_CLOSE", name, wtype);
 DesktopEvents:Dispatch("WINDOW_REBUILD", name);
+DesktopEvents:Dispatch("WINDOW_REBUILD_ALL);
 DesktopEvents:Dispatch("WINDOW_UPDATE", name, key, value);
 DesktopEvents:Dispatch("WINDOW_UPDATE_ALL", key, value);
 key is : STRATA, ALPHA, SCALE, POSITION
@@ -421,6 +422,33 @@ function RDXDK.Desktop:new(parent)
 		end
 	end
 	
+	local function windowRebuildAll()
+		RDXDK:Debug(6, "windowRebuildAll");
+		for name, frameProps in pairs(framePropsList) do
+			local frame = frameList[name];
+			if frame then
+				local md, _, _, ty = RDXDB.GetObjectData(name);
+				if md and md.data then
+					if not lockstate then frame:Lock(); end
+					UnlayoutDockGroup(name);
+					if ty == "Window" then
+						if RDX.SetupWindow(name, frame, md.data) then
+							LayoutDockGroup(name);
+							if not lockstate then frame:Unlock(framePropsList[name]); end
+						end
+					elseif ty == "StatusWindow" then
+						if RDX.SetupStatusWindow(name, frame, md.data) then
+							LayoutDockGroup(name);
+							if not lockstate then frame:Unlock(framePropsList[name]); end
+						end
+					end
+				end
+			else
+				RDX.printE("Window " .. name .. " is not in the desktop");
+			end
+		end
+	end
+	
 	local function windowUpdate(name, key, value, value2)
 		RDXDK:Debug(6, "windowUpdate " .. name);
 		local frame = frameList[name];
@@ -511,6 +539,7 @@ function RDXDK.Desktop:new(parent)
 	DesktopEvents:Bind("WINDOW_OPEN", nil, windowOpen, "desktop");
 	DesktopEvents:Bind("WINDOW_CLOSE", nil, function(name, wtype) windowClose(name, wtype); windowUpdateAll("OVERLAY"); end, "desktop");
 	DesktopEvents:Bind("WINDOW_REBUILD", nil, windowRebuild, "desktop");
+	DesktopEvents:Bind("WINDOW_REBUILD_ALL", nil, windowRebuildAll, "desktop");
 	DesktopEvents:Bind("WINDOW_UPDATE", nil, windowUpdate, "desktop");
 	DesktopEvents:Bind("WINDOW_UPDATE_ALL", nil, windowUpdateAll, "desktop");
 	DesktopEvents:Bind("WINDOW_ResetPosition", nil, windowUpdateAll, "desktop");
