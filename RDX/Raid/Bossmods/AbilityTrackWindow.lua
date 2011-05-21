@@ -92,7 +92,7 @@ end
 
 local function CleanFontString(txt)
 	txt:Hide(); txt:SetParent(VFLOrphan); txt:ClearAllPoints(); txt:SetAlpha(1);
-	txt:SetHeight(0); txt:SetWidth(0);
+	txt:SetHeight(1); txt:SetWidth(1);
 	txt:SetFontObject(GameFontNormal);
 	txt:SetTextColor(1,1,1,1);
 	txt:SetJustifyH("CENTER"); txt:SetJustifyV("CENTER");
