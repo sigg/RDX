@@ -594,6 +594,111 @@ RDXDB.RegisterSymLinkClass({
 	end;
 });
 
+-- symlink for windows class (holy combo, shard, rune or other)
+
+RDXDB.RegisterSymLinkClass({
+	name = "class&form";
+	title = "class&form";
+	GetTargetPath = function(data)
+		local class = select(2, UnitClass("PLAYER"));
+		local _, form = GetShapeshiftFormInfo(GetShapeshiftForm());
+		if class == "DEATHKNIGHT" then
+			return data["DEATHKNIGHT"];
+		elseif class == "SHAMAN" then
+			return data["SHAMAN"];
+		elseif class == "ROGUE" then
+			return data["ROGUE"];
+		elseif class == "WARLOCK" then
+			return data["WARLOCK"];
+		elseif class == "DRUID" and form == "elementaire" then
+			return data["DRUIDELEM"];
+		elseif class == "DRUID" and form == "cat" then
+			return data["DRUIDCAT"];
+		elseif class == "PALADIN" then
+			return data["PALADIN"];
+		else
+			--return data["targetpath_" .. RDXMD.GetClassID(select(2, UnitClass("PLAYER")))];
+			return data["all"];
+		end
+	end;
+	Register = function(path)
+		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() RDXDB.NotifyUpdate(path); end, "symlink_" .. path);
+		VFLEvents:Bind("PLAYER_FORM_UPDATE", nil, function() RDXDB.NotifyUpdate(path); end, "symlink_" .. path);
+	end;
+	Unregister = function(path)
+		--VFL.print("UNREGISTER " .. path);
+		VFLEvents:Unbind("symlink_" .. path);
+	end;
+	GetUI = function(parent, desc)
+		local ui = VFLUI.CompoundFrame:new(parent);
+		
+		local ff = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff:SetLabel(VFLI.i18n("DEATHKNIGHT"));
+		if desc and desc.DEATHKNIGHT then ff:SetPath(desc.DEATHKNIGHT); end
+		ff:Show();
+		ui:InsertFrame(ff);
+		
+		local ff2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff2:SetLabel(VFLI.i18n("SHAMAN"));
+		if desc and desc.SHAMAN then ff2:SetPath(desc.SHAMAN); end
+		ff2:Show();
+		ui:InsertFrame(ff2);
+		
+		local ff3 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff3:SetLabel(VFLI.i18n("ROGUE"));
+		if desc and desc.ROGUE then ff3:SetPath(desc.ROGUE); end
+		ff3:Show();
+		ui:InsertFrame(ff3);
+		
+		local ff4 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff4:SetLabel(VFLI.i18n("WARLOCK"));
+		if desc and desc.WARLOCK then ff4:SetPath(desc.WARLOCK); end
+		ff4:Show();
+		ui:InsertFrame(ff4);
+		
+		local ff5 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff5:SetLabel(VFLI.i18n("DRUID ELEM"));
+		if desc and desc.DRUIDELEM then ff5:SetPath(desc.DRUIDELEM); end
+		ff5:Show();
+		ui:InsertFrame(ff5);
+		
+		local ff6 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff6:SetLabel(VFLI.i18n("DRUID CAT"));
+		if desc and desc.DRUIDCAT then ff6:SetPath(desc.DRUIDCAT); end
+		ff6:Show();
+		ui:InsertFrame(ff6);
+		
+		local ff7 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff7:SetLabel(VFLI.i18n("PALADIN"));
+		if desc and desc.PALADIN then ff7:SetPath(desc.PALADIN); end
+		ff7:Show();
+		ui:InsertFrame(ff7);
+		
+		local ff8 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff8:SetLabel(VFLI.i18n("ALL"));
+		if desc and desc.all then ff8:SetPath(desc.all); end
+		ff8:Show();
+		ui:InsertFrame(ff8);
+
+		ui.GetDescriptor = function(x)
+			return {
+				class = "class&form", 
+				DEATHKNIGHT = ff:GetPath(),
+				SHAMAN = ff2:GetPath(),
+				ROGUE = ff3:GetPath(),
+				WARLOCK = ff4:GetPath(),
+				DRUIDELEM = ff5:GetPath(),
+				DRUIDCAT = ff6:GetPath(),
+				PALADIN = ff7:GetPath(),
+				all = ff8:GetPath(),
+			};
+		end;
+
+		ui.Destroy = VFL.hook(function(s) s.GetDescriptor = nil; end, ui.Destroy);
+
+		return ui;
+	end;
+});
 
 -----------------------------------------
 -- Register event for symlink

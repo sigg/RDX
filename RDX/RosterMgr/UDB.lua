@@ -2044,6 +2044,25 @@ function VFL.GetPlayerTalent()
 	return talent;
 end
 
+-- UPDATE_SHAPESHIFT_FORM
+-- UPDATE_SHAPESHIFT_FORMS
+local ssform = nil;
+function VFL._ForceFormSwitch(index, nosend)
+	local _, name = GetShapeshiftFormInfo(index); 
+	if name ~= ssform then
+		ssform = name;
+		if not nosend then
+			VFL:Debug(1, "********** Form_changed *************");
+			VFLEvents:Dispatch("PLAYER_FORM_UPDATE", name); 
+		end
+	end
+end
+WoWEvents:Bind("UPDATE_SHAPESHIFT_FORM", nil, function() VFL._ForceFormSwitch(GetShapeshiftForm()); end);
+
+function VFL.GetPlayerForm()
+	return ssform;
+end
+
 -- Bg detection
 local inBG = nil;
 local function SetBGFlag(f)
