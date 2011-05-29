@@ -165,7 +165,7 @@ RDX.RegisterFeature({
 		return { 
 			feature = "mousebindings"; version = 1;
 			hotspot = "";
-			mbFriendly = "default:bindings"; 
+			mbFriendly = "default:bindings_player"; 
 		};
 	end;
 });
