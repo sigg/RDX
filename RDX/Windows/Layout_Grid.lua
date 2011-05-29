@@ -74,13 +74,26 @@ RDX.RegisterFeature({
 		end
 		fp.OnFallback = function(pool, grid)
 			-- Create the unit frame
-			local f = VFLUI.AcquireFrame("Frame");
-			f:SetParent(grid); f:SetFrameLevel(grid:GetFrameLevel() + 1);
+			local frame = VFLUI.AcquireFrame("Frame");
+			frame:SetParent(grid); frame:SetFrameLevel(grid:GetFrameLevel() + 1);
 			-- Imbue it with unit-frame-hood.
-			uf(f); f:Cleanup(); acca(nil, nil, f);
+			uf(frame); 
+			if not frame.Cleanup then
+				frame.Cleanup = VFL.Noop;
+				frame.SetData = VFL.Noop;
+				frame.GetHotspot = VFL.Noop;
+				frame.SetHotspot = VFL.Noop;
+				frame.Destroy = VFL.hook(function(frame)
+					frame.Cleanup = nil; frame.SetData = nil; 
+					frame.GetHotspot = nil; frame.SetHotspot = nil;
+					frame._paintmask = nil;
+				end, frame.Destroy);
+			end
+			frame:Cleanup(); 
+			acca(nil, nil, frame);
 			-- Apply default paintmask
-			f._paintmask = defaultPaintMask;
-			return f;
+			frame._paintmask = defaultPaintMask;
+			return frame;
 		end
 		fp.OnAcquire = function(pool, frame) frame.OnDeparent = pool.Releaser; end
 		local acq = fp.Acquirer;

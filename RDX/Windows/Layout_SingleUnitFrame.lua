@@ -259,7 +259,19 @@ RDX.RegisterFeature({
 				frame:SetAttribute("toggleForVehicle", true);
 			end
 			-- Set us up as a unitframe.
-			genUF(frame); frame:Cleanup();
+			genUF(frame); 
+			if not frame.Cleanup then
+				frame.Cleanup = VFL.Noop;
+				frame.SetData = VFL.Noop;
+				frame.GetHotspot = VFL.Noop;
+				frame.SetHotspot = VFL.Noop;
+				frame.Destroy = VFL.hook(function(frame)
+					frame.Cleanup = nil; frame.SetData = nil; 
+					frame.GetHotspot = nil; frame.SetHotspot = nil;
+					frame._paintmask = nil;
+				end, frame.Destroy);
+			end
+			frame:Cleanup();
 			acca(nil, nil, frame);
 			frame._paintmask = defaultPaintMask;
 			--- For player or target frames, reproject on ROSTER_UPDATE

@@ -103,7 +103,19 @@ RDX.RegisterFeature({
 
 		-- "Acclimatize" a frame to this window.
 		local function Acclimatize(hgrid, hdr, frame)
-			genUF(frame); frame:Cleanup();
+			genUF(frame); 
+			if not frame.Cleanup then
+				frame.Cleanup = VFL.Noop;
+				frame.SetData = VFL.Noop;
+				frame.GetHotspot = VFL.Noop;
+				frame.SetHotspot = VFL.Noop;
+				frame.Destroy = VFL.hook(function(frame)
+					frame.Cleanup = nil; frame.SetData = nil; 
+					frame.GetHotspot = nil; frame.SetHotspot = nil;
+					frame._paintmask = nil;
+				end, frame.Destroy);
+			end
+			frame:Cleanup();
 			acca(hgrid, hdr, frame);
 			frame._paintmask = defaultPaintMask;
 		end
