@@ -157,8 +157,8 @@ btnOK:SetScript("OnClick", OKPicker);
 btnPaste:SetScript("OnClick", function()
 	if clipboard then
 		curCD = VFL.copy(clipboard);
-		--UpdatePicker();
-		--PikCooldownUpdate();
+		UpdateCooldownPicker();
+		PikCooldownUpdate();
 	end
 end);
 btnCopy:SetScript("OnClick", function()
