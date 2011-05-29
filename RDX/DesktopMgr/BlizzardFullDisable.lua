@@ -697,7 +697,7 @@ function RDXDK.BlizzardManage(parent)
 	ui:InsertFrame(chk_toolposition);
 	
 	local chk_tooltipunit = VFLUI.Checkbox:new(ui); chk_tooltipunit:Show();
-	chk_tooltipunit:SetText(VFLI.i18n("Disable Tooltip unit"));
+	chk_tooltipunit:SetText(VFLI.i18n("Disable Tooltip unit (beta)"));
 	if opt and opt.tooltipunit then chk_tooltipunit:SetChecked(true); else chk_tooltipunit:SetChecked(); end
 	ui:InsertFrame(chk_tooltipunit);
 	
@@ -900,8 +900,40 @@ VFLEvents:Bind("PLAYER_COMBAT", nil, function()
 end);
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	if not RDXU.disablebliz then RDXU.disablebliz = {}; end
-	opt = RDXU.disablebliz;
+	RDXU.disablebliz = nil;
+	if not RDXU.disablebliz2 then 
+		RDXU.disablebliz2 = {
+			ab = true,
+			mb = true,
+			bb = true,
+			ssb = true,
+			pb = true,
+			peb = true,
+			cb = true,
+			bf = true,
+			tef = true,
+			chf = true,
+			clf = true,
+			mmb = true,
+			micb = true,
+			mm = true,
+			buttonmm = true,
+			vmb = true,
+			uim = true,
+			cuf = true,
+			fuf = true,
+			puf = true,
+			raiduf = true,
+			peuf = true,
+			pluf = true,
+			ruf = true,
+			tuf = true,
+			bouf = true,
+			uuf = true,
+			toolposition = true,
+		}; 
+	end
+	opt = RDXU.disablebliz2;
 	if not InCombatLockdown() then
 		disableblizz();
 	else
