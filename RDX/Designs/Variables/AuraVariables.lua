@@ -118,8 +118,8 @@ RDX.RegisterFeature({
 		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
 		if not RDX._CheckVariableNameValidity(desc.name, state, errs) then return nil; end
 		if not desc.cd then VFL.AddError(errs, VFLI.i18n( "No aura selected.")); return nil; end
-		if not desc.timer1 then desc.timer1 = "0"; end
-		if not desc.timer2 then desc.timer2 = "0"; end
+		if not desc.timer1 or desc.timer1 == "" then desc.timer1 = "0"; end
+		if not desc.timer2 or desc.timer2 == "" then desc.timer2 = "0"; end
 		if not desc.color0 then desc.color0 = {r=0,g=0,b=0,a=0}; end
 		if not desc.color1 then desc.color1 = {r=1,g=1,b=1,a=1}; end
 		if not desc.color2 then desc.color2 = {r=1,g=1,b=1,a=1}; end
@@ -347,8 +347,8 @@ end
 				focusauras = chk_focusauras:GetChecked();
 				reverse = chk_reverse:GetChecked();
 				
-				timer1 = itimer1.editBox:GetText();
-				timer2 = itimer2.editBox:GetText();
+				timer1 = itimer1.editBox:GetNumber();
+				timer2 = itimer2.editBox:GetNumber();
 				--timer3 = itimer3.editBox:GetText();
 				color0 = color0:GetColor();
 				color1 = color1:GetColor();
