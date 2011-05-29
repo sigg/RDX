@@ -55,29 +55,6 @@ if mmap then
 	mmap:SetWidth(]] .. desc.w .. [[); mmap:SetHeight(]] .. desc.h .. [[);
 	mmap:SetBlipTexture(VFLUI.GetBlipTexture("]] .. desc.blipType .. [["));
 	mmap:SetMaskTexture(VFLUI.GetMaskTexture("]] .. desc.maskType .. [["));
-	local angle = 0;
-	
-	local textnord = VFLUI.CreateFontString(mmap);
-	--textnord:SetPoint("CENTER", mmap, "CENTER", 120*math.cos(0 + math.pi/2), 120*math.sin(0 + math.pi/2));
-	textnord:SetPoint("TOP", mmap, "TOP");
-	]] .. VFLUI.GenerateSetFontCode("textnord", desc.font, nil, true) .. [[
-	if GetCVar("rotateMinimap") ~= "1" then
-		textnord:SetText("N")
-		textnord:Show();
-	else
-		textnord:Hide();
-	end
-	mmap.textnord = textnord;
-	
-	--local function moveCompass()
-	--	angle = 0;
-	--	if GetCVar("rotateMinimap") == "1" then angle = MiniMapCompassRing:GetFacing(); end
-	--	mmap.nord:SetPoint("CENTER", mmap, "CENTER", ]] .. desc.w / 2 .. [[*math.cos(angle + math.pi/2), ]] .. desc.w / 2 .. [[*math.sin(angle + math.pi/2));
-	--end
-	--moveCompass();
-	--if GetCVar("rotateMinimap") == "1" then
-	--	mmap:SetScript("OnUpdate", moveCompass);
-	--end
 	
 	mmap:SetZoom(1);
 	
@@ -93,7 +70,7 @@ if mmap then
 	mmap:Show();
 	frame.]] .. objname .. [[ = mmap;
 else
-	RDX.printW("Minimap is not available or already acquired");
+	--RDX.printW("Minimap is not available or already acquired");
 end
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
@@ -101,10 +78,7 @@ end
 		------------------ On frame destruction.
 		local destroyCode = [[
 local btn = frame.]] .. objname .. [[;
-if btn then
-	VFLUI.ReleaseRegion(btn.textnord); btn.textnord = nil;
-	btn:Destroy(); btn = nil;
-end
+if btn then btn:Destroy(); btn = nil; end
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 
