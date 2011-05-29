@@ -46,14 +46,14 @@ RDX.RegisterFeature({
 		state.Code:Clear();
 		state.Code:AppendCode([[
 local encid = "dk_openrdx7";
-
-if ]] .. useviewport .. [[ then
-	WorldFrame:ClearAllPoints();
-	WorldFrame:SetPoint("TOPLEFT", ]] .. desc.offsetleft .. [[, -]] .. desc.offsettop .. [[);
-	WorldFrame:SetPoint("BOTTOMRIGHT", -]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
-else
-	WorldFrame:SetAllPoints(RDXParent);
-end
+-- bug disable
+--if ]] .. useviewport .. [[ then
+--	WorldFrame:ClearAllPoints();
+--	WorldFrame:SetPoint("TOPLEFT", ]] .. desc.offsetleft .. [[, -]] .. desc.offsettop .. [[);
+--	WorldFrame:SetPoint("BOTTOMRIGHT", -]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
+--else
+--	WorldFrame:SetAllPoints(RDXParent);
+--end
 
 RDXDK.SetGameTooltipLocation(]] .. tooltipmouse .. [[, ]] .. desc.anchorx .. [[, ]] .. desc.anchory .. [[);
 
