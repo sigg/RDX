@@ -117,6 +117,45 @@ text = date("%H:%M");
 });
 
 RDX.RegisterOtherTextType({
+	name = "bagsfree";
+	title = VFLI.i18n("Bags Free Slots");
+	OnExpose = VFL.Noop;
+	OnApply = VFL.Noop;
+	repaintType = "interval"; -- "event" or "interval"
+	eventType = ""; -- "WoWEvents" or "RDXEvents"
+	eventName = "";
+	interval = 5;
+	GenerateCreateCodeVariable = function(objname) return [[
+]]; end;
+	GenerateCreateCode = function(objname) return [[
+local ebags, slots = 0, 0;
+for i=1, 4 do 
+	slots = GetContainerNumFreeSlots(i);
+	ebags = ebags + slots;
+end
+text = ebags;
+]]; end;
+});
+
+RDX.RegisterOtherTextType({
+	name = "mails";
+	title = VFLI.i18n("Inbox mails");
+	OnExpose = VFL.Noop;
+	OnApply = VFL.Noop;
+	repaintType = "interval"; -- "event" or "interval"
+	eventType = ""; -- "WoWEvents" or "RDXEvents"
+	eventName = "";
+	interval = 5;
+	GenerateCreateCodeVariable = function(objname) return [[
+]]; end;
+	GenerateCreateCode = function(objname) return [[
+CheckInbox();
+local mail = GetInboxNumItems();
+if mail then text = mail; else text = "0"; end 
+]]; end;
+});
+
+RDX.RegisterOtherTextType({
 	name = "mapzonetext";
 	title = VFLI.i18n("Map Zone Text");
 	OnExpose = VFL.Noop;
@@ -365,9 +404,9 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, i18n("Missing descriptor.")); return nil; end
+		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
-		if not VFLUI.isFacePathExist(desc.font.face) then VFL.AddError(errs, i18n("Font path not found.")); return nil; end
+		if not VFLUI.isFacePathExist(desc.font.face) then VFL.AddError(errs, VFLI.i18n("Font path not found.")); return nil; end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		flg = flg and RDXUI.UFFrameCheck_Proto("Text_", desc, state, errs);
