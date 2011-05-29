@@ -106,16 +106,8 @@ data = {
 					["owner"] = "decor",
 					["w"] = "BaseWidth",
 					["feature"] = "txt_other",
-					["font"] = {
-						["flags"] = "OUTLINE",
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 10,
-					},
-					["name"] = "otxt1",
+					["ty"] = "AUI",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -124,25 +116,23 @@ data = {
 						["af"] = "Base",
 					},
 					["h"] = "height",
-					["ty"] = "AUI",
-					["version"] = 1,
+					["font"] = {
+						["flags"] = "OUTLINE",
+						["name"] = "Default",
+						["title"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 10,
+					},
+					["name"] = "otxt1",
 				}, -- [3]
 				{
 					["owner"] = "decor",
 					["w"] = "BaseWidth",
 					["feature"] = "txt_other",
-					["font"] = {
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["flags"] = "OUTLINE",
-						["sy"] = 0,
-						["sx"] = 0,
-						["justifyH"] = "LEFT",
-						["name"] = "Default",
-						["title"] = "Default",
-						["size"] = 10,
-					},
-					["name"] = "otxt2",
+					["ty"] = "AUIState",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -151,23 +141,25 @@ data = {
 						["af"] = "Text_otxt1",
 					},
 					["h"] = "height",
-					["ty"] = "AUIState",
-					["version"] = 1,
+					["font"] = {
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["flags"] = "OUTLINE",
+						["justifyH"] = "LEFT",
+						["sx"] = 0,
+						["title"] = "Default",
+						["name"] = "Default",
+						["sy"] = 0,
+						["size"] = 10,
+					},
+					["name"] = "otxt2",
 				}, -- [4]
 				{
 					["owner"] = "decor",
 					["w"] = "BaseWidth",
 					["feature"] = "txt_other",
-					["font"] = {
-						["flags"] = "OUTLINE",
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 10,
-					},
-					["name"] = "otxt3",
+					["ty"] = "Usage",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -176,13 +168,6 @@ data = {
 						["af"] = "Text_otxt2",
 					},
 					["h"] = "height",
-					["ty"] = "Usage",
-					["version"] = 1,
-				}, -- [5]
-				{
-					["owner"] = "decor",
-					["w"] = "BaseWidth",
-					["feature"] = "txt_other",
 					["font"] = {
 						["flags"] = "OUTLINE",
 						["name"] = "Default",
@@ -192,7 +177,14 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 10,
 					},
-					["name"] = "otxt4",
+					["name"] = "otxt3",
+				}, -- [5]
+				{
+					["owner"] = "decor",
+					["w"] = "BaseWidth",
+					["feature"] = "txt_other",
+					["ty"] = "Memory Debit",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -201,8 +193,16 @@ data = {
 						["af"] = "Text_otxt3",
 					},
 					["h"] = "height",
-					["ty"] = "Memory Debit",
-					["version"] = 1,
+					["font"] = {
+						["flags"] = "OUTLINE",
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 10,
+					},
+					["name"] = "otxt4",
 				}, -- [6]
 			},
 		},
@@ -284,18 +284,18 @@ data = {
 					["version"] = 1,
 					["bkd"] = {
 						["ka"] = 0.7119999825954437,
-						["kg"] = 0,
-						["kb"] = 0,
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["tile"] = false,
+						["kb"] = 0,
 						["br"] = 0,
 						["edgeSize"] = 8,
 						["kr"] = 0,
 						["_border"] = "straight",
 						["ba"] = 1,
-						["_backdrop"] = "solid",
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["bb"] = 0,
-						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["_backdrop"] = "solid",
+						["kg"] = 0,
 						["bg"] = 0,
 						["insets"] = {
 							["top"] = 2,
@@ -323,12 +323,11 @@ data = {
 					["drawLayer"] = "ARTWORK",
 					["owner"] = "sf_plife",
 					["w"] = "200",
-					["h"] = "21",
-					["feature"] = "statusbar_horiz",
 					["colorVar"] = "green",
+					["sublevel"] = 1,
+					["h"] = "21",
 					["name"] = "sb_plife",
 					["version"] = 1,
-					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 3,
 						["dy"] = -3,
@@ -336,7 +335,8 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Frame_sf_plife",
 					},
-					["sublevel"] = 1,
+					["orientation"] = "HORIZONTAL",
+					["feature"] = "statusbar_horiz",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
@@ -376,6 +376,18 @@ data = {
 						["g"] = 0.75,
 						["b"] = 0,
 					},
+					["friendlyDruidColor"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 0.49,
+						["b"] = 0.04,
+					},
+					["friendlyDeathKnightColor"] = {
+						["a"] = 1,
+						["r"] = 0.77,
+						["g"] = 0.12,
+						["b"] = 0.23,
+					},
 					["friendlyWarlockColor"] = {
 						["a"] = 1,
 						["r"] = 0.58,
@@ -388,43 +400,31 @@ data = {
 						["g"] = 1,
 						["b"] = 1,
 					},
-					["friendlyDruidColor"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 0.49,
-						["b"] = 0.04,
-					},
-					["feature"] = "colorvar_hostility_class",
 					["friendlyMageColor"] = {
 						["a"] = 1,
 						["r"] = 0.41,
 						["g"] = 0.8,
 						["b"] = 0.94,
 					},
-					["friendlyDeathKnightColor"] = {
-						["a"] = 1,
-						["r"] = 0.77,
-						["g"] = 0.12,
-						["b"] = 0.23,
-					},
-					["name"] = "hostilityclassColor",
+					["feature"] = "colorvar_hostility_class",
 					["friendlyPaladinColor"] = {
 						["a"] = 1,
 						["r"] = 0.96,
 						["g"] = 0.55,
 						["b"] = 0.73,
 					},
-					["friendlyRogueColor"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 0.96,
-						["b"] = 0.41,
-					},
+					["name"] = "hostilityclassColor",
 					["hostileColor"] = {
 						["a"] = 1,
 						["r"] = 0.75,
 						["g"] = 0.15,
 						["b"] = 0,
+					},
+					["friendlyRogueColor"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 0.96,
+						["b"] = 0.41,
 					},
 					["friendlyShamanColor"] = {
 						["a"] = 1,
@@ -448,13 +448,13 @@ data = {
 				{
 					["interpolate"] = 1,
 					["frac"] = "fh",
-					["feature"] = "statusbar_horiz",
+					["sublevel"] = 2,
 					["owner"] = "sf_life",
 					["w"] = "200",
-					["colorVar"] = "hostilityclassColor",
-					["drawLayer"] = "ARTWORK",
 					["h"] = "21",
-					["name"] = "sb_life",
+					["drawLayer"] = "ARTWORK",
+					["colorVar"] = "hostilityclassColor",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 3,
 						["dy"] = -3,
@@ -463,8 +463,8 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["orientation"] = "HORIZONTAL",
-					["version"] = 1,
-					["sublevel"] = 2,
+					["name"] = "sb_life",
+					["feature"] = "statusbar_horiz",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
@@ -475,20 +475,7 @@ data = {
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_dyn",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 12,
-					},
+					["h"] = "14",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -498,27 +485,27 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["name"] = "text_pheal",
-					["h"] = "14",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 12,
+					},
 				}, -- [14]
 				{
 					["owner"] = "sf_life",
 					["w"] = "150",
 					["feature"] = "txt_status",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["name"] = "Default",
-						["title"] = "Default",
-						["sy"] = -1,
-						["size"] = 10,
-					},
-					["version"] = 1,
+					["ty"] = "hptxt2",
+					["name"] = "text_vie",
 					["anchor"] = {
 						["dx"] = 5,
 						["dy"] = 0,
@@ -527,14 +514,40 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["h"] = "14",
-					["ty"] = "hptxt2",
-					["name"] = "text_vie",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["name"] = "Default",
+						["title"] = "Default",
+						["sy"] = -1,
+						["size"] = 10,
+					},
+					["version"] = 1,
 				}, -- [15]
 				{
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["ty"] = "fdld",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sb"] = 0,
+						["sy"] = -1,
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["size"] = 12,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 5,
@@ -544,27 +557,27 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["name"] = "text_dead",
+					["ty"] = "fdld",
 					["h"] = "14",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["title"] = "Default",
-						["sx"] = 1,
-						["sy"] = -1,
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["size"] = 12,
-					},
 				}, -- [16]
 				{
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["ty"] = "mobtype",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sb"] = 0,
+						["sy"] = -1,
+						["name"] = "Default",
+						["justifyH"] = "RIGHT",
+						["size"] = 12,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -574,21 +587,8 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["name"] = "text_mob",
+					["ty"] = "mobtype",
 					["h"] = "14",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["title"] = "Default",
-						["sx"] = 1,
-						["sy"] = -1,
-						["name"] = "Default",
-						["justifyH"] = "RIGHT",
-						["size"] = 12,
-					},
 				}, -- [17]
 				{
 					["feature"] = "commentline",
@@ -614,18 +614,18 @@ data = {
 					["version"] = 1,
 					["bkd"] = {
 						["_border"] = "straight",
-						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
-						["kb"] = 0,
+						["kg"] = 0,
 						["tile"] = false,
+						["kb"] = 0,
 						["br"] = 0,
 						["edgeSize"] = 8,
 						["kr"] = 0,
 						["ka"] = 0.7119999825954437,
 						["ba"] = 1,
-						["_backdrop"] = "solid",
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["bb"] = 0,
-						["kg"] = 0,
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["_backdrop"] = "solid",
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["bg"] = 0,
 						["insets"] = {
 							["top"] = 2,
@@ -636,7 +636,12 @@ data = {
 					},
 				}, -- [20]
 				{
-					["feature"] = "ColorVariable: Unit PowerType Color",
+					["energyColor"] = {
+						["a"] = 1,
+						["r"] = 0.75,
+						["g"] = 0.75,
+						["b"] = 0,
+					},
 					["manaColor"] = {
 						["a"] = 1,
 						["r"] = 0,
@@ -649,12 +654,7 @@ data = {
 						["g"] = 0.5,
 						["r"] = 1,
 					},
-					["energyColor"] = {
-						["a"] = 1,
-						["r"] = 0.75,
-						["g"] = 0.75,
-						["b"] = 0,
-					},
+					["feature"] = "ColorVariable: Unit PowerType Color",
 					["runeColor"] = {
 						["a"] = 1,
 						["r"] = 0,
@@ -683,8 +683,6 @@ data = {
 					["colorVar"] = "powerColor",
 					["version"] = 1,
 					["interpolate"] = 1,
-					["orientation"] = "HORIZONTAL",
-					["name"] = "sb_power",
 					["anchor"] = {
 						["dx"] = 3,
 						["dy"] = -3,
@@ -692,6 +690,8 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Frame_sf_mana",
 					},
+					["name"] = "sb_power",
+					["orientation"] = "HORIZONTAL",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
@@ -701,7 +701,7 @@ data = {
 					["owner"] = "sf_mana",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["h"] = "14",
+					["ty"] = "mptxt",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 5,
@@ -711,21 +711,21 @@ data = {
 						["af"] = "Frame_sf_mana",
 					},
 					["name"] = "text_mana",
+					["h"] = "14",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sy"] = -1,
 						["title"] = "Default",
 						["name"] = "Default",
 						["size"] = 10,
 					},
-					["ty"] = "mptxt",
 				}, -- [24]
 				{
 					["feature"] = "commentline",
@@ -753,10 +753,10 @@ data = {
 						["_border"] = "straight",
 						["edgeSize"] = 20,
 						["ba"] = 0,
-						["bb"] = 1,
+						["_backdrop"] = "none",
 						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["bg"] = 1,
-						["_backdrop"] = "none",
+						["bb"] = 1,
 						["br"] = 1,
 						["insets"] = {
 							["top"] = 2,
@@ -829,7 +829,20 @@ data = {
 					["owner"] = "pdt",
 					["w"] = "30",
 					["feature"] = "txt_status",
-					["ty"] = "level",
+					["font"] = {
+						["size"] = 15,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sx"] = 1,
+						["sr"] = 0,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 2,
@@ -839,27 +852,27 @@ data = {
 						["af"] = "Frame_pdt",
 					},
 					["name"] = "status_text",
+					["ty"] = "level",
 					["h"] = "30",
-					["font"] = {
-						["size"] = 15,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "LEFT",
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sx"] = 1,
-						["sr"] = 0,
-					},
 				}, -- [35]
 				{
 					["owner"] = "pdt",
 					["w"] = "200",
 					["feature"] = "txt_np",
-					["h"] = "30",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["sy"] = -1,
+						["title"] = "Default",
+						["justifyH"] = "LEFT",
+						["size"] = 15,
+					},
 					["version"] = 1,
 					["classColor"] = 1,
 					["anchor"] = {
@@ -871,20 +884,7 @@ data = {
 					},
 					["trunc"] = 20,
 					["name"] = "np",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["sy"] = -1,
-						["title"] = "Default",
-						["justifyH"] = "LEFT",
-						["size"] = 15,
-					},
+					["h"] = "30",
 				}, -- [36]
 				{
 					["rows"] = 1,
@@ -893,7 +893,7 @@ data = {
 					["feature"] = "aura_icons",
 					["iconspx"] = 2,
 					["cd"] = {
-						["offsety"] = "0",
+						["Offsety"] = 0,
 						["HideText"] = 0,
 						["Font"] = {
 							["name"] = "Default",
@@ -904,7 +904,7 @@ data = {
 							["size"] = 7,
 						},
 						["TimerType"] = "COOLDOWN",
-						["Offsety"] = 0,
+						["offsety"] = "0",
 						["Offsetx"] = 0,
 						["offsetx"] = "10",
 						["TextType"] = "Seconds",
@@ -928,6 +928,13 @@ data = {
 					["auraType"] = "DEBUFFS",
 					["owner"] = "pdt",
 					["playerauras"] = 1,
+					["usebs"] = true,
+					["size"] = 12,
+					["name"] = "debuff",
+					["version"] = 1,
+					["nIcons"] = 10,
+					["orientation"] = "RIGHT",
+					["ButtonSkinOffset"] = 0,
 					["fontst"] = {
 						["name"] = "Default",
 						["title"] = "Default",
@@ -936,19 +943,13 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-					["version"] = 1,
-					["name"] = "debuff",
-					["size"] = 12,
-					["orientation"] = "RIGHT",
-					["nIcons"] = 10,
-					["ButtonSkinOffset"] = 0,
 					["unitfilter"] = "",
 				}, -- [37]
 				{
 					["mover"] = 1,
 					["w"] = 206,
 					["feature"] = "hotspot",
-					["h"] = 76,
+					["flo"] = 3,
 					["name"] = "",
 					["anchor"] = {
 						["dx"] = 0,
@@ -958,8 +959,8 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["h"] = 76,
 					["secure"] = 1,
-					["flo"] = 3,
 				}, -- [38]
 			},
 		},
@@ -985,17 +986,17 @@ data = {
 							["face"] = "Interface\\Addons\\RDX_mediapack\\Fonts\\Blokletters-Viltstift.ttf",
 							["justifyV"] = "CENTER",
 							["cr"] = 1,
-							["ca"] = 1,
+							["flags"] = "OUTLINE",
 							["cg"] = 0.04313725490196078,
 							["title"] = "Default",
 							["cb"] = 0,
-							["flags"] = "OUTLINE",
+							["ca"] = 1,
 							["name"] = "Default",
 							["justifyH"] = "CENTER",
 							["size"] = 10,
 						},
-						["TimerType"] = "TEXT",
 						["Offsety"] = -20,
+						["TimerType"] = "TEXT",
 						["Offsetx"] = 0,
 						["UpdateSpeed"] = 0.3,
 						["TextType"] = "Seconds",
@@ -1014,12 +1015,31 @@ data = {
 					["nIcons"] = 30,
 					["mindurationfilter"] = "",
 					["owner"] = "decor",
+					["maxdurationfilter"] = "",
+					["bkd"] = {
+						["ka"] = 1,
+						["edgeSize"] = 12,
+						["kb"] = 0.1,
+						["kr"] = 0.1,
+						["tile"] = false,
+						["_backdrop"] = "solid",
+						["edgeFile"] = "Interface\\AddOns\\RDX_mediapack\\sharedmedia\\borders\\IshBorder",
+						["kg"] = 0.1,
+						["_border"] = "IshBorder",
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
+						["insets"] = {
+							["top"] = 4,
+							["right"] = 4,
+							["left"] = 4,
+							["bottom"] = 4,
+						},
+					},
 					["name"] = "ai1",
-					["size"] = 30,
+					["usebkd"] = 1,
 					["orientation"] = "RIGHT",
 					["externalButtonSkin"] = "bs_simplesquare",
 					["version"] = 1,
-					["maxdurationfilter"] = "",
+					["size"] = 30,
 				}, -- [2]
 			},
 		},
@@ -1071,14 +1091,14 @@ data = {
 						["r"] = 0,
 					},
 					["owner"] = "decor",
-					["version"] = 1,
+					["name"] = "rune_bar_skin",
 					["deathColor"] = {
 						["a"] = 1,
 						["b"] = 0.6000000000000001,
 						["g"] = 0.3,
 						["r"] = 0.6000000000000001,
 					},
-					["name"] = "rune_bar_skin",
+					["version"] = 1,
 					["cd"] = {
 						["GfxReverse"] = true,
 						["Font"] = {
@@ -1125,31 +1145,13 @@ data = {
 					["root"] = true,
 					["t"] = 767.9999824928667,
 					["alpha"] = 1,
-					["anchorx"] = 1134.399702488154,
+					["anchorx"] = 1134.3997024882,
 					["dock"] = {
-						["BOTTOM"] = {
-							["id"] = "WoWRDX:ActionBar1",
-							["x"] = 0,
-							["point"] = "BOTTOM",
-							["y"] = -20,
-						},
 						["RIGHT"] = {
 							["id"] = "WoWRDX:ActionBar3",
 							["x"] = 10,
 							["point"] = "RIGHT",
 							["y"] = 0,
-						},
-						["BOTTOMLEFT"] = {
-							["id"] = "WoWRDX:ChatFrame1",
-							["x"] = -20,
-							["point"] = "BOTTOMLEFT",
-							["y"] = -20,
-						},
-						["BOTTOMRIGHT"] = {
-							["id"] = "WoWRDX:Combat_Logs",
-							["x"] = 20,
-							["point"] = "BOTTOMRIGHT",
-							["y"] = -20,
 						},
 						["TOPRIGHT"] = {
 							["id"] = "WoWRDX:MiniMap",
@@ -1157,13 +1159,25 @@ data = {
 							["point"] = "TOPRIGHT",
 							["y"] = 10,
 						},
+						["BOTTOMRIGHT"] = {
+							["id"] = "WoWRDX:Combat_Logs",
+							["x"] = 20,
+							["point"] = "BOTTOMRIGHT",
+							["y"] = -20,
+						},
+						["BOTTOM"] = {
+							["id"] = "WoWRDX:ActionBar1",
+							["x"] = 0,
+							["point"] = "BOTTOM",
+							["y"] = -20,
+						},
 					},
 					["offsetright"] = "0",
-					["title"] = "Konyagi_AUI:desk_solo",
+					["name"] = "root",
 					["strata"] = "BACKGROUND",
 					["open"] = true,
-					["name"] = "root",
-					["anchory"] = 204.2668937852481,
+					["title"] = "Konyagi_AUI:desk_solo",
+					["anchory"] = 204.26689378525,
 					["ap"] = "TOPLEFT",
 				}, -- [1]
 				{
@@ -1184,14 +1198,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 47.78666548950701,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar1",
 					["r"] = 866.9866965304984,
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 17.06666731335399,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [2]
 				{
 					["strata"] = "MEDIUM",
@@ -1211,14 +1225,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 568.320007342238,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar3",
 					["r"] = 1356.80010743447,
 					["anchor"] = "TOPLEFT",
 					["l"] = 1326.079997212661,
 					["b"] = 199.680014288981,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [3]
 				{
 					["strata"] = "MEDIUM",
@@ -1232,14 +1246,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 568.320007342238,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar4",
 					["r"] = 1326.079997212661,
 					["anchor"] = "TOPLEFT",
 					["l"] = 1295.360006506218,
 					["b"] = 199.680014288981,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [4]
 				{
 					["strata"] = "MEDIUM",
@@ -1259,14 +1273,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 78.50667113537041,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar5",
 					["r"] = 866.9866965304984,
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 47.78666548950701,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [5]
 				{
 					["strata"] = "MEDIUM",
@@ -1292,14 +1306,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 109.2266693115234,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar6",
 					["r"] = 866.9866965304984,
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 78.50667113537041,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [6]
 				{
 					["strata"] = "MEDIUM",
@@ -1319,14 +1333,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 139.9466674876765,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBarPet",
 					["r"] = 805.54665535993,
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 109.2266693115234,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [7]
 				{
 					["strata"] = "MEDIUM",
@@ -1346,14 +1360,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 170.6666731335399,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBarStance",
 					["r"] = 805.54665535993,
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 139.9466674876765,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [8]
 				{
 					["strata"] = "MEDIUM",
@@ -1367,21 +1381,21 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 170.6666731335399,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBarVehicle",
 					["r"] = 897.7066274792579,
 					["anchor"] = "TOPLEFT",
 					["l"] = 805.54665535993,
 					["b"] = 139.9466674876765,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [9]
 				{
 					["strata"] = "MEDIUM",
 					["b"] = 716.7999823426051,
 					["scale"] = 1,
 					["t"] = 759.4666693002661,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_SecureBuff_Icon",
 					["dock"] = {
@@ -1401,7 +1415,7 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 884.0533713135628,
 					["r"] = 1225.386747459484,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [10]
 				{
 					["strata"] = "MEDIUM",
@@ -1414,23 +1428,23 @@ data = {
 						},
 					},
 					["scale"] = 1,
-					["t"] = 412.279878698753,
-					["alpha"] = 1,
+					["t"] = 419.9599062542051,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["dgp"] = true,
 					["name"] = "WoWRDX:Player_Main",
-					["r"] = 480.3066208544511,
+					["r"] = 489.6932979609048,
 					["anchor"] = "TOPLEFT",
-					["l"] = 304.5199841284859,
-					["b"] = 347.4265384261815,
-					["open"] = true,
+					["l"] = 313.9066313560981,
+					["b"] = 355.1065659816338,
+					["alpha"] = 1,
 				}, -- [11]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 770.560085594246,
 					["scale"] = 1,
 					["t"] = 255.1466923945194,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_CastBar",
 					["dock"] = {
@@ -1444,14 +1458,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 594.7734189894393,
 					["b"] = 232.9600092007674,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [12]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 480.3066208544511,
+					["r"] = 489.6932979609048,
 					["scale"] = 1,
-					["t"] = 338.8932309134909,
-					["alpha"] = 1,
+					["t"] = 346.5732584689431,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Pet_Main",
 					["dock"] = {
@@ -1463,16 +1477,16 @@ data = {
 						},
 					},
 					["anchor"] = "TOPLEFT",
-					["l"] = 304.5199841284859,
-					["b"] = 274.0398906409195,
-					["open"] = true,
+					["l"] = 313.9066313560981,
+					["b"] = 281.7199181963717,
+					["alpha"] = 1,
 				}, -- [13]
 				{
 					["strata"] = "MEDIUM",
 					["b"] = 609.2800148700559,
 					["scale"] = 1,
 					["t"] = 636.5866467168124,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:MiniMapButtons",
 					["dock"] = {
@@ -1486,7 +1500,7 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1227.093426889327,
 					["r"] = 1363.62658612311,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [14]
 				{
 					["strata"] = "MEDIUM",
@@ -1499,16 +1513,16 @@ data = {
 						},
 					},
 					["scale"] = 1,
-					["t"] = 411.6664362027076,
-					["alpha"] = 1,
+					["t"] = 424.4664721688475,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["dgp"] = true,
 					["name"] = "WoWRDX:Target_Main",
-					["r"] = 1040.707181483826,
+					["r"] = 1012.547209922148,
 					["anchor"] = "TOPLEFT",
-					["l"] = 864.920574636702,
-					["b"] = 346.8130959301362,
-					["open"] = true,
+					["l"] = 836.7606030750241,
+					["b"] = 359.6131617751177,
+					["alpha"] = 1,
 				}, -- [15]
 				{
 					["strata"] = "MEDIUM",
@@ -1521,19 +1535,19 @@ data = {
 						},
 					},
 					["scale"] = 1,
-					["t"] = 411.6664362027076,
-					["alpha"] = 1,
+					["t"] = 424.4664721688475,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Targettarget_Main",
-					["r"] = 1225.027245237848,
+					["r"] = 1196.86727367617,
 					["anchor"] = "TOPLEFT",
-					["l"] = 1049.240578633041,
-					["b"] = 346.8130959301362,
-					["open"] = true,
+					["l"] = 1021.080607071363,
+					["b"] = 359.6131617751177,
+					["alpha"] = 1,
 				}, -- [16]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 1225.386747459484,
+					["b"] = 678.3999939595518,
 					["scale"] = 1,
 					["t"] = 716.7999823426051,
 					["alpha"] = 1,
@@ -1550,14 +1564,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 969.3866854712014,
 					["open"] = true,
-					["b"] = 678.3999939595518,
+					["r"] = 1225.386747459484,
 				}, -- [17]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 1348.266710285255,
 					["scale"] = 1,
 					["t"] = 145.0666609589433,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Combat_Logs",
 					["dock"] = {
@@ -1569,18 +1583,17 @@ data = {
 						},
 					},
 					["anchor"] = "TOPLEFT",
-					["l"] = 1015.466731288549,
+					["l"] = 1015.466611773182,
 					["b"] = 17.06666731335399,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [18]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 358.4000210501441,
+					["r"] = 359.9866771734452,
 					["scale"] = 1,
-					["t"] = 102.4000113498343,
-					["alpha"] = 1,
+					["t"] = 109.3463863599395,
+					["dgp"] = true,
 					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:ChatFrame1",
 					["dock"] = {
 						["TOP"] = {
 							["id"] = "WoWRDX:ChatEditBox1",
@@ -1588,24 +1601,20 @@ data = {
 							["point"] = "BOTTOM",
 							["y"] = 0,
 						},
-						["BOTTOMLEFT"] = {
-							["id"] = "root",
-							["x"] = 20,
-							["point"] = "BOTTOMLEFT",
-							["y"] = 20,
-						},
 					},
+					["name"] = "WoWRDX:ChatFrame1",
+					["b"] = 24.01304792574194,
 					["anchor"] = "TOPLEFT",
-					["l"] = 17.06666731335399,
-					["b"] = 17.06666731335399,
+					["l"] = 18.65334397835861,
 					["open"] = true,
+					["alpha"] = 1,
 				}, -- [19]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 358.4000210501441,
+					["r"] = 359.9866771734452,
 					["scale"] = 1,
-					["t"] = 128.0000160547205,
-					["alpha"] = 1,
+					["t"] = 134.9463835951153,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ChatEditBox1",
 					["dock"] = {
@@ -1617,21 +1626,21 @@ data = {
 						},
 					},
 					["anchor"] = "TOPLEFT",
-					["l"] = 17.06667851791957,
-					["b"] = 102.4000113498343,
-					["open"] = true,
+					["l"] = 18.65333837607582,
+					["b"] = 109.3463863599395,
+					["alpha"] = 1,
 				}, -- [20]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 1247.572982470613,
+					["r"] = 1246.719642755691,
 					["scale"] = 1,
-					["t"] = 307.1998174279016,
+					["t"] = 306.3465374706632,
 					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:MouseOver_Main",
 					["anchor"] = "TOPLEFT",
-					["l"] = 1119.572981355313,
-					["b"] = 203.0931639967762,
+					["l"] = 1118.719641640391,
+					["b"] = 202.2398392212755,
 					["open"] = true,
 				}, -- [21]
 				{
@@ -1639,7 +1648,7 @@ data = {
 					["r"] = 1356.80010743447,
 					["scale"] = 1,
 					["t"] = 759.4666693002661,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:MiniMap",
 					["dock"] = {
@@ -1665,14 +1674,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1233.920025093333,
 					["b"] = 636.5866467168124,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [22]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 810.6667534071423,
 					["scale"] = 1,
 					["t"] = 232.9600092007674,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Cooldowns_Used",
 					["dock"] = {
@@ -1692,8 +1701,21 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 554.6666914188597,
 					["b"] = 207.3599970261709,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [23]
+				{
+					["strata"] = "MEDIUM",
+					["r"] = 451.4130340959779,
+					["scale"] = 1,
+					["t"] = 244.9064963000948,
+					["alpha"] = 1,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:ClassBar",
+					["anchor"] = "TOPLEFT",
+					["l"] = 345.5996564167471,
+					["open"] = true,
+					["b"] = 231.2531803767166,
+				}, -- [24]
 			},
 		},
 		["Range_0_10_fset"] = {
@@ -1753,29 +1775,6 @@ data = {
 				}, -- [3]
 			},
 		},
-		["Arena_Main_mb"] = {
-			["ty"] = "MouseBindings",
-			["version"] = 1,
-			["data"] = {
-				["1"] = {
-					["action"] = "target",
-				},
-				["2"] = {
-					["action"] = "menu",
-				},
-				["S1"] = {
-					["action"] = "cast",
-					["spell"] = "Mot sacré : Châtier",
-				},
-				["A2"] = {
-					["action"] = "setFocus",
-				},
-				["C2"] = {
-					["action"] = "cast",
-					["spell"] = 88684,
-				},
-			},
-		},
 		["Boss_fset"] = {
 			["ty"] = "FilterSet",
 			["version"] = 1,
@@ -1813,13 +1812,13 @@ data = {
 							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 							["justifyV"] = "CENTER",
 							["size"] = 10,
-							["flags"] = "THICKOUTLINE",
+							["ca"] = 1,
 							["cg"] = 0.807843137254902,
 							["justifyH"] = "CENTER",
 							["cb"] = 0.02745098039215686,
 							["title"] = "Default",
 							["name"] = "Default",
-							["ca"] = 1,
+							["flags"] = "THICKOUTLINE",
 							["cr"] = 1,
 						},
 						["TimerType"] = "COOLDOWN&TEXT",
@@ -1832,6 +1831,7 @@ data = {
 					["ButtonSkinOffset"] = 6,
 					["showweapons"] = 1,
 					["externalButtonSkin"] = "bs_simplesquare",
+					["usebs"] = true,
 					["template"] = "RDXAB40x40Template",
 					["auraType"] = "BUFFS",
 					["owner"] = "Base",
@@ -1842,10 +1842,10 @@ data = {
 						["rp"] = "TOPRIGHT",
 						["af"] = "Base",
 					},
-					["name"] = "sai1",
 					["version"] = 1,
-					["xoffset"] = 0,
+					["name"] = "sai1",
 					["orientation"] = "LEFT",
+					["xoffset"] = 0,
 					["maxwraps"] = 2,
 					["sortmethod"] = "INDEX",
 					["yoffset"] = 0,
@@ -1884,29 +1884,33 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Raid Group 7",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
-						["r"] = 0,
-						["g"] = 0,
 						["b"] = 0,
-					},
-					["defaultbuttons"] = 1,
-					["titleColor"] = {
-						["a"] = 1,
-						["r"] = 0,
 						["g"] = 0,
-						["b"] = 0,
+						["r"] = 0,
 					},
 					["texicon"] = {
 						["color"] = {
 							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
 							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
 						},
 						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
 						["blendMode"] = "BLEND",
 					},
+					["titleColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0,
+						["r"] = 0,
+					},
+					["defaultbuttons"] = 1,
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -1917,16 +1921,16 @@ data = {
 					["rostertype"] = "RAID",
 					["set"] = {
 						["class"] = "file",
-						["file"] = "WoWRDX:Raid_Group7_fset",
+						["file"] = "default:set_raid_group7",
 					},
 				}, -- [3]
 				{
 					["bkt"] = 1,
 					["switchvehicle"] = 1,
 					["dxn"] = 1,
-					["axis"] = 1,
-					["feature"] = "Header Grid",
 					["cols"] = 40,
+					["feature"] = "Header Grid",
+					["axis"] = 1,
 				}, -- [4]
 				{
 					["feature"] = "mousebindings",
@@ -1948,29 +1952,34 @@ data = {
 				}, -- [7]
 				{
 					["feature"] = "mp_args",
-					["period"] = 0.1,
 					["version"] = 1,
 					["dpm1"] = 0,
+					["period"] = 0.1,
 				}, -- [8]
 				{
 					["feature"] = "FilterSet Editor",
 				}, -- [9]
 			},
 		},
-		["Range_0_15_fset"] = {
-			["ty"] = "FilterSet",
+		["ClassBar"] = {
+			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
-				"and", -- [1]
 				{
-					"set", -- [1]
-					{
-						["item"] = "heavy frostweave bandage",
-						["class"] = "itemrange",
-					}, -- [2]
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:ClassBar_ds",
 				}, -- [2]
 				{
-					"ol", -- [1]
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
 				}, -- [3]
 			},
 		},
@@ -1992,8 +2001,17 @@ data = {
 					["feature"] = "commentline",
 				}, -- [3]
 				{
+					["version"] = 1,
+					["gt"] = "",
+					["name"] = "texcd_earth",
+					["dyntexture"] = 1,
+					["owner"] = "decor",
+					["w"] = "36",
+					["tex"] = "totemearth_icon",
+					["feature"] = "texture_cooldown",
+					["h"] = "36",
 					["cd"] = {
-						["GfxReverse"] = true,
+						["HideText"] = 0,
 						["Font"] = {
 							["name"] = "Default",
 							["title"] = "Default",
@@ -2004,16 +2022,12 @@ data = {
 						},
 						["TimerType"] = "COOLDOWN",
 						["Offsety"] = 0,
-						["UpdateSpeed"] = 0.3,
 						["Offsetx"] = 0,
+						["UpdateSpeed"] = 0.3,
 						["TextType"] = "Seconds",
-						["HideText"] = 0,
+						["GfxReverse"] = true,
 					},
-					["gt"] = "",
-					["version"] = 1,
-					["externalButtonSkin"] = "bs_kitty",
-					["owner"] = "decor",
-					["w"] = "36",
+					["ButtonSkinOffset"] = 7,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -2021,27 +2035,22 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["feature"] = "texture_cooldown",
-					["h"] = "36",
-					["name"] = "texcd_earth",
-					["ButtonSkinOffset"] = 9,
-					["tex"] = "totemearth_icon",
-					["dyntexture"] = 1,
+					["externalButtonSkin"] = "bs_kitty",
 					["timerVar"] = "totemearth",
 					["texture"] = {
 						["color"] = {
 							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
 							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
 						},
 						["blendMode"] = "BLEND",
 					},
 				}, -- [4]
 				{
-					["w"] = 36,
+					["w"] = "36",
 					["feature"] = "hotspot",
-					["h"] = 36,
+					["h"] = "36",
 					["name"] = "earth",
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -2054,13 +2063,22 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["version"] = 1,
-					["secure"] = 1,
 					["flo"] = 3,
+					["secure"] = 1,
+					["version"] = 1,
 				}, -- [5]
 				{
+					["version"] = 1,
+					["gt"] = "",
+					["name"] = "texcd_Fire",
+					["dyntexture"] = 1,
+					["owner"] = "decor",
+					["w"] = "36",
+					["tex"] = "totemfire_icon",
+					["feature"] = "texture_cooldown",
+					["h"] = "36",
 					["cd"] = {
-						["GfxReverse"] = true,
+						["HideText"] = 0,
 						["Font"] = {
 							["name"] = "Default",
 							["title"] = "Default",
@@ -2071,16 +2089,12 @@ data = {
 						},
 						["TimerType"] = "COOLDOWN",
 						["Offsety"] = 0,
-						["UpdateSpeed"] = 0.3,
 						["Offsetx"] = 0,
+						["UpdateSpeed"] = 0.3,
 						["TextType"] = "Seconds",
-						["HideText"] = 0,
+						["GfxReverse"] = true,
 					},
-					["gt"] = "",
-					["version"] = 1,
-					["externalButtonSkin"] = "bs_kitty",
-					["owner"] = "decor",
-					["w"] = "36",
+					["ButtonSkinOffset"] = 7,
 					["anchor"] = {
 						["dx"] = 36,
 						["dy"] = 0,
@@ -2088,28 +2102,23 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["feature"] = "texture_cooldown",
-					["h"] = "36",
-					["name"] = "texcd_Fire",
-					["ButtonSkinOffset"] = 9,
-					["tex"] = "totemfire_icon",
-					["dyntexture"] = 1,
+					["externalButtonSkin"] = "bs_kitty",
 					["timerVar"] = "totemfire",
 					["texture"] = {
 						["color"] = {
 							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
 							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
 						},
 						["blendMode"] = "BLEND",
 					},
 				}, -- [6]
 				{
-					["w"] = 36,
+					["w"] = "36",
 					["feature"] = "hotspot",
-					["h"] = 36,
-					["name"] = "fire",
+					["h"] = "36",
+					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
 						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
@@ -2121,13 +2130,22 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["version"] = 1,
-					["secure"] = 1,
+					["name"] = "fire",
 					["flo"] = 3,
+					["secure"] = 1,
 				}, -- [7]
 				{
+					["version"] = 1,
+					["gt"] = "",
+					["name"] = "texcd_water",
+					["dyntexture"] = 1,
+					["owner"] = "decor",
+					["w"] = "36",
+					["tex"] = "totemwater_icon",
+					["feature"] = "texture_cooldown",
+					["h"] = "36",
 					["cd"] = {
-						["GfxReverse"] = true,
+						["HideText"] = 0,
 						["Font"] = {
 							["name"] = "Default",
 							["title"] = "Default",
@@ -2138,16 +2156,12 @@ data = {
 						},
 						["TimerType"] = "COOLDOWN",
 						["Offsety"] = 0,
-						["UpdateSpeed"] = 0.3,
 						["Offsetx"] = 0,
+						["UpdateSpeed"] = 0.3,
 						["TextType"] = "Seconds",
-						["HideText"] = 0,
+						["GfxReverse"] = true,
 					},
-					["gt"] = "",
-					["version"] = 1,
-					["externalButtonSkin"] = "bs_kitty",
-					["owner"] = "decor",
-					["w"] = "36",
+					["ButtonSkinOffset"] = 7,
 					["anchor"] = {
 						["dx"] = 72,
 						["dy"] = 0,
@@ -2155,19 +2169,14 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["feature"] = "texture_cooldown",
-					["h"] = "36",
-					["name"] = "texcd_water",
-					["ButtonSkinOffset"] = 9,
-					["tex"] = "totemwater_icon",
-					["dyntexture"] = 1,
+					["externalButtonSkin"] = "bs_kitty",
 					["timerVar"] = "totemwater",
 					["texture"] = {
 						["color"] = {
 							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
 							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
 						},
 						["blendMode"] = "BLEND",
 					},
@@ -2175,7 +2184,7 @@ data = {
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["h"] = 36,
+					["secure"] = 1,
 					["name"] = "water",
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -2188,13 +2197,22 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["version"] = 1,
-					["secure"] = 1,
+					["h"] = 36,
 					["flo"] = 3,
+					["version"] = 1,
 				}, -- [9]
 				{
+					["version"] = 1,
+					["gt"] = "",
+					["name"] = "texcd_air",
+					["dyntexture"] = 1,
+					["owner"] = "decor",
+					["w"] = "36",
+					["tex"] = "totemair_icon",
+					["feature"] = "texture_cooldown",
+					["h"] = "36",
 					["cd"] = {
-						["GfxReverse"] = true,
+						["HideText"] = 0,
 						["Font"] = {
 							["name"] = "Default",
 							["title"] = "Default",
@@ -2205,16 +2223,12 @@ data = {
 						},
 						["TimerType"] = "COOLDOWN",
 						["Offsety"] = 0,
-						["UpdateSpeed"] = 0.3,
 						["Offsetx"] = 0,
+						["UpdateSpeed"] = 0.3,
 						["TextType"] = "Seconds",
-						["HideText"] = 0,
+						["GfxReverse"] = true,
 					},
-					["gt"] = "",
-					["version"] = 1,
-					["externalButtonSkin"] = "bs_kitty",
-					["owner"] = "decor",
-					["w"] = "36",
+					["ButtonSkinOffset"] = 7,
 					["anchor"] = {
 						["dx"] = 108,
 						["dy"] = 0,
@@ -2222,19 +2236,14 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["feature"] = "texture_cooldown",
-					["h"] = "36",
-					["name"] = "texcd_air",
-					["ButtonSkinOffset"] = 9,
-					["tex"] = "totemair_icon",
-					["dyntexture"] = 1,
+					["externalButtonSkin"] = "bs_kitty",
 					["timerVar"] = "totemair",
 					["texture"] = {
 						["color"] = {
 							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
 							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
 						},
 						["blendMode"] = "BLEND",
 					},
@@ -2242,7 +2251,7 @@ data = {
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["h"] = 36,
+					["secure"] = 1,
 					["name"] = "air",
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -2255,9 +2264,9 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["version"] = 1,
-					["secure"] = 1,
+					["h"] = 36,
 					["flo"] = 3,
+					["version"] = 1,
 				}, -- [11]
 				{
 					["feature"] = "commentline",
@@ -2265,7 +2274,7 @@ data = {
 				{
 					["w"] = 144,
 					["feature"] = "hotspot",
-					["h"] = 14,
+					["secure"] = 1,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -2278,9 +2287,9 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["flo"] = 3,
-					["secure"] = 1,
 					["name"] = "remove",
+					["flo"] = 3,
+					["h"] = 14,
 				}, -- [13]
 			},
 		},
@@ -2289,7 +2298,7 @@ data = {
 			["version"] = 2,
 			["data"] = {
 				{
-					["strata"] = "LOW",
+					["offsetleft"] = "0",
 					["b"] = 0,
 					["scale"] = 1,
 					["dgp"] = true,
@@ -2327,12 +2336,12 @@ data = {
 					["t"] = 767.9999824928667,
 					["open"] = true,
 					["r"] = 1365.333426704711,
-					["title"] = "Konyagi_AUI:desk_solo",
-					["offsetright"] = "0",
 					["name"] = "root",
+					["offsetright"] = "0",
+					["title"] = "Konyagi_AUI:desk_solo",
 					["alpha"] = 1,
 					["anchorx"] = 1182.1866833495,
-					["offsetleft"] = "0",
+					["strata"] = "LOW",
 					["anchory"] = 112.64005532254,
 					["ap"] = "TOPLEFT",
 				}, -- [1]
@@ -2341,7 +2350,7 @@ data = {
 					["r"] = 601.359851064995,
 					["scale"] = 1,
 					["t"] = 380.8263325531983,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_Main",
 					["dock"] = {
@@ -2355,14 +2364,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 425.5732143390299,
 					["b"] = 315.972992280627,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [2]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 1365.333385068319,
 					["scale"] = 1,
 					["t"] = 768.0000066917983,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_SecureBuff_Icon",
 					["dock"] = {
@@ -2376,14 +2385,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1024.000008922398,
 					["b"] = 725.3333197341373,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [3]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 341.3333462670797,
 					["scale"] = 1,
 					["t"] = 768.0000066917983,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_SecureDebuff_Icon",
 					["dock"] = {
@@ -2397,14 +2406,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 0,
 					["b"] = 721.0666211595296,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [4]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 866.9866965304984,
 					["scale"] = 1,
 					["t"] = 30.72000191100822,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar1",
 					["dock"] = {
@@ -2430,11 +2439,18 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 0,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [5]
 				{
 					["strata"] = "MEDIUM",
-					["b"] = 199.680014288981,
+					["dock"] = {
+						["RIGHT"] = {
+							["id"] = "WoWRDX:ActionBar4",
+							["x"] = 0,
+							["point"] = "LEFT",
+							["y"] = 0,
+						},
+					},
 					["scale"] = 1,
 					["t"] = 568.320007342238,
 					["open"] = true,
@@ -2444,21 +2460,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1303.893284140067,
 					["alpha"] = 1,
-					["dock"] = {
-						["RIGHT"] = {
-							["id"] = "WoWRDX:ActionBar4",
-							["x"] = 0,
-							["point"] = "LEFT",
-							["y"] = 0,
-						},
-					},
+					["b"] = 199.680014288981,
 				}, -- [6]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 1365.333385068319,
 					["scale"] = 1,
 					["t"] = 568.320007342238,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar4",
 					["dock"] = {
@@ -2478,14 +2487,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1334.613394361876,
 					["b"] = 199.680014288981,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [7]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 682.6666925341594,
 					["scale"] = 1,
 					["t"] = 61.44000382201643,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar5",
 					["dock"] = {
@@ -2511,14 +2520,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 314.0266845414816,
 					["b"] = 30.72000191100822,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [8]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 1051.306640769154,
 					["scale"] = 1,
 					["t"] = 61.44000382201643,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar6",
 					["dock"] = {
@@ -2532,14 +2541,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 682.6666925341594,
 					["b"] = 30.72000191100822,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [9]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 651.9467018277169,
 					["scale"] = 1,
 					["t"] = 92.16000199816945,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBarPet",
 					["dock"] = {
@@ -2565,14 +2574,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 344.7467051267659,
 					["b"] = 61.44000382201643,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [10]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 959.1466686498262,
 					["scale"] = 1,
 					["t"] = 92.16000199816945,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBarStance",
 					["dock"] = {
@@ -2592,14 +2601,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 651.9467018277169,
 					["b"] = 61.44000382201643,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [11]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 1051.306640769154,
 					["scale"] = 1,
 					["t"] = 92.16000199816945,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBarVehicle",
 					["dock"] = {
@@ -2613,7 +2622,7 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 959.1466686498262,
 					["b"] = 61.44000382201643,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [12]
 				{
 					["strata"] = "MEDIUM",
@@ -2633,7 +2642,7 @@ data = {
 					["r"] = 344.7467051267659,
 					["scale"] = 1,
 					["t"] = 159.5733464760847,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ChatEditBox1",
 					["dock"] = {
@@ -2647,14 +2656,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 3.413354191117129,
 					["b"] = 133.9733343014881,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [14]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 344.7467051267659,
 					["scale"] = 1,
 					["t"] = 146.7733403887864,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ChatFrame1",
 					["dock"] = {
@@ -2674,27 +2683,27 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 3.413354191117129,
 					["b"] = 61.44000382201643,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [15]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 724.2398736484487,
 					["scale"] = 1,
 					["t"] = 348.3996624169126,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:MiniMap",
 					["dock"] = {
+						["TOPLEFT"] = {
+							["id"] = "WoWRDX:Player_Main",
+							["x"] = 0,
+							["point"] = "RIGHT",
+							["y"] = 0,
+						},
 						["BOTTOMLEFT"] = {
 							["id"] = "WoWRDX:Pet_Main",
 							["x"] = 0,
 							["point"] = "BOTTOMRIGHT",
-							["y"] = 0,
-						},
-						["BOTTOMRIGHT"] = {
-							["id"] = "WoWRDX:Focus_Main",
-							["x"] = 0,
-							["point"] = "BOTTOMLEFT",
 							["y"] = 0,
 						},
 						["TOP"] = {
@@ -2703,24 +2712,24 @@ data = {
 							["point"] = "BOTTOM",
 							["y"] = -47.000122755095,
 						},
-						["TOPLEFT"] = {
-							["id"] = "WoWRDX:Player_Main",
+						["BOTTOMRIGHT"] = {
+							["id"] = "WoWRDX:Focus_Main",
 							["x"] = 0,
-							["point"] = "RIGHT",
+							["point"] = "BOTTOMLEFT",
 							["y"] = 0,
 						},
 					},
 					["anchor"] = "TOPLEFT",
 					["l"] = 601.359851064995,
 					["b"] = 225.5196547728798,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [16]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 1003.519975279647,
 					["scale"] = 1,
 					["t"] = 29.01333555315834,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:MiniMapButtons",
 					["dock"] = {
@@ -2734,7 +2743,7 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 866.9866965304984,
 					["b"] = 1.706668341991702,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [17]
 				{
 					["strata"] = "MEDIUM",
@@ -2761,7 +2770,7 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 540.2453697520522,
-					["dgp"] = true,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["alpha"] = 1,
 					["name"] = "WoWRDX:Party",
@@ -2769,7 +2778,7 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 92.07456345073184,
 					["b"] = 475.3066955079885,
-					["open"] = true,
+					["dgp"] = true,
 				}, -- [19]
 				{
 					["strata"] = "MEDIUM",
@@ -2783,14 +2792,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 540.2027027663061,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Partytarget",
 					["r"] = 443.7331858135751,
 					["anchor"] = "TOPLEFT",
 					["l"] = 267.9465789664515,
 					["b"] = 475.3493624937347,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [20]
 				{
 					["strata"] = "MEDIUM",
@@ -2804,7 +2813,7 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 355.2263203786018,
-					["dgp"] = true,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["alpha"] = 1,
 					["name"] = "WoWRDX:Target_Main",
@@ -2812,14 +2821,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 724.2397541330824,
 					["b"] = 290.3729801060304,
-					["open"] = true,
+					["dgp"] = true,
 				}, -- [21]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 601.359851064995,
 					["scale"] = 1,
 					["t"] = 290.3729801060304,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Pet_Main",
 					["dock"] = {
@@ -2833,14 +2842,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 425.5732143390299,
 					["b"] = 225.5196547728798,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [22]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 900.0265402532555,
 					["scale"] = 1,
 					["t"] = 290.3729801060304,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Focus_Main",
 					["dock"] = {
@@ -2860,14 +2869,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 724.2398736484487,
 					["b"] = 225.5196547728798,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [23]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 757.5198834996559,
 					["scale"] = 1,
 					["t"] = 410.6930731812441,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_CastBar",
 					["dock"] = {
@@ -2881,7 +2890,7 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 581.7332766525323,
 					["b"] = 388.5064198663337,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [24]
 			},
 		},
@@ -2892,6 +2901,10 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Dispel Grid",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
 						["r"] = 0,
@@ -2995,14 +3008,14 @@ data = {
 						["size"] = 10,
 						["face"] = "Fonts\\ARIALN.TTF",
 						["justifyV"] = "CENTER",
-						["justifyH"] = "LEFT",
+						["name"] = "Default",
 						["sa"] = 1,
 						["sg"] = 0,
 						["title"] = "Default",
 						["sb"] = 0,
 						["sy"] = -1,
 						["sx"] = 1,
-						["name"] = "Default",
+						["justifyH"] = "LEFT",
 						["sr"] = 0,
 					},
 				}, -- [2]
@@ -3038,6 +3051,10 @@ data = {
 						["blendMode"] = "BLEND",
 					},
 					["title"] = "Serendipity",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
 						["r"] = 0,
@@ -3070,16 +3087,16 @@ data = {
 				["solo2"] = "WoWRDX:Solo_desk",
 				["raidflag"] = 1,
 				["arenaflag2"] = 1,
-				["partyflag2"] = 1,
-				["arena2"] = "WoWRDX:Arena_desk",
+				["party"] = "WoWRDX:Party_desk",
+				["pvp2"] = "WoWRDX:Battleground_desk",
 				["raid"] = "WoWRDX:Raid_desk",
 				["raid2"] = "WoWRDX:Raid_desk",
 				["arenaflag"] = 1,
 				["partyflag"] = 1,
 				["raidflag2"] = 1,
 				["soloflag"] = 1,
-				["pvp2"] = "WoWRDX:Battleground_desk",
-				["party"] = "WoWRDX:Party_desk",
+				["arena2"] = "WoWRDX:Arena_desk",
+				["partyflag2"] = 1,
 				["arena"] = "WoWRDX:Arena_desk",
 				["soloflag2"] = 1,
 				["solo"] = "WoWRDX:Solo_desk",
@@ -3107,13 +3124,8 @@ data = {
 					["b"] = 0.5372549019607842,
 				},
 				["name"] = "Priest",
+				["pct"] = 1,
 				["sv"] = 2,
-				["color"] = {
-					["a"] = 1,
-					["r"] = 0.5254901960784313,
-					["g"] = 0.5254901960784313,
-					["b"] = 0.5254901960784313,
-				},
 				["max"] = {
 					["qty"] = "smaxmp",
 					["set"] = {
@@ -3121,7 +3133,12 @@ data = {
 						["file"] = "WoWRDX:Priest_fset",
 					},
 				},
-				["pct"] = 1,
+				["color"] = {
+					["a"] = 1,
+					["r"] = 0.5254901960784313,
+					["g"] = 0.5254901960784313,
+					["b"] = 0.5254901960784313,
+				},
 				["texture"] = "",
 			},
 		},
@@ -3145,19 +3162,19 @@ data = {
 					["alpha"] = 1,
 					["offsetleft"] = "0",
 					["offsetright"] = "0",
-					["name"] = "root",
+					["title"] = "Konyagi_AUI:desk_solo",
 					["dock"] = {
-						["BOTTOMLEFT"] = {
-							["id"] = "WoWRDX:ChatFrame1",
-							["x"] = -20,
-							["point"] = "BOTTOMLEFT",
-							["y"] = -20,
-						},
 						["TOPLEFT"] = {
 							["id"] = "WoWRDX:Player_Main",
 							["x"] = -10,
 							["point"] = "TOPLEFT",
 							["y"] = 10,
+						},
+						["TOPRIGHT"] = {
+							["id"] = "WoWRDX:Player_SecureBuff_Icon",
+							["x"] = 0,
+							["point"] = "TOPRIGHT",
+							["y"] = 0,
 						},
 						["BOTTOM"] = {
 							["id"] = "WoWRDX:ActionBar1",
@@ -3171,16 +3188,16 @@ data = {
 							["point"] = "RIGHT",
 							["y"] = 0,
 						},
-						["TOPRIGHT"] = {
-							["id"] = "WoWRDX:Player_SecureBuff_Icon",
-							["x"] = 0,
-							["point"] = "TOPRIGHT",
-							["y"] = 0,
-						},
 						["BOTTOMRIGHT"] = {
 							["id"] = "WoWRDX:Combat_Logs",
 							["x"] = 20,
 							["point"] = "BOTTOMRIGHT",
+							["y"] = -20,
+						},
+						["BOTTOMLEFT"] = {
+							["id"] = "WoWRDX:ChatFrame1",
+							["x"] = -20,
+							["point"] = "BOTTOMLEFT",
 							["y"] = -20,
 						},
 						["LEFT"] = {
@@ -3191,7 +3208,7 @@ data = {
 						},
 					},
 					["open"] = true,
-					["title"] = "Konyagi_AUI:desk_solo",
+					["name"] = "root",
 					["anchory"] = 18.239958923888,
 					["ap"] = "TOPLEFT",
 				}, -- [1]
@@ -3200,7 +3217,7 @@ data = {
 					["r"] = 866.9866965304984,
 					["scale"] = 1,
 					["t"] = 47.78666548950701,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar1",
 					["dock"] = {
@@ -3220,14 +3237,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 17.06666731335399,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [2]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 1348.266710285255,
 					["scale"] = 1,
 					["t"] = 568.320007342238,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar3",
 					["dock"] = {
@@ -3247,14 +3264,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1317.546600063446,
 					["b"] = 199.680014288981,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [3]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 1317.546600063446,
 					["scale"] = 1,
 					["t"] = 568.320007342238,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar4",
 					["dock"] = {
@@ -3268,14 +3285,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1286.826609357003,
 					["b"] = 199.680014288981,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [4]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 866.9866965304984,
 					["scale"] = 1,
 					["t"] = 78.50667113537041,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar5",
 					["dock"] = {
@@ -3295,14 +3312,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 47.78666548950701,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [5]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 866.9866965304984,
 					["scale"] = 1,
 					["t"] = 109.2266693115234,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar6",
 					["dock"] = {
@@ -3328,14 +3345,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 78.50667113537041,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [6]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 805.54665535993,
 					["scale"] = 1,
 					["t"] = 139.9466674876765,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBarPet",
 					["dock"] = {
@@ -3355,14 +3372,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 109.2266693115234,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [7]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 805.54665535993,
 					["scale"] = 1,
 					["t"] = 170.6666731335399,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBarStance",
 					["dock"] = {
@@ -3382,14 +3399,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 139.9466674876765,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [8]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 897.7066274792579,
 					["scale"] = 1,
 					["t"] = 170.6666731335399,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBarVehicle",
 					["dock"] = {
@@ -3403,14 +3420,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 805.54665535993,
 					["b"] = 139.9466674876765,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [9]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 358.4000210501441,
 					["scale"] = 1,
 					["t"] = 128.0000160547205,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ChatEditBox1",
 					["dock"] = {
@@ -3430,14 +3447,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 17.06666731335399,
 					["b"] = 102.4000113498343,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [10]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 358.4000210501441,
 					["scale"] = 1,
 					["t"] = 102.4000113498343,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ChatFrame1",
 					["dock"] = {
@@ -3457,11 +3474,18 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 17.06666731335399,
 					["b"] = 17.06666731335399,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [11]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 358.4000210501441,
+					["dock"] = {
+						["BOTTOMRIGHT"] = {
+							["id"] = "WoWRDX:ChatEditBox1",
+							["x"] = 0,
+							["point"] = "TOPRIGHT",
+							["y"] = 0,
+						},
+					},
 					["scale"] = 1,
 					["t"] = 140.8000221420188,
 					["alpha"] = 1,
@@ -3471,21 +3495,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 187.7333479166043,
 					["open"] = true,
-					["dock"] = {
-						["BOTTOMRIGHT"] = {
-							["id"] = "WoWRDX:ChatEditBox1",
-							["x"] = 0,
-							["point"] = "TOPRIGHT",
-							["y"] = 0,
-						},
-					},
+					["r"] = 358.4000210501441,
 				}, -- [12]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 1365.333385068319,
 					["scale"] = 1,
 					["t"] = 768.0000066917983,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_SecureBuff_Icon",
 					["dock"] = {
@@ -3505,14 +3522,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1024.000008922398,
 					["b"] = 725.3333197341373,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [13]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 1365.333385068319,
 					["scale"] = 1,
 					["t"] = 725.3333197341373,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_SecureDebuff_Icon",
 					["dock"] = {
@@ -3526,14 +3543,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1024.000008922398,
 					["b"] = 678.3999939595518,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [14]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 184.3200039963389,
 					["scale"] = 1,
 					["t"] = 759.4666693002661,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_Main",
 					["dock"] = {
@@ -3559,14 +3576,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 8.533333656676994,
 					["b"] = 694.6133290276947,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [15]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 770.5600258365629,
 					["scale"] = 1,
 					["t"] = 216.7466741326246,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_CastBar",
 					["dock"] = {
@@ -3586,7 +3603,7 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 594.7733592317561,
 					["b"] = 194.5600058782934,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [16]
 				{
 					["strata"] = "MEDIUM",
@@ -3606,21 +3623,21 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 686.0799916361625,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Pet_Main",
 					["r"] = 184.3200039963389,
 					["anchor"] = "TOPLEFT",
 					["l"] = 8.533339258959785,
 					["b"] = 621.2266513635912,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [17]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 368.6400079926778,
 					["scale"] = 1,
 					["t"] = 686.0799916361625,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Pettarget_Main",
 					["dock"] = {
@@ -3634,17 +3651,17 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 192.8533413878711,
 					["b"] = 621.2266513635912,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [18]
 				{
 					["strata"] = "HIGH",
-					["b"] = 534.5466978168937,
+					["r"] = 1220.760307632507,
 					["scale"] = 1,
 					["t"] = 561.8533894213333,
 					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:MiniMapButtons",
-					["r"] = 1220.760307632507,
+					["b"] = 534.5466978168937,
 					["anchor"] = "TOPLEFT",
 					["l"] = 1084.227028883359,
 					["open"] = true,
@@ -3655,7 +3672,7 @@ data = {
 					["r"] = 368.6400079926778,
 					["scale"] = 1,
 					["t"] = 759.4666693002661,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Target_Main",
 					["dock"] = {
@@ -3675,14 +3692,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 192.8533413878711,
 					["b"] = 694.6133290276947,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [20]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 552.9600119890167,
 					["scale"] = 1,
 					["t"] = 759.4666693002661,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Targettarget_Main",
 					["dock"] = {
@@ -3696,7 +3713,7 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 377.17334538421,
 					["b"] = 694.6133290276947,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [21]
 				{
 					["strata"] = "MEDIUM",
@@ -3716,21 +3733,21 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 416.4693105890893,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Party",
 					["r"] = 175.8720155157196,
 					["anchor"] = "TOPLEFT",
 					["l"] = 0,
 					["b"] = 351.5306363450258,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [22]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 360.1920045726378,
 					["scale"] = 1,
 					["t"] = 416.4266436033432,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:PartyTarget",
 					["dock"] = {
@@ -3744,11 +3761,18 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 184.4053529072519,
 					["b"] = 351.5733033307719,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [23]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 351.6586671811056,
+					["dock"] = {
+						["LEFT"] = {
+							["id"] = "WoWRDX:Party",
+							["x"] = 0,
+							["point"] = "RIGHT",
+							["y"] = 0,
+						},
+					},
 					["scale"] = 1,
 					["t"] = 416.4266436033432,
 					["alpha"] = 1,
@@ -3758,18 +3782,18 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 175.8720155157196,
 					["b"] = 351.5733033307719,
-					["dock"] = {
-						["LEFT"] = {
-							["id"] = "WoWRDX:Party",
-							["x"] = 0,
-							["point"] = "RIGHT",
-							["y"] = 0,
-						},
-					},
+					["r"] = 351.6586671811056,
 				}, -- [24]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 1348.266710285255,
+					["dock"] = {
+						["BOTTOMRIGHT"] = {
+							["id"] = "root",
+							["x"] = -20,
+							["point"] = "BOTTOMRIGHT",
+							["y"] = 20,
+						},
+					},
 					["scale"] = 1,
 					["t"] = 145.0666908377849,
 					["alpha"] = 1,
@@ -3779,18 +3803,18 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1015.466611773182,
 					["b"] = 17.06666731335399,
-					["dock"] = {
-						["BOTTOMRIGHT"] = {
-							["id"] = "root",
-							["x"] = -20,
-							["point"] = "BOTTOMRIGHT",
-							["y"] = 20,
-						},
-					},
+					["r"] = 1348.266710285255,
 				}, -- [25]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 810.6667534071423,
+					["dock"] = {
+						["BOTTOM"] = {
+							["id"] = "WoWRDX:Player_CastBar",
+							["x"] = 0,
+							["point"] = "TOP",
+							["y"] = 0,
+						},
+					},
 					["scale"] = 1,
 					["t"] = 242.3466713678004,
 					["alpha"] = 1,
@@ -3800,14 +3824,7 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 554.6666914188597,
 					["b"] = 216.7466741326246,
-					["dock"] = {
-						["BOTTOM"] = {
-							["id"] = "WoWRDX:Player_CastBar",
-							["x"] = 0,
-							["point"] = "TOP",
-							["y"] = 0,
-						},
-					},
+					["r"] = 810.6667534071423,
 				}, -- [26]
 			},
 		},
@@ -3859,8 +3876,6 @@ data = {
 					["colorVar"] = "red",
 					["version"] = 1,
 					["interpolate"] = 1,
-					["orientation"] = "HORIZONTAL",
-					["name"] = "statusBar",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -3868,6 +3883,8 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Frame_pdt",
 					},
+					["name"] = "statusBar",
+					["orientation"] = "HORIZONTAL",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Ruben",
@@ -3876,22 +3893,22 @@ data = {
 				{
 					["owner"] = "pdt",
 					["w"] = "60",
-					["feature"] = "txt_np",
+					["classColor"] = 1,
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Fonts\\ARIALN.TTF",
 						["justifyV"] = "CENTER",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
-						["sb"] = 0,
+						["sx"] = 1,
 						["name"] = "Default",
 						["sy"] = -1,
 						["title"] = "Default",
 						["size"] = 10,
 					},
-					["name"] = "np",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -3900,28 +3917,15 @@ data = {
 						["af"] = "Frame_pdt",
 					},
 					["h"] = "12",
-					["classColor"] = 1,
-					["version"] = 1,
+					["feature"] = "txt_np",
+					["name"] = "np",
 				}, -- [6]
 				{
 					["txt"] = "threat_info",
 					["owner"] = "pdt",
 					["w"] = "40",
 					["feature"] = "txt_dyn",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Fonts\\ARIALN.TTF",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 10,
-					},
+					["h"] = "14",
 					["name"] = "infothreat",
 					["anchor"] = {
 						["dx"] = 2,
@@ -3931,27 +3935,27 @@ data = {
 						["af"] = "Text_np",
 					},
 					["version"] = 1,
-					["h"] = "14",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Fonts\\ARIALN.TTF",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 10,
+					},
 				}, -- [7]
 				{
 					["txt"] = "threat_value",
 					["owner"] = "pdt",
 					["w"] = "80",
 					["feature"] = "txt_dyn",
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Fonts\\ARIALN.TTF",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["title"] = "Default",
-						["sb"] = 0,
-						["sy"] = -1,
-						["justifyH"] = "RIGHT",
-						["sx"] = 1,
-						["sr"] = 0,
-					},
+					["h"] = "12",
 					["name"] = "infoText",
 					["anchor"] = {
 						["dx"] = -2,
@@ -3961,7 +3965,20 @@ data = {
 						["af"] = "Text_infothreat",
 					},
 					["version"] = 1,
-					["h"] = "12",
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Fonts\\ARIALN.TTF",
+						["justifyV"] = "CENTER",
+						["title"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sb"] = 0,
+						["sy"] = -1,
+						["justifyH"] = "RIGHT",
+						["sx"] = 1,
+						["sr"] = 0,
+					},
 				}, -- [8]
 				{
 					["feature"] = "shader_showhide",
@@ -3978,37 +3995,82 @@ data = {
 				["script"] = "if shifted_flag then text = \"SHIFT\"; end",
 			},
 		},
-		["Range_0_10_ODM_fset"] = {
-			["ty"] = "FilterSet",
+		["Raid_Group1"] = {
+			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
-				"and", -- [1]
 				{
-					"set", -- [1]
-					{
-						["n"] = 2,
-						["class"] = "frs",
-					}, -- [2]
+					["feature"] = "Frame: Lightweight",
+					["title"] = "Raid Group 1",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+					["bkdColor"] = {
+						["a"] = 0,
+						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0,
+					},
+					["defaultbuttons"] = 1,
+					["titleColor"] = {
+						["a"] = 1,
+						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0,
+					},
+					["texicon"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Raid_ds",
 				}, -- [2]
 				{
-					"not", -- [1]
-					{
-						"me", -- [1]
-					}, -- [2]
+					["feature"] = "Data Source: Secure Set",
+					["rostertype"] = "RAID",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "default:set_raid_group1",
+					},
 				}, -- [3]
 				{
-					"ol", -- [1]
+					["bkt"] = 1,
+					["switchvehicle"] = 1,
+					["dxn"] = 1,
+					["axis"] = 1,
+					["feature"] = "Header Grid",
+					["cols"] = 40,
 				}, -- [4]
 				{
-					"not", -- [1]
-					{
-						"dead", -- [1]
-					}, -- [2]
+					["feature"] = "mousebindings",
+					["hotspot"] = "status",
+					["version"] = 1,
+					["mbFriendly"] = "default:bindings_status",
 				}, -- [5]
 				{
-					"nidmask", -- [1]
-					true, -- [2]
+					["feature"] = "mousebindings",
+					["hotspot"] = "decurse",
+					["version"] = 1,
+					["mbFriendly"] = "default:bindings_decurse",
 				}, -- [6]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "action",
+					["version"] = 1,
+					["mbFriendly"] = "default:bindings_action",
+				}, -- [7]
+				{
+					["feature"] = "mp_args",
+					["version"] = 1,
+					["dpm1"] = 0,
+					["period"] = 0.1,
+				}, -- [8]
+				{
+					["feature"] = "FilterSet Editor",
+				}, -- [9]
 			},
 		},
 		["Raid_ds"] = {
@@ -4077,12 +4139,7 @@ data = {
 					["comment"] = "Variable",
 				}, -- [10]
 				{
-					["energyColor"] = {
-						["a"] = 1,
-						["r"] = 0.75,
-						["g"] = 0.75,
-						["b"] = 0,
-					},
+					["feature"] = "ColorVariable: Unit PowerType Color",
 					["manaColor"] = {
 						["a"] = 1,
 						["r"] = 0.2235294117647059,
@@ -4095,7 +4152,12 @@ data = {
 						["g"] = 0.5,
 						["r"] = 1,
 					},
-					["feature"] = "ColorVariable: Unit PowerType Color",
+					["energyColor"] = {
+						["a"] = 1,
+						["r"] = 0.75,
+						["g"] = 0.75,
+						["b"] = 0,
+					},
 					["runeColor"] = {
 						["a"] = 1,
 						["r"] = 0,
@@ -4228,17 +4290,17 @@ data = {
 					["bkd"] = {
 						["_border"] = "straight",
 						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
-						["tile"] = false,
 						["kb"] = 0,
+						["tile"] = false,
 						["bg"] = 0.3843137254901961,
-						["kg"] = 0,
+						["edgeSize"] = 8,
 						["kr"] = 0,
 						["ka"] = 0.2445517182350159,
 						["ba"] = 1,
-						["bb"] = 0.3803921568627451,
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["_backdrop"] = "solid",
-						["edgeSize"] = 8,
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["bb"] = 0.3803921568627451,
+						["kg"] = 0,
 						["br"] = 0.4470588235294117,
 						["insets"] = {
 							["top"] = 2,
@@ -4285,13 +4347,19 @@ data = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Icons\\Spell_Nature_NullifyPoison_02",
 					},
+					["set3"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Debuff_Disease_fset",
+					},
 					["set4"] = {
 						["class"] = "file",
 						["file"] = "WoWRDX:Debuff_Curse_fset",
 					},
-					["set3"] = {
-						["class"] = "file",
-						["file"] = "WoWRDX:Debuff_Disease_fset",
+					["raColor5"] = {
+						["a"] = 0,
+						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0,
 					},
 					["texture4"] = {
 						["blendMode"] = "BLEND",
@@ -4304,15 +4372,15 @@ data = {
 						["b"] = 0,
 					},
 					["feature"] = "Variables decurse",
-					["texture3"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Icons\\Spell_Nature_RemoveDisease",
-					},
 					["raColor1"] = {
 						["a"] = 1,
 						["r"] = 0,
 						["g"] = 0,
 						["b"] = 1,
+					},
+					["texture3"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Icons\\Spell_Nature_RemoveDisease",
 					},
 					["raColor3"] = {
 						["a"] = 1,
@@ -4350,10 +4418,10 @@ data = {
 						["_border"] = "straight",
 						["edgeSize"] = 8,
 						["ba"] = 1,
-						["_backdrop"] = "none",
+						["bb"] = 0.3803921568627451,
 						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["br"] = 0.4470588235294117,
-						["bb"] = 0.3803921568627451,
+						["_backdrop"] = "none",
 						["bg"] = 0.3843137254901961,
 						["insets"] = {
 							["top"] = 2,
@@ -4367,10 +4435,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "fdebuff",
 					["w"] = "17",
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = "17",
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 2,
 						["dy"] = -2,
@@ -4399,7 +4467,7 @@ data = {
 				{
 					["w"] = "20",
 					["feature"] = "hotspot",
-					["secure"] = 1,
+					["flo"] = 4,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -4413,8 +4481,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "decurse",
+					["secure"] = 1,
 					["h"] = "20",
-					["flo"] = 4,
 				}, -- [33]
 				{
 					["feature"] = "commentline",
@@ -4442,10 +4510,10 @@ data = {
 						["_border"] = "straight",
 						["edgeSize"] = 8,
 						["ba"] = 1,
-						["bb"] = 0.3803921568627451,
+						["_backdrop"] = "none",
 						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["bg"] = 0.3843137254901961,
-						["_backdrop"] = "none",
+						["bb"] = 0.3803921568627451,
 						["br"] = 0.4470588235294117,
 						["insets"] = {
 							["top"] = 2,
@@ -4481,7 +4549,7 @@ data = {
 				{
 					["w"] = "20",
 					["feature"] = "hotspot",
-					["secure"] = 1,
+					["flo"] = 4,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -4495,8 +4563,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "status",
+					["secure"] = 1,
 					["h"] = "20",
-					["flo"] = 4,
 				}, -- [38]
 				{
 					["feature"] = "commentline",
@@ -4596,7 +4664,7 @@ data = {
 				{
 					["w"] = "120",
 					["feature"] = "hotspot",
-					["secure"] = 1,
+					["flo"] = 4,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -4610,8 +4678,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "action",
+					["secure"] = 1,
 					["h"] = "20",
-					["flo"] = 4,
 				}, -- [45]
 				{
 					["feature"] = "commentline",
@@ -4620,10 +4688,10 @@ data = {
 					["cleanupPolicy"] = 2,
 					["owner"] = "high3",
 					["w"] = "12",
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = "12",
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 47,
 						["dy"] = -3,
@@ -4642,10 +4710,10 @@ data = {
 					["cleanupPolicy"] = 2,
 					["owner"] = "high3",
 					["w"] = "12",
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = "12",
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 47,
 						["dy"] = -3,
@@ -4661,14 +4729,14 @@ data = {
 					},
 				}, -- [48]
 				{
-					["feature"] = "Highlight: Texture Map",
 					["color"] = "blanc",
+					["feature"] = "Highlight: Texture Map",
 					["flag"] = "voice_flag",
 					["texture"] = "texparlera",
 				}, -- [49]
 				{
-					["color"] = "blanc",
 					["feature"] = "Highlight: Texture Map",
+					["color"] = "blanc",
 					["flag"] = "voice_flag",
 					["texture"] = "texparlerb",
 				}, -- [50]
@@ -4679,10 +4747,10 @@ data = {
 					["cleanupPolicy"] = 2,
 					["owner"] = "high2",
 					["w"] = "120",
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = "18",
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -4698,14 +4766,14 @@ data = {
 					},
 				}, -- [52]
 				{
-					["color"] = "colorrezincom",
 					["feature"] = "Highlight: Texture Map",
+					["color"] = "colorrezincom",
 					["flag"] = "rezincom_flag",
 					["texture"] = "texrez",
 				}, -- [53]
 				{
-					["color"] = "colorrezdone",
 					["feature"] = "Highlight: Texture Map",
+					["color"] = "colorrezdone",
 					["flag"] = "rezdone_flag",
 					["texture"] = "texrez",
 				}, -- [54]
@@ -4715,22 +4783,22 @@ data = {
 				{
 					["owner"] = "high3",
 					["w"] = "80",
-					["classColor"] = 1,
+					["feature"] = "txt_np",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sy"] = -1,
 						["title"] = "Default",
 						["name"] = "Default",
 						["size"] = 10,
 					},
-					["version"] = 1,
+					["name"] = "np",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 1,
@@ -4739,15 +4807,28 @@ data = {
 						["af"] = "Frame_high3",
 					},
 					["h"] = "19",
-					["feature"] = "txt_np",
-					["name"] = "np",
+					["classColor"] = 1,
+					["version"] = 1,
 				}, -- [56]
 				{
 					["txt"] = "pheal",
 					["owner"] = "high3",
 					["w"] = "100",
 					["feature"] = "txt_dyn",
-					["h"] = "19",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["justifyH"] = "RIGHT",
+						["size"] = 8,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -3,
@@ -4757,39 +4838,13 @@ data = {
 						["af"] = "Frame_high3",
 					},
 					["name"] = "txt_pheal",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["justifyH"] = "RIGHT",
-						["size"] = 8,
-					},
+					["h"] = "19",
 				}, -- [57]
 				{
 					["owner"] = "high3",
 					["w"] = "30",
 					["feature"] = "txt_status",
-					["font"] = {
-						["size"] = 8,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
+					["h"] = "14",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -25,
@@ -4799,8 +4854,21 @@ data = {
 						["af"] = "Frame_high3",
 					},
 					["name"] = "txt_state",
+					["font"] = {
+						["size"] = 8,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
 					["ty"] = "fdld",
-					["h"] = "14",
 				}, -- [58]
 				{
 					["externalNameFilter"] = "WoWRDX:Buff_af",
@@ -4840,6 +4908,13 @@ data = {
 					["auraType"] = "BUFFS",
 					["owner"] = "high3",
 					["playerauras"] = 1,
+					["usebs"] = true,
+					["size"] = 12,
+					["version"] = 1,
+					["name"] = "regen",
+					["maxdurationfilter"] = "",
+					["orientation"] = "LEFT",
+					["filterName"] = 1,
 					["fontst"] = {
 						["name"] = "Default",
 						["title"] = "Default",
@@ -4848,12 +4923,6 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-					["size"] = 12,
-					["version"] = 1,
-					["name"] = "regen",
-					["orientation"] = "LEFT",
-					["maxdurationfilter"] = "",
-					["filterName"] = 1,
 					["unitfilter"] = "",
 				}, -- [59]
 				{
@@ -4895,25 +4964,29 @@ data = {
 					["auraType"] = "DEBUFFS",
 					["owner"] = "pdt",
 					["fontst"] = {
+						["flags"] = "OUTLINE",
 						["name"] = "Default",
 						["title"] = "Default",
-						["justifyH"] = "LEFT",
+						["justifyH"] = "CENTER",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["size"] = 12,
+						["size"] = 10,
 					},
 					["size"] = 18,
+					["bkd"] = {
+					},
+					["maxdurationfilter"] = "",
 					["version"] = 1,
 					["name"] = "boss",
 					["orientation"] = "LEFT",
-					["maxdurationfilter"] = "",
+					["usebs"] = true,
 					["rows"] = 1,
 					["unitfilter"] = "",
 				}, -- [60]
 				{
 					["owner"] = "high3",
 					["w"] = "12",
-					["feature"] = "ico_subclass",
+					["drawLayer"] = "OVERLAY",
 					["h"] = "12",
 					["name"] = "rtai",
 					["ButtonSkinOffset"] = 0,
@@ -4925,7 +4998,7 @@ data = {
 						["af"] = "Frame_high3",
 					},
 					["ukfilter"] = 1,
-					["drawLayer"] = "OVERLAY",
+					["feature"] = "ico_subclass",
 				}, -- [61]
 				{
 					["feature"] = "Raid Leader Icon",
@@ -5030,41 +5103,17 @@ data = {
 						["size"] = 10,
 						["face"] = "Fonts\\ARIALN.TTF",
 						["justifyV"] = "CENTER",
-						["justifyH"] = "LEFT",
+						["name"] = "Default",
 						["sa"] = 1,
 						["sg"] = 0,
 						["title"] = "Default",
 						["sb"] = 0,
 						["sy"] = -1,
 						["sx"] = 1,
-						["name"] = "Default",
+						["justifyH"] = "LEFT",
 						["sr"] = 0,
 					},
 				}, -- [2]
-			},
-		},
-		["Raid_Group3_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"groups", -- [1]
-					[4] = true,
-				}, -- [2]
-				{
-					"classes", -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
-					true, -- [10]
-					true, -- [11]
-				}, -- [3]
 			},
 		},
 		["Health_Missing_ds"] = {
@@ -5081,12 +5130,12 @@ data = {
 					["feature"] = "commentline",
 				}, -- [3]
 				{
-					["ph"] = 1,
+					["feature"] = "base_default",
 					["h"] = 14,
 					["version"] = 1,
-					["alpha"] = 1,
 					["w"] = 90,
-					["feature"] = "base_default",
+					["alpha"] = 1,
+					["ph"] = 1,
 				}, -- [4]
 				{
 					["interpolate"] = 1,
@@ -5108,6 +5157,8 @@ data = {
 						["g"] = 1,
 						["r"] = 0,
 					},
+					["orientation"] = "HORIZONTAL",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -5115,8 +5166,6 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["version"] = 1,
-					["orientation"] = "HORIZONTAL",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX\\Skin\\bar1",
@@ -5125,22 +5174,22 @@ data = {
 				{
 					["owner"] = "Base",
 					["w"] = "50",
-					["feature"] = "txt_np",
+					["classColor"] = 1,
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sy"] = -1,
 						["title"] = "Default",
 						["name"] = "Default",
 						["size"] = 10,
 					},
-					["name"] = "np",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -5149,14 +5198,27 @@ data = {
 						["af"] = "Base",
 					},
 					["h"] = "14",
-					["classColor"] = 1,
-					["version"] = 1,
+					["feature"] = "txt_np",
+					["name"] = "np",
 				}, -- [6]
 				{
 					["owner"] = "Base",
 					["w"] = "40",
 					["feature"] = "txt_status",
-					["ty"] = "hpm",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 8,
+					},
 					["name"] = "text_hp_missing",
 					["anchor"] = {
 						["dx"] = 0,
@@ -5166,27 +5228,27 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["ty"] = "hpm",
 					["h"] = "14",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 8,
-					},
 				}, -- [7]
 				{
 					["owner"] = "Base",
 					["w"] = "40",
 					["feature"] = "txt_status",
-					["ty"] = "fdld",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 8,
+					},
 					["name"] = "status_text",
 					["anchor"] = {
 						["dx"] = 0,
@@ -5196,21 +5258,8 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["ty"] = "fdld",
 					["h"] = "14",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 8,
-					},
 				}, -- [8]
 			},
 		},
@@ -5220,6 +5269,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -5236,7 +5289,7 @@ data = {
 					["feature"] = "mousebindings",
 					["hotspot"] = "",
 					["version"] = 1,
-					["mbFriendly"] = "WoWRDX:Player_Main_mb",
+					["mbFriendly"] = "default:bindings_target",
 				}, -- [4]
 				{
 					["interval"] = 0.1,
@@ -5245,431 +5298,161 @@ data = {
 				}, -- [5]
 			},
 		},
-		["Target_Hot_ds"] = {
-			["ty"] = "Design",
+		["Not_Elixirs_Battle_fset"] = {
+			["ty"] = "FilterSet",
 			["version"] = 1,
 			["data"] = {
+				"or", -- [1]
 				{
-					["feature"] = "Variable: Fractional health (fh)",
-				}, -- [1]
-				{
-					["feature"] = "ColorVariable: Static Color",
-					["name"] = "black",
-					["color"] = {
-						["a"] = 0.75,
-						["r"] = 0,
-						["g"] = 0,
-						["b"] = 0,
-					},
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 11390,
+						}, -- [2]
+					}, -- [2]
 				}, -- [2]
 				{
-					["feature"] = "ColorVariable: Unit Class Color",
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 11406,
+						}, -- [2]
+					}, -- [2]
 				}, -- [3]
 				{
-					["feature"] = "ColorVariable: Two-Color Blend",
-					["name"] = "classColorDark",
-					["colorVar1"] = "classColor",
-					["colorVar2"] = "black",
-					["bfVar"] = "0.5",
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 17538,
+						}, -- [2]
+					}, -- [2]
 				}, -- [4]
 				{
-					["feature"] = "commentline",
-					["comment"] = "",
-					["version"] = 1,
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 17539,
+						}, -- [2]
+					}, -- [2]
 				}, -- [5]
 				{
-					["feature"] = "base_default",
-					["h"] = "36",
-					["version"] = 1,
-					["alpha"] = 1,
-					["w"] = "150",
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 28490,
+						}, -- [2]
+					}, -- [2]
 				}, -- [6]
 				{
-					["feature"] = "Subframe",
-					["h"] = "24",
-					["name"] = "main",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["owner"] = "Base",
-					["w"] = "145",
-					["flOffset"] = 0,
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 28491,
+						}, -- [2]
+					}, -- [2]
 				}, -- [7]
 				{
-					["feature"] = "backdrop",
-					["owner"] = "main",
-					["version"] = 1,
-					["bkd"] = {
-						["_border"] = "HalStraight",
-						["edgeSize"] = 8,
-						["kb"] = 0,
-						["kr"] = 0,
-						["_backdrop"] = "solid",
-						["edgeFile"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalBorder",
-						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
-						["kg"] = 0,
-						["ka"] = 0.2749999761581421,
-						["insets"] = {
-							["top"] = 2,
-							["right"] = 2,
-							["left"] = 2,
-							["bottom"] = 2,
-						},
-					},
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 28493,
+						}, -- [2]
+					}, -- [2]
 				}, -- [8]
 				{
-					["frac"] = "1",
-					["owner"] = "main",
-					["w"] = "140",
-					["feature"] = "statusbar_horiz",
-					["colorVar"] = "classColorDark",
-					["name"] = "BackgroundBar",
-					["h"] = "13",
-					["orientation"] = "HORIZONTAL",
-					["anchor"] = {
-						["dx"] = 2,
-						["dy"] = -2,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_main",
-					},
-					["version"] = 1,
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalJ",
-					},
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 28497,
+						}, -- [2]
+					}, -- [2]
 				}, -- [9]
 				{
-					["feature"] = "commentline",
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 28501,
+						}, -- [2]
+					}, -- [2]
 				}, -- [10]
 				{
-					["feature"] = "Subframe",
-					["h"] = "14",
-					["name"] = "main1",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["owner"] = "Base",
-					["w"] = "144",
-					["flOffset"] = 1,
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 28503,
+						}, -- [2]
+					}, -- [2]
 				}, -- [11]
 				{
-					["frac"] = "fh",
-					["owner"] = "main1",
-					["w"] = "140",
-					["feature"] = "statusbar_horiz",
-					["colorVar"] = "classColor",
-					["name"] = "HealthBar",
-					["h"] = "13",
-					["orientation"] = "HORIZONTAL",
-					["anchor"] = {
-						["dx"] = 2,
-						["dy"] = -2,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_main1",
-					},
-					["version"] = 1,
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalJ",
-					},
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 33720,
+						}, -- [2]
+					}, -- [2]
 				}, -- [12]
 				{
-					["feature"] = "commentline",
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 33721,
+						}, -- [2]
+					}, -- [2]
 				}, -- [13]
 				{
-					["feature"] = "Subframe",
-					["h"] = "14",
-					["name"] = "main2",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["owner"] = "Base",
-					["w"] = "144",
-					["flOffset"] = 2,
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 33726,
+						}, -- [2]
+					}, -- [2]
 				}, -- [14]
 				{
-					["feature"] = "txt_np",
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "LEFT",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["title"] = "Default",
-						["sx"] = 1,
-						["name"] = "Default",
-						["sr"] = 0,
-					},
-					["version"] = 1,
-					["h"] = "15",
-					["anchor"] = {
-						["dx"] = 4,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Frame_main2",
-					},
-					["owner"] = "main2",
-					["w"] = "100",
-					["name"] = "np",
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 38954,
+						}, -- [2]
+					}, -- [2]
 				}, -- [15]
 				{
-					["owner"] = "main2",
-					["w"] = "35",
-					["feature"] = "txt_status",
-					["ty"] = "hpp",
-					["name"] = "text_hp_percent",
-					["anchor"] = {
-						["dx"] = -4,
-						["dy"] = 0,
-						["lp"] = "RIGHT",
-						["rp"] = "RIGHT",
-						["af"] = "Frame_main2",
-					},
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["title"] = "Default",
-						["sx"] = 1,
-						["justifyH"] = "RIGHT",
-						["sr"] = 0,
-					},
-					["h"] = "15",
-					["version"] = 1,
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 45373,
+						}, -- [2]
+					}, -- [2]
 				}, -- [16]
-				{
-					["feature"] = "commentline",
-				}, -- [17]
-				{
-					["feature"] = "var_spellinfo",
-				}, -- [18]
-				{
-					["frac"] = "",
-					["owner"] = "main1",
-					["w"] = "140",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 0,
-						["g"] = 1,
-						["b"] = 0,
-					},
-					["feature"] = "statusbar_horiz",
-					["h"] = "7",
-					["version"] = 1,
-					["color2"] = {
-						["a"] = 1,
-						["r"] = 0,
-						["g"] = 1,
-						["b"] = 0,
-					},
-					["orientation"] = "HORIZONTAL",
-					["anchor"] = {
-						["dx"] = 2,
-						["dy"] = -15,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_main1",
-					},
-					["name"] = "castBar",
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalJ",
-					},
-				}, -- [19]
-				{
-					["script"] = "",
-					["owner"] = "main2",
-					["w"] = "140",
-					["feature"] = "txt_custom",
-					["font"] = {
-						["size"] = 8,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Bold.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sx"] = 1,
-						["title"] = "Default",
-						["sb"] = 0,
-						["justifyH"] = "CENTER",
-						["sr"] = 0,
-					},
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 2,
-						["dy"] = -12,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Frame_main2",
-					},
-					["h"] = "7",
-					["name"] = "customText",
-				}, -- [20]
-				{
-					["TEIDefaultState"] = "Hide",
-					["textInfo"] = "customText",
-					["sbExpireState"] = "Hide",
-					["TTIExpireState"] = "Hide",
-					["feature"] = "free_timer",
-					["sbDefaultState"] = "Hide",
-					["TTIDefaultState"] = "Hide",
-					["textType"] = "Hundredths",
-					["statusBar"] = "castBar",
-					["text"] = "",
-					["TEIExpireState"] = "Hide",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["color2"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["texIcon"] = "",
-					["tex"] = "",
-					["txt"] = "spell_name_rank",
-					["timerVar"] = "spell",
-					["countTypeFlag"] = "true",
-				}, -- [21]
-				{
-					["feature"] = "commentline",
-					["comment"] = "",
-					["version"] = 1,
-				}, -- [22]
-				{
-					["feature"] = "tex_pvp",
-					["h"] = "14",
-					["name"] = "faction",
-					["ButtonSkinOffset"] = 10,
-					["anchor"] = {
-						["dx"] = -7,
-						["dy"] = -1,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_main2",
-					},
-					["owner"] = "main2",
-					["w"] = "14",
-					["drawLayer"] = "ARTWORK",
-				}, -- [23]
-				{
-					["feature"] = "Raid Target Icon",
-					["h"] = "20",
-					["name"] = "rti",
-					["ButtonSkinOffset"] = 0,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 5,
-						["lp"] = "CENTER",
-						["rp"] = "CENTER",
-						["af"] = "Frame_main2",
-					},
-					["owner"] = "main2",
-					["w"] = "20",
-					["drawLayer"] = "ARTWORK",
-				}, -- [24]
-				{
-					["timefilter"] = 1,
-					["cdTimerType"] = "COOLDOWN",
-					["maxdurationfilter"] = "",
-					["rows"] = 1,
-					["fontst"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 12,
-					},
-					["cdoffy"] = 0,
-					["feature"] = "aura_icons",
-					["iconspx"] = 1,
-					["cd"] = {
-						["HideText"] = 0,
-						["Font"] = {
-							["title"] = "Default",
-							["name"] = "Default",
-							["justifyH"] = "CENTER",
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 10,
-						},
-						["Offsety"] = 0,
-						["TimerType"] = "COOLDOWN",
-						["Offsetx"] = 0,
-						["UpdateSpeed"] = 0.3,
-						["TextType"] = "Seconds",
-						["GfxReverse"] = true,
-					},
-					["ButtonSkinOffset"] = 0,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "BOTTOMLEFT",
-						["af"] = "Frame_main",
-					},
-					["externalButtonSkin"] = "Builtin:bs_default",
-					["iconspy"] = 0,
-					["nIcons"] = 12,
-					["cdTxtType"] = "MinSec",
-					["size"] = 10,
-					["mindurationfilter"] = "",
-					["auraType"] = "BUFFS",
-					["cdHideTxt"] = "0",
-					["owner"] = "Base",
-					["playerauras"] = 1,
-					["petauras"] = 1,
-					["cdoffx"] = 0,
-					["name"] = "debuffs",
-					["version"] = 1,
-					["bkd"] = {
-						["_border"] = "none",
-						["_backdrop"] = "none",
-					},
-					["orientation"] = "RIGHT",
-					["filterNameList"] = {
-					},
-					["cdFont"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 12,
-					},
-					["unitfilter"] = "",
-				}, -- [25]
 			},
 		},
 		["Alive_stc"] = {
@@ -5761,8 +5544,8 @@ data = {
 					["stat"] = "WoWRDX:Dps_Power_stc",
 				}, -- [6]
 				{
-					["interval"] = 0.3,
 					["feature"] = "Event: Periodic Repaint",
+					["interval"] = 0.3,
 					["slot"] = "RepaintAll",
 				}, -- [7]
 				{
@@ -5822,28 +5605,32 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Raid Group 4",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
-						["b"] = 0,
-						["g"] = 0,
 						["r"] = 0,
-					},
-					["texicon"] = {
-						["color"] = {
-							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
-							["b"] = 1,
-						},
-						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
-						["blendMode"] = "BLEND",
+						["g"] = 0,
+						["b"] = 0,
 					},
 					["defaultbuttons"] = 1,
 					["titleColor"] = {
 						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0,
 						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0,
+					},
+					["texicon"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+						["blendMode"] = "BLEND",
 					},
 				}, -- [1]
 				{
@@ -5852,19 +5639,19 @@ data = {
 				}, -- [2]
 				{
 					["feature"] = "Data Source: Secure Set",
-					["set"] = {
-						["file"] = "WoWRDX:Raid_Group4_fset",
-						["class"] = "file",
-					},
 					["rostertype"] = "RAID",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "default:set_raid_group4",
+					},
 				}, -- [3]
 				{
 					["bkt"] = 1,
 					["switchvehicle"] = 1,
 					["dxn"] = 1,
-					["axis"] = 1,
-					["feature"] = "Header Grid",
 					["cols"] = 40,
+					["feature"] = "Header Grid",
+					["axis"] = 1,
 				}, -- [4]
 				{
 					["feature"] = "mousebindings",
@@ -5886,9 +5673,9 @@ data = {
 				}, -- [7]
 				{
 					["feature"] = "mp_args",
-					["period"] = 0.1,
 					["version"] = 1,
 					["dpm1"] = 0,
+					["period"] = 0.1,
 				}, -- [8]
 				{
 					["feature"] = "FilterSet Editor",
@@ -5912,7 +5699,6 @@ data = {
 						["g"] = 1,
 						["b"] = 0,
 					},
-					["factionID"] = 14,
 					["colorUnknown"] = {
 						["a"] = 1,
 						["r"] = 0.5,
@@ -5925,6 +5711,7 @@ data = {
 						["g"] = 1,
 						["b"] = 0.8,
 					},
+					["factionID"] = 14,
 					["feature"] = "Variables: Detailed Faction Info",
 					["colorHostile"] = {
 						["a"] = 1,
@@ -6012,7 +5799,20 @@ data = {
 					["owner"] = "decor",
 					["w"] = "BaseWidth",
 					["feature"] = "txt_dyn",
-					["h"] = "BaseHeight",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["sy"] = -1,
+						["title"] = "Default",
+						["justifyH"] = "CENTER",
+						["size"] = 10,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -6022,20 +5822,7 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "infoText",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["sy"] = -1,
-						["title"] = "Default",
-						["justifyH"] = "CENTER",
-						["size"] = 10,
-					},
+					["h"] = "BaseHeight",
 				}, -- [6]
 			},
 		},
@@ -6436,7 +6223,7 @@ data = {
 					},
 					["drawLayer"] = "ARTWORK",
 					["h"] = "28",
-					["name"] = "hpmiss",
+					["version"] = 1,
 					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 0,
@@ -6446,7 +6233,7 @@ data = {
 						["af"] = "hpframe",
 					},
 					["sublevel"] = 1,
-					["version"] = 1,
+					["name"] = "hpmiss",
 					["disable"] = true,
 				}, -- [28]
 				{
@@ -6454,7 +6241,7 @@ data = {
 					["owner"] = "hpframe",
 					["w"] = "28",
 					["disable"] = true,
-					["feature"] = "texture",
+					["drawLayer"] = "BACKGROUND",
 					["h"] = "28",
 					["name"] = "phhp",
 					["version"] = 1,
@@ -6466,7 +6253,7 @@ data = {
 						["af"] = "hpframe",
 					},
 					["sublevel"] = 1,
-					["drawLayer"] = "BACKGROUND",
+					["feature"] = "texture",
 					["texture"] = {
 						["color"] = {
 							["a"] = 1,
@@ -6478,9 +6265,9 @@ data = {
 					},
 				}, -- [29]
 				{
-					["t2"] = 1,
-					["t1"] = 1,
-					["color"] = "incomingheal",
+					["w1"] = 28,
+					["w2"] = 28,
+					["flag"] = "alive_flag",
 					["feature"] = "StatusBar Texture Map",
 					["b1"] = 0,
 					["b2"] = 0,
@@ -6489,18 +6276,18 @@ data = {
 					["h2"] = 28,
 					["h1"] = 0.10000000149012,
 					["l2"] = 0,
-					["flag"] = "alive_flag",
-					["w2"] = 28,
+					["color"] = "incomingheal",
+					["t1"] = 1,
 					["l1"] = 0,
-					["w1"] = 28,
+					["t2"] = 1,
 					["r1"] = 0,
 					["r2"] = 1,
 					["disable"] = true,
 				}, -- [30]
 				{
-					["w1"] = 28,
-					["w2"] = 28,
-					["flag"] = "alive_flag",
+					["t2"] = 1,
+					["t1"] = 1,
+					["color"] = "darkclass",
 					["feature"] = "StatusBar Texture Map",
 					["b1"] = 0,
 					["b2"] = 0,
@@ -6509,10 +6296,10 @@ data = {
 					["h2"] = 28,
 					["h1"] = 0.10000000149012,
 					["l2"] = 0,
-					["color"] = "darkclass",
-					["t1"] = 1,
+					["flag"] = "alive_flag",
+					["w2"] = 28,
 					["l1"] = 0,
-					["t2"] = 1,
+					["w1"] = 28,
 					["r1"] = 0,
 					["r2"] = 1,
 					["disable"] = true,
@@ -6536,8 +6323,8 @@ data = {
 					["w"] = "28",
 					["feature"] = "texture",
 					["h"] = "28",
-					["name"] = "hpbg",
 					["version"] = 1,
+					["name"] = "hpbg",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -6558,14 +6345,14 @@ data = {
 					},
 				}, -- [34]
 				{
-					["flag"] = "deaddc_flag",
 					["feature"] = "Highlight: Texture Map",
+					["flag"] = "deaddc_flag",
 					["color"] = "darkclass",
 					["texture"] = "hpbg",
 				}, -- [35]
 				{
-					["flag"] = "alive_flag",
 					["feature"] = "Highlight: Texture Map",
+					["flag"] = "alive_flag",
 					["color"] = "missinghpc",
 					["texture"] = "hpbg",
 				}, -- [36]
@@ -6578,8 +6365,8 @@ data = {
 					["w"] = "26",
 					["feature"] = "texture",
 					["h"] = "26",
-					["name"] = "redx",
 					["version"] = 1,
+					["name"] = "redx",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -6595,20 +6382,20 @@ data = {
 					},
 				}, -- [38]
 				{
-					["flag"] = "ld",
 					["feature"] = "Highlight: Texture Map",
+					["flag"] = "ld",
 					["color"] = "grey",
 					["texture"] = "redx",
 				}, -- [39]
 				{
-					["flag"] = "deaddc_flag",
 					["feature"] = "Highlight: Texture Map",
+					["flag"] = "deaddc_flag",
 					["color"] = "red",
 					["texture"] = "redx",
 				}, -- [40]
 				{
-					["flag"] = "alive_flag",
 					["feature"] = "Highlight: Texture Map",
+					["flag"] = "alive_flag",
 					["color"] = "alpha",
 					["texture"] = "redx",
 				}, -- [41]
@@ -6653,8 +6440,8 @@ data = {
 					["w"] = "46",
 					["feature"] = "texture",
 					["h"] = "46",
-					["name"] = "debuff",
 					["version"] = 1,
+					["name"] = "debuff",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -6670,26 +6457,26 @@ data = {
 					},
 				}, -- [47]
 				{
-					["flag"] = "cure1_flag",
 					["feature"] = "Highlight: Texture Map",
+					["flag"] = "cure1_flag",
 					["color"] = "red",
 					["texture"] = "debuff",
 				}, -- [48]
 				{
-					["feature"] = "Highlight: Texture Map",
 					["flag"] = "cure2_flag",
+					["feature"] = "Highlight: Texture Map",
 					["color"] = "blue",
 					["texture"] = "debuff",
 				}, -- [49]
 				{
-					["feature"] = "Highlight: Texture Map",
 					["flag"] = "dblcure_flag",
+					["feature"] = "Highlight: Texture Map",
 					["color"] = "purple",
 					["texture"] = "debuff",
 				}, -- [50]
 				{
-					["feature"] = "Highlight: Texture Map",
 					["flag"] = "none_flag",
+					["feature"] = "Highlight: Texture Map",
 					["color"] = "alpha",
 					["texture"] = "debuff",
 				}, -- [51]
@@ -6712,8 +6499,8 @@ data = {
 					["w"] = "7",
 					["feature"] = "texture",
 					["h"] = "7",
-					["name"] = "redbox",
 					["version"] = 1,
+					["name"] = "redbox",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 1,
@@ -6759,8 +6546,8 @@ data = {
 					["w"] = "7",
 					["feature"] = "texture",
 					["h"] = "7",
-					["name"] = "greenbox",
 					["version"] = 1,
+					["name"] = "greenbox",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = -1,
@@ -6806,8 +6593,8 @@ data = {
 					["w"] = "7",
 					["feature"] = "texture",
 					["h"] = "7",
-					["name"] = "yellowbox",
 					["version"] = 1,
+					["name"] = "yellowbox",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = 0,
@@ -6853,8 +6640,8 @@ data = {
 					["w"] = "7",
 					["feature"] = "texture",
 					["h"] = "7",
-					["name"] = "bluebox",
 					["version"] = 1,
+					["name"] = "bluebox",
 					["anchor"] = {
 						["dx"] = -1,
 						["dy"] = 0,
@@ -6897,14 +6684,14 @@ data = {
 						["sb"] = 0,
 						["sa"] = 1,
 						["sg"] = 0,
-						["name"] = "Default",
+						["title"] = "Default",
 						["sx"] = 1,
 						["sy"] = -1,
 						["justifyH"] = "CENTER",
-						["title"] = "Default",
+						["name"] = "Default",
 						["size"] = 10,
 					},
-					["version"] = 1,
+					["name"] = "np",
 					["h"] = "14",
 					["anchor"] = {
 						["dx"] = 0,
@@ -6915,12 +6702,12 @@ data = {
 					},
 					["trunc"] = 3,
 					["feature"] = "txt_np",
-					["name"] = "np",
+					["version"] = 1,
 				}, -- [69]
 				{
 					["w"] = "36",
 					["feature"] = "hotspot",
-					["h"] = "36",
+					["secure"] = 1,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -6934,8 +6721,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "click",
+					["h"] = "36",
 					["flo"] = 3,
-					["secure"] = 1,
 				}, -- [70]
 				{
 					["feature"] = "commentline",
@@ -6961,10 +6748,36 @@ data = {
 					["version"] = 1,
 				}, -- [74]
 				{
-					["feature"] = "Variables: Buffs Debuffs Info",
-					["name"] = "aura_reju",
 					["auraType"] = "BUFFS",
 					["playerauras"] = 1,
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["feature"] = "Variables: Buffs Debuffs Info",
+					["color3"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["timer1"] = 0,
+					["timer2"] = 0,
+					["name"] = "aurareju",
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["color0"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
 					["cd"] = 774,
 				}, -- [75]
 				{
@@ -6972,7 +6785,15 @@ data = {
 					["owner"] = "hpframe",
 					["w"] = "50",
 					["feature"] = "txt_custom",
-					["h"] = "14",
+					["font"] = {
+						["flags"] = "OUTLINE",
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "RIGHT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "TOP",
+						["size"] = 8,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -6982,15 +6803,7 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "rejutxt",
-					["font"] = {
-						["flags"] = "OUTLINE",
-						["name"] = "Default",
-						["title"] = "Default",
-						["justifyH"] = "RIGHT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "TOP",
-						["size"] = 8,
-					},
+					["h"] = "14",
 				}, -- [76]
 				{
 					["TEIDefaultState"] = "Hide",
@@ -7002,37 +6815,63 @@ data = {
 					["TTIDefaultState"] = "Hide",
 					["textType"] = "Largest",
 					["statusBar"] = "",
-					["txt"] = "",
+					["texIcon"] = "",
 					["text"] = "rejutxt",
-					["TL"] = 0,
+					["countTypeFlag"] = "true",
 					["TEIExpireState"] = "Hide",
 					["color2"] = {
 						["a"] = 1,
-						["r"] = 0,
-						["g"] = 1,
 						["b"] = 0,
+						["g"] = 1,
+						["r"] = 0,
 					},
-					["countTypeFlag"] = "true",
+					["TL"] = 0,
 					["version"] = 1,
-					["tex"] = "",
-					["blendcolor"] = 1,
 					["color1"] = {
 						["a"] = 1,
-						["r"] = 1,
-						["g"] = 0,
 						["b"] = 0,
+						["g"] = 0,
+						["r"] = 1,
 					},
-					["timerVar"] = "aura_reju_aura",
-					["texIcon"] = "",
+					["blendcolor"] = 1,
+					["tex"] = "",
+					["timerVar"] = "aurareju_aura",
+					["txt"] = "",
 				}, -- [77]
 				{
 					["feature"] = "commentline",
 				}, -- [78]
 				{
-					["feature"] = "Variables: Buffs Debuffs Info",
-					["name"] = "aura_regrowth",
 					["auraType"] = "BUFFS",
 					["playerauras"] = 1,
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["feature"] = "Variables: Buffs Debuffs Info",
+					["timer1"] = "0",
+					["color3"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["timer2"] = "0",
+					["name"] = "auraregrowth",
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["color0"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
 					["cd"] = 8936,
 				}, -- [79]
 				{
@@ -7040,7 +6879,15 @@ data = {
 					["owner"] = "hpframe",
 					["w"] = "50",
 					["feature"] = "txt_custom",
-					["h"] = "14",
+					["font"] = {
+						["flags"] = "OUTLINE",
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "RIGHT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "BOTTOM",
+						["size"] = 8,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -7050,15 +6897,7 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "regrotxt",
-					["font"] = {
-						["flags"] = "OUTLINE",
-						["name"] = "Default",
-						["title"] = "Default",
-						["justifyH"] = "RIGHT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "BOTTOM",
-						["size"] = 8,
-					},
+					["h"] = "14",
 				}, -- [80]
 				{
 					["TEIDefaultState"] = "Hide",
@@ -7088,19 +6927,45 @@ data = {
 						["g"] = 0,
 						["r"] = 1,
 					},
-					["tex"] = "",
 					["blendcolor"] = 1,
-					["timerVar"] = "aura_regrowth_aura",
+					["tex"] = "",
+					["timerVar"] = "auraregrowth_aura",
 					["txt"] = "",
 				}, -- [81]
 				{
 					["feature"] = "commentline",
 				}, -- [82]
 				{
-					["feature"] = "Variables: Buffs Debuffs Info",
-					["name"] = "aura_wgrowth",
 					["auraType"] = "BUFFS",
 					["playerauras"] = 1,
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["feature"] = "Variables: Buffs Debuffs Info",
+					["timer1"] = "0",
+					["color3"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["timer2"] = "0",
+					["name"] = "aurawgrowth",
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["color0"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
 					["cd"] = "wild growth",
 				}, -- [83]
 				{
@@ -7108,7 +6973,15 @@ data = {
 					["owner"] = "hpframe",
 					["w"] = "50",
 					["feature"] = "txt_custom",
-					["h"] = "14",
+					["font"] = {
+						["flags"] = "OUTLINE",
+						["name"] = "Default",
+						["title"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "BOTTOM",
+						["size"] = 8,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -7118,15 +6991,7 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "wgrothtxt",
-					["font"] = {
-						["flags"] = "OUTLINE",
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "BOTTOM",
-						["size"] = 8,
-					},
+					["h"] = "14",
 				}, -- [84]
 				{
 					["TEIDefaultState"] = "Hide",
@@ -7156,19 +7021,45 @@ data = {
 						["g"] = 0,
 						["r"] = 1,
 					},
-					["tex"] = "",
 					["blendcolor"] = 1,
-					["timerVar"] = "aura_wgrowth_aura",
+					["tex"] = "",
+					["timerVar"] = "aurawgrowth_aura",
 					["txt"] = "",
 				}, -- [85]
 				{
 					["feature"] = "commentline",
 				}, -- [86]
 				{
-					["feature"] = "Variables: Buffs Debuffs Info",
-					["name"] = "aura_lifebloom",
 					["auraType"] = "BUFFS",
 					["playerauras"] = 1,
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["feature"] = "Variables: Buffs Debuffs Info",
+					["timer1"] = "0",
+					["color3"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["timer2"] = "0",
+					["name"] = "auralifebloom",
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["color0"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
 					["cd"] = "lifebloom",
 				}, -- [87]
 				{
@@ -7176,7 +7067,15 @@ data = {
 					["owner"] = "hpframe",
 					["w"] = "50",
 					["feature"] = "txt_custom",
-					["h"] = "14",
+					["font"] = {
+						["flags"] = "OUTLINE",
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "TOP",
+						["size"] = 8,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -7186,15 +7085,7 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "lbtxt",
-					["font"] = {
-						["flags"] = "OUTLINE",
-						["name"] = "Default",
-						["title"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "TOP",
-						["size"] = 8,
-					},
+					["h"] = "14",
 				}, -- [88]
 				{
 					["TEIDefaultState"] = "Hide",
@@ -7205,32 +7096,32 @@ data = {
 					["sbDefaultState"] = "Hide",
 					["TTIDefaultState"] = "Hide",
 					["textType"] = "Tenths",
-					["txt"] = "",
-					["TTIExpireState"] = "Hide",
 					["statusBar"] = "",
-					["TEIExpireState"] = "Hide",
-					["tex"] = "",
-					["text"] = "lbtxt",
-					["stackVar"] = "aura_lifebloom_stack",
+					["txt"] = "",
+					["texIcon"] = "",
 					["color1"] = {
 						["a"] = 1,
-						["r"] = 1,
-						["g"] = 0,
 						["b"] = 0,
+						["g"] = 0,
+						["r"] = 1,
 					},
+					["tex"] = "",
+					["text"] = "lbtxt",
+					["TL"] = 0,
+					["TEIExpireState"] = "Hide",
 					["color2"] = {
 						["a"] = 1,
-						["r"] = 0,
-						["g"] = 1,
 						["b"] = 0,
+						["g"] = 1,
+						["r"] = 0,
 					},
-					["TL"] = 0,
-					["version"] = 1,
 					["countTypeFlag"] = "true",
+					["version"] = 1,
+					["stackVar"] = "aura_lifebloom_stack",
 					["blendcolor"] = 1,
 					["stack"] = 1,
-					["timerVar"] = "aura_lifebloom_aura",
-					["texIcon"] = "",
+					["timerVar"] = "auralifebloom_aura",
+					["TTIExpireState"] = "Hide",
 				}, -- [89]
 			},
 		},
@@ -7359,21 +7250,6 @@ data = {
 					["auraType"] = "BUFFS",
 					["owner"] = "decor",
 					["sbtib"] = {
-						["nametxt"] = {
-							["name"] = "Default",
-							["title"] = "Default",
-							["justifyH"] = "LEFT",
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 9,
-						},
-						["borientation"] = "HORIZONTAL",
-						["btype"] = "Button",
-						["w"] = 220,
-						["btexture"] = {
-							["blendMode"] = "BLEND",
-							["path"] = "Interface\\Addons\\RDX\\Skin\\bar1",
-						},
 						["timetxt"] = {
 							["name"] = "Default",
 							["title"] = "Default",
@@ -7382,7 +7258,22 @@ data = {
 							["justifyV"] = "CENTER",
 							["size"] = 9,
 						},
+						["borientation"] = "HORIZONTAL",
+						["btype"] = "Button",
+						["w"] = 220,
 						["h"] = 20,
+						["nametxt"] = {
+							["name"] = "Default",
+							["title"] = "Default",
+							["justifyH"] = "LEFT",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 9,
+						},
+						["btexture"] = {
+							["blendMode"] = "BLEND",
+							["path"] = "Interface\\Addons\\RDX\\Skin\\bar1",
+						},
 						["stacktxt"] = {
 							["name"] = "Default",
 							["title"] = "Default",
@@ -7480,8 +7371,8 @@ data = {
 					["stat"] = "WoWRDX:Tank_health_stc",
 				}, -- [8]
 				{
-					["interval"] = 0.3,
 					["feature"] = "Event: Periodic Repaint",
+					["interval"] = 0.3,
 					["slot"] = "RepaintAll",
 				}, -- [9]
 				{
@@ -7502,8 +7393,13 @@ data = {
 					["b"] = 0.5372549019607842,
 				},
 				["name"] = "Warlock",
+				["color"] = {
+					["a"] = 1,
+					["r"] = 0.1843137254901961,
+					["g"] = 0,
+					["b"] = 0.611764705882353,
+				},
 				["pct"] = 1,
-				["sv"] = 2,
 				["max"] = {
 					["qty"] = "smaxmp",
 					["set"] = {
@@ -7511,12 +7407,7 @@ data = {
 						["file"] = "WoWRDX:Warlock_fset",
 					},
 				},
-				["color"] = {
-					["a"] = 1,
-					["r"] = 0.1843137254901961,
-					["g"] = 0,
-					["b"] = 0.611764705882353,
-				},
+				["sv"] = 2,
 				["val"] = {
 					["qty"] = "smp",
 					["set"] = {
@@ -7526,24 +7417,40 @@ data = {
 				},
 			},
 		},
-		["Range_70plus_fset"] = {
-			["ty"] = "FilterSet",
+		["Druid_Power_stc"] = {
+			["ty"] = "Statistic",
 			["version"] = 1,
 			["data"] = {
-				"and", -- [1]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["n"] = 4,
-							["class"] = "frs",
-						}, -- [2]
-					}, -- [2]
-				}, -- [2]
-				{
-					"ol", -- [1]
-				}, -- [3]
+				["val"] = {
+					["qty"] = "smp",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Druid_fset",
+					},
+				},
+				["fadeColor"] = {
+					["a"] = 1,
+					["r"] = 0.6352941176470583,
+					["g"] = 0,
+					["b"] = 0.5372549019607842,
+				},
+				["name"] = "Druid",
+				["pct"] = 1,
+				["sv"] = 2,
+				["max"] = {
+					["qty"] = "smaxmp",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Druid_fset",
+					},
+				},
+				["color"] = {
+					["a"] = 1,
+					["r"] = 0.7333333333333334,
+					["g"] = 0.2784313725490195,
+					["b"] = 0.06666666666666665,
+				},
+				["texture"] = "",
 			},
 		},
 		["Warrior_Shout"] = {
@@ -7875,13 +7782,8 @@ data = {
 					["r"] = 0.6352941176470583,
 				},
 				["name"] = "DPS",
+				["pct"] = 1,
 				["sv"] = 1,
-				["color"] = {
-					["a"] = 1,
-					["b"] = 0.7607843137254902,
-					["g"] = 0.2980392156862746,
-					["r"] = 0,
-				},
 				["max"] = {
 					["set"] = {
 						["file"] = "WoWRDX:Dps_fset",
@@ -7889,7 +7791,12 @@ data = {
 					},
 					["qty"] = "smaxmp",
 				},
-				["pct"] = 1,
+				["color"] = {
+					["a"] = 1,
+					["b"] = 0.7607843137254902,
+					["g"] = 0.2980392156862746,
+					["r"] = 0,
+				},
 				["texture"] = "",
 			},
 		},
@@ -7933,6 +7840,10 @@ data = {
 						["blendMode"] = "BLEND",
 					},
 					["title"] = "test",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
 						["b"] = 0,
@@ -7984,19 +7895,23 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Prayer of mending",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
 						["r"] = 0,
 						["g"] = 0,
 						["b"] = 0,
 					},
-					["defaultbuttons"] = 1,
 					["titleColor"] = {
 						["a"] = 1,
 						["r"] = 0,
 						["g"] = 0,
 						["b"] = 0,
 					},
+					["defaultbuttons"] = 1,
 					["texicon"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Icons\\Spell_Holy_PrayerOfMendingtga",
@@ -8021,29 +7936,6 @@ data = {
 					["axis"] = 1,
 					["cols"] = 1,
 				}, -- [4]
-			},
-		},
-		["Player_Main_mb"] = {
-			["ty"] = "MouseBindings",
-			["version"] = 1,
-			["data"] = {
-				["1"] = {
-					["action"] = "target",
-				},
-				["2"] = {
-					["action"] = "menu",
-				},
-				["S1"] = {
-					["action"] = "cast",
-					["spell"] = "Mot sacré : Châtier",
-				},
-				["A2"] = {
-					["action"] = "setFocus",
-				},
-				["C2"] = {
-					["action"] = "cast",
-					["spell"] = 88684,
-				},
 			},
 		},
 		["Heal_Done_tm"] = {
@@ -8105,7 +7997,8 @@ data = {
 						},
 						["blendMode"] = "BLEND",
 					},
-					["nIcons"] = 5,
+					["usebs"] = true,
+					["h"] = 20,
 					["owner"] = "decor",
 					["w"] = 20,
 					["color1"] = {
@@ -8120,23 +8013,23 @@ data = {
 						["g"] = 0.1529411764705883,
 						["b"] = 1,
 					},
-					["version"] = 1,
 					["name"] = "customicon1",
-					["drawLayer"] = "ARTWORK",
-					["orientation"] = "RIGHT",
 					["color3"] = {
 						["a"] = 1,
 						["r"] = 0,
 						["g"] = 0.1529411764705883,
 						["b"] = 1,
 					},
+					["drawLayer"] = "ARTWORK",
+					["orientation"] = "RIGHT",
+					["version"] = 1,
 					["color5"] = {
 						["a"] = 1,
 						["r"] = 0,
 						["g"] = 0.1529411764705883,
 						["b"] = 1,
 					},
-					["h"] = 20,
+					["nIcons"] = 5,
 				}, -- [3]
 			},
 		},
@@ -8160,7 +8053,7 @@ data = {
 					nil, -- [10]
 					nil, -- [11]
 					nil, -- [12]
-					nil, -- [13]
+					true, -- [13]
 					true, -- [14]
 					true, -- [15]
 					true, -- [16]
@@ -8169,6 +8062,16 @@ data = {
 					true, -- [19]
 					true, -- [20]
 					true, -- [21]
+					true, -- [22]
+					true, -- [23]
+					true, -- [24]
+					true, -- [25]
+					true, -- [26]
+					nil, -- [27]
+					true, -- [28]
+					true, -- [29]
+					true, -- [30]
+					true, -- [31]
 				},
 				["size"] = 1000,
 			},
@@ -8209,14 +8112,14 @@ data = {
 						["HideText"] = 0,
 					},
 					["gt"] = "",
-					["version"] = 1,
+					["name"] = "texcd_earth",
 					["dyntexture"] = 1,
 					["owner"] = "decor",
 					["w"] = "36",
 					["tex"] = "totemearth_icon",
 					["feature"] = "texture_cooldown",
 					["h"] = "36",
-					["name"] = "texcd_earth",
+					["version"] = 1,
 					["ButtonSkinOffset"] = 6,
 					["anchor"] = {
 						["dx"] = 0,
@@ -8240,8 +8143,8 @@ data = {
 				{
 					["w"] = "36",
 					["feature"] = "hotspot",
-					["flo"] = 3,
-					["version"] = 1,
+					["secure"] = 1,
+					["name"] = "earth",
 					["hlt"] = {
 						["blendMode"] = "ADD",
 						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
@@ -8254,12 +8157,25 @@ data = {
 						["af"] = "Base",
 					},
 					["h"] = "36",
-					["secure"] = 1,
-					["name"] = "earth",
+					["flo"] = 3,
+					["version"] = 1,
 				}, -- [5]
 				{
 					["name"] = "texcd_Fire",
 					["gt"] = "",
+					["version"] = 1,
+					["externalButtonSkin"] = "bs_onix",
+					["owner"] = "decor",
+					["w"] = "36",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = -36,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["feature"] = "texture_cooldown",
+					["h"] = "36",
 					["cd"] = {
 						["GfxReverse"] = true,
 						["Font"] = {
@@ -8277,19 +8193,6 @@ data = {
 						["TextType"] = "Seconds",
 						["HideText"] = 0,
 					},
-					["externalButtonSkin"] = "bs_onix",
-					["owner"] = "decor",
-					["w"] = "36",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = -36,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["feature"] = "texture_cooldown",
-					["h"] = "36",
-					["version"] = 1,
 					["ButtonSkinOffset"] = 6,
 					["tex"] = "totemfire_icon",
 					["dyntexture"] = 1,
@@ -8307,7 +8210,7 @@ data = {
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["secure"] = 1,
+					["h"] = 36,
 					["name"] = "fire",
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -8321,12 +8224,25 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["secure"] = 1,
 					["flo"] = 3,
-					["h"] = 36,
 				}, -- [7]
 				{
 					["name"] = "texcd_water",
 					["gt"] = "",
+					["version"] = 1,
+					["externalButtonSkin"] = "bs_onix",
+					["owner"] = "decor",
+					["w"] = "36",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = -72,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["feature"] = "texture_cooldown",
+					["h"] = "36",
 					["cd"] = {
 						["GfxReverse"] = true,
 						["Font"] = {
@@ -8344,19 +8260,6 @@ data = {
 						["TextType"] = "Seconds",
 						["HideText"] = 0,
 					},
-					["externalButtonSkin"] = "bs_onix",
-					["owner"] = "decor",
-					["w"] = "36",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = -72,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["feature"] = "texture_cooldown",
-					["h"] = "36",
-					["version"] = 1,
 					["ButtonSkinOffset"] = 6,
 					["tex"] = "totemwater_icon",
 					["dyntexture"] = 1,
@@ -8374,7 +8277,7 @@ data = {
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["secure"] = 1,
+					["h"] = 36,
 					["name"] = "water",
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -8388,12 +8291,25 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["secure"] = 1,
 					["flo"] = 3,
-					["h"] = 36,
 				}, -- [9]
 				{
 					["name"] = "texcd_air",
 					["gt"] = "",
+					["version"] = 1,
+					["externalButtonSkin"] = "bs_onix",
+					["owner"] = "decor",
+					["w"] = "36",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = -108,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["feature"] = "texture_cooldown",
+					["h"] = "36",
 					["cd"] = {
 						["GfxReverse"] = true,
 						["Font"] = {
@@ -8411,19 +8327,6 @@ data = {
 						["TextType"] = "Seconds",
 						["HideText"] = 0,
 					},
-					["externalButtonSkin"] = "bs_onix",
-					["owner"] = "decor",
-					["w"] = "36",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = -108,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["feature"] = "texture_cooldown",
-					["h"] = "36",
-					["version"] = 1,
 					["ButtonSkinOffset"] = 6,
 					["tex"] = "totemair_icon",
 					["dyntexture"] = 1,
@@ -8441,7 +8344,7 @@ data = {
 				{
 					["w"] = "36",
 					["feature"] = "hotspot",
-					["h"] = "36",
+					["secure"] = 1,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -8455,8 +8358,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "air",
+					["h"] = "36",
 					["flo"] = 3,
-					["secure"] = 1,
 				}, -- [11]
 				{
 					["feature"] = "commentline",
@@ -8464,7 +8367,7 @@ data = {
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["secure"] = 1,
+					["h"] = 36,
 					["name"] = "remove",
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -8478,8 +8381,8 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["secure"] = 1,
 					["flo"] = 3,
-					["h"] = 36,
 				}, -- [13]
 			},
 		},
@@ -8540,8 +8443,8 @@ data = {
 					["w"] = "160",
 					["feature"] = "texture",
 					["h"] = "160",
-					["name"] = "tex1",
 					["version"] = 1,
+					["name"] = "tex1",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -8575,13 +8478,13 @@ data = {
 						["face"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\Bazooka.ttf",
 						["justifyV"] = "CENTER",
 						["size"] = 12,
-						["ca"] = 1,
+						["flags"] = "OUTLINE",
 						["cg"] = 0.7764705882352941,
 						["justifyH"] = "LEFT",
 						["cb"] = 0.6901960784313725,
 						["title"] = "Default",
 						["name"] = "Default",
-						["flags"] = "OUTLINE",
+						["ca"] = 1,
 						["cr"] = 0.3843137254901961,
 					},
 					["name"] = "minimap1",
@@ -8590,17 +8493,6 @@ data = {
 					["owner"] = "decor",
 					["w"] = "260",
 					["feature"] = "txt_other",
-					["h"] = "14",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "BOTTOM",
-						["rp"] = "BOTTOM",
-						["af"] = "Base",
-					},
-					["name"] = "otxt1",
-					["ty"] = "mapzonetext",
 					["font"] = {
 						["size"] = 12,
 						["color"] = {
@@ -8610,16 +8502,27 @@ data = {
 						},
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["title"] = "Default",
+						["name"] = "Default",
 						["sa"] = 1,
 						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
+						["title"] = "Default",
+						["sx"] = 1,
 						["justifyH"] = "CENTER",
 						["sy"] = -1,
-						["sx"] = 1,
+						["sb"] = 0,
 						["sr"] = 0,
 					},
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "BOTTOM",
+						["rp"] = "BOTTOM",
+						["af"] = "Base",
+					},
+					["name"] = "otxt1",
+					["h"] = "14",
+					["ty"] = "mapzonetext",
 				}, -- [4]
 			},
 		},
@@ -8630,28 +8533,32 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Raid Group 3",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
-						["b"] = 0,
-						["g"] = 0,
 						["r"] = 0,
-					},
-					["texicon"] = {
-						["color"] = {
-							["a"] = 1,
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
-						["blendMode"] = "BLEND",
+						["g"] = 0,
+						["b"] = 0,
 					},
 					["defaultbuttons"] = 1,
 					["titleColor"] = {
 						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0,
 						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0,
+					},
+					["texicon"] = {
+						["color"] = {
+							["a"] = 1,
+							["r"] = 1,
+							["g"] = 1,
+							["b"] = 1,
+						},
+						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+						["blendMode"] = "BLEND",
 					},
 				}, -- [1]
 				{
@@ -8660,19 +8567,19 @@ data = {
 				}, -- [2]
 				{
 					["feature"] = "Data Source: Secure Set",
-					["set"] = {
-						["file"] = "WoWRDX:Raid_Group3_fset",
-						["class"] = "file",
-					},
 					["rostertype"] = "RAID",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "default:set_raid_group3",
+					},
 				}, -- [3]
 				{
 					["bkt"] = 1,
 					["switchvehicle"] = 1,
 					["dxn"] = 1,
-					["cols"] = 40,
-					["feature"] = "Header Grid",
 					["axis"] = 1,
+					["feature"] = "Header Grid",
+					["cols"] = 40,
 				}, -- [4]
 				{
 					["feature"] = "mousebindings",
@@ -8694,9 +8601,9 @@ data = {
 				}, -- [7]
 				{
 					["feature"] = "mp_args",
-					["period"] = 0.1,
 					["version"] = 1,
 					["dpm1"] = 0,
+					["period"] = 0.1,
 				}, -- [8]
 				{
 					["feature"] = "FilterSet Editor",
@@ -8730,9 +8637,9 @@ data = {
 				}, -- [4]
 				{
 					["feature"] = "mp_args",
+					["version"] = 1,
 					["dpm1"] = 0,
 					["period"] = 0.1,
-					["version"] = 1,
 				}, -- [5]
 				{
 					["feature"] = "mousebindings",
@@ -8832,6 +8739,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -8841,30 +8752,6 @@ data = {
 					["feature"] = "layout_single_unitframe",
 					["version"] = 1,
 					["unit"] = "player",
-				}, -- [3]
-			},
-		},
-		["Raid_Group7_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"groups", -- [1]
-					[8] = true,
-				}, -- [2]
-				{
-					"classes", -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
-					true, -- [10]
-					true, -- [11]
 				}, -- [3]
 			},
 		},
@@ -8882,30 +8769,6 @@ data = {
 				}, -- [2]
 			},
 		},
-		["Raid_Group4_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"groups", -- [1]
-					[5] = true,
-				}, -- [2]
-				{
-					"classes", -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
-					true, -- [10]
-					true, -- [11]
-				}, -- [3]
-			},
-		},
 		["Party_fset"] = {
 			["ty"] = "FilterSet",
 			["version"] = 1,
@@ -8914,6 +8777,12 @@ data = {
 				{
 					"mygroup", -- [1]
 				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"me", -- [1]
+					}, -- [2]
+				}, -- [3]
 			},
 		},
 		["Target_Main"] = {
@@ -8922,6 +8791,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -8938,7 +8811,7 @@ data = {
 					["feature"] = "mousebindings",
 					["hotspot"] = "",
 					["version"] = 1,
-					["mbFriendly"] = "WoWRDX:Player_Main_mb",
+					["mbFriendly"] = "default:bindings_target",
 				}, -- [4]
 			},
 		},
@@ -9043,19 +8916,23 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Wild",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
 						["r"] = 0,
 						["g"] = 0,
 						["b"] = 0,
 					},
-					["defaultbuttons"] = 1,
 					["titleColor"] = {
 						["a"] = 1,
 						["r"] = 0.7803921568627451,
 						["g"] = 0.3058823529411765,
 						["b"] = 0.6784313725490196,
 					},
+					["defaultbuttons"] = 1,
 					["texicon"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Icons\\Spell_Holy_PrayerOfFortitude",
@@ -9088,9 +8965,9 @@ data = {
 				}, -- [5]
 				{
 					["feature"] = "mp_args",
+					["version"] = 1,
 					["dpm1"] = 0,
 					["period"] = 0.1,
-					["version"] = 1,
 				}, -- [6]
 			},
 		},
@@ -9107,19 +8984,19 @@ data = {
 					["name"] = "fm",
 				}, -- [2]
 				{
-					["feature"] = "ColorVariable: Unit PowerType Color",
-					["manaColor"] = {
-						["a"] = 1,
-						["r"] = 0,
-						["g"] = 0,
-						["b"] = 0.75,
-					},
 					["energyColor"] = {
 						["a"] = 1,
 						["r"] = 0.75,
 						["g"] = 0.75,
 						["b"] = 0,
 					},
+					["manaColor"] = {
+						["a"] = 1,
+						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0.75,
+					},
+					["feature"] = "ColorVariable: Unit PowerType Color",
 					["runeColor"] = {
 						["a"] = 1,
 						["r"] = 0,
@@ -9137,12 +9014,12 @@ data = {
 					["feature"] = "commentline",
 				}, -- [4]
 				{
-					["ph"] = 1,
+					["feature"] = "base_default",
 					["h"] = 14,
 					["version"] = 1,
-					["w"] = 90,
 					["alpha"] = 1,
-					["feature"] = "base_default",
+					["w"] = 90,
+					["ph"] = 1,
 				}, -- [5]
 				{
 					["frac"] = "fm",
@@ -9169,8 +9046,21 @@ data = {
 				{
 					["owner"] = "Base",
 					["w"] = "50",
-					["feature"] = "txt_np",
-					["h"] = "14",
+					["classColor"] = 1,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["justifyH"] = "LEFT",
+						["size"] = 10,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -9180,58 +9070,28 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "np",
-					["classColor"] = 1,
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["justifyH"] = "LEFT",
-						["size"] = 10,
-					},
+					["feature"] = "txt_np",
+					["h"] = "14",
 				}, -- [7]
 				{
 					["owner"] = "Base",
 					["w"] = "40",
 					["feature"] = "txt_status",
-					["ty"] = "fdld",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "RIGHT",
-						["rp"] = "RIGHT",
-						["af"] = "Base",
-					},
-					["h"] = "14",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sy"] = -1,
 						["title"] = "Default",
 						["justifyH"] = "RIGHT",
 						["size"] = 8,
 					},
 					["name"] = "status_text",
-				}, -- [8]
-				{
-					["owner"] = "Base",
-					["w"] = "40",
-					["feature"] = "txt_status",
-					["ty"] = "mpp",
-					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -9240,21 +9100,38 @@ data = {
 						["af"] = "Base",
 					},
 					["h"] = "14",
+					["ty"] = "fdld",
+					["version"] = 1,
+				}, -- [8]
+				{
+					["owner"] = "Base",
+					["w"] = "40",
+					["feature"] = "txt_status",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sy"] = -1,
 						["title"] = "Default",
 						["justifyH"] = "RIGHT",
 						["size"] = 8,
 					},
 					["name"] = "text_mp_percent",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "RIGHT",
+						["rp"] = "RIGHT",
+						["af"] = "Base",
+					},
+					["h"] = "14",
+					["ty"] = "mpp",
+					["version"] = 1,
 				}, -- [9]
 			},
 		},
@@ -9315,18 +9192,18 @@ data = {
 					["version"] = 1,
 					["bkd"] = {
 						["_border"] = "straight",
-						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
-						["kb"] = 0,
+						["edgeSize"] = 8,
 						["tile"] = false,
+						["kb"] = 0,
 						["br"] = 0,
 						["kg"] = 0,
 						["kr"] = 0,
 						["ka"] = 0.7119999825954437,
 						["ba"] = 1,
-						["bb"] = 0,
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["_backdrop"] = "solid",
-						["edgeSize"] = 8,
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["bb"] = 0,
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["bg"] = 0,
 						["insets"] = {
 							["top"] = 2,
@@ -9354,11 +9231,12 @@ data = {
 					["drawLayer"] = "ARTWORK",
 					["owner"] = "sf_plife",
 					["w"] = "200",
-					["colorVar"] = "green",
-					["feature"] = "statusbar_horiz",
 					["h"] = "21",
+					["sublevel"] = 1,
+					["colorVar"] = "green",
 					["name"] = "sb_plife",
 					["version"] = 1,
+					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 3,
 						["dy"] = -3,
@@ -9366,8 +9244,7 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Frame_sf_plife",
 					},
-					["orientation"] = "HORIZONTAL",
-					["sublevel"] = 1,
+					["feature"] = "statusbar_horiz",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
@@ -9407,6 +9284,13 @@ data = {
 						["g"] = 0.75,
 						["b"] = 0,
 					},
+					["friendlyDruidColor"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 0.49,
+						["b"] = 0.04,
+					},
+					["feature"] = "colorvar_hostility_class",
 					["friendlyWarlockColor"] = {
 						["a"] = 1,
 						["r"] = 0.58,
@@ -9419,11 +9303,11 @@ data = {
 						["g"] = 0.12,
 						["b"] = 0.23,
 					},
-					["friendlyDruidColor"] = {
+					["friendlyMageColor"] = {
 						["a"] = 1,
-						["r"] = 1,
-						["g"] = 0.49,
-						["b"] = 0.04,
+						["r"] = 0.41,
+						["g"] = 0.8,
+						["b"] = 0.94,
 					},
 					["friendlyPriestColor"] = {
 						["a"] = 1,
@@ -9431,31 +9315,24 @@ data = {
 						["g"] = 1,
 						["b"] = 1,
 					},
-					["friendlyMageColor"] = {
-						["a"] = 1,
-						["r"] = 0.41,
-						["g"] = 0.8,
-						["b"] = 0.94,
-					},
-					["feature"] = "colorvar_hostility_class",
+					["name"] = "hostilityclassColor",
 					["friendlyPaladinColor"] = {
 						["a"] = 1,
 						["r"] = 0.96,
 						["g"] = 0.55,
 						["b"] = 0.73,
 					},
-					["name"] = "hostilityclassColor",
-					["hostileColor"] = {
-						["a"] = 1,
-						["r"] = 0.75,
-						["g"] = 0.15,
-						["b"] = 0,
-					},
 					["friendlyRogueColor"] = {
 						["a"] = 1,
 						["r"] = 1,
 						["g"] = 0.96,
 						["b"] = 0.41,
+					},
+					["hostileColor"] = {
+						["a"] = 1,
+						["r"] = 0.75,
+						["g"] = 0.15,
+						["b"] = 0,
 					},
 					["friendlyShamanColor"] = {
 						["a"] = 1,
@@ -9479,13 +9356,13 @@ data = {
 				{
 					["interpolate"] = 1,
 					["frac"] = "fh",
-					["feature"] = "statusbar_horiz",
+					["sublevel"] = 2,
 					["owner"] = "sf_life",
 					["w"] = "200",
-					["h"] = "21",
-					["drawLayer"] = "ARTWORK",
 					["colorVar"] = "hostilityclassColor",
-					["version"] = 1,
+					["drawLayer"] = "ARTWORK",
+					["h"] = "21",
+					["name"] = "sb_life",
 					["anchor"] = {
 						["dx"] = 3,
 						["dy"] = -3,
@@ -9494,8 +9371,8 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["orientation"] = "HORIZONTAL",
-					["name"] = "sb_life",
-					["sublevel"] = 2,
+					["version"] = 1,
+					["feature"] = "statusbar_horiz",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
@@ -9506,7 +9383,20 @@ data = {
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_dyn",
-					["h"] = "14",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 12,
+					},
 					["name"] = "text_pheal",
 					["anchor"] = {
 						["dx"] = -5,
@@ -9516,40 +9406,14 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["version"] = 1,
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 12,
-					},
+					["h"] = "14",
 				}, -- [14]
 				{
 					["owner"] = "sf_life",
 					["w"] = "150",
 					["feature"] = "txt_status",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["name"] = "Default",
-						["title"] = "Default",
-						["sy"] = -1,
-						["size"] = 10,
-					},
-					["name"] = "text_vie",
+					["h"] = "14",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 5,
 						["dy"] = 0,
@@ -9558,14 +9422,40 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["ty"] = "hptxt2",
-					["h"] = "14",
-					["version"] = 1,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["name"] = "Default",
+						["title"] = "Default",
+						["sy"] = -1,
+						["size"] = 10,
+					},
+					["name"] = "text_vie",
 				}, -- [15]
 				{
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["h"] = "14",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sb"] = 0,
+						["sy"] = -1,
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["size"] = 12,
+					},
 					["name"] = "text_dead",
 					["anchor"] = {
 						["dx"] = 5,
@@ -9575,27 +9465,27 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["version"] = 1,
+					["h"] = "14",
 					["ty"] = "fdld",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["title"] = "Default",
-						["sx"] = 1,
-						["sy"] = -1,
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["size"] = 12,
-					},
 				}, -- [16]
 				{
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["h"] = "14",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sb"] = 0,
+						["sy"] = -1,
+						["name"] = "Default",
+						["justifyH"] = "RIGHT",
+						["size"] = 12,
+					},
 					["name"] = "text_mob",
 					["anchor"] = {
 						["dx"] = -5,
@@ -9605,21 +9495,8 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["version"] = 1,
+					["h"] = "14",
 					["ty"] = "mobtype",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["title"] = "Default",
-						["sx"] = 1,
-						["sy"] = -1,
-						["name"] = "Default",
-						["justifyH"] = "RIGHT",
-						["size"] = 12,
-					},
 				}, -- [17]
 				{
 					["feature"] = "commentline",
@@ -9645,18 +9522,18 @@ data = {
 					["version"] = 1,
 					["bkd"] = {
 						["ka"] = 0.7119999825954437,
-						["kg"] = 0,
-						["kb"] = 0,
+						["edgeSize"] = 8,
 						["tile"] = false,
+						["kb"] = 0,
 						["br"] = 0,
 						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["kr"] = 0,
 						["_border"] = "straight",
 						["ba"] = 1,
-						["bb"] = 0,
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["_backdrop"] = "solid",
-						["edgeSize"] = 8,
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["bb"] = 0,
+						["kg"] = 0,
 						["bg"] = 0,
 						["insets"] = {
 							["top"] = 2,
@@ -9667,7 +9544,12 @@ data = {
 					},
 				}, -- [20]
 				{
-					["feature"] = "ColorVariable: Unit PowerType Color",
+					["energyColor"] = {
+						["a"] = 1,
+						["r"] = 0.75,
+						["g"] = 0.75,
+						["b"] = 0,
+					},
 					["manaColor"] = {
 						["a"] = 1,
 						["r"] = 0,
@@ -9680,12 +9562,7 @@ data = {
 						["g"] = 0.5,
 						["r"] = 1,
 					},
-					["energyColor"] = {
-						["a"] = 1,
-						["r"] = 0.75,
-						["g"] = 0.75,
-						["b"] = 0,
-					},
+					["feature"] = "ColorVariable: Unit PowerType Color",
 					["runeColor"] = {
 						["a"] = 1,
 						["r"] = 0,
@@ -9714,6 +9591,8 @@ data = {
 					["colorVar"] = "powerColor",
 					["version"] = 1,
 					["interpolate"] = 1,
+					["orientation"] = "HORIZONTAL",
+					["name"] = "sb_power",
 					["anchor"] = {
 						["dx"] = 3,
 						["dy"] = -3,
@@ -9721,8 +9600,6 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Frame_sf_mana",
 					},
-					["name"] = "sb_power",
-					["orientation"] = "HORIZONTAL",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
@@ -9732,20 +9609,7 @@ data = {
 					["owner"] = "sf_mana",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sb"] = 0,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 10,
-					},
+					["ty"] = "mptxt",
 					["name"] = "text_mana",
 					["anchor"] = {
 						["dx"] = 5,
@@ -9755,8 +9619,21 @@ data = {
 						["af"] = "Frame_sf_mana",
 					},
 					["version"] = 1,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sx"] = 1,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 10,
+					},
 					["h"] = "14",
-					["ty"] = "mptxt",
 				}, -- [24]
 				{
 					["feature"] = "commentline",
@@ -9784,10 +9661,10 @@ data = {
 						["_border"] = "straight",
 						["edgeSize"] = 20,
 						["ba"] = 0,
-						["bb"] = 1,
+						["_backdrop"] = "none",
 						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["bg"] = 1,
-						["_backdrop"] = "none",
+						["bb"] = 1,
 						["br"] = 1,
 						["insets"] = {
 							["top"] = 2,
@@ -9860,7 +9737,20 @@ data = {
 					["owner"] = "pdt",
 					["w"] = "30",
 					["feature"] = "txt_status",
-					["h"] = "30",
+					["font"] = {
+						["size"] = 15,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sx"] = 1,
+						["sr"] = 0,
+					},
 					["name"] = "status_text",
 					["anchor"] = {
 						["dx"] = 2,
@@ -9870,40 +9760,14 @@ data = {
 						["af"] = "Frame_pdt",
 					},
 					["version"] = 1,
+					["h"] = "30",
 					["ty"] = "level",
-					["font"] = {
-						["size"] = 15,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "LEFT",
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sx"] = 1,
-						["sr"] = 0,
-					},
 				}, -- [35]
 				{
 					["owner"] = "pdt",
 					["w"] = "200",
 					["classColor"] = 1,
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["sy"] = -1,
-						["title"] = "Default",
-						["justifyH"] = "LEFT",
-						["size"] = 15,
-					},
+					["h"] = "30",
 					["version"] = 1,
 					["feature"] = "txt_np",
 					["anchor"] = {
@@ -9915,7 +9779,20 @@ data = {
 					},
 					["trunc"] = 20,
 					["name"] = "np",
-					["h"] = "30",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["sy"] = -1,
+						["title"] = "Default",
+						["justifyH"] = "LEFT",
+						["size"] = 15,
+					},
 				}, -- [36]
 				{
 					["rows"] = 1,
@@ -9924,7 +9801,7 @@ data = {
 					["feature"] = "aura_icons",
 					["iconspx"] = 2,
 					["cd"] = {
-						["offsety"] = "0",
+						["Offsety"] = 0,
 						["HideText"] = 0,
 						["Font"] = {
 							["name"] = "Default",
@@ -9935,7 +9812,7 @@ data = {
 							["size"] = 7,
 						},
 						["TimerType"] = "COOLDOWN",
-						["Offsety"] = 0,
+						["offsety"] = "0",
 						["Offsetx"] = 0,
 						["offsetx"] = "10",
 						["TextType"] = "Seconds",
@@ -9959,6 +9836,7 @@ data = {
 					["auraType"] = "DEBUFFS",
 					["owner"] = "pdt",
 					["playerauras"] = 1,
+					["usebs"] = true,
 					["fontst"] = {
 						["name"] = "Default",
 						["title"] = "Default",
@@ -9967,8 +9845,8 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-					["name"] = "debuff",
 					["version"] = 1,
+					["name"] = "debuff",
 					["size"] = 12,
 					["orientation"] = "RIGHT",
 					["nIcons"] = 10,
@@ -9979,7 +9857,7 @@ data = {
 					["mover"] = 1,
 					["w"] = 206,
 					["feature"] = "hotspot",
-					["secure"] = 1,
+					["flo"] = 3,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -9989,8 +9867,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "",
+					["secure"] = 1,
 					["h"] = 76,
-					["flo"] = 3,
 				}, -- [38]
 			},
 		},
@@ -10034,6 +9912,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -10070,6 +9952,10 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Fortitude",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
 						["b"] = 0,
@@ -10080,13 +9966,13 @@ data = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Icons\\Spell_Holy_PrayerOfFortitude",
 					},
-					["defaultbuttons"] = 1,
 					["titleColor"] = {
 						["a"] = 1,
 						["b"] = 0.7803921568627451,
 						["g"] = 0.5333333333333333,
 						["r"] = 0.2156862745098039,
 					},
+					["defaultbuttons"] = 1,
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -10116,9 +10002,9 @@ data = {
 				}, -- [5]
 				{
 					["feature"] = "mp_args",
+					["version"] = 1,
 					["dpm1"] = 0,
 					["period"] = 0.1,
-					["version"] = 1,
 				}, -- [6]
 			},
 		},
@@ -10167,16 +10053,16 @@ data = {
 					["rows"] = 10,
 					["fontst"] = {
 						["size"] = 14,
-						["name"] = "Default",
+						["title"] = "Default",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\bs.ttf",
 						["justifyV"] = "BOTTOM",
-						["justifyH"] = "RIGHT",
+						["name"] = "Default",
 						["sa"] = 1,
 						["sg"] = 0,
-						["title"] = "Default",
-						["sb"] = 0,
-						["sy"] = -1,
+						["justifyH"] = "RIGHT",
 						["sx"] = 1,
+						["sy"] = -1,
+						["sb"] = 0,
 						["flags"] = "THICKOUTLINE",
 						["sr"] = 0,
 					},
@@ -10186,16 +10072,16 @@ data = {
 						["HideText"] = 0,
 						["Font"] = {
 							["size"] = 10,
-							["title"] = "Default",
+							["name"] = "Default",
 							["face"] = "Interface\\Addons\\VFL\\Fonts\\bs.ttf",
 							["justifyV"] = "CENTER",
-							["sy"] = 0,
+							["title"] = "Default",
 							["flags"] = "OUTLINE",
 							["cg"] = 0.7372549019607844,
-							["name"] = "Default",
-							["sx"] = 0,
-							["justifyH"] = "CENTER",
+							["sy"] = 0,
 							["cb"] = 0.1333333333333333,
+							["justifyH"] = "CENTER",
+							["sx"] = 0,
 							["ca"] = 1,
 							["cr"] = 1,
 						},
@@ -10257,29 +10143,33 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Raid Group 8",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
-						["r"] = 0,
-						["g"] = 0,
 						["b"] = 0,
-					},
-					["defaultbuttons"] = 1,
-					["titleColor"] = {
-						["a"] = 1,
-						["r"] = 0,
 						["g"] = 0,
-						["b"] = 0,
+						["r"] = 0,
 					},
 					["texicon"] = {
 						["color"] = {
 							["a"] = 1,
-							["b"] = 1,
-							["g"] = 1,
 							["r"] = 1,
+							["g"] = 1,
+							["b"] = 1,
 						},
 						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
 						["blendMode"] = "BLEND",
 					},
+					["titleColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0,
+						["r"] = 0,
+					},
+					["defaultbuttons"] = 1,
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -10290,16 +10180,16 @@ data = {
 					["rostertype"] = "RAID",
 					["set"] = {
 						["class"] = "file",
-						["file"] = "WoWRDX:Raid_Group8_fset",
+						["file"] = "default:set_raid_group8",
 					},
 				}, -- [3]
 				{
 					["bkt"] = 1,
 					["switchvehicle"] = 1,
 					["dxn"] = 1,
-					["axis"] = 1,
-					["feature"] = "Header Grid",
 					["cols"] = 40,
+					["feature"] = "Header Grid",
+					["axis"] = 1,
 				}, -- [4]
 				{
 					["feature"] = "mousebindings",
@@ -10321,9 +10211,9 @@ data = {
 				}, -- [7]
 				{
 					["feature"] = "mp_args",
-					["period"] = 0.1,
 					["version"] = 1,
 					["dpm1"] = 0,
+					["period"] = 0.1,
 				}, -- [8]
 				{
 					["feature"] = "FilterSet Editor",
@@ -10361,19 +10251,19 @@ data = {
 					["b"] = 0.01176470588235294,
 				},
 				["name"] = "Raid HP",
-				["sv"] = 1,
-				["color"] = {
-					["a"] = 1,
-					["r"] = 0.02352941176470588,
-					["g"] = 0.5254901960784313,
-					["b"] = 0,
-				},
-				["pct"] = 1,
 				["max"] = {
 					["qty"] = "smaxhp",
 					["set"] = {
 						["class"] = "group",
 					},
+				},
+				["sv"] = 1,
+				["pct"] = 1,
+				["color"] = {
+					["a"] = 1,
+					["r"] = 0.02352941176470588,
+					["g"] = 0.5254901960784313,
+					["b"] = 0,
 				},
 				["texture"] = "",
 			},
@@ -10421,8 +10311,8 @@ data = {
 					["h"] = 14,
 					["version"] = 1,
 					["ph"] = 1,
-					["alpha"] = 1,
 					["w"] = 80,
+					["alpha"] = 1,
 				}, -- [5]
 				{
 					["frac"] = "",
@@ -10434,15 +10324,15 @@ data = {
 						["g"] = 1,
 						["r"] = 1,
 					},
+					["feature"] = "statusbar_horiz",
+					["h"] = "13",
+					["name"] = "statusBar",
 					["color2"] = {
 						["a"] = 1,
 						["b"] = 1,
 						["g"] = 1,
 						["r"] = 1,
 					},
-					["h"] = "13",
-					["name"] = "statusBar",
-					["feature"] = "statusbar_horiz",
 					["orientation"] = "HORIZONTAL",
 					["version"] = 1,
 					["anchor"] = {
@@ -10469,7 +10359,12 @@ data = {
 					["statusBar"] = "statusBar",
 					["text"] = "",
 					["texIcon"] = "",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -10482,12 +10377,7 @@ data = {
 					["tex"] = "",
 					["txt"] = "",
 					["timerVar"] = "aurai_aura",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 				}, -- [7]
 				{
 					["feature"] = "commentline",
@@ -10511,20 +10401,7 @@ data = {
 					["owner"] = "high",
 					["w"] = "40",
 					["feature"] = "txt_status",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["name"] = "Default",
-						["title"] = "Default",
-						["size"] = 9,
-					},
+					["h"] = "14",
 					["name"] = "text_group",
 					["anchor"] = {
 						["dx"] = 0,
@@ -10534,28 +10411,41 @@ data = {
 						["af"] = "high",
 					},
 					["version"] = 1,
-					["ty"] = "gn",
-					["h"] = "14",
-				}, -- [10]
-				{
-					["owner"] = "high",
-					["w"] = "BaseWidth",
-					["classColor"] = 1,
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["name"] = "Default",
+						["title"] = "Default",
+						["size"] = 9,
+					},
+					["ty"] = "gn",
+				}, -- [10]
+				{
+					["owner"] = "high",
+					["w"] = "BaseWidth",
+					["feature"] = "txt_np",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
 						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
 						["sy"] = -1,
 						["name"] = "Default",
 						["title"] = "Default",
 						["size"] = 10,
 					},
-					["version"] = 1,
+					["name"] = "np",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -10564,8 +10454,8 @@ data = {
 						["af"] = "high",
 					},
 					["h"] = "BaseHeight",
-					["feature"] = "txt_np",
-					["name"] = "np",
+					["classColor"] = 1,
+					["version"] = 1,
 				}, -- [11]
 				{
 					["feature"] = "commentline",
@@ -10576,8 +10466,8 @@ data = {
 					["w"] = "80",
 					["feature"] = "texture",
 					["h"] = "13",
-					["version"] = 1,
 					["name"] = "tex_range",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -10613,15 +10503,15 @@ data = {
 					["feature"] = "ColorVariable: Static Color",
 				}, -- [15]
 				{
-					["feature"] = "ColorVariable: Conditional Color",
+					["condVar"] = "unitInRange30_flag",
 					["name"] = "range",
 					["colorVar1"] = "red",
 					["colorVar2"] = "alpha",
-					["condVar"] = "unitInRange30_flag",
+					["feature"] = "ColorVariable: Conditional Color",
 				}, -- [16]
 				{
-					["flag"] = "true",
 					["feature"] = "Highlight: Texture Map",
+					["flag"] = "true",
 					["color"] = "range",
 					["texture"] = "tex_range",
 				}, -- [17]
@@ -10652,8 +10542,8 @@ data = {
 					["h"] = 14,
 					["version"] = 1,
 					["hlt"] = 1,
-					["alpha"] = 1,
 					["w"] = 80,
+					["alpha"] = 1,
 					["ph"] = 1,
 				}, -- [3]
 				{
@@ -10699,8 +10589,8 @@ data = {
 					["w"] = "14",
 					["feature"] = "texture",
 					["h"] = "14",
-					["name"] = "tex1",
 					["version"] = 1,
+					["name"] = "tex1",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -10738,10 +10628,10 @@ data = {
 						["size"] = 10,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["justifyH"] = "LEFT",
 						["sa"] = 1,
 						["sg"] = 0,
-						["justifyH"] = "LEFT",
+						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sy"] = -1,
@@ -10761,13 +10651,13 @@ data = {
 					["textType"] = "MinSec",
 					["statusBar"] = "statusBar",
 					["text"] = "customText",
-					["TEIExpireState"] = "Default",
 					["color1"] = {
 						["a"] = 1,
 						["b"] = 1,
 						["g"] = 1,
 						["r"] = 1,
 					},
+					["TEIExpireState"] = "Default",
 					["color2"] = {
 						["a"] = 1,
 						["b"] = 1,
@@ -10879,19 +10769,19 @@ data = {
 					["owner"] = "sf_plife",
 					["version"] = 1,
 					["bkd"] = {
-						["_border"] = "straight",
-						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
-						["tile"] = false,
+						["ka"] = 0.7119999825954437,
+						["edgeSize"] = 8,
 						["kb"] = 0,
+						["tile"] = false,
 						["bg"] = 0,
 						["kg"] = 0,
 						["kr"] = 0,
-						["_backdrop"] = "solid",
-						["ba"] = 1,
 						["bb"] = 0,
+						["ba"] = 1,
+						["_backdrop"] = "solid",
 						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
-						["ka"] = 0.7119999825954437,
-						["edgeSize"] = 8,
+						["_border"] = "straight",
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["br"] = 0,
 						["insets"] = {
 							["top"] = 2,
@@ -10971,30 +10861,11 @@ data = {
 						["g"] = 0.75,
 						["r"] = 0,
 					},
-					["friendlyDruidColor"] = {
-						["a"] = 1,
-						["b"] = 0.04,
-						["g"] = 0.49,
-						["r"] = 1,
-					},
-					["feature"] = "colorvar_hostility_class",
 					["friendlyWarlockColor"] = {
 						["a"] = 1,
 						["b"] = 0.79,
 						["g"] = 0.51,
 						["r"] = 0.58,
-					},
-					["friendlyDeathKnightColor"] = {
-						["a"] = 1,
-						["b"] = 0.23,
-						["g"] = 0.12,
-						["r"] = 0.77,
-					},
-					["friendlyMageColor"] = {
-						["a"] = 1,
-						["b"] = 0.94,
-						["g"] = 0.8,
-						["r"] = 0.41,
 					},
 					["friendlyPriestColor"] = {
 						["a"] = 1,
@@ -11002,13 +10873,25 @@ data = {
 						["g"] = 1,
 						["r"] = 1,
 					},
-					["hostileColor"] = {
+					["friendlyDruidColor"] = {
 						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0.15,
-						["r"] = 0.75,
+						["b"] = 0.04,
+						["g"] = 0.49,
+						["r"] = 1,
 					},
-					["name"] = "hostilityclassColor",
+					["feature"] = "colorvar_hostility_class",
+					["friendlyMageColor"] = {
+						["a"] = 1,
+						["b"] = 0.94,
+						["g"] = 0.8,
+						["r"] = 0.41,
+					},
+					["friendlyDeathKnightColor"] = {
+						["a"] = 1,
+						["b"] = 0.23,
+						["g"] = 0.12,
+						["r"] = 0.77,
+					},
 					["friendlyRogueColor"] = {
 						["a"] = 1,
 						["b"] = 0.41,
@@ -11021,6 +10904,13 @@ data = {
 						["g"] = 0.55,
 						["r"] = 0.96,
 					},
+					["hostileColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0.15,
+						["r"] = 0.75,
+					},
+					["name"] = "hostilityclassColor",
 					["friendlyShamanColor"] = {
 						["a"] = 1,
 						["b"] = 1,
@@ -11068,7 +10958,20 @@ data = {
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_dyn",
-					["h"] = "14",
+					["font"] = {
+						["size"] = 12,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sb"] = 0,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sx"] = 1,
+						["sr"] = 0,
+					},
 					["name"] = "text_pheal",
 					["anchor"] = {
 						["dx"] = -5,
@@ -11078,39 +10981,13 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["version"] = 1,
-					["font"] = {
-						["size"] = 12,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "RIGHT",
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sx"] = 1,
-						["sr"] = 0,
-					},
+					["h"] = "14",
 				}, -- [14]
 				{
 					["owner"] = "sf_life",
 					["w"] = "150",
 					["feature"] = "txt_status",
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "LEFT",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["title"] = "Default",
-						["name"] = "Default",
-						["sx"] = 1,
-						["sr"] = 0,
-					},
+					["h"] = "14",
 					["name"] = "text_vie",
 					["anchor"] = {
 						["dx"] = 5,
@@ -11120,27 +10997,27 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["version"] = 1,
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sy"] = -1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["title"] = "Default",
+						["name"] = "Default",
+						["sx"] = 1,
+						["sr"] = 0,
+					},
 					["ty"] = "hptxt2",
-					["h"] = "14",
 				}, -- [15]
 				{
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["font"] = {
-						["size"] = 12,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["title"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sb"] = 0,
-						["name"] = "Default",
-						["sy"] = -1,
-						["sx"] = 1,
-						["sr"] = 0,
-					},
+					["h"] = "14",
 					["name"] = "text_dead",
 					["anchor"] = {
 						["dx"] = 5,
@@ -11150,27 +11027,27 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["version"] = 1,
-					["ty"] = "fdld",
-					["h"] = "14",
-				}, -- [16]
-				{
-					["owner"] = "sf_life",
-					["w"] = "100",
-					["feature"] = "txt_status",
 					["font"] = {
 						["size"] = 12,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["title"] = "Default",
+						["justifyH"] = "LEFT",
 						["sa"] = 1,
 						["sg"] = 0,
-						["justifyH"] = "RIGHT",
+						["title"] = "Default",
 						["sb"] = 0,
 						["name"] = "Default",
 						["sy"] = -1,
 						["sx"] = 1,
 						["sr"] = 0,
 					},
+					["ty"] = "fdld",
+				}, -- [16]
+				{
+					["owner"] = "sf_life",
+					["w"] = "100",
+					["feature"] = "txt_status",
+					["h"] = "14",
 					["name"] = "text_mob",
 					["anchor"] = {
 						["dx"] = -5,
@@ -11180,8 +11057,21 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["version"] = 1,
+					["font"] = {
+						["size"] = 12,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "RIGHT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sb"] = 0,
+						["name"] = "Default",
+						["sy"] = -1,
+						["sx"] = 1,
+						["sr"] = 0,
+					},
 					["ty"] = "mobtype",
-					["h"] = "14",
 				}, -- [17]
 				{
 					["feature"] = "commentline",
@@ -11206,19 +11096,19 @@ data = {
 					["owner"] = "sf_mana",
 					["version"] = 1,
 					["bkd"] = {
-						["ka"] = 0.7119999825954437,
-						["kg"] = 0,
-						["tile"] = false,
+						["_border"] = "straight",
+						["edgeSize"] = 8,
 						["kb"] = 0,
+						["tile"] = false,
 						["bg"] = 0,
 						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["kr"] = 0,
-						["_backdrop"] = "solid",
-						["ba"] = 1,
 						["bb"] = 0,
+						["ba"] = 1,
+						["_backdrop"] = "solid",
 						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
-						["_border"] = "straight",
-						["edgeSize"] = 8,
+						["ka"] = 0.7119999825954437,
+						["kg"] = 0,
 						["br"] = 0,
 						["insets"] = {
 							["top"] = 2,
@@ -11229,7 +11119,12 @@ data = {
 					},
 				}, -- [20]
 				{
-					["feature"] = "ColorVariable: Unit PowerType Color",
+					["energyColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0.75,
+						["r"] = 0.75,
+					},
 					["rageColor"] = {
 						["a"] = 1,
 						["b"] = 0,
@@ -11242,12 +11137,7 @@ data = {
 						["g"] = 0.5,
 						["r"] = 1,
 					},
-					["energyColor"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0.75,
-						["r"] = 0.75,
-					},
+					["feature"] = "ColorVariable: Unit PowerType Color",
 					["runeColor"] = {
 						["a"] = 1,
 						["b"] = 1,
@@ -11289,7 +11179,20 @@ data = {
 					["owner"] = "sf_mana",
 					["w"] = "100",
 					["feature"] = "txt_custom",
-					["h"] = "14",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sx"] = 1,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 10,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 5,
@@ -11299,20 +11202,7 @@ data = {
 						["af"] = "Frame_sf_mana",
 					},
 					["name"] = "text_power",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sb"] = 0,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 10,
-					},
+					["h"] = "14",
 				}, -- [23]
 				{
 					["statusBar"] = "sb_power",
@@ -11346,10 +11236,10 @@ data = {
 						["_border"] = "straight",
 						["edgeSize"] = 20,
 						["ba"] = 0,
-						["_backdrop"] = "none",
+						["bb"] = 1,
 						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["br"] = 1,
-						["bb"] = 1,
+						["_backdrop"] = "none",
 						["bg"] = 1,
 						["insets"] = {
 							["top"] = 2,
@@ -11422,20 +11312,7 @@ data = {
 					["owner"] = "pdt",
 					["w"] = "30",
 					["feature"] = "txt_status",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 15,
-					},
+					["h"] = "30",
 					["name"] = "status_text",
 					["anchor"] = {
 						["dx"] = 2,
@@ -11445,8 +11322,21 @@ data = {
 						["af"] = "Frame_pdt",
 					},
 					["version"] = 1,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 15,
+					},
 					["ty"] = "level",
-					["h"] = "30",
 				}, -- [35]
 				{
 					["owner"] = "pdt",
@@ -11456,17 +11346,17 @@ data = {
 						["size"] = 15,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["sy"] = -1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["sy"] = -1,
+						["name"] = "Default",
 						["sr"] = 0,
 					},
-					["version"] = 1,
+					["name"] = "np",
 					["h"] = "30",
 					["anchor"] = {
 						["dx"] = 21,
@@ -11477,7 +11367,7 @@ data = {
 					},
 					["trunc"] = 20,
 					["feature"] = "txt_np",
-					["name"] = "np",
+					["version"] = 1,
 				}, -- [36]
 				{
 					["feature"] = "Player Status Icon",
@@ -11499,8 +11389,8 @@ data = {
 					["mover"] = 1,
 					["w"] = "206",
 					["feature"] = "hotspot",
-					["secure"] = 1,
-					["name"] = "",
+					["flo"] = 3,
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -11509,8 +11399,8 @@ data = {
 						["af"] = "Base",
 					},
 					["h"] = "76",
-					["flo"] = 3,
-					["version"] = 1,
+					["secure"] = 1,
+					["name"] = "",
 				}, -- [38]
 			},
 		},
@@ -11564,18 +11454,18 @@ data = {
 					["version"] = 1,
 					["bkd"] = {
 						["_border"] = "straight",
-						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
-						["kb"] = 0,
+						["edgeSize"] = 8,
 						["tile"] = false,
+						["kb"] = 0,
 						["br"] = 0,
 						["kg"] = 0,
 						["kr"] = 0,
 						["ka"] = 0.7119999825954437,
 						["ba"] = 1,
-						["_backdrop"] = "solid",
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["bb"] = 0,
-						["edgeSize"] = 8,
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["_backdrop"] = "solid",
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["bg"] = 0,
 						["insets"] = {
 							["top"] = 2,
@@ -11603,11 +11493,12 @@ data = {
 					["drawLayer"] = "ARTWORK",
 					["owner"] = "sf_plife",
 					["w"] = "200",
-					["colorVar"] = "green",
-					["feature"] = "statusbar_horiz",
 					["h"] = "21",
+					["sublevel"] = 1,
+					["colorVar"] = "green",
 					["name"] = "sb_plife",
 					["version"] = 1,
+					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 3,
 						["dy"] = -3,
@@ -11615,8 +11506,7 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Frame_sf_plife",
 					},
-					["orientation"] = "HORIZONTAL",
-					["sublevel"] = 1,
+					["feature"] = "statusbar_horiz",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
@@ -11656,6 +11546,18 @@ data = {
 						["g"] = 0.75,
 						["b"] = 0,
 					},
+					["friendlyDruidColor"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 0.49,
+						["b"] = 0.04,
+					},
+					["friendlyDeathKnightColor"] = {
+						["a"] = 1,
+						["r"] = 0.77,
+						["g"] = 0.12,
+						["b"] = 0.23,
+					},
 					["friendlyWarlockColor"] = {
 						["a"] = 1,
 						["r"] = 0.58,
@@ -11668,43 +11570,31 @@ data = {
 						["g"] = 1,
 						["b"] = 1,
 					},
-					["friendlyDruidColor"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 0.49,
-						["b"] = 0.04,
-					},
-					["feature"] = "colorvar_hostility_class",
 					["friendlyMageColor"] = {
 						["a"] = 1,
 						["r"] = 0.41,
 						["g"] = 0.8,
 						["b"] = 0.94,
 					},
-					["friendlyDeathKnightColor"] = {
-						["a"] = 1,
-						["r"] = 0.77,
-						["g"] = 0.12,
-						["b"] = 0.23,
-					},
-					["name"] = "hostilityclassColor",
+					["feature"] = "colorvar_hostility_class",
 					["friendlyPaladinColor"] = {
 						["a"] = 1,
 						["r"] = 0.96,
 						["g"] = 0.55,
 						["b"] = 0.73,
 					},
-					["friendlyRogueColor"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 0.96,
-						["b"] = 0.41,
-					},
+					["name"] = "hostilityclassColor",
 					["hostileColor"] = {
 						["a"] = 1,
 						["r"] = 0.75,
 						["g"] = 0.15,
 						["b"] = 0,
+					},
+					["friendlyRogueColor"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 0.96,
+						["b"] = 0.41,
 					},
 					["friendlyShamanColor"] = {
 						["a"] = 1,
@@ -11730,11 +11620,12 @@ data = {
 					["drawLayer"] = "ARTWORK",
 					["owner"] = "sf_life",
 					["w"] = "200",
-					["colorVar"] = "hostilityclassColor",
-					["feature"] = "statusbar_horiz",
 					["h"] = "21",
+					["sublevel"] = 2,
+					["colorVar"] = "hostilityclassColor",
 					["name"] = "sb_life",
 					["version"] = 1,
+					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 3,
 						["dy"] = -3,
@@ -11742,8 +11633,7 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Frame_sf_life",
 					},
-					["orientation"] = "HORIZONTAL",
-					["sublevel"] = 2,
+					["feature"] = "statusbar_horiz",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
@@ -11754,7 +11644,20 @@ data = {
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_dyn",
-					["h"] = "14",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["sy"] = -1,
+						["title"] = "Default",
+						["justifyH"] = "RIGHT",
+						["size"] = 12,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -11764,26 +11667,13 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["name"] = "text_pheal",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["sy"] = -1,
-						["title"] = "Default",
-						["justifyH"] = "RIGHT",
-						["size"] = 12,
-					},
+					["h"] = "14",
 				}, -- [14]
 				{
 					["owner"] = "sf_life",
 					["w"] = "150",
 					["feature"] = "txt_status",
-					["ty"] = "hptxt2",
+					["h"] = "14",
 					["name"] = "text_vie",
 					["anchor"] = {
 						["dx"] = 5,
@@ -11793,27 +11683,27 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["version"] = 1,
+					["ty"] = "hptxt2",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sa"] = 1,
 						["sg"] = 0,
 						["sy"] = -1,
-						["sb"] = 0,
+						["sx"] = 1,
 						["name"] = "Default",
 						["title"] = "Default",
 						["justifyH"] = "LEFT",
 						["size"] = 10,
 					},
-					["h"] = "14",
 				}, -- [15]
 				{
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["ty"] = "fdld",
+					["h"] = "14",
 					["name"] = "text_dead",
 					["anchor"] = {
 						["dx"] = 5,
@@ -11823,27 +11713,27 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["version"] = 1,
+					["ty"] = "fdld",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sy"] = -1,
 						["name"] = "Default",
 						["title"] = "Default",
 						["size"] = 12,
 					},
-					["h"] = "14",
 				}, -- [16]
 				{
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["ty"] = "mobtype",
+					["h"] = "14",
 					["name"] = "text_mob",
 					["anchor"] = {
 						["dx"] = -5,
@@ -11853,21 +11743,21 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["version"] = 1,
+					["ty"] = "mobtype",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "RIGHT",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sy"] = -1,
 						["name"] = "Default",
 						["title"] = "Default",
 						["size"] = 12,
 					},
-					["h"] = "14",
 				}, -- [17]
 				{
 					["feature"] = "commentline",
@@ -11893,18 +11783,18 @@ data = {
 					["version"] = 1,
 					["bkd"] = {
 						["ka"] = 0.7119999825954437,
-						["kg"] = 0,
-						["kb"] = 0,
+						["edgeSize"] = 8,
 						["tile"] = false,
+						["kb"] = 0,
 						["br"] = 0,
 						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["kr"] = 0,
 						["_border"] = "straight",
 						["ba"] = 1,
-						["_backdrop"] = "solid",
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["bb"] = 0,
-						["edgeSize"] = 8,
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["_backdrop"] = "solid",
+						["kg"] = 0,
 						["bg"] = 0,
 						["insets"] = {
 							["top"] = 2,
@@ -11915,7 +11805,12 @@ data = {
 					},
 				}, -- [20]
 				{
-					["feature"] = "ColorVariable: Unit PowerType Color",
+					["energyColor"] = {
+						["a"] = 1,
+						["r"] = 0.75,
+						["g"] = 0.75,
+						["b"] = 0,
+					},
 					["manaColor"] = {
 						["a"] = 1,
 						["r"] = 0,
@@ -11928,12 +11823,7 @@ data = {
 						["g"] = 0.5,
 						["r"] = 1,
 					},
-					["energyColor"] = {
-						["a"] = 1,
-						["r"] = 0.75,
-						["g"] = 0.75,
-						["b"] = 0,
-					},
+					["feature"] = "ColorVariable: Unit PowerType Color",
 					["runeColor"] = {
 						["a"] = 1,
 						["r"] = 0,
@@ -11957,11 +11847,12 @@ data = {
 					["drawLayer"] = "ARTWORK",
 					["owner"] = "sf_mana",
 					["w"] = "200",
-					["colorVar"] = "powerColor",
-					["feature"] = "statusbar_horiz",
 					["h"] = "10",
+					["sublevel"] = 1,
+					["colorVar"] = "powerColor",
 					["name"] = "sb_power",
 					["version"] = 1,
+					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 3,
 						["dy"] = -3,
@@ -11969,8 +11860,7 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Frame_sf_mana",
 					},
-					["orientation"] = "HORIZONTAL",
-					["sublevel"] = 1,
+					["feature"] = "statusbar_horiz",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
@@ -11980,7 +11870,7 @@ data = {
 					["owner"] = "sf_mana",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["ty"] = "mptxt",
+					["h"] = "14",
 					["name"] = "text_mana",
 					["anchor"] = {
 						["dx"] = 5,
@@ -11990,21 +11880,21 @@ data = {
 						["af"] = "Frame_sf_mana",
 					},
 					["version"] = 1,
+					["ty"] = "mptxt",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sy"] = -1,
 						["title"] = "Default",
 						["justifyH"] = "LEFT",
 						["size"] = 10,
 					},
-					["h"] = "14",
 				}, -- [24]
 				{
 					["feature"] = "commentline",
@@ -12032,10 +11922,10 @@ data = {
 						["_border"] = "straight",
 						["edgeSize"] = 20,
 						["ba"] = 0,
-						["bb"] = 1,
+						["_backdrop"] = "none",
 						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["bg"] = 1,
-						["_backdrop"] = "none",
+						["bb"] = 1,
 						["br"] = 1,
 						["insets"] = {
 							["top"] = 2,
@@ -12108,7 +11998,7 @@ data = {
 					["owner"] = "pdt",
 					["w"] = "30",
 					["feature"] = "txt_status",
-					["ty"] = "level",
+					["h"] = "30",
 					["name"] = "status_text",
 					["anchor"] = {
 						["dx"] = 2,
@@ -12118,27 +12008,40 @@ data = {
 						["af"] = "Frame_pdt",
 					},
 					["version"] = 1,
+					["ty"] = "level",
 					["font"] = {
 						["size"] = 15,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["justifyH"] = "LEFT",
 						["sa"] = 1,
 						["sg"] = 0,
-						["justifyH"] = "LEFT",
+						["name"] = "Default",
 						["sx"] = 1,
 						["title"] = "Default",
 						["sy"] = -1,
 						["sb"] = 0,
 						["sr"] = 0,
 					},
-					["h"] = "30",
 				}, -- [35]
 				{
 					["owner"] = "pdt",
 					["w"] = "200",
 					["classColor"] = 1,
-					["h"] = "30",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 15,
+					},
 					["version"] = 1,
 					["feature"] = "txt_np",
 					["anchor"] = {
@@ -12150,20 +12053,7 @@ data = {
 					},
 					["trunc"] = 8,
 					["name"] = "np",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 15,
-					},
+					["h"] = "30",
 				}, -- [36]
 				{
 					["rows"] = 1,
@@ -12182,11 +12072,11 @@ data = {
 							["sr"] = 0,
 							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 							["justifyV"] = "CENTER",
-							["sb"] = 0,
+							["sx"] = 1,
 							["sa"] = 1,
 							["sg"] = 0,
 							["name"] = "Default",
-							["sx"] = 1,
+							["sb"] = 0,
 							["sy"] = -1,
 							["title"] = "Default",
 							["justifyH"] = "LEFT",
@@ -12212,16 +12102,17 @@ data = {
 					["auraType"] = "DEBUFFS",
 					["owner"] = "pdt",
 					["playerauras"] = 1,
+					["usebs"] = true,
 					["filterNameList"] = {
 					},
 					["bkd"] = {
 						["_border"] = "none",
 						["_backdrop"] = "none",
 					},
-					["version"] = 1,
+					["name"] = "debuff",
 					["size"] = 12,
 					["orientation"] = "RIGHT",
-					["name"] = "debuff",
+					["version"] = 1,
 					["maxdurationfilter"] = "",
 					["unitfilter"] = "",
 				}, -- [37]
@@ -12229,7 +12120,7 @@ data = {
 					["mover"] = 1,
 					["w"] = 206,
 					["feature"] = "hotspot",
-					["h"] = 76,
+					["secure"] = 1,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -12239,8 +12130,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "",
+					["h"] = 76,
 					["flo"] = 3,
-					["secure"] = 1,
 				}, -- [38]
 			},
 		},
@@ -12250,6 +12141,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -12323,6 +12218,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -12357,6 +12256,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -12385,14 +12288,14 @@ data = {
 					["rows"] = 1,
 					["fontcount"] = {
 						["cr"] = 0.2980392156862745,
-						["ca"] = 1,
+						["flags"] = "THICKOUTLINE",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
 						["justifyV"] = "BOTTOM",
-						["cb"] = 1,
-						["flags"] = "THICKOUTLINE",
+						["sx"] = 0,
+						["ca"] = 1,
 						["cg"] = 0.3882352941176471,
 						["name"] = "Default",
-						["sx"] = 0,
+						["cb"] = 1,
 						["sy"] = 0,
 						["justifyH"] = "RIGHT",
 						["title"] = "Default",
@@ -12432,41 +12335,41 @@ data = {
 					["owner"] = "decor",
 					["fontmacro"] = {
 						["cr"] = 1,
-						["ca"] = 1,
+						["flags"] = "OUTLINE",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "BOTTOM",
-						["title"] = "Default",
-						["flags"] = "OUTLINE",
+						["name"] = "Default",
+						["ca"] = 1,
 						["cg"] = 0.3568627450980392,
 						["justifyH"] = "RIGHT",
-						["sx"] = 0,
-						["sy"] = 0,
 						["cb"] = 0.8901960784313725,
-						["name"] = "Default",
+						["sy"] = 0,
+						["sx"] = 0,
+						["title"] = "Default",
 						["size"] = 8,
 					},
 					["fontkey"] = {
 						["size"] = 10,
-						["title"] = "Default",
+						["name"] = "Default",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
 						["justifyV"] = "TOP",
-						["sy"] = 0,
+						["title"] = "Default",
 						["ca"] = 1,
 						["cg"] = 0.6588235294117647,
-						["name"] = "Default",
-						["cb"] = 0.1058823529411765,
-						["justifyH"] = "RIGHT",
+						["sy"] = 0,
 						["sx"] = 0,
+						["justifyH"] = "RIGHT",
+						["cb"] = 0.1058823529411765,
 						["flags"] = "THICKOUTLINE",
 						["cr"] = 1,
 					},
-					["headerstateType"] = "None",
+					["headerstateCustom"] = "",
 					["abid"] = 13,
 					["version"] = 1,
 					["name"] = "barbut2",
 					["orientation"] = "RIGHT",
 					["size"] = 36,
-					["headerstateCustom"] = "",
+					["headerstateType"] = "None",
 					["hidebs"] = 1,
 				}, -- [2]
 			},
@@ -12487,7 +12390,8 @@ data = {
 					["rows"] = 1,
 					["feature"] = "bagsbar",
 					["iconspx"] = 2,
-					["version"] = 1,
+					["name"] = "bbar",
+					["orientation"] = "RIGHT",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -12495,8 +12399,7 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["orientation"] = "RIGHT",
-					["name"] = "bbar",
+					["version"] = 1,
 					["iconspy"] = 0,
 					["nIcons"] = 6,
 				}, -- [2]
@@ -12588,6 +12491,7 @@ data = {
 						["blendMode"] = "BLEND",
 					},
 					["nIcons"] = 5,
+					["usebs"] = true,
 					["owner"] = "decor",
 					["w"] = 20,
 					["color1"] = {
@@ -12602,16 +12506,16 @@ data = {
 						["g"] = 0.08627450980392157,
 						["b"] = 0.1098039215686275,
 					},
-					["name"] = "customicon1",
-					["version"] = 1,
 					["drawLayer"] = "ARTWORK",
-					["orientation"] = "RIGHT",
+					["name"] = "customicon1",
 					["color3"] = {
 						["a"] = 1,
 						["r"] = 1,
 						["g"] = 0.08627450980392157,
 						["b"] = 0.1098039215686275,
 					},
+					["orientation"] = "RIGHT",
+					["version"] = 1,
 					["color5"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -12658,7 +12562,7 @@ data = {
 						["HideText"] = 0,
 					},
 					["gt"] = "",
-					["version"] = 1,
+					["name"] = "texcd_earth",
 					["externalButtonSkin"] = "bs_simplesquare",
 					["owner"] = "decor",
 					["w"] = "36",
@@ -12671,7 +12575,7 @@ data = {
 					},
 					["feature"] = "texture_cooldown",
 					["h"] = "36",
-					["name"] = "texcd_earth",
+					["version"] = 1,
 					["ButtonSkinOffset"] = 6,
 					["tex"] = "totemearth_icon",
 					["dyntexture"] = 1,
@@ -12689,8 +12593,8 @@ data = {
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["flo"] = 3,
-					["name"] = "earth",
+					["secure"] = 1,
+					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
 						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
@@ -12703,8 +12607,8 @@ data = {
 						["af"] = "Base",
 					},
 					["h"] = 36,
-					["secure"] = 1,
-					["version"] = 1,
+					["flo"] = 3,
+					["name"] = "earth",
 				}, -- [5]
 				{
 					["cd"] = {
@@ -12725,7 +12629,7 @@ data = {
 						["HideText"] = 0,
 					},
 					["gt"] = "",
-					["version"] = 1,
+					["name"] = "texcd_Fire",
 					["externalButtonSkin"] = "bs_simplesquare",
 					["owner"] = "decor",
 					["w"] = "36",
@@ -12738,7 +12642,7 @@ data = {
 					},
 					["feature"] = "texture_cooldown",
 					["h"] = "36",
-					["name"] = "texcd_Fire",
+					["version"] = 1,
 					["ButtonSkinOffset"] = 6,
 					["tex"] = "totemfire_icon",
 					["dyntexture"] = 1,
@@ -12756,8 +12660,8 @@ data = {
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["flo"] = 3,
-					["name"] = "fire",
+					["secure"] = 1,
+					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
 						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
@@ -12770,8 +12674,8 @@ data = {
 						["af"] = "Base",
 					},
 					["h"] = 36,
-					["secure"] = 1,
-					["version"] = 1,
+					["flo"] = 3,
+					["name"] = "fire",
 				}, -- [7]
 				{
 					["cd"] = {
@@ -12792,7 +12696,7 @@ data = {
 						["HideText"] = 0,
 					},
 					["gt"] = "",
-					["version"] = 1,
+					["name"] = "texcd_water",
 					["externalButtonSkin"] = "bs_simplesquare",
 					["owner"] = "decor",
 					["w"] = "36",
@@ -12805,7 +12709,7 @@ data = {
 					},
 					["feature"] = "texture_cooldown",
 					["h"] = "36",
-					["name"] = "texcd_water",
+					["version"] = 1,
 					["ButtonSkinOffset"] = 6,
 					["tex"] = "totemwater_icon",
 					["dyntexture"] = 1,
@@ -12823,8 +12727,8 @@ data = {
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["flo"] = 3,
-					["name"] = "water",
+					["secure"] = 1,
+					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
 						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
@@ -12837,8 +12741,8 @@ data = {
 						["af"] = "Base",
 					},
 					["h"] = 36,
-					["secure"] = 1,
-					["version"] = 1,
+					["flo"] = 3,
+					["name"] = "water",
 				}, -- [9]
 				{
 					["cd"] = {
@@ -12859,7 +12763,7 @@ data = {
 						["HideText"] = 0,
 					},
 					["gt"] = "",
-					["version"] = 1,
+					["name"] = "texcd_air",
 					["externalButtonSkin"] = "bs_simplesquare",
 					["owner"] = "decor",
 					["w"] = "36",
@@ -12872,7 +12776,7 @@ data = {
 					},
 					["feature"] = "texture_cooldown",
 					["h"] = "36",
-					["name"] = "texcd_air",
+					["version"] = 1,
 					["ButtonSkinOffset"] = 6,
 					["tex"] = "totemair_icon",
 					["dyntexture"] = 1,
@@ -12890,7 +12794,7 @@ data = {
 				{
 					["w"] = "36",
 					["feature"] = "hotspot",
-					["secure"] = 1,
+					["flo"] = 3,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -12904,8 +12808,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "air",
+					["secure"] = 1,
 					["h"] = "36",
-					["flo"] = 3,
 				}, -- [11]
 				{
 					["feature"] = "commentline",
@@ -12913,7 +12817,7 @@ data = {
 				{
 					["w"] = "144",
 					["feature"] = "hotspot",
-					["secure"] = 1,
+					["flo"] = 3,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -12927,8 +12831,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "remove",
+					["secure"] = 1,
 					["h"] = "14",
-					["flo"] = 3,
 				}, -- [13]
 			},
 		},
@@ -12938,6 +12842,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -12982,8 +12890,8 @@ data = {
 					["w"] = "144",
 					["feature"] = "texture",
 					["h"] = "144",
-					["name"] = "tex1",
 					["version"] = 1,
+					["name"] = "tex1",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -13017,12 +12925,12 @@ data = {
 					["font"] = {
 						["cr"] = 1,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Italic.ttf",
-						["flags"] = "THICKOUTLINE",
-						["sx"] = 0,
 						["ca"] = 1,
+						["cb"] = 1,
+						["flags"] = "THICKOUTLINE",
 						["cg"] = 1,
 						["name"] = "Default",
-						["cb"] = 1,
+						["sx"] = 0,
 						["sy"] = 0,
 						["justifyH"] = "CENTER",
 						["title"] = "Default",
@@ -13047,7 +12955,8 @@ data = {
 					["rows"] = 1,
 					["feature"] = "menubar",
 					["iconspx"] = -2,
-					["version"] = 1,
+					["name"] = "mbar",
+					["orientation"] = "RIGHT",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 21,
@@ -13055,8 +12964,7 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["orientation"] = "RIGHT",
-					["name"] = "mbar",
+					["version"] = 1,
 					["iconspy"] = 0,
 					["nIcons"] = 10,
 				}, -- [2]
@@ -13112,15 +13020,15 @@ data = {
 				{
 					["feature"] = "txt_np",
 					["h"] = "12",
-					["version"] = 1,
+					["name"] = "np",
 					["font"] = {
 						["size"] = 10,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["justifyH"] = "LEFT",
 						["sa"] = 1,
 						["sg"] = 0,
-						["justifyH"] = "LEFT",
+						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sy"] = -1,
@@ -13136,7 +13044,7 @@ data = {
 					},
 					["owner"] = "decor",
 					["w"] = "50",
-					["name"] = "np",
+					["version"] = 1,
 				}, -- [6]
 				{
 					["cleanupPolicy"] = 2,
@@ -13144,8 +13052,8 @@ data = {
 					["w"] = "50",
 					["feature"] = "texture",
 					["h"] = "12",
-					["name"] = "hlt",
 					["version"] = 1,
+					["name"] = "hlt",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -13166,14 +13074,14 @@ data = {
 					},
 				}, -- [7]
 				{
-					["flag"] = "rezinc_flag",
 					["feature"] = "Highlight: Texture Map",
+					["flag"] = "rezinc_flag",
 					["color"] = "yellow",
 					["texture"] = "hlt",
 				}, -- [8]
 				{
-					["flag"] = "rezdone_flag",
 					["feature"] = "Highlight: Texture Map",
+					["flag"] = "rezdone_flag",
 					["color"] = "green",
 					["texture"] = "hlt",
 				}, -- [9]
@@ -13185,10 +13093,14 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: Lightweight",
-					["title"] = "Healing Done",
 					["texicon"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Icons\\Spell_Holy_HolyGuidance",
+					},
+					["title"] = "Healing Done",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
 					},
 					["bkdColor"] = {
 						["a"] = 0,
@@ -13284,18 +13196,18 @@ data = {
 					["version"] = 1,
 					["bkd"] = {
 						["ka"] = 0.7119999825954437,
-						["edgeSize"] = 8,
-						["kb"] = 0,
+						["kg"] = 0,
 						["tile"] = false,
+						["kb"] = 0,
 						["br"] = 0,
 						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["kr"] = 0,
 						["_border"] = "straight",
 						["ba"] = 1,
-						["bb"] = 0,
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["_backdrop"] = "solid",
-						["kg"] = 0,
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["bb"] = 0,
+						["edgeSize"] = 8,
 						["bg"] = 0,
 						["insets"] = {
 							["top"] = 2,
@@ -13375,30 +13287,11 @@ data = {
 						["g"] = 0.75,
 						["b"] = 0,
 					},
-					["friendlyWarlockColor"] = {
-						["a"] = 1,
-						["r"] = 0.58,
-						["g"] = 0.51,
-						["b"] = 0.79,
-					},
-					["feature"] = "colorvar_hostility_class",
 					["friendlyDruidColor"] = {
 						["a"] = 1,
 						["r"] = 1,
 						["g"] = 0.49,
 						["b"] = 0.04,
-					},
-					["friendlyDeathKnightColor"] = {
-						["a"] = 1,
-						["r"] = 0.77,
-						["g"] = 0.12,
-						["b"] = 0.23,
-					},
-					["friendlyMageColor"] = {
-						["a"] = 1,
-						["r"] = 0.41,
-						["g"] = 0.8,
-						["b"] = 0.94,
 					},
 					["friendlyPriestColor"] = {
 						["a"] = 1,
@@ -13406,24 +13299,43 @@ data = {
 						["g"] = 1,
 						["b"] = 1,
 					},
+					["friendlyWarlockColor"] = {
+						["a"] = 1,
+						["r"] = 0.58,
+						["g"] = 0.51,
+						["b"] = 0.79,
+					},
+					["feature"] = "colorvar_hostility_class",
+					["friendlyMageColor"] = {
+						["a"] = 1,
+						["r"] = 0.41,
+						["g"] = 0.8,
+						["b"] = 0.94,
+					},
+					["friendlyDeathKnightColor"] = {
+						["a"] = 1,
+						["r"] = 0.77,
+						["g"] = 0.12,
+						["b"] = 0.23,
+					},
+					["name"] = "hostilityclassColor",
 					["friendlyPaladinColor"] = {
 						["a"] = 1,
 						["r"] = 0.96,
 						["g"] = 0.55,
 						["b"] = 0.73,
 					},
-					["name"] = "hostilityclassColor",
-					["hostileColor"] = {
-						["a"] = 1,
-						["r"] = 0.75,
-						["g"] = 0.15,
-						["b"] = 0,
-					},
 					["friendlyRogueColor"] = {
 						["a"] = 1,
 						["r"] = 1,
 						["g"] = 0.96,
 						["b"] = 0.41,
+					},
+					["hostileColor"] = {
+						["a"] = 1,
+						["r"] = 0.75,
+						["g"] = 0.15,
+						["b"] = 0,
 					},
 					["friendlyShamanColor"] = {
 						["a"] = 1,
@@ -13472,20 +13384,7 @@ data = {
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_dyn",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["sy"] = -1,
-						["title"] = "Default",
-						["justifyH"] = "RIGHT",
-						["size"] = 12,
-					},
+					["h"] = "14",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -13495,27 +13394,27 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["name"] = "text_pheal",
-					["h"] = "14",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["sy"] = -1,
+						["title"] = "Default",
+						["justifyH"] = "RIGHT",
+						["size"] = 12,
+					},
 				}, -- [14]
 				{
 					["owner"] = "sf_life",
 					["w"] = "150",
 					["feature"] = "txt_status",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["name"] = "Default",
-						["title"] = "Default",
-						["justifyH"] = "LEFT",
-						["size"] = 10,
-					},
-					["version"] = 1,
+					["ty"] = "hptxt2",
+					["name"] = "text_vie",
 					["anchor"] = {
 						["dx"] = 5,
 						["dy"] = 0,
@@ -13524,14 +13423,40 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["h"] = "14",
-					["ty"] = "hptxt2",
-					["name"] = "text_vie",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sx"] = 1,
+						["name"] = "Default",
+						["title"] = "Default",
+						["justifyH"] = "LEFT",
+						["size"] = 10,
+					},
+					["version"] = 1,
 				}, -- [15]
 				{
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["ty"] = "fdld",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sx"] = 1,
+						["sy"] = -1,
+						["name"] = "Default",
+						["title"] = "Default",
+						["size"] = 12,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 5,
@@ -13541,27 +13466,27 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["name"] = "text_dead",
+					["ty"] = "fdld",
 					["h"] = "14",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sb"] = 0,
-						["sy"] = -1,
-						["name"] = "Default",
-						["title"] = "Default",
-						["size"] = 12,
-					},
 				}, -- [16]
 				{
 					["owner"] = "sf_life",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["ty"] = "mobtype",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sx"] = 1,
+						["sy"] = -1,
+						["name"] = "Default",
+						["title"] = "Default",
+						["size"] = 12,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -13571,21 +13496,8 @@ data = {
 						["af"] = "Frame_sf_life",
 					},
 					["name"] = "text_mob",
+					["ty"] = "mobtype",
 					["h"] = "14",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sb"] = 0,
-						["sy"] = -1,
-						["name"] = "Default",
-						["title"] = "Default",
-						["size"] = 12,
-					},
 				}, -- [17]
 				{
 					["feature"] = "commentline",
@@ -13616,18 +13528,18 @@ data = {
 					["version"] = 1,
 					["bkd"] = {
 						["_border"] = "straight",
-						["edgeSize"] = 8,
-						["kb"] = 0,
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["tile"] = false,
+						["kb"] = 0,
 						["br"] = 0,
 						["kg"] = 0,
 						["kr"] = 0,
 						["ka"] = 0.7119999825954437,
 						["ba"] = 1,
-						["bb"] = 0,
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["_backdrop"] = "solid",
-						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["bb"] = 0,
+						["edgeSize"] = 8,
 						["bg"] = 0,
 						["insets"] = {
 							["top"] = 2,
@@ -13638,12 +13550,7 @@ data = {
 					},
 				}, -- [21]
 				{
-					["energyColor"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0.75,
-						["r"] = 0.75,
-					},
+					["feature"] = "ColorVariable: Unit PowerType Color",
 					["rageColor"] = {
 						["a"] = 1,
 						["b"] = 0,
@@ -13656,7 +13563,12 @@ data = {
 						["g"] = 0.5,
 						["r"] = 1,
 					},
-					["feature"] = "ColorVariable: Unit PowerType Color",
+					["energyColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0.75,
+						["r"] = 0.75,
+					},
 					["runeColor"] = {
 						["a"] = 1,
 						["b"] = 1,
@@ -13697,21 +13609,8 @@ data = {
 					["owner"] = "sf_mana",
 					["w"] = "150",
 					["feature"] = "txt_status",
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "LEFT",
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sx"] = 1,
-						["sr"] = 0,
-					},
-					["version"] = 1,
+					["ty"] = "mptxt",
+					["name"] = "status_power",
 					["anchor"] = {
 						["dx"] = 5,
 						["dy"] = 0,
@@ -13720,8 +13619,21 @@ data = {
 						["af"] = "Frame_sf_mana",
 					},
 					["h"] = "14",
-					["ty"] = "mptxt",
-					["name"] = "status_power",
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sx"] = 1,
+						["sr"] = 0,
+					},
+					["version"] = 1,
 				}, -- [24]
 				{
 					["feature"] = "commentline",
@@ -13749,10 +13661,10 @@ data = {
 						["_border"] = "straight",
 						["edgeSize"] = 20,
 						["ba"] = 0,
-						["bb"] = 1,
+						["_backdrop"] = "none",
 						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
 						["bg"] = 1,
-						["_backdrop"] = "none",
+						["bb"] = 1,
 						["br"] = 1,
 						["insets"] = {
 							["top"] = 2,
@@ -13825,7 +13737,20 @@ data = {
 					["owner"] = "pdt",
 					["w"] = "30",
 					["feature"] = "txt_status",
-					["ty"] = "level",
+					["font"] = {
+						["size"] = 15,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 2,
@@ -13835,27 +13760,27 @@ data = {
 						["af"] = "Frame_pdt",
 					},
 					["name"] = "status_text",
+					["ty"] = "level",
 					["h"] = "30",
-					["font"] = {
-						["size"] = 15,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
 				}, -- [35]
 				{
 					["owner"] = "pdt",
 					["w"] = "200",
 					["feature"] = "txt_np",
-					["h"] = "30",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 15,
+					},
 					["version"] = 1,
 					["classColor"] = 1,
 					["anchor"] = {
@@ -13867,26 +13792,13 @@ data = {
 					},
 					["trunc"] = 20,
 					["name"] = "np",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 15,
-					},
+					["h"] = "30",
 				}, -- [36]
 				{
 					["mover"] = 1,
 					["w"] = 206,
 					["feature"] = "hotspot",
-					["h"] = 76,
+					["flo"] = 3,
 					["name"] = "",
 					["anchor"] = {
 						["dx"] = 0,
@@ -13896,8 +13808,8 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["h"] = 76,
 					["secure"] = 1,
-					["flo"] = 3,
 				}, -- [37]
 			},
 		},
@@ -13917,7 +13829,7 @@ data = {
 					["owner"] = "decor",
 					["w"] = "390",
 					["feature"] = "combatlogs",
-					["h"] = "20",
+					["line"] = 15,
 					["name"] = "combatlogs",
 					["anchor"] = {
 						["dx"] = 0,
@@ -13928,7 +13840,7 @@ data = {
 					},
 					["version"] = 1,
 					["spec"] = "{ title = \"Time\", width = 55, font = Fonts.Default },\n{ title = \"HP\", width = 50, font = Fonts.Default },\n{ title = \"Amt\", width = 50, font = Fonts.Default },\n{ title = \"Ability\", width = 180, font = Fonts.Default },\n{ title = \"Misc\", width = 55, font = Fonts.Default },\n\n\n\n",
-					["line"] = 15,
+					["h"] = "20",
 				}, -- [2]
 			},
 		},
@@ -13939,6 +13851,10 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Inner Fire",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
 						["b"] = 0,
@@ -13949,13 +13865,13 @@ data = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Icons\\Spell_Holy_InnerFire",
 					},
-					["defaultbuttons"] = 1,
 					["titleColor"] = {
 						["a"] = 1,
 						["b"] = 0,
 						["g"] = 0.6392156862745098,
 						["r"] = 1,
 					},
+					["defaultbuttons"] = 1,
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -13981,6 +13897,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -14040,6 +13960,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -14054,10 +13978,10 @@ data = {
 					},
 				}, -- [3]
 				{
-					["feature"] = "Secure Assists",
-					["suffix1"] = "target",
-					["suffix2"] = "targettarget",
 					["interval"] = 0.1,
+					["suffix2"] = "targettarget",
+					["suffix1"] = "target",
+					["feature"] = "Secure Assists",
 				}, -- [4]
 				{
 					["feature"] = "mousebindings",
@@ -14081,24 +14005,25 @@ data = {
 				{
 					["showkey"] = 1,
 					["nIcons"] = 3,
-					["owner"] = "decor",
+					["iconspy"] = 0,
 					["fontkey"] = {
 						["size"] = 10,
-						["sy"] = 0,
+						["title"] = "Default",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
 						["justifyV"] = "TOP",
-						["name"] = "Default",
+						["sy"] = 0,
 						["ca"] = 1,
 						["cg"] = 0.6588235294117647,
-						["title"] = "Default",
-						["sx"] = 0,
-						["justifyH"] = "RIGHT",
+						["name"] = "Default",
 						["cb"] = 0.1058823529411765,
+						["justifyH"] = "RIGHT",
+						["sx"] = 0,
 						["flags"] = "THICKOUTLINE",
 						["cr"] = 1,
 					},
-					["rows"] = 1,
 					["orientation"] = "RIGHT",
+					["rows"] = 1,
+					["owner"] = "decor",
 					["name"] = "vehiclebar",
 					["feature"] = "vehiclebar",
 					["iconspx"] = 2,
@@ -14112,7 +14037,7 @@ data = {
 						["af"] = "Base",
 					},
 					["externalButtonSkin"] = "bs_simplesquare",
-					["iconspy"] = 0,
+					["usebs"] = true,
 					["size"] = 36,
 				}, -- [2]
 			},
@@ -14210,20 +14135,7 @@ data = {
 					["owner"] = "decor",
 					["w"] = "BaseWidth",
 					["feature"] = "txt_dyn",
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "CENTER",
-						["sx"] = 1,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
+					["h"] = "BaseHeight",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -14233,7 +14145,20 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "infoText",
-					["h"] = "BaseHeight",
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "CENTER",
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
 				}, -- [11]
 			},
 		},
@@ -14271,11 +14196,11 @@ data = {
 							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 							["justifyV"] = "CENTER",
 							["flags"] = "THICKOUTLINE",
-							["sy"] = 0,
-							["sx"] = 0,
 							["name"] = "Default",
-							["title"] = "Default",
+							["sx"] = 0,
 							["justifyH"] = "CENTER",
+							["title"] = "Default",
+							["sy"] = 0,
 							["size"] = 11,
 						},
 						["TimerType"] = "COOLDOWN&TEXT",
@@ -14286,7 +14211,7 @@ data = {
 						["GfxReverse"] = true,
 					},
 					["gt"] = "",
-					["version"] = 1,
+					["name"] = "texcd_earth",
 					["externalButtonSkin"] = "bs_default",
 					["owner"] = "decor",
 					["w"] = "36",
@@ -14299,7 +14224,7 @@ data = {
 					},
 					["feature"] = "texture_cooldown",
 					["h"] = "36",
-					["name"] = "texcd_earth",
+					["version"] = 1,
 					["ButtonSkinOffset"] = 2,
 					["tex"] = "totemearth_icon",
 					["dyntexture"] = 1,
@@ -14317,7 +14242,7 @@ data = {
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["h"] = 36,
+					["flo"] = 3,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -14331,16 +14256,16 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "earth",
+					["h"] = 36,
 					["secure"] = 1,
-					["flo"] = 3,
 				}, -- [5]
 				{
 					["cd"] = {
 						["HideText"] = 0,
 						["Font"] = {
 							["flags"] = "THICKOUTLINE",
-							["title"] = "Default",
 							["name"] = "Default",
+							["title"] = "Default",
 							["justifyH"] = "CENTER",
 							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 							["justifyV"] = "CENTER",
@@ -14354,7 +14279,7 @@ data = {
 						["GfxReverse"] = true,
 					},
 					["gt"] = "",
-					["version"] = 1,
+					["name"] = "texcd_Fire",
 					["externalButtonSkin"] = "bs_default",
 					["owner"] = "decor",
 					["w"] = "36",
@@ -14367,7 +14292,7 @@ data = {
 					},
 					["feature"] = "texture_cooldown",
 					["h"] = "36",
-					["name"] = "texcd_Fire",
+					["version"] = 1,
 					["ButtonSkinOffset"] = 2,
 					["tex"] = "totemfire_icon",
 					["dyntexture"] = 1,
@@ -14385,7 +14310,7 @@ data = {
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["h"] = 36,
+					["flo"] = 3,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -14399,16 +14324,16 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "fire",
+					["h"] = 36,
 					["secure"] = 1,
-					["flo"] = 3,
 				}, -- [7]
 				{
 					["cd"] = {
 						["HideText"] = 0,
 						["Font"] = {
 							["flags"] = "THICKOUTLINE",
-							["name"] = "Default",
 							["title"] = "Default",
+							["name"] = "Default",
 							["justifyH"] = "CENTER",
 							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 							["justifyV"] = "CENTER",
@@ -14422,7 +14347,7 @@ data = {
 						["GfxReverse"] = true,
 					},
 					["gt"] = "",
-					["version"] = 1,
+					["name"] = "texcd_water",
 					["externalButtonSkin"] = "bs_default",
 					["owner"] = "decor",
 					["w"] = "36",
@@ -14435,7 +14360,7 @@ data = {
 					},
 					["feature"] = "texture_cooldown",
 					["h"] = "36",
-					["name"] = "texcd_water",
+					["version"] = 1,
 					["ButtonSkinOffset"] = 2,
 					["tex"] = "totemwater_icon",
 					["dyntexture"] = 1,
@@ -14453,7 +14378,7 @@ data = {
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["h"] = 36,
+					["flo"] = 3,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -14467,8 +14392,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "water",
+					["h"] = 36,
 					["secure"] = 1,
-					["flo"] = 3,
 				}, -- [9]
 				{
 					["cd"] = {
@@ -14477,11 +14402,11 @@ data = {
 							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 							["justifyV"] = "CENTER",
 							["flags"] = "THICKOUTLINE",
-							["title"] = "Default",
-							["sx"] = 0,
 							["justifyH"] = "CENTER",
-							["name"] = "Default",
+							["sx"] = 0,
 							["sy"] = 0,
+							["name"] = "Default",
+							["title"] = "Default",
 							["size"] = 11,
 						},
 						["TimerType"] = "COOLDOWN&TEXT",
@@ -14492,7 +14417,7 @@ data = {
 						["GfxReverse"] = true,
 					},
 					["gt"] = "",
-					["version"] = 1,
+					["name"] = "texcd_air",
 					["externalButtonSkin"] = "bs_default",
 					["owner"] = "decor",
 					["w"] = "36",
@@ -14505,7 +14430,7 @@ data = {
 					},
 					["feature"] = "texture_cooldown",
 					["h"] = "36",
-					["name"] = "texcd_air",
+					["version"] = 1,
 					["ButtonSkinOffset"] = 2,
 					["tex"] = "totemair_icon",
 					["dyntexture"] = 1,
@@ -14523,7 +14448,7 @@ data = {
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["h"] = 36,
+					["flo"] = 3,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -14537,8 +14462,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "air",
+					["h"] = 36,
 					["secure"] = 1,
-					["flo"] = 3,
 				}, -- [11]
 				{
 					["feature"] = "commentline",
@@ -14546,8 +14471,8 @@ data = {
 				{
 					["w"] = 144,
 					["feature"] = "hotspot",
-					["flo"] = 3,
-					["name"] = "remove",
+					["h"] = 14,
+					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
 						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
@@ -14560,8 +14485,8 @@ data = {
 						["af"] = "Base",
 					},
 					["secure"] = 1,
-					["h"] = 14,
-					["version"] = 1,
+					["flo"] = 3,
+					["name"] = "remove",
 				}, -- [13]
 			},
 		},
@@ -14721,10 +14646,10 @@ data = {
 					["cleanupPolicy"] = 1,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune1_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -14749,20 +14674,7 @@ data = {
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_custom",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["sy"] = -1,
-						["justifyH"] = "RIGHT",
-						["title"] = "Default",
-						["size"] = 9,
-					},
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -14772,7 +14684,20 @@ data = {
 						["af"] = "rune1_bar",
 					},
 					["name"] = "rune1_timer",
-					["h"] = 14,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["sy"] = -1,
+						["justifyH"] = "RIGHT",
+						["title"] = "Default",
+						["size"] = 9,
+					},
 				}, -- [8]
 				{
 					["script"] = "",
@@ -14792,24 +14717,24 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["justifyH"] = "LEFT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["justifyH"] = "LEFT",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["name"] = "rune1_text",
 				}, -- [9]
 				{
-					["txt"] = "rune1_name",
-					["textInfo"] = "rune1_text",
-					["timerVar"] = "rune1",
-					["textType"] = "Tenths",
 					["TEIDefaultState"] = "Default",
+					["textInfo"] = "rune1_text",
+					["textType"] = "Tenths",
+					["timerVar"] = "rune1",
+					["statusBar"] = "rune1_bar",
 					["text"] = "rune1_timer",
 					["color2"] = {
 						["a"] = 1,
@@ -14830,7 +14755,7 @@ data = {
 					["tex"] = "rune1_icon",
 					["TTIDefaultState"] = "Default",
 					["texIcon"] = "rune1_tex",
-					["statusBar"] = "rune1_bar",
+					["txt"] = "rune1_name",
 				}, -- [10]
 				{
 					["feature"] = "commentline",
@@ -14890,10 +14815,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune2_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -14922,14 +14847,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["name"] = "Default",
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "RIGHT",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["name"] = "Default",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["version"] = 1,
@@ -14961,24 +14886,24 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["justifyH"] = "LEFT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["justifyH"] = "LEFT",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["name"] = "rune2_text",
 				}, -- [17]
 				{
-					["txt"] = "rune2_name",
-					["textInfo"] = "rune2_text",
-					["textType"] = "Tenths",
-					["timerVar"] = "rune2",
 					["statusBar"] = "rune2_bar",
+					["textInfo"] = "rune2_text",
+					["timerVar"] = "rune2",
+					["textType"] = "Tenths",
+					["TEIDefaultState"] = "Default",
 					["text"] = "rune2_timer",
 					["color2"] = {
 						["a"] = 1,
@@ -14999,7 +14924,7 @@ data = {
 					["tex"] = "rune2_icon",
 					["TTIDefaultState"] = "Default",
 					["texIcon"] = "rune2_tex",
-					["TEIDefaultState"] = "Default",
+					["txt"] = "rune2_name",
 				}, -- [18]
 				{
 					["feature"] = "commentline",
@@ -15059,10 +14984,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune3_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -15091,14 +15016,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["name"] = "Default",
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "RIGHT",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["name"] = "Default",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["version"] = 1,
@@ -15130,24 +15055,24 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["justifyH"] = "LEFT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["justifyH"] = "LEFT",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["name"] = "rune3_text",
 				}, -- [25]
 				{
-					["statusBar"] = "rune3_bar",
-					["textInfo"] = "rune3_text",
-					["timerVar"] = "rune3",
-					["textType"] = "Tenths",
 					["TEIDefaultState"] = "Default",
+					["textInfo"] = "rune3_text",
+					["textType"] = "Tenths",
+					["timerVar"] = "rune3",
+					["txt"] = "rune3_name",
 					["text"] = "rune3_timer",
 					["color2"] = {
 						["a"] = 1,
@@ -15168,7 +15093,7 @@ data = {
 					["tex"] = "rune3_icon",
 					["TTIDefaultState"] = "Default",
 					["texIcon"] = "rune3_tex",
-					["txt"] = "rune3_name",
+					["statusBar"] = "rune3_bar",
 				}, -- [26]
 				{
 					["feature"] = "commentline",
@@ -15228,10 +15153,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune4_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -15269,14 +15194,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["name"] = "Default",
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "RIGHT",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["name"] = "Default",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["name"] = "rune4_timer",
@@ -15299,24 +15224,24 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["justifyH"] = "LEFT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["justifyH"] = "LEFT",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["name"] = "rune4_text",
 				}, -- [33]
 				{
-					["statusBar"] = "rune4_bar",
-					["textInfo"] = "rune4_text",
-					["timerVar"] = "rune4",
-					["textType"] = "Tenths",
 					["TEIDefaultState"] = "Default",
+					["textInfo"] = "rune4_text",
+					["textType"] = "Tenths",
+					["timerVar"] = "rune4",
+					["txt"] = "rune4_name",
 					["text"] = "rune4_timer",
 					["color2"] = {
 						["a"] = 1,
@@ -15337,7 +15262,7 @@ data = {
 					["tex"] = "rune4_icon",
 					["TTIDefaultState"] = "Default",
 					["texIcon"] = "rune4_tex",
-					["txt"] = "rune4_name",
+					["statusBar"] = "rune4_bar",
 				}, -- [34]
 				{
 					["feature"] = "commentline",
@@ -15397,10 +15322,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune5_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -15438,14 +15363,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["justifyH"] = "RIGHT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["justifyH"] = "RIGHT",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["name"] = "rune5_timer",
@@ -15468,24 +15393,24 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["justifyH"] = "LEFT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["justifyH"] = "LEFT",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["name"] = "rune5_text",
 				}, -- [41]
 				{
-					["statusBar"] = "rune5_bar",
-					["textInfo"] = "rune5_text",
-					["timerVar"] = "rune5",
-					["textType"] = "Tenths",
 					["TEIDefaultState"] = "Default",
+					["textInfo"] = "rune5_text",
+					["textType"] = "Tenths",
+					["timerVar"] = "rune5",
+					["txt"] = "rune5_name",
 					["text"] = "rune5_timer",
 					["color2"] = {
 						["a"] = 1,
@@ -15506,7 +15431,7 @@ data = {
 					["tex"] = "rune5_icon",
 					["TTIDefaultState"] = "Default",
 					["texIcon"] = "rune5_tex",
-					["txt"] = "rune5_name",
+					["statusBar"] = "rune5_bar",
 				}, -- [42]
 				{
 					["feature"] = "commentline",
@@ -15566,10 +15491,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune6_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -15607,14 +15532,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["justifyH"] = "RIGHT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["justifyH"] = "RIGHT",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["name"] = "rune6_timer",
@@ -15637,24 +15562,24 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["justifyH"] = "LEFT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["justifyH"] = "LEFT",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["name"] = "rune6_text",
 				}, -- [49]
 				{
-					["statusBar"] = "rune6_bar",
-					["textInfo"] = "rune6_text",
-					["timerVar"] = "rune6",
-					["textType"] = "Tenths",
 					["TEIDefaultState"] = "Default",
+					["textInfo"] = "rune6_text",
+					["textType"] = "Tenths",
+					["timerVar"] = "rune6",
+					["txt"] = "rune6_name",
 					["text"] = "rune6_timer",
 					["color2"] = {
 						["a"] = 1,
@@ -15675,7 +15600,7 @@ data = {
 					["tex"] = "rune6_icon",
 					["TTIDefaultState"] = "Default",
 					["texIcon"] = "rune6_tex",
-					["txt"] = "rune6_name",
+					["statusBar"] = "rune6_bar",
 				}, -- [50]
 			},
 		},
@@ -15685,7 +15610,7 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: Lightweight",
-					["showtitlebar"] = 1,
+					["title"] = "Threat",
 					["texicon"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Icons\\Ability_BackStab",
@@ -15703,7 +15628,7 @@ data = {
 						["g"] = 0,
 						["r"] = 0,
 					},
-					["title"] = "Threat",
+					["showtitlebar"] = 1,
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -15744,13 +15669,13 @@ data = {
 					["feature"] = "commentline",
 				}, -- [3]
 				{
-					["a"] = 1,
+					["feature"] = "base_default",
 					["h"] = 14,
 					["version"] = 1,
 					["ph"] = true,
 					["w"] = 90,
 					["alpha"] = 1,
-					["feature"] = "base_default",
+					["a"] = 1,
 				}, -- [4]
 				{
 					["interpolate"] = 1,
@@ -15766,7 +15691,6 @@ data = {
 					["feature"] = "statusbar_horiz",
 					["h"] = "14",
 					["name"] = "statusBar",
-					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -15774,6 +15698,7 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
+					["orientation"] = "HORIZONTAL",
 					["version"] = 1,
 					["color2"] = {
 						["a"] = 1,
@@ -15789,22 +15714,22 @@ data = {
 				{
 					["owner"] = "Base",
 					["w"] = "50",
-					["feature"] = "txt_np",
+					["classColor"] = 1,
 					["font"] = {
 						["size"] = 10,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["justifyH"] = "LEFT",
 						["sa"] = 1,
 						["sg"] = 0,
-						["justifyH"] = "LEFT",
+						["name"] = "Default",
 						["sx"] = 1,
 						["title"] = "Default",
 						["sy"] = -1,
 						["sb"] = 0,
 						["sr"] = 0,
 					},
-					["name"] = "np",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -15813,14 +15738,27 @@ data = {
 						["af"] = "Base",
 					},
 					["h"] = "14",
-					["classColor"] = 1,
-					["version"] = 1,
+					["feature"] = "txt_np",
+					["name"] = "np",
 				}, -- [6]
 				{
 					["owner"] = "Base",
 					["w"] = "40",
 					["feature"] = "txt_status",
-					["ty"] = "fdld",
+					["font"] = {
+						["size"] = 8,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "RIGHT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
 					["name"] = "status_text",
 					["anchor"] = {
 						["dx"] = 0,
@@ -15830,27 +15768,27 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["ty"] = "fdld",
 					["h"] = "14",
+				}, -- [7]
+				{
+					["owner"] = "Base",
+					["w"] = "40",
+					["feature"] = "txt_status",
 					["font"] = {
 						["size"] = 8,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["justifyH"] = "RIGHT",
 						["sa"] = 1,
 						["sg"] = 0,
-						["justifyH"] = "RIGHT",
+						["name"] = "Default",
 						["sx"] = 1,
 						["title"] = "Default",
 						["sy"] = -1,
 						["sb"] = 0,
 						["sr"] = 0,
 					},
-				}, -- [7]
-				{
-					["owner"] = "Base",
-					["w"] = "40",
-					["feature"] = "txt_status",
-					["ty"] = "hpp",
 					["name"] = "text_hp_percent",
 					["anchor"] = {
 						["dx"] = 0,
@@ -15860,21 +15798,8 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["ty"] = "hpp",
 					["h"] = "14",
-					["font"] = {
-						["size"] = 8,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sx"] = 1,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
 				}, -- [8]
 			},
 		},
@@ -15977,10 +15902,10 @@ data = {
 					["cleanupPolicy"] = 1,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune1_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = 0,
@@ -16005,7 +15930,20 @@ data = {
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_custom",
-					["h"] = 14,
+					["font"] = {
+						["size"] = 9,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["title"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["justifyH"] = "RIGHT",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -16015,40 +15953,14 @@ data = {
 						["af"] = "rune1_bar",
 					},
 					["name"] = "rune1_timer",
-					["font"] = {
-						["size"] = 9,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["title"] = "Default",
-						["sx"] = 1,
-						["justifyH"] = "RIGHT",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
+					["h"] = 14,
 				}, -- [8]
 				{
 					["script"] = "",
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_custom",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["sx"] = 1,
-						["title"] = "Default",
-						["justifyH"] = "LEFT",
-						["size"] = 9,
-					},
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 1,
@@ -16058,7 +15970,20 @@ data = {
 						["af"] = "rune1_bar",
 					},
 					["name"] = "rune1_text",
-					["h"] = 14,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sb"] = 0,
+						["sx"] = 1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 9,
+					},
 				}, -- [9]
 				{
 					["TEIDefaultState"] = "Default",
@@ -16072,12 +15997,7 @@ data = {
 					["statusBar"] = "rune1_bar",
 					["text"] = "rune1_timer",
 					["texIcon"] = "rune1_tex",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Default",
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -16090,7 +16010,12 @@ data = {
 					["tex"] = "rune1_icon",
 					["txt"] = "rune1_name",
 					["timerVar"] = "rune1",
-					["TEIExpireState"] = "Default",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 				}, -- [10]
 				{
 					["feature"] = "commentline",
@@ -16150,10 +16075,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune2_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = -20,
@@ -16178,7 +16103,20 @@ data = {
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_custom",
-					["h"] = 14,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sb"] = 0,
+						["sx"] = 1,
+						["title"] = "Default",
+						["justifyH"] = "RIGHT",
+						["size"] = 9,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -16188,40 +16126,14 @@ data = {
 						["af"] = "rune2_bar",
 					},
 					["name"] = "rune2_timer",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "RIGHT",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["sx"] = 1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 9,
-					},
+					["h"] = 14,
 				}, -- [16]
 				{
 					["script"] = "",
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_custom",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["sx"] = 1,
-						["title"] = "Default",
-						["justifyH"] = "LEFT",
-						["size"] = 9,
-					},
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 1,
@@ -16231,7 +16143,20 @@ data = {
 						["af"] = "rune2_bar",
 					},
 					["name"] = "rune2_text",
-					["h"] = 14,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sb"] = 0,
+						["sx"] = 1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 9,
+					},
 				}, -- [17]
 				{
 					["TEIDefaultState"] = "Default",
@@ -16245,7 +16170,12 @@ data = {
 					["statusBar"] = "rune2_bar",
 					["text"] = "rune2_timer",
 					["texIcon"] = "rune2_tex",
-					["TEIExpireState"] = "Default",
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["b"] = 1,
@@ -16258,12 +16188,7 @@ data = {
 					["tex"] = "rune2_icon",
 					["txt"] = "rune2_name",
 					["timerVar"] = "rune2",
-					["color1"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
+					["TEIExpireState"] = "Default",
 				}, -- [18]
 				{
 					["feature"] = "commentline",
@@ -16323,10 +16248,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = -40,
@@ -16351,7 +16276,20 @@ data = {
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_custom",
-					["h"] = 14,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sb"] = 0,
+						["sx"] = 1,
+						["title"] = "Default",
+						["justifyH"] = "RIGHT",
+						["size"] = 9,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -16361,40 +16299,14 @@ data = {
 						["af"] = "rune3_bar",
 					},
 					["name"] = "rune3_timer",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "RIGHT",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["sx"] = 1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 9,
-					},
+					["h"] = 14,
 				}, -- [24]
 				{
 					["script"] = "",
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_custom",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["sx"] = 1,
-						["title"] = "Default",
-						["justifyH"] = "LEFT",
-						["size"] = 9,
-					},
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 1,
@@ -16404,7 +16316,20 @@ data = {
 						["af"] = "rune3_bar",
 					},
 					["name"] = "rune3_text",
-					["h"] = 14,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sb"] = 0,
+						["sx"] = 1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 9,
+					},
 				}, -- [25]
 				{
 					["TEIDefaultState"] = "Default",
@@ -16418,7 +16343,12 @@ data = {
 					["statusBar"] = "rune3_bar",
 					["text"] = "rune3_timer",
 					["texIcon"] = "rune3_tex",
-					["TEIExpireState"] = "Default",
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["b"] = 1,
@@ -16431,12 +16361,7 @@ data = {
 					["tex"] = "rune3_icon",
 					["txt"] = "rune3_name",
 					["timerVar"] = "rune3",
-					["color1"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
+					["TEIExpireState"] = "Default",
 				}, -- [26]
 				{
 					["feature"] = "commentline",
@@ -16496,10 +16421,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = -60,
@@ -16524,20 +16449,7 @@ data = {
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_custom",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "RIGHT",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["sx"] = 1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 9,
-					},
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -16547,13 +16459,6 @@ data = {
 						["af"] = "rune4_bar",
 					},
 					["name"] = "rune4_timer",
-					["h"] = 14,
-				}, -- [32]
-				{
-					["script"] = "",
-					["owner"] = "decor",
-					["w"] = 180,
-					["feature"] = "txt_custom",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
@@ -16565,9 +16470,16 @@ data = {
 						["sb"] = 0,
 						["sx"] = 1,
 						["title"] = "Default",
-						["justifyH"] = "LEFT",
+						["justifyH"] = "RIGHT",
 						["size"] = 9,
 					},
+				}, -- [32]
+				{
+					["script"] = "",
+					["owner"] = "decor",
+					["w"] = 180,
+					["feature"] = "txt_custom",
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 1,
@@ -16577,7 +16489,20 @@ data = {
 						["af"] = "rune4_bar",
 					},
 					["name"] = "rune4_text",
-					["h"] = 14,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sb"] = 0,
+						["sx"] = 1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 9,
+					},
 				}, -- [33]
 				{
 					["TEIDefaultState"] = "Default",
@@ -16591,7 +16516,12 @@ data = {
 					["statusBar"] = "rune4_bar",
 					["text"] = "rune4_timer",
 					["texIcon"] = "rune4_tex",
-					["TEIExpireState"] = "Default",
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["b"] = 1,
@@ -16604,12 +16534,7 @@ data = {
 					["tex"] = "rune4_icon",
 					["txt"] = "rune4_name",
 					["timerVar"] = "rune4",
-					["color1"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
+					["TEIExpireState"] = "Default",
 				}, -- [34]
 				{
 					["feature"] = "commentline",
@@ -16669,10 +16594,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = -80,
@@ -16697,20 +16622,7 @@ data = {
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_custom",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["sx"] = 1,
-						["title"] = "Default",
-						["justifyH"] = "RIGHT",
-						["size"] = 9,
-					},
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -16720,27 +16632,27 @@ data = {
 						["af"] = "rune5_bar",
 					},
 					["name"] = "rune5_timer",
-					["h"] = 14,
-				}, -- [40]
-				{
-					["script"] = "",
-					["owner"] = "decor",
-					["w"] = 180,
-					["feature"] = "txt_custom",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["justifyH"] = "RIGHT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["sy"] = -1,
 						["sb"] = 0,
 						["sx"] = 1,
 						["title"] = "Default",
-						["justifyH"] = "LEFT",
+						["name"] = "Default",
 						["size"] = 9,
 					},
+				}, -- [40]
+				{
+					["script"] = "",
+					["owner"] = "decor",
+					["w"] = 180,
+					["feature"] = "txt_custom",
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 1,
@@ -16750,7 +16662,20 @@ data = {
 						["af"] = "rune5_bar",
 					},
 					["name"] = "rune5_text",
-					["h"] = 14,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sb"] = 0,
+						["sx"] = 1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 9,
+					},
 				}, -- [41]
 				{
 					["TEIDefaultState"] = "Default",
@@ -16764,7 +16689,12 @@ data = {
 					["statusBar"] = "rune5_bar",
 					["text"] = "rune5_timer",
 					["texIcon"] = "rune5_tex",
-					["TEIExpireState"] = "Default",
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["b"] = 1,
@@ -16777,12 +16707,7 @@ data = {
 					["tex"] = "rune5_icon",
 					["txt"] = "rune5_name",
 					["timerVar"] = "rune5",
-					["color1"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
+					["TEIExpireState"] = "Default",
 				}, -- [42]
 				{
 					["feature"] = "commentline",
@@ -16842,10 +16767,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = -100,
@@ -16870,20 +16795,7 @@ data = {
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_custom",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["sx"] = 1,
-						["title"] = "Default",
-						["justifyH"] = "RIGHT",
-						["size"] = 9,
-					},
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -16893,27 +16805,27 @@ data = {
 						["af"] = "rune6_bar",
 					},
 					["name"] = "rune6_timer",
-					["h"] = 14,
-				}, -- [48]
-				{
-					["script"] = "",
-					["owner"] = "decor",
-					["w"] = 180,
-					["feature"] = "txt_custom",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["justifyH"] = "RIGHT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["sy"] = -1,
 						["sb"] = 0,
 						["sx"] = 1,
 						["title"] = "Default",
-						["justifyH"] = "LEFT",
+						["name"] = "Default",
 						["size"] = 9,
 					},
+				}, -- [48]
+				{
+					["script"] = "",
+					["owner"] = "decor",
+					["w"] = 180,
+					["feature"] = "txt_custom",
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 1,
@@ -16923,7 +16835,20 @@ data = {
 						["af"] = "rune6_bar",
 					},
 					["name"] = "rune6_text",
-					["h"] = 14,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sb"] = 0,
+						["sx"] = 1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 9,
+					},
 				}, -- [49]
 				{
 					["TEIDefaultState"] = "Default",
@@ -16937,7 +16862,12 @@ data = {
 					["statusBar"] = "rune6_bar",
 					["text"] = "rune6_timer",
 					["texIcon"] = "rune6_tex",
-					["TEIExpireState"] = "Default",
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["b"] = 1,
@@ -16950,12 +16880,7 @@ data = {
 					["tex"] = "rune6_icon",
 					["txt"] = "rune6_name",
 					["timerVar"] = "rune6",
-					["color1"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
+					["TEIExpireState"] = "Default",
 				}, -- [50]
 			},
 		},
@@ -16965,6 +16890,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -16989,8 +16918,13 @@ data = {
 					["b"] = 0.5372549019607842,
 				},
 				["name"] = "Shaman",
+				["color"] = {
+					["a"] = 1,
+					["r"] = 0.00392156862745098,
+					["g"] = 0.7019607843137257,
+					["b"] = 0.5098039215686274,
+				},
 				["pct"] = 1,
-				["sv"] = 2,
 				["max"] = {
 					["qty"] = "smaxmp",
 					["set"] = {
@@ -16998,12 +16932,7 @@ data = {
 						["file"] = "WoWRDX:Shaman_fset",
 					},
 				},
-				["color"] = {
-					["a"] = 1,
-					["r"] = 0.00392156862745098,
-					["g"] = 0.7019607843137257,
-					["b"] = 0.5098039215686274,
-				},
+				["sv"] = 2,
 				["val"] = {
 					["qty"] = "smp",
 					["set"] = {
@@ -17019,6 +16948,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -17031,8 +16964,8 @@ data = {
 					["unit"] = "mouseover",
 				}, -- [3]
 				{
-					["interval"] = 0.2,
 					["feature"] = "Event: Periodic Repaint",
+					["interval"] = 0.2,
 					["slot"] = "RepaintAll",
 				}, -- [4]
 			},
@@ -17144,7 +17077,20 @@ data = {
 				}, -- [11]
 				{
 					["feature"] = "txt_np",
-					["h"] = "14",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 8,
+					},
 					["version"] = 1,
 					["name"] = "np",
 					["anchor"] = {
@@ -17156,40 +17102,14 @@ data = {
 					},
 					["owner"] = "Base",
 					["w"] = "110",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 8,
-					},
+					["h"] = "14",
 				}, -- [12]
 				{
 					["owner"] = "Base",
 					["w"] = "35",
 					["feature"] = "txt_status",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 8,
-					},
-					["name"] = "text_hp_percent",
+					["ty"] = "hpp",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 102,
 						["dy"] = 0,
@@ -17198,8 +17118,21 @@ data = {
 						["af"] = "Base",
 					},
 					["h"] = "14",
-					["ty"] = "hpp",
-					["version"] = 1,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 8,
+					},
+					["name"] = "text_hp_percent",
 				}, -- [13]
 				{
 					["feature"] = "Raid Target Icon",
@@ -17315,11 +17248,11 @@ data = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "RIGHT",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sy"] = -1,
 						["title"] = "Default",
 						["name"] = "Default",
@@ -17338,13 +17271,13 @@ data = {
 					["textType"] = "VFL.Hundredths",
 					["statusBar"] = "statusBar",
 					["text"] = "spellText",
-					["TEIExpireState"] = "Hide",
 					["color1"] = {
 						["a"] = 1,
 						["b"] = 1,
 						["g"] = 1,
 						["r"] = 1,
 					},
+					["TEIExpireState"] = "Hide",
 					["color2"] = {
 						["a"] = 1,
 						["b"] = 1,
@@ -17365,7 +17298,7 @@ data = {
 					["w"] = "93",
 					["feature"] = "txt_dyn",
 					["h"] = "14",
-					["name"] = "infoText",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 13,
 						["dy"] = -1,
@@ -17377,17 +17310,17 @@ data = {
 						["size"] = 8,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["justifyH"] = "LEFT",
 						["sa"] = 1,
 						["sg"] = 0,
-						["justifyH"] = "LEFT",
+						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sy"] = -1,
 						["sx"] = 1,
 						["sr"] = 0,
 					},
-					["version"] = 1,
+					["name"] = "infoText",
 				}, -- [20]
 				{
 					["cleanupPolicy"] = 3,
@@ -17395,8 +17328,8 @@ data = {
 					["w"] = "11",
 					["feature"] = "texture",
 					["h"] = "11",
-					["name"] = "icontex",
 					["version"] = 1,
+					["name"] = "icontex",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = -2,
@@ -17431,28 +17364,32 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Raid Group 5",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
-						["b"] = 0,
-						["g"] = 0,
 						["r"] = 0,
-					},
-					["texicon"] = {
-						["color"] = {
-							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
-							["b"] = 1,
-						},
-						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
-						["blendMode"] = "BLEND",
+						["g"] = 0,
+						["b"] = 0,
 					},
 					["defaultbuttons"] = 1,
 					["titleColor"] = {
 						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0,
 						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0,
+					},
+					["texicon"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+						["blendMode"] = "BLEND",
 					},
 				}, -- [1]
 				{
@@ -17461,19 +17398,19 @@ data = {
 				}, -- [2]
 				{
 					["feature"] = "Data Source: Secure Set",
-					["set"] = {
-						["file"] = "WoWRDX:Raid_Group5_fset",
-						["class"] = "file",
-					},
 					["rostertype"] = "RAID",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "default:set_raid_group5",
+					},
 				}, -- [3]
 				{
 					["bkt"] = 1,
 					["switchvehicle"] = 1,
 					["dxn"] = 1,
-					["cols"] = 40,
-					["feature"] = "Header Grid",
 					["axis"] = 1,
+					["feature"] = "Header Grid",
+					["cols"] = 40,
 				}, -- [4]
 				{
 					["feature"] = "mousebindings",
@@ -17495,9 +17432,9 @@ data = {
 				}, -- [7]
 				{
 					["feature"] = "mp_args",
-					["version"] = 1,
 					["dpm1"] = 0,
 					["period"] = 0.1,
+					["version"] = 1,
 				}, -- [8]
 				{
 					["feature"] = "FilterSet Editor",
@@ -17546,13 +17483,14 @@ data = {
 					},
 				}, -- [4]
 				{
-					["frac"] = "fcombatmeter1",
+					["interpolate"] = 1,
 					["owner"] = "pdt",
 					["w"] = "BaseWidth",
 					["colorVar"] = "blue",
 					["feature"] = "statusbar_horiz",
 					["h"] = "12",
 					["version"] = 1,
+					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -17560,9 +17498,8 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Frame_pdt",
 					},
-					["orientation"] = "HORIZONTAL",
 					["name"] = "statusBar",
-					["interpolate"] = 1,
+					["frac"] = "fcombatmeter1",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Ruben",
@@ -17571,21 +17508,8 @@ data = {
 				{
 					["owner"] = "pdt",
 					["w"] = "60",
-					["classColor"] = 1,
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Fonts\\ARIALN.TTF",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
+					["feature"] = "txt_np",
+					["h"] = "12",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -17595,8 +17519,21 @@ data = {
 						["af"] = "Frame_pdt",
 					},
 					["name"] = "np",
-					["feature"] = "txt_np",
-					["h"] = "12",
+					["classColor"] = 1,
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Fonts\\ARIALN.TTF",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
 				}, -- [6]
 				{
 					["txt"] = "combatmeter1_text",
@@ -17604,7 +17541,7 @@ data = {
 					["w"] = "80",
 					["feature"] = "txt_dyn",
 					["h"] = "12",
-					["name"] = "infoText",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -2,
 						["dy"] = 0,
@@ -17615,22 +17552,22 @@ data = {
 					["font"] = {
 						["cr"] = 1,
 						["sr"] = 0,
-						["sb"] = 0,
-						["sa"] = 1,
 						["cb"] = 1,
+						["ca"] = 1,
+						["sb"] = 0,
 						["face"] = "Fonts\\ARIALN.TTF",
 						["justifyV"] = "CENTER",
 						["justifyH"] = "RIGHT",
-						["ca"] = 1,
-						["sg"] = 0,
+						["sa"] = 1,
+						["cg"] = 1,
 						["title"] = "Default",
 						["sx"] = 1,
-						["cg"] = 1,
-						["name"] = "Default",
+						["sg"] = 0,
 						["sy"] = -1,
+						["name"] = "Default",
 						["size"] = 9,
 					},
-					["version"] = 1,
+					["name"] = "infoText",
 				}, -- [7]
 				{
 					["feature"] = "shader_showhide",
@@ -17687,6 +17624,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -17705,6 +17646,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -17723,6 +17668,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -17752,9 +17701,9 @@ data = {
 				}, -- [5]
 				{
 					["feature"] = "mp_args",
+					["period"] = 0.1,
 					["version"] = 1,
 					["dpm1"] = 0,
-					["period"] = 0.1,
 				}, -- [6]
 				{
 					["feature"] = "FilterSet Editor",
@@ -17768,6 +17717,10 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Shadow",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
 						["b"] = 0,
@@ -17778,13 +17731,13 @@ data = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Icons\\Spell_Holy_PrayerOfFortitude",
 					},
-					["defaultbuttons"] = 1,
 					["titleColor"] = {
 						["a"] = 1,
 						["b"] = 0.7803921568627451,
 						["g"] = 0.03137254901960784,
 						["r"] = 0.4352941176470588,
 					},
+					["defaultbuttons"] = 1,
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -17814,9 +17767,9 @@ data = {
 				}, -- [5]
 				{
 					["feature"] = "mp_args",
+					["dpm1"] = 0,
 					["period"] = 0.1,
 					["version"] = 1,
-					["dpm1"] = 0,
 				}, -- [6]
 			},
 		},
@@ -17846,12 +17799,37 @@ data = {
 				}, -- [4]
 			},
 		},
+		["Raid_needsHeals_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"not", -- [1]
+					{
+						"dead", -- [1]
+					}, -- [2]
+				}, -- [2]
+				{
+					"hp", -- [1]
+					1, -- [2]
+					1, -- [3]
+					0, -- [4]
+					85, -- [5]
+				}, -- [3]
+			},
+		},
+		["infoAuthor"] = "Sigg",
 		["CooldownBars_Used"] = {
 			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -17862,115 +17840,6 @@ data = {
 					["version"] = 1,
 					["unit"] = "player",
 				}, -- [3]
-			},
-		},
-		["Cooldowns_Avail"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Cooldowns_Avail_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
-			},
-		},
-		["Cooldowns_Used_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "base_default",
-					["h"] = 30,
-					["version"] = 1,
-					["w"] = 300,
-					["alpha"] = 1,
-				}, -- [1]
-				{
-					["rows"] = 1,
-					["filterNameList"] = {
-					},
-					["feature"] = "cd_icons",
-					["iconspx"] = 0,
-					["cd"] = {
-						["Font"] = {
-							["face"] = "Interface\\Addons\\RDX_mediapack\\Fonts\\Blokletters-Viltstift.ttf",
-							["justifyV"] = "CENTER",
-							["cr"] = 1,
-							["flags"] = "OUTLINE",
-							["cg"] = 0.04313725490196078,
-							["justifyH"] = "CENTER",
-							["cb"] = 0,
-							["ca"] = 1,
-							["name"] = "Default",
-							["title"] = "Default",
-							["size"] = 10,
-						},
-						["TimerType"] = "TEXT",
-						["Offsety"] = -20,
-						["Offsetx"] = 0,
-						["UpdateSpeed"] = 0.3,
-						["TextType"] = "Seconds",
-						["HideText"] = 0,
-					},
-					["ButtonSkinOffset"] = 5,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["cooldownType"] = "USED",
-					["iconspy"] = 0,
-					["nIcons"] = 10,
-					["mindurationfilter"] = "",
-					["owner"] = "decor",
-					["name"] = "ai1",
-					["size"] = 30,
-					["orientation"] = "RIGHT",
-					["externalButtonSkin"] = "bs_simplesquare",
-					["version"] = 1,
-					["maxdurationfilter"] = "",
-				}, -- [2]
-			},
-		},
-		["Raid_Group5_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"groups", -- [1]
-					[6] = true,
-				}, -- [2]
-				{
-					"classes", -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
-					true, -- [10]
-					true, -- [11]
-				}, -- [3]
-			},
-		},
-		["None_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"false", -- [1]
 			},
 		},
 		["Shaman_Totems3_ds"] = {
@@ -18034,10 +17903,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 36,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 36,
 					["name"] = "TotemEarthIcon",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -18084,20 +17953,7 @@ data = {
 					["owner"] = "decor",
 					["w"] = "36",
 					["feature"] = "txt_custom",
-					["font"] = {
-						["size"] = 9,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["title"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sx"] = 1,
-						["justifyH"] = "CENTER",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
+					["h"] = "12",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -1,
@@ -18107,7 +17963,20 @@ data = {
 						["af"] = "TotemEarthBar",
 					},
 					["name"] = "EarthTimer",
-					["h"] = "12",
+					["font"] = {
+						["size"] = 9,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sx"] = 1,
+						["justifyH"] = "CENTER",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
 				}, -- [10]
 				{
 					["TEIDefaultState"] = "Hide",
@@ -18121,12 +17990,7 @@ data = {
 					["statusBar"] = "TotemEarthBar",
 					["text"] = "EarthTimer",
 					["texIcon"] = "TotemEarthIcon",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -18139,12 +18003,17 @@ data = {
 					["tex"] = "totemearth_icon",
 					["txt"] = "",
 					["timerVar"] = "totemearth",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 				}, -- [11]
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["flo"] = 3,
+					["h"] = 36,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -18158,8 +18027,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "earth",
+					["flo"] = 3,
 					["secure"] = 1,
-					["h"] = 36,
 				}, -- [12]
 				{
 					["feature"] = "commentline",
@@ -18168,10 +18037,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 36,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 36,
 					["name"] = "TotemFireIcon",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 37,
 						["dy"] = 0,
@@ -18222,14 +18091,14 @@ data = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["justifyH"] = "CENTER",
 						["sa"] = 1,
 						["sg"] = 0,
 						["sy"] = -1,
 						["sb"] = 0,
 						["sx"] = 1,
 						["title"] = "Default",
-						["justifyH"] = "CENTER",
+						["name"] = "Default",
 						["size"] = 9,
 					},
 					["version"] = 1,
@@ -18255,12 +18124,7 @@ data = {
 					["statusBar"] = "TotemFireBar",
 					["text"] = "FireTimer",
 					["texIcon"] = "TotemFireIcon",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -18273,12 +18137,17 @@ data = {
 					["tex"] = "totemfire_icon",
 					["txt"] = "",
 					["timerVar"] = "totemfire",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 				}, -- [17]
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["flo"] = 3,
+					["h"] = 36,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -18292,8 +18161,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "fire",
+					["flo"] = 3,
 					["secure"] = 1,
-					["h"] = 36,
 				}, -- [18]
 				{
 					["feature"] = "commentline",
@@ -18302,10 +18171,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 36,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 36,
 					["name"] = "TotemWaterIcon",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 74,
 						["dy"] = 0,
@@ -18356,14 +18225,14 @@ data = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["justifyH"] = "CENTER",
 						["sa"] = 1,
 						["sg"] = 0,
 						["sy"] = -1,
 						["sb"] = 0,
 						["sx"] = 1,
 						["title"] = "Default",
-						["justifyH"] = "CENTER",
+						["name"] = "Default",
 						["size"] = 9,
 					},
 					["version"] = 1,
@@ -18389,12 +18258,7 @@ data = {
 					["statusBar"] = "TotemWaterBar",
 					["text"] = "WaterTimer",
 					["texIcon"] = "TotemWaterIcon",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -18407,12 +18271,17 @@ data = {
 					["tex"] = "totemwater_icon",
 					["txt"] = "",
 					["timerVar"] = "totemwater",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 				}, -- [23]
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["flo"] = 3,
+					["h"] = 36,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -18426,8 +18295,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "water",
+					["flo"] = 3,
 					["secure"] = 1,
-					["h"] = 36,
 				}, -- [24]
 				{
 					["feature"] = "commentline",
@@ -18436,10 +18305,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 36,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 36,
 					["name"] = "TotemAirIcon",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 111,
 						["dy"] = 0,
@@ -18490,14 +18359,14 @@ data = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["justifyH"] = "CENTER",
 						["sa"] = 1,
 						["sg"] = 0,
 						["sy"] = -1,
 						["sb"] = 0,
 						["sx"] = 1,
 						["title"] = "Default",
-						["justifyH"] = "CENTER",
+						["name"] = "Default",
 						["size"] = 9,
 					},
 					["version"] = 1,
@@ -18523,12 +18392,7 @@ data = {
 					["statusBar"] = "TotemAirBar",
 					["text"] = "AirTimer",
 					["texIcon"] = "TotemAirIcon",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -18541,12 +18405,17 @@ data = {
 					["tex"] = "totemair_icon",
 					["txt"] = "",
 					["timerVar"] = "totemair",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 				}, -- [29]
 				{
 					["w"] = 36,
 					["feature"] = "hotspot",
-					["flo"] = 3,
+					["h"] = 36,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -18560,8 +18429,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "air",
+					["flo"] = 3,
 					["secure"] = 1,
-					["h"] = 36,
 				}, -- [30]
 				{
 					["feature"] = "commentline",
@@ -18569,7 +18438,7 @@ data = {
 				{
 					["w"] = 148,
 					["feature"] = "hotspot",
-					["flo"] = 3,
+					["h"] = 12,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -18583,8 +18452,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "remove",
+					["flo"] = 3,
 					["secure"] = 1,
-					["h"] = 12,
 				}, -- [32]
 				{
 					["feature"] = "Subframe",
@@ -18603,7 +18472,7 @@ data = {
 				}, -- [33]
 			},
 		},
-		["Deathknight_Runes5"] = {
+		["Cooldowns_Avail"] = {
 			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
@@ -18612,7 +18481,7 @@ data = {
 				}, -- [1]
 				{
 					["feature"] = "Design",
-					["design"] = "WoWRDX:Deathknight_Runes5_ds",
+					["design"] = "WoWRDX:Cooldowns_Avail_ds",
 				}, -- [2]
 				{
 					["feature"] = "layout_single_unitframe",
@@ -18666,45 +18535,45 @@ data = {
 				21849, -- [2]
 			},
 		},
-		["Raid_Group8_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"groups", -- [1]
-					[9] = true,
-				}, -- [2]
-				{
-					"classes", -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
-					true, -- [10]
-					true, -- [11]
-				}, -- [3]
-			},
-		},
-		["MiniMapButtons_ds"] = {
+		["Cooldowns_Used_ds"] = {
 			["ty"] = "Design",
 			["version"] = 1,
 			["data"] = {
 				{
 					["feature"] = "base_default",
-					["h"] = 32,
+					["h"] = 30,
 					["version"] = 1,
-					["w"] = 160,
+					["w"] = 300,
 					["alpha"] = 1,
 				}, -- [1]
 				{
-					["feature"] = "minimapbutton",
-					["h"] = "32",
-					["version"] = 1,
+					["rows"] = 1,
+					["filterNameList"] = {
+					},
+					["feature"] = "cd_icons",
+					["iconspx"] = 0,
+					["cd"] = {
+						["Font"] = {
+							["face"] = "Interface\\Addons\\RDX_mediapack\\Fonts\\Blokletters-Viltstift.ttf",
+							["justifyV"] = "CENTER",
+							["cr"] = 1,
+							["flags"] = "OUTLINE",
+							["cg"] = 0.04313725490196078,
+							["title"] = "Default",
+							["cb"] = 0,
+							["ca"] = 1,
+							["name"] = "Default",
+							["justifyH"] = "CENTER",
+							["size"] = 10,
+						},
+						["Offsety"] = -20,
+						["TimerType"] = "TEXT",
+						["Offsetx"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["TextType"] = "Seconds",
+						["HideText"] = 0,
+					},
+					["ButtonSkinOffset"] = 5,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -18712,78 +18581,29 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["mbuttontype"] = "MiniMapTracking",
+					["cooldownType"] = "USED",
+					["iconspy"] = 0,
+					["nIcons"] = 10,
+					["mindurationfilter"] = "",
 					["owner"] = "decor",
-					["w"] = "32",
-					["name"] = "but1",
+					["usebs"] = true,
+					["name"] = "ai1",
+					["size"] = 30,
+					["orientation"] = "RIGHT",
+					["externalButtonSkin"] = "bs_simplesquare",
+					["version"] = 1,
+					["maxdurationfilter"] = "",
 				}, -- [2]
-				{
-					["feature"] = "minimapbutton",
-					["h"] = "32",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 32,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["mbuttontype"] = "MiniMapVoiceChatFrame",
-					["owner"] = "decor",
-					["w"] = "32",
-					["name"] = "but2",
-				}, -- [3]
-				{
-					["feature"] = "minimapbutton",
-					["h"] = "32",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 64,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["mbuttontype"] = "MiniMapLFGFrame",
-					["owner"] = "decor",
-					["w"] = "32",
-					["name"] = "but3",
-				}, -- [4]
-				{
-					["feature"] = "minimapbutton",
-					["h"] = "32",
-					["name"] = "but4",
-					["version"] = 1,
-					["mbuttontype"] = "MiniMapBattlefieldFrame",
-					["owner"] = "decor",
-					["w"] = "32",
-					["anchor"] = {
-						["dx"] = 96,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-				}, -- [5]
-				{
-					["feature"] = "minimapbutton",
-					["h"] = "32",
-					["name"] = "but5",
-					["version"] = 1,
-					["mbuttontype"] = "MiniMapMailFrame",
-					["owner"] = "decor",
-					["w"] = "32",
-					["anchor"] = {
-						["dx"] = 128,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-				}, -- [6]
 			},
 		},
-		["ActionBar5"] = {
+		["None_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"false", -- [1]
+			},
+		},
+		["Deathknight_Runes5"] = {
 			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
@@ -18792,7 +18612,7 @@ data = {
 				}, -- [1]
 				{
 					["feature"] = "Design",
-					["design"] = "WoWRDX:ActionBar5_ds",
+					["design"] = "WoWRDX:Deathknight_Runes5_ds",
 				}, -- [2]
 				{
 					["feature"] = "layout_single_unitframe",
@@ -18813,12 +18633,14 @@ data = {
 					["r"] = 0.4705882352941178,
 				},
 				["name"] = "DPS HP",
+				["sv"] = 1,
 				["color"] = {
 					["a"] = 1,
 					["b"] = 0,
 					["g"] = 0.5254901960784313,
 					["r"] = 0.02352941176470588,
 				},
+				["pct"] = 1,
 				["max"] = {
 					["set"] = {
 						["file"] = "WoWRDX:Dps_fset",
@@ -18826,8 +18648,6 @@ data = {
 					},
 					["qty"] = "smaxhp",
 				},
-				["pct"] = 1,
-				["sv"] = 1,
 				["val"] = {
 					["set"] = {
 						["file"] = "WoWRDX:Dps_fset",
@@ -18835,6 +18655,99 @@ data = {
 					},
 					["qty"] = "shp",
 				},
+			},
+		},
+		["MiniMapButtons_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 32,
+					["version"] = 1,
+					["w"] = 160,
+					["alpha"] = 1,
+				}, -- [1]
+				{
+					["feature"] = "minimapbutton",
+					["h"] = "32",
+					["name"] = "but1",
+					["mbuttontype"] = "MiniMapTracking",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = "32",
+					["version"] = 1,
+				}, -- [2]
+				{
+					["feature"] = "minimapbutton",
+					["h"] = "32",
+					["name"] = "but2",
+					["mbuttontype"] = "MiniMapVoiceChatFrame",
+					["anchor"] = {
+						["dx"] = 32,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = "32",
+					["version"] = 1,
+				}, -- [3]
+				{
+					["feature"] = "minimapbutton",
+					["h"] = "32",
+					["name"] = "but3",
+					["mbuttontype"] = "MiniMapLFGFrame",
+					["anchor"] = {
+						["dx"] = 64,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = "32",
+					["version"] = 1,
+				}, -- [4]
+				{
+					["feature"] = "minimapbutton",
+					["h"] = "32",
+					["name"] = "but4",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 96,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = "32",
+					["mbuttontype"] = "MiniMapBattlefieldFrame",
+				}, -- [5]
+				{
+					["feature"] = "minimapbutton",
+					["h"] = "32",
+					["name"] = "but5",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 128,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = "32",
+					["mbuttontype"] = "MiniMapMailFrame",
+				}, -- [6]
 			},
 		},
 		["CooldownBars_Used_ds"] = {
@@ -18850,13 +18763,101 @@ data = {
 				}, -- [1]
 				{
 					["maxdurationfilter"] = 3000,
-					["owner"] = "decor",
+					["rows"] = 1,
 					["mindurationfilter"] = 0,
+					["feature"] = "cooldown_bars",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["filterNameList"] = {
+					},
+					["countTypeFlag"] = "false",
+					["sbtib"] = {
+						["nametxt"] = {
+							["flags"] = "OUTLINE",
+							["title"] = "Default",
+							["name"] = "Default",
+							["justifyH"] = "LEFT",
+							["face"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\Decker.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 9,
+						},
+						["borientation"] = "VERTICAL",
+						["btype"] = "Frame",
+						["w"] = 20,
+						["banchor"] = "BOTTOM",
+						["btexture"] = {
+							["blendMode"] = "BLEND",
+							["path"] = "Interface\\Addons\\RDX\\Skin\\vbar1",
+						},
+						["bkd"] = {
+							["_border"] = "tooltip",
+							["edgeSize"] = 16,
+							["_backdrop"] = "none",
+							["edgeFile"] = "Interface\\Tooltips\\UI-Tooltip-Border",
+							["insets"] = {
+								["top"] = 4,
+								["right"] = 4,
+								["left"] = 4,
+								["bottom"] = 4,
+							},
+						},
+						["timetxt"] = {
+							["flags"] = "OUTLINE",
+							["title"] = "Default",
+							["name"] = "Default",
+							["justifyH"] = "RIGHT",
+							["face"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\Decker.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 9,
+						},
+						["stacktxt"] = {
+							["name"] = "Default",
+							["title"] = "Default",
+							["justifyH"] = "CENTER",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 9,
+						},
+						["h"] = 200,
+						["iconposition"] = "BOTTOM",
+					},
+					["iconspx"] = 0,
+					["name"] = "ab2",
+					["version"] = 2,
+					["orientation"] = "RIGHT",
+					["cooldownType"] = "USED",
+					["iconspy"] = 1,
+					["nIcons"] = 10,
+				}, -- [2]
+				{
+					["rows"] = 1,
+					["filterNameList"] = {
+					},
+					["feature"] = "cooldown_bars",
+					["iconspx"] = 0,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["cooldownType"] = "USED",
+					["iconspy"] = 1,
+					["nIcons"] = 10,
+					["mindurationfilter"] = 0,
+					["owner"] = "decor",
 					["sbtib"] = {
 						["timetxt"] = {
 							["flags"] = "OUTLINE",
-							["name"] = "Default",
 							["title"] = "Default",
+							["name"] = "Default",
 							["justifyH"] = "RIGHT",
 							["face"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\Decker.ttf",
 							["justifyV"] = "CENTER",
@@ -18865,21 +18866,28 @@ data = {
 						["borientation"] = "HORIZONTAL",
 						["btype"] = "Frame",
 						["w"] = 220,
-						["btexture"] = {
-							["blendMode"] = "BLEND",
-							["path"] = "Interface\\Addons\\RDX\\Skin\\bar1",
-						},
+						["h"] = 20,
 						["nametxt"] = {
 							["flags"] = "OUTLINE",
-							["name"] = "Default",
 							["title"] = "Default",
+							["name"] = "Default",
 							["justifyH"] = "LEFT",
 							["face"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\Decker.ttf",
 							["justifyV"] = "CENTER",
 							["size"] = 9,
 						},
-						["h"] = 20,
-						["showicon"] = true,
+						["btexture"] = {
+							["blendMode"] = "BLEND",
+							["path"] = "Interface\\Addons\\RDX\\Skin\\bar1",
+						},
+						["stacktxt"] = {
+							["name"] = "Default",
+							["title"] = "Default",
+							["justifyH"] = "CENTER",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 9,
+						},
 						["bkd"] = {
 							["_border"] = "tooltip",
 							["edgeSize"] = 16,
@@ -18893,50 +18901,16 @@ data = {
 							},
 						},
 						["banchor"] = "LEFT",
-						["stacktxt"] = {
-							["name"] = "Default",
-							["title"] = "Default",
-							["justifyH"] = "CENTER",
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 9,
-						},
+						["showicon"] = true,
 						["showname"] = true,
 						["iconposition"] = "LEFT",
 					},
-					["orientation"] = "DOWN",
-					["rows"] = 1,
-					["filterNameList"] = {
-					},
-					["version"] = 2,
-					["feature"] = "cooldown_bars",
 					["countTypeFlag"] = "false",
-					["name"] = "ab1",
-					["iconspx"] = 0,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["cooldownType"] = "USED",
-					["iconspy"] = 1,
-					["nIcons"] = 10,
-				}, -- [2]
-			},
-		},
-		["Dps_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"role", -- [1]
-					[3] = true,
-				}, -- [2]
-				{
-					"ol", -- [1]
+					["name"] = "ab2",
+					["orientation"] = "DOWN",
+					["maxdurationfilter"] = 3000,
+					["version"] = 2,
+					["disable"] = true,
 				}, -- [3]
 			},
 		},
@@ -18951,6 +18925,174 @@ data = {
 				["2"] = {
 					["action"] = "cast",
 					["spell"] = 43002,
+				},
+			},
+		},
+		["Offline_stc"] = {
+			["ty"] = "Statistic",
+			["version"] = 1,
+			["data"] = {
+				["fadeColor"] = {
+					["a"] = 1,
+					["r"] = 0.02352941176470588,
+					["g"] = 0.5254901960784313,
+					["b"] = 0,
+				},
+				["name"] = "Offline",
+				["val"] = {
+					["qty"] = "ssz",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Offline_set",
+					},
+				},
+				["max"] = {
+					["qty"] = "ssz",
+					["set"] = {
+						["class"] = "group",
+					},
+				},
+				["sv"] = 3,
+				["color"] = {
+					["a"] = 1,
+					["r"] = 0.4705882352941178,
+					["g"] = 0,
+					["b"] = 0.01176470588235294,
+				},
+				["texture"] = "",
+			},
+		},
+		["Offline_set"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"not", -- [1]
+					{
+						"ol", -- [1]
+					}, -- [2]
+				}, -- [2]
+				{
+					"nidmask", -- [1]
+				}, -- [3]
+			},
+		},
+		["ActionBar5"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:ActionBar5_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
+				}, -- [3]
+			},
+		},
+		["Player_Debuff_Icon_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 45,
+					["version"] = 1,
+					["w"] = 300,
+					["alpha"] = 1,
+				}, -- [1]
+				{
+					["rows"] = 10,
+					["fontst"] = {
+						["size"] = 14,
+						["title"] = "Default",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "BOTTOM",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["sx"] = 1,
+						["flags"] = "THICKOUTLINE",
+						["sr"] = 0,
+					},
+					["feature"] = "aura_icons",
+					["iconspx"] = 3,
+					["cd"] = {
+						["HideText"] = 0,
+						["Font"] = {
+							["size"] = 10,
+							["title"] = "Default",
+							["name"] = "Default",
+							["sg"] = 0,
+							["sx"] = 1,
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["sy"] = -1,
+							["ca"] = 1,
+							["cg"] = 0.7372549019607844,
+							["justifyH"] = "CENTER",
+							["sb"] = 0,
+							["sa"] = 1,
+							["sr"] = 0,
+							["cb"] = 0.1333333333333333,
+							["cr"] = 1,
+						},
+						["TimerType"] = "COOLDOWN&TEXT",
+						["Offsety"] = -20,
+						["UpdateSpeed"] = 0.1,
+						["Offsetx"] = 0,
+						["TextType"] = "Largest",
+						["GfxReverse"] = true,
+					},
+					["ButtonSkinOffset"] = 5,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPRIGHT",
+						["rp"] = "TOPRIGHT",
+						["af"] = "Base",
+					},
+					["externalButtonSkin"] = "bs_simplesquare",
+					["iconspy"] = 14,
+					["nIcons"] = 20,
+					["mindurationfilter"] = "",
+					["auraType"] = "DEBUFFS",
+					["owner"] = "decor",
+					["filterNameList"] = {
+					},
+					["smooth"] = 1,
+					["usebs"] = true,
+					["maxdurationfilter"] = "",
+					["version"] = 1,
+					["name"] = "ai1",
+					["orientation"] = "LEFT",
+					["bkd"] = {
+					},
+					["size"] = 30,
+					["unitfilter"] = "",
+				}, -- [2]
+			},
+		},
+		["Priest_Buff_VampiricEmbrace_mb"] = {
+			["ty"] = "MouseBindings",
+			["version"] = 1,
+			["data"] = {
+				["1"] = {
+					["action"] = "cast",
+					["spell"] = 15286,
 				},
 			},
 		},
@@ -19013,20 +19155,15 @@ data = {
 					["nIcons"] = 5,
 					["showkey"] = 1,
 					["owner"] = "decor",
-					["fontmacro"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "CENTER",
-						["color"] = {
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "BOTTOM",
-						["size"] = 8,
-					},
+					["totembar"] = "Elements",
+					["size"] = 36,
 					["version"] = 1,
+					["name"] = "totembar1",
+					["usebs"] = true,
+					["orientation"] = "RIGHT",
+					["bkd"] = {
+						["_border"] = "none",
+					},
 					["fontkey"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -19040,10 +19177,19 @@ data = {
 						["justifyV"] = "TOP",
 						["size"] = 8,
 					},
-					["orientation"] = "RIGHT",
-					["name"] = "totembar1",
-					["size"] = 36,
-					["totembar"] = "Elements",
+					["fontmacro"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "CENTER",
+						["color"] = {
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "BOTTOM",
+						["size"] = 8,
+					},
 				}, -- [2]
 				{
 					["showtooltip"] = 1,
@@ -19093,20 +19239,14 @@ data = {
 					["nIcons"] = 5,
 					["showkey"] = 1,
 					["owner"] = "decor",
-					["fontmacro"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "CENTER",
-						["color"] = {
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "BOTTOM",
-						["size"] = 8,
-					},
+					["totembar"] = "Ancestors",
+					["size"] = 36,
 					["version"] = 1,
+					["name"] = "totembar2",
+					["usebs"] = true,
+					["orientation"] = "RIGHT",
+					["bkd"] = {
+					},
 					["fontkey"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -19120,10 +19260,19 @@ data = {
 						["justifyV"] = "TOP",
 						["size"] = 8,
 					},
-					["orientation"] = "RIGHT",
-					["name"] = "totembar2",
-					["size"] = 36,
-					["totembar"] = "Ancestors",
+					["fontmacro"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "CENTER",
+						["color"] = {
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "BOTTOM",
+						["size"] = 8,
+					},
 				}, -- [3]
 				{
 					["showtooltip"] = 1,
@@ -19173,6 +19322,27 @@ data = {
 					["nIcons"] = 5,
 					["showkey"] = 1,
 					["owner"] = "decor",
+					["totembar"] = "Spirits",
+					["size"] = 36,
+					["version"] = 1,
+					["name"] = "totembar3",
+					["usebs"] = true,
+					["orientation"] = "RIGHT",
+					["bkd"] = {
+					},
+					["fontkey"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "RIGHT",
+						["color"] = {
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "TOP",
+						["size"] = 8,
+					},
 					["fontmacro"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -19186,229 +19356,7 @@ data = {
 						["justifyV"] = "BOTTOM",
 						["size"] = 8,
 					},
-					["version"] = 1,
-					["fontkey"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "RIGHT",
-						["color"] = {
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "TOP",
-						["size"] = 8,
-					},
-					["orientation"] = "RIGHT",
-					["name"] = "totembar3",
-					["size"] = 36,
-					["totembar"] = "Spirits",
 				}, -- [4]
-			},
-		},
-		["Offline_set"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"not", -- [1]
-					{
-						"ol", -- [1]
-					}, -- [2]
-				}, -- [2]
-				{
-					"nidmask", -- [1]
-				}, -- [3]
-			},
-		},
-		["Deathknight_Runes1"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Deathknight_Runes1_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
-			},
-		},
-		["Player_Debuff_Icon_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "base_default",
-					["h"] = 45,
-					["version"] = 1,
-					["w"] = 300,
-					["alpha"] = 1,
-				}, -- [1]
-				{
-					["rows"] = 10,
-					["fontst"] = {
-						["sr"] = 0,
-						["sa"] = 1,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "BOTTOM",
-						["sx"] = 1,
-						["flags"] = "THICKOUTLINE",
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sb"] = 0,
-						["sy"] = -1,
-						["name"] = "Default",
-						["title"] = "Default",
-						["size"] = 14,
-					},
-					["feature"] = "aura_icons",
-					["iconspx"] = 3,
-					["cd"] = {
-						["GfxReverse"] = true,
-						["Font"] = {
-							["cr"] = 1,
-							["sr"] = 0,
-							["sb"] = 0,
-							["sa"] = 1,
-							["cb"] = 0.1333333333333333,
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["justifyH"] = "CENTER",
-							["ca"] = 1,
-							["sg"] = 0,
-							["sy"] = -1,
-							["sx"] = 1,
-							["cg"] = 0.7372549019607844,
-							["title"] = "Default",
-							["name"] = "Default",
-							["size"] = 10,
-						},
-						["TimerType"] = "COOLDOWN&TEXT",
-						["Offsety"] = -20,
-						["Offsetx"] = 0,
-						["UpdateSpeed"] = 0.1,
-						["TextType"] = "Largest",
-						["HideText"] = 0,
-					},
-					["ButtonSkinOffset"] = 5,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPRIGHT",
-						["rp"] = "TOPRIGHT",
-						["af"] = "Base",
-					},
-					["externalButtonSkin"] = "bs_simplesquare",
-					["iconspy"] = 14,
-					["nIcons"] = 20,
-					["mindurationfilter"] = "",
-					["auraType"] = "DEBUFFS",
-					["owner"] = "decor",
-					["filterNameList"] = {
-					},
-					["size"] = 30,
-					["version"] = 1,
-					["name"] = "ai1",
-					["orientation"] = "LEFT",
-					["maxdurationfilter"] = "",
-					["smooth"] = 1,
-					["unitfilter"] = "",
-				}, -- [2]
-			},
-		},
-		["ActionBarStance_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "base_default",
-					["h"] = 36,
-					["version"] = 1,
-					["w"] = 360,
-					["alpha"] = 1,
-				}, -- [1]
-				{
-					["showtooltip"] = 1,
-					["rows"] = 1,
-					["feature"] = "stancebar",
-					["iconspx"] = 0,
-					["cd"] = {
-						["Font"] = {
-							["name"] = "Default",
-							["title"] = "Default",
-							["justifyH"] = "CENTER",
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 10,
-						},
-						["Offsety"] = 0,
-						["TimerType"] = "COOLDOWN",
-						["UpdateSpeed"] = 0.3,
-						["Offsetx"] = 0,
-						["TextType"] = "Seconds",
-						["HideText"] = 0,
-					},
-					["ButtonSkinOffset"] = 6,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["fontkey"] = {
-						["size"] = 10,
-						["sy"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
-						["justifyV"] = "TOP",
-						["name"] = "Default",
-						["ca"] = 1,
-						["cg"] = 0.6588235294117647,
-						["title"] = "Default",
-						["sx"] = 0,
-						["justifyH"] = "RIGHT",
-						["cb"] = 0.1058823529411765,
-						["flags"] = "THICKOUTLINE",
-						["cr"] = 1,
-					},
-					["iconspy"] = 0,
-					["size"] = 36,
-					["showkey"] = 1,
-					["owner"] = "decor",
-					["version"] = 1,
-					["orientation"] = "RIGHT",
-					["nIcons"] = 8,
-					["name"] = "stancebar",
-					["externalButtonSkin"] = "bs_simplesquare",
-				}, -- [2]
-			},
-		},
-		["Range_30plus_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"ol", -- [1]
-				}, -- [2]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["n"] = 3,
-							["class"] = "frs",
-						}, -- [2]
-					}, -- [2]
-				}, -- [3]
 			},
 		},
 		["Battleground_desk"] = {
@@ -19431,19 +19379,19 @@ data = {
 					["alpha"] = 1,
 					["strata"] = "BACKGROUND",
 					["offsetright"] = "0",
-					["title"] = "Konyagi_AUI:desk_solo",
+					["name"] = "root",
 					["dock"] = {
-						["BOTTOMLEFT"] = {
-							["id"] = "WoWRDX:ChatFrame1",
-							["x"] = -20,
-							["point"] = "BOTTOMLEFT",
-							["y"] = -20,
-						},
 						["BOTTOMRIGHT"] = {
 							["id"] = "WoWRDX:Combat_Logs",
 							["x"] = 20,
 							["point"] = "BOTTOMRIGHT",
 							["y"] = -20,
+						},
+						["TOPRIGHT"] = {
+							["id"] = "WoWRDX:Player_SecureBuff_Icon",
+							["x"] = 0,
+							["point"] = "TOPRIGHT",
+							["y"] = 0,
 						},
 						["BOTTOM"] = {
 							["id"] = "WoWRDX:ActionBar1",
@@ -19457,17 +19405,17 @@ data = {
 							["point"] = "RIGHT",
 							["y"] = 0,
 						},
-						["TOPRIGHT"] = {
-							["id"] = "WoWRDX:Player_SecureBuff_Icon",
-							["x"] = 0,
-							["point"] = "TOPRIGHT",
-							["y"] = 0,
-						},
 						["TOPLEFT"] = {
 							["id"] = "WoWRDX:Player_SecureDebuff_Icon",
 							["x"] = 0,
 							["point"] = "TOPLEFT",
 							["y"] = 0,
+						},
+						["BOTTOMLEFT"] = {
+							["id"] = "WoWRDX:ChatFrame1",
+							["x"] = -20,
+							["point"] = "BOTTOMLEFT",
+							["y"] = -20,
 						},
 						["CENTER"] = {
 							["id"] = "WoWRDX:Panel_Center",
@@ -19477,7 +19425,7 @@ data = {
 						},
 					},
 					["open"] = true,
-					["name"] = "root",
+					["title"] = "Konyagi_AUI:desk_solo",
 					["anchory"] = 207.6800844938,
 					["ap"] = "TOPLEFT",
 				}, -- [1]
@@ -19499,14 +19447,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 47.78666548950701,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar1",
 					["r"] = 866.9866965304984,
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 17.06666731335399,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [2]
 				{
 					["strata"] = "MEDIUM",
@@ -19526,14 +19474,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 568.320007342238,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar3",
 					["r"] = 1348.266710285255,
 					["anchor"] = "TOPLEFT",
 					["l"] = 1317.546600063446,
 					["b"] = 199.680014288981,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [3]
 				{
 					["strata"] = "MEDIUM",
@@ -19547,14 +19495,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 568.320007342238,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar4",
 					["r"] = 1317.546600063446,
 					["anchor"] = "TOPLEFT",
 					["l"] = 1286.826609357003,
 					["b"] = 199.680014288981,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [4]
 				{
 					["strata"] = "MEDIUM",
@@ -19574,14 +19522,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 78.50667113537041,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar5",
 					["r"] = 866.9866965304984,
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 47.78666548950701,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [5]
 				{
 					["strata"] = "MEDIUM",
@@ -19601,14 +19549,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 109.2266693115234,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBar6",
 					["r"] = 866.9866965304984,
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 78.50667113537041,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [6]
 				{
 					["strata"] = "MEDIUM",
@@ -19628,14 +19576,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 139.9466674876765,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBarPet",
 					["r"] = 805.54665535993,
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 109.2266693115234,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [7]
 				{
 					["strata"] = "MEDIUM",
@@ -19655,14 +19603,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 170.6666731335399,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBarStance",
 					["r"] = 805.54665535993,
 					["anchor"] = "TOPLEFT",
 					["l"] = 498.3466885378205,
 					["b"] = 139.9466674876765,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [8]
 				{
 					["strata"] = "MEDIUM",
@@ -19676,14 +19624,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 170.6666731335399,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ActionBarVehicle",
 					["r"] = 897.7066274792579,
 					["anchor"] = "TOPLEFT",
 					["l"] = 805.54665535993,
 					["b"] = 139.9466674876765,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [9]
 				{
 					["strata"] = "MEDIUM",
@@ -19703,14 +19651,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 128.0000160547205,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ChatEditBox1",
 					["r"] = 358.4000210501441,
 					["anchor"] = "TOPLEFT",
 					["l"] = 17.06666731335399,
 					["b"] = 102.4000113498343,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [10]
 				{
 					["strata"] = "MEDIUM",
@@ -19730,25 +19678,18 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 102.4000113498343,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:ChatFrame1",
 					["r"] = 358.4000210501441,
 					["anchor"] = "TOPLEFT",
 					["l"] = 17.06666731335399,
 					["b"] = 17.06666731335399,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [11]
 				{
 					["strata"] = "MEDIUM",
-					["dock"] = {
-						["BOTTOMRIGHT"] = {
-							["id"] = "WoWRDX:ChatEditBox1",
-							["x"] = 0,
-							["point"] = "TOPRIGHT",
-							["y"] = 0,
-						},
-					},
+					["b"] = 128.0000160547205,
 					["scale"] = 1,
 					["t"] = 140.8000221420188,
 					["alpha"] = 1,
@@ -19758,7 +19699,14 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 187.7333479166043,
 					["open"] = true,
-					["b"] = 128.0000160547205,
+					["dock"] = {
+						["BOTTOMRIGHT"] = {
+							["id"] = "WoWRDX:ChatEditBox1",
+							["x"] = 0,
+							["point"] = "TOPRIGHT",
+							["y"] = 0,
+						},
+					},
 				}, -- [12]
 				{
 					["strata"] = "MEDIUM",
@@ -19772,14 +19720,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 768.0000066917983,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_SecureBuff_Icon",
 					["r"] = 1365.333385068319,
 					["anchor"] = "TOPLEFT",
 					["l"] = 1024.000008922398,
 					["b"] = 725.3333197341373,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [13]
 				{
 					["strata"] = "MEDIUM",
@@ -19793,14 +19741,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 768.0000066917983,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_SecureDebuff_Icon",
 					["r"] = 341.3333462670797,
 					["anchor"] = "TOPLEFT",
 					["l"] = 0,
 					["b"] = 721.0666211595296,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [14]
 				{
 					["strata"] = "MEDIUM",
@@ -19820,14 +19768,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 416.4267033610263,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_Main",
 					["r"] = 512.0000044611988,
 					["anchor"] = "TOPLEFT",
 					["l"] = 336.2133378563921,
 					["b"] = 351.573363088455,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [15]
 				{
 					["strata"] = "MEDIUM",
@@ -19841,21 +19789,21 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 256.0000022305994,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Player_CastBar",
 					["r"] = 770.5600258365629,
 					["anchor"] = "TOPLEFT",
 					["l"] = 594.7733592317561,
 					["b"] = 233.8133339762682,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [16]
 				{
 					["strata"] = "MEDIUM",
 					["r"] = 512.0000044611988,
 					["scale"] = 1,
 					["t"] = 343.0400256969228,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Pet_Main",
 					["dock"] = {
@@ -19869,7 +19817,7 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 336.2133378563921,
 					["b"] = 278.1866854243514,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [17]
 				{
 					["strata"] = "MEDIUM",
@@ -19914,14 +19862,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 469.3333473823794,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Panel_Center",
 					["r"] = 853.3333806071202,
 					["anchor"] = "TOPLEFT",
 					["l"] = 512.0000044611988,
 					["b"] = 298.6666593094188,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [19]
 				{
 					["strata"] = "MEDIUM",
@@ -19941,14 +19889,14 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 416.4267033610263,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Target_Main",
 					["r"] = 1029.120047211927,
 					["anchor"] = "TOPLEFT",
 					["l"] = 853.3333806071202,
 					["b"] = 351.573363088455,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [20]
 				{
 					["strata"] = "MEDIUM",
@@ -19962,18 +19910,25 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 416.4267033610263,
-					["alpha"] = 1,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Targettarget_Main",
 					["r"] = 1213.439991450583,
 					["anchor"] = "TOPLEFT",
 					["l"] = 1037.653324845776,
 					["b"] = 351.573363088455,
-					["open"] = true,
+					["alpha"] = 1,
 				}, -- [21]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 1348.266710285255,
+					["dock"] = {
+						["BOTTOMRIGHT"] = {
+							["id"] = "root",
+							["x"] = -20,
+							["point"] = "BOTTOMRIGHT",
+							["y"] = 20,
+						},
+					},
 					["scale"] = 1,
 					["t"] = 145.0666609589433,
 					["open"] = true,
@@ -19983,14 +19938,7 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1028.266707497005,
 					["b"] = 17.06666731335399,
-					["dock"] = {
-						["BOTTOMRIGHT"] = {
-							["id"] = "root",
-							["x"] = -20,
-							["point"] = "BOTTOMRIGHT",
-							["y"] = 20,
-						},
-					},
+					["r"] = 1348.266710285255,
 				}, -- [22]
 				{
 					["strata"] = "MEDIUM",
@@ -20007,13 +19955,13 @@ data = {
 				}, -- [23]
 				{
 					["strata"] = "MEDIUM",
-					["b"] = 305.4592713692527,
+					["r"] = 354.3381878377041,
 					["scale"] = 0.9000000357627869,
 					["t"] = 643.4560653971696,
 					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Raid_GroupAll",
-					["r"] = 354.3381878377041,
+					["b"] = 305.4592713692527,
 					["anchor"] = "TOPLEFT",
 					["l"] = 10.19733907745491,
 					["open"] = true,
@@ -20021,77 +19969,23 @@ data = {
 				}, -- [24]
 			},
 		},
-		["Range_ds"] = {
-			["ty"] = "Design",
+		["Range_30plus_fset"] = {
+			["ty"] = "FilterSet",
 			["version"] = 1,
 			["data"] = {
+				"and", -- [1]
 				{
-					["feature"] = "base_default",
-					["h"] = 10,
-					["version"] = 1,
-					["alpha"] = 1,
-					["w"] = 75,
-				}, -- [1]
-				{
-					["owner"] = "decor",
-					["w"] = "50",
-					["classColor"] = 1,
-					["h"] = "10",
-					["name"] = "np",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 8,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Base",
-					},
-					["trunc"] = 8,
-					["feature"] = "txt_np",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["sy"] = -1,
-						["title"] = "Default",
-						["justifyH"] = "LEFT",
-						["size"] = 10,
-					},
+					"ol", -- [1]
 				}, -- [2]
 				{
-					["owner"] = "decor",
-					["w"] = "40",
-					["feature"] = "txt_status",
-					["h"] = "10",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Base",
-					},
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["sy"] = -1,
-						["title"] = "Default",
-						["justifyH"] = "LEFT",
-						["size"] = 9,
-					},
-					["ty"] = "gn",
-					["name"] = "group",
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["n"] = 3,
+							["class"] = "frs",
+						}, -- [2]
+					}, -- [2]
 				}, -- [3]
 			},
 		},
@@ -20158,8 +20052,8 @@ data = {
 					["stat"] = "WoWRDX:Offline_stc",
 				}, -- [8]
 				{
-					["interval"] = 0.3,
 					["feature"] = "Event: Periodic Repaint",
+					["interval"] = 0.3,
 					["slot"] = "RepaintAll",
 				}, -- [9]
 				{
@@ -20174,6 +20068,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -20241,26 +20139,27 @@ data = {
 					["nIcons"] = 10,
 					["showkey"] = 1,
 					["owner"] = "decor",
+					["usebs"] = true,
 					["abid"] = 1,
 					["version"] = 1,
+					["name"] = "actionbarpet",
+					["orientation"] = "RIGHT",
+					["size"] = 36,
 					["fontkey"] = {
 						["size"] = 10,
-						["sy"] = 0,
+						["title"] = "Default",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
 						["justifyV"] = "TOP",
-						["name"] = "Default",
+						["sy"] = 0,
 						["ca"] = 1,
 						["cg"] = 0.6588235294117647,
-						["title"] = "Default",
-						["sx"] = 0,
-						["justifyH"] = "RIGHT",
+						["name"] = "Default",
 						["cb"] = 0.1058823529411765,
+						["justifyH"] = "RIGHT",
+						["sx"] = 0,
 						["flags"] = "THICKOUTLINE",
 						["cr"] = 1,
 					},
-					["orientation"] = "RIGHT",
-					["name"] = "actionbarpet",
-					["size"] = 36,
 					["hidebs"] = 1,
 				}, -- [2]
 			},
@@ -20275,6 +20174,163 @@ data = {
 				["etypes"] = {
 					[44] = true,
 				},
+			},
+		},
+		["Deathknight_Runes1"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Deathknight_Runes1_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
+				}, -- [3]
+			},
+		},
+		["infoRunAutoexec"] = 1,
+		["ActionBar1_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 36,
+					["version"] = 1,
+					["w"] = 432,
+					["alpha"] = 1,
+				}, -- [1]
+				{
+					["showtooltip"] = 1,
+					["rows"] = 1,
+					["fontcount"] = {
+						["cr"] = 0.2980392156862745,
+						["flags"] = "THICKOUTLINE",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
+						["justifyV"] = "BOTTOM",
+						["sx"] = 0,
+						["ca"] = 1,
+						["cg"] = 0.3882352941176471,
+						["justifyH"] = "RIGHT",
+						["cb"] = 1,
+						["sy"] = 0,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 10,
+					},
+					["feature"] = "actionbar",
+					["iconspx"] = 0,
+					["cd"] = {
+						["Font"] = {
+							["name"] = "Default",
+							["title"] = "Default",
+							["justifyH"] = "CENTER",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 10,
+						},
+						["TimerType"] = "COOLDOWN",
+						["Offsety"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["Offsetx"] = 0,
+						["TextType"] = "Seconds",
+						["HideText"] = 0,
+					},
+					["ButtonSkinOffset"] = 6,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["fontkey"] = {
+						["cr"] = 1,
+						["flags"] = "THICKOUTLINE",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
+						["justifyV"] = "TOP",
+						["cb"] = 0.1058823529411765,
+						["ca"] = 1,
+						["cg"] = 0.6588235294117647,
+						["sy"] = 0,
+						["sx"] = 0,
+						["justifyH"] = "RIGHT",
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 10,
+					},
+					["iconspy"] = 0,
+					["nIcons"] = 12,
+					["showkey"] = 1,
+					["size"] = 36,
+					["bkd"] = {
+						["ka"] = 1,
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
+						["kb"] = 0.1,
+						["kr"] = 0.1,
+						["tile"] = false,
+						["_backdrop"] = "solid",
+						["edgeFile"] = "Interface\\AddOns\\RDX_mediapack\\sharedmedia\\borders\\IshBorder",
+						["edgeSize"] = 12,
+						["_border"] = "IshBorder",
+						["kg"] = 0.1,
+						["insets"] = {
+							["top"] = 4,
+							["right"] = 4,
+							["left"] = 4,
+							["bottom"] = 4,
+						},
+					},
+					["owner"] = "decor",
+					["fontmacro"] = {
+						["size"] = 8,
+						["title"] = "Default",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "BOTTOM",
+						["sx"] = 0,
+						["ca"] = 1,
+						["cg"] = 0.3568627450980392,
+						["justifyH"] = "RIGHT",
+						["cb"] = 0.8901960784313725,
+						["sy"] = 0,
+						["flags"] = "OUTLINE",
+						["name"] = "Default",
+						["cr"] = 1,
+					},
+					["name"] = "barbut1",
+					["headerstateType"] = "Defaultui",
+					["abid"] = 1,
+					["version"] = 1,
+					["headerstateCustom"] = "",
+					["orientation"] = "RIGHT",
+					["usebs"] = true,
+					["anyup"] = 1,
+					["externalButtonSkin"] = "bs_simplesquare",
+				}, -- [2]
+			},
+		},
+		["Target_Debuff"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Target_Debuff_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "target",
+				}, -- [3]
 			},
 		},
 		["Druid_Buff_Wild_ds"] = {
@@ -20293,26 +20349,7 @@ data = {
 					},
 				}, -- [2]
 				{
-					["feature"] = "Variables: Buffs Debuffs Info",
-					["name"] = "aurai",
-					["cd"] = 79061,
 					["auraType"] = "BUFFS",
-				}, -- [3]
-				{
-					["feature"] = "commentline",
-				}, -- [4]
-				{
-					["feature"] = "base_default",
-					["h"] = 14,
-					["version"] = 1,
-					["ph"] = 1,
-					["w"] = 80,
-					["alpha"] = 1,
-				}, -- [5]
-				{
-					["frac"] = "",
-					["owner"] = "decor",
-					["w"] = "BaseWidth",
 					["color1"] = {
 						["a"] = 1,
 						["b"] = 1,
@@ -20325,9 +20362,54 @@ data = {
 						["g"] = 1,
 						["r"] = 1,
 					},
+					["color3"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["cd"] = 79061,
+					["timer2"] = "0",
+					["name"] = "aurai",
+					["feature"] = "Variables: Buffs Debuffs Info",
+					["color0"] = {
+						["a"] = 0,
+						["b"] = 0,
+						["g"] = 0,
+						["r"] = 0,
+					},
+					["timer1"] = "0",
+				}, -- [3]
+				{
+					["feature"] = "commentline",
+				}, -- [4]
+				{
+					["feature"] = "base_default",
+					["h"] = 14,
+					["version"] = 1,
+					["ph"] = 1,
+					["alpha"] = 1,
+					["w"] = 80,
+				}, -- [5]
+				{
+					["frac"] = "",
+					["owner"] = "decor",
+					["w"] = "BaseWidth",
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["feature"] = "statusbar_horiz",
 					["h"] = "13",
 					["name"] = "statusBar",
-					["feature"] = "statusbar_horiz",
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
 					["orientation"] = "HORIZONTAL",
 					["version"] = 1,
 					["anchor"] = {
@@ -20354,12 +20436,7 @@ data = {
 					["statusBar"] = "statusBar",
 					["text"] = "",
 					["texIcon"] = "",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -20372,7 +20449,12 @@ data = {
 					["tex"] = "",
 					["txt"] = "",
 					["timerVar"] = "aurai_aura",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 				}, -- [7]
 				{
 					["feature"] = "commentline",
@@ -20396,7 +20478,7 @@ data = {
 					["owner"] = "high",
 					["w"] = "40",
 					["feature"] = "txt_status",
-					["h"] = "14",
+					["ty"] = "gn",
 					["name"] = "text_group",
 					["anchor"] = {
 						["dx"] = 0,
@@ -20406,41 +20488,41 @@ data = {
 						["af"] = "high",
 					},
 					["version"] = 1,
+					["h"] = "14",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sy"] = -1,
 						["name"] = "Default",
 						["title"] = "Default",
 						["size"] = 9,
 					},
-					["ty"] = "gn",
 				}, -- [10]
 				{
 					["owner"] = "high",
 					["w"] = "BaseWidth",
-					["classColor"] = 1,
+					["feature"] = "txt_np",
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sy"] = -1,
 						["name"] = "Default",
 						["title"] = "Default",
 						["size"] = 10,
 					},
-					["version"] = 1,
+					["name"] = "np",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -20449,8 +20531,8 @@ data = {
 						["af"] = "high",
 					},
 					["h"] = "BaseHeight",
-					["feature"] = "txt_np",
-					["name"] = "np",
+					["classColor"] = 1,
+					["version"] = 1,
 				}, -- [11]
 				{
 					["feature"] = "commentline",
@@ -20461,8 +20543,8 @@ data = {
 					["w"] = "80",
 					["feature"] = "texture",
 					["h"] = "13",
-					["version"] = 1,
 					["name"] = "tex_range",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -20498,174 +20580,18 @@ data = {
 					["feature"] = "ColorVariable: Static Color",
 				}, -- [15]
 				{
-					["feature"] = "ColorVariable: Conditional Color",
+					["condVar"] = "unitInRange30_flag",
 					["name"] = "range",
 					["colorVar1"] = "red",
 					["colorVar2"] = "alpha",
-					["condVar"] = "unitInRange30_flag",
+					["feature"] = "ColorVariable: Conditional Color",
 				}, -- [16]
 				{
-					["flag"] = "true",
 					["feature"] = "Highlight: Texture Map",
+					["flag"] = "true",
 					["color"] = "range",
 					["texture"] = "tex_range",
 				}, -- [17]
-			},
-		},
-		["infoRunAutoexec"] = 1,
-		["ActionBar1_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "base_default",
-					["h"] = 36,
-					["version"] = 1,
-					["w"] = 432,
-					["alpha"] = 1,
-				}, -- [1]
-				{
-					["anyup"] = 1,
-					["rows"] = 1,
-					["fontcount"] = {
-						["cr"] = 0.2980392156862745,
-						["flags"] = "THICKOUTLINE",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
-						["justifyV"] = "BOTTOM",
-						["cb"] = 1,
-						["ca"] = 1,
-						["cg"] = 0.3882352941176471,
-						["name"] = "Default",
-						["sx"] = 0,
-						["sy"] = 0,
-						["justifyH"] = "RIGHT",
-						["title"] = "Default",
-						["size"] = 10,
-					},
-					["feature"] = "actionbar",
-					["iconspx"] = 0,
-					["cd"] = {
-						["Font"] = {
-							["name"] = "Default",
-							["title"] = "Default",
-							["justifyH"] = "CENTER",
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 10,
-						},
-						["Offsety"] = 0,
-						["TimerType"] = "COOLDOWN",
-						["UpdateSpeed"] = 0.3,
-						["Offsetx"] = 0,
-						["TextType"] = "Seconds",
-						["HideText"] = 0,
-					},
-					["ButtonSkinOffset"] = 6,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["externalButtonSkin"] = "bs_simplesquare",
-					["iconspy"] = 0,
-					["nIcons"] = 12,
-					["showkey"] = 1,
-					["owner"] = "decor",
-					["size"] = 36,
-					["headerstateCustom"] = "",
-					["headerstateType"] = "Defaultui",
-					["abid"] = 1,
-					["version"] = 1,
-					["name"] = "barbut1",
-					["orientation"] = "RIGHT",
-					["fontkey"] = {
-						["cr"] = 1,
-						["flags"] = "THICKOUTLINE",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
-						["justifyV"] = "TOP",
-						["sx"] = 0,
-						["ca"] = 1,
-						["cg"] = 0.6588235294117647,
-						["name"] = "Default",
-						["cb"] = 0.1058823529411765,
-						["justifyH"] = "RIGHT",
-						["sy"] = 0,
-						["title"] = "Default",
-						["size"] = 10,
-					},
-					["showtooltip"] = 1,
-					["fontmacro"] = {
-						["size"] = 8,
-						["title"] = "Default",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "BOTTOM",
-						["cb"] = 0.8901960784313725,
-						["flags"] = "OUTLINE",
-						["cg"] = 0.3568627450980392,
-						["name"] = "Default",
-						["sx"] = 0,
-						["sy"] = 0,
-						["ca"] = 1,
-						["justifyH"] = "RIGHT",
-						["cr"] = 1,
-					},
-				}, -- [2]
-			},
-		},
-		["ChatFrame1"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:ChatFrame1_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
-			},
-		},
-		["Druid_Power_stc"] = {
-			["ty"] = "Statistic",
-			["version"] = 1,
-			["data"] = {
-				["val"] = {
-					["qty"] = "smp",
-					["set"] = {
-						["class"] = "file",
-						["file"] = "WoWRDX:Druid_fset",
-					},
-				},
-				["fadeColor"] = {
-					["a"] = 1,
-					["r"] = 0.6352941176470583,
-					["g"] = 0,
-					["b"] = 0.5372549019607842,
-				},
-				["name"] = "Druid",
-				["sv"] = 2,
-				["color"] = {
-					["a"] = 1,
-					["r"] = 0.7333333333333334,
-					["g"] = 0.2784313725490195,
-					["b"] = 0.06666666666666665,
-				},
-				["max"] = {
-					["qty"] = "smaxmp",
-					["set"] = {
-						["class"] = "file",
-						["file"] = "WoWRDX:Druid_fset",
-					},
-				},
-				["pct"] = 1,
-				["texture"] = "",
 			},
 		},
 		["Player_Weapons_ds"] = {
@@ -20685,33 +20611,7 @@ data = {
 				{
 					["name"] = "mainhand",
 					["gt"] = "MainHandEnchant_InventoryItem",
-					["cd"] = {
-						["HideText"] = 0,
-						["Font"] = {
-							["cr"] = 1,
-							["size"] = 10,
-							["sa"] = 1,
-							["sg"] = 0,
-							["cb"] = 0.1333333333333333,
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["name"] = "Default",
-							["ca"] = 1,
-							["cg"] = 0.7372549019607844,
-							["justifyH"] = "CENTER",
-							["sx"] = 1,
-							["sy"] = -1,
-							["title"] = "Default",
-							["sb"] = 0,
-							["sr"] = 0,
-						},
-						["Offsety"] = -20,
-						["TimerType"] = "COOLDOWN&TEXT",
-						["Offsetx"] = 0,
-						["UpdateSpeed"] = 0.3,
-						["TextType"] = "Largest",
-						["GfxReverse"] = true,
-					},
+					["version"] = 1,
 					["externalButtonSkin"] = "mediapack:bs_entropy",
 					["owner"] = "Base",
 					["w"] = "30",
@@ -20724,7 +20624,33 @@ data = {
 					},
 					["feature"] = "texture_cooldown",
 					["h"] = "30",
-					["version"] = 1,
+					["cd"] = {
+						["HideText"] = 0,
+						["Font"] = {
+							["cr"] = 1,
+							["size"] = 10,
+							["ca"] = 1,
+							["cg"] = 0.7372549019607844,
+							["cb"] = 0.1333333333333333,
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["name"] = "Default",
+							["sa"] = 1,
+							["sg"] = 0,
+							["sy"] = -1,
+							["sx"] = 1,
+							["title"] = "Default",
+							["justifyH"] = "CENTER",
+							["sb"] = 0,
+							["sr"] = 0,
+						},
+						["Offsety"] = -20,
+						["TimerType"] = "COOLDOWN&TEXT",
+						["Offsetx"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["TextType"] = "Largest",
+						["GfxReverse"] = true,
+					},
 					["ButtonSkinOffset"] = 4,
 					["tex"] = "MainHand_icon",
 					["dyntexture"] = 1,
@@ -20742,33 +20668,7 @@ data = {
 				{
 					["name"] = "offhand",
 					["gt"] = "OffHandEnchant_InventoryItem",
-					["cd"] = {
-						["HideText"] = 0,
-						["Font"] = {
-							["cr"] = 1,
-							["sr"] = 0,
-							["sa"] = 1,
-							["sg"] = 0,
-							["cb"] = 0.1333333333333333,
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["name"] = "Default",
-							["ca"] = 1,
-							["cg"] = 0.7372549019607844,
-							["justifyH"] = "CENTER",
-							["sx"] = 1,
-							["sy"] = -1,
-							["title"] = "Default",
-							["sb"] = 0,
-							["size"] = 10,
-						},
-						["Offsety"] = -20,
-						["TimerType"] = "COOLDOWN&TEXT",
-						["Offsetx"] = 0,
-						["UpdateSpeed"] = 0.3,
-						["TextType"] = "Largest",
-						["GfxReverse"] = true,
-					},
+					["version"] = 1,
 					["externalButtonSkin"] = "mediapack:bs_entropy",
 					["owner"] = "Base",
 					["w"] = "30",
@@ -20781,7 +20681,33 @@ data = {
 					},
 					["feature"] = "texture_cooldown",
 					["h"] = "30",
-					["version"] = 1,
+					["cd"] = {
+						["HideText"] = 0,
+						["Font"] = {
+							["cr"] = 1,
+							["sr"] = 0,
+							["ca"] = 1,
+							["cg"] = 0.7372549019607844,
+							["cb"] = 0.1333333333333333,
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["name"] = "Default",
+							["sa"] = 1,
+							["sg"] = 0,
+							["sy"] = -1,
+							["sx"] = 1,
+							["title"] = "Default",
+							["justifyH"] = "CENTER",
+							["sb"] = 0,
+							["size"] = 10,
+						},
+						["Offsety"] = -20,
+						["TimerType"] = "COOLDOWN&TEXT",
+						["Offsetx"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["TextType"] = "Largest",
+						["GfxReverse"] = true,
+					},
 					["ButtonSkinOffset"] = 4,
 					["tex"] = "OffHand_icon",
 					["dyntexture"] = 1,
@@ -20798,31 +20724,26 @@ data = {
 				}, -- [4]
 			},
 		},
-		["Range_10_15_fset"] = {
-			["ty"] = "FilterSet",
+		["ChatFrame1"] = {
+			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
-				"and", -- [1]
 				{
-					"set", -- [1]
-					{
-						["item"] = "heavy frostweave bandage",
-						["class"] = "itemrange",
-					}, -- [2]
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:ChatFrame1_ds",
 				}, -- [2]
 				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["file"] = "WoWRDX:Range_0_10_fset",
-							["class"] = "file",
-						}, -- [2]
-					}, -- [2]
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
 				}, -- [3]
-				{
-					"ol", -- [1]
-				}, -- [4]
 			},
 		},
 		["Tanks_Main"] = {
@@ -20830,10 +20751,7 @@ data = {
 			["version"] = 1,
 			["data"] = {
 				{
-					["texicon"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Icons\\Spell_DeathKnight_DarkConviction",
-					},
+					["feature"] = "Frame: Lightweight",
 					["title"] = "Main Tanks",
 					["showtitlebar"] = 1,
 					["bkdColor"] = {
@@ -20849,7 +20767,10 @@ data = {
 						["b"] = 0,
 					},
 					["defaultbuttons"] = 1,
-					["feature"] = "Frame: Lightweight",
+					["texicon"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Icons\\Spell_DeathKnight_DarkConviction",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -20882,9 +20803,9 @@ data = {
 				}, -- [6]
 				{
 					["feature"] = "mp_args",
+					["period"] = 0.1,
 					["version"] = 1,
 					["dpm1"] = 0,
-					["period"] = 0.1,
 				}, -- [7]
 			},
 		},
@@ -20893,7 +20814,16 @@ data = {
 			["version"] = 1,
 			["data"] = {
 				{
-					["feature"] = "Frame: Lightweight",
+					["texicon"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+						["blendMode"] = "BLEND",
+					},
 					["title"] = "Assists",
 					["bkdColor"] = {
 						["a"] = 0.2557997107505798,
@@ -20908,16 +20838,7 @@ data = {
 						["g"] = 0,
 						["r"] = 0,
 					},
-					["texicon"] = {
-						["color"] = {
-							["a"] = 1,
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
-						["blendMode"] = "BLEND",
-					},
+					["feature"] = "Frame: Lightweight",
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -20949,104 +20870,41 @@ data = {
 				}, -- [6]
 			},
 		},
-		["Target_Debuff"] = {
-			["ty"] = "Window",
+		["Range_10_15_fset"] = {
+			["ty"] = "FilterSet",
 			["version"] = 1,
 			["data"] = {
+				"and", -- [1]
 				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Target_Debuff_ds",
+					"set", -- [1]
+					{
+						["item"] = "heavy frostweave bandage",
+						["class"] = "itemrange",
+					}, -- [2]
 				}, -- [2]
 				{
-					["feature"] = "layout_single_unitframe",
-					["version"] = 1,
-					["unit"] = "target",
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["file"] = "WoWRDX:Range_0_10_fset",
+							["class"] = "file",
+						}, -- [2]
+					}, -- [2]
 				}, -- [3]
+				{
+					"ol", -- [1]
+				}, -- [4]
 			},
 		},
-		["Player_Buff_Icon_ds"] = {
-			["ty"] = "Design",
+		["Paladin_Buff_Kings_fset"] = {
+			["ty"] = "FilterSet",
 			["version"] = 1,
 			["data"] = {
+				"set", -- [1]
 				{
-					["feature"] = "base_default",
-					["h"] = 45,
-					["version"] = 1,
-					["w"] = 300,
-					["alpha"] = 1,
-				}, -- [1]
-				{
-					["rows"] = 10,
-					["fontst"] = {
-						["size"] = 14,
-						["name"] = "Default",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "BOTTOM",
-						["justifyH"] = "RIGHT",
-						["flags"] = "THICKOUTLINE",
-						["sg"] = 0,
-						["title"] = "Default",
-						["sb"] = 0,
-						["sy"] = -1,
-						["sx"] = 1,
-						["sa"] = 1,
-						["sr"] = 0,
-					},
-					["feature"] = "aura_icons",
-					["iconspx"] = 3,
-					["cd"] = {
-						["HideText"] = 0,
-						["Font"] = {
-							["size"] = 10,
-							["sy"] = -1,
-							["title"] = "Default",
-							["sg"] = 0,
-							["sx"] = 1,
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["name"] = "Default",
-							["ca"] = 1,
-							["cg"] = 0.7372549019607844,
-							["justifyH"] = "CENTER",
-							["cb"] = 0.1333333333333333,
-							["sa"] = 1,
-							["sr"] = 0,
-							["sb"] = 0,
-							["cr"] = 1,
-						},
-						["TimerType"] = "COOLDOWN&TEXT",
-						["Offsety"] = -20,
-						["UpdateSpeed"] = 0.1,
-						["Offsetx"] = 0,
-						["TextType"] = "Largest",
-						["GfxReverse"] = true,
-					},
-					["ButtonSkinOffset"] = 5,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPRIGHT",
-						["rp"] = "TOPRIGHT",
-						["af"] = "Base",
-					},
-					["externalButtonSkin"] = "bs_simplesquare",
-					["iconspy"] = 14,
-					["nIcons"] = 20,
-					["mindurationfilter"] = "",
-					["auraType"] = "BUFFS",
-					["owner"] = "decor",
-					["filterNameList"] = {
-					},
-					["smooth"] = 1,
-					["version"] = 1,
-					["maxdurationfilter"] = "",
-					["orientation"] = "LEFT",
-					["name"] = "ai1",
-					["size"] = 30,
-					["unitfilter"] = "",
+					["buff"] = 79062,
+					["class"] = "buff",
 				}, -- [2]
 			},
 		},
@@ -21056,7 +20914,7 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: Lightweight",
-					["showtitlebar"] = 1,
+					["title"] = "Main Assists",
 					["texicon"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Icons\\Spell_DeathKnight_Explode_Ghoul",
@@ -21074,7 +20932,7 @@ data = {
 						["g"] = 0,
 						["r"] = 0,
 					},
-					["title"] = "Main Assists",
+					["showtitlebar"] = 1,
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -21107,170 +20965,123 @@ data = {
 				}, -- [6]
 				{
 					["feature"] = "mp_args",
+					["version"] = 1,
 					["dpm1"] = 0,
 					["period"] = 0.1,
-					["version"] = 1,
 				}, -- [7]
 			},
 		},
-		["Offline_stc"] = {
-			["ty"] = "Statistic",
+		["Raid_Druid"] = {
+			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
-				["fadeColor"] = {
-					["a"] = 1,
-					["r"] = 0.02352941176470588,
-					["g"] = 0.5254901960784313,
-					["b"] = 0,
-				},
-				["name"] = "Offline",
-				["val"] = {
-					["qty"] = "ssz",
+				{
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Raid_Druid_ds",
+				}, -- [2]
+				{
+					["feature"] = "Data Source: Secure Set",
+					["rostertype"] = "RAID",
 					["set"] = {
 						["class"] = "file",
-						["file"] = "WoWRDX:Offline_set",
+						["file"] = "WoWRDX:Raid_GroupAll_fset",
 					},
-				},
-				["max"] = {
-					["qty"] = "ssz",
-					["set"] = {
-						["class"] = "group",
-					},
-				},
-				["sv"] = 3,
-				["color"] = {
-					["a"] = 1,
-					["r"] = 0.4705882352941178,
-					["g"] = 0,
-					["b"] = 0.01176470588235294,
-				},
-				["texture"] = "",
+				}, -- [3]
+				{
+					["bkt"] = 1,
+					["dxn"] = 2,
+					["axis"] = 2,
+					["feature"] = "Header Grid",
+					["cols"] = 5,
+				}, -- [4]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "click",
+					["version"] = 1,
+					["mbFriendly"] = "default:bindings_action",
+				}, -- [5]
+				{
+					["feature"] = "FilterSet Editor",
+				}, -- [6]
 			},
 		},
-		["Player_SecureDebuff_Icon_ds"] = {
+		["Name_ds"] = {
 			["ty"] = "Design",
 			["version"] = 1,
 			["data"] = {
 				{
 					["feature"] = "base_default",
-					["h"] = 55,
+					["h"] = 14,
 					["version"] = 1,
-					["w"] = 400,
 					["alpha"] = 1,
+					["w"] = 90,
+					["ph"] = 1,
 				}, -- [1]
 				{
-					["separateown"] = "NONE",
-					["point"] = "TOPRIGHT",
-					["wrapafter"] = 10,
-					["sortmethod"] = "INDEX",
-					["feature"] = "sec_aura_icons",
-					["cd"] = {
-						["HideText"] = 0,
-						["Font"] = {
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 10,
-							["flags"] = "THICKOUTLINE",
-							["cg"] = 0.807843137254902,
-							["justifyH"] = "CENTER",
-							["cb"] = 0.02745098039215686,
-							["title"] = "Default",
-							["name"] = "Default",
-							["ca"] = 1,
-							["cr"] = 1,
-						},
-						["TimerType"] = "COOLDOWN&TEXT",
-						["Offsety"] = -25,
-						["Offsetx"] = 3,
-						["UpdateSpeed"] = 0.3,
-						["TextType"] = "Largest",
-						["GfxReverse"] = true,
+					["owner"] = "Base",
+					["w"] = "90",
+					["classColor"] = 1,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["justifyH"] = "LEFT",
+						["size"] = 10,
 					},
-					["ButtonSkinOffset"] = 6,
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
-						["lp"] = "TOPRIGHT",
-						["rp"] = "TOPRIGHT",
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
 						["af"] = "Base",
 					},
-					["externalButtonSkin"] = "bs_simplesquare",
-					["template"] = "RDXAB40x40Template",
-					["auraType"] = "DEBUFFS",
-					["owner"] = "Base",
-					["fontst"] = {
-						["name"] = "Default",
-						["title"] = "Default",
-						["justifyH"] = "CENTER",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 8,
-					},
-					["version"] = 1,
-					["maxwraps"] = 2,
-					["orientation"] = "LEFT",
-					["xoffset"] = 0,
-					["name"] = "sai1",
-					["yoffset"] = 0,
+					["name"] = "np",
+					["feature"] = "txt_np",
+					["h"] = "14",
 				}, -- [2]
 			},
 		},
-		["Info"] = {
-			["ty"] = "Window",
+		["Druid_Buff_Wild_fset"] = {
+			["ty"] = "FilterSet",
 			["version"] = 1,
 			["data"] = {
+				"or", -- [1]
 				{
-					["texicon"] = {
-						["color"] = {
-							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
-							["b"] = 1,
-						},
-						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
-						["blendMode"] = "BLEND",
-					},
-					["title"] = "Info",
-					["bkdColor"] = {
-						["a"] = 0,
-						["b"] = 0,
-						["g"] = 0,
-						["r"] = 0,
-					},
-					["titleColor"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0,
-						["r"] = 0,
-					},
-					["feature"] = "Frame: Lightweight",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Info_ds",
+					"set", -- [1]
+					{
+						["class"] = "buff",
+						["buff"] = 79061,
+					}, -- [2]
 				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
 			},
 		},
-		["Debuff_Primary_fset"] = {
-			["ty"] = "SymLink",
-			["version"] = 3,
+		["Debuff_Poison_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
 			["data"] = {
-				["targetpath_5"] = "WoWRDX:None_fset",
-				["class"] = "class",
-				["targetpath_7"] = "WoWRDX:Debuff_Curse_fset",
-				["targetpath_8"] = "WoWRDX:None_fset",
-				["targetpath_2"] = "WoWRDX:Debuff_Poison_fset",
-				["targetpath_3"] = "WoWRDX:Debuff_Poison_fset",
-				["targetpath_4"] = "WoWRDX:Debuff_Curse_fset",
-				["targetpath_1"] = "WoWRDX:Debuff_Magic_fset",
-				["targetpath_10"] = "WoWRDX:None_fset",
-				["targetpath_9"] = "WoWRDX:None_fset",
-				["targetpath_6"] = "WoWRDX:Debuff_Magic_fset",
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["buff"] = "@poison",
+						["class"] = "debuff",
+					}, -- [2]
+				}, -- [2]
 			},
 		},
 		["ActionBar3"] = {
@@ -21279,6 +21090,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -21367,14 +21182,14 @@ data = {
 					["version"] = 1,
 					["bkd"] = {
 						["_border"] = "HalStraight",
-						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
+						["kg"] = 0,
 						["kb"] = 0,
 						["kr"] = 0,
 						["_backdrop"] = "solid",
 						["edgeFile"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalBorder",
-						["kg"] = 0,
-						["ka"] = 0.2749999761581421,
 						["edgeSize"] = 8,
+						["ka"] = 0.2749999761581421,
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["insets"] = {
 							["top"] = 2,
 							["right"] = 2,
@@ -21467,7 +21282,20 @@ data = {
 				}, -- [16]
 				{
 					["feature"] = "txt_np",
-					["h"] = "20",
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Fonts\\FRIZQT__.TTF",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sb"] = 0,
+						["name"] = "Default",
+						["sy"] = -1,
+						["sx"] = 1,
+						["sr"] = 0,
+					},
 					["version"] = 1,
 					["name"] = "np",
 					["anchor"] = {
@@ -21479,40 +21307,14 @@ data = {
 					},
 					["owner"] = "main2",
 					["w"] = "100",
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Fonts\\FRIZQT__.TTF",
-						["justifyV"] = "CENTER",
-						["title"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sb"] = 0,
-						["name"] = "Default",
-						["sy"] = -1,
-						["sx"] = 1,
-						["sr"] = 0,
-					},
+					["h"] = "20",
 				}, -- [17]
 				{
 					["owner"] = "main2",
 					["w"] = "35",
 					["feature"] = "txt_status",
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Fonts\\FRIZQT__.TTF",
-						["justifyV"] = "CENTER",
-						["title"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["justifyH"] = "RIGHT",
-						["sy"] = -1,
-						["sx"] = 1,
-						["sr"] = 0,
-					},
-					["name"] = "text_hp_percent",
+					["h"] = "20",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -4,
 						["dy"] = 0,
@@ -21521,14 +21323,27 @@ data = {
 						["af"] = "Frame_main2",
 					},
 					["ty"] = "hpp",
-					["h"] = "20",
-					["version"] = 1,
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Fonts\\FRIZQT__.TTF",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sb"] = 0,
+						["justifyH"] = "RIGHT",
+						["sy"] = -1,
+						["sx"] = 1,
+						["sr"] = 0,
+					},
+					["name"] = "text_hp_percent",
 				}, -- [18]
 				{
 					["w"] = "140",
 					["feature"] = "hotspot",
-					["secure"] = 1,
-					["name"] = "",
+					["flo"] = 3,
+					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
 						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
@@ -21541,8 +21356,8 @@ data = {
 						["af"] = "Base",
 					},
 					["h"] = "20",
-					["flo"] = 3,
-					["version"] = 1,
+					["secure"] = 1,
+					["name"] = "",
 				}, -- [19]
 				{
 					["feature"] = "Raid Target Icon",
@@ -21617,167 +21432,19 @@ data = {
 				}, -- [21]
 			},
 		},
-		["Priest_Buff_InnerFire_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
+		["ClassBar_ds"] = {
+			["ty"] = "SymLink",
+			["version"] = 3,
 			["data"] = {
-				{
-					["feature"] = "Variables: Buffs Debuffs Info",
-					["name"] = "auraia",
-					["cd"] = 588,
-					["auraType"] = "BUFFS",
-				}, -- [1]
-				{
-					["color"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 0.8627450980392157,
-						["b"] = 0.0196078431372549,
-					},
-					["name"] = "yellow",
-					["feature"] = "ColorVariable: Static Color",
-				}, -- [2]
-				{
-					["feature"] = "base_default",
-					["h"] = 14,
-					["version"] = 1,
-					["hlt"] = 1,
-					["ph"] = 1,
-					["alpha"] = 1,
-					["w"] = 80,
-				}, -- [3]
-				{
-					["feature"] = "Subframe",
-					["h"] = "BaseHeight",
-					["name"] = "subframe",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["owner"] = "decor",
-					["w"] = "BaseWidth",
-					["flOffset"] = 1,
-				}, -- [4]
-				{
-					["frac"] = "",
-					["owner"] = "subframe",
-					["w"] = "66",
-					["feature"] = "statusbar_horiz",
-					["h"] = "BaseHeight",
-					["version"] = 1,
-					["colorVar"] = "yellow",
-					["anchor"] = {
-						["dx"] = 14,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "subframe",
-					},
-					["name"] = "statusBar",
-					["orientation"] = "HORIZONTAL",
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\TargetingFrame\\UI-StatusBar",
-					},
-				}, -- [5]
-				{
-					["cleanupPolicy"] = 2,
-					["owner"] = "subframe",
-					["w"] = "14",
-					["feature"] = "texture",
-					["h"] = "14",
-					["version"] = 1,
-					["name"] = "tex1",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "subframe",
-					},
-					["sublevel"] = 1,
-					["drawLayer"] = "ARTWORK",
-					["texture"] = {
-						["color"] = {
-							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
-							["b"] = 1,
-						},
-						["blendMode"] = "BLEND",
-					},
-				}, -- [6]
-				{
-					["script"] = "",
-					["owner"] = "subframe",
-					["w"] = "50",
-					["feature"] = "txt_custom",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sb"] = 0,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 10,
-					},
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 20,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "subframe",
-					},
-					["name"] = "customText",
-					["h"] = "14",
-				}, -- [7]
-				{
-					["TEIDefaultState"] = "Hide",
-					["textInfo"] = "",
-					["sbExpireState"] = "Hide",
-					["TTIExpireState"] = "Hide",
-					["feature"] = "free_timer",
-					["sbDefaultState"] = "Hide",
-					["TTIDefaultState"] = "Hide",
-					["textType"] = "MinSec",
-					["statusBar"] = "statusBar",
-					["text"] = "customText",
-					["texIcon"] = "tex1",
-					["TEIExpireState"] = "Default",
-					["color2"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["countTypeFlag"] = "false",
-					["tex"] = "auraia_icon",
-					["txt"] = "",
-					["timerVar"] = "auraia_aura",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-				}, -- [8]
-				{
-					["feature"] = "shader_showhide",
-					["owner"] = "subframe",
-					["version"] = 1,
-					["flag"] = "auraia_possible",
-				}, -- [9]
+				["DEATHKNIGHT"] = "WoWRDX:Deathknight_Runes1_ds",
+				["PALADIN"] = "WoWRDX:Paladin_HolyPower_ds",
+				["class"] = "class&form",
+				["WARLOCK"] = "WoWRDX:Warlock_Shards_ds",
+				["ROGUE"] = "WoWRDX:Rogue_Combo_ds",
+				["DRUIDELEM"] = "WoWRDX:Druid_EclipseBar_ds",
+				["all"] = "WoWRDX:ClassBarDefault_ds",
+				["DRUIDCAT"] = "WoWRDX:Rogue_Combo_ds",
+				["SHAMAN"] = "WoWRDX:Shaman_Totems1_ds",
 			},
 		},
 		["Warrior_Shout_mb"] = {
@@ -21878,15 +21545,15 @@ data = {
 						["g"] = 1,
 						["r"] = 1,
 					},
-					["feature"] = "statusbar_horiz",
-					["h"] = 19,
-					["version"] = 1,
 					["color2"] = {
 						["a"] = 1,
 						["b"] = 1,
 						["g"] = 1,
 						["r"] = 1,
 					},
+					["h"] = 19,
+					["version"] = 1,
+					["feature"] = "statusbar_horiz",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -21905,10 +21572,10 @@ data = {
 					["cleanupPolicy"] = 1,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune1_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -21937,11 +21604,11 @@ data = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sy"] = -1,
 						["justifyH"] = "RIGHT",
 						["title"] = "Default",
@@ -21967,14 +21634,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["sy"] = -1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["sy"] = -1,
+						["name"] = "Default",
 						["sr"] = 0,
 					},
 					["version"] = 1,
@@ -21999,29 +21666,29 @@ data = {
 					["textType"] = "Tenths",
 					["sbcolorVar2"] = "rune1_color",
 					["txt"] = "rune1_name",
-					["texIcon"] = "rune1_tex",
-					["TL"] = 0,
+					["statusBar"] = "rune1_bar",
+					["countTypeFlag"] = "true",
 					["text"] = "rune1_timer",
 					["sbblendcolor"] = 1,
-					["TEIExpireState"] = "Hide",
-					["color2"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["countTypeFlag"] = "true",
-					["version"] = 1,
-					["sbcolorVar1"] = "alpha",
-					["tex"] = "rune1_icon",
 					["color1"] = {
 						["a"] = 1,
 						["r"] = 1,
 						["g"] = 1,
 						["b"] = 1,
 					},
+					["color2"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["TL"] = 0,
+					["version"] = 1,
+					["sbcolorVar1"] = "alpha",
+					["tex"] = "rune1_icon",
+					["TEIExpireState"] = "Hide",
 					["timerVar"] = "rune1",
-					["statusBar"] = "rune1_bar",
+					["texIcon"] = "rune1_tex",
 				}, -- [11]
 				{
 					["feature"] = "commentline",
@@ -22060,15 +21727,15 @@ data = {
 						["g"] = 1,
 						["b"] = 1,
 					},
+					["feature"] = "statusbar_horiz",
+					["h"] = 19,
+					["version"] = 1,
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
 						["g"] = 1,
 						["b"] = 1,
 					},
-					["h"] = 19,
-					["version"] = 1,
-					["feature"] = "statusbar_horiz",
 					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 0,
@@ -22087,10 +21754,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune2_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -22119,14 +21786,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["justifyH"] = "RIGHT",
+						["sy"] = -1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["sy"] = -1,
+						["justifyH"] = "RIGHT",
 						["sr"] = 0,
 					},
 					["version"] = 1,
@@ -22158,14 +21825,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["sy"] = -1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["sy"] = -1,
+						["name"] = "Default",
 						["sr"] = 0,
 					},
 					["name"] = "rune2_text",
@@ -22181,29 +21848,29 @@ data = {
 					["textType"] = "Tenths",
 					["statusBar"] = "rune2_bar",
 					["texIcon"] = "rune2_tex",
-					["sbcolorVar2"] = "rune2_color",
-					["countTypeFlag"] = "true",
+					["txt"] = "rune2_name",
+					["TL"] = 0,
 					["text"] = "rune2_timer",
 					["tex"] = "rune2_icon",
-					["TEIExpireState"] = "Hide",
-					["color2"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["sbcolorVar1"] = "alpha",
-					["sbblendcolor"] = 1,
 					["color1"] = {
 						["a"] = 1,
 						["b"] = 1,
 						["g"] = 1,
 						["r"] = 1,
 					},
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["countTypeFlag"] = "true",
+					["version"] = 1,
+					["sbcolorVar1"] = "alpha",
+					["sbblendcolor"] = 1,
+					["TEIExpireState"] = "Hide",
 					["timerVar"] = "rune2",
-					["txt"] = "rune2_name",
+					["sbcolorVar2"] = "rune2_color",
 				}, -- [19]
 				{
 					["feature"] = "commentline",
@@ -22247,15 +21914,15 @@ data = {
 						["g"] = 1,
 						["b"] = 1,
 					},
+					["feature"] = "statusbar_horiz",
+					["h"] = 19,
+					["version"] = 1,
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
 						["g"] = 1,
 						["b"] = 1,
 					},
-					["h"] = 19,
-					["version"] = 1,
-					["feature"] = "statusbar_horiz",
 					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 0,
@@ -22274,10 +21941,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune3_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -22306,14 +21973,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["justifyH"] = "RIGHT",
+						["sy"] = -1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["sy"] = -1,
+						["justifyH"] = "RIGHT",
 						["sr"] = 0,
 					},
 					["version"] = 1,
@@ -22345,14 +22012,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["sy"] = -1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["sy"] = -1,
+						["name"] = "Default",
 						["sr"] = 0,
 					},
 					["name"] = "rune3_text",
@@ -22368,29 +22035,29 @@ data = {
 					["textType"] = "Tenths",
 					["statusBar"] = "rune3_bar",
 					["texIcon"] = "rune3_tex",
-					["sbcolorVar2"] = "rune3_color",
-					["countTypeFlag"] = "true",
+					["txt"] = "rune3_name",
+					["TL"] = 0,
 					["text"] = "rune3_timer",
 					["tex"] = "rune3_icon",
-					["TEIExpireState"] = "Hide",
-					["color2"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["sbcolorVar1"] = "alpha",
-					["sbblendcolor"] = 1,
 					["color1"] = {
 						["a"] = 1,
 						["b"] = 1,
 						["g"] = 1,
 						["r"] = 1,
 					},
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["countTypeFlag"] = "true",
+					["version"] = 1,
+					["sbcolorVar1"] = "alpha",
+					["sbblendcolor"] = 1,
+					["TEIExpireState"] = "Hide",
 					["timerVar"] = "rune3",
-					["txt"] = "rune3_name",
+					["sbcolorVar2"] = "rune3_color",
 				}, -- [27]
 				{
 					["feature"] = "commentline",
@@ -22434,15 +22101,15 @@ data = {
 						["g"] = 1,
 						["b"] = 1,
 					},
+					["feature"] = "statusbar_horiz",
+					["h"] = 19,
+					["version"] = 1,
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
 						["g"] = 1,
 						["b"] = 1,
 					},
-					["h"] = 19,
-					["version"] = 1,
-					["feature"] = "statusbar_horiz",
 					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 0,
@@ -22461,10 +22128,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune4_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -22502,14 +22169,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["justifyH"] = "RIGHT",
+						["sy"] = -1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["sy"] = -1,
+						["justifyH"] = "RIGHT",
 						["sr"] = 0,
 					},
 					["name"] = "rune4_timer",
@@ -22532,14 +22199,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["sy"] = -1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["sy"] = -1,
+						["name"] = "Default",
 						["sr"] = 0,
 					},
 					["name"] = "rune4_text",
@@ -22555,29 +22222,29 @@ data = {
 					["textType"] = "Tenths",
 					["statusBar"] = "rune4_bar",
 					["texIcon"] = "rune4_tex",
-					["sbcolorVar2"] = "rune4_color",
-					["countTypeFlag"] = "true",
+					["txt"] = "rune4_name",
+					["TL"] = 0,
 					["text"] = "rune4_timer",
 					["tex"] = "rune4_icon",
-					["TEIExpireState"] = "Hide",
-					["color2"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["sbcolorVar1"] = "alpha",
-					["sbblendcolor"] = 1,
 					["color1"] = {
 						["a"] = 1,
 						["b"] = 1,
 						["g"] = 1,
 						["r"] = 1,
 					},
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["countTypeFlag"] = "true",
+					["version"] = 1,
+					["sbcolorVar1"] = "alpha",
+					["sbblendcolor"] = 1,
+					["TEIExpireState"] = "Hide",
 					["timerVar"] = "rune4",
-					["txt"] = "rune4_name",
+					["sbcolorVar2"] = "rune4_color",
 				}, -- [35]
 				{
 					["feature"] = "commentline",
@@ -22621,15 +22288,15 @@ data = {
 						["g"] = 1,
 						["b"] = 1,
 					},
+					["feature"] = "statusbar_horiz",
+					["h"] = 19,
+					["version"] = 1,
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
 						["g"] = 1,
 						["b"] = 1,
 					},
-					["h"] = 19,
-					["version"] = 1,
-					["feature"] = "statusbar_horiz",
 					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 0,
@@ -22648,10 +22315,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune5_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -22689,14 +22356,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["sy"] = -1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "RIGHT",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["sy"] = -1,
+						["name"] = "Default",
 						["sr"] = 0,
 					},
 					["name"] = "rune5_timer",
@@ -22719,14 +22386,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["sy"] = -1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["sy"] = -1,
+						["name"] = "Default",
 						["sr"] = 0,
 					},
 					["name"] = "rune5_text",
@@ -22742,29 +22409,29 @@ data = {
 					["textType"] = "Tenths",
 					["statusBar"] = "rune5_bar",
 					["texIcon"] = "rune5_tex",
-					["sbcolorVar2"] = "rune5_color",
-					["countTypeFlag"] = "true",
+					["txt"] = "rune5_name",
+					["TL"] = 0,
 					["text"] = "rune5_timer",
 					["tex"] = "rune5_icon",
-					["TEIExpireState"] = "Hide",
-					["color2"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["sbcolorVar1"] = "alpha",
-					["sbblendcolor"] = 1,
 					["color1"] = {
 						["a"] = 1,
 						["b"] = 1,
 						["g"] = 1,
 						["r"] = 1,
 					},
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["countTypeFlag"] = "true",
+					["version"] = 1,
+					["sbcolorVar1"] = "alpha",
+					["sbblendcolor"] = 1,
+					["TEIExpireState"] = "Hide",
 					["timerVar"] = "rune5",
-					["txt"] = "rune5_name",
+					["sbcolorVar2"] = "rune5_color",
 				}, -- [43]
 				{
 					["feature"] = "commentline",
@@ -22808,15 +22475,15 @@ data = {
 						["g"] = 1,
 						["b"] = 1,
 					},
+					["feature"] = "statusbar_horiz",
+					["h"] = 19,
+					["version"] = 1,
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
 						["g"] = 1,
 						["b"] = 1,
 					},
-					["h"] = 19,
-					["version"] = 1,
-					["feature"] = "statusbar_horiz",
 					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 0,
@@ -22835,10 +22502,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "rune6_tex",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 10,
 						["dy"] = 0,
@@ -22876,14 +22543,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["sy"] = -1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "RIGHT",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["sy"] = -1,
+						["name"] = "Default",
 						["sr"] = 0,
 					},
 					["name"] = "rune6_timer",
@@ -22906,14 +22573,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["sy"] = -1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["sy"] = -1,
+						["name"] = "Default",
 						["sr"] = 0,
 					},
 					["name"] = "rune6_text",
@@ -22929,29 +22596,29 @@ data = {
 					["textType"] = "Tenths",
 					["statusBar"] = "rune6_bar",
 					["texIcon"] = "rune6_tex",
-					["sbcolorVar2"] = "rune6_color",
-					["countTypeFlag"] = "true",
+					["txt"] = "rune6_name",
+					["TL"] = 0,
 					["text"] = "rune6_timer",
 					["tex"] = "rune6_icon",
-					["TEIExpireState"] = "Hide",
-					["color2"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["sbcolorVar1"] = "alpha",
-					["sbblendcolor"] = 1,
 					["color1"] = {
 						["a"] = 1,
 						["b"] = 1,
 						["g"] = 1,
 						["r"] = 1,
 					},
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["countTypeFlag"] = "true",
+					["version"] = 1,
+					["sbcolorVar1"] = "alpha",
+					["sbblendcolor"] = 1,
+					["TEIExpireState"] = "Hide",
 					["timerVar"] = "rune6",
-					["txt"] = "rune6_name",
+					["sbcolorVar2"] = "rune6_color",
 				}, -- [51]
 			},
 		},
@@ -22961,6 +22628,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -22979,6 +22650,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -23022,21 +22697,17 @@ data = {
 				}, -- [8]
 			},
 		},
-		["Rez_Monitor_sort"] = {
-			["ty"] = "Sort",
-			["version"] = 2,
+		["Shaman_Totem_Earth_mb"] = {
+			["ty"] = "MouseBindings",
+			["version"] = 1,
 			["data"] = {
-				["sort"] = {
-					{
-						["op"] = "class",
-					}, -- [1]
-					{
-						["op"] = "alpha",
-					}, -- [2]
+				["1"] = {
+					["action"] = "cast",
+					["spell"] = "Totem de force de la terre",
 				},
-				["set"] = {
-					["class"] = "file",
-					["file"] = "WoWRDX:Rez_Monitor_fset",
+				["2"] = {
+					["action"] = "cast",
+					["spell"] = "Totem de lien terrestre",
 				},
 			},
 		},
@@ -23054,67 +22725,720 @@ data = {
 				}, -- [3]
 			},
 		},
-		["Raid_Druid_fset"] = {
-			["ty"] = "FilterSet",
+		["Debuff_Primary_fset"] = {
+			["ty"] = "SymLink",
+			["version"] = 3,
+			["data"] = {
+				["targetpath_5"] = "WoWRDX:None_fset",
+				["class"] = "class",
+				["targetpath_7"] = "WoWRDX:Debuff_Curse_fset",
+				["targetpath_8"] = "WoWRDX:None_fset",
+				["targetpath_2"] = "WoWRDX:Debuff_Poison_fset",
+				["targetpath_3"] = "WoWRDX:Debuff_Poison_fset",
+				["targetpath_4"] = "WoWRDX:Debuff_Curse_fset",
+				["targetpath_1"] = "WoWRDX:Debuff_Magic_fset",
+				["targetpath_10"] = "WoWRDX:None_fset",
+				["targetpath_9"] = "WoWRDX:None_fset",
+				["targetpath_6"] = "WoWRDX:Debuff_Magic_fset",
+			},
+		},
+		["ActionBar4"] = {
+			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
-				"and", -- [1]
 				{
-					"classes", -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
-					true, -- [10]
-					true, -- [11]
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:ActionBar4_ds",
 				}, -- [2]
 				{
-					"groups", -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
 				}, -- [3]
 			},
 		},
-		["Overheal_Done_ds"] = {
+		["Shaman_Totems4_ds"] = {
 			["ty"] = "Design",
 			["version"] = 1,
 			["data"] = {
 				{
-					["feature"] = "var_tablemeter",
-					["tablemeter"] = "WoWRDX:Overheal_Done_tm",
-					["name"] = "combatmeter1",
+					["feature"] = "base_default",
+					["h"] = 48,
+					["version"] = 1,
+					["alpha"] = 1,
+					["w"] = 200,
 				}, -- [1]
 				{
 					["color"] = {
 						["a"] = 1,
-						["r"] = 0.6274509803921569,
-						["g"] = 1,
-						["b"] = 0.3647058823529412,
+						["r"] = 0.7882352941176469,
+						["g"] = 0.776470588235294,
+						["b"] = 0,
+					},
+					["name"] = "yellow",
+					["feature"] = "ColorVariable: Static Color",
+				}, -- [2]
+				{
+					["color"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 0.6196078431372554,
+						["r"] = 0,
+					},
+					["name"] = "blue",
+					["feature"] = "ColorVariable: Static Color",
+				}, -- [3]
+				{
+					["color"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 0.05490196078431373,
+						["b"] = 0,
+					},
+					["name"] = "red",
+					["feature"] = "ColorVariable: Static Color",
+				}, -- [4]
+				{
+					["color"] = {
+						["a"] = 1,
+						["b"] = 0.1333333333333333,
+						["g"] = 0.4862745098039216,
+						["r"] = 0,
 					},
 					["name"] = "green",
+					["feature"] = "ColorVariable: Static Color",
+				}, -- [5]
+				{
+					["feature"] = "Variables: Totem Info",
+				}, -- [6]
+				{
+					["feature"] = "commentline",
+				}, -- [7]
+				{
+					["cleanupPolicy"] = 3,
+					["owner"] = "decor",
+					["w"] = 36,
+					["sublevel"] = 1,
+					["h"] = 36,
+					["name"] = "TotemEarthIcon",
+					["feature"] = "texture",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["drawLayer"] = "OVERLAY",
+					["texture"] = {
+						["color"] = {
+							["a"] = 1,
+							["r"] = 1,
+							["g"] = 1,
+							["b"] = 1,
+						},
+						["blendMode"] = "BLEND",
+					},
+				}, -- [8]
+				{
+					["frac"] = "",
+					["owner"] = "decor",
+					["w"] = "12",
+					["feature"] = "statusbar_horiz",
+					["h"] = "36",
+					["version"] = 1,
+					["colorVar"] = "green",
+					["anchor"] = {
+						["dx"] = 37,
+						["dy"] = 12,
+						["lp"] = "BOTTOMLEFT",
+						["rp"] = "BOTTOMLEFT",
+						["af"] = "Base",
+					},
+					["name"] = "TotemEarthBar",
+					["orientation"] = "VERTICAL",
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX\\Skin\\vbar1",
+					},
+				}, -- [9]
+				{
+					["script"] = "",
+					["owner"] = "decor",
+					["w"] = 36,
+					["feature"] = "txt_custom",
+					["h"] = 12,
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = -1,
+						["dy"] = 0,
+						["lp"] = "BOTTOMLEFT",
+						["rp"] = "BOTTOMLEFT",
+						["af"] = "Base",
+					},
+					["name"] = "EarthTimer",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sb"] = 0,
+						["sx"] = 1,
+						["title"] = "Default",
+						["justifyH"] = "CENTER",
+						["size"] = 9,
+					},
+				}, -- [10]
+				{
+					["TEIDefaultState"] = "Hide",
+					["textInfo"] = "",
+					["sbExpireState"] = "Hide",
+					["TTIExpireState"] = "Hide",
+					["feature"] = "free_timer",
+					["sbDefaultState"] = "Hide",
+					["TTIDefaultState"] = "Hide",
+					["textType"] = "MinSec",
+					["statusBar"] = "TotemEarthBar",
+					["text"] = "EarthTimer",
+					["texIcon"] = "TotemEarthIcon",
+					["TEIExpireState"] = "Hide",
+					["color2"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["TL"] = 0,
+					["version"] = 1,
+					["countTypeFlag"] = "false",
+					["tex"] = "totemearth_icon",
+					["txt"] = "",
+					["timerVar"] = "totemearth",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+				}, -- [11]
+				{
+					["w"] = 50,
+					["feature"] = "hotspot",
+					["h"] = 36,
+					["name"] = "earth",
+					["hlt"] = {
+						["blendMode"] = "ADD",
+						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
+					},
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["secure"] = 1,
+					["flo"] = 3,
+				}, -- [12]
+				{
+					["feature"] = "commentline",
+				}, -- [13]
+				{
+					["cleanupPolicy"] = 3,
+					["owner"] = "decor",
+					["w"] = 36,
+					["sublevel"] = 1,
+					["h"] = 36,
+					["name"] = "TotemFireIcon",
+					["feature"] = "texture",
+					["anchor"] = {
+						["dx"] = 50,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["drawLayer"] = "OVERLAY",
+					["texture"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["blendMode"] = "BLEND",
+					},
+				}, -- [14]
+				{
+					["frac"] = "",
+					["owner"] = "decor",
+					["w"] = 12,
+					["feature"] = "statusbar_horiz",
+					["colorVar"] = "red",
+					["name"] = "TotemFireBar",
+					["h"] = 36,
+					["orientation"] = "VERTICAL",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 87,
+						["dy"] = 12,
+						["lp"] = "BOTTOMLEFT",
+						["rp"] = "BOTTOMLEFT",
+						["af"] = "Base",
+					},
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX\\Skin\\vbar1",
+					},
+				}, -- [15]
+				{
+					["script"] = "",
+					["owner"] = "decor",
+					["w"] = 36,
+					["feature"] = "txt_custom",
+					["font"] = {
+						["size"] = 9,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "CENTER",
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sx"] = 1,
+						["name"] = "Default",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 49,
+						["dy"] = 0,
+						["lp"] = "BOTTOMLEFT",
+						["rp"] = "BOTTOMLEFT",
+						["af"] = "Base",
+					},
+					["name"] = "FireTimer",
+					["h"] = 12,
+				}, -- [16]
+				{
+					["TEIDefaultState"] = "Hide",
+					["textInfo"] = "",
+					["sbExpireState"] = "Hide",
+					["TTIExpireState"] = "Hide",
+					["feature"] = "free_timer",
+					["sbDefaultState"] = "Hide",
+					["TTIDefaultState"] = "Hide",
+					["textType"] = "MinSec",
+					["statusBar"] = "TotemFireBar",
+					["text"] = "FireTimer",
+					["texIcon"] = "TotemFireIcon",
+					["TEIExpireState"] = "Hide",
+					["color2"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["TL"] = 0,
+					["version"] = 1,
+					["countTypeFlag"] = "false",
+					["tex"] = "totemfire_icon",
+					["txt"] = "",
+					["timerVar"] = "totemfire",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+				}, -- [17]
+				{
+					["w"] = 50,
+					["feature"] = "hotspot",
+					["h"] = 36,
+					["name"] = "fire",
+					["hlt"] = {
+						["blendMode"] = "ADD",
+						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
+					},
+					["anchor"] = {
+						["dx"] = 50,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["secure"] = 1,
+					["flo"] = 3,
+				}, -- [18]
+				{
+					["feature"] = "commentline",
+				}, -- [19]
+				{
+					["cleanupPolicy"] = 3,
+					["owner"] = "decor",
+					["w"] = 36,
+					["sublevel"] = 1,
+					["h"] = 36,
+					["name"] = "TotemWaterIcon",
+					["feature"] = "texture",
+					["anchor"] = {
+						["dx"] = 100,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["drawLayer"] = "OVERLAY",
+					["texture"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["blendMode"] = "BLEND",
+					},
+				}, -- [20]
+				{
+					["feature"] = "shader_applytex",
+					["owner"] = "TotemWaterIcon",
+					["version"] = 1,
+					["var"] = "totemwater_icon",
+				}, -- [21]
+				{
+					["frac"] = "",
+					["owner"] = "decor",
+					["w"] = 12,
+					["feature"] = "statusbar_horiz",
+					["colorVar"] = "blue",
+					["name"] = "TotemWaterBar",
+					["h"] = 36,
+					["orientation"] = "VERTICAL",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 137,
+						["dy"] = 12,
+						["lp"] = "BOTTOMLEFT",
+						["rp"] = "BOTTOMLEFT",
+						["af"] = "Base",
+					},
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX\\Skin\\vbar1",
+					},
+				}, -- [22]
+				{
+					["script"] = "",
+					["owner"] = "decor",
+					["w"] = 36,
+					["feature"] = "txt_custom",
+					["font"] = {
+						["size"] = 9,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "CENTER",
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sx"] = 1,
+						["name"] = "Default",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 101,
+						["dy"] = 0,
+						["lp"] = "BOTTOMLEFT",
+						["rp"] = "BOTTOMLEFT",
+						["af"] = "Base",
+					},
+					["name"] = "WaterTimer",
+					["h"] = 12,
+				}, -- [23]
+				{
+					["TEIDefaultState"] = "Hide",
+					["textInfo"] = "",
+					["sbExpireState"] = "Hide",
+					["TTIExpireState"] = "Hide",
+					["feature"] = "free_timer",
+					["sbDefaultState"] = "Hide",
+					["TTIDefaultState"] = "Hide",
+					["textType"] = "MinSec",
+					["statusBar"] = "TotemWaterBar",
+					["text"] = "WaterTimer",
+					["texIcon"] = "",
+					["TEIExpireState"] = "Hide",
+					["color2"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["TL"] = 0,
+					["version"] = 1,
+					["countTypeFlag"] = "false",
+					["tex"] = "",
+					["txt"] = "",
+					["timerVar"] = "totemwater",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+				}, -- [24]
+				{
+					["w"] = 50,
+					["feature"] = "hotspot",
+					["h"] = 36,
+					["name"] = "water",
+					["hlt"] = {
+						["blendMode"] = "ADD",
+						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
+					},
+					["anchor"] = {
+						["dx"] = 100,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["secure"] = 1,
+					["flo"] = 3,
+				}, -- [25]
+				{
+					["feature"] = "commentline",
+				}, -- [26]
+				{
+					["cleanupPolicy"] = 3,
+					["owner"] = "decor",
+					["w"] = 36,
+					["sublevel"] = 1,
+					["h"] = 36,
+					["name"] = "TotemAirIcon",
+					["feature"] = "texture",
+					["anchor"] = {
+						["dx"] = 150,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["drawLayer"] = "OVERLAY",
+					["texture"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["blendMode"] = "BLEND",
+					},
+				}, -- [27]
+				{
+					["feature"] = "shader_applytex",
+					["owner"] = "TotemAirIcon",
+					["version"] = 1,
+					["var"] = "totemair_icon",
+				}, -- [28]
+				{
+					["frac"] = "",
+					["owner"] = "decor",
+					["w"] = 12,
+					["feature"] = "statusbar_horiz",
+					["colorVar"] = "yellow",
+					["name"] = "TotemAirBar",
+					["h"] = 36,
+					["orientation"] = "VERTICAL",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 187,
+						["dy"] = 12,
+						["lp"] = "BOTTOMLEFT",
+						["rp"] = "BOTTOMLEFT",
+						["af"] = "Base",
+					},
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX\\Skin\\vbar1",
+					},
+				}, -- [29]
+				{
+					["script"] = "",
+					["owner"] = "decor",
+					["w"] = 36,
+					["feature"] = "txt_custom",
+					["font"] = {
+						["size"] = 9,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "CENTER",
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sx"] = 1,
+						["name"] = "Default",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 149,
+						["dy"] = 0,
+						["lp"] = "BOTTOMLEFT",
+						["rp"] = "BOTTOMLEFT",
+						["af"] = "Base",
+					},
+					["name"] = "AirTimer",
+					["h"] = 12,
+				}, -- [30]
+				{
+					["TEIDefaultState"] = "Hide",
+					["textInfo"] = "",
+					["sbExpireState"] = "Hide",
+					["TTIExpireState"] = "Hide",
+					["feature"] = "free_timer",
+					["sbDefaultState"] = "Hide",
+					["TTIDefaultState"] = "Hide",
+					["textType"] = "MinSec",
+					["statusBar"] = "TotemAirBar",
+					["text"] = "AirTimer",
+					["texIcon"] = "",
+					["TEIExpireState"] = "Hide",
+					["color2"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["TL"] = 0,
+					["version"] = 1,
+					["countTypeFlag"] = "false",
+					["tex"] = "",
+					["txt"] = "",
+					["timerVar"] = "totemair",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+				}, -- [31]
+				{
+					["w"] = 50,
+					["feature"] = "hotspot",
+					["h"] = 36,
+					["name"] = "air",
+					["hlt"] = {
+						["blendMode"] = "ADD",
+						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
+					},
+					["anchor"] = {
+						["dx"] = 150,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["secure"] = 1,
+					["flo"] = 3,
+				}, -- [32]
+				{
+					["feature"] = "commentline",
+				}, -- [33]
+				{
+					["w"] = 200,
+					["feature"] = "hotspot",
+					["h"] = 12,
+					["name"] = "remove",
+					["hlt"] = {
+						["blendMode"] = "ADD",
+						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
+					},
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = -37,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["secure"] = 1,
+					["flo"] = 3,
+				}, -- [34]
+				{
+					["feature"] = "Subframe",
+					["h"] = 80,
+					["name"] = "remove_s",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = 20,
+					["flOffset"] = 1,
+				}, -- [35]
+			},
+		},
+		["Priest_Buff_InnerFire_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Variables: Buffs Debuffs Info",
+					["name"] = "auraia",
+					["cd"] = 588,
+					["auraType"] = "BUFFS",
+				}, -- [1]
+				{
+					["color"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 0.8627450980392157,
+						["b"] = 0.0196078431372549,
+					},
+					["name"] = "yellow",
 					["feature"] = "ColorVariable: Static Color",
 				}, -- [2]
 				{
 					["feature"] = "base_default",
-					["h"] = 13,
+					["h"] = 14,
 					["version"] = 1,
+					["hlt"] = 1,
+					["ph"] = 1,
+					["w"] = 80,
 					["alpha"] = 1,
-					["w"] = 140,
 				}, -- [3]
 				{
 					["feature"] = "Subframe",
 					["h"] = "BaseHeight",
-					["name"] = "pdt",
+					["name"] = "subframe",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -23127,250 +23451,122 @@ data = {
 					["flOffset"] = 1,
 				}, -- [4]
 				{
-					["interpolate"] = 1,
-					["owner"] = "pdt",
-					["w"] = "140",
-					["colorVar"] = "green",
+					["frac"] = "",
+					["owner"] = "subframe",
+					["w"] = "66",
 					["feature"] = "statusbar_horiz",
-					["h"] = "12",
+					["h"] = "BaseHeight",
 					["version"] = 1,
+					["colorVar"] = "yellow",
+					["anchor"] = {
+						["dx"] = 14,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "subframe",
+					},
+					["name"] = "statusBar",
 					["orientation"] = "HORIZONTAL",
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\TargetingFrame\\UI-StatusBar",
+					},
+				}, -- [5]
+				{
+					["cleanupPolicy"] = 2,
+					["owner"] = "subframe",
+					["w"] = "14",
+					["feature"] = "texture",
+					["h"] = "14",
+					["name"] = "tex1",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
 						["lp"] = "TOPLEFT",
 						["rp"] = "TOPLEFT",
-						["af"] = "Frame_pdt",
+						["af"] = "subframe",
 					},
-					["name"] = "statusBar",
-					["frac"] = "fcombatmeter1",
+					["sublevel"] = 1,
+					["drawLayer"] = "ARTWORK",
 					["texture"] = {
+						["color"] = {
+							["a"] = 1,
+							["r"] = 1,
+							["g"] = 1,
+							["b"] = 1,
+						},
 						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Ruben",
 					},
-				}, -- [5]
+				}, -- [6]
 				{
-					["owner"] = "pdt",
-					["w"] = "100",
-					["classColor"] = 1,
-					["h"] = "12",
-					["name"] = "np",
+					["script"] = "",
+					["owner"] = "subframe",
+					["w"] = "50",
+					["feature"] = "txt_custom",
+					["h"] = "14",
+					["version"] = 1,
 					["anchor"] = {
-						["dx"] = 0,
+						["dx"] = 20,
 						["dy"] = 0,
 						["lp"] = "LEFT",
 						["rp"] = "LEFT",
-						["af"] = "Frame_pdt",
+						["af"] = "subframe",
 					},
-					["version"] = 1,
-					["feature"] = "txt_np",
+					["name"] = "customText",
 					["font"] = {
-						["size"] = 10,
-						["face"] = "Fonts\\ARIALN.TTF",
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["sb"] = 0,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
 						["sx"] = 1,
-						["title"] = "Default",
 						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
-				}, -- [6]
-				{
-					["txt"] = "combatmeter1_text",
-					["owner"] = "pdt",
-					["w"] = "138",
-					["feature"] = "txt_dyn",
-					["font"] = {
-						["cr"] = 1,
-						["sr"] = 0,
-						["cb"] = 1,
-						["sa"] = 1,
-						["sb"] = 0,
-						["face"] = "Fonts\\ARIALN.TTF",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "RIGHT",
-						["ca"] = 1,
-						["sg"] = 0,
+						["title"] = "Default",
 						["name"] = "Default",
-						["sx"] = 1,
-						["cg"] = 1,
-						["title"] = "Default",
-						["sy"] = -1,
 						["size"] = 10,
 					},
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "RIGHT",
-						["rp"] = "RIGHT",
-						["af"] = "Frame_pdt",
+				}, -- [7]
+				{
+					["TEIDefaultState"] = "Hide",
+					["textInfo"] = "",
+					["sbExpireState"] = "Hide",
+					["TTIExpireState"] = "Hide",
+					["feature"] = "free_timer",
+					["sbDefaultState"] = "Hide",
+					["TTIDefaultState"] = "Hide",
+					["textType"] = "MinSec",
+					["statusBar"] = "statusBar",
+					["text"] = "customText",
+					["texIcon"] = "tex1",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
 					},
-					["h"] = "12",
-					["name"] = "infoText",
-				}, -- [7]
-			},
-		},
-		["infoComment"] = "",
-		["Not_Elixirs_Battle_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"or", -- [1]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 11390,
-						}, -- [2]
-					}, -- [2]
-				}, -- [2]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 11406,
-						}, -- [2]
-					}, -- [2]
-				}, -- [3]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 17538,
-						}, -- [2]
-					}, -- [2]
-				}, -- [4]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 17539,
-						}, -- [2]
-					}, -- [2]
-				}, -- [5]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 28490,
-						}, -- [2]
-					}, -- [2]
-				}, -- [6]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 28491,
-						}, -- [2]
-					}, -- [2]
-				}, -- [7]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 28493,
-						}, -- [2]
-					}, -- [2]
+					["color2"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["TL"] = 0,
+					["version"] = 1,
+					["countTypeFlag"] = "false",
+					["tex"] = "auraia_icon",
+					["txt"] = "",
+					["timerVar"] = "auraia_aura",
+					["TEIExpireState"] = "Default",
 				}, -- [8]
 				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 28497,
-						}, -- [2]
-					}, -- [2]
+					["feature"] = "shader_showhide",
+					["owner"] = "subframe",
+					["version"] = 1,
+					["flag"] = "auraia_possible",
 				}, -- [9]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 28501,
-						}, -- [2]
-					}, -- [2]
-				}, -- [10]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 28503,
-						}, -- [2]
-					}, -- [2]
-				}, -- [11]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 33720,
-						}, -- [2]
-					}, -- [2]
-				}, -- [12]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 33721,
-						}, -- [2]
-					}, -- [2]
-				}, -- [13]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 33726,
-						}, -- [2]
-					}, -- [2]
-				}, -- [14]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 38954,
-						}, -- [2]
-					}, -- [2]
-				}, -- [15]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["class"] = "buff",
-							["buff"] = 45373,
-						}, -- [2]
-					}, -- [2]
-				}, -- [16]
 			},
 		},
 		["MouseOver_Main_ds"] = {
@@ -23390,15 +23586,15 @@ data = {
 					["version"] = 1,
 					["bkd"] = {
 						["_border"] = "tooltip",
-						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
-						["kb"] = 0,
-						["kr"] = 0,
+						["edgeSize"] = 16,
 						["tile"] = false,
+						["kr"] = 0,
+						["kb"] = 0,
 						["_backdrop"] = "solid",
 						["edgeFile"] = "Interface\\Tooltips\\UI-Tooltip-Border",
 						["ka"] = 0.5,
 						["kg"] = 0,
-						["edgeSize"] = 16,
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["insets"] = {
 							["top"] = 4,
 							["right"] = 4,
@@ -23411,16 +23607,6 @@ data = {
 					["owner"] = "decor",
 					["w"] = "16",
 					["feature"] = "txt_status",
-					["h"] = "14",
-					["name"] = "level_text",
-					["anchor"] = {
-						["dx"] = 5,
-						["dy"] = -5,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["ty"] = "level",
 					["font"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -23435,10 +23621,31 @@ data = {
 						["size"] = 12,
 					},
 					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 5,
+						["dy"] = -5,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["ty"] = "level",
+					["h"] = "14",
+					["name"] = "level_text",
 				}, -- [3]
 				{
 					["owner"] = "decor",
 					["w"] = "120",
+					["classColor"] = 1,
+					["h"] = "14",
+					["name"] = "np",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPRIGHT",
+						["af"] = "Text_level_text",
+					},
+					["version"] = 1,
 					["feature"] = "txt_np",
 					["font"] = {
 						["title"] = "Default",
@@ -23453,24 +23660,25 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-					["name"] = "np",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPRIGHT",
-						["af"] = "Text_level_text",
-					},
-					["version"] = 1,
-					["classColor"] = 1,
-					["h"] = "14",
 				}, -- [4]
 				{
 					["txt"] = "Class:",
 					["owner"] = "decor",
 					["w"] = "50",
 					["feature"] = "txt_static",
-					["h"] = "14",
+					["font"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "RIGHT",
+						["color"] = {
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["face"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\AvantGarde.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 12,
+					},
 					["name"] = "class_text_static",
 					["anchor"] = {
 						["dx"] = 0,
@@ -23480,6 +23688,13 @@ data = {
 						["af"] = "Text_level_text",
 					},
 					["version"] = 1,
+					["h"] = "14",
+				}, -- [5]
+				{
+					["txt"] = "Race:",
+					["owner"] = "decor",
+					["w"] = "50",
+					["feature"] = "txt_static",
 					["font"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -23493,13 +23708,6 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-				}, -- [5]
-				{
-					["txt"] = "Race:",
-					["owner"] = "decor",
-					["w"] = "50",
-					["feature"] = "txt_static",
-					["h"] = "14",
 					["name"] = "race_text_static",
 					["anchor"] = {
 						["dx"] = 0,
@@ -23509,6 +23717,13 @@ data = {
 						["af"] = "Text_class_text_static",
 					},
 					["version"] = 1,
+					["h"] = "14",
+				}, -- [6]
+				{
+					["txt"] = "Mtype:",
+					["owner"] = "decor",
+					["w"] = "50",
+					["feature"] = "txt_static",
 					["font"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -23522,13 +23737,6 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-				}, -- [6]
-				{
-					["txt"] = "Mtype:",
-					["owner"] = "decor",
-					["w"] = "50",
-					["feature"] = "txt_static",
-					["h"] = "14",
 					["name"] = "mobtype_text_static",
 					["anchor"] = {
 						["dx"] = 0,
@@ -23538,6 +23746,13 @@ data = {
 						["af"] = "Text_race_text_static",
 					},
 					["version"] = 1,
+					["h"] = "14",
+				}, -- [7]
+				{
+					["txt"] = "Group:",
+					["owner"] = "decor",
+					["w"] = "50",
+					["feature"] = "txt_static",
 					["font"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -23551,13 +23766,6 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-				}, -- [7]
-				{
-					["txt"] = "Group:",
-					["owner"] = "decor",
-					["w"] = "50",
-					["feature"] = "txt_static",
-					["h"] = "14",
 					["name"] = "group_text_static",
 					["anchor"] = {
 						["dx"] = 0,
@@ -23567,6 +23775,13 @@ data = {
 						["af"] = "Text_mobtype_text_static",
 					},
 					["version"] = 1,
+					["h"] = "14",
+				}, -- [8]
+				{
+					["txt"] = "Guild:",
+					["owner"] = "decor",
+					["w"] = "50",
+					["feature"] = "txt_static",
 					["font"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -23580,13 +23795,6 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-				}, -- [8]
-				{
-					["txt"] = "Guild:",
-					["owner"] = "decor",
-					["w"] = "50",
-					["feature"] = "txt_static",
-					["h"] = "14",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -23596,6 +23804,13 @@ data = {
 						["af"] = "Text_group_text_static",
 					},
 					["name"] = "guild_text_static",
+					["h"] = "14",
+				}, -- [9]
+				{
+					["txt"] = "Target:",
+					["owner"] = "decor",
+					["w"] = "50",
+					["feature"] = "txt_static",
 					["font"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -23609,13 +23824,6 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-				}, -- [9]
-				{
-					["txt"] = "Target:",
-					["owner"] = "decor",
-					["w"] = "50",
-					["feature"] = "txt_static",
-					["h"] = "14",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -23625,25 +23833,13 @@ data = {
 						["af"] = "Text_guild_text_static",
 					},
 					["name"] = "target_text_static",
-					["font"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "RIGHT",
-						["color"] = {
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["face"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\AvantGarde.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 12,
-					},
+					["h"] = "14",
 				}, -- [10]
 				{
 					["owner"] = "decor",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["ty"] = "guild",
+					["h"] = "14",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -23653,6 +23849,7 @@ data = {
 						["af"] = "Text_guild_text_static",
 					},
 					["name"] = "guild_text_var",
+					["ty"] = "guild",
 					["font"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -23666,13 +23863,12 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-					["h"] = "14",
 				}, -- [11]
 				{
 					["owner"] = "decor",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["h"] = "14",
+					["ty"] = "class",
 					["name"] = "class_text_var",
 					["anchor"] = {
 						["dx"] = 0,
@@ -23682,6 +23878,7 @@ data = {
 						["af"] = "Text_class_text_static",
 					},
 					["version"] = 1,
+					["h"] = "14",
 					["font"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -23695,13 +23892,12 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-					["ty"] = "class",
 				}, -- [12]
 				{
 					["owner"] = "decor",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["h"] = "14",
+					["ty"] = "race",
 					["name"] = "race_text_var",
 					["anchor"] = {
 						["dx"] = 0,
@@ -23711,6 +23907,7 @@ data = {
 						["af"] = "Text_race_text_static",
 					},
 					["version"] = 1,
+					["h"] = "14",
 					["font"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -23724,13 +23921,12 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-					["ty"] = "race",
 				}, -- [13]
 				{
 					["owner"] = "decor",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["ty"] = "mobtype",
+					["h"] = "14",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -23740,6 +23936,7 @@ data = {
 						["af"] = "Text_mobtype_text_static",
 					},
 					["name"] = "mobtype_text_var",
+					["ty"] = "mobtype",
 					["font"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -23753,13 +23950,12 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-					["h"] = "14",
 				}, -- [14]
 				{
 					["owner"] = "decor",
 					["w"] = "100",
 					["feature"] = "txt_status",
-					["ty"] = "gn",
+					["h"] = "14",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -23769,6 +23965,7 @@ data = {
 						["af"] = "Text_group_text_static",
 					},
 					["name"] = "group_text_var",
+					["ty"] = "gn",
 					["font"] = {
 						["title"] = "Default",
 						["name"] = "Default",
@@ -23782,20 +23979,31 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-					["h"] = "14",
 				}, -- [15]
 				{
 					["feature"] = "var_scripted",
 					["editor"] = "--enter your code here\n\nlocal varsc1 = UnitName(uid .. \"target\");",
-					["name"] = "varsc1",
 					["vartype"] = "TextData",
+					["name"] = "varsc1",
 				}, -- [16]
 				{
 					["txt"] = "varsc1",
 					["owner"] = "decor",
 					["w"] = "100",
 					["feature"] = "txt_dyn",
-					["h"] = "14",
+					["font"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["color"] = {
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["face"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\AvantGarde.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 12,
+					},
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -23805,19 +24013,7 @@ data = {
 						["af"] = "Text_target_text_static",
 					},
 					["name"] = "target_text_var",
-					["font"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["color"] = {
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["face"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\AvantGarde.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 12,
-					},
+					["h"] = "14",
 				}, -- [17]
 				{
 					["feature"] = "Variable: Fractional health (fh)",
@@ -23825,7 +24021,7 @@ data = {
 				{
 					["frac"] = "fh",
 					["feature"] = "statusbar_horiz",
-					["drawLayer"] = "ARTWORK",
+					["sublevel"] = 1,
 					["owner"] = "decor",
 					["w"] = "140",
 					["color1"] = {
@@ -23834,10 +24030,11 @@ data = {
 						["g"] = 0,
 						["r"] = 1,
 					},
-					["sublevel"] = 1,
+					["drawLayer"] = "ARTWORK",
 					["h"] = "14",
 					["name"] = "healthBar",
 					["version"] = 1,
+					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -23845,7 +24042,6 @@ data = {
 						["rp"] = "BOTTOMLEFT",
 						["af"] = "Text_target_text_static",
 					},
-					["orientation"] = "HORIZONTAL",
 					["color2"] = {
 						["a"] = 1,
 						["b"] = 0,
@@ -23861,7 +24057,7 @@ data = {
 					["owner"] = "decor",
 					["w"] = "40",
 					["feature"] = "txt_status",
-					["h"] = "14",
+					["ty"] = "hpp",
 					["name"] = "hp_text",
 					["anchor"] = {
 						["dx"] = 0,
@@ -23871,10 +24067,11 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["h"] = "14",
 					["font"] = {
 						["flags"] = "OUTLINE",
-						["name"] = "Default",
 						["title"] = "Default",
+						["name"] = "Default",
 						["justifyH"] = "CENTER",
 						["color"] = {
 							["b"] = 1,
@@ -23885,8 +24082,25 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 12,
 					},
-					["ty"] = "hpp",
 				}, -- [20]
+			},
+		},
+		["Rez_Monitor_sort"] = {
+			["ty"] = "Sort",
+			["version"] = 2,
+			["data"] = {
+				["sort"] = {
+					{
+						["op"] = "class",
+					}, -- [1]
+					{
+						["op"] = "alpha",
+					}, -- [2]
+				},
+				["set"] = {
+					["class"] = "file",
+					["file"] = "WoWRDX:Rez_Monitor_fset",
+				},
 			},
 		},
 		["ActionBar5_ds"] = {
@@ -23906,16 +24120,16 @@ data = {
 					["rows"] = 1,
 					["fontcount"] = {
 						["size"] = 10,
-						["name"] = "Default",
+						["justifyH"] = "RIGHT",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
 						["justifyV"] = "BOTTOM",
-						["title"] = "Default",
+						["name"] = "Default",
 						["ca"] = 1,
 						["cg"] = 0.3882352941176471,
-						["justifyH"] = "RIGHT",
-						["cb"] = 1,
-						["sy"] = 0,
+						["title"] = "Default",
 						["sx"] = 0,
+						["sy"] = 0,
+						["cb"] = 1,
 						["flags"] = "THICKOUTLINE",
 						["cr"] = 0.2980392156862745,
 					},
@@ -23930,8 +24144,8 @@ data = {
 							["justifyV"] = "CENTER",
 							["size"] = 10,
 						},
-						["Offsety"] = 0,
 						["TimerType"] = "COOLDOWN",
+						["Offsety"] = 0,
 						["UpdateSpeed"] = 0.3,
 						["Offsetx"] = 0,
 						["TextType"] = "Seconds",
@@ -23949,47 +24163,599 @@ data = {
 					["iconspy"] = 0,
 					["nIcons"] = 12,
 					["showkey"] = 1,
-					["fontmacro"] = {
-						["size"] = 8,
-						["name"] = "Default",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "BOTTOM",
-						["sx"] = 0,
-						["ca"] = 1,
-						["cg"] = 0.3568627450980392,
-						["justifyH"] = "RIGHT",
-						["cb"] = 0.8901960784313725,
-						["sy"] = 0,
-						["flags"] = "OUTLINE",
-						["title"] = "Default",
-						["cr"] = 1,
-					},
-					["owner"] = "decor",
+					["usebs"] = true,
 					["anyup"] = 1,
+					["owner"] = "decor",
 					["fontkey"] = {
 						["cr"] = 1,
-						["ca"] = 1,
+						["flags"] = "THICKOUTLINE",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
 						["justifyV"] = "TOP",
-						["cb"] = 0.1058823529411765,
-						["flags"] = "THICKOUTLINE",
+						["sx"] = 0,
+						["ca"] = 1,
 						["cg"] = 0.6588235294117647,
 						["title"] = "Default",
-						["sx"] = 0,
+						["cb"] = 0.1058823529411765,
 						["justifyH"] = "RIGHT",
 						["name"] = "Default",
 						["sy"] = 0,
 						["size"] = 10,
 					},
 					["headerstateType"] = "None",
+					["headerstateCustom"] = "",
 					["abid"] = 49,
 					["version"] = 1,
 					["name"] = "barbut2",
 					["orientation"] = "RIGHT",
-					["headerstateCustom"] = "",
 					["size"] = 36,
+					["fontmacro"] = {
+						["size"] = 8,
+						["title"] = "Default",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "BOTTOM",
+						["cb"] = 0.8901960784313725,
+						["ca"] = 1,
+						["cg"] = 0.3568627450980392,
+						["justifyH"] = "RIGHT",
+						["sx"] = 0,
+						["sy"] = 0,
+						["flags"] = "OUTLINE",
+						["name"] = "Default",
+						["cr"] = 1,
+					},
 					["hidebs"] = 1,
 				}, -- [2]
+			},
+		},
+		["Range_40_70_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["n"] = 4,
+						["class"] = "frs",
+					}, -- [2]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["file"] = "WoWRDX:Range_0_40_fset",
+							["class"] = "file",
+						}, -- [2]
+					}, -- [2]
+				}, -- [3]
+				{
+					"ol", -- [1]
+				}, -- [4]
+			},
+		},
+		["Range_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 10,
+					["version"] = 1,
+					["alpha"] = 1,
+					["w"] = 75,
+				}, -- [1]
+				{
+					["owner"] = "decor",
+					["w"] = "50",
+					["classColor"] = 1,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["sy"] = -1,
+						["title"] = "Default",
+						["justifyH"] = "LEFT",
+						["size"] = 10,
+					},
+					["name"] = "np",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 8,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Base",
+					},
+					["trunc"] = 8,
+					["feature"] = "txt_np",
+					["h"] = "10",
+				}, -- [2]
+				{
+					["owner"] = "decor",
+					["w"] = "40",
+					["feature"] = "txt_status",
+					["ty"] = "gn",
+					["name"] = "group",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Base",
+					},
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["sy"] = -1,
+						["title"] = "Default",
+						["justifyH"] = "LEFT",
+						["size"] = 9,
+					},
+					["h"] = "10",
+					["version"] = 1,
+				}, -- [3]
+			},
+		},
+		["Shaman_TotemBar"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Shaman_TotemBar_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["clickable"] = 1,
+					["unit"] = "player",
+				}, -- [3]
+			},
+		},
+		["Target_Hot_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Variable: Fractional health (fh)",
+				}, -- [1]
+				{
+					["feature"] = "ColorVariable: Static Color",
+					["name"] = "black",
+					["color"] = {
+						["a"] = 0.75,
+						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0,
+					},
+				}, -- [2]
+				{
+					["feature"] = "ColorVariable: Unit Class Color",
+				}, -- [3]
+				{
+					["feature"] = "ColorVariable: Two-Color Blend",
+					["name"] = "classColorDark",
+					["colorVar1"] = "classColor",
+					["colorVar2"] = "black",
+					["bfVar"] = "0.5",
+				}, -- [4]
+				{
+					["feature"] = "commentline",
+					["comment"] = "",
+					["version"] = 1,
+				}, -- [5]
+				{
+					["feature"] = "base_default",
+					["h"] = "36",
+					["version"] = 1,
+					["alpha"] = 1,
+					["w"] = "150",
+				}, -- [6]
+				{
+					["feature"] = "Subframe",
+					["h"] = "24",
+					["name"] = "main",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "Base",
+					["w"] = "145",
+					["flOffset"] = 0,
+				}, -- [7]
+				{
+					["feature"] = "backdrop",
+					["owner"] = "main",
+					["version"] = 1,
+					["bkd"] = {
+						["ka"] = 0.2749999761581421,
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
+						["kb"] = 0,
+						["kr"] = 0,
+						["_backdrop"] = "solid",
+						["edgeFile"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalBorder",
+						["edgeSize"] = 8,
+						["kg"] = 0,
+						["_border"] = "HalStraight",
+						["insets"] = {
+							["top"] = 2,
+							["right"] = 2,
+							["left"] = 2,
+							["bottom"] = 2,
+						},
+					},
+				}, -- [8]
+				{
+					["frac"] = "1",
+					["owner"] = "main",
+					["w"] = "140",
+					["feature"] = "statusbar_horiz",
+					["colorVar"] = "classColorDark",
+					["name"] = "BackgroundBar",
+					["h"] = "13",
+					["orientation"] = "HORIZONTAL",
+					["anchor"] = {
+						["dx"] = 2,
+						["dy"] = -2,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_main",
+					},
+					["version"] = 1,
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalJ",
+					},
+				}, -- [9]
+				{
+					["feature"] = "commentline",
+				}, -- [10]
+				{
+					["feature"] = "Subframe",
+					["h"] = "14",
+					["name"] = "main1",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "Base",
+					["w"] = "144",
+					["flOffset"] = 1,
+				}, -- [11]
+				{
+					["frac"] = "fh",
+					["owner"] = "main1",
+					["w"] = "140",
+					["feature"] = "statusbar_horiz",
+					["colorVar"] = "classColor",
+					["name"] = "HealthBar",
+					["h"] = "13",
+					["orientation"] = "HORIZONTAL",
+					["anchor"] = {
+						["dx"] = 2,
+						["dy"] = -2,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_main1",
+					},
+					["version"] = 1,
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalJ",
+					},
+				}, -- [12]
+				{
+					["feature"] = "commentline",
+				}, -- [13]
+				{
+					["feature"] = "Subframe",
+					["h"] = "14",
+					["name"] = "main2",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "Base",
+					["w"] = "144",
+					["flOffset"] = 2,
+				}, -- [14]
+				{
+					["feature"] = "txt_np",
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sb"] = 0,
+						["title"] = "Default",
+						["sx"] = 1,
+						["justifyH"] = "LEFT",
+						["sr"] = 0,
+					},
+					["name"] = "np",
+					["h"] = "15",
+					["anchor"] = {
+						["dx"] = 4,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Frame_main2",
+					},
+					["owner"] = "main2",
+					["w"] = "100",
+					["version"] = 1,
+				}, -- [15]
+				{
+					["owner"] = "main2",
+					["w"] = "35",
+					["feature"] = "txt_status",
+					["h"] = "15",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = -4,
+						["dy"] = 0,
+						["lp"] = "RIGHT",
+						["rp"] = "RIGHT",
+						["af"] = "Frame_main2",
+					},
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "RIGHT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sb"] = 0,
+						["title"] = "Default",
+						["sx"] = 1,
+						["name"] = "Default",
+						["sr"] = 0,
+					},
+					["ty"] = "hpp",
+					["name"] = "text_hp_percent",
+				}, -- [16]
+				{
+					["feature"] = "commentline",
+				}, -- [17]
+				{
+					["feature"] = "var_spellinfo",
+				}, -- [18]
+				{
+					["frac"] = "",
+					["owner"] = "main1",
+					["w"] = "140",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 0,
+						["g"] = 1,
+						["b"] = 0,
+					},
+					["color2"] = {
+						["a"] = 1,
+						["r"] = 0,
+						["g"] = 1,
+						["b"] = 0,
+					},
+					["h"] = "7",
+					["version"] = 1,
+					["feature"] = "statusbar_horiz",
+					["orientation"] = "HORIZONTAL",
+					["anchor"] = {
+						["dx"] = 2,
+						["dy"] = -15,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_main1",
+					},
+					["name"] = "castBar",
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalJ",
+					},
+				}, -- [19]
+				{
+					["script"] = "",
+					["owner"] = "main2",
+					["w"] = "140",
+					["feature"] = "txt_custom",
+					["font"] = {
+						["size"] = 8,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Bold.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "CENTER",
+						["sa"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["sx"] = 1,
+						["title"] = "Default",
+						["sb"] = 0,
+						["name"] = "Default",
+						["sr"] = 0,
+					},
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 2,
+						["dy"] = -12,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Frame_main2",
+					},
+					["h"] = "7",
+					["name"] = "customText",
+				}, -- [20]
+				{
+					["TEIDefaultState"] = "Hide",
+					["textInfo"] = "customText",
+					["sbExpireState"] = "Hide",
+					["TTIExpireState"] = "Hide",
+					["feature"] = "free_timer",
+					["sbDefaultState"] = "Hide",
+					["TTIDefaultState"] = "Hide",
+					["textType"] = "Hundredths",
+					["statusBar"] = "castBar",
+					["text"] = "",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["TEIExpireState"] = "Hide",
+					["color2"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["countTypeFlag"] = "true",
+					["version"] = 1,
+					["texIcon"] = "",
+					["tex"] = "",
+					["txt"] = "spell_name_rank",
+					["timerVar"] = "spell",
+					["TL"] = 0,
+				}, -- [21]
+				{
+					["feature"] = "commentline",
+					["comment"] = "",
+					["version"] = 1,
+				}, -- [22]
+				{
+					["feature"] = "tex_pvp",
+					["h"] = "14",
+					["name"] = "faction",
+					["ButtonSkinOffset"] = 10,
+					["anchor"] = {
+						["dx"] = -7,
+						["dy"] = -1,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_main2",
+					},
+					["owner"] = "main2",
+					["w"] = "14",
+					["drawLayer"] = "ARTWORK",
+				}, -- [23]
+				{
+					["feature"] = "Raid Target Icon",
+					["h"] = "20",
+					["name"] = "rti",
+					["ButtonSkinOffset"] = 0,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 5,
+						["lp"] = "CENTER",
+						["rp"] = "CENTER",
+						["af"] = "Frame_main2",
+					},
+					["owner"] = "main2",
+					["w"] = "20",
+					["drawLayer"] = "ARTWORK",
+				}, -- [24]
+				{
+					["cdFont"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 12,
+					},
+					["cdTimerType"] = "COOLDOWN",
+					["maxdurationfilter"] = "",
+					["rows"] = 1,
+					["fontst"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 12,
+					},
+					["cdoffy"] = 0,
+					["feature"] = "aura_icons",
+					["iconspx"] = 1,
+					["cd"] = {
+						["HideText"] = 0,
+						["Font"] = {
+							["title"] = "Default",
+							["name"] = "Default",
+							["justifyH"] = "CENTER",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 10,
+						},
+						["Offsety"] = 0,
+						["TimerType"] = "COOLDOWN",
+						["Offsetx"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["TextType"] = "Seconds",
+						["GfxReverse"] = true,
+					},
+					["ButtonSkinOffset"] = 0,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "BOTTOMLEFT",
+						["af"] = "Frame_main",
+					},
+					["externalButtonSkin"] = "Builtin:bs_default",
+					["iconspy"] = 0,
+					["nIcons"] = 12,
+					["cdTxtType"] = "MinSec",
+					["size"] = 10,
+					["mindurationfilter"] = "",
+					["auraType"] = "BUFFS",
+					["cdHideTxt"] = "0",
+					["owner"] = "Base",
+					["playerauras"] = 1,
+					["petauras"] = 1,
+					["cdoffx"] = 0,
+					["name"] = "debuffs",
+					["version"] = 1,
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+					["orientation"] = "RIGHT",
+					["filterNameList"] = {
+					},
+					["timefilter"] = 1,
+					["unitfilter"] = "",
+				}, -- [25]
 			},
 		},
 		["Target_Debuff_ds"] = {
@@ -24007,16 +24773,16 @@ data = {
 					["rows"] = 10,
 					["fontst"] = {
 						["size"] = 14,
-						["justifyH"] = "RIGHT",
+						["name"] = "Default",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\bs.ttf",
 						["justifyV"] = "BOTTOM",
-						["title"] = "Default",
+						["justifyH"] = "RIGHT",
 						["sa"] = 1,
 						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["sy"] = -1,
+						["title"] = "Default",
 						["sx"] = 1,
+						["sy"] = -1,
+						["sb"] = 0,
 						["flags"] = "THICKOUTLINE",
 						["sr"] = 0,
 					},
@@ -24026,17 +24792,17 @@ data = {
 						["HideText"] = 0,
 						["Font"] = {
 							["cr"] = 1,
-							["justifyH"] = "CENTER",
+							["title"] = "Default",
 							["face"] = "Interface\\Addons\\VFL\\Fonts\\bs.ttf",
 							["justifyV"] = "CENTER",
-							["cb"] = 0.1333333333333333,
+							["sx"] = 0,
 							["ca"] = 1,
 							["cg"] = 0.7372549019607844,
 							["sy"] = 0,
-							["sx"] = 0,
+							["cb"] = 0.1333333333333333,
 							["name"] = "Default",
 							["flags"] = "OUTLINE",
-							["title"] = "Default",
+							["justifyH"] = "CENTER",
 							["size"] = 10,
 						},
 						["TimerType"] = "COOLDOWN&TEXT",
@@ -24072,30 +24838,6 @@ data = {
 				}, -- [2]
 			},
 		},
-		["Druid_Buff_Wild_mb"] = {
-			["ty"] = "MouseBindings",
-			["version"] = 1,
-			["data"] = {
-				["1"] = {
-					["action"] = "cast",
-					["spell"] = 79061,
-				},
-			},
-		},
-		["Debuff_Poison_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"set", -- [1]
-					{
-						["buff"] = "@poison",
-						["class"] = "debuff",
-					}, -- [2]
-				}, -- [2]
-			},
-		},
 		["ActionBar6_ds"] = {
 			["ty"] = "Design",
 			["version"] = 1,
@@ -24112,19 +24854,19 @@ data = {
 					["showtooltip"] = 1,
 					["rows"] = 1,
 					["fontcount"] = {
-						["size"] = 10,
-						["title"] = "Default",
+						["cr"] = 0.2980392156862745,
+						["ca"] = 1,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
 						["justifyV"] = "BOTTOM",
-						["justifyH"] = "RIGHT",
-						["ca"] = 1,
-						["cg"] = 0.3882352941176471,
-						["name"] = "Default",
 						["cb"] = 1,
-						["sy"] = 0,
-						["sx"] = 0,
 						["flags"] = "THICKOUTLINE",
-						["cr"] = 0.2980392156862745,
+						["cg"] = 0.3882352941176471,
+						["justifyH"] = "RIGHT",
+						["sx"] = 0,
+						["sy"] = 0,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 10,
 					},
 					["feature"] = "actionbar",
 					["iconspx"] = 0,
@@ -24139,8 +24881,8 @@ data = {
 						},
 						["Offsety"] = 0,
 						["TimerType"] = "COOLDOWN",
-						["UpdateSpeed"] = 0.3,
 						["Offsetx"] = 0,
+						["UpdateSpeed"] = 0.3,
 						["TextType"] = "Seconds",
 						["HideText"] = 0,
 					},
@@ -24152,54 +24894,57 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["externalButtonSkin"] = "bs_simplesquare",
+					["fontkey"] = {
+						["size"] = 10,
+						["sy"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
+						["justifyV"] = "TOP",
+						["name"] = "Default",
+						["flags"] = "THICKOUTLINE",
+						["cg"] = 0.6588235294117647,
+						["title"] = "Default",
+						["sx"] = 0,
+						["justifyH"] = "RIGHT",
+						["cb"] = 0.1058823529411765,
+						["ca"] = 1,
+						["cr"] = 1,
+					},
 					["iconspy"] = 0,
 					["nIcons"] = 12,
 					["showkey"] = 1,
+					["anyup"] = 1,
+					["size"] = 36,
+					["bkd"] = {
+					},
+					["owner"] = "decor",
 					["fontmacro"] = {
-						["size"] = 8,
-						["name"] = "Default",
+						["cr"] = 1,
+						["ca"] = 1,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "BOTTOM",
-						["sx"] = 0,
-						["ca"] = 1,
+						["name"] = "Default",
+						["flags"] = "OUTLINE",
 						["cg"] = 0.3568627450980392,
 						["justifyH"] = "RIGHT",
 						["cb"] = 0.8901960784313725,
 						["sy"] = 0,
-						["flags"] = "OUTLINE",
-						["title"] = "Default",
-						["cr"] = 1,
-					},
-					["owner"] = "decor",
-					["anyup"] = 1,
-					["fontkey"] = {
-						["cr"] = 1,
-						["ca"] = 1,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
-						["justifyV"] = "TOP",
-						["cb"] = 0.1058823529411765,
-						["flags"] = "THICKOUTLINE",
-						["cg"] = 0.6588235294117647,
-						["sy"] = 0,
 						["sx"] = 0,
-						["justifyH"] = "RIGHT",
 						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 10,
+						["size"] = 8,
 					},
+					["name"] = "barbut2",
 					["headerstateType"] = "None",
 					["abid"] = 61,
 					["version"] = 1,
-					["name"] = "barbut2",
-					["orientation"] = "RIGHT",
 					["headerstateCustom"] = "",
-					["size"] = 36,
+					["orientation"] = "RIGHT",
+					["usebs"] = true,
+					["externalButtonSkin"] = "bs_simplesquare",
 					["hidebs"] = 1,
 				}, -- [2]
 			},
 		},
-		["Shaman_TotemBar"] = {
+		["MainMenu"] = {
 			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
@@ -24208,38 +24953,115 @@ data = {
 				}, -- [1]
 				{
 					["feature"] = "Design",
-					["design"] = "WoWRDX:Shaman_TotemBar_ds",
+					["design"] = "WoWRDX:MainMenu_ds",
 				}, -- [2]
 				{
 					["feature"] = "layout_single_unitframe",
 					["version"] = 1,
-					["clickable"] = 1,
 					["unit"] = "player",
 				}, -- [3]
 			},
 		},
-		["Raid_Group6_fset"] = {
-			["ty"] = "FilterSet",
+		["Player_Buff_Icon_ds"] = {
+			["ty"] = "Design",
 			["version"] = 1,
 			["data"] = {
-				"and", -- [1]
 				{
-					"groups", -- [1]
-					[7] = true,
+					["feature"] = "base_default",
+					["h"] = 45,
+					["version"] = 1,
+					["w"] = 300,
+					["alpha"] = 1,
+				}, -- [1]
+				{
+					["rows"] = 10,
+					["fontst"] = {
+						["size"] = 14,
+						["title"] = "Default",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "BOTTOM",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["sx"] = 1,
+						["flags"] = "THICKOUTLINE",
+						["sr"] = 0,
+					},
+					["feature"] = "aura_icons",
+					["iconspx"] = 3,
+					["cd"] = {
+						["HideText"] = 0,
+						["Font"] = {
+							["size"] = 10,
+							["title"] = "Default",
+							["name"] = "Default",
+							["sg"] = 0,
+							["sx"] = 1,
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["sy"] = -1,
+							["ca"] = 1,
+							["cg"] = 0.7372549019607844,
+							["justifyH"] = "CENTER",
+							["sb"] = 0,
+							["sa"] = 1,
+							["sr"] = 0,
+							["cb"] = 0.1333333333333333,
+							["cr"] = 1,
+						},
+						["TimerType"] = "COOLDOWN&TEXT",
+						["Offsety"] = -20,
+						["UpdateSpeed"] = 0.1,
+						["Offsetx"] = 0,
+						["TextType"] = "Largest",
+						["GfxReverse"] = true,
+					},
+					["ButtonSkinOffset"] = 5,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPRIGHT",
+						["rp"] = "TOPRIGHT",
+						["af"] = "Base",
+					},
+					["externalButtonSkin"] = "bs_simplesquare",
+					["iconspy"] = 14,
+					["nIcons"] = 20,
+					["mindurationfilter"] = "",
+					["auraType"] = "BUFFS",
+					["owner"] = "decor",
+					["filterNameList"] = {
+					},
+					["smooth"] = 1,
+					["usebs"] = true,
+					["maxdurationfilter"] = "",
+					["version"] = 1,
+					["name"] = "ai1",
+					["orientation"] = "LEFT",
+					["bkd"] = {
+						["ka"] = 1,
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
+						["kb"] = 0.1,
+						["kr"] = 0.1,
+						["tile"] = false,
+						["_backdrop"] = "solid",
+						["edgeFile"] = "Interface\\AddOns\\RDX_mediapack\\sharedmedia\\borders\\IshBorder",
+						["edgeSize"] = 12,
+						["_border"] = "IshBorder",
+						["kg"] = 0.1,
+						["insets"] = {
+							["top"] = 4,
+							["right"] = 4,
+							["left"] = 4,
+							["bottom"] = 4,
+						},
+					},
+					["size"] = 30,
+					["unitfilter"] = "",
 				}, -- [2]
-				{
-					"classes", -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
-					true, -- [10]
-					true, -- [11]
-				}, -- [3]
 			},
 		},
 		["Overheal_Done_fset"] = {
@@ -24258,344 +25080,137 @@ data = {
 				}, -- [3]
 			},
 		},
-		["Paladin_Buff_ds"] = {
-			["ty"] = "Design",
+		["infoAuthorWebSite"] = "http://www.wowrdx.com",
+		["Mage_Buff_Arcane_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"or", -- [1]
+				{
+					"set", -- [1]
+					{
+						["class"] = "buff",
+						["buff"] = 1459,
+					}, -- [2]
+				}, -- [2]
+				{
+					"set", -- [1]
+					{
+						["class"] = "buff",
+						["buff"] = 23028,
+					}, -- [2]
+				}, -- [3]
+				{
+					"set", -- [1]
+					{
+						["class"] = "buff",
+						["buff"] = 61024,
+					}, -- [2]
+				}, -- [4]
+				{
+					"set", -- [1]
+					{
+						["class"] = "buff",
+						["buff"] = 61316,
+					}, -- [2]
+				}, -- [5]
+			},
+		},
+		["Raid_Group2"] = {
+			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
 				{
-					["feature"] = "ColorVariable: Unit Class Color",
-				}, -- [1]
-				{
-					["feature"] = "commentline",
-				}, -- [2]
-				{
-					["feature"] = "base_default",
-					["h"] = 20,
-					["version"] = 1,
-					["alpha"] = 1,
-					["w"] = 138,
-				}, -- [3]
-				{
-					["feature"] = "Subframe",
-					["h"] = "20",
-					["name"] = "sub1",
-					["anchor"] = {
-						["dx"] = 100,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["owner"] = "decor",
-					["w"] = "20",
-					["flOffset"] = 1,
-				}, -- [4]
-				{
-					["feature"] = "backdrop",
-					["owner"] = "sub1",
-					["version"] = 1,
+					["feature"] = "Frame: Lightweight",
+					["title"] = "Raid Group 2",
 					["bkd"] = {
-						["_border"] = "straight",
-						["edgeSize"] = 8,
+						["_border"] = "none",
 						["_backdrop"] = "none",
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
-						["insets"] = {
-							["top"] = 2,
-							["right"] = 2,
-							["left"] = 2,
-							["bottom"] = 2,
-						},
 					},
-				}, -- [5]
-				{
-					["feature"] = "Subframe",
-					["h"] = 20,
-					["name"] = "sub2",
-					["anchor"] = {
-						["dx"] = 120,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
+					["bkdColor"] = {
+						["a"] = 0,
+						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0,
 					},
-					["owner"] = "decor",
-					["w"] = 20,
-					["flOffset"] = 1,
-				}, -- [6]
-				{
-					["feature"] = "backdrop",
-					["owner"] = "sub2",
-					["version"] = 1,
-					["bkd"] = {
-						["_border"] = "straight",
-						["edgeSize"] = 8,
-						["_backdrop"] = "none",
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
-						["insets"] = {
-							["top"] = 2,
-							["right"] = 2,
-							["left"] = 2,
-							["bottom"] = 2,
-						},
+					["defaultbuttons"] = 1,
+					["titleColor"] = {
+						["a"] = 1,
+						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0,
 					},
-				}, -- [7]
-				{
-					["feature"] = "Subframe",
-					["h"] = 20,
-					["name"] = "subframe",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["owner"] = "decor",
-					["w"] = 100,
-					["flOffset"] = 1,
-				}, -- [8]
-				{
-					["owner"] = "decor",
-					["w"] = 70,
-					["classColor"] = 1,
-					["h"] = 18,
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Base",
-					},
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sy"] = -1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["title"] = "Default",
-						["sx"] = 1,
-						["sb"] = 0,
-						["name"] = "Default",
-						["justifyH"] = "RIGHT",
-						["size"] = 10,
-					},
-					["feature"] = "txt_np",
-					["name"] = "np",
-				}, -- [9]
-				{
-					["owner"] = "subframe",
-					["w"] = 20,
-					["feature"] = "ico_subclass",
-					["h"] = 20,
-					["name"] = "rtai",
-					["ButtonSkinOffset"] = 0,
-					["anchor"] = {
-						["dx"] = 75,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["ukfilter"] = 1,
-					["drawLayer"] = "ARTWORK",
-				}, -- [10]
-				{
-					["externalNameFilter"] = "WoWRDX:Paladin_Buff_Kings_af",
-					["rows"] = 1,
-					["fontst"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 12,
-					},
-					["feature"] = "aura_icons",
-					["iconspx"] = 0,
-					["cd"] = {
-						["HideText"] = 0,
-						["Font"] = {
-							["title"] = "Default",
-							["name"] = "Default",
-							["justifyH"] = "CENTER",
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 10,
-						},
-						["Offsety"] = 0,
-						["TimerType"] = "COOLDOWN",
-						["Offsetx"] = 0,
-						["UpdateSpeed"] = 0.3,
-						["TextType"] = "Seconds",
-						["GfxReverse"] = true,
-					},
-					["ButtonSkinOffset"] = 1,
-					["anchor"] = {
-						["dx"] = 102,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Base",
-					},
-					["iconspy"] = 0,
-					["nIcons"] = 1,
-					["mindurationfilter"] = "",
-					["auraType"] = "BUFFS",
-					["owner"] = "sub1",
-					["filterNameList"] = {
-					},
-					["filterName"] = 1,
-					["version"] = 1,
-					["maxdurationfilter"] = "",
-					["orientation"] = "RIGHT",
-					["name"] = "kinga",
-					["size"] = 16,
-					["unitfilter"] = "",
-				}, -- [11]
-				{
-					["w"] = "16",
-					["feature"] = "hotspot",
-					["h"] = "16",
-					["name"] = "kings",
-					["hlt"] = {
-						["blendMode"] = "ADD",
-						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
-					},
-					["anchor"] = {
-						["dx"] = 102,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["secure"] = 1,
-					["flo"] = 3,
-				}, -- [12]
-				{
-					["externalNameFilter"] = "WoWRDX:Paladin_Buff_Might_af",
-					["rows"] = 1,
-					["fontst"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 12,
-					},
-					["feature"] = "aura_icons",
-					["iconspx"] = 0,
-					["cd"] = {
-						["HideText"] = 0,
-						["Font"] = {
-							["title"] = "Default",
-							["name"] = "Default",
-							["justifyH"] = "CENTER",
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 10,
-						},
-						["Offsety"] = 0,
-						["TimerType"] = "COOLDOWN",
-						["Offsetx"] = 0,
-						["UpdateSpeed"] = 0.3,
-						["TextType"] = "Seconds",
-						["GfxReverse"] = true,
-					},
-					["ButtonSkinOffset"] = 1,
-					["anchor"] = {
-						["dx"] = 122,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Base",
-					},
-					["iconspy"] = 0,
-					["nIcons"] = 1,
-					["mindurationfilter"] = "",
-					["auraType"] = "BUFFS",
-					["owner"] = "sub2",
-					["filterNameList"] = {
-					},
-					["filterName"] = 1,
-					["version"] = 1,
-					["maxdurationfilter"] = "",
-					["orientation"] = "RIGHT",
-					["name"] = "mighta",
-					["size"] = 16,
-					["unitfilter"] = "",
-				}, -- [13]
-				{
-					["w"] = "16",
-					["feature"] = "hotspot",
-					["h"] = "16",
-					["name"] = "might",
-					["hlt"] = {
-						["blendMode"] = "ADD",
-						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
-					},
-					["anchor"] = {
-						["dx"] = 122,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["secure"] = 1,
-					["flo"] = 3,
-				}, -- [14]
-				{
-					["feature"] = "commentline",
-				}, -- [15]
-				{
-					["cleanupPolicy"] = 3,
-					["owner"] = "decor",
-					["w"] = "100",
-					["feature"] = "texture",
-					["h"] = "19",
-					["version"] = 1,
-					["name"] = "tex_range",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Base",
-					},
-					["sublevel"] = 1,
-					["drawLayer"] = "ARTWORK",
-					["texture"] = {
-						["vertexColor"] = {
-							["a"] = 0,
+					["texicon"] = {
+						["color"] = {
+							["a"] = 1,
 							["r"] = 1,
 							["g"] = 1,
 							["b"] = 1,
 						},
+						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
 						["blendMode"] = "BLEND",
-						["path"] = "Interface\\TargetingFrame\\UI-StatusBar",
 					},
-				}, -- [16]
+				}, -- [1]
 				{
-					["feature"] = "Variable: Unit In Set",
-					["name"] = "unitnotInRange30",
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Raid_ds",
+				}, -- [2]
+				{
+					["feature"] = "Data Source: Secure Set",
+					["rostertype"] = "RAID",
 					["set"] = {
-						["file"] = "WoWRDX:Range_not_0_30_dead_fset",
 						["class"] = "file",
+						["file"] = "default:set_raid_group2",
 					},
-				}, -- [17]
+				}, -- [3]
 				{
-					["color"] = {
-						["a"] = 0.8039999902248383,
-						["b"] = 0,
-						["g"] = 0.04705882352941176,
-						["r"] = 0.5882352941176472,
-					},
-					["name"] = "red",
-					["feature"] = "ColorVariable: Static Color",
-				}, -- [18]
+					["bkt"] = 1,
+					["switchvehicle"] = 1,
+					["dxn"] = 1,
+					["cols"] = 100,
+					["feature"] = "Header Grid",
+					["axis"] = 1,
+				}, -- [4]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "status",
+					["version"] = 1,
+					["mbFriendly"] = "default:bindings_status",
+				}, -- [5]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "decurse",
+					["version"] = 1,
+					["mbFriendly"] = "default:bindings_decurse",
+				}, -- [6]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "action",
+					["version"] = 1,
+					["mbFriendly"] = "default:bindings_action",
+				}, -- [7]
+				{
+					["feature"] = "mp_args",
+					["dpm1"] = 0,
+					["period"] = 0.1,
+					["version"] = 1,
+				}, -- [8]
+				{
+					["feature"] = "FilterSet Editor",
+				}, -- [9]
+			},
+		},
+		["Warrior_Shout_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Variables: Buffs Debuffs Info",
+					["name"] = "auraia",
+					["auraType"] = "BUFFS",
+					["playerauras"] = 1,
+					["cd"] = 2048,
+				}, -- [1]
 				{
 					["color"] = {
 						["a"] = 0,
@@ -24605,57 +25220,145 @@ data = {
 					},
 					["name"] = "alpha",
 					["feature"] = "ColorVariable: Static Color",
-				}, -- [19]
-				{
-					["condVar"] = "unitnotInRange30_flag",
-					["name"] = "range",
-					["colorVar1"] = "red",
-					["feature"] = "ColorVariable: Conditional Color",
-					["colorVar2"] = "alpha",
-				}, -- [20]
-				{
-					["flag"] = "true",
-					["feature"] = "Highlight: Texture Map",
-					["color"] = "range",
-					["texture"] = "tex_range",
-				}, -- [21]
-			},
-		},
-		["Raid_Druid"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Raid_Druid_ds",
 				}, -- [2]
 				{
-					["feature"] = "Data Source: Secure Set",
-					["set"] = {
-						["file"] = "WoWRDX:Raid_Druid_fset",
-						["class"] = "file",
+					["color"] = {
+						["a"] = 1,
+						["b"] = 0.0196078431372549,
+						["g"] = 0.8627450980392157,
+						["r"] = 1,
 					},
-					["rostertype"] = "RAID",
+					["name"] = "yellow",
+					["feature"] = "ColorVariable: Static Color",
 				}, -- [3]
 				{
-					["bkt"] = 1,
-					["dxn"] = 2,
-					["cols"] = 5,
-					["feature"] = "Header Grid",
-					["axis"] = 2,
+					["feature"] = "base_default",
+					["h"] = 20,
+					["version"] = 1,
+					["hlt"] = 1,
+					["alpha"] = 1,
+					["w"] = 100,
+					["ph"] = 1,
 				}, -- [4]
 				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "click",
+					["frac"] = "",
+					["owner"] = "decor",
+					["w"] = 80,
+					["feature"] = "statusbar_horiz",
+					["colorVar"] = "yellow",
+					["name"] = "statusBar",
+					["h"] = 20,
+					["orientation"] = "HORIZONTAL",
 					["version"] = 1,
-					["mbFriendly"] = "default:bindings_action",
+					["anchor"] = {
+						["dx"] = 20,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\TargetingFrame\\UI-StatusBar",
+					},
 				}, -- [5]
 				{
-					["feature"] = "FilterSet Editor",
+					["cleanupPolicy"] = 2,
+					["owner"] = "decor",
+					["w"] = 20,
+					["sublevel"] = 1,
+					["h"] = 20,
+					["name"] = "tex1",
+					["feature"] = "texture",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["drawLayer"] = "ARTWORK",
+					["texture"] = {
+						["color"] = {
+							["a"] = 1,
+							["r"] = 1,
+							["g"] = 1,
+							["b"] = 1,
+						},
+						["blendMode"] = "BLEND",
+					},
 				}, -- [6]
+				{
+					["script"] = "",
+					["owner"] = "decor",
+					["w"] = 40,
+					["feature"] = "txt_custom",
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sb"] = 0,
+						["justifyH"] = "LEFT",
+						["sy"] = -1,
+						["sx"] = 1,
+						["sr"] = 0,
+					},
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 20,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Base",
+					},
+					["h"] = 20,
+					["name"] = "customText",
+				}, -- [7]
+				{
+					["TEIDefaultState"] = "Hide",
+					["textInfo"] = "",
+					["sbExpireState"] = "Hide",
+					["TTIExpireState"] = "Hide",
+					["feature"] = "free_timer",
+					["sbDefaultState"] = "Hide",
+					["TTIDefaultState"] = "Hide",
+					["textType"] = "MinSec",
+					["statusBar"] = "statusBar",
+					["defaultTL"] = 1,
+					["text"] = "customText",
+					["texIcon"] = "tex1",
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["TL"] = 20,
+					["version"] = 1,
+					["txt"] = "",
+					["tex"] = "auraia_icon",
+					["countTypeFlag"] = "false",
+					["timerVar"] = "auraia_aura",
+					["TEIExpireState"] = "Default",
+				}, -- [8]
+			},
+		},
+		["Threat_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"nidmask", -- [1]
 			},
 		},
 		["Target_Hot_fset"] = {
@@ -24668,7 +25371,6 @@ data = {
 				1, -- [4]
 			},
 		},
-		["infoAuthorWebSite"] = "http://www.wowrdx.com",
 		["Priest_Buff_POM_ds"] = {
 			["ty"] = "Design",
 			["version"] = 1,
@@ -24730,22 +25432,22 @@ data = {
 				{
 					["owner"] = "subframe",
 					["w"] = "100",
-					["feature"] = "txt_np",
+					["classColor"] = 1,
 					["font"] = {
 						["size"] = 10,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["justifyH"] = "LEFT",
+						["name"] = "Default",
 						["sa"] = 1,
 						["sg"] = 0,
-						["name"] = "Default",
+						["justifyH"] = "LEFT",
 						["sx"] = 1,
 						["title"] = "Default",
 						["sy"] = -1,
 						["sb"] = 0,
 						["sr"] = 0,
 					},
-					["name"] = "np",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 20,
 						["dy"] = 0,
@@ -24754,8 +25456,8 @@ data = {
 						["af"] = "subframe",
 					},
 					["h"] = "14",
-					["classColor"] = 1,
-					["version"] = 1,
+					["feature"] = "txt_np",
+					["name"] = "np",
 				}, -- [6]
 				{
 					["cleanupPolicy"] = 2,
@@ -24763,8 +25465,8 @@ data = {
 					["w"] = "14",
 					["feature"] = "texture",
 					["h"] = "14",
-					["version"] = 1,
 					["name"] = "tex1",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -24811,20 +25513,7 @@ data = {
 					["owner"] = "subframe",
 					["w"] = "100",
 					["feature"] = "txt_custom",
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sb"] = 0,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sx"] = 1,
-						["sr"] = 0,
-					},
+					["h"] = "14",
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
@@ -24834,7 +25523,20 @@ data = {
 						["af"] = "subframe",
 					},
 					["name"] = "customText",
-					["h"] = "14",
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "RIGHT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sb"] = 0,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sx"] = 1,
+						["sr"] = 0,
+					},
 				}, -- [9]
 				{
 					["script"] = "",
@@ -24859,14 +25561,14 @@ data = {
 						["cb"] = 0,
 						["sr"] = 0,
 						["size"] = 10,
-						["flags"] = "OUTLINE",
 						["sa"] = 1,
+						["flags"] = "OUTLINE",
 						["sg"] = 0,
-						["sy"] = -1,
+						["name"] = "Default",
 						["sx"] = 1,
 						["sb"] = 0,
 						["title"] = "Default",
-						["name"] = "Default",
+						["sy"] = -1,
 						["cr"] = 1,
 					},
 					["name"] = "stackText",
@@ -24899,8 +25601,8 @@ data = {
 						["g"] = 0,
 						["r"] = 1,
 					},
-					["tex"] = "auraia_icon",
 					["blendcolor"] = 1,
+					["tex"] = "auraia_icon",
 					["timerVar"] = "auraia_aura",
 					["txt"] = "auraia_aura_stack",
 				}, -- [11]
@@ -24912,245 +25614,26 @@ data = {
 				}, -- [12]
 			},
 		},
-		["Raid_Group2"] = {
+		["Combat_Logs"] = {
 			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
 				{
-					["feature"] = "Frame: Lightweight",
-					["title"] = "Raid Group 2",
-					["bkdColor"] = {
-						["a"] = 0,
-						["b"] = 0,
-						["g"] = 0,
-						["r"] = 0,
-					},
-					["texicon"] = {
-						["color"] = {
-							["a"] = 1,
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
-						["blendMode"] = "BLEND",
-					},
-					["defaultbuttons"] = 1,
-					["titleColor"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0,
-						["r"] = 0,
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
 					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
-					["design"] = "WoWRDX:Raid_ds",
+					["design"] = "WoWRDX:Combat_Logs_ds",
 				}, -- [2]
 				{
-					["feature"] = "Data Source: Secure Set",
-					["set"] = {
-						["file"] = "WoWRDX:Raid_Group2_fset",
-						["class"] = "file",
-					},
-					["rostertype"] = "RAID",
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
 				}, -- [3]
-				{
-					["bkt"] = 1,
-					["switchvehicle"] = 1,
-					["dxn"] = 1,
-					["axis"] = 1,
-					["feature"] = "Header Grid",
-					["cols"] = 100,
-				}, -- [4]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "status",
-					["version"] = 1,
-					["mbFriendly"] = "default:bindings_status",
-				}, -- [5]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "decurse",
-					["version"] = 1,
-					["mbFriendly"] = "default:bindings_decurse",
-				}, -- [6]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "action",
-					["version"] = 1,
-					["mbFriendly"] = "default:bindings_action",
-				}, -- [7]
-				{
-					["feature"] = "mp_args",
-					["version"] = 1,
-					["dpm1"] = 0,
-					["period"] = 0.1,
-				}, -- [8]
-				{
-					["feature"] = "FilterSet Editor",
-				}, -- [9]
-			},
-		},
-		["Warrior_Shout_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Variables: Buffs Debuffs Info",
-					["name"] = "auraia",
-					["auraType"] = "BUFFS",
-					["playerauras"] = 1,
-					["cd"] = 2048,
-				}, -- [1]
-				{
-					["color"] = {
-						["a"] = 0,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["name"] = "alpha",
-					["feature"] = "ColorVariable: Static Color",
-				}, -- [2]
-				{
-					["color"] = {
-						["a"] = 1,
-						["b"] = 0.0196078431372549,
-						["g"] = 0.8627450980392157,
-						["r"] = 1,
-					},
-					["name"] = "yellow",
-					["feature"] = "ColorVariable: Static Color",
-				}, -- [3]
-				{
-					["feature"] = "base_default",
-					["h"] = 20,
-					["version"] = 1,
-					["hlt"] = 1,
-					["w"] = 100,
-					["alpha"] = 1,
-					["ph"] = 1,
-				}, -- [4]
-				{
-					["frac"] = "",
-					["owner"] = "decor",
-					["w"] = 80,
-					["feature"] = "statusbar_horiz",
-					["colorVar"] = "yellow",
-					["name"] = "statusBar",
-					["h"] = 20,
-					["orientation"] = "HORIZONTAL",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 20,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\TargetingFrame\\UI-StatusBar",
-					},
-				}, -- [5]
-				{
-					["cleanupPolicy"] = 2,
-					["owner"] = "decor",
-					["w"] = 20,
-					["feature"] = "texture",
-					["h"] = 20,
-					["name"] = "tex1",
-					["sublevel"] = 1,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["drawLayer"] = "ARTWORK",
-					["texture"] = {
-						["color"] = {
-							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
-							["b"] = 1,
-						},
-						["blendMode"] = "BLEND",
-					},
-				}, -- [6]
-				{
-					["script"] = "",
-					["owner"] = "decor",
-					["w"] = 40,
-					["feature"] = "txt_custom",
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["title"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["justifyH"] = "LEFT",
-						["sy"] = -1,
-						["sx"] = 1,
-						["sr"] = 0,
-					},
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 20,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Base",
-					},
-					["h"] = 20,
-					["name"] = "customText",
-				}, -- [7]
-				{
-					["TEIDefaultState"] = "Hide",
-					["textInfo"] = "",
-					["sbExpireState"] = "Hide",
-					["TTIExpireState"] = "Hide",
-					["feature"] = "free_timer",
-					["sbDefaultState"] = "Hide",
-					["TTIDefaultState"] = "Hide",
-					["textType"] = "MinSec",
-					["statusBar"] = "statusBar",
-					["defaultTL"] = 1,
-					["text"] = "customText",
-					["texIcon"] = "tex1",
-					["TEIExpireState"] = "Default",
-					["color2"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["TL"] = 20,
-					["version"] = 1,
-					["txt"] = "",
-					["tex"] = "auraia_icon",
-					["countTypeFlag"] = "false",
-					["timerVar"] = "auraia_aura",
-					["color1"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
-				}, -- [8]
-			},
-		},
-		["Threat_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"nidmask", -- [1]
 			},
 		},
 		["ActionBar4_ds"] = {
@@ -25170,16 +25653,16 @@ data = {
 					["rows"] = 1,
 					["fontcount"] = {
 						["size"] = 10,
-						["name"] = "Default",
+						["justifyH"] = "RIGHT",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
 						["justifyV"] = "BOTTOM",
-						["title"] = "Default",
+						["name"] = "Default",
 						["ca"] = 1,
 						["cg"] = 0.3882352941176471,
-						["justifyH"] = "RIGHT",
-						["cb"] = 1,
-						["sy"] = 0,
+						["title"] = "Default",
 						["sx"] = 0,
+						["sy"] = 0,
+						["cb"] = 1,
 						["flags"] = "THICKOUTLINE",
 						["cr"] = 0.2980392156862745,
 					},
@@ -25194,8 +25677,8 @@ data = {
 							["justifyV"] = "CENTER",
 							["size"] = 10,
 						},
-						["Offsety"] = 0,
 						["TimerType"] = "COOLDOWN",
+						["Offsety"] = 0,
 						["UpdateSpeed"] = 0.3,
 						["Offsetx"] = 0,
 						["TextType"] = "Seconds",
@@ -25213,149 +25696,48 @@ data = {
 					["iconspy"] = 0,
 					["nIcons"] = 12,
 					["showkey"] = 1,
-					["fontmacro"] = {
-						["size"] = 8,
-						["name"] = "Default",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "BOTTOM",
-						["sx"] = 0,
-						["ca"] = 1,
-						["cg"] = 0.3568627450980392,
-						["justifyH"] = "RIGHT",
-						["cb"] = 0.8901960784313725,
-						["sy"] = 0,
-						["flags"] = "OUTLINE",
-						["title"] = "Default",
-						["cr"] = 1,
-					},
-					["owner"] = "decor",
+					["usebs"] = true,
 					["anyup"] = 1,
+					["owner"] = "decor",
 					["fontkey"] = {
 						["cr"] = 1,
-						["ca"] = 1,
+						["flags"] = "THICKOUTLINE",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
 						["justifyV"] = "TOP",
-						["cb"] = 0.1058823529411765,
-						["flags"] = "THICKOUTLINE",
+						["sx"] = 0,
+						["ca"] = 1,
 						["cg"] = 0.6588235294117647,
 						["title"] = "Default",
-						["sx"] = 0,
+						["cb"] = 0.1058823529411765,
 						["justifyH"] = "RIGHT",
 						["name"] = "Default",
 						["sy"] = 0,
 						["size"] = 10,
 					},
 					["headerstateType"] = "None",
+					["headerstateCustom"] = "",
 					["abid"] = 37,
 					["version"] = 1,
 					["name"] = "barbut2",
 					["orientation"] = "DOWN",
-					["headerstateCustom"] = "",
 					["size"] = 36,
+					["fontmacro"] = {
+						["size"] = 8,
+						["title"] = "Default",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "BOTTOM",
+						["cb"] = 0.8901960784313725,
+						["ca"] = 1,
+						["cg"] = 0.3568627450980392,
+						["justifyH"] = "RIGHT",
+						["sx"] = 0,
+						["sy"] = 0,
+						["flags"] = "OUTLINE",
+						["name"] = "Default",
+						["cr"] = 1,
+					},
 					["hidebs"] = 1,
 				}, -- [2]
-			},
-		},
-		["Raid_Group1"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: Lightweight",
-					["title"] = "Raid Group 1",
-					["bkdColor"] = {
-						["a"] = 0,
-						["b"] = 0,
-						["g"] = 0,
-						["r"] = 0,
-					},
-					["texicon"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
-					},
-					["defaultbuttons"] = 1,
-					["titleColor"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0,
-						["r"] = 0,
-					},
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Raid_ds",
-				}, -- [2]
-				{
-					["feature"] = "Data Source: Secure Set",
-					["set"] = {
-						["file"] = "WoWRDX:Raid_Group1_fset",
-						["class"] = "file",
-					},
-					["rostertype"] = "RAID",
-				}, -- [3]
-				{
-					["bkt"] = 1,
-					["switchvehicle"] = 1,
-					["dxn"] = 1,
-					["cols"] = 40,
-					["feature"] = "Header Grid",
-					["axis"] = 1,
-				}, -- [4]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "status",
-					["version"] = 1,
-					["mbFriendly"] = "default:bindings_status",
-				}, -- [5]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "decurse",
-					["version"] = 1,
-					["mbFriendly"] = "default:bindings_decurse",
-				}, -- [6]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "action",
-					["version"] = 1,
-					["mbFriendly"] = "default:bindings_action",
-				}, -- [7]
-				{
-					["feature"] = "mp_args",
-					["period"] = 0.1,
-					["version"] = 1,
-					["dpm1"] = 0,
-				}, -- [8]
-				{
-					["feature"] = "FilterSet Editor",
-				}, -- [9]
-			},
-		},
-		["Combat_Logs"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Combat_Logs_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
-			},
-		},
-		["Paladin_Buff_Might_mb"] = {
-			["ty"] = "MouseBindings",
-			["version"] = 1,
-			["data"] = {
-				["1"] = {
-					["action"] = "cast",
-					["spell"] = 19740,
-				},
 			},
 		},
 		["Healer_Power_stc"] = {
@@ -25376,13 +25758,8 @@ data = {
 					["b"] = 0.5372549019607842,
 				},
 				["name"] = "Healer",
+				["pct"] = 1,
 				["sv"] = 1,
-				["color"] = {
-					["a"] = 1,
-					["r"] = 0,
-					["g"] = 0.2980392156862746,
-					["b"] = 0.7607843137254902,
-				},
 				["max"] = {
 					["qty"] = "smaxmp",
 					["set"] = {
@@ -25390,481 +25767,22 @@ data = {
 						["file"] = "WoWRDX:Healer_fset",
 					},
 				},
-				["pct"] = 1,
+				["color"] = {
+					["a"] = 1,
+					["r"] = 0,
+					["g"] = 0.2980392156862746,
+					["b"] = 0.7607843137254902,
+				},
 				["texture"] = "",
 			},
 		},
-		["Raid_Group1_fset"] = {
-			["ty"] = "FilterSet",
+		["Bossmod_af"] = {
+			["ty"] = "AuraFilter",
 			["version"] = 1,
 			["data"] = {
-				"and", -- [1]
-				{
-					"groups", -- [1]
-					true, -- [2]
-				}, -- [2]
-				{
-					"classes", -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
-					true, -- [10]
-					true, -- [11]
-					true, -- [12]
-				}, -- [3]
-			},
-		},
-		["Range_15_30_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"set", -- [1]
-					{
-						["n"] = 3,
-						["class"] = "frs",
-					}, -- [2]
-				}, -- [2]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["file"] = "WoWRDX:Range_0_15_fset",
-							["class"] = "file",
-						}, -- [2]
-					}, -- [2]
-				}, -- [3]
-				{
-					"ol", -- [1]
-				}, -- [4]
-			},
-		},
-		["Player_CastBar_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "var_spellinfo",
-				}, -- [1]
-				{
-					["feature"] = "var_castlag",
-				}, -- [2]
-				{
-					["feature"] = "ColorVariable: Static Color",
-					["name"] = "yellow",
-					["color"] = {
-						["a"] = 1,
-						["r"] = 0.788235294117647,
-						["g"] = 0.7764705882352941,
-						["b"] = 0,
-					},
-				}, -- [3]
-				{
-					["feature"] = "ColorVariable: Static Color",
-					["name"] = "green",
-					["color"] = {
-						["a"] = 1,
-						["r"] = 0.3254901960784314,
-						["g"] = 0.7568627450980392,
-						["b"] = 0,
-					},
-				}, -- [4]
-				{
-					["condVar"] = "spell_channeled",
-					["name"] = "barColor",
-					["colorVar1"] = "yellow",
-					["feature"] = "ColorVariable: Conditional Color",
-					["colorVar2"] = "green",
-				}, -- [5]
-				{
-					["feature"] = "commentline",
-				}, -- [6]
-				{
-					["feature"] = "base_default",
-					["h"] = 26,
-					["version"] = 1,
-					["w"] = 206,
-					["alpha"] = 1,
-				}, -- [7]
-				{
-					["feature"] = "Subframe",
-					["h"] = "BaseHeight",
-					["name"] = "subframe",
-					["flOffset"] = 1,
-					["owner"] = "decor",
-					["w"] = "BaseWidth",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-				}, -- [8]
-				{
-					["feature"] = "backdrop",
-					["owner"] = "subframe",
-					["version"] = 1,
-					["bkd"] = {
-						["ka"] = 0.4239999651908875,
-						["edgeSize"] = 8,
-						["kb"] = 0,
-						["tile"] = false,
-						["bg"] = 0,
-						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
-						["kr"] = 0,
-						["_border"] = "HalStraight",
-						["ba"] = 1,
-						["_backdrop"] = "solid",
-						["edgeFile"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalBorder",
-						["bb"] = 0,
-						["kg"] = 0,
-						["br"] = 0,
-						["insets"] = {
-							["top"] = 2,
-							["right"] = 2,
-							["left"] = 2,
-							["bottom"] = 2,
-						},
-					},
-				}, -- [9]
-				{
-					["frac"] = "",
-					["flOffset"] = 0,
-					["owner"] = "subframe",
-					["w"] = "180",
-					["feature"] = "statusbar_horiz",
-					["h"] = "20",
-					["version"] = 1,
-					["colorVar"] = "barColor",
-					["anchor"] = {
-						["dx"] = 23,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Frame_subframe",
-					},
-					["orientation"] = "HORIZONTAL",
-					["name"] = "castBar",
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
-					},
-				}, -- [10]
-				{
-					["cleanupPolicy"] = 1,
-					["owner"] = "subframe",
-					["w"] = "2",
-					["feature"] = "texture",
-					["h"] = "20",
-					["version"] = 1,
-					["name"] = "highlight",
-					["anchor"] = {
-						["dx"] = 1,
-						["dy"] = 0,
-						["lp"] = "TOPRIGHT",
-						["rp"] = "TOPRIGHT",
-						["af"] = "Frame_castBar",
-					},
-					["sublevel"] = 1,
-					["drawLayer"] = "ARTWORK",
-					["texture"] = {
-						["color"] = {
-							["a"] = 0.718999981880188,
-							["r"] = 1,
-							["g"] = 1,
-							["b"] = 0,
-						},
-						["blendMode"] = "BLEND",
-					},
-				}, -- [11]
-				{
-					["script"] = "",
-					["owner"] = "subframe",
-					["w"] = "50",
-					["feature"] = "txt_custom",
-					["h"] = "14",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = -5,
-						["dy"] = 0,
-						["lp"] = "RIGHT",
-						["rp"] = "RIGHT",
-						["af"] = "Frame_subframe",
-					},
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 10,
-					},
-					["name"] = "spellTimer",
-				}, -- [12]
-				{
-					["script"] = "",
-					["owner"] = "subframe",
-					["w"] = "150",
-					["feature"] = "txt_custom",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 10,
-					},
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 25,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Frame_subframe",
-					},
-					["name"] = "spellname",
-					["h"] = "14",
-				}, -- [13]
-				{
-					["cleanupPolicy"] = 3,
-					["owner"] = "subframe",
-					["w"] = "20",
-					["feature"] = "texture",
-					["h"] = "20",
-					["name"] = "spellIcon",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 3,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Frame_subframe",
-					},
-					["drawLayer"] = "OVERLAY",
-					["sublevel"] = 1,
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "",
-					},
-				}, -- [14]
-				{
-					["TEIDefaultState"] = "Hide",
-					["textInfo"] = "spellname",
-					["sbExpireState"] = "Hide",
-					["TTIExpireState"] = "Hide",
-					["feature"] = "free_timer",
-					["sbDefaultState"] = "Hide",
-					["TTIDefaultState"] = "Hide",
-					["textType"] = "Tenths",
-					["statusBar"] = "castBar",
-					["text"] = "spellTimer",
-					["texIcon"] = "spellIcon",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["color2"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["countTypeFlag"] = "spell_casting",
-					["tex"] = "spell_icon",
-					["txt"] = "spell_name_rank",
-					["timerVar"] = "spell",
-					["TEIExpireState"] = "Hide",
-				}, -- [15]
-				{
-					["frac"] = "spell_fraclag",
-					["flOffset"] = 0,
-					["owner"] = "subframe",
-					["w"] = "180",
-					["color1"] = {
-						["a"] = 0.4695078730583191,
-						["r"] = 1,
-						["g"] = 0.2784313725490196,
-						["b"] = 0,
-					},
-					["feature"] = "statusbar_horiz",
-					["h"] = "20",
-					["version"] = 1,
-					["color2"] = {
-						["a"] = 0.4695078730583191,
-						["r"] = 1,
-						["g"] = 0.2784313725490196,
-						["b"] = 0,
-					},
-					["anchor"] = {
-						["dx"] = -2,
-						["dy"] = 0,
-						["lp"] = "RIGHT",
-						["rp"] = "RIGHT",
-						["af"] = "Frame_subframe",
-					},
-					["orientation"] = "HORIZONTAL",
-					["name"] = "lagBar",
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalU",
-					},
-				}, -- [16]
-				{
-					["txt"] = "spell_lag_number",
-					["owner"] = "subframe",
-					["w"] = "50",
-					["feature"] = "txt_dyn",
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Fonts\\ARIALN.TTF",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sx"] = 1,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
-					["name"] = "infoText",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPRIGHT",
-						["rp"] = "BOTTOMRIGHT",
-						["af"] = "Frame_subframe",
-					},
-					["version"] = 1,
-					["h"] = "14",
-				}, -- [17]
-				{
-					["feature"] = "shader_showhide",
-					["owner"] = "subframe",
-					["version"] = 1,
-					["flag"] = "spell_castingOrChanneled",
-				}, -- [18]
-			},
-		},
-		["Paladin_Buff_Might_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"set", -- [1]
-				{
-					["buff"] = 19740,
-					["class"] = "buff",
-				}, -- [2]
-			},
-		},
-		["MiniMap"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:MiniMap_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
-			},
-		},
-		["Raid_Group2_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"groups", -- [1]
-					[3] = true,
-				}, -- [2]
-				{
-					"classes", -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
-					true, -- [10]
-					true, -- [11]
-				}, -- [3]
-			},
-		},
-		["Priest_Buff_VampiricEmbrace"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: Lightweight",
-					["title"] = "Vampiric Embrace",
-					["bkdColor"] = {
-						["a"] = 0,
-						["r"] = 0,
-						["g"] = 0,
-						["b"] = 0,
-					},
-					["defaultbuttons"] = 1,
-					["titleColor"] = {
-						["a"] = 1,
-						["r"] = 0.2941176470588235,
-						["g"] = 0.3647058823529412,
-						["b"] = 1,
-					},
-					["texicon"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Icons\\Spell_Shadow_UnsummonBuilding",
-					},
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Priest_Buff_VampiricEmbrace_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["clickable"] = 1,
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "",
-					["version"] = 1,
-					["mbFriendly"] = "WoWRDX:Priest_Buff_VampiricEmbrace_mb",
-				}, -- [4]
+				"@other", -- [1]
+				"!69127", -- [2]
+				"!57724", -- [3]
 			},
 		},
 		["Paladin_Buff"] = {
@@ -25874,6 +25792,10 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Buff Paladin",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
 						["b"] = 0,
@@ -25911,17 +25833,17 @@ data = {
 					},
 				}, -- [3]
 				{
-					["feature"] = "Header Grid",
+					["bkt"] = 1,
 					["dxn"] = 1,
 					["axis"] = 1,
-					["bkt"] = 1,
+					["feature"] = "Header Grid",
 					["cols"] = 40,
 				}, -- [4]
 				{
 					["feature"] = "mp_args",
+					["version"] = 1,
 					["period"] = 0.2,
 					["dpm1"] = 0,
-					["version"] = 1,
 				}, -- [5]
 				{
 					["feature"] = "mousebindings",
@@ -25940,6 +25862,1265 @@ data = {
 				}, -- [8]
 			},
 		},
+		["Hunter_Power_stc"] = {
+			["ty"] = "Statistic",
+			["version"] = 1,
+			["data"] = {
+				["texture"] = "",
+				["fadeColor"] = {
+					["a"] = 1,
+					["r"] = 0.6352941176470583,
+					["g"] = 0,
+					["b"] = 0.5372549019607842,
+				},
+				["name"] = "Hunter",
+				["color"] = {
+					["a"] = 1,
+					["r"] = 0,
+					["g"] = 0.5450980392156861,
+					["b"] = 0.1019607843137255,
+				},
+				["pct"] = 1,
+				["max"] = {
+					["qty"] = "smaxmp",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Hunter_fset",
+					},
+				},
+				["sv"] = 2,
+				["val"] = {
+					["qty"] = "smp",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Hunter_fset",
+					},
+				},
+			},
+		},
+		["Paladin_Buff_Might_mb"] = {
+			["ty"] = "MouseBindings",
+			["version"] = 1,
+			["data"] = {
+				["1"] = {
+					["action"] = "cast",
+					["spell"] = 19740,
+				},
+			},
+		},
+		["Paladin_Buff_Might_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"set", -- [1]
+				{
+					["buff"] = 19740,
+					["class"] = "buff",
+				}, -- [2]
+			},
+		},
+		["Damage_Done_tm"] = {
+			["ty"] = "TableMeter",
+			["version"] = 1,
+			["data"] = {
+				["dtypes"] = {
+					true, -- [1]
+				},
+				["etypes"] = {
+					[2] = true,
+				},
+			},
+		},
+		["Priest_Buff_VampiricEmbrace"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: Lightweight",
+					["title"] = "Vampiric Embrace",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+					["bkdColor"] = {
+						["a"] = 0,
+						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0,
+					},
+					["titleColor"] = {
+						["a"] = 1,
+						["r"] = 0.2941176470588235,
+						["g"] = 0.3647058823529412,
+						["b"] = 1,
+					},
+					["defaultbuttons"] = 1,
+					["texicon"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Icons\\Spell_Shadow_UnsummonBuilding",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Priest_Buff_VampiricEmbrace_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["clickable"] = 1,
+					["version"] = 1,
+					["unit"] = "player",
+				}, -- [3]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "",
+					["version"] = 1,
+					["mbFriendly"] = "WoWRDX:Priest_Buff_VampiricEmbrace_mb",
+				}, -- [4]
+			},
+		},
+		["Paladin_Buff_Kings_af"] = {
+			["ty"] = "AuraFilter",
+			["version"] = 1,
+			["data"] = {
+				79062, -- [1]
+			},
+		},
+		["MiniMap"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:MiniMap_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
+				}, -- [3]
+			},
+		},
+		["Shaman_Totems2"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Shaman_Totems2_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["clickable"] = 1,
+					["version"] = 1,
+					["unit"] = "player",
+				}, -- [3]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "earth",
+					["version"] = 1,
+					["mbFriendly"] = "WoWRDX:Shaman_Totem_Earth_mb",
+				}, -- [4]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "fire",
+					["version"] = 1,
+					["mbFriendly"] = "WoWRDX:Shaman_Totem_Fire_mb",
+				}, -- [5]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "water",
+					["version"] = 1,
+					["mbFriendly"] = "WoWRDX:Shaman_Totem_Water_mb",
+				}, -- [6]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "air",
+					["version"] = 1,
+					["mbFriendly"] = "WoWRDX:Shaman_Totem_Air_mb",
+				}, -- [7]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "remove",
+					["version"] = 1,
+					["mbFriendly"] = "WoWRDX:Shaman_Totem_Remove_mb",
+				}, -- [8]
+			},
+		},
+		["Arena_Main_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 76,
+					["version"] = 1,
+					["w"] = 206,
+					["alpha"] = 1,
+				}, -- [1]
+				{
+					["feature"] = "Subframe",
+					["h"] = "BaseHeight",
+					["name"] = "pdt",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = -30,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = "BaseWidth",
+					["flOffset"] = 1,
+				}, -- [2]
+				{
+					["feature"] = "commentline",
+				}, -- [3]
+				{
+					["feature"] = "Subframe",
+					["h"] = "26",
+					["name"] = "sf_plife",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_pdt",
+					},
+					["owner"] = "pdt",
+					["w"] = "BaseWidth",
+					["flOffset"] = 1,
+				}, -- [4]
+				{
+					["feature"] = "backdrop",
+					["owner"] = "sf_plife",
+					["version"] = 1,
+					["bkd"] = {
+						["ka"] = 0.7119999825954437,
+						["kg"] = 0,
+						["kb"] = 0,
+						["tile"] = false,
+						["bg"] = 0,
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
+						["kr"] = 0,
+						["bb"] = 0,
+						["ba"] = 1,
+						["_backdrop"] = "solid",
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["_border"] = "straight",
+						["edgeSize"] = 8,
+						["br"] = 0,
+						["insets"] = {
+							["top"] = 2,
+							["right"] = 2,
+							["left"] = 2,
+							["bottom"] = 2,
+						},
+					},
+				}, -- [5]
+				{
+					["feature"] = "var_pred_health",
+				}, -- [6]
+				{
+					["feature"] = "ColorVariable: Static Color",
+					["name"] = "green",
+					["color"] = {
+						["a"] = 0.903999999165535,
+						["b"] = 0,
+						["g"] = 1,
+						["r"] = 0.04313725490196078,
+					},
+				}, -- [7]
+				{
+					["frac"] = "pfh",
+					["drawLayer"] = "ARTWORK",
+					["owner"] = "sf_plife",
+					["w"] = "200",
+					["colorVar"] = "green",
+					["feature"] = "statusbar_horiz",
+					["h"] = "21",
+					["name"] = "sb_plife",
+					["anchor"] = {
+						["dx"] = 3,
+						["dy"] = -3,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_sf_plife",
+					},
+					["orientation"] = "HORIZONTAL",
+					["version"] = 1,
+					["sublevel"] = 1,
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
+					},
+				}, -- [8]
+				{
+					["feature"] = "commentline",
+				}, -- [9]
+				{
+					["feature"] = "Subframe",
+					["h"] = "26",
+					["name"] = "sf_life",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_pdt",
+					},
+					["owner"] = "pdt",
+					["w"] = "BaseWidth",
+					["flOffset"] = 2,
+				}, -- [10]
+				{
+					["feature"] = "Variable: Fractional health (fh)",
+				}, -- [11]
+				{
+					["neutralColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0.75,
+						["r"] = 0.75,
+					},
+					["friendlyColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0.75,
+						["r"] = 0,
+					},
+					["friendlyDruidColor"] = {
+						["a"] = 1,
+						["b"] = 0.04,
+						["g"] = 0.49,
+						["r"] = 1,
+					},
+					["friendlyPriestColor"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["friendlyWarlockColor"] = {
+						["a"] = 1,
+						["b"] = 0.79,
+						["g"] = 0.51,
+						["r"] = 0.58,
+					},
+					["feature"] = "colorvar_hostility_class",
+					["friendlyMageColor"] = {
+						["a"] = 1,
+						["b"] = 0.94,
+						["g"] = 0.8,
+						["r"] = 0.41,
+					},
+					["friendlyDeathKnightColor"] = {
+						["a"] = 1,
+						["b"] = 0.23,
+						["g"] = 0.12,
+						["r"] = 0.77,
+					},
+					["hostileColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0.15,
+						["r"] = 0.75,
+					},
+					["name"] = "hostilityclassColor",
+					["friendlyRogueColor"] = {
+						["a"] = 1,
+						["b"] = 0.41,
+						["g"] = 0.96,
+						["r"] = 1,
+					},
+					["friendlyPaladinColor"] = {
+						["a"] = 1,
+						["b"] = 0.73,
+						["g"] = 0.55,
+						["r"] = 0.96,
+					},
+					["friendlyShamanColor"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 0.34,
+						["r"] = 0.14,
+					},
+					["friendlyHunterColor"] = {
+						["a"] = 1,
+						["b"] = 0.45,
+						["g"] = 0.83,
+						["r"] = 0.67,
+					},
+					["friendlyWarriorColor"] = {
+						["a"] = 1,
+						["b"] = 0.43,
+						["g"] = 0.61,
+						["r"] = 0.78,
+					},
+				}, -- [12]
+				{
+					["interpolate"] = 1,
+					["feature"] = "statusbar_horiz",
+					["h"] = "21",
+					["owner"] = "sf_life",
+					["w"] = "200",
+					["version"] = 1,
+					["drawLayer"] = "ARTWORK",
+					["colorVar"] = "hostilityclassColor",
+					["name"] = "sb_life",
+					["orientation"] = "HORIZONTAL",
+					["anchor"] = {
+						["dx"] = 3,
+						["dy"] = -3,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_sf_life",
+					},
+					["sublevel"] = 2,
+					["frac"] = "fh",
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
+					},
+				}, -- [13]
+				{
+					["txt"] = "pheal",
+					["owner"] = "sf_life",
+					["w"] = "100",
+					["feature"] = "txt_dyn",
+					["font"] = {
+						["size"] = 12,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sb"] = 0,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sx"] = 1,
+						["sr"] = 0,
+					},
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = -5,
+						["dy"] = 0,
+						["lp"] = "RIGHT",
+						["rp"] = "RIGHT",
+						["af"] = "Frame_sf_life",
+					},
+					["h"] = "14",
+					["name"] = "text_pheal",
+				}, -- [14]
+				{
+					["owner"] = "sf_life",
+					["w"] = "150",
+					["feature"] = "txt_status",
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sy"] = -1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["title"] = "Default",
+						["name"] = "Default",
+						["sx"] = 1,
+						["sr"] = 0,
+					},
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 5,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Frame_sf_life",
+					},
+					["name"] = "text_vie",
+					["ty"] = "hptxt2",
+					["h"] = "14",
+				}, -- [15]
+				{
+					["owner"] = "sf_life",
+					["w"] = "100",
+					["feature"] = "txt_status",
+					["h"] = "14",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 5,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Frame_sf_life",
+					},
+					["ty"] = "fdld",
+					["font"] = {
+						["size"] = 12,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sb"] = 0,
+						["name"] = "Default",
+						["sy"] = -1,
+						["sx"] = 1,
+						["sr"] = 0,
+					},
+					["name"] = "text_dead",
+				}, -- [16]
+				{
+					["owner"] = "sf_life",
+					["w"] = "100",
+					["feature"] = "txt_status",
+					["h"] = "14",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = -5,
+						["dy"] = 0,
+						["lp"] = "RIGHT",
+						["rp"] = "RIGHT",
+						["af"] = "Frame_sf_life",
+					},
+					["ty"] = "mobtype",
+					["font"] = {
+						["size"] = 12,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "RIGHT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sb"] = 0,
+						["name"] = "Default",
+						["sy"] = -1,
+						["sx"] = 1,
+						["sr"] = 0,
+					},
+					["name"] = "text_mob",
+				}, -- [17]
+				{
+					["feature"] = "commentline",
+				}, -- [18]
+				{
+					["feature"] = "Subframe",
+					["h"] = "16",
+					["name"] = "sf_mana",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = -23,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_pdt",
+					},
+					["owner"] = "pdt",
+					["w"] = "BaseWidth",
+					["flOffset"] = 2,
+				}, -- [19]
+				{
+					["feature"] = "backdrop",
+					["owner"] = "sf_mana",
+					["version"] = 1,
+					["bkd"] = {
+						["_border"] = "straight",
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
+						["kb"] = 0,
+						["tile"] = false,
+						["bg"] = 0,
+						["kg"] = 0,
+						["kr"] = 0,
+						["bb"] = 0,
+						["ba"] = 1,
+						["_backdrop"] = "solid",
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["ka"] = 0.7119999825954437,
+						["edgeSize"] = 8,
+						["br"] = 0,
+						["insets"] = {
+							["top"] = 2,
+							["right"] = 2,
+							["left"] = 2,
+							["bottom"] = 2,
+						},
+					},
+				}, -- [20]
+				{
+					["feature"] = "ColorVariable: Unit PowerType Color",
+					["rageColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0,
+						["r"] = 1,
+					},
+					["focusColor"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 0.5,
+						["b"] = 0.2,
+					},
+					["energyColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0.75,
+						["r"] = 0.75,
+					},
+					["runeColor"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 0.75,
+						["r"] = 0,
+					},
+					["manaColor"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 0.5450980392156862,
+						["r"] = 0,
+					},
+				}, -- [21]
+				{
+					["feature"] = "Variable: Fractional mana (fm)",
+					["powertype"] = "nil",
+					["name"] = "fm",
+				}, -- [22]
+				{
+					["frac"] = "fm",
+					["flOffset"] = 2,
+					["owner"] = "sf_mana",
+					["w"] = "200",
+					["colorVar"] = "powerColor",
+					["feature"] = "statusbar_horiz",
+					["h"] = "10",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 3,
+						["dy"] = -3,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_sf_mana",
+					},
+					["orientation"] = "HORIZONTAL",
+					["name"] = "sb_power",
+					["interpolate"] = 1,
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
+					},
+				}, -- [23]
+				{
+					["owner"] = "sf_mana",
+					["w"] = "100",
+					["feature"] = "txt_status",
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sx"] = 1,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 5,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Frame_sf_mana",
+					},
+					["h"] = "14",
+					["ty"] = "mptxt",
+					["name"] = "text_mana",
+				}, -- [24]
+				{
+					["feature"] = "commentline",
+				}, -- [25]
+				{
+					["feature"] = "Subframe",
+					["h"] = "39",
+					["name"] = "sf_sup",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_pdt",
+					},
+					["owner"] = "pdt",
+					["w"] = "BaseWidth",
+					["flOffset"] = 3,
+				}, -- [26]
+				{
+					["feature"] = "backdrop",
+					["owner"] = "sf_sup",
+					["version"] = 1,
+					["bkd"] = {
+						["_border"] = "straight",
+						["edgeSize"] = 20,
+						["ba"] = 0,
+						["bb"] = 1,
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["br"] = 1,
+						["_backdrop"] = "none",
+						["bg"] = 1,
+						["insets"] = {
+							["top"] = 2,
+							["right"] = 2,
+							["left"] = 2,
+							["bottom"] = 2,
+						},
+					},
+				}, -- [27]
+				{
+					["feature"] = "Variable: Unit In Set",
+					["name"] = "aggro",
+					["set"] = {
+						["class"] = "ags",
+					},
+				}, -- [28]
+				{
+					["feature"] = "ColorVariable: Static Color",
+					["name"] = "red",
+					["color"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0,
+						["r"] = 1,
+					},
+				}, -- [29]
+				{
+					["feature"] = "ColorVariable: Static Color",
+					["name"] = "nocolor",
+					["color"] = {
+						["a"] = 0,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+				}, -- [30]
+				{
+					["feature"] = "ColorVariable: Conditional Color",
+					["name"] = "aggrocolour",
+					["colorVar1"] = "red",
+					["colorVar2"] = "nocolor",
+					["condVar"] = "aggro_flag",
+				}, -- [31]
+				{
+					["feature"] = "Backdrop Border Colorizer",
+					["owner"] = "sf_sup",
+					["flag"] = "true",
+					["color"] = "aggrocolour",
+				}, -- [32]
+				{
+					["feature"] = "commentline",
+				}, -- [33]
+				{
+					["feature"] = "Raid Target Icon",
+					["h"] = "30",
+					["name"] = "rti",
+					["ButtonSkinOffset"] = 0,
+					["anchor"] = {
+						["dx"] = -3,
+						["dy"] = -3,
+						["lp"] = "TOPRIGHT",
+						["rp"] = "TOPRIGHT",
+						["af"] = "Frame_sf_sup",
+					},
+					["owner"] = "sf_sup",
+					["w"] = "30",
+					["drawLayer"] = "ARTWORK",
+				}, -- [34]
+				{
+					["owner"] = "pdt",
+					["w"] = "30",
+					["feature"] = "txt_status",
+					["h"] = "30",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 2,
+						["dy"] = 21,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_pdt",
+					},
+					["ty"] = "level",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 15,
+					},
+					["name"] = "status_text",
+				}, -- [35]
+				{
+					["owner"] = "pdt",
+					["w"] = "200",
+					["feature"] = "txt_np",
+					["h"] = "30",
+					["version"] = 1,
+					["font"] = {
+						["size"] = 15,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
+					["anchor"] = {
+						["dx"] = 21,
+						["dy"] = 21,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_pdt",
+					},
+					["trunc"] = 20,
+					["name"] = "np",
+					["classColor"] = 1,
+				}, -- [36]
+				{
+					["rows"] = 1,
+					["filterNameList"] = {
+					},
+					["feature"] = "aura_icons",
+					["iconspx"] = 2,
+					["cd"] = {
+						["offsety"] = "0",
+						["GfxReverse"] = true,
+						["Font"] = {
+							["name"] = "Default",
+							["title"] = "Default",
+							["justifyH"] = "LEFT",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 7,
+						},
+						["TimerType"] = "COOLDOWN",
+						["Offsety"] = 0,
+						["offsetx"] = "10",
+						["Offsetx"] = 0,
+						["TextType"] = "Seconds",
+						["HideText"] = 0,
+					},
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+					["anchor"] = {
+						["dx"] = 4,
+						["dy"] = -40,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_pdt",
+					},
+					["externalButtonSkin"] = "Builtin:bs_default",
+					["iconspy"] = 0,
+					["maxdurationfilter"] = "",
+					["mindurationfilter"] = "",
+					["auraType"] = "DEBUFFS",
+					["owner"] = "pdt",
+					["playerauras"] = 1,
+					["fontst"] = {
+						["name"] = "Default",
+						["title"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 12,
+					},
+					["ButtonSkinOffset"] = 0,
+					["version"] = 1,
+					["nIcons"] = 10,
+					["orientation"] = "RIGHT",
+					["size"] = 12,
+					["name"] = "debuff",
+					["unitfilter"] = "",
+				}, -- [37]
+				{
+					["mover"] = 1,
+					["w"] = 206,
+					["feature"] = "hotspot",
+					["secure"] = 1,
+					["name"] = "",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["h"] = 76,
+					["flo"] = 3,
+					["version"] = 1,
+				}, -- [38]
+			},
+		},
+		["Not_Dead_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"not", -- [1]
+					{
+						"dead", -- [1]
+					}, -- [2]
+				}, -- [2]
+				{
+					"ol", -- [1]
+				}, -- [3]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["buff"] = 27827,
+							["class"] = "buff",
+						}, -- [2]
+					}, -- [2]
+				}, -- [4]
+			},
+		},
+		["Shaman_Totems8_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 108,
+					["version"] = 1,
+					["alpha"] = 1,
+					["w"] = 108,
+				}, -- [1]
+				{
+					["feature"] = "Variables: Totem Info",
+				}, -- [2]
+				{
+					["feature"] = "commentline",
+				}, -- [3]
+				{
+					["cd"] = {
+						["GfxReverse"] = true,
+						["Font"] = {
+							["name"] = "Default",
+							["title"] = "Default",
+							["justifyH"] = "CENTER",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 10,
+						},
+						["TimerType"] = "COOLDOWN",
+						["Offsety"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["Offsetx"] = 0,
+						["TextType"] = "Seconds",
+						["HideText"] = 0,
+					},
+					["gt"] = "",
+					["name"] = "texcd_earth",
+					["externalButtonSkin"] = "bs_serenity",
+					["owner"] = "decor",
+					["w"] = "36",
+					["anchor"] = {
+						["dx"] = 36,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["feature"] = "texture_cooldown",
+					["h"] = "36",
+					["version"] = 1,
+					["ButtonSkinOffset"] = 9,
+					["tex"] = "totemearth_icon",
+					["dyntexture"] = 1,
+					["timerVar"] = "totemearth",
+					["texture"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["blendMode"] = "BLEND",
+					},
+				}, -- [4]
+				{
+					["w"] = 36,
+					["feature"] = "hotspot",
+					["flo"] = 3,
+					["version"] = 1,
+					["hlt"] = {
+						["blendMode"] = "ADD",
+						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
+					},
+					["anchor"] = {
+						["dx"] = 36,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["name"] = "earth",
+					["secure"] = 1,
+					["h"] = 36,
+				}, -- [5]
+				{
+					["cd"] = {
+						["GfxReverse"] = true,
+						["Font"] = {
+							["name"] = "Default",
+							["title"] = "Default",
+							["justifyH"] = "CENTER",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 10,
+						},
+						["TimerType"] = "COOLDOWN",
+						["Offsety"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["Offsetx"] = 0,
+						["TextType"] = "Seconds",
+						["HideText"] = 0,
+					},
+					["gt"] = "",
+					["name"] = "texcd_Fire",
+					["externalButtonSkin"] = "bs_serenity",
+					["owner"] = "decor",
+					["w"] = "36",
+					["anchor"] = {
+						["dx"] = 72,
+						["dy"] = -36,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["feature"] = "texture_cooldown",
+					["h"] = "36",
+					["version"] = 1,
+					["ButtonSkinOffset"] = 9,
+					["tex"] = "totemfire_icon",
+					["dyntexture"] = 1,
+					["timerVar"] = "totemfire",
+					["texture"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["blendMode"] = "BLEND",
+					},
+				}, -- [6]
+				{
+					["w"] = 36,
+					["feature"] = "hotspot",
+					["flo"] = 3,
+					["version"] = 1,
+					["hlt"] = {
+						["blendMode"] = "ADD",
+						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
+					},
+					["anchor"] = {
+						["dx"] = 72,
+						["dy"] = -36,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["name"] = "fire",
+					["secure"] = 1,
+					["h"] = 36,
+				}, -- [7]
+				{
+					["cd"] = {
+						["GfxReverse"] = true,
+						["Font"] = {
+							["name"] = "Default",
+							["title"] = "Default",
+							["justifyH"] = "CENTER",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 10,
+						},
+						["TimerType"] = "COOLDOWN",
+						["Offsety"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["Offsetx"] = 0,
+						["TextType"] = "Seconds",
+						["HideText"] = 0,
+					},
+					["gt"] = "",
+					["name"] = "texcd_water",
+					["externalButtonSkin"] = "bs_serenity",
+					["owner"] = "decor",
+					["w"] = "36",
+					["anchor"] = {
+						["dx"] = 36,
+						["dy"] = -72,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["feature"] = "texture_cooldown",
+					["h"] = "36",
+					["version"] = 1,
+					["ButtonSkinOffset"] = 9,
+					["tex"] = "totemwater_icon",
+					["dyntexture"] = 1,
+					["timerVar"] = "totemwater",
+					["texture"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["blendMode"] = "BLEND",
+					},
+				}, -- [8]
+				{
+					["w"] = 36,
+					["feature"] = "hotspot",
+					["flo"] = 3,
+					["version"] = 1,
+					["hlt"] = {
+						["blendMode"] = "ADD",
+						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
+					},
+					["anchor"] = {
+						["dx"] = 36,
+						["dy"] = -72,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["name"] = "water",
+					["secure"] = 1,
+					["h"] = 36,
+				}, -- [9]
+				{
+					["cd"] = {
+						["GfxReverse"] = true,
+						["Font"] = {
+							["name"] = "Default",
+							["title"] = "Default",
+							["justifyH"] = "CENTER",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 10,
+						},
+						["TimerType"] = "COOLDOWN",
+						["Offsety"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["Offsetx"] = 0,
+						["TextType"] = "Seconds",
+						["HideText"] = 0,
+					},
+					["gt"] = "",
+					["name"] = "texcd_air",
+					["externalButtonSkin"] = "bs_serenity",
+					["owner"] = "decor",
+					["w"] = "36",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = -36,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["feature"] = "texture_cooldown",
+					["h"] = "36",
+					["version"] = 1,
+					["ButtonSkinOffset"] = 9,
+					["tex"] = "totemair_icon",
+					["dyntexture"] = 1,
+					["timerVar"] = "totemair",
+					["texture"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["blendMode"] = "BLEND",
+					},
+				}, -- [10]
+				{
+					["w"] = 36,
+					["feature"] = "hotspot",
+					["flo"] = 3,
+					["version"] = 1,
+					["hlt"] = {
+						["blendMode"] = "ADD",
+						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
+					},
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = -36,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["name"] = "air",
+					["secure"] = 1,
+					["h"] = 36,
+				}, -- [11]
+				{
+					["feature"] = "commentline",
+				}, -- [12]
+				{
+					["w"] = 36,
+					["feature"] = "hotspot",
+					["flo"] = 3,
+					["version"] = 1,
+					["hlt"] = {
+						["blendMode"] = "ADD",
+						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
+					},
+					["anchor"] = {
+						["dx"] = 36,
+						["dy"] = -36,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["name"] = "remove",
+					["secure"] = 1,
+					["h"] = 36,
+				}, -- [13]
+			},
+		},
 		["Druid_EclipseBar_ds"] = {
 			["ty"] = "Design",
 			["version"] = 1,
@@ -25956,16 +27137,16 @@ data = {
 					["owner"] = "decor",
 					["version"] = 1,
 					["bkd"] = {
-						["ka"] = 0.3999999761581421,
+						["_border"] = "HalStraight",
 						["edgeSize"] = 8,
-						["kb"] = 0,
-						["kr"] = 0,
 						["tile"] = false,
+						["kr"] = 0,
+						["kb"] = 0,
 						["_backdrop"] = "solid",
 						["edgeFile"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalBorder",
 						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
 						["kg"] = 0,
-						["_border"] = "HalStraight",
+						["ka"] = 0.3999999761581421,
 						["insets"] = {
 							["top"] = 2,
 							["right"] = 2,
@@ -25978,16 +27159,68 @@ data = {
 					["feature"] = "var_issolar",
 				}, -- [3]
 				{
-					["feature"] = "Variables: Buffs Debuffs Info",
-					["cd"] = 48518,
-					["name"] = "lunar",
 					["auraType"] = "BUFFS",
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["color3"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["name"] = "lunar",
+					["timer2"] = "0",
+					["cd"] = 48518,
+					["feature"] = "Variables: Buffs Debuffs Info",
+					["color0"] = {
+						["a"] = 0,
+						["b"] = 0,
+						["g"] = 0,
+						["r"] = 0,
+					},
+					["timer1"] = "0",
 				}, -- [4]
 				{
-					["feature"] = "Variables: Buffs Debuffs Info",
-					["cd"] = 48517,
-					["name"] = "solar",
 					["auraType"] = "BUFFS",
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["color3"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["name"] = "solar",
+					["timer2"] = "0",
+					["cd"] = 48517,
+					["feature"] = "Variables: Buffs Debuffs Info",
+					["color0"] = {
+						["a"] = 0,
+						["b"] = 0,
+						["g"] = 0,
+						["r"] = 0,
+					},
+					["timer1"] = "0",
 				}, -- [5]
 				{
 					["feature"] = "commentline",
@@ -26055,18 +27288,17 @@ data = {
 					["name"] = "fm",
 				}, -- [14]
 				{
-					["interpolate"] = 1,
+					["frac"] = "fm_i",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalA",
 					},
 					["owner"] = "decor",
 					["w"] = "60",
-					["version"] = 1,
+					["name"] = "LunarBar",
 					["feature"] = "statusbar_horiz",
 					["h"] = "12",
-					["name"] = "LunarBar",
-					["orientation"] = "HORIZONTAL",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -26074,19 +27306,19 @@ data = {
 						["rp"] = "CENTER",
 						["af"] = "Base",
 					},
+					["orientation"] = "HORIZONTAL",
 					["colorVar"] = "LunarColor",
-					["frac"] = "fm_i",
+					["interpolate"] = 1,
 					["reducex"] = 1,
 				}, -- [15]
 				{
-					["interpolate"] = 1,
+					["frac"] = "fm",
 					["owner"] = "decor",
 					["w"] = "60",
 					["colorVar"] = "SolarColor",
 					["feature"] = "statusbar_horiz",
 					["h"] = "12",
 					["version"] = 1,
-					["orientation"] = "HORIZONTAL",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -26094,8 +27326,9 @@ data = {
 						["rp"] = "CENTER",
 						["af"] = "Base",
 					},
+					["orientation"] = "HORIZONTAL",
 					["name"] = "solarBar",
-					["frac"] = "fm",
+					["interpolate"] = 1,
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalA",
@@ -26104,433 +27337,6 @@ data = {
 				{
 					["feature"] = "commentline",
 				}, -- [17]
-			},
-		},
-		["Shaman_Totems2"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Shaman_Totems2_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["clickable"] = 1,
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "earth",
-					["version"] = 1,
-					["mbFriendly"] = "WoWRDX:Shaman_Totem_Earth_mb",
-				}, -- [4]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "fire",
-					["version"] = 1,
-					["mbFriendly"] = "WoWRDX:Shaman_Totem_Fire_mb",
-				}, -- [5]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "water",
-					["version"] = 1,
-					["mbFriendly"] = "WoWRDX:Shaman_Totem_Water_mb",
-				}, -- [6]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "air",
-					["version"] = 1,
-					["mbFriendly"] = "WoWRDX:Shaman_Totem_Air_mb",
-				}, -- [7]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "remove",
-					["version"] = 1,
-					["mbFriendly"] = "WoWRDX:Shaman_Totem_Remove_mb",
-				}, -- [8]
-			},
-		},
-		["Paladin_Power_stc"] = {
-			["ty"] = "Statistic",
-			["version"] = 1,
-			["data"] = {
-				["texture"] = "",
-				["fadeColor"] = {
-					["a"] = 1,
-					["r"] = 0.6352941176470583,
-					["g"] = 0,
-					["b"] = 0.5372549019607842,
-				},
-				["name"] = "Paladin",
-				["pct"] = 1,
-				["sv"] = 2,
-				["max"] = {
-					["qty"] = "smaxmp",
-					["set"] = {
-						["class"] = "file",
-						["file"] = "WoWRDX:Paladin_fset",
-					},
-				},
-				["color"] = {
-					["a"] = 1,
-					["r"] = 1,
-					["g"] = 0.2274509803921569,
-					["b"] = 0.4862745098039216,
-				},
-				["val"] = {
-					["qty"] = "smp",
-					["set"] = {
-						["class"] = "file",
-						["file"] = "WoWRDX:Paladin_fset",
-					},
-				},
-			},
-		},
-		["Mage_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"classes", -- [1]
-					[8] = true,
-				}, -- [2]
-				{
-					"ol", -- [1]
-				}, -- [3]
-			},
-		},
-		["Shaman_Totems8_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "base_default",
-					["h"] = 108,
-					["version"] = 1,
-					["alpha"] = 1,
-					["w"] = 108,
-				}, -- [1]
-				{
-					["feature"] = "Variables: Totem Info",
-				}, -- [2]
-				{
-					["feature"] = "commentline",
-				}, -- [3]
-				{
-					["cd"] = {
-						["GfxReverse"] = true,
-						["Font"] = {
-							["name"] = "Default",
-							["title"] = "Default",
-							["justifyH"] = "CENTER",
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 10,
-						},
-						["TimerType"] = "COOLDOWN",
-						["Offsety"] = 0,
-						["UpdateSpeed"] = 0.3,
-						["Offsetx"] = 0,
-						["TextType"] = "Seconds",
-						["HideText"] = 0,
-					},
-					["gt"] = "",
-					["version"] = 1,
-					["externalButtonSkin"] = "bs_serenity",
-					["owner"] = "decor",
-					["w"] = "36",
-					["anchor"] = {
-						["dx"] = 36,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["feature"] = "texture_cooldown",
-					["h"] = "36",
-					["name"] = "texcd_earth",
-					["ButtonSkinOffset"] = 9,
-					["tex"] = "totemearth_icon",
-					["dyntexture"] = 1,
-					["timerVar"] = "totemearth",
-					["texture"] = {
-						["color"] = {
-							["a"] = 1,
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["blendMode"] = "BLEND",
-					},
-				}, -- [4]
-				{
-					["w"] = 36,
-					["feature"] = "hotspot",
-					["secure"] = 1,
-					["version"] = 1,
-					["hlt"] = {
-						["blendMode"] = "ADD",
-						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
-					},
-					["anchor"] = {
-						["dx"] = 36,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["name"] = "earth",
-					["h"] = 36,
-					["flo"] = 3,
-				}, -- [5]
-				{
-					["cd"] = {
-						["GfxReverse"] = true,
-						["Font"] = {
-							["name"] = "Default",
-							["title"] = "Default",
-							["justifyH"] = "CENTER",
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 10,
-						},
-						["TimerType"] = "COOLDOWN",
-						["Offsety"] = 0,
-						["UpdateSpeed"] = 0.3,
-						["Offsetx"] = 0,
-						["TextType"] = "Seconds",
-						["HideText"] = 0,
-					},
-					["gt"] = "",
-					["version"] = 1,
-					["externalButtonSkin"] = "bs_serenity",
-					["owner"] = "decor",
-					["w"] = "36",
-					["anchor"] = {
-						["dx"] = 72,
-						["dy"] = -36,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["feature"] = "texture_cooldown",
-					["h"] = "36",
-					["name"] = "texcd_Fire",
-					["ButtonSkinOffset"] = 9,
-					["tex"] = "totemfire_icon",
-					["dyntexture"] = 1,
-					["timerVar"] = "totemfire",
-					["texture"] = {
-						["color"] = {
-							["a"] = 1,
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["blendMode"] = "BLEND",
-					},
-				}, -- [6]
-				{
-					["w"] = 36,
-					["feature"] = "hotspot",
-					["secure"] = 1,
-					["version"] = 1,
-					["hlt"] = {
-						["blendMode"] = "ADD",
-						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
-					},
-					["anchor"] = {
-						["dx"] = 72,
-						["dy"] = -36,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["name"] = "fire",
-					["h"] = 36,
-					["flo"] = 3,
-				}, -- [7]
-				{
-					["cd"] = {
-						["GfxReverse"] = true,
-						["Font"] = {
-							["name"] = "Default",
-							["title"] = "Default",
-							["justifyH"] = "CENTER",
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 10,
-						},
-						["TimerType"] = "COOLDOWN",
-						["Offsety"] = 0,
-						["UpdateSpeed"] = 0.3,
-						["Offsetx"] = 0,
-						["TextType"] = "Seconds",
-						["HideText"] = 0,
-					},
-					["gt"] = "",
-					["version"] = 1,
-					["externalButtonSkin"] = "bs_serenity",
-					["owner"] = "decor",
-					["w"] = "36",
-					["anchor"] = {
-						["dx"] = 36,
-						["dy"] = -72,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["feature"] = "texture_cooldown",
-					["h"] = "36",
-					["name"] = "texcd_water",
-					["ButtonSkinOffset"] = 9,
-					["tex"] = "totemwater_icon",
-					["dyntexture"] = 1,
-					["timerVar"] = "totemwater",
-					["texture"] = {
-						["color"] = {
-							["a"] = 1,
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["blendMode"] = "BLEND",
-					},
-				}, -- [8]
-				{
-					["w"] = 36,
-					["feature"] = "hotspot",
-					["secure"] = 1,
-					["version"] = 1,
-					["hlt"] = {
-						["blendMode"] = "ADD",
-						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
-					},
-					["anchor"] = {
-						["dx"] = 36,
-						["dy"] = -72,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["name"] = "water",
-					["h"] = 36,
-					["flo"] = 3,
-				}, -- [9]
-				{
-					["cd"] = {
-						["GfxReverse"] = true,
-						["Font"] = {
-							["name"] = "Default",
-							["title"] = "Default",
-							["justifyH"] = "CENTER",
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 10,
-						},
-						["TimerType"] = "COOLDOWN",
-						["Offsety"] = 0,
-						["UpdateSpeed"] = 0.3,
-						["Offsetx"] = 0,
-						["TextType"] = "Seconds",
-						["HideText"] = 0,
-					},
-					["gt"] = "",
-					["version"] = 1,
-					["externalButtonSkin"] = "bs_serenity",
-					["owner"] = "decor",
-					["w"] = "36",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = -36,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["feature"] = "texture_cooldown",
-					["h"] = "36",
-					["name"] = "texcd_air",
-					["ButtonSkinOffset"] = 9,
-					["tex"] = "totemair_icon",
-					["dyntexture"] = 1,
-					["timerVar"] = "totemair",
-					["texture"] = {
-						["color"] = {
-							["a"] = 1,
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["blendMode"] = "BLEND",
-					},
-				}, -- [10]
-				{
-					["w"] = 36,
-					["feature"] = "hotspot",
-					["secure"] = 1,
-					["version"] = 1,
-					["hlt"] = {
-						["blendMode"] = "ADD",
-						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
-					},
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = -36,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["name"] = "air",
-					["h"] = 36,
-					["flo"] = 3,
-				}, -- [11]
-				{
-					["feature"] = "commentline",
-				}, -- [12]
-				{
-					["w"] = 36,
-					["feature"] = "hotspot",
-					["secure"] = 1,
-					["version"] = 1,
-					["hlt"] = {
-						["blendMode"] = "ADD",
-						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
-					},
-					["anchor"] = {
-						["dx"] = 36,
-						["dy"] = -36,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["name"] = "remove",
-					["h"] = 36,
-					["flo"] = 3,
-				}, -- [13]
-			},
-		},
-		["Deathknight_Runes8"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Deathknight_Runes8_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
 			},
 		},
 		["Damage_Done_ds"] = {
@@ -26584,6 +27390,8 @@ data = {
 					["colorVar"] = "red",
 					["version"] = 1,
 					["frac"] = "fcombatmeter1",
+					["orientation"] = "HORIZONTAL",
+					["name"] = "statusBar",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -26591,8 +27399,6 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Frame_pdt",
 					},
-					["name"] = "statusBar",
-					["orientation"] = "HORIZONTAL",
 					["texture"] = {
 						["blendMode"] = "BLEND",
 						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Ruben",
@@ -26601,22 +27407,22 @@ data = {
 				{
 					["owner"] = "pdt",
 					["w"] = "60",
-					["feature"] = "txt_np",
+					["classColor"] = 1,
 					["font"] = {
 						["sr"] = 0,
 						["face"] = "Fonts\\ARIALN.TTF",
 						["justifyV"] = "CENTER",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sa"] = 1,
 						["sg"] = 0,
 						["title"] = "Default",
-						["sx"] = 1,
+						["sb"] = 0,
 						["name"] = "Default",
 						["sy"] = -1,
 						["justifyH"] = "LEFT",
 						["size"] = 10,
 					},
-					["name"] = "np",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -26625,8 +27431,8 @@ data = {
 						["af"] = "Frame_pdt",
 					},
 					["h"] = "12",
-					["classColor"] = 1,
-					["version"] = 1,
+					["feature"] = "txt_np",
+					["name"] = "np",
 				}, -- [6]
 				{
 					["txt"] = "combatmeter1_text",
@@ -26634,7 +27440,7 @@ data = {
 					["w"] = "80",
 					["feature"] = "txt_dyn",
 					["h"] = "12",
-					["name"] = "infoText",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -2,
 						["dy"] = 0,
@@ -26646,17 +27452,17 @@ data = {
 						["size"] = 10,
 						["face"] = "Fonts\\ARIALN.TTF",
 						["justifyV"] = "CENTER",
-						["title"] = "Default",
+						["name"] = "Default",
 						["sa"] = 1,
 						["sg"] = 0,
-						["name"] = "Default",
+						["title"] = "Default",
 						["sx"] = 1,
 						["sy"] = -1,
 						["justifyH"] = "RIGHT",
 						["sb"] = 0,
 						["sr"] = 0,
 					},
-					["version"] = 1,
+					["name"] = "infoText",
 				}, -- [7]
 				{
 					["feature"] = "shader_showhide",
@@ -26680,9 +27486,40 @@ data = {
 				{
 					["feature"] = "layout_single_unitframe",
 					["unitWatch"] = 1,
+					["clickable"] = 1,
+					["version"] = 1,
+					["unit"] = "focustarget",
+				}, -- [3]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "",
+					["version"] = 1,
+					["mbFriendly"] = "WoWRDX:Player_Main_mb",
+				}, -- [4]
+				{
+					["interval"] = 0.1,
+					["feature"] = "Event: Periodic Repaint",
+					["slot"] = "RepaintAll",
+				}, -- [5]
+			},
+		},
+		["Focus_Main"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Target_Main_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["unitWatch"] = 1,
 					["version"] = 1,
 					["clickable"] = 1,
-					["unit"] = "focustarget",
+					["unit"] = "focus",
 				}, -- [3]
 				{
 					["feature"] = "mousebindings",
@@ -26761,22 +27598,22 @@ data = {
 					["feature"] = "ColorVariable: Static Color",
 				}, -- [8]
 				{
-					["condVar"] = "shifted_flag",
+					["feature"] = "ColorVariable: Conditional Color",
 					["name"] = "shColor",
 					["colorVar1"] = "shTrue",
 					["colorVar2"] = "shFalse",
-					["feature"] = "ColorVariable: Conditional Color",
+					["condVar"] = "shifted_flag",
 				}, -- [9]
 				{
 					["feature"] = "commentline",
 				}, -- [10]
 				{
-					["ph"] = 1,
+					["feature"] = "base_default",
 					["h"] = 30,
 					["version"] = 1,
-					["alpha"] = 1,
 					["w"] = 30,
-					["feature"] = "base_default",
+					["alpha"] = 1,
+					["ph"] = 1,
 				}, -- [11]
 				{
 					["feature"] = "backdrop",
@@ -26801,8 +27638,8 @@ data = {
 					["w"] = "22",
 					["feature"] = "texture",
 					["h"] = "22",
-					["name"] = "unshiftedHlt",
 					["version"] = 1,
+					["name"] = "unshiftedHlt",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -26865,7 +27702,14 @@ data = {
 					["owner"] = "decor",
 					["w"] = "20",
 					["classColor"] = 1,
-					["h"] = "14",
+					["font"] = {
+						["name"] = "Default",
+						["title"] = "Default",
+						["justifyH"] = "CENTER",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 10,
+					},
 					["name"] = "np",
 					["version"] = 1,
 					["anchor"] = {
@@ -26877,27 +27721,8 @@ data = {
 					},
 					["trunc"] = 3,
 					["feature"] = "txt_np",
-					["font"] = {
-						["name"] = "Default",
-						["title"] = "Default",
-						["justifyH"] = "CENTER",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 10,
-					},
+					["h"] = "14",
 				}, -- [18]
-			},
-		},
-		["Damage_Done_tm"] = {
-			["ty"] = "TableMeter",
-			["version"] = 1,
-			["data"] = {
-				["dtypes"] = {
-					true, -- [1]
-				},
-				["etypes"] = {
-					[2] = true,
-				},
 			},
 		},
 		["Deathknight_Runes4_ds"] = {
@@ -26947,14 +27772,14 @@ data = {
 				{
 					["cdFont"] = {
 						["cr"] = 1,
-						["ca"] = 1,
+						["flags"] = "OUTLINE",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["cb"] = 0.08235294117647057,
-						["flags"] = "OUTLINE",
+						["sx"] = 0,
+						["ca"] = 1,
 						["cg"] = 0.7686274509803921,
 						["title"] = "Default",
-						["sx"] = 0,
+						["cb"] = 0.08235294117647057,
 						["justifyH"] = "CENTER",
 						["sy"] = 0,
 						["name"] = "Default",
@@ -27002,8 +27827,8 @@ data = {
 					["cdTxtType"] = "Largest",
 					["owner"] = "decor",
 					["w"] = 36,
-					["version"] = 1,
 					["name"] = "rune1_tc",
+					["version"] = 1,
 					["cdoffx"] = 0,
 					["tex"] = "rune1_icon",
 					["dyntexture"] = 1,
@@ -27017,11 +27842,11 @@ data = {
 						["cr"] = 1,
 						["ca"] = 1,
 						["cg"] = 0.7686274509803921,
-						["name"] = "Default",
+						["justifyH"] = "CENTER",
 						["cb"] = 0.08235294117647057,
 						["flags"] = "OUTLINE",
 						["title"] = "Default",
-						["justifyH"] = "CENTER",
+						["name"] = "Default",
 						["size"] = 10,
 					},
 					["cdTimerType"] = "COOLDOWN&TEXT",
@@ -27066,8 +27891,8 @@ data = {
 					["cdTxtType"] = "Largest",
 					["owner"] = "decor",
 					["w"] = 36,
-					["version"] = 1,
 					["name"] = "rune2_tc",
+					["version"] = 1,
 					["cdoffx"] = 0,
 					["tex"] = "rune2_icon",
 					["dyntexture"] = 1,
@@ -27081,11 +27906,11 @@ data = {
 						["cr"] = 1,
 						["ca"] = 1,
 						["cg"] = 0.7686274509803921,
-						["title"] = "Default",
+						["justifyH"] = "CENTER",
 						["cb"] = 0.08235294117647057,
 						["flags"] = "OUTLINE",
 						["name"] = "Default",
-						["justifyH"] = "CENTER",
+						["title"] = "Default",
 						["size"] = 10,
 					},
 					["cdTimerType"] = "COOLDOWN&TEXT",
@@ -27130,8 +27955,8 @@ data = {
 					["cdTxtType"] = "Largest",
 					["owner"] = "decor",
 					["w"] = 36,
-					["version"] = 1,
 					["name"] = "rune3_tc",
+					["version"] = 1,
 					["cdoffx"] = 0,
 					["tex"] = "rune3_icon",
 					["dyntexture"] = 1,
@@ -27145,11 +27970,11 @@ data = {
 						["cr"] = 1,
 						["flags"] = "OUTLINE",
 						["cg"] = 0.7686274509803921,
-						["justifyH"] = "CENTER",
+						["name"] = "Default",
 						["cb"] = 0.08235294117647057,
 						["ca"] = 1,
 						["title"] = "Default",
-						["name"] = "Default",
+						["justifyH"] = "CENTER",
 						["size"] = 10,
 					},
 					["cdTimerType"] = "COOLDOWN&TEXT",
@@ -27194,8 +28019,8 @@ data = {
 					["cdTxtType"] = "Largest",
 					["owner"] = "decor",
 					["w"] = 36,
-					["version"] = 1,
 					["name"] = "rune4_tc",
+					["version"] = 1,
 					["cdoffx"] = 0,
 					["tex"] = "rune4_icon",
 					["dyntexture"] = 1,
@@ -27205,14 +28030,14 @@ data = {
 				{
 					["cdFont"] = {
 						["cr"] = 1,
-						["flags"] = "OUTLINE",
+						["ca"] = 1,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["cb"] = 0.08235294117647057,
-						["ca"] = 1,
+						["sx"] = 0,
+						["flags"] = "OUTLINE",
 						["cg"] = 0.7686274509803921,
 						["name"] = "Default",
-						["sx"] = 0,
+						["cb"] = 0.08235294117647057,
 						["title"] = "Default",
 						["justifyH"] = "CENTER",
 						["sy"] = 0,
@@ -27260,8 +28085,8 @@ data = {
 					["cdTxtType"] = "Largest",
 					["owner"] = "decor",
 					["w"] = 36,
-					["version"] = 1,
 					["name"] = "rune5_tc",
+					["version"] = 1,
 					["cdoffx"] = 0,
 					["tex"] = "rune5_icon",
 					["dyntexture"] = 1,
@@ -27275,11 +28100,11 @@ data = {
 						["cr"] = 1,
 						["flags"] = "OUTLINE",
 						["cg"] = 0.7686274509803921,
-						["justifyH"] = "CENTER",
+						["title"] = "Default",
 						["cb"] = 0.08235294117647057,
 						["ca"] = 1,
 						["name"] = "Default",
-						["title"] = "Default",
+						["justifyH"] = "CENTER",
 						["size"] = 10,
 					},
 					["cdTimerType"] = "COOLDOWN&TEXT",
@@ -27324,8 +28149,8 @@ data = {
 					["cdTxtType"] = "Largest",
 					["owner"] = "decor",
 					["w"] = 36,
-					["version"] = 1,
 					["name"] = "rune6_tc",
+					["version"] = 1,
 					["cdoffx"] = 0,
 					["tex"] = "rune6_icon",
 					["dyntexture"] = 1,
@@ -27369,6 +28194,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -27444,9 +28273,9 @@ data = {
 				}, -- [1]
 				{
 					["size"] = 36,
-					["rows"] = 1,
 					["owner"] = "decor",
-					["name"] = "rune_bar",
+					["rows"] = 1,
+					["version"] = 1,
 					["feature"] = "runes_bar",
 					["iconspx"] = 0,
 					["cd"] = {
@@ -27474,7 +28303,7 @@ data = {
 						["af"] = "Base",
 					},
 					["orientation"] = "RIGHT",
-					["version"] = 1,
+					["name"] = "rune_bar",
 					["iconspy"] = 0,
 					["nIcons"] = 6,
 				}, -- [2]
@@ -27496,12 +28325,28 @@ data = {
 				}, -- [4]
 			},
 		},
+		["Range_0_40_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["class"] = "unitinrange",
+					}, -- [2]
+				}, -- [2]
+				{
+					"ol", -- [1]
+				}, -- [3]
+			},
+		},
 		["Raid_desk"] = {
 			["ty"] = "Desktop",
 			["version"] = 2,
 			["data"] = {
 				{
-					["offsetleft"] = "0",
+					["strata"] = "BACKGROUND",
 					["b"] = 0,
 					["scale"] = 1,
 					["dgp"] = true,
@@ -27509,14 +28354,14 @@ data = {
 					["offsetbottom"] = "0",
 					["l"] = 0,
 					["offsettop"] = "0",
-					["r"] = 1365.333385068319,
+					["r"] = 1365.333426704711,
 					["root"] = true,
-					["t"] = 768.0000066917983,
+					["t"] = 767.9999824928667,
 					["anchorx"] = 1083.1998810609,
 					["alpha"] = 1,
-					["title"] = "Konyagi_AUI:desk_solo",
-					["offsetright"] = "0",
 					["name"] = "root",
+					["offsetright"] = "0",
+					["title"] = "Konyagi_AUI:desk_solo",
 					["open"] = true,
 					["dock"] = {
 						["TOPLEFT"] = {
@@ -27524,12 +28369,6 @@ data = {
 							["x"] = 0,
 							["point"] = "TOPLEFT",
 							["y"] = 0,
-						},
-						["BOTTOMRIGHT"] = {
-							["id"] = "WoWRDX:Combat_Logs",
-							["x"] = 20,
-							["point"] = "BOTTOMRIGHT",
-							["y"] = -20,
 						},
 						["BOTTOM"] = {
 							["id"] = "WoWRDX:ActionBar1",
@@ -27543,31 +28382,41 @@ data = {
 							["point"] = "RIGHT",
 							["y"] = 0,
 						},
-						["BOTTOMLEFT"] = {
-							["id"] = "WoWRDX:ChatFrame1",
-							["x"] = -20,
-							["point"] = "BOTTOMLEFT",
-							["y"] = -20,
-						},
 						["TOPRIGHT"] = {
 							["id"] = "WoWRDX:Player_SecureBuff_Icon",
 							["x"] = 0,
 							["point"] = "TOPRIGHT",
 							["y"] = 0,
 						},
-						["CENTER"] = {
-							["id"] = "WoWRDX:Panel_Center",
-							["x"] = 0,
-							["point"] = "CENTER",
-							["y"] = 0,
+						["BOTTOMLEFT"] = {
+							["id"] = "WoWRDX:ChatFrame1",
+							["x"] = -20,
+							["point"] = "BOTTOMLEFT",
+							["y"] = -20,
+						},
+						["BOTTOMRIGHT"] = {
+							["id"] = "WoWRDX:Combat_Logs",
+							["x"] = 20,
+							["point"] = "BOTTOMRIGHT",
+							["y"] = -20,
 						},
 					},
-					["strata"] = "BACKGROUND",
+					["offsetleft"] = "0",
 					["anchory"] = 207.6800844938,
 					["ap"] = "TOPLEFT",
 				}, -- [1]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 866.9866965304984,
+					["scale"] = 1,
+					["t"] = 47.78666548950701,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:ActionBar1",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 498.3466885378205,
+					["b"] = 17.06666731335399,
 					["dock"] = {
 						["TOP"] = {
 							["id"] = "WoWRDX:ActionBar5",
@@ -27582,19 +28431,19 @@ data = {
 							["y"] = 20,
 						},
 					},
-					["scale"] = 1,
-					["t"] = 47.78666548950701,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:ActionBar1",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 498.3466885378205,
-					["b"] = 17.06666731335399,
-					["r"] = 866.9866965304984,
 				}, -- [2]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 1348.266710285255,
+					["scale"] = 1,
+					["t"] = 568.320007342238,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:ActionBar3",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 1317.546600063446,
+					["b"] = 199.680014288981,
 					["dock"] = {
 						["RIGHT"] = {
 							["id"] = "root",
@@ -27609,27 +28458,10 @@ data = {
 							["y"] = 0,
 						},
 					},
-					["scale"] = 1,
-					["t"] = 568.320007342238,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:ActionBar3",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 1317.546600063446,
-					["b"] = 199.680014288981,
-					["r"] = 1348.266710285255,
 				}, -- [3]
 				{
 					["strata"] = "MEDIUM",
-					["dock"] = {
-						["RIGHT"] = {
-							["id"] = "WoWRDX:ActionBar3",
-							["x"] = 0,
-							["point"] = "LEFT",
-							["y"] = 0,
-						},
-					},
+					["r"] = 1317.546600063446,
 					["scale"] = 1,
 					["t"] = 568.320007342238,
 					["open"] = true,
@@ -27639,10 +28471,27 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1286.826609357003,
 					["b"] = 199.680014288981,
-					["r"] = 1317.546600063446,
+					["dock"] = {
+						["RIGHT"] = {
+							["id"] = "WoWRDX:ActionBar3",
+							["x"] = 0,
+							["point"] = "LEFT",
+							["y"] = 0,
+						},
+					},
 				}, -- [4]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 866.9866965304984,
+					["scale"] = 1,
+					["t"] = 78.50667113537041,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:ActionBar5",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 498.3466885378205,
+					["b"] = 47.78666548950701,
 					["dock"] = {
 						["TOP"] = {
 							["id"] = "WoWRDX:ActionBar6",
@@ -27657,19 +28506,19 @@ data = {
 							["y"] = 0,
 						},
 					},
-					["scale"] = 1,
-					["t"] = 78.50667113537041,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:ActionBar5",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 498.3466885378205,
-					["b"] = 47.78666548950701,
-					["r"] = 866.9866965304984,
 				}, -- [5]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 866.9866965304984,
+					["scale"] = 1,
+					["t"] = 109.2266693115234,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:ActionBar6",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 498.3466885378205,
+					["b"] = 78.50667113537041,
 					["dock"] = {
 						["BOTTOM"] = {
 							["id"] = "WoWRDX:ActionBar5",
@@ -27684,19 +28533,19 @@ data = {
 							["y"] = 0,
 						},
 					},
-					["scale"] = 1,
-					["t"] = 109.2266693115234,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:ActionBar6",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 498.3466885378205,
-					["b"] = 78.50667113537041,
-					["r"] = 866.9866965304984,
 				}, -- [6]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 805.54665535993,
+					["scale"] = 1,
+					["t"] = 139.9466674876765,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:ActionBarPet",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 498.3466885378205,
+					["b"] = 109.2266693115234,
 					["dock"] = {
 						["TOPLEFT"] = {
 							["id"] = "WoWRDX:ActionBarStance",
@@ -27711,19 +28560,19 @@ data = {
 							["y"] = 0,
 						},
 					},
-					["scale"] = 1,
-					["t"] = 139.9466674876765,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:ActionBarPet",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 498.3466885378205,
-					["b"] = 109.2266693115234,
-					["r"] = 805.54665535993,
 				}, -- [7]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 805.54665535993,
+					["scale"] = 1,
+					["t"] = 170.6666731335399,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:ActionBarStance",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 498.3466885378205,
+					["b"] = 139.9466674876765,
 					["dock"] = {
 						["RIGHT"] = {
 							["id"] = "WoWRDX:ActionBarVehicle",
@@ -27738,27 +28587,10 @@ data = {
 							["y"] = 0,
 						},
 					},
-					["scale"] = 1,
-					["t"] = 170.6666731335399,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:ActionBarStance",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 498.3466885378205,
-					["b"] = 139.9466674876765,
-					["r"] = 805.54665535993,
 				}, -- [8]
 				{
 					["strata"] = "MEDIUM",
-					["dock"] = {
-						["LEFT"] = {
-							["id"] = "WoWRDX:ActionBarStance",
-							["x"] = 0,
-							["point"] = "RIGHT",
-							["y"] = 0,
-						},
-					},
+					["r"] = 897.7066274792579,
 					["scale"] = 1,
 					["t"] = 170.6666731335399,
 					["open"] = true,
@@ -27768,10 +28600,27 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 805.54665535993,
 					["b"] = 139.9466674876765,
-					["r"] = 897.7066274792579,
+					["dock"] = {
+						["LEFT"] = {
+							["id"] = "WoWRDX:ActionBarStance",
+							["x"] = 0,
+							["point"] = "RIGHT",
+							["y"] = 0,
+						},
+					},
 				}, -- [9]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 358.4000210501441,
+					["scale"] = 1,
+					["t"] = 128.0000160547205,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:ChatEditBox1",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 17.06666731335399,
+					["b"] = 102.4000113498343,
 					["dock"] = {
 						["BOTTOMLEFT"] = {
 							["id"] = "WoWRDX:ChatFrame1",
@@ -27786,19 +28635,19 @@ data = {
 							["y"] = 0,
 						},
 					},
-					["scale"] = 1,
-					["t"] = 128.0000160547205,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:ChatEditBox1",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 17.06666731335399,
-					["b"] = 102.4000113498343,
-					["r"] = 358.4000210501441,
 				}, -- [10]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 358.4000210501441,
+					["scale"] = 1,
+					["t"] = 102.4000113498343,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:ChatFrame1",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 17.06666731335399,
+					["b"] = 17.06666731335399,
 					["dock"] = {
 						["TOPLEFT"] = {
 							["id"] = "WoWRDX:ChatEditBox1",
@@ -27813,20 +28662,10 @@ data = {
 							["y"] = 20,
 						},
 					},
-					["scale"] = 1,
-					["t"] = 102.4000113498343,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:ChatFrame1",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 17.06666731335399,
-					["b"] = 17.06666731335399,
-					["r"] = 358.4000210501441,
 				}, -- [11]
 				{
 					["strata"] = "MEDIUM",
-					["b"] = 128.0000160547205,
+					["r"] = 358.4000210501441,
 					["scale"] = 1,
 					["t"] = 140.8000221420188,
 					["alpha"] = 1,
@@ -27843,18 +28682,11 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 187.7333479166043,
 					["open"] = true,
-					["r"] = 358.4000210501441,
+					["b"] = 128.0000160547205,
 				}, -- [12]
 				{
 					["strata"] = "MEDIUM",
-					["dock"] = {
-						["TOPRIGHT"] = {
-							["id"] = "root",
-							["x"] = 0,
-							["point"] = "TOPRIGHT",
-							["y"] = 0,
-						},
-					},
+					["r"] = 1365.333385068319,
 					["scale"] = 1,
 					["t"] = 768.0000066917983,
 					["open"] = true,
@@ -27864,18 +28696,18 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 1024.000008922398,
 					["b"] = 725.3333197341373,
-					["r"] = 1365.333385068319,
-				}, -- [13]
-				{
-					["strata"] = "MEDIUM",
 					["dock"] = {
-						["TOPLEFT"] = {
+						["TOPRIGHT"] = {
 							["id"] = "root",
 							["x"] = 0,
-							["point"] = "TOPLEFT",
+							["point"] = "TOPRIGHT",
 							["y"] = 0,
 						},
 					},
+				}, -- [13]
+				{
+					["strata"] = "MEDIUM",
+					["r"] = 341.3333462670797,
 					["scale"] = 1,
 					["t"] = 768.0000066917983,
 					["open"] = true,
@@ -27885,10 +28717,27 @@ data = {
 					["anchor"] = "TOPLEFT",
 					["l"] = 0,
 					["b"] = 721.0666211595296,
-					["r"] = 341.3333462670797,
+					["dock"] = {
+						["TOPLEFT"] = {
+							["id"] = "root",
+							["x"] = 0,
+							["point"] = "TOPLEFT",
+							["y"] = 0,
+						},
+					},
 				}, -- [14]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 464.2133688505334,
+					["scale"] = 1,
+					["t"] = 402.8929924404083,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:Player_Main",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 288.4267022457266,
+					["b"] = 338.0396521678369,
 					["dock"] = {
 						["RIGHT"] = {
 							["id"] = "WoWRDX:Panel_Center",
@@ -27903,19 +28752,19 @@ data = {
 							["y"] = 10,
 						},
 					},
-					["scale"] = 1,
-					["t"] = 416.4267033610263,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:Player_Main",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 336.2133378563921,
-					["b"] = 351.573363088455,
-					["r"] = 512.0000044611988,
 				}, -- [15]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 722.7733603470558,
+					["scale"] = 1,
+					["t"] = 242.4662913099814,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:Player_CastBar",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 546.9866937422491,
+					["b"] = 220.2796081162294,
 					["dock"] = {
 						["TOP"] = {
 							["id"] = "WoWRDX:Panel_Center",
@@ -27924,29 +28773,9 @@ data = {
 							["y"] = -50,
 						},
 					},
-					["scale"] = 1,
-					["t"] = 256.0000022305994,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:Player_CastBar",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 594.7733592317561,
-					["b"] = 233.8133339762682,
-					["r"] = 770.5600258365629,
 				}, -- [16]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 512.0000044611988,
-					["scale"] = 1,
-					["t"] = 343.0400256969228,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:Pet_Main",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 336.2133378563921,
-					["b"] = 278.1866854243514,
 					["dock"] = {
 						["TOP"] = {
 							["id"] = "WoWRDX:Player_Main",
@@ -27955,6 +28784,16 @@ data = {
 							["y"] = -10,
 						},
 					},
+					["scale"] = 1,
+					["t"] = 329.5063147763047,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:Pet_Main",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 288.4267022457266,
+					["b"] = 264.6529745037333,
+					["r"] = 464.2133688505334,
 				}, -- [17]
 				{
 					["strata"] = "MEDIUM",
@@ -27971,6 +28810,17 @@ data = {
 				}, -- [18]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 805.54665535993,
+					["scale"] = 1,
+					["t"] = 455.7996364617614,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["dgp"] = true,
+					["name"] = "WoWRDX:Panel_Center",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 464.2133688505334,
+					["b"] = 285.1329483888007,
 					["dock"] = {
 						["RIGHT"] = {
 							["id"] = "WoWRDX:Target_Main",
@@ -27990,26 +28840,20 @@ data = {
 							["point"] = "RIGHT",
 							["y"] = 0,
 						},
-						["CENTER"] = {
-							["id"] = "root",
-							["x"] = 0,
-							["point"] = "CENTER",
-							["y"] = 0,
-						},
 					},
-					["scale"] = 1,
-					["t"] = 469.3333473823794,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:Panel_Center",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 512.0000044611988,
-					["b"] = 298.6666593094188,
-					["r"] = 853.3333806071202,
 				}, -- [19]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 981.3333219647368,
+					["scale"] = 1,
+					["t"] = 402.8929924404083,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:Target_Main",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 805.54665535993,
+					["b"] = 338.0396521678369,
 					["dock"] = {
 						["RIGHT"] = {
 							["id"] = "WoWRDX:Targettarget_Main",
@@ -28024,19 +28868,19 @@ data = {
 							["y"] = 0,
 						},
 					},
-					["scale"] = 1,
-					["t"] = 416.4267033610263,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:Target_Main",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 853.3333806071202,
-					["b"] = 351.573363088455,
-					["r"] = 1029.120047211927,
 				}, -- [20]
 				{
 					["strata"] = "MEDIUM",
+					["r"] = 1165.653206445709,
+					["scale"] = 1,
+					["t"] = 402.8929924404083,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "WoWRDX:Targettarget_Main",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 989.8665995985858,
+					["b"] = 338.0396521678369,
 					["dock"] = {
 						["LEFT"] = {
 							["id"] = "WoWRDX:Target_Main",
@@ -28045,16 +28889,6 @@ data = {
 							["y"] = 0,
 						},
 					},
-					["scale"] = 1,
-					["t"] = 416.4267033610263,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:Targettarget_Main",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 1037.653324845776,
-					["b"] = 351.573363088455,
-					["r"] = 1213.439991450583,
 				}, -- [21]
 				{
 					["strata"] = "MEDIUM",
@@ -28068,102 +28902,59 @@ data = {
 					},
 					["scale"] = 1,
 					["t"] = 145.0666609589433,
-					["open"] = true,
+					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Combat_Logs",
 					["r"] = 1348.266710285255,
 					["anchor"] = "TOPLEFT",
 					["l"] = 1015.466611773182,
 					["b"] = 17.06666731335399,
-					["alpha"] = 1,
+					["open"] = true,
 				}, -- [22]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 1345.707408232687,
+					["r"] = 1358.506906379679,
 					["scale"] = 1,
-					["t"] = 712.5332240103143,
-					["alpha"] = 1,
+					["t"] = 711.6799440530759,
+					["open"] = true,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:MiniMap",
+					["alpha"] = 1,
 					["anchor"] = "TOPLEFT",
-					["l"] = 1222.827325891551,
-					["b"] = 589.6532611845438,
-					["open"] = true,
+					["l"] = 1235.626943553909,
+					["b"] = 588.7999214696223,
+					["ap"] = "TOPLEFT",
 				}, -- [23]
 				{
 					["strata"] = "MEDIUM",
-					["r"] = 318.8395403298015,
-					["scale"] = 0.9000000357627869,
-					["t"] = 576.0427436246423,
-					["alpha"] = 1,
-					["feature"] = "desktop_window",
-					["name"] = "WoWRDX:Raid_GroupAll",
-					["b"] = 559.0699232048713,
-					["anchor"] = "TOPLEFT",
-					["l"] = 146.730706416354,
-					["open"] = true,
-					["ap"] = "TOPLEFT",
-				}, -- [24]
-				{
-					["strata"] = "MEDIUM",
-					["r"] = 1201.493354957048,
+					["b"] = 401.0665884924388,
 					["scale"] = 1,
-					["t"] = 680.1066733893948,
+					["t"] = 660.4800392192491,
 					["alpha"] = 1,
 					["feature"] = "desktop_window",
 					["name"] = "WoWRDX:Boss",
+					["r"] = 1211.733670566838,
 					["anchor"] = "TOPLEFT",
-					["l"] = 1025.706688352241,
-					["b"] = 420.6933122991094,
+					["l"] = 1035.947003962032,
 					["open"] = true,
-				}, -- [25]
+					["ap"] = "TOPLEFT",
+				}, -- [24]
 			},
 		},
-		["Range_0_40_fset"] = {
+		["Heal_Done_fset"] = {
 			["ty"] = "FilterSet",
 			["version"] = 1,
 			["data"] = {
 				"and", -- [1]
 				{
-					"set", -- [1]
-					{
-						["class"] = "unitinrange",
-					}, -- [2]
+					"nidmask", -- [1]
 				}, -- [2]
 				{
-					"ol", -- [1]
+					"tablemeter", -- [1]
+					"WoWRDX:Heal_Done_tm", -- [2]
+					1, -- [3]
+					10000000, -- [4]
 				}, -- [3]
-			},
-		},
-		["Pettarget_Main"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Targettarget_Main_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["unitWatch"] = 1,
-					["version"] = 1,
-					["clickable"] = 1,
-					["unit"] = "pettarget",
-				}, -- [3]
-				{
-					["interval"] = 0.1,
-					["feature"] = "Event: Periodic Repaint",
-					["slot"] = "RepaintAll",
-				}, -- [4]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "",
-					["version"] = 1,
-					["mbFriendly"] = "WoWRDX:Player_Main_mb",
-				}, -- [5]
 			},
 		},
 		["Shaman_Totems3"] = {
@@ -28221,6 +29012,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -28249,61 +29044,6 @@ data = {
 					["version"] = 1,
 					["unit"] = "player",
 				}, -- [3]
-			},
-		},
-		["Healer_Health_stc"] = {
-			["ty"] = "Statistic",
-			["version"] = 1,
-			["data"] = {
-				["val"] = {
-					["qty"] = "shp",
-					["set"] = {
-						["class"] = "file",
-						["file"] = "WoWRDX:Healer_fset",
-					},
-				},
-				["fadeColor"] = {
-					["a"] = 1,
-					["r"] = 0.4705882352941178,
-					["g"] = 0,
-					["b"] = 0.01176470588235294,
-				},
-				["name"] = "Healer HP",
-				["color"] = {
-					["a"] = 1,
-					["r"] = 0.02352941176470588,
-					["g"] = 0.5254901960784313,
-					["b"] = 0,
-				},
-				["pct"] = 1,
-				["max"] = {
-					["qty"] = "smaxhp",
-					["set"] = {
-						["class"] = "file",
-						["file"] = "WoWRDX:Healer_fset",
-					},
-				},
-				["sv"] = 1,
-				["texture"] = "",
-			},
-		},
-		["Alive_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"not", -- [1]
-					{
-						"dead", -- [1]
-					}, -- [2]
-				}, -- [2]
-				{
-					"ol", -- [1]
-				}, -- [3]
-				{
-					"nidmask", -- [1]
-				}, -- [4]
 			},
 		},
 		["Deathknight_Runes8_ds"] = {
@@ -28350,14 +29090,14 @@ data = {
 						["r"] = 0,
 					},
 					["owner"] = "decor",
-					["version"] = 1,
+					["name"] = "rune_bar_skin",
 					["deathColor"] = {
 						["a"] = 1,
 						["b"] = 0.6000000000000001,
 						["g"] = 0.3,
 						["r"] = 0.6000000000000001,
 					},
-					["name"] = "rune_bar_skin",
+					["version"] = 1,
 					["cd"] = {
 						["GfxReverse"] = true,
 						["Font"] = {
@@ -28387,206 +29127,59 @@ data = {
 				}, -- [2]
 			},
 		},
-		["Health_Power_ds"] = {
-			["ty"] = "Design",
+		["Alive_fset"] = {
+			["ty"] = "FilterSet",
 			["version"] = 1,
 			["data"] = {
+				"and", -- [1]
 				{
-					["feature"] = "Variables: Status Flags (dead, ld, feigned)",
-				}, -- [1]
-				{
-					["feature"] = "Variable: Fractional health (fh)",
+					"not", -- [1]
+					{
+						"dead", -- [1]
+					}, -- [2]
 				}, -- [2]
 				{
-					["feature"] = "Variable: Fractional mana (fm)",
-					["powertype"] = "nil",
-					["name"] = "fm",
+					"ol", -- [1]
 				}, -- [3]
 				{
-					["feature"] = "ColorVariable: Unit PowerType Color",
-					["manaColor"] = {
-						["a"] = 1,
-						["r"] = 0,
-						["g"] = 0,
-						["b"] = 0.75,
-					},
-					["energyColor"] = {
-						["a"] = 1,
-						["r"] = 0.75,
-						["g"] = 0.75,
-						["b"] = 0,
-					},
-					["runeColor"] = {
-						["a"] = 1,
-						["r"] = 0,
-						["g"] = 0.75,
-						["b"] = 1,
-					},
-					["rageColor"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 0,
-						["b"] = 0,
-					},
+					"nidmask", -- [1]
 				}, -- [4]
-				{
-					["feature"] = "commentline",
-				}, -- [5]
-				{
-					["feature"] = "base_default",
-					["h"] = 14,
-					["version"] = 1,
-					["w"] = 90,
-					["alpha"] = 1,
-					["ph"] = 1,
-				}, -- [6]
-				{
-					["interpolate"] = 1,
-					["frac"] = "fh",
-					["owner"] = "Base",
-					["w"] = "90",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 0,
-						["b"] = 0,
+			},
+		},
+		["Healer_Health_stc"] = {
+			["ty"] = "Statistic",
+			["version"] = 1,
+			["data"] = {
+				["val"] = {
+					["qty"] = "shp",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Healer_fset",
 					},
-					["feature"] = "statusbar_horiz",
-					["h"] = "11",
-					["name"] = "hpbar",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
+				},
+				["fadeColor"] = {
+					["a"] = 1,
+					["r"] = 0.4705882352941178,
+					["g"] = 0,
+					["b"] = 0.01176470588235294,
+				},
+				["name"] = "Healer HP",
+				["sv"] = 1,
+				["color"] = {
+					["a"] = 1,
+					["r"] = 0.02352941176470588,
+					["g"] = 0.5254901960784313,
+					["b"] = 0,
+				},
+				["max"] = {
+					["qty"] = "smaxhp",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Healer_fset",
 					},
-					["orientation"] = "HORIZONTAL",
-					["version"] = 1,
-					["color2"] = {
-						["a"] = 1,
-						["r"] = 0,
-						["g"] = 1,
-						["b"] = 0,
-					},
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX\\Skin\\bar1",
-					},
-				}, -- [7]
-				{
-					["frac"] = "1",
-					["owner"] = "Base",
-					["w"] = "90",
-					["colorVar"] = "powerColor",
-					["feature"] = "statusbar_horiz",
-					["h"] = "3",
-					["version"] = 1,
-					["orientation"] = "HORIZONTAL",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "BOTTOMLEFT",
-						["rp"] = "BOTTOMLEFT",
-						["af"] = "Base",
-					},
-					["name"] = "ppbar",
-					["interpolate"] = 1,
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX\\Skin\\bar1",
-					},
-				}, -- [8]
-				{
-					["owner"] = "Base",
-					["w"] = "50",
-					["feature"] = "txt_np",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 10,
-					},
-					["name"] = "np",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Base",
-					},
-					["h"] = "14",
-					["classColor"] = 1,
-					["version"] = 1,
-				}, -- [9]
-				{
-					["owner"] = "Base",
-					["w"] = "40",
-					["feature"] = "txt_status",
-					["ty"] = "hpp",
-					["name"] = "text_hp_percent",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "RIGHT",
-						["rp"] = "RIGHT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["h"] = "14",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 8,
-					},
-				}, -- [10]
-				{
-					["owner"] = "Base",
-					["w"] = "40",
-					["feature"] = "txt_status",
-					["ty"] = "fdld",
-					["name"] = "status_text",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "RIGHT",
-						["rp"] = "RIGHT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["h"] = "14",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 8,
-					},
-				}, -- [11]
+				},
+				["pct"] = 1,
+				["texture"] = "",
 			},
 		},
 		["Range_0_15_ODM"] = {
@@ -28632,22 +29225,43 @@ data = {
 				}, -- [5]
 			},
 		},
-		["Damage_Done"] = {
+		["Damage_Done_sort"] = {
+			["ty"] = "Sort",
+			["version"] = 2,
+			["data"] = {
+				["sort"] = {
+					{
+						["vname"] = "cs8874173",
+						["op"] = "tablemeter",
+						["path"] = "WoWRDX:Damage_Done_tm",
+					}, -- [1]
+				},
+				["set"] = {
+					["file"] = "WoWRDX:Damage_Done_fset",
+					["class"] = "file",
+				},
+			},
+		},
+		["Raid_GroupAll"] = {
 			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
 				{
-					["texicon"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Icons\\Ability_BackStab",
-					},
-					["showtitlebar"] = 1,
 					["feature"] = "Frame: Lightweight",
-					["bkdColor"] = {
-						["a"] = 0,
-						["b"] = 0,
-						["g"] = 0,
-						["r"] = 0,
+					["title"] = "Raid Group All",
+					["bkd"] = {
+						["_backdrop"] = "none",
+						["_border"] = "none",
+					},
+					["texicon"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+						["blendMode"] = "BLEND",
 					},
 					["defaultbuttons"] = 1,
 					["titleColor"] = {
@@ -28656,35 +29270,54 @@ data = {
 						["g"] = 0,
 						["r"] = 0,
 					},
-					["title"] = "Damage Done",
 				}, -- [1]
 				{
 					["feature"] = "Design",
-					["design"] = "WoWRDX:Damage_Done_ds",
+					["design"] = "WoWRDX:Raid_ds",
 				}, -- [2]
 				{
-					["feature"] = "Data Source: Sort",
-					["sortPath"] = "WoWRDX:Damage_Done_sort",
+					["feature"] = "Data Source: Secure Set",
 					["rostertype"] = "RAID",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Raid_GroupAll_fset",
+					},
 				}, -- [3]
 				{
-					["feature"] = "Grid Layout",
-					["countTitle"] = 1,
-					["limit"] = 10,
+					["bkt"] = 1,
+					["switchvehicle"] = 1,
 					["dxn"] = 1,
+					["cols"] = 20,
+					["feature"] = "Header Grid",
 					["axis"] = 1,
-					["cols"] = 1,
 				}, -- [4]
 				{
-					["feature"] = "Sort Editor",
+					["feature"] = "mousebindings",
+					["hotspot"] = "status",
+					["version"] = 1,
+					["mbFriendly"] = "default:bindings_status",
 				}, -- [5]
 				{
-					["feature"] = "FilterSet Editor",
+					["feature"] = "mousebindings",
+					["hotspot"] = "decurse",
+					["version"] = 1,
+					["mbFriendly"] = "default:bindings_decurse",
 				}, -- [6]
 				{
-					["feature"] = "TableMeter Editor",
-					["path"] = "WoWRDX:Damage_Done_tm",
+					["feature"] = "mousebindings",
+					["hotspot"] = "action",
+					["version"] = 1,
+					["mbFriendly"] = "default:bindings_action",
 				}, -- [7]
+				{
+					["feature"] = "mp_args",
+					["period"] = 0.1,
+					["version"] = 1,
+					["dpm1"] = 0,
+				}, -- [8]
+				{
+					["feature"] = "FilterSet Editor",
+				}, -- [9]
 			},
 		},
 		["Shaman_Totem_Fire_mb"] = {
@@ -28780,10 +29413,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = 0,
@@ -28808,20 +29441,7 @@ data = {
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_custom",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sy"] = -1,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["sx"] = 1,
-						["title"] = "Default",
-						["justifyH"] = "RIGHT",
-						["size"] = 9,
-					},
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -28831,7 +29451,20 @@ data = {
 						["af"] = "TotemEarthBar",
 					},
 					["name"] = "EarthTimer",
-					["h"] = 14,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "RIGHT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sb"] = 0,
+						["sx"] = 1,
+						["title"] = "Default",
+						["sy"] = -1,
+						["size"] = 9,
+					},
 				}, -- [10]
 				{
 					["TEIDefaultState"] = "Hide",
@@ -28845,7 +29478,12 @@ data = {
 					["statusBar"] = "TotemEarthBar",
 					["text"] = "EarthTimer",
 					["texIcon"] = "TotemEarthIcon",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -28858,26 +29496,14 @@ data = {
 					["tex"] = "totemearth_icon",
 					["txt"] = "",
 					["timerVar"] = "totemearth",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 				}, -- [11]
 				{
 					["txt"] = "totemearth_name",
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_dyn",
-					["font"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 9,
-					},
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 1,
@@ -28887,12 +29513,19 @@ data = {
 						["af"] = "TotemEarthBar",
 					},
 					["name"] = "status_text_earth",
-					["h"] = 14,
+					["font"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 9,
+					},
 				}, -- [12]
 				{
 					["w"] = 180,
 					["feature"] = "hotspot",
-					["flo"] = 3,
+					["secure"] = 1,
 					["name"] = "earth",
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -28906,8 +29539,8 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["flo"] = 3,
 					["h"] = 20,
-					["secure"] = 1,
 				}, -- [13]
 				{
 					["feature"] = "commentline",
@@ -28938,10 +29571,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = -20,
@@ -28970,10 +29603,10 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["title"] = "Default",
+						["justifyH"] = "RIGHT",
 						["sa"] = 1,
 						["sg"] = 0,
-						["justifyH"] = "RIGHT",
+						["title"] = "Default",
 						["sx"] = 1,
 						["name"] = "Default",
 						["sy"] = -1,
@@ -29003,7 +29636,12 @@ data = {
 					["statusBar"] = "TotemFireBar",
 					["text"] = "FireTimer",
 					["texIcon"] = "TotemFireIcon",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -29016,19 +29654,21 @@ data = {
 					["tex"] = "totemfire_icon",
 					["txt"] = "",
 					["timerVar"] = "totemfire",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 				}, -- [18]
 				{
 					["txt"] = "totemfire_name",
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_dyn",
-					["h"] = 14,
+					["font"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 9,
+					},
 					["name"] = "status_text_firea",
 					["anchor"] = {
 						["dx"] = 1,
@@ -29038,20 +29678,13 @@ data = {
 						["af"] = "TotemFireBar",
 					},
 					["version"] = 1,
-					["font"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 9,
-					},
+					["h"] = 14,
 				}, -- [19]
 				{
 					["w"] = 180,
 					["feature"] = "hotspot",
-					["h"] = 20,
-					["name"] = "fire",
+					["flo"] = 3,
+					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
 						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
@@ -29064,8 +29697,8 @@ data = {
 						["af"] = "Base",
 					},
 					["secure"] = 1,
-					["flo"] = 3,
-					["version"] = 1,
+					["h"] = 20,
+					["name"] = "fire",
 				}, -- [20]
 				{
 					["feature"] = "commentline",
@@ -29096,10 +29729,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["name"] = "TotemWaterIcon",
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = -40,
@@ -29128,10 +29761,10 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["title"] = "Default",
+						["justifyH"] = "RIGHT",
 						["sa"] = 1,
 						["sg"] = 0,
-						["justifyH"] = "RIGHT",
+						["title"] = "Default",
 						["sx"] = 1,
 						["name"] = "Default",
 						["sy"] = -1,
@@ -29161,7 +29794,12 @@ data = {
 					["statusBar"] = "TotemWaterBar",
 					["text"] = "WaterTimer",
 					["texIcon"] = "TotemWaterIcon",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -29174,19 +29812,21 @@ data = {
 					["tex"] = "totemwater_icon",
 					["txt"] = "",
 					["timerVar"] = "totemwater",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 				}, -- [25]
 				{
 					["txt"] = "totemwater_name",
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_dyn",
-					["h"] = 14,
+					["font"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 9,
+					},
 					["name"] = "status_text_water",
 					["anchor"] = {
 						["dx"] = 1,
@@ -29196,20 +29836,13 @@ data = {
 						["af"] = "TotemWaterBar",
 					},
 					["version"] = 1,
-					["font"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 9,
-					},
+					["h"] = 14,
 				}, -- [26]
 				{
 					["w"] = 180,
 					["feature"] = "hotspot",
-					["h"] = 20,
-					["name"] = "water",
+					["flo"] = 3,
+					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
 						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
@@ -29222,8 +29855,8 @@ data = {
 						["af"] = "Base",
 					},
 					["secure"] = 1,
-					["flo"] = 3,
-					["version"] = 1,
+					["h"] = 20,
+					["name"] = "water",
 				}, -- [27]
 				{
 					["feature"] = "commentline",
@@ -29254,10 +29887,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = -60,
@@ -29295,10 +29928,10 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["title"] = "Default",
+						["justifyH"] = "RIGHT",
 						["sa"] = 1,
 						["sg"] = 0,
-						["justifyH"] = "RIGHT",
+						["title"] = "Default",
 						["sx"] = 1,
 						["name"] = "Default",
 						["sy"] = -1,
@@ -29319,7 +29952,12 @@ data = {
 					["statusBar"] = "TotemAirBar",
 					["text"] = "AirTimer",
 					["texIcon"] = "TotemAirIcon",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -29332,12 +29970,7 @@ data = {
 					["tex"] = "totemair_icon",
 					["txt"] = "",
 					["timerVar"] = "totemair",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 				}, -- [32]
 				{
 					["txt"] = "totemair_name",
@@ -29352,7 +29985,7 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 9,
 					},
-					["name"] = "status_text_air",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = 0,
@@ -29361,12 +29994,12 @@ data = {
 						["af"] = "TotemAirBar",
 					},
 					["h"] = 14,
-					["version"] = 1,
+					["name"] = "status_text_air",
 				}, -- [33]
 				{
 					["w"] = 180,
 					["feature"] = "hotspot",
-					["flo"] = 3,
+					["h"] = 20,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -29380,8 +30013,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "air",
+					["flo"] = 3,
 					["secure"] = 1,
-					["h"] = 20,
 				}, -- [34]
 				{
 					["feature"] = "commentline",
@@ -29389,7 +30022,7 @@ data = {
 				{
 					["w"] = 20,
 					["feature"] = "hotspot",
-					["flo"] = 3,
+					["h"] = 80,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -29403,8 +30036,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "remove",
+					["flo"] = 3,
 					["secure"] = 1,
-					["h"] = 80,
 				}, -- [36]
 				{
 					["feature"] = "Subframe",
@@ -29423,20 +30056,279 @@ data = {
 				}, -- [37]
 			},
 		},
-		["Damage_Done_sort"] = {
-			["ty"] = "Sort",
-			["version"] = 2,
+		["Health_Power_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
 			["data"] = {
-				["sort"] = {
-					{
-						["vname"] = "cs8874173",
-						["op"] = "tablemeter",
-						["path"] = "WoWRDX:Damage_Done_tm",
-					}, -- [1]
+				{
+					["feature"] = "Variables: Status Flags (dead, ld, feigned)",
+				}, -- [1]
+				{
+					["feature"] = "Variable: Fractional health (fh)",
+				}, -- [2]
+				{
+					["feature"] = "Variable: Fractional mana (fm)",
+					["powertype"] = "nil",
+					["name"] = "fm",
+				}, -- [3]
+				{
+					["energyColor"] = {
+						["a"] = 1,
+						["r"] = 0.75,
+						["g"] = 0.75,
+						["b"] = 0,
+					},
+					["manaColor"] = {
+						["a"] = 1,
+						["r"] = 0,
+						["g"] = 0,
+						["b"] = 0.75,
+					},
+					["feature"] = "ColorVariable: Unit PowerType Color",
+					["runeColor"] = {
+						["a"] = 1,
+						["r"] = 0,
+						["g"] = 0.75,
+						["b"] = 1,
+					},
+					["rageColor"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 0,
+						["b"] = 0,
+					},
+				}, -- [4]
+				{
+					["feature"] = "commentline",
+				}, -- [5]
+				{
+					["ph"] = 1,
+					["h"] = 14,
+					["version"] = 1,
+					["alpha"] = 1,
+					["w"] = 90,
+					["feature"] = "base_default",
+				}, -- [6]
+				{
+					["interpolate"] = 1,
+					["frac"] = "fh",
+					["owner"] = "Base",
+					["w"] = "90",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 0,
+						["b"] = 0,
+					},
+					["feature"] = "statusbar_horiz",
+					["h"] = "11",
+					["name"] = "hpbar",
+					["orientation"] = "HORIZONTAL",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["color2"] = {
+						["a"] = 1,
+						["r"] = 0,
+						["g"] = 1,
+						["b"] = 0,
+					},
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX\\Skin\\bar1",
+					},
+				}, -- [7]
+				{
+					["interpolate"] = 1,
+					["owner"] = "Base",
+					["w"] = "90",
+					["colorVar"] = "powerColor",
+					["feature"] = "statusbar_horiz",
+					["h"] = "3",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "BOTTOMLEFT",
+						["rp"] = "BOTTOMLEFT",
+						["af"] = "Base",
+					},
+					["orientation"] = "HORIZONTAL",
+					["name"] = "ppbar",
+					["frac"] = "1",
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX\\Skin\\bar1",
+					},
+				}, -- [8]
+				{
+					["owner"] = "Base",
+					["w"] = "50",
+					["classColor"] = 1,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 10,
+					},
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Base",
+					},
+					["h"] = "14",
+					["feature"] = "txt_np",
+					["name"] = "np",
+				}, -- [9]
+				{
+					["owner"] = "Base",
+					["w"] = "40",
+					["feature"] = "txt_status",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 8,
+					},
+					["name"] = "text_hp_percent",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "RIGHT",
+						["rp"] = "RIGHT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["ty"] = "hpp",
+					["h"] = "14",
+				}, -- [10]
+				{
+					["owner"] = "Base",
+					["w"] = "40",
+					["feature"] = "txt_status",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 8,
+					},
+					["name"] = "status_text",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "RIGHT",
+						["rp"] = "RIGHT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["ty"] = "fdld",
+					["h"] = "14",
+				}, -- [11]
+			},
+		},
+		["Damage_Done"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["texicon"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Icons\\Ability_BackStab",
+					},
+					["feature"] = "Frame: Lightweight",
+					["showtitlebar"] = 1,
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+					["bkdColor"] = {
+						["a"] = 0,
+						["b"] = 0,
+						["g"] = 0,
+						["r"] = 0,
+					},
+					["defaultbuttons"] = 1,
+					["titleColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0,
+						["r"] = 0,
+					},
+					["title"] = "Damage Done",
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Damage_Done_ds",
+				}, -- [2]
+				{
+					["feature"] = "Data Source: Sort",
+					["sortPath"] = "WoWRDX:Damage_Done_sort",
+					["rostertype"] = "RAID",
+				}, -- [3]
+				{
+					["feature"] = "Grid Layout",
+					["countTitle"] = 1,
+					["limit"] = 10,
+					["dxn"] = 1,
+					["axis"] = 1,
+					["cols"] = 1,
+				}, -- [4]
+				{
+					["feature"] = "Sort Editor",
+				}, -- [5]
+				{
+					["feature"] = "FilterSet Editor",
+				}, -- [6]
+				{
+					["feature"] = "TableMeter Editor",
+					["path"] = "WoWRDX:Damage_Done_tm",
+				}, -- [7]
+			},
+		},
+		["Assists_mb"] = {
+			["ty"] = "MouseBindings",
+			["version"] = 1,
+			["data"] = {
+				["1"] = {
+					["action"] = "target",
 				},
-				["set"] = {
-					["file"] = "WoWRDX:Damage_Done_fset",
-					["class"] = "file",
+				["S1"] = {
+					["action"] = "assist",
+				},
+				["2"] = {
+					["action"] = "menu",
 				},
 			},
 		},
@@ -29446,6 +30338,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -29457,101 +30353,6 @@ data = {
 					["version"] = 1,
 					["unit"] = "player",
 				}, -- [3]
-			},
-		},
-		["Assists_mb"] = {
-			["ty"] = "MouseBindings",
-			["version"] = 1,
-			["data"] = {
-				["S1"] = {
-					["action"] = "assist",
-				},
-				["1"] = {
-					["action"] = "target",
-				},
-				["2"] = {
-					["action"] = "menu",
-				},
-			},
-		},
-		["Raid_GroupAll"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["texicon"] = {
-						["color"] = {
-							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
-							["b"] = 1,
-						},
-						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
-						["blendMode"] = "BLEND",
-					},
-					["title"] = "Raid Group All",
-					["bkdColor"] = {
-						["a"] = 0,
-						["r"] = 0,
-						["g"] = 0,
-						["b"] = 0,
-					},
-					["titleColor"] = {
-						["a"] = 1,
-						["r"] = 0,
-						["g"] = 0,
-						["b"] = 0,
-					},
-					["defaultbuttons"] = 1,
-					["feature"] = "Frame: Lightweight",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Raid_ds",
-				}, -- [2]
-				{
-					["feature"] = "Data Source: Secure Set",
-					["rostertype"] = "RAID",
-					["set"] = {
-						["class"] = "file",
-						["file"] = "WoWRDX:Raid_GroupAll_fset",
-					},
-				}, -- [3]
-				{
-					["bkt"] = 1,
-					["switchvehicle"] = 1,
-					["dxn"] = 1,
-					["axis"] = 1,
-					["feature"] = "Header Grid",
-					["cols"] = 20,
-				}, -- [4]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "status",
-					["version"] = 1,
-					["mbFriendly"] = "default:bindings_status",
-				}, -- [5]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "decurse",
-					["version"] = 1,
-					["mbFriendly"] = "default:bindings_decurse",
-				}, -- [6]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "action",
-					["version"] = 1,
-					["mbFriendly"] = "default:bindings_action",
-				}, -- [7]
-				{
-					["feature"] = "mp_args",
-					["period"] = 0.1,
-					["version"] = 1,
-					["dpm1"] = 0,
-				}, -- [8]
-				{
-					["feature"] = "FilterSet Editor",
-				}, -- [9]
 			},
 		},
 		["Debuff_Both_fset"] = {
@@ -29575,20 +30376,39 @@ data = {
 				}, -- [3]
 			},
 		},
-		["Heal_Done_fset"] = {
-			["ty"] = "FilterSet",
+		["Pettarget_Main"] = {
+			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
-				"and", -- [1]
 				{
-					"nidmask", -- [1]
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Targettarget_Main_ds",
 				}, -- [2]
 				{
-					"tablemeter", -- [1]
-					"WoWRDX:Heal_Done_tm", -- [2]
-					1, -- [3]
-					10000000, -- [4]
+					["feature"] = "layout_single_unitframe",
+					["unitWatch"] = 1,
+					["clickable"] = 1,
+					["version"] = 1,
+					["unit"] = "pettarget",
 				}, -- [3]
+				{
+					["feature"] = "Event: Periodic Repaint",
+					["interval"] = 0.1,
+					["slot"] = "RepaintAll",
+				}, -- [4]
+				{
+					["feature"] = "mousebindings",
+					["hotspot"] = "",
+					["version"] = 1,
+					["mbFriendly"] = "WoWRDX:Player_Main_mb",
+				}, -- [5]
 			},
 		},
 		["Priest_Buff_Shadow_fset"] = {
@@ -29634,8 +30454,13 @@ data = {
 					["b"] = 0.5372549019607842,
 				},
 				["name"] = "Mage",
+				["color"] = {
+					["a"] = 1,
+					["r"] = 0,
+					["g"] = 0.3333333333333333,
+					["b"] = 1,
+				},
 				["pct"] = 1,
-				["sv"] = 2,
 				["max"] = {
 					["qty"] = "smaxmp",
 					["set"] = {
@@ -29643,12 +30468,7 @@ data = {
 						["file"] = "WoWRDX:Mage_fset",
 					},
 				},
-				["color"] = {
-					["a"] = 1,
-					["r"] = 0,
-					["g"] = 0.3333333333333333,
-					["b"] = 1,
-				},
+				["sv"] = 2,
 				["val"] = {
 					["qty"] = "smp",
 					["set"] = {
@@ -29658,37 +30478,6 @@ data = {
 				},
 			},
 		},
-		["Focus_Main"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Target_Main_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["unitWatch"] = 1,
-					["clickable"] = 1,
-					["version"] = 1,
-					["unit"] = "focus",
-				}, -- [3]
-				{
-					["feature"] = "mousebindings",
-					["hotspot"] = "",
-					["version"] = 1,
-					["mbFriendly"] = "WoWRDX:Player_Main_mb",
-				}, -- [4]
-				{
-					["interval"] = 0.1,
-					["feature"] = "Event: Periodic Repaint",
-					["slot"] = "RepaintAll",
-				}, -- [5]
-			},
-		},
 		["Raid_Group6"] = {
 			["ty"] = "Window",
 			["version"] = 1,
@@ -29696,29 +30485,33 @@ data = {
 				{
 					["feature"] = "Frame: Lightweight",
 					["title"] = "Raid Group 6",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
-						["r"] = 0,
-						["g"] = 0,
 						["b"] = 0,
-					},
-					["defaultbuttons"] = 1,
-					["titleColor"] = {
-						["a"] = 1,
-						["r"] = 0,
 						["g"] = 0,
-						["b"] = 0,
+						["r"] = 0,
 					},
 					["texicon"] = {
 						["color"] = {
 							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
 							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
 						},
 						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
 						["blendMode"] = "BLEND",
 					},
+					["titleColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0,
+						["r"] = 0,
+					},
+					["defaultbuttons"] = 1,
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -29729,16 +30522,16 @@ data = {
 					["rostertype"] = "RAID",
 					["set"] = {
 						["class"] = "file",
-						["file"] = "WoWRDX:Raid_Group6_fset",
+						["file"] = "default:set_raid_group6",
 					},
 				}, -- [3]
 				{
 					["bkt"] = 1,
 					["switchvehicle"] = 1,
 					["dxn"] = 1,
-					["axis"] = 1,
-					["feature"] = "Header Grid",
 					["cols"] = 40,
+					["feature"] = "Header Grid",
+					["axis"] = 1,
 				}, -- [4]
 				{
 					["feature"] = "mousebindings",
@@ -29760,13 +30553,113 @@ data = {
 				}, -- [7]
 				{
 					["feature"] = "mp_args",
-					["period"] = 0.1,
 					["version"] = 1,
 					["dpm1"] = 0,
+					["period"] = 0.1,
 				}, -- [8]
 				{
 					["feature"] = "FilterSet Editor",
 				}, -- [9]
+			},
+		},
+		["Paladin_HolyPower_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 20,
+					["version"] = 1,
+					["w"] = 100,
+					["alpha"] = 1,
+				}, -- [1]
+				{
+					["feature"] = "Variable: Number power",
+					["powertype"] = "SPELL_POWER_HOLY_POWER",
+					["name"] = "nm",
+				}, -- [2]
+				{
+					["number"] = "nm",
+					["rows"] = 1,
+					["feature"] = "custom_icons",
+					["iconspx"] = 5,
+					["color4"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 0,
+					},
+					["ButtonSkinOffset"] = 3,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["externalButtonSkin"] = "bs_simplesquare",
+					["iconspy"] = 0,
+					["texture"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["blendMode"] = "BLEND",
+					},
+					["nIcons"] = 5,
+					["h"] = 20,
+					["usebs"] = true,
+					["owner"] = "decor",
+					["w"] = 20,
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 0,
+					},
+					["color2"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 0,
+					},
+					["color3"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 0,
+					},
+					["name"] = "customicon1",
+					["version"] = 1,
+					["orientation"] = "RIGHT",
+					["drawLayer"] = "ARTWORK",
+					["color5"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 0,
+					},
+					["bkd"] = {
+						["ka"] = 1,
+						["edgeSize"] = 12,
+						["tile"] = false,
+						["kr"] = 0.1,
+						["kb"] = 0.1,
+						["_backdrop"] = "solid",
+						["edgeFile"] = "Interface\\AddOns\\RDX_mediapack\\sharedmedia\\borders\\IshBorder",
+						["kg"] = 0.1,
+						["_border"] = "IshBorder",
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
+						["insets"] = {
+							["top"] = 4,
+							["right"] = 4,
+							["left"] = 4,
+							["bottom"] = 4,
+						},
+					},
+				}, -- [3]
 			},
 		},
 		["Raid_fset"] = {
@@ -29786,777 +30679,70 @@ data = {
 				},
 			},
 		},
-		["Arena_Main_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "base_default",
-					["h"] = 76,
-					["version"] = 1,
-					["w"] = 206,
-					["alpha"] = 1,
-				}, -- [1]
-				{
-					["feature"] = "Subframe",
-					["h"] = "BaseHeight",
-					["name"] = "pdt",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = -30,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["owner"] = "decor",
-					["w"] = "BaseWidth",
-					["flOffset"] = 1,
-				}, -- [2]
-				{
-					["feature"] = "commentline",
-				}, -- [3]
-				{
-					["feature"] = "Subframe",
-					["h"] = "26",
-					["name"] = "sf_plife",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_pdt",
-					},
-					["owner"] = "pdt",
-					["w"] = "BaseWidth",
-					["flOffset"] = 1,
-				}, -- [4]
-				{
-					["feature"] = "backdrop",
-					["owner"] = "sf_plife",
-					["version"] = 1,
-					["bkd"] = {
-						["_border"] = "straight",
-						["edgeSize"] = 8,
-						["tile"] = false,
-						["kb"] = 0,
-						["bg"] = 0,
-						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
-						["kr"] = 0,
-						["_backdrop"] = "solid",
-						["ba"] = 1,
-						["bb"] = 0,
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
-						["ka"] = 0.7119999825954437,
-						["kg"] = 0,
-						["br"] = 0,
-						["insets"] = {
-							["top"] = 2,
-							["right"] = 2,
-							["left"] = 2,
-							["bottom"] = 2,
-						},
-					},
-				}, -- [5]
-				{
-					["feature"] = "var_pred_health",
-				}, -- [6]
-				{
-					["feature"] = "ColorVariable: Static Color",
-					["name"] = "green",
-					["color"] = {
-						["a"] = 0.903999999165535,
-						["b"] = 0,
-						["g"] = 1,
-						["r"] = 0.04313725490196078,
-					},
-				}, -- [7]
-				{
-					["frac"] = "pfh",
-					["drawLayer"] = "ARTWORK",
-					["owner"] = "sf_plife",
-					["w"] = "200",
-					["h"] = "21",
-					["sublevel"] = 1,
-					["colorVar"] = "green",
-					["name"] = "sb_plife",
-					["orientation"] = "HORIZONTAL",
-					["anchor"] = {
-						["dx"] = 3,
-						["dy"] = -3,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_sf_plife",
-					},
-					["version"] = 1,
-					["feature"] = "statusbar_horiz",
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
-					},
-				}, -- [8]
-				{
-					["feature"] = "commentline",
-				}, -- [9]
-				{
-					["feature"] = "Subframe",
-					["h"] = "26",
-					["name"] = "sf_life",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_pdt",
-					},
-					["owner"] = "pdt",
-					["w"] = "BaseWidth",
-					["flOffset"] = 2,
-				}, -- [10]
-				{
-					["feature"] = "Variable: Fractional health (fh)",
-				}, -- [11]
-				{
-					["neutralColor"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0.75,
-						["r"] = 0.75,
-					},
-					["friendlyColor"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0.75,
-						["r"] = 0,
-					},
-					["friendlyWarlockColor"] = {
-						["a"] = 1,
-						["b"] = 0.79,
-						["g"] = 0.51,
-						["r"] = 0.58,
-					},
-					["feature"] = "colorvar_hostility_class",
-					["friendlyDruidColor"] = {
-						["a"] = 1,
-						["b"] = 0.04,
-						["g"] = 0.49,
-						["r"] = 1,
-					},
-					["friendlyDeathKnightColor"] = {
-						["a"] = 1,
-						["b"] = 0.23,
-						["g"] = 0.12,
-						["r"] = 0.77,
-					},
-					["friendlyMageColor"] = {
-						["a"] = 1,
-						["b"] = 0.94,
-						["g"] = 0.8,
-						["r"] = 0.41,
-					},
-					["friendlyPriestColor"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["friendlyRogueColor"] = {
-						["a"] = 1,
-						["b"] = 0.41,
-						["g"] = 0.96,
-						["r"] = 1,
-					},
-					["friendlyPaladinColor"] = {
-						["a"] = 1,
-						["b"] = 0.73,
-						["g"] = 0.55,
-						["r"] = 0.96,
-					},
-					["hostileColor"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0.15,
-						["r"] = 0.75,
-					},
-					["name"] = "hostilityclassColor",
-					["friendlyShamanColor"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 0.34,
-						["r"] = 0.14,
-					},
-					["friendlyHunterColor"] = {
-						["a"] = 1,
-						["b"] = 0.45,
-						["g"] = 0.83,
-						["r"] = 0.67,
-					},
-					["friendlyWarriorColor"] = {
-						["a"] = 1,
-						["b"] = 0.43,
-						["g"] = 0.61,
-						["r"] = 0.78,
-					},
-				}, -- [12]
-				{
-					["interpolate"] = 1,
-					["drawLayer"] = "ARTWORK",
-					["colorVar"] = "hostilityclassColor",
-					["owner"] = "sf_life",
-					["w"] = "200",
-					["name"] = "sb_life",
-					["feature"] = "statusbar_horiz",
-					["h"] = "21",
-					["version"] = 1,
-					["orientation"] = "HORIZONTAL",
-					["anchor"] = {
-						["dx"] = 3,
-						["dy"] = -3,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_sf_life",
-					},
-					["sublevel"] = 2,
-					["frac"] = "fh",
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
-					},
-				}, -- [13]
-				{
-					["txt"] = "pheal",
-					["owner"] = "sf_life",
-					["w"] = "100",
-					["feature"] = "txt_dyn",
-					["font"] = {
-						["size"] = 12,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "RIGHT",
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sb"] = 0,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sx"] = 1,
-						["sr"] = 0,
-					},
-					["name"] = "text_pheal",
-					["anchor"] = {
-						["dx"] = -5,
-						["dy"] = 0,
-						["lp"] = "RIGHT",
-						["rp"] = "RIGHT",
-						["af"] = "Frame_sf_life",
-					},
-					["h"] = "14",
-					["version"] = 1,
-				}, -- [14]
-				{
-					["owner"] = "sf_life",
-					["w"] = "150",
-					["feature"] = "txt_status",
-					["ty"] = "hptxt2",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 5,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Frame_sf_life",
-					},
-					["name"] = "text_vie",
-					["h"] = "14",
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "LEFT",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["title"] = "Default",
-						["name"] = "Default",
-						["sx"] = 1,
-						["sr"] = 0,
-					},
-				}, -- [15]
-				{
-					["owner"] = "sf_life",
-					["w"] = "100",
-					["feature"] = "txt_status",
-					["font"] = {
-						["size"] = 12,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["title"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sb"] = 0,
-						["name"] = "Default",
-						["sy"] = -1,
-						["sx"] = 1,
-						["sr"] = 0,
-					},
-					["name"] = "text_dead",
-					["anchor"] = {
-						["dx"] = 5,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Frame_sf_life",
-					},
-					["ty"] = "fdld",
-					["h"] = "14",
-					["version"] = 1,
-				}, -- [16]
-				{
-					["owner"] = "sf_life",
-					["w"] = "100",
-					["feature"] = "txt_status",
-					["font"] = {
-						["size"] = 12,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["title"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "RIGHT",
-						["sb"] = 0,
-						["name"] = "Default",
-						["sy"] = -1,
-						["sx"] = 1,
-						["sr"] = 0,
-					},
-					["name"] = "text_mob",
-					["anchor"] = {
-						["dx"] = -5,
-						["dy"] = 0,
-						["lp"] = "RIGHT",
-						["rp"] = "RIGHT",
-						["af"] = "Frame_sf_life",
-					},
-					["ty"] = "mobtype",
-					["h"] = "14",
-					["version"] = 1,
-				}, -- [17]
-				{
-					["feature"] = "commentline",
-				}, -- [18]
-				{
-					["feature"] = "Subframe",
-					["h"] = "16",
-					["name"] = "sf_mana",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = -23,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_pdt",
-					},
-					["owner"] = "pdt",
-					["w"] = "BaseWidth",
-					["flOffset"] = 2,
-				}, -- [19]
-				{
-					["feature"] = "backdrop",
-					["owner"] = "sf_mana",
-					["version"] = 1,
-					["bkd"] = {
-						["ka"] = 0.7119999825954437,
-						["edgeSize"] = 8,
-						["tile"] = false,
-						["kb"] = 0,
-						["bg"] = 0,
-						["kg"] = 0,
-						["kr"] = 0,
-						["_backdrop"] = "solid",
-						["ba"] = 1,
-						["bb"] = 0,
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
-						["_border"] = "straight",
-						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
-						["br"] = 0,
-						["insets"] = {
-							["top"] = 2,
-							["right"] = 2,
-							["left"] = 2,
-							["bottom"] = 2,
-						},
-					},
-				}, -- [20]
-				{
-					["energyColor"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0.75,
-						["r"] = 0.75,
-					},
-					["rageColor"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0,
-						["r"] = 1,
-					},
-					["focusColor"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 0.5,
-						["b"] = 0.2,
-					},
-					["feature"] = "ColorVariable: Unit PowerType Color",
-					["runeColor"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 0.75,
-						["r"] = 0,
-					},
-					["manaColor"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 0.5450980392156862,
-						["r"] = 0,
-					},
-				}, -- [21]
-				{
-					["feature"] = "Variable: Fractional mana (fm)",
-					["powertype"] = "nil",
-					["name"] = "fm",
-				}, -- [22]
-				{
-					["frac"] = "fm",
-					["flOffset"] = 2,
-					["owner"] = "sf_mana",
-					["w"] = "200",
-					["colorVar"] = "powerColor",
-					["feature"] = "statusbar_horiz",
-					["h"] = "10",
-					["version"] = 1,
-					["orientation"] = "HORIZONTAL",
-					["anchor"] = {
-						["dx"] = 3,
-						["dy"] = -3,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_sf_mana",
-					},
-					["name"] = "sb_power",
-					["interpolate"] = 1,
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
-					},
-				}, -- [23]
-				{
-					["owner"] = "sf_mana",
-					["w"] = "100",
-					["feature"] = "txt_status",
-					["ty"] = "mptxt",
-					["name"] = "text_mana",
-					["anchor"] = {
-						["dx"] = 5,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Frame_sf_mana",
-					},
-					["h"] = "14",
-					["font"] = {
-						["size"] = 10,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "LEFT",
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sx"] = 1,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
-					["version"] = 1,
-				}, -- [24]
-				{
-					["feature"] = "commentline",
-				}, -- [25]
-				{
-					["feature"] = "Subframe",
-					["h"] = "39",
-					["name"] = "sf_sup",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_pdt",
-					},
-					["owner"] = "pdt",
-					["w"] = "BaseWidth",
-					["flOffset"] = 3,
-				}, -- [26]
-				{
-					["feature"] = "backdrop",
-					["owner"] = "sf_sup",
-					["version"] = 1,
-					["bkd"] = {
-						["_border"] = "straight",
-						["edgeSize"] = 20,
-						["ba"] = 0,
-						["_backdrop"] = "none",
-						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
-						["br"] = 1,
-						["bb"] = 1,
-						["bg"] = 1,
-						["insets"] = {
-							["top"] = 2,
-							["right"] = 2,
-							["left"] = 2,
-							["bottom"] = 2,
-						},
-					},
-				}, -- [27]
-				{
-					["feature"] = "Variable: Unit In Set",
-					["name"] = "aggro",
-					["set"] = {
-						["class"] = "ags",
-					},
-				}, -- [28]
-				{
-					["feature"] = "ColorVariable: Static Color",
-					["name"] = "red",
-					["color"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 0,
-						["r"] = 1,
-					},
-				}, -- [29]
-				{
-					["feature"] = "ColorVariable: Static Color",
-					["name"] = "nocolor",
-					["color"] = {
-						["a"] = 0,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
-				}, -- [30]
-				{
-					["condVar"] = "aggro_flag",
-					["name"] = "aggrocolour",
-					["colorVar1"] = "red",
-					["colorVar2"] = "nocolor",
-					["feature"] = "ColorVariable: Conditional Color",
-				}, -- [31]
-				{
-					["feature"] = "Backdrop Border Colorizer",
-					["owner"] = "sf_sup",
-					["flag"] = "true",
-					["color"] = "aggrocolour",
-				}, -- [32]
-				{
-					["feature"] = "commentline",
-				}, -- [33]
-				{
-					["feature"] = "Raid Target Icon",
-					["h"] = "30",
-					["name"] = "rti",
-					["ButtonSkinOffset"] = 0,
-					["anchor"] = {
-						["dx"] = -3,
-						["dy"] = -3,
-						["lp"] = "TOPRIGHT",
-						["rp"] = "TOPRIGHT",
-						["af"] = "Frame_sf_sup",
-					},
-					["owner"] = "sf_sup",
-					["w"] = "30",
-					["drawLayer"] = "ARTWORK",
-				}, -- [34]
-				{
-					["owner"] = "pdt",
-					["w"] = "30",
-					["feature"] = "txt_status",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 15,
-					},
-					["name"] = "status_text",
-					["anchor"] = {
-						["dx"] = 2,
-						["dy"] = 21,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_pdt",
-					},
-					["ty"] = "level",
-					["h"] = "30",
-					["version"] = 1,
-				}, -- [35]
-				{
-					["owner"] = "pdt",
-					["w"] = "200",
-					["classColor"] = 1,
-					["h"] = "30",
-					["version"] = 1,
-					["font"] = {
-						["size"] = 15,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["name"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["title"] = "Default",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
-					["anchor"] = {
-						["dx"] = 21,
-						["dy"] = 21,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_pdt",
-					},
-					["trunc"] = 20,
-					["name"] = "np",
-					["feature"] = "txt_np",
-				}, -- [36]
-				{
-					["rows"] = 1,
-					["filterNameList"] = {
-					},
-					["feature"] = "aura_icons",
-					["iconspx"] = 2,
-					["cd"] = {
-						["Offsety"] = 0,
-						["GfxReverse"] = true,
-						["Font"] = {
-							["name"] = "Default",
-							["title"] = "Default",
-							["justifyH"] = "LEFT",
-							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-							["justifyV"] = "CENTER",
-							["size"] = 7,
-						},
-						["TimerType"] = "COOLDOWN",
-						["offsety"] = "0",
-						["offsetx"] = "10",
-						["Offsetx"] = 0,
-						["TextType"] = "Seconds",
-						["HideText"] = 0,
-					},
-					["bkd"] = {
-						["_border"] = "none",
-						["_backdrop"] = "none",
-					},
-					["anchor"] = {
-						["dx"] = 4,
-						["dy"] = -40,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Frame_pdt",
-					},
-					["externalButtonSkin"] = "Builtin:bs_default",
-					["iconspy"] = 0,
-					["maxdurationfilter"] = "",
-					["mindurationfilter"] = "",
-					["auraType"] = "DEBUFFS",
-					["owner"] = "pdt",
-					["playerauras"] = 1,
-					["fontst"] = {
-						["name"] = "Default",
-						["title"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 12,
-					},
-					["ButtonSkinOffset"] = 0,
-					["name"] = "debuff",
-					["nIcons"] = 10,
-					["orientation"] = "RIGHT",
-					["size"] = 12,
-					["version"] = 1,
-					["unitfilter"] = "",
-				}, -- [37]
-				{
-					["mover"] = 1,
-					["w"] = 206,
-					["feature"] = "hotspot",
-					["flo"] = 3,
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["h"] = 76,
-					["secure"] = 1,
-					["name"] = "",
-				}, -- [38]
-			},
-		},
-		["Player_CastBar"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:Player_CastBar_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
-			},
-		},
-		["Not_Dead_fset"] = {
+		["Range_0_15_fset"] = {
 			["ty"] = "FilterSet",
 			["version"] = 1,
 			["data"] = {
 				"and", -- [1]
 				{
-					"not", -- [1]
+					"set", -- [1]
 					{
-						"dead", -- [1]
+						["item"] = "heavy frostweave bandage",
+						["class"] = "itemrange",
 					}, -- [2]
 				}, -- [2]
 				{
 					"ol", -- [1]
 				}, -- [3]
+			},
+		},
+		["Paladin_Power_stc"] = {
+			["ty"] = "Statistic",
+			["version"] = 1,
+			["data"] = {
+				["texture"] = "",
+				["fadeColor"] = {
+					["a"] = 1,
+					["r"] = 0.6352941176470583,
+					["g"] = 0,
+					["b"] = 0.5372549019607842,
+				},
+				["name"] = "Paladin",
+				["color"] = {
+					["a"] = 1,
+					["r"] = 1,
+					["g"] = 0.2274509803921569,
+					["b"] = 0.4862745098039216,
+				},
+				["pct"] = 1,
+				["max"] = {
+					["qty"] = "smaxmp",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Paladin_fset",
+					},
+				},
+				["sv"] = 2,
+				["val"] = {
+					["qty"] = "smp",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Paladin_fset",
+					},
+				},
+			},
+		},
+		["ClassBarDefault_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
 				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["buff"] = 27827,
-							["class"] = "buff",
-						}, -- [2]
-					}, -- [2]
-				}, -- [4]
+					["feature"] = "base_default",
+					["h"] = 14,
+					["version"] = 1,
+					["w"] = 90,
+					["alpha"] = 1,
+				}, -- [1]
 			},
 		},
 		["Tank_fset"] = {
@@ -30591,14 +30777,14 @@ data = {
 					["borientation"] = "HORIZONTAL",
 					["iconfont"] = {
 						["sr"] = 0,
-						["sa"] = 1,
+						["flags"] = "OUTLINE",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sx"] = 1,
-						["flags"] = "OUTLINE",
+						["sb"] = 0,
+						["sa"] = 1,
 						["sg"] = 0,
 						["title"] = "Default",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sy"] = -1,
 						["name"] = "Default",
 						["justifyH"] = "LEFT",
@@ -30629,7 +30815,7 @@ data = {
 					},
 					["unitfilter"] = "",
 					["iconspy"] = 1,
-					["maxdurationfilter"] = 3000,
+					["nIcons"] = 10,
 					["smooth"] = 1,
 					["sbtexture"] = {
 						["blendMode"] = "BLEND",
@@ -30640,11 +30826,11 @@ data = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\RDX_mediapack\\Fonts\\airstrip.ttf",
 						["justifyV"] = "CENTER",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "LEFT",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sy"] = -1,
 						["title"] = "Default",
 						["name"] = "Default",
@@ -30657,11 +30843,11 @@ data = {
 						["sr"] = 0,
 						["face"] = "Interface\\Addons\\RDX_mediapack\\Fonts\\airstrip.ttf",
 						["justifyV"] = "CENTER",
-						["sx"] = 1,
+						["sb"] = 0,
 						["sa"] = 1,
 						["sg"] = 0,
 						["justifyH"] = "RIGHT",
-						["sb"] = 0,
+						["sx"] = 1,
 						["sy"] = -1,
 						["title"] = "Default",
 						["name"] = "Default",
@@ -30673,7 +30859,7 @@ data = {
 					["auraType"] = "DEBUFFS",
 					["orientation"] = "DOWN",
 					["abr"] = 1,
-					["nIcons"] = 10,
+					["maxdurationfilter"] = 3000,
 					["iconposition"] = "LEFT",
 				}, -- [2]
 			},
@@ -30755,11 +30941,26 @@ data = {
 				}, -- [5]
 			},
 		},
-		["Paladin_Buff_Kings_af"] = {
-			["ty"] = "AuraFilter",
+		["Player_CastBar"] = {
+			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
-				79062, -- [1]
+				{
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Player_CastBar_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
+				}, -- [3]
 			},
 		},
 		["Not_Elixirs_Guardian_fset"] = {
@@ -30953,14 +31154,14 @@ data = {
 						["r"] = 0,
 					},
 					["owner"] = "decor",
-					["version"] = 1,
+					["name"] = "rune_bar_skin",
 					["deathColor"] = {
 						["a"] = 1,
 						["b"] = 0.6000000000000001,
 						["g"] = 0.3,
 						["r"] = 0.6000000000000001,
 					},
-					["name"] = "rune_bar_skin",
+					["version"] = 1,
 					["cd"] = {
 						["HideText"] = 0,
 						["Font"] = {
@@ -30990,14 +31191,520 @@ data = {
 				}, -- [2]
 			},
 		},
+		["Mage_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"classes", -- [1]
+					[8] = true,
+				}, -- [2]
+				{
+					"ol", -- [1]
+				}, -- [3]
+			},
+		},
+		["Range_0_10_ODM_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["n"] = 2,
+						["class"] = "frs",
+					}, -- [2]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"me", -- [1]
+					}, -- [2]
+				}, -- [3]
+				{
+					"ol", -- [1]
+				}, -- [4]
+				{
+					"not", -- [1]
+					{
+						"dead", -- [1]
+					}, -- [2]
+				}, -- [5]
+				{
+					"nidmask", -- [1]
+					true, -- [2]
+				}, -- [6]
+			},
+		},
+		["Range_15_30_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["n"] = 3,
+						["class"] = "frs",
+					}, -- [2]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["file"] = "WoWRDX:Range_0_15_fset",
+							["class"] = "file",
+						}, -- [2]
+					}, -- [2]
+				}, -- [3]
+				{
+					"ol", -- [1]
+				}, -- [4]
+			},
+		},
+		["ChatEditBox1_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 30,
+					["version"] = 1,
+					["alpha"] = 1,
+					["w"] = 400,
+				}, -- [1]
+				{
+					["feature"] = "chatframeeditbox",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = 400,
+					["ak"] = 1,
+				}, -- [2]
+			},
+		},
+		["Paladin_Buff_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "ColorVariable: Unit Class Color",
+				}, -- [1]
+				{
+					["feature"] = "commentline",
+				}, -- [2]
+				{
+					["feature"] = "base_default",
+					["h"] = 20,
+					["version"] = 1,
+					["alpha"] = 1,
+					["w"] = 138,
+				}, -- [3]
+				{
+					["feature"] = "Subframe",
+					["h"] = "20",
+					["name"] = "sub1",
+					["anchor"] = {
+						["dx"] = 100,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = "20",
+					["flOffset"] = 1,
+				}, -- [4]
+				{
+					["feature"] = "backdrop",
+					["owner"] = "sub1",
+					["version"] = 1,
+					["bkd"] = {
+						["_border"] = "straight",
+						["edgeSize"] = 8,
+						["_backdrop"] = "none",
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["insets"] = {
+							["top"] = 2,
+							["right"] = 2,
+							["left"] = 2,
+							["bottom"] = 2,
+						},
+					},
+				}, -- [5]
+				{
+					["feature"] = "Subframe",
+					["h"] = 20,
+					["name"] = "sub2",
+					["anchor"] = {
+						["dx"] = 120,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = 20,
+					["flOffset"] = 1,
+				}, -- [6]
+				{
+					["feature"] = "backdrop",
+					["owner"] = "sub2",
+					["version"] = 1,
+					["bkd"] = {
+						["_border"] = "straight",
+						["edgeSize"] = 8,
+						["_backdrop"] = "none",
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\straight-border",
+						["insets"] = {
+							["top"] = 2,
+							["right"] = 2,
+							["left"] = 2,
+							["bottom"] = 2,
+						},
+					},
+				}, -- [7]
+				{
+					["feature"] = "Subframe",
+					["h"] = 20,
+					["name"] = "subframe",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = 100,
+					["flOffset"] = 1,
+				}, -- [8]
+				{
+					["owner"] = "decor",
+					["w"] = 70,
+					["feature"] = "txt_np",
+					["h"] = 18,
+					["name"] = "np",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Base",
+					},
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "RIGHT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["title"] = "Default",
+						["sx"] = 1,
+						["sb"] = 0,
+						["name"] = "Default",
+						["sy"] = -1,
+						["size"] = 10,
+					},
+					["classColor"] = 1,
+					["version"] = 1,
+				}, -- [9]
+				{
+					["owner"] = "subframe",
+					["w"] = 20,
+					["feature"] = "ico_subclass",
+					["h"] = 20,
+					["name"] = "rtai",
+					["ButtonSkinOffset"] = 0,
+					["anchor"] = {
+						["dx"] = 75,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["ukfilter"] = 1,
+					["drawLayer"] = "ARTWORK",
+				}, -- [10]
+				{
+					["externalNameFilter"] = "WoWRDX:Paladin_Buff_Kings_af",
+					["rows"] = 1,
+					["fontst"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 12,
+					},
+					["feature"] = "aura_icons",
+					["iconspx"] = 0,
+					["cd"] = {
+						["HideText"] = 0,
+						["Font"] = {
+							["title"] = "Default",
+							["name"] = "Default",
+							["justifyH"] = "CENTER",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 10,
+						},
+						["Offsety"] = 0,
+						["TimerType"] = "COOLDOWN",
+						["Offsetx"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["TextType"] = "Seconds",
+						["GfxReverse"] = true,
+					},
+					["ButtonSkinOffset"] = 1,
+					["anchor"] = {
+						["dx"] = 102,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Base",
+					},
+					["iconspy"] = 0,
+					["nIcons"] = 1,
+					["mindurationfilter"] = "",
+					["auraType"] = "BUFFS",
+					["owner"] = "sub1",
+					["usebs"] = true,
+					["filterName"] = 1,
+					["maxdurationfilter"] = "",
+					["version"] = 1,
+					["name"] = "kinga",
+					["orientation"] = "RIGHT",
+					["size"] = 16,
+					["filterNameList"] = {
+					},
+					["unitfilter"] = "",
+				}, -- [11]
+				{
+					["w"] = "16",
+					["feature"] = "hotspot",
+					["flo"] = 3,
+					["name"] = "kings",
+					["hlt"] = {
+						["blendMode"] = "ADD",
+						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
+					},
+					["anchor"] = {
+						["dx"] = 102,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["h"] = "16",
+					["secure"] = 1,
+				}, -- [12]
+				{
+					["externalNameFilter"] = "WoWRDX:Paladin_Buff_Might_af",
+					["rows"] = 1,
+					["fontst"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 12,
+					},
+					["feature"] = "aura_icons",
+					["iconspx"] = 0,
+					["cd"] = {
+						["HideText"] = 0,
+						["Font"] = {
+							["title"] = "Default",
+							["name"] = "Default",
+							["justifyH"] = "CENTER",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 10,
+						},
+						["Offsety"] = 0,
+						["TimerType"] = "COOLDOWN",
+						["Offsetx"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["TextType"] = "Seconds",
+						["GfxReverse"] = true,
+					},
+					["ButtonSkinOffset"] = 1,
+					["anchor"] = {
+						["dx"] = 122,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Base",
+					},
+					["iconspy"] = 0,
+					["nIcons"] = 1,
+					["mindurationfilter"] = "",
+					["auraType"] = "BUFFS",
+					["owner"] = "sub2",
+					["usebs"] = true,
+					["filterName"] = 1,
+					["maxdurationfilter"] = "",
+					["version"] = 1,
+					["name"] = "mighta",
+					["orientation"] = "RIGHT",
+					["size"] = 16,
+					["filterNameList"] = {
+					},
+					["unitfilter"] = "",
+				}, -- [13]
+				{
+					["w"] = "16",
+					["feature"] = "hotspot",
+					["flo"] = 3,
+					["name"] = "might",
+					["hlt"] = {
+						["blendMode"] = "ADD",
+						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
+					},
+					["anchor"] = {
+						["dx"] = 122,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["h"] = "16",
+					["secure"] = 1,
+				}, -- [14]
+				{
+					["feature"] = "commentline",
+				}, -- [15]
+				{
+					["cleanupPolicy"] = 3,
+					["owner"] = "decor",
+					["w"] = "100",
+					["feature"] = "texture",
+					["h"] = "19",
+					["name"] = "tex_range",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Base",
+					},
+					["sublevel"] = 1,
+					["drawLayer"] = "ARTWORK",
+					["texture"] = {
+						["vertexColor"] = {
+							["a"] = 0,
+							["r"] = 1,
+							["g"] = 1,
+							["b"] = 1,
+						},
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\TargetingFrame\\UI-StatusBar",
+					},
+				}, -- [16]
+				{
+					["feature"] = "Variable: Unit In Set",
+					["name"] = "unitnotInRange30",
+					["set"] = {
+						["file"] = "WoWRDX:Range_not_0_30_dead_fset",
+						["class"] = "file",
+					},
+				}, -- [17]
+				{
+					["color"] = {
+						["a"] = 0.8039999902248383,
+						["b"] = 0,
+						["g"] = 0.04705882352941176,
+						["r"] = 0.5882352941176472,
+					},
+					["name"] = "red",
+					["feature"] = "ColorVariable: Static Color",
+				}, -- [18]
+				{
+					["color"] = {
+						["a"] = 0,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["name"] = "alpha",
+					["feature"] = "ColorVariable: Static Color",
+				}, -- [19]
+				{
+					["condVar"] = "unitnotInRange30_flag",
+					["name"] = "range",
+					["colorVar1"] = "red",
+					["feature"] = "ColorVariable: Conditional Color",
+					["colorVar2"] = "alpha",
+				}, -- [20]
+				{
+					["feature"] = "Highlight: Texture Map",
+					["flag"] = "true",
+					["color"] = "range",
+					["texture"] = "tex_range",
+				}, -- [21]
+			},
+		},
+		["Tank_health_stc"] = {
+			["ty"] = "Statistic",
+			["version"] = 1,
+			["data"] = {
+				["val"] = {
+					["qty"] = "shp",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Tank_fset",
+					},
+				},
+				["fadeColor"] = {
+					["a"] = 1,
+					["r"] = 0.4705882352941178,
+					["g"] = 0,
+					["b"] = 0.01176470588235294,
+				},
+				["name"] = "Tank HP",
+				["sv"] = 1,
+				["color"] = {
+					["a"] = 1,
+					["r"] = 0.02352941176470588,
+					["g"] = 0.5254901960784313,
+					["b"] = 0,
+				},
+				["max"] = {
+					["qty"] = "smaxhp",
+					["set"] = {
+						["class"] = "file",
+						["file"] = "WoWRDX:Tank_fset",
+					},
+				},
+				["pct"] = 1,
+				["texture"] = "",
+			},
+		},
 		["Overheal_Done"] = {
 			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
 				{
 					["feature"] = "Frame: Lightweight",
-					["showtitlebar"] = 1,
 					["title"] = "Overhealing Done",
+					["showtitlebar"] = 1,
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 					["bkdColor"] = {
 						["a"] = 0,
 						["r"] = 0,
@@ -31040,8 +31747,8 @@ data = {
 					["feature"] = "FilterSet Editor",
 				}, -- [6]
 				{
-					["interval"] = 0.1,
 					["feature"] = "Event: Periodic Repaint",
+					["interval"] = 0.1,
 					["slot"] = "RepaintAll",
 				}, -- [7]
 				{
@@ -31050,65 +31757,60 @@ data = {
 				}, -- [8]
 			},
 		},
-		["Hunter_Power_stc"] = {
-			["ty"] = "Statistic",
-			["version"] = 1,
-			["data"] = {
-				["texture"] = "",
-				["fadeColor"] = {
-					["a"] = 1,
-					["r"] = 0.6352941176470583,
-					["g"] = 0,
-					["b"] = 0.5372549019607842,
-				},
-				["name"] = "Hunter",
-				["pct"] = 1,
-				["sv"] = 2,
-				["max"] = {
-					["qty"] = "smaxmp",
-					["set"] = {
-						["class"] = "file",
-						["file"] = "WoWRDX:Hunter_fset",
-					},
-				},
-				["color"] = {
-					["a"] = 1,
-					["r"] = 0,
-					["g"] = 0.5450980392156861,
-					["b"] = 0.1019607843137255,
-				},
-				["val"] = {
-					["qty"] = "smp",
-					["set"] = {
-						["class"] = "file",
-						["file"] = "WoWRDX:Hunter_fset",
-					},
-				},
-			},
-		},
-		["Bossmod_af"] = {
-			["ty"] = "AuraFilter",
-			["version"] = 1,
-			["data"] = {
-				"@other", -- [1]
-				"!69127", -- [2]
-				"!57724", -- [3]
-			},
-		},
-		["ChatEditBox1_ds"] = {
+		["Player_CastBar_ds"] = {
 			["ty"] = "Design",
 			["version"] = 1,
 			["data"] = {
 				{
-					["feature"] = "base_default",
-					["h"] = 30,
-					["version"] = 1,
-					["alpha"] = 1,
-					["w"] = 400,
+					["feature"] = "var_spellinfo",
 				}, -- [1]
 				{
-					["feature"] = "chatframeeditbox",
+					["feature"] = "var_castlag",
+				}, -- [2]
+				{
+					["feature"] = "ColorVariable: Static Color",
+					["name"] = "yellow",
+					["color"] = {
+						["a"] = 1,
+						["r"] = 0.788235294117647,
+						["g"] = 0.7764705882352941,
+						["b"] = 0,
+					},
+				}, -- [3]
+				{
+					["feature"] = "ColorVariable: Static Color",
+					["name"] = "green",
+					["color"] = {
+						["a"] = 1,
+						["r"] = 0.3254901960784314,
+						["g"] = 0.7568627450980392,
+						["b"] = 0,
+					},
+				}, -- [4]
+				{
+					["condVar"] = "spell_channeled",
+					["name"] = "barColor",
+					["colorVar1"] = "yellow",
+					["feature"] = "ColorVariable: Conditional Color",
+					["colorVar2"] = "green",
+				}, -- [5]
+				{
+					["feature"] = "commentline",
+				}, -- [6]
+				{
+					["feature"] = "base_default",
+					["h"] = 26,
 					["version"] = 1,
+					["w"] = 206,
+					["alpha"] = 1,
+				}, -- [7]
+				{
+					["feature"] = "Subframe",
+					["h"] = "BaseHeight",
+					["name"] = "subframe",
+					["flOffset"] = 1,
+					["owner"] = "decor",
+					["w"] = "BaseWidth",
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -31116,202 +31818,308 @@ data = {
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["owner"] = "decor",
-					["w"] = 400,
-					["ak"] = 1,
-				}, -- [2]
+				}, -- [8]
+				{
+					["feature"] = "backdrop",
+					["owner"] = "subframe",
+					["version"] = 1,
+					["bkd"] = {
+						["ka"] = 0.4239999651908875,
+						["kg"] = 0,
+						["tile"] = false,
+						["kb"] = 0,
+						["bg"] = 0,
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
+						["kr"] = 0,
+						["_border"] = "HalStraight",
+						["ba"] = 1,
+						["bb"] = 0,
+						["edgeFile"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalBorder",
+						["_backdrop"] = "solid",
+						["edgeSize"] = 8,
+						["br"] = 0,
+						["insets"] = {
+							["top"] = 2,
+							["right"] = 2,
+							["left"] = 2,
+							["bottom"] = 2,
+						},
+					},
+				}, -- [9]
+				{
+					["frac"] = "",
+					["flOffset"] = 0,
+					["owner"] = "subframe",
+					["w"] = "180",
+					["feature"] = "statusbar_horiz",
+					["h"] = "20",
+					["version"] = 1,
+					["colorVar"] = "barColor",
+					["anchor"] = {
+						["dx"] = 23,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Frame_subframe",
+					},
+					["orientation"] = "HORIZONTAL",
+					["name"] = "castBar",
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Striped",
+					},
+				}, -- [10]
+				{
+					["cleanupPolicy"] = 1,
+					["owner"] = "subframe",
+					["w"] = "2",
+					["feature"] = "texture",
+					["h"] = "20",
+					["name"] = "highlight",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 1,
+						["dy"] = 0,
+						["lp"] = "TOPRIGHT",
+						["rp"] = "TOPRIGHT",
+						["af"] = "Frame_castBar",
+					},
+					["sublevel"] = 1,
+					["drawLayer"] = "ARTWORK",
+					["texture"] = {
+						["color"] = {
+							["a"] = 0.718999981880188,
+							["r"] = 1,
+							["g"] = 1,
+							["b"] = 0,
+						},
+						["blendMode"] = "BLEND",
+					},
+				}, -- [11]
+				{
+					["script"] = "",
+					["owner"] = "subframe",
+					["w"] = "50",
+					["feature"] = "txt_custom",
+					["h"] = "14",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = -5,
+						["dy"] = 0,
+						["lp"] = "RIGHT",
+						["rp"] = "RIGHT",
+						["af"] = "Frame_subframe",
+					},
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "RIGHT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 10,
+					},
+					["name"] = "spellTimer",
+				}, -- [12]
+				{
+					["script"] = "",
+					["owner"] = "subframe",
+					["w"] = "150",
+					["feature"] = "txt_custom",
+					["h"] = "14",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 25,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Frame_subframe",
+					},
+					["name"] = "spellname",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 10,
+					},
+				}, -- [13]
+				{
+					["cleanupPolicy"] = 3,
+					["owner"] = "subframe",
+					["w"] = "20",
+					["feature"] = "texture",
+					["h"] = "20",
+					["version"] = 1,
+					["name"] = "spellIcon",
+					["anchor"] = {
+						["dx"] = 3,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Frame_subframe",
+					},
+					["drawLayer"] = "OVERLAY",
+					["sublevel"] = 1,
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "",
+					},
+				}, -- [14]
+				{
+					["TEIDefaultState"] = "Hide",
+					["textInfo"] = "spellname",
+					["sbExpireState"] = "Hide",
+					["TTIExpireState"] = "Hide",
+					["feature"] = "free_timer",
+					["sbDefaultState"] = "Hide",
+					["TTIDefaultState"] = "Hide",
+					["textType"] = "Tenths",
+					["statusBar"] = "castBar",
+					["text"] = "spellTimer",
+					["texIcon"] = "spellIcon",
+					["TEIExpireState"] = "Hide",
+					["color2"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["TL"] = 0,
+					["version"] = 1,
+					["countTypeFlag"] = "spell_casting",
+					["tex"] = "spell_icon",
+					["txt"] = "spell_name_rank",
+					["timerVar"] = "spell",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+				}, -- [15]
+				{
+					["frac"] = "spell_fraclag",
+					["flOffset"] = 0,
+					["owner"] = "subframe",
+					["w"] = "180",
+					["color1"] = {
+						["a"] = 0.4695078730583191,
+						["r"] = 1,
+						["g"] = 0.2784313725490196,
+						["b"] = 0,
+					},
+					["feature"] = "statusbar_horiz",
+					["h"] = "20",
+					["version"] = 1,
+					["color2"] = {
+						["a"] = 0.4695078730583191,
+						["r"] = 1,
+						["g"] = 0.2784313725490196,
+						["b"] = 0,
+					},
+					["anchor"] = {
+						["dx"] = -2,
+						["dy"] = 0,
+						["lp"] = "RIGHT",
+						["rp"] = "RIGHT",
+						["af"] = "Frame_subframe",
+					},
+					["orientation"] = "HORIZONTAL",
+					["name"] = "lagBar",
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalU",
+					},
+				}, -- [16]
+				{
+					["txt"] = "spell_lag_number",
+					["owner"] = "subframe",
+					["w"] = "50",
+					["feature"] = "txt_dyn",
+					["h"] = "14",
+					["name"] = "infoText",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPRIGHT",
+						["rp"] = "BOTTOMRIGHT",
+						["af"] = "Frame_subframe",
+					},
+					["version"] = 1,
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Fonts\\ARIALN.TTF",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "RIGHT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
+				}, -- [17]
+				{
+					["feature"] = "shader_showhide",
+					["owner"] = "subframe",
+					["version"] = 1,
+					["flag"] = "spell_castingOrChanneled",
+				}, -- [18]
 			},
 		},
-		["MainMenu"] = {
+		["Info"] = {
 			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
 				{
-					["feature"] = "Frame: None",
+					["texicon"] = {
+						["color"] = {
+							["a"] = 1,
+							["r"] = 1,
+							["g"] = 1,
+							["b"] = 1,
+						},
+						["path"] = "Interface\\Icons\\INV_Misc_QuestionMark",
+						["blendMode"] = "BLEND",
+					},
+					["title"] = "Info",
+					["bkdColor"] = {
+						["a"] = 0,
+						["b"] = 0,
+						["g"] = 0,
+						["r"] = 0,
+					},
+					["titleColor"] = {
+						["a"] = 1,
+						["b"] = 0,
+						["g"] = 0,
+						["r"] = 0,
+					},
+					["feature"] = "Frame: Lightweight",
 				}, -- [1]
 				{
 					["feature"] = "Design",
-					["design"] = "WoWRDX:MainMenu_ds",
+					["design"] = "WoWRDX:Info_ds",
 				}, -- [2]
 				{
 					["feature"] = "layout_single_unitframe",
 					["version"] = 1,
 					["unit"] = "player",
-				}, -- [3]
-			},
-		},
-		["Tank_health_stc"] = {
-			["ty"] = "Statistic",
-			["version"] = 1,
-			["data"] = {
-				["val"] = {
-					["qty"] = "shp",
-					["set"] = {
-						["class"] = "file",
-						["file"] = "WoWRDX:Tank_fset",
-					},
-				},
-				["fadeColor"] = {
-					["a"] = 1,
-					["r"] = 0.4705882352941178,
-					["g"] = 0,
-					["b"] = 0.01176470588235294,
-				},
-				["name"] = "Tank HP",
-				["color"] = {
-					["a"] = 1,
-					["r"] = 0.02352941176470588,
-					["g"] = 0.5254901960784313,
-					["b"] = 0,
-				},
-				["pct"] = 1,
-				["max"] = {
-					["qty"] = "smaxhp",
-					["set"] = {
-						["class"] = "file",
-						["file"] = "WoWRDX:Tank_fset",
-					},
-				},
-				["sv"] = 1,
-				["texture"] = "",
-			},
-		},
-		["Shaman_Totem_Earth_mb"] = {
-			["ty"] = "MouseBindings",
-			["version"] = 1,
-			["data"] = {
-				["1"] = {
-					["action"] = "cast",
-					["spell"] = "Totem de force de la terre",
-				},
-				["2"] = {
-					["action"] = "cast",
-					["spell"] = "Totem de lien terrestre",
-				},
-			},
-		},
-		["Name_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["ph"] = 1,
-					["h"] = 14,
-					["version"] = 1,
-					["w"] = 90,
-					["alpha"] = 1,
-					["feature"] = "base_default",
-				}, -- [1]
-				{
-					["owner"] = "Base",
-					["w"] = "90",
-					["feature"] = "txt_np",
-					["h"] = "14",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "LEFT",
-						["rp"] = "LEFT",
-						["af"] = "Base",
-					},
-					["name"] = "np",
-					["classColor"] = 1,
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sx"] = 1,
-						["sy"] = -1,
-						["title"] = "Default",
-						["justifyH"] = "LEFT",
-						["size"] = 10,
-					},
-				}, -- [2]
-			},
-		},
-		["Paladin_HolyPower_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "base_default",
-					["h"] = 20,
-					["version"] = 1,
-					["w"] = 100,
-					["alpha"] = 1,
-				}, -- [1]
-				{
-					["feature"] = "Variable: Number power",
-					["powertype"] = "SPELL_POWER_HOLY_POWER",
-					["name"] = "nm",
-				}, -- [2]
-				{
-					["number"] = "nm",
-					["rows"] = 1,
-					["feature"] = "custom_icons",
-					["iconspx"] = 5,
-					["color4"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["ButtonSkinOffset"] = 3,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["externalButtonSkin"] = "bs_simplesquare",
-					["iconspy"] = 0,
-					["texture"] = {
-						["color"] = {
-							["a"] = 1,
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["blendMode"] = "BLEND",
-					},
-					["nIcons"] = 5,
-					["owner"] = "decor",
-					["w"] = 20,
-					["color1"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["color2"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["version"] = 1,
-					["name"] = "customicon1",
-					["drawLayer"] = "ARTWORK",
-					["orientation"] = "RIGHT",
-					["color3"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["color5"] = {
-						["a"] = 1,
-						["b"] = 0,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["h"] = 20,
 				}, -- [3]
 			},
 		},
@@ -31332,16 +32140,16 @@ data = {
 					["rows"] = 1,
 					["fontcount"] = {
 						["size"] = 10,
-						["name"] = "Default",
+						["justifyH"] = "RIGHT",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
 						["justifyV"] = "BOTTOM",
-						["title"] = "Default",
+						["name"] = "Default",
 						["ca"] = 1,
 						["cg"] = 0.3882352941176471,
-						["justifyH"] = "RIGHT",
-						["cb"] = 1,
-						["sy"] = 0,
+						["title"] = "Default",
 						["sx"] = 0,
+						["sy"] = 0,
+						["cb"] = 1,
 						["flags"] = "THICKOUTLINE",
 						["cr"] = 0.2980392156862745,
 					},
@@ -31356,8 +32164,8 @@ data = {
 							["justifyV"] = "CENTER",
 							["size"] = 10,
 						},
-						["Offsety"] = 0,
 						["TimerType"] = "COOLDOWN",
+						["Offsety"] = 0,
 						["UpdateSpeed"] = 0.3,
 						["Offsetx"] = 0,
 						["TextType"] = "Seconds",
@@ -31375,93 +32183,48 @@ data = {
 					["iconspy"] = 0,
 					["nIcons"] = 12,
 					["showkey"] = 1,
-					["fontmacro"] = {
-						["size"] = 8,
-						["name"] = "Default",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "BOTTOM",
-						["sx"] = 0,
-						["ca"] = 1,
-						["cg"] = 0.3568627450980392,
-						["justifyH"] = "RIGHT",
-						["cb"] = 0.8901960784313725,
-						["sy"] = 0,
-						["flags"] = "OUTLINE",
-						["title"] = "Default",
-						["cr"] = 1,
-					},
-					["owner"] = "decor",
+					["usebs"] = true,
 					["anyup"] = 1,
+					["owner"] = "decor",
 					["fontkey"] = {
 						["cr"] = 1,
-						["ca"] = 1,
+						["flags"] = "THICKOUTLINE",
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
 						["justifyV"] = "TOP",
-						["cb"] = 0.1058823529411765,
-						["flags"] = "THICKOUTLINE",
+						["sx"] = 0,
+						["ca"] = 1,
 						["cg"] = 0.6588235294117647,
 						["title"] = "Default",
-						["sx"] = 0,
+						["cb"] = 0.1058823529411765,
 						["justifyH"] = "RIGHT",
 						["name"] = "Default",
 						["sy"] = 0,
 						["size"] = 10,
 					},
 					["headerstateType"] = "None",
+					["headerstateCustom"] = "",
 					["abid"] = 25,
 					["version"] = 1,
 					["name"] = "barbut2",
 					["orientation"] = "DOWN",
-					["headerstateCustom"] = "",
 					["size"] = 36,
+					["fontmacro"] = {
+						["size"] = 8,
+						["title"] = "Default",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "BOTTOM",
+						["cb"] = 0.8901960784313725,
+						["ca"] = 1,
+						["cg"] = 0.3568627450980392,
+						["justifyH"] = "RIGHT",
+						["sx"] = 0,
+						["sy"] = 0,
+						["flags"] = "OUTLINE",
+						["name"] = "Default",
+						["cr"] = 1,
+					},
 					["hidebs"] = 1,
 				}, -- [2]
-			},
-		},
-		["Range_40_70_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"set", -- [1]
-					{
-						["n"] = 4,
-						["class"] = "frs",
-					}, -- [2]
-				}, -- [2]
-				{
-					"not", -- [1]
-					{
-						"set", -- [1]
-						{
-							["file"] = "WoWRDX:Range_0_40_fset",
-							["class"] = "file",
-						}, -- [2]
-					}, -- [2]
-				}, -- [3]
-				{
-					"ol", -- [1]
-				}, -- [4]
-			},
-		},
-		["infoAuthor"] = "Sigg",
-		["ActionBar4"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "WoWRDX:ActionBar4_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
 			},
 		},
 		["Rogue_Combo"] = {
@@ -31482,12 +32245,106 @@ data = {
 				}, -- [3]
 			},
 		},
+		["infoComment"] = "",
+		["Player_SecureDebuff_Icon_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 55,
+					["version"] = 1,
+					["w"] = 400,
+					["alpha"] = 1,
+				}, -- [1]
+				{
+					["separateown"] = "NONE",
+					["point"] = "TOPRIGHT",
+					["wrapafter"] = 10,
+					["fontst"] = {
+						["name"] = "Default",
+						["title"] = "Default",
+						["justifyH"] = "CENTER",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 8,
+					},
+					["feature"] = "sec_aura_icons",
+					["cd"] = {
+						["HideText"] = 0,
+						["Font"] = {
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 10,
+							["ca"] = 1,
+							["cg"] = 0.807843137254902,
+							["justifyH"] = "CENTER",
+							["cb"] = 0.02745098039215686,
+							["title"] = "Default",
+							["name"] = "Default",
+							["flags"] = "THICKOUTLINE",
+							["cr"] = 1,
+						},
+						["TimerType"] = "COOLDOWN&TEXT",
+						["Offsety"] = -25,
+						["Offsetx"] = 3,
+						["UpdateSpeed"] = 0.3,
+						["TextType"] = "Largest",
+						["GfxReverse"] = true,
+					},
+					["ButtonSkinOffset"] = 6,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPRIGHT",
+						["rp"] = "TOPRIGHT",
+						["af"] = "Base",
+					},
+					["externalButtonSkin"] = "bs_simplesquare",
+					["usebs"] = true,
+					["template"] = "RDXAB40x40Template",
+					["auraType"] = "DEBUFFS",
+					["owner"] = "Base",
+					["sortmethod"] = "INDEX",
+					["version"] = 1,
+					["maxwraps"] = 2,
+					["orientation"] = "LEFT",
+					["xoffset"] = 0,
+					["name"] = "sai1",
+					["yoffset"] = 0,
+				}, -- [2]
+			},
+		},
+		["Range_70plus_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["n"] = 4,
+							["class"] = "frs",
+						}, -- [2]
+					}, -- [2]
+				}, -- [2]
+				{
+					"ol", -- [1]
+				}, -- [3]
+			},
+		},
 		["Player_Main"] = {
 			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -31504,7 +32361,7 @@ data = {
 					["feature"] = "mousebindings",
 					["hotspot"] = "",
 					["version"] = 1,
-					["mbFriendly"] = "WoWRDX:Player_Main_mb",
+					["mbFriendly"] = "default:bindings_player",
 				}, -- [4]
 			},
 		},
@@ -31620,29 +32477,144 @@ data = {
 				}, -- [8]
 			},
 		},
-		["Druid_Buff_Wild_fset"] = {
-			["ty"] = "FilterSet",
+		["Overheal_Done_ds"] = {
+			["ty"] = "Design",
 			["version"] = 1,
 			["data"] = {
-				"or", -- [1]
 				{
-					"set", -- [1]
-					{
-						["class"] = "buff",
-						["buff"] = 79061,
-					}, -- [2]
+					["feature"] = "var_tablemeter",
+					["tablemeter"] = "WoWRDX:Overheal_Done_tm",
+					["name"] = "combatmeter1",
+				}, -- [1]
+				{
+					["color"] = {
+						["a"] = 1,
+						["r"] = 0.6274509803921569,
+						["g"] = 1,
+						["b"] = 0.3647058823529412,
+					},
+					["name"] = "green",
+					["feature"] = "ColorVariable: Static Color",
 				}, -- [2]
+				{
+					["feature"] = "base_default",
+					["h"] = 13,
+					["version"] = 1,
+					["alpha"] = 1,
+					["w"] = 140,
+				}, -- [3]
+				{
+					["feature"] = "Subframe",
+					["h"] = "BaseHeight",
+					["name"] = "pdt",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = "BaseWidth",
+					["flOffset"] = 1,
+				}, -- [4]
+				{
+					["frac"] = "fcombatmeter1",
+					["owner"] = "pdt",
+					["w"] = "140",
+					["colorVar"] = "green",
+					["feature"] = "statusbar_horiz",
+					["h"] = "12",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Frame_pdt",
+					},
+					["orientation"] = "HORIZONTAL",
+					["name"] = "statusBar",
+					["interpolate"] = 1,
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\statusbars\\Ruben",
+					},
+				}, -- [5]
+				{
+					["owner"] = "pdt",
+					["w"] = "100",
+					["feature"] = "txt_np",
+					["font"] = {
+						["size"] = 10,
+						["face"] = "Fonts\\ARIALN.TTF",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "LEFT",
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["title"] = "Default",
+						["sy"] = -1,
+						["sb"] = 0,
+						["sr"] = 0,
+					},
+					["name"] = "np",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "LEFT",
+						["rp"] = "LEFT",
+						["af"] = "Frame_pdt",
+					},
+					["version"] = 1,
+					["classColor"] = 1,
+					["h"] = "12",
+				}, -- [6]
+				{
+					["txt"] = "combatmeter1_text",
+					["owner"] = "pdt",
+					["w"] = "138",
+					["feature"] = "txt_dyn",
+					["font"] = {
+						["cr"] = 1,
+						["sr"] = 0,
+						["sb"] = 0,
+						["ca"] = 1,
+						["cb"] = 1,
+						["face"] = "Fonts\\ARIALN.TTF",
+						["justifyV"] = "CENTER",
+						["justifyH"] = "RIGHT",
+						["sa"] = 1,
+						["cg"] = 1,
+						["name"] = "Default",
+						["sx"] = 1,
+						["sg"] = 0,
+						["sy"] = -1,
+						["title"] = "Default",
+						["size"] = 10,
+					},
+					["name"] = "infoText",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "RIGHT",
+						["rp"] = "RIGHT",
+						["af"] = "Frame_pdt",
+					},
+					["h"] = "12",
+					["version"] = 1,
+				}, -- [7]
 			},
 		},
-		["Paladin_Buff_Kings_fset"] = {
-			["ty"] = "FilterSet",
+		["Druid_Buff_Wild_mb"] = {
+			["ty"] = "MouseBindings",
 			["version"] = 1,
 			["data"] = {
-				"set", -- [1]
-				{
-					["buff"] = 79062,
-					["class"] = "buff",
-				}, -- [2]
+				["1"] = {
+					["action"] = "cast",
+					["spell"] = 79061,
+				},
 			},
 		},
 		["Range_40plus_stc"] = {
@@ -31685,6 +32657,10 @@ data = {
 			["data"] = {
 				{
 					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
 				}, -- [1]
 				{
 					["feature"] = "Design",
@@ -31702,650 +32678,76 @@ data = {
 					["feature"] = "mousebindings",
 					["hotspot"] = "",
 					["version"] = 1,
-					["mbFriendly"] = "WoWRDX:Player_Main_mb",
+					["mbFriendly"] = "default:bindings_player",
 				}, -- [4]
 			},
 		},
-		["Shaman_Totems4_ds"] = {
+		["ActionBarStance_ds"] = {
 			["ty"] = "Design",
 			["version"] = 1,
 			["data"] = {
 				{
 					["feature"] = "base_default",
-					["h"] = 48,
+					["h"] = 36,
 					["version"] = 1,
+					["w"] = 360,
 					["alpha"] = 1,
-					["w"] = 200,
 				}, -- [1]
 				{
-					["color"] = {
-						["a"] = 1,
-						["r"] = 0.7882352941176469,
-						["g"] = 0.776470588235294,
-						["b"] = 0,
+					["showtooltip"] = 1,
+					["rows"] = 1,
+					["feature"] = "stancebar",
+					["iconspx"] = 0,
+					["cd"] = {
+						["Font"] = {
+							["name"] = "Default",
+							["title"] = "Default",
+							["justifyH"] = "CENTER",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 10,
+						},
+						["TimerType"] = "COOLDOWN",
+						["Offsety"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["Offsetx"] = 0,
+						["TextType"] = "Seconds",
+						["HideText"] = 0,
 					},
-					["name"] = "yellow",
-					["feature"] = "ColorVariable: Static Color",
+					["ButtonSkinOffset"] = 6,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["fontkey"] = {
+						["size"] = 10,
+						["title"] = "Default",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
+						["justifyV"] = "TOP",
+						["sy"] = 0,
+						["ca"] = 1,
+						["cg"] = 0.6588235294117647,
+						["name"] = "Default",
+						["cb"] = 0.1058823529411765,
+						["justifyH"] = "RIGHT",
+						["sx"] = 0,
+						["flags"] = "THICKOUTLINE",
+						["cr"] = 1,
+					},
+					["iconspy"] = 0,
+					["size"] = 36,
+					["showkey"] = 1,
+					["owner"] = "decor",
+					["version"] = 1,
+					["nIcons"] = 8,
+					["orientation"] = "RIGHT",
+					["name"] = "stancebar",
+					["externalButtonSkin"] = "bs_simplesquare",
+					["usebs"] = true,
 				}, -- [2]
-				{
-					["color"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 0.6196078431372554,
-						["r"] = 0,
-					},
-					["name"] = "blue",
-					["feature"] = "ColorVariable: Static Color",
-				}, -- [3]
-				{
-					["color"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 0.05490196078431373,
-						["b"] = 0,
-					},
-					["name"] = "red",
-					["feature"] = "ColorVariable: Static Color",
-				}, -- [4]
-				{
-					["color"] = {
-						["a"] = 1,
-						["b"] = 0.1333333333333333,
-						["g"] = 0.4862745098039216,
-						["r"] = 0,
-					},
-					["name"] = "green",
-					["feature"] = "ColorVariable: Static Color",
-				}, -- [5]
-				{
-					["feature"] = "Variables: Totem Info",
-				}, -- [6]
-				{
-					["feature"] = "commentline",
-				}, -- [7]
-				{
-					["cleanupPolicy"] = 3,
-					["owner"] = "decor",
-					["w"] = 36,
-					["feature"] = "texture",
-					["h"] = 36,
-					["name"] = "TotemEarthIcon",
-					["sublevel"] = 1,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["drawLayer"] = "OVERLAY",
-					["texture"] = {
-						["color"] = {
-							["a"] = 1,
-							["r"] = 1,
-							["g"] = 1,
-							["b"] = 1,
-						},
-						["blendMode"] = "BLEND",
-					},
-				}, -- [8]
-				{
-					["frac"] = "",
-					["owner"] = "decor",
-					["w"] = "12",
-					["feature"] = "statusbar_horiz",
-					["h"] = "36",
-					["version"] = 1,
-					["colorVar"] = "green",
-					["anchor"] = {
-						["dx"] = 37,
-						["dy"] = 12,
-						["lp"] = "BOTTOMLEFT",
-						["rp"] = "BOTTOMLEFT",
-						["af"] = "Base",
-					},
-					["name"] = "TotemEarthBar",
-					["orientation"] = "VERTICAL",
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX\\Skin\\vbar1",
-					},
-				}, -- [9]
-				{
-					["script"] = "",
-					["owner"] = "decor",
-					["w"] = 36,
-					["feature"] = "txt_custom",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["justifyH"] = "CENTER",
-						["sa"] = 1,
-						["sg"] = 0,
-						["sy"] = -1,
-						["sb"] = 0,
-						["sx"] = 1,
-						["title"] = "Default",
-						["name"] = "Default",
-						["size"] = 9,
-					},
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = -1,
-						["dy"] = 0,
-						["lp"] = "BOTTOMLEFT",
-						["rp"] = "BOTTOMLEFT",
-						["af"] = "Base",
-					},
-					["name"] = "EarthTimer",
-					["h"] = 12,
-				}, -- [10]
-				{
-					["TEIDefaultState"] = "Hide",
-					["textInfo"] = "",
-					["sbExpireState"] = "Hide",
-					["TTIExpireState"] = "Hide",
-					["feature"] = "free_timer",
-					["sbDefaultState"] = "Hide",
-					["TTIDefaultState"] = "Hide",
-					["textType"] = "MinSec",
-					["statusBar"] = "TotemEarthBar",
-					["text"] = "EarthTimer",
-					["texIcon"] = "TotemEarthIcon",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["color2"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["countTypeFlag"] = "false",
-					["tex"] = "totemearth_icon",
-					["txt"] = "",
-					["timerVar"] = "totemearth",
-					["TEIExpireState"] = "Hide",
-				}, -- [11]
-				{
-					["w"] = 50,
-					["feature"] = "hotspot",
-					["secure"] = 1,
-					["name"] = "earth",
-					["hlt"] = {
-						["blendMode"] = "ADD",
-						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
-					},
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["flo"] = 3,
-					["h"] = 36,
-				}, -- [12]
-				{
-					["feature"] = "commentline",
-				}, -- [13]
-				{
-					["cleanupPolicy"] = 3,
-					["owner"] = "decor",
-					["w"] = 36,
-					["feature"] = "texture",
-					["h"] = 36,
-					["name"] = "TotemFireIcon",
-					["sublevel"] = 1,
-					["anchor"] = {
-						["dx"] = 50,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["drawLayer"] = "OVERLAY",
-					["texture"] = {
-						["color"] = {
-							["a"] = 1,
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["blendMode"] = "BLEND",
-					},
-				}, -- [14]
-				{
-					["frac"] = "",
-					["owner"] = "decor",
-					["w"] = 12,
-					["feature"] = "statusbar_horiz",
-					["colorVar"] = "red",
-					["name"] = "TotemFireBar",
-					["h"] = 36,
-					["orientation"] = "VERTICAL",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 87,
-						["dy"] = 12,
-						["lp"] = "BOTTOMLEFT",
-						["rp"] = "BOTTOMLEFT",
-						["af"] = "Base",
-					},
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX\\Skin\\vbar1",
-					},
-				}, -- [15]
-				{
-					["script"] = "",
-					["owner"] = "decor",
-					["w"] = 36,
-					["feature"] = "txt_custom",
-					["h"] = 12,
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 49,
-						["dy"] = 0,
-						["lp"] = "BOTTOMLEFT",
-						["rp"] = "BOTTOMLEFT",
-						["af"] = "Base",
-					},
-					["name"] = "FireTimer",
-					["font"] = {
-						["size"] = 9,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["title"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "CENTER",
-						["sx"] = 1,
-						["name"] = "Default",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
-				}, -- [16]
-				{
-					["TEIDefaultState"] = "Hide",
-					["textInfo"] = "",
-					["sbExpireState"] = "Hide",
-					["TTIExpireState"] = "Hide",
-					["feature"] = "free_timer",
-					["sbDefaultState"] = "Hide",
-					["TTIDefaultState"] = "Hide",
-					["textType"] = "MinSec",
-					["statusBar"] = "TotemFireBar",
-					["text"] = "FireTimer",
-					["texIcon"] = "TotemFireIcon",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["color2"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["countTypeFlag"] = "false",
-					["tex"] = "totemfire_icon",
-					["txt"] = "",
-					["timerVar"] = "totemfire",
-					["TEIExpireState"] = "Hide",
-				}, -- [17]
-				{
-					["w"] = 50,
-					["feature"] = "hotspot",
-					["secure"] = 1,
-					["name"] = "fire",
-					["hlt"] = {
-						["blendMode"] = "ADD",
-						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
-					},
-					["anchor"] = {
-						["dx"] = 50,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["flo"] = 3,
-					["h"] = 36,
-				}, -- [18]
-				{
-					["feature"] = "commentline",
-				}, -- [19]
-				{
-					["cleanupPolicy"] = 3,
-					["owner"] = "decor",
-					["w"] = 36,
-					["feature"] = "texture",
-					["h"] = 36,
-					["name"] = "TotemWaterIcon",
-					["sublevel"] = 1,
-					["anchor"] = {
-						["dx"] = 100,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["drawLayer"] = "OVERLAY",
-					["texture"] = {
-						["color"] = {
-							["a"] = 1,
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["blendMode"] = "BLEND",
-					},
-				}, -- [20]
-				{
-					["feature"] = "shader_applytex",
-					["owner"] = "TotemWaterIcon",
-					["version"] = 1,
-					["var"] = "totemwater_icon",
-				}, -- [21]
-				{
-					["frac"] = "",
-					["owner"] = "decor",
-					["w"] = 12,
-					["feature"] = "statusbar_horiz",
-					["colorVar"] = "blue",
-					["name"] = "TotemWaterBar",
-					["h"] = 36,
-					["orientation"] = "VERTICAL",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 137,
-						["dy"] = 12,
-						["lp"] = "BOTTOMLEFT",
-						["rp"] = "BOTTOMLEFT",
-						["af"] = "Base",
-					},
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX\\Skin\\vbar1",
-					},
-				}, -- [22]
-				{
-					["script"] = "",
-					["owner"] = "decor",
-					["w"] = 36,
-					["feature"] = "txt_custom",
-					["h"] = 12,
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 101,
-						["dy"] = 0,
-						["lp"] = "BOTTOMLEFT",
-						["rp"] = "BOTTOMLEFT",
-						["af"] = "Base",
-					},
-					["name"] = "WaterTimer",
-					["font"] = {
-						["size"] = 9,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["title"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "CENTER",
-						["sx"] = 1,
-						["name"] = "Default",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
-				}, -- [23]
-				{
-					["TEIDefaultState"] = "Hide",
-					["textInfo"] = "",
-					["sbExpireState"] = "Hide",
-					["TTIExpireState"] = "Hide",
-					["feature"] = "free_timer",
-					["sbDefaultState"] = "Hide",
-					["TTIDefaultState"] = "Hide",
-					["textType"] = "MinSec",
-					["statusBar"] = "TotemWaterBar",
-					["text"] = "WaterTimer",
-					["texIcon"] = "",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["color2"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["countTypeFlag"] = "false",
-					["tex"] = "",
-					["txt"] = "",
-					["timerVar"] = "totemwater",
-					["TEIExpireState"] = "Hide",
-				}, -- [24]
-				{
-					["w"] = 50,
-					["feature"] = "hotspot",
-					["secure"] = 1,
-					["name"] = "water",
-					["hlt"] = {
-						["blendMode"] = "ADD",
-						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
-					},
-					["anchor"] = {
-						["dx"] = 100,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["flo"] = 3,
-					["h"] = 36,
-				}, -- [25]
-				{
-					["feature"] = "commentline",
-				}, -- [26]
-				{
-					["cleanupPolicy"] = 3,
-					["owner"] = "decor",
-					["w"] = 36,
-					["feature"] = "texture",
-					["h"] = 36,
-					["name"] = "TotemAirIcon",
-					["sublevel"] = 1,
-					["anchor"] = {
-						["dx"] = 150,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["drawLayer"] = "OVERLAY",
-					["texture"] = {
-						["color"] = {
-							["a"] = 1,
-							["b"] = 1,
-							["g"] = 1,
-							["r"] = 1,
-						},
-						["blendMode"] = "BLEND",
-					},
-				}, -- [27]
-				{
-					["feature"] = "shader_applytex",
-					["owner"] = "TotemAirIcon",
-					["version"] = 1,
-					["var"] = "totemair_icon",
-				}, -- [28]
-				{
-					["frac"] = "",
-					["owner"] = "decor",
-					["w"] = 12,
-					["feature"] = "statusbar_horiz",
-					["colorVar"] = "yellow",
-					["name"] = "TotemAirBar",
-					["h"] = 36,
-					["orientation"] = "VERTICAL",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 187,
-						["dy"] = 12,
-						["lp"] = "BOTTOMLEFT",
-						["rp"] = "BOTTOMLEFT",
-						["af"] = "Base",
-					},
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\Addons\\RDX\\Skin\\vbar1",
-					},
-				}, -- [29]
-				{
-					["script"] = "",
-					["owner"] = "decor",
-					["w"] = 36,
-					["feature"] = "txt_custom",
-					["h"] = 12,
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 149,
-						["dy"] = 0,
-						["lp"] = "BOTTOMLEFT",
-						["rp"] = "BOTTOMLEFT",
-						["af"] = "Base",
-					},
-					["name"] = "AirTimer",
-					["font"] = {
-						["size"] = 9,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["title"] = "Default",
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "CENTER",
-						["sx"] = 1,
-						["name"] = "Default",
-						["sy"] = -1,
-						["sb"] = 0,
-						["sr"] = 0,
-					},
-				}, -- [30]
-				{
-					["TEIDefaultState"] = "Hide",
-					["textInfo"] = "",
-					["sbExpireState"] = "Hide",
-					["TTIExpireState"] = "Hide",
-					["feature"] = "free_timer",
-					["sbDefaultState"] = "Hide",
-					["TTIDefaultState"] = "Hide",
-					["textType"] = "MinSec",
-					["statusBar"] = "TotemAirBar",
-					["text"] = "AirTimer",
-					["texIcon"] = "",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["color2"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["countTypeFlag"] = "false",
-					["tex"] = "",
-					["txt"] = "",
-					["timerVar"] = "totemair",
-					["TEIExpireState"] = "Hide",
-				}, -- [31]
-				{
-					["w"] = 50,
-					["feature"] = "hotspot",
-					["secure"] = 1,
-					["name"] = "air",
-					["hlt"] = {
-						["blendMode"] = "ADD",
-						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
-					},
-					["anchor"] = {
-						["dx"] = 150,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["flo"] = 3,
-					["h"] = 36,
-				}, -- [32]
-				{
-					["feature"] = "commentline",
-				}, -- [33]
-				{
-					["w"] = 200,
-					["feature"] = "hotspot",
-					["secure"] = 1,
-					["name"] = "remove",
-					["hlt"] = {
-						["blendMode"] = "ADD",
-						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
-					},
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = -37,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["version"] = 1,
-					["flo"] = 3,
-					["h"] = 12,
-				}, -- [34]
-				{
-					["feature"] = "Subframe",
-					["h"] = 80,
-					["name"] = "remove_s",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["owner"] = "decor",
-					["w"] = 20,
-					["flOffset"] = 1,
-				}, -- [35]
 			},
 		},
 		["ChatFrame1_ds"] = {
@@ -32386,332 +32788,34 @@ data = {
 						["sr"] = 0,
 						["face"] = "Fonts\\ARIALN.TTF",
 						["justifyV"] = "CENTER",
-						["justifyH"] = "LEFT",
+						["title"] = "Default",
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["sx"] = 1,
 						["sy"] = -1,
-						["title"] = "Default",
+						["justifyH"] = "LEFT",
 						["size"] = 12,
 					},
 				}, -- [2]
 			},
 		},
-		["Mage_Buff_Arcane_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"or", -- [1]
-				{
-					"set", -- [1]
-					{
-						["class"] = "buff",
-						["buff"] = 1459,
-					}, -- [2]
-				}, -- [2]
-				{
-					"set", -- [1]
-					{
-						["class"] = "buff",
-						["buff"] = 23028,
-					}, -- [2]
-				}, -- [3]
-				{
-					"set", -- [1]
-					{
-						["class"] = "buff",
-						["buff"] = 61024,
-					}, -- [2]
-				}, -- [4]
-				{
-					"set", -- [1]
-					{
-						["class"] = "buff",
-						["buff"] = 61316,
-					}, -- [2]
-				}, -- [5]
-			},
-		},
-		["infoVersion"] = "1.0.0",
-		["Priest_Buff_VampiricEmbrace_mb"] = {
-			["ty"] = "MouseBindings",
-			["version"] = 1,
-			["data"] = {
-				["1"] = {
-					["action"] = "cast",
-					["spell"] = 15286,
-				},
-			},
-		},
-		["Raid_GroupAll_fset"] = {
+		["Dps_fset"] = {
 			["ty"] = "FilterSet",
 			["version"] = 1,
 			["data"] = {
 				"and", -- [1]
 				{
-					"groups", -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
+					"role", -- [1]
+					[3] = true,
 				}, -- [2]
 				{
-					"classes", -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
-					true, -- [10]
-					true, -- [11]
-					true, -- [12]
+					"ol", -- [1]
 				}, -- [3]
 			},
 		},
-		["Priest_Buff_Fortitude_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Variables: Status Flags (dead, ld, feigned)",
-				}, -- [1]
-				{
-					["feature"] = "Variable: Unit In Set",
-					["name"] = "unitInRange30",
-					["set"] = {
-						["file"] = "WoWRDX:Range_not_0_30_dead_fset",
-						["class"] = "file",
-					},
-				}, -- [2]
-				{
-					["feature"] = "Variables: Buffs Debuffs Info",
-					["name"] = "aurai",
-					["cd"] = 79105,
-					["auraType"] = "BUFFS",
-				}, -- [3]
-				{
-					["feature"] = "commentline",
-				}, -- [4]
-				{
-					["feature"] = "base_default",
-					["h"] = 14,
-					["version"] = 1,
-					["ph"] = 1,
-					["w"] = 80,
-					["alpha"] = 1,
-				}, -- [5]
-				{
-					["frac"] = "",
-					["owner"] = "decor",
-					["w"] = "BaseWidth",
-					["color1"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["feature"] = "statusbar_horiz",
-					["h"] = "13",
-					["name"] = "statusBar",
-					["color2"] = {
-						["a"] = 1,
-						["b"] = 1,
-						["g"] = 1,
-						["r"] = 1,
-					},
-					["orientation"] = "HORIZONTAL",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\TargetingFrame\\UI-StatusBar",
-					},
-				}, -- [6]
-				{
-					["TEIDefaultState"] = "Hide",
-					["textInfo"] = "",
-					["sbExpireState"] = "Hide",
-					["TTIExpireState"] = "Hide",
-					["feature"] = "free_timer",
-					["sbDefaultState"] = "Hide",
-					["TTIDefaultState"] = "Hide",
-					["textType"] = "VFL.Hundredths",
-					["statusBar"] = "statusBar",
-					["text"] = "",
-					["texIcon"] = "",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["color2"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["TL"] = 0,
-					["version"] = 1,
-					["countTypeFlag"] = "false",
-					["tex"] = "",
-					["txt"] = "",
-					["timerVar"] = "aurai_aura",
-					["TEIExpireState"] = "Hide",
-				}, -- [7]
-				{
-					["feature"] = "commentline",
-				}, -- [8]
-				{
-					["feature"] = "Subframe",
-					["h"] = "BaseHeight",
-					["name"] = "high",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["owner"] = "decor",
-					["w"] = "BaseWidth",
-					["flOffset"] = 2,
-				}, -- [9]
-				{
-					["owner"] = "high",
-					["w"] = "40",
-					["feature"] = "txt_status",
-					["h"] = "14",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "high",
-					},
-					["name"] = "text_group",
-					["ty"] = "gn",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["name"] = "Default",
-						["title"] = "Default",
-						["size"] = 9,
-					},
-				}, -- [10]
-				{
-					["owner"] = "high",
-					["w"] = "BaseWidth",
-					["feature"] = "txt_np",
-					["h"] = "BaseHeight",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 10,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "high",
-					},
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sx"] = 1,
-						["sy"] = -1,
-						["name"] = "Default",
-						["title"] = "Default",
-						["size"] = 10,
-					},
-					["classColor"] = 1,
-					["name"] = "np",
-				}, -- [11]
-				{
-					["feature"] = "commentline",
-				}, -- [12]
-				{
-					["cleanupPolicy"] = 1,
-					["owner"] = "high",
-					["w"] = "80",
-					["feature"] = "texture",
-					["h"] = "13",
-					["version"] = 1,
-					["name"] = "tex_range",
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "high",
-					},
-					["sublevel"] = 1,
-					["drawLayer"] = "ARTWORK",
-					["texture"] = {
-						["blendMode"] = "BLEND",
-						["path"] = "Interface\\TargetingFrame\\UI-StatusBar",
-					},
-				}, -- [13]
-				{
-					["color"] = {
-						["a"] = 0.7430000007152557,
-						["r"] = 0.8313725490196078,
-						["g"] = 0.01568627450980392,
-						["b"] = 0,
-					},
-					["name"] = "red",
-					["feature"] = "ColorVariable: Static Color",
-				}, -- [14]
-				{
-					["color"] = {
-						["a"] = 0,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["name"] = "alpha",
-					["feature"] = "ColorVariable: Static Color",
-				}, -- [15]
-				{
-					["condVar"] = "unitInRange30_flag",
-					["name"] = "range",
-					["colorVar1"] = "red",
-					["colorVar2"] = "alpha",
-					["feature"] = "ColorVariable: Conditional Color",
-				}, -- [16]
-				{
-					["flag"] = "true",
-					["feature"] = "Highlight: Texture Map",
-					["color"] = "range",
-					["texture"] = "tex_range",
-				}, -- [17]
-			},
-		},
+		["infoVersion"] = "1.0.0",
 		["Status_Power"] = {
 			["ty"] = "StatusWindow",
 			["version"] = 1,
@@ -32787,14 +32891,281 @@ data = {
 					["stat"] = "WoWRDX:Hunter_Power_stc",
 				}, -- [11]
 				{
-					["interval"] = 0.3,
 					["feature"] = "Event: Periodic Repaint",
+					["interval"] = 0.3,
 					["slot"] = "RepaintAll",
 				}, -- [12]
 				{
 					["feature"] = "Description",
 					["description"] = "Class Power statistics",
 				}, -- [13]
+			},
+		},
+		["Raid_GroupAll_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"groups", -- [1]
+					true, -- [2]
+					true, -- [3]
+					true, -- [4]
+					true, -- [5]
+					true, -- [6]
+					true, -- [7]
+					true, -- [8]
+					true, -- [9]
+				}, -- [2]
+				{
+					"classes", -- [1]
+					true, -- [2]
+					true, -- [3]
+					true, -- [4]
+					true, -- [5]
+					true, -- [6]
+					true, -- [7]
+					true, -- [8]
+					true, -- [9]
+					true, -- [10]
+					true, -- [11]
+					true, -- [12]
+				}, -- [3]
+			},
+		},
+		["Priest_Buff_Fortitude_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Variables: Status Flags (dead, ld, feigned)",
+				}, -- [1]
+				{
+					["feature"] = "Variable: Unit In Set",
+					["name"] = "unitInRange30",
+					["set"] = {
+						["file"] = "WoWRDX:Range_not_0_30_dead_fset",
+						["class"] = "file",
+					},
+				}, -- [2]
+				{
+					["feature"] = "Variables: Buffs Debuffs Info",
+					["name"] = "aurai",
+					["cd"] = 79105,
+					["auraType"] = "BUFFS",
+				}, -- [3]
+				{
+					["feature"] = "commentline",
+				}, -- [4]
+				{
+					["feature"] = "base_default",
+					["h"] = 14,
+					["version"] = 1,
+					["ph"] = 1,
+					["alpha"] = 1,
+					["w"] = 80,
+				}, -- [5]
+				{
+					["frac"] = "",
+					["owner"] = "decor",
+					["w"] = "BaseWidth",
+					["color1"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["color2"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 1,
+						["r"] = 1,
+					},
+					["h"] = "13",
+					["name"] = "statusBar",
+					["feature"] = "statusbar_horiz",
+					["orientation"] = "HORIZONTAL",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\TargetingFrame\\UI-StatusBar",
+					},
+				}, -- [6]
+				{
+					["TEIDefaultState"] = "Hide",
+					["textInfo"] = "",
+					["sbExpireState"] = "Hide",
+					["TTIExpireState"] = "Hide",
+					["feature"] = "free_timer",
+					["sbDefaultState"] = "Hide",
+					["TTIDefaultState"] = "Hide",
+					["textType"] = "VFL.Hundredths",
+					["statusBar"] = "statusBar",
+					["text"] = "",
+					["texIcon"] = "",
+					["TEIExpireState"] = "Hide",
+					["color2"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["TL"] = 0,
+					["version"] = 1,
+					["countTypeFlag"] = "false",
+					["tex"] = "",
+					["txt"] = "",
+					["timerVar"] = "aurai_aura",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+				}, -- [7]
+				{
+					["feature"] = "commentline",
+				}, -- [8]
+				{
+					["feature"] = "Subframe",
+					["h"] = "BaseHeight",
+					["name"] = "high",
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = "BaseWidth",
+					["flOffset"] = 2,
+				}, -- [9]
+				{
+					["owner"] = "high",
+					["w"] = "40",
+					["feature"] = "txt_status",
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["name"] = "Default",
+						["title"] = "Default",
+						["size"] = 9,
+					},
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "high",
+					},
+					["name"] = "text_group",
+					["h"] = "14",
+					["ty"] = "gn",
+				}, -- [10]
+				{
+					["owner"] = "high",
+					["w"] = "BaseWidth",
+					["classColor"] = 1,
+					["h"] = "BaseHeight",
+					["name"] = "np",
+					["anchor"] = {
+						["dx"] = 10,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "high",
+					},
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["sy"] = -1,
+						["name"] = "Default",
+						["title"] = "Default",
+						["size"] = 10,
+					},
+					["feature"] = "txt_np",
+					["version"] = 1,
+				}, -- [11]
+				{
+					["feature"] = "commentline",
+				}, -- [12]
+				{
+					["cleanupPolicy"] = 1,
+					["owner"] = "high",
+					["w"] = "80",
+					["feature"] = "texture",
+					["h"] = "13",
+					["name"] = "tex_range",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "high",
+					},
+					["sublevel"] = 1,
+					["drawLayer"] = "ARTWORK",
+					["texture"] = {
+						["blendMode"] = "BLEND",
+						["path"] = "Interface\\TargetingFrame\\UI-StatusBar",
+					},
+				}, -- [13]
+				{
+					["color"] = {
+						["a"] = 0.7430000007152557,
+						["r"] = 0.8313725490196078,
+						["g"] = 0.01568627450980392,
+						["b"] = 0,
+					},
+					["name"] = "red",
+					["feature"] = "ColorVariable: Static Color",
+				}, -- [14]
+				{
+					["color"] = {
+						["a"] = 0,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["name"] = "alpha",
+					["feature"] = "ColorVariable: Static Color",
+				}, -- [15]
+				{
+					["feature"] = "ColorVariable: Conditional Color",
+					["name"] = "range",
+					["colorVar1"] = "red",
+					["colorVar2"] = "alpha",
+					["condVar"] = "unitInRange30_flag",
+				}, -- [16]
+				{
+					["feature"] = "Highlight: Texture Map",
+					["flag"] = "true",
+					["color"] = "range",
+					["texture"] = "tex_range",
+				}, -- [17]
 			},
 		},
 		["Target_Hot"] = {
@@ -32850,10 +33221,28 @@ data = {
 					["axis"] = 1,
 				}, -- [5]
 				{
-					["feature"] = "Event: Periodic Repaint",
 					["interval"] = 0.10000000149012,
+					["feature"] = "Event: Periodic Repaint",
 					["slot"] = "RepaintAll",
 				}, -- [6]
+			},
+		},
+		["Deathknight_Runes8"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:Deathknight_Runes8_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
+				}, -- [3]
 			},
 		},
 		["Raid_Pet"] = {
@@ -32899,10 +33288,10 @@ data = {
 					["rostertype"] = "RAIDPET",
 				}, -- [3]
 				{
-					["bkt"] = 1,
+					["feature"] = "Header Grid",
 					["dxn"] = 1,
 					["cols"] = 40,
-					["feature"] = "Header Grid",
+					["bkt"] = 1,
 					["axis"] = 1,
 				}, -- [4]
 				{
@@ -32925,9 +33314,9 @@ data = {
 				}, -- [7]
 				{
 					["feature"] = "mp_args",
+					["version"] = 1,
 					["dpm1"] = 0,
 					["period"] = 0.1,
-					["version"] = 1,
 				}, -- [8]
 				{
 					["feature"] = "FilterSet Editor",
@@ -33046,10 +33435,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = 0,
@@ -33074,20 +33463,7 @@ data = {
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_custom",
-					["font"] = {
-						["sr"] = 0,
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sx"] = 1,
-						["sy"] = -1,
-						["justifyH"] = "RIGHT",
-						["title"] = "Default",
-						["size"] = 9,
-					},
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = -5,
@@ -33097,7 +33473,20 @@ data = {
 						["af"] = "TotemEarthBar",
 					},
 					["name"] = "EarthTimer",
-					["h"] = 14,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sx"] = 1,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sb"] = 0,
+						["sy"] = -1,
+						["justifyH"] = "RIGHT",
+						["title"] = "Default",
+						["size"] = 9,
+					},
 				}, -- [12]
 				{
 					["TEIDefaultState"] = "Hide",
@@ -33111,7 +33500,12 @@ data = {
 					["statusBar"] = "TotemEarthBar",
 					["text"] = "EarthTimer",
 					["texIcon"] = "TotemEarthIcon",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -33124,12 +33518,7 @@ data = {
 					["tex"] = "totemearth_icon",
 					["txt"] = "",
 					["timerVar"] = "totemearth",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 				}, -- [13]
 				{
 					["txt"] = "totemearth_name",
@@ -33144,7 +33533,7 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 9,
 					},
-					["name"] = "status_text_earth",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = 0,
@@ -33153,12 +33542,12 @@ data = {
 						["af"] = "TotemEarthBar",
 					},
 					["h"] = 14,
-					["version"] = 1,
+					["name"] = "status_text_earth",
 				}, -- [14]
 				{
 					["w"] = 180,
 					["feature"] = "hotspot",
-					["flo"] = 3,
+					["secure"] = 1,
 					["version"] = 1,
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -33172,8 +33561,8 @@ data = {
 						["af"] = "Base",
 					},
 					["name"] = "earth",
+					["flo"] = 3,
 					["h"] = 20,
-					["secure"] = 1,
 				}, -- [15]
 				{
 					["feature"] = "commentline",
@@ -33233,10 +33622,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = -20,
@@ -33265,14 +33654,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["justifyH"] = "RIGHT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["justifyH"] = "RIGHT",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["version"] = 1,
@@ -33298,7 +33687,12 @@ data = {
 					["statusBar"] = "TotemFireBar",
 					["text"] = "FireTimer",
 					["texIcon"] = "TotemFireIcon",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -33311,12 +33705,7 @@ data = {
 					["tex"] = "totemfire_icon",
 					["txt"] = "",
 					["timerVar"] = "totemfire",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 				}, -- [22]
 				{
 					["txt"] = "totemfire_name",
@@ -33331,7 +33720,7 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 9,
 					},
-					["name"] = "status_text_firea",
+					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = 0,
@@ -33340,13 +33729,13 @@ data = {
 						["af"] = "TotemFireBar",
 					},
 					["h"] = 14,
-					["version"] = 1,
+					["name"] = "status_text_firea",
 				}, -- [23]
 				{
 					["w"] = 180,
 					["feature"] = "hotspot",
-					["secure"] = 1,
-					["version"] = 1,
+					["h"] = 20,
+					["name"] = "fire",
 					["hlt"] = {
 						["blendMode"] = "ADD",
 						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
@@ -33359,8 +33748,8 @@ data = {
 						["af"] = "Base",
 					},
 					["flo"] = 3,
-					["h"] = 20,
-					["name"] = "fire",
+					["secure"] = 1,
+					["version"] = 1,
 				}, -- [24]
 				{
 					["feature"] = "commentline",
@@ -33420,10 +33809,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = -40,
@@ -33461,14 +33850,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["justifyH"] = "RIGHT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["justifyH"] = "RIGHT",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["name"] = "WaterTimer",
@@ -33485,7 +33874,12 @@ data = {
 					["statusBar"] = "TotemWaterBar",
 					["text"] = "WaterTimer",
 					["texIcon"] = "TotemWaterIcon",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -33498,26 +33892,14 @@ data = {
 					["tex"] = "totemwater_icon",
 					["txt"] = "",
 					["timerVar"] = "totemwater",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 				}, -- [31]
 				{
 					["txt"] = "totemwater_name",
 					["owner"] = "decor",
 					["w"] = 180,
 					["feature"] = "txt_dyn",
-					["font"] = {
-						["title"] = "Default",
-						["name"] = "Default",
-						["justifyH"] = "LEFT",
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["size"] = 9,
-					},
+					["h"] = 14,
 					["version"] = 1,
 					["anchor"] = {
 						["dx"] = 1,
@@ -33527,13 +33909,20 @@ data = {
 						["af"] = "TotemWaterBar",
 					},
 					["name"] = "status_text_water",
-					["h"] = 14,
+					["font"] = {
+						["title"] = "Default",
+						["name"] = "Default",
+						["justifyH"] = "LEFT",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["size"] = 9,
+					},
 				}, -- [32]
 				{
 					["w"] = 180,
 					["feature"] = "hotspot",
-					["secure"] = 1,
-					["version"] = 1,
+					["h"] = 20,
+					["name"] = "water",
 					["hlt"] = {
 						["blendMode"] = "ADD",
 						["path"] = "Interface\\QuestFrame\\UI-QuestTitleHighlight",
@@ -33546,8 +33935,8 @@ data = {
 						["af"] = "Base",
 					},
 					["flo"] = 3,
-					["h"] = 20,
-					["name"] = "water",
+					["secure"] = 1,
+					["version"] = 1,
 				}, -- [33]
 				{
 					["feature"] = "commentline",
@@ -33607,10 +33996,10 @@ data = {
 					["cleanupPolicy"] = 3,
 					["owner"] = "decor",
 					["w"] = 19,
-					["feature"] = "texture",
+					["sublevel"] = 1,
 					["h"] = 19,
 					["version"] = 1,
-					["sublevel"] = 1,
+					["feature"] = "texture",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = -60,
@@ -33639,14 +34028,14 @@ data = {
 						["size"] = 9,
 						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["sy"] = -1,
+						["justifyH"] = "RIGHT",
 						["sa"] = 1,
 						["sg"] = 0,
 						["name"] = "Default",
 						["sb"] = 0,
 						["title"] = "Default",
 						["sx"] = 1,
-						["justifyH"] = "RIGHT",
+						["sy"] = -1,
 						["sr"] = 0,
 					},
 					["version"] = 1,
@@ -33672,7 +34061,12 @@ data = {
 					["statusBar"] = "TotemAirBar",
 					["text"] = "AirTimer",
 					["texIcon"] = "TotemAirIcon",
-					["TEIExpireState"] = "Hide",
+					["color1"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
 					["color2"] = {
 						["a"] = 1,
 						["r"] = 1,
@@ -33685,12 +34079,7 @@ data = {
 					["tex"] = "totemair_icon",
 					["txt"] = "",
 					["timerVar"] = "totemair",
-					["color1"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
+					["TEIExpireState"] = "Hide",
 				}, -- [40]
 				{
 					["txt"] = "totemair_name",
@@ -33698,7 +34087,7 @@ data = {
 					["w"] = 180,
 					["feature"] = "txt_dyn",
 					["h"] = 14,
-					["version"] = 1,
+					["name"] = "status_text_air",
 					["anchor"] = {
 						["dx"] = 1,
 						["dy"] = 0,
@@ -33714,12 +34103,12 @@ data = {
 						["justifyV"] = "CENTER",
 						["size"] = 9,
 					},
-					["name"] = "status_text_air",
+					["version"] = 1,
 				}, -- [41]
 				{
 					["w"] = 180,
 					["feature"] = "hotspot",
-					["flo"] = 3,
+					["h"] = 20,
 					["name"] = "air",
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -33733,8 +34122,8 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["flo"] = 3,
 					["secure"] = 1,
-					["h"] = 20,
 				}, -- [42]
 				{
 					["feature"] = "commentline",
@@ -33742,7 +34131,7 @@ data = {
 				{
 					["w"] = 20,
 					["feature"] = "hotspot",
-					["flo"] = 3,
+					["h"] = 80,
 					["name"] = "remove",
 					["hlt"] = {
 						["blendMode"] = "ADD",
@@ -33756,8 +34145,8 @@ data = {
 						["af"] = "Base",
 					},
 					["version"] = 1,
+					["flo"] = 3,
 					["secure"] = 1,
-					["h"] = 80,
 				}, -- [44]
 				{
 					["feature"] = "Subframe",

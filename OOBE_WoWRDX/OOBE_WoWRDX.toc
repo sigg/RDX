@@ -4,5 +4,5 @@
 ## LoadOnDemand: 1
 ## RequiredDeps: RDX
 ## X-RDX-OOBEName: WoWRDX
-## X-RDX-OOBEVersion: 13
+## X-RDX-OOBEVersion: 14
 WoWRDX.lua
