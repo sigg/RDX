@@ -601,7 +601,7 @@ RDXDB.RegisterSymLinkClass({
 	title = "class&form";
 	GetTargetPath = function(data)
 		local class = select(2, UnitClass("PLAYER"));
-		local _, form = GetShapeshiftFormInfo(GetShapeshiftForm());
+		local index = GetShapeshiftForm();
 		if class == "DEATHKNIGHT" then
 			return data["DEATHKNIGHT"];
 		elseif class == "SHAMAN" then
@@ -610,14 +610,13 @@ RDXDB.RegisterSymLinkClass({
 			return data["ROGUE"];
 		elseif class == "WARLOCK" then
 			return data["WARLOCK"];
-		elseif class == "DRUID" and form == "elementaire" then
+		elseif class == "DRUID" and index == 5 then
 			return data["DRUIDELEM"];
-		elseif class == "DRUID" and form == "cat" then
+		elseif class == "DRUID" and index == 3 then
 			return data["DRUIDCAT"];
 		elseif class == "PALADIN" then
 			return data["PALADIN"];
 		else
-			--return data["targetpath_" .. RDXMD.GetClassID(select(2, UnitClass("PLAYER")))];
 			return data["all"];
 		end
 	end;
