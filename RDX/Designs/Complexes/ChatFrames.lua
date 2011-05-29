@@ -303,7 +303,7 @@ if btn then
 	createCode = createCode .. [[
 	frame.]] .. objname .. [[ = btn;
 else
-	RDX.printW("ChatFrame]] .. desc.number .. [[ is not available or already acquired");
+	--RDX.printW("ChatFrame]] .. desc.number .. [[ is not available or already acquired");
 end
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
@@ -483,7 +483,7 @@ if btn then
 	end
 	btn:Show();
 else
-	RDX.printW("ChatFrame Edit Box is not available or already acquired");
+	--RDX.printW("ChatFrame Edit Box is not available or already acquired");
 end
 
 frame.]] .. objname .. [[ = btn;
