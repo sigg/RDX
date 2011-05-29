@@ -178,16 +178,71 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	
 	--
 	-- Create player-talent-specific bindings if they don't exist
-	-- default:bindings
+	-- default:bindings_player
 	-- type talent&name&realm
 	
-	local mbo = RDXDB.TouchObject("default:bindings_" .. RDX.pspace.. RDXMD.GetSelfTalentNoIndex());
+	local mbo = RDXDB.TouchObject("default:bindings_player_" .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex());
 	if not mbo.data then
-		mbo.data = {}; mbo.ty = "MouseBindings"; mbo.version = 1;
+		mbo.data = {
+			["1"] = {
+			    ["action"] = "target",
+			},
+			["2"] = {
+			    ["action"] = "menu",
+			},
+	     };
+	     mbo.ty = "MouseBindings"; 
+	     mbo.version = 1;
 	end
-	local mbsl = RDXDB.TouchObject("default:bindings");
+	local mbsl = RDXDB.TouchObject("default:bindings_player");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_", ty = "MouseBindings"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_player_", ty = "MouseBindings"};
+	end
+	
+	--
+	-- Create player-talent-specific bindings if they don't exist
+	-- default:bindings_target
+	-- type talent&name&realm
+	
+	local mbo = RDXDB.TouchObject("default:bindings_target_" .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex());
+	if not mbo.data then
+		mbo.data = {
+			["1"] = {
+			    ["action"] = "target",
+			},
+			["2"] = {
+			    ["action"] = "menu",
+			},
+	     };
+	     mbo.ty = "MouseBindings"; 
+	     mbo.version = 1;
+	end
+	local mbsl = RDXDB.TouchObject("default:bindings_target");
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_target_", ty = "MouseBindings"};
+	end
+	
+	--
+	-- Create player-talent-specific bindings if they don't exist
+	-- default:bindings_arena
+	-- type talent&name&realm
+	
+	local mbo = RDXDB.TouchObject("default:bindings_arena_" .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex());
+	if not mbo.data then
+		mbo.data = {
+			["1"] = {
+			    ["action"] = "target",
+			},
+			["2"] = {
+			    ["action"] = "menu",
+			},
+	     };
+	     mbo.ty = "MouseBindings"; 
+	     mbo.version = 1;
+	end
+	local mbsl = RDXDB.TouchObject("default:bindings_arena");
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_arena_", ty = "MouseBindings"};
 	end
 	
 	--
@@ -203,7 +258,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["2"] = {
 			    ["action"] = "menu",
 			},
-	     }; 
+	     };
 	     mbo.ty = "MouseBindings"; 
 	     mbo.version = 1;
 	end
@@ -407,6 +462,270 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	local mbsl = RDXDB.TouchObject("default:set_blue");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "name&realm" then
 		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "default", prefixfile = "set_blue_", ty = "FilterSet"};
+	end
+	
+	-- Create player-specific set group 1
+	local mbo = RDXDB.TouchObject("default:set_raid_group1_" .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex());
+	if not mbo.data then
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"groups", -- [1]
+				[2] = true,
+			}, -- [2]
+			{
+				"classes", -- [1]
+				true, -- [2]
+				true, -- [3]
+				true, -- [4]
+				true, -- [5]
+				true, -- [6]
+				true, -- [7]
+				true, -- [8]
+				true, -- [9]
+				true, -- [10]
+				true, -- [11]
+				true, -- [12]
+			}, -- [3]
+		};
+	end
+	-- Create symlink if it doesn't exist
+	local mbsl = RDXDB.TouchObject("default:set_raid_group1");
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_raid_group1_", ty = "FilterSet"};
+	end
+	
+	-- Create player-specific set group 2
+	local mbo = RDXDB.TouchObject("default:set_raid_group2_" .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex());
+	if not mbo.data then
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"groups", -- [1]
+				[3] = true,
+			}, -- [2]
+			{
+				"classes", -- [1]
+				true, -- [2]
+				true, -- [3]
+				true, -- [4]
+				true, -- [5]
+				true, -- [6]
+				true, -- [7]
+				true, -- [8]
+				true, -- [9]
+				true, -- [10]
+				true, -- [11]
+				true, -- [12]
+			}, -- [3]
+		};
+	end
+	-- Create symlink if it doesn't exist
+	local mbsl = RDXDB.TouchObject("default:set_raid_group2");
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_raid_group1_", ty = "FilterSet"};
+	end
+	
+	-- Create player-specific set group 3
+	local mbo = RDXDB.TouchObject("default:set_raid_group3_" .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex());
+	if not mbo.data then
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"groups", -- [1]
+				[4] = true,
+			}, -- [2]
+			{
+				"classes", -- [1]
+				true, -- [2]
+				true, -- [3]
+				true, -- [4]
+				true, -- [5]
+				true, -- [6]
+				true, -- [7]
+				true, -- [8]
+				true, -- [9]
+				true, -- [10]
+				true, -- [11]
+				true, -- [12]
+			}, -- [3]
+		};
+	end
+	-- Create symlink if it doesn't exist
+	local mbsl = RDXDB.TouchObject("default:set_raid_group3");
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_raid_group1_", ty = "FilterSet"};
+	end
+	
+	-- Create player-specific set group 4
+	local mbo = RDXDB.TouchObject("default:set_raid_group4_" .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex());
+	if not mbo.data then
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"groups", -- [1]
+				[5] = true,
+			}, -- [2]
+			{
+				"classes", -- [1]
+				true, -- [2]
+				true, -- [3]
+				true, -- [4]
+				true, -- [5]
+				true, -- [6]
+				true, -- [7]
+				true, -- [8]
+				true, -- [9]
+				true, -- [10]
+				true, -- [11]
+				true, -- [12]
+			}, -- [3]
+		};
+	end
+	-- Create symlink if it doesn't exist
+	local mbsl = RDXDB.TouchObject("default:set_raid_group4");
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_raid_group1_", ty = "FilterSet"};
+	end
+	
+	-- Create player-specific set group 5
+	local mbo = RDXDB.TouchObject("default:set_raid_group5_" .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex());
+	if not mbo.data then
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"groups", -- [1]
+				[6] = true,
+			}, -- [2]
+			{
+				"classes", -- [1]
+				true, -- [2]
+				true, -- [3]
+				true, -- [4]
+				true, -- [5]
+				true, -- [6]
+				true, -- [7]
+				true, -- [8]
+				true, -- [9]
+				true, -- [10]
+				true, -- [11]
+				true, -- [12]
+			}, -- [3]
+		};
+	end
+	-- Create symlink if it doesn't exist
+	local mbsl = RDXDB.TouchObject("default:set_raid_group5");
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_raid_group1_", ty = "FilterSet"};
+	end
+	
+	-- Create player-specific set group 6
+	local mbo = RDXDB.TouchObject("default:set_raid_group6_" .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex());
+	if not mbo.data then
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"groups", -- [1]
+				[7] = true,
+			}, -- [2]
+			{
+				"classes", -- [1]
+				true, -- [2]
+				true, -- [3]
+				true, -- [4]
+				true, -- [5]
+				true, -- [6]
+				true, -- [7]
+				true, -- [8]
+				true, -- [9]
+				true, -- [10]
+				true, -- [11]
+				true, -- [12]
+			}, -- [3]
+		};
+	end
+	-- Create symlink if it doesn't exist
+	local mbsl = RDXDB.TouchObject("default:set_raid_group6");
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_raid_group1_", ty = "FilterSet"};
+	end
+	
+	-- Create player-specific set group 7
+	local mbo = RDXDB.TouchObject("default:set_raid_group7_" .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex());
+	if not mbo.data then
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"groups", -- [1]
+				[8] = true,
+			}, -- [2]
+			{
+				"classes", -- [1]
+				true, -- [2]
+				true, -- [3]
+				true, -- [4]
+				true, -- [5]
+				true, -- [6]
+				true, -- [7]
+				true, -- [8]
+				true, -- [9]
+				true, -- [10]
+				true, -- [11]
+				true, -- [12]
+			}, -- [3]
+		};
+	end
+	-- Create symlink if it doesn't exist
+	local mbsl = RDXDB.TouchObject("default:set_raid_group7");
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_raid_group1_", ty = "FilterSet"};
+	end
+	
+	-- Create player-specific set group 8
+	local mbo = RDXDB.TouchObject("default:set_raid_group8_" .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex());
+	if not mbo.data then
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"groups", -- [1]
+				[9] = true,
+			}, -- [2]
+			{
+				"classes", -- [1]
+				true, -- [2]
+				true, -- [3]
+				true, -- [4]
+				true, -- [5]
+				true, -- [6]
+				true, -- [7]
+				true, -- [8]
+				true, -- [9]
+				true, -- [10]
+				true, -- [11]
+				true, -- [12]
+			}, -- [3]
+		};
+	end
+	-- Create symlink if it doesn't exist
+	local mbsl = RDXDB.TouchObject("default:set_raid_group8");
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_raid_group1_", ty = "FilterSet"};
 	end
 end);
 
