@@ -10,6 +10,7 @@
 local strlower = string.lower;
 
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
+
 	local default = RDXDB.GetOrCreatePackage("default");
 	if not default["assists"] then
 		default["assists"] = {
@@ -572,8 +573,31 @@ end);
 -- Builtin default set color
 --------------------------------------
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
+	
 	-- Create player-specific set yellow if they don't exist
-	local mbo = RDXDB.TouchObject("default:set_yellow_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("default:set_yellow_" .. RDX.pspace .. "1");
+	if not mbo.data then 
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"set",
+			{
+				["class"] = "ags",
+			},
+		};
+	end
+	local mbo = RDXDB.TouchObject("default:set_yellow_" .. RDX.pspace .. "2");
+	if not mbo.data then 
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"set",
+			{
+				["class"] = "ags",
+			},
+		};
+	end
+	local mbo = RDXDB.TouchObject("default:set_yellow_" .. RDX.pspace .. "3");
 	if not mbo.data then 
 		mbo.ty = "FilterSet"; 
 		mbo.version = 1;
@@ -586,12 +610,34 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	end
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("default:set_yellow");
-	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "default", prefixfile = "set_yellow_", ty = "FilterSet"};
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_yellow_", ty = "FilterSet"};
 	end
 	
 	-- Create player-specific set red if they don't exist
-	local mbo = RDXDB.TouchObject("default:set_red_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("default:set_red_" .. RDX.pspace .. "1");
+	if not mbo.data then
+		mbo.ty = "FilterSet";
+		mbo.version = 1;
+		mbo.data = {
+			"set",
+			{
+				["class"] = "ags",
+			},
+		};
+	end
+	local mbo = RDXDB.TouchObject("default:set_red_" .. RDX.pspace .. "2");
+	if not mbo.data then
+		mbo.ty = "FilterSet";
+		mbo.version = 1;
+		mbo.data = {
+			"set",
+			{
+				["class"] = "ags",
+			},
+		};
+	end
+	local mbo = RDXDB.TouchObject("default:set_red_" .. RDX.pspace .. "3");
 	if not mbo.data then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;
@@ -604,12 +650,34 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	end
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("default:set_red");
-	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "default", prefixfile = "set_red_", ty = "FilterSet"};
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_red_", ty = "FilterSet"};
 	end
 	
 	-- Create player-specific set green if they don't exist
-	local mbo = RDXDB.TouchObject("default:set_green_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("default:set_green_" .. RDX.pspace .. "1");
+	if not mbo.data then
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"set",
+			{
+				["class"] = "ags",
+			},
+		};
+	end
+	local mbo = RDXDB.TouchObject("default:set_green_" .. RDX.pspace .. "2");
+	if not mbo.data then
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"set",
+			{
+				["class"] = "ags",
+			},
+		};
+	end
+	local mbo = RDXDB.TouchObject("default:set_green_" .. RDX.pspace .. "3");
 	if not mbo.data then
 		mbo.ty = "FilterSet"; 
 		mbo.version = 1;
@@ -622,12 +690,34 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	end
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("default:set_green");
-	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "default", prefixfile = "set_green_", ty = "FilterSet"};
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_green_", ty = "FilterSet"};
 	end
 	
 	-- Create player-specific set blue if they don't exist
-	local mbo = RDXDB.TouchObject("default:set_blue_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("default:set_blue_" .. RDX.pspace .. "1");
+	if not mbo.data then
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"set",
+			{
+				["class"] = "haspet",
+			},
+		};
+	end
+	local mbo = RDXDB.TouchObject("default:set_blue_" .. RDX.pspace .. "2");
+	if not mbo.data then
+		mbo.ty = "FilterSet"; 
+		mbo.version = 1;
+		mbo.data = {
+			"set",
+			{
+				["class"] = "haspet",
+			},
+		};
+	end
+	local mbo = RDXDB.TouchObject("default:set_blue_" .. RDX.pspace .. "3");
 	if not mbo.data then
 		mbo.ty = "FilterSet"; 
 		mbo.version = 1;
@@ -640,8 +730,8 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	end
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("default:set_blue");
-	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "default", prefixfile = "set_blue_", ty = "FilterSet"};
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_blue_", ty = "FilterSet"};
 	end
 	
 	-- Create player-specific set group 1

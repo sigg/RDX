@@ -94,7 +94,7 @@ end
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	RDX.printI("Version " .. RDX.version[1] .. "." .. RDX.version[2] .. "." .. RDX.version[3] .. version_flag);
-	--RDX.printI("http://www.wowrdx.com");
+	RDX.printI("http://www.wowrdx.com");
 	local languageVersion, locale = VFL.GetLanguagePackVersion();
 	if languageVersion then
 		RDX.printI("Language Pack " .. locale .." Version " .. languageVersion[1] .. "." .. languageVersion[2] .. "." .. languageVersion[3]);
