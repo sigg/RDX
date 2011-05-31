@@ -393,6 +393,31 @@ end
 ]]; end;
 });
 
+RDX.RegisterOtherTextType({
+	name = "yourthreat";
+	title = VFLI.i18n("Your Threat Percent");
+	OnExpose = VFL.Noop;
+	OnApply = VFL.Noop;
+	repaintType = "interval"; -- "event" or "interval"
+	eventType = ""; -- "WoWEvents" or "RDXEvents"
+	eventName = "";
+	interval = 2;
+	GenerateCreateCodeVariable = function(objname) return [[
+]]; end;
+	GenerateCreateCode = function(objname) return [[
+local _, _, scaledPercent, _, _ = UnitDetailedThreatSituation("player", "target");
+if scaledPercent > 90 then
+	text = VFL.strtcolor(_red) .. scaledPercent .. "%";
+elseif scaledPercent > 70 then
+	text = VFL.strtcolor(_orange) .. scaledPercent .. "%";
+elseif scaledPercent > 50 then
+	text = VFL.strtcolor(_yellow) .. scaledPercent .. "%";
+else
+	text = VFL.strtcolor(_green) .. scaledPercent .. "%";
+end
+]]; end;
+});
+
 --- Scripted custom text.
 RDX.RegisterFeature({
 	name = "txt_other"; version = 1; multiple = true;
