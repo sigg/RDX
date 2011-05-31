@@ -48,10 +48,10 @@ You can change the icon texture here. Click on the disk to save when finish.
 ]];
 
 content_text[4] = [[
-Before begining, you need to hide the default Blizzard UI.
-Click on the menu UI and select Blizzard Frame Manager.
-Check all elements and click on the button save.
-Your UI will be reload and should be empty except the chatframe blizzard.
+All the Blizzard UI elements are hidden by default
+If you wish to display some elements, Click on the menu UI and select Blizzard Frame Manager.
+Uncheck the components you wish to display.
+Your UI will be reload.
 ]];
 
 content_text[5] = [[
