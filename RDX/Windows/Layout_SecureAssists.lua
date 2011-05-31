@@ -117,10 +117,14 @@ RDX.RegisterFeature({
 			if not InCombatLockdown() then -- Can't change the content of headers while in combat.
 				local n = sizeFunc(); if not n then return; end
 				n = math.min(limit, n);
-				local str,idx = "", 0;
+				local str, idx, name, server = "", 0, nil, nil;
 				for ctl,uid in iFunc() do if (UnitInParty(uid) or UnitInRaid(uid)) then
 					idx = idx + 1; if(idx > n) then break; end
-					str = str .. UnitName(uid) .. ",";
+					name, server = UnitName(uid);
+					if (server and server ~= "") then
+						name = name .. "-" .. server;
+					end
+					str = str .. name .. ",";
 				end end
 				if gridAssist then gridAssist:SetNameList(str); end
 				if gridT then gridT:SetNameList(str); end
