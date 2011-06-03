@@ -9,18 +9,26 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		state:AddSlot("BoolVar_eclipsedirection");
+		state:AddSlot("BoolVar_solardirection");
+		state:AddSlot("BoolVar_lunardirection");
 		return true;
 	end;
 	ApplyFeature = function(desc, state)
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 		if desc.test then
 			code:AppendCode([[
-local eclipsedirection = true;
+local solardirection = true;
+local lunardirection = true;
 ]]);
 		else
 			code:AppendCode([[
-local eclipsedirection = GetEclipseDirection();
+local solardirection, lunardirection = nil, nil;
+local direction = GetEclipseDirection()
+if direction == "moon" then
+	solardirection, lunardirection = nil, true;
+elseif direction == "sun" then
+	solardirection, lunardirection = true, nil;
+end
 ]]);
 		end
 		end);
