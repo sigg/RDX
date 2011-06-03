@@ -462,6 +462,8 @@ function RDXDK.DisableChatFrames()
 	FriendsMicroButton:UnregisterAllEvents();
 	--FloatingChatFrame_Update = VFL.Noop;
 	FCF_UpdateButtonSide = VFL.Noop;
+	FCF_FadeOutChatFrame = VFL.Noop;
+	FCF_FadeInChatFrame = VFL.Noop;
 	
 	-- strange problem fix
 	local tt = ChatEdit_UpdateHeader;
