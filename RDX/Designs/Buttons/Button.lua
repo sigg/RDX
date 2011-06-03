@@ -34,12 +34,30 @@ btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
 btn:Show();
 btn:RegisterForClicks("AnyUp");
 btn:SetScript("OnClick", function() ]] .. desc.editor .. [[ end);
+]];
+		if desc.gt then
+		local gtType = __RDX_GetGameTooltipType(desc.gt);
+		createCode = createCode .. [[
+btn:SetScript("OnEnter", ]] .. gtType .. [[);
+btn:SetScript("OnLeave", __RDX_OnLeave);
+]];
+		end
+		createCode = createCode .. [[
 frame.]] .. objname .. [[ = btn;
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 
+		if desc.gt and desc.gt ~= "" then
+		------------------- Paint
+			local paintCode = [[
+frame.]] .. objname .. [[.gtid = ]] .. desc.gt .. [[;
+]];
+			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCode); end);
+		end
+		
 		------------------ On frame destruction.
 		local destroyCode = [[
+frame.]] .. objname .. [[.gtid = nil;
 frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
@@ -62,6 +80,11 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("GameTooltip")));
+		
+		local gt = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("GameTooltip"), state, "GameTooltips_");
+		if desc and desc.gt then gt:SetSelection(desc.gt); end
+		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Script")));
 
 		local editor = VFLUI.TextEditor:new(ui, "LuaEditBox");
@@ -79,6 +102,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 				h = ed_height:GetSelection();
 				anchor = anchor:GetAnchorInfo();
 				editor = editor:GetText();
+				gt = gt:GetSelection();
 			};
 		end
 

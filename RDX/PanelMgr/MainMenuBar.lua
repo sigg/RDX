@@ -288,7 +288,7 @@ local function CreateMainPane()
 	end);
 	s.mmmfs = VFLUI.CreateFontString(s);
 	s.mmmfs:SetPoint("TOP", btn_MainMenuMicroButton, "BOTTOM");
-	s.mmmfs:SetWidth(size); s.mmmfs:SetHeight(10);
+	s.mmmfs:SetWidth(size + 4); s.mmmfs:SetHeight(10);
 	s.mmmfs:Show();
 	VFLUI.SetFont(s.mmmfs, Fonts.MainPanel);
 	s.mmmfs:SetText("Settings");
