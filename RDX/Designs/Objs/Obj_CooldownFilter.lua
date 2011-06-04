@@ -76,14 +76,15 @@ RDXDB.RegisterObjectType({
 		le_names:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 		le_names:SetWidth(300);	le_names:SetHeight(183); le_names:Show();
 
-		dlg:Show(.2, true);
+		dlg:Show();
+		--dlg:Show(.2, true);
 
 		local esch = function()
-			dlg:Hide(.2, true);
-			VFLT.ZMSchedule(.25, function()
+			--dlg:Hide(.2, true);
+			--VFLT.ZMSchedule(.25, function()
 				RDXPM.StoreLayout(dlg, "CooldownFilter");
 				dlg:Destroy(); dlg = nil;
-			end);
+			--end);
 		end
 		VFL.AddEscapeHandler(esch);
 		

@@ -213,14 +213,15 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 	--chk_autoswitch:SetText("Autoswitch");
 	--chk_autoswitch:Show();
 	
-	dlg:Show(.2, true);
+	dlg:Show();
+	--dlg:Show(.2, true);
 	
 	local esch = function()
-		dlg:Hide(.2, true);
-		VFLT.ZMSchedule(.25, function()
+		--dlg:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
 			RDXPM.StoreLayout(dlg, "AUI_editor");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 	

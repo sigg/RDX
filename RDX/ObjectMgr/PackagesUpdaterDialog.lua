@@ -632,13 +632,15 @@ end);
 function RDXDB.ShowRAU()
 	if RDXPM.Ismanaged("rau") then RDXPM.RestoreLayout(dlg, "rau"); end; 
 	RDXG.ShowRAU = true;
-	dlg:Show(.2, true);
+	dlg:Show();
+	--dlg:Show(.2, true);
 end
 
 function RDXDB.HideRAU()
 	RDXPM.StoreLayout(dlg, "rau");
 	RDXG.ShowRAU = nil;
-	dlg:Hide(.2, true);
+	dlg:Hide();
+	--dlg:Hide(.2, true);
 end
 
 function RDXDB.ToggleRAU()

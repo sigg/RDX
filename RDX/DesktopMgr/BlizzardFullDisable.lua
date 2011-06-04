@@ -705,7 +705,8 @@ function RDXDK.BlizzardManage(parent)
 	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 	
-	dlg:Show(.2, true);
+	dlg:Show();
+	--dlg:Show(.2, true);
 	
 	local btnNone = VFLUI.Button:new(dlg);
 	btnNone:SetHeight(25); btnNone:SetWidth(60);
@@ -780,11 +781,11 @@ function RDXDK.BlizzardManage(parent)
 	end);
 	
 	local esch = function()
-		dlg:Hide(.2, true);
-		VFLT.ZMSchedule(.25, function()
+		--dlg:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
 			RDXPM.StoreLayout(dlg, "rdx_settings");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 	

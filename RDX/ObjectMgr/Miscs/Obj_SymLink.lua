@@ -49,16 +49,17 @@ local function EditSymlink(parent, path, md)
 	slsel.isLayoutRoot = true;
 	if slsel.DialogOnLayout then slsel:DialogOnLayout(); end
 	slsel:Show();
-	-- Show the editor	
-	dlg:Show(.2, true);
+	-- Show the editor
+	dlg:Show();	
+	--dlg:Show(.2, true);
 
 	---------- Destruction
 	local esch = function() 
-		dlg:Hide(.2, true);
-		VFLT.ZMSchedule(.25, function()
+		--dlg:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
 			RDXPM.StoreLayout(dlg, "symlink_editor");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 	local btnClose = VFLUI.CloseButton:new(dlg);

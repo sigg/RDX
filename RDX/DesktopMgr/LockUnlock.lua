@@ -20,12 +20,12 @@ local function OpenDockDialog(frameprops, point)
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
-	dlg:SetWidth(230); dlg:SetHeight(105);
+	dlg:SetWidth(230); dlg:SetHeight(125);
 	dlg:SetText("Dock Options");
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	
 	local ui, sf = VFLUI.CreateScrollingCompoundFrame(dlg);
-	sf:SetWidth(200); sf:SetHeight(60);
+	sf:SetWidth(200); sf:SetHeight(70);
 	sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	
 	local ed_x = VFLUI.LabeledEdit:new(ui, 100); ed_x:Show();
@@ -40,15 +40,17 @@ local function OpenDockDialog(frameprops, point)
 	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 	
-	dlg:Show(.2, true);
+	dlg:Show();
+	--dlg:Show(.2, true);
 	
 	local esch = function()
-		dlg:Hide(.2, true);
-		VFLT.ZMSchedule(.25, function()
-			--RDXPM.StoreLayout(dlg, "rdx_settings");
+		--dlg:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
+			RDXPM.StoreLayout(dlg, "rdx_settings");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
+	
 	VFL.AddEscapeHandler(esch);
 	function dlg:_esch() VFL.EscapeTo(esch); end
 	
