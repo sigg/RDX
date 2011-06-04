@@ -298,10 +298,11 @@ end
 function RDXDAL.Unit:FracPower(pt)
 	local uid = self.uid or "none";
 	local a,b = UnitPower(uid, pt), UnitPowerMax(uid, pt);
+	if b == 0 then b = 1; end
 	a=a/b;
 	if a > 1 then a = 1; end
 	if a < -1 then a = -1; end
-	if a>0 then return a, 0; else return 0, abs(a); end
+	if a > 0 then return a, 0; else return 0, abs(a); end
 end
 --- @return the missing Power of the unit.
 function RDXDAL.Unit:MissingPower(pt)
