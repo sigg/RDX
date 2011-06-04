@@ -63,6 +63,7 @@ local function CreateMiniPane()
 	mini:SetPoint("CENTER", VFLParent, "CENTER");
 	mini:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight");
 	mini:SetHeight(32); mini:SetWidth(32);
+	mini:SetClampedToScreen(true);
 	mini:Show();
 	local tx1 = VFLUI.CreateTexture(mini);
 	tx1:SetPoint("TOPLEFT", mini, "TOPLEFT"); tx1:SetWidth(56); tx1:SetHeight(56);
