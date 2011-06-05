@@ -579,7 +579,7 @@ end
 
 local mainPane;
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_DESKTOP", nil, function()
 	if not RDXG.RDXopt then RDXG.RDXopt = {}; end
 	local opt = RDXG.RDXopt;
 	mainPane = CreateMainPane();
