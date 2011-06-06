@@ -74,9 +74,21 @@ local function CreateMiniPane()
 	tx2:SetDrawLayer("BACKGROUND");
 	tx2:SetTexture("Interface\\Addons\\RDX\\Skin\\mmbtn"); tx2:Show();
 	
+	mini:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_NONE");
+		GameTooltip:SetPoint("TOPLEFT", self, anchor, 0, 20);
+		GameTooltip:ClearLines();
+		GameTooltip:AddDoubleLine("Tips", "Use the key Shift to drag this button");
+		GameTooltip:Show();
+	end);
+	
+	mini:SetScript("OnLeave", function(self)
+		GameTooltip:Hide();
+	end);
+	
 	local mmvg = nil;
 	local shiftRight = nil;
-	mini:SetScript("OnMouseDown", function(this, arg1)
+	mini:SetScript("OnMouseDown", function(self, arg1)
 		if (arg1 == "LeftButton") then
 			if (IsShiftKeyDown()) then
 				mmvg = true;
