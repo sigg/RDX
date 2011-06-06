@@ -94,3 +94,14 @@ WoWEvents:Bind("VARIABLES_LOADED", nil, VariablesLoaded);
 
 ------------------------------- Last function that runs should always be Preload() ------------------------------
 Preload();
+
+--[[
+/console taintLog 0
+/console taintLog 1
+
+/script DEFAULT_CHAT_FRAME:AddMessage(GetMouseFocus():GetName());
+/script DEFAULT_CHAT_FRAME:AddMessage(GetMouseFocus():GetObjectType());
+
+/framestack showHidden
+/fstack showHidden
+]]
