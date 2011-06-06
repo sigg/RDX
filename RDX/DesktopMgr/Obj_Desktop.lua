@@ -514,8 +514,10 @@ function RDXDK.Desktop:new(parent)
 					frameProps["alpha"] = value;
 				elseif key == "POSITION" then
 					local rgn = frame:WMGetPositionalFrame();
-					local l,t,r,b = VFLUI.GetUniversalBoundary(rgn);
-					frameProps["l"] = l; frameProps["t"] = t; frameProps["r"] = r; frameProps["b"] = b;
+					if rgn then
+						local l,t,r,b = VFLUI.GetUniversalBoundary(rgn);
+						frameProps["l"] = l; frameProps["t"] = t; frameProps["r"] = r; frameProps["b"] = b;
+					end
 				elseif key == "OVERLAY" then
 					frame:UpdateUnlockOverlay(frameProps);
 				end

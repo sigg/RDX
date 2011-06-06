@@ -4,7 +4,7 @@
 ------------------------------
 VFLUI.RegisterTexture({
 	name = "blizzard_bar";
-	category = VFLI.i18n("Status Bars (Horiz)");
+	category = VFLI.i18n("SB (Horiz)");
 	title = VFLI.i18n("Blizzard");
 	path = "Interface\\TargetingFrame\\UI-StatusBar";
 	dx = 256; dy = 32;
@@ -12,7 +12,7 @@ VFLUI.RegisterTexture({
 
 VFLUI.RegisterTexture({
 	name = "rdx_bar1";
-	category = VFLI.i18n("Status Bars (Horiz)");
+	category = VFLI.i18n("SB (Horiz)");
 	title = VFLI.i18n("Beveled");
 	path = "Interface\\Addons\\RDX\\Skin\\bar1";
 	dx = 256; dy = 32;
@@ -20,7 +20,7 @@ VFLUI.RegisterTexture({
 
 VFLUI.RegisterTexture({
 	name = "rdx_barsmooth";
-	category = VFLI.i18n("Status Bars (Horiz)");
+	category = VFLI.i18n("SB (Horiz)");
 	title = VFLI.i18n("Smooth");
 	path = "Interface\\Addons\\RDX\\Skin\\bar_smooth";
 	dx = 256; dy = 32;
@@ -28,7 +28,7 @@ VFLUI.RegisterTexture({
 
 VFLUI.RegisterTexture({
 	name = "rdx_barhoutline";
-	category = VFLI.i18n("Status Bars (Horiz)");
+	category = VFLI.i18n("SB (Horiz)");
 	title = VFLI.i18n("Half Outline");
 	path = "Interface\\Addons\\RDX\\Skin\\bar_halfoutline";
 	dx = 256; dy = 32;
@@ -36,7 +36,7 @@ VFLUI.RegisterTexture({
 
 VFLUI.RegisterTexture({
 	name = "rdx_bar1vert";
-	category = VFLI.i18n("Status Bars (Vert)");
+	category = VFLI.i18n("SB (Vert)");
 	title = VFLI.i18n("Beveled");
 	path = "Interface\\Addons\\RDX\\Skin\\vbar1";
 	dx = 32; dy = 256;
@@ -44,7 +44,7 @@ VFLUI.RegisterTexture({
 
 VFLUI.RegisterTexture({
 	name = "rdx_barhoutlinevert";
-	category = VFLI.i18n("Status Bars (Vert)");
+	category = VFLI.i18n("SB (Vert)");
 	title = VFLI.i18n("Half Outline");
 	path = "Interface\\Addons\\RDX\\Skin\\vbar_halfoutline";
 	dx = 32; dy = 256;
@@ -70,6 +70,7 @@ ricon("Funnel", "funnel");
 ricon("Menu", "menu");
 ricon("Minimize", "minimize");
 ricon("Play", "play");
+ricon("Play_I", "play_i");
 ricon("Speaker", "speaker");
 ricon("Stop", "stop");
 ricon("Sync", "sync");

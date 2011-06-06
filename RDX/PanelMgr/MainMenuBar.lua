@@ -288,7 +288,7 @@ local function CreateMainPane()
 	end);
 	s.mmmfs = VFLUI.CreateFontString(s);
 	s.mmmfs:SetPoint("TOP", btn_MainMenuMicroButton, "BOTTOM");
-	s.mmmfs:SetWidth(size); s.mmmfs:SetHeight(10);
+	s.mmmfs:SetWidth(size + 4); s.mmmfs:SetHeight(10);
 	s.mmmfs:Show();
 	VFLUI.SetFont(s.mmmfs, Fonts.MainPanel);
 	s.mmmfs:SetText("Settings");
@@ -579,7 +579,7 @@ end
 
 local mainPane;
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_DESKTOP", nil, function()
 	if not RDXG.RDXopt then RDXG.RDXopt = {}; end
 	local opt = RDXG.RDXopt;
 	mainPane = CreateMainPane();

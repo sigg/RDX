@@ -334,11 +334,23 @@ function __RDX_GetGameTooltipType(str)
 end
 
 function __RDX_InventoryItemOnEnter(self)
-	GameTooltip:SetOwner(self, "ANCHOR_NONE");
-	GameTooltip:SetPoint("TOPLEFT", self, "RIGHT");
-	GameTooltip:SetInventoryItem("player", self.id);
-	GameTooltip:Show();
+	if self.gtid then
+		GameTooltip:SetOwner(self, "ANCHOR_NONE");
+		GameTooltip:SetPoint("TOPLEFT", self, "RIGHT");
+		GameTooltip:SetInventoryItem("player", self.gtid);
+		GameTooltip:Show();
+	end
 end
+
+function __RDX_TotemOnEnter(self)
+	if self.gtid then
+		GameTooltip:SetOwner(self, "ANCHOR_NONE");
+		GameTooltip:SetPoint("TOPLEFT", self, "RIGHT");
+		GameTooltip:SetTotem(self.gtid);
+		GameTooltip:Show();
+	end
+end
+
 function __RDX_OnLeave()
 	GameTooltip:Hide();
 end

@@ -113,14 +113,15 @@ local function DoOmniSearch(parent)
 	fe:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	fe:Show();
 	
-	dlg:Show(.2, true);
+	dlg:Show();
+	--dlg:Show(.2, true);
 
 	local esch = function() 
-		dlg:Hide(.2, true);
-		VFLT.ZMSchedule(.25, function()
+		--dlg:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
 			RDXPM.StoreLayout(dlg, "search_omniscience");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 	

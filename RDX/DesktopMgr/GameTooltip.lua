@@ -8,6 +8,7 @@ local btn = VFLUI.Button:new();
 btn:SetHeight(100); btn:SetWidth(100);
 btn:SetText(VFLI.i18n("GameTooltip"));
 btn:SetClampedToScreen(true);
+btn:SetFrameStrata("FULLSCREEN_DIALOG");
 
 function RDXDK.SetGameTooltipLocation(mb, x, y)
 	if not x then x = 0; end

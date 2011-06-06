@@ -270,14 +270,22 @@ local function BindingCodePopup(parent, callback)
 		-- Destroy the window
 		VFL.EscapeTo(esch);
 	end
-
-	local savebtn = VFLUI.SaveButton:new()
-	savebtn:SetScript("OnClick", Save);
-	dlg:AddButton(savebtn);
-
-	local closebtn = VFLUI.CloseButton:new(dlg);
-	closebtn:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
-	dlg:AddButton(closebtn);
+	
+	local btnOK = VFLUI.OKButton:new(dlg); -- OK button
+	btnOK:SetText(VFLI.i18n("OK")); btnOK:SetHeight(25); btnOK:SetWidth(75);
+	btnOK:SetPoint("BOTTOMRIGHT", dlg:GetClientArea(), "BOTTOMRIGHT");
+	btnOK:Show();
+	btnOK:SetScript("OnClick", function()
+		Save();
+	end);
+	
+	local btnCancel = VFLUI.CancelButton:new(dlg); -- OK button
+	btnCancel:SetText(VFLI.i18n("Cancel")); btnCancel:SetHeight(25); btnCancel:SetWidth(75);
+	btnCancel:SetPoint("RIGHT", btnOK, "LEFT");
+	btnCancel:Show();
+	btnCancel:SetScript("OnClick", function()
+		VFL.EscapeTo(esch); 
+	end);
 
 	----------------- DESTROY
 	dlg.Destroy = VFL.hook(function(s)

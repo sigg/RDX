@@ -181,15 +181,16 @@ function RDXDK.WindowList(parent)
 	BuildWindowList();
 	list:Update();
 	
-	dlg:Show(.2, true);
+	dlg:Show();
+	--dlg:Show(.2, true);
 	
 	-- Escapement
 	local esch = function() 
-		dlg:Hide(.2, true);
-		VFLT.ZMSchedule(.25, function()
+		--dlg:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
 			RDXPM.StoreLayout(dlg, "windowlist");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 	

@@ -176,15 +176,16 @@ local function OpenRaidWindow(parent)
 		end
 	end
 	
-	dlg:Show(.2, true);
+	dlg:Show();
+	--dlg:Show(.2, true);
 
 	local closebtn = VFLUI.CloseButton:new()
 	closebtn:SetScript("OnClick", function() 
-		dlg:Hide(.2, true);
-		VFLT.ZMSchedule(.25, function()
+		--dlg:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
 			RDXPM.StoreLayout(dlg, "roster");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end);
 	dlg:AddButton(closebtn);
 

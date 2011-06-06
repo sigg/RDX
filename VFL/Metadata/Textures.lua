@@ -24,7 +24,7 @@ for i=1,GetNumMacroIcons() do
 	local name = string.format("bicon%03d", i);
 	VFLUI.RegisterTexture({
 		name = name;
-		category = "All Blizzard Icons";
+		category = "Blizzard Icons";
 		title = name;
 		path = GetMacroIconInfo(i);
 		dx=32; dy=32;

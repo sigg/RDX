@@ -112,7 +112,7 @@ end
 ]];
 		if desc.gt and desc.gt ~= "" then
 		paintCode = paintCode .. [[
-btn.id = ]] .. desc.gt .. [[;
+btn.gtid = ]] .. desc.gt .. [[;
 ]];
 		end
 		state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCode); end);

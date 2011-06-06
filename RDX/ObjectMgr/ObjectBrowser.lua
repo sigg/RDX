@@ -564,7 +564,9 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	expl:SetFileFilter(fileFilter);
 	expl:SetRightClickFunctions(PackageRightClick, ObjectRightClick);
 	expl:Rebuild();
-	dlg:Show(.2, true);
+	
+	dlg:Show();
+	--dlg:Show(.2, true);
 	---------------- Clipboard handling
 	local clipboardPath, clipboardOp, btnPaste = nil, nil, nil;
 
@@ -621,7 +623,7 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	local esch = function()
 		--dlg:Hide(.2, true);
 		--VFLT.ZMSchedule(.25, function()
-		--	RDXPM.StoreLayout(dlg, "ObjectBrowser");
+			RDXPM.StoreLayout(dlg, "ObjectBrowser");
 			dlg:Destroy(); dlg = nil;
 			if selCallback then selCallback(nil); end
 		--end);

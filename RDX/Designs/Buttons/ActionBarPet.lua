@@ -274,7 +274,7 @@ frame.]] .. objname .. [[ = nil;
 				orientation = dd_orientation:GetSelection();
 				iconspx = VFL.clamp(ed_iconspx.editBox:GetNumber(), -20, 200);
 				iconspy = VFL.clamp(ed_iconspy.editBox:GetNumber(), -20, 200);
-				size = VFL.clamp(ed_size.editBox:GetNumber(), 20, 100);
+				size = VFL.clamp(ed_size.editBox:GetNumber(), 10, 100);
 				-- display
 				usebs = chk_bs:GetChecked();
 				externalButtonSkin = dd_buttonSkin:GetSelection();

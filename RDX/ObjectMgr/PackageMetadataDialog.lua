@@ -91,14 +91,15 @@ function RDXDB.PackageMetadataDialog(pkg, parent)
 	if RDXDB.GetPackageMetadata(pkg, "infoRunAutoexec") then chk_runautoexec:SetChecked(true); else chk_runautoexec:SetChecked(); end
 	chk_runautoexec:Show();
 	
-	dlg:Show(.2, true);
+	dlg:Show();
+	--dlg:Show(.2, true);
 	
 	local esch = function()
-		dlg:Hide(.2, true);
-		VFLT.ZMSchedule(.25, function()
+		--dlg:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
 			RDXPM.StoreLayout(dlg, "PackageMetadata");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 	

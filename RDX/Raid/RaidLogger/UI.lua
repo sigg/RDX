@@ -347,25 +347,25 @@ function Omni.Open(path, parent)
 		if (tbl == tblCur) then RefreshActiveTable(); end
 	end, "oui");
 	
-	dlg:Show(.2, true);
+	dlg:Show();
+	--dlg:Show(.2, true);
 	
 	local esch = function() 
-		dlg:Hide(.2, true);
-		VFLT.ZMSchedule(.25, function()
+		--dlg:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
 			RDXPM.StoreLayout(dlg, "browser_omniscience");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
-	--VFL.AddEscapeHandler(esch);
+	VFL.AddEscapeHandler(esch);
 	
 	function dlg:_esch()
-		--VFL.EscapeTo(esch);
-		esch();
+		VFL.EscapeTo(esch);
 	end
 	
 	local btnClose = VFLUI.CloseButton:new(dlg);
+	btnClose:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
 	dlg:AddButton(btnClose);
-	btnClose:SetScript("OnClick", function() esch() end);
 
 	dlg.Destroy = VFL.hook(function(s)
 		OmniEvents:Unbind("oui");
