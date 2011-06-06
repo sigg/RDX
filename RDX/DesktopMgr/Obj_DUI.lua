@@ -355,17 +355,9 @@ RDXDB.RegisterObjectType({
 });
 
 local currentAUI = nil;
-local function ChangeAUI(path, nosave)
-	--RDX.printI("Change desktop " .. path);
-	if RDXDK.IsAUIEditorOpen() then RDXDK.CloseAUIEditor() end
-	RDX:Debug(3, "Change AUI " .. path);
-	-- close
-	if currentAUI then
-		RDXDB._RemoveInstance(RDXU.AUI);
-	end
-	RDXU.AUI = path;
-	-- open
-	currentAUI = RDXDB.GetObjectInstance(path);
+
+local function OpenAUI()
+	currentAUI = RDXDB.GetObjectInstance(RDXU.AUI);
 	if currentAUI then
 		local state;
 		if RDXU.autoSwitchState then
@@ -377,6 +369,21 @@ local function ChangeAUI(path, nosave)
 		local _, auiname = RDXDB.ParsePath(RDXU.AUI);
 		RDXDK.SecuredChangeState(RDXU.AUIState, true);
 		RDXEvents:Dispatch("AUI", auiname);
+	end
+end
+
+local function ChangeAUI(path, nosave)
+	--RDX.printI("Change desktop " .. path);
+	if RDXDK.IsAUIEditorOpen() then RDXDK.CloseAUIEditor() end
+	RDX:Debug(3, "Change AUI " .. path);
+	-- close
+	if currentAUI then
+		RDXDB._RemoveInstance(RDXU.AUI);
+		RDXU.AUI = path;
+		VFLT.CreatePeriodicLatch(2, OpenAUI);
+	else
+		RDXU.AUI = path;
+		OpenAUI();
 	end
 end
 

@@ -5,6 +5,7 @@
 -- WOW 3.0 and Handler
 
 VFLUI.CreateFramePool("SecureHandlerBase", function(pool, frame)
+	UnregisterStateDriver(frame, "visibility");
 	VFLUI._CleanupLayoutFrame(frame);
 end, function()
 	local f = CreateFrame("Frame", "SHB" .. VFL.GetNextID(), nil, "SecureHandlerBaseTemplate");
@@ -12,6 +13,8 @@ end, function()
 end);
 
 VFLUI.CreateFramePool("SecureHandlerAttribute", function(pool, frame)
+	UnregisterStateDriver(frame, "visibility");
+	UnregisterStateDriver(frame, 'page');
 	frame:SetAttribute('_onattributechanged', "");
 	VFLUI._CleanupLayoutFrame(frame);
 end, function()

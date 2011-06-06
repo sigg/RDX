@@ -495,6 +495,7 @@ end, function()
 	FixFontObjectNonsense(f);
 	return f;
 end, function(_, x)
+	x:EnableMouse(true);
 	x:Enable();
 end);
 
@@ -507,6 +508,7 @@ end, function()
 	FixFontObjectNonsense(f);
 	return f;
 end, function(_, x)
+	x:EnableMouse(true);
 	x:Enable();
 end);
 

@@ -121,6 +121,9 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	self.ebhide = ebhide;
 	self.showtooltip = showtooltip;
 	
+	-- animating
+	self.gacp = 0;
+	
 	-- icon texture
 	self.icon = VFLUI.CreateTexture(self);
 	self.icon:SetPoint("TOPLEFT", self, "TOPLEFT", os, -os);
@@ -189,13 +192,11 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	end
 	
 	local function UpdateGlow()
-		if self.ga then
-			self.ga = nil;
+		local spellType, id, subType  = GetActionInfo(self.action);
+		if (spellType == "spell" and IsSpellOverlayed(id)) then
+			self.ga = true;
 		else
-			local spellType, id, subType  = GetActionInfo(self.action);
-			if (spellType == "spell" and IsSpellOverlayed(id)) then
-				self.ga = true;
-			end
+			self.ga = nil;
 		end
 	end
 	
@@ -268,12 +269,26 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 				-- Border and gloss indicator
 				VFLT.AdaptiveUnschedule("ScheduleactionButton" .. id);
 				VFLT.AdaptiveSchedule("ScheduleactionButton" .. id, 0.1, function()
+					-- flash
 					if self.ga then
-						if self.usebs then
-							self._texBorder:SetVertexColor(1, 0.5, 0, 0.8);
-							self._texGloss:SetVertexColor(1, 0.5, 0, 0.8);
-						elseif self.usebkd then
-							self:SetBackdropBorderColor(1, 0.5, 0, 0.8);
+						if self.gacp > 0.5 then
+							self.gacp = 0;
+							if self.gacolor then self.gacolor = nil; else self.gacolor = true; end
+						end
+						if self.gacolor then
+							if self.usebs then
+								self._texBorder:SetVertexColor(1, 0.5, 0, 0.8);
+								self._texGloss:SetVertexColor(1, 0.5, 0, 0.8);
+							elseif self.usebkd then
+								self:SetBackdropBorderColor(1, 0.5, 0, 0.8);
+							end
+						else
+							if self.usebs then
+								self._texBorder:SetVertexColor(1, 1, 0, 0.8);
+								self._texGloss:SetVertexColor(1, 1, 0, 0.8);
+							elseif self.usebkd then
+								self:SetBackdropBorderColor(1, 1, 0, 0.8);
+							end
 						end
 					-- current action yellow color
 					elseif self.ca then
@@ -475,6 +490,9 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 		s.ca = nil;
 		s.ua = nil;
 		s.ea = nil;
+		s.ga = nil;
+		s.gacp = nil;
+		s.gacolor = nil;
 		s.flash = nil;
 		s.usebs = nil;
 		s.usebkd = nil;
