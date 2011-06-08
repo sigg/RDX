@@ -367,6 +367,7 @@ function RDXDK.DisablePlayerFrames()
 	PlayerFrameHealthBar:UnregisterAllEvents();
 	UnitFrameHealthBar_OnValueChanged = VFL.Noop;
 	PlayerFrameManaBar:UnregisterAllEvents();
+	PlayerFrameAlternateManaBar:UnregisterAllEvents();
 end
 
 function RDXDK.DisableRuneFrames()

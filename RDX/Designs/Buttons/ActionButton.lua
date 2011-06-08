@@ -270,6 +270,8 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 						if self.gacp > 0.5 then
 							self.gacp = 0;
 							if self.gacolor then self.gacolor = nil; else self.gacolor = true; end
+						else
+							self.gacp = self.gacp + 0.1;
 						end
 						if self.gacolor then
 							if self.usebs then

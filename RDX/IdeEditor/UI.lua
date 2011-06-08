@@ -581,7 +581,7 @@ reservedWords["false"] = true;
 reservedWords["nil"] = true;
 
 function RDX._CheckVariableNameValidity(name, state, errs)
-	if not type(name) == "string" then VFL.AddError(errs, VFLI.i18n("Missing variable name.")); return nil; end
+	if not name or not type(name) == "string" then VFL.AddError(errs, VFLI.i18n("Missing variable name.")); return nil; end
 	if type(name) == "number" then VFL.AddError(errs, VFLI.i18n("Variable name must be alpha.")); return nil; end
 	if not string.find(name, "^%w+$") then
 		VFL.AddError(errs, VFLI.i18n("Invalid characters in variable name")); return nil;
