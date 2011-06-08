@@ -58,7 +58,7 @@ if mmap then
 	
 	mmap:SetZoom(1);
 	
-	mmap:EnableMouseWheel(1);
+	mmap:EnableMouseWheel(true);
 	mmap:SetScript('OnMouseWheel', function(_, dir)
 		if (dir > 0) then
 			Minimap_ZoomIn();

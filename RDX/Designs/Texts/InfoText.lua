@@ -191,10 +191,10 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-local  time24 = false --True if you want military time
+local time24 = false --True if you want military time
 local hour = date("%H")
 local minute = date("%M")
-minute = floor(minute / 10) == 0 and "0" .. minute or minute
+--minute = floor(minute / 10) == 0 and "0" .. minute or minute
 local time = ""
 if time24 == true then
   time = hour .. ":" .. minute

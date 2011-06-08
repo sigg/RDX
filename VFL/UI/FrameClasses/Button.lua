@@ -10,8 +10,8 @@ function VFLUI.Button:new(parent)
 	local btn = VFLUI.AcquireFrame("Button");
 	if parent then
 		btn:SetParent(parent);
-		btn:SetFrameStrata(parent:GetFrameStrata());
-		btn:SetFrameLevel(parent:GetFrameLevel() + 1);
+		--btn:SetFrameStrata(parent:GetFrameStrata());
+		--btn:SetFrameLevel(parent:GetFrameLevel() + 1);
 	end
 	
 	-- Background
@@ -109,8 +109,8 @@ function VFLUI.TexturedButton:new(parent, dim, texture)
 	-- Inheritance
 	if parent then
 		self:SetParent(parent);
-		self:SetFrameStrata(parent:GetFrameStrata());
-		self:SetFrameLevel(parent:GetFrameLevel() + 1);
+		--self:SetFrameStrata(parent:GetFrameStrata());
+		--self:SetFrameLevel(parent:GetFrameLevel() + 1);
 	end
 	
 	if not dim then dim=16; end
@@ -163,8 +163,8 @@ function VFLUI.Checkbox:new(parent)
 
 	if parent then
 		self:SetParent(parent);
-		self:SetFrameStrata(parent:GetFrameStrata());
-		self:SetFrameLevel(parent:GetFrameLevel() + 1);
+		--self:SetFrameStrata(parent:GetFrameStrata());
+		--self:SetFrameLevel(parent:GetFrameLevel() + 1);
 	end
 	
 	local chk = VFLUI.AcquireFrame("CheckButton");
@@ -215,8 +215,8 @@ function VFLUI.RadioButton:new(parent)
 	local self = VFLUI.AcquireFrame("Frame");
 	if parent then
 		self:SetParent(parent);
-		self:SetFrameStrata(parent:GetFrameStrata());
-		self:SetFrameLevel(parent:GetFrameLevel() + 1);
+		--self:SetFrameStrata(parent:GetFrameStrata());
+		--self:SetFrameLevel(parent:GetFrameLevel() + 1);
 	end
 	self:SetHeight(16); self:SetWidth(16);
 	
@@ -382,11 +382,12 @@ function VFLUI.SkinButton:new(parent, btype, id)
 	if parent then
 		obj:SetParent(parent);
 		--obj:SetAllPoints(parent);
-		obj:SetFrameStrata(parent:GetFrameStrata());
-		obj:SetFrameLevel(parent:GetFrameLevel() + 1);
+		--obj:SetFrameStrata(parent:GetFrameStrata());
+		--obj:SetFrameLevel(parent:GetFrameLevel() + 1);
 	end
 	
 	obj:Show();
+	
 	local framesup = VFLUI.AcquireFrame("Frame");
 	framesup:SetParent(obj);
 	framesup:SetFrameStrata(obj:GetFrameStrata());
@@ -399,6 +400,7 @@ function VFLUI.SkinButton:new(parent, btype, id)
 	_texBackdrop:SetAllPoints(obj);
 	_texBackdrop:Hide();
 	obj._texBackdrop = _texBackdrop;
+	
 	
 	local _texBorder = VFLUI.CreateTexture(framesup);
 	_texBorder:SetAllPoints(framesup);
@@ -542,8 +544,8 @@ function VFLUI.BckButton:new(parent, btype, id)
 	if not obj then return nil; end
 	if parent then
 		obj:SetParent(parent);
-		obj:SetFrameStrata(parent:GetFrameStrata());
-		obj:SetFrameLevel(parent:GetFrameLevel() + 1);
+		--obj:SetFrameStrata(parent:GetFrameStrata());
+		--obj:SetFrameLevel(parent:GetFrameLevel() + 1);
 	end
 	obj:Show();
 	

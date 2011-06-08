@@ -402,8 +402,8 @@ function RDXDK.RemoveUnlockOverlay(frame)
 	frame.tfl.point = nil; frame.tfl.data = nil; frame.tfl:Destroy(); frame.tfl = nil;
 	if frame.tfIdent then
 		VFLUI.ReleaseRegion(frame.tfIdent); frame.tfIdent = nil;
-		frame.tf:Destroy(); frame.tf = nil;
 	end
+	frame.tf:Destroy(); frame.tf = nil;
 	frame.Lock = nil; frame.Unlock = nil; frame.UpdateUnlockOverlay = nil;
 end
 

@@ -70,9 +70,7 @@ for i=1, ]] .. desc.nIcons .. [[ do
 	abid = abid + 1;
 end
 
-if ]] .. useheader .. [[ then 
-	frame.]] .. objname .. [[header = h;
-end
+frame.]] .. objname .. [[header = h;
 
 ]];
 	createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
@@ -146,10 +144,8 @@ for i=1, ]] .. desc.nIcons .. [[ do
 	local btn = frame.]] .. objname .. [[[i];
 	if btn then btn:ClearAllPoints(); btn:Hide(); btn:Destroy(); btn = nil; end
 end
-if ]] .. useheader .. [[ then 
-	frame.]] .. objname .. [[header:Destroy();
-	frame.]] .. objname .. [[header = nil;
-end
+frame.]] .. objname .. [[header:Destroy();
+frame.]] .. objname .. [[header = nil;
 frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);

@@ -344,7 +344,10 @@ local function _DR()
 	DRTimer = mathdotfloor(GetTime() * 1000), 0;
 	for st, obj in pairs(drot) do
 		if DRTimer > st then
-			if obj.IsProtected and obj:IsProtected() then obj.jail = true; obj:EnableMouse(false); end
+			if obj.IsProtected and obj:IsProtected() then 
+				obj.jail = true; 
+				obj:EnableMouse(nil);
+			end
 			drpt[st]:_Release(obj);
 			drot[st] = nil; drpt[st] = nil;
 		end
@@ -394,8 +397,10 @@ end
 ----------------------------------------------
 -- Cleanup a LayoutFrame.
 local function CleanupLayoutFrame(x)
-	x:Hide(); x:SetParent(VFLParent); x:ClearAllPoints();
-	x:SetHeight(1); x:SetWidth(1); x:SetAlpha(1); 
+	x:Hide(); x:SetParent(nil);
+	x:ClearAllPoints();
+	x:SetHeight(1); x:SetWidth(1);
+	x:SetAlpha(1); 
 end
 VFLUI._CleanupLayoutFrame = CleanupLayoutFrame;
 
@@ -410,18 +415,19 @@ VFLUI._RemoveFrameScripts = RemoveFrameScripts;
 -- Cleanup a Frame
 local function CleanupFrame(x)
 	-- Cleanup scripts
+	--x:EnableMouse(nil);
 	x:UnregisterAllEvents(); RemoveFrameScripts(x);
 	x.isLayoutRoot = nil; x.DialogOnLayout = nil;
 	-- Stop any and all movement
 	x:StopMovingOrSizing();
 	x:SetMovable(nil); x:SetResizable(nil); x:SetClampedToScreen(nil);
-	x:Hide();
-	x:SetFrameStrata("MEDIUM"); x:SetFrameLevel(1);
-	-- Perform LayoutFrame cleanup...
-	CleanupLayoutFrame(x);
+	x:RegisterForDrag(nil);
 	-- Frame specific cleanup
+	x:SetFrameStrata("MEDIUM"); x:SetFrameLevel(1);
 	x:SetScale(1);
 	x:SetBackdrop(nil);
+	-- Perform LayoutFrame cleanup...
+	CleanupLayoutFrame(x);
 end
 VFLUI._CleanupFrame = CleanupFrame;
 
@@ -431,7 +437,6 @@ local function CleanupButton(x)
 	x:SetScript("OnDoubleClick", nil);
 	x:RegisterForClicks("LeftButtonUp");
 	x:SetNormalTexture(nil); x:SetHighlightTexture(nil); x:SetDisabledTexture(nil); x:SetPushedTexture(nil);
-	x:EnableMouse(true);
 	x:Enable(); x:SetButtonState("NORMAL", nil); x:UnlockHighlight();
 	x:SetText("");
 	x:SetNormalFontObject(Fonts.Default);
@@ -439,7 +444,6 @@ local function CleanupButton(x)
 	x:SetHighlightFontObject(Fonts.Default);
 	CleanupFrame(x);
 end
-
 VFLUI._CleanupButton = CleanupButton;
 
 -- Dirty hack: Font objects are broken. Override SetFontObject to do the right thing.
@@ -476,14 +480,22 @@ end
 VFLUI._FixFontObjectNonsense = FixFontObjectNonsense;
 
 -- Class: Frame
-VFLUI.CreateFramePool("Frame", function(pool, frame) CleanupFrame(frame); end, function() return CreateFrame("Frame"); end);
+VFLUI.CreateFramePool("Frame", function(pool, x)
+	CleanupFrame(x);
+end, function()
+	--if id == 130 then error(); end
+	return CreateFrame("Frame", "Frame_" .. GetNextID());
+end, function(_, x)
+	--if x:
+	x:EnableMouse(nil);
+end);
 
 -- Class: SecureFrame
 VFLUI.CreateFramePool("SecureFrame", function(pool, x)
 	x:SetAttribute("toggleForVehicle", nil);
 	CleanupFrame(x);
 end, function()
-	local f = CreateFrame("Frame", nil, nil, "SecureFrameTemplate");
+	local f = CreateFrame("Frame", "SecureFrame_" .. GetNextID(), nil, "SecureFrameTemplate");
 	return f;
 end);
 
@@ -491,12 +503,12 @@ end);
 VFLUI.CreateFramePool("Button", function(pool, x)
 	CleanupButton(x);
 end, function()
-	local f = CreateFrame("Button");
+	local f = CreateFrame("Button", "Button_" .. GetNextID());
 	FixFontObjectNonsense(f);
 	return f;
 end, function(_, x)
+	--if x:
 	x:EnableMouse(true);
-	x:Enable();
 end);
 
 -- Class: CheckButton
@@ -504,12 +516,9 @@ VFLUI.CreateFramePool("CheckButton", function(pool, x)
 	x:SetCheckedTexture(nil); x:SetDisabledCheckedTexture(nil); x:SetChecked(nil);
 	CleanupButton(x);
 end, function()
-	local f = CreateFrame("CheckButton");
+	local f = CreateFrame("CheckButton", "CheckButton_" .. VFL.GetNextID());
 	FixFontObjectNonsense(f);
 	return f;
-end, function(_, x)
-	x:EnableMouse(true);
-	x:Enable();
 end);
 
 -- Class: SecureUnitButton
@@ -521,7 +530,7 @@ VFLUI.CreateFramePool("SecureUnitButton", function(pool, x)
 	x:SetText("");
 	CleanupFrame(x);
 end, function()
-	local f = CreateFrame("Button", "secub" .. GetNextID(), nil, "SecureUnitButtonTemplate");
+	local f = CreateFrame("Button", "SecureUnitButton" .. GetNextID(), nil, "SecureUnitButtonTemplate");
 	FixFontObjectNonsense(f);
 	return f;
 end);
@@ -537,7 +546,7 @@ VFLUI.CreateFramePool("EditBox", function(pool, x)
 	x:SetText(""); x:SetTextColor(1,1,1,1);
 	CleanupFrame(x);
 end, function() 
-	local f = CreateFrame("EditBox");
+	local f = CreateFrame("EditBox", "EditBox_" .. VFL.GetNextID());
 	f.SetFontObject = VFL_SetFontObject;
 	return f;
 end);
@@ -548,7 +557,7 @@ VFLUI.CreateFramePool("Slider", function(pool, x)
 	x:SetOrientation("VERTICAL");
 	x:SetThumbTexture(nil);	x:SetMinMaxValues(0,0); x:SetValue(0);
 	CleanupFrame(x);
-end, function() return CreateFrame("Slider"); end);
+end, function() return CreateFrame("Slider", "Slider_" .. VFL.GetNextID()); end);
 
 -- Class: ScrollFrame
 VFLUI.CreateFramePool("ScrollFrame", function(pool, x) 
@@ -557,32 +566,32 @@ VFLUI.CreateFramePool("ScrollFrame", function(pool, x)
 	x:SetScript("OnVerticalScroll", nil); x:SetScript("OnHorizontalScroll", nil);
 	x:SetHorizontalScroll(0); x:SetVerticalScroll(0);
 	CleanupFrame(x);
-end, function() return CreateFrame("ScrollFrame"); end);
+end, function() return CreateFrame("ScrollFrame", "ScrollFrame_" .. VFL.GetNextID()); end);
 
 -- Class: StatusBar
 VFLUI.CreateFramePool("StatusBar", function(pool, x) 
 	x:SetMinMaxValues(0,1);	
 	x:SetStatusBarTexture(nil);
 	CleanupFrame(x);
-end, function() return CreateFrame("StatusBar"); end);
+end, function() return CreateFrame("StatusBar", "StatusBar_" .. VFL.GetNextID()); end);
 
 -- Class: CoolDown
 VFLUI.CreateFramePool("Cooldown", function(pool, x)
 	x:SetCooldown(0,0);
 	CleanupFrame(x);
-end, function() return CreateFrame("Cooldown"); end);
+end, function() return CreateFrame("Cooldown", "Cooldown_" .. VFL.GetNextID()); end);
 
 -- Class: PlayerModel
 VFLUI.CreateFramePool("PlayerModel", function(pool, x)
 	x:ClearModel();
 	CleanupFrame(x);
-end, function() return CreateFrame("PlayerModel"); end);
+end, function() return CreateFrame("PlayerModel", "PlayerModel_" .. VFL.GetNextID()); end);
 
 -- Class: MessageFrame
 VFLUI.CreateFramePool("MessageFrame", function(pool, x)
 	x:Clear();
 	CleanupFrame(x);
-end, function() return CreateFrame("MessageFrame"); end);
+end, function() return CreateFrame("MessageFrame", "MessageFrame_" .. VFL.GetNextID()); end);
 
 -- New Hide/Show functions for frames.
 local function TimerHide(f, t, z)

@@ -27,10 +27,6 @@ VFLUI.CreateFramePool("SecureActionButtonBar",
 		return f;
 	end, 
 	function(_, f) -- on acquired
-		--f:ClearAllPoints();
-		--f:EnableMouse(true);
-		--f:SetBackdrop(nil);
-		--f:Show();
 	end,
 "key");
 
@@ -872,7 +868,6 @@ VFLUI.CreateFramePool("SecureActionButtonPet",
 	end, 
 	function(_, f) -- on acquired
 		f:ClearAllPoints();
-		f:EnableMouse(true);
 		f:SetBackdrop(nil);
 		f:Show();
 	end,

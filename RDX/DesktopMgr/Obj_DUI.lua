@@ -380,7 +380,8 @@ local function ChangeAUI(path, nosave)
 	if currentAUI then
 		RDXDB._RemoveInstance(RDXU.AUI);
 		RDXU.AUI = path;
-		VFLT.ZMSchedule(1, OpenAUI);
+		--VFLT.ZMSchedule(1, OpenAUI);
+		OpenAUI();
 	else
 		RDXU.AUI = path;
 		OpenAUI();

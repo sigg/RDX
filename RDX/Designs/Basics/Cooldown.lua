@@ -42,7 +42,7 @@ btn:SetScript("OnLeave", __RDX_OnLeave);
 ]];
 	else
 	createCode = createCode .. [[
---btn:EnableMouse(false);
+
 ]];
 	end
 	createCode = createCode .. [[
@@ -87,7 +87,6 @@ RDX.RegisterFeature({
 local btn = frame.]] .. objname .. [[;
 btn.cd:Destroy(); btn.cd = nil;
 VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
-btn:EnableMouse(true);
 btn:Destroy(); btn = nil;
 frame.]] .. objname .. [[ = nil;
 ]];
