@@ -134,8 +134,8 @@ function RDXUI.UnitFrameAnchorSelector:new(parent)
 		edx:SetText(ai.dx); edy.editBox:SetText(ai.dy);
 	end
 	function self:GetAnchorInfo()
-		local dx = VFL.clamp(edx:GetNumber(), -1024, 1024);
-		local dy = VFL.clamp(edy.editBox:GetNumber(), -1024, 1024);
+		local dx = VFL.clamp(edx:GetNumber(), -2048, 2048);
+		local dy = VFL.clamp(edy.editBox:GetNumber(), -2048, 2048);
 		return {
 			lp = dd_lp:GetSelection(), rp = dd_rp:GetSelection(), af = dd_af:GetSelection(),
 			dx = dx, dy = dy
