@@ -8,7 +8,7 @@
 -- Glue code and interface code for customizable MouseBindings.
 
 -- Helper functions/metadata
-local btnNumberToName = { "LeftButton", "RightButton", "MiddleButton", "Button4", "Button5" };
+local btnNumberToName = { "LeftButton", "RightButton", "MiddleButton", "Button4", "Button5", "Button6", "Button7", "Button8", "Button9", "Button10"};
 local btnNameToNumber = VFL.invert(btnNumberToName);
 
 ---------------------------------------------
@@ -234,13 +234,18 @@ local function BindingCodePopup(parent, callback)
 
 	local btn = VFLUI.RadioGroup:new(gb_btn:GetClientArea());
 	btn:SetPoint("TOPLEFT", gb_btn:GetClientArea(), "TOPLEFT");
-	btn:SetLayout(5, 1);
+	btn:SetLayout(10, 1);
 	btn:SetWidth(100);
 	btn.buttons[1]:SetText("Left");
 	btn.buttons[2]:SetText("Right");
 	btn.buttons[3]:SetText("Middle");
 	btn.buttons[4]:SetText("Button 4");
 	btn.buttons[5]:SetText("Button 5");
+	btn.buttons[6]:SetText("Button 6");
+	btn.buttons[7]:SetText("Button 7");
+	btn.buttons[8]:SetText("Button 8");
+	btn.buttons[9]:SetText("Button 9");
+	btn.buttons[10]:SetText("Button 10");
 	btn:Show();
 	btn:SetValue(1);
 
@@ -263,6 +268,16 @@ local function BindingCodePopup(parent, callback)
 			str = str .. "4";
 		elseif v == 5 then
 			str = str .. "5";
+		elseif v == 6 then
+			str = str .. "6";
+		elseif v == 7 then
+			str = str .. "7";
+		elseif v == 8 then
+			str = str .. "8";
+		elseif v == 9 then
+			str = str .. "9";
+		elseif v == 10 then
+			str = str .. "10";
 		else
 			str = nil;
 		end

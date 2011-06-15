@@ -22,8 +22,22 @@ local function OpenBindingWindow(parent)
 	binding_window:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT");
 	VFLUI.Window.StdMove(binding_window, binding_window:GetTitleBar());
 	binding_window:SetID(parent.id);
+	binding_window:SetScript("OnClick", function(self, arg1)
+		__RDXSetBindingKey(arg1, parent.btype);
+		SaveBindings(GetCurrentBindingSet());
+		DesktopEvents:Dispatch("DESKTOP_UPDATE_BINDINGS", parent.id);
+	end);
 	binding_window:SetScript("OnKeyDown", function(self, arg1)
 		__RDXSetBindingKey(arg1, parent.btype);
+		SaveBindings(GetCurrentBindingSet());
+		DesktopEvents:Dispatch("DESKTOP_UPDATE_BINDINGS", parent.id);
+	end);
+	binding_window:SetScript("OnMouseWheel", function(self, arg1)
+		if arg1 > 0 then
+			__RDXSetBindingKey("MOUSEWHEELUP", parent.btype);
+		else
+			__RDXSetBindingKey("MOUSEWHEELDOWN", parent.btype);
+		end
 		SaveBindings(GetCurrentBindingSet());
 		DesktopEvents:Dispatch("DESKTOP_UPDATE_BINDINGS", parent.id);
 	end);
@@ -69,12 +83,26 @@ function __RDXSetBindingKey(button, btype)
 	
 	local screenshotKey = GetBindingKey("SCREENSHOT")
 	if screenshotKey and button == screenshotKey then
-		TakeScreenshot();
+		Screenshot();
 		return;
 	end
 	
 	if ignoredKeys[button] then
 		return;
+	end
+	
+	if (button == "LeftButton" or button == "RightButton") and not IsModifierKeyDown() then
+		return
+	end
+	
+	if button == "LeftButton" then
+		button = "BUTTON1";
+	elseif button == "RightButton" then
+		button = "BUTTON2";
+	elseif button == "MiddleButton" then
+		button = "BUTTON3";
+	elseif button:match("^Button%d+$") then
+		button = button:upper();
 	end
 	
 	if IsShiftKeyDown() then

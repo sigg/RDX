@@ -32,7 +32,7 @@ end
 for i = 1, 12 do
 	keys[#keys+1] = 'F' .. i;
 end
-for i = 1, 5 do
+for i = 1, 10 do
 	keys[#keys+1] = 'BUTTON' .. i;
 end
 
@@ -65,29 +65,34 @@ end
 
 -- libkey bound to short
 function RDXKB.ToShortKey(key)
-	key = key:upper()
-	key = key:gsub(" ", "")
-	key = key:gsub("ALT%-", "A")
-	key = key:gsub("CTRL%-", "C")
-	key = key:gsub("SHIFT%-", "S")
+	key = key:upper();
+	key = key:gsub(" ", "");
+	key = key:gsub("ALT%-", "A");
+	key = key:gsub("CTRL%-", "C");
+	key = key:gsub("SHIFT%-", "S");
 
-	key = key:gsub("NUMPAD", "N")
+	key = key:gsub("NUMPAD", "N");
 
-	key = key:gsub("BACKSPACE", "BS")
-	key = key:gsub("PLUS", "%+")
-	key = key:gsub("MINUS", "%-")
-	key = key:gsub("MULTIPLY", "%*")
-	key = key:gsub("DIVIDE", "%/")
-	key = key:gsub("HOME", "HN")
-	key = key:gsub("INSERT", "Ins")
-	key = key:gsub("DELETE", "Del")
-	key = key:gsub("BUTTON3", "M3")
-	key = key:gsub("BUTTON4", "M4")
-	key = key:gsub("BUTTON5", "M5")
-	key = key:gsub("MOUSEWHEELDOWN", "WD")
-	key = key:gsub("MOUSEWHEELUP", "WU")
-	key = key:gsub("PAGEDOWN", "PD")
-	key = key:gsub("PAGEUP", "PU")
+	key = key:gsub("BACKSPACE", "BS");
+	key = key:gsub("PLUS", "%+");
+	key = key:gsub("MINUS", "%-");
+	key = key:gsub("MULTIPLY", "%*");
+	key = key:gsub("DIVIDE", "%/");
+	key = key:gsub("HOME", "HN");
+	key = key:gsub("INSERT", "Ins");
+	key = key:gsub("DELETE", "Del");
+	key = key:gsub("BUTTON3", "M3");
+	key = key:gsub("BUTTON4", "M4");
+	key = key:gsub("BUTTON5", "M5");
+	key = key:gsub("BUTTON6", "M6");
+	key = key:gsub("BUTTON7", "M7");
+	key = key:gsub("BUTTON8", "M8");
+	key = key:gsub("BUTTON9", "M9");
+	key = key:gsub("BUTTON10", "M10");
+	key = key:gsub("MOUSEWHEELDOWN", "WD");
+	key = key:gsub("MOUSEWHEELUP", "WU");
+	key = key:gsub("PAGEDOWN", "PD");
+	key = key:gsub("PAGEUP", "PU");
 
 	return key
 end
