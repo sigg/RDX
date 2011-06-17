@@ -145,7 +145,7 @@ end);
 --------------------------------------------------
 function RDX.ImbueAddonChannel(preChannel, prefix, chType)
 	-- Create a new channel
-	ch = preChannel or {};
+	local ch = preChannel or {};
 	if ch.Cleanup then ch:Cleanup(); end
 
 	ch.name = chType .. "<" .. prefix .. ">";
@@ -198,7 +198,7 @@ end
 -- Loopback channel for solo play.
 function RDX.ImbueLoopbackChannel(preChannel, prefix)
 	-- Create a new channel
-	ch = preChannel or {};
+	local ch = preChannel or {};
 	if ch.Cleanup then ch:Cleanup(); end
 
 	ch.name = "LOOPBACK";
