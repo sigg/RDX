@@ -236,7 +236,13 @@ RDX.RegisterFeature({
 			if not frame then return; end
 			maskmod = maskmod or 0;
 			frame._paintmask = bor(frame._paintmask or 0, maskmod);
-			if UnitExists(uid) then frame:SetData(1, uid, curunit);	else frame:Cleanup(); end
+			if UnitExists(uid) then
+				local succ,err = pcall(frame.SetData, frame, 1, uid, curunit);
+				if not succ then RDXDK.PrintError(win, "SetData", err); end
+				--frame:SetData(1, uid, curunit);
+			else
+				frame:Cleanup(); 
+			end
 			frame._paintmask = defaultPaintMask;
 		end
 
