@@ -161,6 +161,7 @@ RDX.RegisterFeature({
 		-- PAINT-DATA FUNCTION
 		-- Iterate over the grid itself and apply to each cell's _subframe the appropriate unit
 		-- data.
+		local succ,err;
 		function paintData(maskmod)
 			if not grid then return; end
 			maskmod = maskmod or 0;
@@ -171,7 +172,8 @@ RDX.RegisterFeature({
 				if rdxUnit and rdxUnit:IsCacheValid() then
 					cell._paintmask = bor(cell._paintmask or 0, maskmod);
 					prePaintAdvice(win, cell, index, idx, uid, rdxUnit);
-					cell:SetData(idx, uid, rdxUnit);
+					succ,err = pcall(cell.SetData, cell, idx, uid, rdxUnit);
+					if not succ then RDXDK.PrintError(win, "SetData", err); end
 					postPaintAdvice(win, cell, index, idx, uid, rdxUnit);
 				else
 					cell:Cleanup();

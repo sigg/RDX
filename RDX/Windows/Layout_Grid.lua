@@ -109,7 +109,7 @@ RDX.RegisterFeature({
 		end
 
 		------------ UI locals and metadata
-		local faux, grid, win = nil, nil, nil;
+		local faux, grid, win, succ, err = nil, nil, nil, nil, nil;
 
 		--------------- Painting ops
 		local function update(maskmod)
@@ -139,7 +139,8 @@ RDX.RegisterFeature({
 				end
 				-- Apply the data to the cell.
 				prePaintAdvice(win, cell, index, ctl, uid, rdxUnit, a1, a2, a3, a4, a5, a6, a7);
-				cell:SetData(ctl, uid, rdxUnit, a1, a2, a3, a4, a5, a6, a7);
+				succ,err = pcall(cell.SetData, cell, ctl, uid, rdxUnit, a1, a2, a3, a4, a5, a6, a7);
+				if not succ then RDXDK.PrintError(win, "SetData", err); end
 				postPaintAdvice(win, cell, index, ctl, uid, rdxUnit, a1, a2, a3, a4, a5, a6, a7);
 				-- Reset the paintmask
 				cell._paintmask = defaultPaintMask;
