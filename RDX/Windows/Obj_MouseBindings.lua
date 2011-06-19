@@ -304,6 +304,8 @@ local function BindingCodePopup(parent, callback)
 
 	----------------- DESTROY
 	dlg.Destroy = VFL.hook(function(s)
+		btnCancel:Destroy(); btnCancel = nil;
+		btnOK:Destroy(); btnOK = nil;
 		mods:Destroy(); mods = nil;
 		gb_mods:Destroy(); gb_mods = nil;
 		btn:Destroy(); btn = nil;
