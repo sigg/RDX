@@ -18,13 +18,13 @@ end
 local commInfo = {};
 
 --- Given an underlying chat channel, add streaming RPC to that channel.
-function RPC.StreamingRPCMixin(ch)
+function RPC.StreamingRPCMixin(ch, noglobal)
 	-- If there's already an RPC mixin here, ignore
 	if ch.Bind then return; end
 	
 	-- Local data structures
 	local waits, wtos, binds = {}, {}, {};
-	setmetatable(binds, RPC._globalBinds);
+	if not noglobal then setmetatable(binds, RPC._globalBinds); end
 
 	local function RequestCompletion(strm, dataType, data)
 		-- Ignore invalid inputs
@@ -164,6 +164,8 @@ end
 -----------------------------------------------
 -- GLUE STREAMING RPC TO DEFAULT CODE
 -----------------------------------------------
+RegisterAddonMessagePrefix("RDX");
+
 RPC_Guild = RDX.ImbueAddonChannel(nil, "RDX", "GUILD");
 RPC.StreamingRPCMixin(RPC_Guild);
 RPC.RegisterConference(RPC_Guild, "GUILD");
