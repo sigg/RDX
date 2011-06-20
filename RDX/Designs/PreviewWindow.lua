@@ -131,7 +131,8 @@ local function OpenPreviewWindow(parent)
 			unit = RDXDAL.ProjectUnitID("player");
 			if unit then
 				curUF._paintmask = 1;
-				curUF:SetData(1, unit.uid, unit);
+				local succ,err = pcall(curUF.SetData, curUF, 1, unit.uid, unit);
+				if not succ then RDXDK.PrintError(win, "PrevSetData", err); end
 			end
 		end
 	end

@@ -469,7 +469,6 @@ if btn then
 	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 	btn:SetWidth(]] .. desc.w .. [[);
 	
-	
 	btn:SetAltArrowKeyMode(]] .. ak .. [[);
 	
 	if ]] .. hb .. [[ then

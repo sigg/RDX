@@ -120,8 +120,10 @@ RDX.RegisterFeature({
 local btn = nil;
 for i=1, ]] .. desc.nIcons .. [[ do
 	btn = frame.]] .. objname .. [[[i]
-	btn:ClearAllPoints();
-	if btn then btn:Hide(); btn:Destroy(); btn = nil; end
+	if btn then 
+		btn:ClearAllPoints();
+		btn:Hide(); btn:Destroy(); btn = nil; 
+	end
 end
 
 frame.]] .. objname .. [[header:Hide();
