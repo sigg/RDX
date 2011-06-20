@@ -68,7 +68,7 @@ local function _ConfMaintenance()
 		end
 	end
 end
---VFLT.AdaptiveSchedule(nil, 30, _ConfMaintenance);
+VFLT.AdaptiveSchedule(nil, 30, _ConfMaintenance);
 
 ---------------------------------------
 -- The global RPC bindings table
