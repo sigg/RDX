@@ -53,6 +53,7 @@ function VFL.OpenErrorDialog()
 		end
 	end
 	sigRepaint:Connect(nil, Repaint, "repaint");
+	VFLEvents:Bind("ERRORLUA", nil, Repaint, "ERR");
 
 	-------------------- Interactions
 	
@@ -83,6 +84,7 @@ function VFL.OpenErrorDialog()
 	btnNone:SetScript("OnClick", function() VFL._ClearErrors(); Repaint(); end);
 
 	dlg.Destroy = VFL.hook(function(s)
+		VFLEvents:Unbind("ERR");
 		sigRepaint:DisconnectByID("repaint"); Repaint = nil;
 		btnCancel:Destroy(); btnNone:Destroy();
 		btnCancel = nil; btnNone = nil;
@@ -103,6 +105,7 @@ function VFL.ToggleErrorDialog()
 		VFL.CloseErrorDialog();
 	else
 		VFL.OpenErrorDialog();
+		
 	end
 end
 

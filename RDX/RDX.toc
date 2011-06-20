@@ -217,6 +217,7 @@ Designs\Colors\PowerColor.lua
 Designs\Colors\StaticColor.lua
 Designs\Colors\ThreatColor.lua
 Designs\Colors\TwoBlendColor.lua
+Designs\Colors\MyColor.lua
 
 Designs\Complexes\ChatFrames.lua
 Designs\Complexes\CombatLogs.lua

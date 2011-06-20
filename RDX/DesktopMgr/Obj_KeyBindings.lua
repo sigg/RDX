@@ -81,6 +81,8 @@ function RDXKB.ToShortKey(key)
 	key = key:gsub("HOME", "HN");
 	key = key:gsub("INSERT", "Ins");
 	key = key:gsub("DELETE", "Del");
+	key = key:gsub("BUTTON1", "M1");
+	key = key:gsub("BUTTON2", "M2");
 	key = key:gsub("BUTTON3", "M3");
 	key = key:gsub("BUTTON4", "M4");
 	key = key:gsub("BUTTON5", "M5");

@@ -232,14 +232,14 @@ RDX.RegisterFeature({
 		-- PAINT-DATA FUNCTION
 		-- Iterate over the grid itself and apply to each cell's _subframe the appropriate unit
 		-- data.
+		local succ,err;
 		function paintData(maskmod)
 			if not frame then return; end
 			maskmod = maskmod or 0;
 			frame._paintmask = bor(frame._paintmask or 0, maskmod);
 			if UnitExists(uid) then
-				local succ,err = pcall(frame.SetData, frame, 1, uid, curunit);
+				succ,err = pcall(frame.SetData, frame, 1, uid, curunit);
 				if not succ then RDXDK.PrintError(win, "SetData", err); end
-				--frame:SetData(1, uid, curunit);
 			else
 				frame:Cleanup(); 
 			end

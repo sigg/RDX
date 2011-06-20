@@ -238,7 +238,7 @@ if btn then
 		func(btn, btn.obj, "]] .. desc.ldbo .. [[", hidelabel);
 	end
 else
-	RDX.printW("]] .. desc.ldbo .. [[ is not available or already acquired in an other LDBObject");
+	--RDX.printW("]] .. desc.ldbo .. [[ is not available or already acquired in an other LDBObject");
 end
 
 frame.]] .. objname .. [[ = btn;

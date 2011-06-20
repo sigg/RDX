@@ -18,21 +18,29 @@ local function OpenBindingWindow(parent)
 	binding_window:SetTitleColor(0,.6,0);
 	binding_window:SetText("Bind a key");
 	binding_window:SetWidth(100); 
-	binding_window:SetHeight(70);
+	binding_window:SetHeight(90);
 	binding_window:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT");
 	VFLUI.Window.StdMove(binding_window, binding_window:GetTitleBar());
 	binding_window:SetID(parent.id);
-	binding_window:SetScript("OnClick", function(self, arg1)
+	binding_window:Show();
+	
+	binding_window.btn = VFLUI.AcquireFrame("Button");
+	binding_window.btn:SetParent(binding_window);
+	binding_window.btn:SetID(parent.id);
+	binding_window.btn:RegisterForClicks("AnyDown");
+	binding_window.btn:EnableKeyboard(true);
+	binding_window.btn:SetText("Use mouse here");
+	binding_window.btn:SetScript("OnClick", function(self, arg1)
 		__RDXSetBindingKey(arg1, parent.btype);
 		SaveBindings(GetCurrentBindingSet());
 		DesktopEvents:Dispatch("DESKTOP_UPDATE_BINDINGS", parent.id);
 	end);
-	binding_window:SetScript("OnKeyDown", function(self, arg1)
+	binding_window.btn:SetScript("OnKeyDown", function(self, arg1)
 		__RDXSetBindingKey(arg1, parent.btype);
 		SaveBindings(GetCurrentBindingSet());
 		DesktopEvents:Dispatch("DESKTOP_UPDATE_BINDINGS", parent.id);
 	end);
-	binding_window:SetScript("OnMouseWheel", function(self, arg1)
+	binding_window.btn:SetScript("OnMouseWheel", function(self, arg1)
 		if arg1 > 0 then
 			__RDXSetBindingKey("MOUSEWHEELUP", parent.btype);
 		else
@@ -41,10 +49,10 @@ local function OpenBindingWindow(parent)
 		SaveBindings(GetCurrentBindingSet());
 		DesktopEvents:Dispatch("DESKTOP_UPDATE_BINDINGS", parent.id);
 	end);
-	binding_window:EnableKeyboard(true);
-	binding_window:Show();
+	binding_window.btn:SetAllPoints(binding_window:GetClientArea());
+	binding_window.btn:Show();
 	
-	local btnOK = VFLUI.OKButton:new(binding_window);
+	local btnOK = VFLUI.OKButton:new(binding_window.btn);
 	btnOK:SetText(VFLI.i18n("SAVE")); btnOK:SetHeight(25); btnOK:SetWidth(80);
 	btnOK:SetPoint("BOTTOM", binding_window:GetClientArea(), "BOTTOM");
 	btnOK:Show();
@@ -56,8 +64,8 @@ local function OpenBindingWindow(parent)
 	
 	binding_window.Destroy = VFL.hook(function(s)
 		btnOK:Destroy(); btnOK = nil;
-		binding_window:SetID(0);
-		binding_window = nil;
+		s.btn:SetID(0); s.btn:Destroy(); s.btn = nil;
+		binding_window:SetID(0); binding_window = nil;
 	end, binding_window.Destroy);
 	
 	return binding_window;
@@ -148,6 +156,8 @@ function __RDXBindingKeyOnClick(self, arg1)
 		local key = BindingKey(self.id, self.btype);
 		if key then
 			SetBinding(BindingKey(self.id, self.btype));
+			SaveBindings(GetCurrentBindingSet());
+			DesktopEvents:Dispatch("DESKTOP_UPDATE_BINDINGS", self.id);
 		end
 	end
 end

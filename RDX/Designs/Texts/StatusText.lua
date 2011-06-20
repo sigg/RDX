@@ -439,7 +439,7 @@ RDX.RegisterStatusTextType({
 			elseif pt == 6 then text = "Rune: ";
 			end
 			RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
-			]] .. objname .. [[:SetFormattedText("%q%0.0f%%", text, unit:FracPower()*100);
+			]] .. objname .. [[:SetFormattedText("%s%0.0f%%", text, unit:FracPower()*100);
 		else
 			]] .. objname .. [[:SetText("");
 		end

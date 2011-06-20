@@ -156,6 +156,7 @@ RDX.RegisterFeature({
 		-- PAINT-DATA FUNCTION
 		-- Iterate over the grid itself and apply to each cell's _subframe the appropriate unit
 		-- data.
+		local succ,err;
 		local function subPaintData(grid)
 			if not grid then return nil; end
 			local uid,unit,n = nil,nil,0;
@@ -167,7 +168,8 @@ RDX.RegisterFeature({
 					unit = GetRDXUnit(uid);	if not unit then unit = tempUnit; unit.uid = uid; end
 					-- Force a FULL repaint of each cell.
 					cell._paintmask = 1;
-					cell:SetData(idx, uid, unit);
+					succ,err = pcall(cell.SetData, cell, idx, uid, unit);
+					if not succ then RDXDK.PrintError(win, "SetData", err); end
 				else
 					cell:Cleanup();
 				end
