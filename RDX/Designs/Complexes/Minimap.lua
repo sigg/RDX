@@ -48,8 +48,12 @@ RDX.RegisterFeature({
 
 		------------------ On frame creation
 		local createCode = [[
-local mmap = VFLUI.AcquireFrame("Minimap", "main");
+--local mmap = VFLUI.AcquireFrame("Minimap", "main");
+local mmap = Minimap;
 if mmap then
+	MinimapBackdrop:Hide();
+	GameTimeFrame:Hide();
+	mmap:ClearAllPoints();
 	VFLUI.StdSetParent(mmap, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
 	mmap:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 	mmap:SetWidth(]] .. desc.w .. [[); mmap:SetHeight(]] .. desc.h .. [[);
@@ -78,7 +82,13 @@ end
 		------------------ On frame destruction.
 		local destroyCode = [[
 local btn = frame.]] .. objname .. [[;
-if btn then btn:Destroy(); btn = nil; end
+if btn then
+	btn:SetZoom(0);
+	btn:SetBlipTexture("Interface\\Minimap\\ObjectIcons");
+	btn:SetMaskTexture("Textures\\MinimapMask");
+	VFLUI._CleanupLayoutFrame(btn);
+	btn = nil; 
+end
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 

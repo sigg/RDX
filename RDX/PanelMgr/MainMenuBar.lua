@@ -582,20 +582,22 @@ local mainPane;
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	if not RDXG.RDXopt then RDXG.RDXopt = {}; end
 	local opt = RDXG.RDXopt;
-	mainPane = CreateMainPane();
-	mainPane:HideMainPanel();	
-	mainPane:SetAllwaysShow(opt.asmp);
-
-	if RDXPM.IsPanelHidden() then
-		RDXPM.HidePanel();
-	else
-		RDXPM.ShowPanel();
-	end
-	-- skin update
-	if opt.mmskin and RDX.IsMMSkinValid(opt.mmskin) then
-		mainPane:SetSkin(opt.mmskin);
-	end
 	
+	VFLT.NextFrame(math.random(10000000), function()
+		mainPane = CreateMainPane();
+		mainPane:HideMainPanel();	
+		mainPane:SetAllwaysShow(opt.asmp);
+	
+		if RDXPM.IsPanelHidden() then
+			RDXPM.HidePanel();
+		else
+			RDXPM.ShowPanel();
+		end
+		-- skin update
+		if opt.mmskin and RDX.IsMMSkinValid(opt.mmskin) then
+			mainPane:SetSkin(opt.mmskin);
+		end
+	end);
 end);
 
 function RDXPM.GetMainPane() return mainPane; end

@@ -18,6 +18,7 @@ local function OpenPreviewWindow(parent)
 	preview_window:SetHeight(452);
 	preview_window:SetBackdrop(VFLUI.DefaultDialogBorder);
 	preview_window:Show();
+	preview_window._dk_name = "preview";
 	
 	--local top = VFLUI.AcquireFrame("Frame");
 	--top:SetParent(preview_window);
@@ -108,7 +109,7 @@ local function OpenPreviewWindow(parent)
 				if unit then
 					curUF._paintmask = 1;
 					local succ,err = pcall(curUF.SetData, curUF, 1, unit.uid, unit);
-					if not succ then RDXDK.PrintError(win, "PrevSetData", err); end
+					if not succ then RDXDK.PrintError(preview_window, "PrevSetData", err); end
 				end
 				if curUF:GetWidth() > 300 then
 					preview_window:SetWidth(curUF:GetWidth());
@@ -132,7 +133,7 @@ local function OpenPreviewWindow(parent)
 			if unit then
 				curUF._paintmask = 1;
 				local succ,err = pcall(curUF.SetData, curUF, 1, unit.uid, unit);
-				if not succ then RDXDK.PrintError(win, "PrevSetData", err); end
+				if not succ then RDXDK.PrintError(preview_window, "PrevSetData", err); end
 			end
 		end
 	end
@@ -144,6 +145,7 @@ local function OpenPreviewWindow(parent)
 		if curUF then curUF:Destroy(); end
 		VFLT.AdaptiveUnschedule("__uf_preview");
 		RDXIEEvents:Unbind("IEREBUILD");
+		preview_window._dk_name = nil;
 		preview_window.bottom:Destroy(); preview_window.bottom = nil;
 		--VFLUI.ReleaseRegion(preview_window.middle.tex); preview_window.middle.tex = nil;
 		preview_window.middle:Destroy(); preview_window.middle = nil;

@@ -114,7 +114,7 @@ function RDXDK.LayoutPropsDialog(frameprops)
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:SetWidth(250); dlg:SetHeight(300); 
 	dlg:SetTitleColor(0,0,.6);
-	dlg:SetText(VFLI.i18n("Layout Properties"));
+	dlg:SetText(VFLI.i18n("Layout Properties: ") .. dd.name);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("frame_props") then RDXPM.RestoreLayout(dlg, "frame_props"); end

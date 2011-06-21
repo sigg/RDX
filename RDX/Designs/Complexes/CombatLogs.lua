@@ -69,10 +69,10 @@ function __LWApplyData(tbl, cell, data, pos)
 			if data.x then
 				str = VFL.strtcolor(RDXMD.GetEventTypeColor(rowType)) .. tostring(data.x);
 				if Omni.IsCritRow(data) then
-					cols[i]:SetFont(Fonts.Default.face, 12);
+					--cols[i]:SetFont(Fonts.Default.face, 12);
 					str = str .. "!";
 				else
-					cols[i]:SetFont(Fonts.Default.face, 10);
+					--cols[i]:SetFont(Fonts.Default.face, 10);
 				end
 				cols[i]:SetText(str .. "|r");
 			else

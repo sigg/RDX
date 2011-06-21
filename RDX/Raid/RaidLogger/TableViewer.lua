@@ -124,6 +124,7 @@ function Omni._ApplyColSpec(cs, row)
 		colInfo = cs[i]; col = row.col[i];
 		if colInfo then
 			col:Show(); col:SetWidth(colInfo.width);
+			VFLUI.SetFont(col, colInfo.font);
 			col:SetJustifyH(colInfo.justifyH or "LEFT");
 			col:SetShadowOffset(1,-1); col:SetShadowColor(0,0,0,1);
 			col._type = colInfo.title;
