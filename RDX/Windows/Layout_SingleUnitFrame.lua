@@ -241,7 +241,8 @@ RDX.RegisterFeature({
 				succ,err = pcall(frame.SetData, frame, 1, uid, curunit);
 				if not succ then RDXDK.PrintError(win, "SetData", err); end
 			else
-				frame:Cleanup(); 
+				succ,err = pcall(frame.Cleanup, frame);
+				if not succ then RDXDK.PrintError(win, "Cleanup", err); end
 			end
 			frame._paintmask = defaultPaintMask;
 		end

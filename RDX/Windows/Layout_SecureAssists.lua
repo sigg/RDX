@@ -171,7 +171,8 @@ RDX.RegisterFeature({
 					succ,err = pcall(cell.SetData, cell, idx, uid, unit);
 					if not succ then RDXDK.PrintError(win, "SetData", err); end
 				else
-					cell:Cleanup();
+					succ,err = pcall(cell.Cleanup, cell);
+					if not succ then RDXDK.PrintError(win, "Cleanup", err); end
 				end
 			end
 			return n;

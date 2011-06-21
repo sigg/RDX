@@ -141,6 +141,9 @@ local function SetupWindow(path, win, desc)
 	
 	-- Quash the old window
 	win:UnloadState();
+	
+	-- Setup the new window
+	win._path = path;
 
 	-- Load the features.
 	state:LoadDescriptor(desc, path);
@@ -202,8 +205,6 @@ local function SetupWindow(path, win, desc)
 	end
 	if state:Slot("SecureSubframes") then win.secure = true; else win.secure = nil; end
 
-	-- Setup the new window
-	win._path = path;
 	
 	-- Apply the features to the window. If the window will be secure, mark it so.
 	win:LoadState(state);

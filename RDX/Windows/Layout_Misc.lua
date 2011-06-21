@@ -176,7 +176,8 @@ RDX.RegisterFeature({
 					if not succ then RDXDK.PrintError(win, "SetData", err); end
 					postPaintAdvice(win, cell, index, idx, uid, rdxUnit);
 				else
-					cell:Cleanup();
+					succ,err = pcall(cell.Cleanup, cell);
+					if not succ then RDXDK.PrintError(win, "Cleanup", err); end
 				end
 				cell._paintmask = defaultPaintMask;
 			end
