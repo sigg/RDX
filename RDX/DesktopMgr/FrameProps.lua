@@ -26,10 +26,13 @@ function RDXDK.FrameProperties(frame)
 	--});
 	if RDXDK.IsDocked(frameprops) then
 		if not RDXDK.IsDGP(frameprops) then
-			table.insert(mnu, {text = VFLI.i18n("Make Dock Parent"), OnClick = function()
-				DesktopEvents:Dispatch("WINDOW_PARENTDOCK", frameprops);
-				VFL.poptree:Release();
-			end });
+			local rootfrp = RDXDK.Findroot(frameprops);
+			if not rootfrp then
+				table.insert(mnu, {text = VFLI.i18n("Make Dock Parent"), OnClick = function()
+					DesktopEvents:Dispatch("WINDOW_PARENTDOCK", frameprops);
+					VFL.poptree:Release();
+				end });
+			end
 		end
 	end
 	
