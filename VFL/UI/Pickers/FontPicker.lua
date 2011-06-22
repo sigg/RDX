@@ -198,16 +198,19 @@ local FlagsUpdate;
 local rg = VFLUI.RadioGroup:new(ca);
 rg:SetPoint("TOPLEFT", chk_ds, "BOTTOMLEFT", 0, 0);
 rg:Show();
-rg:SetLayout(3,3);
+rg:SetLayout(4,4);
 rg.buttons[1]:SetWidth(100);
 rg.buttons[2]:SetWidth(100);
 rg.buttons[3]:SetWidth(100);
+rg.buttons[4]:SetWidth(100);
 rg.buttons[1]:SetText(VFLI.i18n("None")); 
 rg.buttons[2]:SetText(VFLI.i18n("OUTLINE"));
 rg.buttons[3]:SetText(VFLI.i18n("THICKOUTLINE"));
+rg.buttons[4]:SetText(VFLI.i18n("MONOCHROME"));
 rg.buttons[1].button:HookScript("OnClick", function() FlagsUpdate(); end);
 rg.buttons[2].button:HookScript("OnClick", function() FlagsUpdate(); end);
 rg.buttons[3].button:HookScript("OnClick", function() FlagsUpdate(); end);
+rg.buttons[4].button:HookScript("OnClick", function() FlagsUpdate(); end);
 
 function FlagsUpdate()
 	if rg:GetValue() == 1 then
@@ -216,6 +219,8 @@ function FlagsUpdate()
 		curFont.flags = "OUTLINE";
 	elseif rg:GetValue() == 3 then
 		curFont.flags = "THICKOUTLINE";
+	elseif rg:GetValue() == 4 then
+		curFont.flags = "MONOCHROME";
 	end
 	
 	UpdateFontPicker();
@@ -246,6 +251,8 @@ function UpdateFontPicker()
 			rg:SetValue(2);
 		elseif curFont.flags == "THICKOUTLINE" then
 			rg:SetValue(3);
+		elseif curFont.flags == "MONOCHROME" then
+			rg:SetValue(4);
 		end
 	else
 		rg:SetValue(1);
