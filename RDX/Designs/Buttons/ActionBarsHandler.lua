@@ -62,13 +62,15 @@ function __RDXGetStates(statestype)
 	elseif statestype == "Defaultui" then
 		str = "[bar:2] 1; [bar:3] 2; [bar:4] 3; [bar:5] 4; [bar:6] 5; [bonusbar:5] possess;";
 		local class = myunit:GetClassMnemonic();
-		if class == "PRIEST" or class == "ROGUE" then str = str .. " [bonusbar:1] 6;";
+		if class == "PRIEST" then str = str .. " [bonusbar:1] 6;";
+		elseif class == "ROGUE" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 6;";
 		elseif class == "DRUID" then str = str .. " [bonusbar:1,stealth] 5; [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8; [bonusbar:4] 9;";
 		elseif class == "WARRIOR" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8;";
 		end
 	elseif statestype == "Stance" then
 		local class = myunit:GetClassMnemonic();
-		if class == "PRIEST" or class == "ROGUE" then str = str .. " [bonusbar:1] 6;";
+		if class == "PRIEST" then str = str .. " [bonusbar:1] 6;";
+		elseif class == "ROGUE" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 6;";
 		elseif class == "DRUID" then str = str .. " [bonusbar:1,stealth] 5; [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8; [bonusbar:4] 9;";
 		elseif class == "WARRIOR" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8;";
 		end
