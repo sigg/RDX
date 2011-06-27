@@ -1570,7 +1570,7 @@ cdFrame:SetScript("OnUpdate", ProcessCDQueue);
 
 local IsDamageSpell = RDXCD.IsDamageSpell;
 -- see the roster cooldown folder.
-local function ParseSpellSuccess(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellid, spellname)
+local function ParseSpellSuccess(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, destFlags2, spellid, spellname)
 	--if event and spellid and spellname then VFL.print(event .. " " .. spellid .. " " .. spellname); end
 	if (event == "SPELL_CAST_SUCCESS") or (event == "SPELL_ENERGIZE") or (event == "SPELL_SUMMON") or ((event == "SPELL_DAMAGE") and IsDamageSpell(spellid)) then
 		if sourceName then
@@ -1920,7 +1920,7 @@ function RDX.GetSwingMeleeInfo()
 	return meleemh_start, meleeoh_start, meleemh_duration or 0, meleeoh_duration or 0;
 end
 
-local function SwingParse(_, event, guid)
+local function SwingParse(_, event, _, guid)
 	if myunit and myunit:GetGuid() ~= guid then return; end
 	if event and (not string.find(event, 'SWING')) then return; end
 	meleemh_duration, meleeoh_duration = UnitAttackSpeed("player");

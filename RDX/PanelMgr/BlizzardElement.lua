@@ -20,7 +20,6 @@ VFLUI.CreateFramePool("BlizzardElement",
 ----------------------------------------------------------------------
 
 RDX.BlizzardBagsButtons = {
-	"KeyRingButton",
 	"CharacterBag3Slot",
 	"CharacterBag2Slot",
 	"CharacterBag1Slot",
