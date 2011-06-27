@@ -1,4 +1,4 @@
-## Interface: 40100
+## Interface: 40200
 ## Title: |c007ffcffRDX|r - Recovery
 ## Notes: Backup and restore your RDX file system.
 ## Author: Bill Johnson

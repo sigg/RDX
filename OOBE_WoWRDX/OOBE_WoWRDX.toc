@@ -1,4 +1,4 @@
-## Interface: 40100
+## Interface: 40200
 ## Title: |c007ffcff00BE|r - WoWRDX
 ## Notes: WoWRDX Builtins
 ## LoadOnDemand: 1
