@@ -410,154 +410,40 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	--
 	local mbo = RDXDB.TouchObject("default:bindings_action_" .. RDX.pspace .. "1");
 	if not mbo.data then
-		local _,class = UnitClass("player");
-		if class == "PRIEST" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 48071,
-			    },
-			};
-		elseif class == "DRUID" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 48378,
-			    },
-			};
-		elseif class == "PALADIN" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 48785,
-			    },
-			};
-		elseif class == "SHAMAN" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 49273,
-			    },
-			};
-		elseif class == "WARRIOR" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 53476,
-			    },
-			};
-		elseif class == "HUNTER" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 35079,
-			    },
-			};
-		else
-			mbo.data = {};
-		end
+		mbo.data = {
+			["1"] = {
+				["action"] = "target",
+			},
+			["2"] = {
+				["action"] = "menu",
+			},
+		};
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
 	local mbo = RDXDB.TouchObject("default:bindings_action_" .. RDX.pspace .. "2");
 	if not mbo.data then
-		local _,class = UnitClass("player");
-		if class == "PRIEST" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 48071,
-			    },
-			};
-		elseif class == "DRUID" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 48378,
-			    },
-			};
-		elseif class == "PALADIN" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 48785,
-			    },
-			};
-		elseif class == "SHAMAN" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 49273,
-			    },
-			};
-		elseif class == "WARRIOR" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 53476,
-			    },
-			};
-		elseif class == "HUNTER" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 35079,
-			    },
-			};
-		else
-			mbo.data = {};
-		end
+		mbo.data = {
+			["1"] = {
+				["action"] = "target",
+			},
+			["2"] = {
+				["action"] = "menu",
+			},
+		};
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
 	local mbo = RDXDB.TouchObject("default:bindings_action_" .. RDX.pspace .. "3");
 	if not mbo.data then
-		local _,class = UnitClass("player");
-		if class == "PRIEST" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 48071,
-			    },
-			};
-		elseif class == "DRUID" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 48378,
-			    },
-			};
-		elseif class == "PALADIN" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 48785,
-			    },
-			};
-		elseif class == "SHAMAN" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 49273,
-			    },
-			};
-		elseif class == "WARRIOR" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 53476,
-			    },
-			};
-		elseif class == "HUNTER" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 35079,
-			    },
-			};
-		else
-			mbo.data = {};
-		end
+		mbo.data = {
+			["1"] = {
+				["action"] = "target",
+			},
+			["2"] = {
+				["action"] = "menu",
+			},
+		};
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
