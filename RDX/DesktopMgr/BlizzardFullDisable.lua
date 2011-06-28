@@ -441,14 +441,20 @@ function RDXDK.DisableChatFrames()
 	--FCF_OpenNewWindow = VFL.Noop;
 	--FCF_OpenTemporaryWindow = VFL.Noop;
 	--FCF_SetWindowName = VFL.Noop;
+	ChatFrame1Tab:Hide();
+	--ChatFrame1Tab:SetScript("OnShow", function() ChatFrame1Tab:Hide(); end);
+	ChatFrame1Tab:SetScript("OnShow", ChatFrame1Tab.Hide);
 	
 	-- ChatFrame could not be resized.
 	FCF_Resize = VFL.Noop;
 	FCF_StopResize = VFL.Noop;
 	-- no Tab
 	FCF_OnUpdate = VFL.Noop;
-	-- disable create new window chat
-	FCF_OpenNewWindow = VFL.Noop;
+	FCF_Tab_OnClick = VFL.Noop;
+	-- save position disable
+	FCF_SavePositionAndDimensions = VFL.Noop;
+	FCF_RestorePositionAndDimensions = VFL.Noop;
+	
 	-- disable docking
 	FCF_DockFrame = VFL.Noop;
 	FCF_StopDragging = VFL.Noop;
@@ -456,13 +462,15 @@ function RDXDK.DisableChatFrames()
 	-- disable flash
 	FCF_FlashTab = VFL.Noop;
 	ChatFrameMenuButton:Hide();
-	Blizzard_CombatLog_Update_QuickButtons = VFL.Noop;
-	FCF_RestorePositionAndDimensions = VFL.Noop;
-	FCF_SavePositionAndDimensions = VFL.Noop;
+	
+	-- disable create new window chat
+	FCF_OpenNewWindow = VFL.Noop;
+	
 	FriendsMicroButton:Hide();
 	FriendsMicroButton:UnregisterAllEvents();
 	--FloatingChatFrame_Update = VFL.Noop;
 	FCF_UpdateButtonSide = VFL.Noop;
+	
 	--FCF_FadeOutChatFrame = VFL.Noop;
 	--FCF_FadeInChatFrame = VFL.Noop;
 	
@@ -483,12 +491,16 @@ function RDXDK.DisableChatFrames()
 end
 
 function RDXDK.DisableCombatLogsFrames()
-	ChatFrame2:UnregisterAllEvents();
+	--CombatLogUpdateFrame
+	--CombatLogQuickButtonFrame_Custom
+	--ChatFrame2:UnregisterAllEvents();
+	Blizzard_CombatLog_Update_QuickButtons = VFL.Noop;
+	CombatLog_OnEvent = VFL.Noop;
 	ChatFrame2:Hide();
-	ChatFrame2:SetScript("OnShow", hide);
-	ChatFrame2Tab:UnregisterAllEvents();
+	ChatFrame2:SetScript("OnShow", ChatFrame2.Hide);
+	--ChatFrame2Tab:UnregisterAllEvents();
 	ChatFrame2Tab:Hide();
-	ChatFrame2Tab:SetScript("OnShow", hide);
+	ChatFrame2Tab:SetScript("OnShow", ChatFrame2Tab.Hide);
 	--COMBATLOG:SetScript("OnUpdate", nil);
 	--COMBATLOG:SetScript("OnEvent", nil);
 	--COMBATLOG:SetScript("OnShow", nil);

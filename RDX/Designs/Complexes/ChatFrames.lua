@@ -146,54 +146,27 @@ VFLUI.CreateFramePool("ChatFrame",
 		if key > 0 and key < 11 then
 			f = _G[format("%s%d", "ChatFrame", key)];
 			
-			if key == 1 then
-				ChatFrame2:Hide();
-				ChatFrame2:SetScript("OnShow", hide);
-				ChatFrame2Tab:Hide();
-				ChatFrame2Tab:SetScript("OnShow", hide);
-			end
-			
-			-- Hide buttons
-			--if key > 0 and key < 11 then
-			--	local chat = _G[format("%s%d%s", "ChatFrame", key, "Tab")];
-			--	chat:UnregisterAllEvents();
-			--	chat:Hide();
-			--end
-			--local up = _G[format("%s%d%s", "ChatFrame", key, "ButtonFrameUpButton")];
-			--up:SetScript("OnShow", hide);
-			--up:Hide();
-			--local down = _G[format("%s%d%s", "ChatFrame", key, "ButtonFrameDownButton")];
-			--down:SetScript("OnShow", hide);
-			--down:Hide();
-			--local bottom = _G[format("%s%d%s", "ChatFrame", key, "ButtonFrameBottomButton")];
-			--bottom:SetScript("OnShow", hide);
-			--bottom:Hide();
 			local cab = _G[format("%s%d%s", "ChatFrame", key, "ClickAnywhereButton")];
-			cab:SetScript("OnShow", hide);
+			cab:SetScript("OnShow", cab.Hide);
 			cab:Hide();
 			
 			local rb = _G[format("%s%d%s", "ChatFrame", key, "ResizeButton")];
-			rb:SetScript("OnShow", hide);
+			rb:SetScript("OnShow", rb.Hide);
 			rb:Hide();
 			
 			local bf = _G[format("%s%d%s", "ChatFrame", key, "ButtonFrame")];
-			bf:SetScript("OnShow", hide);
+			bf:SetScript("OnShow", bf.Hide);
 			bf:Hide();
 			
 			local tab = _G[format("%s%d%s", "ChatFrame", key, "Tab")];
-			tab:SetScript("OnShow", hide);
+			tab:SetScript("OnShow", tab.Hide);
 			tab:UnregisterAllEvents();
 			tab:Hide();
-			
 			
 			-- scroll
 			f:SetScript("OnMouseWheel", scroll);
 			f:EnableMouseWheel(true);
 			f:SetClampedToScreen(false);
-			
-			
-			-- unregistered event
-			--f:UnregisterEvent("UPDATE_CHAT_WINDOWS");
 			
 			-- timestamp
 			f.SetMsg = function(frame, ts, color, channel)
