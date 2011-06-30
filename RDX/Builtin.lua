@@ -280,135 +280,290 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	-- default:bindings_arena
 	-- type talent&name&realm
 	
-	local mbo = RDXDB.TouchObject("default:bindings_arena_" .. RDX.pspace .. "1");
-	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-			    ["action"] = "target",
-			},
-			["2"] = {
-			    ["action"] = "menu",
-			},
-	     };
-	     mbo.ty = "MouseBindings"; 
-	     mbo.version = 1;
-	end
-	local mbo = RDXDB.TouchObject("default:bindings_arena_" .. RDX.pspace .. "2");
-	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-			    ["action"] = "target",
-			},
-			["2"] = {
-			    ["action"] = "menu",
-			},
-	     };
-	     mbo.ty = "MouseBindings"; 
-	     mbo.version = 1;
-	end
-	local mbo = RDXDB.TouchObject("default:bindings_arena_" .. RDX.pspace .. "3");
-	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-			    ["action"] = "target",
-			},
-			["2"] = {
-			    ["action"] = "menu",
-			},
-	     };
-	     mbo.ty = "MouseBindings"; 
-	     mbo.version = 1;
-	end
-	local mbsl = RDXDB.TouchObject("default:bindings_arena");
-	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_arena_", ty = "MouseBindings"};
-	end
+	--local mbo = RDXDB.TouchObject("default:bindings_arena_" .. RDX.pspace .. "1");
+	--if not mbo.data then
+	--	mbo.data = {
+	--		["1"] = {
+	--		    ["action"] = "target",
+	--		},
+	--		["2"] = {
+	--		    ["action"] = "menu",
+	--		},
+	--   };
+	--	mbo.ty = "MouseBindings"; 
+	--	mbo.version = 1;
+	--end
+	--local mbo = RDXDB.TouchObject("default:bindings_arena_" .. RDX.pspace .. "2");
+	--if not mbo.data then
+	--	mbo.data = {
+	--		["1"] = {
+	--		    ["action"] = "target",
+	--		},
+	--		["2"] = {
+	--		    ["action"] = "menu",
+	--		},
+	--};
+	--	mbo.ty = "MouseBindings"; 
+	--	mbo.version = 1;
+	--end
+	--local mbo = RDXDB.TouchObject("default:bindings_arena_" .. RDX.pspace .. "3");
+	--if not mbo.data then
+	--	mbo.data = {
+	--		["1"] = {
+	--		    ["action"] = "target",
+	--		},
+	--		["2"] = {
+	--		    ["action"] = "menu",
+	--		},
+	--	};
+	--	mbo.ty = "MouseBindings"; 
+	--	mbo.version = 1;
+	--end
+	--local mbsl = RDXDB.TouchObject("default:bindings_arena");
+	--if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+	--	mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_arena_", ty = "MouseBindings"};
+	--end
 	
 	--
 	-- Create player-specific bindings status for windows if they don't exist
 	-- default:bindings_status_
 	--
-	mbo = RDXDB.TouchObject("default:bindings_status_" .. RDX.pspace);
-	if not mbo.data then
-	     mbo.data = {
-			["1"] = {
-			    ["action"] = "target",
-			},
-			["2"] = {
-			    ["action"] = "menu",
-			},
-	     };
-	     mbo.ty = "MouseBindings"; 
-	     mbo.version = 1;
-	end
-	mbsl = RDXDB.TouchObject("default:bindings_status");
-	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "name&realm" then
-	      mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "default", prefixfile = "bindings_status_", ty = "MouseBindings"};
-	end
+	--mbo = RDXDB.TouchObject("default:bindings_status_" .. RDX.pspace);
+	--if not mbo.data then
+	--	mbo.data = {
+	--		["1"] = {
+	--		    ["action"] = "target",
+	--		},
+	--		["2"] = {
+	--		    ["action"] = "menu",
+	--		},
+	--	};
+	--	mbo.ty = "MouseBindings"; 
+	--	mbo.version = 1;
+	--end
+	--mbsl = RDXDB.TouchObject("default:bindings_status");
+	--if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "name&realm" then
+	--	mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "default", prefixfile = "bindings_status_", ty = "MouseBindings"};
+	--end
 
 	--
 	-- Create player-specific bindings decurse for windows if they don't exist
 	-- default:bindings_decurse_
 	--
-	mbo = RDXDB.TouchObject("default:bindings_decurse_" .. RDX.pspace);
-	if not mbo.data then
-		local _,class = UnitClass("player");
-		if class == "PRIEST" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 527,
-			    },
-			    ["2"] = {
-				["action"] = "cast",
-				["spell"] = 528,
-			    },
-			};
-		elseif class == "DRUID" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 2782,
-			    },
-			};
-		elseif class == "PALADIN" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 4987,
-			    },
-			};
-		elseif class == "SHAMAN" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 51886,
-			    },
-			};
-		elseif class == "MAGE" then
-			mbo.data = {
-			    ["1"] = {
-				["action"] = "cast",
-				["spell"] = 475,
-			    },
-			};
-		else
-			mbo.data = {};
-		end
-		mbo.ty = "MouseBindings"; 
-		mbo.version = 1;
-	end
+	--mbo = RDXDB.TouchObject("default:bindings_decurse_" .. RDX.pspace);
+	--if not mbo.data then
+	--	local _,class = UnitClass("player");
+	--	if class == "PRIEST" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 527,
+	--		    },
+	--		    ["2"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 528,
+	--		    },
+	--		};
+	--	elseif class == "DRUID" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 2782,
+	--		    },
+	--		};
+	--	elseif class == "PALADIN" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 4987,
+	--		    },
+	--		};
+	--	elseif class == "SHAMAN" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 51886,
+	--		    },
+	--		};
+	--	elseif class == "MAGE" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 475,
+	--		    },
+	--		};
+	--	else
+	--		mbo.data = {};
+	--	end
+	--	mbo.ty = "MouseBindings"; 
+	--	mbo.version = 1;
+	--end
 	-- Create symlink if it doesn't exist
-	mbsl = RDXDB.TouchObject("default:bindings_decurse");
-	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "default", prefixfile = "bindings_decurse_", ty = "MouseBindings"};
-	end
+	--mbsl = RDXDB.TouchObject("default:bindings_decurse");
+	--if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "name&realm" then
+	--	mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "default", prefixfile = "bindings_decurse_", ty = "MouseBindings"};
+	--end
+	
+	
+	-- interrupt
+	--mbo = RDXDB.TouchObject("default:bindings_decurse_" .. RDX.pspace);
+	--if not mbo.data then
+	--	local _,class = UnitClass("player");
+	--	if class == "PRIEST" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 15487, -- silence
+	--		    },
+	--		    ["2"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 8122, -- Psychic Scream
+	--		    },
+	--		};
+	--	elseif class == "DRUID" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 80964,
+	--		    },
+	--		    ["2"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 80965,
+	--		    },
+	--		};
+	--	elseif class == "PALADIN" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 96231,
+	--		    },
+	--		    ["2"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 853, --marteau
+	--		    },
+	--		    ["S1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 20066, --marteau
+	--		    },
+	--		};
+	--	elseif class == "SHAMAN" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 57994,
+	--		    },
+	--		};
+	--	elseif class == "MAGE" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 2139,
+	--		    },
+	--		};
+	--	elseif class == "WARRIOR" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 6552,
+	--		    },
+	--		    ["2"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 85388, -- arme
+	--		    },
+	--		};
+	--	elseif class == "WARLOCK" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 19647,
+	--		    },
+	--		};
+	--	elseif class == "ROGUE" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 1766,
+	--		    },
+	--		};
+	--	elseif class == "DEATHKNIGHT" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 47528,
+	--		    },
+	--		};
+	--	elseif class == "HUNTER" then
+	--		mbo.data = {
+	--		    ["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 34490,
+	--		    },
+	--		    ["2"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 19503,
+	--		    },
+	--		};
+	--	else
+	--		mbo.data = {};
+	--	end
+	--	mbo.ty = "MouseBindings"; 
+	--	mbo.version = 1;
+	--end
+	
+	-- dispell
+	-- priest 527
+	-- shaman 370 purge
 	
 	--
 	-- Create player-specific bindings decurse for windows if they don't exist
 	-- default:bindings_action_
 	--
-	local mbo = RDXDB.TouchObject("default:bindings_action_" .. RDX.pspace .. "1");
+	--local mbo = RDXDB.TouchObject("default:bindings_action_" .. RDX.pspace .. "1");
+	--if not mbo.data then
+	--	mbo.data = {
+	--		["1"] = {
+	--			["action"] = "target",
+	--		},
+	--		["2"] = {
+	--			["action"] = "menu",
+	--		},
+	--	};
+	--	mbo.ty = "MouseBindings"; 
+	--	mbo.version = 1;
+	--end
+	--local mbo = RDXDB.TouchObject("default:bindings_action_" .. RDX.pspace .. "2");
+	--if not mbo.data then
+	--	mbo.data = {
+	--		["1"] = {
+	--			["action"] = "target",
+	--		},
+	--		["2"] = {
+	--			["action"] = "menu",
+	--		},
+	--	};
+	--	mbo.ty = "MouseBindings"; 
+	--	mbo.version = 1;
+	--end
+	--local mbo = RDXDB.TouchObject("default:bindings_action_" .. RDX.pspace .. "3");
+	--if not mbo.data then
+	--	mbo.data = {
+	--		["1"] = {
+	--			["action"] = "target",
+	--		},
+	--		["2"] = {
+	--			["action"] = "menu",
+	--		},
+	--	};
+	--	mbo.ty = "MouseBindings"; 
+	--	mbo.version = 1;
+	--end
+	-- Create symlink if it doesn't exist
+	--local mbsl = RDXDB.TouchObject("default:bindings_action");
+	--if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+	--	mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_action_", ty = "MouseBindings"};
+	--end
+	
+	local mbo = RDXDB.TouchObject("default:bindings_heal_" .. RDX.pspace .. "1");
 	if not mbo.data then
 		mbo.data = {
 			["1"] = {
@@ -421,7 +576,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_action_" .. RDX.pspace .. "2");
+	local mbo = RDXDB.TouchObject("default:bindings_heal_" .. RDX.pspace .. "2");
 	if not mbo.data then
 		mbo.data = {
 			["1"] = {
@@ -434,7 +589,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_action_" .. RDX.pspace .. "3");
+	local mbo = RDXDB.TouchObject("default:bindings_heal_" .. RDX.pspace .. "3");
 	if not mbo.data then
 		mbo.data = {
 			["1"] = {
@@ -448,9 +603,55 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.version = 1;
 	end
 	-- Create symlink if it doesn't exist
-	local mbsl = RDXDB.TouchObject("default:bindings_action");
+	local mbsl = RDXDB.TouchObject("default:bindings_heal");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_action_", ty = "MouseBindings"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_heal_", ty = "MouseBindings"};
+	end
+	
+	-- damage
+	local mbo = RDXDB.TouchObject("default:bindings_dmg_" .. RDX.pspace .. "1");
+	if not mbo.data then
+		mbo.data = {
+			["1"] = {
+				["action"] = "target",
+			},
+			["2"] = {
+				["action"] = "menu",
+			},
+		};
+		mbo.ty = "MouseBindings"; 
+		mbo.version = 1;
+	end
+	local mbo = RDXDB.TouchObject("default:bindings_dmg_" .. RDX.pspace .. "2");
+	if not mbo.data then
+		mbo.data = {
+			["1"] = {
+				["action"] = "target",
+			},
+			["2"] = {
+				["action"] = "menu",
+			},
+		};
+		mbo.ty = "MouseBindings"; 
+		mbo.version = 1;
+	end
+	local mbo = RDXDB.TouchObject("default:bindings_dmg_" .. RDX.pspace .. "3");
+	if not mbo.data then
+		mbo.data = {
+			["1"] = {
+				["action"] = "target",
+			},
+			["2"] = {
+				["action"] = "menu",
+			},
+		};
+		mbo.ty = "MouseBindings"; 
+		mbo.version = 1;
+	end
+	-- Create symlink if it doesn't exist
+	local mbsl = RDXDB.TouchObject("default:bindings_dmg");
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_dmg_", ty = "MouseBindings"};
 	end
 
 end);
