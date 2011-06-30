@@ -579,13 +579,13 @@ local function __RDXParser(timestamp, event, hideCaster, sourceGUID, sourceName,
 end
 
 local function EnableStoreLocalSpellDB()
-	if not RDXG.localSpellDBVersion or RDXG.localSpellDBVersion ~= RDX.GetVersion() or not RDXG.localSpellDBClient or RDXG.localSpellDBClient ~= GetLocale() then
-		RDX.printI("RESET Local spell DB");
-		VFL.empty(RDXLocalSpellDB);
-		RDXLocalSpellDB = {};
-		RDXG.localSpellDBVersion = RDX.GetVersion();
-		RDXG.localSpellDBClient = GetLocale();
-	end
+	--if not RDXG.localSpellDBVersion or RDXG.localSpellDBVersion ~= RDX.GetVersion() or not RDXG.localSpellDBClient or RDXG.localSpellDBClient ~= GetLocale() then
+	--	RDX.printI("RESET Local spell DB");
+	--	VFL.empty(RDXLocalSpellDB);
+	--	RDXLocalSpellDB = {};
+	--	RDXG.localSpellDBVersion = RDX.GetVersion();
+	--	RDXG.localSpellDBClient = GetLocale();
+	--end
 	RDXG.localSpellDB = true;
 	WoWEvents:Unbind("LocalSpellDB");
 	WoWEvents:Bind("COMBAT_LOG_EVENT_UNFILTERED", nil, __RDXParser, "LocalSpellDB");
