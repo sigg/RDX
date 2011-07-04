@@ -22,24 +22,24 @@ local function AUIList()
 	
 	-----------------------------------
 	local subMenus = {};
-	local currentDesktop = {
-		text = RDX.pspace,
-		notCheckable = true,
-		func = function()
-			RDXDK.SecuredChangeAUI("desktops:" .. RDX.pspace);
-			AUIList();
-		end;
-	};	
-	table.insert(subMenus, currentDesktop);
-	table.insert(subMenus, {
-		text = "*******************",
-		notCheckable = true,
-		func = VFL.Noop,
-		}
-	);
+	--local currentDesktop = {
+	--	text = RDX.pspace,
+	--	notCheckable = true,
+	--	func = function()
+	--		RDXDK.SecuredChangeAUI("desktops:" .. RDX.pspace);
+	--		AUIList();
+	--	end;
+	--};	
+	--table.insert(subMenus, currentDesktop);
+	--table.insert(subMenus, {
+	--	text = "*******************",
+	--	notCheckable = true,
+	--	func = VFL.Noop,
+	--	}
+	--);
 	local sortDUI = {};
 	for pkgName, pkg in pairs(RDXData) do
-		if pkgName ~= "desktops" then
+		--if pkgName == "desktops" then
 			for objName, obj in pairs(pkg) do
 				if type(obj) == "table" and obj.ty == "AUI" then 
 					local path = RDXDB.MakePath(pkgName, objName);
@@ -54,7 +54,7 @@ local function AUIList()
 					table.insert(sortDUI, newMenu);
 				end
 			end
-		end
+		--end
 	end
 	table.sort(sortDUI, function(x1,x2) return x1.text < x2.text; end);
 	for i, v in pairs(sortDUI) do
