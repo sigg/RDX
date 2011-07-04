@@ -204,6 +204,15 @@ local function SetupWindow(path, win, desc)
 		return nil;
 	end
 	if state:Slot("SecureSubframes") then win.secure = true; else win.secure = nil; end
+	
+	state:Attach("Menu", true, function(win, mnu)
+		local feat = RDXDB.GetFeatureData(path, "Design");
+		local upath = feat["design"];
+		table.insert(mnu, {
+			text = VFLI.i18n("Clone...");
+			OnClick = function() VFL.poptree:Release(); RDX.CloneWindow(path, upath, VFLDIALOG); end;
+		});
+	end);
 
 	
 	-- Apply the features to the window. If the window will be secure, mark it so.
@@ -307,3 +316,71 @@ RDXDB.RegisterObjectType({
 		end
 	end,
 });
+
+local dlg = nil;
+function RDX.CloneWindow(path, upath, parent)
+	if dlg then return; end
+	
+	dlg = VFLUI.Window:new(parent);
+	VFLUI.Window.SetDefaultFraming(dlg, 22);
+	dlg:SetTitleColor(0,.6,0);
+	dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
+	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetWidth(230); dlg:SetHeight(125);
+	dlg:SetText("Clone Window");
+	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
+	
+	local ui, sf = VFLUI.CreateScrollingCompoundFrame(dlg);
+	sf:SetWidth(200); sf:SetHeight(70);
+	sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
+	
+	local ed_path = VFLUI.LabeledEdit:new(ui, 100); ed_path:Show();
+	ed_path:SetText(VFLI.i18n("Window Path"));
+	if path then ed_path.editBox:SetText(path); else ed_path.editBox:SetText("null"); end
+	ui:InsertFrame(ed_path);
+	
+	local ed_upath = VFLUI.LabeledEdit:new(ui, 100); ed_upath:Show();
+	ed_upath:SetText(VFLI.i18n("Design Path"));
+	if upath then ed_upath.editBox:SetText(upath); else ed_upath.editBox:SetText("0"); end
+	ui:InsertFrame(ed_upath);
+	
+	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
+	
+	dlg:Show();
+	--dlg:Show(.2, true);
+	
+	local esch = function()
+		--dlg:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
+			RDXPM.StoreLayout(dlg, "rdx_clonewindows");
+			dlg:Destroy(); dlg = nil;
+		--end);
+	end
+	
+	VFL.AddEscapeHandler(esch);
+	function dlg:_esch() VFL.EscapeTo(esch); end
+	
+	local btnClose = VFLUI.CloseButton:new(dlg);
+	dlg:AddButton(btnClose);
+	btnClose:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
+	
+	local btnOK = VFLUI.OKButton:new(dlg);
+	btnOK:SetHeight(25); btnOK:SetWidth(60);
+	btnOK:SetPoint("BOTTOMRIGHT", dlg:GetClientArea(), "BOTTOMRIGHT", -15, 0);
+	btnOK:SetText("OK"); btnOK:Show();
+	btnOK:SetScript("OnClick", function()
+		local new_path = ed_path.editBox:GetText();
+		local new_upath = ed_upath.editBox:GetText();
+		-- Do the clone
+		
+		-- Open it on the desktop
+		VFL.EscapeTo(esch);
+	end);
+
+	-- Destructor
+	dlg.Destroy = VFL.hook(function(s)
+		btnOK:Destroy(); btnOK = nil;
+		VFLUI.DestroyScrollingCompoundFrame(ui, sf);
+		ui = nil; sf = nil;
+	end, dlg.Destroy);
+end

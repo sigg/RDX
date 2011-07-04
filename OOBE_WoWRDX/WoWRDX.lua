@@ -12,6 +12,20 @@ end;
 InstallCondition = function()
     return RDX.GetOOBEOptionState("WoWRDX");
 end;
+PrepareInstall = function()
+	-- Delete previous versions
+	RDXDB._EmptyPackage("Mortarion_AUI");
+	RDXDB._EmptyPackage("Carkass_AUI");
+	RDXDB._EmptyPackage("Xenora_AUI");
+	RDXDB._EmptyPackage("Kalam_AUI");
+	RDXDB._EmptyPackage("Lyn_AUI");
+	RDXDB._EmptyPackage("Olok_AUI");
+	RDXDB._EmptyPackage("Karamon_AUI");
+	RDXDB._EmptyPackage("Persolite_AUI");
+	RDXDB._EmptyPackage("Novo_AUI");
+	RDXDB._EmptyPackage("Fombeck_AUI");
+	RDXDB._EmptyPackage("WoWRDX");
+end;
 data = {
 -- Begin RDX Data Export
 -- Begin Export Data for win_DispelGrid

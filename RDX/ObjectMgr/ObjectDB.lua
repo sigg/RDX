@@ -74,6 +74,7 @@ reservedWords["infoIsShare"] =  true;
 reservedWords["infoIsImmutable"] = true;
 reservedWords["infoIsIndelible"] = true;
 reservedWords["infoRunAutoexec"] = true;
+--reservedWords["infoRunAutoDelete"] = true;
 reservedWords["infoRequiredRDXVersion"] = true;
 
 function RDXDB.IsReserveWord(name)
@@ -337,6 +338,21 @@ local function InitObjectDB()
 			return nil, VFLI.i18n("Cannot delete indelible package.");
 		end
 		if (not force) and (VFL.tsize(d) > 0) then return nil, VFLI.i18n("Cannot delete non-empty package."); end
+		--if RDXDB.GetPackageMetadata(pkg, "infoRunAutoDelete") then
+			local adel = d["autodel"];
+			if adel and adel.ty == "Script" then
+				RDXDB.OpenObject(pkg .. ":autodel", "Open", "local pkg = '" .. pkg .. "';");
+			end
+		--end
+		local adesk = d["autodesk"];
+		if adesk and adesk.ty == "Desktop" then
+			RDXDB.DeleteObject("desktops:".. pkg);
+			RDXDB.DeleteObject("desktops:".. pkg .. "_solo_dsk");
+			RDXDB.DeleteObject("desktops:".. pkg .. "_party_dsk");
+			RDXDB.DeleteObject("desktops:".. pkg .. "_raid_dsk");
+			RDXDB.DeleteObject("desktops:".. pkg .. "_pvp_dsk");
+			RDXDB.DeleteObject("desktops:".. pkg .. "_arena_dsk");
+		end
 		RDXData[pkg] = nil;
 		RDXDBEvents:Dispatch("PACKAGE_DELETED", pkg);
 		return true;
@@ -622,11 +638,53 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, InitObjectDB);
 -- Also run all autoexec scripts in sub-packages.
 RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	RDXDB.OpenObject("Scripts:auto_u_" .. RDX.pspace);
-	local aex = nil;
+	local aex, adesk, isexist = nil, nil, nil;
 	for pkg,dir in pairs(RDXDB.GetPackages()) do
 		aex = dir["autoexec"];
 		if aex and aex.ty == "Script" and RDXDB.GetPackageMetadata(pkg, "infoRunAutoexec") then
 			RDXDB.OpenObject(pkg .. ":autoexec", "Open", "local pkg = '" .. pkg .. "';");
+		end
+		adesk = dir["autodesk"];
+		if adesk and adesk.ty == "Desktop" then
+			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_solo_dsk", "desktop");
+			if not isexist then RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_solo_dsk"); end
+			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_party_dsk", "desktop");
+			if not isexist then RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_party_dsk"); end
+			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_raid_dsk", "desktop");
+			if not isexist then RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_raid_dsk"); end
+			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_pvp_dsk", "desktop");
+			if not isexist then RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_pvp_dsk"); end
+			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_arena_dsk", "desktop");
+			if not isexist then RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_arena_dsk"); end
+			
+			isexist = RDXDB.CheckObject("desktops:".. pkg, "AUI");
+			if not isexist then 
+				local mbo = RDXDB.TouchObject("desktops:".. pkg);
+				mbo.data = {
+					["solo"] = "desktops:".. pkg .. "_solo_dsk";
+					["party"] = "desktops:".. pkg .. "_party_dsk";
+					["raid"] = "desktops:".. pkg .. "_raid_dsk";
+					["pvp"] = "desktops:".. pkg .. "_pvp_dsk";
+					["arena"] = "desktops:".. pkg .. "_arena_dsk";
+					["solo2"] = "desktops:".. pkg .. "_solo_dsk";
+					["party2"] = "desktops:".. pkg .. "_party_dsk";
+					["raid2"] = "desktops:".. pkg .. "_raid_dsk";
+					["pvp2"] = "desktops:".. pkg .. "_pvp_dsk";
+					["arena2"] = "desktops:".. pkg .. "_arena_dsk";
+					["soloflag"] = true;
+					["partyflag"] = true;
+					["raidflag"] = true;
+					["pvpflag"] = true;
+					["arenaflag"] = true;
+					["soloflag2"] = true;
+					["partyflag2"] = true;
+					["raidflag2"] = true;
+					["pvpflag2"] = true;
+					["arenaflag2"] = true;
+				};
+				mbo.ty = "AUI"; 
+				mbo.version = 2;
+			end
 		end
 	end
 end);

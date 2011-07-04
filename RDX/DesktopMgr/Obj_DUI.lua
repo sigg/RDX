@@ -303,7 +303,7 @@ function RDXDK.ToggleAUIEditor(path, md, parent)
 	end
 end
 
--- The DUI object type.
+-- The AUI object type.
 RDXDB.RegisterObjectType({
 	name = "AUI";
 	New = function(path, md)
@@ -354,9 +354,21 @@ RDXDB.RegisterObjectType({
 	end;
 });
 
+-------------------------------------
+-- Change AUI
+-------------------------------------
+
 local currentAUI = nil;
 
-local function OpenAUI()
+local function ChangeAUI(path, nosave)
+	--RDX.printI("Change desktop " .. path);
+	if RDXDK.IsAUIEditorOpen() then RDXDK.CloseAUIEditor() end
+	RDX:Debug(3, "Change AUI " .. path);
+	-- close
+	if currentAUI then
+		RDXDB._RemoveInstance(RDXU.AUI);
+	end
+	RDXU.AUI = path;
 	currentAUI = RDXDB.GetObjectInstance(RDXU.AUI);
 	if currentAUI then
 		local state;
@@ -369,22 +381,6 @@ local function OpenAUI()
 		local _, auiname = RDXDB.ParsePath(RDXU.AUI);
 		RDXDK.SecuredChangeState(RDXU.AUIState, true);
 		RDXEvents:Dispatch("AUI", auiname);
-	end
-end
-
-local function ChangeAUI(path, nosave)
-	--RDX.printI("Change desktop " .. path);
-	if RDXDK.IsAUIEditorOpen() then RDXDK.CloseAUIEditor() end
-	RDX:Debug(3, "Change AUI " .. path);
-	-- close
-	if currentAUI then
-		RDXDB._RemoveInstance(RDXU.AUI);
-		RDXU.AUI = path;
-		--VFLT.ZMSchedule(1, OpenAUI);
-		OpenAUI();
-	else
-		RDXU.AUI = path;
-		OpenAUI();
 	end
 end
 
@@ -403,6 +399,10 @@ VFLEvents:Bind("PLAYER_COMBAT", nil, function(flag)
 		newpath = nil;
 	end
 end);
+
+-------------------------------------
+-- Change STATE IN AUI
+-------------------------------------
 
 local function ChangeState(state)
 	RDX:Debug(3, "Change AUI state " .. state);
@@ -430,8 +430,6 @@ VFLEvents:Bind("PLAYER_COMBAT", nil, function(flag)
 		newstate = nil;
 	end
 end);
-
--- switch state
 
 -- SWITCH desktop function
 local function SwitchState()

@@ -817,14 +817,14 @@ RDXDB.RegisterObjectType({
 				RDXDB.OpenObject(path, "Edit", dlg);
 			end
 		});
-		--if RDXDK.GetCurrentDesktopPath() ~= path then 
-		--	table.insert(mnu, {
-		--		text = VFLI.i18n("Activate"),
-		--		OnClick = function()
-		--			VFL.poptree:Release();
-		--			RDXDK.SecuredChangeDesktop(path);
-		--		end
-		--	});
+		if RDXDK.GetCurrentDesktopPath() ~= path then 
+			table.insert(mnu, {
+				text = VFLI.i18n("Open"),
+				OnClick = function()
+					VFL.poptree:Release();
+					RDXDK.SecuredChangeDesktop(path);
+				end
+			});
 		--else
 		--	table.insert(mnu, {
 		--		text = VFLI.i18n("Rebuild Desktop"),
@@ -833,7 +833,7 @@ RDXDB.RegisterObjectType({
 		--			RDXDK.SecuredChangeDesktop(path);
 		--		end
 		--	});
-		--end
+		end
 	end,
 });
 
