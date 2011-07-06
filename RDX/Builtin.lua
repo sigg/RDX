@@ -175,6 +175,207 @@ end);
 --------------------------------------
 -- Builtin default mouse bindings
 --------------------------------------
+
+local function heal_default()
+	local _,class = UnitClass("player");
+	local ret = nil;
+	if class == "PRIEST" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 2061,
+		    },
+		    ["2"] = {
+			["action"] = "cast",
+			["spell"] = 17,
+		    },
+		};
+	elseif class == "DRUID" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 5185,
+		    },
+		    ["2"] = {
+			["action"] = "cast",
+			["spell"] = 774,
+		    },
+		};
+	elseif class == "PALADIN" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 635,
+		    },
+		    ["2"] = {
+			["action"] = "cast",
+			["spell"] = 19750,
+		    },
+		};
+	elseif class == "SHAMAN" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 331,
+		    },
+		    ["2"] = {
+			["action"] = "cast",
+			["spell"] = 8004,
+		    },
+		};
+	elseif class == "MAGE" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 54646,
+		    },
+		};
+	elseif class == "HUNTER" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 34477,
+		    },
+		};
+	elseif class == "WARRIOR" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 3411,
+		    },
+		};
+	elseif class == "WARLOCK" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 80398,
+		    },
+		};
+	elseif class == "DEATHKNIGHT" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 47541,
+		    },
+		    ["2"] = {
+			["action"] = "cast",
+			["spell"] = 47541,
+		    },
+		};
+	elseif class == "ROGUE" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 57934,
+		    },
+		};
+	else
+		ret = {};
+	end
+	return ret;
+end
+
+local function dmg_default()
+	local _,class = UnitClass("player");
+	local ret = nil;
+	if class == "PRIEST" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 585,
+		    },
+		    ["2"] = {
+			["action"] = "cast",
+			["spell"] = 8092,
+		    },
+		};
+	elseif class == "DRUID" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 5176,
+		    },
+		    ["2"] = {
+			["action"] = "cast",
+			["spell"] = 8921,
+		    },
+		};
+	elseif class == "PALADIN" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 879,
+		    },
+		};
+	elseif class == "SHAMAN" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 403,
+		    },
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 421,
+		    },
+		};
+	elseif class == "MAGE" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 133,
+		    },
+		    ["2"] = {
+			["action"] = "cast",
+			["spell"] = 116,
+		    },
+		};
+	elseif class == "HUNTER" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 56641,
+		    },
+		    ["2"] = {
+			["action"] = "cast",
+			["spell"] = 5116,
+		    },
+		};
+	elseif class == "WARRIOR" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 1464,
+		    },
+		};
+	elseif class == "WARLOCK" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 686,
+		    },
+		    ["2"] = {
+			["action"] = "cast",
+			["spell"] = 348,
+		    },
+		};
+	elseif class == "DEATHKNIGHT" then
+		ret = {
+		    ["1"] = {
+			["action"] = "cast",
+			["spell"] = 47541,
+		    },
+		    ["2"] = {
+			["action"] = "cast",
+			["spell"] = 77575,
+		    },
+		};
+	else
+		ret = {};
+	end
+	return ret;
+end
+
+
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	
 	--
@@ -279,40 +480,19 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	
 	local mbo = RDXDB.TouchObject("default:bindings_heal_" .. RDX.pspace .. "1");
 	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-				["action"] = "target",
-			},
-			["2"] = {
-				["action"] = "menu",
-			},
-		};
+		mbo.data = heal_default();
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
 	local mbo = RDXDB.TouchObject("default:bindings_heal_" .. RDX.pspace .. "2");
 	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-				["action"] = "target",
-			},
-			["2"] = {
-				["action"] = "menu",
-			},
-		};
+		mbo.data = heal_default();
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
 	local mbo = RDXDB.TouchObject("default:bindings_heal_" .. RDX.pspace .. "3");
 	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-				["action"] = "target",
-			},
-			["2"] = {
-				["action"] = "menu",
-			},
-		};
+		mbo.data = heal_default();
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
@@ -325,40 +505,19 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	-- damage
 	local mbo = RDXDB.TouchObject("default:bindings_dmg_" .. RDX.pspace .. "1");
 	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-				["action"] = "target",
-			},
-			["2"] = {
-				["action"] = "menu",
-			},
-		};
+		mbo.data = dmg_default();
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
 	local mbo = RDXDB.TouchObject("default:bindings_dmg_" .. RDX.pspace .. "2");
 	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-				["action"] = "target",
-			},
-			["2"] = {
-				["action"] = "menu",
-			},
-		};
+		mbo.data = dmg_default();
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
 	local mbo = RDXDB.TouchObject("default:bindings_dmg_" .. RDX.pspace .. "3");
 	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-				["action"] = "target",
-			},
-			["2"] = {
-				["action"] = "menu",
-			},
-		};
+		mbo.data = dmg_default();
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
