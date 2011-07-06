@@ -180,10 +180,10 @@ function RDXDK.WindowList(parent)
 	end, VFL.ArrayLiterator(wl));
 	
 	-- Get current AUI name
-	local auipkg = RDXDB.ParsePath(RDXU.AUI);
+	local auipkg, auiname = RDXDB.ParsePath(RDXU.AUI);
 	
 	-- Build the base list
-	BuildWindowList(auipkg);
+	BuildWindowList(auiname);
 	list:Update();
 	
 	dlg:Show();
@@ -203,12 +203,16 @@ function RDXDK.WindowList(parent)
 		VFL.EscapeTo(esch);
 	end
 	
+	local closebtn = VFLUI.CloseButton:new(dlg);
+	closebtn:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
+	dlg:AddButton(closebtn);
+	
 	local listbtn = VFLUI.TexturedButton:new(dlg, 16, "Interface\\AddOns\\RDX\\Skin\\menu");
 	listbtn:SetHighlightColor(0,1,1,1);
 	listbtn:SetScript("OnClick", function()
 		if dlg.toggle then
-			local auipkg = RDXDB.ParsePath(RDXU.AUI);
-			BuildWindowList(auipkg);
+			local auipkg, auiname = RDXDB.ParsePath(RDXU.AUI);
+			BuildWindowList(auiname);
 			dlg.toggle = nil
 		else
 			BuildWindowList();
@@ -217,10 +221,6 @@ function RDXDK.WindowList(parent)
 		list:Update();
 	end);
 	dlg:AddButton(listbtn);
-	
-	local closebtn = VFLUI.CloseButton:new(dlg);
-	closebtn:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
-	dlg:AddButton(closebtn);
 	
 	----------------- Close functionality
 	dlg.Destroy = VFL.hook(function(s)
