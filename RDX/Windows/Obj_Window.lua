@@ -341,7 +341,7 @@ function RDX.CloneWindow(path, upath, parent)
 	
 	local ed_upath = VFLUI.LabeledEdit:new(ui, 100); ed_upath:Show();
 	ed_upath:SetText(VFLI.i18n("Design Path"));
-	if upath then ed_upath.editBox:SetText(upath); else ed_upath.editBox:SetText("0"); end
+	if upath then ed_upath.editBox:SetText(upath); else ed_upath.editBox:SetText("null"); end
 	ui:InsertFrame(ed_upath);
 	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
@@ -371,9 +371,16 @@ function RDX.CloneWindow(path, upath, parent)
 	btnOK:SetScript("OnClick", function()
 		local new_path = ed_path.editBox:GetText();
 		local new_upath = ed_upath.editBox:GetText();
-		-- Do the clone
-		
-		-- Open it on the desktop
+		if not RDXDB.CheckObject(new_path) and not RDXDB.CheckObject(new_upath) then
+			-- Do the clone
+			RDXDB.Copy(path, new_path);
+			RDXDB.Copy(upath, new_upath);
+			RDXDB.SetFeatureData(new_path, "Design", nil, nil, { feature = "Design", design = new_upath });
+			-- Open it on the desktop
+			RDXDK._OpenWindowRDX(new_path);
+		else
+			VFL.print("error target path exist");
+		end
 		VFL.EscapeTo(esch);
 	end);
 
