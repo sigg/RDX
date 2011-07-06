@@ -242,13 +242,13 @@ function RDXKB.Init()
 			for k,v in pairs(tblink) do
 				if _G[v] then
 					key1, key2 = GetBindingKey(k);
-					if key1 then SetBinding(key1, v); end
 					if key2 then SetBinding(key2); end
+					if key1 then SetBinding(key1); SetBindingClick(key1, v); end
 				end
 			end
-			if GetCurrentBindingSet() then
+			--if GetCurrentBindingSet() then
 				SaveBindings(GetCurrentBindingSet());
-			end
+			--end
 		end
 	end
 end
