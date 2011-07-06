@@ -70,15 +70,17 @@ RDX.RegisterFeature({
 ---------------------------------------------------------------------
 local wl = {};
 
-local function BuildWindowList()
+local function BuildWindowList(pkgfilter)
 	VFL.empty(wl);
 	local desc = nil;
 	for pkg,data in pairs(RDXData) do
-		for file,md in pairs(data) do
-			if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "Window$") then
-				local hide = RDXDB.HasFeature(md.data, "WindowListHide");
-				if not hide then
-					table.insert(wl, {path = RDXDB.MakePath(pkg, file), data = md.data});
+		if not pkgfilter or pkg == pkgfilter or pkg == "WoWRDX" or pkg == "default" then
+			for file,md in pairs(data) do
+				if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "Window$") then
+					local hide = RDXDB.HasFeature(md.data, "WindowListHide");
+					if not hide then
+						table.insert(wl, {path = RDXDB.MakePath(pkg, file), data = md.data});
+					end
 				end
 			end
 		end
@@ -177,8 +179,11 @@ function RDXDK.WindowList(parent)
 		end);
 	end, VFL.ArrayLiterator(wl));
 	
+	-- Get current AUI name
+	local auipkg = RDXDB.ParsePath(RDXU.AUI);
+	
 	-- Build the base list
-	BuildWindowList();
+	BuildWindowList(auipkg);
 	list:Update();
 	
 	dlg:Show();
@@ -198,12 +203,28 @@ function RDXDK.WindowList(parent)
 		VFL.EscapeTo(esch);
 	end
 	
+	local listbtn = VFLUI.TexturedButton:new(dlg, 16, "Interface\\AddOns\\RDX\\Skin\\menu");
+	listbtn:SetHighlightColor(0,1,1,1);
+	listbtn:SetScript("OnClick", function()
+		if dlg.toggle then
+			local auipkg = RDXDB.ParsePath(RDXU.AUI);
+			BuildWindowList(auipkg);
+			dlg.toggle = nil
+		else
+			BuildWindowList();
+			dlg.toggle = true;
+		end
+		list:Update();
+	end);
+	dlg:AddButton(listbtn);
+	
 	local closebtn = VFLUI.CloseButton:new(dlg);
 	closebtn:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
 	dlg:AddButton(closebtn);
 	
 	----------------- Close functionality
 	dlg.Destroy = VFL.hook(function(s)
+		s.toggle = nil;
 		s._esch = nil;
 		list:Destroy(); list = nil;
 	end, dlg.Destroy);
