@@ -1,9 +1,11 @@
 local state = {"Solo", "Party", "Raid", "PvP", "Arena", "solo2", "party2", "raid2", "pvp2", "arena2"}
 
+local subMenus = {};
 -----------------------------------------
 -- DUI change
 -----------------------------------------
 local function AUIList()
+	VFL.empty(subMenus);
 	RDXPM.DuiMenu:ResetMenu();
 	
 	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
@@ -21,7 +23,7 @@ local function AUIList()
 	end);
 	
 	-----------------------------------
-	local subMenus = {};
+	
 	--local currentDesktop = {
 	--	text = RDX.pspace,
 	--	notCheckable = true,
@@ -190,6 +192,8 @@ local function AUIList()
 		ent.notCheckable = true;
 		ent.func = VFLReloadUI;
 	end);
+	
+	RDXPM.subMenus = subMenus;
 end
 
 RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)

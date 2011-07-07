@@ -31,9 +31,14 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleObjectBrowser }
 	};
 end);
-local lockListMenu = {
 
-}
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Theme AUI");
+	ent.notCheckable = true;
+	ent.hasArrow = true;
+	ent.keepShownOnClick = false;
+	ent.menuList = RDXPM.subMenus;
+end);
 	
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = "Locking";
