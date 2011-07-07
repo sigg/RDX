@@ -85,9 +85,9 @@ local function VariablesLoaded()
 		RDXEvents:Dispatch("INIT_DEFERRED");
 		RDXEvents:DeleteKey("INIT_DEFERRED");
 		
-		if not RDXG.hideLW and installer then
-			RDX.NewLearnWizard(RDXG.learnNum);
-		end
+		--if not RDXG.hideLW and installer then
+		--	RDX.NewLearnWizard(RDXG.learnNum);
+		--end
 	
 		-- Now init smooth features.
 		RDX.smooth = 0.2;

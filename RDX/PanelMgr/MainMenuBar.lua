@@ -319,7 +319,11 @@ local function CreateMainPane()
 	VFLT.AdaptiveSchedule("infoaui", 1, function()
 		if RDXU and RDXU.AUI then
 			local _, auiname = RDXDB.ParsePath(RDXU.AUI);
-			s.infofs:SetText((auiname or "Unknown") .. ":" .. (RDXU.AUIState or "Unknown"));
+			if RDXU.autoSwitchState then
+				s.infofs:SetText((auiname or "Unknown") .. ":" .. "Auto");
+			else
+				s.infofs:SetText((auiname or "Unknown") .. ":" .. (RDXU.AUIState or "Unknown"));
+			end
 			s.perffs:SetText(VFLP.GetTextPerf());
 		end
 	end);

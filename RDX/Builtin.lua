@@ -7,8 +7,6 @@
 --
 -- A few useful built-in structures.
 
-local strlower = string.lower;
-
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 
 	local default = RDXDB.GetOrCreatePackage("default");
@@ -377,7 +375,6 @@ end
 
 
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
-	
 	--
 	-- Create player-talent-specific bindings if they don't exist
 	-- default:bindings_player
@@ -441,6 +438,9 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["2"] = {
 			    ["action"] = "menu",
 			},
+			["S1"] = {
+			    ["action"] = "focus",
+			},
 	     };
 	     mbo.ty = "MouseBindings"; 
 	     mbo.version = 1;
@@ -454,6 +454,9 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["2"] = {
 			    ["action"] = "menu",
 			},
+			["S1"] = {
+			    ["action"] = "focus",
+			},
 	     };
 	     mbo.ty = "MouseBindings"; 
 	     mbo.version = 1;
@@ -466,6 +469,9 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 			["2"] = {
 			    ["action"] = "menu",
+			},
+			["S1"] = {
+			    ["action"] = "focus",
 			},
 	     };
 	     mbo.ty = "MouseBindings"; 
@@ -529,11 +535,190 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 
 end);
 
+--
+-- Builtin Aurafilter
+--
+
+RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
+	local mbo = RDXDB.TouchObject("default:aurafilter_buff");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		local _,class = UnitClass("player");
+		if class == "PRIEST" then
+			mbo.data = {
+				17, -- priest bouclié
+				139, -- priest rénovation
+				6346, -- priest gardien de peur
+				33076, -- priest prière de guérison
+				10060, -- priest infusion de puissance
+				33206, -- priest suppression de la douleur
+				47788, -- priest esprit gardien
+			},
+		elseif class == "DRUID" then
+			mbo.data = {
+				774, -- druid récupération
+				8936, -- druid rétablissement
+				29166, -- druid innervation
+				33778, -- druid fleur de vie
+			},
+		elseif class == "PALADIN" then
+			mbo.data = {
+				1022, -- paladin main de protection
+				1044, -- paladin main de liberté
+				1038, -- paladin main de salut
+				6940, -- paladin main de sacrifice
+			},
+		elseif class == "SHAMAN" then
+			mbo.data = {
+				2825, -- shaman fury sanguinaire
+				32182, -- shaman heroisme
+			},
+		elseif class == "MAGE" then
+			mbo.data = {
+				80353, -- mage distorsion temporelle
+			},
+		elseif class == "HUNTER" then
+			mbo.data = {
+				34477, -- hunter détournement
+			},
+		elseif class == "WARRIOR" then
+			mbo.data = {
+				6673, -- warrior shout
+				469, -- warrior cri de commandement
+				97462, -- warrior cri de ralliement
+			},
+		else
+			mbo.data = {},
+		end
+	end
+	
+	local mbo = RDXDB.TouchObject("default:aurafilter_dot");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+			5570, -- druid essain d'insecte
+			589, -- priest douleur
+			2944, -- priest peste dévorante
+			34914, -- priest toucher vampirique
+		},
+	end
+	
+	local mbo = RDXDB.TouchObject("default:aurafilter_block");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+			51514, -- shaman maléfice
+			5782, -- warlock fear
+			710, -- warlock bannir
+			2637, -- druid hibernation
+			118, -- mage métamorphose
+			9484, -- priest entrave des morts vivants
+			28271, -- mage
+			28272, -- mage
+			61305, -- mage
+			61721, -- mage
+			61780, -- mage
+			20066, -- paladin repentir
+			6770, -- rogue assome
+			2094, -- rogue cecité
+		},
+	end
+	
+	local mbo = RDXDB.TouchObject("default:aurafilter_boss");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+			"@other", -- [1]
+			"!69127", -- [2]
+			"!57724", -- [3]
+		},
+	end
+end);
+
+---------------------------------------------
+-- Builtin default set magic, curse, poison
+---------------------------------------------
+RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
+	local mbo = RDXDB.TouchObject("default:set_debuff_magic");
+	if not mbo.data then
+		mbo.ty = "FilterSet";
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"set", -- [1]
+				{
+					["buff"] = "@magic",
+					["class"] = "debuff",
+				}, -- [2]
+			}, -- [2]
+			{
+				"not", -- [1]
+				{
+					"set", -- [1]
+					{
+						["buff"] = 30108,
+						["class"] = "debuff",
+					}, -- [2]
+				}, -- [2]
+			}, -- [3]
+		};
+	end
+	local mbo = RDXDB.TouchObject("default:set_debuff_curse");
+	if not mbo.data then
+		mbo.ty = "FilterSet";
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"set", -- [1]
+				{
+					["buff"] = "@curse",
+					["class"] = "debuff",
+				}, -- [2]
+			}, -- [2]
+		};
+	end
+	local mbo = RDXDB.TouchObject("default:set_debuff_poison");
+	if not mbo.data then
+		mbo.ty = "FilterSet";
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"set", -- [1]
+				{
+					["buff"] = "@poison",
+					["class"] = "debuff",
+				}, -- [2]
+			}, -- [2]
+		};
+	end
+	local mbo = RDXDB.TouchObject("default:set_debuff_disease");
+	if not mbo.data then
+		mbo.ty = "FilterSet";
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"set", -- [1]
+				{
+					["buff"] = "@disease",
+					["class"] = "debuff",
+				}, -- [2]
+			}, -- [2]
+		};
+	end
+end);
+
 --------------------------------------
 -- Builtin default set color
 --------------------------------------
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
-	
 	-- Create player-specific set yellow if they don't exist
 	local mbo = RDXDB.TouchObject("default:set_yellow_" .. RDX.pspace .. "1");
 	if not mbo.data then 
