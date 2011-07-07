@@ -401,10 +401,10 @@ local function StartInstaller()
 		local _,_,_,ty = RDXDB.GetObjectData(dtpath);
 		if(ty ~= "Desktop") then return; end
 		-- Copy our desktop
-		RDXDB.Copy(dtpath, "default:desktop_" .. RDX.pspace);
+		--RDXDB.Copy(dtpath, "default:desktop_" .. RDX.pspace);
 		-- Now formulate a script that auto-selects this desktop.
 		local script = [[
-RDX.SelectDesktop("default:desktop_]] .. RDX.pspace .. [[");
+--RDX.SelectDesktop("default:desktop_]] .. RDX.pspace .. [[");
 ]];
 		-- Save to our autoexec script
 		local so = RDXDB.TouchObject("Scripts:auto_e_default_u_" .. RDX.pspace);

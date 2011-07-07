@@ -212,10 +212,10 @@ end
 	end;
 	CreateDescriptor = function()
 		return { feature = "Variables decurse";
-			set1 = { buff = "@magic", class = "debuff"};
-			set2 = { buff = "@poison", class = "debuff"};
-			set3 = { buff = "@disease", class = "debuff"}; 
-			set4 = { buff = "@curse", class = "debuff"};
+			set1 = { file = "default:set_debuff_magic", class = "file"};
+			set2 = { file = "default:set_debuff_poison", class = "file"};
+			set3 = { file = "default:set_debuff_disease", class = "file"}; 
+			set4 = { file = "default:set_debuff_curse", class = "file"};
 			texture1 = { blendMode = "BLEND", path = "Interface\\Icons\\Spell_Holy_DispelMagic"};
 			texture2 = { blendMode = "BLEND", path = "Interface\\Icons\\Spell_Nature_NullifyPoison_02"};
 			texture3 = { blendMode = "BLEND", path = "Interface\\Icons\\Spell_Nature_RemoveDisease"};

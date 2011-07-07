@@ -46,7 +46,7 @@ local spell_channeled, spell_casting, spell_castingOrChanneled, spell_name_rank,
 local spell_name, spell_rank, spell_fullname, spell_icon, spell_start, spell_end, spell_istradeskill, _, spell_notinterruptible = UnitCastingInfo(uid);
 if not spell_name then
 	spell_name, spell_rank, spell_fullname, spell_icon, spell_start, spell_end, spell_istradeskill, spell_notinterruptible = UnitChannelInfo(uid);
-	if spell_name then = 
+	if spell_name then
 		spell_channeled = true;
 		spell_castingOrChanneled = true;
 		spell_color = spColor_cf[2];
@@ -133,7 +133,7 @@ end
 	end;
 	CreateDescriptor = function() 
 		return {
-			feature = "var_spellinfo"
+			feature = "var_spellinfo";
 			raColor1 = _green;
 			raColor2 = _yellow;
 			raColor3 = _blue;

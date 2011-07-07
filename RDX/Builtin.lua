@@ -554,42 +554,42 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 				10060, -- priest infusion de puissance
 				33206, -- priest suppression de la douleur
 				47788, -- priest esprit gardien
-			},
+			};
 		elseif class == "DRUID" then
 			mbo.data = {
 				774, -- druid récupération
 				8936, -- druid rétablissement
 				29166, -- druid innervation
 				33778, -- druid fleur de vie
-			},
+			};
 		elseif class == "PALADIN" then
 			mbo.data = {
 				1022, -- paladin main de protection
 				1044, -- paladin main de liberté
 				1038, -- paladin main de salut
 				6940, -- paladin main de sacrifice
-			},
+			};
 		elseif class == "SHAMAN" then
 			mbo.data = {
 				2825, -- shaman fury sanguinaire
 				32182, -- shaman heroisme
-			},
+			};
 		elseif class == "MAGE" then
 			mbo.data = {
 				80353, -- mage distorsion temporelle
-			},
+			};
 		elseif class == "HUNTER" then
 			mbo.data = {
 				34477, -- hunter détournement
-			},
+			};
 		elseif class == "WARRIOR" then
 			mbo.data = {
 				6673, -- warrior shout
 				469, -- warrior cri de commandement
 				97462, -- warrior cri de ralliement
-			},
+			};
 		else
-			mbo.data = {},
+			mbo.data = {};
 		end
 	end
 	
@@ -602,7 +602,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			589, -- priest douleur
 			2944, -- priest peste dévorante
 			34914, -- priest toucher vampirique
-		},
+		};
 	end
 	
 	local mbo = RDXDB.TouchObject("default:aurafilter_block");
@@ -624,7 +624,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			20066, -- paladin repentir
 			6770, -- rogue assome
 			2094, -- rogue cecité
-		},
+		};
 	end
 	
 	local mbo = RDXDB.TouchObject("default:aurafilter_boss");
@@ -635,7 +635,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			"@other", -- [1]
 			"!69127", -- [2]
 			"!57724", -- [3]
-		},
+		};
 	end
 end);
 

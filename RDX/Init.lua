@@ -74,11 +74,6 @@ local function VariablesLoaded()
 		RDXEvents:DeleteKey("INIT_POST_DESKTOP");
 		--DesktopEvents:Dispatch("DESKTOP_UPDATE_BINDINGS");
 	end);
-	
-	-- key bindings to move key from Blizzard to VFL
-	VFLT.ZMSchedule(1, function()
-		RDXKB.Init();
-	end);
 
 	VFLT.ZMSchedule(4, function()
 		RDX:Debug(3, "DISPATCH INIT_DEFERRED");
@@ -90,7 +85,8 @@ local function VariablesLoaded()
 		--end
 	
 		-- Now init smooth features.
-		RDX.smooth = 0.2;
+		-- disable because memory leak
+		--RDX.smooth = 0.2;
 	end);
 end
 

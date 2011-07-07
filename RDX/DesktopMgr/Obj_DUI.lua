@@ -526,22 +526,24 @@ RDXDK.SwitchState_Disable = SwitchState_Disable;
 ----------------------------
 
 RDXEvents:Bind("INIT_DESKTOP", nil, function()
-	if not RDXU.Desktops then RDXU.Desktops = {}; end
-	if not RDXU.Desktops2 then RDXU.Desktops2 = {}; end
+	--if not RDXU.Desktops then RDXU.Desktops = {}; end
+	--if not RDXU.Desktops2 then RDXU.Desktops2 = {}; end
 	-- create solo, group, raid, inn and pvp desktop
 	--RDXDK.MakeDesktops();
 	
 	if not RDXU.AUI or not RDXDB.ResolvePath(RDXU.AUI) then RDXU.AUI = "desktops:WoWRDX"; end
 	if not RDXU.AUIState then RDXU.AUIState = "solo"; end
 	local inst = RDXDB.GetObjectInstance(RDXU.AUI);
+
+	SwitchState_Enable();
 	
-	if not inst then 
-		RDXU.AUI = "desktops:" .. RDX.pspace;
-		inst = RDXDB.GetObjectInstance(RDXU.AUI);
-	end
+	--if not inst then 
+	--	RDXU.AUI = "desktops:";
+	--	inst = RDXDB.GetObjectInstance(RDXU.AUI);
+	--end
 	
 	--if RDXU.autoSwitchState then
-		SwitchState_Enable();
+	--	SwitchState_Enable();
 	--else
 	--	SwitchState_Disable(RDXU.AUIState);
 	--end
@@ -562,26 +564,26 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_party_dsk", "desktop");
 			if not isexist then 
 				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_party_dsk");
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", nil, nil, { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Party_Main"} );
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", nil, nil, { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":PartyTarget_Main"} );
+				RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Party_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Party_Main"} );
+				RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Partytarget_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Partytarget_Main"} );
 			end
 			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_raid_dsk", "desktop");
 			if not isexist then 
 				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_raid_dsk");
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", nil, nil, { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_GroupAll"} );
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", nil, nil, { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Boss_Main"} );
+				RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", "name", pkg .. ":Raid_GroupAll", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_GroupAll"} );
+				RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", "name", pkg .. ":Boss_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Boss_Main"} );
 			end
 			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_pvp_dsk", "desktop");
 			if not isexist then 
 				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_pvp_dsk");
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_pvp_dsk", "desktop_window", nil, nil, { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_GroupAll"} );
+				RDXDB.AddFeatureData("desktops:".. pkg .. "_pvp_dsk", "desktop_window", "name", pkg .. ":Raid_GroupAll", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_GroupAll"} );
 			end
 			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_arena_dsk", "desktop");
 			if not isexist then 
 				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_arena_dsk");
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", nil, nil, { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Party_Main"} );
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", nil, nil, { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":PartyTarget_Main"} );
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", nil, nil, { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Arena_Main"} );
+				RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Party_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Party_Main"} );
+				RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Partytarget_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Partytarget_Main"} );
+				RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Arena_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Arena_Main"} );
 			end
 			isexist = RDXDB.CheckObject("desktops:".. pkg, "AUI");
 			if not isexist then 

@@ -183,6 +183,18 @@ tblink["ACTIONBUTTON9"] = "VFLButton9";
 tblink["ACTIONBUTTON10"] = "VFLButton10";
 tblink["ACTIONBUTTON11"] = "VFLButton11";
 tblink["ACTIONBUTTON12"] = "VFLButton12";
+tblink["BONUSACTIONBUTTON1"] = "VFLButton13";
+tblink["BONUSACTIONBUTTON2"] = "VFLButton14";
+tblink["BONUSACTIONBUTTON3"] = "VFLButton15";
+tblink["BONUSACTIONBUTTON4"] = "VFLButton16";
+tblink["BONUSACTIONBUTTON5"] = "VFLButton17";
+tblink["BONUSACTIONBUTTON6"] = "VFLButton18";
+tblink["BONUSACTIONBUTTON7"] = "VFLButton19";
+tblink["BONUSACTIONBUTTON8"] = "VFLButton20";
+tblink["BONUSACTIONBUTTON9"] = "VFLButton21";
+tblink["BONUSACTIONBUTTON10"] = "VFLButton22";
+tblink["BONUSACTIONBUTTON11"] = "VFLButton23";
+tblink["BONUSACTIONBUTTON12"] = "VFLButton24";
 tblink["MULTIACTIONBAR4BUTTON1"] = "VFLButton25";
 tblink["MULTIACTIONBAR4BUTTON2"] = "VFLButton26";
 tblink["MULTIACTIONBAR4BUTTON3"] = "VFLButton27";
@@ -231,11 +243,22 @@ tblink["MULTIACTIONBAR2BUTTON9"] = "VFLButton69";
 tblink["MULTIACTIONBAR2BUTTON10"] = "VFLButton70";
 tblink["MULTIACTIONBAR2BUTTON11"] = "VFLButton71";
 tblink["MULTIACTIONBAR2BUTTON12"] = "VFLButton72";
+tblink["SHAPESHIFTBUTTON1"] = "VFLStanceButton1";
+tblink["SHAPESHIFTBUTTON2"] = "VFLStanceButton2";
+tblink["SHAPESHIFTBUTTON3"] = "VFLStanceButton3";
+tblink["SHAPESHIFTBUTTON4"] = "VFLStanceButton4";
+tblink["SHAPESHIFTBUTTON5"] = "VFLStanceButton5";
+tblink["SHAPESHIFTBUTTON6"] = "VFLStanceButton6";
+tblink["SHAPESHIFTBUTTON7"] = "VFLStanceButton7";
+tblink["SHAPESHIFTBUTTON8"] = "VFLStanceButton8";
+tblink["SHAPESHIFTBUTTON9"] = "VFLStanceButton9";
+tblink["SHAPESHIFTBUTTON10"] = "VFLStanceButton10";
+
 
 -- call this function to move key from Blizzard to VFL at init
-function RDXKB.Init()
+local function Init()
 	-- test the key of the ActionBUTTON 1
-	if not InCombatLockdown() then
+	if not InCombatLockdown() and RDXDK.GetCurrentDesktop() then
 		local keyflag = GetBindingKey("ACTIONBUTTON1");
 		if keyflag then
 			local key1, key2;
@@ -249,7 +272,9 @@ function RDXKB.Init()
 			--if GetCurrentBindingSet() then
 				SaveBindings(GetCurrentBindingSet());
 			--end
+			DesktopEvents:Dispatch("DESKTOP_UPDATE_BINDINGS");
 		end
 	end
 end
 
+RDXEvents:Bind("INIT_POST_DESKTOP", nil, Init);
