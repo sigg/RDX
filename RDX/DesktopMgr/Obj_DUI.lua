@@ -557,6 +557,61 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 	end
 end);
 
+-- Also run all autodesk
+RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
+	local aex, adesk, isexist = nil, nil, nil;
+	for pkg,dir in pairs(RDXDB.GetPackages()) do
+		adesk = dir["autodesk"];
+		if adesk and adesk.ty == "Desktop" then
+			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_solo_dsk", "desktop");
+			if not isexist then RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_solo_dsk"); end
+			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_party_dsk", "desktop");
+			if not isexist then 
+				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_party_dsk");
+			end
+			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_raid_dsk", "desktop");
+			if not isexist then 
+				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_raid_dsk");
+			end
+			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_pvp_dsk", "desktop");
+			if not isexist then 
+				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_pvp_dsk");
+			end
+			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_arena_dsk", "desktop");
+			if not isexist then RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_arena_dsk"); end
+			
+			isexist = RDXDB.CheckObject("desktops:".. pkg, "AUI");
+			if not isexist then 
+				local mbo = RDXDB.TouchObject("desktops:".. pkg);
+				mbo.data = {
+					["solo"] = "desktops:".. pkg .. "_solo_dsk";
+					["party"] = "desktops:".. pkg .. "_party_dsk";
+					["raid"] = "desktops:".. pkg .. "_raid_dsk";
+					["pvp"] = "desktops:".. pkg .. "_pvp_dsk";
+					["arena"] = "desktops:".. pkg .. "_arena_dsk";
+					["solo2"] = "desktops:".. pkg .. "_solo_dsk";
+					["party2"] = "desktops:".. pkg .. "_party_dsk";
+					["raid2"] = "desktops:".. pkg .. "_raid_dsk";
+					["pvp2"] = "desktops:".. pkg .. "_pvp_dsk";
+					["arena2"] = "desktops:".. pkg .. "_arena_dsk";
+					["soloflag"] = true;
+					["partyflag"] = true;
+					["raidflag"] = true;
+					["pvpflag"] = true;
+					["arenaflag"] = true;
+					["soloflag2"] = true;
+					["partyflag2"] = true;
+					["raidflag2"] = true;
+					["pvpflag2"] = true;
+					["arenaflag2"] = true;
+				};
+				mbo.ty = "AUI"; 
+				mbo.version = 2;
+			end
+		end
+	end
+end);
+
 
 RDXDB.RegisterObjectType({
 	name = "DUI";
