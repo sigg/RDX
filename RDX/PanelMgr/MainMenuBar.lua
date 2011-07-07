@@ -670,6 +670,11 @@ RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.func = function() ToggleFrame(QuestLogFrame); end;
 end);
 RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Encounter");
+	ent.notCheckable = true;
+	ent.func = function() ToggleFrame(EncounterJournal); end;
+end);
+RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Bags");
 	ent.notCheckable = true;
 	ent.func = function() OpenAllBags(); end;

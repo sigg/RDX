@@ -40,6 +40,8 @@ RDX.BlizzardMicroButtons = {
 	"GuildMicroButton",
 	"PVPMicroButton",
 	"LFDMicroButton",
+	"EJMicroButton",
+	"RaidMicroButton",
 	"MainMenuMicroButton",
 	"HelpMicroButton"
 };
