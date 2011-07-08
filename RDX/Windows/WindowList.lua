@@ -238,4 +238,126 @@ function RDXDK.ToggleWindowList()
 	end
 end
 
+-- Mini window list
+-- use with only classic menu bar
+
+local function CreateMiniWindowListFrame()
+	local self = VFLUI.AcquireFrame("Button");
+	
+	-- Create the button highlight texture
+	local hltTexture = VFLUI.CreateTexture(self);
+	hltTexture:SetAllPoints(self);
+	hltTexture:SetTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight");
+	hltTexture:Show();
+	self:SetHighlightTexture(hltTexture);
+
+	-- Create the text
+	local text = VFLUI.CreateFontString(self);
+	text:SetFontObject(VFLUI.GetFont(Fonts.Default, 10));	text:SetJustifyH("LEFT");
+	text:SetTextColor(1,1,1,1);
+	text:SetPoint("LEFT", self, "LEFT"); text:SetHeight(10); text:SetWidth(150);
+	text:Show();
+	self.text = text;
+
+	self.Destroy = VFL.hook(function(self)
+		-- Destroy allocated regions
+		VFLUI.ReleaseRegion(hltTexture); hltTexture = nil;
+		VFLUI.ReleaseRegion(self.text); self.text = nil;
+	end, self.Destroy);
+
+	self.OnDeparent = self.Destroy;
+
+	return self;
+end
+
+local dlg2 = nil;
+function RDXDK.MiniWindowList(parent)
+	if dlg2 then return nil; end
+	dlg2 = VFLUI.Window:new(parent);
+	dlg2:SetFraming(VFLUI.Framing.Sleek, nil, VFLUI.DarkDialogBackdrop);
+	--dlg2:SetBackdropColor(0,0,0,.8);
+	dlg2:SetTitleColor(0,.5,0);
+	dlg2:SetText(VFLI.i18n("Mini Window List"));
+	dlg2:SetPoint("CENTER", VFLParent, "CENTER", -200, 0);
+	dlg2:Accomodate(166, 200);
+	
+	VFLUI.Window.StdMove(dlg2, dlg2:GetTitleBar());
+	
+	if RDXPM.Ismanaged("miniwindowlist") then RDXPM.RestoreLayout(dlg2, "miniwindowlist"); end
+	
+	local ca = dlg2:GetClientArea();
+
+	local list = VFLUI.List:new(dlg2, 10, CreateMiniWindowListFrame);
+	list:SetPoint("TOPLEFT", ca, "TOPLEFT");
+	list:SetWidth(166); list:SetHeight(200);
+	list:Rebuild(); list:Show();
+	list:SetDataSource(function(cell, data, pos)
+		local p = data.path;
+		if RDXDB.PathHasInstance(p) then
+			cell.text:SetText("|cFF00FF00" .. p .. "|r");
+		else
+			cell.text:SetText(p);
+		end
+		cell:SetScript("OnClick", function()
+			WindowListClick(p); list:Update();
+		end);
+	end, VFL.ArrayLiterator(wl));
+	
+	-- Get current AUI name
+	local auipkg, auiname = RDXDB.ParsePath(RDXU.AUI);
+	
+	-- Build the base list
+	BuildWindowList(auiname);
+	list:Update();
+	
+	dlg2:Show();
+	
+	-- Escapement
+	local esch = function() 
+		--dlg:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
+			RDXPM.StoreLayout(dlg2, "miniwindowlist");
+			dlg2:Destroy(); dlg2 = nil;
+		--end);
+	end
+	VFL.AddEscapeHandler(esch);
+	
+	function dlg2:_esch()
+		VFL.EscapeTo(esch);
+	end
+	
+	--local closebtn = VFLUI.CloseButton:new(dlg2);
+	--closebtn:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
+	--dlg2:AddButton(closebtn);
+	
+	local listbtn = VFLUI.TexturedButton:new(dlg2, 16, "Interface\\AddOns\\RDX\\Skin\\menu");
+	listbtn:SetHighlightColor(0,1,1,1);
+	listbtn:SetScript("OnClick", function()
+		if dlg2.toggle then
+			local auipkg, auiname = RDXDB.ParsePath(RDXU.AUI);
+			BuildWindowList(auiname);
+			dlg2.toggle = nil
+		else
+			BuildWindowList();
+			dlg2.toggle = true;
+		end
+		list:Update();
+	end);
+	dlg2:AddButton(listbtn);
+	
+	----------------- Close functionality
+	dlg2.Destroy = VFL.hook(function(s)
+		s.toggle = nil;
+		s._esch = nil;
+		list:Destroy(); list = nil;
+	end, dlg2.Destroy);
+end
+
+function RDXDK.ToggleMiniWindowList()
+	if dlg2 then
+		dlg2:_esch();
+	else
+		RDXDK.MiniWindowList();
+	end
+end
 

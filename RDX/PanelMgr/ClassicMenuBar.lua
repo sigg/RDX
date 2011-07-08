@@ -39,13 +39,21 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.keepShownOnClick = false;
 	ent.menuList = RDXPM.subMenus;
 end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("State AUI");
+	ent.notCheckable = true;
+	ent.hasArrow = true;
+	ent.keepShownOnClick = false;
+	ent.menuList = RDXPM.stateTypeMenus;
+end);
 	
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = "Locking";
 	ent.notCheckable = true;
 	ent.hasArrow = true;
 	ent.menuList = {
-		{ text = "Desktop", checked = true, func = RDXDK.ToggleDesktopLock },
+		{ text = "Desktop", checked = RDXDK.IsDesktopLocked, func = RDXDK.ToggleDesktopLock },
 		{ text = "Key Bindings", checked = RDXDK.IsKeyBindingsLocked, func = RDXDK.ToggleKeyBindingsLock },
 		{ text = "Action Bindings", checked = RDXDK.IsActionBindingsLocked, func = RDXDK.ToggleActionBindingsLock }
 	};
@@ -103,6 +111,7 @@ local function CreateMiniPane()
 			end
 		elseif (arg1 == "RightButton") then
 			RDXDK.ToggleDesktopLock();
+			RDXDK.ToggleMiniWindowList();
 		end
 	end);
 	

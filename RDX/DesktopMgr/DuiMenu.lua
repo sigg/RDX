@@ -1,6 +1,7 @@
 local state = {"Solo", "Party", "Raid", "PvP", "Arena", "solo2", "party2", "raid2", "pvp2", "arena2"}
 
 local subMenus = {};
+local stateTypeMenus = {};
 -----------------------------------------
 -- DUI change
 -----------------------------------------
@@ -24,21 +25,6 @@ local function AUIList()
 	
 	-----------------------------------
 	
-	--local currentDesktop = {
-	--	text = RDX.pspace,
-	--	notCheckable = true,
-	--	func = function()
-	--		RDXDK.SecuredChangeAUI("desktops:" .. RDX.pspace);
-	--		AUIList();
-	--	end;
-	--};	
-	--table.insert(subMenus, currentDesktop);
-	--table.insert(subMenus, {
-	--	text = "*******************",
-	--	notCheckable = true,
-	--	func = VFL.Noop,
-	--	}
-	--);
 	local sortDUI = {};
 	for pkgName, pkg in pairs(RDXData) do
 		--if pkgName == "desktops" then
@@ -63,22 +49,22 @@ local function AUIList()
 		table.insert(subMenus, v);
 	end
 	
-	table.insert(subMenus, {
-		text = "*******************",
-		notCheckable = true,
-		func = VFL.Noop,
-		}
-	);
+	--table.insert(subMenus, {
+	--	text = "*******************",
+	--	notCheckable = true,
+	--	func = VFL.Noop,
+	--	}
+	--);
 	
-	table.insert(subMenus, { 
-		text = "Edit AUI",
-		notCheckable = true, 
-		func = function()
-			local md = RDXDB.GetObjectData(RDXU.AUI);
-			if md then RDXDK.ToggleAUIEditor(RDXU.AUI, md); end
-		end
-		}
-	);
+	--table.insert(subMenus, { 
+	--	text = "Edit AUI",
+	--	notCheckable = true, 
+	--	func = function()
+	--		local md = RDXDB.GetObjectData(RDXU.AUI);
+	--		if md then RDXDK.ToggleAUIEditor(RDXU.AUI, md); end
+	--	end
+	--	}
+	--);
 
 	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
 		ent.text = "Theme AUI";
@@ -88,7 +74,7 @@ local function AUIList()
 	end);
 	
 	-----------------------------------
-	local stateTypeMenus = {};
+	VFL.empty(stateTypeMenus);
 
 	local autoMenu = {
 		text = VFLI.i18n("Auto"),
@@ -194,6 +180,7 @@ local function AUIList()
 	end);
 	
 	RDXPM.subMenus = subMenus;
+	RDXPM.stateTypeMenus = stateTypeMenus;
 end
 
 RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)

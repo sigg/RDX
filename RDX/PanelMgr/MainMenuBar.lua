@@ -584,7 +584,7 @@ end
 local mainPane;
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	if not RDXG.RDXopt then RDXG.RDXopt = {}; end
+	if not RDXG.RDXopt then RDXG.RDXopt = {}; RDXG.RDXopt.hmp = true; end
 	local opt = RDXG.RDXopt;
 	
 	VFLT.NextFrame(math.random(10000000), function()
@@ -608,7 +608,7 @@ function RDXPM.GetMainPane() return mainPane; end
 
 -- TODO: Need a global option for hidden/shown panel.
 function RDXPM.ShowPanel()
-	RDXG.RDXopt.hmp = nil;
+	RDXG.RDXopt.hmp = false;
 	mainPane:Show();
 end
 
