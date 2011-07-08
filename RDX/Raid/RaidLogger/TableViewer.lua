@@ -10,7 +10,7 @@ local zeropad = VFL.zeropad;
 local _green, _red = {r=0,g=0.75,b=0}, {r=0.75,g=0,b=0};
 
 local colspec = {
-	{ title = "Time", width = 60},
+	{ title = "Time", width = 70},
 	{ title = "Source", width = 100},
 	{ title = "Target", width = 100},
 	{ title = "HP", width = 78},
