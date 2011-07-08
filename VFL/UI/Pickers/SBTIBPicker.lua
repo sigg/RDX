@@ -9,9 +9,9 @@
 
 VFLUI.defaultSBTIB = {
 	btype = "Frame",
-	w = 220,
+	w = 120,
 	h = 20,
-	bkd = { _border = "tooltip", edgeSize = 16, edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", _backdrop = "none", insets = {top = 4,right = 4,left = 4,bottom = 4,}, },
+	bkd = { _border = "none", _backdrop = "none", },
 	borientation = "HORIZONTAL",
 	banchor = "LEFT",
 	btexture = { path = "Interface\\Addons\\RDX\\Skin\\bar1", blendMode = "BLEND" },
