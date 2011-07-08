@@ -149,6 +149,7 @@ function RDXDK.WindowList(parent)
 	dlg:SetText(VFLI.i18n("Window List"));
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:Accomodate(566, 348);
+	dlg:SetClampedToScreen(true);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	
@@ -280,6 +281,7 @@ function RDXDK.MiniWindowList(parent)
 	dlg2:SetText(VFLI.i18n("Window List"));
 	dlg2:SetPoint("CENTER", VFLParent, "CENTER", -200, 0);
 	dlg2:Accomodate(216, 250);
+	dlg2:SetClampedToScreen(true);
 	
 	VFLUI.Window.StdMove(dlg2, dlg2:GetTitleBar());
 	
