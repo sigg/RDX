@@ -53,7 +53,7 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.notCheckable = true;
 	ent.hasArrow = true;
 	ent.menuList = {
-		{ text = "Desktop", checked = RDXDK.IsDesktopLocked, func = RDXDK.ToggleDesktopLock },
+		--{ text = "Desktop", checked = RDXDK.IsDesktopLocked, func = RDXDK.ToggleDesktopLock },
 		{ text = "Key Bindings", checked = RDXDK.IsKeyBindingsLocked, func = RDXDK.ToggleKeyBindingsLock },
 		{ text = "Action Bindings", checked = RDXDK.IsActionBindingsLocked, func = RDXDK.ToggleActionBindingsLock }
 	};
@@ -111,7 +111,6 @@ local function CreateMiniPane()
 			end
 		elseif (arg1 == "RightButton") then
 			RDXDK.ToggleDesktopLock();
-			RDXDK.ToggleMiniWindowList();
 		end
 	end);
 	

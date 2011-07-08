@@ -255,7 +255,7 @@ local function CreateMiniWindowListFrame()
 	local text = VFLUI.CreateFontString(self);
 	text:SetFontObject(VFLUI.GetFont(Fonts.Default, 10));	text:SetJustifyH("LEFT");
 	text:SetTextColor(1,1,1,1);
-	text:SetPoint("LEFT", self, "LEFT"); text:SetHeight(10); text:SetWidth(150);
+	text:SetPoint("LEFT", self, "LEFT"); text:SetHeight(10); text:SetWidth(200);
 	text:Show();
 	self.text = text;
 
@@ -277,9 +277,9 @@ function RDXDK.MiniWindowList(parent)
 	dlg2:SetFraming(VFLUI.Framing.Sleek, nil, VFLUI.DarkDialogBackdrop);
 	--dlg2:SetBackdropColor(0,0,0,.8);
 	dlg2:SetTitleColor(0,.5,0);
-	dlg2:SetText(VFLI.i18n("Mini Window List"));
+	dlg2:SetText(VFLI.i18n("Window List"));
 	dlg2:SetPoint("CENTER", VFLParent, "CENTER", -200, 0);
-	dlg2:Accomodate(166, 200);
+	dlg2:Accomodate(216, 250);
 	
 	VFLUI.Window.StdMove(dlg2, dlg2:GetTitleBar());
 	
@@ -289,7 +289,7 @@ function RDXDK.MiniWindowList(parent)
 
 	local list = VFLUI.List:new(dlg2, 10, CreateMiniWindowListFrame);
 	list:SetPoint("TOPLEFT", ca, "TOPLEFT");
-	list:SetWidth(166); list:SetHeight(200);
+	list:SetWidth(216); list:SetHeight(250);
 	list:Rebuild(); list:Show();
 	list:SetDataSource(function(cell, data, pos)
 		local p = data.path;
@@ -358,6 +358,18 @@ function RDXDK.ToggleMiniWindowList()
 		dlg2:_esch();
 	else
 		RDXDK.MiniWindowList();
+	end
+end
+
+function RDXDK.OpenMiniWindowList()
+	if not dlg2 then
+		RDXDK.MiniWindowList();
+	end
+end
+
+function RDXDK.CloseMiniWindowList()
+	if dlg2 then
+		dlg2:_esch();
 	end
 end
 

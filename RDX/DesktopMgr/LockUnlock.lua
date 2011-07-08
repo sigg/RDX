@@ -436,8 +436,10 @@ end
 function RDXDK.ToggleDesktopLock()
 	if RDXDK.IsDesktopLocked() then
 		RDXDK.UnlockDesktop();
+		RDXDK.OpenMiniWindowList()
 	else 
 		RDXDK.LockDesktop();
+		RDXDK.CloseMiniWindowList()
 	end
 end
 
