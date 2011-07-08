@@ -36,8 +36,23 @@ function RDXCD.GetCDBs() return cdb; end
 local cdg = {};
 function RDXCD.GetCDGs() return cdg; end
 
--- Cooldowns based on spell damage event
+-- Cooldowns based on event spell damage event
 local cddmgspell = {};
+
+-- Cooldowns based on event spell heal event
+local cdhealspell = {};
+
+-- Cooldown based on event spell cast success
+local cdcastspell = {};
+
+-- Cooldown based on event spell aura applied
+local cdauraAspell = {};
+
+-- Cooldown based on event spell aura removed
+local cdauraRspell = {};
+
+-- Cooldown based on event resurrect
+local cdresuspell = {};
 
 ------------------------------------------
 -- Cooldown registration
@@ -47,7 +62,7 @@ local cddmgspell = {};
 -- CLASS PRIEST DRUID PALADIN SHAMAN WARRIOR WARLOCK MAGE ROGUE HUNTER DEATHKNIGHT
 -- text : race:class:talentindex:spellname
 
-function RDXCD.RegisterCooldown(race, boss, class, talent, spellid, duration, group, spelldamage)
+function RDXCD.RegisterCooldown(race, boss, class, talent, spellid, duration, group, event)
 	if not spellid then VFL.print(VFLI.i18n("|cFFFF0000[RDX]|r Info : Attempt to register an anonymous omni cooldown.")); return; end
 	if cd[spellid] then VFL.print(VFLI.i18n("|cFFFF0000[RDX]|r Info : Attempt to register duplicate object type ") .. spellid .. "."); return; end
 	local spellname, _, icon = GetSpellInfo(spellid);
@@ -73,7 +88,13 @@ function RDXCD.RegisterCooldown(race, boss, class, talent, spellid, duration, gr
 	if boss then cdb[spellid] = cdtemp; end
 	if talent then cdt[spellid] = cdtemp; end
 	if not talent and not boss then cdc[spellid] = cdtemp; end
-	if spelldamage then cddmgspell[spellid] = true; end
+	if event ==  "SPELL_CAST_SUCCESS" then cdcastspell[spellid] = true;
+	elseif event ==  "SPELL_DAMAGE" then cddmgspell[spellid] = true;
+	elseif event ==  "SPELL_HEAL" then cdhealspell[spellid] = true;
+	elseif event ==  "SPELL_AURA_APPLIED" then cdauraAspell[spellid] = true;
+	elseif event ==  "SPELL_AURA_REMOVED" then cdauraRspell[spellid] = true;
+	elseif event ==  "SPELL_RESURRECT" then cdresuspell[spellid] = true;
+	end
 	return true;
 end
 
@@ -98,6 +119,26 @@ end
 
 function RDXCD.IsDamageSpell(spellid)
 	return cddmgspell[spellid];
+end
+
+function RDXCD.IsHealSpell(spellid)
+	return cdhealspell[spellid];
+end
+
+function RDXCD.IsCastSpell(spellid)
+	return cdcastspell[spellid];
+end
+
+function RDXCD.IsAuraASpell(spellid)
+	return cdauraAspell[spellid];
+end
+
+function RDXCD.IsAuraRSpell(spellid)
+	return cdauraRspell[spellid];
+end
+
+function RDXCD.IsResuSpell(spellid)
+	return cdresuspell[spellid];
 end
 
 --- Reproduce an cooldown tooltip from an entry

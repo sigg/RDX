@@ -1569,10 +1569,15 @@ local cdFrame = CreateFrame("Frame");
 cdFrame:SetScript("OnUpdate", ProcessCDQueue);
 
 local IsDamageSpell = RDXCD.IsDamageSpell;
+local IsHealSpell = RDXCD.IsHealSpell;
+local IsCastSpell = RDXCD.IsCastSpell;
+local IsAuraASpell = RDXCD.IsAuraASpell;
+local IsAuraRSpell = RDXCD.IsAuraRSpell;
+local IsResuSpell = RDXCD.IsResuSpell;
 -- see the roster cooldown folder.
 local function ParseSpellSuccess(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, destFlags2, spellid, spellname)
 	--if event and spellid and spellname then VFL.print(event .. " " .. spellid .. " " .. spellname); end
-	if (event == "SPELL_CAST_SUCCESS") or (event == "SPELL_ENERGIZE") or (event == "SPELL_SUMMON") or ((event == "SPELL_DAMAGE") and IsDamageSpell(spellid)) then
+	if (event == "SPELL_DAMAGE" and IsDamageSpell(spellid)) or (event == "SPELL_HEAL" and IsHealSpell(spellid)) or (event == "SPELL_CAST_SUCCESS" and IsCastSpell(spellid)) or (event == "SPELL_AURA_APPLIED" and IsAuraASpell(spellid)) or (event == "SPELL_AURA_REMOVED" and IsAuraRSpell(spellid)) or (event == "SPELL_RESURRECT" and IsResuSpell(spellid)) then
 		if sourceName then
 			local unit = _rtouched[strlower(sourceName)];
 			if unit then
@@ -1587,7 +1592,7 @@ local function ParseSpellSuccess(timestamp, event, hideCaster, sourceGUID, sourc
 				--else
 					unit:AddCooldown(spellid);
 				--end
-			else
+			--else
 				-- no unit, but we still want to create the unit data.
 				-- need a lot of test, may be huge memory usage
 				--local _, class, _, race = GetPlayerInfoByGUID(sourceGUID);
