@@ -159,23 +159,23 @@ function RDXDK.LayoutPropsDialog(frameprops)
 	ddAP:SetSelection(dd.ap or "TOPLEFT");
 	ddAP:Show();
 
-	local chkCTS = VFLUI.Checkbox:new(dlg); chkCTS:Show();
-	chkCTS:SetHeight(20); chkCTS:SetWidth(200);
-	chkCTS:SetPoint("TOPLEFT", lblAP, "BOTTOMLEFT");
-	chkCTS:SetText(VFLI.i18n("Clamp to screen (only if undocked)"));
-	chkCTS:SetChecked(dd.cts);
+	--local chkCTS = VFLUI.Checkbox:new(dlg); chkCTS:Show();
+	--chkCTS:SetHeight(20); chkCTS:SetWidth(200);
+	--chkCTS:SetPoint("TOPLEFT", lblAP, "BOTTOMLEFT");
+	--chkCTS:SetText(VFLI.i18n("Clamp to screen (only if undocked)"));
+	--chkCTS:SetChecked(dd.cts);
 
-	local chkNoAttach = VFLUI.Checkbox:new(dlg); chkNoAttach:Show();
-	chkNoAttach:SetHeight(20); chkNoAttach:SetWidth(250);
-	chkNoAttach:SetPoint("TOPLEFT", chkCTS, "BOTTOMLEFT");
-	chkNoAttach:SetText(VFLI.i18n("Prevent this window from attaching to others"));
-	chkNoAttach:SetChecked(dd.noattach);
+	--local chkNoAttach = VFLUI.Checkbox:new(dlg); chkNoAttach:Show();
+	--chkNoAttach:SetHeight(20); chkNoAttach:SetWidth(250);
+	--chkNoAttach:SetPoint("TOPLEFT", chkCTS, "BOTTOMLEFT");
+	--chkNoAttach:SetText(VFLI.i18n("Prevent this window from attaching to others"));
+	--chkNoAttach:SetChecked(dd.noattach);
 
-	local chkNoHold = VFLUI.Checkbox:new(dlg); chkNoHold:Show();
-	chkNoHold:SetHeight(20); chkNoHold:SetWidth(250);
-	chkNoHold:SetPoint("TOPLEFT", chkNoAttach, "BOTTOMLEFT");
-	chkNoHold:SetText(VFLI.i18n("Prevent other windows from attaching to this one"));
-	chkNoHold:SetChecked(dd.nohold);
+	--local chkNoHold = VFLUI.Checkbox:new(dlg); chkNoHold:Show();
+	--chkNoHold:SetHeight(20); chkNoHold:SetWidth(250);
+	--chkNoHold:SetPoint("TOPLEFT", chkNoAttach, "BOTTOMLEFT");
+	--chkNoHold:SetText(VFLI.i18n("Prevent other windows from attaching to this one"));
+	--chkNoHold:SetChecked(dd.nohold);
 
 	--local lblNudge = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Nudge"));
 	--lblNudge:SetPoint("TOPLEFT", chkNoHold, "BOTTOMLEFT", 0, -25);
@@ -189,8 +189,8 @@ function RDXDK.LayoutPropsDialog(frameprops)
 	--nudgeRight:SetPoint("LEFT", nudgeDown, "TOPRIGHT");
 
 	local txtCurDock = VFLUI.CreateFontString(dlg);
-	txtCurDock:SetPoint("TOPRIGHT", chkNoHold, "BOTTOMRIGHT");
-	txtCurDock:SetWidth(130); txtCurDock:SetHeight(60);
+	txtCurDock:SetPoint("TOPLEFT", lblAP, "BOTTOMLEFT");
+	txtCurDock:SetWidth(180); txtCurDock:SetHeight(60);
 	txtCurDock:SetJustifyV("TOP");
 	txtCurDock:SetJustifyH("LEFT");
 	txtCurDock:SetFontObject(Fonts.Default10); txtCurDock:Show();
@@ -229,14 +229,14 @@ function RDXDK.LayoutPropsDialog(frameprops)
 		DesktopEvents:Dispatch("WINDOW_UPDATE", dd.name, "SCALE", slScale:GetValue());
 		DesktopEvents:Dispatch("WINDOW_UPDATE", dd.name, "ALPHA", slAlpha:GetValue());
 		DesktopEvents:Dispatch("WINDOW_UPDATE", dd.name, "STRATA", ddStrata:GetSelection());
-		DesktopEvents:Dispatch("WINDOW_UPDATE", dd.name, "CTS", chkCTS:GetChecked());
+		--DesktopEvents:Dispatch("WINDOW_UPDATE", dd.name, "CTS", chkCTS:GetChecked());
 		--dd.scale = slScale:GetValue();
 		--dd.alpha = slAlpha:GetValue();
 		--dd.strata = ddStrata:GetSelection();
 		if ddAP:GetSelection() == "Auto" then dd.ap = nil; else dd.ap = ddAP:GetSelection(); end
 		--dd.cts = chkCTS:GetChecked();
-		dd.noattach = chkNoAttach:GetChecked();
-		dd.nohold = chkNoHold:GetChecked();
+		--dd.noattach = chkNoAttach:GetChecked();
+		--dd.nohold = chkNoHold:GetChecked();
 		VFL.EscapeTo(esch);
 	end);
 
@@ -246,8 +246,8 @@ function RDXDK.LayoutPropsDialog(frameprops)
 		slScale:Destroy(); slScale = nil; edScale:Destroy(); edScale = nil;
 		slAlpha:Destroy(); slAlpha = nil; edAlpha:Destroy(); edAlpha = nil;
 		ddStrata:Destroy(); ddStrata = nil;ddAP:Destroy(); ddAP = nil;
-		chkCTS:Destroy(); chkCTS = nil; chkNoAttach:Destroy(); chkNoAttach = nil;
-		chkNoHold:Destroy(); chkNoHold = nil;
+		--chkCTS:Destroy(); chkCTS = nil; chkNoAttach:Destroy(); chkNoAttach = nil;
+		--chkNoHold:Destroy(); chkNoHold = nil;
 		--nudgeLeft:Destroy(); nudgeLeft = nil; nudgeRight:Destroy(); nudgeRight = nil;
 		--nudgeUp:Destroy(); nudgeUp = nil; nudgeDown:Destroy(); nudgeDown = nil;
 		VFLUI.ReleaseRegion(txtCurDock); txtCurDock = nil;
