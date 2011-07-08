@@ -540,57 +540,124 @@ end);
 --
 
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
-	local mbo = RDXDB.TouchObject("default:aurafilter_buff");
+	local mbo = RDXDB.TouchObject("default:aurafilter_priest_buff");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
-		local _,class = UnitClass("player");
-		if class == "PRIEST" then
-			mbo.data = {
-				17, -- priest bouclié
-				139, -- priest rénovation
-				6346, -- priest gardien de peur
-				33076, -- priest prière de guérison
-				10060, -- priest infusion de puissance
-				33206, -- priest suppression de la douleur
-				47788, -- priest esprit gardien
-			};
-		elseif class == "DRUID" then
-			mbo.data = {
-				774, -- druid récupération
-				8936, -- druid rétablissement
-				29166, -- druid innervation
-				33778, -- druid fleur de vie
-			};
-		elseif class == "PALADIN" then
-			mbo.data = {
-				1022, -- paladin main de protection
-				1044, -- paladin main de liberté
-				1038, -- paladin main de salut
-				6940, -- paladin main de sacrifice
-			};
-		elseif class == "SHAMAN" then
-			mbo.data = {
-				2825, -- shaman fury sanguinaire
-				32182, -- shaman heroisme
-			};
-		elseif class == "MAGE" then
-			mbo.data = {
-				80353, -- mage distorsion temporelle
-			};
-		elseif class == "HUNTER" then
-			mbo.data = {
-				34477, -- hunter détournement
-			};
-		elseif class == "WARRIOR" then
-			mbo.data = {
-				6673, -- warrior shout
-				469, -- warrior cri de commandement
-				97462, -- warrior cri de ralliement
-			};
-		else
-			mbo.data = {};
-		end
+		mbo.data = {
+			17, -- priest bouclié
+			139, -- priest rénovation
+			6346, -- priest gardien de peur
+			33076, -- priest prière de guérison
+			10060, -- priest infusion de puissance
+			33206, -- priest suppression de la douleur
+			47788, -- priest esprit gardien
+		};
+	end
+	
+	local mbo = RDXDB.TouchObject("default:aurafilter_druid_buff");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+			774, -- druid récupération
+			8936, -- druid rétablissement
+			29166, -- druid innervation
+			33778, -- druid fleur de vie
+		};
+	end
+	
+	local mbo = RDXDB.TouchObject("default:aurafilter_paladin_buff");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+			1022, -- paladin main de protection
+			1044, -- paladin main de liberté
+			1038, -- paladin main de salut
+			6940, -- paladin main de sacrifice
+		};
+	end
+	
+	local mbo = RDXDB.TouchObject("default:aurafilter_shaman_buff");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+			2825, -- shaman fury sanguinaire
+			32182, -- shaman heroisme
+		};
+	end
+	
+	local mbo = RDXDB.TouchObject("default:aurafilter_mage_buff");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+			80353, -- mage distorsion temporelle
+		};
+	end
+	
+	local mbo = RDXDB.TouchObject("default:aurafilter_hunter_buff");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+			34477, -- hunter détournement
+		};
+	end
+	
+	local mbo = RDXDB.TouchObject("default:aurafilter_warrior_buff");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+			6673, -- warrior shout
+			469, -- warrior cri de commandement
+			97462, -- warrior cri de ralliement
+		};
+	end
+	
+	local mbo = RDXDB.TouchObject("default:aurafilter_deathknight_buff");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+		};
+	end
+	
+	local mbo = RDXDB.TouchObject("default:aurafilter_warlock_buff");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+		};
+	end
+	
+	local mbo = RDXDB.TouchObject("default:aurafilter_rogue_buff");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+		};
+	end
+
+	local mbsl = RDXDB.TouchObject("default:aurafilter_buff");
+	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "class" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; 
+		mbsl.data = {
+			class = "class",
+			targetpath_1 = "default:aurafilter_priest_buff",
+			targetpath_2 = "default:aurafilter_druid_buff",
+			targetpath_3 = "default:aurafilter_paladin_buff",
+			targetpath_4 = "default:aurafilter_shaman_buff",
+			targetpath_5 = "default:aurafilter_warrior_buff",
+			targetpath_6 = "default:aurafilter_warlock_buff",
+			targetpath_7 = "default:aurafilter_mage_buff",
+			targetpath_8 = "default:aurafilter_rogue_buff",
+			targetpath_9 = "default:aurafilter_hunter_buff",
+			targetpath_10 = "default:aurafilter_deathknight_buff",
+		};
 	end
 	
 	local mbo = RDXDB.TouchObject("default:aurafilter_dot");
