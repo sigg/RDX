@@ -376,6 +376,22 @@ local function InitObjectDB()
 		RDXDBEvents:Dispatch("PACKAGE_CREATED", dstPkg, e);
 		return true;
 	end
+	
+	function RDXDB.CopyIntoPackage(srcPkg, dstPkg)
+		local d = RDXData[srcPkg];
+		if not d then return nil, VFLI.i18n("Source package does not exist."); end
+		local e = RDXData[dstPkg];
+		if not e then return nil, VFLI.i18n("Destination package does not exists"); end
+		for file,fd in pairs(d) do
+			if type(fd) == "table" then
+				local newfd = RDXDB.copyfd(fd, srcPkg, dstPkg)
+				e[file] = newfd;
+			else
+				e[file] = fd;
+			end
+		end
+		return true;
+	end
 
 	--- Empty a package.
 	function RDXDB._EmptyPackage(pkg)

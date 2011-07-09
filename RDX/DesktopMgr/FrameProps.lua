@@ -24,6 +24,47 @@ function RDXDK.FrameProperties(frame)
 	--	OnMouseDown = function() frame:WMDrag(); end, 
 	--	OnMouseUp = function() VFL.poptree:Release(); frame:WMStopDrag(); end 
 	--});
+	
+	if frameprops.feature == "desktop_window" then
+		table.insert(mnu, {
+			text = VFLI.i18n("Edit Window"),
+			OnClick = function()
+				VFL.poptree:Release();
+				RDXDB.OpenObject(frameprops.name, "Edit", VFLDIALOG);
+			end
+		});
+		table.insert(mnu, {
+			text = VFLI.i18n("Rebuild"),
+			OnClick = function()
+				VFL.poptree:Release();
+				RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, frameprops.name);
+			end
+		});
+	elseif frameprops.feature == "desktop_statuswindow" then
+		table.insert(mnu, {
+			text = VFLI.i18n("Edit Window"),
+			OnClick = function()
+				VFL.poptree:Release();
+				RDXDB.OpenObject(frameprops.name, "Edit", VFLDIALOG);
+			end
+		});
+		table.insert(mnu, {
+			text = VFLI.i18n("Rebuild"),
+			OnClick = function()
+				VFL.poptree:Release();
+				RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, frameprops.name);
+			end
+		});
+	end
+	
+	local feat = RDXDB.GetFeatureData(frameprops.name, "Design");
+	local upath = feat["design"];
+	table.insert(mnu, {text = VFLI.i18n("Clone..."), OnClick = function() 
+		VFL.poptree:Release();
+		RDX.CloneWindow(frameprops.name, upath, VFLDIALOG); 
+		end;
+	});
+	
 	if RDXDK.IsDocked(frameprops) then
 		if not RDXDK.IsDGP(frameprops) then
 			local rootfrp = RDXDK.Findroot(frameprops);
@@ -36,47 +77,15 @@ function RDXDK.FrameProperties(frame)
 		end
 	end
 	
-	if frameprops.feature == "desktop_window" then
-		table.insert(mnu, {
-			text = VFLI.i18n("Rebuild"),
-			OnClick = function()
-				VFL.poptree:Release();
-				RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, frameprops.name);
-			end
-		});
-		table.insert(mnu, {
-			text = VFLI.i18n("Edit Window"),
-			OnClick = function()
-				VFL.poptree:Release();
-				RDXDB.OpenObject(frameprops.name, "Edit", VFLDIALOG);
-			end
-		});
-	elseif frameprops.feature == "desktop_statuswindow" then
-		table.insert(mnu, {
-			text = VFLI.i18n("Rebuild"),
-			OnClick = function()
-				VFL.poptree:Release();
-				RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, frameprops.name);
-			end
-		});
-		table.insert(mnu, {
-			text = VFLI.i18n("Edit Window"),
-			OnClick = function()
-				VFL.poptree:Release();
-				RDXDB.OpenObject(frameprops.name, "Edit", VFLDIALOG);
-			end
-		});
-	end
-	
 	-- Allow downstream menu hooks for class-less windows.
 	if type(frame._WindowMenu) == "function" then
 		frame:_WindowMenu(mnu, frameprops.name, frame);
 	end
 	
-	table.insert(mnu, { text = VFLI.i18n("Close"), OnClick = function() 
-		VFL.poptree:Release();
-		RDXDK.QueueLockdownAction(RDXDK._CloseWindowRDX, frame._dk_name);
-	end });
+	--table.insert(mnu, { text = VFLI.i18n("Close"), OnClick = function() 
+	--	VFL.poptree:Release();
+	--	RDXDK.QueueLockdownAction(RDXDK._CloseWindowRDX, frame._dk_name);
+	--end });
 	
 	VFL.poptree:Begin(150, 12, frame, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(frame));
 	VFL.poptree:Expand(nil, mnu);

@@ -204,17 +204,7 @@ local function SetupWindow(path, win, desc)
 		return nil;
 	end
 	if state:Slot("SecureSubframes") then win.secure = true; else win.secure = nil; end
-	
-	state:Attach("Menu", true, function(win, mnu)
-		local feat = RDXDB.GetFeatureData(path, "Design");
-		local upath = feat["design"];
-		table.insert(mnu, {
-			text = VFLI.i18n("Clone...");
-			OnClick = function() VFL.poptree:Release(); RDX.CloneWindow(path, upath, VFLDIALOG); end;
-		});
-	end);
 
-	
 	-- Apply the features to the window. If the window will be secure, mark it so.
 	win:LoadState(state);
 	

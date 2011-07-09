@@ -103,7 +103,7 @@ RDX.RegisterFeature({
 		if hsid == nil then 
 			txttmp = VFLI.i18n("Edit Bindings");
 		else
-			txttmp = VFLI.i18n("Edit Bindings : ") .. hsid;
+			txttmp = VFLI.i18n("Edit Bindings: ") .. hsid;
 		end
 
 		-- Add a menu to the window to edit the mouse bindings

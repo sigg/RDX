@@ -407,6 +407,10 @@ local function CopyPackage(ppath)
 	VFLUI.MessageBox(VFLI.i18n("Copy Package") .. ppath, VFLI.i18n("Enter new filename for the package at ") .. ppath, ppath, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function(newname) _DisplayError(RDXDB.CopyPackage(ppath, newname)); end);
 end
 
+local function CopyIntoPackage(ppath)
+	VFLUI.MessageBox(VFLI.i18n("Copy Into Package") .. ppath, VFLI.i18n("Enter filename of the existing package ") .. ppath, ppath, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function(newname) _DisplayError(RDXDB.CopyIntoPackage(ppath, newname)); end);
+end
+
 local function DeleteConfirmed(opath)
  _DisplayError(RDXDB.DeleteObject(opath));
 end
@@ -459,6 +463,14 @@ RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 	table.insert(mnu, {
 		text = VFLI.i18n("Copy"), OnClick = function() VFL.poptree:Release(); CopyPackage(pkg); end
 	});
+end);
+
+RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
+	if pkg == "template" then
+		table.insert(mnu, {
+			text = VFLI.i18n("Copy Into"), OnClick = function() VFL.poptree:Release(); CopyIntoPackage(pkg); end
+		});
+	end
 end);
 
 RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
