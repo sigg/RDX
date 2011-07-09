@@ -402,8 +402,7 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	
 	WoWEvents:Bind("ACTIONBAR_SLOT_CHANGED", nil, UpdateAction, "mainactionButton" .. self.id);
 	WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, UpdateNewAction, "mainactionButton" .. self.id);
-	-- bug: action are not available when player talent update
-	WoWEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() if (RDXU.ActiveTalentGroup ~= GetActiveTalentGroup()) then VFLT.ZMSchedule(0.01, UpdateNewAction); end; end, "mainactionButton" .. self.id);
+	VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, UpdateNewAction, "mainactionButton" .. self.id);
 	
 	----------------------------------- Bindings
 	
@@ -462,8 +461,10 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 		VFLT.AdaptiveUnschedule("FlashactionButton" .. s.id);
 		VFLT.AdaptiveUnschedule("ScheduleactionButton" .. s.id);
 		DesktopEvents:Unbind("bindingactionButton" .. s.id);
+		RDXEvents:Unbind("bindingactionButton" .. s.id);
 		WoWEvents:Unbind("actionButton" .. s.id);
 		WoWEvents:Unbind("mainactionButton" .. s.id);
+		VFLEvents:Unbind("mainactionButton" .. s.id);
 		s.btnbind.id = nil;
 		s.btnbind.btype = nil;
 		s.btnbind:Destroy(); s.btnbind = nil;
@@ -751,7 +752,7 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 	WoWEvents:Bind("UPDATE_MULTI_CAST_ACTIONBAR", nil, UpdateNewAction, "mainmulticastButton" .. self.id);
 	WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, UpdateNewAction, "mainmulticastButton" .. self.id);
 	-- bug: action are not available when player talent update
-	WoWEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() if (RDXU.ActiveTalentGroup ~= GetActiveTalentGroup()) then VFLT.ZMSchedule(0.01, UpdateNewAction); end; end, "mainmulticastButton" .. self.id);
+	VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, UpdateNewAction, "mainmulticastButton" .. self.id);
 	
 	----------------------------------- Bindings
 	
@@ -809,8 +810,10 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 		VFLT.AdaptiveUnschedule("FlashmulticastButton" .. s.id);
 		VFLT.AdaptiveUnschedule("SchedulemulticastButton" .. s.id);
 		DesktopEvents:Unbind("bindingmulticastButton" .. s.id);
+		RDXEvents:Unbind("bindingmulticastButton" .. s.id);
 		WoWEvents:Unbind("multicastButton" .. s.id);
 		WoWEvents:Unbind("mainmulticastButton" .. s.id);
+		VFLEvents:Unbind("mainmulticastButton" .. s.id);
 		s.btnbind.id = nil;
 		s.btnbind.btype = nil;
 		s.btnbind:Destroy(); s.btnbind = nil;
@@ -1098,6 +1101,7 @@ function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 	WoWEvents:Bind("PET_BAR_UPDATE", nil, UpdateNewAction, "mainactionButtonPet" .. self.id);
 	WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, UpdateNewAction, "mainactionButtonPet" .. self.id);
 	WoWEvents:Bind("UNIT_PET", nil, UpdateAction, "mainactionButtonPet" .. self.id);
+	VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, UpdateNewAction, "mainactionButtonPet" .. self.id);
 	
 	----------------------------------- Bindings
 	
@@ -1154,8 +1158,10 @@ function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 	self.Destroy = VFL.hook(function(s)
 		VFLT.AdaptiveUnschedule("ScheduleactionButtonPet" .. s.id);
 		DesktopEvents:Unbind("bindingactionButtonPet" .. s.id);
+		RDXEvents:Unbind("bindingactionButtonPet" .. s.id);
 		WoWEvents:Unbind("actionButtonPet" .. s.id);
 		WoWEvents:Unbind("mainactionButtonPet" .. s.id);
+		VFLEvents:Unbind("mainactionButtonPet" .. s.id);
 		s.btnbind.id = nil;
 		s.btnbind.btype = nil;
 		s.btnbind:Destroy(); s.btnbind = nil;
@@ -1344,7 +1350,8 @@ function RDXUI.StanceButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	
 	WoWEvents:Bind("UPDATE_SHAPESHIFT_FORMS", nil, UpdateAction, "mainactionButtonStance" .. self.id);
 	WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, UpdateNewAction, "mainactionButtonStance" .. self.id);
-	WoWEvents:Bind("PLAYER_TALENT_UPDATE", nil, UpdateNewAction, "mainactionButtonStance" .. self.id);
+	--WoWEvents:Bind("PLAYER_TALENT_UPDATE", nil, UpdateNewAction, "mainactionButtonStance" .. self.id);
+	VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, UpdateNewAction, "mainactionButtonStance" .. self.id);
 	
 	----------------------------------- Bindings
 	
@@ -1401,8 +1408,10 @@ function RDXUI.StanceButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 		s:SetAttribute("type", nil);
 		s:SetAttribute("spell", nil);
 		DesktopEvents:Unbind("bindingactionButtonStance" .. s.id);
+		RDXEvents:Unbind("bindingactionButtonStance" .. s.id);
 		WoWEvents:Unbind("actionButtonStance" .. s.id);
 		WoWEvents:Unbind("mainactionButtonStance" .. s.id);
+		VFLEvents:Unbind("mainactionButtonStance" .. s.id);
 		s.btnbind.id = nil;
 		s.btnbind.btype = nil;
 		s.btnbind:Destroy(); s.btnbind = nil;
@@ -1695,6 +1704,7 @@ function RDXUI.VehicleButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, 
 	
 	self.Destroy = VFL.hook(function(s)
 		DesktopEvents:Unbind("bindingactionButtonVehicle" .. s.id);
+		RDXEvents:Unbind("bindingactionButtonVehicle" .. s.id);
 		WoWEvents:Unbind("actionButtonVehicle" .. s.id);
 		s.btnbind.id = nil;
 		s.btnbind.btype = nil;
