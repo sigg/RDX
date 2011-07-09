@@ -24,7 +24,7 @@ end
 
 -- Serialized form viewer for objects
 RDXDB.RegisterObjectMenuHandler(function(mnu, opath, dialog)
-	--if RDXU.devflag then
+	if RDXG.cdebug then
 		table.insert(mnu, {
 			text = "Serialized form"; 
 			OnClick = function()
@@ -35,7 +35,7 @@ RDXDB.RegisterObjectMenuHandler(function(mnu, opath, dialog)
 				VFL.print("-------------------------------");
 			end;
 		});
-	--end
+	end
 end);
 
 
