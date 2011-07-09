@@ -61,7 +61,7 @@ if spell_castingOrChanneled then
 	spell_end = spell_end / 1000;
 	spell_duration = spell_end - spell_start;
 	if spell_istradeskill then spell_color = spColor_cf[3];
-	elseif not spell_notinterruptible then spell_color = spColor_cf[4];
+	elseif not spell_notinterruptible and UnitIsEnemy("player", uid) then spell_color = spColor_cf[4];
 	end
 else
 	spell_casting = nil; spell_casting = nil; spell_castingOrChanneled = nil;
