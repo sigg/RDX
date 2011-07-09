@@ -903,12 +903,12 @@ end
 -- Update hooks - make sure when a desktop changes we reload it.
 -----------------------------------------------------------------
 
-RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)
-	local path = RDXDB.MakePath(pkg,file);
-	if md and md.ty == "Desktop" and path == RDXDK.GetCurrentDesktopPath() then
-		RDXDK.SecuredChangeDesktop("desktops:default");
-	end
-end);
+--RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)
+--	local path = RDXDB.MakePath(pkg,file);
+--	if md and md.ty == "Desktop" and path == RDXDK.GetCurrentDesktopPath() then
+--		RDXDK.SecuredChangeDesktop("desktops:default");
+--	end
+--end);
 
 --RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(pkg, file) 
 --	local path = RDXDB.MakePath(pkg,file);
@@ -953,6 +953,7 @@ local function ChangeDesktop(path, nosave)
 	RDX.printI("Change desktop " .. path);
 	-- close
 	if currentDesktop then
+		if not RDXDK.IsDesktopLocked() then RDXDK.ToggleDesktopLock(); end
 		RDXDB._RemoveInstance(currentDesktop._path, nosave);
 	end
 	
@@ -965,22 +966,22 @@ local function ChangeDesktop(path, nosave)
 			-- open
 			currentDesktop = RDXDB.GetObjectInstance(path);
 			
-			if currentDesktop then 
-				if not RDXDK.IsDesktopLocked() then RDXDK.UnlockDesktop(); end
-			else
-				RDXPM.SetStatusText("|cFFFF0000ERROR|r");
-			end
+			--if currentDesktop then 
+			--	if not RDXDK.IsDesktopLocked() then RDXDK.LockDesktop(); RDXDK.CloseMiniWindowList(); end
+			--else
+			--	RDXPM.SetStatusText("|cFFFF0000ERROR|r");
+			--end
 		end);
 	else
 		currentpath = path;
 		-- open
 		currentDesktop = RDXDB.GetObjectInstance(path);
 		
-		if currentDesktop then 
-			if not RDXDK.IsDesktopLocked() then RDXDK.UnlockDesktop(); end
-		else
-			RDXPM.SetStatusText("|cFFFF0000ERROR|r");
-		end
+		--if currentDesktop then 
+		--	if not RDXDK.IsDesktopLocked() then RDXDK.LockDesktop(); RDXDK.CloseMiniWindowList(); end
+		--else
+		--	RDXPM.SetStatusText("|cFFFF0000ERROR|r");
+		--end
 	end
 end
 RDXDK._ChangeDesktop = ChangeDesktop;

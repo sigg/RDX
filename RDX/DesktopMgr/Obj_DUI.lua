@@ -570,13 +570,13 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_raid_dsk", "Desktop");
 			if not isexist then 
 				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_raid_dsk");
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", "name", pkg .. ":Raid_GroupAll", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_GroupAll"} );
+				RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", "name", pkg .. ":Raid_Main_GroupAll", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_Main_GroupAll"} );
 				RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", "name", pkg .. ":Boss_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Boss_Main"} );
 			end
 			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_pvp_dsk", "Desktop");
 			if not isexist then 
 				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_pvp_dsk");
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_pvp_dsk", "desktop_window", "name", pkg .. ":Raid_GroupAll", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_GroupAll"} );
+				RDXDB.AddFeatureData("desktops:".. pkg .. "_pvp_dsk", "desktop_window", "name", pkg .. ":Raid_Main_GroupAll", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_Main_GroupAll"} );
 			end
 			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_arena_dsk", "Desktop");
 			if not isexist then 

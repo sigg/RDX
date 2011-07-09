@@ -289,7 +289,7 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 			
 			RDXDK.StdMove(frame, frame.tf, nil);
 			
-			frame.tfIdent:SetPoint("CENTER", frame.tf, "CENTER");
+			frame.tfIdent:SetPoint("CENTER", frame.tf, "CENTER", 0, 10);
 			frame.tfIdent:SetWidth(frame.tf:GetWidth()+200); 
 			frame.tfIdent:SetHeight(frame.tf:GetHeight()-5);
 			frame.tfIdent:SetText(frame._path);
@@ -436,10 +436,10 @@ end
 function RDXDK.ToggleDesktopLock()
 	if RDXDK.IsDesktopLocked() then
 		RDXDK.UnlockDesktop();
-		RDXDK.OpenMiniWindowList()
+		RDXDK.OpenMiniWindowList();
 	else 
 		RDXDK.LockDesktop();
-		RDXDK.CloseMiniWindowList()
+		RDXDK.CloseMiniWindowList();
 	end
 end
 
