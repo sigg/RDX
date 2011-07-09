@@ -55,6 +55,34 @@ function RDXM_Debug.IsStoreCompilerActive()
 	return RDXG.cdebug;
 end
 
+-- party with me
+
+local function EnablePartyIncludeMe()
+	RDXG.pdebug = true;
+	local mbo = RDXDB.TouchObject("WoWRDX:Party_fset");
+	mbo.ty = "SymLink"; mbo.version = 3; mbo.data = {class = "simple", targetpath = "WoWRDX:Party_with_me_fset"};
+	RDXDB.NotifyUpdate("WoWRDX:Party_fset");
+end
+
+local function DisablePartyIncludeMe()
+	RDXG.pdebug = nil;
+	local mbo = RDXDB.TouchObject("WoWRDX:Party_fset");
+	mbo.ty = "SymLink"; mbo.version = 3; mbo.data = {class = "simple", targetpath = "WoWRDX:Party_without_me_fset"};
+	RDXDB.NotifyUpdate("WoWRDX:Party_fset");
+end
+
+function RDXM_Debug.TogglePartyIncludeMe()
+	if RDXG.pdebug then
+		DisablePartyIncludeMe();
+	else
+		EnablePartyIncludeMe();
+	end
+end
+
+function RDXM_Debug.IsPartyIncludeMe()
+	return RDXG.pdebug;
+end
+
 -----------------------------------
 -- init
 -----------------------------------
@@ -62,5 +90,10 @@ end
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	if RDXG.cdebug then 
 		RDX.printW("Store Compiler code Activated !!!");
+	end
+	if RDXG.pdebug then
+		EnablePartyIncludeMe();
+	else
+		DisablePartyIncludeMe();
 	end
 end);

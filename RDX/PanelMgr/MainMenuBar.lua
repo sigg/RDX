@@ -955,6 +955,7 @@ RDXPM.MainMenu:RegisterMenuFunction(function(ent)
 		{ text = VFLI.i18n("     Garbage Collect"), notCheckable = true, func = VFLGC },
 		--{ text = VFLI.i18n("Fake Roster Units"), checked = RDXDAL.IsDummy, func = function() RDXEvents:Dispatch("ROSTER_DUMMY"); end },
 		{ text = VFLI.i18n("Store Compiled Code"), checked = RDXM_Debug.IsStoreCompilerActive, func = RDXM_Debug.ToggleStoreCompiler },
+		{ text = VFLI.i18n("Party with me"), checked = RDXM_Debug.IsPartyIncludeMe, func = RDXM_Debug.TogglePartyIncludeMe },
 		{ text = VFLI.i18n("     Wipe CooldownDB"), notCheckable = true, func = RDXCD.WipeCooldownDB },
 		{ text = VFLI.i18n("     Print CooldownDB"), notCheckable = true, func = RDXCD.DebugCooldownDB },
 		{ text = VFLI.i18n("     Reset Chatframes"), notCheckable = true, func = function() FCF_ResetChatWindows(); ReloadUI(); end },
