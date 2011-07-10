@@ -157,7 +157,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		return {
 			feature = "hotspot"; version = 1;
 			name = "";
-			w = 90; h = 14; anchor = { lp = "LEFT", af = "Base", rp = "LEFT", dx = 0, dy = 0 };
+			w = 90; h = 14; anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0 };
 			secure = true;
 			mover = false;
 			hlt = { path = "Interface\\QuestFrame\\UI-QuestTitleHighlight", blendMode = "ADD" };

@@ -340,7 +340,7 @@ frame.]] .. objname .. [[ = nil;
 	_icons = frame.]] .. objname .. [[;
 	while true do
 		if (_j > ]] .. desc.nIcons .. [[) then break; end
-		_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = nil, true, nil, nil, {}, nil, "Interface\\Addons\\RDX\\Skin\\whackaMole", 1, nil, 60, nil, 50, true, true;
+		_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = nil, true, nil, nil, {}, nil, "Interface\\Addons\\RDX\\Skin\\whackaMole", 6, nil, 60, nil, 50, true, true;
 		if not _meta then break; end
 		--if (not _meta.isInvisible) and ]] .. aurasfilter .. [[ and ]] .. isstealablefilter .. [[ and ]] .. curefilter .. [[ and ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
 			btn = _icons[_j];
