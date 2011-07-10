@@ -49,7 +49,10 @@ RDX.RegisterFeature({
 		------------------ On frame creation
 		local createCode = [[
 --local mmap = VFLUI.AcquireFrame("Minimap", "main");
-local mmap = Minimap;
+
+local mmap = nil;
+-- Carbonite fix
+if not NXInit then mmap= Minimap; end
 if mmap then
 	MinimapBackdrop:Hide();
 	GameTimeFrame:Hide();
