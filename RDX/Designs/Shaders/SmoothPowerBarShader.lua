@@ -100,12 +100,9 @@ frame.]] .. objname .. [[ = ftc_]] .. objname .. [[(frame, ]] .. sb .. [[, ]] ..
 
 		--- Paint
 		local paintCode = [[
-if ((uid == "player") or (uid == "pet")) then
 if not frame.]] .. objname .. [[:IsStart() then
 	frame.]] .. objname .. [[:Start(unit);
 end
-end
-
 ]];
 		state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCode); end);
 
