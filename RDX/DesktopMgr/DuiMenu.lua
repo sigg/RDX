@@ -124,17 +124,17 @@ local function AUIList()
 	end);
 	
 	-----------------------------------
-	local windowListMenu = {
-		{ text = "Windows List", notCheckable = true, func = RDXDK.ToggleWindowList},
-		{ text = "Register List", notCheckable = true, func = RDXDK.ToggleWindowLessList},
-	}
+	--local windowListMenu = {
+	--	{ text = "Windows List", notCheckable = true, func = RDXDK.ToggleWindowList},
+	--	{ text = "Register List", notCheckable = true, func = RDXDK.ToggleWindowLessList},
+	--}
 	
-	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text = VFLI.i18n("Windows");
-		ent.notCheckable = true;
-		ent.hasArrow = true;
-		ent.menuList = windowListMenu;
-	end);
+	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
+	--	ent.text = VFLI.i18n("Windows");
+	--	ent.notCheckable = true;
+	--	ent.hasArrow = true;
+	--	ent.menuList = windowListMenu;
+	--end);
 
 	-----------------------------------
 	local lockListMenu = {

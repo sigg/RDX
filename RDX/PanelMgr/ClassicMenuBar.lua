@@ -49,13 +49,13 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 end);
 	
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
-	ent.text = "Locking";
+	ent.text = VFLI.i18n("Action bars");
 	ent.notCheckable = true;
 	ent.hasArrow = true;
 	ent.menuList = {
 		--{ text = "Desktop", checked = RDXDK.IsDesktopLocked, func = RDXDK.ToggleDesktopLock },
-		{ text = "Key Bindings", checked = RDXDK.IsKeyBindingsLocked, func = RDXDK.ToggleKeyBindingsLock },
-		{ text = "Action Bindings", checked = RDXDK.IsActionBindingsLocked, func = RDXDK.ToggleActionBindingsLock }
+		{ text = "Configure keys", checked = RDXDK.IsKeyBindingsLocked, func = RDXDK.ToggleKeyBindingsLock },
+		{ text = "Lock Action Buttons", checked = RDXDK.IsActionBindingsLocked, func = RDXDK.ToggleActionBindingsLock }
 	};
 end);
 	
