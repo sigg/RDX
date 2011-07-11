@@ -387,7 +387,7 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 			end
 			frame.tf:SetFrameStrata(VFLUI.GetRelativeStata(frame:GetFrameStrata(), 1));
 		end
-		RDXDK.UpdateDesktopTools(frameprops);
+		--RDXDK.UpdateDesktopTools(frameprops);
 	end
 end
 

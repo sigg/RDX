@@ -80,7 +80,7 @@ function RDXDK.OpenDesktopTools(parent)
 	dlg:SetTitleColor(0,.5,0);
 	dlg:SetText(VFLI.i18n("Desktop Tools: "));
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
-	dlg:Accomodate(216, 300);
+	dlg:Accomodate(216, 350);
 	dlg:SetClampedToScreen(true);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
@@ -89,7 +89,7 @@ function RDXDK.OpenDesktopTools(parent)
 	local ca = dlg:GetClientArea();
 	
 	local separator1 = VFLUI.SimpleText:new(ca, 1, 216);
-	separator1:SetPoint("TOPLEFT", ca, "TOPLEFT");
+	separator1:SetPoint("TOPLEFT", ca, "TOPLEFT", 0, -5);
 	separator1:SetText("Windows List (Click to open/close)");
 	
 	local list = VFLUI.List:new(dlg, 12, CreateWindowsListFrame);
@@ -120,15 +120,16 @@ function RDXDK.OpenDesktopTools(parent)
 	
 	local windowName = VFLUI.SimpleText:new(ca, 1, 216);
 	windowName:SetPoint("TOPLEFT", separator2, "BOTTOMLEFT");
-	windowName:SetText("No window select");
+	windowName:SetText("Click on a window to select it");
 	
 	-- scale
 	local lblScale = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Scale"));
 	lblScale:SetPoint("TOPLEFT", windowName, "BOTTOMLEFT"); lblScale:SetHeight(25);
 	local edScale = VFLUI.Edit:new(dlg, true); edScale:SetHeight(25); edScale:SetWidth(50);
-	edScale:SetPoint("TOPRIGHT", ca, "TOPRIGHT", 0, 0); edScale:Show();
+	edScale:SetPoint("TOPRIGHT", windowName, "BOTTOMRIGHT", 0, 0); edScale:Show();
 	local slScale = VFLUI.HScrollBar:new(dlg, nil, function(value)
 		if dlg.frameprops then
+			if value == 0 then value = 0.01; end
 			DesktopEvents:Dispatch("WINDOW_UPDATE", dlg.frameprops.name, "SCALE", value);
 		end
 	end);
@@ -144,7 +145,7 @@ function RDXDK.OpenDesktopTools(parent)
 	edAlpha:SetPoint("TOPRIGHT", edScale, "BOTTOMRIGHT", 0, 0); edAlpha:Show();
 	local slAlpha = VFLUI.HScrollBar:new(dlg, nil, function(value)
 		if dlg.frameprops then
-			DesktopEvents:Dispatch("WINDOW_UPDATE", dlg.frameprops.name, "SCALE", value);
+			DesktopEvents:Dispatch("WINDOW_UPDATE", dlg.frameprops.name, "ALPHA", value);
 		end
 	end);
 	slAlpha:SetPoint("RIGHT", edAlpha, "LEFT", -16, 0); slAlpha:SetWidth(100);
@@ -155,25 +156,25 @@ function RDXDK.OpenDesktopTools(parent)
 	-- strata
 	local lblStrata = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Stratum"));
 	lblStrata:SetPoint("TOPLEFT", lblAlpha, "BOTTOMLEFT"); lblStrata:SetHeight(25);
-	local ddStrata = VFLUI.Dropdown:new(dlg, RDXUI.DesktopStrataFunction, function(value) 
-		if dlg.frameprops then
+	local ddStrata = VFLUI.Dropdown:new(dlg, RDXUI.DesktopStrataFunction, function(value)
+		if dlg.frameprops and RDXUI.IsValidStrata(value) then
 			DesktopEvents:Dispatch("WINDOW_UPDATE", dlg.frameprops.name, "STRATA", value);
 		end
 	end);
 	ddStrata:SetPoint("TOPRIGHT", edAlpha, "BOTTOMRIGHT", 0, 0); ddStrata:SetWidth(132);
-	--ddStrata:SetSelection(dd.strata, nil);
+	ddStrata:SetSelection("MEDIUM", true);
 	ddStrata:Show();
 
 	-- anchor
 	local lblAP = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Anchor point"));
 	lblAP:SetPoint("TOPLEFT", lblStrata, "BOTTOMLEFT"); lblAP:SetHeight(25);
 	local ddAP = VFLUI.Dropdown:new(dlg, RDXUI.DesktopAnchorFunction, function(value) 
-		if dlg.frameprops then
+		if dlg.frameprops and RDXUI.IsValidAnchor(value) then
 			DesktopEvents:Dispatch("WINDOW_UPDATE", dlg.frameprops.name, "ANCHOR", value);
 		end
 	end);
 	ddAP:SetPoint("TOPRIGHT", ddStrata, "BOTTOMRIGHT", 0, 0); ddAP:SetWidth(132);
-	--ddAP:SetSelection(dd.ap or "TOPLEFT");
+	ddAP:SetSelection("TOPLEFT", true);
 	ddAP:Show();
 
 	local txtCurDock = VFLUI.CreateFontString(dlg);
@@ -183,7 +184,7 @@ function RDXDK.OpenDesktopTools(parent)
 	txtCurDock:SetJustifyH("LEFT");
 	txtCurDock:SetFontObject(Fonts.Default10); txtCurDock:Show();
 	
-	local function updateDockTxt(dd);
+	local function updateDockTxt(dd)
 		local str = VFLI.i18n("Docks:\n");
 		if dd.dock then
 			for k,v in pairs(dd.dock) do
@@ -201,7 +202,7 @@ function RDXDK.OpenDesktopTools(parent)
 		slScale:SetValue(frameprops.scale, true);
 		slAlpha:SetValue(frameprops.alpha, true);
 		ddStrata:SetSelection(frameprops.strata, true);
-		ddAP:SetSelection(frameprops.ap, true);
+		--ddAP:SetSelection(frameprops.ap, true);
 		updateDockTxt(frameprops);
 	end
 	
@@ -262,7 +263,7 @@ function RDXDK.CloseDesktopTools()
 	end
 end
 
-function RDXDK.UpdateDesktopTools(name)
+function RDXDK.UpdateDesktopTools(frameprops)
 	if not dlg then RDXDK.OpenDesktopTools(); end
 	if frameprops then dlg:_update(frameprops); end
 end

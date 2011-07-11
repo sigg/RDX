@@ -19,7 +19,7 @@ function RDXDK.FrameProperties(frame)
 		return; 
 	end
 	local mnu = {};
-	table.insert(mnu, { text = VFLI.i18n("Layout..."), OnClick = function() RDXDK.LayoutPropsDialog(frameprops); VFL.poptree:Release(); end });
+	--table.insert(mnu, { text = VFLI.i18n("Layout..."), OnClick = function() RDXDK.LayoutPropsDialog(frameprops); VFL.poptree:Release(); end });
 	--table.insert(mnu, { text = VFLI.i18n("Drag to move"), 
 	--	OnMouseDown = function() frame:WMDrag(); end, 
 	--	OnMouseUp = function() VFL.poptree:Release(); frame:WMStopDrag(); end 

@@ -25,6 +25,9 @@ local anchors = {
 	{ text = "CENTER" },
 };
 function RDXUI.DesktopAnchorFunction() return anchors; end
+function RDXUI.IsValidAnchor(anchor)
+	if anchor == "TOPLEFT" or anchor == "TOPRIGHT" or anchor == "BOTTOMLEFT" or anchor == "BOTTOMRIGHT" or anchor == "CENTER" then return true; else return nil; end
+end
 
 local fontdd = {};
 for k,_ in pairs(Fonts) do
@@ -69,7 +72,7 @@ local oradd = {
 function RDXUI.OrientationDropdownFunction() return oradd; end
 
 local dladd = {
-	--{ text = "BACKGROUND" },
+	{ text = "BACKGROUND" },
 	{ text = "BORDER" },
 	{ text = "ARTWORK" },
 	{ text = "OVERLAY" },
@@ -84,7 +87,7 @@ local tbl_hvert = {
 function RDXUI.HVDropdownFunction() return tbl_hvert; end
 
 local strata = {
-	--{ text = "BACKGROUND" },
+	{ text = "BACKGROUND" },
 	{ text = "LOW" },
 	{ text = "MEDIUM" },
 	{ text = "HIGH"} ,
@@ -94,6 +97,9 @@ local strata = {
 	--{ text = "TOOLTIP" } ,
 };
 function RDXUI.DesktopStrataFunction() return strata; end
+function RDXUI.IsValidStrata(strata)
+	if strata == "BACKGROUND" or strata == "LOW" or strata == "MEDIUM" or strata == "HIGH" then return true; else return nil; end
+end
 
 local cotadd = {
 	{ text = "CountUP" },
