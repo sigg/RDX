@@ -68,6 +68,18 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	};
 end);
 
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = "**************";
+	ent.notCheckable = true;
+	ent.func = VFL.Noop;
+	end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Reload UI");
+	ent.notCheckable = true;
+	ent.func = VFLReloadUI;
+end);
+
 local function CreateMiniPane()
 	local mini = VFLUI.AcquireFrame("Button");
 	mini:SetParent(VFLDIALOG); 
