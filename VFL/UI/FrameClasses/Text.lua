@@ -9,7 +9,7 @@ function VFLUI.SimpleText:new(parent, nblines, width)
 		self:SetFrameLevel(parent:GetFrameLevel() + 1);
 	end
 
-	self:SetHeight(24 * nblines); self:SetWidth(width); self:Show();
+	self:SetHeight(12 * nblines); self:SetWidth(width); self:Show();
 
 	local txt = VFLUI.CreateFontString(self);
 	txt:SetPoint("TOPLEFT", self, "TOPLEFT");

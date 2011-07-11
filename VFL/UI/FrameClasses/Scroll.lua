@@ -263,7 +263,8 @@ local hsb_backdrop = {
 	tile = true; tileSize = 16;
 };
 VFLUI.HScrollBar = {};
-function VFLUI.HScrollBar:new(parent, noButtons)
+function VFLUI.HScrollBar:new(parent, noButtons, onSelChanged)
+	if not onSelChanged then onSelChanged = VFL.Noop; end
 	local self = VFLUI.AcquireFrame("Slider");
 	self:SetHeight(16); self:SetWidth(0);
 	self:SetOrientation("HORIZONTAL");
@@ -271,6 +272,14 @@ function VFLUI.HScrollBar:new(parent, noButtons)
 		self:SetParent(parent);
 		self:SetFrameStrata(parent:GetFrameStrata());
 		self:SetFrameLevel(parent:GetFrameLevel());
+	end
+	
+	-- rewrite the SetValue function
+	self._SetValue = self.SetValue;
+	self.SetValue = function(self, value, flag)
+		self.flag = flag;
+		self._SetValue(value);
+		self.flag = nil;
 	end
 
 	-- Gutter texture
@@ -313,12 +322,19 @@ function VFLUI.HScrollBar:new(parent, noButtons)
 		if p and p.SetHorizontalScroll then
 			p:SetHorizontalScroll(arg1);
 		end
+		if not self.flag then
+			onSelChanged(arg1);
+		end
 	end);
 
 	-- Hook the destroy handler
 	self.Destroy = VFL.hook(function(s)
 		if s.btnDecrease then s.btnDecrease:Destroy(); s.btnDecrease = nil; end
 		if s.btnIncrease then s.btnIncrease:Destroy(); s.btnIncrease = nil; end
+		-- to test
+		s.flag = nil;
+		s._SetValue = nil;
+		s.SetValue = nil;
 	end, self.Destroy);
 
 	-- Done
@@ -332,10 +348,10 @@ function VFLUI.BindSliderToEdit(slider, edit)
 	local _recurse_prevent = false;
 
 	local old_ovc = slider:GetScript("OnValueChanged");
-	slider:SetScript("OnValueChanged", function(self, arg1)
+	slider:SetScript("OnValueChanged", function(self, value)
 		if not _recurse_prevent then
 			_recurse_prevent = true;
-			edit:SetText(string.format("%0.2f", arg1));
+			edit:SetText(string.format("%0.2f", value));
 			_recurse_prevent = false;
 		end
 		if old_ovc then old_ovc(self, arg1); end

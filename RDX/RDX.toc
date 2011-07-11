@@ -136,6 +136,7 @@ DesktopMgr\Obj_DUI.lua
 DesktopMgr\BlizzardFullDisable.lua
 #DesktopMgr\Crosshair.lua
 DesktopMgr\LockUnlock.lua
+DesktopMgr\Tools.lua
 DesktopMgr\LockUnlockKeyBindings.lua
 DesktopMgr\LockUnlockActionBindings.lua
 DesktopMgr\ShowHide.lua

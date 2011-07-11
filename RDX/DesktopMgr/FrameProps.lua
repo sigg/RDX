@@ -25,22 +25,7 @@ function RDXDK.FrameProperties(frame)
 	--	OnMouseUp = function() VFL.poptree:Release(); frame:WMStopDrag(); end 
 	--});
 	
-	if frameprops.feature == "desktop_window" then
-		table.insert(mnu, {
-			text = VFLI.i18n("Edit Window"),
-			OnClick = function()
-				VFL.poptree:Release();
-				RDXDB.OpenObject(frameprops.name, "Edit", VFLDIALOG);
-			end
-		});
-		table.insert(mnu, {
-			text = VFLI.i18n("Rebuild"),
-			OnClick = function()
-				VFL.poptree:Release();
-				RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, frameprops.name);
-			end
-		});
-	elseif frameprops.feature == "desktop_statuswindow" then
+	if frameprops.feature == "desktop_window" or frameprops.feature == "desktop_statuswindow" then
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit Window"),
 			OnClick = function()
@@ -262,3 +247,4 @@ function RDXDK.LayoutPropsDialog(frameprops)
 		VFLUI.ReleaseRegion(txtCurDock); txtCurDock = nil;
 	end, dlg.Destroy);
 end
+
