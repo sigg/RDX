@@ -80,7 +80,7 @@ function RDXDK.OpenDesktopTools(parent)
 	dlg:SetTitleColor(0,.5,0);
 	dlg:SetText(VFLI.i18n("Desktop Tools: "));
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
-	dlg:Accomodate(216, 350);
+	dlg:Accomodate(216, 450);
 	dlg:SetClampedToScreen(true);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
@@ -91,6 +91,10 @@ function RDXDK.OpenDesktopTools(parent)
 	local separator1 = VFLUI.SimpleText:new(ca, 1, 216);
 	separator1:SetPoint("TOPLEFT", ca, "TOPLEFT", 0, -5);
 	separator1:SetText("Windows List (Click to open/close)");
+	
+	local tex1 = VFLUI.CreateTexture(separator1);
+	tex1:SetAllPoints(separator1); tex1:Show();
+	tex1:SetTexture(0,0,0.6); tex1:SetGradient("HORIZONTAL", 1,1,1,0.1,0.1,0.1);
 	
 	local list = VFLUI.List:new(dlg, 12, CreateWindowsListFrame);
 	list:SetPoint("TOPLEFT", separator1, "BOTTOMLEFT");
@@ -118,9 +122,13 @@ function RDXDK.OpenDesktopTools(parent)
 	separator2:SetPoint("TOPLEFT", list, "BOTTOMLEFT");
 	separator2:SetText("Window options");
 	
+	local tex2 = VFLUI.CreateTexture(separator2);
+	tex2:SetAllPoints(separator2); tex2:Show();
+	tex2:SetTexture(0,0,0.6); tex2:SetGradient("HORIZONTAL", 1,1,1,0.1,0.1,0.1);
+	
 	local windowName = VFLUI.SimpleText:new(ca, 1, 216);
 	windowName:SetPoint("TOPLEFT", separator2, "BOTTOMLEFT");
-	windowName:SetText("Click on a window to select it");
+	windowName:SetText("Click on a window of your UI to modify it");
 	
 	-- scale
 	local lblScale = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Scale"));
@@ -166,27 +174,29 @@ function RDXDK.OpenDesktopTools(parent)
 	ddStrata:Show();
 
 	-- anchor
-	local lblAP = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Anchor point"));
-	lblAP:SetPoint("TOPLEFT", lblStrata, "BOTTOMLEFT"); lblAP:SetHeight(25);
-	local ddAP = VFLUI.Dropdown:new(dlg, RDXUI.DesktopAnchorFunction, function(value) 
-		if dlg.frameprops and RDXUI.IsValidAnchor(value) then
-			DesktopEvents:Dispatch("WINDOW_UPDATE", dlg.frameprops.name, "ANCHOR", value);
-		end
-	end);
-	ddAP:SetPoint("TOPRIGHT", ddStrata, "BOTTOMRIGHT", 0, 0); ddAP:SetWidth(132);
-	ddAP:SetSelection("TOPLEFT", true);
-	ddAP:Show();
+	--local lblAP = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Anchor point"));
+	--lblAP:SetPoint("TOPLEFT", lblStrata, "BOTTOMLEFT"); lblAP:SetHeight(25);
+	--local ddAP = VFLUI.Dropdown:new(dlg, RDXUI.DesktopAnchorFunction, function(value) 
+	--	if dlg.frameprops and RDXUI.IsValidAnchor(value) then
+	--		DesktopEvents:Dispatch("WINDOW_UPDATE", dlg.frameprops.name, "ANCHOR", value);
+	--	end
+	--end);
+	--ddAP:SetPoint("TOPRIGHT", ddStrata, "BOTTOMRIGHT", 0, 0); ddAP:SetWidth(132);
+	--ddAP:SetSelection("TOPLEFT", true);
+	--ddAP:Show();
 
 	local txtCurDock = VFLUI.CreateFontString(dlg);
-	txtCurDock:SetPoint("TOPLEFT", lblAP, "BOTTOMLEFT");
-	txtCurDock:SetWidth(180); txtCurDock:SetHeight(60);
+	txtCurDock:SetPoint("TOPLEFT", lblStrata, "BOTTOMLEFT", 0, -5);
+	txtCurDock:SetWidth(180); txtCurDock:SetHeight(160);
 	txtCurDock:SetJustifyV("TOP");
 	txtCurDock:SetJustifyH("LEFT");
 	txtCurDock:SetFontObject(Fonts.Default10); txtCurDock:Show();
 	
 	local function updateDockTxt(dd)
-		local str = VFLI.i18n("Docks:\n");
-		if dd.dock then
+		local str = VFLI.i18n("Tips: To undock two windows, right click on the red/yellow anchor point.\n\n");
+		str = str .. VFLI.i18n("Tips: To dock two windows, drag a anchor point and drop it to a other anchor point.\n\n");
+		str = str .. VFLI.i18n("Docks:\n");
+		if dd and dd.dock then
 			for k,v in pairs(dd.dock) do
 				str = str .. k .. ": " .. v.id .. "\n";
 			end
@@ -195,6 +205,7 @@ function RDXDK.OpenDesktopTools(parent)
 		end
 		txtCurDock:SetText(str);
 	end
+	updateDockTxt();
 	
 	function dlg:_update(frameprops)
 		dlg.frameprops = frameprops;
@@ -238,12 +249,15 @@ function RDXDK.OpenDesktopTools(parent)
 		s._update = nil;
 		updateDockTxt = nil;
 		VFLUI.ReleaseRegion(txtCurDock); txtCurDock = nil;
-		ddAP:Destroy(); ddAP = nil; ddStrata:Destroy(); ddStrata = nil;
+		--ddAP:Destroy(); ddAP = nil; 
+		ddStrata:Destroy(); ddStrata = nil;
 		slAlpha:Destroy(); slAlpha = nil; edAlpha:Destroy(); edAlpha = nil;
 		slScale:Destroy(); slScale = nil; edScale:Destroy(); edScale = nil;
 		windowName:Destroy(); windowName = nil;
+		tex2:Destroy(); tex2 = nil;
 		separator2:Destroy(); separator2 = nil;
 		list:Destroy(); list = nil;
+		tex1:Destroy(); tex1 = nil;
 		separator1:Destroy(); separator1 = nil;
 		s.frameprops = nil;
 	end, dlg.Destroy);
