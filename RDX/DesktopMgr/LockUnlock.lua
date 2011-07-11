@@ -287,7 +287,7 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 			frame.tf:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0);
 			frame.tf:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", w, -h);
 			
-			RDXDK.StdMove(frame, frame.tf, nil);
+			RDXDK.StdMove(frame, frame.tf, function() RDXDK.UpdateDesktopTools(frameprops); end);
 			
 			frame.tfIdent:SetPoint("CENTER", frame.tf, "CENTER", 0, 10);
 			frame.tfIdent:SetWidth(frame.tf:GetWidth()+200); 
@@ -387,6 +387,7 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 			end
 			frame.tf:SetFrameStrata(VFLUI.GetRelativeStata(frame:GetFrameStrata(), 1));
 		end
+		RDXDK.UpdateDesktopTools(frameprops);
 	end
 end
 

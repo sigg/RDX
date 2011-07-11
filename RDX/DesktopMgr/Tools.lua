@@ -116,7 +116,7 @@ function RDXDK.OpenDesktopTools(parent)
 	-- a separator.
 	local separator2 = VFLUI.SimpleText:new(ca, 1, 216);
 	separator2:SetPoint("TOPLEFT", list, "BOTTOMLEFT");
-	separator2:SetText("Window options (Select a window)");
+	separator2:SetText("Window options");
 	
 	local windowName = VFLUI.SimpleText:new(ca, 1, 216);
 	windowName:SetPoint("TOPLEFT", separator2, "BOTTOMLEFT");
@@ -260,4 +260,9 @@ function RDXDK.CloseDesktopTools()
 	if dlg then
 		dlg:_esch();
 	end
+end
+
+function RDXDK.UpdateDesktopTools(name)
+	if not dlg then RDXDK.OpenDesktopTools(); end
+	if frameprops then dlg:_update(frameprops); end
 end
