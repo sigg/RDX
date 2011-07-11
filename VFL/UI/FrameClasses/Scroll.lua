@@ -271,14 +271,14 @@ function VFLUI.HScrollBar:new(parent, noButtons, onSelChanged)
 	if parent then
 		self:SetParent(parent);
 		self:SetFrameStrata(parent:GetFrameStrata());
-		self:SetFrameLevel(parent:GetFrameLevel());
+		self:SetFrameLevel(parent:GetFrameLevel()+ 1);
 	end
 	
 	-- rewrite the SetValue function
 	self._SetValue = self.SetValue;
 	self.SetValue = function(self, value, flag)
 		self.flag = flag;
-		self._SetValue(value);
+		self:_SetValue(value);
 		self.flag = nil;
 	end
 
@@ -323,7 +323,7 @@ function VFLUI.HScrollBar:new(parent, noButtons, onSelChanged)
 			p:SetHorizontalScroll(arg1);
 		end
 		if not self.flag then
-			onSelChanged(arg1);
+			onSelChanged(self:GetValue());
 		end
 	end);
 
