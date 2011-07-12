@@ -368,6 +368,10 @@ local function OpenDesktopTools(parent, froot)
 	end, dlg.Destroy);
 end
 
+function RDXDK.IsDesktopToolsOpen()
+	if dlg then return true; else return nil; end
+end
+
 function RDXDK.ToggleDesktopTools(parent, froot)
 	if not InCombatLockdown() then
 		if dlg then
