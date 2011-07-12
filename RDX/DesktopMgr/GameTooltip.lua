@@ -11,8 +11,6 @@ btn:SetClampedToScreen(true);
 btn:SetFrameStrata("FULLSCREEN_DIALOG");
 
 function RDXDK.SetGameTooltipLocation(mb, x, y)
-	if not x then x = 0; end
-	if not y then y = 0; end
 	usemouse, anchorx, anchory = mb, x, y;
 	btn:ClearAllPoints();
 	btn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", anchorx, anchory);
@@ -31,12 +29,12 @@ function RDXDK.SetUnlockGameTooltip()
 end
 
 -- on desktop lock
-function RDXDK.SetLockGameTooltip()
+function RDXDK.GetLockGameTooltip()
 	btn:SetMovable(nil);
 	btn:SetScript("OnMouseDown", nil);
 	btn:SetScript("OnMouseUp", nil);
 	btn:Hide();
-	return nil, anchorx, anchory;
+	return usemouse, anchorx, anchory;
 end
 
 -- Add option to disable tooltip
@@ -53,12 +51,12 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 			end
 		end);
 	end
-	if opt and opt.tooltipunit then
+	--if opt and opt.tooltipunit then
 		-- hide the game tooltip for unit only
-		GameTooltip:SetScript("OnTooltipSetUnit",function()
-			if GameTooltipStatusBar then
-				GameTooltip:Hide();
-			end
-		end);
-	end
+	--	GameTooltip:SetScript("OnTooltipSetUnit",function()
+	--		if GameTooltipStatusBar then
+	--			GameTooltip:Hide();
+	--		end
+	--	end);
+	--end
 end);
