@@ -12,9 +12,6 @@ btn:SetFrameStrata("FULLSCREEN_DIALOG");
 
 function RDXDK.SetGameTooltipLocation(mb, x, y)
 	usemouse, anchorx, anchory = mb, x, y;
-	btn:ClearAllPoints();
-	btn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", anchorx, anchory);
-	btn:Hide();
 end
 
 -- move game tooltip

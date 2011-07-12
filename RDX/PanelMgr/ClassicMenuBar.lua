@@ -48,16 +48,16 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.menuList = RDXPM.stateTypeMenus;
 end);
 	
-RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Action bars");
-	ent.notCheckable = true;
-	ent.hasArrow = true;
-	ent.menuList = {
+--RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+--	ent.text = VFLI.i18n("Action bars");
+--	ent.notCheckable = true;
+--	ent.hasArrow = true;
+--	ent.menuList = {
 		--{ text = "Desktop", checked = RDXDK.IsDesktopLocked, func = RDXDK.ToggleDesktopLock },
-		{ text = "Configure keys", checked = RDXDK.IsKeyBindingsLocked, func = RDXDK.ToggleKeyBindingsLock },
-		{ text = "Lock Action Buttons", checked = RDXDK.IsActionBindingsLocked, func = RDXDK.ToggleActionBindingsLock }
-	};
-end);
+--		{ text = "Configure keys", checked = RDXDK.IsKeyBindingsLocked, func = RDXDK.ToggleKeyBindingsLock },
+--		{ text = "Lock Action Buttons", checked = RDXDK.IsActionBindingsLocked, func = RDXDK.ToggleActionBindingsLock }
+--	};
+--end);
 	
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Visibility");
@@ -122,9 +122,11 @@ local function CreateMiniPane()
 				return;
 			end
 		elseif (arg1 == "RightButton") then
-			local curdesk = RDXDK.GetCurrentDesktop();
-			if curdesk then
-				RDXDK.ToggleDesktopTools(VFLFULLSCREEN_DIALOG, curdesk:_GetFrameProps("root"));
+			if not InCombatLockdown() then
+				local curdesk = RDXDK.GetCurrentDesktop();
+				if curdesk then
+					RDXDK.ToggleDesktopTools(VFLFULLSCREEN_DIALOG, curdesk:_GetFrameProps("root"));
+				end
 			end
 		end
 	end);

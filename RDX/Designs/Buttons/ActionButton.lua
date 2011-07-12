@@ -450,11 +450,11 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	function self:Init()
 		UpdateNewAction();
 		UpdateKeyBinding();
-		if RDXDK.IsKeyBindingsLocked() then
+		--if RDXDK.IsKeyBindingsLocked() then
 			HideBindingEdit();
-		else
-			ShowBindingEdit();
-		end
+		--else
+		--	ShowBindingEdit();
+		--end
 	end
 	
 	self.Destroy = VFL.hook(function(s)
@@ -799,11 +799,11 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 	function self:Init()
 		UpdateNewAction();
 		UpdateKeyBinding();
-		if RDXDK.IsKeyBindingsLocked() then
+		--if RDXDK.IsKeyBindingsLocked() then
 			HideBindingEdit();
-		else
-			ShowBindingEdit();
-		end
+		--else
+		--	ShowBindingEdit();
+		--end
 	end
 	
 	self.Destroy = VFL.hook(function(s)
@@ -1148,11 +1148,11 @@ function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 	function self:Init()
 		UpdateNewAction();
 		UpdateKeyBinding();
-		if RDXDK.IsKeyBindingsLocked() then
+		--if RDXDK.IsKeyBindingsLocked() then
 			HideBindingEdit();
-		else
-			ShowBindingEdit();
-		end
+		--else
+		--	ShowBindingEdit();
+		--end
 	end
 	
 	self.Destroy = VFL.hook(function(s)
@@ -1397,11 +1397,11 @@ function RDXUI.StanceButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	function self:Init()
 		UpdateNewAction();
 		UpdateKeyBinding();
-		if RDXDK.IsKeyBindingsLocked() then
+		--if RDXDK.IsKeyBindingsLocked() then
 			HideBindingEdit();
-		else
-			ShowBindingEdit();
-		end
+		--else
+		--	ShowBindingEdit();
+		--end
 	end
 	
 	self.Destroy = VFL.hook(function(s)
@@ -1695,11 +1695,11 @@ function RDXUI.VehicleButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, 
 	function self:Init()
 		UpdateNewAction();
 		UpdateKeyBinding();
-		if RDXDK.IsKeyBindingsLocked() then
+		--if RDXDK.IsKeyBindingsLocked() then
 			HideBindingEdit();
-		else
-			ShowBindingEdit();
-		end
+		--else
+		--	ShowBindingEdit();
+		--end
 	end
 	
 	self.Destroy = VFL.hook(function(s)

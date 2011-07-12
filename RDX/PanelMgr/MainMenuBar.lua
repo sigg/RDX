@@ -213,7 +213,10 @@ local function CreateMainPane()
 				RDXPM.DuiMenu:Open("TOP", btn_AUI, "TOP", 0, 0);
 			elseif(arg1 == "RightButton") then
 				if not InCombatLockdown() then
-					RDXDK.ToggleDesktopLock();
+					local curdesk = RDXDK.GetCurrentDesktop();
+					if curdesk then
+						RDXDK.ToggleDesktopTools(VFLFULLSCREEN_DIALOG, curdesk:_GetFrameProps("root"));
+					end
 				end
 			end
 		end

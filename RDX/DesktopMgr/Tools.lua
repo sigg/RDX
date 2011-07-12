@@ -94,34 +94,34 @@ local function OpenDesktopTools(parent, froot)
 	separator1:SetPoint("TOPLEFT", ca, "TOPLEFT", 0, -5);
 	separator1:SetText("Viewport");
 	
-	local updateViewport = VFL.Noop;
+	local updateViewport;
 	
-	local chk_viewport = VFLUI.Checkbox:new(ca); chk_viewport:SetHeight(16); chk_viewport:SetWidth(16);
+	local chk_viewport = VFLUI.Checkbox:new(ca); chk_viewport:SetHeight(16); chk_viewport:SetWidth(200);
 	chk_viewport:SetPoint("TOPLEFT", separator1, "BOTTOMLEFT");
 	if froot.viewport then chk_viewport:SetChecked(true); else chk_viewport:SetChecked(); end
 	chk_viewport:SetText("Activate Viewport");
 	chk_viewport:Show();
-	chk_viewport:SetScript("OnClick", updateViewport);
+	chk_viewport.check:SetScript("OnClick", function() updateViewport(); end);
 	
 	local leleft = VFLUI.LabeledEdit:new(ca, 50); leleft:SetHeight(25); leleft:SetWidth(100);
 	leleft:SetPoint("TOPLEFT", chk_viewport, "BOTTOMLEFT", 0, 0); leleft:SetText("Left"); 
 	leleft.editBox:SetText(froot.offsetleft); leleft:Show();
-	leleft:SetScript("OnTextChanged", updateViewport);
+	leleft.editBox:SetScript("OnTextChanged", function() updateViewport(); end);
 	
 	local letop = VFLUI.LabeledEdit:new(ca, 50); letop:SetHeight(25); letop:SetWidth(100);
 	letop:SetPoint("TOPLEFT", leleft, "TOPRIGHT", 0, 0); letop:SetText("Top");
 	letop.editBox:SetText(froot.offsettop); letop:Show();
-	letop:SetScript("OnTextChanged", updateViewport);
+	letop.editBox:SetScript("OnTextChanged", function() updateViewport(); end);
 	
 	local leright = VFLUI.LabeledEdit:new(ca, 50); leright:SetHeight(25); leright:SetWidth(100);
 	leright:SetPoint("TOPLEFT", leleft, "BOTTOMLEFT", 0, 0); leright:SetText("Right"); 
 	leright.editBox:SetText(froot.offsetright); leright:Show();
-	leright:SetScript("OnTextChanged", updateViewport);
+	leright.editBox:SetScript("OnTextChanged", function() updateViewport(); end);
 	
 	local lebottom = VFLUI.LabeledEdit:new(ca, 50); lebottom:SetHeight(25); lebottom:SetWidth(100);
 	lebottom:SetPoint("TOPLEFT", leright, "TOPRIGHT", 0, 0); lebottom:SetText("Bottom");
 	lebottom.editBox:SetText(froot.offsetbottom); lebottom:Show();
-	lebottom:SetScript("OnTextChanged", updateViewport);
+	lebottom.editBox:SetScript("OnTextChanged", function() updateViewport(); end);
 	
 	updateViewport = function()
 		local left = tonumber(leleft.editBox:GetText());
@@ -135,7 +135,7 @@ local function OpenDesktopTools(parent, froot)
 	
 	-- Windows list
 	local separator2 = VFLUI.SeparatorText:new(ca, 1, 216);
-	separator2:SetPoint("TOPLEFT", lebottom, "BOTTOMLEFT", 0, 0);
+	separator2:SetPoint("TOPLEFT", leright, "BOTTOMLEFT", 0, -5);
 	separator2:SetText("Windows List");
 	
 	local list = VFLUI.List:new(dlg, 12, CreateWindowsListFrame);
@@ -160,11 +160,11 @@ local function OpenDesktopTools(parent, froot)
 	
 	-- Window option
 	local separator3 = VFLUI.SeparatorText:new(ca, 1, 216);
-	separator3:SetPoint("TOPLEFT", list, "BOTTOMLEFT");
+	separator3:SetPoint("TOPLEFT", list, "BOTTOMLEFT", 0, -5);
 	separator3:SetText("Window options");
 	
 	local windowName = VFLUI.SimpleText:new(ca, 1, 216);
-	windowName:SetPoint("TOPLEFT", separator2, "BOTTOMLEFT");
+	windowName:SetPoint("TOPLEFT", separator3, "BOTTOMLEFT");
 	windowName:SetText("Click on a window of your UI to modify it");
 	
 	-- scale
@@ -256,14 +256,14 @@ local function OpenDesktopTools(parent, froot)
 	
 	-- action bar
 	local separator4 = VFLUI.SeparatorText:new(ca, 1, 216);
-	separator4:SetPoint("TOPLEFT", lblStrata, "BOTTOMLEFT");
+	separator4:SetPoint("TOPLEFT", lblStrata, "BOTTOMLEFT", 0, -5);
 	separator4:SetText("ActionBars");
 	
 	-- button configure keys
 	local dfkey = nil;
 	local btndefinekey = VFLUI.OKButton:new(ca);
-	btndefinekey:SetHeight(25); btndefinekey:SetWidth(100);
-	btndefinekey:SetPoint("TOPLEFT", separator4, "BOTTOMLEFT");
+	btndefinekey:SetHeight(25); btndefinekey:SetWidth(216);
+	btndefinekey:SetPoint("TOPLEFT", separator4, "BOTTOMLEFT", 0, -5);
 	btndefinekey:SetText(VFLI.i18n("Click to setup your keys")); btndefinekey:Show();
 	btndefinekey:SetScript("OnClick", function()
 		if not InCombatLockdown() then 
@@ -273,7 +273,7 @@ local function OpenDesktopTools(parent, froot)
 				DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
 				dfkey = nil;
 			else
-				btndefinekey:SetText(VFLI.i18n("Setup your keys (Click on a button)"));
+				btndefinekey:SetText(VFLI.i18n("Lock keys setup"));
 				DesktopEvents:Dispatch("DESKTOP_LOCK");
 				DesktopEvents:Dispatch("DESKTOP_UNLOCK_BINDINGS");
 				dfkey = true;
@@ -281,12 +281,12 @@ local function OpenDesktopTools(parent, froot)
 		end
 	end);
 	
-	local chk_lockaction = VFLUI.Checkbox:new(ca); chk_lockaction:SetHeight(16); chk_lockaction:SetWidth(16);
+	local chk_lockaction = VFLUI.Checkbox:new(ca); chk_lockaction:SetHeight(16); chk_lockaction:SetWidth(200);
 	chk_lockaction:SetPoint("TOPLEFT", btndefinekey, "BOTTOMLEFT");
 	if RDXDK.IsActionBindingsLocked() then chk_lockaction:SetChecked(true); else chk_lockaction:SetChecked(); end
 	chk_lockaction:SetText("Lock drag action button in combat");
 	chk_lockaction:Show();
-	chk_lockaction:SetScript("OnClick", function() RDXDK.ToggleActionBindingsLock(); end);
+	chk_lockaction.check:SetScript("OnClick", function() RDXDK.ToggleActionBindingsLock(); end);
 	
 	-- to see if many people is really using this.
 	--local lbl_keys = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Keys definition"));
@@ -299,15 +299,15 @@ local function OpenDesktopTools(parent, froot)
 	
 	-- gametooltips
 	local separator5 = VFLUI.SeparatorText:new(ca, 1, 216);
-	separator5:SetPoint("TOPLEFT", chk_lockaction, "BOTTOMLEFT");
+	separator5:SetPoint("TOPLEFT", chk_lockaction, "BOTTOMLEFT", 0, -5);
 	separator5:SetText("GameTooltips");
 	
-	local chk_tooltipmouse = VFLUI.Checkbox:new(ca); chk_tooltipmouse:SetHeight(16); chk_tooltipmouse:SetWidth(16);
+	local chk_tooltipmouse = VFLUI.Checkbox:new(ca); chk_tooltipmouse:SetHeight(16); chk_tooltipmouse:SetWidth(200);
 	chk_tooltipmouse:SetPoint("TOPLEFT", separator5, "BOTTOMLEFT");
 	if froot.tooltipmouse then chk_tooltipmouse:SetChecked(true); else chk_tooltipmouse:SetChecked(); end
 	chk_tooltipmouse:SetText(VFLI.i18n("Mouse anchor tooltip"));
 	chk_tooltipmouse:Show();
-	chk_lockaction:SetScript("OnClick", function() DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", chk_tooltipmouse:GetChecked(), froot.anchorx, froot.anchory); end);
+	chk_tooltipmouse.check:SetScript("OnClick", function() DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", chk_tooltipmouse:GetChecked(), froot.anchorx, froot.anchory); end);
 	
 	dlg:Show();
 	
@@ -368,12 +368,12 @@ local function OpenDesktopTools(parent, froot)
 	end, dlg.Destroy);
 end
 
-function RDXDK.ToggleDesktopTools()
+function RDXDK.ToggleDesktopTools(parent, froot)
 	if not InCombatLockdown() then
 		if dlg then
 			dlg:_esch();
 		else
-			OpenDesktopTools();
+			OpenDesktopTools(parent, froot);
 		end
 	end
 end
