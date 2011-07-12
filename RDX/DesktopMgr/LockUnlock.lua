@@ -415,39 +415,38 @@ function RDXDK.UpdateUnlockOverlay()
 	end
 end
 
-function RDXDK.IsDesktopLocked()
-	local a = RDXDK.GetCurrentDesktop();
-	if a then return a:_IsLocked(); else VFL.print("error desktop not instanced"); end
-end
+-- deprecated
+--function RDXDK.IsDesktopLocked()
+--	local a = RDXDK.GetCurrentDesktop();
+--	if a then return a:_IsLocked(); else VFL.print("error desktop not instanced"); end
+--end
 
-function RDXDK.UnlockDesktop()
-	if not InCombatLockdown() then 
-		DesktopEvents:Dispatch("DESKTOP_UNLOCK");
-		RDX.printI(VFLI.i18n("Unlocking desktop."));
-	else
-		RDX.printI(VFLI.i18n("Cannot change unlock state while in combat."));
-	end
-end
+--function RDXDK.UnlockDesktop()
+--	if not InCombatLockdown() then 
+--		DesktopEvents:Dispatch("DESKTOP_UNLOCK");
+--		RDX.printI(VFLI.i18n("Unlocking desktop."));
+--	else
+--		RDX.printI(VFLI.i18n("Cannot change unlock state while in combat."));
+--	end
+--end
 
-function RDXDK.LockDesktop()
-	DesktopEvents:Dispatch("DESKTOP_LOCK");
-	RDX.printI(VFLI.i18n("Locking desktop."));
-end
+--function RDXDK.LockDesktop()
+--	DesktopEvents:Dispatch("DESKTOP_LOCK");
+--	RDX.printI(VFLI.i18n("Locking desktop."));
+--end
 
-function RDXDK.ToggleDesktopLock()
-	if RDXDK.IsDesktopLocked() then
-		RDXDK.UnlockDesktop();
-		RDXDK.OpenDesktopTools();
-	else 
-		RDXDK.LockDesktop();
-		RDXDK.CloseDesktopTools();
-	end
-end
+--function RDXDK.ToggleDesktopLock()
+--	if RDXDK.IsDesktopLocked() then
+--		RDXDK.UnlockDesktop();
+--	else 
+--		RDXDK.LockDesktop();
+--	end
+--end
 
 -- lock desktop if in combat
-VFLEvents:Bind("PLAYER_COMBAT", nil, function()
-	if InCombatLockdown() and not RDXDK.IsDesktopLocked() then
-		RDXDK.LockDesktop();
-	end
-end);
+--VFLEvents:Bind("PLAYER_COMBAT", nil, function()
+--	if InCombatLockdown() and not RDXDK.IsDesktopLocked() then
+--		RDXDK.LockDesktop();
+--	end
+--end);
 

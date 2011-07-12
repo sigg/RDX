@@ -1,7 +1,8 @@
 -- EmbeddedWindows.lua
 -- OpenRDX
 -- Sigg Rashgarroth EU
--- disable too much problem
+-- disable too much problem see toc file
+-- deprecated
 
 local wl = {};
 

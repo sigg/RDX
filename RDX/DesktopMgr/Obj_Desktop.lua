@@ -25,6 +25,7 @@ To rebuild a desktop
 DesktopEvents:Dispatch("DESKTOP_REBUILD");
 DesktopEvents:Dispatch("DESKTOP_LOCK");
 DesktopEvents:Dispatch("DESKTOP_UNLOCK");
+DesktopEvents:Dispatch("DESKTOP_VIEWPORT", useviewport, offsetleft, offsettop, offsetright, offsetbottom);
 
 WINDOW events
 DesktopEvents:Dispatch("WINDOW_OPEN", name, wtype);
@@ -114,9 +115,9 @@ function RDXDK.Desktop:new(parent)
 		for name, frame in pairs(frameList) do
 			frame:Lock();
 		end
-		local usemouse, anchorx, anchory = RDXDK.SetLockGameTooltip();
+		local tooltipmouse, anchorx, anchory = RDXDK.GetLockGameTooltip();
 		local froot = framePropsList["root"];
-		froot.tooltipmouse = usemouse;
+		froot.tooltipmouse = tooltipmouse;
 		froot.anchorx = anchorx;
 		froot.anchory = anchory;
 		lockstate = true;
@@ -131,8 +132,33 @@ function RDXDK.Desktop:new(parent)
 		lockstate = nil;
 	end
 	
+	local function UpdateViewport(viewport, left, top, right, bottom)
+		RDXDK:Debug(6, "UpdateViewport");
+		if viewport then
+			WorldFrame:ClearAllPoints();
+			WorldFrame:SetPoint("TOPLEFT", left, 0 - top);
+			WorldFrame:SetPoint("BOTTOMRIGHT", 0 - right, bottom);
+		else
+			WorldFrame:SetAllPoints(RDXParent);
+		end
+		local froot = framePropsList["root"];
+		froot.viewport = viewport;
+		froot.offsetleft = left;
+		froot.offsettop = top;
+		froot.offsetright = right;
+		froot.offsetbottom = bottom;
+	end
+	
+	-- call by desktop_basic
+	-- call by update
+	local function UpdateGameTooltip(tooltipmouse, anchorx, anchory)
+		RDXDK.SetGameTooltipLocation(tooltipmouse, anchorx, anchory);
+	end
+	
 	DesktopEvents:Bind("DESKTOP_LOCK", nil, LockDesktop, "desktop");
 	DesktopEvents:Bind("DESKTOP_UNLOCK", nil, UnlockDesktop, "desktop");
+	DesktopEvents:Bind("DESKTOP_VIEWPORT", nil, UpdateViewport, "desktop");
+	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP", nil, UpdateGameTooltip, "desktop");
 	
 	local function LayoutFrame(name, noanim)
 		local frame, frameprops = frameList[name], framePropsList[name];
@@ -155,7 +181,8 @@ function RDXDK.Desktop:new(parent)
 			frame:WMGetPositionalFrame():SetFrameStrata("LOW");
 		end
 		
-		DesktopEvents:Dispatch("EMBEDDEDWINDOW_UPDATE", name, frameprops.scale, frameprops.alpha, frameprops.strata);
+		-- deprecated
+		--DesktopEvents:Dispatch("EMBEDDEDWINDOW_UPDATE", name, frameprops.scale, frameprops.alpha, frameprops.strata);
 		
 		-- Clear preexisting layout.
 		frame:WMGetPositionalFrame():ClearAllPoints();

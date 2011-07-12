@@ -137,18 +137,18 @@ local function AUIList()
 	--end);
 
 	-----------------------------------
-	local lockListMenu = {
+	--local lockListMenu = {
 		--{ text = "Desktop", checked = RDXDK.IsDesktopLocked, func = RDXDK.ToggleDesktopLock },
-		{ text = "Key Bindings", checked = RDXDK.IsKeyBindingsLocked, func = RDXDK.ToggleKeyBindingsLock },
-		{ text = "Action Bindings", checked = RDXDK.IsActionBindingsLocked, func = RDXDK.ToggleActionBindingsLock }
-	}
+	--	{ text = "Key Bindings", checked = RDXDK.IsKeyBindingsLocked, func = RDXDK.ToggleKeyBindingsLock },
+	--	{ text = "Action Bindings", checked = RDXDK.IsActionBindingsLocked, func = RDXDK.ToggleActionBindingsLock }
+	--}
 	
-	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text = "Locking";
-		ent.notCheckable = true;
-		ent.hasArrow = true;
-		ent.menuList = lockListMenu;
-	end);
+	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
+	--	ent.text = "Locking";
+	--	ent.notCheckable = true;
+	--	ent.hasArrow = true;
+	--	ent.menuList = lockListMenu;
+	--end);
 	
 	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
 	--	ent.text = "*******************";

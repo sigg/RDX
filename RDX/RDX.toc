@@ -144,8 +144,9 @@ DesktopMgr\KeyBindings.lua
 DesktopMgr\Others.lua
 DesktopMgr\Obj_ActionBindings.lua
 DesktopMgr\Obj_KeyBindings.lua
-DesktopMgr\Desktop_ActionBindings.lua
-DesktopMgr\Desktop_KeyBindings.lua
+# deprecated
+#DesktopMgr\Desktop_ActionBindings.lua
+#DesktopMgr\Desktop_KeyBindings.lua
 DesktopMgr\Desktop_Basics.lua
 DesktopMgr\Desktop_Windows.lua
 DesktopMgr\Desktop_StatusWindows.lua

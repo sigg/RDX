@@ -46,18 +46,9 @@ RDX.RegisterFeature({
 		state.Code:Clear();
 		state.Code:AppendCode([[
 local encid = "dk_openrdx7";
--- bug disable
---if ]] .. useviewport .. [[ then
---	WorldFrame:ClearAllPoints();
---	WorldFrame:SetPoint("TOPLEFT", ]] .. desc.offsetleft .. [[, -]] .. desc.offsettop .. [[);
---	WorldFrame:SetPoint("BOTTOMRIGHT", -]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
---else
---	WorldFrame:SetAllPoints(RDXParent);
---end
-
-RDXDK.SetGameTooltipLocation(]] .. tooltipmouse .. [[, ]] .. desc.anchorx .. [[, ]] .. desc.anchory .. [[);
-
 DesktopEvents:Dispatch("WINDOW_OPEN", "root", "Desktop main");
+DesktopEvents:Dispatch("DESKTOP_VIEWPORT", ]] .. useviewport .. [[, ]] .. desc.offsetleft .. [[, ]] .. desc.offsettop .. [[, ]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
+DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. desc.anchorx .. [[, ]] .. desc.anchory .. [[);
 		]]);
 		return true;
 	end,

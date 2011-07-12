@@ -122,7 +122,10 @@ local function CreateMiniPane()
 				return;
 			end
 		elseif (arg1 == "RightButton") then
-			RDXDK.ToggleDesktopLock();
+			local curdesk = RDXDK.GetCurrentDesktop();
+			if curdesk then
+				RDXDK.ToggleDesktopTools(VFLFULLSCREEN_DIALOG, curdesk:_GetFrameProps("root"));
+			end
 		end
 	end);
 	

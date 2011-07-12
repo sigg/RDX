@@ -6,7 +6,7 @@
 
 -- helper
 
--- The container
+-- The windows list container
 local wl = {};
 
 local function BuildWindowList(pkgfilter)
@@ -71,8 +71,9 @@ local function WindowListClick(path)
 	RDXDB.OpenObject(path);
 end
 
+-- The panel
 local dlg = nil;
-function RDXDK.OpenDesktopTools(parent)
+local function OpenDesktopTools(parent, froot)
 	if dlg then return; end
 	
 	dlg = VFLUI.Window:new(parent);
@@ -88,16 +89,57 @@ function RDXDK.OpenDesktopTools(parent)
 	
 	local ca = dlg:GetClientArea();
 	
-	local separator1 = VFLUI.SimpleText:new(ca, 1, 216);
+	-- Viewport
+	local separator1 = VFLUI.SeparatorText:new(ca, 1, 216);
 	separator1:SetPoint("TOPLEFT", ca, "TOPLEFT", 0, -5);
-	separator1:SetText("Windows List (Click to open/close)");
+	separator1:SetText("Viewport");
 	
-	local tex1 = VFLUI.CreateTexture(separator1);
-	tex1:SetAllPoints(separator1); tex1:Show();
-	tex1:SetTexture(0,0,0.6); tex1:SetGradient("HORIZONTAL", 1,1,1,0.1,0.1,0.1);
+	local updateViewport = VFL.Noop;
+	
+	local chk_viewport = VFLUI.Checkbox:new(ca); chk_viewport:SetHeight(16); chk_viewport:SetWidth(16);
+	chk_viewport:SetPoint("TOPLEFT", separator1, "BOTTOMLEFT");
+	if froot.viewport then chk_viewport:SetChecked(true); else chk_viewport:SetChecked(); end
+	chk_viewport:SetText("Activate Viewport");
+	chk_viewport:Show();
+	chk_viewport:SetScript("OnClick", updateViewport);
+	
+	local leleft = VFLUI.LabeledEdit:new(ca, 50); leleft:SetHeight(25); leleft:SetWidth(100);
+	leleft:SetPoint("TOPLEFT", chk_viewport, "BOTTOMLEFT", 0, 0); leleft:SetText("Left"); 
+	leleft.editBox:SetText(froot.offsetleft); leleft:Show();
+	leleft:SetScript("OnTextChanged", updateViewport);
+	
+	local letop = VFLUI.LabeledEdit:new(ca, 50); letop:SetHeight(25); letop:SetWidth(100);
+	letop:SetPoint("TOPLEFT", leleft, "TOPRIGHT", 0, 0); letop:SetText("Top");
+	letop.editBox:SetText(froot.offsettop); letop:Show();
+	letop:SetScript("OnTextChanged", updateViewport);
+	
+	local leright = VFLUI.LabeledEdit:new(ca, 50); leright:SetHeight(25); leright:SetWidth(100);
+	leright:SetPoint("TOPLEFT", leleft, "BOTTOMLEFT", 0, 0); leright:SetText("Right"); 
+	leright.editBox:SetText(froot.offsetright); leright:Show();
+	leright:SetScript("OnTextChanged", updateViewport);
+	
+	local lebottom = VFLUI.LabeledEdit:new(ca, 50); lebottom:SetHeight(25); lebottom:SetWidth(100);
+	lebottom:SetPoint("TOPLEFT", leright, "TOPRIGHT", 0, 0); lebottom:SetText("Bottom");
+	lebottom.editBox:SetText(froot.offsetbottom); lebottom:Show();
+	lebottom:SetScript("OnTextChanged", updateViewport);
+	
+	updateViewport = function()
+		local left = tonumber(leleft.editBox:GetText());
+		local top = tonumber(letop.editBox:GetText());
+		local right = tonumber(leright.editBox:GetText());
+		local bottom = tonumber(lebottom.editBox:GetText());
+		if left and top and right and bottom then
+			DesktopEvents:Dispatch("DESKTOP_VIEWPORT", chk_viewport:GetChecked(), left, top, right, bottom);
+		end
+	end
+	
+	-- Windows list
+	local separator2 = VFLUI.SeparatorText:new(ca, 1, 216);
+	separator2:SetPoint("TOPLEFT", lebottom, "BOTTOMLEFT", 0, 0);
+	separator2:SetText("Windows List");
 	
 	local list = VFLUI.List:new(dlg, 12, CreateWindowsListFrame);
-	list:SetPoint("TOPLEFT", separator1, "BOTTOMLEFT");
+	list:SetPoint("TOPLEFT", separator2, "BOTTOMLEFT");
 	list:SetWidth(216); list:SetHeight(150);
 	list:Rebuild(); list:Show();
 	list:SetDataSource(function(cell, data, pos)
@@ -112,19 +154,14 @@ function RDXDK.OpenDesktopTools(parent)
 		end);
 	end, VFL.ArrayLiterator(wl));
 	
-	-- Get current AUI name
 	local _, auiname = RDXDB.ParsePath(RDXU.AUI);
 	BuildWindowList(auiname);
 	list:Update();
 	
-	-- a separator.
-	local separator2 = VFLUI.SimpleText:new(ca, 1, 216);
-	separator2:SetPoint("TOPLEFT", list, "BOTTOMLEFT");
-	separator2:SetText("Window options");
-	
-	local tex2 = VFLUI.CreateTexture(separator2);
-	tex2:SetAllPoints(separator2); tex2:Show();
-	tex2:SetTexture(0,0,0.6); tex2:SetGradient("HORIZONTAL", 1,1,1,0.1,0.1,0.1);
+	-- Window option
+	local separator3 = VFLUI.SeparatorText:new(ca, 1, 216);
+	separator3:SetPoint("TOPLEFT", list, "BOTTOMLEFT");
+	separator3:SetText("Window options");
 	
 	local windowName = VFLUI.SimpleText:new(ca, 1, 216);
 	windowName:SetPoint("TOPLEFT", separator2, "BOTTOMLEFT");
@@ -185,27 +222,27 @@ function RDXDK.OpenDesktopTools(parent)
 	--ddAP:SetSelection("TOPLEFT", true);
 	--ddAP:Show();
 
-	local txtCurDock = VFLUI.CreateFontString(dlg);
-	txtCurDock:SetPoint("TOPLEFT", lblStrata, "BOTTOMLEFT", 0, -5);
-	txtCurDock:SetWidth(180); txtCurDock:SetHeight(160);
-	txtCurDock:SetJustifyV("TOP");
-	txtCurDock:SetJustifyH("LEFT");
-	txtCurDock:SetFontObject(Fonts.Default10); txtCurDock:Show();
+	--local txtCurDock = VFLUI.CreateFontString(dlg);
+	--txtCurDock:SetPoint("TOPLEFT", lblStrata, "BOTTOMLEFT", 0, -5);
+	--txtCurDock:SetWidth(180); txtCurDock:SetHeight(160);
+	--txtCurDock:SetJustifyV("TOP");
+	--txtCurDock:SetJustifyH("LEFT");
+	--txtCurDock:SetFontObject(Fonts.Default10); txtCurDock:Show();
 	
-	local function updateDockTxt(dd)
-		local str = VFLI.i18n("Tips: To undock two windows, right click on the red/yellow anchor point.\n\n");
-		str = str .. VFLI.i18n("Tips: To dock two windows, drag a anchor point and drop it to a other anchor point.\n\n");
-		str = str .. VFLI.i18n("Docks:\n");
-		if dd and dd.dock then
-			for k,v in pairs(dd.dock) do
-				str = str .. k .. ": " .. v.id .. "\n";
-			end
-		else
-			str = str .. "(none)";
-		end
-		txtCurDock:SetText(str);
-	end
-	updateDockTxt();
+	--local function updateDockTxt(dd)
+	--	local str = VFLI.i18n("Tips: To undock two windows, right click on the red/yellow anchor point.\n\n");
+	--	str = str .. VFLI.i18n("Tips: To dock two windows, drag a anchor point and drop it to a other anchor point.\n\n");
+	--	str = str .. VFLI.i18n("Docks:\n");
+	--	if dd and dd.dock then
+	--		for k,v in pairs(dd.dock) do
+	--			str = str .. k .. ": " .. v.id .. "\n";
+	--		end
+	--	else
+	--		str = str .. "(none)";
+	--	end
+	--	txtCurDock:SetText(str);
+	--end
+	--updateDockTxt();
 	
 	function dlg:_update(frameprops)
 		dlg.frameprops = frameprops;
@@ -214,12 +251,71 @@ function RDXDK.OpenDesktopTools(parent)
 		slAlpha:SetValue(frameprops.alpha, true);
 		ddStrata:SetSelection(frameprops.strata, true);
 		--ddAP:SetSelection(frameprops.ap, true);
-		updateDockTxt(frameprops);
+		--updateDockTxt(frameprops);
 	end
+	
+	-- action bar
+	local separator4 = VFLUI.SeparatorText:new(ca, 1, 216);
+	separator4:SetPoint("TOPLEFT", lblStrata, "BOTTOMLEFT");
+	separator4:SetText("ActionBars");
+	
+	-- button configure keys
+	local dfkey = nil;
+	local btndefinekey = VFLUI.OKButton:new(ca);
+	btndefinekey:SetHeight(25); btndefinekey:SetWidth(100);
+	btndefinekey:SetPoint("TOPLEFT", separator4, "BOTTOMLEFT");
+	btndefinekey:SetText(VFLI.i18n("Click to setup your keys")); btndefinekey:Show();
+	btndefinekey:SetScript("OnClick", function()
+		if not InCombatLockdown() then 
+			if dfkey then
+				btndefinekey:SetText(VFLI.i18n("Click to setup your keys"));
+				DesktopEvents:Dispatch("DESKTOP_UNLOCK");
+				DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
+				dfkey = nil;
+			else
+				btndefinekey:SetText(VFLI.i18n("Setup your keys (Click on a button)"));
+				DesktopEvents:Dispatch("DESKTOP_LOCK");
+				DesktopEvents:Dispatch("DESKTOP_UNLOCK_BINDINGS");
+				dfkey = true;
+			end
+		end
+	end);
+	
+	local chk_lockaction = VFLUI.Checkbox:new(ca); chk_lockaction:SetHeight(16); chk_lockaction:SetWidth(16);
+	chk_lockaction:SetPoint("TOPLEFT", btndefinekey, "BOTTOMLEFT");
+	if RDXDK.IsActionBindingsLocked() then chk_lockaction:SetChecked(true); else chk_lockaction:SetChecked(); end
+	chk_lockaction:SetText("Lock drag action button in combat");
+	chk_lockaction:Show();
+	chk_lockaction:SetScript("OnClick", function() RDXDK.ToggleActionBindingsLock(); end);
+	
+	-- to see if many people is really using this.
+	--local lbl_keys = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Keys definition"));
+	--lbl_keys:SetPoint("TOPLEFT", chk_lockaction, "BOTTOMLEFT"); lbl_keys:SetHeight(25);
+	--local dd_Keys = VFLUI.Dropdown:new(ca, RDXUI.DesktopStrataFunction, function(value)
+	--end);
+	--dd_Keys:SetPoint("TOPRIGHT", lbl_keys, "BOTTOMRIGHT", 0, 0); dd_Keys:SetWidth(132);
+	--dd_Keys:SetSelection(froot.keys, true);
+	--dd_Keys:Show();
+	
+	-- gametooltips
+	local separator5 = VFLUI.SeparatorText:new(ca, 1, 216);
+	separator5:SetPoint("TOPLEFT", chk_lockaction, "BOTTOMLEFT");
+	separator5:SetText("GameTooltips");
+	
+	local chk_tooltipmouse = VFLUI.Checkbox:new(ca); chk_tooltipmouse:SetHeight(16); chk_tooltipmouse:SetWidth(16);
+	chk_tooltipmouse:SetPoint("TOPLEFT", separator5, "BOTTOMLEFT");
+	if froot.tooltipmouse then chk_tooltipmouse:SetChecked(true); else chk_tooltipmouse:SetChecked(); end
+	chk_tooltipmouse:SetText(VFLI.i18n("Mouse anchor tooltip"));
+	chk_tooltipmouse:Show();
+	chk_lockaction:SetScript("OnClick", function() DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", chk_tooltipmouse:GetChecked(), froot.anchorx, froot.anchory); end);
 	
 	dlg:Show();
 	
+	DesktopEvents:Dispatch("DESKTOP_UNLOCK");
+	
 	local esch = function()
+		DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
+		DesktopEvents:Dispatch("DESKTOP_LOCK");
 		RDXPM.StoreLayout(dlg, "dktools");
 		dlg:Destroy(); dlg = nil;
 	end
@@ -246,34 +342,39 @@ function RDXDK.OpenDesktopTools(parent)
 
 	dlg.Destroy = VFL.hook(function(s)
 		s._esch = nil;
+		chk_tooltipmouse:Destroy(); chk_tooltipmouse = nil;
+		separator5:Destroy(); separator5 = nil;
+		chk_lockaction:Destroy(); chk_lockaction = nil;
+		btndefinekey:Destroy(); btndefinekey = nil;
+		separator4:Destroy(); separator4 = nil;
 		s._update = nil;
-		updateDockTxt = nil;
-		VFLUI.ReleaseRegion(txtCurDock); txtCurDock = nil;
-		--ddAP:Destroy(); ddAP = nil; 
+		--updateDockTxt = nil;
+		--VFLUI.ReleaseRegion(txtCurDock); txtCurDock = nil;
 		ddStrata:Destroy(); ddStrata = nil;
 		slAlpha:Destroy(); slAlpha = nil; edAlpha:Destroy(); edAlpha = nil;
 		slScale:Destroy(); slScale = nil; edScale:Destroy(); edScale = nil;
 		windowName:Destroy(); windowName = nil;
-		tex2:Destroy(); tex2 = nil;
-		separator2:Destroy(); separator2 = nil;
+		separator3:Destroy(); separator3 = nil;
 		list:Destroy(); list = nil;
-		tex1:Destroy(); tex1 = nil;
+		separator2:Destroy(); separator2 = nil;
+		updateViewport = nil;
+		lebottom:Destroy(); lebottom = nil;
+		leright:Destroy(); leright = nil;
+		letop:Destroy(); letop = nil;
+		leleft:Destroy(); leleft = nil;
+		chk_viewport:Destroy(); chk_viewport = nil;
 		separator1:Destroy(); separator1 = nil;
 		s.frameprops = nil;
 	end, dlg.Destroy);
 end
 
 function RDXDK.ToggleDesktopTools()
-	if dlg then
-		dlg:_esch();
-	else
-		RDXDK.OpenDesktopTools();
-	end
-end
-
-function RDXDK.CloseDesktopTools()
-	if dlg then
-		dlg:_esch();
+	if not InCombatLockdown() then
+		if dlg then
+			dlg:_esch();
+		else
+			OpenDesktopTools();
+		end
 	end
 end
 
