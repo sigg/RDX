@@ -9,9 +9,14 @@ btn:SetHeight(100); btn:SetWidth(100);
 btn:SetText(VFLI.i18n("GameTooltip"));
 btn:SetClampedToScreen(true);
 btn:SetFrameStrata("FULLSCREEN_DIALOG");
+btn:Hide();
 
 function RDXDK.SetGameTooltipLocation(mb, x, y)
 	usemouse, anchorx, anchory = mb, x, y;
+	if x and y then
+		btn:ClearAllPoints();
+		btn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", x, y);
+	end
 end
 
 -- move game tooltip
