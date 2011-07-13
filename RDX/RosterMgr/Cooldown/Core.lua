@@ -54,6 +54,9 @@ local cdauraRspell = {};
 -- Cooldown based on event resurrect
 local cdresuspell = {};
 
+-- Cooldown based on event summon
+local cdsumspell = {};
+
 ------------------------------------------
 -- Cooldown registration
 ------------------------------------------
@@ -94,6 +97,7 @@ function RDXCD.RegisterCooldown(race, boss, class, talent, spellid, duration, gr
 	elseif event ==  "SPELL_AURA_APPLIED" then cdauraAspell[spellid] = true;
 	elseif event ==  "SPELL_AURA_REMOVED" then cdauraRspell[spellid] = true;
 	elseif event ==  "SPELL_RESURRECT" then cdresuspell[spellid] = true;
+	elseif event ==  "SPELL_SUMMON" then cdsumspell[spellid] = true;
 	end
 	return true;
 end
@@ -139,6 +143,10 @@ end
 
 function RDXCD.IsResuSpell(spellid)
 	return cdresuspell[spellid];
+end
+
+function RDXCD.IsSumSpell(spellid)
+	return cdsumspell[spellid];
 end
 
 --- Reproduce an cooldown tooltip from an entry

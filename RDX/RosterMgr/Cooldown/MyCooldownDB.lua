@@ -45,6 +45,7 @@ local function ParseSpellSuccessCD(timestamp, event, sourceGUID, sourceName, sou
 end
 ]]
 
+-- load cooldown at login
 RDXEvents:Bind("INIT_SPELL", nil, function()
 	local myunit = RDXDAL.GetMyUnit();
 	local cd_used, cd_avail, cd_possi = myunit:GetCooldowns();
