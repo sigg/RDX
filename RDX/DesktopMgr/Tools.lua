@@ -79,7 +79,7 @@ local function OpenDesktopTools(parent, froot)
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 20);
 	dlg:SetTitleColor(0,.5,0);
-	dlg:SetText(VFLI.i18n("Desktop Tools: "));
+	dlg:SetText(VFLI.i18n("Desktop Manager: "));
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:Accomodate(216, 450);
 	dlg:SetClampedToScreen(true);
