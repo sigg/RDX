@@ -223,25 +223,25 @@ RDX.RegisterFeature({
 		end);
 
 		-- Make a menu for editing the unitframe type.
-		state:Attach("Menu", true, function(win, mnu)
-				table.insert(mnu, {
-					text = VFLI.i18n("Edit Design");
-					OnClick = function()
-						VFL.poptree:Release();
-						RDXDB.OpenObject(path, "Edit", VFLDIALOG);
-					end;
-				});
-		end);
+		--state:Attach("Menu", true, function(win, mnu)
+		--		table.insert(mnu, {
+		--			text = VFLI.i18n("Edit Design");
+		--			OnClick = function()
+		--				VFL.poptree:Release();
+		--				RDXDB.OpenObject(path, "Edit", VFLDIALOG);
+		--			end;
+		--		});
+		--end);
 		
-		if RDXG.cdebug then
-			state:Attach("Menu", true, function(win, mnu)
-				local x = tostring(RDXM_Debug.GetStoreCompiledObject(path) or "");
-				table.insert(mnu, {
-					text = VFLI.i18n("View Design Code");
-					OnClick = function() VFL.poptree:Release(); VFL.Debug_ShowCode(x); end;
-				});
-			end);
-		end
+		--if RDXG.cdebug then
+		--	state:Attach("Menu", true, function(win, mnu)
+		--		local x = tostring(RDXM_Debug.GetStoreCompiledObject(path) or "");
+		--		table.insert(mnu, {
+		--			text = VFLI.i18n("View Design Code");
+		--			OnClick = function() VFL.poptree:Release(); VFL.Debug_ShowCode(x); end;
+		--		});
+		--	end);
+		--end
 
 		return true;
 	end,

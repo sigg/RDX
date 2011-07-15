@@ -148,11 +148,13 @@ local function SetupWindow(path, win, desc)
 	-- Load the features.
 	state:LoadDescriptor(desc, path);
 	local _errs = VFL.Error:new();
+	
+	local feat = RDXDB.GetFeatureData(path, "Design");
+	if not feat then feat = RDXDB.GetFeatureData(path, "Assist Frames"); end
+	if not feat then VFL.TripError("RDX", VFLI.i18n("Could not build window at <") .. tostring(path) .. ">.", VFLI.i18n("The window at <") .. tostring(path) .. VFLI.i18n("> is missing a Frame type feature")); return nil; end
+	local upath = feat["design"];
+	
 	if not state:ApplyAll(_errs) then
-		local feat = RDXDB.GetFeatureData(path, "Design");
-		if not feat then feat = RDXDB.GetFeatureData(path, "Assist Frames"); end
-		if not feat then VFL.TripError("RDX", VFLI.i18n("Could not build window at <") .. tostring(path) .. ">.", VFLI.i18n("The window at <") .. tostring(path) .. VFLI.i18n("> is missing a Frame type feature")); return nil; end
-		local upath = feat["design"];
 		_errs:ToErrorHandler("RDX", VFLI.i18n("Could not build window at <") .. tostring(path) .. ">");
 		state:ResetSlots();
 		CreateErrWindow(state);
@@ -168,27 +170,28 @@ local function SetupWindow(path, win, desc)
 			-- Unbind us from the database update events
 			RDXDBEvents:Unbind(w._path .. upath);
 		end);
-		
-		-- Make a menu for editing the unitframe type.
+	end
+	
+	-- Make a menu for editing the unitframe type.
+	state:Attach("Menu", true, function(win, mnu)
+		table.insert(mnu, {
+			text = VFLI.i18n("Edit Design");
+			OnClick = function()
+				VFL.poptree:Release();
+				RDXDB.OpenObject(upath, "Edit", VFLDIALOG);
+			end;
+		});
+	end);
+	if RDXG.cdebug then
 		state:Attach("Menu", true, function(win, mnu)
+			local x = tostring(RDXM_Debug.GetStoreCompiledObject(upath) or "");
 			table.insert(mnu, {
-				text = VFLI.i18n("Edit Original Design");
-				OnClick = function()
-					VFL.poptree:Release();
-					RDXDB.OpenObject(upath, "Edit", VFLDIALOG);
-				end;
+				text = VFLI.i18n("View Design Code");
+				OnClick = function() VFL.poptree:Release(); VFL.Debug_ShowCode(x); end;
 			});
 		end);
-		if RDXG.cdebug then
-			state:Attach("Menu", true, function(win, mnu)
-				local x = tostring(RDXM_Debug.GetStoreCompiledObject(upath) or "");
-				table.insert(mnu, {
-					text = VFLI.i18n("View Original Design Code");
-					OnClick = function() VFL.poptree:Release(); VFL.Debug_ShowCode(x); end;
-				});
-			end);
-		end
 	end
+	
 	_errs = nil;
 
 	-- Sanity check; make sure there are layouts and frames
