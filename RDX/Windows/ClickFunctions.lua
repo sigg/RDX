@@ -258,11 +258,22 @@ RDX.RegisterClickAction({
 -- A SetFocus click action. (made by superraider)
 ----------------------------------------------------------------------
 RDX.RegisterClickAction({
-	name = "setFocus"; 
+	name = "focus"; 
 	title = "Set Unit Focus";
 	GetUI = VFL.Nil;
 	GetClickFunc = function() return VFL.Noop; end;
 	ApplySecureAttributes = function(desc, uf, pfx, id)
 		uf:SetAttribute(pfx .. "type" .. id, "focus")
 	end;
-}); 
+});
+
+RDX.RegisterClickAction({
+	name = "rfocus";
+	title = "Focus (macro)";
+	GetUI = VFL.Nil;
+	GetClickFunc = function(desc) return VFL.Noop; end;
+	ApplySecureAttributes = function(desc, uf, pfx, id)
+		uf:SetAttribute(pfx .. "type" .. id, "macro");
+		uf:SetAttribute(pfx .. "macrotext" .. id, "/focus");
+	end;
+});
