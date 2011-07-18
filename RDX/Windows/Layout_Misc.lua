@@ -18,7 +18,9 @@ local bor,band = bit.bor, bit.band;
 -------------------------------------------------------------------
 RDX.RegisterFeature({
 	name = "header"; version = 1;
-	title = VFLI.i18n("Header Single"); category = VFLI.i18n("Data Source and Layout");
+	deprecated = true;
+	title = VFLI.i18n("Header Single"); 
+	category = VFLI.i18n("Data Source and Layout");
 	IsPossible = function(state)
 		if not state:Slot("Frame") then return nil; end
 		if not state:Slot("SetupSubFrame") then return nil; end
