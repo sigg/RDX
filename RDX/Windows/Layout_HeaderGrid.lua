@@ -26,6 +26,7 @@ local bucketFuncs = {
 	RDXUI.GroupBucketing,
 	RDXUI.ClassBucketing,
 	RDXUI.ClassOrderBucketing,
+	RDXUI.RoleBucketing,
 };
 RDX.RegisterFeature({
 	name = "Header Grid";
@@ -365,6 +366,10 @@ RDX.RegisterFeature({
 		local btn_classSort = bkt:CreateRadioButton(ui);
 		btn_classSort:SetText(VFLI.i18n("Buckets: By class, in sort order"));
 		ui:InsertFrame(btn_classSort);
+		
+		local btn_role = bkt:CreateRadioButton(ui);
+		btn_role:SetText(VFLI.i18n("Buckets: By role"));
+		ui:InsertFrame(btn_role);
 
 		bkt:SetValue(desc.bkt or 1);
 

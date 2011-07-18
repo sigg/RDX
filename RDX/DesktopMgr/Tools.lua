@@ -155,7 +155,11 @@ local function OpenDesktopTools(parent, froot)
 	end, VFL.ArrayLiterator(wl));
 	
 	local _, auiname = RDXDB.ParsePath(RDXU.AUI);
-	BuildWindowList(auiname);
+	if RDXG.dktoolfilter then
+		BuildWindowList(auiname);
+	else
+		BuildWindowList();
+	end
 	list:Update();
 	
 	-- Window option
@@ -246,7 +250,7 @@ local function OpenDesktopTools(parent, froot)
 	
 	function dlg:_update(frameprops)
 		dlg.frameprops = frameprops;
-		windowName:SetText(frameprops.name);
+		windowName:SetText("|cFF00FF00" .. frameprops.name .. "|r");
 		slScale:SetValue(frameprops.scale, true);
 		slAlpha:SetValue(frameprops.alpha, true);
 		ddStrata:SetSelection(frameprops.strata, true);
@@ -328,13 +332,13 @@ local function OpenDesktopTools(parent, froot)
 	local listbtn = VFLUI.TexturedButton:new(dlg, 16, "Interface\\AddOns\\RDX\\Skin\\menu");
 	listbtn:SetHighlightColor(0,1,1,1);
 	listbtn:SetScript("OnClick", function()
-		if dlg.toggle then
+		if not RDXG.dktoolfilter then
 			local auipkg, auiname = RDXDB.ParsePath(RDXU.AUI);
 			BuildWindowList(auiname);
-			dlg.toggle = nil
+			RDXG.dktoolfilter = true
 		else
 			BuildWindowList();
-			dlg.toggle = true;
+			RDXG.dktoolfilter = nil;
 		end
 		list:Update();
 	end);

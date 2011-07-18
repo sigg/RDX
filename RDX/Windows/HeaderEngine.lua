@@ -481,6 +481,13 @@ local function groupBucket(_, uid, unit)
 end
 function RDXUI.GroupBucketing() return groupBucket; end
 
+local function roleBucket(_, uid, unit)
+	if not unit then return 4; end
+	local g = unit:GetRoleType();
+	if g == 0 then return 4; else return g; end
+end
+function RDXUI.RoleBucketing() return roleBucket; end
+
 ---------------------------------------------------------------------
 -- HEADER EDITOR
 -- An interface for editing header descriptors.
@@ -497,7 +504,7 @@ function RDXUI.HeaderEditor:new(parent)
 	local driver_NSet = driver:CreateRadioButton(ui);
 	driver_NSet:SetText(VFLI.i18n("Use nominative set:"));
 	local driver_GC = driver:CreateRadioButton(ui);
-	driver_GC:SetText(VFLI.i18n("Use group/class filter:"));
+	driver_GC:SetText(VFLI.i18n("Use group/class/role filter:"));
 	driver:SetValue(2);
 
 	-- Group/class section
@@ -625,6 +632,9 @@ function RDXUI.ApplyHeaderDescriptor(hdr, hdef)
 	elseif hdef.groupType == 3 then
 		hdr:SetAttribute("groupingOrder", "1,2,3,4,5,6,7,8");
 		hdr:SetAttribute("groupBy", "GROUP");
+	elseif hdef.groupType == 4 then
+		hdr:SetAttribute("groupingOrder", "TANK,DAMAGER,HEALER");
+		hdr:SetAttribute("groupBy", "ROLE");
 	else
 		-- No grouping
 		hdr:SetAttribute("groupBy", nil);
@@ -641,6 +651,9 @@ function RDXUI.ApplyHeaderDescriptor(hdr, hdef)
 		end
 		if hdef.classes then
 			for i=1,10 do if hdef.classes[i] then gf = gf .. RDXMD.GetClassMnemonic(i) .. ","; end end
+		end
+		if hdef.roles then
+			for i=1,3 do if hdef.roles[i] then gf = gf .. i .. ","; end end
 		end
 		hdr:SetAttribute("groupFilter", gf);
 	end
