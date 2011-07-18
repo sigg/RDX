@@ -1525,12 +1525,12 @@ local function ProcessAuraQueue()
 		debuffFlag, buffFlag = ubi[un]:ProcessAuras();
 		auraq[un] = nil;
 		iaura = iaura + 1;
-		if buffFlag then
+		--if buffFlag then
 			_sig_rdx_buff_star:Raise(ubi[un], un, 1);
-		end
-		if debuffFlag then 
+		--end
+		--if debuffFlag then 
 			_sig_rdx_debuff_star:Raise(ubi[un], un, 1);
-		end
+		--end
 	end
 	if batchTrig then RDXDAL.EndEventBatch(); end
 end

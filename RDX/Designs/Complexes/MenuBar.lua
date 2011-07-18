@@ -7,7 +7,6 @@
 
 local function _EmitCreateCode(objname, desc)
 	desc.nIcons = #RDX.BlizzardMicroButtons;
-	desc.rows = 1;
 	local createCode = [[
 frame.]] .. objname .. [[ = {};
 local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
@@ -107,6 +106,11 @@ frame.]] .. objname .. [[ = nil;
 		er:EmbedChild(dd_orientation); er:Show();
 		ui:InsertFrame(er);
 		
+		local ed_rows = VFLUI.LabeledEdit:new(ui, 50); ed_rows:Show();
+		ed_rows:SetText(VFLI.i18n("Row size"));
+		if desc and desc.rows then ed_rows.editBox:SetText(desc.rows); end
+		ui:InsertFrame(ed_rows);
+		
 		local ed_iconspx = VFLUI.LabeledEdit:new(ui, 50); ed_iconspx:Show();
 		ed_iconspx:SetText(VFLI.i18n("Action Bar Buttons spacing width"));
 		if desc and desc.iconspx then ed_iconspx.editBox:SetText(desc.iconspx); else ed_iconspx.editBox:SetText("0"); end
@@ -117,12 +121,14 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.iconspy then ed_iconspy.editBox:SetText(desc.iconspy); else ed_iconspy.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspy);
 		
+		
 		function ui:GetDescriptor()
 			return { 
 				feature = "menubar"; version = 1;
 				name = "mbar";
 				owner = owner:GetSelection();
 				anchor = anchor:GetAnchorInfo();
+				rows = VFL.clamp(ed_rows.editBox:GetNumber(), 1, 40);
 				orientation = dd_orientation:GetSelection();
 				iconspx = VFL.clamp(ed_iconspx.editBox:GetNumber(), -10, 200);
 				iconspy = VFL.clamp(ed_iconspy.editBox:GetNumber(), -25, 200);
@@ -136,7 +142,7 @@ frame.]] .. objname .. [[ = nil;
 			feature = "menubar"; version = 1; 
 			name = "mbar"; owner = "decor";
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
-			orientation = "RIGHT"; iconspx = -2; iconspy = 0;
+			rows = 1; orientation = "RIGHT"; iconspx = -2; iconspy = 0;
 		};
 	end;
 });

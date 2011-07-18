@@ -172,13 +172,23 @@ RDX.RegisterFeature({
 		local md = RDXDB.GetObjectData(winpath);
 		local auracache = "false"; if md and RDXDB.HasFeature(md.data, "AuraCache") then auracache = "true"; end
 		
+		state:Attach(state:Slot("EmitClosure"), true, function(code)
+			code:AppendCode([[
+local ]] .. desc.name .. [[_av_color = {};
+]] .. desc.name .. [[_av_color[1] = ]] .. Serialize(desc.color0) .. [[;
+]] .. desc.name .. [[_av_color[2] = ]] .. Serialize(desc.color1) .. [[;
+]] .. desc.name .. [[_av_color[3] = ]] .. Serialize(desc.color2) .. [[;
+]] .. desc.name .. [[_av_color[4] = ]] .. Serialize(desc.color3) .. [[;
+]]);
+		end);
+		
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
 local ]] .. desc.name .. [[_possible, ]] .. desc.name .. [[_stack, ]] .. desc.name .. [[_icon , ]] .. desc.name .. [[_aura_start, ]] .. desc.name .. [[_aura_duration, ]] .. desc.name .. [[_caster, ]] .. desc.name .. [[_timeleft = ]] .. loadCode .. [[(uid, ]] .. tcd .. [[, ]] .. auracache .. [[, ]] .. playerauras .. [[, ]] .. othersauras .. [[, ]] .. petauras .. [[, ]] .. targetauras .. [[, ]] .. focusauras .. [[);
 local ]] .. desc.name .. [[_aura_name = "";
 local ]] .. desc.name .. [[_aura_stack = 0;
 local ]] .. desc.name .. [[_aura_caster = "";
-local ]] .. desc.name .. [[_color = ]] .. Serialize(desc.color0) .. [[;
+local ]] .. desc.name .. [[_color = ]] .. desc.name .. [[_av_color[1];
 if not ]] .. reverse .. [[ then
 	]] .. desc.name .. [[_possible = not ]] .. desc.name .. [[_possible;
 end
@@ -201,15 +211,15 @@ end
 if ]] .. desc.name .. [[_timeleft then ]] .. desc.name .. [[_time = strformat("%0.f",]] .. desc.name .. [[_timeleft); end
 if not ]] .. desc.name .. [[_timeleft then ]] .. desc.name .. [[_timeleft = 0; end
 if ]] .. desc.name .. [[_timeleft < ]] .. desc.timer1 .. [[ and ]] .. desc.name .. [[_timeleft > 0 then
-	]] .. desc.name .. [[_color = ]] .. Serialize(desc.color1) .. [[;
+	]] .. desc.name .. [[_color = ]] .. desc.name .. [[_av_color[2];
 elseif (]] .. desc.name .. [[_timeleft < ]] .. desc.timer2 .. [[ and ]] .. desc.name .. [[_timeleft >= ]] .. desc.timer1 .. [[) then
-	]] .. desc.name .. [[_color = ]] .. Serialize(desc.color2) .. [[;
+	]] .. desc.name .. [[_color = ]] .. desc.name .. [[_av_color[3];
 elseif ]] .. desc.name .. [[_timeleft > ]] .. desc.timer2 .. [[ then
-	]] .. desc.name .. [[_color = ]] .. Serialize(desc.color3) .. [[;
+	]] .. desc.name .. [[_color = ]] .. desc.name .. [[_av_color[4];
 elseif ]] .. desc.name .. [[_timeleft == 0 then
-	]] .. desc.name .. [[_color =  ]] .. Serialize(desc.color0) .. [[;
+	]] .. desc.name .. [[_color =  ]] .. desc.name .. [[_av_color[1];
 else
-	]] .. desc.name .. [[_color =  ]] .. Serialize(desc.color0) .. [[; 
+	]] .. desc.name .. [[_color =  ]] .. desc.name .. [[_av_color[1];
 end
 
 ]]);
@@ -364,14 +374,12 @@ end
 	end;
 	CreateDescriptor = function()
 		return { feature = "Variables: Buffs Debuffs Info"; 
-		name = "aurai"; auraType = "BUFFS"; 
-		
-		timer1 = "0"; timer2 = "0"; --timer3 = "0";
-		color0 = {r=0,g=0,b=0,a=0}; 
-		color1 = {r=1,g=1,b=1,a=1}; 
-		color2 = {r=1,g=1,b=1,a=1}; 
-		color3 = {r=1,g=1,b=1,a=1};
-		
+			name = "aurai"; auraType = "BUFFS"; 
+			timer1 = "0"; timer2 = "0"; --timer3 = "0";
+			color0 = {r=0,g=0,b=0,a=0}; 
+			color1 = {r=1,g=1,b=1,a=1}; 
+			color2 = {r=1,g=1,b=1,a=1}; 
+			color3 = {r=1,g=1,b=1,a=1};
 		};
 	end;
 });
