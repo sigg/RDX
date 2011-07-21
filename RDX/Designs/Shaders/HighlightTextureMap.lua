@@ -208,7 +208,8 @@ RDX.RegisterFeature({
 		if not state:Slot("Texture_" .. desc.owner) then
 			VFL.AddError(errs, VFLI.i18n("Invalid Texture")); return nil;
 		end
-		if (not desc.flag) or (not state:Slot("BoolVar_" .. desc.flag)) then
+		if not desc.flag then desc.flag = "true"; end
+		if not (desc.flag == "true" or desc.flag == "false" or state:Slot("BoolVar_" .. desc.flag)) then
 			VFL.AddError(errs, VFLI.i18n("Invalid condition")); return nil;
 		end
 		return true;
