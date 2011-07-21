@@ -250,7 +250,7 @@ local function OpenDesktopTools(parent, froot)
 	
 	function dlg:_update(frameprops)
 		dlg.frameprops = frameprops;
-		windowName:SetText("|cFF00FF00" .. frameprops.name .. "|r");
+		windowName:SetText("|cFF00FF00" .. frameprops.name .. " is selected!|r");
 		slScale:SetValue(frameprops.scale, true);
 		slAlpha:SetValue(frameprops.alpha, true);
 		ddStrata:SetSelection(frameprops.strata, true);
