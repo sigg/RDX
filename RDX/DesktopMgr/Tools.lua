@@ -155,7 +155,7 @@ local function OpenDesktopTools(parent, froot)
 	end, VFL.ArrayLiterator(wl));
 	
 	local _, auiname = RDXDB.ParsePath(RDXU.AUI);
-	if RDXG.dktoolfilter then
+	if not RDXG.dktoolnofilter then
 		BuildWindowList(auiname);
 	else
 		BuildWindowList();
@@ -332,13 +332,13 @@ local function OpenDesktopTools(parent, froot)
 	local listbtn = VFLUI.TexturedButton:new(dlg, 16, "Interface\\AddOns\\RDX\\Skin\\menu");
 	listbtn:SetHighlightColor(0,1,1,1);
 	listbtn:SetScript("OnClick", function()
-		if not RDXG.dktoolfilter then
+		if not RDXG.dktoolnofilter then
+			BuildWindowList();
+			RDXG.dktoolnofilter = true;
+		else
 			local auipkg, auiname = RDXDB.ParsePath(RDXU.AUI);
 			BuildWindowList(auiname);
-			RDXG.dktoolfilter = true
-		else
-			BuildWindowList();
-			RDXG.dktoolfilter = nil;
+			RDXG.dktoolnofilter = nil;
 		end
 		list:Update();
 	end);
