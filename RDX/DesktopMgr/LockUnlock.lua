@@ -46,7 +46,6 @@ local function OpenDockDialog(frameprops, point)
 	local esch = function()
 		--dlg:Hide(.2, true);
 		--VFLT.ZMSchedule(.25, function()
-			RDXPM.StoreLayout(dlg, "rdx_settings");
 			dlg:Destroy(); dlg = nil;
 		--end);
 	end

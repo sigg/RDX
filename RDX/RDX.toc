@@ -130,6 +130,7 @@ IdeEditor\Debug\CompilerCache.lua
 # Desktops (RDXDK)
 DesktopMgr\Obj_Desktop.lua
 DesktopMgr\Docks.lua
+DesktopMgr\DocksHelper.lua
 DesktopMgr\ManagedFrame.lua
 DesktopMgr\FrameProps.lua
 DesktopMgr\Obj_DUI.lua
