@@ -85,12 +85,16 @@ local function DockingDragStart(btn)
 	DockingDragContext:Drag(btn, proxy);
 end
 
-local function DockingDropOn(target, proxy, _, context)
-	local offset = nil;
-	if IsShiftKeyDown() then
-		offset = true;
+local function DockingDropOn(target, proxy, source, context)
+	if target == source then
+		RDXDK.OpenDockHelper();
+	else
+		local offset = nil;
+		if IsShiftKeyDown() then
+			offset = true;
+		end
+		DesktopEvents:Dispatch("WINDOW_DOCK", proxy.data, proxy.point, target.data, target.point, offset);
 	end
-	DesktopEvents:Dispatch("WINDOW_DOCK", proxy.data, proxy.point, target.data, target.point, offset);
 end
 
 VFLUI.CreateFramePool("ButtonLayout",
@@ -134,8 +138,6 @@ function(_, f) -- onacquire
 		end
 	end);
 end);
-
-
 
 
 function RDXDK.AddUnlockOverlay(frame, frameprops)

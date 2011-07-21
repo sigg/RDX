@@ -14,7 +14,7 @@
 VFLUI.DragContext = {};
 
 --- Create a new drag context.
-function VFLUI.DragContext:new()
+function VFLUI.DragContext:new(OnMiss)
    local self = {};
 
    local targets, dragging, dragRoot, over = {}, nil, nil, nil;
@@ -46,6 +46,8 @@ function VFLUI.DragContext:new()
       if over then
          if(over.OnDragLeave) then over:OnDragLeave(self); end
          if(over.OnDrop) then over:OnDrop(dragging, dragRoot, self); end
+      else
+      	 if OnMiss then OnMiss(); end
       end
 
       -- Clear dragging handlers
