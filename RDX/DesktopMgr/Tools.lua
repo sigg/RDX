@@ -255,7 +255,7 @@ local function OpenDesktopTools(parent, froot)
 		if not lblScale:IsShown() then
 			lblScale:Show(); edScale:Show(); slScale:Show();
 			lblAlpha:Show(); edAlpha:Show(); slAlpha:Show();
-			lblStrata:Show(); ddStrata:HidShowe();
+			lblStrata:Show(); ddStrata:Show();
 		end
 		slScale:SetValue(frameprops.scale, true);
 		slAlpha:SetValue(frameprops.alpha, true);
@@ -264,7 +264,7 @@ local function OpenDesktopTools(parent, froot)
 	
 	-- action bar
 	local separator4 = VFLUI.SeparatorText:new(ca, 1, 216);
-	separator4:SetPoint("TOPLEFT", lblStrata, "BOTTOMLEFT", 0, -5);
+	separator4:SetPoint("TOPLEFT", separator3, "BOTTOMLEFT", 0, -95);
 	separator4:SetText("ActionBars"); separator4:Show();
 	
 	-- button configure keys

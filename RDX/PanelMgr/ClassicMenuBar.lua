@@ -28,8 +28,8 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.hasArrow = true;
 	ent.keepShownOnClick = false;
 	ent.menuList = {
-		{ text = VFLI.i18n("Tutorial RDX"), notCheckable = true, keepShownOnClick = false, func = function() RDX.NewLearnWizard(); end; }
-		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleObjectBrowser }
+		{ text = VFLI.i18n("Tutorial RDX"), notCheckable = true, keepShownOnClick = false, func = function() RDX.NewLearnWizard(); end },
+		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleObjectBrowser },
 	};
 end);
 
