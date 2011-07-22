@@ -91,6 +91,13 @@ function RDXDB.PackageMetadataDialog(pkg, parent)
 	if RDXDB.GetPackageMetadata(pkg, "infoRunAutoexec") then chk_runautoexec:SetChecked(true); else chk_runautoexec:SetChecked(); end
 	chk_runautoexec:Show();
 	
+	local chk_iscommon = VFLUI.Checkbox:new(dlg);
+	chk_iscommon:SetPoint("TOPLEFT", chk_runautoexec, "BOTTOMLEFT");
+	chk_iscommon:SetHeight(25); chk_iscommon:SetWidth(250);
+	chk_iscommon:SetText("Package is common");
+	if RDXDB.GetPackageMetadata(pkg, "infoIsCommon") then chk_iscommon:SetChecked(true); else chk_iscommon:SetChecked(); end
+	chk_iscommon:Show();
+	
 	dlg:Show();
 	--dlg:Show(.2, true);
 	
@@ -123,6 +130,7 @@ function RDXDB.PackageMetadataDialog(pkg, parent)
 		RDXDB.SetPackageMetadata(pkg, "infoIsImmutable", chk_isimmutable:GetChecked());
 		RDXDB.SetPackageMetadata(pkg, "infoIsIndelible", chk_isindelible:GetChecked());
 		RDXDB.SetPackageMetadata(pkg, "infoRunAutoexec", chk_runautoexec:GetChecked());
+		RDXDB.SetPackageMetadata(pkg, "infoIsCommon", chk_iscommon:GetChecked());
 		VFL.EscapeTo(esch);
 	end);
 
@@ -138,6 +146,7 @@ function RDXDB.PackageMetadataDialog(pkg, parent)
 		chk_isimmutable:Destroy(); chk_isimmutable = nil;
 		chk_isindelible:Destroy(); chk_isindelible = nil;
 		chk_runautoexec:Destroy(); chk_runautoexec = nil;
+		chk_iscommon:Destroy(); chk_iscommon = nil;
 		btnOK:Destroy(); btnOK = nil;
 	end, dlg.Destroy);
 end

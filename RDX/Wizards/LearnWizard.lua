@@ -2,579 +2,222 @@
 -- OpenRDX
 --
 
--- English text.
-local title_text = {};
-title_text[1] = "Welcome";
-title_text[2] = "Main Menu";
-title_text[3] = "Blizzard UI";
-title_text[4] = "Windows";
-title_text[5] = "KeyBindings";
-title_text[6] = "MouseBindings";
-title_text[7] = "Chatframes";
-title_text[8] = "RDX Theme UI";
-title_text[9] = "Done";
+local page_default = {};
 
-local content_text = {};
+local page_id = 0;
+local function GetNextPageId()
+	page_id = page_id + 1;
+	return page_id;
+end
 
-content_text[1] = [[
-This is the first time you are using RDX, this quick tutorial will help you to learn how to use RDX.
-You can close this tutorial at any time.
-Go to the menu Settings to reopen this tutorial.
+page_default[GetNextPageId()] = {
+	title = "Welcome";
+	txt = [[
+Welcome to RDX.
 
-The tutorial will explain the following topics:
-- Main Menu
-- Blizzard UI
-- Windows Desktop
-- KeyBindings
-- MouseBindings
-- ChatFrames
-- RDX Theme UI
+For more informations, tutorials, communities, visit us at:
+http://www.wowrdx.com
+
+Sigg / Rashgarroth FR
+Siggounet / Galakrond US
+
+Email:
+sigg@wowrdx.com
+
+Click on the button Next to start the tutorial.
 ]];
+};
 
-content_text[2] = [[
-The main menu is located on the top of your screen.
+page_default[GetNextPageId()] = {
+	title = "Classic Menu";
+	txt = [[
+The small RDX icon in the center of your screen is the classic menu.
+Move it with the key shift and the mouse.
+
+The classic menu contains some quick links to handle your UI.
+You can also show/hide the main menu which contains more options.
+
+Right click on the classic menu to edit your current Theme.
+]];
+};
+
+page_default[GetNextPageId()] = {
+	title = "Main Menu";
+	txt = [[
+Click on the classic menu, visibility and show Main Menu.
+The Main Menu is located on the top of your screen. 
 Solo, Multi, UI, Repo, Settings
-Move your mouse on the main menu.
 
-You should also see a small RDX icon in the center of the screen. This is the quick menu.
-You can move it with the key shift. Using the quick menu, you can hide the main menu.
-]];
-
-content_text[3] = [[
-You can customize the main menu.
+You can customize the main menu:
 Click on the menu Settings and select RDX Settings.
 You can disable the animation of the main menu, check the box Always show main panel.
 You can change the icon texture here. Click on the disk to save when finish.
 ]];
+};
 
-content_text[4] = [[
+page_default[GetNextPageId()] = {
+	title = "Blizzard UI";
+	txt = [[
 All the Blizzard UI elements are hidden by default
-If you wish to display some elements, Click on the menu UI and select Blizzard Frame Manager.
+If you wish to display some elements, Click on the Main Menu UI and select Blizzard Frame Manager.
 Uncheck the components you wish to display.
 Your UI will be reload.
 ]];
+};
 
-content_text[5] = [[
-Your UI is working like your Windows 7 desktop. You can open or you can close some windows on your UI.
-A player frame is a window, a minimap is a window, a window could be complexe, with a chatframe, some actionsbar etc ...
-
-Let's open some windows on your desktop. Click on the menu UI, select windows and windows list.
-
-The windows list contains all the available windows from your repository.
-Open the window WoWRDX:Player_Main
-Open more windows if you wish.
-
-By default, windows are located in the center of your UI.
-You can close windows by clicking again in the windows list.
+page_default[GetNextPageId()] = {
+	title = "Theme";
+	txt = [[
+RDX 8.1.1 contains 10 themes AUI.
+To select a theme, click on the Classic Menu, theme the submenu Themes.
+Your current theme will be closed (all your modifications are saved), the new theme will be open.
 ]];
+};
 
-content_text[6] = [[
-To move a window, you need to switch in UI edit mode. Right click on the main menu UI.
+page_default[GetNextPageId()] = {
+	title = "Theme states";
+	txt = [[
+Each theme come with 5 predefined desktop.
+SOLO, PARTY, RAID, ARENA, PVP.
 
-All windows show a blue panel. You can drag them everywhere on your UI.
+Your desktop will automatically switch depend of your current situation.
 
-Right click again on the main menu UI to leave the edit mode.
+Click on the Classic Menu, Theme States and select the state you want.
+
+Select Auto, if you want your theme to automatic switch.
 ]];
+};
 
-content_text[7] = [[
-You can define the scale, the alpha and the stratum for each window.
+page_default[GetNextPageId()] = {
+	name = "desktop_manager";
+	title = "Desktop Manager";
+	txt = [[
+Right click on the Classic Menu to open the desktop manager and to activate the UI edit mode.
 
-Switch in UI edit mode.
-Right click the blue panel of a window and select Layout.
+Using the Desktop Manager, you can:
+Modify the viewport
+Open/Close some windows
+Manage the properties of a window
+Manage your keys bindings
+Manage your Gametooltip
 
-A panel option appears and let you modify the window.
+Right click again on the Classic Menu to leave the UI edit mode.
 ]];
+};
 
-content_text[8] = [[
-You can dock two windows together. So when you move one windows, it will move all.
+page_default[GetNextPageId()] = {
+	title = "Windows List";
+	txt = [[
+You can open/close some windows on your UI.
+A player frame is a window, a minimap is a window, each UI element is a window.
 
-Switch in UI edit mode.
-Drag and drop a anchor point from one window to a anchor point of a second windows.
-Both points will be colored in red.
-Drag them again.
+The windows list contains all the available windows of your current theme.
 
-Tip: By default, one of the window become the parent window and it appears as purple.
-Tip: You can dock a window to a anchor points of your UI.
+You can move them everywhere on your UI.
 ]];
+};
 
-content_text[9] = [[
-By default, key bindings are link to Blizzard Action bar. It is important that you configure your key bindings with RDX Action bar.
+page_default[GetNextPageId()] = {
+	title = "Window properties";
+	txt = [[
+You can define the scale, the alpha and the stratum of each window.
+Select a window, the desktop manager will show the options to modify it.
 
-Use the windows list to open the windows WoWRDX:Actionbar_1, WoWRDX:Actionbar_3, WoWRDX:Actionbar_4,  WoWRDX:Actionbar_5 and WoWRDX:Actionbar_6.
-Click on the menu UI, Locking, Lock/Unlock KeyBindings.
+]];
+};
+
+page_default[GetNextPageId()] = {
+	name = "docking_windows";
+	title = "Docking windows";
+	txt = [[
+To undock two windows: Right click on a red/yellow anchor point.
+To dock two windows: Drag a anchor point of the first window and drop it on the anchor point of the second window.
+You can also dock a window to the parent UI, but you will not be able to move this window anymore.
+Tip: By default, one of the window become the parent window and it appears as purple color.
+
+Click on a existing dock to define the offset between two windows.
+]];
+};
+
+page_default[GetNextPageId()] = {
+	title = "Key bindings";
+	txt = [[
+Click on the button Setup your KeyBindings of the desktop manager.
 In your action bars, you should see some numbers. Click on the button number to set the key bindings.
-When you have finish, Lock your KeyBindings
+When you have finish, Click back on the desktop manager.
 ]];
+};
 
-content_text[10] = [[
+page_default[GetNextPageId()] = {
+	title = "Mouse bindings";
+	txt = [[
 You can define your mouse bindings for each window.
 For example, left click will heal the unit, right click set the focus.
 Switch in UI edit mode.
 Right click on a window and select Edit Bindings.
-Some windows have many clickable field, so you will have many Edit Bindings.
 ]];
+};
 
-content_text[11] = [[
-The layout engine of RDX is quite similar to the Blizard Chat layout engine.
-Position, docking, alpha size of windows.
-But RDX do not manage Tab for the moment. This feature may be added in the next major release.
-
+page_default[GetNextPageId()] = {
+	title = "Chatframes";
+	txt = [[
 It is possible that you have some strange behaviours with chatframes, after installing RDX.
-Go to the menu Settings, Debugging and click on Reset Chatframes link.
+Go to the menu Settings (Main Menu), Debugging and click on Reset Chatframes.
 Your UI will be reloaded.
 ]];
+};
 
+page_default[GetNextPageId()] = {
+	title = "Tutorial End";
+	txt = [[
+Thanks you
 
-content_text[12] = [[
-By default, you are customizing the theme AUI link to your character.
-You can load some predefined theme.
-Click on the menu UI, Theme AUI and select the theme you wish to load.
-
-More AUIs are available on WoWInterface at this link:
-http://www.wowinterface.com/downloads/cat117.html
-]];
-
-content_text[13] = [[
-Each theme come with 10 predefined desktop.
-SOLO, PARTY, RAID, ARENA, PVP and smae with the second spec.
-
-Click on the menu UI, States, and select the state you want.
-You can also enable the automatic state switch.
-]];
-
-content_text[14] = [[
-The tutorial is done.
-You have finished to learn basic usage of RDX.
-
-Now for more informations, tutorials, communities, visit us at:
-http://www.wowrdx.com
-
-Sigg email:
-sigg@wowrdx.com
-
-Enjoy your new user interface.
+We hope you will enjoy RDX.
 
 Cheers
 The RDX Team.
 ]];
+};
 
-if GetLocale() == "frFR" and VFL.titlefrFR and VFL.contentfrFR then
-	title_text = VFL.titlefrFR;
-	content_text = VFL.contentfrFR;
-elseif GetLocale() == "deDE" and VFL.titledeDE and VFL.contentdeDE then
-	title_text = VFL.titledeDE;
-	content_text = VFL.contentdeDE;
+if GetLocale() == "frFR" and VFL.pagefrFR then
+	page_default = VFL.pagefrFR;
+elseif GetLocale() == "deDE" and VFL.pagedeDE and VFL.contentdeDE then
+	page_default = VFL.pagedeDE;
 end
 
-local maxpage = 14;
+local maxpage = #page_default;
 
 local ww = RDXUI.Wizard:new();
 
----------------------------------------------
--- Pg 1: Welcome
----------------------------------------------
-ww:RegisterPage(1, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[1]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[1], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(150);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local chk_hideLW = VFLUI.Checkbox:new(page); chk_hideLW:Show();
-		chk_hideLW:SetHeight(20); chk_hideLW:SetWidth(200);
-		chk_hideLW:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT", 0, -20);
-		chk_hideLW:SetText("Not show this guide at startup.");
-		if RDXG and RDXG.hideLW then chk_hideLW:SetChecked(true); else chk_hideLW:SetChecked(); end
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "1/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-
-		function page:GetDescriptor()
-			if RDXG then RDXG.hideLW = chk_hideLW:GetChecked(); end
-			return {};
-		end
-		
-		RDXG.learnNum = 1;
-
-		page.Destroy = VFL.hook(function(s)
-			chk_hideLW:Destroy();
-		end, page.Destroy);
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(2); end);
-		wizard:Final();
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		return true;
-	end;
-});
-
-ww:RegisterPage(2, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[2]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[2], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(160);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "2/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		RDXG.learnNum = 2;
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(3); end);
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		return true;
-	end;
-});
-
-ww:RegisterPage(3, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[2]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[3], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(160);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "3/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		RDXG.learnNum = 3;
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(4); end);
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		--if not RDXPM.IsRDXManageOpen() then errs:AddError("Panel RDX Settings is not open."); end
-		return not errs:HasError();
-	end;
-});
-
-ww:RegisterPage(4, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[3]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[4], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(160);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "4/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		RDXG.learnNum = 4;
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(5); end);
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		--if RDXPM.IsRDXManageOpen() then errs:AddError("Panel RDX Settings is still open."); end
-		return not errs:HasError();
-	end;
-});
-
-ww:RegisterPage(5, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[4]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[5], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(190);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "5/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		RDXG.learnNum = 5;
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(6); end);
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		--if not RDXDK.IsBlizzardManageOpen() then errs:AddError("Panel Blizzard UI Element is not open."); end
-		return not errs:HasError();
-	end;
-});
-
-ww:RegisterPage(6, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[4]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[6], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(160);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "6/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		RDXG.learnNum = 6;
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(7); end);
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		--if RDXDK.IsBlizzardManageOpen() then errs:AddError("Panel Blizzard UI Element is still open."); end
-		return not errs:HasError();
-	end;
-});
-
-ww:RegisterPage(7, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[4]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[7], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(160);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "7/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		RDXG.learnNum = 7;
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(8); end);
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		--if RDXDK.IsBlizzardManageOpen() then errs:AddError("Panel Blizzard UI Element is still open."); end
-		return not errs:HasError();
-	end;
-});
-
-ww:RegisterPage(8, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[4]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[8], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(160);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "8/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		RDXG.learnNum = 8;
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(9); end);
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		--if RDXDK.IsBlizzardManageOpen() then errs:AddError("Panel Blizzard UI Element is still open."); end
-		return not errs:HasError();
-	end;
-});
-
-ww:RegisterPage(9, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[5]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[9], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(160);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "9/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		RDXG.learnNum = 9;
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(10); end);
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		--if RDXDK.IsBlizzardManageOpen() then errs:AddError("Panel Blizzard UI Element is still open."); end
-		return not errs:HasError();
-	end;
-});
-
-ww:RegisterPage(10, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[6]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[10], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(160);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "10/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		RDXG.learnNum = 10;
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(11); end);
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		--if RDXDK.IsBlizzardManageOpen() then errs:AddError("Panel Blizzard UI Element is still open."); end
-		return not errs:HasError();
-	end;
-});
-
-ww:RegisterPage(11, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[7]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[11], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(160);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "11/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		RDXG.learnNum = 11;
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(12); end);
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		--if RDXDK.IsBlizzardManageOpen() then errs:AddError("Panel Blizzard UI Element is still open."); end
-		return not errs:HasError();
-	end;
-});
-
-ww:RegisterPage(12, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[8]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[12], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(160);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "12/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		RDXG.learnNum = 12;
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(13); end);
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		--if RDXDK.IsBlizzardManageOpen() then errs:AddError("Panel Blizzard UI Element is still open."); end
-		return not errs:HasError();
-	end;
-});
-
-ww:RegisterPage(13, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[8]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[13], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(160);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "13/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		RDXG.learnNum = 1;
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		wizard:OnNext(function(wiz) wiz:SetPage(14); end);
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		--if RDXDK.IsBlizzardManageOpen() then errs:AddError("Panel Blizzard UI Element is still open."); end
-		return not errs:HasError();
-	end;
-});
-
-ww:RegisterPage(14, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, title_text[9]);
-		
-		local lbl = VFLUI.MakeLabel(nil, page, content_text[14], "LEFT", "TOP");
-		lbl:SetWidth(250); lbl:SetHeight(160);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		
-		local lb2 = VFLUI.MakeLabel(nil, page, "14/"..maxpage, "CENTER", "CENTER");
-		lb2:SetWidth(250); lb2:SetHeight(10);
-		lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-		
-		RDXG.learnNum = 1;
-		
-		function page:GetDescriptor()
-			return {};
-		end
-		
-		--wizard:OnNext(function(wiz) wiz:SetPage(13); end);
-		wizard:Final();
-		
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		--if RDXDK.IsBlizzardManageOpen() then errs:AddError("Panel Blizzard UI Element is still open."); end
-		return not errs:HasError();
-	end;
-});
+for i,v in ipairs(page_default) do
+	ww:RegisterPage(i, {
+		OpenPage = function(parent, wizard, desc)
+			local page = RDXUI.GenerateStdWizardPage(parent, v.title);
+			
+			local lbl = VFLUI.MakeLabel(nil, page, v.txt, "LEFT", "TOP");
+			lbl:SetWidth(250); lbl:SetHeight(150);
+			lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+			
+			local lb2 = VFLUI.MakeLabel(nil, page, i .."/"..maxpage, "CENTER", "CENTER");
+			lb2:SetWidth(250); lb2:SetHeight(10);
+			lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
+			
+			function page:GetDescriptor()
+				return {};
+			end
+			
+			RDXG.learnNum = i;
+			
+			wizard:OnNext(function(wiz) wiz:SetPage(i + 1); end);
+			wizard:Final();
+			
+			return page;
+		end;
+		Verify = function(desc, wizard, errs)
+			return true;
+		end;
+	});
+end
 
 function ww:OnOK()
 	--VFL.print("OnOK");
@@ -584,6 +227,15 @@ ww.title = "Learn RDX Wizard";
 RDX.learnWizard = ww;
 
 function RDX.NewLearnWizard(num)
+	RDX.learnWizard:SetDescriptor({});
+	RDX.learnWizard:Open(VFLDIALOG, num);
+end
+
+function RDX.NewLearnWizardName(name)
+	local num = 1;
+	for i,v in ipairs(page_default) do
+		if v.name == name then num = i; end
+	end
 	RDX.learnWizard:SetDescriptor({});
 	RDX.learnWizard:Open(VFLDIALOG, num);
 end

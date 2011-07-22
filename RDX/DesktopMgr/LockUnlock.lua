@@ -86,7 +86,7 @@ end
 
 local function DockingDropOn(target, proxy, source, context)
 	if target == source then
-		RDXDK.OpenDockHelper();
+		RDX.NewLearnWizardName("docking_windows");
 	else
 		local offset = nil;
 		if IsShiftKeyDown() then

@@ -13,7 +13,7 @@ local function BuildWindowList(pkgfilter)
 	VFL.empty(wl);
 	local desc = nil;
 	for pkg,data in pairs(RDXData) do
-		if not pkgfilter or pkg == pkgfilter or pkg == "WoWRDX" or pkg == "default" then
+		if not pkgfilter or pkg == pkgfilter or RDXDB.IsCommonPackage(pkg) then
 			for file,md in pairs(data) do
 				if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "Window$") then
 					local hide = RDXDB.HasFeature(md.data, "WindowListHide");
@@ -80,7 +80,7 @@ local function OpenDesktopTools(parent, froot)
 	VFLUI.Window.SetDefaultFraming(dlg, 20);
 	dlg:SetTitleColor(0,.5,0);
 	dlg:SetText(VFLI.i18n("Desktop Manager: "));
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", VFLParent, "CENTER", -200, 0);
 	dlg:Accomodate(216, 450);
 	dlg:SetClampedToScreen(true);
 	
@@ -170,49 +170,50 @@ local function OpenDesktopTools(parent, froot)
 	local windowName = VFLUI.SimpleText:new(ca, 1, 216);
 	windowName:SetPoint("TOPLEFT", separator3, "BOTTOMLEFT");
 	windowName:SetText("Click on a window of your UI to modify it");
+	windowName:Show();
 	
 	-- scale
-	local lblScale = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Scale"));
-	lblScale:SetPoint("TOPLEFT", windowName, "BOTTOMLEFT"); lblScale:SetHeight(25);
-	local edScale = VFLUI.Edit:new(dlg, true); edScale:SetHeight(25); edScale:SetWidth(50);
-	edScale:SetPoint("TOPRIGHT", windowName, "BOTTOMRIGHT", 0, 0); edScale:Show();
-	local slScale = VFLUI.HScrollBar:new(dlg, nil, function(value)
+	local lblScale = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Scale"));
+	lblScale:SetPoint("TOPLEFT", windowName, "BOTTOMLEFT"); lblScale:SetHeight(25); lblScale:Hide();
+	local edScale = VFLUI.Edit:new(ca, true); edScale:SetHeight(25); edScale:SetWidth(50);
+	edScale:SetPoint("TOPRIGHT", windowName, "BOTTOMRIGHT", 0, 0); edScale:Hide();
+	local slScale = VFLUI.HScrollBar:new(ca, nil, function(value)
 		if dlg.frameprops then
 			if value == 0 then value = 0.01; end
 			DesktopEvents:Dispatch("WINDOW_UPDATE", dlg.frameprops.name, "SCALE", value);
 		end
 	end);
 	slScale:SetPoint("RIGHT", edScale, "LEFT", -16, 0); slScale:SetWidth(100);
-	slScale:Show();
+	slScale:Hide();
 	slScale:SetMinMaxValues(.1, 3.0); slScale:SetValue(1, true);
 	VFLUI.BindSliderToEdit(slScale, edScale);
 
 	-- alpha
-	local lblAlpha = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Alpha"));
-	lblAlpha:SetPoint("TOPLEFT", lblScale, "BOTTOMLEFT"); lblAlpha:SetHeight(25);
-	local edAlpha = VFLUI.Edit:new(dlg, true); edAlpha:SetHeight(25); edAlpha:SetWidth(50);
-	edAlpha:SetPoint("TOPRIGHT", edScale, "BOTTOMRIGHT", 0, 0); edAlpha:Show();
-	local slAlpha = VFLUI.HScrollBar:new(dlg, nil, function(value)
+	local lblAlpha = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Alpha"));
+	lblAlpha:SetPoint("TOPLEFT", lblScale, "BOTTOMLEFT"); lblAlpha:SetHeight(25); lblAlpha:Hide();
+	local edAlpha = VFLUI.Edit:new(ca, true); edAlpha:SetHeight(25); edAlpha:SetWidth(50);
+	edAlpha:SetPoint("TOPRIGHT", edScale, "BOTTOMRIGHT", 0, 0); edAlpha:Hide();
+	local slAlpha = VFLUI.HScrollBar:new(ca, nil, function(value)
 		if dlg.frameprops then
 			DesktopEvents:Dispatch("WINDOW_UPDATE", dlg.frameprops.name, "ALPHA", value);
 		end
 	end);
 	slAlpha:SetPoint("RIGHT", edAlpha, "LEFT", -16, 0); slAlpha:SetWidth(100);
-	slAlpha:Show();
+	slAlpha:Hide();
 	slAlpha:SetMinMaxValues(0, 1); slAlpha:SetValue(1, true);
 	VFLUI.BindSliderToEdit(slAlpha, edAlpha);
 
 	-- strata
-	local lblStrata = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Stratum"));
-	lblStrata:SetPoint("TOPLEFT", lblAlpha, "BOTTOMLEFT"); lblStrata:SetHeight(25);
-	local ddStrata = VFLUI.Dropdown:new(dlg, RDXUI.DesktopStrataFunction, function(value)
+	local lblStrata = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Stratum"));
+	lblStrata:SetPoint("TOPLEFT", lblAlpha, "BOTTOMLEFT"); lblStrata:SetHeight(25); lblStrata:Hide();
+	local ddStrata = VFLUI.Dropdown:new(ca, RDXUI.DesktopStrataFunction, function(value)
 		if dlg.frameprops and RDXUI.IsValidStrata(value) then
 			DesktopEvents:Dispatch("WINDOW_UPDATE", dlg.frameprops.name, "STRATA", value);
 		end
 	end);
 	ddStrata:SetPoint("TOPRIGHT", edAlpha, "BOTTOMRIGHT", 0, 0); ddStrata:SetWidth(132);
 	ddStrata:SetSelection("MEDIUM", true);
-	ddStrata:Show();
+	ddStrata:Hide();
 
 	-- anchor
 	--local lblAP = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Anchor point"));
@@ -251,17 +252,20 @@ local function OpenDesktopTools(parent, froot)
 	function dlg:_update(frameprops)
 		dlg.frameprops = frameprops;
 		windowName:SetText("|cFF00FF00" .. frameprops.name .. " is selected!|r");
+		if not lblScale:IsShown() then
+			lblScale:Show(); edScale:Show(); slScale:Show();
+			lblAlpha:Show(); edAlpha:Show(); slAlpha:Show();
+			lblStrata:Show(); ddStrata:HidShowe();
+		end
 		slScale:SetValue(frameprops.scale, true);
 		slAlpha:SetValue(frameprops.alpha, true);
 		ddStrata:SetSelection(frameprops.strata, true);
-		--ddAP:SetSelection(frameprops.ap, true);
-		--updateDockTxt(frameprops);
 	end
 	
 	-- action bar
 	local separator4 = VFLUI.SeparatorText:new(ca, 1, 216);
 	separator4:SetPoint("TOPLEFT", lblStrata, "BOTTOMLEFT", 0, -5);
-	separator4:SetText("ActionBars");
+	separator4:SetText("ActionBars"); separator4:Show();
 	
 	-- button configure keys
 	local dfkey = nil;

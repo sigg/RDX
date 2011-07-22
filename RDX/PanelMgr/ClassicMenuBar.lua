@@ -28,12 +28,13 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.hasArrow = true;
 	ent.keepShownOnClick = false;
 	ent.menuList = {
+		{ text = VFLI.i18n("Tutorial RDX"), notCheckable = true, keepShownOnClick = false, func = function() RDX.NewLearnWizard(); end; }
 		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleObjectBrowser }
 	};
 end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Theme AUI");
+	ent.text = VFLI.i18n("Themes");
 	ent.notCheckable = true;
 	ent.hasArrow = true;
 	ent.keepShownOnClick = false;
@@ -41,7 +42,7 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("State AUI");
+	ent.text = VFLI.i18n("Theme state");
 	ent.notCheckable = true;
 	ent.hasArrow = true;
 	ent.keepShownOnClick = false;

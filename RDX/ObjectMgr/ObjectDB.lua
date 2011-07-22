@@ -76,6 +76,7 @@ reservedWords["infoIsIndelible"] = true;
 reservedWords["infoRunAutoexec"] = true;
 --reservedWords["infoRunAutoDelete"] = true;
 reservedWords["infoRequiredRDXVersion"] = true;
+reservedWords["infoIsCommon"] = true;
 
 function RDXDB.IsReserveWord(name)
 	return reservedWords[name];
@@ -328,6 +329,12 @@ local function InitObjectDB()
 		RDXDB.SetPackageMetadata(pkg, "infoComment", infocomment);
 		RDXDBEvents:Dispatch("PACKAGE_CREATED", pkg, d);
 		return true;
+	end
+	
+	function RDXDB.IsCommonPackage(pkg)
+		local d = RDXData[pkg];
+		if not d then return nil; end
+		if RDXDB.GetPackageMetadata(pkg, "infoIsCommon") then return true; else return nil; end
 	end
 
 	--- Delete a package. Fails, returning NIL, if the package is not empty.
