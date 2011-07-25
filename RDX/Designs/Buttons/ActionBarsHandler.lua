@@ -14,8 +14,8 @@ end);
 
 VFLUI.CreateFramePool("SecureHandlerAttribute", function(pool, frame)
 	UnregisterStateDriver(frame, "visibility");
-	UnregisterStateDriver(frame, 'page');
-	frame:SetAttribute('_onattributechanged', "");
+	UnregisterStateDriver(frame, "page");
+	frame:SetAttribute("_onattributechanged", "");
 	VFLUI._CleanupLayoutFrame(frame);
 end, function()
 	local f = CreateFrame("Frame", "SHA" .. VFL.GetNextID(), nil, "SecureHandlerAttributeTemplate");
@@ -78,20 +78,37 @@ function __RDXGetStates(statestype)
 	return str;
 end
 
+function __RDXGetVisi(visitype)
+	local str = "";
+	if visitype == "InCombat" then
+		str = "[combat] hide; show";
+	elseif visitype == "InStealth" then
+		str = "[stealth, harm] show; hide";
+	elseif visitype == "InForm3" then
+		str = "[form:3] show; hide";
+	end
+	return str;
+end
+
 -- GLOBAL FUNCTION
 
-function __RDXCreateHeaderHandlerAttribute(statesString)
+function __RDXCreateHeaderHandlerAttribute(statesString, visString)
 	local h = VFLUI.AcquireFrame("SecureHandlerAttribute");
 	if not InCombatLockdown() then
-		h:SetAttribute('_onattributechanged', [[ 
-			if name == 'state-page' then
-				--print("new state " .. value);
-				newpage = value;
-				control:ChildUpdate();
-			end 
-		]] );
-		--RegisterStateDriver(h, 'page', '[bar:2] 2; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6; [bonusbar:1] 6; [mod:ctrl] 6; 1');
-		RegisterStateDriver(h, 'page', statesString .. " " .. 0);
+		if statesString then
+			h:SetAttribute('_onattributechanged', [[ 
+				if name == 'state-page' then
+					--print("new state " .. value);
+					newpage = value;
+					control:ChildUpdate();
+				end 
+			]] );
+			--RegisterStateDriver(h, 'page', '[bar:2] 2; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6; [bonusbar:1] 6; [mod:ctrl] 6; 1');
+			RegisterStateDriver(h, "page", statesString .. " " .. 0);
+		end
+		if visString then
+			RegisterStateDriver(h, "visibility", visString); --"[bonusbar:5] hide; [target=pet,exists] show; hide;")
+		end
 	end
 	return h;
 end

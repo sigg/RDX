@@ -49,7 +49,7 @@ RDX.RegisterFeature({
 		local objname = n;   if(n == "") then objname = "_phs"; else objname = "Frame_" .. n; end
 		if n == "" then n = "nil"; else n = string.format("%q", n); end
 		local ty = "Button"; if desc.secure then ty = "SecureUnitButton"; end
-		local flo = tonumber(desc.flo); if not flo then flo = 1; end flo = VFL.clamp(flo,-2,5);
+		local flo = tonumber(desc.flo); if not flo then flo = 1; end flo = VFL.clamp(flo,1,10);
 		
 		local createCode = [[
 local hs = VFLUI.AcquireFrame("]] .. ty .. [[");
@@ -144,7 +144,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 				w = ed_width:GetSelection();
 				h = ed_height:GetSelection();
 				anchor = anchor:GetAnchorInfo();
-				flo = VFL.clamp(ed_flo.editBox:GetNumber(), -2, 5);
+				flo = VFL.clamp(ed_flo.editBox:GetNumber(), 1, 10);
 				secure = chk_sec:GetChecked();
 				mover = chk_mover:GetChecked();
 				hlt = hlt;
