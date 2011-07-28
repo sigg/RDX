@@ -976,6 +976,7 @@ end);
 
 local function ChangeDesktop(path, nosave)
 	if RDX.IsDesktopEditorOpen() then RDXIE.CloseFeatureEditor(); end
+	if currentpath == path then return; end
 	RDXDK:Debug(4, "ChangeDesktop(".. path ..")");
 	RDX.printI("Change desktop " .. path);
 	-- close
