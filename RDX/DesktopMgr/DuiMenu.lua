@@ -76,17 +76,17 @@ local function AUIList()
 	-----------------------------------
 	VFL.empty(stateTypeMenus);
 
-	local autoMenu = {
-		text = VFLI.i18n("Auto"),
-		notCheckable = true,
-		func = function()
-			if not RDXU.autoSwitchState then
-				RDXDK.SwitchState_Enable();
-			end
-		end;
-	};
+	--local autoMenu = {
+	--	text = VFLI.i18n("Auto"),
+	--	notCheckable = true,
+	--	func = function()
+	--		if not RDXU.autoSwitchState then
+	--			RDXDK.SwitchState_Enable();
+	--		end
+	--	end;
+	--};
 
-	table.insert(stateTypeMenus, autoMenu);
+	--table.insert(stateTypeMenus, autoMenu);
 
 	for _,v in ipairs(state) do
 		local thisMenu = {
