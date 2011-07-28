@@ -121,7 +121,7 @@ function VFL.Kay(n)
 	tn = abs(n);
 	if tn < 1000 then
 		return strformat("%d", n);
-	elseif tn < 100000 then
+	elseif tn < 1000000 then
 		return strformat("%0.1fk", n/1000);
 	else
 		return strformat("%0.2fm", n/1000000);
@@ -136,7 +136,7 @@ function VFL.KayMemory(n, color)
 	tn = abs(n);
 	if tn < 1000 then
 		return VFL.tcolorize(strformat("%d", n), color) .. "b";
-	elseif tn < 100000 then
+	elseif tn < 1000000 then
 		return VFL.tcolorize(strformat("%0.1f", n/1000), color) .. "Kb";
 	else
 		return VFL.tcolorize(strformat("%0.2f", n/1000000), color) .. "Mb";
