@@ -328,12 +328,12 @@ local function OpenDesktopTools(parent, froot)
 		end
 	end);
 	
-	local chk_lockaction = VFLUI.Checkbox:new(ca); chk_lockaction:SetHeight(16); chk_lockaction:SetWidth(200);
-	chk_lockaction:SetPoint("TOPLEFT", btndefinekey, "BOTTOMLEFT");
-	if RDXDK.IsActionBindingsLocked() then chk_lockaction:SetChecked(true); else chk_lockaction:SetChecked(); end
-	chk_lockaction:SetText("Lock drag action button in combat");
-	chk_lockaction:Show();
-	chk_lockaction.check:SetScript("OnClick", function() RDXDK.ToggleActionBindingsLock(); end);
+	--local chk_lockaction = VFLUI.Checkbox:new(ca); chk_lockaction:SetHeight(16); chk_lockaction:SetWidth(200);
+	--chk_lockaction:SetPoint("TOPLEFT", btndefinekey, "BOTTOMLEFT");
+	--if RDXDK.IsActionBindingsLocked() then chk_lockaction:SetChecked(true); else chk_lockaction:SetChecked(); end
+	--chk_lockaction:SetText("Lock drag action button in combat");
+	--chk_lockaction:Show();
+	--chk_lockaction.check:SetScript("OnClick", function() RDXDK.ToggleActionBindingsLock(); end);
 	
 	-- to see if many people is really using this.
 	--local lbl_keys = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Keys definition"));
@@ -346,7 +346,7 @@ local function OpenDesktopTools(parent, froot)
 	
 	-- gametooltips
 	local separator5 = VFLUI.SeparatorText:new(ca, 1, 216);
-	separator5:SetPoint("TOPLEFT", chk_lockaction, "BOTTOMLEFT", 0, -5);
+	separator5:SetPoint("TOPLEFT", btndefinekey, "BOTTOMLEFT", 0, -5);
 	separator5:SetText("GameTooltips");
 	
 	local chk_tooltipmouse = VFLUI.Checkbox:new(ca); chk_tooltipmouse:SetHeight(16); chk_tooltipmouse:SetWidth(200);
@@ -386,12 +386,16 @@ local function OpenDesktopTools(parent, froot)
 		list:Update();
 	end);
 	dlg:AddButton(listbtn);
-
+	
+	local closebtn = VFLUI.CloseButton:new()
+	closebtn:SetScript("OnClick", esch);
+	dlg:AddButton(closebtn);
+	
 	dlg.Destroy = VFL.hook(function(s)
 		s._esch = nil;
 		chk_tooltipmouse:Destroy(); chk_tooltipmouse = nil;
 		separator5:Destroy(); separator5 = nil;
-		chk_lockaction:Destroy(); chk_lockaction = nil;
+		--chk_lockaction:Destroy(); chk_lockaction = nil;
 		btndefinekey:Destroy(); btndefinekey = nil;
 		separator4:Destroy(); separator4 = nil;
 		s._update = nil;

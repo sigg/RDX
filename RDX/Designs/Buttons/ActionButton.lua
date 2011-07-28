@@ -93,7 +93,7 @@ end
 
 RDXUI.ActionButton = {};
 
-function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup, selfcast)
+function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup, selfcast, flyout)
 	local self = nil;
 	if usebs then
 		self = VFLUI.SkinButton:new(parent, "SecureActionButtonBar", id);
@@ -217,12 +217,6 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	-- use when bar page changed, and the action is changed
 	local function UpdateNewAction()
 		self.action = self:GetAttribute("action");
-		if self.usebs then
-			self._texBorder:SetVertexColor(1, 1, 1, 1);
-			self._texGloss:SetVertexColor(1, 1, 1, 1);
-		--elseif self.usebkd then
-		--	self:SetBackdropBorderColor(1, 1, 1, 1);
-		end
 		if not self.action then return; end
 		if HasAction(self.action) then
 			WoWEvents:Unbind("actionButton" .. self.id);
@@ -333,17 +327,19 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 			else
 				VFLT.AdaptiveUnschedule("ScheduleactionButton" .. id);
 				self.txtMacro:Hide();
+				if self.usebs then
+					self._texBorder:SetVertexColor(1, 1, 1, 1);
+					self._texGloss:SetVertexColor(1, 1, 1, 1);
+				elseif self.usebkd then
+					self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
+				end
 			end
 		end
 		-- Button Skin Hide
 		if self.ebhide and (not HasAction(self.action)) then
-			--if usebs then
-				self:bsHide();
-			--end
+			self:bsHide();
 		else
-			--if usebs then
-				self:bsShow();
-			--end
+			self:bsShow();
 		end
 		if self.IsShowingTooltip then ABShowGameTooltip(self); end
 	end
@@ -376,6 +372,8 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 		self:SetAttribute("*unit2", "player");
 	end
 	
+	self:SetAttribute("flyoutDirection", flyout);
+	
 	-- Add state action for bar change
 	if statesString then
 		__RDXModifyActionButtonState(self, statesString, nbuttons, id);
@@ -388,13 +386,13 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	
 	self:RegisterForDrag("LeftButton", "RightButton");
 	self:SetScript("OnDragStart", function()
-		if not InCombatLockdown() and not RDXDK.IsActionBindingsLocked() then
+		if not InCombatLockdown() and IsShiftKeyDown() then
 			PickupAction(self:GetAttribute("action"));
 			UpdateState();
 		end
 	end);
 	self:SetScript("OnReceiveDrag", function()
-		if not InCombatLockdown() and not RDXDK.IsActionBindingsLocked() then
+		if not InCombatLockdown() then
 			PlaceAction(self:GetAttribute("action"));
 			UpdateState();
 		end
@@ -615,12 +613,6 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 	-- use when bar page changed, and the action is changed
 	local function UpdateNewAction()
 		self.action = self:GetAttribute("action");
-		if self.usebs then
-			self._texBorder:SetVertexColor(1, 1, 1, 1);
-			self._texGloss:SetVertexColor(1, 1, 1, 1);
-		--elseif self.usebkd then
-		--	self:SetBackdropBorderColor(1, 1, 1, 1);
-		end
 		if not self.action then return; end
 		if HasAction(self.action) then
 			WoWEvents:Unbind("multicastButton" .. self.id);
@@ -705,6 +697,12 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 			else
 				VFLT.AdaptiveUnschedule("SchedulemulticastButton" .. id);
 				self.txtMacro:Hide();
+				if self.usebs then
+					self._texBorder:SetVertexColor(1, 1, 1, 1);
+					self._texGloss:SetVertexColor(1, 1, 1, 1);
+				elseif self.usebkd then
+					self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
+				end
 			end
 		end
 		-- Button Skin Hide
@@ -736,13 +734,13 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 	
 	self:RegisterForDrag("LeftButton", "RightButton");
 	self:SetScript("OnDragStart", function()
-		if not InCombatLockdown() and not RDXDK.IsActionBindingsLocked() then
+		if not InCombatLockdown() and IsShiftKeyDown() then
 			PickupAction(self:GetAttribute("action"));
 			UpdateState();
 		end
 	end);
 	self:SetScript("OnReceiveDrag", function()
-		if not InCombatLockdown() and not RDXDK.IsActionBindingsLocked() then
+		if not InCombatLockdown() then
 			PlaceAction(self:GetAttribute("action"));
 			UpdateState();
 		end
@@ -1049,6 +1047,12 @@ function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 			end);
 		else
 			VFLT.AdaptiveUnschedule("ScheduleactionButtonPet" .. self.id);
+			if self.usebs then
+				self._texBorder:SetVertexColor(1, 1, 1, 1);
+				self._texGloss:SetVertexColor(1, 1, 1, 1);
+			elseif self.usebkd then
+				self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
+			end
 		end
 		
 		-- Button Skin Hide
@@ -1081,13 +1085,13 @@ function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 	
 	self:RegisterForDrag("LeftButton", "RightButton");
 	self:SetScript("OnDragStart", function()
-		if not InCombatLockdown() and not RDXDK.IsActionBindingsLocked() then
+		if not InCombatLockdown() and IsShiftKeyDown() then
 			PickupPetAction(self.id);
 			UpdateState();
 		end
 	end);
 	self:SetScript("OnReceiveDrag", function()
-		if not InCombatLockdown() and not RDXDK.IsActionBindingsLocked() then
+		if not InCombatLockdown() then
 			PickupPetAction(self.id);
 			UpdateState();
 		end

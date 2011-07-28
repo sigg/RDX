@@ -535,7 +535,8 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 	if not RDXU.AUIState then RDXU.AUIState = "solo"; end
 	local inst = RDXDB.GetObjectInstance(RDXU.AUI);
 
-	SwitchState_Enable();
+	--SwitchState_Enable();
+	ChangeState(RDXU.AUIState);
 	
 	--if not inst then 
 	--	RDXU.AUI = "desktops:";
