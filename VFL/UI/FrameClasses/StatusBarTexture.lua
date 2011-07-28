@@ -257,10 +257,17 @@ function VFLUI.SBTIB:new(parent, desc)
 	f.sb:Show();
 	
 	-- stacktxt
-	f.stacktxt = VFLUI.CreateFontString(f);
-	f.stacktxt:SetAllPoints(f);
-	VFLUI.SetFont(f.stacktxt, desc.stacktxt, nil, true);
-	f.stacktxt:Show();
+	if desc.showicon then
+		f.stacktxt = VFLUI.CreateFontString(f);
+		f.stacktxt:SetAllPoints(f.icon);
+		VFLUI.SetFont(f.stacktxt, desc.stacktxt, nil, true);
+		f.stacktxt:Show();
+	else
+		f.stacktxt = VFLUI.CreateFontString(f);
+		f.stacktxt:SetAllPoints(f);
+		VFLUI.SetFont(f.stacktxt, desc.stacktxt, nil, true);
+		f.stacktxt:Show();
+	end
 	
 	if desc.showname then
 		-- nametxt
