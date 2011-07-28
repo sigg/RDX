@@ -213,6 +213,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent)
 	end
 
 	local function DisableFeature(idx)
+		SetActiveFeature(idx);
 		local qq = state:Features();
 		local x = qq[idx]; if not x then return; end
 		x.disable = true;
@@ -234,6 +235,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent)
 	end
    
 	local function EnableFeature(idx)
+		SetActiveFeature(idx);
 		local qq = state:Features();
 		local x = qq[idx]; if not x then return; end
 		x.disable = nil;
@@ -263,6 +265,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent)
 	-- test feature
 	
 	local function ActivateTestFeature(idx)
+		SetActiveFeature(idx);
 		local qq = state:Features();
 		local x = qq[idx]; if not x then return; end
 		x.test = true;
@@ -284,6 +287,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent)
 	end
    
 	local function DesactivateTestFeature(idx)
+		SetActiveFeature(idx);
 		local qq = state:Features();
 		local x = qq[idx]; if not x then return; end
 		x.test = nil;
