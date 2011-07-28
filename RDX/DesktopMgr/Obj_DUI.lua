@@ -367,6 +367,7 @@ local function ChangeAUI(path, nosave)
 	-- close
 	if currentAUI then
 		RDXDB._RemoveInstance(RDXU.AUI);
+		currentAUI = nil;
 	end
 	RDXU.AUI = path;
 	currentAUI = RDXDB.GetObjectInstance(RDXU.AUI);
@@ -533,15 +534,8 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 	
 	if not RDXU.AUI or not RDXDB.ResolvePath(RDXU.AUI) then RDXU.AUI = "desktops:WoWRDX"; end
 	if not RDXU.AUIState then RDXU.AUIState = "solo"; end
-	local inst = RDXDB.GetObjectInstance(RDXU.AUI);
-
-	--SwitchState_Enable();
-	ChangeState(RDXU.AUIState);
 	
-	--if not inst then 
-	--	RDXU.AUI = "desktops:";
-	--	inst = RDXDB.GetObjectInstance(RDXU.AUI);
-	--end
+	ChangeAUI(RDXU.AUI);
 	
 	--if RDXU.autoSwitchState then
 	--	SwitchState_Enable();
