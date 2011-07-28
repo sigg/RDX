@@ -45,6 +45,8 @@ local function CreateWindowsListFrame()
 	text:SetPoint("LEFT", self, "LEFT"); text:SetHeight(10); text:SetWidth(200);
 	text:Show();
 	self.text = text;
+	
+	self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
 
 	self.Destroy = VFL.hook(function(self)
 		-- Destroy allocated regions
@@ -69,6 +71,39 @@ local function WindowListClick(path)
 	-- "Open" case
 	--RDX.printI(VFLI.i18n("Opening Window at <") .. path .. ">");
 	RDXDB.OpenObject(path);
+end
+
+local function WindowListRightClick(self, path)
+	local mnu = {};
+	table.insert(mnu, {
+		text = VFLI.i18n("Edit Window"),
+		OnClick = function()
+			VFL.poptree:Release();
+			RDXDB.OpenObject(path, "Edit", VFLDIALOG);
+		end
+	});
+	
+	local feat = RDXDB.GetFeatureData(path, "Design");
+	local upath = feat["design"];
+	--table.insert(mnu, {
+	--	text = VFLI.i18n("Clone..."),
+	--	OnClick = function() 
+	--		VFL.poptree:Release();
+	--		RDX.CloneWindow(frameprops.name, upath, VFLDIALOG); 
+	--	end;
+	--});
+	if upath then
+		table.insert(mnu, {
+			text = VFLI.i18n("Edit Design");
+			OnClick = function()
+				VFL.poptree:Release();
+				RDXDB.OpenObject(upath, "Edit", VFLDIALOG);
+			end;
+		});
+	end
+	
+	VFL.poptree:Begin(150, 12, self, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(self));
+	VFL.poptree:Expand(nil, mnu);
 end
 
 -- The panel
@@ -149,8 +184,12 @@ local function OpenDesktopTools(parent, froot)
 		else
 			cell.text:SetText(p);
 		end
-		cell:SetScript("OnClick", function()
-			WindowListClick(p); list:Update();
+		cell:SetScript("OnClick", function(self, arg1)
+			if arg1 == "LeftButton" then
+				WindowListClick(p); list:Update();
+			elseif arg1 == "RightButton" then
+				WindowListRightClick(self, p);
+			end
 		end);
 	end, VFL.ArrayLiterator(wl));
 	
