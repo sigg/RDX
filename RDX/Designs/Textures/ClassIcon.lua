@@ -49,7 +49,7 @@ btn._t:SetPoint("CENTER", btn, "CENTER");
 btn._t:SetWidth(]] .. desc.w .. [[ - ]] .. ebsos .. [[); btn._t:SetHeight(]] .. desc.h .. [[ - ]] .. ebsos .. [[);
 btn._t:SetVertexColor(1,1,1,1);
 if ]] .. iconflag .. [[ then
-	btn._t:SetTexture("Interface\\Addons\\RDX\\Skin\\icon_class");
+	btn._t:SetTexture("Interface\\AddOns\\RDX\\Skin\\icon_class");
 else
 	btn._t:SetTexture("Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes");
 end
