@@ -29,6 +29,7 @@ RDX.RegisterFeature({
 			ebs = desc.externalButtonSkin;
 			if desc.ButtonSkinOffset then ebsos = desc.ButtonSkinOffset; end
 		end
+		local iconflag = "nil"; if desc.iconflag then iconflag = "true"; end
 		------------------ On frame creation
 		local createCode = [[
 local btn, owner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
@@ -47,7 +48,11 @@ btn._t:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", 2);
 btn._t:SetPoint("CENTER", btn, "CENTER");
 btn._t:SetWidth(]] .. desc.w .. [[ - ]] .. ebsos .. [[); btn._t:SetHeight(]] .. desc.h .. [[ - ]] .. ebsos .. [[);
 btn._t:SetVertexColor(1,1,1,1);
-btn._t:SetTexture("Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes");
+if ]] .. iconflag .. [[ then
+	btn._t:SetTexture("Interface\\Addons\\RDX\\Skin\\icon_class");
+else
+	btn._t:SetTexture("Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes");
+end
 btn._t:Show();
 btn:Hide();
 frame.]] .. objname .. [[ = btn;
@@ -118,6 +123,11 @@ end
 		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
 		ui:InsertFrame(ed_bs);
 		
+		local chk_iconflag = VFLUI.Checkbox:new(ui); chk_iconflag:Show();
+		chk_iconflag:SetText(VFLI.i18n("Use round texture"));
+		if desc and desc.iconflag then chk_iconflag:SetChecked(true); else chk_iconflag:SetChecked(); end
+		ui:InsertFrame(chk_iconflag);
+		
 		function ui:GetDescriptor()
 			local name = ed_name.editBox:GetText();
 			local ebs = nil;
@@ -130,6 +140,7 @@ end
 				anchor = anchor:GetAnchorInfo();
 				externalButtonSkin = ebs;
 				ButtonSkinOffset = VFL.clamp(ed_bs.editBox:GetNumber(), 0, 50);
+				iconflag = chk_iconflag:GetChecked();
 			};
 		end
 
