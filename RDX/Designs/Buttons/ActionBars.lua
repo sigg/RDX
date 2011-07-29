@@ -54,14 +54,15 @@ baridToNum["bonusbar4"] = 109;
 baridToNum["possessbar"] = 121;
 
 local function GetBarNumber(barid)
-	if not id then return 109; end
-	return baridToNum[barid] or 109; end
+	if not barid then return 109; end
+	return baridToNum[barid] or 109;
 end
+
 local numToBarid = VFL.invert(baridToNum);
 
 local function GetBarId(num)
 	if not num then return "bonusbar4"; end
-	return numToBarid[num] or "bonusbar4"; end
+	return numToBarid[num] or "bonusbar4";
 end
 
 local _orientations = {
@@ -244,7 +245,7 @@ frame.]] .. objname .. [[ = nil;
 		
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Bar id:"));
 		local dd_bars = VFLUI.Dropdown:new(er, _dd_bars);
-		dd_bars:SetWidth(100); dd_bars:Show();
+		dd_bars:SetWidth(200); dd_bars:Show();
 		if desc and desc.barid then 
 			dd_bars:SetSelection(desc.barid); 
 		else
@@ -315,14 +316,14 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.headervisiCustom then 
 			ed_visicustom.editBox:SetText(desc.headervisiCustom);
 		else
-			dd_visi:SetSelection("");
+			ed_visicustom.editBox:SetText("");
 		end
-		ui:InsertFrame(ed_custom);
+		ui:InsertFrame(ed_visicustom);
 		
 		local visistxt = VFLUI.SimpleText:new(ui, 1, 200); visistxt:Show();
 		local str = "Current Visibility:\n";
 		if desc.headerstateType ~= "Custom" then
-			str = str .. __RDXGetStates(desc.headervisiType);
+			str = str .. __RDXGetVisi(desc.headervisiType);
 		else 
 			str = str .. desc.headerstateCustom;
 		end
