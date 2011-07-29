@@ -206,7 +206,7 @@ rg.buttons[4]:SetWidth(70);
 rg.buttons[1]:SetText(VFLI.i18n("None")); 
 rg.buttons[2]:SetText(VFLI.i18n("OUTLINE"));
 rg.buttons[3]:SetText(VFLI.i18n("THICKOUTLINE"));
-rg.buttons[4]:SetText(VFLI.i18n("MONOCHROME"));
+rg.buttons[4]:SetText(VFLI.i18n("OUTLINEMONOCHROME"));
 rg.buttons[1].button:HookScript("OnClick", function() FlagsUpdate(); end);
 rg.buttons[2].button:HookScript("OnClick", function() FlagsUpdate(); end);
 rg.buttons[3].button:HookScript("OnClick", function() FlagsUpdate(); end);
@@ -251,7 +251,7 @@ function UpdateFontPicker()
 			rg:SetValue(2);
 		elseif curFont.flags == "THICKOUTLINE" then
 			rg:SetValue(3);
-		elseif curFont.flags == "MONOCHROME" then
+		elseif curFont.flags == "OUTLINEMONOCHROME" then
 			rg:SetValue(4);
 		end
 	else

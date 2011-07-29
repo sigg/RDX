@@ -121,7 +121,7 @@ frame.]] .. objname .. [[ = {};
 -- parent frame
 local h = nil;
 if ]] .. useheader .. [[ then
-	h = __RDXCreateHeaderHandlerAttribute(]] .. headerstate .. [[, ]] .. visibility .. [[);
+	h = __RDXCreateHeaderHandlerAttribute(]] .. headerstate .. [[);
 else
 	h = VFLUI.AcquireFrame("Frame");
 	h:Show();
@@ -191,7 +191,7 @@ RDX.RegisterFeature({
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
-		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
+		--flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 		if flg then state:AddSlot("Frame_" .. desc.name); end
 		return flg;
 	end;

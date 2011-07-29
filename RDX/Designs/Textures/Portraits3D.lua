@@ -55,6 +55,7 @@ _f:SetScript("OnShow", ]].. camera ..[[);
 frame.]] .. objname .. [[ = _f;
 ]];
 		local destroyCode = [[
+frame.]] .. objname .. [[.guid = nil;
 frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
@@ -68,9 +69,13 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
 
 		-- Painting
 		local paintCode = [[
-if band(paintmask, ]] .. mask .. [[) ~= 0 then
-	frame.]] .. objname .. [[:SetUnit(uid);
-	]].. camera ..[[(frame.]] .. objname .. [[);
+if band(paintmask, ]] .. mask .. [[) ~= 0 and UnitExists(uid) then
+	local guid = UnitGUID(uid);
+	if frame.]] .. objname .. [[.guid ~= guid then
+		frame.]] .. objname .. [[:SetUnit(uid);
+		]].. camera ..[[(frame.]] .. objname .. [[);
+		frame.]] .. objname .. [[.guid = guid;
+	end
 end
 if UnitIsVisible(uid) then 
 	frame.]] .. objname .. [[:Show();
