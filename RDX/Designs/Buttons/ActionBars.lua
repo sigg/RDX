@@ -121,7 +121,7 @@ frame.]] .. objname .. [[ = {};
 -- parent frame
 local h = nil;
 if ]] .. useheader .. [[ then
-	h = __RDXCreateHeaderHandlerAttribute(]] .. headerstate .. [[);
+	h = __RDXCreateHeaderHandlerAttribute(]] .. headerstate .. [[, ]] .. headervis .. [[);
 else
 	h = VFLUI.AcquireFrame("Frame");
 	h:Show();
