@@ -2,6 +2,74 @@
 -- OpenRDX
 -- Sigg Rashgarroth EU
 
+local _states = {
+	{ text = "None"},
+	{ text = "Defaultui"},
+	{ text = "Actionbar"},
+	{ text = "Stance"},
+	{ text = "Shift"},
+	{ text = "Ctrl"},
+	{ text = "Alt"},
+	--{ text = "Stealth"},
+	{ text = "Custom"},
+};
+local function _dd_states() return _states; end
+
+local _visi = {
+	{ text = "None"},
+	{ text = "InCombat"},
+	{ text = "InStealth"},
+	{ text = "InForm3"},
+	{ text = "Custom"},
+};
+local function _dd_visi() return _visi; end
+
+local _bars = {
+	{ text = "mainbar1"}, --  1 to 12
+	{ text = "mainbar2"}, -- 13 to 24
+	{ text = "bar3"},  -- 25 to 36
+	{ text = "bar4"}, -- 37 to 48
+	{ text = "bar5"}, -- 49 to 60
+	{ text = "bar6_druid_stealth"}, -- 61 to 72
+	{ text = "bonusbar1"}, -- 73 to 84
+	{ text = "bonusbar2"}, -- 85 to 96
+	{ text = "bonusbar3"}, -- 97 to 108
+	{ text = "bonusbar4"}, -- 109 to 120
+	{ text = "possessbar"}, -- 121 to 132
+	--{ text = "multibar"}, -- 133 to 144 -- see multibar specific feature
+};
+local function _dd_bars() return _bars; end
+
+local baridToNum = {};
+baridToNum["mainbar1"] = 1;
+baridToNum["mainbar2"] = 13;
+baridToNum["bar3"] = 25;
+baridToNum["bar4"] = 37;
+baridToNum["bar5"] = 49;
+baridToNum["bar6_druid_stealth"] = 61;
+baridToNum["bonusbar1"] = 73;
+baridToNum["bonusbar2"] = 85;
+baridToNum["bonusbar3"] = 97;
+baridToNum["bonusbar4"] = 109;
+baridToNum["possessbar"] = 121;
+
+local function GetBarNumber(barid)
+	if not id then return 109; end
+	return baridToNum[barid] or 109; end
+end
+local numToBarid = VFL.invert(baridToNum);
+
+local function GetBarId(num)
+	if not num then return "bonusbar4"; end
+	return numToBarid[num] or "bonusbar4"; end
+end
+
+local _orientations = {
+	{ text = "RIGHT"},
+	{ text = "DOWN"},
+};
+local function _dd_orientations() return _orientations; end
+
 -- Create function
 
 local function _EmitCreateCode(objname, desc)
@@ -16,6 +84,8 @@ local function _EmitCreateCode(objname, desc)
 	elseif desc.usebkd then
 		if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 	end
+	
+	local abid = GetBarNumber(desc.barid);
 	
 	local hidebs = "nil"; if desc.hidebs then hidebs = "true"; end
 	local showkey = "nil"; if desc.showkey then showkey = "true"; end
@@ -43,7 +113,7 @@ local function _EmitCreateCode(objname, desc)
 	
 	local createCode = [[
 -- variables
-local abid = ]] .. desc.abid .. [[;
+local abid = ]] .. abid .. [[;
 local btnOwner = ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 -- Main variable frame.
 frame.]] .. objname .. [[ = {};
@@ -89,33 +159,6 @@ end
 ]];
 	return createCode;
 end
--- { text = "Stealth"},
-local _states = {
-	{ text = "None"},
-	{ text = "Defaultui"},
-	{ text = "Actionbar"},
-	{ text = "Stance"},
-	{ text = "Shift"},
-	{ text = "Ctrl"},
-	{ text = "Alt"},
-	{ text = "Custom"},
-};
-local function _dd_states() return _states; end
-
-local _visi = {
-	{ text = "None"},
-	{ text = "InCombat"},
-	{ text = "InStealth"},
-	{ text = "InForm3"},
-	{ text = "Custom"},
-};
-local function _dd_visi() return _visi; end
-
-local _orientations = {
-	{ text = "RIGHT"},
-	{ text = "DOWN"},
-};
-local function _dd_orientations() return _orientations; end
 
 RDX.RegisterFeature({
 	name = "actionbar";
@@ -132,6 +175,10 @@ RDX.RegisterFeature({
 		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		--if desc.owner == "Base" then desc.owner = "decor"; end
 		desc.owner = "Base";
+		desc.nIcons = 12;
+		if not desc.barid then 
+			if desc.abid then desc.barid = GetBarId(desc.abid); desc.abid = nil; end
+		end
 		if not desc.flo then desc.flo = 5; end
 		if not desc.usebkd then desc.usebs = true; end
 		if not desc.headerstateType then desc.headerstateType = "None"; end
@@ -185,15 +232,26 @@ frame.]] .. objname .. [[ = nil;
 		ed_name.editBox:SetText(desc.name);
 		ui:InsertFrame(ed_name);
 		
-		local ed_id = VFLUI.LabeledEdit:new(ui, 50); ed_id:Show();
-		ed_id:SetText(VFLI.i18n("Begin Action Bar Buttons ID (1 - 120)"));
-		if desc and desc.abid then ed_id.editBox:SetText(desc.abid); else ed_id.editBox:SetText("1"); end
-		ui:InsertFrame(ed_id);
+		--local ed_id = VFLUI.LabeledEdit:new(ui, 50); ed_id:Show();
+		--ed_id:SetText(VFLI.i18n("Begin Action Bar Buttons ID (1 - 120)"));
+		--if desc and desc.abid then ed_id.editBox:SetText(desc.abid); else ed_id.editBox:SetText("1"); end
+		--ui:InsertFrame(ed_id);
 		
-		local ed_nbar = VFLUI.LabeledEdit:new(ui, 50); ed_nbar:Show();
-		ed_nbar:SetText(VFLI.i18n("Max Action Bar Buttons"));
-		if desc and desc.nIcons then ed_nbar.editBox:SetText(desc.nIcons); end
-		ui:InsertFrame(ed_nbar);
+		--local ed_nbar = VFLUI.LabeledEdit:new(ui, 50); ed_nbar:Show();
+		--ed_nbar:SetText(VFLI.i18n("Max Action Bar Buttons"));
+		--if desc and desc.nIcons then ed_nbar.editBox:SetText(desc.nIcons); end
+		--ui:InsertFrame(ed_nbar);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Bar id:"));
+		local dd_bars = VFLUI.Dropdown:new(er, _dd_bars);
+		dd_bars:SetWidth(100); dd_bars:Show();
+		if desc and desc.barid then 
+			dd_bars:SetSelection(desc.barid); 
+		else
+			dd_bars:SetSelection("mainbar1");
+		end
+		er:EmbedChild(dd_bars); er:Show();
+		ui:InsertFrame(er);
 		
 		local chk_anyup = VFLUI.Checkbox:new(ui); chk_anyup:Show();
 		chk_anyup:SetText(VFLI.i18n("Click AnyUp"));
@@ -409,8 +467,9 @@ frame.]] .. objname .. [[ = nil;
 			return { 
 				feature = "actionbar"; version = 1;
 				name = ed_name.editBox:GetText();
-				abid = VFL.clamp(ed_id.editBox:GetNumber(), 1, 120);
-				nIcons = VFL.clamp(ed_nbar.editBox:GetNumber(), 1, 40);
+				--abid = VFL.clamp(ed_id.editBox:GetNumber(), 1, 120);
+				barid = dd_bars:GetSelection();
+				nIcons = 12;
 				anyup = chk_anyup:GetChecked();
 				selfcast = chk_selfcast:GetChecked();
 				--States
@@ -464,7 +523,7 @@ frame.]] .. objname .. [[ = nil;
 			feature = "actionbar";
 			version = 1; 
 			name = "barbut2", 
-			abid = 1;
+			barid = "mainbar1";
 			headerstateType = "None";
 			headerstateCustom = "";
 			headervisiType = "None";
