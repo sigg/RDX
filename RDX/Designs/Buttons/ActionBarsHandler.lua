@@ -81,7 +81,7 @@ end
 function __RDXGetVisi(visitype)
 	local str = "";
 	if visitype == "InCombat" then
-		str = "[combat] hide; show";
+		str = "[combat] show; hide;";
 	elseif visitype == "InStealth" then
 		str = "[stealth, harm] show; hide";
 	elseif visitype == "InForm3" then

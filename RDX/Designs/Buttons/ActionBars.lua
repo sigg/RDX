@@ -101,13 +101,14 @@ local function _EmitCreateCode(objname, desc)
 	elseif desc.headerstateType ~= "None" then
 		headerstate = "'" .. __RDXGetStates(desc.headerstateType) .. "'";
 	end
+	
 	local headervis = "nil";
-	if desc.headervisType == "Custom" then
+	if desc.headervisiType == "Custom" then
 		headervis = "'" .. desc.headervisiCustom .. "'";
-	elseif desc.headervisType ~= "None" then
+	elseif desc.headervisiType ~= "None" then
 		headervis = "'" .. __RDXGetVisi(desc.headervisiType) .. "'";
 	end
-	
+
 	if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
 	local flyoutdirection = "UP";
 	if desc.flyoutdirection then flyoutdirection = desc.flyoutdirection; end
@@ -286,7 +287,7 @@ frame.]] .. objname .. [[ = nil;
 		end
 		ui:InsertFrame(ed_custom);
 		
-		local stxt = VFLUI.SimpleText:new(ui, 1, 200); stxt:Show();
+		local stxt = VFLUI.SimpleText:new(ui, 2, 200); stxt:Show();
 		local str = "Current State:\n";
 		if desc.headerstateType ~= "Custom" then
 			str = str .. __RDXGetStates(desc.headerstateType);
@@ -320,7 +321,7 @@ frame.]] .. objname .. [[ = nil;
 		end
 		ui:InsertFrame(ed_visicustom);
 		
-		local visistxt = VFLUI.SimpleText:new(ui, 1, 200); visistxt:Show();
+		local visistxt = VFLUI.SimpleText:new(ui, 2, 200); visistxt:Show();
 		local str = "Current Visibility:\n";
 		if desc.headerstateType ~= "Custom" then
 			str = str .. __RDXGetVisi(desc.headervisiType);
