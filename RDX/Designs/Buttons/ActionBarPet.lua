@@ -4,7 +4,15 @@
 
 -- Create function
 
+local _visi = {
+	{ text = "Default"},
+	{ text = "InCombat"},
+	{ text = "Custom"},
+};
+local function _dd_visi() return _visi; end
+
 local function _EmitCreateCode(objname, desc)
+	local flo = tonumber(desc.flo); if not flo then flo = 5; end; flo = VFL.clamp(flo,1,10);
 	local usebs = "false"; if desc.usebs then usebs = "true"; end
 	local ebs = desc.externalButtonSkin or "bs_default";
 	local usebkd = "false"; if desc.usebkd then usebkd = "true"; end
@@ -21,6 +29,13 @@ local function _EmitCreateCode(objname, desc)
 	local showtooltip = "nil"; if desc.showtooltip then showtooltip = "true"; end
 	local anyup = "nil"; if desc.anyup then anyup = "true"; end
 	local nRows = VFL.clamp(desc.rows, 1, 40);
+	
+	local headervis = "nil";
+	if desc.headervisiType == "Custom" then
+		headervis = "'" .. desc.headervisiCustom .. "'";
+	elseif desc.headervisiType ~= "None" then
+		headervis = "'" .. __RDXGetPetVisi(desc.headervisiType) .. "'";
+	end
 	
 	local createCode = [[
 -- variables
@@ -39,12 +54,12 @@ h:Show();
 ]];
 else
 	createCode = createCode .. [[
-local h = __RDXCreateHeaderHandlerBase();
+local h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
 ]];
 end
 	createCode = createCode .. [[
 VFLUI.StdSetParent(h, btnOwner);
-h:SetFrameLevel(btnOwner:GetFrameLevel());
+h:SetFrameLevel(btnOwner:GetFrameLevel() + ]] .. flo .. [[);
 
 local dabid = false;
 
@@ -102,13 +117,15 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
+		--if desc.owner == "Base" then desc.owner = "decor"; end
+		desc.owner = "Base";
+		if not desc.headervisiType then desc.headervisiType = "Default"; end
 		if not desc.usebkd then desc.usebs = true; end
 		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
-		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
+		--flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 		if flg then state:AddSlot("Frame_" .. desc.name); end
 		return flg;
 	end;
@@ -152,12 +169,51 @@ frame.]] .. objname .. [[ = nil;
 		chk_anyup:SetText(VFLI.i18n("Click AnyUp"));
 		if desc and desc.anyup then chk_anyup:SetChecked(true); else chk_anyup:SetChecked(); end
 		ui:InsertFrame(chk_anyup);
+		
+		------------- Visibility
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Visibility")));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Visibility type:"));
+		
+		local dd_visi = VFLUI.Dropdown:new(er, _dd_visi);
+		dd_visi:SetWidth(100); dd_visi:Show();
+		if desc and desc.headervisiType then 
+			dd_visi:SetSelection(desc.headervisiType); 
+		else
+			dd_visi:SetSelection("Default");
+		end
+		er:EmbedChild(dd_visi); er:Show();
+		ui:InsertFrame(er);
+		
+		local ed_visicustom = VFLUI.LabeledEdit:new(ui, 300); ed_visicustom:Show();
+		ed_visicustom:SetText(VFLI.i18n("Custom definition"));
+		if desc and desc.headervisiCustom then 
+			ed_visicustom.editBox:SetText(desc.headervisiCustom);
+		else
+			ed_visicustom.editBox:SetText("");
+		end
+		ui:InsertFrame(ed_visicustom);
+		
+		local visistxt = VFLUI.SimpleText:new(ui, 2, 200); visistxt:Show();
+		local str = "Current Visibility:\n";
+		if desc.headerstateType ~= "Custom" then
+			str = str .. __RDXGetPetVisi(desc.headervisiType);
+		else 
+			str = str .. desc.headerstateCustom;
+		end
+		
+		visistxt:SetText(str);
+		ui:InsertFrame(visistxt);
 
 		------------- Layout
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout")));
 		
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
-		if desc and desc.owner then owner:SetSelection(desc.owner); end
+		--local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
+		--if desc and desc.owner then owner:SetSelection(desc.owner); end
+		
+		local ed_flo = VFLUI.LabeledEdit:new(ui, 50); ed_flo:Show();
+		ed_flo:SetText(VFLI.i18n("FrameLevel offset"));
+		if desc and desc.flo then ed_flo.editBox:SetText(desc.flo); else ed_flo.editBox:SetText(5); end
+		ui:InsertFrame(ed_flo);
 
 		local anchor = RDXUI.UnitFrameAnchorSelector:new(ui); anchor:Show();
 		anchor:SetAFArray(RDXUI.ComposeAnchorList(state));
@@ -267,8 +323,13 @@ frame.]] .. objname .. [[ = nil;
 				abid = 1;
 				nIcons = 10;
 				anyup = chk_anyup:GetChecked();
+				--Visibility
+				headervisiType = dd_visi:GetSelection();
+				headervisiCustom = ed_visicustom.editBox:GetText();
 				-- layout
-				owner = owner:GetSelection();
+				--owner = owner:GetSelection();
+				owner = "Base";
+				flo = VFL.clamp(ed_flo.editBox:GetNumber(), 1, 10);
 				anchor = anchor:GetAnchorInfo();
 				rows = VFL.clamp(ed_rows.editBox:GetNumber(), 1, 40);
 				orientation = dd_orientation:GetSelection();
@@ -307,7 +368,10 @@ frame.]] .. objname .. [[ = nil;
 			version = 1; 
 			name = "actionbarpet", 
 			abid = 1;
-			owner = "decor";
+			headervisiType = "Default";
+			headervisiCustom = "";
+			owner = "Base";
+			flo = 5;
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
 			nIcons = 10; size = 36; rows = 1; orientation = "RIGHT"; iconspx = 5; iconspy = 0;
 			externalButtonSkin = "bs_default";

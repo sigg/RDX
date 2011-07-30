@@ -335,8 +335,8 @@ frame.]] .. objname .. [[ = nil;
 		------------- Layout
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout")));
 		
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
-		if desc and desc.owner then owner:SetSelection(desc.owner); end
+		--local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
+		--if desc and desc.owner then owner:SetSelection(desc.owner); end
 		
 		local ed_flo = VFLUI.LabeledEdit:new(ui, 50); ed_flo:Show();
 		ed_flo:SetText(VFLI.i18n("FrameLevel offset"));
@@ -481,7 +481,8 @@ frame.]] .. objname .. [[ = nil;
 				headervisiType = dd_visi:GetSelection();
 				headervisiCustom = ed_visicustom.editBox:GetText();
 				-- layout
-				owner = owner:GetSelection();
+				--owner = owner:GetSelection();
+				owner = "Base";
 				flo = VFL.clamp(ed_flo.editBox:GetNumber(), 1, 10);
 				anchor = anchor:GetAnchorInfo();
 				rows = VFL.clamp(ed_rows.editBox:GetNumber(), 1, 40);

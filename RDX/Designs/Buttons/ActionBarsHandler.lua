@@ -90,6 +90,16 @@ function __RDXGetVisi(visitype)
 	return str;
 end
 
+function __RDXGetPetVisi(visitype)
+	local str = "";
+	if visitype == "Default" then
+		str = "[target=pet,exists] show; hide;";
+	elseif visitype == "InCombat" then
+		str = "[combat] show; hide; [target=pet,exists] show; hide;";
+	end
+	return str;
+end
+
 -- GLOBAL FUNCTION
 
 function __RDXCreateHeaderHandlerAttribute(statesString, visString)
@@ -151,8 +161,8 @@ end
 
 -- pet handler
 
-function __RDXCreateHeaderHandlerBase()
+function __RDXCreateHeaderHandlerBase(visString)
 	local h = VFLUI.AcquireFrame("SecureHandlerBase");
-	RegisterStateDriver(h, "visibility", "[bonusbar:5] hide; [target=pet,exists] show; hide;")
+	RegisterStateDriver(h, "visibility", visString)
 	return h;
 end
