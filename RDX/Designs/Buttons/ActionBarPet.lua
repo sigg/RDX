@@ -4,13 +4,6 @@
 
 -- Create function
 
-local _visi = {
-	{ text = "Default"},
-	{ text = "InCombat"},
-	{ text = "Custom"},
-};
-local function _dd_visi() return _visi; end
-
 local function _EmitCreateCode(objname, desc)
 	local flo = tonumber(desc.flo); if not flo then flo = 5; end; flo = VFL.clamp(flo,1,10);
 	local usebs = "false"; if desc.usebs then usebs = "true"; end
@@ -30,11 +23,12 @@ local function _EmitCreateCode(objname, desc)
 	local anyup = "nil"; if desc.anyup then anyup = "true"; end
 	local nRows = VFL.clamp(desc.rows, 1, 40);
 	
+	local useheader = "true"; if desc.headervisType == "None" then useheader = "nil"; end
 	local headervis = "nil";
 	if desc.headervisiType == "Custom" then
 		headervis = "'" .. desc.headervisiCustom .. "'";
 	elseif desc.headervisiType ~= "None" then
-		headervis = "'" .. __RDXGetPetVisi(desc.headervisiType) .. "'";
+		headervis = "'" .. __RDXGetOtherVisi(desc.headervisiType) .. "'";
 	end
 	
 	local createCode = [[
@@ -54,7 +48,13 @@ h:Show();
 ]];
 else
 	createCode = createCode .. [[
-local h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
+local h = nil;
+if ]] .. useheader .. [[ then
+	h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
+else
+	h = VFLUI.AcquireFrame("Frame");
+	h:Show();
+end
 ]];
 end
 	createCode = createCode .. [[
@@ -119,7 +119,7 @@ RDX.RegisterFeature({
 		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		--if desc.owner == "Base" then desc.owner = "decor"; end
 		desc.owner = "Base";
-		if not desc.headervisiType then desc.headervisiType = "Default"; end
+		if not desc.headervisiType or desc.headervisiType == "Default" then desc.headervisiType = "Pet"; end
 		if not desc.usebkd then desc.usebs = true; end
 		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
 		local flg = true;
@@ -174,7 +174,7 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Visibility")));
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Visibility type:"));
 		
-		local dd_visi = VFLUI.Dropdown:new(er, _dd_visi);
+		local dd_visi = VFLUI.Dropdown:new(er, __RDX_dd_visi);
 		dd_visi:SetWidth(100); dd_visi:Show();
 		if desc and desc.headervisiType then 
 			dd_visi:SetSelection(desc.headervisiType); 
@@ -196,7 +196,7 @@ frame.]] .. objname .. [[ = nil;
 		local visistxt = VFLUI.SimpleText:new(ui, 2, 200); visistxt:Show();
 		local str = "Current Visibility:\n";
 		if desc.headerstateType ~= "Custom" then
-			str = str .. __RDXGetPetVisi(desc.headervisiType);
+			str = str .. __RDXGetOtherVisi(desc.headervisiType);
 		else 
 			str = str .. desc.headerstateCustom;
 		end
@@ -368,7 +368,7 @@ frame.]] .. objname .. [[ = nil;
 			version = 1; 
 			name = "actionbarpet", 
 			abid = 1;
-			headervisiType = "Default";
+			headervisiType = "Pet";
 			headervisiCustom = "";
 			owner = "Base";
 			flo = 5;
