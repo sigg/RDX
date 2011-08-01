@@ -16,6 +16,8 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		if not desc.usebkd then desc.usebs = true; end
+		if not desc.xoffset then desc.xoffset = "0"; end
+		if not desc.yoffset then desc.yoffset = "0"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Icons_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -40,8 +42,6 @@ RDX.RegisterFeature({
 		
 		local showweapons = "false";
 		if desc.showweapons then showweapons = "true"; end
-		if not desc.xoffset then desc.xoffset = "0"; end
-		if not desc.yoffset then desc.yoffset = "0"; end
 		local sortdir = "+";
 		if desc.sortdir then sortdir = "-"; end
 		local separateown = "0";
@@ -50,7 +50,7 @@ RDX.RegisterFeature({
 		
 		-- Event hinting.
 		--local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
-		--local filter;
+		local filter;
 		if desc.auraType == "DEBUFFS" then
 		--	mask = mux:GetPaintMask("DEBUFFS");
 		--	mux:Event_UnitMask("DELAYED_UNIT_DEBUFF_*", mask);

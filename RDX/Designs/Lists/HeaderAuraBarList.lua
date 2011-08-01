@@ -15,15 +15,22 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		desc.owner = "Base";
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Bars_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
-		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
+		--flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 		if flg then state:AddSlot("Bars_" .. desc.name); end
 		return flg;
 	end;
 	ApplyFeature = function(desc, state)
 		local objname = "Bars_" .. desc.name;
+		
+		local countTypeFlag = "nil" if desc.countTypeFlag and desc.countTypeFlag ~= "" then countTypeFlag = desc.countTypeFlag; end
+		local usedebuffcolor = "true"; if (not desc.sbcolor) then usedebuffcolor = "false"; end
+		local auranametrunc = "nil"; if desc.trunc then auranametrunc = desc.trunc; end
+		local auranameab = "true"; if (not desc.abr) then auranameab = "false"; end
+		
 		local showweapons = "false";
 		if desc.showweapons then showweapons = "true"; end
 		local sortdir = "+";
@@ -33,31 +40,31 @@ RDX.RegisterFeature({
 		if desc.separateown == "AFTER" then sortdir = "-1"; end
 		
 		local _, _, dx, dy = string.find(desc.template, "^RDXAB(.*)x(.*)Template$");
-		local borientation, isize, barx, bary;
-		if desc.showtex then
-			borientation, isize, barx, bary = "HORIZONTAL", dy, dx - dy, dy;
-			if dy > dx then borientation = "VERTICAL"; isize = dx; barx = dx; bary = dy - dx; end
-		else
-			borientation, isize, barx, bary = "HORIZONTAL", dy, dx, dy;
-			if dy > dx then borientation = "VERTICAL"; isize = dx; barx = dx; bary = dy; end
-		end
+		--local borientation, isize, barx, bary;
+		--if desc.showtex then
+		--	borientation, isize, barx, bary = "HORIZONTAL", dy, dx - dy, dy;
+		--	if dy > dx then borientation = "VERTICAL"; isize = dx; barx = dx; bary = dy - dx; end
+		--else
+		--	borientation, isize, barx, bary = "HORIZONTAL", dy, dx, dy;
+		--	if dy > dx then borientation = "VERTICAL"; isize = dx; barx = dx; bary = dy; end
+		--end
 		
 		-- Event hinting.
-		local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
+		--local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
 		local filter;
 		if desc.auraType == "DEBUFFS" then
-			mask = mux:GetPaintMask("DEBUFFS");
-			mux:Event_UnitMask("DELAYED_UNIT_DEBUFF_*", mask);
+		--	mask = mux:GetPaintMask("DEBUFFS");
+		--	mux:Event_UnitMask("DELAYED_UNIT_DEBUFF_*", mask);
 			filter = "HARMFUL";
 		else
-			mask = mux:GetPaintMask("BUFFS");
-			mux:Event_UnitMask("DELAYED_UNIT_BUFF_*", mask);
+		--	mask = mux:GetPaintMask("BUFFS");
+		--	mux:Event_UnitMask("DELAYED_UNIT_BUFF_*", mask);
 			filter = "HELPFUL";
 		end
-		local smask = mux:GetPaintMask("UNIT_BUFFWEAPON");
-		mux:Event_UnitMask("UNIT_BUFFWEAPON_UPDATE", smask);
+		--local smask = mux:GetPaintMask("UNIT_BUFFWEAPON");
+		--mux:Event_UnitMask("UNIT_BUFFWEAPON_UPDATE", smask);
 		
-		mask = bit.bor(mask, 1);
+		--mask = bit.bor(mask, 1);
 		
 		------------ Closure
 		local closureCode = [[
@@ -85,6 +92,146 @@ headerAura:SetAttribute("sortMethod", "]] .. desc.sortmethod .. [[");
 headerAura:SetAttribute("sortDir", "]] .. sortdir .. [[");
 headerAura:SetAttribute("separateOwn", ]] .. separateown .. [[);
 headerAura:Show();
+
+headerAura.updateFunc = function(self)
+	for _,frame in self:ActiveChildren() do
+		if not frame.btn then
+			local btn = VFLUI.SBTIB:new(btnOwner, ]] .. Serialize(desc.sbtib) .. [[);
+			btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
+			frame.btn = btn;
+		end
+		
+		_bn, _, _tex, _apps, _dispelt, _dur, _et = UnitAura(uid,frame:GetID());
+		if _bn then
+			if frame.btn.icon then frame.btn.icon:SetTexture(_tex); end
+			if frame.btn.nametxt then
+				if ]] .. auranameab .. [[ then
+					local word, anstr = nil, "";
+					for word in string.gmatch(_bn, "%a+")
+						do anstr = anstr .. word:sub(1, 1);
+					end
+					frame.btn.nametxt:SetText(anstr);
+				elseif ]] .. auranametrunc .. [[ then
+					frame.btn.nametxt:SetText(strsub(_bn, 1, ]] .. auranametrunc .. [[));
+				else
+					frame.btn.nametxt:SetText(_bn);
+				end
+			end
+			
+			if ]] .. desc.auraType .. [[ == "DEBUFFS" and ]] .. usedebuffcolor .. [[ then
+				if _dispelt then
+					btn.sb:SetColorTable(DebuffTypeColor[_dispelt]);
+				else
+					btn.sb:SetColorTable(_grey);
+				end
+			end
+			
+			frame.btn.ftc:SetFormula("]] .. desc.countTypeFlag .. [[");
+			frame.btn.ftc:SetTimer(_et - _dur , _dur);
+			if _apps > 1 then frame.btn.stacktxt:SetText(_apps); else frame.btn.stacktxt:SetText("");end
+			
+			frame.btn:Show();
+		else
+			frame.btn:Hide();
+		end
+	end
+	local hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot, hasThrownEnchant, thrownBuffName, thrownBuffRank, thrownCharges, thrownBuffStart, thrownBuffDur, thrownTex, thrownBuffTex, thrownSlot;
+	local tempEnchant1 = self:GetAttribute("tempEnchant1");
+	local tempEnchant2 = self:GetAttribute("tempEnchant2");
+	local tempEnchant3 = self:GetAttribute("tempEnchant3");
+	if tempEnchant1 or tempEnchant2 or tempEnchant3 then
+		hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot, hasThrownEnchant, thrownBuffName, thrownBuffRank, thrownCharges, thrownBuffStart, thrownBuffDur, thrownTex, thrownBuffTex, thrownSlot = RDXDAL.LoadWeaponsBuff();
+	end
+	if tempEnchant1 then
+		if not tempEnchant1.btn then
+			local btn = VFLUI.SBTIB:new(btnOwner, ]] .. Serialize(desc.sbtib) .. [[);
+			btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
+			tempEnchant1.btn = btn;
+		end
+		if hasMainHandEnchant then
+			tempEnchant1.btn.icon:SetTexture(mainHandTex);
+			if tempEnchant1.btn.nametxt then
+				if ]] .. auranameab .. [[ then
+					local word, anstr = nil, "";
+					for word in string.gmatch(mainHandBuffName, "%a+")
+						do anstr = anstr .. word:sub(1, 1);
+					end
+					tempEnchant1.btn.nametxt:SetText(anstr);
+				elseif ]] .. auranametrunc .. [[ then
+					tempEnchant1.btn.nametxt:SetText(strsub(mainHandBuffName, 1, ]] .. auranametrunc .. [[));
+				else
+					tempEnchant1.btn.nametxt:SetText(mainHandBuffName);
+				end
+			end
+			tempEnchant1.btn.ftc:SetFormula("]] .. desc.countTypeFlag .. [[");
+			tempEnchant1.btn.ftc:SetTimer(mainHandBuffStart - mainHandBuffDur , mainHandBuffDur);
+			if mainHandCharges > 1 then tempEnchant1.btn.stacktxt:SetText(mainHandCharges); else tempEnchant1.btn.stacktxt:SetText("");end
+			tempEnchant1.btn:Show();
+		else
+			tempEnchant1.btn:Hide();
+		end
+	end
+	if tempEnchant2 then
+		if not tempEnchant2.btn then
+			local btn = VFLUI.SBTIB:new(btnOwner, ]] .. Serialize(desc.sbtib) .. [[);
+			btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
+			tempEnchant2.btn = btn;
+		end
+		if hasOffHandEnchant then
+			tempEnchant2.btn.icon:SetTexture(offHandTex);
+			if tempEnchant2.btn.nametxt then
+				if ]] .. auranameab .. [[ then
+					local word, anstr = nil, "";
+					for word in string.gmatch(offHandBuffName, "%a+")
+						do anstr = anstr .. word:sub(1, 1);
+					end
+					tempEnchant2.btn.nametxt:SetText(anstr);
+				elseif ]] .. auranametrunc .. [[ then
+					tempEnchant2.btn.nametxt:SetText(strsub(offHandBuffName, 1, ]] .. auranametrunc .. [[));
+				else
+					tempEnchant2.btn.nametxt:SetText(offHandBuffName);
+				end
+			end
+			tempEnchant2.btn.ftc:SetFormula("]] .. desc.countTypeFlag .. [[");
+			tempEnchant2.btn.ftc:SetTimer(offHandBuffStart - offHandBuffDur , offHandBuffDur);
+			if offHandCharges > 1 then tempEnchant2.btn.stacktxt:SetText(offHandCharges); else tempEnchant2.btn.stacktxt:SetText("");end
+			tempEnchant2.btn:Show();
+		else
+			tempEnchant2.btn:Hide();
+		end
+	end
+	if tempEnchant3 then
+		if not tempEnchant3.btn then
+			local btn = VFLUI.SBTIB:new(btnOwner, ]] .. Serialize(desc.sbtib) .. [[);
+			btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
+			tempEnchant3.btn = btn;
+		end
+		if hasThrownEnchant then
+			tempEnchant3.btn.icon:SetTexture(thrownTex);
+			if tempEnchant3.btn.nametxt then
+				if ]] .. auranameab .. [[ then
+					local word, anstr = nil, "";
+					for word in string.gmatch(thrownBuffName, "%a+")
+						do anstr = anstr .. word:sub(1, 1);
+					end
+					tempEnchant3.btn.nametxt:SetText(anstr);
+				elseif ]] .. auranametrunc .. [[ then
+					tempEnchant3.btn.nametxt:SetText(strsub(thrownBuffName, 1, ]] .. auranametrunc .. [[));
+				else
+					tempEnchant3.btn.nametxt:SetText(thrownBuffName);
+				end
+			end
+			tempEnchant3.btn.ftc:SetFormula("]] .. desc.countTypeFlag .. [[");
+			tempEnchant3.btn.ftc:SetTimer(thrownBuffStart - thrownBuffDur , thrownBuffDur);
+			if thrownCharges > 1 then tempEnchant3.btn.stacktxt:SetText(thrownCharges); else tempEnchant3.btn.stacktxt:SetText("");end
+			tempEnchant3.btn:Show();
+		else
+			tempEnchant3.btn:Hide();
+		end
+	end
+end
+
+headerAura:updateFunc();
 frame.]] .. objname .. [[ = headerAura;
 ]];
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
@@ -93,106 +240,37 @@ frame.]] .. objname .. [[ = headerAura;
 		local destroyCode = [[
 for _,frame in frame.]] .. objname .. [[:ActiveChildren() do
 	local btn = frame.btn;
-	VFLUI.ReleaseRegion(btn.icon); btn.icon = nil;
-	VFLUI.ReleaseRegion(btn.icontxt); btn.icontxt = nil;
-	btn.sb:Destroy(); btn.sb = nil;
-	VFLUI.ReleaseRegion(btn.sbtxt); btn.sbtxt = nil;
-	VFLUI.ReleaseRegion(btn.sbtimetxt); btn.sbtimetxt = nil;
 	btn.ftc:Destroy(); btn.ftc = nil;
 	btn:Destroy(); btn = nil;
+end
+local tempEnchant1 = frame.]] .. objname .. [[:GetAttribute("tempEnchant1");
+if tempEnchant1 then
+	local btn = tempEnchant1.btn;
+	if btn then
+		btn.ftc:Destroy(); btn.ftc = nil;
+		btn:Destroy(); btn = nil;
+	end
+end
+local tempEnchant2 = frame.]] .. objname .. [[:GetAttribute("tempEnchant2");
+if tempEnchant2 then
+	local btn = tempEnchant2.btn;
+	if btn then
+		btn.ftc:Destroy(); btn.ftc = nil;
+		btn:Destroy(); btn = nil;
+	end
+end
+local tempEnchant3 = frame.]] .. objname .. [[:GetAttribute("tempEnchant3");
+if tempEnchant3 then
+	local btn = tempEnchant3.btn;
+	if btn then
+		btn.ftc:Destroy(); btn.ftc = nil;
+		btn:Destroy(); btn = nil;
+	end
 end
 frame.]] .. objname .. [[:Destroy();
 frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);
-
-		------------------- Paint
-		local paintCode = [[
-for _,frame in frame.]] .. objname .. [[:ActiveChildren() do
-	if not frame.btn then
-		local btn = VFLUI.AcquireFrame("Frame");
-		btn:SetParent(frame); btn:SetFrameLevel(frame:GetFrameLevel());
-		btn:SetAllPoints(frame);
-		VFLUI.SetBackdrop(btn, ]] .. Serialize(desc.bkd) .. [[);
-		btn.icon = VFLUI.CreateTexture(btn);
-		btn.icon:SetWidth(]] .. isize .. [[); btn.icon:SetHeight(]] .. isize .. [[);
-		btn.icon:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
-		btn.sb = VFLUI.StatusBarTexture:new(btn, nil, nil, "ARTWORK", 1);
-		btn.sb:SetOrientation("]] .. borientation .. [[");
-		btn.sb:SetWidth(]] .. barx .. [[); btn.sb:SetHeight(]] .. bary .. [[);
-		btn.sb:Show();
-]];
-		paintCode = paintCode .. VFLUI.GenerateSetTextureCode("btn.sb", desc.sbtexture);
-		paintCode = paintCode .. [[
-		btn.icontxt = VFLUI.CreateFontString(btn);
-		btn.icontxt:SetAllPoints(btn.icon); 
-		btn.icontxt:Show();
-]];
-		paintCode = paintCode .. VFLUI.GenerateSetFontCode("btn.icontxt", desc.iconfont, nil, true);
-		paintCode = paintCode .. [[
-		btn.sbtxt = VFLUI.CreateFontString(btn);
-		btn.sbtxt:SetAllPoints(btn.sb);
-		btn.sbtxt:Show();
-]];
-		paintCode = paintCode .. VFLUI.GenerateSetFontCode("btn.sbtxt", desc.sbfont, nil, true);
-		paintCode = paintCode .. [[
-		btn.sbtimetxt = VFLUI.CreateFontString(btn);
-		btn.sbtimetxt:SetAllPoints(btn.sb);
-		btn.sbtimetxt:Show();
-]];
-		paintCode = paintCode .. VFLUI.GenerateSetFontCode("btn.sbtimetxt", desc.sbtimerfont, nil, true);
-		paintCode = paintCode .. [[
-		btn.ftc = ftc_]] .. objname .. [[(frame, btn.sb, btn.sbtimetxt);
-]];
-		if desc.showtex then
-			if borientation == "HORIZONTAL" then
-				paintCode = paintCode .. [[ 
-					btn.icon:SetPoint("TOPLEFT", btn, "TOPLEFT");
-					btn.sb:SetPoint("TOPLEFT", btn.icon, "TOPLEFT");
-]];
-			else
-				paintCode = paintCode .. [[ 
-					btn.icon:SetPoint("BOTTOMLEFT", btn, "BOTTOMLEFT");
-					btn.sb:SetPoint("BOTTOMLEFT", btn.icon, "BOTTOMLEFT");
-]];			
-			end
-		else
-			if borientation == "HORIZONTAL" then
-				paintCode = paintCode .. [[ 
-					btn.icon:SetPoint("TOPLEFT", btn, "TOPLEFT");
-					btn.sb:SetPoint("TOPLEFT", btn, "TOPLEFT");
-]];
-			else
-				paintCode = paintCode .. [[ 
-					btn.icon:SetPoint("BOTTOMLEFT", btn, "BOTTOMLEFT");
-					btn.sb:SetPoint("BOTTOMLEFT", btn, "BOTTOMLEFT");
-]];			
-			end
-		end
-		paintCode = paintCode .. [[
-		frame.btn = btn;
-	end
-	_bn, _, _tex, _apps, _dispelt, _dur, _et = UnitAura(uid,frame:GetID());
-	if _bn then
-		frame.btn.icon:SetTexture(_tex);
-		if _apps > 1 then frame.btn.icontxt:SetText(_apps); else frame.btn.icontxt:SetText("");end
-		frame.btn.sb:SetColorTable(DebuffTypeColor[_dispelt]);
-		frame.btn.sbtxt:SetText(_bn);
-		frame.btn.ftc:SetFormula("]] .. desc.countTypeFlag .. [[");
-		frame.btn.ftc:SetTimer(_et - _dur , _dur);
-		frame.btn:Show();
-	else
-		frame.btn:Hide();
-	end
-end
-]];
-		state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCode); end);
-		
-		------------------- Cleanup
-		local cleanupCode = [[
-
-]];
-		state:Attach("EmitCleanup", true, function(code) code:AppendCode(cleanupCode); end);
 
 		return true;
 	end;
@@ -226,8 +304,8 @@ end
 		------------- Layout
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout")));
 
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Owner", state, "Subframe_", true);
-		if desc and desc.owner then owner:SetSelection(desc.owner); end
+		--local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Owner", state, "Subframe_", true);
+		--if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		local anchor = RDXUI.UnitFrameAnchorSelector:new(ui); anchor:Show();
 		anchor:SetAFArray(RDXUI.ComposeAnchorList(state));
@@ -288,42 +366,22 @@ end
 		ui:InsertFrame(ed_yoffset);
 		
 		-------------- display
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display Bar")));
 		
-		local er_bkd = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop style"));
-		local bkd = VFLUI.MakeBackdropSelectButton(er_bkd, desc.bkd); bkd:Show();
-		er_bkd:EmbedChild(bkd); er_bkd:Show();
-		ui:InsertFrame(er_bkd);
+		local er2 = VFLUI.EmbedRight(ui, VFLI.i18n("Statusbar style"));
+		local sbtib = VFLUI.MakeSBTIBSelectButton(er2, desc.sbtib); sbtib:Show();
+		er2:EmbedChild(sbtib); er2:Show();
+		ui:InsertFrame(er2);
 		
-		local chk_showtex = VFLUI.Checkbox:new(ui); chk_showtex:Show();
-		chk_showtex:SetText(VFLI.i18n("Show icon texture"));
-		if desc and desc.showtex then chk_showtex:SetChecked(true); else chk_showtex:SetChecked(); end
-		ui:InsertFrame(chk_showtex);
+		local countTypeFlag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Count type (true CountUP, false CountDOWN)"), state, "BoolVar_", nil, "true", "false");
+		if desc and desc.countTypeFlag then countTypeFlag:SetSelection(desc.countTypeFlag); end
 		
-		--local er_ip = VFLUI.EmbedRight(ui, VFLI.i18n("Icon Position"));
-		--local dd_ip = VFLUI.Dropdown:new(er_ip, RDXUI.OrientationDropdownFunction);
-		--dd_ip:SetWidth(100); dd_ip:Show();
-		--if desc and desc.iconposition then 
-		--	dd_ip:SetSelection(desc.iconposition); 
-		--else
-		--	dd_ip:SetSelection("LEFT");
-		--end
-		--er_ip:EmbedChild(dd_ip); er_ip:Show();
-		--ui:InsertFrame(er_ip);
+		local chk_bc = VFLUI.Checkbox:new(ui); chk_bc:Show();
+		chk_bc:SetText(VFLI.i18n("Use Bar color debuff"));
+		if desc and desc.sbcolor then chk_bc:SetChecked(true); else chk_bc:SetChecked(); end
+		ui:InsertFrame(chk_bc);
 		
-		local er_if = VFLUI.EmbedRight(ui, VFLI.i18n("Icon Font Stack"));
-		local iconfontsel = VFLUI.MakeFontSelectButton(er_if, desc.iconfont); iconfontsel:Show();
-		er_if:EmbedChild(iconfontsel); er_if:Show();
-		ui:InsertFrame(er_if);
-		
-		local er_btx = VFLUI.EmbedRight(ui, VFLI.i18n("Bar Texture"));
-		local sbtexsel = VFLUI.MakeTextureSelectButton(er_btx, desc.sbtexture); sbtexsel:Show();
-		er_btx:EmbedChild(sbtexsel); er_btx:Show();
-		ui:InsertFrame(er_btx);
-		
-		local er_bf = VFLUI.EmbedRight(ui, VFLI.i18n("Bar Font Aura name"));
-		local barfontsel = VFLUI.MakeFontSelectButton(er_bf, desc.sbfont); barfontsel:Show();
-		er_bf:EmbedChild(barfontsel); er_bf:Show();
-		ui:InsertFrame(er_bf);
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display Fonts")));
 		
 		local ed_trunc = VFLUI.LabeledEdit:new(ui, 50); ed_trunc:Show();
 		ed_trunc:SetText(VFLI.i18n("Max aura length (blank = no truncation)"));
@@ -334,25 +392,6 @@ end
 		chk_abr:SetText(VFLI.i18n("Use abbreviating"));
 		if desc and desc.abr then chk_abr:SetChecked(true); else chk_abr:SetChecked(); end
 		ui:InsertFrame(chk_abr);
-		
-		local er_tf = VFLUI.EmbedRight(ui, VFLI.i18n("Bar Font Aura Timer"));
-		local timerfontsel = VFLUI.MakeFontSelectButton(er_tf, desc.sbtimerfont); timerfontsel:Show();
-		er_tf:EmbedChild(timerfontsel); er_tf:Show();
-		ui:InsertFrame(er_tf);
-		
-		--local chk_bc = VFLUI.Checkbox:new(ui); chk_bc:Show();
-		--chk_bc:SetText(VFLI.i18n("Use Bar color debuff"));
-		--if desc and desc.sbcolor then chk_bc:SetChecked(true); else chk_bc:SetChecked(); end
-		--ui:InsertFrame(chk_bc);
-		
-		local countTypeFlag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Count type (true CountUP, false CountDOWN)"), state, "BoolVar_", nil, "true", "false");
-		if desc and desc.countTypeFlag then countTypeFlag:SetSelection(desc.countTypeFlag); end
-		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Smooth show hide")));
-		local chk_smooth = VFLUI.Checkbox:new(ui); chk_smooth:Show();
-		chk_smooth:SetText(VFLI.i18n("Use smooth on show and hide"));
-		if desc and desc.smooth then chk_smooth:SetChecked(true); else chk_smooth:SetChecked(); end
-		ui:InsertFrame(chk_smooth);
 		
 		------------ Sort
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Sort")));
@@ -391,7 +430,7 @@ end
 				auraType = dd_auraType:GetSelection();
 				showweapons = chk_showweapons:GetChecked();
 				-- layout
-				owner = owner:GetSelection();
+				owner = "Base";
 				anchor = anchor:GetAnchorInfo();
 				template = dd_template:GetSelection();
 				point = dd_point:GetSelection();
@@ -401,18 +440,12 @@ end
 				xoffset = VFL.clamp(ed_xoffset.editBox:GetNumber(), -10, 10);
 				yoffset = VFL.clamp(ed_yoffset.editBox:GetNumber(), -10, 10);
 				-- display
-				bkd = bkd:GetSelectedBackdrop();
-				showtex = chk_showtex:GetChecked();
-				--iconposition = dd_ip:GetSelection();
-				iconfont = iconfontsel:GetSelectedFont();
-				sbtexture = sbtexsel:GetSelectedTexture();
-				sbfont = barfontsel:GetSelectedFont();
-				trunc = VFL.clamp(ed_trunc.editBox:GetNumber(), 1, 50);
-				abr = chk_abr:GetChecked();
-				sbtimerfont = timerfontsel:GetSelectedFont();
-				--sbcolor = chk_bc:GetChecked();
+				sbtib = sbtib:GetSelectedSBTIB();
 				countTypeFlag = countTypeFlag:GetSelection();
-				smooth = chk_smooth:GetChecked();
+				sbcolor = chk_bc:GetChecked();
+				-- fonts
+				trunc = trunc;
+				abr = chk_abr:GetChecked();
 				-- sort
 				sortmethod = dd_sortMethod:GetSelection();
 				sortdir = chk_sortDir:GetChecked();
@@ -422,7 +455,6 @@ end
 		return ui;
 	end;
 	CreateDescriptor = function()
-		local font = VFL.copy(Fonts.Default); font.size = 8; font.justifyV = "CENTER"; font.justifyH = "CENTER";
 		return { 
 			feature = "sec_aura_bars";
 			version = 1;
@@ -431,12 +463,7 @@ end
 			owner = "Base";
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
 			template = "RDXAB30x30Template"; orientation = "LEFT"; wrapafter = 10; maxwraps = 2; xoffset = 0; yoffset = 0;
-			bkd = VFL.copy(VFLUI.defaultBackdrop);
-			--iconposition = "LEFT";
-			iconfont = VFL.copy(Fonts.Default);
-			sbtexture = { blendMode = "BLEND"; path = "Interface\\TargetingFrame\\UI-StatusBar"; };
-			sbfont = VFL.copy(Fonts.Default);
-			sbtimerfont = sbtfont;
+			sbtib = VFL.copy(VFLUI.defaultSBTIB);
 			countTypeFlag = "true";
 			sortmethod = "INDEX";
 			separateown = "NONE";

@@ -77,8 +77,6 @@ RosterMgr\DamageMeter\Obj_TableMeter.lua
 RosterMgr\Threat\Threat.lua
 Metadata\WeaponsBuffs.lua
 
-
-
 # Sets
 RosterMgr\Sets\Set.lua
 RosterMgr\Sets\SetFinder.lua
