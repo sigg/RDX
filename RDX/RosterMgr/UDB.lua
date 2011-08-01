@@ -1927,7 +1927,7 @@ function RDX.GetSwingMeleeInfo()
 end
 
 local function SwingParse(_, event, _, guid)
-	if myunit and myunit:GetGuid() ~= guid then return; end
+	if not myunit or myunit:GetGuid() ~= guid then return; end
 	if event and (not string.find(event, 'SWING')) then return; end
 	meleemh_duration, meleeoh_duration = UnitAttackSpeed("player");
 	if OffhandHasWeapon() then

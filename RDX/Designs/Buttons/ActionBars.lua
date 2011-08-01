@@ -54,14 +54,15 @@ baridToNum["bonusbar4"] = 109;
 baridToNum["possessbar"] = 121;
 
 local function GetBarNumber(barid)
-	if not id then return 109; end
-	return baridToNum[barid] or 109; end
+	if not barid then return 109; end
+	return baridToNum[barid] or 109;
 end
+
 local numToBarid = VFL.invert(baridToNum);
 
 local function GetBarId(num)
 	if not num then return "bonusbar4"; end
-	return numToBarid[num] or "bonusbar4"; end
+	return numToBarid[num] or "bonusbar4";
 end
 
 local _orientations = {
@@ -100,13 +101,14 @@ local function _EmitCreateCode(objname, desc)
 	elseif desc.headerstateType ~= "None" then
 		headerstate = "'" .. __RDXGetStates(desc.headerstateType) .. "'";
 	end
+	
 	local headervis = "nil";
-	if desc.headervisType == "Custom" then
+	if desc.headervisiType == "Custom" then
 		headervis = "'" .. desc.headervisiCustom .. "'";
-	elseif desc.headervisType ~= "None" then
+	elseif desc.headervisiType ~= "None" then
 		headervis = "'" .. __RDXGetVisi(desc.headervisiType) .. "'";
 	end
-	
+
 	if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
 	local flyoutdirection = "UP";
 	if desc.flyoutdirection then flyoutdirection = desc.flyoutdirection; end
@@ -244,7 +246,7 @@ frame.]] .. objname .. [[ = nil;
 		
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Bar id:"));
 		local dd_bars = VFLUI.Dropdown:new(er, _dd_bars);
-		dd_bars:SetWidth(100); dd_bars:Show();
+		dd_bars:SetWidth(200); dd_bars:Show();
 		if desc and desc.barid then 
 			dd_bars:SetSelection(desc.barid); 
 		else
@@ -285,7 +287,7 @@ frame.]] .. objname .. [[ = nil;
 		end
 		ui:InsertFrame(ed_custom);
 		
-		local stxt = VFLUI.SimpleText:new(ui, 1, 200); stxt:Show();
+		local stxt = VFLUI.SimpleText:new(ui, 2, 200); stxt:Show();
 		local str = "Current State:\n";
 		if desc.headerstateType ~= "Custom" then
 			str = str .. __RDXGetStates(desc.headerstateType);
@@ -315,14 +317,14 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.headervisiCustom then 
 			ed_visicustom.editBox:SetText(desc.headervisiCustom);
 		else
-			dd_visi:SetSelection("");
+			ed_visicustom.editBox:SetText("");
 		end
-		ui:InsertFrame(ed_custom);
+		ui:InsertFrame(ed_visicustom);
 		
-		local visistxt = VFLUI.SimpleText:new(ui, 1, 200); visistxt:Show();
+		local visistxt = VFLUI.SimpleText:new(ui, 2, 200); visistxt:Show();
 		local str = "Current Visibility:\n";
 		if desc.headerstateType ~= "Custom" then
-			str = str .. __RDXGetStates(desc.headervisiType);
+			str = str .. __RDXGetVisi(desc.headervisiType);
 		else 
 			str = str .. desc.headerstateCustom;
 		end
@@ -333,8 +335,8 @@ frame.]] .. objname .. [[ = nil;
 		------------- Layout
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout")));
 		
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
-		if desc and desc.owner then owner:SetSelection(desc.owner); end
+		--local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
+		--if desc and desc.owner then owner:SetSelection(desc.owner); end
 		
 		local ed_flo = VFLUI.LabeledEdit:new(ui, 50); ed_flo:Show();
 		ed_flo:SetText(VFLI.i18n("FrameLevel offset"));
@@ -479,7 +481,8 @@ frame.]] .. objname .. [[ = nil;
 				headervisiType = dd_visi:GetSelection();
 				headervisiCustom = ed_visicustom.editBox:GetText();
 				-- layout
-				owner = owner:GetSelection();
+				--owner = owner:GetSelection();
+				owner = "Base";
 				flo = VFL.clamp(ed_flo.editBox:GetNumber(), 1, 10);
 				anchor = anchor:GetAnchorInfo();
 				rows = VFL.clamp(ed_rows.editBox:GetNumber(), 1, 40);

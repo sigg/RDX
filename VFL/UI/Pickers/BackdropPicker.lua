@@ -36,9 +36,18 @@ local lbl = VFLUI.MakeLabel(nil, ca, "Preview");
 lbl:SetWidth(200);
 lbl:SetPoint("TOPLEFT", ca, "TOPLEFT");
 
+local pvwfb = VFLUI.AcquireFrame("Frame");
+pvwfb:SetParent(ca); pvwfb:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
+pvwfb:SetWidth(270); pvwfb:SetHeight(95);
+pvwfb:SetBackdrop({
+	bgFile="Interface\\Addons\\VFL\\Skin\\Checker", tile = true, tileSize = 15,
+	insets = { left = 0, right = 0, top = 0, bottom = 0 }
+});
+pvwfb:Show();
+
 local pvwf = VFLUI.AcquireFrame("Frame");
-pvwf:SetParent(ca); pvwf:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
-pvwf:SetWidth(270); pvwf:SetHeight(95);
+pvwf:SetParent(pvwfb); pvwf:SetPoint("CENTER", pvwfb, "CENTER");
+pvwf:SetWidth(243); pvwf:SetHeight(86);
 pvwf:Show();
 
 ----------- Border and Backdrop styles
@@ -46,7 +55,7 @@ local dd_border, dd_backdrop;
 
 -------------------- Border
 local lbl2 = VFLUI.MakeLabel(nil, ca, "Border:");
-lbl2:SetWidth(80); lbl2:SetPoint("TOPLEFT", pvwf, "BOTTOMLEFT", 0, -10);
+lbl2:SetWidth(80); lbl2:SetPoint("TOPLEFT", pvwf, "BOTTOMLEFT", -13, -10);
 
 dd_border = VFLUI.Dropdown:new(ca, VFLUI.GetBackdropBorderList, function(selectedBorder)
 	VFLUI.ApplyBaseBackdrop(curBackdrop, selectedBorder);
@@ -222,6 +231,12 @@ end
 --------------- Updater
 UpdateBackdropPicker = function()
 	VFLUI.SetBackdrop(pvwf, curBackdrop);
+	--if curBackdrop._backdrop == "none" then
+	--	pvwf:SetBackdrop({
+	--		bgFile="Interface\\Addons\\VFL\\Skin\\Checker", tile = true, tileSize = 15,
+	--		insets = { left = 0, right = 0, top = 0, bottom = 0 }
+	--	});
+	--end
 	dd_border:SetSelection(VFLUI.GetBackdropBorderTitle(curBackdrop._border), curBackdrop._border or "none", true);
 	dd_backdrop:SetSelection(VFLUI.GetBackdropTitle(curBackdrop._backdrop), curBackdrop._backdrop or "none", true);
 	-- Edge size

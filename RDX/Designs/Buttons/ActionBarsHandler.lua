@@ -81,11 +81,38 @@ end
 function __RDXGetVisi(visitype)
 	local str = "";
 	if visitype == "InCombat" then
-		str = "[combat] hide; show";
+		str = "[combat] show; hide;";
 	elseif visitype == "InStealth" then
 		str = "[stealth, harm] show; hide";
 	elseif visitype == "InForm3" then
 		str = "[form:3] show; hide";
+	end
+	return str;
+end
+
+local _visi = {
+	{ text = "None"},
+	{ text = "Pet"},
+	{ text = "PetInCombat"},
+	{ text = "Vehicle"},
+	{ text = "VehicleInCombat"},
+	{ text = "InCombat"},
+	{ text = "Custom"},
+};
+function __RDX_dd_visi() return _visi; end
+
+function __RDXGetOtherVisi(visitype)
+	local str = "";
+	if visitype == "Pet" then
+		str = "[target=pet,exists] show; hide;";
+	elseif visitype == "PetInCombat" then
+		str = "[combat] show; hide; [target=pet,exists] show; hide;";
+	elseif visitype == "Vehicle" then
+		str = "[target=vehicle,exists] show; hide;";
+	elseif visitype == "VehicleInCombat" then
+		str = "[combat] show; hide; [target=vehicle,exists] show; hide;";
+	elseif visitype == "InCombat" then
+		str = "[combat] show; hide;";
 	end
 	return str;
 end
@@ -107,7 +134,7 @@ function __RDXCreateHeaderHandlerAttribute(statesString, visString)
 			RegisterStateDriver(h, "page", statesString .. " " .. 0);
 		end
 		if visString then
-			RegisterStateDriver(h, "visibility", visString); --"[bonusbar:5] hide; [target=pet,exists] show; hide;")
+			RegisterStateDriver(h, "visibility", visString);
 		end
 	end
 	return h;
@@ -149,10 +176,11 @@ function __RDXGetCurrentButtonId(statesString, nbuttons, id)
 	return id + (nbuttons * currentPage);
 end
 
--- pet handler
+-- pet/other handler
 
-function __RDXCreateHeaderHandlerBase()
+function __RDXCreateHeaderHandlerBase(visString)
 	local h = VFLUI.AcquireFrame("SecureHandlerBase");
-	RegisterStateDriver(h, "visibility", "[bonusbar:5] hide; [target=pet,exists] show; hide;")
+	RegisterStateDriver(h, "visibility", visString)
 	return h;
 end
+
