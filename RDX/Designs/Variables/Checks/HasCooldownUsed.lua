@@ -1,7 +1,7 @@
 
 RDX.RegisterFeature({
 	name = "var_hascdused";
-	title = VFLI.i18n("Var IsDeath?");
+	title = VFLI.i18n("Var HasCDUsed?");
 	category = VFLI.i18n("Variables Check");
 	test = true;
 	IsPossible = function(state)
