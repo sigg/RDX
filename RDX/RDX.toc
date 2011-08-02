@@ -331,6 +331,7 @@ Designs\Variables\Checks\IsShiftDown.lua
 Designs\Variables\Checks\IsTapped.lua
 Designs\Variables\Checks\IsTargetExisted.lua
 Designs\Variables\Checks\IsSolarDirection.lua
+Designs\Variables\Checks\HasCooldownUsed.lua
 
 # Class
 Metadata\Metadata_Warlock.lua
