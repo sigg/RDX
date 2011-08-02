@@ -28,6 +28,7 @@ local bucketFuncs = {
 	RDXUI.ClassOrderBucketing,
 	RDXUI.RoleBucketing,
 };
+
 RDX.RegisterFeature({
 	name = "Header Grid";
 	category = VFLI.i18n("Layout");
@@ -317,6 +318,83 @@ RDX.RegisterFeature({
 			if not succ then RDXDK.PrintError(win, "RepaintData", err); end
 		end);
 		
+		local function change(layout)
+			if layout == "Horizontal" then
+				desc.axis = 1;
+				desc.dxn = 2;
+				desc.bkt = 1;
+				desc.cols = 1;
+			elseif layout == "Horizontal*5" then
+				desc.axis = 1;
+				desc.dxn = 2;
+				desc.bkt = 1;
+				desc.cols = 5;
+			elseif layout == "Horizontal*10" then
+				desc.axis = 1;
+				desc.dxn = 2;
+				desc.bkt = 1;
+				desc.cols = 10;
+			elseif layout == "Vertical" then
+				desc.axis = 2;
+				desc.dxn = 1;
+				desc.bkt = 1;
+				desc.cols = 1;
+			elseif layout == "Vertical*5" then
+				desc.axis = 2;
+				desc.dxn = 1;
+				desc.bkt = 1;
+				desc.cols = 5;
+			elseif layout == "Vertical*10" then
+				desc.axis = 2;
+				desc.dxn = 1;
+				desc.bkt = 1;
+				desc.cols = 10;
+			end
+			-- rebuild
+			RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, win._path);
+		end
+		
+		local smenu = RDX.Menu:new();
+		
+		smenu:RegisterMenuFunction(function(ent)
+			ent.text = i18n("Horizontal");
+			ent.OnClick = function() VFL.poptree:Release(); change("Horizontal"); end;
+		end);
+		smenu:RegisterMenuFunction(function(ent)
+			ent.text = i18n("Horizontal*5");
+			ent.OnClick = function() VFL.poptree:Release(); change("Horizontal*5"); end;
+		end);
+		smenu:RegisterMenuFunction(function(ent)
+			ent.text = i18n("Horizontal*10");
+			ent.OnClick = function() VFL.poptree:Release(); change("Horizontal*10"); end;
+		end);
+		smenu:RegisterMenuFunction(function(ent)
+			ent.text = i18n("Vertical");
+			ent.OnClick = function() VFL.poptree:Release(); change("Vertical"); end;
+		end);
+		smenu:RegisterMenuFunction(function(ent)
+			ent.text = i18n("Vertical*5");
+			ent.OnClick = function() VFL.poptree:Release(); change("Vertical*5"); end;
+		end);
+		smenu:RegisterMenuFunction(function(ent)
+			ent.text = i18n("Vertical*10");
+			ent.OnClick = function() VFL.poptree:Release(); change("Vertical*10"); end;
+		end);
+		smenu:RegisterMenuFunction(function(ent)
+			ent.text = i18n("Custom");
+			ent.OnClick = function() VFL.poptree:Release(); RDXDB.OpenObject(win._path, "Edit", VFLDIALOG); end;
+		end);
+
+		-- Add a menu to the window to edit the mouse bindings
+		state:Attach("Menu", true, function(win, mnu)
+			table.insert(mnu, {
+				text = "Raid Preset Layout";
+				isSubmenu = true;
+				OnClick = function(tree, frame)
+					smenu:Open(tree, frame);
+				end
+			});
+		end);
 		
 	end,
 	UIFromDescriptor = function(desc, parent, state)
