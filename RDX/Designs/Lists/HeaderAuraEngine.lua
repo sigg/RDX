@@ -56,10 +56,10 @@ function RDX.IconTemplatesFunc() return icontemplates; end
 
 -- BAR template
 local bartemplates = {
-	{ text = "RDXAB30x90Template" },
-	{ text = "RDXAB20x60Template" },
-	{ text = "RDXAB90x30Template" },
-	{ text = "RDXAB60x20Template" },
+	{ text = "RDXAB30x300Template" },
+	{ text = "RDXAB20x200Template" },
+	{ text = "RDXAB300x30Template" },
+	{ text = "RDXAB200x20Template" },
 };
 function RDX.BarTemplatesFunc() return bartemplates; end
 

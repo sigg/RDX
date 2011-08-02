@@ -173,6 +173,7 @@ headerAura.updateFunc = function(self)
 			btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
 			btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
 			btn.tex:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+			btn.tex:SetDrawLayer("ARTWORK", 2);
 			btn.tex:Show();
 			
 			btn.frtxt = VFLUI.AcquireFrame("Frame");
@@ -192,7 +193,7 @@ headerAura.updateFunc = function(self)
 		local hasMainHandEnchant, mainHandExpiration, mainHandCharges = GetWeaponEnchantInfo();
 		if hasMainHandEnchant then
 			local slotid = GetInventorySlotInfo("MainHandSlot");
-			_tex = GetInventoryItemTexture("player", slotid);
+			local _tex = GetInventoryItemTexture("player", slotid);
 			tempEnchant1.btn.tex:SetTexture(_tex);
 			if mainHandCharges > 1 then tempEnchant1.btn.sttxt:SetText(mainHandCharges); else tempEnchant1.btn.sttxt:SetText("");end
 			tempEnchant1.btn:Show();
@@ -220,6 +221,7 @@ headerAura.updateFunc = function(self)
 			btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
 			btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
 			btn.tex:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+			btn.tex:SetDrawLayer("ARTWORK", 2);
 			btn.tex:Show();
 			
 			btn.frtxt = VFLUI.AcquireFrame("Frame");
@@ -267,6 +269,7 @@ headerAura.updateFunc = function(self)
 			btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
 			btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
 			btn.tex:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+			btn.tex:SetDrawLayer("ARTWORK", 2);
 			btn.tex:Show();
 			
 			btn.frtxt = VFLUI.AcquireFrame("Frame");

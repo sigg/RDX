@@ -69,8 +69,8 @@
 			</OnLeave>
 		</Scripts>
 	</Button>
-	<Button name="RDXAB30x90Template" inherits="SecureActionButtonTemplate" virtual="true">
-		<Size x="30" y="90"/>
+	<Button name="RDXAB30x300Template" inherits="SecureActionButtonTemplate" virtual="true">
+		<Size x="30" y="300"/>
 		<Attributes>
 			<Attribute name="type" value="cancelaura"/>
 		</Attributes>
@@ -92,8 +92,8 @@
 			</OnLeave>
 		</Scripts>
 	</Button>
-	<Button name="RDXAB20x60Template" inherits="SecureActionButtonTemplate" virtual="true">
-		<Size x="20" y="60"/>
+	<Button name="RDXAB20x200Template" inherits="SecureActionButtonTemplate" virtual="true">
+		<Size x="20" y="200"/>
 		<Attributes>
 			<Attribute name="type" value="cancelaura"/>
 		</Attributes>
@@ -115,8 +115,8 @@
 			</OnLeave>
 		</Scripts>
 	</Button>
-	<Button name="RDXAB90x30Template" inherits="SecureActionButtonTemplate" virtual="true">
-		<Size x="90" y="30"/>
+	<Button name="RDXAB300x30Template" inherits="SecureActionButtonTemplate" virtual="true">
+		<Size x="300" y="30"/>
 		<Attributes>
 			<Attribute name="type" value="cancelaura"/>
 		</Attributes>
@@ -138,8 +138,8 @@
 			</OnLeave>
 		</Scripts>
 	</Button>
-	<Button name="RDXAB60x20Template" inherits="SecureActionButtonTemplate" virtual="true">
-		<Size x="60" y="20"/>
+	<Button name="RDXAB200x20Template" inherits="SecureActionButtonTemplate" virtual="true">
+		<Size x="200" y="20"/>
 		<Attributes>
 			<Attribute name="type" value="cancelaura"/>
 		</Attributes>
