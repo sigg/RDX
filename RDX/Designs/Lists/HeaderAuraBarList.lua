@@ -96,12 +96,12 @@ headerAura:Show();
 headerAura.updateFunc = function(self)
 	for _,frame in self:ActiveChildren() do
 		if not frame.btn then
-			local btn = VFLUI.SBTIB:new(btnOwner, ]] .. Serialize(desc.sbtib) .. [[);
+			local btn = VFLUI.SBTIB:new(frame, ]] .. Serialize(desc.sbtib) .. [[);
+			btn:SetPoint("TOPLEFT", frame, "TOPLEFT");
 			btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
 			frame.btn = btn;
 		end
-		
-		_bn, _, _tex, _apps, _dispelt, _dur, _et = UnitAura(uid,frame:GetID());
+		_bn, _, _tex, _apps, _dispelt, _dur, _et = UnitAura("player", frame:GetID(), "]] .. filter .. [[");
 		if _bn then
 			if frame.btn.icon then frame.btn.icon:SetTexture(_tex); end
 			if frame.btn.nametxt then
@@ -126,7 +126,7 @@ headerAura.updateFunc = function(self)
 				end
 			end
 			
-			frame.btn.ftc:SetFormula("]] .. desc.countTypeFlag .. [[");
+			frame.btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
 			frame.btn.ftc:SetTimer(_et - _dur , _dur);
 			if _apps > 1 then frame.btn.stacktxt:SetText(_apps); else frame.btn.stacktxt:SetText("");end
 			
@@ -144,7 +144,8 @@ headerAura.updateFunc = function(self)
 	end
 	if tempEnchant1 then
 		if not tempEnchant1.btn then
-			local btn = VFLUI.SBTIB:new(btnOwner, ]] .. Serialize(desc.sbtib) .. [[);
+			local btn = VFLUI.SBTIB:new(tempEnchant1, ]] .. Serialize(desc.sbtib) .. [[);
+			btn:SetPoint("TOPLEFT", frame, "TOPLEFT");
 			btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
 			tempEnchant1.btn = btn;
 		end
@@ -163,7 +164,7 @@ headerAura.updateFunc = function(self)
 					tempEnchant1.btn.nametxt:SetText(mainHandBuffName);
 				end
 			end
-			tempEnchant1.btn.ftc:SetFormula("]] .. desc.countTypeFlag .. [[");
+			tempEnchant1.btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
 			tempEnchant1.btn.ftc:SetTimer(mainHandBuffStart - mainHandBuffDur , mainHandBuffDur);
 			if mainHandCharges > 1 then tempEnchant1.btn.stacktxt:SetText(mainHandCharges); else tempEnchant1.btn.stacktxt:SetText("");end
 			tempEnchant1.btn:Show();
@@ -173,7 +174,8 @@ headerAura.updateFunc = function(self)
 	end
 	if tempEnchant2 then
 		if not tempEnchant2.btn then
-			local btn = VFLUI.SBTIB:new(btnOwner, ]] .. Serialize(desc.sbtib) .. [[);
+			local btn = VFLUI.SBTIB:new(tempEnchant2, ]] .. Serialize(desc.sbtib) .. [[);
+			btn:SetPoint("TOPLEFT", frame, "TOPLEFT");
 			btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
 			tempEnchant2.btn = btn;
 		end
@@ -192,7 +194,7 @@ headerAura.updateFunc = function(self)
 					tempEnchant2.btn.nametxt:SetText(offHandBuffName);
 				end
 			end
-			tempEnchant2.btn.ftc:SetFormula("]] .. desc.countTypeFlag .. [[");
+			tempEnchant2.btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
 			tempEnchant2.btn.ftc:SetTimer(offHandBuffStart - offHandBuffDur , offHandBuffDur);
 			if offHandCharges > 1 then tempEnchant2.btn.stacktxt:SetText(offHandCharges); else tempEnchant2.btn.stacktxt:SetText("");end
 			tempEnchant2.btn:Show();
@@ -202,7 +204,8 @@ headerAura.updateFunc = function(self)
 	end
 	if tempEnchant3 then
 		if not tempEnchant3.btn then
-			local btn = VFLUI.SBTIB:new(btnOwner, ]] .. Serialize(desc.sbtib) .. [[);
+			local btn = VFLUI.SBTIB:new(tempEnchant3, ]] .. Serialize(desc.sbtib) .. [[);
+			btn:SetPoint("TOPLEFT", frame, "TOPLEFT");
 			btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
 			tempEnchant3.btn = btn;
 		end
@@ -221,7 +224,7 @@ headerAura.updateFunc = function(self)
 					tempEnchant3.btn.nametxt:SetText(thrownBuffName);
 				end
 			end
-			tempEnchant3.btn.ftc:SetFormula("]] .. desc.countTypeFlag .. [[");
+			tempEnchant3.btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
 			tempEnchant3.btn.ftc:SetTimer(thrownBuffStart - thrownBuffDur , thrownBuffDur);
 			if thrownCharges > 1 then tempEnchant3.btn.stacktxt:SetText(thrownCharges); else tempEnchant3.btn.stacktxt:SetText("");end
 			tempEnchant3.btn:Show();
@@ -240,8 +243,10 @@ frame.]] .. objname .. [[ = headerAura;
 		local destroyCode = [[
 for _,frame in frame.]] .. objname .. [[:ActiveChildren() do
 	local btn = frame.btn;
-	btn.ftc:Destroy(); btn.ftc = nil;
-	btn:Destroy(); btn = nil;
+	if btn then
+		btn.ftc:Destroy(); btn.ftc = nil;
+		btn:Destroy(); btn = nil;
+	end
 end
 local tempEnchant1 = frame.]] .. objname .. [[:GetAttribute("tempEnchant1");
 if tempEnchant1 then
@@ -318,7 +323,7 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.template then 
 			dd_template:SetSelection(desc.template); 
 		else
-			dd_template:SetSelection("RDXAB30x90Template");
+			dd_template:SetSelection("RDXAB20x120Template");
 		end
 		er:EmbedChild(dd_template); er:Show();
 		ui:InsertFrame(er);
@@ -362,7 +367,7 @@ frame.]] .. objname .. [[ = nil;
 		
 		local ed_yoffset = VFLUI.LabeledEdit:new(ui, 50); ed_yoffset:Show();
 		ed_yoffset:SetText(VFLI.i18n("Y offset"));
-		if desc and desc.yoffset then ed_yoffset.editBox:SetText(desc.xoffset); else ed_yoffset.editBox:SetText("0"); end
+		if desc and desc.yoffset then ed_yoffset.editBox:SetText(desc.yoffset); else ed_yoffset.editBox:SetText("0"); end
 		ui:InsertFrame(ed_yoffset);
 		
 		-------------- display
@@ -462,7 +467,7 @@ frame.]] .. objname .. [[ = nil;
 			auraType = "BUFFS";
 			owner = "Base";
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
-			template = "RDXAB30x30Template"; orientation = "LEFT"; wrapafter = 10; maxwraps = 2; xoffset = 0; yoffset = 0;
+			template = "RDXAB20x120Template"; orientation = "LEFT"; wrapafter = 10; maxwraps = 2; xoffset = 0; yoffset = 0;
 			sbtib = VFL.copy(VFLUI.defaultSBTIB);
 			countTypeFlag = "true";
 			sortmethod = "INDEX";

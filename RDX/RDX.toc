@@ -235,7 +235,7 @@ Designs\Lists\Runes.lua
 Designs\Lists\AuraButtonTemplate.xml
 Designs\Lists\HeaderAuraEngine.lua
 Designs\Lists\HeaderAuraIconList.lua
-#Designs\Lists\HeaderAuraBarList.lua
+Designs\Lists\HeaderAuraBarList.lua
 Designs\Lists\CustomIconList.lua
 
 Designs\Objs\Obj_AuraFilter.lua
