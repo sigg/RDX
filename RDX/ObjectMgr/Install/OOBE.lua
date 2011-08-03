@@ -136,34 +136,34 @@ local function ShowInstallerDialog(title, text, onOK, onCancel, onDecline)
 		onOK();
 	end);
 
-	local btnCancel = nil;
-	if onCancel then
-		btnCancel = VFLUI.CancelButton:new(dlg);
-		btnCancel:SetHeight(25); btnCancel:SetWidth(60);
-		btnCancel:SetPoint("RIGHT", btnOK, "LEFT");
-		btnCancel:SetText(VFLI.i18n("Cancel")); btnCancel:Show();
-		btnCancel:SetScript("OnClick", function()
-			dlg:Destroy();
-			onCancel();
-		end);
-	end
+	--local btnCancel = nil;
+	--if onCancel then
+	--	btnCancel = VFLUI.CancelButton:new(dlg);
+	--	btnCancel:SetHeight(25); btnCancel:SetWidth(60);
+	--	btnCancel:SetPoint("RIGHT", btnOK, "LEFT");
+	--	btnCancel:SetText(VFLI.i18n("Cancel")); btnCancel:Show();
+	--	btnCancel:SetScript("OnClick", function()
+	--		dlg:Destroy();
+	--		onCancel();
+	--	end);
+	--end
 
-	local btnDecline = nil;
-	if onCancel and onDecline then
-		btnDecline = VFLUI.CancelButton:new(dlg);
-		btnDecline:SetHeight(25); btnDecline:SetWidth(60);
-		btnDecline:SetPoint("RIGHT", btnCancel, "LEFT");
-		btnDecline:SetText(VFLI.i18n("Decline")); btnDecline:Show();
-		btnDecline:SetScript("OnClick", function()
-			dlg:Destroy();
-			onDecline();
-		end);
-	end
+	--local btnDecline = nil;
+	--if onCancel and onDecline then
+	--	btnDecline = VFLUI.CancelButton:new(dlg);
+	--	btnDecline:SetHeight(25); btnDecline:SetWidth(60);
+	--	btnDecline:SetPoint("RIGHT", btnCancel, "LEFT");
+	--	btnDecline:SetText(VFLI.i18n("Decline")); btnDecline:Show();
+	--	btnDecline:SetScript("OnClick", function()
+	--		dlg:Destroy();
+	--		onDecline();
+	--	end);
+	--end
 
 	dlg.Destroy = VFL.hook(function(s)
 		btnOK:Destroy(); btnOK = nil;
-		if btnCancel then btnCancel:Destroy(); btnCancel = nil; end
-		if btnDecline then btnDecline:Destroy(); btnDecline = nil; end
+		--if btnCancel then btnCancel:Destroy(); btnCancel = nil; end
+		--if btnDecline then btnDecline:Destroy(); btnDecline = nil; end
 		VFLUI.ReleaseRegion(txt); txt = nil;
 		cl:Destroy(); cl = nil;
 	end, dlg.Destroy);
