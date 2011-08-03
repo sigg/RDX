@@ -561,6 +561,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_party_dsk");
 				RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Party_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Party_Main"} );
 				RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Partytarget_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Partytarget_Main"} );
+				RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Boss_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Boss_Main"} );
 			end
 			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_raid_dsk", "Desktop");
 			if not isexist then 
