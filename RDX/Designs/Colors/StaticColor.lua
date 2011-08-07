@@ -1,8 +1,8 @@
 
 RDX.RegisterFeature({
 	name = "ColorVariable: Static Color";
-	title = "Color Static";
-	category = "Colors";
+	title = VFLI.i18n("Color Static");
+	category = VFLI.i18n("Colors");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -10,8 +10,8 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
-		if not desc.color then VFL.AddError(errs, VFLI.i18n("Missing color parameter.")); return nil; end
+		if not desc then VFL.AddError(errs, VFLI.i18n("MissingNo descriptor.")); return nil; end
+		if not desc.color then VFL.AddError(errs, VFLI.i18n("Missing Color.")); return nil; end
 		if not RDX._CheckVariableNameValidity(desc.name, state, errs) then return nil; end
 		state:AddSlot("Var_" .. desc.name);
 		state:AddSlot("ColorVar_" .. desc.name);

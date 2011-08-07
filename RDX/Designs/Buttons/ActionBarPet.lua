@@ -110,7 +110,9 @@ local function _dd_orientations() return _orientations; end
 
 RDX.RegisterFeature({
 	name = "actionbarpet"; version = 1; 
-	title = "Bar Action Buttons Pet"; test = true; category = "Buttons";
+	title = VFLI.i18n("Bar Action Buttons Pet"); 
+	test = true; 
+	category = VFLI.i18n("Buttons");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
@@ -172,8 +174,8 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(chk_anyup);
 		
 		------------- Visibility
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Visibility")));
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Visibility type:"));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Visibility parameters")));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Visibility type"));
 		
 		local dd_visi = VFLUI.Dropdown:new(er, __RDX_dd_visi);
 		dd_visi:SetWidth(100); dd_visi:Show();
@@ -195,7 +197,7 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(ed_visicustom);
 		
 		local visistxt = VFLUI.SimpleText:new(ui, 2, 200); visistxt:Show();
-		local str = "Current Visibility:\n";
+		local str = "Current Visibility\n";
 		if desc.headerstateType ~= "Custom" then
 			str = str .. __RDXGetOtherVisi(desc.headervisiType);
 		else 
@@ -206,7 +208,7 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(visistxt);
 
 		------------- Layout
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
 		
 		--local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
 		--if desc and desc.owner then owner:SetSelection(desc.owner); end
@@ -222,11 +224,11 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(anchor);
 
 		local ed_rows = VFLUI.LabeledEdit:new(ui, 50); ed_rows:Show();
-		ed_rows:SetText(VFLI.i18n("Row size"));
+		ed_rows:SetText(VFLI.i18n("Row number"));
 		if desc and desc.rows then ed_rows.editBox:SetText(desc.rows); end
 		ui:InsertFrame(ed_rows);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation"));
 		local dd_orientation = VFLUI.Dropdown:new(er, _dd_orientations);
 		dd_orientation:SetWidth(75); dd_orientation:Show();
 		if desc and desc.orientation then 
@@ -238,22 +240,22 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(er);
 		
 		local ed_iconspx = VFLUI.LabeledEdit:new(ui, 50); ed_iconspx:Show();
-		ed_iconspx:SetText(VFLI.i18n("Action Bar Buttons spacing width"));
+		ed_iconspx:SetText(VFLI.i18n("Width spacing"));
 		if desc and desc.iconspx then ed_iconspx.editBox:SetText(desc.iconspx); else ed_iconspx.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspx);
 		
 		local ed_iconspy = VFLUI.LabeledEdit:new(ui, 50); ed_iconspy:Show();
-		ed_iconspy:SetText(VFLI.i18n("Action Bar Buttons spacing height"));
+		ed_iconspy:SetText(VFLI.i18n("Height spacing"));
 		if desc and desc.iconspy then ed_iconspy.editBox:SetText(desc.iconspy); else ed_iconspy.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspy);
 		
 		local ed_size = VFLUI.LabeledEdit:new(ui, 50); ed_size:Show();
-		ed_size:SetText(VFLI.i18n("Action Bar Buttons Size"));
+		ed_size:SetText(VFLI.i18n("Buttons Size"));
 		if desc and desc.size then ed_size.editBox:SetText(desc.size); end
 		ui:InsertFrame(ed_size);
 		
 		-------------- Display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Button Skin parameters")));
 		
 		local chk_bs = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Button Skin"));
 		local dd_buttonSkin = VFLUI.Dropdown:new(chk_bs, VFLUI.GetButtonSkinList);
@@ -268,7 +270,7 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(chk_bs);
 		
 		local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
-		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset :"));
+		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
 		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
 		ui:InsertFrame(ed_bs);
 		
@@ -289,14 +291,14 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(chk_hidebs);
 		
 		-------------- COOLDOWN
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown")));
-		local ercd = VFLUI.EmbedRight(ui, VFLI.i18n("Cooldown :"));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown parameters")));
+		local ercd = VFLUI.EmbedRight(ui, VFLI.i18n("Cooldown"));
 		local cd = VFLUI.MakeCooldownSelectButton(ercd, desc.cd); cd:Show();
 		ercd:EmbedChild(cd); ercd:Show();
 		ui:InsertFrame(ercd);
 		
 		-------------- Display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display parameters")));
 		
 		local er_st = VFLUI.EmbedRight(ui, VFLI.i18n("Font Key"));
 		local fontkey = VFLUI.MakeFontSelectButton(er_st, desc.fontkey); fontkey:Show();
@@ -309,12 +311,9 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(chk_showkey);
 		
 		local chk_showtooltip = VFLUI.Checkbox:new(ui); chk_showtooltip:Show();
-		chk_showtooltip:SetText(VFLI.i18n("Show Tooltip"));
+		chk_showtooltip:SetText(VFLI.i18n("Show GameTooltip"));
 		if desc and desc.showtooltip then chk_showtooltip:SetChecked(true); else chk_showtooltip:SetChecked(); end
 		ui:InsertFrame(chk_showtooltip);
-		
-		-------------- END
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("End")));
 		
 		function ui:GetDescriptor()
 			if chk_bs:GetChecked() then chk_bkd:SetChecked(); end

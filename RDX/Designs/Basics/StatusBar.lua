@@ -7,7 +7,7 @@ local function hvert_gen() return tbl_hvert; end
 RDX.RegisterFeature({
 	name = "statusbar_horiz";
 	title = "Status Bar"; 
-	category = "Basics";
+	category = VFLI.i18n("Basics");
 	multiple = true;
 	version = 1;
 	IsPossible = function(state)
@@ -16,7 +16,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -24,11 +24,11 @@ RDX.RegisterFeature({
 		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 		if desc.frac and desc.frac ~= "" then
 			if not tonumber(desc.frac) and not (state:Slot("FracVar_" .. desc.frac)) then 
-				VFL.AddError(errs, VFLI.i18n("Invalid frac value")); flg = nil;
+				VFL.AddError(errs, VFLI.i18n("Missing variable Frac.")); flg = nil;
 			end
 		end
 		if desc.colorVar and (not state:Slot("ColorVar_" .. desc.colorVar)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid color variable.")); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Missing variable Color.")); flg = nil;
 		end
 		if flg then 
 			state:AddSlot("StatusBar_" .. desc.name);
@@ -129,7 +129,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(anchor);
 
 		-- Orientation
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation"));
 		local dd_orientation = VFLUI.Dropdown:new(er, hvert_gen);
 		dd_orientation:SetWidth(150); dd_orientation:Show();
 		if desc and desc.orientation then 
@@ -147,7 +147,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(er);
 		
 		-- Drawlayer
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Draw layer:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Draw layer"));
 		local drawLayer = VFLUI.Dropdown:new(er, RDXUI.DrawLayerDropdownFunction);
 		drawLayer:SetWidth(150); drawLayer:Show();
 		if desc and desc.drawLayer then drawLayer:SetSelection(desc.drawLayer); else drawLayer:SetSelection("ARTWORK"); end
@@ -156,7 +156,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		
 		-- SubLevel
 		local ed_sublevel = VFLUI.LabeledEdit:new(ui, 50); ed_sublevel:Show();
-		ed_sublevel:SetText(VFLI.i18n("Sub level"));
+		ed_sublevel:SetText(VFLI.i18n("TextureLevel offset"));
 		if desc and desc.sublevel then ed_sublevel.editBox:SetText(desc.sublevel); end
 		ui:InsertFrame(ed_sublevel);
 
@@ -164,7 +164,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		local frac = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Fraction variable"), state, "FracVar_");
 		if desc and desc.frac then frac:SetSelection(desc.frac); end
 		
-		local colorVar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Use color variable"), state, "ColorVar_");
+		local colorVar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Color variable"), state, "ColorVar_");
 		if desc and desc.colorVar then colorVar:SetSelection(desc.colorVar); end
 
 		local color1 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Static empty color"));
@@ -174,7 +174,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		if desc and desc.color2 then color2:SetColor(VFL.explodeRGBA(desc.color2)); end
         
 		local chk_interpolate = VFLUI.Checkbox:new(ui); chk_interpolate:Show();
-		chk_interpolate:SetText(VFLI.i18n("Smooth bar value changes over time"));
+		chk_interpolate:SetText(VFLI.i18n("Smooth effect"));
 		if desc and desc.interpolate then chk_interpolate:SetChecked(true); else chk_interpolate:SetChecked(); end
 		ui:InsertFrame(chk_interpolate);
 		

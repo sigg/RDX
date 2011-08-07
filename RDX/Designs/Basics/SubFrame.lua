@@ -6,7 +6,7 @@
 RDX.RegisterFeature({
 	name = "Subframe";
 	title = "Frame";
-	category = "Basics";
+	category = VFLI.i18n("Basics");
 	multiple = true;
 	version = 1;
 	IsPossible = function(state)

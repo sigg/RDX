@@ -2,8 +2,8 @@
 
 RDX.RegisterFeature({
 	name = "color_difficulty";
-	title = "Color Difficulty"; 
-	category = "Colors";
+	title = VFLI.i18n("Color Difficulty"); 
+	category = VFLI.i18n("Colors");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("EmitPaintPreamble") then return nil; end

@@ -1,8 +1,8 @@
 
 RDX.RegisterFeature({
 	name = "ColorVariable: Conditional Color";
-	title = "Color Conditional";
-	category = "Colors";
+	title = VFLI.i18n("Color Conditional");
+	category = VFLI.i18n("Colors");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -10,7 +10,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		if not RDX._CheckVariableNameValidity(desc.name, state, errs) then return nil; end
 		if (not desc.condVar) or not state:Slot("BoolVar_" .. desc.condVar) then
 			VFL.AddError(errs, VFLI.i18n("Invalid condition variable.")); return nil;

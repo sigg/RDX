@@ -4,8 +4,8 @@
 
 RDX.RegisterFeature({
     name = "colorvar_hostility_class";
-    title = "Color Hostility & Class";
-    category = "Colors";
+    title = VFLI.i18n("Color Hostility & Class");
+    category = VFLI.i18n("Colors");
     multiple = true;
     IsPossible = function(state)
        if not state:Slot("DesignFrame") then return nil; end
@@ -13,7 +13,7 @@ RDX.RegisterFeature({
         return true;
     end;
     ExposeFeature = function(desc, state, errs)
-      if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+      if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
       if not RDX._CheckVariableNameValidity(desc.name, state, errs) then return nil; end
       state:AddSlot("Var_" .. desc.name);
       state:AddSlot("ColorVar_" .. desc.name);

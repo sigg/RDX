@@ -196,8 +196,8 @@ RDX.RegisterFeature({
 	name = "ldbobject"; 
 	multiple = true; 
 	version = 1; 
-	title = "Button LDB"; 
-	category = "Buttons";
+	title = VFLI.i18n("Button LDB"); 
+	category = VFLI.i18n("Buttons");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
@@ -271,7 +271,7 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("LDB Object :"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("LDB Object"));
 		local dd_ldbo = VFLUI.Dropdown:new(er, RDXUI.GetLDBobjectsName);
 		dd_ldbo:SetWidth(150); dd_ldbo:Show();
 		if desc and desc.ldbo then

@@ -10,7 +10,7 @@
 RDX.RegisterFeature({
 	name = "base_default"; 
 	title = "Base Frame";
-	category = "Basics";
+	category = VFLI.i18n("Basics");
 	version = 1; 
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -117,7 +117,7 @@ frame._phs:Destroy(); frame._phs = nil;
 	CreateDescriptor = function()
 		return { 
 			feature = "base_default"; version = 1;
-			w = 90; h = 14; alpha = 1; ph = true;
+			w = 90; h = 14; alpha = 1; ph = false;
 		};
 	end;
 });

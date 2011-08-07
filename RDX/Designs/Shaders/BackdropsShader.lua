@@ -25,11 +25,11 @@ local function bdc_uifd(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
 		-- Owner
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Owner", state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		-- Color var
-		local color = RDXUI.MakeSlotSelectorDropdown(ui, "Color variable", state, "ColorVar_");
+		local color = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Color variable"), state, "ColorVar_");
 		if desc and desc.color then color:SetSelection(desc.color); end
 
 		function ui:GetDescriptor()
@@ -44,8 +44,8 @@ end
 
 RDX.RegisterFeature({
 	name = "Backdrop Border Colorizer";
-	title = "Backdrop Border: Colorizer";
-	category = "Shaders";
+	title = VFLI.i18n("Backdrop Border: Colorizer");
+	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -68,8 +68,8 @@ RDX.RegisterFeature({
 
 RDX.RegisterFeature({
 	name = "Backdrop Colorizer";
-	name = "Backdrop: Colorizer";
-	category = "Shaders";
+	name = VFLI.i18n("Backdrop: Colorizer");
+	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

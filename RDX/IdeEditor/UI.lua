@@ -91,13 +91,13 @@ end
 RDXUI.UnitFrameAnchorSelector = {};
 function RDXUI.UnitFrameAnchorSelector:new(parent)
 	local self = VFLUI.GroupBox:new(parent);
-	VFLUI.GroupBox.MakeTextCaption(self, VFLI.i18n("Anchor:"));
+	VFLUI.GroupBox.MakeTextCaption(self, VFLI.i18n("Anchor"));
 	self:SetLayoutConstraint("WIDTH_DOWNWARD_HEIGHT_UPWARD");
 	local ctr = VFLUI.CompoundFrame:new(self); ctr:Show();
 	self:SetClient(ctr);
 
 	-- Local anchor point
-	local er = VFLUI.EmbedRight(ctr, VFLI.i18n("Anchor local point:"));
+	local er = VFLUI.EmbedRight(ctr, VFLI.i18n("Anchor local point"));
 	local dd_lp = VFLUI.Dropdown:new(er, RDXUI.AnchorPointSelectionFunc);
 	dd_lp:SetWidth(150); dd_lp:Show(); dd_lp:SetSelection("TOPLEFT");
 	er:EmbedChild(dd_lp); er:Show();
@@ -108,21 +108,21 @@ function RDXUI.UnitFrameAnchorSelector:new(parent)
 	local afOnBuild = function() return afArray; end
 	function self:SetAFArray(x) afArray = x; end
 
-	er = VFLUI.EmbedRight(ctr, VFLI.i18n("To object:"));
+	er = VFLUI.EmbedRight(ctr, VFLI.i18n("To object"));
 	local dd_af = VFLUI.ComboBox:new(er, afOnBuild);
 	dd_af:SetWidth(150); dd_af:Show();
 	er:EmbedChild(dd_af); er:Show();
 	ctr:InsertFrame(er);
 	
 	-- Remote anchor point
-	local er = VFLUI.EmbedRight(ctr, VFLI.i18n("and remote point:"));
+	local er = VFLUI.EmbedRight(ctr, VFLI.i18n("and remote point"));
 	local dd_rp = VFLUI.Dropdown:new(er, RDXUI.AnchorPointSelectionFunc);
 	dd_rp:SetWidth(150); dd_rp:Show(); dd_rp:SetSelection("TOPLEFT");
 	er:EmbedChild(dd_rp); er:Show();
 	ctr:InsertFrame(er);
 
 	-- OffsetY
-	local edy = VFLUI.LabeledEdit:new(ctr, 75); edy:SetText(VFLI.i18n("Offset X/Y:")); edy:Show();
+	local edy = VFLUI.LabeledEdit:new(ctr, 75); edy:SetText(VFLI.i18n("Offset X/Y")); edy:Show();
 	local edx = VFLUI.Edit:new(edy); edx:Show();
 	edx:SetHeight(24); edx:SetWidth(75); edx:SetPoint("RIGHT", edy.editBox, "LEFT");
 	edy.Destroy = VFL.hook(function() edx:Destroy(); end, edy.Destroy);

@@ -26,8 +26,8 @@ VFLUI.CreateFramePool("Minimap",
 RDX.RegisterFeature({
 	name = "minimap"; 
 	version = 1; 
-	title = "Blizzard Minimap"; 
-	category = "Complexes";
+	title = VFLI.i18n("Blizzard Minimap"); 
+	category = VFLI.i18n("Complexes");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
@@ -113,7 +113,7 @@ end
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Blip Type:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Blip Type"));
 		local dd_blipType = VFLUI.Dropdown:new(er, VFLUI.GetListBlipTexture);
 		dd_blipType:SetWidth(150); dd_blipType:Show();
 		if desc and desc.blipType then 
@@ -124,7 +124,7 @@ end
 		er:EmbedChild(dd_blipType); er:Show();
 		ui:InsertFrame(er);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Mask Type:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Mask Type"));
 		local dd_maskType = VFLUI.Dropdown:new(er, VFLUI.GetListMaskTexture);
 		dd_maskType:SetWidth(150); dd_maskType:Show();
 		if desc and desc.maskType then 

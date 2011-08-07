@@ -1,8 +1,8 @@
 
 RDX.RegisterFeature({
 	name = "ColorVariable_Mycolor";
-	title = "Color My Color";
-	category = "Colors";
+	title = VFLI.i18n("Color My Color");
+	category = VFLI.i18n("Colors");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("EmitPaintPreamble") then return nil; end

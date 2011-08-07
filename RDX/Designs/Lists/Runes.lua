@@ -91,8 +91,8 @@ end
 RDX.RegisterFeature({
 	name = "runes_bar";
 	version = 1;
-	title = "Bars Rune";
-	category = "Lists";
+	title = VFLI.i18n("Bars Rune");
+	category = VFLI.i18n("Lists");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
@@ -190,9 +190,9 @@ end
 		ui:InsertFrame(ed_name);
 
 		------------- Layout
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
 
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Owner", state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		local anchor = RDXUI.UnitFrameAnchorSelector:new(ui); anchor:Show();
@@ -201,11 +201,11 @@ end
 		ui:InsertFrame(anchor);
 
 		local ed_rows = VFLUI.LabeledEdit:new(ui, 50); ed_rows:Show();
-		ed_rows:SetText(VFLI.i18n("Row size"));
+		ed_rows:SetText(VFLI.i18n("Row number"));
 		if desc and desc.rows then ed_rows.editBox:SetText(desc.rows); end
 		ui:InsertFrame(ed_rows);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation"));
 		local dd_orientation = VFLUI.Dropdown:new(er, RDXUI.OrientationDropdownFunction);
 		dd_orientation:SetWidth(75); dd_orientation:Show();
 		if desc and desc.orientation then 
@@ -217,12 +217,12 @@ end
 		ui:InsertFrame(er);
 		
 		local ed_iconspx = VFLUI.LabeledEdit:new(ui, 50); ed_iconspx:Show();
-		ed_iconspx:SetText(VFLI.i18n("Icons spacing width"));
+		ed_iconspx:SetText(VFLI.i18n("Width spacing"));
 		if desc and desc.iconspx then ed_iconspx.editBox:SetText(desc.iconspx); else ed_iconspx.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspx);
 		
 		local ed_iconspy = VFLUI.LabeledEdit:new(ui, 50); ed_iconspy:Show();
-		ed_iconspy:SetText(VFLI.i18n("Icons spacing height"));
+		ed_iconspy:SetText(VFLI.i18n("Height spacing"));
 		if desc and desc.iconspy then ed_iconspy.editBox:SetText(desc.iconspy); else ed_iconspy.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspy);
 		
@@ -343,10 +343,10 @@ end
 
 RDX.RegisterFeature({
 	name = "runes_bar_vars";
-	title = "Icons Rune";
+	title = VFLI.i18n("Icons Rune");
 	version = 1;
 	multiple = false;
-	category = "Lists";
+	category = VFLI.i18n("Lists");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
@@ -450,9 +450,9 @@ end
 		ui:InsertFrame(ed_name);
 		
 		------------- Layout
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
 		
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Owner", state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 		
 		local anchor = RDXUI.UnitFrameAnchorSelector:new(ui); anchor:Show();
@@ -461,11 +461,11 @@ end
 		ui:InsertFrame(anchor);
 		
 		local ed_rows = VFLUI.LabeledEdit:new(ui, 50); ed_rows:Show();
-		ed_rows:SetText(VFLI.i18n("Row size"));
+		ed_rows:SetText(VFLI.i18n("Row number"));
 		if desc and desc.rows then ed_rows.editBox:SetText(desc.rows); end
 		ui:InsertFrame(ed_rows);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation"));
 		local dd_orientation = VFLUI.Dropdown:new(er, RDXUI.OrientationDropdownFunction);
 		dd_orientation:SetWidth(75); dd_orientation:Show();
 		if desc and desc.orientation then
@@ -477,27 +477,27 @@ end
 		ui:InsertFrame(er);
 	
 		local ed_iconspx = VFLUI.LabeledEdit:new(ui, 50); ed_iconspx:Show();
-		ed_iconspx:SetText(VFLI.i18n("Icons spacing width"));
+		ed_iconspx:SetText(VFLI.i18n("Width spacing"));
 		if desc and desc.iconspx then ed_iconspx.editBox:SetText(desc.iconspx); else ed_iconspx.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspx);
 		
 		local ed_iconspy = VFLUI.LabeledEdit:new(ui, 50); ed_iconspy:Show();
-		ed_iconspy:SetText(VFLI.i18n("Icons spacing height"));
+		ed_iconspy:SetText(VFLI.i18n("Height spacing"));
 		if desc and desc.iconspy then ed_iconspy.editBox:SetText(desc.iconspy); else ed_iconspy.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspy);
 		
 		local ed_sizew = VFLUI.LabeledEdit:new(ui, 50); ed_sizew:Show();
-		ed_sizew:SetText(VFLI.i18n("Icon Size width"));
+		ed_sizew:SetText(VFLI.i18n("Icon width"));
 		if desc and desc.sizew then ed_sizew.editBox:SetText(desc.sizew); end
 		ui:InsertFrame(ed_sizew);
 		
 		local ed_sizeh = VFLUI.LabeledEdit:new(ui, 50); ed_sizeh:Show();
-		ed_sizeh:SetText(VFLI.i18n("Icon Size height"));
+		ed_sizeh:SetText(VFLI.i18n("Icon height"));
 		if desc and desc.sizeh then ed_sizeh.editBox:SetText(desc.sizeh); end
 		ui:InsertFrame(ed_sizeh);
 	
 		-------------- ButtonSkin or Frame
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Skin type")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Button Skin parameters")));
 		
 		local chk_bs = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Button Skin"));
 		local dd_buttonSkin = VFLUI.Dropdown:new(chk_bs, VFLUI.GetButtonSkinList);
@@ -513,7 +513,7 @@ end
 		ui:InsertFrame(chk_bs);
 	
 		local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
-		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset :"));
+		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
 		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
 		ui:InsertFrame(ed_bs);
 		
@@ -537,8 +537,8 @@ end
 		if desc and desc.deathColor then sw_death:SetColor(VFL.explodeRGBA(desc.deathColor)); end
 		
 		-------------- Cooldown Display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown")));
-		local ercd = VFLUI.EmbedRight(ui, VFLI.i18n("Cooldown :"));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown parameters")));
+		local ercd = VFLUI.EmbedRight(ui, VFLI.i18n("Cooldown"));
 		local cd = VFLUI.MakeCooldownSelectButton(ercd, desc.cd); cd:Show();
 		ercd:EmbedChild(cd); ercd:Show();
 		ui:InsertFrame(ercd);

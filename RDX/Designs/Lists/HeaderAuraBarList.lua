@@ -5,8 +5,8 @@
 RDX.RegisterFeature({
 	name = "sec_aura_bars";
 	version = 1;
-	title = "Bars Aura Secured";
-	category = "Lists";
+	title = VFLI.i18n("Bars Aura Secured");
+	category = VFLI.i18n("Lists");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -290,7 +290,7 @@ frame.]] .. objname .. [[ = nil;
 		ed_name.editBox:SetText(desc.name);
 		ui:InsertFrame(ed_name);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Aura Type:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Aura Type"));
 		local dd_auraType = VFLUI.Dropdown:new(er, RDXUI.AurasTypesDropdownFunction);
 		dd_auraType:SetWidth(150); dd_auraType:Show();
 		if desc and desc.auraType then 
@@ -302,14 +302,14 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(er);
 		
 		local chk_showweapons = VFLUI.Checkbox:new(ui); chk_showweapons:Show();
-		chk_showweapons:SetText(VFLI.i18n("Show Weapons"));
+		chk_showweapons:SetText(VFLI.i18n("Show Weapons Enchant"));
 		if desc and desc.showweapons then chk_showweapons:SetChecked(true); else chk_showweapons:SetChecked(); end
 		ui:InsertFrame(chk_showweapons);
 
 		------------- Layout
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
 
-		--local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Owner", state, "Subframe_", true);
+		--local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_", true);
 		--if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		local anchor = RDXUI.UnitFrameAnchorSelector:new(ui); anchor:Show();
@@ -317,7 +317,7 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Template:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Template"));
 		local dd_template = VFLUI.Dropdown:new(er, RDX.BarTemplatesFunc);
 		dd_template:SetWidth(250); dd_template:Show();
 		if desc and desc.template then 
@@ -328,7 +328,7 @@ frame.]] .. objname .. [[ = nil;
 		er:EmbedChild(dd_template); er:Show();
 		ui:InsertFrame(er);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Point:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Point"));
 		local dd_point = VFLUI.Dropdown:new(er, RDXUI.AnchorPointSelectionFunc);
 		dd_point:SetWidth(150); dd_point:Show();
 		if desc and desc.point then 
@@ -339,7 +339,7 @@ frame.]] .. objname .. [[ = nil;
 		er:EmbedChild(dd_point); er:Show();
 		ui:InsertFrame(er);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation"));
 		local dd_orientation = VFLUI.Dropdown:new(er, RDXUI.OrientationDropdownFunction);
 		dd_orientation:SetWidth(75); dd_orientation:Show();
 		if desc and desc.orientation then 
@@ -361,17 +361,17 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(ed_maxwraps);
 		
 		local ed_xoffset = VFLUI.LabeledEdit:new(ui, 50); ed_xoffset:Show();
-		ed_xoffset:SetText(VFLI.i18n("X offset"));
+		ed_xoffset:SetText(VFLI.i18n("Offset x"));
 		if desc and desc.xoffset then ed_xoffset.editBox:SetText(desc.xoffset); else ed_xoffset.editBox:SetText("0"); end
 		ui:InsertFrame(ed_xoffset);
 		
 		local ed_yoffset = VFLUI.LabeledEdit:new(ui, 50); ed_yoffset:Show();
-		ed_yoffset:SetText(VFLI.i18n("Y offset"));
+		ed_yoffset:SetText(VFLI.i18n("Offset y"));
 		if desc and desc.yoffset then ed_yoffset.editBox:SetText(desc.yoffset); else ed_yoffset.editBox:SetText("0"); end
 		ui:InsertFrame(ed_yoffset);
 		
 		-------------- display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display Bar")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display parameters")));
 		
 		local er2 = VFLUI.EmbedRight(ui, VFLI.i18n("Statusbar style"));
 		local sbtib = VFLUI.MakeSBTIBSelectButton(er2, desc.sbtib); sbtib:Show();
@@ -386,7 +386,7 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.sbcolor then chk_bc:SetChecked(true); else chk_bc:SetChecked(); end
 		ui:InsertFrame(chk_bc);
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display Fonts")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Font parameters")));
 		
 		local ed_trunc = VFLUI.LabeledEdit:new(ui, 50); ed_trunc:Show();
 		ed_trunc:SetText(VFLI.i18n("Max aura length (blank = no truncation)"));
@@ -399,9 +399,9 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(chk_abr);
 		
 		------------ Sort
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Sort")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Sort parameters")));
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Sort Method:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Sort Method"));
 		local dd_sortMethod = VFLUI.Dropdown:new(er, RDX.SortMethodFunc);
 		dd_sortMethod:SetWidth(75); dd_sortMethod:Show();
 		if desc and desc.sortmethod then 
@@ -417,7 +417,7 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.sortdir then chk_sortDir:SetChecked(true); else chk_sortDir:SetChecked(); end
 		ui:InsertFrame(chk_sortDir);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Separate Own:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Separate Own"));
 		local dd_separateOwn = VFLUI.Dropdown:new(er, RDX.SeparateOwnFunc);
 		dd_separateOwn:SetWidth(75); dd_separateOwn:Show();
 		if desc and desc.separateown then 

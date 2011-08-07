@@ -114,8 +114,8 @@ RDX.RegisterFeature({
 	name = "combatlogs";
 	multiple = true;
 	version = 1;
-	title = "RDX Combat Logs";
-	category = "Complexes";
+	title = VFLI.i18n("RDX Combat Logs");
+	category = VFLI.i18n("Complexes");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
@@ -204,7 +204,7 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Table Log:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Table Log"));
 		local dd_tablogId = VFLUI.Dropdown:new(er, _fnListTabLog, nil, nil, nil, 30);
 		dd_tablogId:SetWidth(250); dd_tablogId:Show();
 		if desc and desc.tablelog then 
@@ -218,7 +218,7 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.line then ed_line.editBox:SetText(desc.line); end
 		ui:InsertFrame(ed_line);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Column type:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Column type"));
 		local dd_cltype = VFLUI.Dropdown:new(er, cltypeFunc);
 		dd_cltype:SetWidth(200); dd_cltype:Show();
 		--if desc and desc.orientation then 
@@ -229,7 +229,7 @@ frame.]] .. objname .. [[ = nil;
 		er:EmbedChild(dd_cltype); er:Show();
 		ui:InsertFrame(er);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Column Font:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Column Font"));
 		local dd_clfont = VFLUI.Dropdown:new(er, VFLUI._GetFontIndex);
 		dd_clfont:SetWidth(200); dd_clfont:Show();
 		--if desc and desc.orientation then 

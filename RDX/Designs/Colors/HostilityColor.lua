@@ -1,8 +1,8 @@
 
 RDX.RegisterFeature({
 	name = "colorvar_hostility"; 
-	title = "Color Hostility";
-	category = "Colors";
+	title = VFLI.i18n("Color Hostility");
+	category = VFLI.i18n("Colors");
 	IsPossible = function(state)
 		if not state:HasSlots("EmitClosure", "EmitPaintPreamble") then return nil; end
 		return true;

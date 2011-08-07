@@ -4,7 +4,8 @@
 
 RDX.RegisterFeature({
 	name = "artbutton"; version = 1; 
-	title = "Button Script"; category = "Buttons";
+	title = VFLI.i18n("Button Script"); 
+	category = VFLI.i18n("Buttons");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -81,12 +82,12 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("GameTooltip")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("GameTooltip parameters")));
 		
 		local gt = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("GameTooltip"), state, "GameTooltips_");
 		if desc and desc.gt then gt:SetSelection(desc.gt); end
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Script")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Script parameters")));
 
 		local editor = VFLUI.TextEditor:new(ui, "LuaEditBox");
 		editor:SetHeight(200); editor:Show();
@@ -119,8 +120,11 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 	end;
 });
 
+-- TODO one day
 RDX.RegisterFeature({
-	name = "buttonspell"; version = 1; title = VFLI.i18n("Button Spell"); category = VFLI.i18n("Buttons");
+	name = "buttonspell"; version = 1; 
+	title = VFLI.i18n("Button Spell"); 
+	category = VFLI.i18n("Buttons");
 	invisible = true;
 	multiple = true;
 	IsPossible = function(state)
@@ -180,7 +184,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Script")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Script parameters")));
 
 		local editor = VFLUI.TextEditor:new(ui, "LuaEditBox");
 		editor:SetHeight(200); editor:Show();

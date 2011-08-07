@@ -11,7 +11,7 @@
 RDX.RegisterFeature({
 	name = "hotspot";
 	title = "Hotspot";
-	category = "Basics";
+	category = VFLI.i18n("Basics");
 	multiple = true;
 	version = 1;
 	IsPossible = function(state)
@@ -38,7 +38,7 @@ RDX.RegisterFeature({
 			VFL.AddError(errs, VFLI.i18n("Bad or missing width/height parameters.")); return nil;
 		end
 		if (not desc.anchor) or (not desc.anchor.af) or desc.anchor.af ~= "Base" then
-			VFL.AddError(errs, VFLI.i18n("Hotspot allways anchor to Base")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Hotspot always anchor to Base.")); return nil;
 		end
 		state:AddSlot("Hotspot_" .. n);
 		if(n ~= "") then state:AddSlot("Frame_" .. n); end
@@ -127,7 +127,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		local tsel = VFLUI.MakeTextureSelectButton(chk_hlt); tsel:Show();
 		tsel:SetPoint("RIGHT", chk_hlt, "RIGHT");
 		chk_hlt.Destroy = VFL.hook(function() tsel:Destroy(); end, chk_hlt.Destroy);
-		chk_hlt:SetText(VFLI.i18n("Highlight:"));
+		chk_hlt:SetText(VFLI.i18n("Highlight"));
 		if desc and desc.hlt then
 			chk_hlt:SetChecked(true); tsel:SetSelectedTexture(desc.hlt);
 		else

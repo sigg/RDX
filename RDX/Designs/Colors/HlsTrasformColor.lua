@@ -15,18 +15,18 @@ end
 
 RDX.RegisterFeature({
 	name = "color_hlsxform";
-	title = "Color HLS Transform"; 
-	category = "Colors";
+	title = VFLI.i18n("Color HLS Transform"); 
+	category = VFLI.i18n("Colors");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:HasSlots("DesignFrame", "EmitClosure", "EmitPaintPreamble") then return nil; end
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		if not RDX._CheckVariableNameValidity(desc.name, state, errs) then return nil; end
 		if (type(desc.colorVar) ~= "string") or (strtrim(desc.colorVar) == "") then 
-			VFL.AddError(errs, VFLI.i18n("Missing base color.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Missing base Color.")); return nil;
 		end
 		if (not state:Slot("ColorVar_" .. desc.colorVar)) then VFL.AddError(errs, VFLI.i18n("Invalid base color."));	end
 		if (type(desc.hx) ~= "string") then	VFL.AddError(errs, VFLI.i18n("Invalid hue.")); end
@@ -63,7 +63,7 @@ end
 		local colorVar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("From color"), state, "ColorVar_");
 		if desc and desc.colorVar then colorVar:SetSelection(desc.colorVar); end
 
-		local condVar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Apply shader only if condition is true:"), state, "BoolVar_", nil,"true", "false");
+		local condVar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Apply shader only if condition is true"), state, "BoolVar_", nil,"true", "false");
 		if desc and desc.condVar then condVar:SetSelection(desc.condVar); end
 
 		local hx = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Hue modifier (blank for none)"), state, "FracVar_");

@@ -13,7 +13,7 @@
 RDX.RegisterFeature({
 	name = "backdrop";
 	title = "Backdrop";
-	category = "Basics";
+	category = VFLI.i18n("Basics");
 	multiple = true;
 	version = 1;
 	IsPossible = function(state)
@@ -59,7 +59,7 @@ if ]] .. fvar .. [[ then ]] .. fvar .. [[:SetBackdrop(nil); end
 		local ui = VFLUI.CompoundFrame:new(parent);
 
 		-- Owner
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Owner", state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		-- Backdrop

@@ -55,7 +55,7 @@ end
 RDX.RegisterFeature({
 	name = "texture_cooldown";
 	title = "Cooldown";
-	category = "Basics";
+	category = VFLI.i18n("Basics");
 	multiple = true;
 	version = 1;
 	IsPossible = function(state)
@@ -70,7 +70,7 @@ RDX.RegisterFeature({
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
-		if not desc.timerVar or desc.timerVar == "" then VFL.AddError(errs, VFLI.i18n("Missing variable timer.")); flg = nil; end
+		if not desc.timerVar or desc.timerVar == "" then VFL.AddError(errs, VFLI.i18n("Missing variable Timer.")); flg = nil; end
 		if flg then state:AddSlot("Frame_" .. desc.name); end
 		return flg;
 	end;
@@ -128,11 +128,11 @@ frame.]] .. objname .. [[:Hide();
 		local ui = VFLUI.CompoundFrame:new(parent);
 		
 		------------- Core
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Core Parameters")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Core parameters")));
 		
 		local ed_name, ed_width, ed_height = RDXUI.GenNameWidthHeightPortion(ui, desc, state);
 		
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Owner", state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		local anchor = RDXUI.UnitFrameAnchorSelector:new(ui); anchor:Show();
@@ -140,13 +140,13 @@ frame.]] .. objname .. [[:Hide();
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Timer")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Timer parameters")));
 		
 		local timerVar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Timer variable"), state, "TimerVar_");
 		if desc and desc.timerVar then timerVar:SetSelection(desc.timerVar); end
 		
 		------------- ButtonSkin
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Button Skin and Texture")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Button Skin parameters")));
 		
 		local chk_bs = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Button Skin"));
 		local dd_buttonSkin = VFLUI.Dropdown:new(chk_bs, VFLUI.GetButtonSkinList);
@@ -162,32 +162,34 @@ frame.]] .. objname .. [[:Hide();
 		ui:InsertFrame(chk_bs);
 		
 		local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
-		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset :"));
+		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
 		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
 		ui:InsertFrame(ed_bs);
 		
+		-------------- Texture
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Texture parameters")));
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Texture"));
 		local tsel = VFLUI.MakeTextureSelectButton(er, desc.texture); tsel:Show();
 		er:EmbedChild(tsel); er:Show();
 		ui:InsertFrame(er);
 		
 		local chk_dyntexture = VFLUI.Checkbox:new(ui); chk_dyntexture:Show();
-		chk_dyntexture:SetText(VFLI.i18n("Use the Texture data"));
+		chk_dyntexture:SetText(VFLI.i18n("Use texture variable"));
 		if desc and desc.dyntexture then chk_dyntexture:SetChecked(true); else chk_dyntexture:SetChecked(); end
 		ui:InsertFrame(chk_dyntexture);
 		
-		local tex = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture data"), state, "TexVar_");
+		local tex = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture variable"), state, "TexVar_");
 		if desc and desc.tex then tex:SetSelection(desc.tex); end
 		
 		-------------- Cooldown Display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown")));
-		local ercd = VFLUI.EmbedRight(ui, VFLI.i18n("Cooldown :"));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown parameters")));
+		local ercd = VFLUI.EmbedRight(ui, VFLI.i18n("Cooldown"));
 		local cd = VFLUI.MakeCooldownSelectButton(ercd, desc.cd); cd:Show();
 		ercd:EmbedChild(cd); ercd:Show();
 		ui:InsertFrame(ercd);
 		
 		-------------- Game Tooltip Display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("GameTooltip")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("GameTooltip parameters")));
 		local gt = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("GameTooltip"), state, "GameTooltips_");
 		if desc and desc.gt then gt:SetSelection(desc.gt); end
 		

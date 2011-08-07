@@ -72,8 +72,8 @@ end
 RDX.RegisterFeature({
 	name = "cooldown_bars";
 	version = 2;
-	title = "Bars Cooldown";
-	category = "Lists";
+	title = VFLI.i18n("Bars Cooldown");
+	category = VFLI.i18n("Lists");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -308,7 +308,7 @@ end
 		ed_name.editBox:SetText(desc.name);
 		ui:InsertFrame(ed_name);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Cooldown Type:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Cooldown Type"));
 		local dd_cooldownType = VFLUI.Dropdown:new(er, RDXUI.CooldownsTypesDropdownFunction);
 		dd_cooldownType:SetWidth(150); dd_cooldownType:Show();
 		if desc and desc.cooldownType then 
@@ -320,9 +320,9 @@ end
 		ui:InsertFrame(er);
 
 		------------- Layout
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
 
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Owner", state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		local anchor = RDXUI.UnitFrameAnchorSelector:new(ui); anchor:Show();
@@ -336,11 +336,11 @@ end
 		ui:InsertFrame(ed_mb);
 
 		local ed_rows = VFLUI.LabeledEdit:new(ui, 50); ed_rows:Show();
-		ed_rows:SetText(VFLI.i18n("Row size"));
+		ed_rows:SetText(VFLI.i18n("Row number"));
 		if desc and desc.rows then ed_rows.editBox:SetText(desc.rows); end
 		ui:InsertFrame(ed_rows);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation"));
 		local dd_orientation = VFLUI.Dropdown:new(er, RDXUI.OrientationDropdownFunction);
 		dd_orientation:SetWidth(75); dd_orientation:Show();
 		if desc and desc.orientation then 
@@ -352,17 +352,17 @@ end
 		ui:InsertFrame(er);
 		
 		local ed_iconspx = VFLUI.LabeledEdit:new(ui, 50); ed_iconspx:Show();
-		ed_iconspx:SetText(VFLI.i18n("Spacing width"));
+		ed_iconspx:SetText(VFLI.i18n("Width spacing"));
 		if desc and desc.iconspx then ed_iconspx.editBox:SetText(desc.iconspx); else ed_iconspx.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspx);
 		
 		local ed_iconspy = VFLUI.LabeledEdit:new(ui, 50); ed_iconspy:Show();
-		ed_iconspy:SetText(VFLI.i18n("Spacing height"));
+		ed_iconspy:SetText(VFLI.i18n("Height spacing"));
 		if desc and desc.iconspy then ed_iconspy.editBox:SetText(desc.iconspy); else ed_iconspy.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspy);
 		
 		-------------- Display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display Bar")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display parameters")));
 		
 		local er2 = VFLUI.EmbedRight(ui, VFLI.i18n("Statusbar style"));
 		local sbtib = VFLUI.MakeSBTIBSelectButton(er2, desc.sbtib); sbtib:Show();
@@ -372,7 +372,7 @@ end
 		local countTypeFlag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Count type (true CountUP, false CountDOWN)"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.countTypeFlag then countTypeFlag:SetSelection(desc.countTypeFlag); end
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display Fonts")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Font parameters")));
 		
 		local ed_trunc = VFLUI.LabeledEdit:new(ui, 50); ed_trunc:Show();
 		ed_trunc:SetText(VFLI.i18n("Max aura length (blank = no truncation)"));
@@ -384,7 +384,7 @@ end
 		if desc and desc.abr then chk_abr:SetChecked(true); else chk_abr:SetChecked(); end
 		ui:InsertFrame(chk_abr);
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Smooth show hide")));
+		--ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Smooth show hide")));
 		local chk_smooth = VFLUI.Checkbox:new(ui); chk_smooth:Show();
 		chk_smooth:SetText(VFLI.i18n("Use smooth on show and hide"));
 		if desc and desc.smooth then chk_smooth:SetChecked(true); else chk_smooth:SetChecked(); end
@@ -419,7 +419,7 @@ end
 		ui:InsertFrame(chk_sortname);]]
 
 		------------ Filter
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filtering")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filtering parameters")));
 		
 		local chk_timefilter = VFLUI.Checkbox:new(ui); chk_timefilter:Show();
 		chk_timefilter:SetText(VFLI.i18n("Filter by duration"));

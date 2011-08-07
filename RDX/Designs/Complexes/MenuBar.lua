@@ -44,8 +44,8 @@ local function _dd_orientations() return _orientations; end
 RDX.RegisterFeature({
 	name = "menubar"; 
 	version = 1; 
-	title = "Blizzard Main Menu"; 
-	category = "Complexes";
+	title = VFLI.i18n("Blizzard Main Menu"); 
+	category = VFLI.i18n("Complexes");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
@@ -85,7 +85,7 @@ frame.]] .. objname .. [[ = nil;
 		local ui = VFLUI.CompoundFrame:new(parent);
 
 		------------- Layout
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
 		
 		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
@@ -95,7 +95,7 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation"));
 		local dd_orientation = VFLUI.Dropdown:new(er, _dd_orientations);
 		dd_orientation:SetWidth(75); dd_orientation:Show();
 		if desc and desc.orientation then 
@@ -107,17 +107,17 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(er);
 		
 		local ed_rows = VFLUI.LabeledEdit:new(ui, 50); ed_rows:Show();
-		ed_rows:SetText(VFLI.i18n("Row size"));
+		ed_rows:SetText(VFLI.i18n("Row number"));
 		if desc and desc.rows then ed_rows.editBox:SetText(desc.rows); end
 		ui:InsertFrame(ed_rows);
 		
 		local ed_iconspx = VFLUI.LabeledEdit:new(ui, 50); ed_iconspx:Show();
-		ed_iconspx:SetText(VFLI.i18n("Action Bar Buttons spacing width"));
+		ed_iconspx:SetText(VFLI.i18n("Width spacing"));
 		if desc and desc.iconspx then ed_iconspx.editBox:SetText(desc.iconspx); else ed_iconspx.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspx);
 		
 		local ed_iconspy = VFLUI.LabeledEdit:new(ui, 50); ed_iconspy:Show();
-		ed_iconspy:SetText(VFLI.i18n("Action Bar Buttons spacing height"));
+		ed_iconspy:SetText(VFLI.i18n("Height spacing"));
 		if desc and desc.iconspy then ed_iconspy.editBox:SetText(desc.iconspy); else ed_iconspy.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspy);
 		

@@ -209,8 +209,8 @@ RDX.RegisterFeature({
 	name = "chatframe";
 	multiple = true;
 	version = 1;
-	title = "Blizzard ChatFrame";
-	category = "Complexes";
+	title = VFLI.i18n("Blizzard ChatFrame");
+	category = VFLI.i18n("Complexes");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
@@ -307,7 +307,7 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("ChatFrame number :"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("ChatFrame number"));
 		local dd_number = VFLUI.Dropdown:new(er, RDXUI.NumberListSelectionFunc);
 		dd_number:SetWidth(150); dd_number:Show();
 		if desc and desc.number then
@@ -318,7 +318,7 @@ frame.]] .. objname .. [[ = nil;
 		er:EmbedChild(dd_number); er:Show();
 		ui:InsertFrame(er);
 		
-		local er_ts = VFLUI.EmbedRight(ui, VFLI.i18n("Timestamp type :"));
+		local er_ts = VFLUI.EmbedRight(ui, VFLI.i18n("Timestamp type"));
 		local dd_ts = VFLUI.Dropdown:new(er_ts, VFL.ASDateListSelectionFunc);
 		dd_ts:SetWidth(150); dd_ts:Show();
 		if desc and desc.ts then
@@ -329,7 +329,7 @@ frame.]] .. objname .. [[ = nil;
 		er_ts:EmbedChild(dd_ts); er_ts:Show();
 		ui:InsertFrame(er_ts);
 		
-		local color = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Timestamp color :"));
+		local color = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Timestamp color"));
 		if desc and desc.color then color:SetColor(VFL.explodeRGBA(desc.color)); end
 		
 		local chk_channel = VFLUI.Checkbox:new(ui); chk_channel:Show();

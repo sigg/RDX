@@ -5,8 +5,8 @@
 RDX.RegisterFeature({
 	name = "custom_icons";
 	version = 1;
-	title = "Icons Custom";
-	category = "Lists";
+	title = VFLI.i18n("Icons Custom");
+	category = VFLI.i18n("Lists");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -146,7 +146,7 @@ end
 		ui:InsertFrame(ed_name);
 				
 		-- Owner
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Owner", state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 		
 		-- Anchor
@@ -156,11 +156,11 @@ end
 		ui:InsertFrame(anchor);
 		
 		local ed_rows = VFLUI.LabeledEdit:new(ui, 50); ed_rows:Show();
-		ed_rows:SetText(VFLI.i18n("Row size"));
+		ed_rows:SetText(VFLI.i18n("Row number"));
 		if desc and desc.rows then ed_rows.editBox:SetText(desc.rows); end
 		ui:InsertFrame(ed_rows);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation"));
 		local dd_orientation = VFLUI.Dropdown:new(er, RDXUI.OrientationDropdownFunction);
 		dd_orientation:SetWidth(75); dd_orientation:Show();
 		if desc and desc.orientation then 
@@ -172,12 +172,12 @@ end
 		ui:InsertFrame(er);
 		
 		local ed_iconspx = VFLUI.LabeledEdit:new(ui, 50); ed_iconspx:Show();
-		ed_iconspx:SetText(VFLI.i18n("Icons spacing width"));
+		ed_iconspx:SetText(VFLI.i18n("Width spacing"));
 		if desc and desc.iconspx then ed_iconspx.editBox:SetText(desc.iconspx); else ed_iconspx.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspx);
 		
 		local ed_iconspy = VFLUI.LabeledEdit:new(ui, 50); ed_iconspy:Show();
-		ed_iconspy:SetText(VFLI.i18n("Icons spacing height"));
+		ed_iconspy:SetText(VFLI.i18n("Height spacing"));
 		if desc and desc.iconspy then ed_iconspy.editBox:SetText(desc.iconspy); else ed_iconspy.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspy);
 		
@@ -193,7 +193,7 @@ end
 		ui:InsertFrame(ed_height);
 		
 		-------------- Display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Button Skin parameters")));
 		
 		local chk_bs = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Button Skin"));
 		local dd_buttonSkin = VFLUI.Dropdown:new(chk_bs, VFLUI.GetButtonSkinList);
@@ -208,7 +208,7 @@ end
 		ui:InsertFrame(chk_bs);
 		
 		local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
-		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset :"));
+		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
 		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
 		ui:InsertFrame(ed_bs);
 		
@@ -224,13 +224,13 @@ end
 		ui:InsertFrame(chk_bkd);
 		
 		-------------- Data source
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Datasource")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Datasource parameters")));
 		
 		local number = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Number"), state, "NumberVar_");
 		if desc and desc.number then number:SetSelection(desc.number); end
 		
 		-- Drawlayer
-		local er = VFLUI.EmbedRight(ui, "Draw layer:");
+		local er = VFLUI.EmbedRight(ui, "Draw layer");
 		local drawLayer = VFLUI.Dropdown:new(er, RDXUI.DrawLayerDropdownFunction);
 		drawLayer:SetWidth(100); drawLayer:Show();
 		if desc and desc.drawLayer then drawLayer:SetSelection(desc.drawLayer); else drawLayer:SetSelection("ARTWORK"); end
@@ -244,15 +244,15 @@ end
 		ui:InsertFrame(er);
 		
 		-- color
-		local color1 = RDXUI.GenerateColorSwatch(ui, "Texture 1 Color");
+		local color1 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 1 Color"));
 		if desc and desc.color1 then color1:SetColor(VFL.explodeRGBA(desc.color1)); end
-		local color2 = RDXUI.GenerateColorSwatch(ui, "Texture 2 Color");
+		local color2 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 2 Color"));
 		if desc and desc.color2 then color2:SetColor(VFL.explodeRGBA(desc.color2)); end
-		local color3 = RDXUI.GenerateColorSwatch(ui, "Texture 3 Color");
+		local color3 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 3 Color"));
 		if desc and desc.color3 then color3:SetColor(VFL.explodeRGBA(desc.color3)); end
-		local color4 = RDXUI.GenerateColorSwatch(ui, "Texture 4 Color");
+		local color4 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 4 Color"));
 		if desc and desc.color4 then color4:SetColor(VFL.explodeRGBA(desc.color4)); end
-		local color5 = RDXUI.GenerateColorSwatch(ui, "Texture 5 Color");
+		local color5 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 5 Color"));
 		if desc and desc.color5 then color5:SetColor(VFL.explodeRGBA(desc.color5)); end
 		
 		function ui:GetDescriptor()

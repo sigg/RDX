@@ -34,7 +34,7 @@ function RDXDK.FrameProperties(frame)
 			end
 		});
 		table.insert(mnu, {
-			text = VFLI.i18n("Rebuild"),
+			text = VFLI.i18n("Rebuild Window"),
 			OnClick = function()
 				VFL.poptree:Release();
 				RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, frameprops.name);
@@ -44,7 +44,7 @@ function RDXDK.FrameProperties(frame)
 	
 	local feat = RDXDB.GetFeatureData(frameprops.name, "Design");
 	local upath = feat["design"];
-	table.insert(mnu, {text = VFLI.i18n("Clone"), OnClick = function() 
+	table.insert(mnu, {text = VFLI.i18n("Clone Window"), OnClick = function() 
 		VFL.poptree:Release();
 		RDX.CloneWindow(frameprops.name, upath, VFLDIALOG); 
 		end;

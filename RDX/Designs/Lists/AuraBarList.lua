@@ -75,8 +75,8 @@ end
 RDX.RegisterFeature({
 	name = "aura_bars2";
 	version = 2;
-	title = "Bars Aura";
-	category = "Lists";
+	title = VFLI.i18n("Bars Aura");
+	category = VFLI.i18n("Lists");
 	multiple = true;
 	VersionMismatch = function(desc)
 		desc.version = 2;
@@ -375,7 +375,7 @@ end
 		ed_name.editBox:SetText(desc.name);
 		ui:InsertFrame(ed_name);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Aura Type:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Aura Type"));
 		local dd_auraType = VFLUI.Dropdown:new(er, RDXUI.AurasTypesDropdownFunction);
 		dd_auraType:SetWidth(150); dd_auraType:Show();
 		if desc and desc.auraType then 
@@ -387,9 +387,9 @@ end
 		ui:InsertFrame(er);
 
 		------------- Layout
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
 
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Owner", state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		local anchor = RDXUI.UnitFrameAnchorSelector:new(ui); anchor:Show();
@@ -403,11 +403,11 @@ end
 		ui:InsertFrame(ed_mb);
 
 		local ed_rows = VFLUI.LabeledEdit:new(ui, 50); ed_rows:Show();
-		ed_rows:SetText(VFLI.i18n("Row size"));
+		ed_rows:SetText(VFLI.i18n("Row number"));
 		if desc and desc.rows then ed_rows.editBox:SetText(desc.rows); end
 		ui:InsertFrame(ed_rows);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation"));
 		local dd_orientation = VFLUI.Dropdown:new(er, RDXUI.OrientationDropdownFunction);
 		dd_orientation:SetWidth(75); dd_orientation:Show();
 		if desc and desc.orientation then 
@@ -419,17 +419,17 @@ end
 		ui:InsertFrame(er);
 		
 		local ed_iconspx = VFLUI.LabeledEdit:new(ui, 50); ed_iconspx:Show();
-		ed_iconspx:SetText(VFLI.i18n("Spacing width"));
+		ed_iconspx:SetText(VFLI.i18n("Width spacing"));
 		if desc and desc.iconspx then ed_iconspx.editBox:SetText(desc.iconspx); else ed_iconspx.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspx);
 		
 		local ed_iconspy = VFLUI.LabeledEdit:new(ui, 50); ed_iconspy:Show();
-		ed_iconspy:SetText(VFLI.i18n("Spacing height"));
+		ed_iconspy:SetText(VFLI.i18n("Height spacing"));
 		if desc and desc.iconspy then ed_iconspy.editBox:SetText(desc.iconspy); else ed_iconspy.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspy);
 		
 		-------------- Display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display Bar")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display parameters")));
 		
 		local er2 = VFLUI.EmbedRight(ui, VFLI.i18n("Statusbar style"));
 		local sbtib = VFLUI.MakeSBTIBSelectButton(er2, desc.sbtib); sbtib:Show();
@@ -444,8 +444,6 @@ end
 		if desc and desc.sbcolor then chk_bc:SetChecked(true); else chk_bc:SetChecked(); end
 		ui:InsertFrame(chk_bc);
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display Fonts")));
-		
 		local ed_trunc = VFLUI.LabeledEdit:new(ui, 50); ed_trunc:Show();
 		ed_trunc:SetText(VFLI.i18n("Max aura length (blank = no truncation)"));
 		if desc and desc.trunc then ed_trunc.editBox:SetText(desc.trunc); end
@@ -456,9 +454,6 @@ end
 		if desc and desc.abr then chk_abr:SetChecked(true); else chk_abr:SetChecked(); end
 		ui:InsertFrame(chk_abr);
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display Other")));
-		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Smooth show hide")));
 		local chk_smooth = VFLUI.Checkbox:new(ui); chk_smooth:Show();
 		chk_smooth:SetText(VFLI.i18n("Use smooth on show and hide"));
 		if desc and desc.smooth then chk_smooth:SetChecked(true); else chk_smooth:SetChecked(); end
@@ -493,7 +488,7 @@ end
 		ui:InsertFrame(chk_sortname);]]
 
 		------------ Filter
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filtering")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filtering parameters")));
 
 		local chk_raidfilter = VFLUI.Checkbox:new(ui); chk_raidfilter:Show();
 		chk_raidfilter:SetText(VFLI.i18n("Use Blizzard raid filter"));

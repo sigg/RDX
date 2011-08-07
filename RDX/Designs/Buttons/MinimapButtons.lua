@@ -54,9 +54,9 @@ RDXUI.BlizzButtonsSelectionFunc = amOnBuild;
 RDX.RegisterFeature({
 	name = "minimapbutton";
 	version = 1;
-	title = "Button Minimap";
+	title = VFLI.i18n("Button Minimap");
 	test = true;
-	category = "Buttons";
+	category = VFLI.i18n("Buttons");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -67,7 +67,7 @@ RDX.RegisterFeature({
 		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if (not desc.mbuttontype) then
-			VFL.AddError(errs, VFLI.i18n("Buttontype invalide")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Button type invalide")); return nil;
 		end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
@@ -129,7 +129,7 @@ if frame.]] .. objname .. [[ then frame.]] .. objname .. [[:Destroy(); frame.]] 
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Button:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Button"));
 		local dd_mbuttontype = VFLUI.Dropdown:new(er, RDXUI.BlizzButtonsSelectionFunc);
 		dd_mbuttontype:SetWidth(200); dd_mbuttontype:Show();
 		if desc and desc.mbuttontype then 

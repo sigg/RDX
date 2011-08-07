@@ -1,8 +1,8 @@
 
 RDX.RegisterFeature({
 	name = "ColorVariable: Two-Color Blend";
-	title = "Color Two-Color Blend";
-	category = "Colors";
+	title = VFLI.i18n("Color Two-Color Blend");
+	category = VFLI.i18n("Colors");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -10,9 +10,9 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		if not RDX._CheckVariableNameValidity(desc.name, state, errs) then return nil; end
-		if (not desc.bfVar) or (strtrim(desc.bfVar) == "") then VFL.AddError(errs, VFLI.i18n("missing blend fraction.")); return nil; end
+		if (not desc.bfVar) or (strtrim(desc.bfVar) == "") then VFL.AddError(errs, VFLI.i18n("Missing blend fraction.")); return nil; end
 		if not tonumber(desc.bfVar) then
 			if (not state:Slot("FracVar_" .. desc.bfVar)) then 
 				VFL.AddError(errs, VFLI.i18n("Invalid blend fraction.")); return nil;
