@@ -15,7 +15,7 @@
 RDX.RegisterFeature({
 	name = "Highlight: Texture Map";
 	title = "Texture: Map and Highlight";
-	category = VFLI.i18n("Shaders");
+	category = "Shaders";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -88,7 +88,7 @@ end
 RDX.RegisterFeature({
 	name = "Texture: Colorizer";
 	title = "Texture: Colorizer";
-	category = VFLI.i18n("Shaders");
+	category = "Shaders";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -141,8 +141,8 @@ RDX.RegisterFeature({
 
 RDX.RegisterFeature({
 	name = "shader_applytex"; version = 1;
-	title = VFLI.i18n("Texture: Apply"); 
-	category = VFLI.i18n("Shaders");
+	title = "Texture: Map"; 
+	category = "Shaders";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -196,7 +196,7 @@ RDX.RegisterFeature({
 ------------------------------
 RDX.RegisterFeature({
 	name = "shaderTex_showhide"; version = 1;
-	title = VFLI.i18n("Texture: Show/Hide"); category = VFLI.i18n("Shaders");
+	title = "Texture: Show/Hide"; category = "Shaders";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

@@ -369,7 +369,7 @@ local function InitObjectDB()
 		local d = RDXData[srcPkg];
 		if not d then return nil, VFLI.i18n("Source package does not exist."); end
 		local e = RDXData[dstPkg];
-		if e then return nil, VFLI.i18n("Destination package exists"); end
+		if e then return nil, VFLI.i18n("Destination package exists."); end
 		local e = {};
 		for file,fd in pairs(d) do
 			if type(fd) == "table" then
@@ -388,7 +388,7 @@ local function InitObjectDB()
 		local d = RDXData[srcPkg];
 		if not d then return nil, VFLI.i18n("Source package does not exist."); end
 		local e = RDXData[dstPkg];
-		if not e then return nil, VFLI.i18n("Destination package does not exists"); end
+		if not e then return nil, VFLI.i18n("Destination package does not exists."); end
 		for file,fd in pairs(d) do
 			if type(fd) == "table" then
 				local newfd = RDXDB.copyfd(fd, srcPkg, dstPkg)
@@ -545,7 +545,7 @@ local function InitObjectDB()
 	--- Copy an object.
 	function RDXDB.CopyObject(path, newPkg)
 		local pkg,file = ParsePath(path);
-		if not pkg or not file then return nil, VFLI.i18n("Invalid path"); end
+		if not pkg or not file then return nil, VFLI.i18n("Invalid path."); end
 		return RDXDB.Copy(path, MakePath(newPkg, file), "RENAME");
 	end
 
@@ -691,7 +691,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	if RDXDB.objupdate then
 		RDX.printI(VFLI.i18n("Object updated, checking for UI reload."));
 		VFLT.ZMSchedule(2, function()
-			VFLUI.MessageBox(VFLI.i18n("RDX: Reload UI"), VFLI.i18n("Some old RDX objects were updated. In order for these updates to take effect, your UI must be reloaded. Click Yes to reload, No to abort."), nil, VFLI.i18n("No"), VFL.Noop, VFLI.i18n("Yes"), ReloadUI);
+			VFLUI.MessageBox(VFLI.i18n("Reload UI"), VFLI.i18n("Some old RDX objects were updated. In order for these updates to take effect, your UI must be reloaded. Click Yes to reload, No to abort."), nil, VFLI.i18n("No"), VFL.Noop, VFLI.i18n("Yes"), ReloadUI);
 		end);
 		RDXDB.objupdate = nil;
 	end

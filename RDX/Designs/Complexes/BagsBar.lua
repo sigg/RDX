@@ -48,8 +48,8 @@ local function _dd_orientations() return _orientations; end
 RDX.RegisterFeature({
 	name = "bagsbar";
 	version = 1;
-	title = VFLI.i18n("Blizzard Bags");
-	category = VFLI.i18n("Complexes");
+	title = "Blizzard Bags";
+	category = "Complexes";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

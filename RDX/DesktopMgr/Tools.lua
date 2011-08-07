@@ -114,7 +114,7 @@ local function OpenDesktopTools(parent, froot)
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 20);
 	dlg:SetTitleColor(0,.5,0);
-	dlg:SetText(VFLI.i18n("Desktop Manager: "));
+	dlg:SetText(VFLI.i18n("Desktop Manager"));
 	dlg:SetPoint("CENTER", VFLParent, "CENTER", -200, 0);
 	dlg:Accomodate(216, 450);
 	dlg:SetClampedToScreen(true);
@@ -134,27 +134,27 @@ local function OpenDesktopTools(parent, froot)
 	local chk_viewport = VFLUI.Checkbox:new(ca); chk_viewport:SetHeight(16); chk_viewport:SetWidth(200);
 	chk_viewport:SetPoint("TOPLEFT", separator1, "BOTTOMLEFT");
 	if froot.viewport then chk_viewport:SetChecked(true); else chk_viewport:SetChecked(); end
-	chk_viewport:SetText("Activate Viewport");
+	chk_viewport:SetText(VFLI.i18n("Activate Viewport"));
 	chk_viewport:Show();
 	chk_viewport.check:SetScript("OnClick", function() updateViewport(); end);
 	
 	local leleft = VFLUI.LabeledEdit:new(ca, 50); leleft:SetHeight(25); leleft:SetWidth(100);
-	leleft:SetPoint("TOPLEFT", chk_viewport, "BOTTOMLEFT", 0, 0); leleft:SetText("Left"); 
+	leleft:SetPoint("TOPLEFT", chk_viewport, "BOTTOMLEFT", 0, 0); leleft:SetText(VFLI.i18n("Left")); 
 	leleft.editBox:SetText(froot.offsetleft); leleft:Show();
 	leleft.editBox:SetScript("OnTextChanged", function() updateViewport(); end);
 	
 	local letop = VFLUI.LabeledEdit:new(ca, 50); letop:SetHeight(25); letop:SetWidth(100);
-	letop:SetPoint("TOPLEFT", leleft, "TOPRIGHT", 0, 0); letop:SetText("Top");
+	letop:SetPoint("TOPLEFT", leleft, "TOPRIGHT", 0, 0); letop:SetText(VFLI.i18n("Top"));
 	letop.editBox:SetText(froot.offsettop); letop:Show();
 	letop.editBox:SetScript("OnTextChanged", function() updateViewport(); end);
 	
 	local leright = VFLUI.LabeledEdit:new(ca, 50); leright:SetHeight(25); leright:SetWidth(100);
-	leright:SetPoint("TOPLEFT", leleft, "BOTTOMLEFT", 0, 0); leright:SetText("Right"); 
+	leright:SetPoint("TOPLEFT", leleft, "BOTTOMLEFT", 0, 0); leright:SetText(VFLI.i18n("Right")); 
 	leright.editBox:SetText(froot.offsetright); leright:Show();
 	leright.editBox:SetScript("OnTextChanged", function() updateViewport(); end);
 	
 	local lebottom = VFLUI.LabeledEdit:new(ca, 50); lebottom:SetHeight(25); lebottom:SetWidth(100);
-	lebottom:SetPoint("TOPLEFT", leright, "TOPRIGHT", 0, 0); lebottom:SetText("Bottom");
+	lebottom:SetPoint("TOPLEFT", leright, "TOPRIGHT", 0, 0); lebottom:SetText(VFLI.i18n("Bottom"));
 	lebottom.editBox:SetText(froot.offsetbottom); lebottom:Show();
 	lebottom.editBox:SetScript("OnTextChanged", function() updateViewport(); end);
 	
@@ -171,7 +171,7 @@ local function OpenDesktopTools(parent, froot)
 	-- Windows list
 	local separator2 = VFLUI.SeparatorText:new(ca, 1, 216);
 	separator2:SetPoint("TOPLEFT", leright, "BOTTOMLEFT", 0, -5);
-	separator2:SetText("Windows List");
+	separator2:SetText(VFLI.i18n("Windows List"));
 	
 	local list = VFLUI.List:new(dlg, 12, CreateWindowsListFrame);
 	list:SetPoint("TOPLEFT", separator2, "BOTTOMLEFT");
@@ -208,11 +208,11 @@ local function OpenDesktopTools(parent, froot)
 	
 	local windowName = VFLUI.SimpleText:new(ca, 1, 216);
 	windowName:SetPoint("TOPLEFT", separator3, "BOTTOMLEFT");
-	windowName:SetText("Click on a window of your UI to modify it");
+	windowName:SetText(VFLI.i18n("Click on a window of your UI to modify it"));
 	windowName:Show();
 	
 	-- scale
-	local lblScale = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Scale"));
+	local lblScale = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Scale:"));
 	lblScale:SetPoint("TOPLEFT", windowName, "BOTTOMLEFT"); lblScale:SetHeight(25); lblScale:Hide();
 	local edScale = VFLUI.Edit:new(ca, true); edScale:SetHeight(25); edScale:SetWidth(50);
 	edScale:SetPoint("TOPRIGHT", windowName, "BOTTOMRIGHT", 0, 0); edScale:Hide();
@@ -228,7 +228,7 @@ local function OpenDesktopTools(parent, froot)
 	VFLUI.BindSliderToEdit(slScale, edScale);
 
 	-- alpha
-	local lblAlpha = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Alpha"));
+	local lblAlpha = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Alpha:"));
 	lblAlpha:SetPoint("TOPLEFT", lblScale, "BOTTOMLEFT"); lblAlpha:SetHeight(25); lblAlpha:Hide();
 	local edAlpha = VFLUI.Edit:new(ca, true); edAlpha:SetHeight(25); edAlpha:SetWidth(50);
 	edAlpha:SetPoint("TOPRIGHT", edScale, "BOTTOMRIGHT", 0, 0); edAlpha:Hide();
@@ -243,7 +243,7 @@ local function OpenDesktopTools(parent, froot)
 	VFLUI.BindSliderToEdit(slAlpha, edAlpha);
 
 	-- strata
-	local lblStrata = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Stratum"));
+	local lblStrata = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Stratum:"));
 	lblStrata:SetPoint("TOPLEFT", lblAlpha, "BOTTOMLEFT"); lblStrata:SetHeight(25); lblStrata:Hide();
 	local ddStrata = VFLUI.Dropdown:new(ca, RDXUI.DesktopStrataFunction, function(value)
 		if dlg.frameprops and RDXUI.IsValidStrata(value) then
@@ -290,7 +290,7 @@ local function OpenDesktopTools(parent, froot)
 	
 	function dlg:_update(frameprops)
 		dlg.frameprops = frameprops;
-		windowName:SetText("|cFF00FF00" .. frameprops.name .. " is selected!|r");
+		windowName:SetText("|cFF00FF00" .. frameprops.name .. VFLI.i18n(" is selected!|r"));
 		if not lblScale:IsShown() then
 			lblScale:Show(); edScale:Show(); slScale:Show();
 			lblAlpha:Show(); edAlpha:Show(); slAlpha:Show();
@@ -352,7 +352,7 @@ local function OpenDesktopTools(parent, froot)
 	local chk_tooltipmouse = VFLUI.Checkbox:new(ca); chk_tooltipmouse:SetHeight(16); chk_tooltipmouse:SetWidth(200);
 	chk_tooltipmouse:SetPoint("TOPLEFT", separator5, "BOTTOMLEFT");
 	if froot.tooltipmouse then chk_tooltipmouse:SetChecked(true); else chk_tooltipmouse:SetChecked(); end
-	chk_tooltipmouse:SetText(VFLI.i18n("Mouse anchor tooltip"));
+	chk_tooltipmouse:SetText(VFLI.i18n("Mouse anchor GameTooltip"));
 	chk_tooltipmouse:Show();
 	chk_tooltipmouse.check:SetScript("OnClick", function() DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", chk_tooltipmouse:GetChecked(), froot.anchorx, froot.anchory); end);
 	

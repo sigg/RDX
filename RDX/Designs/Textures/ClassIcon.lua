@@ -1,8 +1,8 @@
 --- Unit frame class icon
 RDX.RegisterFeature({
 	name = "tex_class";
-	title = VFLI.i18n("Class Icon");
-	category = VFLI.i18n("Textures");
+	title = "Icon Class";
+	category = "Textures";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

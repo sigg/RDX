@@ -21,7 +21,7 @@ function RDXPM.RDXManage(parent)
 	sf:SetWidth(305); sf:SetHeight(240);
 	sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	
-	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Main panel")));
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Main Panel")));
 	
 	local chk_asmp = VFLUI.Checkbox:new(ui); chk_asmp:Show();
 	chk_asmp:SetText(VFLI.i18n("Always Show Main Panel"));

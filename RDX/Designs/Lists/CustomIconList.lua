@@ -5,8 +5,8 @@
 RDX.RegisterFeature({
 	name = "custom_icons";
 	version = 1;
-	title = VFLI.i18n("Custom Icons");
-	category = VFLI.i18n("Lists");
+	title = "Icons Custom";
+	category = "Lists";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

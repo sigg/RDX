@@ -103,7 +103,7 @@ function RDX.Integrate(parent, data, author, callback)
 	dlg:Show();
 	local ca = dlg:GetClientArea();
 
-	local lbl = VFLUI.MakeLabel(nil, dlg, "Receiving the following objects from |cFF00FFFF" .. tostring(author) .. VFLI.i18n("|r. Objects highlighted in |cFFFF0000RED|r may contain executable Lua code. You should not accept these unless you trust the author. If you press Cancel, no objects will be integrated."));
+	local lbl = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Receiving the following objects from |cFF00FFFF") .. tostring(author) .. VFLI.i18n("|r. Objects highlighted in |cFFFF0000RED|r may contain executable Lua code. You should not accept these unless you trust the author. If you press Cancel, no objects will be integrated."));
 	lbl:SetPoint("TOPLEFT", ca, "TOPLEFT");
 	lbl:SetWidth(235); lbl:SetHeight(64);
 

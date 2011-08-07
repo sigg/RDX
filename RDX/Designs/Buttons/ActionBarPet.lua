@@ -109,7 +109,8 @@ local _orientations = {
 local function _dd_orientations() return _orientations; end
 
 RDX.RegisterFeature({
-	name = "actionbarpet"; version = 1; title = VFLI.i18n("Action Bar Pet"); test = true; category = VFLI.i18n("Buttons");
+	name = "actionbarpet"; version = 1; 
+	title = "Bar Action Buttons Pet"; test = true; category = "Buttons";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

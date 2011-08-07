@@ -12,8 +12,8 @@
 ------------------------------------------------------
 RDX.RegisterFeature({
 	name = "backdrop";
-	title = VFLI.i18n("Backdrop");
-	category = VFLI.i18n("Basics");
+	title = "Backdrop";
+	category = "Basics";
 	multiple = true;
 	version = 1;
 	IsPossible = function(state)

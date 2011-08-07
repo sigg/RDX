@@ -26,8 +26,8 @@ VFLUI.CreateFramePool("Minimap",
 RDX.RegisterFeature({
 	name = "minimap"; 
 	version = 1; 
-	title = VFLI.i18n("Minimap"); 
-	category = VFLI.i18n("Complexes");
+	title = "Blizzard Minimap"; 
+	category = "Complexes";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

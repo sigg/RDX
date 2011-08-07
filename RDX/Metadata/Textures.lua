@@ -4,48 +4,48 @@
 ------------------------------
 VFLUI.RegisterTexture({
 	name = "blizzard_bar";
-	category = VFLI.i18n("SB (Horiz)");
-	title = VFLI.i18n("Blizzard");
+	category = "SB (Horiz)";
+	title = "Blizzard";
 	path = "Interface\\TargetingFrame\\UI-StatusBar";
 	dx = 256; dy = 32;
 });
 
 VFLUI.RegisterTexture({
 	name = "rdx_bar1";
-	category = VFLI.i18n("SB (Horiz)");
-	title = VFLI.i18n("Beveled");
+	category = "SB (Horiz)";
+	title = "Beveled";
 	path = "Interface\\Addons\\RDX\\Skin\\bar1";
 	dx = 256; dy = 32;
 });
 
 VFLUI.RegisterTexture({
 	name = "rdx_barsmooth";
-	category = VFLI.i18n("SB (Horiz)");
-	title = VFLI.i18n("Smooth");
+	category = "SB (Horiz)";
+	title = "Smooth";
 	path = "Interface\\Addons\\RDX\\Skin\\bar_smooth";
 	dx = 256; dy = 32;
 });
 
 VFLUI.RegisterTexture({
 	name = "rdx_barhoutline";
-	category = VFLI.i18n("SB (Horiz)");
-	title = VFLI.i18n("Half Outline");
+	category = "SB (Horiz)";
+	title = "Half Outline";
 	path = "Interface\\Addons\\RDX\\Skin\\bar_halfoutline";
 	dx = 256; dy = 32;
 });
 
 VFLUI.RegisterTexture({
 	name = "rdx_bar1vert";
-	category = VFLI.i18n("SB (Vert)");
-	title = VFLI.i18n("Beveled");
+	category = "SB (Vert)";
+	title = "Beveled";
 	path = "Interface\\Addons\\RDX\\Skin\\vbar1";
 	dx = 32; dy = 256;
 });
 
 VFLUI.RegisterTexture({
 	name = "rdx_barhoutlinevert";
-	category = VFLI.i18n("SB (Vert)");
-	title = VFLI.i18n("Half Outline");
+	category = "SB (Vert)";
+	title = "Half Outline";
 	path = "Interface\\Addons\\RDX\\Skin\\vbar_halfoutline";
 	dx = 32; dy = 256;
 });
@@ -56,8 +56,8 @@ VFLUI.RegisterTexture({
 local function ricon(title, path)
 	VFLUI.RegisterTexture({
 		name = "rdxi_" .. string.gsub(title, "[^%w_]", "_");
-		category = VFLI.i18n("RDX Icons");
-		title = VFLI.i18n(title);
+		category = "RDX Icons";
+		title = title;
 		path = "Interface\\Addons\\RDX\\Skin\\" .. path;
 		dx = 32; dy = 32;
 	});

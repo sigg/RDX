@@ -421,8 +421,8 @@ end
 --- Scripted custom text.
 RDX.RegisterFeature({
 	name = "txt_other"; version = 1; multiple = true;
-	title = VFLI.i18n("Text Info");
-	category = VFLI.i18n("Texts");
+	title = "Text Info";
+	category = "Texts";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

@@ -72,8 +72,8 @@ end
 RDX.RegisterFeature({
 	name = "cooldown_bars";
 	version = 2;
-	title = VFLI.i18n("Cooldown Bars");
-	category = VFLI.i18n("Lists");
+	title = "Bars Cooldown";
+	category = "Lists";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

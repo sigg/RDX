@@ -122,7 +122,7 @@ RDXDB.RegisterObjectType({
 	New = function(path, md) md.version = 3; md.data = {class = "simple"; targetpath = ""}; end;
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
-			text = VFLI.i18n("Edit...");
+			text = VFLI.i18n("Edit");
 			OnClick = function()
 				VFL.poptree:Release();
 				EditSymlink(dlg, path, md);
@@ -143,7 +143,7 @@ function RDXDB.SymLinkFinder:new(parent)
 			return cls.GetUI(ctl, desc), cls.title, cls;
 		end
 	end);
-	self:SetText(VFLI.i18n("Set class:"));
+	self:SetText(VFLI.i18n("Set Class:"));
 	return self;
 end
 

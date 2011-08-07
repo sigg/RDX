@@ -91,8 +91,8 @@ end
 RDX.RegisterFeature({
 	name = "runes_bar";
 	version = 1;
-	title = VFLI.i18n("Runes Bar");
-	category = VFLI.i18n("Lists");
+	title = "Bars Rune";
+	category = "Lists";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
@@ -343,10 +343,10 @@ end
 
 RDX.RegisterFeature({
 	name = "runes_bar_vars";
-	title = VFLI.i18n("Runes Bar Skin");
+	title = "Icons Rune";
 	version = 1;
 	multiple = false;
-	category = VFLI.i18n("Lists");
+	category = "Lists";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

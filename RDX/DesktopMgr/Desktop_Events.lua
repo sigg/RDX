@@ -60,8 +60,8 @@ local msgEvents = {
 
 RDX.RegisterFeature({
 	name = "DesktopEventChat",
-	title = VFLI.i18n("DesktopEvent: Chat"),
-	category = VFLI.i18n("Events");
+	title = "DesktopEvent: Chat",
+	category = "Events";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("Desktop") then return nil; end
@@ -109,7 +109,7 @@ RDX.RegisterFeature({
 		ui:InsertFrame(bevent);
 		
 		local srchStr = VFLUI.LabeledEdit:new(ui, 200); srchStr:Show();
-		srchStr:SetText("Find message: ");
+		srchStr:SetText("Find message:");
 		if desc and desc.srchStr then srchStr.editBox:SetText(desc.srchStr); end
 		ui:InsertFrame(srchStr);
 		
@@ -137,8 +137,8 @@ local unitEvents = {
 
 RDX.RegisterFeature({
 	name = "DesktopEventUnit",
-	title = VFLI.i18n("DesktopEvent: Unit"),
-	category = VFLI.i18n("Events");
+	title = "DesktopEvent: Unit",
+	category = "Events";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("Desktop") then return nil; end
@@ -205,8 +205,8 @@ RDX.RegisterFeature({
 
 RDX.RegisterFeature({
 	name = "DesktopEventRDXSet",
-	title = VFLI.i18n("DesktopEvent: RDX Set"),
-	category = VFLI.i18n("Events");
+	title = "DesktopEvent: RDX Set",
+	category = "Events";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("Desktop") then return nil; end
@@ -265,11 +265,11 @@ RDX.RegisterFeature({
 		if desc.set then setsel:SetDescriptor(desc.set); end
 		ui:InsertFrame(setsel);
 		
-		local devent = VFLUI.CreateElementEdit(ui, "If in Set Dispatch Event:", RDXDK._GetEventCache())
+		local devent = VFLUI.CreateElementEdit(ui, VFLI.i18n("If in Set Dispatch Event:"), RDXDK._GetEventCache())
 		if desc and desc.devent then devent.editBox:SetText(desc.devent); end
 		ui:InsertFrame(devent);
 		
-		local odevent = VFLUI.CreateElementEdit(ui, "If not in Set Dispatch Event", RDXDK._GetEventCache())
+		local odevent = VFLUI.CreateElementEdit(ui, VFLI.i18n("If not in Set Dispatch Event"), RDXDK._GetEventCache())
 		if desc and desc.odevent then odevent.editBox:SetText(desc.odevent); end
 		ui:InsertFrame(odevent);
 		

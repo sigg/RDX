@@ -53,7 +53,7 @@ local function OpenBindingWindow(parent)
 	binding_window.btn:Show();
 	
 	local btnOK = VFLUI.OKButton:new(binding_window.btn);
-	btnOK:SetText(VFLI.i18n("SAVE")); btnOK:SetHeight(25); btnOK:SetWidth(80);
+	btnOK:SetText(VFLI.i18n("Save")); btnOK:SetHeight(25); btnOK:SetWidth(80);
 	btnOK:SetPoint("BOTTOM", binding_window:GetClientArea(), "BOTTOM");
 	btnOK:Show();
 	btnOK:SetScript("OnClick", function()

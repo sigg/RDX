@@ -7,8 +7,8 @@
 
 RDX.RegisterFeature({
 	name = "desktop_keybindings",
-	title = VFLI.i18n("Key Bindings");
-	category = VFLI.i18n("Others");
+	title = "Key Bindings";
+	category = "Others";
 	IsPossible = function(state)
 		if not state:Slot("Desktop") then return nil; end
 		if not state:Slot("Desktop main") then return nil; end

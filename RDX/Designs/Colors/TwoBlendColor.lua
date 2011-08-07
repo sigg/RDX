@@ -1,8 +1,8 @@
 
 RDX.RegisterFeature({
 	name = "ColorVariable: Two-Color Blend";
-	title = VFLI.i18n("Color Two-Color Blend");
-	category = VFLI.i18n("Colors");
+	title = "Color Two-Color Blend";
+	category = "Colors";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

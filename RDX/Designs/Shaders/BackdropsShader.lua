@@ -44,7 +44,8 @@ end
 
 RDX.RegisterFeature({
 	name = "Backdrop Border Colorizer";
-	category = VFLI.i18n("Shaders");
+	title = "Backdrop Border: Colorizer";
+	category = "Shaders";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -67,7 +68,8 @@ RDX.RegisterFeature({
 
 RDX.RegisterFeature({
 	name = "Backdrop Colorizer";
-	category = VFLI.i18n("Shaders");
+	name = "Backdrop: Colorizer";
+	category = "Shaders";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

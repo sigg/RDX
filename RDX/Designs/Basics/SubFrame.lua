@@ -5,8 +5,8 @@
 ----------------------------------------------------------
 RDX.RegisterFeature({
 	name = "Subframe";
-	title = VFLI.i18n("Frame");
-	category = VFLI.i18n("Basics");
+	title = "Frame";
+	category = "Basics";
 	multiple = true;
 	version = 1;
 	IsPossible = function(state)

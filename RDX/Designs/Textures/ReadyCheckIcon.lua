@@ -6,7 +6,8 @@
 
 RDX.RegisterFeature({
 	name = "Ready Check Icon";
-	category = VFLI.i18n("Textures");
+	title = "Icon Ready Check";
+	category = "Textures";
 	test = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

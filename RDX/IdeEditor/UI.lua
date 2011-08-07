@@ -91,7 +91,7 @@ end
 RDXUI.UnitFrameAnchorSelector = {};
 function RDXUI.UnitFrameAnchorSelector:new(parent)
 	local self = VFLUI.GroupBox:new(parent);
-	VFLUI.GroupBox.MakeTextCaption(self, VFLI.i18n("Anchor"));
+	VFLUI.GroupBox.MakeTextCaption(self, VFLI.i18n("Anchor:"));
 	self:SetLayoutConstraint("WIDTH_DOWNWARD_HEIGHT_UPWARD");
 	local ctr = VFLUI.CompoundFrame:new(self); ctr:Show();
 	self:SetClient(ctr);
@@ -418,11 +418,11 @@ function RDXUI.defaultUIFromDescriptor(desc, parent, state)
 		ui:InsertFrame(ed_scale);
 		
 		local ed_alpha = VFLUI.LabeledEdit:new(ui, 50); ed_alpha:Show();
-		ed_alpha:SetText(VFLI.i18n("Alpha: "));
+		ed_alpha:SetText(VFLI.i18n("Alpha:"));
 		if desc and desc.alpha then ed_alpha.editBox:SetText(desc.alpha); end
 		ui:InsertFrame(ed_alpha);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Stratum: "));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Stratum:"));
 		local dd_strataType = VFLUI.Dropdown:new(er, RDXUI.DesktopStrataFunction);
 		dd_strataType:SetWidth(150); dd_strataType:Show();
 		if desc and desc.strata then 
@@ -446,20 +446,20 @@ function RDXUI.defaultUIFromDescriptor(desc, parent, state)
 		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Dock properties")));
 		
-		local chkCTS = VFLUI.Checkbox:new(ui); chkCTS:Show();
-		chkCTS:SetText(VFLI.i18n("Clamp to screen (only if undocked)"));
-		if desc and desc.cts then chkCTS:SetChecked(true); else chkCTS:SetChecked(); end
-		ui:InsertFrame(chkCTS);
+		--local chkCTS = VFLUI.Checkbox:new(ui); chkCTS:Show();
+		--chkCTS:SetText(VFLI.i18n("Clamp to screen (only if undocked)"));
+		--if desc and desc.cts then chkCTS:SetChecked(true); else chkCTS:SetChecked(); end
+		--ui:InsertFrame(chkCTS);
 		
-		local chkNoAttach = VFLUI.Checkbox:new(ui); chkNoAttach:Show();
-		chkNoAttach:SetText(VFLI.i18n("Prevent this window from attaching to others"));
-		if desc and desc.noattach then chkNoAttach:SetChecked(true); else chkNoAttach:SetChecked(); end
-		ui:InsertFrame(chkNoAttach);
+		--local chkNoAttach = VFLUI.Checkbox:new(ui); chkNoAttach:Show();
+		--chkNoAttach:SetText(VFLI.i18n("Prevent this window from attaching to others"));
+		--if desc and desc.noattach then chkNoAttach:SetChecked(true); else chkNoAttach:SetChecked(); end
+		--ui:InsertFrame(chkNoAttach);
 		
-		local chkNoHold = VFLUI.Checkbox:new(ui); chkNoHold:Show();
-		chkNoHold:SetText(VFLI.i18n("Prevent other windows from attaching to this one"));
-		if desc and desc.nohold then chkNoHold:SetChecked(true); else chkNoHold:SetChecked(); end
-		ui:InsertFrame(chkNoHold);
+		--local chkNoHold = VFLUI.Checkbox:new(ui); chkNoHold:Show();
+		--chkNoHold:SetText(VFLI.i18n("Prevent other windows from attaching to this one"));
+		--if desc and desc.nohold then chkNoHold:SetChecked(true); else chkNoHold:SetChecked(); end
+		--ui:InsertFrame(chkNoHold);
 		
 		local n = 2; 
 		if desk and desk.dock then n = #desk.dock + 1 end
@@ -481,22 +481,22 @@ function RDXUI.defaultUIFromDescriptor(desc, parent, state)
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Position properties")));
 		
 		local ed_leftpos = VFLUI.LabeledEdit:new(ui, 50); ed_leftpos:Show();
-		ed_leftpos:SetText(VFLI.i18n("Left:"));
+		ed_leftpos:SetText(VFLI.i18n("Left"));
 		if desc and desc.l then ed_leftpos.editBox:SetText(desc.l); end
 		ui:InsertFrame(ed_leftpos);
 		
 		local ed_toppos = VFLUI.LabeledEdit:new(ui, 50); ed_toppos:Show();
-		ed_toppos:SetText(VFLI.i18n("Top:"));
+		ed_toppos:SetText(VFLI.i18n("Top"));
 		if desc and desc.t then ed_toppos.editBox:SetText(desc.t); end
 		ui:InsertFrame(ed_toppos);
 		
 		local ed_rightpos = VFLUI.LabeledEdit:new(ui, 50); ed_rightpos:Show();
-		ed_rightpos:SetText(VFLI.i18n("Right:"));
+		ed_rightpos:SetText(VFLI.i18n("Right"));
 		if desc and desc.r then ed_rightpos.editBox:SetText(desc.r); end
 		ui:InsertFrame(ed_rightpos);
 		
 		local ed_bottompos = VFLUI.LabeledEdit:new(ui, 50); ed_bottompos:Show();
-		ed_bottompos:SetText(VFLI.i18n("Bottom:"));
+		ed_bottompos:SetText(VFLI.i18n("Bottom"));
 		if desc and desc.b then ed_bottompos.editBox:SetText(desc.b); end
 		ui:InsertFrame(ed_bottompos);
 		
@@ -521,9 +521,9 @@ function RDXUI.defaultUIFromDescriptor(desc, parent, state)
 				alpha = VFL.clamp(ed_alpha.editBox:GetNumber(), 0.1, 2);
 				strata = dd_strataType:GetSelection();
 				ap = dd_anchorType:GetSelection();
-				cts = chkCTS:GetChecked();
-				noattach = chkNoAttach:GetChecked();
-				nohold = chkNoHold:GetChecked();
+				--cts = chkCTS:GetChecked();
+				--noattach = chkNoAttach:GetChecked();
+				--nohold = chkNoHold:GetChecked();
 				dock = ddock;
 				dgp = ddgp;
 				r = ed_rightpos.editBox:GetNumber();

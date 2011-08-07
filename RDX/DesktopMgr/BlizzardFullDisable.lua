@@ -724,7 +724,7 @@ function RDXDK.BlizzardManage(parent)
 	local btnNone = VFLUI.Button:new(dlg);
 	btnNone:SetHeight(25); btnNone:SetWidth(60);
 	btnNone:SetPoint("BOTTOMRIGHT", dlg:GetClientArea(), "BOTTOMRIGHT");
-	btnNone:SetText("None"); btnNone:Show();
+	btnNone:SetText(VFLI.i18n("None")); btnNone:Show();
 	btnNone:SetScript("OnClick", function()
 		chk_ab:SetChecked();
 		chk_mb:SetChecked();
@@ -760,7 +760,7 @@ function RDXDK.BlizzardManage(parent)
 	local btnAll = VFLUI.Button:new(dlg);
 	btnAll:SetHeight(25); btnAll:SetWidth(60);
 	btnAll:SetPoint("RIGHT", btnNone, "LEFT");
-	btnAll:SetText("All"); btnAll:Show();
+	btnAll:SetText(VFLI.i18n("All")); btnAll:Show();
 	btnAll:SetScript("OnClick", function()
 		chk_ab:SetChecked(true);
 		chk_mb:SetChecked(true);

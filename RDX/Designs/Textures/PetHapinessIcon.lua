@@ -5,9 +5,9 @@
 
 RDX.RegisterFeature({
 	name = "tex_pethap";
-	title = VFLI.i18n("Pet Hapiness Icon");
+	title = "Icon Pet Hapiness";
 	test = true;
-	category = VFLI.i18n("Textures");
+	category = "Textures";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

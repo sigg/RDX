@@ -1,7 +1,7 @@
 
 RDX.RegisterFeature({
 	name = "txt_custom";	version = 1;	multiple = true;
-	title = VFLI.i18n("Text Custom");	category = VFLI.i18n("Texts");
+	title = "Text Custom";	category = "Texts";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

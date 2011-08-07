@@ -6,8 +6,8 @@ local function hvert_gen() return tbl_hvert; end
 
 RDX.RegisterFeature({
 	name = "statusbar_horiz";
-	title = VFLI.i18n("Status Bar"); 
-	category = VFLI.i18n("Basics");
+	title = "Status Bar"; 
+	category = "Basics";
 	multiple = true;
 	version = 1;
 	IsPossible = function(state)

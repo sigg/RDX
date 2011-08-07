@@ -22,7 +22,7 @@ local function _dd_cameratypes() return _types; end
 ----------- 3D Portrait object
 RDX.RegisterFeature({
 	name = "portrait_3d"; version = 1; multiple = true;
-	title = VFLI.i18n("3D Portrait"); category = VFLI.i18n("Textures");
+	title = "Blizzard 3D Portrait"; category = "Complexes";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

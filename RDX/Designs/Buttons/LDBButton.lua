@@ -196,8 +196,8 @@ RDX.RegisterFeature({
 	name = "ldbobject"; 
 	multiple = true; 
 	version = 1; 
-	title = VFLI.i18n("LDB Object"); 
-	category = VFLI.i18n("Buttons");
+	title = "Button LDB"; 
+	category = "Buttons";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

@@ -669,7 +669,7 @@ RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.func = function() ToggleFrame(QuestLogFrame); end;
 end);
 RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Encounter");
+	ent.text = VFLI.i18n("Encounters");
 	ent.notCheckable = true;
 	ent.func = function() ToggleFrame(EncounterJournal); end;
 end);
@@ -678,11 +678,11 @@ RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.notCheckable = true;
 	ent.func = function() OpenAllBags(); end;
 end);
-RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Key Bag");
-	ent.notCheckable = true;
-	ent.func = function() ToggleKeyRing(); end;
-end);
+--RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
+--	ent.text = VFLI.i18n("Key Bag");
+--	ent.notCheckable = true;
+--	ent.func = function() ToggleKeyRing(); end;
+--end);
 
 RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
 	ent.text = "Guild/Raid";
@@ -771,7 +771,7 @@ RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
 end);
 
 RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Assist");
+	ent.text = VFLI.i18n("Assists");
 	ent.notCheckable = true;
 	ent.hasArrow = true;
 	ent.menuList = {
@@ -843,7 +843,7 @@ RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
 end);
 
 RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Repo Size: " .. GetMemoryRepo());
+	ent.text = VFLI.i18n("Repo Size: ") .. GetMemoryRepo();
 	ent.func = VFL.Noop;
 	ent.notCheckable = true;
 end);
@@ -912,7 +912,7 @@ end);
 -----------------------------------------------------------------------------------
 
 RDXPM.MainMenu:RegisterMenuFunction(function(ent)
-	ent.text = "Settings";
+	ent.text = VFLI.i18n("Settings");
 	ent.isTitle = true;
 	ent.notCheckable = true;
 	ent.justifyH = "CENTER";

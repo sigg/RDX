@@ -7,8 +7,8 @@
 
 RDX.RegisterFeature({
 	name = "desktop_actionbindings",
-	title = VFLI.i18n("Action Bindings");
-	category = VFLI.i18n("Others");
+	title = "Action Bindings";
+	category = "Others";
 	IsPossible = function(state)
 		if not state:Slot("Desktop") then return nil; end
 		if not state:Slot("Desktop main") then return nil; end

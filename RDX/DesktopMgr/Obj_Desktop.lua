@@ -83,7 +83,7 @@ function RDXDK.PrintError(win, info, err)
 		if (type(win._path) == "string") then
 			path = win._path;
 		end
-		VFL.TripError("RDX", VFLI.i18n("Window <") .. ident .. VFLI.i18n("> caused a paint error.", "Pointer: ") .. tostring(win) .. VFLI.i18n("\nIdentity: ") .. ident ..VFLI.i18n("\nPath: ") .. path .. VFLI.i18n("\nError\n--------\n") .. err);
+		VFL.TripError("RDX", "Window <" .. ident .. "> caused a paint error.", "Pointer: " .. tostring(win) .. "\nIdentity: " .. ident .. "\nPath: " .. path .. "\nError\n--------\n" .. err);
 	end
 end
 
@@ -838,7 +838,7 @@ RDXDB.RegisterObjectType({
 	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
-			text = VFLI.i18n("Edit..."),
+			text = VFLI.i18n("Edit"),
 			OnClick = function()
 				VFL.poptree:Release();
 				RDXDB.OpenObject(path, "Edit", dlg);

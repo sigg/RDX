@@ -75,8 +75,8 @@ end
 RDX.RegisterFeature({
 	name = "aura_bars2";
 	version = 2;
-	title = VFLI.i18n("Aura Bars");
-	category = VFLI.i18n("Lists");
+	title = "Bars Aura";
+	category = "Lists";
 	multiple = true;
 	VersionMismatch = function(desc)
 		desc.version = 2;

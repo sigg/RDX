@@ -341,7 +341,7 @@ state:Clear();
 
 -- Error compilation, create a blank window
 local function CreateErrWindow(state)
-	state:AddFeature({feature = "Frame: Lightweight", title = VFLI.i18n("Error compilation"), showtitlebar = true});
+	state:AddFeature({feature = "Frame: Lightweight", title = "Error compilation", showtitlebar = true});
 	state:_SetSlotFunction("SetTitleText", VFL.Noop);
 	state:AddFeature({feature = "Raid Status DataSource"});
 	state:AddFeature({feature = "Stat Frames: Bar",  w = 120, h = 16, sv = 2, tdx = 50, fsz = 8});

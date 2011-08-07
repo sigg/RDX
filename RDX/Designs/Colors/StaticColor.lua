@@ -1,8 +1,8 @@
 
 RDX.RegisterFeature({
 	name = "ColorVariable: Static Color";
-	title = VFLI.i18n("Color Static");
-	category = VFLI.i18n("Colors");
+	title = "Color Static";
+	category = "Colors";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

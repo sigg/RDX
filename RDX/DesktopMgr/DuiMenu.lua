@@ -18,7 +18,7 @@ local function AUIList()
 	
 	-----------------------------------
 	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text = VFLI.i18n("Blizzard Frame Manager");
+		ent.text = VFLI.i18n("Blizzard Frames Manager");
 		ent.func = RDXDK.ToggleBlizzardManage;
 		ent.notCheckable = true;
 	end);
@@ -67,7 +67,7 @@ local function AUIList()
 	--);
 
 	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text = "Theme AUI";
+		ent.text = VFLI.i18n("Themes");
 		ent.hasArrow = true;
 		ent.notCheckable = true;
 		ent.menuList = subMenus;
@@ -100,7 +100,7 @@ local function AUIList()
 	end
 
 	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text = "State";
+		ent.text = VFLI.i18n("Theme state");
 		ent.hasArrow = true;
 		ent.notCheckable = true;
 		ent.menuList = stateTypeMenus;
@@ -108,16 +108,16 @@ local function AUIList()
 	
 	-----------------------------------
 	local editListMenu = {		
-		{ text = "Edit Current Desktop", notCheckable = true, func = function()
+		{ text = VFLI.i18n("Edit Current Desktop"), notCheckable = true, func = function()
 			local md = RDXDB.GetObjectData(RDXDK.GetCurrentDesktopPath());
 			if md then RDXDK.ToggleDesktopEditor(VFLDIALOG, RDXDK.GetCurrentDesktopPath(), md); end
 		end },
-		{ text = "Clear Desktop", notCheckable = true, func = RDXDK.DeskClear },
-		{ text = "Reset Desktop", notCheckable = true, func = RDXDK.DeskReset }
+		{ text = VFLI.i18n("Clear Desktop"), notCheckable = true, func = RDXDK.DeskClear },
+		{ text = VFLI.i18n("Reset Desktop"), notCheckable = true, func = RDXDK.DeskReset }
 	}
 
 	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text= "Manage Desktop";
+		ent.text = VFLI.i18n("Manage Desktop");
 		ent.notCheckable = true;
 		ent.hasArrow = true;
 		ent.menuList = editListMenu;

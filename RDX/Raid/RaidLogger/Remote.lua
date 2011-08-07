@@ -214,7 +214,7 @@ function Omni.PredefinedQuery(who)
 end
 
 -- Slash command to execute a quick query.
-SLASH_OMNI1 = VFLI.i18n("/omni");
+SLASH_OMNI1 = "/omni";
 SlashCmdList["OMNI"] = function()
 	if UnitExists("target") and (UnitInParty("target") or UnitInRaid("target")) then
 		Omni.PredefinedQuery(string.lower(UnitName("target")));

@@ -5,9 +5,9 @@
 
 RDX.RegisterFeature({
 	name = "commentline";
-	category = VFLI.i18n("Miscs");
+	category = "Miscs";
 	version = 1;
-	title = VFLI.i18n("----------");
+	title = "----------";
 	multiple = true;
 	IsPossible = function(state)
 		return true;

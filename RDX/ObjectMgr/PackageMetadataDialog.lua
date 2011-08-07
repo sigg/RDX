@@ -57,7 +57,7 @@ function RDXDB.PackageMetadataDialog(pkg, parent)
 	ed_packageversion:Show();
 	
 	local ed_comment = VFLUI.LabeledEdit:new(dlg, 150);
-	ed_comment:SetText(VFLI.i18n("Comment"));
+	ed_comment:SetText(VFLI.i18n("Comments"));
 	ed_comment.editBox:SetText(RDXDB.GetPackageMetadata(pkg, "infoComment") or "");
 	ed_comment:SetHeight(25); ed_comment:SetWidth(250);
 	ed_comment:SetPoint("TOPLEFT", ed_packageversion, "BOTTOMLEFT");

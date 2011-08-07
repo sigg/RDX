@@ -4,7 +4,8 @@
 ----------------------------------------------------------------------
 RDX.RegisterFeature({
 	name = "Player Status Icon";
-	category = VFLI.i18n("Textures");
+	title = "Icon Player Status";
+	category = "Textures";
 	test = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

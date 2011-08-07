@@ -54,8 +54,8 @@ end
 
 RDX.RegisterFeature({
 	name = "texture_cooldown";
-	title = VFLI.i18n("Cooldown");
-	category = VFLI.i18n("Basics");
+	title = "Cooldown";
+	category = "Basics";
 	multiple = true;
 	version = 1;
 	IsPossible = function(state)

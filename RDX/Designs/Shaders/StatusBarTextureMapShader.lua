@@ -59,7 +59,8 @@ end
 
 RDX.RegisterFeature({
 	name = "StatusBar Texture Map";
-	category = VFLI.i18n("Shaders");
+	title = "Texture: Map and Frac";
+	category = "Shaders";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

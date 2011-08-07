@@ -16,7 +16,7 @@ RDXDB.LoadFeatureFromFile = LoadFeatureFromFile;
 
 RDX.RegisterFeature({
 	name = "Proxy: File";
-	category = VFLI.i18n("Miscs");
+	category = "Miscs";
 	multiple = true;
 	IsPossible = VFL.True;
 	ExposeFeature = function(desc, state, errs)
@@ -35,7 +35,7 @@ RDX.RegisterFeature({
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "FeatureData$")); end);
-		ui:SetLabel(VFLI.i18n("Feature data"));
+		ui:SetLabel("Feature data");
 		if desc and desc.file then ui:SetPath(desc.file); end
 
 		function ui:GetDescriptor()

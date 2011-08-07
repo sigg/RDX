@@ -5,8 +5,8 @@
 RDX.RegisterFeature({
 	name = "sec_aura_icons";
 	version = 1;
-	title = VFLI.i18n("Secure Aura Icons");
-	category = VFLI.i18n("Lists");
+	title = "Icons Aura Secured";
+	category = "Lists";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -153,7 +153,13 @@ headerAura.updateFunc = function(self)
 			child.btn:Hide();
 		end
 	end
+	local hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot, hasThrownEnchant, thrownBuffName, thrownBuffRank, thrownCharges, thrownBuffStart, thrownBuffDur, thrownTex, thrownBuffTex, thrownSlot;
 	local tempEnchant1 = self:GetAttribute("tempEnchant1");
+	local tempEnchant2 = self:GetAttribute("tempEnchant2");
+	local tempEnchant3 = self:GetAttribute("tempEnchant3");
+	if tempEnchant1 or tempEnchant2 or tempEnchant3 then
+		hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot, hasThrownEnchant, thrownBuffName, thrownBuffRank, thrownCharges, thrownBuffStart, thrownBuffDur, thrownTex, thrownBuffTex, thrownSlot = RDXDAL.LoadWeaponsBuff();
+	end
 	if tempEnchant1 then
 		if not tempEnchant1.btn then
 			local btn;
@@ -176,6 +182,10 @@ headerAura.updateFunc = function(self)
 			btn.tex:SetDrawLayer("ARTWORK", 2);
 			btn.tex:Show();
 			
+			btn.cd = VFLUI.CooldownCounter:new(btn, ]] .. Serialize(desc.cd) .. [[);
+			btn.cd:SetAllPoints(btn.tex);
+			btn.cd:Show();
+			
 			btn.frtxt = VFLUI.AcquireFrame("Frame");
 			btn.frtxt:SetParent(btn);
 			btn.frtxt:SetFrameLevel(btn:GetFrameLevel() + 2);
@@ -190,11 +200,9 @@ headerAura.updateFunc = function(self)
 			createCode = createCode .. [[
 			tempEnchant1.btn = btn;
 		end
-		local hasMainHandEnchant, mainHandExpiration, mainHandCharges = GetWeaponEnchantInfo();
 		if hasMainHandEnchant then
-			local slotid = GetInventorySlotInfo("MainHandSlot");
-			local _tex = GetInventoryItemTexture("player", slotid);
-			tempEnchant1.btn.tex:SetTexture(_tex);
+			tempEnchant1.btn.tex:SetTexture(mainHandTex);
+			tempEnchant1.btn.cd:SetCooldown(mainHandBuffStart, mainHandBuffDur);
 			if mainHandCharges > 1 then tempEnchant1.btn.sttxt:SetText(mainHandCharges); else tempEnchant1.btn.sttxt:SetText("");end
 			tempEnchant1.btn:Show();
 		else
@@ -224,6 +232,10 @@ headerAura.updateFunc = function(self)
 			btn.tex:SetDrawLayer("ARTWORK", 2);
 			btn.tex:Show();
 			
+			btn.cd = VFLUI.CooldownCounter:new(btn, ]] .. Serialize(desc.cd) .. [[);
+			btn.cd:SetAllPoints(btn.tex);
+			btn.cd:Show();
+			
 			btn.frtxt = VFLUI.AcquireFrame("Frame");
 			btn.frtxt:SetParent(btn);
 			btn.frtxt:SetFrameLevel(btn:GetFrameLevel() + 2);
@@ -238,11 +250,9 @@ headerAura.updateFunc = function(self)
 			createCode = createCode .. [[
 			tempEnchant2.btn = btn;
 		end
-		local _, _, _, hasOffHandEnchant, offHandExpiration, offHandCharges = GetWeaponEnchantInfo();
 		if hasOffHandEnchant then
-			local slotid = GetInventorySlotInfo("SecondaryHandSlot");
-			_tex = GetInventoryItemTexture("player", slotid);
-			tempEnchant2.btn.tex:SetTexture(_tex);
+			tempEnchant2.btn.tex:SetTexture(offHandTex);
+			tempEnchant2.btn.cd:SetCooldown(offHandBuffStart, offHandBuffDur);
 			if offHandCharges > 1 then tempEnchant2.btn.sttxt:SetText(offHandCharges); else tempEnchant2.btn.sttxt:SetText("");end
 			tempEnchant2.btn:Show();
 		else
@@ -272,6 +282,10 @@ headerAura.updateFunc = function(self)
 			btn.tex:SetDrawLayer("ARTWORK", 2);
 			btn.tex:Show();
 			
+			btn.cd = VFLUI.CooldownCounter:new(btn, ]] .. Serialize(desc.cd) .. [[);
+			btn.cd:SetAllPoints(btn.tex);
+			btn.cd:Show();
+			
 			btn.frtxt = VFLUI.AcquireFrame("Frame");
 			btn.frtxt:SetParent(btn);
 			btn.frtxt:SetFrameLevel(btn:GetFrameLevel() + 2);
@@ -286,12 +300,10 @@ headerAura.updateFunc = function(self)
 			createCode = createCode .. [[
 			tempEnchant3.btn = btn;
 		end
-		local _, _, _, hasOffHandEnchant, offHandExpiration, offHandCharges = GetWeaponEnchantInfo();
-		if hasOffHandEnchant then
-			local slotid = GetInventorySlotInfo("SecondaryHandSlot");
-			_tex = GetInventoryItemTexture("player", slotid);
-			tempEnchant3.btn.tex:SetTexture(_tex);
-			if offHandCharges > 1 then tempEnchant3.btn.sttxt:SetText(offHandCharges); else tempEnchant3.btn.sttxt:SetText("");end
+		if hasThrownEnchant then
+			tempEnchant3.btn.tex:SetTexture(thrownTex);
+			tempEnchant3.btn.cd:SetCooldown(thrownBuffStart, thrownBuffDur);
+			if thrownCharges > 1 then tempEnchant3.btn.sttxt:SetText(thrownCharges); else tempEnchant3.btn.sttxt:SetText("");end
 			tempEnchant3.btn:Show();
 		else
 			tempEnchant3.btn:Hide();
@@ -321,6 +333,7 @@ if tempEnchant1 then
 	if btn then
 		VFLUI.ReleaseRegion(btn.sttxt); btn.sttxt = nil;
 		btn.frtxt:Destroy(); btn.frtxt = nil;
+		btn.cd:Destroy(); btn.cd = nil;
 		VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
 		btn:Destroy(); btn = nil;
 	end
@@ -331,6 +344,7 @@ if tempEnchant2 then
 	if btn then
 		VFLUI.ReleaseRegion(btn.sttxt); btn.sttxt = nil;
 		btn.frtxt:Destroy(); btn.frtxt = nil;
+		btn.cd:Destroy(); btn.cd = nil;
 		VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
 		btn:Destroy(); btn = nil;
 	end
@@ -341,6 +355,7 @@ if tempEnchant3 then
 	if btn then
 		VFLUI.ReleaseRegion(btn.sttxt); btn.sttxt = nil;
 		btn.frtxt:Destroy(); btn.frtxt = nil;
+		btn.cd:Destroy(); btn.cd = nil;
 		VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
 		btn:Destroy(); btn = nil;
 	end

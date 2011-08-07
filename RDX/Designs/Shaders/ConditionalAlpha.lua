@@ -3,8 +3,8 @@
 -----------------------------------------------------------
 RDX.RegisterFeature({
 	name = "shader_ca"; version = 1;
-	title = VFLI.i18n("Conditional Alpha Shader");
-	category = VFLI.i18n("Shaders");
+	title = "Frame: Conditional Alpha";
+	category = "Shaders";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

@@ -6,8 +6,8 @@
 
 RDX.RegisterFeature({
 	name = "Desktop main",
-	title = VFLI.i18n("Desktop");
-	category = VFLI.i18n("Basics");
+	title = "Desktop";
+	category = "Basics";
 	IsPossible = function(state)
 		if not state:Slot("Desktop") then return nil; end
 		if state:Slot("Desktop main") then return nil; end
@@ -60,31 +60,10 @@ DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. de
 		if desc and desc.title then title.editBox:SetText(desc.title); end
 		ui:InsertFrame(title);
 		
-		--local er = VFLUI.EmbedRight(ui, VFLI.i18n("Resolution:"));
-		--local dd_resolution = VFLUI.Dropdown:new(er, VFLUI.ResolutionsDropdownFunction);
-		--dd_resolution:SetWidth(200); dd_resolution:Show();
-		--if desc and desc.resolution then 
-		--	dd_resolution:SetSelection(desc.resolution); 
-		--else
-		--	dd_resolution:SetSelection("1024x768");
-		--end
-		--er:EmbedChild(dd_resolution); er:Show();
-		--ui:InsertFrame(er);
-		
-		--local uiscale = VFLUI.LabeledEdit:new(ui, 200); uiscale:Show();
-		--uiscale:SetText(VFLI.i18n("UI Scale"));
-		--if desc and desc.uiscale then uiscale.editBox:SetText(desc.uiscale); end
-		--ui:InsertFrame(uiscale);
-		
-		--local chk_perfectpixel = VFLUI.Checkbox:new(ui); chk_perfectpixel:Show();
-		--chk_perfectpixel:SetText(VFLI.i18n("Activate Perfect Pixel"));
-		--if desc and desc.perfectpixel then chk_perfectpixel:SetChecked(true); else chk_perfectpixel:SetChecked(); end
-		--ui:InsertFrame(chk_perfectpixel);
-		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("ViewPort")));
 		
 		local chk_viewport = VFLUI.Checkbox:new(ui); chk_viewport:Show();
-		chk_viewport:SetText(VFLI.i18n("Activate viewport"));
+		chk_viewport:SetText(VFLI.i18n("Activate Viewport"));
 		if desc and desc.viewport then chk_viewport:SetChecked(true); else chk_viewport:SetChecked(); end
 		ui:InsertFrame(chk_viewport);
 		
@@ -119,10 +98,10 @@ DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. de
 		if desc and desc.offsetright then offsetright.editBox:SetText(desc.offsetright); else offsetright.editBox:SetText("0"); end
 		ui:InsertFrame(offsetright);
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Tooltip")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("GameTooltips")));
 		
 		local chk_tooltipmouse = VFLUI.Checkbox:new(ui); chk_tooltipmouse:Show();
-		chk_tooltipmouse:SetText(VFLI.i18n("Mouse anchor tooltip"));
+		chk_tooltipmouse:SetText(VFLI.i18n("Mouse anchor GameTooltip"));
 		if desc and desc.tooltipmouse then chk_tooltipmouse:SetChecked(true); else chk_tooltipmouse:SetChecked(); end
 		ui:InsertFrame(chk_tooltipmouse);
 		
@@ -150,7 +129,7 @@ DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. de
 		else
 			str = str .. "(none)\n";
 		end
-		if desc.dgp then str = str .. "This element is parent dock"; end
+		if desc.dgp then str = str ..  VFLI.i18n("This element is parent dock"); end
 		
 		txtCurDock:SetText(str);
 		ui:InsertFrame(txtCurDock);

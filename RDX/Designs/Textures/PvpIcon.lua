@@ -4,9 +4,9 @@
 
 RDX.RegisterFeature({
 	name = "tex_pvp2";
-	title = VFLI.i18n("PVP Icon");
+	title = "Icon PVP";
 	test = true;
-	category = VFLI.i18n("Textures");
+	category = "Textures";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

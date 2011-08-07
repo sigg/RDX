@@ -4,7 +4,8 @@
 ----------------------------------------------------------------------
 RDX.RegisterFeature({
 	name = "Master Looter Icon";
-	category = VFLI.i18n("Textures");
+	title = "Icon Master Looter";
+	category = "Textures";
 	test = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

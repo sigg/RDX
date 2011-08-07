@@ -209,8 +209,8 @@ RDX.RegisterFeature({
 	name = "chatframe";
 	multiple = true;
 	version = 1;
-	title = VFLI.i18n("ChatFrame");
-	category = VFLI.i18n("Complexes");
+	title = "Blizzard ChatFrame";
+	category = "Complexes";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
@@ -410,8 +410,8 @@ VFLUI.CreateFramePool("ChatFrameEditBox",
 RDX.RegisterFeature({
 	name = "chatframeeditbox";
 	version = 1;
-	title = VFLI.i18n("ChatFrame EditBox");
-	category = VFLI.i18n("Complexes");
+	title = "Blizzard ChatFrame EditBox";
+	category = "Complexes";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

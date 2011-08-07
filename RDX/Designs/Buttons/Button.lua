@@ -3,7 +3,8 @@
 -- Sigg Rashgarroth EU
 
 RDX.RegisterFeature({
-	name = "artbutton"; version = 1; title = VFLI.i18n("Button Script"); category = VFLI.i18n("Buttons");
+	name = "artbutton"; version = 1; 
+	title = "Button Script"; category = "Buttons";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

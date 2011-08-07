@@ -10,7 +10,7 @@
 ----------- 2D Portrait
 RDX.RegisterFeature({
 	name = "portrait_2d"; version = 1; multiple = true;
-	title = VFLI.i18n("2D Portrait Shader"); category = VFLI.i18n("Textures");
+	title = "Texture: 2D Portrait"; category = "Shaders";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

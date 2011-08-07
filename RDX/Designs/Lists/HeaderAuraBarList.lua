@@ -5,8 +5,8 @@
 RDX.RegisterFeature({
 	name = "sec_aura_bars";
 	version = 1;
-	title = VFLI.i18n("Secure Aura Bars");
-	category = VFLI.i18n("Lists");
+	title = "Bars Aura Secured";
+	category = "Lists";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -165,7 +165,7 @@ headerAura.updateFunc = function(self)
 				end
 			end
 			tempEnchant1.btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
-			tempEnchant1.btn.ftc:SetTimer(mainHandBuffStart - mainHandBuffDur , mainHandBuffDur);
+			tempEnchant1.btn.ftc:SetTimer(mainHandBuffStart, mainHandBuffDur);
 			if mainHandCharges > 1 then tempEnchant1.btn.stacktxt:SetText(mainHandCharges); else tempEnchant1.btn.stacktxt:SetText("");end
 			tempEnchant1.btn:Show();
 		else
@@ -195,7 +195,7 @@ headerAura.updateFunc = function(self)
 				end
 			end
 			tempEnchant2.btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
-			tempEnchant2.btn.ftc:SetTimer(offHandBuffStart - offHandBuffDur , offHandBuffDur);
+			tempEnchant2.btn.ftc:SetTimer(offHandBuffStart, offHandBuffDur);
 			if offHandCharges > 1 then tempEnchant2.btn.stacktxt:SetText(offHandCharges); else tempEnchant2.btn.stacktxt:SetText("");end
 			tempEnchant2.btn:Show();
 		else
@@ -225,7 +225,7 @@ headerAura.updateFunc = function(self)
 				end
 			end
 			tempEnchant3.btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
-			tempEnchant3.btn.ftc:SetTimer(thrownBuffStart - thrownBuffDur , thrownBuffDur);
+			tempEnchant3.btn.ftc:SetTimer(thrownBuffStart, thrownBuffDur);
 			if thrownCharges > 1 then tempEnchant3.btn.stacktxt:SetText(thrownCharges); else tempEnchant3.btn.stacktxt:SetText("");end
 			tempEnchant3.btn:Show();
 		else

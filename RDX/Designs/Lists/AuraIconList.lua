@@ -113,9 +113,9 @@ end
 RDX.RegisterFeature({
 	name = "aura_icons";
 	version = 1;
-	title = VFLI.i18n("Aura Icons");
+	title = "Icons Aura";
 	test = true;
-	category = VFLI.i18n("Lists");
+	category = "Lists";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

@@ -6,7 +6,7 @@
 
 RDX.RegisterFeature({
 	name = "tex_animation_translation"; version = 1;
-	title = VFLI.i18n("Texture: Translation"); category = VFLI.i18n("Animations");
+	title = "Texture: Translation"; category = "Animations";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -165,7 +165,7 @@ end
 
 RDX.RegisterFeature({
 	name = "tex_animation_rotation"; version = 1;
-	title = VFLI.i18n("Texture: Rotation"); category = VFLI.i18n("Animations");
+	title = "Texture: Rotation"; category = "Animations";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -336,7 +336,7 @@ end
 
 RDX.RegisterFeature({
 	name = "tex_animation_scale"; version = 1;
-	title = VFLI.i18n("Texture: Scale"); category = VFLI.i18n("Animations");
+	title = "Texture: Scale"; category = "Animations";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -513,7 +513,7 @@ end
 
 RDX.RegisterFeature({
 	name = "tex_animation_alpha"; version = 1;
-	title = VFLI.i18n("Texture: Alpha"); category = VFLI.i18n("Animations");
+	title = "Texture: Alpha"; category = "Animations";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

@@ -4,7 +4,7 @@
 RDX.RegisterFeature({
 	name = "Variable: Scripted";
 	title = "Script";
-	category = VFLI.i18n("Miscs");
+	category = "Miscs";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("EmitPaintPreamble") then return nil; end

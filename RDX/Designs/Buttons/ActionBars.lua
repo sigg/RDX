@@ -165,8 +165,8 @@ end
 RDX.RegisterFeature({
 	name = "actionbar";
 	version = 1;
-	title = VFLI.i18n("Action Bar");
-	category = VFLI.i18n("Buttons");
+	title = "Bar Action Buttons";
+	category = "Buttons";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

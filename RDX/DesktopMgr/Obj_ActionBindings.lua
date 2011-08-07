@@ -16,7 +16,7 @@ RDXAB = RegisterVFLModule({
 local actiontypes = {};
 
 function RDXAB.RegisterActionType(tbl)
-	if (not tbl) or (not tbl.name) then RDX.printW(VFLI.i18n("attempt to register anonymous Action type bindings")); return; end
+	if (not tbl) or (not tbl.name) then RDX.printW(VFLI.i18n("Attempt to register anonymous Action type bindings")); return; end
 	local n = tbl.name;
 	if actiontypes[n] then RDX.printW(VFLI.i18n("Duplicate registration Action type bindings ") .. tbl.name); return; end
 	actiontypes[n] = tbl;

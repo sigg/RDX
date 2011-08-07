@@ -4,8 +4,8 @@
 --- Unit frame sub class icon
 RDX.RegisterFeature({
 	name = "ico_subclass";
-	title = VFLI.i18n("Talent Icon");
-	category = VFLI.i18n("Textures");
+	title = "Icon Talent";
+	category = "Textures";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

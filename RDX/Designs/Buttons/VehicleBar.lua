@@ -77,8 +77,8 @@ end
 
 RDX.RegisterFeature({
 	name = "vehiclebar";
-	title = VFLI.i18n("Vehicle Bar");
-	category = VFLI.i18n("Buttons");
+	title = "Bar Vehicle";
+	category = "Buttons";
 	test = true;
 	version = 1;
 	IsPossible = function(state)

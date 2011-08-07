@@ -524,8 +524,8 @@ RDX.RegisterStatusTextType({
 -------------------- STATUS TEXT
 RDX.RegisterFeature({
 	name = "txt_status"; version = 1; multiple = true;
-	title = VFLI.i18n("Text Status");
-	category = VFLI.i18n("Texts");
+	title = "Text Status";
+	category = "Texts";
 	test = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

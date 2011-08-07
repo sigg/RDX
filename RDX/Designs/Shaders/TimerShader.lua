@@ -182,7 +182,8 @@ end
 
 RDX.RegisterFeature({
 	name = "free_timer"; version = 1; multiple = true;
-	title = VFLI.i18n("Bar and Text Timer Shader"); category = VFLI.i18n("Shaders");
+	title = "StatusBar: Apply Timer"; 
+	category = "Shaders";
 	IsPossible = function(state)
 		if not state:HasSlots("DesignFrame", "EmitClosure", "EmitCreate", "EmitPaint", "EmitDestroy") then return nil; end
 		return true;

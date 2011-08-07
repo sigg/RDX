@@ -5,8 +5,8 @@
 
 RDX.RegisterFeature({
 	name = "tex_role";
-	title = VFLI.i18n("Role Icon");
-	category = VFLI.i18n("Textures");
+	title = "Icon Role";
+	category = "Textures";
 	test = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

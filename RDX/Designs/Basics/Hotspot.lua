@@ -10,8 +10,8 @@
 
 RDX.RegisterFeature({
 	name = "hotspot";
-	title = VFLI.i18n("Hotspot");
-	category = VFLI.i18n("Basics");
+	title = "Hotspot";
+	category = "Basics";
 	multiple = true;
 	version = 1;
 	IsPossible = function(state)

@@ -502,7 +502,7 @@ local function ObjectRightClick(cell, opath, dialog)
 	table.insert(mnu, { text = "|cFFAAAAAA" .. opath .. "|r" });
 	if rpath ~= opath then
 		table.insert(mnu, { 
-			text = VFLI.i18n("Edit link...");
+			text = VFLI.i18n("Edit link");
 			OnClick = function() 
 				VFL.poptree:Release();
 				RDXDB.EditSymLink(opath, dialog); 
@@ -537,7 +537,7 @@ RDXDB.RegisterObjectMenuHandler(function(mnu, opath, md, dialog)
 			text = VFLI.i18n("Delete"), OnClick = function() VFL.poptree:Release(); ConfirmDelete(opath); end
 		});
 		table.insert(mnu, {
-			text = VFLI.i18n("Rename..."), OnClick = function() VFL.poptree:Release(); Rename(opath); end
+			text = VFLI.i18n("Rename"), OnClick = function() VFL.poptree:Release(); Rename(opath); end
 		});
 	--end
 end);
@@ -563,7 +563,7 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	dlg:SetHeight(400); dlg:SetWidth(500);
 	VFLUI.Window.SetDefaultFraming(dlg, 24);
 	dlg:SetTitleColor(0,.6,0);
-	dlg:SetText("Repository Objects Browser");
+	dlg:SetText(VFLI.i18n("Repository Objects Browser"));
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:SetClampedToScreen(true);
 	

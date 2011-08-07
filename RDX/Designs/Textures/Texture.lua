@@ -11,7 +11,8 @@
 -- A Texture is an independent texture object on a unitframe.
 --------------------------------------------------------------
 RDX.RegisterFeature({
-	name = "texture"; version = 1; title = VFLI.i18n("Texture Custom"); category = VFLI.i18n("Textures");
+	name = "texture"; version = 1; 
+	title = "Texture Custom"; category = "Textures";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

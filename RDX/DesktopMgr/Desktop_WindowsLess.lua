@@ -13,7 +13,7 @@
 local classes = {};
 
 function RDXDK.RegisterWindowLess(tbl)
-	if (not tbl) or (not tbl.name) then RDX.printW(VFLI.i18n("attempt to register anonymous WindowLess")); return; end
+	if (not tbl) or (not tbl.name) then RDX.printW(VFLI.i18n("Attempt to register anonymous WindowLess")); return; end
 	local n = tbl.name;
 	if classes[n] then RDX.printW(VFLI.i18n("Duplicate registration WindowLess ") .. tbl.name); return; end
 	classes[n] = tbl;
@@ -30,8 +30,8 @@ end
 
 RDX.RegisterFeature({
 	name = "desktop_windowless",
-	title = VFLI.i18n("RW");
-	category = VFLI.i18n("Windows");
+	title = "RW";
+	category = "Windows";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("Desktop") then return nil; end

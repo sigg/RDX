@@ -4,7 +4,7 @@
 
 RDX.RegisterFeature({
 	name = "frame_animation_group"; version = 1;
-	title = VFLI.i18n("AG Frame"); category = VFLI.i18n("Animations");
+	title = "AG Frame"; category = "Animations";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -104,7 +104,7 @@ end
 
 RDX.RegisterFeature({
 	name = "texture_animation_group"; version = 1;
-	title = VFLI.i18n("AG Texture"); category = VFLI.i18n("Animations");
+	title = "AG Texture"; category = "Animations";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -205,7 +205,7 @@ end
 
 RDX.RegisterFeature({
 	name = "text_animation_group"; version = 1;
-	title = VFLI.i18n("AG Text"); category = VFLI.i18n("Animations");
+	title = "AG Text"; category = "Animations";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

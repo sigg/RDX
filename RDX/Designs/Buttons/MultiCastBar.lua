@@ -139,8 +139,8 @@ RDX.RegisterFeature({
 	name = "multicastbar";
 	version = 1;
 	multiple = true;
-	title = VFLI.i18n("Shaman Totem Bar");
-	category = VFLI.i18n("Buttons");
+	title = "Bar Shaman Totem";
+	category = "Buttons";
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

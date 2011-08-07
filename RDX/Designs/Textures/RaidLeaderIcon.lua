@@ -3,7 +3,8 @@
 ----------------------------------------------------------------------
 RDX.RegisterFeature({
 	name = "Raid Leader Icon";
-	category = VFLI.i18n("Textures");
+	title = "Icon Raid Leader";
+	category = "Textures";
 	test = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

@@ -175,7 +175,7 @@ end
 
 local function Reinstall()
 	VFL.poptree:Release();
-	VFLUI.MessageBox(VFLI.i18n("Reinstall"), VFLI.i18n("Are you sure you want to re-run all installers? (The UI will be reloaded."), nil, VFLI.i18n("No"), VFL.Noop, VFLI.i18n("Yes"), DoReinstall);
+	VFLUI.MessageBox(VFLI.i18n("Reinstall"), VFLI.i18n("Are you sure you want to re-run all installers? (The UI will be reloaded.)"), nil, VFLI.i18n("No"), VFL.Noop, VFLI.i18n("Yes"), DoReinstall);
 end;
 
 ---------------------------------------------------

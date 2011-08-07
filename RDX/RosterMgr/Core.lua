@@ -198,7 +198,10 @@ end
 -- METADATA table
 local Buffweapons = {};
 
-function RDXDAL.registerBuffWeapon(name, duration, icon)
+function RDXDAL.registerBuffWeapon(spellid, duration, icon)
+	local name = nil;
+	name = GetSpellInfo(spellid);
+	if not name then name = spellid; end --else VFL.print(name); end
 	local t = {};
 	t.duration = duration;
 	t.icon = icon;
@@ -207,11 +210,12 @@ function RDXDAL.registerBuffWeapon(name, duration, icon)
 	return true;
 end;
 
+local strfind = string.find;
 function RDXDAL.getBuffWeaponInfo(name)
-	local duration, icon = 0, "";
-	if Buffweapons[name] then
-		duration = Buffweapons[name].duration;
-		icon = Buffweapons[name].icon;
+	local duration, icon, found = 0, "", nil;
+	for k, v in pairs(Buffweapons) do
+		found = strfind(k, name);
+		if found then duration = v.duration; icon = v.icon; end
 	end
 	return duration, icon;
 end;

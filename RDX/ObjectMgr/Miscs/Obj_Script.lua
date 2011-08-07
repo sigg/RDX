@@ -79,7 +79,7 @@ RDXDB.RegisterObjectType({
 			end
 		});
 		table.insert(mnu, {
-			text = VFLI.i18n("Edit..."),
+			text = VFLI.i18n("Edit"),
 			OnClick = function() 
 				VFL.poptree:Release(); 
 				EditScriptDialog(dlg, path, md); 
@@ -99,7 +99,7 @@ RDXDB.RegisterObjectType({
 	end;
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
-			text = VFLI.i18n("Edit..."),
+			text = VFLI.i18n("Edit"),
 			OnClick = function() 
 				VFL.poptree:Release(); 
 				EditScriptDialog(dlg, path, md); 

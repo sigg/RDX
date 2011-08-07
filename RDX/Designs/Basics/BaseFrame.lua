@@ -9,8 +9,8 @@
 
 RDX.RegisterFeature({
 	name = "base_default"; 
-	title = VFLI.i18n("Base Frame");
-	category = VFLI.i18n("Basics");
+	title = "Base Frame";
+	category = "Basics";
 	version = 1; 
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

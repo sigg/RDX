@@ -151,7 +151,7 @@ RDXEvents:Bind("INIT_DEFERRED", nil, function()
 	--art_fe_oldgbm = etc.GenerateBrowserMenu;
 	etc.GenerateBrowserMenu = VFL.hook(function(mnu, path)
 	table.insert(mnu, {
-	    text = VFLI.i18n("Font Editor..."),
+	    text = VFLI.i18n("Font Editor"),
 	    OnClick = function()
 		VFL.poptree:Release();
 		RDXDB.loadfonts(path);

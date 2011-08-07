@@ -7,8 +7,8 @@
 
 RDX.RegisterFeature({
 	name = "desktop_statuswindow",
-	title = VFLI.i18n("SW");
-	category = VFLI.i18n("Windows");
+	title = "SW";
+	category = "Windows";
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("Desktop") then return nil; end
