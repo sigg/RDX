@@ -9,7 +9,7 @@
 
 RDX.RegisterFeature({
 	name = "base_default"; 
-	title = "Base Frame";
+	title = VFLI.i18n("Frame Base");
 	category = VFLI.i18n("Basics");
 	version = 1; 
 	IsPossible = function(state)

@@ -182,8 +182,8 @@ end
 
 RDX.RegisterFeature({
 	name = "free_timer"; version = 1; multiple = true;
-	title = "StatusBar: Apply Timer"; 
-	category = "Shaders";
+	title = VFLI.i18n("StatusBar: Apply Timer"); 
+	category = VFLI.i18n("Shaders");
 	IsPossible = function(state)
 		if not state:HasSlots("DesignFrame", "EmitClosure", "EmitCreate", "EmitPaint", "EmitDestroy") then return nil; end
 		return true;
@@ -193,16 +193,16 @@ RDX.RegisterFeature({
 		local flg = true;
 		if not desc.timerVar or desc.timerVar == "" or not state:Slot("TimerVar_" .. desc.timerVar) then VFL.AddError(errs, VFLI.i18n("Missing variable timer.")); flg = nil; end
 		if desc.statusBar and desc.statusBar ~= "" and not state:Slot("StatusBar_" .. desc.statusBar) then
-			VFL.AddError(errs, VFLI.i18n("Status Bar Invalide")); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid statusbar.")); flg = nil;
 		end
 		if desc.text and desc.text ~= "" and not state:Slot("Text_" .. desc.text) then
-			VFL.AddError(errs, VFLI.i18n("Custom Text Timer Invalide")); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid text.") .. " Timer"); flg = nil;
 		end
 		if desc.textInfo and desc.textInfo ~= "" and not state:Slot("Text_" .. desc.textInfo) then
-			VFL.AddError(errs, VFLI.i18n("Custom Text Info Invalide")); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid text.") .. " Info"); flg = nil;
 		end
 		if desc.texIcon and desc.texIcon ~= "" and not state:Slot("Texture_" .. desc.texIcon) then
-			VFL.AddError(errs, VFLI.i18n("Texture Invalide")); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid texture.")); flg = nil;
 		end
 		if desc.sbblendcolor then
 			if not desc.sbcolorVar1 or desc.sbcolorVar1 == "" or not state:Slot("ColorVar_" .. desc.sbcolorVar1) then
@@ -300,9 +300,9 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		local countTypeFlag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Count type (true CountUP, false CountDOWN)"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.countTypeFlag then countTypeFlag:SetSelection(desc.countTypeFlag); end
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Status Bar Timer")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Statusbar")));
 		
-		local statusBar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Status Bar"), state, "StatusBar_");
+		local statusBar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Statusbar"), state, "StatusBar_");
 		if desc and desc.statusBar then statusBar:SetSelection(desc.statusBar); end
 		
 		local chk_sbblendcolor = VFLUI.Checkbox:new(ui); chk_sbblendcolor:Show();

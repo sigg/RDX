@@ -15,7 +15,7 @@ RDX.RegisterFeature({
 		if (not desc.bfVar) or (strtrim(desc.bfVar) == "") then VFL.AddError(errs, VFLI.i18n("Missing blend fraction.")); return nil; end
 		if not tonumber(desc.bfVar) then
 			if (not state:Slot("FracVar_" .. desc.bfVar)) then 
-				VFL.AddError(errs, VFLI.i18n("Invalid blend fraction.")); return nil;
+				VFL.AddError(errs, VFLI.i18n("Invalid blend fraction variable.")); return nil;
 			end
 		end
 		if (not desc.colorVar1) or (not desc.colorVar2) then

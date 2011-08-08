@@ -59,8 +59,8 @@ end
 
 RDX.RegisterFeature({
 	name = "StatusBar Texture Map";
-	title = "Texture: Map and Frac";
-	category = "Shaders";
+	title = VFLI.i18n("Texture: Map and Frac");
+	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -68,14 +68,14 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		if not desc.flag then desc.flag = "true"; end
 		if not RDXUI.IsValidBoolVar(desc.flag, state) then
 			VFL.AddError(errs, VFLI.i18n("Invalid flag variable.")); return nil;
 		end
 		-- Verify our texture
 		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid texture object pointer.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid texture.")); return nil;
 		end
 		-- Verify our blend fraction
 		if (not desc.frac) or (not state:Slot("FracVar_" .. desc.frac)) then

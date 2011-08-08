@@ -59,7 +59,8 @@ RDX.RegisterFeature({
 	name = "shader_SPB"; 
 	version = 1;	
 	multiple = true;
-	title = "StatusBar: Smooth Power"; category = "Shaders";
+	title = VFLI.i18n("StatusBar: Smooth Power");
+	category = VFLI.i18n("Shaders");
 	IsPossible = function(state)
 		if not state:HasSlots("DesignFrame", "EmitClosure", "EmitCreate", "EmitPaint", "EmitDestroy") then return nil; end
 		return true;
@@ -68,10 +69,10 @@ RDX.RegisterFeature({
 		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		local flg = true;
 		if desc.statusBar and desc.statusBar ~= "" and not state:Slot("StatusBar_" .. desc.statusBar) then
-			VFL.AddError(errs, VFLI.i18n("Status Bar Invalide")); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid statusbar.")); flg = nil;
 		end
 		if desc.text and desc.text ~= "" and not state:Slot("Text_" .. desc.text) then
-			VFL.AddError(errs, VFLI.i18n("Custom Text Invalide")); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid text.")); flg = nil;
 		end
 		return flg;
 	end;
@@ -121,7 +122,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		
-		local statusBar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Status Bar"), state, "StatusBar_");
+		local statusBar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Statusbar"), state, "StatusBar_");
 		if desc and desc.statusBar then statusBar:SetSelection(desc.statusBar); end
 		
 		local text = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Text"), state, "Text_");

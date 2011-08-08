@@ -13,7 +13,8 @@
 ------------------------------
 RDX.RegisterFeature({
 	name = "shader_showhide"; version = 1;
-	title = "Frame: Show/Hide"; category = "Shaders";
+	title = VFLI.i18n("Frame: Show/Hide");
+	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -21,11 +22,11 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.flag then desc.flag = "true"; end
 		if not (desc.flag == "true" or desc.flag == "false" or state:Slot("BoolVar_" .. desc.flag)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid condition")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid flag variable")); return nil;
 		end
 		local flg = true;
 		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
@@ -44,10 +45,10 @@ if ]] .. inverse .. desc.flag .. [[ then ]] .. fname .. [[:Show(); else ]] .. fn
 		local ui = VFLUI.CompoundFrame:new(parent);
 
 		-- Owner
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Target subframe"), state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("frame"), state, "Subframe_");
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
-		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Condition variable"), state, "BoolVar_", nil, "true", "false");
+		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Flag variable"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.flag then flag:SetSelection(desc.flag); end
 		
 		local chk_inverse = VFLUI.Checkbox:new(ui); chk_inverse:Show();

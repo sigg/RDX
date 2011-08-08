@@ -244,15 +244,15 @@ end
 		ui:InsertFrame(er);
 		
 		-- color
-		local color1 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 1 Color"));
+		local color1 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 1 color"));
 		if desc and desc.color1 then color1:SetColor(VFL.explodeRGBA(desc.color1)); end
-		local color2 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 2 Color"));
+		local color2 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 2 color"));
 		if desc and desc.color2 then color2:SetColor(VFL.explodeRGBA(desc.color2)); end
-		local color3 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 3 Color"));
+		local color3 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 3 color"));
 		if desc and desc.color3 then color3:SetColor(VFL.explodeRGBA(desc.color3)); end
-		local color4 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 4 Color"));
+		local color4 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 4 color"));
 		if desc and desc.color4 then color4:SetColor(VFL.explodeRGBA(desc.color4)); end
-		local color5 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 5 Color"));
+		local color5 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 5 color"));
 		if desc and desc.color5 then color5:SetColor(VFL.explodeRGBA(desc.color5)); end
 		
 		function ui:GetDescriptor()

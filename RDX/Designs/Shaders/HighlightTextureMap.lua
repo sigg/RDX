@@ -14,8 +14,8 @@
 ---------------------------------------------------------------------------------
 RDX.RegisterFeature({
 	name = "Highlight: Texture Map";
-	title = "Texture: Map and Highlight";
-	category = "Shaders";
+	title = VFLI.i18n("Texture: Map and Highlight");
+	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -23,13 +23,13 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		if not RDXUI.IsValidBoolVar(desc.flag, state) then
 			VFL.AddError(errs, VFLI.i18n("Invalid flag variable.")); return nil;
 		end
 		-- Verify our texture
 		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid texture object pointer.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid texture.")); return nil;
 		end
 		if (not desc.color) or (not state:Slot("ColorVar_" .. desc.color)) then
 			VFL.AddError(errs, VFLI.i18n("Invalid color variable.")); return nil;
@@ -87,8 +87,8 @@ end
 
 RDX.RegisterFeature({
 	name = "Texture: Colorizer";
-	title = "Texture: Colorizer";
-	category = "Shaders";
+	title = VFLI.i18n("Texture: Colorizer");
+	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -96,10 +96,10 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		-- Verify our texture
 		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid texture object pointer.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid texture.")); return nil;
 		end
 		if (not desc.color) or (not state:Slot("ColorVar_" .. desc.color)) then
 			VFL.AddError(errs, VFLI.i18n("Invalid color variable.")); return nil;
@@ -141,8 +141,8 @@ RDX.RegisterFeature({
 
 RDX.RegisterFeature({
 	name = "shader_applytex"; version = 1;
-	title = "Texture: Map"; 
-	category = "Shaders";
+	title = VFLI.i18n("Texture: Map"); 
+	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -150,15 +150,19 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
-		if (not desc.owner) or (not state:Slot("Texture_" .. desc.owner)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid texture")); return nil;
+		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not desc.texture and desc.owner then
+			desc.texture = desc.owner;
+			desc.owner = nil;
 		end
-		if (not desc.var) then VFL.AddError(errs, VFLI.i18n("Invalid variable")); return nil; end
+		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
+			VFL.AddError(errs, VFLI.i18n("Invalid texture.")); return nil;
+		end
+		if (not desc.var) then VFL.AddError(errs, VFLI.i18n("Invalid texture variable.")); return nil; end
 		return true;
 	end;
 	ApplyFeature = function(desc, state)
-		local tname = RDXUI.ResolveTextureReference(desc.owner);
+		local tname = RDXUI.ResolveTextureReference(desc.texture);
 		local paintCode = [[
 ]] .. tname .. [[:SetTexture(]] .. desc.var .. [[);
 ]];
@@ -167,9 +171,8 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
-		-- Owner
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Target texture"), state, "Texture_");
-		if desc and desc.owner then owner:SetSelection(desc.owner); end
+		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "Texture_");
+		if desc and desc.texture then texture:SetSelection(desc.texture); end
 
 		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture variable"), state, "TexVar_");
 		if desc and desc.var then flag:SetSelection(desc.var); end
@@ -177,7 +180,7 @@ RDX.RegisterFeature({
 		function ui:GetDescriptor()
 			return {
 				feature = "shader_applytex"; version = 1;
-				owner = owner:GetSelection();
+				texture = texture:GetSelection();
 				var = flag:GetSelection();
 			};
 		end
@@ -196,7 +199,8 @@ RDX.RegisterFeature({
 ------------------------------
 RDX.RegisterFeature({
 	name = "shaderTex_showhide"; version = 1;
-	title = "Texture: Show/Hide"; category = "Shaders";
+	title = VFLI.i18n("Texture: Show/Hide");
+	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -204,18 +208,22 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
-		if not state:Slot("Texture_" .. desc.owner) then
-			VFL.AddError(errs, VFLI.i18n("Invalid Texture")); return nil;
+		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not desc.texture and desc.owner then
+			desc.texture = desc.owner;
+			desc.owner = nil;
+		end
+		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
+			VFL.AddError(errs, VFLI.i18n("Invalid texture.")); return nil;
 		end
 		if not desc.flag then desc.flag = "true"; end
 		if not (desc.flag == "true" or desc.flag == "false" or state:Slot("BoolVar_" .. desc.flag)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid condition")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid flag variable.")); return nil;
 		end
 		return true;
 	end;
 	ApplyFeature = function(desc, state)
-		local tname = RDXUI.ResolveTextureReference(desc.owner);
+		local tname = RDXUI.ResolveTextureReference(desc.texture);
 		local inverse = "";
 		if desc.inverse then inverse = "not "; end
 		local paintCode = [[
@@ -226,11 +234,10 @@ if ]] .. inverse .. desc.flag .. [[ then ]] .. tname .. [[:Show(); else ]] .. tn
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
-		-- Owner
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Target Texture"), state, "Texture_", nil);
-		if desc and desc.owner then owner:SetSelection(desc.owner); end
+		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "Texture_");
+		if desc and desc.texture then texture:SetSelection(desc.texture); end
 
-		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Condition variable"), state, "BoolVar_", nil, "true", "false");
+		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Flag variable"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.flag then flag:SetSelection(desc.flag); end
 		
 		local chk_inverse = VFLUI.Checkbox:new(ui); chk_inverse:Show();
@@ -241,7 +248,7 @@ if ]] .. inverse .. desc.flag .. [[ then ]] .. tname .. [[:Show(); else ]] .. tn
 		function ui:GetDescriptor()
 			return {
 				feature = "shaderTex_showhide"; version = 1;
-				owner = owner:GetSelection();
+				texture = texture:GetSelection();
 				flag = flag:GetSelection();
 				inverse = chk_inverse:GetChecked();
 			};
@@ -256,6 +263,4 @@ if ]] .. inverse .. desc.flag .. [[ then ]] .. tname .. [[:Show(); else ]] .. tn
 		};
 	end;
 });
-
-
 
