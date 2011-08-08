@@ -40,35 +40,35 @@ powerColor_cf[6] = ]] .. Serialize(desc.runeColor) .. [[;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Mana Color:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Mana color"));
 		local swatch_manac = VFLUI.ColorSwatch:new(er);
 		swatch_manac:Show();
 		if desc and desc.manaColor then swatch_manac:SetColor(VFL.explodeRGBA(desc.manaColor)); end
 		er:EmbedChild(swatch_manac); er:Show();
 		ui:InsertFrame(er);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Energy Color:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Energy color"));
 		local swatch_energyc = VFLUI.ColorSwatch:new(er);
 		swatch_energyc:Show();
 		if desc and desc.energyColor then swatch_energyc:SetColor(VFL.explodeRGBA(desc.energyColor)); end
 		er:EmbedChild(swatch_energyc); er:Show();
 		ui:InsertFrame(er);
 
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Rage Color:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Rage color"));
 		local swatch_ragec = VFLUI.ColorSwatch:new(er);
 		swatch_ragec:Show();
 		if desc and desc.rageColor then swatch_ragec:SetColor(VFL.explodeRGBA(desc.rageColor)); end
 		er:EmbedChild(swatch_ragec); er:Show();
 		ui:InsertFrame(er);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Focus Color:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Focus color"));
 		local swatch_focusc = VFLUI.ColorSwatch:new(er);
 		swatch_focusc:Show();
 		if desc and desc.focusColor then swatch_focusc:SetColor(VFL.explodeRGBA(desc.focusColor)); end
 		er:EmbedChild(swatch_focusc); er:Show();
 		ui:InsertFrame(er);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Rune Color:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Rune color"));
 		local swatch_runec = VFLUI.ColorSwatch:new(er);
 		swatch_runec:Show();
 		if desc and desc.runeColor then swatch_runec:SetColor(VFL.explodeRGBA(desc.runeColor)); end

@@ -12,10 +12,10 @@ RDX.RegisterFeature({
 		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
 		if not RDX._CheckVariableNameValidity(desc.name, state, errs) then return nil; end
 		if (not desc.colorVar0) or (not desc.colorVar1) or (not desc.colorVar2) or (not desc.colorVar3) then
-			VFL.AddError(errs, VFLI.i18n("Missing colors.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Missing color.")); return nil;
 		end
 		if (not state:Slot("ColorVar_" .. desc.colorVar0)) or (not state:Slot("ColorVar_" .. desc.colorVar1)) or (not state:Slot("ColorVar_" .. desc.colorVar2)) or (not state:Slot("ColorVar_" .. desc.colorVar3)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid colors.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid color.")); return nil;
 		end
 		state:AddSlot("Var_" .. desc.name);
 		state:AddSlot("ColorVar_" .. desc.name);

@@ -4,7 +4,7 @@
 -- Backdrop colorizers
 ----------------------------------------------------------------------
 local function bdc_ef(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.flag then desc.flag = "true"; end
 		if not RDXUI.IsValidBoolVar(desc.flag, state) then

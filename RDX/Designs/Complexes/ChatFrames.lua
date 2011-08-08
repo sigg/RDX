@@ -92,8 +92,8 @@ end
 local gsub = string.gsub;
 local AddStringDate = VFL.AddStringDate;
 
+--standard channels replaced below
 local channels = {
-	--standard channels replaced below
 	["%[Guild%]"] = "|cffff3399[|rG|cffff3399]|r",
 	["%[Party%]"] = "|cffff3399[|rP|cffff3399]|r",
 	["%[Party Leader%]"] = "|cffff3399[|rPL|cffff3399]|r",
@@ -113,9 +113,10 @@ local channels = {
 
 local channelsI = channels;
 
-if GetLocale() == "frFR" and VFL.ChannelfrFR then
-	channelsI = VFL.ChannelfrFR;
-end
+RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+	channelsI = VFL.GetLanguagePackId("channels");
+	if not channelsI then channelsI = channels; end
+end);
 
 local function changeMessage(frame, msg, ...)
 	if type(msg) == "string" then

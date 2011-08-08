@@ -39,16 +39,34 @@ end
 local packs_table = {};
 
 function VFL.RegisterLanguagePack(tbl, locale)
-	if (not tbl) or (not locale) then VFL.print("|cFFFF0000[VFL]|r Info : attempt to register anonymous Language Pack"); return; end
-	if packs_table[locale] then VFL.print("|cFFFF0000[RDX]|r Info : Duplicate registration locale " .. locale); return; end
-	packs_table[locale] = tbl;
+	if Locale == locale then
+		if (not tbl) or (not locale) then VFL.print("|cFFFF0000[VFL]|r Info : attempt to register anonymous Language Pack"); return; end
+		if packs_table[locale] then VFL.print("|cFFFF0000[RDX]|r Info : Duplicate registration locale " .. locale); return; end
+		packs_table[locale] = tbl;
+	end
 end
 
 function VFL.GetLanguagePackVersion()
-	local locale = GetLocale();
-	if packs_table[locale] then
-		return packs_table[locale].version, locale;
+	local pt = packs_table[Locale];
+	if pt then
+		return packs_table[Locale].version, locale;
 	end
 	return nil, locale;
+end
+
+function VFL.RegisterLanguagePackId(id, tbl)
+	local pt = packs_table[Locale];
+	if pt then
+		pt[id] = tbl;
+		return true;
+	end
+	return nil;
+end
+
+function VFL.GetLanguagePackId(id)
+	local pt = packs_table[Locale];
+	if pt then
+		return pt[id];
+	end
 end
 
