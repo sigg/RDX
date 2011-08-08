@@ -25,7 +25,7 @@ RDX.RegisterFeature({
 		if not desc then return nil; end
 		local n = desc.name;
 		if (type(n) ~= "string") then
-			VFL.AddError(errs, VFLI.i18n("Bad hotspot name.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalide hotspot name.")); return nil;
 		end
 		n = strtrim(n);
 		if (n ~= "") and (not RDXDB.IsValidFileName(n)) then
