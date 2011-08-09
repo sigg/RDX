@@ -212,6 +212,7 @@ end;
 
 local strfind = string.find;
 function RDXDAL.getBuffWeaponInfo(name)
+	if not name then return; end
 	local duration, icon, found = 0, "", nil;
 	for k, v in pairs(Buffweapons) do
 		found = strfind(k, name);

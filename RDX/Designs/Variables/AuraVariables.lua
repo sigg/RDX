@@ -115,9 +115,9 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)		
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if not RDX._CheckVariableNameValidity(desc.name, state, errs) then return nil; end
-		if not desc.cd then VFL.AddError(errs, VFLI.i18n( "No aura selected.")); return nil; end
+		if not desc.cd then VFL.AddError(errs, VFLI.i18n( "No aura selected")); return nil; end
 		if not desc.timer1 or desc.timer1 == "" then desc.timer1 = "0"; end
 		if not desc.timer2 or desc.timer2 == "" then desc.timer2 = "0"; end
 		if not desc.color0 then desc.color0 = {r=0,g=0,b=0,a=0}; end
@@ -234,7 +234,7 @@ end
 		if desc and desc.name then iname.editBox:SetText(desc.name); end
 		ui:InsertFrame(iname);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Aura Type:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Aura Type"));
 		local dd_auraType = VFLUI.Dropdown:new(er, _dd_types);
 		dd_auraType:SetWidth(150); dd_auraType:Show();
 		if desc and desc.auraType then 
@@ -277,7 +277,7 @@ end
 		end
 		
 		------------ Filter
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filtering")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filtering parameters")));
 		
 		local chk_playerauras = VFLUI.Checkbox:new(ui); chk_playerauras:Show();
 		chk_playerauras:SetText(VFLI.i18n("Filter auras by player"));
@@ -310,7 +310,7 @@ end
 		ui:InsertFrame(chk_reverse);
 		
 	
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Color (timer elapsed)")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Color parameters")));
 -----------------
 		local itimer1 = VFLUI.LabeledEdit:new(ui, 100); 
 		itimer1:Show();
