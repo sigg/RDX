@@ -5,7 +5,7 @@
 ----------------------------------------------------------
 RDX.RegisterFeature({
 	name = "Subframe";
-	title = "Frame";
+	title = VFLI.i18n("Frame");
 	category = VFLI.i18n("Basics");
 	multiple = true;
 	version = 1;
@@ -15,7 +15,9 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
+		if not RDXUI.UFLayoutCheck(desc, state, errs) then return nil; end
 		if desc.flOffset < 1 then desc.flOffset = 1 end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);

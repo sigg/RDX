@@ -64,10 +64,10 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if (not desc.mbuttontype) then
-			VFL.AddError(errs, VFLI.i18n("Invalide Button type.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalide button type")); return nil;
 		end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);

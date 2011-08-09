@@ -12,7 +12,7 @@
 ------------------------------------------------------
 RDX.RegisterFeature({
 	name = "backdrop";
-	title = "Backdrop";
+	title = VFLI.i18n("Backdrop");
 	category = VFLI.i18n("Basics");
 	multiple = true;
 	version = 1;
@@ -22,15 +22,15 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not RDXUI.UFOwnerCheck(desc.owner, state, errs) then return nil; end
 		-- Verify there isn't two backdrops on the same owner frame
 		if state:Slot("Bkdp_" .. desc.owner) then
-			VFL.AddError(errs, VFLI.i18n("Owner frame already has a backdrop.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Owner frame already has a backdrop")); return nil;
 		end
 		-- Verify backdrop
-		if type(desc.bkd) ~= "table" then VFL.AddError(errs, VFLI.i18n("Invalid backdrop.")); return nil; end
+		if type(desc.bkd) ~= "table" then VFL.AddError(errs, VFLI.i18n("Invalid backdrop")); return nil; end
 		state:AddSlot("Bkdp_" .. desc.owner);
 		return true;
 	end;

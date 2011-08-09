@@ -12,13 +12,13 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not RDXUI.IsValidBoolVar(desc.flag, state) then
-			VFL.AddError(errs, VFLI.i18n("Invalid flag variable.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid flag variable")); return nil;
 		end
 		if (not tonumber(desc.falseAlpha)) or (not tonumber(desc.trueAlpha)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid alpha values.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid alpha values")); return nil;
 		end
 		return true;
 	end;

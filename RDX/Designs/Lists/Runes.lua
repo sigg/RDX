@@ -99,7 +99,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
@@ -353,13 +353,13 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
-		if not desc.externalButtonSkin then VFL.AddError(errs, VFLI.i18n("Select button skin")); flg = nil; end
+		--if not desc.externalButtonSkin then VFL.AddError(errs, VFLI.i18n("Select button skin")); flg = nil; end
 		if flg then state:AddSlot("Frame_" .. desc.name); end
 		return flg;
 	end;

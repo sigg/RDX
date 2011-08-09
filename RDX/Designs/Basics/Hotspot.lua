@@ -10,7 +10,7 @@
 
 RDX.RegisterFeature({
 	name = "hotspot";
-	title = "Hotspot";
+	title = VFLI.i18n("Hotspot");
 	category = VFLI.i18n("Basics");
 	multiple = true;
 	version = 1;
@@ -22,23 +22,23 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		local n = desc.name;
 		if (type(n) ~= "string") then
-			VFL.AddError(errs, VFLI.i18n("Invalide hotspot name.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalide hotspot name")); return nil;
 		end
 		n = strtrim(n);
 		if (n ~= "") and (not RDXDB.IsValidFileName(n)) then
-			VFL.AddError(errs, VFLI.i18n("Hotspot names must be alphanumeric.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Object names must be alphanumeric")); return nil;
 		end
 		if state:Slot("Hotspot_" .. n) or state:Slot("Frame_" .. n) then
-			VFL.AddError(errs, VFLI.i18n("Duplicate hotspot name.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Duplicate variable name")); return nil;
 		end
 		if (not tonumber(desc.w)) or (not tonumber(desc.h)) then
-			VFL.AddError(errs, VFLI.i18n("Bad or missing width/height parameters.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Bad or missing width/height parameters")); return nil;
 		end
 		if (not desc.anchor) or (not desc.anchor.af) or desc.anchor.af ~= "Base" then
-			VFL.AddError(errs, VFLI.i18n("Hotspot always anchor to Base.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Hotspot always anchor to Base")); return nil;
 		end
 		state:AddSlot("Hotspot_" .. n);
 		if(n ~= "") then state:AddSlot("Frame_" .. n); end

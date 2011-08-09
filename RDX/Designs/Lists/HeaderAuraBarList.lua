@@ -14,7 +14,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		desc.owner = "Base";
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Bars_", desc, state, errs);

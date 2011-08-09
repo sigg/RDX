@@ -4,19 +4,19 @@
 -- Backdrop colorizers
 ----------------------------------------------------------------------
 local function bdc_ef(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.flag then desc.flag = "true"; end
 		if not RDXUI.IsValidBoolVar(desc.flag, state) then
-			VFL.AddError(errs, VFLI.i18n("Invalid flag variable.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid flag variable")); return nil;
 		end
 		-- Verify our frame
 		if (not desc.owner) or ((desc.owner ~= "Base") and (not state:Slot("Subframe_" .. desc.owner))) then
-			VFL.AddError(errs, VFLI.i18n("Owner frame does not exist.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Owner frame does not exist")); return nil;
 		end
 		-- Verify color
 		if (not desc.color) or (not state:Slot("ColorVar_" .. desc.color)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid color variable.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid color variable")); return nil;
 		end
 		return true;
 end

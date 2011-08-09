@@ -421,15 +421,15 @@ end
 --- Scripted custom text.
 RDX.RegisterFeature({
 	name = "txt_other"; version = 1; multiple = true;
-	title = "Text Info";
-	category = "Texts";
+	title = VFLI.i18n("Text Info");
+	category = VFLI.i18n("Texts");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not VFLUI.isFacePathExist(desc.font.face) then VFL.AddError(errs, VFLI.i18n("Font path not found.")); return nil; end
 		local flg = true;

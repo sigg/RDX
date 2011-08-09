@@ -10,15 +10,15 @@
 -------------------- NAMEPLATE
 RDX.RegisterFeature({
 	name = "txt_np"; version = 1; multiple = true;
-	title = "Text Nameplate";
-	category = "Texts";
+	title = VFLI.i18n("Text Nameplate");
+	category = VFLI.i18n("Texts");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if (not desc) then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);

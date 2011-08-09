@@ -66,13 +66,13 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		local flg = true;
 		if desc.statusBar and desc.statusBar ~= "" and not state:Slot("StatusBar_" .. desc.statusBar) then
-			VFL.AddError(errs, VFLI.i18n("Invalid statusbar.")); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid statusbar")); flg = nil;
 		end
 		if desc.text and desc.text ~= "" and not state:Slot("Text_" .. desc.text) then
-			VFL.AddError(errs, VFLI.i18n("Invalid text.")); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid text")); flg = nil;
 		end
 		return flg;
 	end;

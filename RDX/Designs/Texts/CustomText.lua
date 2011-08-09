@@ -1,14 +1,17 @@
 
 RDX.RegisterFeature({
-	name = "txt_custom";	version = 1;	multiple = true;
-	title = "Text Custom";	category = "Texts";
+	name = "txt_custom";
+	version = 1;
+	multiple = true;
+	title = VFLI.i18n("Text Custom");
+	category = VFLI.i18n("Texts");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -96,7 +99,7 @@ end
 		ui:InsertFrame(chk_useNil);
 
 		local scriptsel = RDXDB.ObjectFinder:new(ui, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Script")); end);
-		scriptsel:SetLabel(VFLI.i18n("Script object")); scriptsel:Show();
+		scriptsel:SetLabel(VFLI.i18n("Script")); scriptsel:Show();
 		if desc and desc.script then scriptsel:SetPath(desc.script); end
 		ui:InsertFrame(scriptsel);
 		

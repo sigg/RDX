@@ -3,15 +3,15 @@ RDX.RegisterFeature({
 	name = "txt_static";
 	version = 1;
 	multiple = true;
-	title = "Text Static";
-	category = "Texts";
+	title = VFLI.i18n("Text Static");
+	category = VFLI.i18n("Texts");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if (not desc.txt) then
 			VFL.AddError(errs, VFLI.i18n("Invalid texte")); return nil;
@@ -81,7 +81,7 @@ end
 		ui:InsertFrame(er);
 
 		local txt = VFLUI.LabeledEdit:new(ui, 200);
-		txt:SetText(VFLI.i18n("Static Text"));
+		txt:SetText(VFLI.i18n("Text Static"));
 		txt:Show();
 		if desc and desc.txt then txt.editBox:SetText(desc.txt); end
 		ui:InsertFrame(txt);

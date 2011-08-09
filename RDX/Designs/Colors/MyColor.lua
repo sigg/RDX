@@ -10,7 +10,7 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if state:Slot("ColorVar_myColor") then
-			VFL.AddError(errs, VFLI.i18n("Duplicate variable name.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Duplicate variable name")); return nil;
 		end
 		state:AddSlot("Var_myColor");
 		state:AddSlot("ColorVar_myColor");

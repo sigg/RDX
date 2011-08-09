@@ -14,11 +14,11 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.usebkd then desc.usebs = true; end
 		if (not desc.number) or (not state:Slot("NumberVar_" .. desc.number)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid number object pointer.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid number object pointer")); return nil;
 		end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Icons_", desc, state, errs);

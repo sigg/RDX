@@ -22,13 +22,15 @@ local function _dd_cameratypes() return _types; end
 ----------- 3D Portrait object
 RDX.RegisterFeature({
 	name = "portrait_3d"; version = 1; multiple = true;
-	title = "Blizzard 3D Portrait"; category = "Complexes";
+	title = VFLI.i18n("Blizzard 3D Portrait");
+	category = VFLI.i18n("Complexes");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -105,7 +107,7 @@ end
 		if desc and desc.flOffset then ed_flOffset.editBox:SetText(desc.flOffset); end
 		ui:InsertFrame(ed_flOffset);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Camera Type:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Camera Type"));
 		local dd_cameraType = VFLUI.Dropdown:new(er, _dd_cameratypes);
 		dd_cameraType:SetWidth(200); dd_cameraType:Show();
 		if desc and desc.cameraType then 

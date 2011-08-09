@@ -4,8 +4,8 @@
 ----------------------------------------------------------------------
 RDX.RegisterFeature({
 	name = "Player Status Icon";
-	title = "Icon Player Status";
-	category = "Textures";
+	title = VFLI.i18n("Icon Player Status");
+	category = VFLI.i18n("Textures");
 	test = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -13,7 +13,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
@@ -102,7 +102,7 @@ end
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 		
 		-- Drawlayer
-		local er = VFLUI.EmbedRight(ui, "Draw layer:");
+		local er = VFLUI.EmbedRight(ui, "Draw layer");
 		local drawLayer = VFLUI.Dropdown:new(er, RDXUI.DrawLayerDropdownFunction);
 		drawLayer:SetWidth(100); drawLayer:Show();
 		if desc and desc.drawLayer then drawLayer:SetSelection(desc.drawLayer); else drawLayer:SetSelection("ARTWORK"); end
@@ -129,7 +129,7 @@ end
 		ui:InsertFrame(chk_bs);
 		
 		local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
-		ed_bs:SetText(VFLI.i18n("Button Skin, Icon size"));
+		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
 		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
 		ui:InsertFrame(ed_bs);
 		

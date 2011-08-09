@@ -174,8 +174,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
-		--if desc.owner == "Base" then desc.owner = "decor"; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		desc.owner = "Base";
 		desc.nIcons = 12;
 		if not desc.barid then 
@@ -186,7 +185,7 @@ RDX.RegisterFeature({
 		if not desc.headerstateType then desc.headerstateType = "None"; end
 		if desc.headerstateType == "Custom" then
 			local test = __RDXconvertStatesTable(desc.headerstateCustom);
-			if #test == 0 then VFL.AddError(errs, VFLI.i18n("Custom definition invalid.")); return nil; end 
+			if #test == 0 then VFL.AddError(errs, VFLI.i18n("Invalid custom definition")); return nil; end 
 		end
 		if not desc.headervisType then desc.headervisType = "None"; end
 		if not desc.flyoutdirection then desc.flyoutdirection = "UP"; end

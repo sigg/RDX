@@ -23,15 +23,15 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if not RDX._CheckVariableNameValidity(desc.name, state, errs) then return nil; end
 		if (type(desc.colorVar) ~= "string") or (strtrim(desc.colorVar) == "") then 
-			VFL.AddError(errs, VFLI.i18n("Missing base Color.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Missing base Color")); return nil;
 		end
-		if (not state:Slot("ColorVar_" .. desc.colorVar)) then VFL.AddError(errs, VFLI.i18n("Invalid base color."));	end
-		if (type(desc.hx) ~= "string") then	VFL.AddError(errs, VFLI.i18n("Invalid hue.")); end
-		if (type(desc.lx) ~= "string") then	VFL.AddError(errs, VFLI.i18n("Invalid luminosity.")); end
-		if (type(desc.sx) ~= "string") then	VFL.AddError(errs, VFLI.i18n("Invalid saturation.")); end
+		if (not state:Slot("ColorVar_" .. desc.colorVar)) then VFL.AddError(errs, VFLI.i18n("Invalid base color"));	end
+		if (type(desc.hx) ~= "string") then	VFL.AddError(errs, VFLI.i18n("Invalid hue")); end
+		if (type(desc.lx) ~= "string") then	VFL.AddError(errs, VFLI.i18n("Invalid luminosity")); end
+		if (type(desc.sx) ~= "string") then	VFL.AddError(errs, VFLI.i18n("Invalid saturation")); end
 		if VFL.HasError(errs) then return nil; end
 		state:AddSlot("Var_" .. desc.name);
 		state:AddSlot("ColorVar_" .. desc.name);

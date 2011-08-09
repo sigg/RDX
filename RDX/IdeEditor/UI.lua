@@ -252,25 +252,27 @@ function RDXUI.GenNameWidthHeightPortion(ui, desc, state)
 	return ed_name, ed_width, ed_height;
 end
 
+-- Checking
+
 --- Check to see if an object name is a valid name (alphanumeric/underscores only, 15 chars or less)
 -- and is not previously taken on a state. Designed for use in ExposeFeature methods
 function RDXUI.UFFrameCheck_Proto(prefix, desc, state, errs)
 	if desc and desc.name then
 		if(desc.name == "Base") then
-			VFL.AddError(errs, VFLI.i18n("No object can be named 'Base.'"));
+			VFL.AddError(errs, VFLI.i18n("No object can be named 'Base'"));
 			return nil;
 		end
 		if not RDXDB.IsValidFileName(desc.name) then
-			VFL.AddError(errs, VFLI.i18n("Object names must be alphanumeric."));
+			VFL.AddError(errs, VFLI.i18n("Object names must be alphanumeric"));
 			return nil;
 		end
 		if state:Slot(prefix .. desc.name) then
-			VFL.AddError(errs, VFLI.i18n("Duplicate object name '") .. desc.name .. "'.");
+			VFL.AddError(errs, VFLI.i18n("Duplicate variable name") .. " " ..desc.name);
 			return nil;
 		end
 		return true;
 	else
-		VFL.AddError(errs, VFLI.i18n("Bad or missing object name."));
+		VFL.AddError(errs, VFLI.i18n("Missing variable name"));
 		return nil;
 	end
 end
@@ -286,39 +288,47 @@ RDXUI.UFObjCheck = RDXUI.UFFrameCheck("Obj_");
 --- Check an anchor descriptor against a state to make sure we're anchoring to something that exists.
 function RDXUI.UFAnchorCheck(anchor, state, errs)
 	if not anchor then
-		VFL.AddError(errs, VFLI.i18n("Invalid anchor definition."));
+		VFL.AddError(errs, VFLI.i18n("Invalid anchor definition"));
 		return nil;
 	end
 	if (not anchor.lp) or (not anchor.rp) or (not anchor.dx) or (not anchor.dy) then
-		VFL.AddError(errs, VFLI.i18n("Missing anchor layout parameters."));
+		VFL.AddError(errs, VFLI.i18n("Missing anchor layout parameters"));
 		return nil;
 	end
 	if (not anchor.af) then
-		VFL.AddError(errs, VFLI.i18n("Missing anchor target frame.")); return nil;
+		VFL.AddError(errs, VFLI.i18n("Missing anchor target frame")); return nil;
 	end
 	if (anchor.af == "Base") or (state:Slot("Frame_" .. anchor.af)) or (state:Slot("Text_" .. anchor.af)) or (state:Slot("Texture_" .. anchor.af)) then return true; end
 	if state:Slot(anchor.af) then return true; end
-	VFL.AddError(errs, VFLI.i18n("Anchor target frame does not exist.")); return nil;
+	VFL.AddError(errs, VFLI.i18n("Invalid anchor target definition")); return nil;
 end
 
 --- Check a frame owner exist.
 function RDXUI.UFOwnerCheck(owner, state, errs, allowBase)
 	if not owner then
-		VFL.AddError(errs, VFLI.i18n("Invalid owner definition."));
+		VFL.AddError(errs, VFLI.i18n("Invalid owner definition"));
 		return nil;
 	end
 	if allowBase and (owner == "Base") then return true; end
 	--if (owner == "Base") then return true; end
 	if (state:Slot("Frame_" .. owner)) or (state:Slot("Subframe_" .. owner)) then return true; end
-	VFL.AddError(errs, VFLI.i18n("Owner frame does not exist.")); return nil;
+	VFL.AddError(errs, VFLI.i18n("Invalid owner definition")); return nil;
 end
 
 function RDXUI.UFLayoutCheck(desc, state, errs)
-	if not desc.w then VFL.AddError(errs, VFLI.i18n("No width")); return nil; end
-	if not desc.h then VFL.AddError(errs, VFLI.i18n("No height")); return nil; end
+	if not desc.w then VFL.AddError(errs, VFLI.i18n("Missing width")); return nil; end
+	if not desc.h then VFL.AddError(errs, VFLI.i18n("Missing height")); return nil; end
 	return true;
 end
 
+function RDXUI.DescriptorCheck(desc, state, errs)
+	if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor")); return nil; end
+	return true;
+end
+
+--
+-- if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
+--
 -----------------------------
 -- Game Tooltip
 -----------------------------
@@ -413,16 +423,16 @@ function RDXUI.defaultUIFromDescriptor(desc, parent, state)
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout properties")));
 		
 		local ed_scale = VFLUI.LabeledEdit:new(ui, 50); ed_scale:Show();
-		ed_scale:SetText(VFLI.i18n("Scale:"));
+		ed_scale:SetText(VFLI.i18n("Scale"));
 		if desc and desc.scale then ed_scale.editBox:SetText(desc.scale); end
 		ui:InsertFrame(ed_scale);
 		
 		local ed_alpha = VFLUI.LabeledEdit:new(ui, 50); ed_alpha:Show();
-		ed_alpha:SetText(VFLI.i18n("Alpha:"));
+		ed_alpha:SetText(VFLI.i18n("Alpha"));
 		if desc and desc.alpha then ed_alpha.editBox:SetText(desc.alpha); end
 		ui:InsertFrame(ed_alpha);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Stratum:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Stratum"));
 		local dd_strataType = VFLUI.Dropdown:new(er, RDXUI.DesktopStrataFunction);
 		dd_strataType:SetWidth(150); dd_strataType:Show();
 		if desc and desc.strata then 
@@ -433,7 +443,7 @@ function RDXUI.defaultUIFromDescriptor(desc, parent, state)
 		er:EmbedChild(dd_strataType); er:Show();
 		ui:InsertFrame(er);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Anchor:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Anchor"));
 		local dd_anchorType = VFLUI.Dropdown:new(er, RDXUI.DesktopAnchorFunction);
 		dd_anchorType:SetWidth(150); dd_anchorType:Show();
 		if desc and desc.ap then 
@@ -546,13 +556,13 @@ end
 function __DesktopCheck_Name(desc, state, errs)
 	if desc and desc.name then
 		if state:Slot(desc.name) then
-			VFL.AddError(errs, VFLI.i18n("Duplicate object name '") .. desc.name .. "'.");
+			VFL.AddError(errs, VFLI.i18n("Duplicate object name") .. " " .. desc.name);
 			return nil;
 		end
 		state:AddSlot(desc.name);
 		return true;
 	else
-		VFL.AddError(errs, VFLI.i18n("Bad or missing object name."));
+		VFL.AddError(errs, VFLI.i18n("Missing variable name"));
 		return nil;
 	end
 end
@@ -573,6 +583,7 @@ end
 
 --- Subroutine to check a variable name for validity.
 local reservedWords = {};
+reservedWords["Base"] = true;
 reservedWords["frame"] = true;
 reservedWords["unit"] = true;
 reservedWords["uid"] = true;
@@ -581,15 +592,15 @@ reservedWords["false"] = true;
 reservedWords["nil"] = true;
 
 function RDX._CheckVariableNameValidity(name, state, errs)
-	if not name or not type(name) == "string" then VFL.AddError(errs, VFLI.i18n("Missing variable name.")); return nil; end
-	if type(name) == "number" then VFL.AddError(errs, VFLI.i18n("Variable name must be alpha.")); return nil; end
+	if not name or not type(name) == "string" then VFL.AddError(errs, VFLI.i18n("Missing variable name")); return nil; end
+	if type(name) == "number" then VFL.AddError(errs, VFLI.i18n("Object names must be alphanumeric")); return nil; end
 	if not string.find(name, "^%w+$") then
 		VFL.AddError(errs, VFLI.i18n("Invalid characters in variable name")); return nil;
 	end
-	if string.sub(name,1,1) == "_" then VFL.AddError(errs, VFLI.i18n("Name may not begin with an underscore.")); return nil; end
-	if reservedWords[name] then VFL.AddError(errs, VFLI.i18n("The name '") .. name .. VFLI.i18n("' is a reserved word.")); return nil; end
+	if string.sub(name,1,1) == "_" then VFL.AddError(errs, VFLI.i18n("Name may not begin with an underscore")); return nil; end
+	if reservedWords[name] then VFL.AddError(errs, VFLI.i18n("The name '") .. name .. VFLI.i18n("' is a reserved word")); return nil; end
 	if state:Slot("Var_" .. name) then
-		VFL.AddError(errs, VFLI.i18n("The name '") .. name .. VFLI.i18n("' is already in use.")); return nil; 
+		VFL.AddError(errs, VFLI.i18n("The name '") .. name .. VFLI.i18n("' is already in use")); return nil; 
 	end
 	return true;
 end

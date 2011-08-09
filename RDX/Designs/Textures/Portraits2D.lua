@@ -10,17 +10,18 @@
 ----------- 2D Portrait
 RDX.RegisterFeature({
 	name = "portrait_2d"; version = 1; multiple = true;
-	title = "Texture: 2D Portrait"; category = "Shaders";
+	title = VFLI.i18n("Texture: 2D Portrait"); 
+	category = VFLI.i18n("Shaders");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("No descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		-- Verify our texture
 		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid texture object pointer.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid texture")); return nil;
 		end
 		return true;
 	end;

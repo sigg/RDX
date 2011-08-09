@@ -12,7 +12,8 @@
 --------------------------------------------------------------
 RDX.RegisterFeature({
 	name = "texture"; version = 1; 
-	title = "Texture Custom"; category = "Textures";
+	title = VFLI.i18n("Texture Custom"); 
+	category = VFLI.i18n("Textures");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -20,7 +21,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if not desc.sublevel or desc.sublevel == 0 then desc.sublevel = 1; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
@@ -80,7 +81,7 @@ _t:Show();
 		ui:InsertFrame(anchor);
 
 		-- Drawlayer
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Draw layer:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Draw layer"));
 		local drawLayer = VFLUI.Dropdown:new(er, RDXUI.DrawLayerDropdownFunction);
 		drawLayer:SetWidth(150); drawLayer:Show();
 		if desc and desc.drawLayer then drawLayer:SetSelection(desc.drawLayer); else drawLayer:SetSelection("ARTWORK"); end
@@ -89,7 +90,7 @@ _t:Show();
 		
 		-- SubLevel
 		local ed_sublevel = VFLUI.LabeledEdit:new(ui, 50); ed_sublevel:Show();
-		ed_sublevel:SetText(VFLI.i18n("Sub level"));
+		ed_sublevel:SetText(VFLI.i18n("TextureLevel offset"));
 		if desc and desc.sublevel then ed_sublevel.editBox:SetText(desc.sublevel); end
 		ui:InsertFrame(ed_sublevel);
 

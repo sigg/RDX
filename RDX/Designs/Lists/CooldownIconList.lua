@@ -81,7 +81,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
 		if not desc.usebkd then desc.usebs = true; end
@@ -98,7 +98,7 @@ RDX.RegisterFeature({
 			if (desc.maxdurationfilter ~= "") then VFL.AddError(errs, VFLI.i18n("Max duration is not a number or empty")); flg = nil; end 
 		end
 		if desc.externalNameFilter and desc.externalNameFilter ~= "" then
-			if not RDXDB.CheckObject(desc.externalNameFilter, "CooldownFilter") then VFL.AddError(errs, VFLI.i18n("Invalid AuraFilter")); flg = nil; end
+			if not RDXDB.CheckObject(desc.externalNameFilter, "CooldownFilter") then VFL.AddError(errs, VFLI.i18n("Invalid cooldownfilter")); flg = nil; end
 		end
 		if flg then state:AddSlot("Icons_" .. desc.name); end
 		return flg;

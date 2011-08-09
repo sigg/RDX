@@ -119,8 +119,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
-		--if desc.owner == "Base" then desc.owner = "decor"; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		desc.owner = "Base";
 		if not desc.headervisiType or desc.headervisiType == "Default" then desc.headervisiType = "Pet"; end
 		if not desc.usebkd then desc.usebs = true; end

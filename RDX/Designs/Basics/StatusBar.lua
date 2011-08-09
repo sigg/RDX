@@ -16,7 +16,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -24,11 +24,11 @@ RDX.RegisterFeature({
 		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 		if desc.frac and desc.frac ~= "" then
 			if not tonumber(desc.frac) and not (state:Slot("FracVar_" .. desc.frac)) then 
-				VFL.AddError(errs, VFLI.i18n("Missing variable Frac.")); flg = nil;
+				VFL.AddError(errs, VFLI.i18n("Missing variable Frac")); flg = nil;
 			end
 		end
 		if desc.colorVar and (not state:Slot("ColorVar_" .. desc.colorVar)) then
-			VFL.AddError(errs, VFLI.i18n("Missing variable Color.")); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Missing variable Color")); flg = nil;
 		end
 		if flg then 
 			state:AddSlot("StatusBar_" .. desc.name);

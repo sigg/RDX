@@ -3,17 +3,18 @@
 
 RDX.RegisterFeature({
 	name = "txt_dyn"; version = 1; multiple = true;
-	title = "Text Var"; category = "Texts";
+	title = VFLI.i18n("Text Var"); 
+	category = VFLI.i18n("Texts");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if (not desc.txt) or (not state:Slot("TextData_" .. desc.txt)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid texte object pointer.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid text object pointer")); return nil;
 		end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -78,7 +79,7 @@ end
 		er:EmbedChild(fontsel); er:Show();
 		ui:InsertFrame(er);
 
-		local txt = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texte"), state, "TextData_");
+		local txt = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Text"), state, "TextData_");
 		if desc and desc.txt then txt:SetSelection(desc.txt); end
 		
 		local colorVar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Color variable"), state, "ColorVar_");

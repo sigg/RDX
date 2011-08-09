@@ -524,8 +524,8 @@ RDX.RegisterStatusTextType({
 -------------------- STATUS TEXT
 RDX.RegisterFeature({
 	name = "txt_status"; version = 1; multiple = true;
-	title = "Text Status";
-	category = "Texts";
+	title = VFLI.i18n("Text Status");
+	category = VFLI.i18n("Texts");
 	test = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -533,9 +533,9 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if (not desc) then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
-		if (not desc.ty) or (not statusText[desc.ty]) then VFL.AddError(errs,VFLI.i18n("Invalid text type.")); return nil; end
+		if (not desc.ty) or (not statusText[desc.ty]) then VFL.AddError(errs,VFLI.i18n("Invalid text type")); return nil; end
 		statusText[desc.ty].OnExpose(desc, state, errs);
 		if VFL.HasError(errs) then return nil; end
 		local flg = true;

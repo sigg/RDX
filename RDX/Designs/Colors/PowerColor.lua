@@ -11,7 +11,7 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if state:Slot("ColorVar_powerColor") then
-			VFL.AddError(errs, VFLI.i18n("Duplicate variable name.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Duplicate variable name")); return nil;
 		end
 		-- add tmp
 		if not desc.runeColor then desc.runeColor = {r=0, g=0.75, b=1,a=1} end

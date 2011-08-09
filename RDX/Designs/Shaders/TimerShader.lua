@@ -189,27 +189,27 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		local flg = true;
 		if not desc.timerVar or desc.timerVar == "" or not state:Slot("TimerVar_" .. desc.timerVar) then VFL.AddError(errs, VFLI.i18n("Missing variable timer.")); flg = nil; end
 		if desc.statusBar and desc.statusBar ~= "" and not state:Slot("StatusBar_" .. desc.statusBar) then
-			VFL.AddError(errs, VFLI.i18n("Invalid statusbar.")); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid statusbar")); flg = nil;
 		end
 		if desc.text and desc.text ~= "" and not state:Slot("Text_" .. desc.text) then
-			VFL.AddError(errs, VFLI.i18n("Invalid text.") .. " Timer"); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid text") .. " Timer"); flg = nil;
 		end
 		if desc.textInfo and desc.textInfo ~= "" and not state:Slot("Text_" .. desc.textInfo) then
-			VFL.AddError(errs, VFLI.i18n("Invalid text.") .. " Info"); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid text") .. " Info"); flg = nil;
 		end
 		if desc.texIcon and desc.texIcon ~= "" and not state:Slot("Texture_" .. desc.texIcon) then
-			VFL.AddError(errs, VFLI.i18n("Invalid texture.")); flg = nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid texture")); flg = nil;
 		end
 		if desc.sbblendcolor then
 			if not desc.sbcolorVar1 or desc.sbcolorVar1 == "" or not state:Slot("ColorVar_" .. desc.sbcolorVar1) then
-				VFL.AddError(errs, VFLI.i18n("Status Bar Color Variable 1 Invalide")); flg = nil;
+				VFL.AddError(errs, VFLI.i18n("Invalid Status Bar Color Variable 1")); flg = nil;
 			end
 			if not desc.sbcolorVar2 or desc.sbcolorVar2 == "" or not state:Slot("ColorVar_" .. desc.sbcolorVar2) then
-				VFL.AddError(errs, VFLI.i18n("Status Bar Color Variable 2 Invalide")); flg = nil;
+				VFL.AddError(errs, VFLI.i18n("Invalid Status Bar Color Variable 2")); flg = nil;
 			end
 		end
 		return flg;
@@ -300,7 +300,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		local countTypeFlag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Count type (true CountUP, false CountDOWN)"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.countTypeFlag then countTypeFlag:SetSelection(desc.countTypeFlag); end
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Statusbar")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Statusbar parameters")));
 		
 		local statusBar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Statusbar"), state, "StatusBar_");
 		if desc and desc.statusBar then statusBar:SetSelection(desc.statusBar); end
@@ -310,18 +310,18 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		if desc and desc.sbblendcolor then chk_sbblendcolor:SetChecked(true); else chk_sbblendcolor:SetChecked(); end
 		ui:InsertFrame(chk_sbblendcolor);
 		
-		local sbcolorVar1 = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Empty color variable"), state, "ColorVar_");
+		local sbcolorVar1 = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Static empty color"), state, "ColorVar_");
 		if desc and desc.sbcolorVar1 and type(desc.sbcolorVar1) == "string" then sbcolorVar1:SetSelection(desc.sbcolorVar1); end
 		
-		local sbcolorVar2 = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Full color variable"), state, "ColorVar_");
+		local sbcolorVar2 = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Static full color"), state, "ColorVar_");
 		if desc and desc.sbcolorVar2 and type(desc.sbcolorVar2) == "string" then sbcolorVar2:SetSelection(desc.sbcolorVar2); end
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Text Timer")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Text Timer parameters")));
 		
 		local text = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Text Timer"), state, "TextCustom_");
 		if desc and desc.text then text:SetSelection(desc.text); end
 		
-		local tt = VFLUI.EmbedRight(ui, VFLI.i18n("Text Timer Type:"));
+		local tt = VFLUI.EmbedRight(ui, VFLI.i18n("Text Timer Type"));
 		local dd_textType = VFLUI.Dropdown:new(tt, VFLUI.TextTypesDropdownFunction);
 		dd_textType:SetWidth(200); dd_textType:Show();
 		if desc and desc.textType then 
@@ -342,10 +342,10 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		if desc and desc.blendcolor then chk_blendcolor:SetChecked(true); else chk_blendcolor:SetChecked(); end
 		ui:InsertFrame(chk_blendcolor);
 		
-		local color1 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Static min color"));
+		local color1 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Static empty color"));
 		if desc and desc.color1 then color1:SetColor(VFL.explodeRGBA(desc.color1)); end
 
-		local color2 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Static max color"));
+		local color2 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Static full color"));
 		if desc and desc.color2 then color2:SetColor(VFL.explodeRGBA(desc.color2)); end
 		
 		local chk_stack = VFLUI.Checkbox:new(ui); chk_stack:Show();
@@ -357,28 +357,28 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		if desc and desc.stackVar then var_stackVar:SetSelection(desc.stackVar); end
 		
 		local ed_stackMax = VFLUI.LabeledEdit:new(ui, 50); ed_stackMax:Show();
-		ed_stackMax:SetText(VFLI.i18n("Variable number max "));
+		ed_stackMax:SetText(VFLI.i18n("Variable number max"));
 		if desc and desc.stackMax then ed_stackMax.editBox:SetText(desc.stackMax); end
 		ui:InsertFrame(ed_stackMax);
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Text Info (spell name, aura name ...)")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Text Info parameters")));
 		
 		local textInfo = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Text Info"), state, "TextCustom_");
 		if desc and desc.textInfo then textInfo:SetSelection(desc.textInfo); end
 		
-		local txt = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Text Info data"), state, "TextData_");
+		local txt = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Text Info variable"), state, "TextData_");
 		if desc and desc.txt then txt:SetSelection(desc.txt); end
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Icon texture")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Icon texture parameters")));
 		
-		local texIcon = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture Icon"), state, "Texture_");
+		local texIcon = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "Texture_");
 		if desc and desc.texIcon then texIcon:SetSelection(desc.texIcon); end
 
-		local tex = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture Icon data"), state, "TexVar_");
+		local tex = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture variable"), state, "TexVar_");
 		if desc and desc.tex then tex:SetSelection(desc.tex); end
 		
 		----------------------------------------------------------------------------
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Shader")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Shaders parameters")));
 		
 		local chk_defaultTL = VFLUI.Checkbox:new(ui); chk_defaultTL:Show();
 		chk_defaultTL:SetText(VFLI.i18n("Use Timeleft Condition"));
@@ -390,7 +390,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		if desc and desc.TL then ed_TL.editBox:SetText(desc.TL); else ed_TL.editBox:SetText("0");end
 		ui:InsertFrame(ed_TL);
 		
-		local er_sbDefaultState = VFLUI.EmbedRight(ui, VFLI.i18n("Status Bar Default State:"));
+		local er_sbDefaultState = VFLUI.EmbedRight(ui, VFLI.i18n("Status Bar Default State"));
 		local dd_sbDefaultState = VFLUI.Dropdown:new(er_sbDefaultState, _cc_SBStates);
 		dd_sbDefaultState:SetWidth(200); dd_sbDefaultState:Show();
 		if desc and desc.sbDefaultState then 
@@ -401,7 +401,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		er_sbDefaultState:EmbedChild(dd_sbDefaultState); er_sbDefaultState:Show();
 		ui:InsertFrame(er_sbDefaultState);
 		
-		local er_sbExpireState = VFLUI.EmbedRight(ui, VFLI.i18n("Status Bar Shader State:"));
+		local er_sbExpireState = VFLUI.EmbedRight(ui, VFLI.i18n("Status Bar Shader State"));
 		local dd_sbExpireState = VFLUI.Dropdown:new(er_sbExpireState, _cc_SBStates);
 		dd_sbExpireState:SetWidth(200); dd_sbExpireState:Show();
 		if desc and desc.sbExpireState then 
@@ -412,7 +412,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		er_sbExpireState:EmbedChild(dd_sbExpireState); er_sbExpireState:Show();
 		ui:InsertFrame(er_sbExpireState);
 		
-		local er_TTIDefaultState = VFLUI.EmbedRight(ui, VFLI.i18n("Text Info Default State:"));
+		local er_TTIDefaultState = VFLUI.EmbedRight(ui, VFLI.i18n("Text Info Default State"));
 		local dd_TTIDefaultState = VFLUI.Dropdown:new(er_TTIDefaultState, _cc_TTIStates);
 		dd_TTIDefaultState:SetWidth(200); dd_TTIDefaultState:Show();
 		if desc and desc.TTIDefaultState then 
@@ -423,7 +423,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		er_TTIDefaultState:EmbedChild(dd_TTIDefaultState); er_TTIDefaultState:Show();
 		ui:InsertFrame(er_TTIDefaultState);
 		
-		local er_TTIExpireState = VFLUI.EmbedRight(ui, VFLI.i18n("Text Info Shader State:"));
+		local er_TTIExpireState = VFLUI.EmbedRight(ui, VFLI.i18n("Text Info Shader State"));
 		local dd_TTIExpireState = VFLUI.Dropdown:new(er_TTIExpireState, _cc_TTIStates);
 		dd_TTIExpireState:SetWidth(200); dd_TTIExpireState:Show();
 		if desc and desc.TTIExpireState then 
@@ -434,7 +434,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		er_TTIExpireState:EmbedChild(dd_TTIExpireState); er_TTIExpireState:Show();
 		ui:InsertFrame(er_TTIExpireState);
 		
-		local er_TEIDefaultState = VFLUI.EmbedRight(ui, VFLI.i18n("Icon Texture Default State:"));
+		local er_TEIDefaultState = VFLUI.EmbedRight(ui, VFLI.i18n("Icon Texture Default State"));
 		local dd_TEIDefaultState = VFLUI.Dropdown:new(er_TEIDefaultState, _cc_TEIStates);
 		dd_TEIDefaultState:SetWidth(200); dd_TEIDefaultState:Show();
 		if desc and desc.TEIDefaultState then 
@@ -445,7 +445,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		er_TEIDefaultState:EmbedChild(dd_TEIDefaultState); er_TEIDefaultState:Show();
 		ui:InsertFrame(er_TEIDefaultState);
 		
-		local er_TEIExpireState = VFLUI.EmbedRight(ui, VFLI.i18n("Icon Texture Shader State:"));
+		local er_TEIExpireState = VFLUI.EmbedRight(ui, VFLI.i18n("Icon Texture Shader State"));
 		local dd_TEIExpireState = VFLUI.Dropdown:new(er_TEIExpireState, _cc_TEIStates);
 		dd_TEIExpireState:SetWidth(200); dd_TEIExpireState:Show();
 		if desc and desc.TEIExpireState then 

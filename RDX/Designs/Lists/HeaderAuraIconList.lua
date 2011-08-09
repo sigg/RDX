@@ -14,7 +14,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if not desc.usebkd then desc.usebs = true; end
 		if not desc.xoffset then desc.xoffset = "0"; end
 		if not desc.yoffset then desc.yoffset = "0"; end

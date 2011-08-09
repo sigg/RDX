@@ -81,7 +81,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.sbtib then desc.sbtib = VFL.copy(VFLUI.defaultSBTIB); end
 		if not desc.countTypeFlag then desc.countTypeFlag = "false"; end
@@ -99,7 +99,7 @@ RDX.RegisterFeature({
 			if (desc.maxdurationfilter ~= "") then VFL.AddError(errs, VFLI.i18n("Max duration is not a number or empty")); flg = nil; end 
 		end
 		if desc.externalNameFilter and desc.externalNameFilter ~= "" then
-			if not RDXDB.CheckObject(desc.externalNameFilter, "CooldownFilter") then VFL.AddError(errs, VFLI.i18n("Invalid CooldownFilter")); flg = nil; end
+			if not RDXDB.CheckObject(desc.externalNameFilter, "CooldownFilter") then VFL.AddError(errs, VFLI.i18n("Invalid cooldownfilter")); flg = nil; end
 		end
 		if flg then state:AddSlot("Bars_" .. desc.name); end
 		return flg;

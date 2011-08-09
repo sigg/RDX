@@ -20,12 +20,10 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if (not desc) or (not desc.w) or (not desc.h) then
-			VFL.AddError(errs, VFLI.i18n("Bad or missing width/height parameters."));
-			return nil;
-		end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
+		if not RDXUI.UFLayoutCheck(desc, state, errs) then return nil; end
 		if desc.ph and state:Slot("Hotspot_") then
-			VFL.AddError(errs, VFLI.i18n("Duplicate primary hotspots."));
+			VFL.AddError(errs, VFLI.i18n("Duplicate primary hotspots"));
 			return nil;
 		end
 		if desc.ph then state:AddSlot("Hotspot_"); end

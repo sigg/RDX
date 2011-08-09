@@ -10,19 +10,19 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if not RDX._CheckVariableNameValidity(desc.name, state, errs) then return nil; end
-		if (not desc.bfVar) or (strtrim(desc.bfVar) == "") then VFL.AddError(errs, VFLI.i18n("Missing blend fraction.")); return nil; end
+		if (not desc.bfVar) or (strtrim(desc.bfVar) == "") then VFL.AddError(errs, VFLI.i18n("Missing blend fraction")); return nil; end
 		if not tonumber(desc.bfVar) then
 			if (not state:Slot("FracVar_" .. desc.bfVar)) then 
-				VFL.AddError(errs, VFLI.i18n("Invalid blend fraction variable.")); return nil;
+				VFL.AddError(errs, VFLI.i18n("Invalid blend fraction variable")); return nil;
 			end
 		end
 		if (not desc.colorVar1) or (not desc.colorVar2) then
-			VFL.AddError(errs, VFLI.i18n("Missing blend colors.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Missing blend colors")); return nil;
 		end
 		if (not state:Slot("ColorVar_" .. desc.colorVar1)) or (not state:Slot("ColorVar_" .. desc.colorVar2)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid blend colors.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid blend colors")); return nil;
 		end
 		state:AddSlot("Var_" .. desc.name);
 		state:AddSlot("ColorVar_" .. desc.name);

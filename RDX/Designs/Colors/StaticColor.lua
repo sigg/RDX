@@ -10,8 +10,8 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("MissingNo descriptor.")); return nil; end
-		if not desc.color then VFL.AddError(errs, VFLI.i18n("Missing Color.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
+		if not desc.color then VFL.AddError(errs, VFLI.i18n("Missing Color")); return nil; end
 		if not RDX._CheckVariableNameValidity(desc.name, state, errs) then return nil; end
 		state:AddSlot("Var_" .. desc.name);
 		state:AddSlot("ColorVar_" .. desc.name);

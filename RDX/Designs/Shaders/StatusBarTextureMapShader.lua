@@ -68,21 +68,21 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if not desc.flag then desc.flag = "true"; end
 		if not RDXUI.IsValidBoolVar(desc.flag, state) then
-			VFL.AddError(errs, VFLI.i18n("Invalid flag variable.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid flag variable")); return nil;
 		end
 		-- Verify our texture
 		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid texture.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid texture")); return nil;
 		end
 		-- Verify our blend fraction
 		if (not desc.frac) or (not state:Slot("FracVar_" .. desc.frac)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid blend fraction variable.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid blend fraction variable")); return nil;
 		end
 		if (not desc.color) or (not state:Slot("ColorVar_" .. desc.color)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid color variable.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid color variable")); return nil;
 		end
 		return true;
 	end;
