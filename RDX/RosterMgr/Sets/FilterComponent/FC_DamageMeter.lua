@@ -2,10 +2,10 @@
 -- Sigg / OpenRDX
 
 RDXDAL.RegisterFilterComponent({
-	name = "tablemeter", title = VFLI.i18n("TableMeter..."), category = VFLI.i18n("Unit Status"),
+	name = "tablemeter", title = VFLI.i18n("TableMeter"), category = VFLI.i18n("Unit Status"),
 	UIFromDescriptor = function(desc, parent)
 		local ui = VFLUI.FilterDialogFrame:new(parent);
-		ui:SetText(VFLI.i18n("TableMeter...")); ui:Show();
+		ui:SetText(VFLI.i18n("TableMeter")); ui:Show();
 		local container = VFLUI.CompoundFrame:new(ui);
 		ui:SetChild(container); container:Show();
 		

@@ -57,7 +57,7 @@ RDXDAL.RegisterSetClass({
 	GetUI = function(parent, desc)
 		local ui = VFLUI.RadioGroup:new(parent);
 		ui:SetLayout(2,2);
-		ui.buttons[1]:SetText("Incoming"); ui.buttons[2]:SetText("Done");
+		ui.buttons[1]:SetText(VFLI.i18n("Incoming")); ui.buttons[2]:SetText(VFLI.i18n("Done"));
 		if desc and desc.n then ui:SetValue(desc.n); end
 
 		function ui:GetDescriptor() return {class="rez", n=ui:GetValue()}; end
@@ -138,13 +138,13 @@ local _,ret = UnitClass("player");
 local pclass = ret or "NONE";
 local rezSpell = nil;
 if pclass == "PRIEST" then
-	rezSpell = VFLI.i18n("Resurrection");
+	rezSpell = GetSpellInfo(2006); --VFLI.i18n("Resurrection");
 elseif pclass == "PALADIN" then
-	rezSpell = VFLI.i18n("Redemption");
+	rezSpell = GetSpellInfo(7328); --VFLI.i18n("Redemption");
 elseif pclass == "SHAMAN" then
-	rezSpell = VFLI.i18n("Ancestral Spirit");
+	rezSpell = GetSpellInfo(2008); --VFLI.i18n("Ancestral Spirit");
 elseif pclass == "DRUID" then
-	rezSpell = VFLI.i18n("Rebirth");
+	rezSpell = GetSpellInfo(50769); --VFLI.i18n("Rebirth");
 end
 
 if rezSpell then

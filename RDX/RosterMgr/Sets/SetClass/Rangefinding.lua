@@ -153,7 +153,7 @@ RDXDAL.RegisterSet(uirs);
 
 RDXDAL.RegisterSetClass({
 	name = "unitinrange";
-	title = VFLI.i18n("Unit in Range (2.4)");
+	title = VFLI.i18n("Unit in Range(2.4)");
 	GetUI = RDXDAL.TrivialSetFinderUI("unitinrange");
 	FindSet = function() return uirs; end;
 });

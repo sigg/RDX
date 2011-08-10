@@ -54,11 +54,13 @@ function VFL.GetLanguagePackVersion()
 	return nil, Locale;
 end
 
-function VFL.RegisterLanguagePackId(id, tbl)
-	local pt = packs_table[Locale];
-	if pt then
-		pt[id] = tbl;
-		return true;
+function VFL.RegisterLanguagePackId(locale, id, tbl)
+	if Locale == locale then
+		local pt = packs_table[locale];
+		if pt then
+			pt[id] = tbl;
+			return true;
+		end
 	end
 	return nil;
 end

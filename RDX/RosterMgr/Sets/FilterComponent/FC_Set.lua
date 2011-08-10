@@ -9,7 +9,7 @@ RDXDAL.RegisterFilterComponent({
 	name = "set", title = VFLI.i18n("Set"), category = VFLI.i18n("Sets"),
 	UIFromDescriptor = function(desc, parent)
 		local ui = VFLUI.FilterDialogFrame:new(parent);
-		ui:SetText(VFLI.i18n("Set...")); ui:Show();
+		ui:SetText(VFLI.i18n("Set")); ui:Show();
 
 		local sf = RDXDAL.SetFinder:new(ui);
 		ui:SetChild(sf); sf:Show();

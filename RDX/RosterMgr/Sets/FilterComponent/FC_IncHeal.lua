@@ -2,10 +2,10 @@
 -- Xenios
 
 RDXDAL.RegisterFilterComponent({
-    name = "incHeal", title = "incHeal", category = "Auras",
+    name = "incHeal", title = VFLI.i18n("Incoming Heal"), category = VFLI.i18n("Unit Status"),
     UIFromDescriptor = function(desc, parent)
         local ui = VFLUI.FilterDialogFrame:new(parent);
-        ui:SetText("incHeal"); ui:Show();
+        ui:SetText(VFLI.i18n("Incoming Heal")); ui:Show();
         ui.GetDescriptor = function() return {"incHeal"}; end;
         return ui;
     end,

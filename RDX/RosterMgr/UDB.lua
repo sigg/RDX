@@ -16,7 +16,7 @@ local tempty, strlower, strmatch, strgsub = VFL.empty, string.lower, string.matc
 local GetBGName = VFL.GetBGName;
 local myunit = nil;
 
-VFLP.RegisterCategory(VFLI.i18n("RDXDAL: UnitDB"));
+VFLP.RegisterCategory("RDXDAL: UnitDB");
 
 ------------------------------------------------------------------------------
 -- UNIT ID MAPPINGS/UNIT COUNTING
@@ -822,7 +822,7 @@ local function FlushAuras()
 		if u:IsValid() then auraq[i] = true; end
 	end
 end
-VFLP.RegisterFunc(VFLI.i18n("RDXDAL: UnitDB"), "FlushAuras", FlushAuras, true);
+VFLP.RegisterFunc("RDXDAL: UnitDB", "FlushAuras", FlushAuras, true);
 
 --- Force a reprocessing of auras for all valid units.
 local function FlushCDs()
@@ -833,7 +833,7 @@ local function FlushCDs()
 		if u:IsValid() then cdq[i] = true; end
 	end
 end
-VFLP.RegisterFunc(VFLI.i18n("RDXDAL: UnitDB"), "FlushCDs", FlushCDs, true);
+VFLP.RegisterFunc("RDXDAL: UnitDB", "FlushCDs", FlushCDs, true);
 
 -----------------------------------------------------------------
 -- RAID ROSTER
@@ -973,7 +973,7 @@ local function ProcessRoster()
 	RDXEvents:Dispatch("ROSTER_UPDATE", _rtouched);
 	RDXDAL.EndEventBatch();
 end
-VFLP.RegisterFunc(VFLI.i18n("RDXDAL: UnitDB"), "ProcessRoster", ProcessRoster, true);
+VFLP.RegisterFunc("RDXDAL: UnitDB", "ProcessRoster", ProcessRoster, true);
 
 -- Pet processing
 local _petrtouched, _petgtouched = {}, {};
@@ -1011,7 +1011,7 @@ local ProcessPets = VFLT.CreatePeriodicLatch(1, function()
 		RDXEvents:Dispatch("ROSTER_PETS_CHANGED"); 
 	end
 end);
-VFLP.RegisterFunc(VFLI.i18n("RDXDAL: UnitDB"), "ProcessPets", ProcessPets, true);
+VFLP.RegisterFunc("RDXDAL: UnitDB", "ProcessPets", ProcessPets, true);
 
 --function RDX.ProcessPetsDelay()
 --	VFLT.ZMSchedule(1, function() ProcessPets(); end);
@@ -1186,7 +1186,7 @@ local ProcessArenaRoster = function(arg1, arg2)
 	end
 end
 
-VFLP.RegisterFunc(VFLI.i18n("RDXDAL: UnitDB"), "ProcessArenaRoster", ProcessArenaRoster, true);
+VFLP.RegisterFunc("RDXDAL: UnitDB", "ProcessArenaRoster", ProcessArenaRoster, true);
 
 
 WoWEvents:Bind("ARENA_OPPONENT_UPDATE", nil, ProcessArenaRoster);
@@ -1218,7 +1218,7 @@ local ProcessArenaPets = VFLT.CreatePeriodicLatch(1, function()
 		RDXEvents:Dispatch("ARENA_ROSTER_PETS_CHANGED"); 
 	end
 end);
-VFLP.RegisterFunc(VFLI.i18n("RDXDAL: UnitDB"), "ProcessArenaPets", ProcessArenaPets, true);
+VFLP.RegisterFunc("RDXDAL: UnitDB", "ProcessArenaPets", ProcessArenaPets, true);
 
 WoWEvents:Bind("UNIT_PET", nil, ProcessArenaPets);
 
@@ -1963,7 +1963,7 @@ local function Disruption()
 		disrupt_lock = nil;
 	end
 end
-VFLP.RegisterFunc(VFLI.i18n("RDXDAL: UnitDB"), "Disruptions", Disruption, true);
+VFLP.RegisterFunc("RDXDAL: UnitDB", "Disruptions", Disruption, true);
 
 local function Disruption_delay()
 	Disruption();

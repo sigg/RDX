@@ -11,11 +11,11 @@ RDXDAL = RegisterVFLModule({
 });
 
 local tempty, strlower, strmatch, strgsub = VFL.empty, string.lower, string.match, string.gsub;
-VFLP.RegisterCategory(VFLI.i18n("RDXDAL"));
+VFLP.RegisterCategory("RDXDAL");
 -------------------------------------------------------------------
 -- UNIT AURA METADATA
 -------------------------------------------------------------------
-VFLP.RegisterCategory(VFLI.i18n("RDXDAL: UnitAura"));
+VFLP.RegisterCategory("RDXDAL: UnitAura");
 -- Local override for debuff categorization.
 -- Example: debuffCategoryOverride[VFLI.i18n("arcane blast")] = "@other";
 local debuffCategoryOverride = {};
@@ -102,7 +102,7 @@ local function LoadDebuffFromUnit(uid, i, castable, cache)
 	end
 end
 RDXDAL.LoadDebuffFromUnit = LoadDebuffFromUnit;
-VFLP.RegisterFunc(VFLI.i18n("RDXDAL: UnitAura"), "LoadDebuffFromUnit", LoadDebuffFromUnit, true);
+VFLP.RegisterFunc("RDXDAL: UnitAura", "LoadDebuffFromUnit", LoadDebuffFromUnit, true);
 
 -- INTERNAL: Get information about a buff from a unit.
 local function LoadBuffFromUnit(uid, i, castable, cache)
@@ -138,7 +138,7 @@ local function LoadBuffFromUnit(uid, i, castable, cache)
 	end
 end
 RDXDAL.LoadBuffFromUnit = LoadBuffFromUnit;
-VFLP.RegisterFunc(VFLI.i18n("RDXDAL: UnitAura"), "LoadBuffFromUnit", LoadBuffFromUnit, true);
+VFLP.RegisterFunc("RDXDAL: UnitAura", "LoadBuffFromUnit", LoadBuffFromUnit, true);
 --VFLP.RegisterFunc(VFLI.i18n("RDXDAL: UnitAura"), "UnitBuff", UnitBuff, true);
 --VFLP.RegisterFunc(VFLI.i18n("RDXDAL: UnitAura"), "UnitBuffCache", UnitBuffCache, true);
 
@@ -299,6 +299,6 @@ local function LoadWeaponsBuff()
 	end
 	return hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot, hasThrownEnchant, thrownBuffName, thrownBuffRank, thrownCharges, thrownBuffStart, thrownBuffDur, thrownTex, thrownBuffTex, thrownSlot;
 end
-VFLP.RegisterFunc(VFLI.i18n("RDXDAL: UnitAura"), "LoadWeaponsBuff", LoadWeaponsBuff, true);
+VFLP.RegisterFunc("RDXDAL: UnitAura", "LoadWeaponsBuff", LoadWeaponsBuff, true);
 
 RDXDAL.LoadWeaponsBuff = LoadWeaponsBuff;

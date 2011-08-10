@@ -23,7 +23,7 @@ RDXDAL.RegisterSortOperator({
 			code:AppendCode([[return u1.nid < u2.nid;]]);
 		end
 	end;
-	GetUI = RDXDAL.TrivialSortUI("nid", VFLI.i18n("Unit Numerical ID"));
+	GetUI = RDXDAL.TrivialSortUI("nid", VFLI.i18n("Unit Number (nid)"));
 	GetBlankDescriptor = function() return {op = "nid"}; end;
 });
 

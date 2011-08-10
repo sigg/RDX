@@ -63,7 +63,7 @@ function RDXDAL.FilterFunctor(fd, path)
 	--local f_filtergen, f_err = loadstring(cl .. " return function(unit) " .. loc .. " return (unit:IsValid() and " .. expr .. "); end;");
 	local f_filtergen, f_err = loadstring(cl .. " return function(unit) " .. loc .. " return (unit:IsCacheValid() and " .. expr .. "); end;");
 	if not f_filtergen then 
-		VFL.TripError("RDX", VFLI.i18n("Could not build filter.", "Filter:\n------------------\n") .. Serialize(fd) .. VFLI.i18n("\n\nError:\n----------------------\n") .. f_err);
+		VFL.TripError("RDX", VFLI.i18n("Could not build filter."), VFLI.i18n("Filter:\n------------------\n") .. Serialize(fd) .. VFLI.i18n("\n\nError:\n----------------------\n") .. f_err);
 		return; 
 	end
 	-- We have a filter, return it along with some metadata.

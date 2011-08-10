@@ -116,10 +116,10 @@ VFLEvents:Bind("PLAYER_IN_BATTLEGROUND", nil, _Checkraid);
 -- TARGET FILTER
 ----------------------------------------------------------
 RDXDAL.RegisterFilterComponent({
-	name = "hot_target", title = VFLI.i18n("High Order Target..."), category = VFLI.i18n("Unit Status"),
+	name = "hot_target", title = VFLI.i18n("Target Type"), category = VFLI.i18n("Unit Status"),
 	UIFromDescriptor = function(desc, parent)
 		local ui = VFLUI.FilterDialogFrame:new(parent);
-		ui:SetText(VFLI.i18n("High Order Target...")); ui:Show();
+		ui:SetText(VFLI.i18n("Target Type")); ui:Show();
 		local container = VFLUI.CompoundFrame:new(ui);
 		ui:SetChild(container); container:Show();
 

@@ -134,7 +134,7 @@ function assistSet:_OnDeactivate()
 end
 
 RDXDAL.RegisterSetClass({
-	name = "assists"; title = VFLI.i18n("Assist Me");
+	name = "assists"; title = VFLI.i18n("Who Assist Me");
 	GetUI = RDXDAL.TrivialSetFinderUI("assists");
 	FindSet = function() return assistSet; end;
 });

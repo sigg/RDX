@@ -31,7 +31,7 @@ end
 	end;
 	GetUI = function(parent, desc)
 		local ui = VFLUI.SortDialogFrame:new(parent);
-		ui:SetText(VFLI.i18n("TableMeter...")); ui:Show();
+		ui:SetText(VFLI.i18n("TableMeter")); ui:Show();
 
 		local sf = VFLUI.Dropdown:new(ui, RDXDB._fnListTabMeter, nil, nil, nil, 30);
 		ui:SetChild(sf); sf:Show();

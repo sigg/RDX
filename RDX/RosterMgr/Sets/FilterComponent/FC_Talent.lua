@@ -2,11 +2,11 @@
 -- Match subclasses
 ---------------------------------------------------------------
 RDXDAL.RegisterFilterComponent({
-	name = "subclasses", title = VFLI.i18n("Talents..."), category = VFLI.i18n("Group Composition"),
+	name = "subclasses", title = VFLI.i18n("Talents"), category = VFLI.i18n("Group Composition"),
 	UIFromDescriptor = function(desc, parent)
 		-- Setup the base frame and the checkboxes for subclasses
 		local ui = VFLUI.FilterDialogFrame:new(parent);
-		ui:SetText(VFLI.i18n("Subclasses..."));
+		ui:SetText(VFLI.i18n("Talents"));
 		local checks = VFLUI.CheckGroup:new(ui);
 		ui:SetChild(checks);
 		checks:SetLayout(31, 2);
@@ -15,7 +15,7 @@ RDXDAL.RegisterFilterComponent({
 			checks.checkBox[i]:SetText(VFL.strtcolor(RDXMD.GetColorSubClassById(i)) .. RDXMD.GetLocalSubclassById(i) .. "|r"); 
 			if desc[i + 1] then checks.checkBox[i]:SetChecked(true); end
 		end
-		checks.checkBox[31]:SetText(VFL.strcolor(.5,.5,.5) .. VFLI.i18n("Unknown|r"));
+		checks.checkBox[31]:SetText(VFL.strcolor(.5,.5,.5) .. VFLI.i18n("Unknown") .. "|r"));
 		if desc[32] then checks.checkBox[31]:SetChecked(true); end
 
 		ui.GetDescriptor = function(x)

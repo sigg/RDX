@@ -37,23 +37,22 @@ RDXDB.RegisterObjectType({
 	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
-			text = VFLI.i18n("Edit..."),
+			text = VFLI.i18n("Edit"),
 			OnClick = function() 
 				VFL.poptree:Release(); 
 				RDXDAL.EditSortDialog(dlg, path, md); 
 			end
 		});
-		--if RDXU.devflag then
-			table.insert(mnu, {
-				text = VFLI.i18n("Transform Sort"),
-				OnClick = function() 
-					VFL.poptree:Release();
-					local pkg, file = RDXDB.ParsePath(path);
-					md.ty = "Sort";
-					md.version = 2;
-					RDXDBEvents:Dispatch("OBJECT_MOVED", pkg, file, pkg, file, md);
-				end
-			});
-		--end
+		table.insert(mnu, {
+			text = VFLI.i18n("Transform Sort"),
+			OnClick = function() 
+				VFL.poptree:Release();
+				local pkg, file = RDXDB.ParsePath(path);
+				md.ty = "Sort";
+				md.version = 2;
+				RDXDBEvents:Dispatch("OBJECT_MOVED", pkg, file, pkg, file, md);
+			end
+		});
+
 	end
 });

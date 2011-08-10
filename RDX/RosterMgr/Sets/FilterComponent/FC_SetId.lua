@@ -1,9 +1,9 @@
 --- "Set by SID" filter component.
 RDXDAL.RegisterFilterComponent({
-	name = "ssid", title = "Set By SID (Debug)", category = "Sets",
+	name = "ssid", title = VFLI.i18n("Set By SID (Debug)"), category = "Sets",
 	UIFromDescriptor = function(desc, parent)
 		local ui = VFLUI.FilterDialogFrame:new(parent);
-		ui:SetText("Set By SID (Debug)"); ui:Show();
+		ui:SetText(VFLI.i18n("Set By SID (Debug)")); ui:Show();
 		
 		local ed = VFLUI.LabeledEdit:new(ui, 50);
 		ui:SetChild(ed);

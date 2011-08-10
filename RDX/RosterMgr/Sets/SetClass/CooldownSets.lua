@@ -31,7 +31,7 @@ local function CreateCooldownSet(type, spellid)
 			end
 		end
 	else
-		error(VFLI.i18n("invalid auraset type"));
+		error(VFLI.i18n("invalid cooldownset type"));
 	end
 
 	-- The function invoked when an aura event triggers.

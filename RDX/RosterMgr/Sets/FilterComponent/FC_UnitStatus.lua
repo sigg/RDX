@@ -50,9 +50,9 @@ end
 RDXDAL._GenHPMPFilterUI = GenHPMPUI;
 
 RDXDAL.RegisterFilterComponent({
-	name = "hp", title = VFLI.i18n("HP..."), category = VFLI.i18n("Unit Status"),
+	name = "hp", title = VFLI.i18n("HP"), category = VFLI.i18n("Unit Status"),
 	UIFromDescriptor = function(desc, parent)
-		return GenHPMPUI(desc, parent, VFLI.i18n("HP..."), "hp");
+		return GenHPMPUI(desc, parent, VFLI.i18n("HP"), "hp");
 	end,
 	GetBlankDescriptor = function() return {"hp", 1, 1, 0, 100}; end,
 	FilterFromDescriptor = function(desc, metadata)
@@ -93,9 +93,9 @@ RDXDAL.RegisterFilterComponent({
 });
 
 RDXDAL.RegisterFilterComponent({
-	name = "mana", title = VFLI.i18n("Power..."), category = VFLI.i18n("Unit Status"),
+	name = "mana", title = VFLI.i18n("Power"), category = VFLI.i18n("Unit Status"),
 	UIFromDescriptor = function(desc, parent)
-		return GenHPMPUI(desc, parent, VFLI.i18n("Mana/Rage/Energy..."), "mana");
+		return GenHPMPUI(desc, parent, VFLI.i18n("Power"), "mana");
 	end,
 	GetBlankDescriptor = function() return {"mana", 1, 1, 0, 100}; end,
 	FilterFromDescriptor = function(desc, metadata)

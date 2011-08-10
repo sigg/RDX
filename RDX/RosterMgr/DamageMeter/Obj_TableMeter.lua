@@ -103,7 +103,7 @@ function RDXLF.SelectEditor:new(parent)
 
 	-- Event + Modifier types
 	local ctr = VFLUI.CollapsibleFrame:new(ui); ctr:Show();
-	ctr:SetText("Event Types");
+	ctr:SetText(VFLI.i18n("Event Types"));
 	ui:InsertFrame(ctr);
 	local ctd = VFLUI.RadioGroup:new(ctr); ctd:Show();
 	ctr:SetChild(ctd); ctr:SetCollapsed(true);
@@ -119,22 +119,22 @@ function RDXLF.SelectEditor:new(parent)
 	local etypes_container, etypes_checks = ctr,ctd;
 	
 	ctr = VFLUI.CollapsibleFrame:new(ui); ctr:Show();
-	ctr:SetText("Unit type");
+	ctr:SetText(VFLI.i18n("Unit type"));
 	ui:InsertFrame(ctr);
 	ctd = VFLUI.RadioGroup:new(ctr); ctd:Show();
 	ctr:SetChild(ctd); ctr:SetCollapsed(true);
 	ctd:SetLayout(2, 2);
-	ctd.buttons[1]:SetText("Source");
-	ctd.buttons[2]:SetText("Target");
+	ctd.buttons[1]:SetText(VFLI.i18n("Source"));
+	ctd.buttons[2]:SetText(VFLI.i18n("Target"));
 	local dtypes_container, dtypes_checks = ctr, ctd;
 
 	-- Ability Filter
 	ctr = VFLUI.CollapsibleFrame:new(ui); ctr:Show();
-	ctr:SetText("Ability");
+	ctr:SetText(VFLI.i18n("Ability"));
 	ui:InsertFrame(ctr);
 	ctd = VFLUI.LabeledEdit:new(ctr, 250); ctd:Show();
 	ctr:SetChild(ctd); ctr:SetCollapsed(true);
-	ctd:SetText("* is a wildcard");
+	ctd:SetText(VFLI.i18n("* is a wildcard"));
 	local abil_container, abil_edit = ctr,ctd;	
 
 	--- Layout Engine Bootstrap
@@ -261,7 +261,7 @@ local function EditTableMeterDialog(parent, path, md, callback)
 	sf:SetWidth(346); sf:SetHeight(430);
 	sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	
-	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filter")));
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filters parameters")));
 	
 	local fe = RDXLF.SelectEditor:new(dlg); fe:Show();
 	fe:SetDescriptor(md.data);
@@ -319,7 +319,7 @@ RDXDB.RegisterObjectType({
 	--end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
-			text = VFLI.i18n("Edit..."),
+			text = VFLI.i18n("Edit"),
 			OnClick = function() 
 				VFL.poptree:Release(); 
 				RDXDB.OpenObject(path, "Edit"); 

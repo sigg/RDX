@@ -235,7 +235,7 @@ RDXDAL.RegisterSetClass({
 
 RDXDAL.RegisterSetClass({
 	name = "mybuff",
-	title = VFLI.i18n("MyBuff"),
+	title = VFLI.i18n("My Buff"),
 	GetUI = function(parent, desc)
 		local ui = VFLUI.LabeledEdit:new(parent, 150);
 		ui:SetText(VFLI.i18n("Buff Name")); ui:Show();

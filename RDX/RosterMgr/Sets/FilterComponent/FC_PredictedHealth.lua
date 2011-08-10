@@ -1,8 +1,8 @@
 -- Predicted HP filter
 RDXDAL.RegisterFilterComponent({
-	name = "shp", title = VFLI.i18n("Predicted HP..."), category = VFLI.i18n("Unit Status"),
+	name = "shp", title = VFLI.i18n("Predicted Heal"), category = VFLI.i18n("Unit Status"),
 	UIFromDescriptor = function(desc, parent)
-		return RDXDAL._GenHPMPFilterUI(desc, parent, VFLI.i18n("Predicted HP..."), "shp");
+		return RDXDAL._GenHPMPFilterUI(desc, parent, VFLI.i18n("Predicted Heal"), "shp");
 	end,
 	GetBlankDescriptor = function() return {"shp", 1, 1, 0, 100}; end,
 	FilterFromDescriptor = function(desc, metadata)

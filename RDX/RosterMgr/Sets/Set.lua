@@ -25,7 +25,7 @@ local tempty = VFL.empty;
 local MAX_UNITS = RDXDAL.NUM_UNITS;
 
 -------- Profiling
-VFLP.RegisterCategory(VFLI.i18n("RDXDAL: Set API"));
+VFLP.RegisterCategory("RDXDAL: Set API");
 
 -----------------------------------------------------------
 -- SET DATABASE
@@ -85,7 +85,7 @@ local function DepTreePropagate()
 		set.laundry = nil; set:_Clean();
 	end
 end
-VFLP.RegisterFunc(VFLI.i18n("RDXDAL: Set API"), "Batch propagation", DepTreePropagate, true);
+VFLP.RegisterFunc("RDXDAL: Set API", "Batch propagation", DepTreePropagate, true);
 
 -- Propagate all deltas.
 local set_recursion_limit = 5;
@@ -389,7 +389,7 @@ function RDXDAL.Set:_Set(un, val)
 		-------------- END PROPAGATION CODE ------------------
 	end
 end
-VFLP.RegisterFunc(VFLI.i18n("RDXDAL: Set API"), "Toggles", RDXDAL.Set._Set, true);
+VFLP.RegisterFunc("RDXDAL: Set API", "Toggles", RDXDAL.Set._Set, true);
 
 --- Clear this set completely.
 function RDXDAL.Set:_Clear()

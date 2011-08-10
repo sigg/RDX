@@ -22,10 +22,10 @@ RDXDAL.RegisterSetClass({
 
 RDXDAL.RegisterSetClass({
 	name = "file",
-	title = VFLI.i18n("File"),
+	title = VFLI.i18n("File Set"),
 	GetUI = function(parent, desc)
 		local ui = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Set$")); end);
-		ui:SetLabel(VFLI.i18n("File")); ui:Show();
+		ui:SetLabel(VFLI.i18n("File Set")); ui:Show();
 		if desc and desc.file then ui:SetPath(desc.file); end
 		ui.GetDescriptor = function()
 			return {class = "file", file = ui:GetPath()};

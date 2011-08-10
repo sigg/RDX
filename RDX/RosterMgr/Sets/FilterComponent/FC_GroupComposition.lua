@@ -49,16 +49,16 @@ RDXDAL.RegisterFilterComponent({
 -- Individual groups
 --------------------------------
 RDXDAL.RegisterFilterComponent({
-	name = "groups", title = VFLI.i18n("Groups..."), category = VFLI.i18n("Group Composition"),
+	name = "groups", title = VFLI.i18n("Groups"), category = VFLI.i18n("Group Composition"),
 	UIFromDescriptor = function(desc, parent)
 		-- Setup the base frame and the checkboxes for groups
 		local ui = VFLUI.FilterDialogFrame:new(parent);
-		ui:SetText(VFLI.i18n("Groups..."));
+		ui:SetText(VFLI.i18n("Groups"));
 		local checks = VFLUI.CheckGroup:new(ui);
 		ui:SetChild(checks);
 		checks:SetLayout(8, 2);
 		for i=1,8 do 
-			checks.checkBox[i]:SetText(VFLI.i18n("Group ") .. i);
+			checks.checkBox[i]:SetText(VFLI.i18n("Group") .. " " .. i);
 			if desc[i + 1] then checks.checkBox[i]:SetChecked(true); end
 		end
 
@@ -121,7 +121,7 @@ RDXDAL.RegisterFilterComponent({
 		ui:SetChild(checks);
 		checks:SetLayout(4, 2);
 		for i=1,4 do 
-			checks.checkBox[i]:SetText(VFLI.i18n("Member ") .. i);
+			checks.checkBox[i]:SetText(VFLI.i18n("Member") .. " " .. i);
 			if desc[i + 1] then checks.checkBox[i]:SetChecked(true); end
 		end
 
@@ -157,11 +157,11 @@ RDXDAL.RegisterFilterComponent({
 -- Match classes
 ---------------------------------------------------------------
 RDXDAL.RegisterFilterComponent({
-	name = "classes", title = VFLI.i18n("Classes..."), category = VFLI.i18n("Group Composition"),
+	name = "classes", title = VFLI.i18n("Classes"), category = VFLI.i18n("Group Composition"),
 	UIFromDescriptor = function(desc, parent)
 		-- Setup the base frame and the checkboxes for groups
 		local ui = VFLUI.FilterDialogFrame:new(parent);
-		ui:SetText(VFLI.i18n("Classes..."));
+		ui:SetText(VFLI.i18n("Classes"));
 		local checks = VFLUI.CheckGroup:new(ui);
 		ui:SetChild(checks);
 		checks:SetLayout(11, 2);
@@ -170,7 +170,7 @@ RDXDAL.RegisterFilterComponent({
 			checks.checkBox[i]:SetText(VFL.strtcolor(RDXMD.GetClassColor(i)) .. RDXMD.GetClassMnemonic(i) .. "|r"); 
 			if desc[i + 1] then checks.checkBox[i]:SetChecked(true); end
 		end
-		checks.checkBox[11]:SetText(VFL.strcolor(.5,.5,.5) .. VFLI.i18n("UNKNOWN") .. "|r");
+		checks.checkBox[11]:SetText(VFL.strcolor(.5,.5,.5) .. VFLI.i18n("Unknown") .. "|r");
 		if desc[12] then checks.checkBox[11]:SetChecked(true); end
 
 		ui.GetDescriptor = function(x)
@@ -204,10 +204,10 @@ RDXDAL.RegisterFilterComponent({
 });
 
 RDXDAL.RegisterFilterComponent({
-	name = "rl", title = VFLI.i18n("Leaders..."), category = VFLI.i18n("Group Composition"),
+	name = "rl", title = VFLI.i18n("Leaders"), category = VFLI.i18n("Group Composition"),
 	UIFromDescriptor = function(desc, parent)
 		local ui = VFLUI.FilterDialogFrame:new(parent);
-		ui:SetText(VFLI.i18n("Leaders..."));
+		ui:SetText(VFLI.i18n("Leaders"));
 		local checks = VFLUI.CheckGroup:new(ui);
 		ui:SetChild(checks);
 		checks:SetLayout(2,2);
@@ -435,7 +435,7 @@ RDXDAL.RegisterFilterComponent({
 	UIFromDescriptor = function(desc, parent)
 		-- Create checkboxes for each power type
 		local ui = VFLUI.FilterDialogFrame:new(parent);
-		ui:SetText(VFLI.i18n("Power Types..."));
+		ui:SetText(VFLI.i18n("Power Type"));
 		local checks = VFLUI.CheckGroup:new(ui);
 		ui:SetChild(checks);
 		checks:SetLayout(4, 4);
@@ -480,7 +480,7 @@ RDXDAL.RegisterFilterComponent({
 	UIFromDescriptor = function(desc, parent)
 		-- Create checkboxes for each power type
 		local ui = VFLUI.FilterDialogFrame:new(parent);
-		ui:SetText(VFLI.i18n("Role Type..."));
+		ui:SetText(VFLI.i18n("Role Type"));
 		local checks = VFLUI.CheckGroup:new(ui);
 		ui:SetChild(checks);
 		checks:SetLayout(4, 4);

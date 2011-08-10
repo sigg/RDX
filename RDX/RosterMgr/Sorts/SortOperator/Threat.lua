@@ -4,7 +4,7 @@
 ----------------------------------------------------------
 RDXDAL.RegisterSortOperator({
    name = "threat";
-   title = VFLI.i18n("Raw Threat");
+   title = VFLI.i18n("Threat");
    category = VFLI.i18n("Status");
    EmitLocals = function(desc, code, vars)
       if not vars["threat"] then
@@ -30,7 +30,7 @@ code:AppendCode([[
 end
 ]]);
    end;
-   GetUI = RDXDAL.TrivialSortUI("threat", "Raw Threat");
+   GetUI = RDXDAL.TrivialSortUI("threat", VFLI.i18n("Threat"));
    GetBlankDescriptor = function() return {op = "threat"}; end;
    Events = function(desc, ev)
       ev["UNIT_THREAT"] = true;
@@ -39,7 +39,7 @@ end
 
 RDXDAL.RegisterSortOperator({
    name = "threatscaled";
-   title = VFLI.i18n("Scaled Threat");
+   title = VFLI.i18n("Threat Scale");
    category = VFLI.i18n("Status");
    EmitLocals = function(desc, code, vars)
       if not vars["threatscaled"] then
@@ -65,7 +65,7 @@ code:AppendCode([[
 end
 ]]);
    end;
-   GetUI = RDXDAL.TrivialSortUI("threatscaled", "Scaled Threat");
+   GetUI = RDXDAL.TrivialSortUI("threatscaled", VFLI.i18n("Threat Scale"));
    GetBlankDescriptor = function() return {op = "threatscaled"}; end;
    Events = function(desc, ev)
       ev["UNIT_THREAT"] = true;
