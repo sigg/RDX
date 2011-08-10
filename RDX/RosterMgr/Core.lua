@@ -271,9 +271,12 @@ local function LoadWeaponsBuff()
 	if hasMainHandEnchant then
 		mainHandBuffName, mainHandBuffRank, mainHandTex, mainHandSlot = scanHand("MainHandSlot");
 		mainHandBuffDur, mainHandBuffTex = RDXDAL.getBuffWeaponInfo(mainHandBuffName);
-		if mainHandBuffDur > 0 then
+		if mainHandBuffDur and mainHandBuffDur > 0 then
 			mainHandBuffStart = GetTime() - (mainHandBuffDur - mainHandExpiration / 1000);
-		else mainHandBuffStart = 0; end
+		else 
+			mainHandBuffStart = 0;
+			mainHandBuffDur = 0;
+		end
 	else
 		mainHandBuffStart = 0;
 		mainHandBuffDur = 0;
@@ -281,9 +284,12 @@ local function LoadWeaponsBuff()
 	if hasOffHandEnchant then
 		offHandBuffName, offHandBuffRank, offHandTex, offHandSlot = scanHand("SecondaryHandSlot");
 		offHandBuffDur, offHandBuffTex = RDXDAL.getBuffWeaponInfo(offHandBuffName);
-		if offHandBuffDur > 0 then
+		if offHandBuffDur and offHandBuffDur > 0 then
 			offHandBuffStart = GetTime() - (offHandBuffDur - offHandExpiration / 1000);
-		else offHandBuffStart = 0; end
+		else 
+			offHandBuffStart = 0;
+			offHandBuffDur = 0;
+		end
 	else
 		offHandBuffStart = 0;
 		offHandBuffDur = 0;
@@ -291,9 +297,12 @@ local function LoadWeaponsBuff()
 	if hasThrownEnchant then
 		thrownBuffName, thrownBuffRank, thrownTex, thrownSlot = scanHand("RangedSlot");
 		thrownBuffDur, thrownBuffTex = RDXDAL.getBuffWeaponInfo(thrownBuffName);
-		if thrownBuffDur > 0 then
+		if thrownBuffDur and thrownBuffDur > 0 then
 			thrownBuffStart = GetTime() - (thrownBuffDur - thrownExpiration / 1000);
-		else thrownBuffStart = 0; end
+		else 
+			thrownBuffStart = 0;
+			thrownBuffDur = 0;
+		end
 	else
 		thrownBuffStart = 0;
 		thrownBuffDur = 0;

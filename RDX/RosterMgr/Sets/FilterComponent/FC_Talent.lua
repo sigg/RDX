@@ -15,7 +15,7 @@ RDXDAL.RegisterFilterComponent({
 			checks.checkBox[i]:SetText(VFL.strtcolor(RDXMD.GetColorSubClassById(i)) .. RDXMD.GetLocalSubclassById(i) .. "|r"); 
 			if desc[i + 1] then checks.checkBox[i]:SetChecked(true); end
 		end
-		checks.checkBox[31]:SetText(VFL.strcolor(.5,.5,.5) .. VFLI.i18n("Unknown") .. "|r"));
+		checks.checkBox[31]:SetText(VFL.strcolor(.5,.5,.5) .. VFLI.i18n("Unknown") .. "|r");
 		if desc[32] then checks.checkBox[31]:SetChecked(true); end
 
 		ui.GetDescriptor = function(x)
