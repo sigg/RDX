@@ -9,10 +9,10 @@
 
 RDXRS.RegisterStatisticalQuantity({
 	name = "num";
-	title = "Fixed value";
+	title = VFLI.i18n("Fixed value");
 	GetUI = function(parent, desc)
 		local ui = VFLUI.LabeledEdit:new(parent, 60); ui:Show();
-		ui:SetText("Value");
+		ui:SetText(VFLI.i18n("Value"));
 		if desc and desc.x then ui.editBox:SetText(desc.x); end
 		
 		function ui:GetDescriptor() return { qty="num", x = ui.editBox:GetNumber(); } end
@@ -28,7 +28,7 @@ return function() return ]] .. desc.x .. [[; end;
 
 RDXRS.RegisterStatisticalQuantity({
 	name = "shp";
-	title = "Set HP";
+	title = VFLI.i18n("Set HP");
 	GetUI = function(parent, desc)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		local setsel = RDXDAL.SetFinder:new(ui); setsel:Show();
@@ -62,7 +62,7 @@ end;
 
 RDXRS.RegisterStatisticalQuantity({
 	name = "smaxhp";
-	title = "Set MaxHP";
+	title = VFLI.i18n("Set Max HP");
 	GetUI = function(parent, desc)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		local setsel = RDXDAL.SetFinder:new(ui); setsel:Show();
@@ -104,7 +104,7 @@ end;
 
 RDXRS.RegisterStatisticalQuantity({
 	name = "smp";
-	title = "Set Power";
+	title = VFLI.i18n("Set Power");
 	GetUI = function(parent, desc)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		local setsel = RDXDAL.SetFinder:new(ui); setsel:Show();
@@ -138,7 +138,7 @@ end;
 
 RDXRS.RegisterStatisticalQuantity({
 	name = "smaxmp";
-	title = "Set Max Power";
+	title = VFLI.i18n("Set Max Power");
 	GetUI = function(parent, desc)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		local setsel = RDXDAL.SetFinder:new(ui); setsel:Show();
@@ -180,7 +180,7 @@ end;
 
 RDXRS.RegisterStatisticalQuantity({
 	name = "ssz";
-	title = "Size of Set";
+	title = VFLI.i18n("Size of Set");
 	GetUI = function(parent, desc)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		local setsel = RDXDAL.SetFinder:new(ui); setsel:Show();

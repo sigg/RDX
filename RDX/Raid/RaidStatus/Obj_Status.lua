@@ -111,7 +111,7 @@ local function CreateQuantityEditor(parent)
 			return cls.GetUI(ctl, desc), cls.title, cls;
 		end
 	end);
-	self:SetText("Quantity:");
+	self:SetText( VFLI.i18n("Quantity"));
 	return self;
 end
 
@@ -128,7 +128,7 @@ function RDXRS.StatisticEditor(parent, path, md)
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:SetWidth(316); dlg:SetHeight(357);
-	dlg:SetText("Edit Statistic: " .. path);
+	dlg:SetText( VFLI.i18n("Edit Statistic: ") .. path);
 	dlg:Show();
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 
@@ -142,49 +142,49 @@ function RDXRS.StatisticEditor(parent, path, md)
 	ui.isLayoutRoot = true;
 
 	local ed_name = VFLUI.LabeledEdit:new(ui, 100); ed_name:Show();
-	ed_name:SetText("Name");
+	ed_name:SetText( VFLI.i18n("Name"));
 	if desc and desc.name then ed_name.editBox:SetText(desc.name); end
 	ui:InsertFrame(ed_name);
 
-	local er = VFLUI.EmbedRight(ui, "Color:");
+	local er = VFLUI.EmbedRight(ui,  VFLI.i18n("Color"));
 	local swatch_c = VFLUI.ColorSwatch:new(er);
 	swatch_c:Show();
 	if desc and desc.color then swatch_c:SetColor(VFL.explodeColor(desc.color)); end
 	er:EmbedChild(swatch_c); er:Show();
 	ui:InsertFrame(er);
 
-	er = VFLUI.EmbedRight(ui, "Fade color:");
+	er = VFLUI.EmbedRight(ui,  VFLI.i18n("Fade color"));
 	local swatch_fc = VFLUI.ColorSwatch:new(er);
 	swatch_fc:Show();
 	if desc and desc.fadeColor then swatch_fc:SetColor(VFL.explodeColor(desc.fadeColor)); end
 	er:EmbedChild(swatch_fc); er:Show();
 	ui:InsertFrame(er);
 
-	er = VFLUI.EmbedRight(ui, "Icon:");
+	er = VFLUI.EmbedRight(ui,  VFLI.i18n("Icon"));
 	local ip = VFLUI.IconPicker:new(er); ip:Show();
 	if desc and desc.texture then ip:SetIconPath(desc.texture); end
 	er:EmbedChild(ip); er:Show(); ui:InsertFrame(er);
 
 	local chk_pct = VFLUI.Checkbox:new(ui); chk_pct:Show();
-	chk_pct:SetText("Show percentage");
+	chk_pct:SetText( VFLI.i18n("Show percentage"));
 	if desc and desc.pct then chk_pct:SetChecked(true); else chk_pct:SetChecked(); end
 	ui:InsertFrame(chk_pct);
 
 	local rg_sv = VFLUI.RadioGroup:new(ui);
 	rg_sv:SetLayout(3,1);
-	rg_sv.buttons[1]:SetText("No value display");
-	rg_sv.buttons[2]:SetText("Current value");
-	rg_sv.buttons[3]:SetText("Current/Max");
+	rg_sv.buttons[1]:SetText( VFLI.i18n("No value display"));
+	rg_sv.buttons[2]:SetText( VFLI.i18n("Current value"));
+	rg_sv.buttons[3]:SetText( VFLI.i18n("Current/Max"));
 	if desc and desc.sv then rg_sv:SetValue(desc.sv); else rg_sv:SetValue(1); end
 	ui:InsertFrame(rg_sv);
 
 	local val = CreateQuantityEditor(ui); val:Show();
-	val:SetText("Value");
+	val:SetText( VFLI.i18n("Value"));
 	if desc and desc.val then val:SetDescriptor(desc.val); end
 	ui:InsertFrame(val);
 
 	local max = CreateQuantityEditor(ui); max:Show();
-	max:SetText("Max value");
+	max:SetText( VFLI.i18n("Max value"));
 	if desc and desc.max then max:SetDescriptor(desc.max); end
 	ui:InsertFrame(max);
 
@@ -239,7 +239,7 @@ RDXDB.RegisterObjectType({
 	end;
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
-			text = "Edit...",
+			text =  VFLI.i18n("Edit"),
 			OnClick = function() 
 				VFL.poptree:Release();
 				RDXRS.StatisticEditor(dlg, path, md)

@@ -74,7 +74,7 @@ RDX.RegisterFeature({
 	end;
 	UIFromDescriptor = function(desc, parent)
 		local ui = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Statistic$")); end);
-		ui:SetLabel("Statistic");
+		ui:SetLabel(VFLI.i18n("Statistic"));
 		if desc and desc.stat then ui:SetPath(desc.stat); end
 
 		function ui:GetDescriptor()
@@ -163,12 +163,12 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		local ed_width = VFLUI.LabeledEdit:new(ui, 50); ed_width:Show();
-		ed_width:SetText("Dimension of icons");
+		ed_width:SetText(VFLI.i18n("Dimension of icons"));
 		if desc and desc.w then ed_width.editBox:SetText(desc.w); end
 		ui:InsertFrame(ed_width);
 
 		local ed_fsz = VFLUI.LabeledEdit:new(ui, 50); ed_fsz:Show();
-		ed_fsz:SetText("Font size");
+		ed_fsz:SetText(VFLI.i18n("Font size"));
 		if desc and desc.fsz then ed_fsz.editBox:SetText(desc.fsz); end
 		ui:InsertFrame(ed_fsz);
 
@@ -281,12 +281,12 @@ RDX.RegisterFeature({
 		local ed_width, ed_height = RDXUI.GenWidthHeightPortion(ui, desc, state);
 
 		local ed_tdx = VFLUI.LabeledEdit:new(ui, 50); ed_tdx:Show();
-		ed_tdx:SetText("Status text width");
+		ed_tdx:SetText(VFLI.i18n("Status text width"));
 		if desc and desc.tdx then ed_tdx.editBox:SetText(desc.tdx); end
 		ui:InsertFrame(ed_tdx);
 
 		local ed_fsz = VFLUI.LabeledEdit:new(ui, 50); ed_fsz:Show();
-		ed_fsz:SetText("Status text font size");
+		ed_fsz:SetText(VFLI.i18n("Status text font size"));
 		if desc and desc.fsz then ed_fsz.editBox:SetText(desc.fsz); end
 		ui:InsertFrame(ed_fsz);
 
@@ -354,7 +354,7 @@ local function SetupStatusWindow(path, win, desc)
 	state:LoadDescriptor(desc, path);
 	local _errs = VFL.Error:new();
 	if not state:ApplyAll(_errs) then
-		_errs:ToErrorHandler("RDX", "Could not build status window at <" .. tostring(path) .. ">");
+		_errs:ToErrorHandler("RDX", VFLI.i18n("Could not build status window at <") .. tostring(path) .. ">");
 		--return nil;
 		state:ResetSlots();
 		CreateErrWindow(state);
@@ -440,7 +440,7 @@ RDXDB.RegisterObjectType({
 	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
-			text = "Edit...",
+			text = VFLI.i18n("Edit"),
 			OnClick = function()
 				VFL.poptree:Release();
 				RDXDB.OpenObject(path, "Edit", dlg);
@@ -448,7 +448,7 @@ RDXDB.RegisterObjectType({
 		});
 		if not RDXDB.PathHasInstance(path) then
 			table.insert(mnu, {
-				text = "Open",
+				text = VFLI.i18n("Open"),
 				OnClick = function()
 					VFL.poptree:Release();
 					RDXDB.OpenObject(path, "Open");

@@ -180,7 +180,7 @@ end);
 
 --- Open the Omniscience interface.
 Omni._RefreshActiveTable = VFL.Noop;
-function Omni.Open(path, parent)
+function Omni.Open(path)
 	if dlg then return; end
 
 	dlg = VFLUI.Window:new(parent);
