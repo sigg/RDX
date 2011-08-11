@@ -4,7 +4,8 @@
 -- a NominativeSet as its underlying set.
 ------------------------------------------------------
 RDX.RegisterFeature({
-	name = "NominativeSet Editor",
+	name = "NominativeSet Editor";
+	title = VFLI.i18n("Icon NominativeSet"),
 	category = VFLI.i18n("Icon Editor"),
 	IsPossible = function(state)
 		if not state:Slot("UnitWindow") then return nil; end
@@ -17,11 +18,11 @@ RDX.RegisterFeature({
 		state:AddSlot("NominativeSetEditor");
 		local set = state:RunSlot("SetDataSource");
 		if (not set) or (not set.name) then
-			VFL.AddError(errs, VFLI.i18n("Underlying set is missing or invalid."));
+			VFL.AddError(errs, VFLI.i18n("Missing underlying Set"));
 			return nil;
 		end
 		if not set.AddName then
-			VFL.AddError(errs, VFLI.i18n("Underlying set is not nominative."));
+			VFL.AddError(errs, VFLI.i18n("Underlying set is not nominative"));
 			return nil;
 		end
 		return true;
@@ -104,7 +105,7 @@ RDX.RegisterFeature({
 -- Sort Editor feature
 RDX.RegisterFeature({
 	name = "Sort Editor",
-	title = VFLI.i18n("Sort Editor"),
+	title = VFLI.i18n("Icon Sort"),
 	category = VFLI.i18n("Icon Editor"),
 	IsPossible = function(state)
 		if not state:Slot("UnitWindow") then return nil; end
@@ -115,7 +116,7 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		local sort = state:RunSlot("SortDataSource");
 		if (not sort) or (not sort.name) then
-			VFL.AddError(errs, VFLI.i18n("Underlying sort is missing or invalid."));
+			VFL.AddError(errs, VFLI.i18n("Missing underlying Sort"));
 			return nil;
 		end
 		--if not set.SetFilter then
@@ -160,7 +161,7 @@ RDX.RegisterFeature({
 -- Filter Set Editor feature, for creating easily filterable windows.
 RDX.RegisterFeature({
 	name = "FilterSet Editor",
-	title = VFLI.i18n("FilterSet Editor"),
+	title = VFLI.i18n("Icon FilterSet"),
 	category = VFLI.i18n("Icon Editor"),
 	IsPossible = function(state)
 		if not state:Slot("UnitWindow") then return nil; end
@@ -171,11 +172,11 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		local set = state:RunSlot("SetDataSource");
 		if (not set) or (not set.name) then
-			VFL.AddError(errs, VFLI.i18n("Underlying set is missing or invalid."));
+			VFL.AddError(errs, VFLI.i18n("Missing underlying Set"));
 			return nil;
 		end
 		if not set.SetFilter then
-			VFL.AddError(errs, VFLI.i18n("Underlying set is not a FilterSet."));
+			VFL.AddError(errs, VFLI.i18n("Underlying set is not a FilterSet"));
 			return nil;
 		end
 		return true;
@@ -216,7 +217,7 @@ RDX.RegisterFeature({
 -- Table Meter Editor feature.
 RDX.RegisterFeature({
 	name = "TableMeter Editor",
-	title = VFLI.i18n("TableMeter Editor"),
+	title = VFLI.i18n("Icon TableMeter"),
 	category = VFLI.i18n("Icon Editor"),
 	IsPossible = function(state)
 		if not state:Slot("UnitWindow") then return nil; end
@@ -278,7 +279,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Table Meter:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Table Meter"));
 		local dd_tabmeterId = VFLUI.Dropdown:new(er, RDXDB._fnListTabMeter, nil, nil, nil, 30);
 		dd_tabmeterId:SetWidth(250); dd_tabmeterId:Show();
 		if desc and desc.path then 

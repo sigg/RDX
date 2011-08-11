@@ -60,6 +60,7 @@ end
 ------------------------------------
 RDX.RegisterFeature({
 	name = "Frame: None";
+	title = VFLI.i18n("Frame: None");
 	category = VFLI.i18n("Window Frames");
 	IsPossible = function(state)
 		if not state:Slot("Window") then return nil; end
@@ -105,8 +106,9 @@ RDX.RegisterFeature({
 -- The VFL default frame
 ------------------------------------
 RDX.RegisterFeature({
-	name = "Frame: Default",
-	category = "Window Frames";
+	name = "Frame: Default";
+	title = VFLI.i18n("Frame: Default");
+	category = VFLI.i18n("Window Frames");
 	IsPossible = function(state)
 		if not state:Slot("Window") then return nil; end
 		if not state:Slot("Create") then return nil; end
@@ -193,7 +195,8 @@ RDX.RegisterFeature({
 ----------------------------------
 RDX.RegisterFeature({
 	name = "Frame: Lightweight",
-	category = "Window Frames";
+	title = VFLI.i18n("Frame: Lightweight"),
+	category = VFLI.i18n("Window Frames");
 	IsPossible = function(state)
 		if not state:Slot("Window") then return nil; end
 		if not state:Slot("Create") then return nil; end
@@ -333,8 +336,9 @@ RDX.RegisterFeature({
 -- Frame:Black, for compatibility purposes.
 ----------------------------------------------------------------
 RDX.RegisterFeature({
-	name = "Frame: Black",
-	category = "Window Frames";
+	name = "Frame: Black";
+	title = VFLI.i18n("Frame: Black");
+	category = VFLI.i18n("Window Frames");
 	IsPossible = function(state)
 		if not state:Slot("Window") then return nil; end
 		if not state:Slot("Create") then return nil; end
@@ -455,8 +459,9 @@ RDX.RegisterFeature({
 -- Frame: Fat
 ----------------------------------------------------------------
 RDX.RegisterFeature({
-	name = "Frame: Fat",
-	category = "Window Frames";
+	name = "Frame: Fat";
+	title = VFLI.i18n("Frame: Fat");
+	category = VFLI.i18n("Window Frames");
 	IsPossible = function(state)
 		if not state:Slot("Window") then return nil; end
 		if not state:Slot("Create") then return nil; end
@@ -573,8 +578,9 @@ RDX.RegisterFeature({
 -- Box frame
 ----------------------------------
 RDX.RegisterFeature({
-	name = "Frame: Box",
-	category = "Window Frames";
+	name = "Frame: Box";
+	title = VFLI.i18n("Frame: Box");
+	category = VFLI.i18n("Window Frames");
 	IsPossible = function(state)
 		if not state:Slot("Window") then return nil; end
 		if not state:Slot("Create") then return nil; end

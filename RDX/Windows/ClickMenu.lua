@@ -36,13 +36,13 @@ end
 hooksecurefunc("UnitPopup_ShowMenu", _RDX_UnitPopup);
 
 
-RDX.AddPopupButton("RDX: Add to Assists", function(frame, unit, name) Logistics.AddAssist(name); end);
-RDX.AddPopupButton("RDX: Remove from Assists", function(frame, unit, name) Logistics.DropAssist(name); end);
-RDX.AddPopupButton("RDX: Add to Auto-Promote", function(frame, unit, name) Logistics.AddPromote(name); end);
-RDX.AddPopupButton("RDX: Remove from Auto-Promote", function(frame, unit, name) Logistics.DropPromote(name); end);
-RDX.AddPopupButton("RDX: Character Sheet", function(frame, unit, name) Omni.CS_Ask(name); end);
-RDX.AddPopupButton("RDX: Omniscience", function(frame, unit, name) Omni.PredefinedQuery(string.lower(name)); end);
-RDX.AddPopupButton("RDX: See Addons", function(frame, unit, name) RDXDB.RAU_SeeAddons_Ask(name); end);
+RDX.AddPopupButton(VFLI.i18n("RDX: Add to Assists"), function(frame, unit, name) Logistics.AddAssist(name); end);
+RDX.AddPopupButton(VFLI.i18n("RDX: Remove from Assists"), function(frame, unit, name) Logistics.DropAssist(name); end);
+RDX.AddPopupButton(VFLI.i18n("RDX: Add to Auto-Promote"), function(frame, unit, name) Logistics.AddPromote(name); end);
+RDX.AddPopupButton(VFLI.i18n("RDX: Remove from Auto-Promote"), function(frame, unit, name) Logistics.DropPromote(name); end);
+RDX.AddPopupButton(VFLI.i18n("RDX: View Character Sheet"), function(frame, unit, name) Omni.CS_Ask(name); end);
+RDX.AddPopupButton(VFLI.i18n("RDX: Request CombatLogs"), function(frame, unit, name) Omni.PredefinedQuery(string.lower(name)); end);
+RDX.AddPopupButton(VFLI.i18n("RDX: Request Packages"), function(frame, unit, name) RDXDB.RAU_SeeAddons_Ask(name); end);
 
 --[[
 ----------------------------------------

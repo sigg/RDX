@@ -18,7 +18,7 @@ local bor,band = bit.bor, bit.band;
 -------------------------------------------------------------------
 RDX.RegisterFeature({
 	name = "header"; version = 1;
-	deprecated = true;
+	--deprecated = true;
 	title = VFLI.i18n("Header Single"); 
 	category = VFLI.i18n("Data Source and Layout");
 	IsPossible = function(state)
@@ -39,7 +39,7 @@ RDX.RegisterFeature({
 		if desc.header.driver == 1 then
 			local _,_,_,ty = RDXDB.GetObjectData(desc.header.nset);
 			if(not ty) or (ty ~= "NominativeSet") then
-				VFL.AddError(errs, VFLI.i18n("Invalid set pointer.")); return nil;
+				VFL.AddError(errs, VFLI.i18n("Invalid Set")); return nil;
 			end
 			local inst = RDXDB.GetObjectInstance(desc.header.nset);
 			if not inst then

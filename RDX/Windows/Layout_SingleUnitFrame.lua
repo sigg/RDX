@@ -156,7 +156,8 @@ local function unitSel() return units; end
 
 RDX.RegisterFeature({
 	name = "layout_single_unitframe"; version = 1;
-	title = VFLI.i18n("Single Unit Frame"); category = VFLI.i18n("Data Source and Layout");
+	title = VFLI.i18n("Single Unit Frame"); 
+	category = VFLI.i18n("Data Source and Layout");
 	IsPossible = function(state)
 		-- Check for unitframe
 		if not state:HasSlots("Frame", "SetupSubFrame", "SubFrameDimensions") then return nil; end
@@ -379,7 +380,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
-		local er = VFLUI.EmbedRight(ui, "Unit:");
+		local er = VFLUI.EmbedRight(ui, "Unit");
 		local dd_unit = VFLUI.Dropdown:new(er, unitSel);
 		dd_unit:SetWidth(100); dd_unit:Show();
 		if desc and desc.unit then dd_unit:SetSelection(desc.unit); end
@@ -397,7 +398,7 @@ RDX.RegisterFeature({
 		ui:InsertFrame(chk_unitwatch);
 		
 		local chk_switchvehicle = VFLUI.Checkbox:new(ui); chk_switchvehicle:Show();
-		chk_switchvehicle:SetText(VFLI.i18n("Swap vehicle"));
+		chk_switchvehicle:SetText(VFLI.i18n("Switch vehicle"));
 		if desc and desc.switchvehicle then chk_switchvehicle:SetChecked(true); else chk_switchvehicle:SetChecked(nil); end
 		ui:InsertFrame(chk_switchvehicle);
 

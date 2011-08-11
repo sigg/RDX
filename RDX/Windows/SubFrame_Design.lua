@@ -140,7 +140,7 @@ return _create;
 	--- Execute the code
 	local f, err = loadstring(code);
 	if not f then
-		VFL.TripError("RDX", VFLI.i18n("Could not compile design."), VFLI.i18n("Error: ") .. err .. VFLI.i18n("\n\nCode:\n------------\n") .. code);
+		VFL.TripError("RDX", VFLI.i18n("Could not compile Design."), VFLI.i18n("Error") .. ":" .. err .. VFLI.i18n("\n\nCode:\n------------\n") .. code);
 		return nil;
 	end
 	return f();
@@ -180,7 +180,7 @@ RDX.RegisterFeature({
 	end,
 	ExposeFeature = function(desc, state, errs)
 		if (not desc) or (not desc.design) then
-			VFL.AddError(errs, VFLI.i18n("Bad or missing unit frame design."));
+			VFL.AddError(errs, VFLI.i18n("Missing Design"));
 			return nil;
 		else
 			if not RDX.LoadDesign(desc.design, RDXDB.ObjectState.Verify, state) then return nil; end
@@ -249,7 +249,7 @@ RDX.RegisterFeature({
 		local ui = VFLUI.CompoundFrame:new(parent);
 		
 		local ofDesign = RDXDB.ObjectFinder:new(ui, function(p,f,md) return (md and type(md) == "table" and md.ty=="Design"); end);
-		ofDesign:SetLabel(VFLI.i18n("Design :"));
+		ofDesign:SetLabel(VFLI.i18n("Design"));
 		if desc and desc.design then ofDesign:SetPath(desc.design); end
 		ui:InsertFrame(ofDesign);
 

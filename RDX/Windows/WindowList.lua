@@ -51,7 +51,7 @@ RDX.RegisterFeature({
 ---------------------------------------------------------------------
 RDX.RegisterFeature({
 	name = "WindowListHide";
-	title = VFLI.i18n("Hide From Windowlist");
+	title = VFLI.i18n("Hide From Window list");
 	IsPossible = function(state)
 		if not state:Slot("Window") then return nil; end
 		return true;

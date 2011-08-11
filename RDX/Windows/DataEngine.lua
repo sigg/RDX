@@ -16,7 +16,7 @@
 RDX.RegisterFeature({
 	name = "Data Source: Set",
 	title = "Data Source: Set",
-	category = "Data Source";
+	category = VFLI.i18n("Data Source");
 	IsPossible = function(state)
 		if not state:Slot("UnitWindow") then return nil; end
 		if not state:Slot("DesignFrame") then return nil; end
@@ -32,7 +32,7 @@ RDX.RegisterFeature({
 			local path = desc.set;
 			local set = RDXDAL.FindSet(path);
 			if not set then
-				VFL.AddError(errs, VFLI.i18n("Set pointer is invalid."));
+				VFL.AddError(errs, VFLI.i18n("Invalid Set"));
 				return nil;
 			end
 			-- Forward the set export to the ExposeFeature portion, so that features down
@@ -43,7 +43,7 @@ RDX.RegisterFeature({
 			state:AddSlot("DataSourceSize");
 			return true;
 		else
-			VFL.AddError(errs, VFLI.i18n("Missing set pointer."));
+			VFL.AddError(errs, VFLI.i18n("Missing Set"));
 			return nil;
 		end
 	end;
@@ -62,7 +62,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Roster Type:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Roster Type"));
 		local dd_rostertype = VFLUI.Dropdown:new(er, RDXDAL.RosterTypesSelectionFunc);
 		dd_rostertype:SetWidth(150); dd_rostertype:Show();
 		if desc and desc.rostertype then 
@@ -102,7 +102,7 @@ RDX.RegisterFeature({
 RDX.RegisterFeature({
 	name = "Data Source: Secure Set",
 	title = "Data Source: Secure Set",
-	category = "Data Source";
+	category = VFLI.i18n("Data Source");
 	IsPossible = function(state)
 		if not state:Slot("UnitWindow") then return nil; end
 		if not state:Slot("DesignFrame") then return nil; end
@@ -119,7 +119,7 @@ RDX.RegisterFeature({
 			local path = desc.set;
 			local set = RDXDAL.FindSet(path);
 			if not set then
-				VFL.AddError(errs, VFLI.i18n("Set pointer is invalid."));
+				VFL.AddError(errs, VFLI.i18n("Invalid Set"));
 				return nil;
 			end
 			-- Forward the set export to the ExposeFeature portion, so that features down
@@ -130,7 +130,7 @@ RDX.RegisterFeature({
 			state:AddSlot("DataSourceSize");
 			return true;
 		else
-			VFL.AddError(errs, VFLI.i18n("Missing set pointer."));
+			VFL.AddError(errs, VFLI.i18n("Missing Set"));
 			return nil;
 		end
 	end;
@@ -151,7 +151,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Roster Type:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Roster Type"));
 		local dd_rostertype = VFLUI.Dropdown:new(er, RDXDAL.SecuredRosterTypesSelectionFunc);
 		dd_rostertype:SetWidth(150); dd_rostertype:Show();
 		if desc and desc.rostertype then 
@@ -192,7 +192,7 @@ local function _exposeSort(desc, state, errs)
 	if desc and desc.sortPath then
 		local _,_,_,ty = RDXDB.GetObjectData(desc.sortPath);
 		if (not ty) or (not string.find(ty, "Sort$")) then
-			VFL.AddError(errs, VFLI.i18n("Sort pointer is invalid."));
+			VFL.AddError(errs, VFLI.i18n("Invalid Sort"));
 			return nil;
 		end
 		local sort = RDXDB.GetObjectInstance(desc.sortPath);
@@ -214,7 +214,7 @@ local function _exposeSort(desc, state, errs)
 		state:Attach(state:Slot("SortDataSource"), nil, function() return sort; end);
 		return true;
 	else
-		VFL.AddError(errs, VFLI.i18n("Missing sort pointer."));
+		VFL.AddError(errs, VFLI.i18n("Missing Sort"));
 		return nil;
 	end
 end
@@ -245,7 +245,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Roster Type:"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Roster Type"));
 		local dd_rostertype = VFLUI.Dropdown:new(er, RDXDAL.RosterTypesSelectionFunc);
 		dd_rostertype:SetWidth(150); dd_rostertype:Show();
 		if desc and desc.rostertype then 
@@ -257,7 +257,7 @@ RDX.RegisterFeature({
 		ui:InsertFrame(er);
 		
 		local of = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Sort$")); end);
-		of:SetLabel(VFLI.i18n("Sort object"));
+		of:SetLabel(VFLI.i18n("Sort"));
 		if desc and desc.sortPath then of:SetPath(desc.sortPath); end
 		of:Show();
 		ui:InsertFrame(of);
@@ -344,8 +344,8 @@ RDX.RegisterFeature({
 -------------------------------------------------
 RDX.RegisterFeature({
 	name = "mp_args";
-	title = VFLI.i18n("Latch Repaint");
-	category = VFLI.i18n("Repaint Events");
+	title = VFLI.i18n("Repaint: Latch");
+	category = VFLI.i18n("Repaint and Events");
 	version = 1;
 	IsPossible = function(state)
 		-- Make sure this is a window.
@@ -381,7 +381,7 @@ RDX.RegisterFeature({
 		ed_period:SetHeight(24); ed_period:SetWidth(50); ed_period:Show();
 		ed_period:SetPoint("RIGHT", chk_periodic, "RIGHT");
 		chk_periodic.Destroy = VFL.hook(function() ed_period:Destroy(); end, chk_periodic.Destroy);
-		chk_periodic:SetText(VFLI.i18n("Period (in seconds):"));
+		chk_periodic:SetText(VFLI.i18n("Period (in seconds)"));
 		if desc and desc.period then 
 			chk_periodic:SetChecked(true); ed_period:SetText(desc.period);
 		else 
@@ -453,7 +453,8 @@ RDX.RegisterFeature({
 --- The No Event Hinting feature - disables event hinting on the underlying window.
 RDX.RegisterFeature({
 	name = "No Hinting";
-	category = VFLI.i18n("Repaint Events");
+	title = VFLI.i18n("Events: No Hinting");
+	category = VFLI.i18n("Repaint and Events");
 	IsPossible = function(state)
 		if not state:Slot("Window") then return nil; end
 		if not state:Slot("DesignFrame") then return nil; end
@@ -505,9 +506,9 @@ end
 
 -- An event trigger that periodically triggers a RepaintAll.
 RDX.RegisterFeature({
-	name = "Event: Periodic Repaint",
-	title = "Periodic Repaint",
-	category = VFLI.i18n("Repaint Events");
+	name = "Event: Periodic Repaint";
+	title = VFLI.i18n("Repaint: Periodic");
+	category = VFLI.i18n("Repaint and Events");
 	IsPossible = function(state)
 		--if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Layout") then return nil; end
@@ -522,7 +523,7 @@ RDX.RegisterFeature({
 		if desc and desc.interval and desc.slot then
 			return true;
 		else
-			VFL.AddError(errs, VFLI.i18n("Missing parameters."));
+			VFL.AddError(errs, VFLI.i18n("Missing parameters"));
 			return nil;
 		end
 	end;
@@ -559,7 +560,7 @@ RDX.RegisterFeature({
 		ui:InsertFrame(rg_slot);
 
 		local iv = VFLUI.LabeledEdit:new(ui, 50);
-		iv:SetText(VFLI.i18n("Update interval (sec)")); iv:Show();
+		iv:SetText(VFLI.i18n("Period (in seconds)")); iv:Show();
 		if desc and desc.interval then 
 			iv.editBox:SetText(desc.interval);
 		end
@@ -583,8 +584,9 @@ RDX.RegisterFeature({
 -----------------------------------------------------------------------
 --- Event: Show = fires whenever the window is freshly shown
 RDX.RegisterFeature({
-	name = "Event: Show",
-	category = VFLI.i18n("Repaint Events");
+	name = "Event: Show";
+	title = VFLI.i18n("Event: Show");
+	category = VFLI.i18n("Repaint and Events");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Layout") then return nil; end
@@ -608,7 +610,7 @@ RDX.RegisterFeature({
 
 --- Event: Set Delta = fires whenever the underlying set changes its content
 RDX.RegisterFeature({
-	name = "Event: Set Delta"; category = VFLI.i18n("Repaint Events");
+	name = "Event: Set Delta"; category = VFLI.i18n("Repaint and Events");
 	invisible = true;
 	IsPossible = VFL.True;
 	ExposeFeature = VFL.True;
@@ -621,7 +623,7 @@ RDX.RegisterFeature({
 --- Event: External Set Delta = fires whenever some external set changes its content.
 RDX.RegisterFeature({
 	name = "Event: External Set Delta",
-	category = VFLI.i18n("Repaint Events");
+	category = VFLI.i18n("Repaint and Events");
 	multiple = true,
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -679,7 +681,7 @@ RDX.RegisterFeature({
 -- Event for faction updates; fires when the player gets updated rep standing.
 RDX.RegisterFeature({
 	name = "Event: UPDATE_FACTION",
-	category = VFLI.i18n("Repaint Events");
+	category = VFLI.i18n("Repaint and Events");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Layout") then return nil; end
@@ -710,7 +712,7 @@ RDX.RegisterFeature({
 -- Event for XP updates; fires when the player gains XP.
 RDX.RegisterFeature({
 	name = "Event: PLAYER_XP_UPDATE",
-	category = VFLI.i18n("Repaint Events");
+	category = VFLI.i18n("Repaint and Events");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Layout") then return nil; end
@@ -741,7 +743,7 @@ RDX.RegisterFeature({
 --- Event: UNIT_HEALTH = fires whenever UNIT_HEALTH occurs for an event in the set
 RDX.RegisterFeature({
 	name = "Event: UNIT_HEALTH",
-	category = VFLI.i18n("Repaint Events");
+	category = VFLI.i18n("Repaint and Events");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Layout") then return nil; end
@@ -783,7 +785,7 @@ RDX.RegisterFeature({
 RDX.RegisterFeature({
 	name = "Event: UNIT_POWER",
 	title = "Event: UNIT_POWER",
-	category = VFLI.i18n("Repaint Events");
+	category = VFLI.i18n("Repaint and Events");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Layout") then return nil; end
@@ -834,7 +836,7 @@ RDX.RegisterFeature({
 --- Event: RDX Aura Delta = fires whenever the RDX Aura information for a unit in this set changes.
 RDX.RegisterFeature({
 	name = "Event: RDX Aura Delta",
-	category = VFLI.i18n("Repaint Events");
+	category = VFLI.i18n("Repaint and Events");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Layout") then return nil; end
@@ -875,7 +877,7 @@ RDX.RegisterFeature({
 --- Event: PLAYER_TARGET_CHANGED
 RDX.RegisterFeature({
 	name = "Event: PLAYER_TARGET_CHANGED",
-	category = VFLI.i18n("Repaint Events");
+	category = VFLI.i18n("Repaint and Events");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Layout") then return nil; end
@@ -906,7 +908,7 @@ RDX.RegisterFeature({
 --- Event: PLAYER_FOCUS_CHANGED
 RDX.RegisterFeature({
 	name = "Event: PLAYER_FOCUS_CHANGED",
-	category = VFLI.i18n("Repaint Events");
+	category = VFLI.i18n("Repaint and Events");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Layout") then return nil; end
@@ -936,7 +938,7 @@ RDX.RegisterFeature({
 
 RDX.RegisterFeature({
 	name = "Event: UNIT_TARGET_CHANGED",
-	category = VFLI.i18n("Repaint Events");
+	category = VFLI.i18n("Repaint and Events");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Layout") then return nil; end

@@ -29,12 +29,12 @@ RDX.RegisterFeature({
 		if desc and desc.set then
 			local set = RDXDAL.FindSet(desc.set);
 			if not set then
-				VFL.AddError(errs, VFLI.i18n("Invalid set pointer."));
+				VFL.AddError(errs, VFLI.i18n("Invalid Set"));
 				return nil;
 			end
 			return true;
 		else
-			VFL.AddError(errs, VFLI.i18n("Bad or missing set pointer"));
+			VFL.AddError(errs, VFLI.i18n("Missing Set"));
 			return nil;
 		end
 	end;

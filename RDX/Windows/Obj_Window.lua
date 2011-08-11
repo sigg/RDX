@@ -284,7 +284,7 @@ RDXDB.RegisterObjectType({
 	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
-			text = VFLI.i18n("Edit..."),
+			text = VFLI.i18n("Edit"),
 			OnClick = function()
 				VFL.poptree:Release();
 				RDXDB.OpenObject(path, "Edit", dlg);

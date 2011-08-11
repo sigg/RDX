@@ -70,7 +70,8 @@ end
 ------------------
 RDX.RegisterFeature({
 	name = "mousebindings"; version = 1;
-	title = VFLI.i18n("Mouse Bindings"); category = VFLI.i18n("Mouse Bindings");
+	title = VFLI.i18n("Mouse Bindings"); 
+	category = VFLI.i18n("Mouse Bindings");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -103,7 +104,7 @@ RDX.RegisterFeature({
 		if hsid == nil then 
 			txttmp = VFLI.i18n("Edit Bindings");
 		else
-			txttmp = VFLI.i18n("Edit Bindings: ") .. hsid;
+			txttmp = VFLI.i18n("Edit Bindings") .. ": " ..hsid;
 		end
 
 		-- Add a menu to the window to edit the mouse bindings

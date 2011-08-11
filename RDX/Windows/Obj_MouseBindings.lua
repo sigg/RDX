@@ -117,7 +117,7 @@ function RDXUI.MouseBindingEditor:new(parent)
 	label:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -5);
 	label:SetFontObject(Fonts.Default10); label:SetJustifyH("LEFT"); label:Show();
 
-	local lbl2 = VFLUI.MakeLabel(nil, self, "Action type");
+	local lbl2 = VFLUI.MakeLabel(nil, self, VFLI.i18n("Action type"));
 	lbl2:SetPoint("TOPLEFT", label, "BOTTOMLEFT"); lbl2:SetHeight(25);
 
 	---------- Child object handling
@@ -326,7 +326,7 @@ local function EditMouseBindingsDialog(parent, path, md, callback)
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:Accomodate(390, 350);
-	dlg:SetText(VFLI.i18n("Edit MouseBindings: ") .. path);
+	dlg:SetText(VFLI.i18n("Edit MouseBindings") .. " " .. path);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("mbDialog") then RDXPM.RestoreLayout(dlg, "mbDialog"); end
 	dlg:Show();
@@ -377,7 +377,7 @@ local function EditMouseBindingsDialog(parent, path, md, callback)
 	end
 
 	local btnAdd = VFLUI.OKButton:new(dlg);
-	btnAdd:SetText(VFLI.i18n("New Binding")); btnAdd:SetHeight(25); btnAdd:SetWidth(75);
+	btnAdd:SetText(VFLI.i18n("New Binding")); btnAdd:SetHeight(25); btnAdd:SetWidth(150);
 	btnAdd:SetPoint("BOTTOMRIGHT", dlg:GetClientArea(), "BOTTOMRIGHT");
 	btnAdd:Show();
 	btnAdd:SetScript("OnClick", function()
@@ -431,7 +431,7 @@ RDXDB.RegisterObjectType({
 	end;
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
-			text = VFLI.i18n("Edit..."),
+			text = VFLI.i18n("Edit"),
 			OnClick = function() 
 				VFL.poptree:Release(); 
 				EditMouseBindingsDialog(dlg, path, md); 
@@ -476,7 +476,7 @@ RDX.RegisterFeature({
 		if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor.")); return nil; end
 		local md,_,_,ty = RDXDB.GetObjectData(desc.script);
 		if (not md) or (ty ~= "Script") or (not md.data) or (not md.data.script) then
-			VFL.AddError(errs, VFLI.i18n("Invalid script pointer.")); return nil;
+			VFL.AddError(errs, VFLI.i18n("Invalid Script")); return nil;
 		end
 		return true;
 	end;
@@ -502,7 +502,7 @@ end]];
 		local ui = VFLUI.CompoundFrame:new(parent);
 
 		local scriptsel = RDXDB.ObjectFinder:new(ui, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Script")); end);
-		scriptsel:SetLabel(VFLI.i18n("Script object")); scriptsel:Show();
+		scriptsel:SetLabel(VFLI.i18n("Script")); scriptsel:Show();
 		if desc and desc.script then scriptsel:SetPath(desc.script); end
 		ui:InsertFrame(scriptsel);
 

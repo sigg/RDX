@@ -502,9 +502,9 @@ function RDXUI.HeaderEditor:new(parent)
 	local driver = VFLUI.DisjointRadioGroup:new();
 
 	local driver_NSet = driver:CreateRadioButton(ui);
-	driver_NSet:SetText(VFLI.i18n("Use nominative set:"));
+	driver_NSet:SetText(VFLI.i18n("Use nominative Set"));
 	local driver_GC = driver:CreateRadioButton(ui);
-	driver_GC:SetText(VFLI.i18n("Use group/class/role filter:"));
+	driver_GC:SetText(VFLI.i18n("Use group/class/role filter"));
 	driver:SetValue(2);
 
 	-- Group/class section
@@ -521,7 +521,7 @@ function RDXUI.HeaderEditor:new(parent)
 	ui:InsertFrame(nset);
 
 	------------------ Sorting section
-	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Sorting")));
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Sort parameters")));
 
 	local sortType = VFLUI.RadioGroup:new(ui);
 	sortType:SetLayout(2,2);
@@ -535,7 +535,7 @@ function RDXUI.HeaderEditor:new(parent)
 	ui:InsertFrame(sortRev);
 
 	------------------ Layout section
-	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout")));
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
 
 	local groupType = VFLUI.RadioGroup:new(ui);
 	groupType:SetLayout(3,3);
@@ -545,7 +545,7 @@ function RDXUI.HeaderEditor:new(parent)
 	ui:InsertFrame(groupType);
 	groupType:SetValue(1);
 
-	local er = VFLUI.EmbedRight(ui, VFLI.i18n("Unitframe assembly anchor:"));
+	local er = VFLUI.EmbedRight(ui, VFLI.i18n("Design assembly anchor:"));
 	local dd_up = VFLUI.Dropdown:new(er, RDXUI.AnchorPointSelectionFunc);
 	dd_up:SetWidth(100); dd_up:Show(); dd_up:SetSelection("TOP");
 	er:EmbedChild(dd_up); er:Show();

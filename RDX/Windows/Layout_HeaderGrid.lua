@@ -466,7 +466,7 @@ RDX.RegisterFeature({
 		ui:InsertFrame(chk_limit);
 
 		local chk_title = VFLUI.Checkbox:new(ui); chk_title:Show();
-		chk_title:SetText(VFLI.i18n("Do not show UnitFrame count in title"));
+		chk_title:SetText(VFLI.i18n("Do not show Unit count in title"));
 		if desc then chk_title:SetChecked(desc.countTitle); end
 		ui:InsertFrame(chk_title);
 		
