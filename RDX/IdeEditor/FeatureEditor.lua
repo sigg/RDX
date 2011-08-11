@@ -569,7 +569,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent)
 			end
 			table.insert(features, {idx=idx, text=text});
 		end
-		table.insert(features, {idx=#feats+1, hlt=addfeature_color, text = "(drag new feature here)"});
+		table.insert(features, {idx=#feats+1, hlt=addfeature_color, text = VFLI.i18n("(drag new feature here)")});
 		featList:Update();
 	end
 

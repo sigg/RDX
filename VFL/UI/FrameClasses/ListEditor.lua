@@ -82,8 +82,8 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 	end, VFL.ArrayLiterator(list));
 
 	local btnRemove = VFLUI.Button:new(le);
-	btnRemove:SetText("Remove");
-	btnRemove:SetHeight(25); btnRemove:SetWidth(60);
+	btnRemove:SetText(VFLI.i18n("Remove"));
+	btnRemove:SetHeight(25); btnRemove:SetWidth(80);
 	btnRemove:SetPoint("TOPRIGHT", decor, "BOTTOMRIGHT");
 	btnRemove:Show();
 	btnRemove:SetScript("OnClick", function()
@@ -93,8 +93,8 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 		end
 	end);
 	local btnDn = VFLUI.Button:new(le);
-	btnDn:SetText("Dn");
-	btnDn:SetHeight(25); btnDn:SetWidth(50);
+	btnDn:SetText(VFLI.i18n("Down"));
+	btnDn:SetHeight(25); btnDn:SetWidth(80);
 	btnDn:SetPoint("RIGHT", btnRemove, "LEFT");
 	btnDn:Show();
 	btnDn:SetScript("OnClick", function()
@@ -106,8 +106,8 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 		end
 	end);
 	local btnUp = VFLUI.Button:new(le);
-	btnUp:SetText("Up");
-	btnUp:SetHeight(25); btnUp:SetWidth(50);
+	btnUp:SetText(VFLI.i18n("Up"));
+	btnUp:SetHeight(25); btnUp:SetWidth(80);
 	btnUp:SetPoint("RIGHT", btnDn, "LEFT");
 	btnUp:Show();
 	btnUp:SetScript("OnClick", function()

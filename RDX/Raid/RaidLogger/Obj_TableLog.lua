@@ -13,7 +13,7 @@ local function EditTableLogDialog(parent, path, md, callback)
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:SetWidth(370); dlg:SetHeight(480);
-	dlg:SetText("Filter object: " .. path);
+	dlg:SetText(VFLI.i18n("Filter object: ") .. path);
 	dlg:Show();
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
@@ -24,14 +24,14 @@ local function EditTableLogDialog(parent, path, md, callback)
 	sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	
 	----------------- POPULATE
-	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Main")));
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Core parameters")));
 	
 	local ed_size = VFLUI.LabeledEdit:new(ui, 200); ed_size:Show();
 	ed_size:SetText(VFLI.i18n("Table size"));
 	if md.data and md.data.size then ed_size.editBox:SetText(md.data.size); else ed_size.editBox:SetText("0"); end
 	ui:InsertFrame(ed_size);
 	
-	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filter")));
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filtering parameters")));
 	
 	local chk_fe = VFLUI.Checkbox:new(ui); chk_fe:Show();
 	chk_fe:SetText(VFLI.i18n("Use Filter"));
@@ -150,14 +150,14 @@ RDXDB.RegisterObjectType({
 	--end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
-			text = VFLI.i18n("Edit..."),
+			text = VFLI.i18n("Edit"),
 			OnClick = function() 
 				VFL.poptree:Release(); 
 				RDXDB.OpenObject(path, "Edit");
 			end
 		});
 		table.insert(mnu, {
-			text = VFLI.i18n("Analyse..."),
+			text = VFLI.i18n("Analyse"),
 			OnClick = function() 
 				VFL.poptree:Release(); 
 				Omni.ToggleOmniBrowser(path, dlg); 

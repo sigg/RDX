@@ -1042,9 +1042,9 @@ end);
 ----------------------------------------
 -- command
 ----------------------------------------
-RDXPM.RegisterSlashCommand("desktop", function(rest)
-	local path = VFL.word(rest);
-	if path then
-		RDXDK.SecuredChangeDesktop(path);
-	end
-end);
+--RDXPM.RegisterSlashCommand("desktop", function(rest)
+--	local path = VFL.word(rest);
+--	if path then
+--		RDXDK.SecuredChangeDesktop(path);
+--	end
+--end);

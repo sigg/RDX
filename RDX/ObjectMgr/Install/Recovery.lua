@@ -167,6 +167,7 @@ function RDXDB.MasterReset()
 	VFL.poptree:Release();
 	VFLUI.MessageBox("Master Reset", "Do you want to master reset? This will clear the RDX database, and restore all RDX settings to their defaults.", nil, "No", nil, "Yes", DoMasterReset);
 end
+RDXPM.RegisterSlashCommand("masterReset", RDXDB.MasterReset);
 
 local function DoReinstall()
 	RDXU.installers = nil; RDXG.oobe = nil; RDXU.oobe = nil;

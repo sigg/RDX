@@ -908,7 +908,6 @@ RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
 	ent.notCheckable = true;
 	ent.func = RDXDB.MasterReset;
 end);
-
 -----------------------------------------------------------------------------------
 
 RDXPM.MainMenu:RegisterMenuFunction(function(ent)

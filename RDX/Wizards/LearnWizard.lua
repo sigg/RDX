@@ -80,11 +80,7 @@ page_default[GetNextPageId()] = {
 Each theme come with 5 predefined desktop.
 SOLO, PARTY, RAID, ARENA, PVP.
 
-Your desktop will automatically switch depend of your current situation.
-
 Click on the Classic Menu, Theme States and select the state you want.
-
-Select Auto, if you want your theme to automatic switch.
 ]];
 };
 
@@ -179,64 +175,68 @@ The RDX Team.
 ]];
 };
 
-if GetLocale() == "frFR" and VFL.pagefrFR then
-	page_default = VFL.pagefrFR;
-elseif GetLocale() == "deDE" and VFL.pagedeDE and VFL.contentdeDE then
-	page_default = VFL.pagedeDE;
-end
+local page_defaultI = page_default;
 
-local maxpage = #page_default;
+RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+	page_defaultI = VFL.GetLanguagePackId("learnWizard");
+	if not page_defaultI then page_defaultI = page_default; end
+	
+	local maxpage = #page_defaultI;
+	local ww = RDXUI.Wizard:new();
 
-local ww = RDXUI.Wizard:new();
-
-for i,v in ipairs(page_default) do
-	ww:RegisterPage(i, {
-		OpenPage = function(parent, wizard, desc)
-			local page = RDXUI.GenerateStdWizardPage(parent, v.title);
-			
-			local lbl = VFLUI.MakeLabel(nil, page, v.txt, "LEFT", "TOP");
-			lbl:SetWidth(250); lbl:SetHeight(150);
-			lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-			
-			local lb2 = VFLUI.MakeLabel(nil, page, i .."/"..maxpage, "CENTER", "CENTER");
-			lb2:SetWidth(250); lb2:SetHeight(10);
-			lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
-			
-			function page:GetDescriptor()
-				return {};
-			end
-			
-			RDXG.learnNum = i;
-			
-			wizard:OnNext(function(wiz) wiz:SetPage(i + 1); end);
-			wizard:Final();
-			
-			return page;
-		end;
-		Verify = function(desc, wizard, errs)
-			return true;
-		end;
-	});
-end
-
-function ww:OnOK()
-	--VFL.print("OnOK");
-end
-
-ww.title = "Learn RDX Wizard";
-RDX.learnWizard = ww;
-
-function RDX.NewLearnWizard(num)
-	RDX.learnWizard:SetDescriptor({});
-	RDX.learnWizard:Open(VFLDIALOG, num);
-end
-
-function RDX.NewLearnWizardName(name)
-	local num = 1;
-	for i,v in ipairs(page_default) do
-		if v.name == name then num = i; end
+	for i,v in ipairs(page_defaultI) do
+		ww:RegisterPage(i, {
+			OpenPage = function(parent, wizard, desc)
+				local page = RDXUI.GenerateStdWizardPage(parent, v.title);
+				
+				local lbl = VFLUI.MakeLabel(nil, page, v.txt, "LEFT", "TOP");
+				lbl:SetWidth(250); lbl:SetHeight(150);
+				lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+				
+				local lb2 = VFLUI.MakeLabel(nil, page, i .."/"..maxpage, "CENTER", "CENTER");
+				lb2:SetWidth(250); lb2:SetHeight(10);
+				lb2:SetPoint("BOTTOM", page, "BOTTOM", 0, 5);
+				
+				function page:GetDescriptor()
+					return {};
+				end
+				
+				RDXG.learnNum = i;
+				
+				wizard:OnNext(function(wiz) wiz:SetPage(i + 1); end);
+				wizard:Final();
+				
+				return page;
+			end;
+			Verify = function(desc, wizard, errs)
+				return true;
+			end;
+		});
 	end
-	RDX.learnWizard:SetDescriptor({});
-	RDX.learnWizard:Open(VFLDIALOG, num);
-end
+	
+	function ww:OnOK()
+		--VFL.print("OnOK");
+	end
+	
+	ww.title = VFLI.i18n("Learn RDX Wizard");
+	RDX.learnWizard = ww;
+	
+	function RDX.NewLearnWizard(num)
+		RDX.learnWizard:SetDescriptor({});
+		RDX.learnWizard:Open(VFLDIALOG, num);
+	end
+	
+	function RDX.NewLearnWizardName(name)
+		local num = 1;
+		for i,v in ipairs(page_defaultI) do
+			if v.name == name then num = i; end
+		end
+		RDX.learnWizard:SetDescriptor({});
+		RDX.learnWizard:Open(VFLDIALOG, num);
+	end
+
+end);
+
+
+
 

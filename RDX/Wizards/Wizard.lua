@@ -43,13 +43,13 @@ function RDXUI.Wizard:Open(parent, num)
 		local btn1 = VFLUI.Button:new(win);
 		btn1:SetHeight(25); btn1:SetWidth(60);
 		btn1:SetPoint("BOTTOMRIGHT", win:GetClientArea(), "BOTTOMRIGHT");
-		btn1:SetText(VFLI.i18n("Next >")); btn1:Show(); btn1:Disable();
+		btn1:SetText(VFLI.i18n("Next") .. " >"); btn1:Show(); btn1:Disable();
 		self.nextBtn = btn1;
 	
 		local btn2 = VFLUI.Button:new(win);
 		btn2:SetHeight(25); btn2:SetWidth(60);
 		btn2:SetPoint("RIGHT", self.nextBtn, "LEFT");
-		btn2:SetText(VFLI.i18n("< Prev")); btn2:Show(); btn2:Disable();
+		btn2:SetText("< " .. VFLI.i18n("Prev")); btn2:Show(); btn2:Disable();
 		btn2:SetScript("OnClick", function()
 			if self.history then
 				local cp = table.remove(self.history);

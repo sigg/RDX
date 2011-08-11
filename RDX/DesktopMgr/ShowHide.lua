@@ -43,6 +43,6 @@ function RDXDK.ToggleRDX()
 end
 
 -- /rdx show and /rdx hide
-RDXPM.RegisterSlashCommand("show", RDXDK.ShowRDX);
-RDXPM.RegisterSlashCommand("hide", RDXDK.HideRDX);
+--RDXPM.RegisterSlashCommand("show", RDXDK.ShowRDX);
+--RDXPM.RegisterSlashCommand("hide", RDXDK.HideRDX);
 

@@ -50,17 +50,17 @@ function RDX.print(str)
 end
 
 function RDX.printI(str)
-	--VFL.print(" |cFFAAAAAAOpenRDX|r |cFF00FF00INFO:|r " .. str);
+	VFL.print(" |cFFAAAAAARDX|r |cFF00FF00INFO:|r " .. str);
 	RDXEvents:Dispatch("INFO", " |cFF00FF00INFO:|r " .. str);
 end
 
 function RDX.printW(str)
-	--VFL.print(" |cFFAAAAAAOpenRDX|r |cFFFFFF00WARNING:|r" .. str);
+	VFL.print(" |cFFAAAAAARDX|r |cFFFFFF00WARNING:|r" .. str);
 	RDXEvents:Dispatch("WARNING", " |cFFFFFF00WARNING:|r" .. str);
 end
 
 function RDX.printE(str)
-	--VFL.print(" |cFFAAAAAAOpenRDX|r |cFFFF0000ERROR:|r" .. str);
+	VFL.print(" |cFFAAAAAARDX|r |cFFFF0000ERROR:|r" .. str);
 	RDXEvents:Dispatch("ERROR", " |cFFFF0000ERROR:|r" .. str);
 end
 

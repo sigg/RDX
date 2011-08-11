@@ -261,7 +261,7 @@ local function EditTableMeterDialog(parent, path, md, callback)
 	sf:SetWidth(346); sf:SetHeight(430);
 	sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	
-	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filters parameters")));
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filtering parameters")));
 	
 	local fe = RDXLF.SelectEditor:new(dlg); fe:Show();
 	fe:SetDescriptor(md.data);

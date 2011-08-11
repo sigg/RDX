@@ -61,5 +61,5 @@ end);
 --	RDXPM.ResetLayouts()
 --end);
 
---RDXPM.RegisterSlashCommand("reset", ResetLayouts);
+--RDXPM.RegisterSlashCommand("reset_layout", ResetLayouts);
 
