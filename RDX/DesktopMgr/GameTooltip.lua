@@ -1,6 +1,66 @@
 -- GameTooltip.lua
--- use to move the gametooltip
 
+-- use to style gametooltip
+
+local TooltipsList = {
+	GameTooltip,
+	ItemRefTooltip,
+	ShoppingTooltip1,
+	ShoppingTooltip2,
+	ShoppingTooltip3,
+	WorldMapTooltip,
+	WorldMapCompareTooltip1,
+	WorldMapCompareTooltip2,
+	WorldMapCompareTooltip3,
+};
+
+function RDXDK.SetGameTooltipBackdrop(bkdp)
+	for i = 1, #tooltips do
+		VFLUI.SetBackdrop(TooltipsList[i], bkdp);
+	end
+end
+
+function RDXDK.SetGameTooltipFont(font)
+	VFLUI.SetFont(GameTooltipHeaderText, font, font.size + 3, true);
+	VFLUI.SetFont(GameTooltipText, font, nil, true);
+	VFLUI.SetFont(GameTooltipTextSmall, font, nil, true);
+	VFLUI.SetFont(ShoppingTooltip1TextLeft1, font, nil, true);
+	VFLUI.SetFont(ShoppingTooltip1TextLeft2, font, nil, true);
+	VFLUI.SetFont(ShoppingTooltip1TextLeft3, font, nil, true);
+	VFLUI.SetFont(ShoppingTooltip2TextLeft1, font, nil, true);
+	VFLUI.SetFont(ShoppingTooltip2TextLeft2, font, nil, true);
+	VFLUI.SetFont(ShoppingTooltip2TextLeft3, font, nil, true);
+	VFLUI.SetFont(ShoppingTooltip3TextLeft1, font, nil, true);
+	VFLUI.SetFont(ShoppingTooltip3TextLeft2, font, nil, true);
+	VFLUI.SetFont(ShoppingTooltip3TextLeft3, font, nil, true);
+	
+	for i = 1, ShoppingTooltip1:NumLines() do
+		VFLUI.SetFont(_G["ShoppingTooltip1TextRight"..i], font, nil, true);
+	end
+	for i = 1, ShoppingTooltip2:NumLines() do
+		VFLUI.SetFont(_G["ShoppingTooltip2TextRight"..i], font, nil, true);
+	end
+	for i = 1, ShoppingTooltip3:NumLines() do
+		VFLUI.SetFont(_G["ShoppingTooltip3TextRight"..i], font, nil, true);
+	end
+	
+	if GameTooltipMoneyFrame1 then
+		VFLUI.SetFont(GameTooltipMoneyFrame1PrefixText, font, nil, true);
+		VFLUI.SetFont(GameTooltipMoneyFrame1SuffixText, font, nil, true);
+		VFLUI.SetFont(GameTooltipMoneyFrame1CopperButtonText, font, nil, true);
+		VFLUI.SetFont(GameTooltipMoneyFrame1SilverButtonText, font, nil, true);
+		VFLUI.SetFont(GameTooltipMoneyFrame1GoldButtonText, font, nil, true);
+	end
+end
+
+function RDXDK.SetGameTooltipSB(font)
+	--GameTooltipStatusBar:SetStatusBarTexture
+	--GameTooltipStatusBar:SetSBarColor
+end
+
+
+
+-- use to move the gametooltip
 local usemouse, anchorx, anchory = nil, 0, 0;
 local style = {};
 
