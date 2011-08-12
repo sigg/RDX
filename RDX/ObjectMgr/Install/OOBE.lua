@@ -95,6 +95,7 @@ local function Uniquize(cat)
 end
 
 local function ToggleStateChanged(ctl, curTog, state)
+	if curTog.text == "WoWRDX" then curTog.sel = true; ctl:Update(); return; end
 	ComputeExclusion();
 	for _,cat in pairs(curTog.uniqueCategories) do
 		Uniquize(cat);
