@@ -85,10 +85,9 @@ end
 
 -- use to move the gametooltip
 local usemouse, anchorx, anchory = nil, 0, 0;
-local style = {};
 
 local btn = VFLUI.Button:new();
-btn:SetHeight(100); btn:SetWidth(100);
+btn:SetHeight(50); btn:SetWidth(100);
 btn:SetText(VFLI.i18n("GameTooltip"));
 btn:SetClampedToScreen(true);
 btn:SetFrameStrata("FULLSCREEN_DIALOG");
@@ -122,6 +121,42 @@ function RDXDK.GetLockGameTooltip()
 	return usemouse, anchorx, anchory, bkdtmp, fonttmp, textmp;
 end
 
+-- realid
+local anchorxrid, anchoryrid = 0, 0;
+local btnrid = VFLUI.Button:new();
+btnrid:SetHeight(50); btnrid:SetWidth(100);
+btnrid:SetText(VFLI.i18n("Realid"));
+btnrid:SetClampedToScreen(true);
+btnrid:SetFrameStrata("FULLSCREEN_DIALOG");
+btnrid:Hide();
+
+function RDXDK.SetRealidLocation(x, y)
+	anchorxrid, anchoryrid = x, y;
+	if anchorxrid and anchoryrid then
+		btnrid:ClearAllPoints();
+		btnrid:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", anchorxrid, anchoryrid);
+	end
+end
+
+function RDXDK.SetUnlockRealid()
+	btnrid:ClearAllPoints();
+	btnrid:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", anchorxrid, anchoryrid);
+	btnrid:Show();
+	btnrid:SetMovable(true);
+	btnrid:SetScript("OnMouseDown", function(th) th:StartMoving(); end);
+	btnrid:SetScript("OnMouseUp", function(th) th:StopMovingOrSizing(); anchorxrid,_,_,anchoryrid = VFLUI.GetUniversalBoundary(btnrid); end);
+end
+
+-- on desktop lock
+function RDXDK.GetLockRealid()
+	btnrid:SetMovable(nil);
+	btnrid:SetScript("OnMouseDown", nil);
+	btnrid:SetScript("OnMouseUp", nil);
+	btnrid:Hide();
+	return anchorxrid, anchoryrid;
+end
+
+
 -- Add option to disable tooltip
 -- option dgr managed in globalSettings
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
@@ -137,38 +172,35 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 		end);
 	end
 	
-	--local Real_GameTooltip_UnitColor = GameTooltip_UnitColor;
-	--function GameTooltip_UnitColor(unit)
-	--	if UnitIsPlayer(unit) then 
-	--		local color = RAID_CLASS_COLORS[select(2,UnitClass(unit))]
-	--		return color.r, color.g, color.b
-	--	elseif UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit) or not UnitIsConnected(unit) or UnitIsDead(unit) then
-	--		local color = {r = 0.6, g = 0.6, b = 0.6}
-	--		return color.r, color.g, color.b
-	--	elseif not isPlayerOrPet then
-	--		local color = FACTION_BAR_COLORS[UnitReaction(unit, "player")]
-	--		return color.r, color.g, color.b
-	--	else
-	--		return Real_GameTooltip_UnitColor(unit)
-	--	end
-	--end 
+	local class, item, quality, r, g, b;
 	
-	-- for unknown reason, item on world map are blue.
 	GameTooltip:HookScript("OnShow", function()
+		-- for unknown reason, item on world map are blue.
 		if bkdtmp.kr then
 			GameTooltip:_SetBackdropColor(bkdtmp.kr or 1, bkdtmp.kg or 1, bkdtmp.kb or 1, bkdtmp.ka or 1);
 		else
 			GameTooltip:_SetBackdropColor(1,1,1,1);
 		end
+		-- color backrop border
+		_,class = UnitClass("mouseover");
+		if class then
+			GameTooltip:_SetBackdropBorderColor(RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b, 1);
+		else
+			_,item = GameTooltip:GetItem();
+			if item then
+				_,_,quality = GetItemInfo(item);
+				if quality then
+					r, g, b = GetItemQualityColor(quality);
+					if r and g and b then
+						GameTooltip:_SetBackdropBorderColor(r,g,b,1);
+					end
+				end
+			else
+				GameTooltip:_SetBackdropBorderColor(1,1,1,1);
+			end
+		end
 	end);
 	
-	
-	--if opt and opt.tooltipunit then
-		-- hide the game tooltip for unit only
-	--	GameTooltip:SetScript("OnTooltipSetUnit",function()
-	--		if GameTooltipStatusBar then
-	--			GameTooltip:Hide();
-	--		end
-	--	end);
-	--end
+	--BNetReportFrame:ClearAllPoints();
+	--BNetReportFrame:SetPoint("CENTER", btnrid, "CENTER");
 end);

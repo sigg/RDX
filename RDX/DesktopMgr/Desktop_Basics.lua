@@ -36,6 +36,9 @@ RDX.RegisterFeature({
 		if not desc.font then desc.font = VFL.copy(Fonts.Default10); end
 		if not desc.tex then desc.tex = { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; }; end
 		
+		if not desc.anchorxrid then desc.anchorxrid = 200; end
+		if not desc.anchoryrid then desc.anchoryrid = 200; end
+		
 		if not desc.open then desc.open = true; end
 		if not desc.root then desc.root = true; end
 		if not desc.name then desc.name = "root"; end
@@ -52,7 +55,7 @@ local encid = "dk_openrdx7";
 DesktopEvents:Dispatch("WINDOW_OPEN", "root", "Desktop main");
 DesktopEvents:Dispatch("DESKTOP_VIEWPORT", ]] .. useviewport .. [[, ]] .. desc.offsetleft .. [[, ]] .. desc.offsettop .. [[, ]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
 DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. desc.anchorx .. [[, ]] .. desc.anchory .. [[, ]] .. Serialize(desc.bkd) .. [[, ]] .. Serialize(desc.font) .. [[, ]] .. Serialize(desc.tex) .. [[);
-
+DesktopEvents:Dispatch("DESKTOP_REALID", ]] .. desc.anchorxrid .. [[, ]] .. desc.anchoryrid .. [[);
 ]]);
 		return true;
 	end,
@@ -134,6 +137,18 @@ DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. de
 		er:EmbedChild(tsel); er:Show();
 		ui:InsertFrame(er);
 		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Realid properties")));
+		
+		local anchorxrid = VFLUI.LabeledEdit:new(ui, 200); anchorxrid:Show();
+		anchorxrid:SetText(VFLI.i18n("Offset x"));
+		if desc and desc.anchorxrid then anchorxrid.editBox:SetText(desc.anchorxrid); else anchorxrid.editBox:SetText("200"); end
+		ui:InsertFrame(anchorxrid);
+		
+		local anchoryrid = VFLUI.LabeledEdit:new(ui, 200); anchoryrid:Show();
+		anchoryrid:SetText(VFLI.i18n("Offset y"));
+		if desc and desc.anchoryrid then anchoryrid.editBox:SetText(desc.anchoryrid); else anchoryrid.editBox:SetText("0"); end
+		ui:InsertFrame(anchoryrid);
+		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Dock properties")));
 		
 		local n = 2; 
@@ -178,6 +193,8 @@ DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. de
 				bkd = bkd:GetSelectedBackdrop();
 				font = font:GetSelectedFont();
 				tex = tsel:GetSelectedTexture();
+				anchorxrid = anchorxrid.editBox:GetText();
+				anchoryrid = anchoryrid.editBox:GetText();
 				dock = desc.dock;
 				dgp = desc.dgp;
 			};

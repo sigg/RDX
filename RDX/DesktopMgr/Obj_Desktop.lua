@@ -116,6 +116,7 @@ function RDXDK.Desktop:new(parent)
 			frame:Lock();
 		end
 		local tooltipmouse, anchorx, anchory, bkd, font, tex = RDXDK.GetLockGameTooltip();
+		local anchorxrid, anchoryrid = RDXDK.GetLockRealid()
 		local froot = framePropsList["root"];
 		froot.tooltipmouse = tooltipmouse;
 		froot.anchorx = anchorx;
@@ -123,6 +124,8 @@ function RDXDK.Desktop:new(parent)
 		froot.bkd = bkd;
 		froot.font = font;
 		froot.tex = tex;
+		froot.anchorxrid = anchorxrid;
+		froot.anchoryrid = anchoryrid;
 		lockstate = true;
 	end
 	
@@ -132,6 +135,7 @@ function RDXDK.Desktop:new(parent)
 			frame:Unlock(framePropsList[name]);
 		end
 		RDXDK.SetUnlockGameTooltip();
+		RDXDK.SetUnlockRealid();
 		lockstate = nil;
 	end
 	
@@ -161,10 +165,15 @@ function RDXDK.Desktop:new(parent)
 		RDXDK.SetGameTooltipSB(tex or { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; });
 	end
 	
+	local function UpdateRealid(anchorxrid, anchoryrid)
+		RDXDK.SetRealidLocation(anchorxrid, anchoryrid);
+	end
+	
 	DesktopEvents:Bind("DESKTOP_LOCK", nil, LockDesktop, "desktop");
 	DesktopEvents:Bind("DESKTOP_UNLOCK", nil, UnlockDesktop, "desktop");
 	DesktopEvents:Bind("DESKTOP_VIEWPORT", nil, UpdateViewport, "desktop");
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP", nil, UpdateGameTooltip, "desktop");
+	DesktopEvents:Bind("DESKTOP_REALID", nil, UpdateRealid, "desktop");
 	
 	local function LayoutFrame(name, noanim)
 		local frame, frameprops = frameList[name], framePropsList[name];
