@@ -421,7 +421,7 @@ end
 function RDXDK.DisableUnitframesEngine()
 	TextStatusBar_OnEvent = VFL.Noop;
 	TextStatusBar_OnValueChanged = VFL.Noop;
-	HealthBar_OnValueChanged = VFL.Noop;
+	--HealthBar_OnValueChanged = VFL.Noop;
 	UnitFrame_OnEvent = VFL.Noop;
 	UnitFrame_Update = VFL.Noop;
 	UnitFrameHealthBar_OnEvent = VFL.Noop;

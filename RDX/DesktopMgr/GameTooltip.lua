@@ -27,7 +27,6 @@ end
 function RDXDK.SetGameTooltipBackdrop(bkdp)
 	if bkdp then bkdtmp = bkdp; end
 	for i, v in ipairs (TooltipsList) do
-		--VFLUI.SetBackdrop(v, bkdtmp)
 		v:_SetBackdrop(bkdtmp);
 		if bkdtmp.br then
 			v:_SetBackdropBorderColor(bkdtmp.br or 1, bkdtmp.bg or 1, bkdtmp.bb or 1, bkdtmp.ba or 1);
@@ -138,9 +137,31 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 		end);
 	end
 	
-	WoWEvents:Bind("UPDATE_MOUSEOVER_UNIT", nil, function()
-		RDXDK.SetGameTooltipBackdrop();
+	--local Real_GameTooltip_UnitColor = GameTooltip_UnitColor;
+	--function GameTooltip_UnitColor(unit)
+	--	if UnitIsPlayer(unit) then 
+	--		local color = RAID_CLASS_COLORS[select(2,UnitClass(unit))]
+	--		return color.r, color.g, color.b
+	--	elseif UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit) or not UnitIsConnected(unit) or UnitIsDead(unit) then
+	--		local color = {r = 0.6, g = 0.6, b = 0.6}
+	--		return color.r, color.g, color.b
+	--	elseif not isPlayerOrPet then
+	--		local color = FACTION_BAR_COLORS[UnitReaction(unit, "player")]
+	--		return color.r, color.g, color.b
+	--	else
+	--		return Real_GameTooltip_UnitColor(unit)
+	--	end
+	--end 
+	
+	-- for unknown reason, item on world map are blue.
+	GameTooltip:HookScript("OnShow", function()
+		if bkdtmp.kr then
+			GameTooltip:_SetBackdropColor(bkdtmp.kr or 1, bkdtmp.kg or 1, bkdtmp.kb or 1, bkdtmp.ka or 1);
+		else
+			GameTooltip:_SetBackdropColor(1,1,1,1);
+		end
 	end);
+	
 	
 	--if opt and opt.tooltipunit then
 		-- hide the game tooltip for unit only
