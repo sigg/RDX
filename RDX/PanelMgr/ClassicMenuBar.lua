@@ -30,6 +30,11 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.menuList = {
 		{ text = VFLI.i18n("Tutorial RDX"), notCheckable = true, keepShownOnClick = false, func = function() RDX.NewLearnWizard(); end },
 		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleObjectBrowser },
+		{ text = VFLI.i18n("Switch Talent"), notCheckable = true, keepShownOnClick = false, func = function() 
+			local index = GetActiveTalentGroup();
+			if index == 1 then index = 2; else index = 1; end
+			SetActiveTalentGroup(index); end 
+		},
 	};
 end);
 
