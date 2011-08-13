@@ -115,11 +115,14 @@ function RDXDK.Desktop:new(parent)
 		for name, frame in pairs(frameList) do
 			frame:Lock();
 		end
-		local tooltipmouse, anchorx, anchory = RDXDK.GetLockGameTooltip();
+		local tooltipmouse, anchorx, anchory, bkd, font, tex = RDXDK.GetLockGameTooltip();
 		local froot = framePropsList["root"];
 		froot.tooltipmouse = tooltipmouse;
 		froot.anchorx = anchorx;
 		froot.anchory = anchory;
+		froot.bkd = bkd;
+		froot.font = font;
+		froot.tex = tex;
 		lockstate = true;
 	end
 	
@@ -151,8 +154,11 @@ function RDXDK.Desktop:new(parent)
 	
 	-- call by desktop_basic
 	-- call by update
-	local function UpdateGameTooltip(tooltipmouse, anchorx, anchory)
+	local function UpdateGameTooltip(tooltipmouse, anchorx, anchory, bkd, font, tex)
 		RDXDK.SetGameTooltipLocation(tooltipmouse, anchorx, anchory);
+		RDXDK.SetGameTooltipBackdrop(bkd or VFLUI.DarkDialogBackdrop);
+		RDXDK.SetGameTooltipFont(font or Fonts.Default10);
+		RDXDK.SetGameTooltipSB(tex or { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; });
 	end
 	
 	DesktopEvents:Bind("DESKTOP_LOCK", nil, LockDesktop, "desktop");

@@ -2,6 +2,8 @@
 
 -- use to style gametooltip
 
+local bkdtmp, fonttmp, textmp;
+
 local TooltipsList = {
 	GameTooltip,
 	ItemRefTooltip,
@@ -9,18 +11,39 @@ local TooltipsList = {
 	ShoppingTooltip2,
 	ShoppingTooltip3,
 	WorldMapTooltip,
-	WorldMapCompareTooltip1,
-	WorldMapCompareTooltip2,
-	WorldMapCompareTooltip3,
 };
 
+--hack
+-- Blizzard is repainting the backdrop color in dark blue. only rdx can change the color of the backdrop now.
+for i, v in ipairs (TooltipsList) do
+	v._SetBackdropColor = v.SetBackdropColor;
+	v.SetBackdropColor = VFL.Noop;
+	v._SetBackdropBorderColor = v.SetBackdropBorderColor;
+	v.SetBackdropBorderColor = VFL.Noop;
+	v._SetBackdrop = v.SetBackdrop;
+	v.SetBackdrop = VFL.Noop;
+end
+
 function RDXDK.SetGameTooltipBackdrop(bkdp)
-	for i = 1, #tooltips do
-		VFLUI.SetBackdrop(TooltipsList[i], bkdp);
+	if bkdp then bkdtmp = bkdp; end
+	for i, v in ipairs (TooltipsList) do
+		--VFLUI.SetBackdrop(v, bkdtmp)
+		v:_SetBackdrop(bkdtmp);
+		if bkdtmp.br then
+			v:_SetBackdropBorderColor(bkdtmp.br or 1, bkdtmp.bg or 1, bkdtmp.bb or 1, bkdtmp.ba or 1);
+		else
+			v:_SetBackdropBorderColor(1,1,1,1);
+		end
+		if bkdtmp.kr then
+			v:_SetBackdropColor(bkdtmp.kr or 1, bkdtmp.kg or 1, bkdtmp.kb or 1, bkdtmp.ka or 1);
+		else
+			v:_SetBackdropColor(1,1,1,1);
+		end
 	end
 end
 
 function RDXDK.SetGameTooltipFont(font)
+	fonttmp = font;
 	VFLUI.SetFont(GameTooltipHeaderText, font, font.size + 3, true);
 	VFLUI.SetFont(GameTooltipText, font, nil, true);
 	VFLUI.SetFont(GameTooltipTextSmall, font, nil, true);
@@ -53,8 +76,9 @@ function RDXDK.SetGameTooltipFont(font)
 	end
 end
 
-function RDXDK.SetGameTooltipSB(font)
-	--GameTooltipStatusBar:SetStatusBarTexture
+function RDXDK.SetGameTooltipSB(tex)
+	textmp = tex;
+	GameTooltipStatusBar:SetStatusBarTexture(tex.path);
 	--GameTooltipStatusBar:SetSBarColor
 end
 
@@ -96,7 +120,7 @@ function RDXDK.GetLockGameTooltip()
 	btn:SetScript("OnMouseDown", nil);
 	btn:SetScript("OnMouseUp", nil);
 	btn:Hide();
-	return usemouse, anchorx, anchory;
+	return usemouse, anchorx, anchory, bkdtmp, fonttmp, textmp;
 end
 
 -- Add option to disable tooltip
@@ -113,6 +137,11 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 			end
 		end);
 	end
+	
+	WoWEvents:Bind("UPDATE_MOUSEOVER_UNIT", nil, function()
+		RDXDK.SetGameTooltipBackdrop();
+	end);
+	
 	--if opt and opt.tooltipunit then
 		-- hide the game tooltip for unit only
 	--	GameTooltip:SetScript("OnTooltipSetUnit",function()

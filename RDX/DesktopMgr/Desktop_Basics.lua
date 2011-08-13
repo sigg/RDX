@@ -32,6 +32,9 @@ RDX.RegisterFeature({
 		local tooltipmouse = "nil"; if desc.tooltipmouse then tooltipmouse = "true"; end
 		if not desc.anchorx then desc.anchorx = 200; end
 		if not desc.anchory then desc.anchory = 200; end
+		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.DarkDialogBackdrop); end
+		if not desc.font then desc.font = VFL.copy(Fonts.Default10); end
+		if not desc.tex then desc.tex = { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; }; end
 		
 		if not desc.open then desc.open = true; end
 		if not desc.root then desc.root = true; end
@@ -48,8 +51,9 @@ RDX.RegisterFeature({
 local encid = "dk_openrdx7";
 DesktopEvents:Dispatch("WINDOW_OPEN", "root", "Desktop main");
 DesktopEvents:Dispatch("DESKTOP_VIEWPORT", ]] .. useviewport .. [[, ]] .. desc.offsetleft .. [[, ]] .. desc.offsettop .. [[, ]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
-DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. desc.anchorx .. [[, ]] .. desc.anchory .. [[);
-		]]);
+DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. desc.anchorx .. [[, ]] .. desc.anchory .. [[, ]] .. Serialize(desc.bkd) .. [[, ]] .. Serialize(desc.font) .. [[, ]] .. Serialize(desc.tex) .. [[);
+
+]]);
 		return true;
 	end,
 	UIFromDescriptor = function(desc, parent)
@@ -115,6 +119,21 @@ DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. de
 		if desc and desc.anchory then anchory.editBox:SetText(desc.anchory); else anchory.editBox:SetText("0"); end
 		ui:InsertFrame(anchory);
 		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop style"));
+		local bkd = VFLUI.MakeBackdropSelectButton(er, desc.bkd); bkd:Show();
+		er:EmbedChild(bkd); er:Show();
+		ui:InsertFrame(er);
+		
+		local er_st = VFLUI.EmbedRight(ui, VFLI.i18n("Font"));
+		local font = VFLUI.MakeFontSelectButton(er_st, desc.font); font:Show();
+		er_st:EmbedChild(font); er_st:Show();
+		ui:InsertFrame(er_st);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Texture"));
+		local tsel = VFLUI.MakeTextureSelectButton(er, desc.tex); tsel:Show();
+		er:EmbedChild(tsel); er:Show();
+		ui:InsertFrame(er);
+		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Dock properties")));
 		
 		local n = 2; 
@@ -156,6 +175,9 @@ DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. de
 				tooltipmouse = chk_tooltipmouse:GetChecked();
 				anchorx = anchorx.editBox:GetText();
 				anchory = anchory.editBox:GetText();
+				bkd = bkd:GetSelectedBackdrop();
+				font = font:GetSelectedFont();
+				tex = tsel:GetSelectedTexture();
 				dock = desc.dock;
 				dgp = desc.dgp;
 			};

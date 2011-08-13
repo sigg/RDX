@@ -372,7 +372,10 @@ function VFLUI.MakeBackdropSelectButton(parent, backdrop, fnOK, flaganchor)
 	self.DialogOnLayout = VFL.Noop;
 
 	function self:GetSelectedBackdrop() return backdrop; end
-	function self:SetSelectedBackdrop(f) backdrop = VFL.copy(f); end
+	function self:SetSelectedBackdrop(f)
+		backdrop = VFL.copy(f);
+		self:SetText(GetBackdropInfoString(backdrop));
+	end
 
 	self:SetScript("OnClick", function()
 		VFLUI.BackdropPicker(parent, function(new) 

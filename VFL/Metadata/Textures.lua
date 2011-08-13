@@ -68,3 +68,23 @@ VFLUI.RegisterBackdrop({
 	name = "checker"; title = "Checkerboard";
 	bgFile = "Interface\\Addons\\VFL\\Skin\\checker"; tile = true; tileSize = 10;
 });
+
+VFLUI.RegisterBackdrop({
+   name = "VFL_white"; title = VFLI.i18n("VFL White");
+   bgFile = "Interface\\Addons\\VFL\\Skin\\white"; tile = true; tileSize = 16;
+});
+
+VFLUI.RegisterBackdrop({
+   name = "VFL_UI"; title = VFLI.i18n("VFL UI");
+   bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background"; tile = true; tileSize = 16;
+});
+
+VFLUI.RegisterBackdrop({
+   name = "VFL_black_80"; title = VFLI.i18n("VFL Black 80");
+   bgFile = "Interface\\Addons\\VFL\\Skin\\a80black"; tile = true; tileSize = 16;
+});
+
+VFLUI.RegisterBackdrop({
+   name = "VFL_black"; title = VFLI.i18n("VFL Black");
+   bgFile = "Interface\\Addons\\VFL\\Skin\\black"; tile = true; tileSize = 16;
+});

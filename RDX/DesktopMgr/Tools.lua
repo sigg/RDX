@@ -116,7 +116,7 @@ local function OpenDesktopTools(parent, froot)
 	dlg:SetTitleColor(0,.5,0);
 	dlg:SetText(VFLI.i18n("Desktop Manager"));
 	dlg:SetPoint("CENTER", VFLParent, "CENTER", -200, 0);
-	dlg:Accomodate(216, 450);
+	dlg:Accomodate(216, 530);
 	dlg:SetClampedToScreen(true);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
@@ -344,6 +344,7 @@ local function OpenDesktopTools(parent, froot)
 	--dd_Keys:SetSelection(froot.keys, true);
 	--dd_Keys:Show();
 	
+	local updateGametooltip = nil;
 	-- gametooltips
 	local separator5 = VFLUI.SeparatorText:new(ca, 1, 216);
 	separator5:SetPoint("TOPLEFT", btndefinekey, "BOTTOMLEFT", 0, -5);
@@ -354,7 +355,29 @@ local function OpenDesktopTools(parent, froot)
 	if froot.tooltipmouse then chk_tooltipmouse:SetChecked(true); else chk_tooltipmouse:SetChecked(); end
 	chk_tooltipmouse:SetText(VFLI.i18n("Mouse anchor GameTooltip"));
 	chk_tooltipmouse:Show();
-	chk_tooltipmouse.check:SetScript("OnClick", function() DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", chk_tooltipmouse:GetChecked(), froot.anchorx, froot.anchory); end);
+	chk_tooltipmouse.check:SetScript("OnClick", function() updateGametooltip(); end);
+
+	local lblbkd = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Bkd"));
+	lblbkd:SetWidth(34); lblbkd:SetPoint("TOPLEFT", chk_tooltipmouse, "BOTTOMLEFT", 0, -15);
+	local dd_bkd = VFLUI.MakeBackdropSelectButton(ca, froot.bkd, function() updateGametooltip(); end, nil); 
+	dd_bkd:SetPoint("LEFT", lblbkd, "RIGHT");
+	dd_bkd:Show();
+
+	local lblfont = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Fnt"));
+	lblfont:SetWidth(34); lblfont:SetPoint("TOPLEFT", lblbkd, "BOTTOMLEFT", 0, -15);
+	local dd_font = VFLUI.MakeFontSelectButton(ca, froot.font, function() updateGametooltip(); end, nil); 
+	dd_font:SetPoint("LEFT", lblfont, "RIGHT");
+	dd_font:Show();
+	
+	local lblsb = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Sb"));
+	lblsb:SetWidth(34); lblsb:SetPoint("TOPLEFT", lblfont, "BOTTOMLEFT", 0, -15);
+	local dd_btexture = VFLUI.MakeTextureSelectButton(ca, froot.tex, function() updateGametooltip(); end, nil); 
+	dd_btexture:SetPoint("LEFT", lblsb, "RIGHT");
+	dd_btexture:Show();
+	
+	updateGametooltip = function()
+		DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", chk_tooltipmouse:GetChecked(), froot.anchorx, froot.anchory, dd_bkd:GetSelectedBackdrop(), dd_font:GetSelectedFont(), dd_btexture:GetSelectedTexture());
+	end
 	
 	dlg:Show();
 	
@@ -393,6 +416,10 @@ local function OpenDesktopTools(parent, froot)
 	
 	dlg.Destroy = VFL.hook(function(s)
 		s._esch = nil;
+		updateGametooltip = nil;
+		dd_btexture:Destroy(); dd_btexture = nil;
+		dd_font:Destroy(); dd_font = nil;
+		dd_bkd:Destroy(); dd_bkd = nil;
 		chk_tooltipmouse:Destroy(); chk_tooltipmouse = nil;
 		separator5:Destroy(); separator5 = nil;
 		--chk_lockaction:Destroy(); chk_lockaction = nil;
