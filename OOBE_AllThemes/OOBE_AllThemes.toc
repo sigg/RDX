@@ -1,0 +1,8 @@
+## Interface: 40200
+## Title: |c007ffcff00BE|r - AllThemes
+## Notes: AllThemes
+## LoadOnDemand: 1
+## RequiredDeps: RDX
+## X-RDX-OOBEName: AllThemes
+## X-RDX-OOBEVersion: 1
+AllThemes.lua
