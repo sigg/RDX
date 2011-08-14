@@ -5,11 +5,17 @@
 local bkdtmp, fonttmp, textmp;
 
 local TooltipsList = {
-	GameTooltip,
-	ItemRefTooltip,
 	ShoppingTooltip1,
 	ShoppingTooltip2,
 	ShoppingTooltip3,
+	GameTooltip,
+	ItemRefShoppingTooltip1,
+	ItemRefShoppingTooltip2,
+	ItemRefShoppingTooltip3,
+	ItemRefTooltip,
+	WorldMapCompareTooltip1,
+	WorldMapCompareTooltip2,
+	WorldMapCompareTooltip3,
 	WorldMapTooltip,
 };
 
@@ -156,7 +162,6 @@ function RDXDK.GetLockRealid()
 	return anchorxrid, anchoryrid;
 end
 
-
 -- Add option to disable tooltip
 -- option dgr managed in globalSettings
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
@@ -172,35 +177,38 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 		end);
 	end
 	
-	local class, item, quality, r, g, b;
+	local unit, class, item, quality, r, g, b;
 	
-	GameTooltip:HookScript("OnShow", function()
-		-- for unknown reason, item on world map are blue.
+	-- for unknown reason, item on world map are blue.
+	local function fix()
 		if bkdtmp.kr then
 			GameTooltip:_SetBackdropColor(bkdtmp.kr or 1, bkdtmp.kg or 1, bkdtmp.kb or 1, bkdtmp.ka or 1);
 		else
 			GameTooltip:_SetBackdropColor(1,1,1,1);
 		end
-		-- color backrop border
-		_,class = UnitClass("mouseover");
-		if class then
-			GameTooltip:_SetBackdropBorderColor(RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b, 1);
-		else
-			_,item = GameTooltip:GetItem();
-			if item then
-				_,_,quality = GetItemInfo(item);
-				if quality then
-					r, g, b = GetItemQualityColor(quality);
-					if r and g and b then
-						GameTooltip:_SetBackdropBorderColor(r,g,b,1);
-					end
-				end
-			else
-				GameTooltip:_SetBackdropBorderColor(1,1,1,1);
-			end
+	end
+	
+	GameTooltip:HookScript("OnShow", fix);
+	GameTooltip:HookScript("OnHide", function()
+		GameTooltip:_SetBackdropBorderColor(1,1,1,1);
+	end);
+	GameTooltip:HookScript("OnTooltipSetItem", function()
+		fix();
+		_,item = GameTooltip:GetItem();
+		_,_,quality = GetItemInfo(item);
+		r, g, b = GetItemQualityColor(quality);
+		if r and g and b then
+			GameTooltip:_SetBackdropBorderColor(r,g,b,1);
 		end
 	end);
+	GameTooltip:HookScript("OnTooltipSetUnit", function()
+		fix();
+		_, unit = GameTooltip:GetUnit();
+		_,class = UnitClass(unit);
+		GameTooltip:_SetBackdropBorderColor(RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b, 1);
+	end);
 	
-	--BNetReportFrame:ClearAllPoints();
-	--BNetReportFrame:SetPoint("CENTER", btnrid, "CENTER");
+	BNToastFrame_UpdateAnchor = VFL.noop;
+	BNToastFrame:ClearAllPoints();
+	BNToastFrame:SetPoint("CENTER", btnrid, "CENTER");
 end);
