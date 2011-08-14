@@ -23,7 +23,7 @@ local function EditScriptDialog(parent, key)
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:SetWidth(500); dlg:SetHeight(500);
-	dlg:SetText(VFLI.i18n("Text Editor: "));
+	dlg:SetText(VFLI.i18n("Text Editor"));
 	dlg:Show();
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 
@@ -33,6 +33,16 @@ local function EditScriptDialog(parent, key)
 	msglink = "";
 	if key == "1" then
 		for _,v in ipairs(msgtable1) do
+			msglink = msglink .. v .. "\n";
+		end
+		editor:SetText( msglink or "");
+	elseif key == "3" then
+		for _,v in ipairs(msgtable3) do
+			msglink = msglink .. v .. "\n";
+		end
+		editor:SetText( msglink or "");
+	elseif key == "4" then
+		for _,v in ipairs(msgtable4) do
 			msglink = msglink .. v .. "\n";
 		end
 		editor:SetText( msglink or "");
