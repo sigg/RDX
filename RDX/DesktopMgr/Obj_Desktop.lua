@@ -190,7 +190,6 @@ function RDXDK.Desktop:new(parent)
 		if name ~= "root" then
 			frame:SetScale(frameprops.scale);
 			frame:SetAlpha(frameprops.alpha);
-			if frameprops.strata == "BACKGROUND" then frameprops.strata = "LOW"; end
 			frame:WMGetPositionalFrame():SetFrameStrata(frameprops.strata);
 		else
 			frame:WMGetPositionalFrame():SetFrameStrata("LOW");
