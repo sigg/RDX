@@ -204,8 +204,10 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	GameTooltip:HookScript("OnTooltipSetUnit", function()
 		fix();
 		_, unit = GameTooltip:GetUnit();
-		_,class = UnitClass(unit);
-		GameTooltip:_SetBackdropBorderColor(RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b, 1);
+		if unit then
+			_,class = UnitClass(unit);
+			GameTooltip:_SetBackdropBorderColor(RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b, 1);
+		end
 	end);
 	
 	BNToastFrame_UpdateAnchor = VFL.noop;
