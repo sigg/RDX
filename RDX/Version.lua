@@ -11,7 +11,16 @@
 local version_flag = "";
 
 function RDX.GetVersion()
-	return RDX.version[1] .. "." .. RDX.version[2] .. "." .. RDX.version[3] .. version_flag;
+	if not RDX.version[4] then RDX.version[4] = 0; end
+	return RDX.version[1] .. "." .. RDX.version[2] .. "." .. RDX.version[3] .. "." RDX.version[4] .. version_flag;
+end
+
+function RDX.SetPatchVersion(id)
+	RDX.version[4] = id;
+end
+
+function RDX.GetPatchVersion()
+	return RDX.version[4];
 end
 
 ----------------------------------------------
@@ -88,12 +97,87 @@ function RDX.VersionCheck_Start()
 	pw:Sort("name");
 end
 
+--------------------------------------------
+-- moteur de mise à jour patch
+-- request addon + patch version from all
+-- if patch is superior.
+-- Request download
+--------------------------------------------
+
+local function PatchListener(ci, who)
+	-- Sanity check sender
+	if (not ci) or (type(who) ~= "string") then return; end
+	-- get latest patch.
+	local tbl = RDXDB.GetObjectData("default:RDX" .. RDX.version[1] .. RDX.version[2] .. RDX.version[3]);
+	return tbl;
+end
+RPC_Guild:Bind("request_patch", PatchListener);
+
+local function PatchResponse(ci, resp)
+	RDX.printI("PATCH downloaded");
+	RDX.printI("Installing PATCH");
+	local tbl = RDXDB.TouchObject("default:RDX" .. RDX.version[1] .. RDX.version[2] .. RDX.version[3])
+	tbl
+	RDX.printI("PATCH installed");
+	RDX.printI("Request reloadui");
+	
+end
+
+local function PatchRequest(who)
+	if type(who) ~= "string" then return; end
+	who = string.lower(who);
+	-- RDX.printI("Request Download PATCH");
+	local rpcid = RPC_Guild:Invoke("request_patch", who);
+	RPC_Guild:Wait(rpcid, PatchResponse, 20);
+end
+
+local function RpcVersionPatch(ci, version)
+	VFL.print(ci.sender),
+	-- check if current version is the same
+	local sup, flag = nil, nil;
+	if version[1] == RDX.version[1] then
+		if version[2] == RDX.version[2] then
+			if version[3] == RDX.version[3] then
+				if version[4] > RDX.version[4] then
+					-- NEW PATCH
+					PatchRequest(ci.sender)
+				end
+			elseif version[3] > RDX.version[3] then
+				sup = true;
+			end
+		elseif version[2] > RDX.version[2] then
+			sup = true;
+		end
+	elseif version[1] > RDX.version[1] then
+		sup = true;
+	end
+	if sup and not flag then
+		RDX.printI("Please download and install new version RDX " .. version[1] .. "." .. version[2] .. "." .. version[3]);
+		flag = true;
+	end
+	
+end
+RPC_Guild:Bind("version_patch", RpcVersionPatch);
+
+-- Send the current version to everyone, every 5 minutes.
+local function SendVersionPatch()
+	if not InCombatLockdown() then
+		RPC_Guild:Flash("version_patch", RDX.version);
+	end
+end
+
+RDXEvents:Bind("INIT_DEFERRED", nil, function()
+	SendVersionPatch();
+	-- Start periodic broadcasts
+	VFLT.AdaptiveSchedule(nil, 300, SendVersionPatch);
+end);
+
 ------------------------------------------
 -- INIT
 ------------------------------------------
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	RDX.printI("Version " .. RDX.version[1] .. "." .. RDX.version[2] .. "." .. RDX.version[3] .. version_flag);
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
+	RDX.printI("Version " .. RDX.GetVersion());
 	RDX.printI("http://www.wowrdx.com");
 	local languageVersion, locale = VFL.GetLanguagePackVersion();
 	if languageVersion then
