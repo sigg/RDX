@@ -978,7 +978,8 @@ VFLP.RegisterFunc("RDXDAL: UnitDB", "ProcessRoster", ProcessRoster, true);
 -- Pet processing
 local _petrtouched, _petgtouched = {}, {};
 -- Latched to prevent uberspam.
-local ProcessPets = VFLT.CreatePeriodicLatch(1, function()
+--local ProcessPets = VFLT.CreatePeriodicLatch(1, function()
+local function ProcessPets()
 	VFL.empty(_petrtouched);
 	VFL.empty(_petgtouched);
 	--VFL.print("test");
@@ -1010,7 +1011,8 @@ local ProcessPets = VFLT.CreatePeriodicLatch(1, function()
 		RDX:Debug(1, "ROSTER_PETS_CHANGED");
 		RDXEvents:Dispatch("ROSTER_PETS_CHANGED"); 
 	end
-end);
+end
+--end);
 VFLP.RegisterFunc("RDXDAL: UnitDB", "ProcessPets", ProcessPets, true);
 
 --function RDX.ProcessPetsDelay()
@@ -1073,6 +1075,7 @@ local OnPartyMembersChanged = VFLT.CreatePeriodicLatch(1, function()
 	end
 	-- Process roster
 	ProcessRoster();
+	ProcessPets();
 	if soloChanged then RDXEvents:Dispatch("PARTY_IS_NONRAID"); end
 end);
 
@@ -1090,6 +1093,7 @@ function SetRaid(noReprocess)
 	if not noReprocess then
 		RDXDAL.BeginEventBatch();
 		ProcessRoster();
+		ProcessPets();
 		FlushAuras();
 		RDXDAL.EndEventBatch();
 	end
@@ -1110,6 +1114,7 @@ function SetNonRaid(noReprocess)
 	if not noReprocess then
 		RDXDAL.BeginEventBatch();
 		ProcessRoster();
+		ProcessPets();
 		FlushAuras();
 		RDXDAL.EndEventBatch();
 	end
