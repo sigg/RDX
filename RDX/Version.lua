@@ -12,7 +12,7 @@ local version_flag = "";
 
 function RDX.GetVersion()
 	if not RDX.version[4] then RDX.version[4] = 0; end
-	return RDX.version[1] .. "." .. RDX.version[2] .. "." .. RDX.version[3] .. "." RDX.version[4] .. version_flag;
+	return RDX.version[1] .. "." .. RDX.version[2] .. "." .. RDX.version[3] .. "." .. RDX.version[4] .. version_flag;
 end
 
 function RDX.SetPatchVersion(id)
@@ -116,11 +116,9 @@ RPC_Guild:Bind("request_patch", PatchListener);
 local function PatchResponse(ci, resp)
 	RDX.printI("PATCH downloaded");
 	RDX.printI("Installing PATCH");
-	local tbl = RDXDB.TouchObject("default:RDX" .. RDX.version[1] .. RDX.version[2] .. RDX.version[3])
-	tbl
+	local tbl = RDXDB.TouchObject("default:RDX" .. RDX.version[1] .. RDX.version[2] .. RDX.version[3]);
 	RDX.printI("PATCH installed");
 	RDX.printI("Request reloadui");
-	
 end
 
 local function PatchRequest(who)
@@ -132,7 +130,7 @@ local function PatchRequest(who)
 end
 
 local function RpcVersionPatch(ci, version)
-	VFL.print(ci.sender),
+	VFL.print(ci.sender);
 	-- check if current version is the same
 	local sup, flag = nil, nil;
 	if version[1] == RDX.version[1] then
