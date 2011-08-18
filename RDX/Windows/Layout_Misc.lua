@@ -19,7 +19,7 @@ local bor,band = bit.bor, bit.band;
 RDX.RegisterFeature({
 	name = "header"; version = 1;
 	--deprecated = true;
-	title = VFLI.i18n("Header Single"); 
+	title = VFLI.i18n("Header"); 
 	category = VFLI.i18n("Data Source and Layout");
 	IsPossible = function(state)
 		if not state:Slot("Frame") then return nil; end
@@ -188,7 +188,7 @@ RDX.RegisterFeature({
 
 		-- CREATION FUNCTION
 		-- Acquire our window upon creation
-		local htype = nil; if desc.pet then htype = "SecureGroupPetHeader"; end
+		local htype = nil; if hdef.pet then htype = "SecureGroupPetHeader"; end
 		local function create(w)
 			win = w;
 			-- Make the grid

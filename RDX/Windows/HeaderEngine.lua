@@ -496,8 +496,8 @@ RDXUI.HeaderEditor = {};
 function RDXUI.HeaderEditor:new(parent)
 	local ui = VFLUI.CompoundFrame:new(parent);
 
-	--------------- Content secton
-	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Content")));
+	--------------- Content section
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Content parameters")));
 
 	local driver = VFLUI.DisjointRadioGroup:new();
 
@@ -519,6 +519,17 @@ function RDXUI.HeaderEditor:new(parent)
 	local nset = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "NominativeSet$")); end);
 	nset:SetLabel(VFLI.i18n("Set")); nset:Show();
 	ui:InsertFrame(nset);
+	
+	
+	--------------- Pet/Vehicle section
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Pet/Vehicle parameters")));
+	local chk_pet = VFLUI.Checkbox:new(ui); 
+	chk_pet:Show(); chk_pet:SetText(VFLI.i18n("Show Pet"));
+	ui:InsertFrame(chk_pet);
+	
+	local chk_switchvehicle = VFLUI.Checkbox:new(ui); chk_switchvehicle:Show();
+	chk_switchvehicle:SetText(VFLI.i18n("Switch vehicle"));
+	ui:InsertFrame(chk_switchvehicle);
 
 	------------------ Sorting section
 	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Sort parameters")));
@@ -586,6 +597,8 @@ function RDXUI.HeaderEditor:new(parent)
 			classes:SetClasses(tbl.classes);
 			groups:SetGroups(tbl.groups);
 		end
+		chk_pet:SetChecked(tbl.pet);
+		chk_switchvehicle:SetChecked(tbl.switchvehicle);
 	end
 
 	function ui:GetDescriptor()
@@ -608,6 +621,8 @@ function RDXUI.HeaderEditor:new(parent)
 			desc.classes = classes:GetClasses();
 			desc.groups = groups:GetGroups();
 		end
+		desc.pet = chk_pet:GetChecked();
+		desc.switchvehicle = chk_switchvehicle:GetChecked();
 		return desc;
 	end
 
