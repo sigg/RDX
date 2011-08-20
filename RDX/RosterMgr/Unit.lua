@@ -133,7 +133,7 @@ end
 
 function RDXDAL.Unit:GetMainTalent()
 	local t = self:GetNField("sync");
-	if t then return t.mt or 0; end
+	if t then return t.mt or 0; else return 0; end
 end;
 
 --- @return TRUE if this unit is a pet
