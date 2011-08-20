@@ -130,7 +130,7 @@ local function PatchRequest(who)
 end
 
 local function RpcVersionPatch(ci, version)
-	VFL.print(ci.sender);
+	--VFL.print(ci.sender);
 	-- check if current version is the same
 	local sup, flag = nil, nil;
 	if version[1] == RDX.version[1] then
