@@ -181,7 +181,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	
 	-- for unknown reason, item on world map are blue.
 	local function fix()
-		if bkdtmp.kr then
+		if bkdtmp and bkdtmp.kr then
 			GameTooltip:_SetBackdropColor(bkdtmp.kr or 1, bkdtmp.kg or 1, bkdtmp.kb or 1, bkdtmp.ka or 1);
 		else
 			GameTooltip:_SetBackdropColor(1,1,1,1);
@@ -196,9 +196,11 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 		fix();
 		_,item = GameTooltip:GetItem();
 		_,_,quality = GetItemInfo(item);
-		r, g, b = GetItemQualityColor(quality);
-		if r and g and b then
-			GameTooltip:_SetBackdropBorderColor(r,g,b,1);
+		if quality then
+			r, g, b = GetItemQualityColor(quality);
+			if r and g and b then
+				GameTooltip:_SetBackdropBorderColor(r,g,b,1);
+			end
 		end
 	end);
 	GameTooltip:HookScript("OnTooltipSetUnit", function()
