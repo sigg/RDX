@@ -10,7 +10,10 @@
 -- Modify by Joeba18
 
 -- Global function to set a model to camera zero
-function SetCameraZero(self) self:SetCamera(0); end
+--function SetCameraZero(self) self:SetCamera(0); end
+--function SetCameraOne(self) self:SetCamera(1); end
+
+function SetCameraZero(self) self:SetPortraitZoom(1); end
 function SetCameraOne(self) self:SetCamera(1); end
 
 local _types = {
