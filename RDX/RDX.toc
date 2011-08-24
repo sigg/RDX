@@ -2,7 +2,7 @@
 ## Title: |c007ffcffRDX|r
 ## Notes: RDX is Raid Data Exchange - UI and raid mods.
 ## Author: Raid Informatics / OpenRDX Project
-## Version: 8.1.3
+## Version: 8.1.4
 ## RequiredDeps: VFL, RDX_mediapack
 ## OptionalDeps: RDX_filesystem, RDX_localspelldb, RDX_combatlogs, RDX_recovery, RDX_languagepack_frFR, RDX_languagepack_deDE, RDX_languagepack_ruRU
 ## SavedVariables: RDXSession
@@ -32,7 +32,6 @@ ObjectMgr\Feature.lua
 ObjectMgr\Security.lua
 ObjectMgr\FontEditor.lua
 ObjectMgr\PackageMetadataDialog.lua
-ObjectMgr\PackagesUpdaterDialog.lua
 ObjectMgr\Miscs\Obj_SymLink.lua
 ObjectMgr\Miscs\Obj_Script.lua
 ObjectMgr\Miscs\Feat_Proxy.lua
@@ -53,6 +52,8 @@ CommMgr\RPC.lua
 CommMgr\ConfMgr.lua
 # to be moved back to RDXOM
 CommMgr\Integration.lua
+#ObjectMgr\PackagesUpdaterServer.lua
+#ObjectMgr\PackagesUpdaterDialog.lua
 
 # Rosters, events Manager (RDXRM, RDXMD Metadata, RDXSS SpellSystem)
 RosterMgr\Metadata.lua

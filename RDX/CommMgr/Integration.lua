@@ -321,7 +321,7 @@ function RPC.RemoteIntegrate(data, conf, targets)
 	if(not conf) then return nil; end
 	-- Verify the package contains data.
 	if (not data) or (VFL.tsize(data) == 0) then return nil; end
-	conf:Invoke("mintegrate", data, targets);
+	return conf:Invoke("mintegrate", data, targets);
 end
 
 local function _IntegrateSendUI(parent, data)

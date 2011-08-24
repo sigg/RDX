@@ -23,7 +23,7 @@ function RPC.StreamingRPCMixin(ch, noglobal)
 	if ch.Bind then return; end
 	
 	-- Local data structures
-	local waits, wtos, binds = {}, {}, {};
+	local waits, wtos, binds, outStids = {}, {}, {}, {};
 	if not noglobal then setmetatable(binds, RPC._globalBinds); end
 
 	local function RequestCompletion(strm, dataType, data)
@@ -140,6 +140,7 @@ function RPC.StreamingRPCMixin(ch, noglobal)
 		strm:AppendVector(...);
 		local stid = RPC.GenerateCleanBytes(6);
 		strm:Send(stid);
+		outStids[stid] = true;
 		return stid;
 	end
 	ch.Flash = ch.Invoke; -- Flashing IS invoking in stream RPC.
@@ -157,6 +158,15 @@ function RPC.StreamingRPCMixin(ch, noglobal)
 		waits[id] = fn; 
 		wtos[id] = GetTime() + timeout;
 	end
+	
+	function ch:IsSend(stid)
+		return outStids[stid];
+	end
+	
+	RPCEvents:Bind("STREAM_OUT_CLOSED", nil, function(strm) 
+		local stid = strm.streamID; if not stid then return; end
+		outStids[stid] = nil;
+	end);
 
 	return ch;
 end
