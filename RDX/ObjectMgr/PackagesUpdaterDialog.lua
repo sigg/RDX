@@ -31,6 +31,86 @@ package name     package version    package author    package comment   bouton g
 function récupère package info
 ]]
 
+--------------------------------------
+-- CLIENT
+-- Receive package from server 
+-- and install it
+--------------------------------------
+
+local function ClientSendPkg(si, data, targets)
+	if (not si) or (type(data) ~= "table") then
+		RPC:Debug(1, "Received integrate with invalid parameters");
+		return;
+	end
+	local myunit = RDXDAL.GetMyUnit();
+	local name = si.sender;	if not name then RPC:Debug(1, "Ignoring integrate with unknown sender."); return; end
+	-- Don't integrate my own stuff.
+	if(name == myunit.name) then RPC:Debug(2, "Ignoring integrate from self."); end
+	-- Check against allowedSenders and deniedSenders.
+	local d = RDXDB.GetObjectData("default:allowedSenders");
+	if d and d.data then
+		if not VFL.vfind(d.data, name) then RPC:Debug(1, "Ignoring integrate from unallowed sender " .. name); return; end
+	end
+	d = RDXDB.GetObjectData("default:deniedSenders");
+	if d and d.data then
+		if VFL.vfind(d.data, name) then RPC:Debug(1, "Ignoring integrate from denied sender " .. name); return; end
+	end
+	-- Match against target list.
+	-- This is not a very efficient way to do this, but it's rarely called so it shouldn't be a major issue.
+	if type(targets) == "table" then
+		local match = false;
+		for _,targ in pairs(targets) do
+			local p = targ:match("^%*class:(.*)$");
+			if p and p == myunit:GetClassMnemonic() then match = true; break; end
+			p = targ:match("^%*group:(%d+)$");
+			if p and tonumber(p) == myunit:GetGroup() then match = true; break; end
+			if targ == myunit.name then match = true; break; end
+		end
+		if not match then return; end
+	end
+	-- Do it
+	RPC:Debug(2, "Integrating from user " .. name);
+	RDX.TryIntegrate(VFLDIALOG, data, name);
+end
+
+RPC.GlobalBind("rau_sendpkg", ClientSendPkg);
+
+function RDXDB.RAU_RequestPkg(conf, who, pkg)
+	if type(who) ~= "string" or type(pkg) ~= "string" then return; end
+	who = string.lower(who);
+	local rpcid;
+	if conf == "GROUP" then 
+		rpcid = RPC_Group:Invoke("rau_requestPkg", conf, who, pkg);
+	else
+		rpcid = RPC_Guild:Invoke("rau_requestPkg", conf, who, pkg);
+	end
+	
+	--local hours, minutes = GetGameTime();
+	--local dataTransfert = { name = pkg; version = vs; duload = "Download"; who = who; dt = hours .. ":" .. minutes; status = "Start"; };
+	--NewTransfert(dataTransfert, rpcid);
+	--RPC_Group:Wait(rpcid, RAU_ReqPck_Rcvd, 300);
+	--VFLT.ZMSchedule(301, function()
+	--	if GetTransfertStatus(rpcid) == "Start" then
+	--		UpdateTransfertStatus(rpcid, "Timeout");
+			--RDXDB.UpdateRAUMode(4);
+	--	end
+	--end);
+end
+
+
+
+-----------------------------
+-- OLD DISPATCHER Request Package
+-----------------------------
+--local function RAU_ReqPck_Rcvd(ci, resp)
+	-- Sanity check all incoming parameters; make sure everything exists that should exist
+--	if (not ci) or (not ci.sender) or (not ci.id) or (type(resp) ~= "table") then return; end
+--	local su = RPC.GetSenderUnit(ci); if not su then return; end
+--	UpdateTransfertStatus(ci.id, "Done");
+--	RDX.TryIntegrate(VFLDIALOG, resp, "test", nil);
+--	if not RDXDB.IsRAUShown() then RDXDB.ShowRAU(); end
+--	RDXDB.UpdateRAUMode(2);
+--end
 
 
 ----------------------------------------------------------------------------
@@ -65,7 +145,7 @@ local function CellOnClick(self, arg1)
 				text = "Download", 
 				OnClick = function() 
 					-- who, packagename, version
-					RDXDB.RAU_ReqPck_Ask(self.col[7]:GetText(), self.col[1]:GetText(), self.col[2]:GetText());
+					RDXDB.RAU_RequestPkg("GUILD", self.col[7]:GetText(), self.col[1]:GetText(), self.col[2]:GetText());
 					VFL.poptree:Release(); 
 				end
 			});
@@ -414,6 +494,11 @@ end
 
 --------------------------------------------------------------------------------
 -- Mode buttons
+-- Mode 1 (Search Guild Package)
+-- Mode 2 (Search PackStore)
+-- Mode 3 (Your Packages)
+-- Mode 4 (Transfert Download)
+-- Mode 5 (Transfert Upload)
 --------------------------------------------------------------------------------
 
 local mode = 1;
@@ -494,61 +579,9 @@ closebtn:SetScript("OnClick", function() RDXDB.HideRAU() end);
 dlg:AddButton(closebtn);
 
 
------------------------------
--- RPC Request Package
------------------------------
-local function RAU_ReqPck_RPC(ci, who, pkg, vs, id)
-	-- Sanity check sender
-	if (not ci) or (type(who) ~= "string") then return; end
-	local sunit = RPC.GetSenderUnit(ci); if not sunit then return; end
-	local id = ci.id; if not id then return; end
-	local hours, minutes = GetGameTime();
-	local dataTransfert = { name = pkg; version = vs; duload = "Upload"; who = who; dt = hours .. ":" .. minutes; status = "Done"; };
-	NewTransfert(dataTransfert);
-	local myunit = RDXDAL.GetMyUnit();
-	if string.lower(who) == myunit.name then
-		local newdata = {};
-		newdata[pkg] = VFL.copy(RDXDB.GetPackage(pkg));
-		return newdata;
-	end
-end
------------------------------
--- DISPATCHER Request Package
------------------------------
-local function RAU_ReqPck_Rcvd(ci, resp)
-	-- Sanity check all incoming parameters; make sure everything exists that should exist
-	if (not ci) or (not ci.sender) or (not ci.id) or (type(resp) ~= "table") then return; end
-	local su = RPC.GetSenderUnit(ci); if not su then return; end
-	UpdateTransfertStatus(ci.id, "Done");
-	RDX.TryIntegrate(VFLDIALOG, resp, "test", nil);
-	if not RDXDB.IsRAUShown() then RDXDB.ShowRAU(); end
-	RDXDB.UpdateRAUMode(2);
-end
-function RDXDB.RAU_ReqPck_Ask(who, pkg, vs)
-	if type(who) ~= "string" or type(pkg) ~= "string" then return; end
-	who = string.lower(who);
-	local rpcid = RPC_Group:Invoke("rau_requestPkg", who, pkg, vs, id);
-	local hours, minutes = GetGameTime();
-	local dataTransfert = { name = pkg; version = vs; duload = "Download"; who = who; dt = hours .. ":" .. minutes; status = "Start"; };
-	NewTransfert(dataTransfert, rpcid);
-	RPC_Group:Wait(rpcid, RAU_ReqPck_Rcvd, 300);
-	VFLT.ZMSchedule(301, function()
-		if GetTransfertStatus(rpcid) == "Start" then
-			UpdateTransfertStatus(rpcid, "Timeout");
-			--RDXDB.UpdateRAUMode(4);
-		end
-	end);
-end
 
------------------------------
--- RPC Search
------------------------------
-local function RAU_Search_RPC(ci, str)
-	if (not ci) or (type(str) ~= "string") then return; end
-	local sunit = RPC.GetSenderUnit(ci); if not sunit then return; end
-	local id = ci.id; if not id then return; end
-	return VFL.copy(GetFilterListPkgInfo(str));
-end
+
+
 -----------------------------
 -- DISPATCHER Search
 -----------------------------
@@ -564,7 +597,7 @@ end
 function RDXDB.RAU_Search_Ask(str)
 	if type(str) ~= "string" then dlg.message:SetText("Please, enter a valid search text. Thanks."); return; end
 	VFL.empty(slist);
-	local rpcid = RPC_Group:Invoke("rau_searchPkg", str);
+	local rpcid = RPC_Guild:Invoke("rau_searchPkg", str);
 	RPC_Group:Wait(rpcid, RAU_Search_Rcvd, 10);
 	dlg.message:SetText("Searching ...");
 	VFLT.ZMSchedule(11, function()
@@ -576,18 +609,7 @@ function RDXDB.RAU_Search_Ask(str)
 	end);
 end
 
------------------------------
--- RPC See Addons player
------------------------------
-local function RAU_SeeAddons_RPC(ci, who)
-	if (not ci) or (type(who) ~= "string") then return; end
-	local sunit = RPC.GetSenderUnit(ci); if not sunit then return; end
-	local id = ci.id; if not id then return; end
-	local myunit = RDXDAL.GetMyUnit();
-	if string.lower(who) == myunit.name then
-		return VFL.copy(GetListPkgInfo());
-	end
-end
+
 
 -----------------------------
 -- DISPATCHER See Addons player
@@ -604,8 +626,8 @@ function RDXDB.RAU_SeeAddons_Ask(who)
 	if type(who) ~= "string" then return; end
 	VFL.empty(slist);
 	who = string.lower(who);
-	local rpcid = RPC_Group:Invoke("rau_seeAddons", who);
-	RPC_Group:Wait(rpcid, RAU_SeeAddons_Rcvd, 10);
+	local rpcid = RPC_Guild:Invoke("rau_seeAddons", who);
+	RPC_Guild:Wait(rpcid, RAU_SeeAddons_Rcvd, 60);
 	VFLT.ZMSchedule(11, function()
 		if VFL.isempty(slist) then
 			dlg.message:SetText("No package found !");
@@ -620,9 +642,8 @@ end
 -----------------------------
 RDXEvents:Bind("INIT_DEFERRED", nil, function()
 	if RDXG.ShowRAU then RDXDB.ShowRAU(); end
-	RPC_Group:Bind("rau_seeAddons", RAU_SeeAddons_RPC);
-	RPC_Group:Bind("rau_requestPkg", RAU_ReqPck_RPC);
-	RPC_Group:Bind("rau_searchPkg", RAU_Search_RPC);
+	
+	
 end);
 
 ----------------
