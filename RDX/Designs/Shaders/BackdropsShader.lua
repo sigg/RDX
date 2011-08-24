@@ -68,7 +68,7 @@ RDX.RegisterFeature({
 
 RDX.RegisterFeature({
 	name = "Backdrop Colorizer";
-	name = VFLI.i18n("Backdrop: Colorizer");
+	title = VFLI.i18n("Backdrop: Colorizer");
 	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
