@@ -1035,7 +1035,7 @@ local process_flag = nil;
 -- Called on the WoW RAID_ROSTER_UPDATE event.
 -- Latched to prevent uberspam.
 local OnRaidRosterUpdate = VFLT.CreatePeriodicLatch(1, function()
-	if not InCombatLockdown() then
+	--if not InCombatLockdown() then
 		local n = GetNumRaidMembers();
 	
 		-- If we weren't in a raid, transition to raid status
@@ -1048,9 +1048,9 @@ local OnRaidRosterUpdate = VFLT.CreatePeriodicLatch(1, function()
 		if(n == 0) then SetNonRaid(); return; end
 	
 		ProcessRoster();
-	else
-		process_flag = true;
-	end
+	--else
+	--	process_flag = true;
+	--end
 
 end);
 
@@ -1126,6 +1126,7 @@ end
 
 -- Before everything loads, let's setup in a default nonraid state
 RDXEvents:Bind("INIT_PRELOAD", nil, function()
+	-- RAID_ROSTER_UPDATE should be replace by UNIT_NAME_UPDATE
 	WoWEvents:Bind("RAID_ROSTER_UPDATE", nil, OnRaidRosterUpdate, "raid_roster");
 	-- Test sigg
 	SetRaid(true);
