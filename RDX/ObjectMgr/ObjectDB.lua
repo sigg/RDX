@@ -243,12 +243,36 @@ function RDXDB.SetPackageMetadata(pkg, field, val)
 	return true;
 end
 
+function RDXDB.SetAllPackageMetadata(pkg, pkgdata)
+	if not RDXDB.GetPackage(pkg) then return nil; end
+	if (type(pkgdata) ~= "table") then return nil; end
+	local qq = RDXData[pkg];
+	if not qq then return nil; end
+	VFL.copyInto(qq, pkgdata);
+	RDXDBEvents:Dispatch("PACKAGE_METADATA_UPDATE", pkg);
+	return true;
+end
+
 -- Get metadata package
 function RDXDB.GetPackageMetadata(pkg, field)
 	if not pkg then return nil; end
 	local qq = RDXData[pkg];
 	if not qq or (type(qq[field]) == "table") then return nil; end
 	return qq[field];
+end
+
+-- Get all metadata package
+function RDXDB.GetAllPackageMetadata(pkg)
+	if not pkg then return nil; end
+	local qq = RDXData[pkg];
+	if not qq then return nil; end
+	local ret = {};
+	for k, v in pairs(qq) do
+		if type(v) ~= "table" then
+			ret[k] = v;
+		end
+	end
+	return ret;
 end
 
 --------------------------------------------------

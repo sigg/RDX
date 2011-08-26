@@ -122,7 +122,7 @@ local fdlg = nil; -- Generic subdialog variable
 
 local dlg = VFLUI.Window:new();
 VFLUI.Window.SetDefaultFraming(dlg, 24);
-dlg:SetText("RDX Packages Updater (Beta)");
+dlg:SetText(VFLI.i18n("RDX Packages Updater (Beta)"));
 dlg:SetTitleColor(0,0,.6);
 dlg:SetWidth(660); dlg:SetHeight(380);
 dlg:SetPoint("CENTER", VFLParent, "CENTER");
@@ -142,7 +142,18 @@ local function CellOnClick(self, arg1)
 				{ text = VFL.strcolor(.5, .5, .5) .. "Package " .. self.col[1]:GetText() .. "|r" };
 			};
 			table.insert(mnu, { 
-				text = "Download", 
+				text = VFLI.i18n("Info"), 
+				OnClick = function()
+					local data = {};
+					data["infoVersion"] = self.col[2]:GetText(); --version
+					data["infoAuthor"] = self.col[3]:GetText(); --author
+					data["infoComment"] = self.col[4]:GetText(); --Comment
+					RDXDB.PackageMetadataDialog(self, self.col[1]:GetText(), data);
+					VFL.poptree:Release(); 
+				end
+			});
+			table.insert(mnu, { 
+				text = VFLI.i18n("Download"), 
 				OnClick = function() 
 					-- who, packagename, version
 					RDXDB.RAU_RequestPkg("GUILD", self.col[7]:GetText(), self.col[1]:GetText(), self.col[2]:GetText());
@@ -159,10 +170,10 @@ local function CellOnClick(self, arg1)
 				{ text = VFL.strcolor(.5, .5, .5) .. "Package " .. self.col[1]:GetText() .. "|r" };
 			};
 			table.insert(mnu, { 
-				text = "Info Package", 
+				text = VFLI.i18n("Info Package"), 
 				OnClick = function() 
 					-- who, packagename, version
-					RDXDB.PackageMetadataDialog(self.col[1]:GetText(), self);
+					RDXDB.PackageMetadataDialog(self, self.col[1]:GetText(), RDXDB.GetAllPackageMetadata(self.col[1]:GetText()), function(pkgname, pkgdata) RDXDB.SetAllPackageMetadata(pkgname, pkgdata) end);
 					VFL.poptree:Release(); 
 				end
 			});
@@ -343,8 +354,15 @@ local slist = {};
 local colspec_srch = {
 	{ title = "Name"; width = 100; r=1; g=1; b=1;
 	  paint = function(cell, data) cell:SetText(data.name); end;};
-	{ title = "Version"; width = 55; r=.95; g=.95; b=.45; jh="CENTER";
-	  paint = function(cell, data) cell:SetText(data.version); end;};
+	{ title = "Version"; width = 100; r=.95; g=.95; b=.45; jh="CENTER";
+	  paint = function(cell, data)
+	  	local str = RDXDB.GetPackageMetadata(data.name, "infoVersion")
+		if str then
+			cell:SetText(data.version .. " (" .. str ..")" .. );
+		else
+			cell:SetText(data.version);
+		end
+	end;};
 	{ title = "Author"; width = 100; r=.95; g=.95; b=.45; jh="LEFT";
 	  paint = function(cell, data) cell:SetText(data.author); end;};
 	{ title = "Comment"; width = 120; r=.95; g=.95; b=.45; jh="LEFT";

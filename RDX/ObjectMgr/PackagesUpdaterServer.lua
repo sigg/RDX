@@ -118,7 +118,10 @@ local function RAU_Search_RPC(ci, str)
 	if (not ci) or (type(str) ~= "string") then return nil, "error request"; end
 	--local sunit = RPC.GetSenderUnit(ci); if not sunit then return; end
 	--local id = ci.id; if not id then return; end
-	return VFL.copy(GetFilterListPkgInfo(str));
+	--local myunit = RDXDAL.GetMyUnit();
+	--if string.lower(id) ~= myunit.name then
+		return VFL.copy(GetFilterListPkgInfo(str));
+	--end
 end
 RPC.GlobalBind("rau_searchPkg", RAU_Search_RPC);
 
