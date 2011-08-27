@@ -173,8 +173,8 @@ local function CellOnClick(self, arg1)
 				text = VFLI.i18n("Info Package"), 
 				OnClick = function() 
 					-- who, packagename, version
-					RDXDB.PackageMetadataDialog(self, self.col[1]:GetText(), RDXDB.GetAllPackageMetadata(self.col[1]:GetText()), function(pkgname, pkgdata) RDXDB.SetAllPackageMetadata(pkgname, pkgdata) end);
-					VFL.poptree:Release(); 
+					RDXDB.PackageMetadataDialog(self, self.col[1]:GetText(), RDXDB.GetAllPackageMetadata(self.col[1]:GetText()), function(pkgname, pkgdata) RDXDB.SetAllPackageMetadata(pkgname, pkgdata); RDXDB.UpdateRAUMode(3); end);
+					VFL.poptree:Release();
 				end
 			});
 			
@@ -327,23 +327,9 @@ local function GetListPkgInfo(flagall)
 			end
 		end
 	end
+	table.sort(newlist, function(x1,x2) return x1.name < x2.name; end);
 	return newlist;
 end
-
-local function GetFilterListPkgInfo(str)
-	VFL.empty(newlist);
-	local i = 1;
-	for pkgName, pkgData in pairs(RDXData) do
-		if not RDXDB.IsProtectedPkg(pkgName) and string.find(pkgName, str) then
-			local pkg = GetPkgInfo(pkgName);
-			if pkg then
-				newlist[i] = pkg; i = i + 1;
-			end
-		end
-	end
-	return newlist;
-end
-
 
 --------------------------------------------------------------------------------
 -- Search Mode, view list of packages
@@ -356,9 +342,9 @@ local colspec_srch = {
 	  paint = function(cell, data) cell:SetText(data.name); end;};
 	{ title = "Version"; width = 100; r=.95; g=.95; b=.45; jh="CENTER";
 	  paint = function(cell, data)
-	  	local str = RDXDB.GetPackageMetadata(data.name, "infoVersion")
+	  	local str = RDXDB.GetPackageMetadata(data.name, "infoVersion");
 		if str then
-			cell:SetText(data.version .. " (" .. str ..")" .. );
+			cell:SetText(data.version .. " (" .. str ..")");
 		else
 			cell:SetText(data.version);
 		end
@@ -616,7 +602,7 @@ function RDXDB.RAU_Search_Ask(str)
 	if type(str) ~= "string" then dlg.message:SetText("Please, enter a valid search text. Thanks."); return; end
 	VFL.empty(slist);
 	local rpcid = RPC_Guild:Invoke("rau_searchPkg", str);
-	RPC_Group:Wait(rpcid, RAU_Search_Rcvd, 10);
+	RPC_Guild:Wait(rpcid, RAU_Search_Rcvd, 10);
 	dlg.message:SetText("Searching ...");
 	VFLT.ZMSchedule(11, function()
 		if VFL.isempty(slist) then

@@ -38,6 +38,17 @@ local function Preload()
 	RDXEvents:Dispatch("INIT_PRELOAD");
 	RDXEvents:DeleteKey("INIT_PRELOAD");
 	
+	-- test
+	--local tmpbtn = {};
+	--for i=1,10 do 
+	--	tmpbtn[i] = VFLUI.AcquireFrame("SecureUnitButton");
+	--end
+	
+	--for i=1,10 do 
+	--	tmpbtn[i]:Destroy();
+	--end
+	
+	-- hack
 end
 
 -- VariablesLoaded: Called on VARIABLES_LOADED, that is to say after ALL addons have been loaded.
@@ -97,7 +108,9 @@ WoWEvents:Bind("VARIABLES_LOADED", nil, VariablesLoaded);
 Preload();
 
 --[[
+deactivate
 /console taintLog 0
+activate
 /console taintLog 1
 
 /script DEFAULT_CHAT_FRAME:AddMessage(GetMouseFocus():GetName());

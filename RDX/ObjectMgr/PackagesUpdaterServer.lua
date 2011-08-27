@@ -7,13 +7,54 @@
 -- "realm" = "name"
 -- Add here more Packstores ID
 
-local ps_horde = {
-	"Rashgarroth" = "SiggPack";
-};
+--local ps_horde = {
+--	"Rashgarroth" = {
+--		"SiggPack",
+--	};
+--};
 
-local ps_alliance = {
-	
-};
+--local ps_alliance = {
+--	
+--};
+
+--------------------------------------------------------------------------------
+-- Helper
+--------------------------------------------------------------------------------
+local function GetPkgInfo(pkgName, flagall)
+	if not RDXDB.IsProtectedPkg(pkgName) and (flagall or RDXDB.GetPackageMetadata(pkgName, "infoIsShare")) then
+		local isA = "no"; if RDXDB.GetPackageMetadata(pkgName, "infoRunAutoexec") then isA = "yes"; end
+		local isS = "no"; if RDXDB.GetPackageMetadata(pkgName, "infoIsShare") then isS = "yes"; end
+		local pkgInfo = {
+			name = pkgName;
+			player = UnitName("player");
+			guild = GetGuildInfo("player");
+			version = RDXDB.GetPackageMetadata(pkgName, "infoVersion");
+			author = RDXDB.GetPackageMetadata(pkgName, "infoAuthor");
+			realm = RDXDB.GetPackageMetadata(pkgName, "infoAuthorRealm");
+			comment = RDXDB.GetPackageMetadata(pkgName, "infoComment");
+			objects = RDXDB.GetNumberObjects(pkgName);
+			isAutoexec = isA;
+			isShare = isS;
+		};
+		return pkgInfo;
+	end
+	return nil;
+end
+
+local newlist = {};
+local function GetFilterListPkgInfo(str)
+	VFL.empty(newlist);
+	local i = 1;
+	for pkgName, pkgData in pairs(RDXData) do
+		if not RDXDB.IsProtectedPkg(pkgName) and string.find(pkgName, str) then
+			local pkg = GetPkgInfo(pkgName);
+			if pkg then
+				newlist[i] = pkg; i = i + 1;
+			end
+		end
+	end
+	return newlist;
+end
 
 --------------------------------------
 -- SERVER

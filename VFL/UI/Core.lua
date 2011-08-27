@@ -344,7 +344,7 @@ local function _DR()
 	DRTimer = mathdotfloor(GetTime() * 1000), 0;
 	for st, obj in pairs(drot) do
 		if DRTimer > st then
-			if obj.IsProtected and obj:IsProtected() then 
+			if obj.IsProtected and obj:IsProtected() and not obj.nodelete then 
 				obj.jail = true; 
 				obj:EnableMouse(nil);
 			end
@@ -532,6 +532,7 @@ VFLUI.CreateFramePool("SecureUnitButton", function(pool, x)
 end, function()
 	local f = CreateFrame("Button", "SecureUnitButton" .. GetNextID(), nil, "SecureUnitButtonTemplate");
 	FixFontObjectNonsense(f);
+	f.nodelete = true;
 	return f;
 end);
 

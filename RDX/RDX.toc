@@ -52,8 +52,8 @@ CommMgr\RPC.lua
 CommMgr\ConfMgr.lua
 # to be moved back to RDXOM
 CommMgr\Integration.lua
-#ObjectMgr\PackagesUpdaterServer.lua
-#ObjectMgr\PackagesUpdaterDialog.lua
+ObjectMgr\PackagesUpdaterServer.lua
+ObjectMgr\PackagesUpdaterDialog.lua
 
 # Rosters, events Manager (RDXRM, RDXMD Metadata, RDXSS SpellSystem)
 RosterMgr\Metadata.lua

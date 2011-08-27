@@ -192,7 +192,7 @@ RDX.RegisterFeature({
 		local function create(w)
 			win = w;
 			-- Make the grid
-			grid = RDX.SmartHeader:new(htype); 
+			grid = RDX.SmartHeader:new(htype, hdef.switchvehicle, w._path); 
 			grid:Hide(); grid:SetMovable(true);
 			w:SetClient(grid);
 

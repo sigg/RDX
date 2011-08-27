@@ -853,10 +853,13 @@ RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
 	ent.hasArrow = true;
 	ent.notCheckable = true;
 	ent.menuList = {
-		{ text = "     " .. VFLI.i18n("Package Explorer"), notCheckable = true, func = RDXDB.ToggleObjectBrowser },
-		{ text = "     " .. VFLI.i18n("Package Updater"), notCheckable = true, func = RDXDB.ToggleRAU },
-		{ text = "     " .. VFLI.i18n("OOBE Manager"), notCheckable = true, func = RDXDB.DropOOBE },
-		{ text = VFLI.i18n("Package Sharing"), checked = function() return not RDX.IsRcvDisable(); end, func = function() RDX.ToggleRcvPackage(); end }
+		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, func = RDXDB.ToggleObjectBrowser },
+		{ text = VFLI.i18n("Package Updater"), notCheckable = true, func = RDXDB.ToggleRAU },
+		{ text = VFLI.i18n("OOBE Manager"), notCheckable = true, func = RDXDB.DropOOBE },
+		--{ text = "     " .. VFLI.i18n("Package Explorer"), notCheckable = true, func = RDXDB.ToggleObjectBrowser },
+		--{ text = "     " .. VFLI.i18n("Package Updater"), notCheckable = true, func = RDXDB.ToggleRAU },
+		--{ text = "     " .. VFLI.i18n("OOBE Manager"), notCheckable = true, func = RDXDB.DropOOBE },
+		--{ text = VFLI.i18n("Package Sharing"), checked = function() return not RDX.IsRcvDisable(); end, func = function() RDX.ToggleRcvPackage(); end }
 
 	};
 end);

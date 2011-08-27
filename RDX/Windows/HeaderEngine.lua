@@ -116,7 +116,7 @@ end);
 --     can be dynamically pooled.
 ------------------------------------------------------------
 RDX.SmartHeader = {};
-function RDX.SmartHeader:new(ty, switchvehicle)
+function RDX.SmartHeader:new(ty, switchvehicle, winpath)
 	if type(ty) ~= "string" then ty = "SecureGroupHeader"; end
 	local self = VFLUI.AcquireFrame(ty);
 	self:SetAttribute("template", "SecureFrameTemplate"); 
@@ -125,9 +125,16 @@ function RDX.SmartHeader:new(ty, switchvehicle)
 	self:SetAttribute("sortDir", "ASC");
 	self.OnAllocateFrame = VFL.Noop; 
 	self.OnSecureUpdate = VFL.Noop;
-	self.icf = function(self, newChildName) if switchvehicle then _G[newChildName]:SetAttribute("toggleForVehicle", true); end self:OnAllocateFrame(_G[newChildName]); end
 	-- Called whenever a new child frame is associated to this header.
-	--self.initialConfigFunction = function(newChild) VFL.print("CATACLYSM ALLOCATE OK"); if switchvehicle then newChild:SetAttribute("toggleForVehicle", true); end self:OnAllocateFrame(newChild); end
+	self.icf = function(self, newChildName)
+		if switchvehicle then _G[newChildName]:SetAttribute("toggleForVehicle", true); end
+		local succ,err = pcall(self.OnAllocateFrame, self, _G[newChildName]);
+		if not succ and winpath then
+			RDX.printW(winpath .." could not be updated. It will be rebuild at the end of combat. (or Reload your UI now!)");
+			RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, winpath);
+		end
+		--self:OnAllocateFrame(_G[newChildName]);
+	end
 	self:SetAttribute('initialConfigFunction', [[
 		control:GetParent():CallMethod('icf', self:GetName());
 	]]);

@@ -125,11 +125,11 @@ function RDXDB.PackageMetadataDialog(parent, pkgname, pkgdata, callback)
 		pkgdata["infoAuthorWebSite"] = ed_authorwebsite.editBox:GetText();
 		pkgdata["infoVersion"] = ed_packageversion.editBox:GetText();
 		pkgdata["infoComment"] = ed_comment.editBox:GetText();
-		pkgdata["infoIsShare"] = chk_isshare:GetChecked();
-		pkgdata["infoIsImmutable"] = chk_isimmutable:GetChecked();
-		pkgdata["infoIsIndelible"] = chk_isindelible:GetChecked();
-		pkgdata["infoRunAutoexec"] = chk_runautoexec:GetChecked();
-		pkgdata["infoIsCommon"] = chk_iscommon:GetChecked();
+		if chk_isshare:GetChecked() then pkgdata["infoIsShare"] = true; else pkgdata["infoIsShare"] = false; end
+		if chk_isimmutable:GetChecked() then pkgdata["infoIsImmutable"] = true; else pkgdata["infoIsImmutable"] = false; end
+		if chk_isindelible:GetChecked() then pkgdata["infoIsIndelible"] = true; else pkgdata["infoIsIndelible"] = false; end
+		if chk_runautoexec:GetChecked() then pkgdata["infoRunAutoexec"] = true; else pkgdata["infoRunAutoexec"] = false; end
+		if chk_iscommon:GetChecked() then pkgdata["infoIsCommon"] = true; else pkgdata["infoIsCommon"] = false; end
 		if callback then callback(pkgname, pkgdata); end
 		VFL.EscapeTo(esch);
 	end);
