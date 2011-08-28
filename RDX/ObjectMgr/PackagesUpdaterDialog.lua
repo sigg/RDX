@@ -122,9 +122,9 @@ local fdlg = nil; -- Generic subdialog variable
 
 local dlg = VFLUI.Window:new();
 VFLUI.Window.SetDefaultFraming(dlg, 24);
-dlg:SetText(VFLI.i18n("RDX Packages Updater (Beta)"));
+dlg:SetText(VFLI.i18n("RDX Packages Updater"));
 dlg:SetTitleColor(0,0,.6);
-dlg:SetWidth(660); dlg:SetHeight(380);
+dlg:SetWidth(660); dlg:SetHeight(390);
 dlg:SetPoint("CENTER", VFLParent, "CENTER");
 dlg:SetMovable(true); dlg:SetToplevel(nil);
 VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
@@ -332,7 +332,57 @@ local function GetListPkgInfo(flagall)
 end
 
 --------------------------------------------------------------------------------
--- Search Mode, view list of packages
+-- Packstore Mode
+--------------------------------------------------------------------------------
+
+local plist = {};
+
+local colspec_packstore = {
+	{ title = "Name"; width = 100; r=1; g=1; b=1;
+	  paint = function(cell, data) cell:SetText(data.name); end;};
+	{ title = "Version"; width = 100; r=.95; g=.95; b=.45; jh="CENTER";
+	  paint = function(cell, data)
+	  	local str = RDXDB.GetPackageMetadata(data.name, "infoVersion");
+		if str then
+			cell:SetText(data.version .. " (" .. str ..")");
+		else
+			cell:SetText(data.version);
+		end
+	end;};
+	{ title = "Author"; width = 100; r=.95; g=.95; b=.45; jh="LEFT";
+	  paint = function(cell, data) cell:SetText(data.author); end;};
+	{ title = "Comment"; width = 120; r=.95; g=.95; b=.45; jh="LEFT";
+	  paint = function(cell, data) cell:SetText(data.comment); end; };
+	{ title = "Objects"; width = 55; r=.95; g=.95; b=.45; jh="CENTER";
+	  paint = function(cell, data) cell:SetText(data.objects); end};
+	{ title = "isExec"; width = 55; r=.95; g=.95; b=.45; jh="CENTER";
+	  paint = function(cell, data) cell:SetText(data.isAutoexec); end;};
+	{ title = "Player"; width = 100; r=.95; g=.95; b=.45; jh="LEFT";
+	  paint = function(cell, data) cell:SetText(data.player); end;};
+};
+
+local function SetPackstoreMode()
+	for _,cell in data:_GetGrid():StatelessIterator(1) do
+		SetupLayout(colspec_packstore, cell.col);
+	end
+	local alist = plist;
+	data:SetDataSource(function(cell, data, pos, absPos)
+		local col = cell.col;
+		if(absPos == 1) then
+			cell.selTexture:Show(); cell.selTexture:SetTexture(0,0,0.6,0.6);
+			PaintTitle(colspec_packstore, col);
+		else
+			PaintData(colspec_packstore, col, data);
+		end
+	end, function() return #alist + 1; end, function(n) if n == 1 then return true; else return alist[n-1]; end end);
+	-- Unbind any events previousl bound to the window
+	--RDXDBEvents:Unbind(dlg);
+	-- Notify to update on repaint
+	--RDXDBEvents:Bind("TRANSFERT_RAU_UPDATE", data, data.Update, dlg);
+end
+
+--------------------------------------------------------------------------------
+-- Guild Mode, view list of packages
 --------------------------------------------------------------------------------
 
 local slist = {};
@@ -361,7 +411,7 @@ local colspec_srch = {
 	  paint = function(cell, data) cell:SetText(data.player); end;};
 };
 
-local function SetSearchMode()
+local function SetGuildMode()
 	for _,cell in data:_GetGrid():StatelessIterator(1) do
 		SetupLayout(colspec_srch, cell.col);
 	end
@@ -498,9 +548,9 @@ end
 
 --------------------------------------------------------------------------------
 -- Mode buttons
--- Mode 1 (Search Guild Package)
--- Mode 2 (Search PackStore)
--- Mode 3 (Your Packages)
+-- Mode 1 (Search PackStore)
+-- Mode 2 (Search Guild Package)
+-- Mode 3 (My Packages)
 -- Mode 4 (Transfert Download)
 -- Mode 5 (Transfert Upload)
 --------------------------------------------------------------------------------
@@ -515,26 +565,26 @@ local mb1 = VFLUI.Button:new(ca);
 --mb1:SetPoint("LEFT", toggle, "RIGHT", 15, 0);
 mb1:SetPoint("TOPLEFT", ca, "TOPLEFT");
 mb1:SetWidth(100); mb1:SetHeight(25); mb1:Show();
-mb1:SetText("Settings");
+mb1:SetText("PackStore");
 mb1:SetScript("OnClick", function() RDXDB.UpdateRAUMode(1); end);
 
 local mb2 = VFLUI.Button:new(ca);
 mb2:SetPoint("LEFT", mb1, "RIGHT");
 mb2:SetWidth(100); mb2:SetHeight(25); mb2:Show();
-mb2:SetText("Search");
+mb2:SetText("Guild");
 mb2:SetScript("OnClick", function() RDXDB.UpdateRAUMode(2); end);
 
 local mb3 = VFLUI.Button:new(ca);
 mb3:SetPoint("LEFT", mb2, "RIGHT");
 mb3:SetWidth(100); mb3:SetHeight(25); mb3:Show();
-mb3:SetText("MyPackages");
+mb3:SetText("My Packages");
 mb3:SetScript("OnClick", function() RDXDB.UpdateRAUMode(3); end);
 
-local mb4 = VFLUI.Button:new(ca);
-mb4:SetPoint("LEFT", mb3, "RIGHT");
-mb4:SetWidth(100); mb4:SetHeight(25); mb4:Show();
-mb4:SetText("Transfert");
-mb4:SetScript("OnClick", function() RDXDB.UpdateRAUMode(4); end);
+--local mb4 = VFLUI.Button:new(ca);
+--mb4:SetPoint("LEFT", mb3, "RIGHT");
+--mb4:SetWidth(100); mb4:SetHeight(25); mb4:Show();
+--mb4:SetText("Transfert");
+--mb4:SetScript("OnClick", function() RDXDB.UpdateRAUMode(4); end);
 
 local find = VFLUI.Edit:new(ca);
 find:SetHeight(25); find:SetWidth(125);
@@ -551,21 +601,22 @@ magGlass:SetScript("OnClick", function()
 end);
 
 function RDXDB.UpdateRAUMode(n)
-	mb1:UnlockHighlight(); mb2:UnlockHighlight(); mb3:UnlockHighlight(); mb4:UnlockHighlight();
+	mb1:UnlockHighlight(); mb2:UnlockHighlight(); mb3:UnlockHighlight(); 
+	--mb4:UnlockHighlight();
 	if n ~= mode then dlg.message:SetText(""); end
 	mode = n;
 	find:Hide();
 	magGlass:Hide();
 	if(n == 1) then
-		--mb1:LockHighlight(); SetSummaryMode();
+		mb1:LockHighlight(); SetPackstoreMode();
 	elseif(n == 2) then
-		mb2:LockHighlight(); SetSearchMode();
+		mb2:LockHighlight(); SetGuildMode();
 		find:Show();
 		magGlass:Show();
 	elseif(n == 3) then
 		mb3:LockHighlight(); SetPackageMode();
-	elseif(n == 4) then
-		mb4:LockHighlight(); SetTransfertMode();
+	--elseif(n == 4) then
+	--	mb4:LockHighlight(); SetTransfertMode();
 	end
 end
 
@@ -581,10 +632,6 @@ dlg.message:SetJustifyH("LEFT");
 local closebtn = VFLUI.CloseButton:new();
 closebtn:SetScript("OnClick", function() RDXDB.HideRAU() end);
 dlg:AddButton(closebtn);
-
-
-
-
 
 -----------------------------
 -- DISPATCHER Search
@@ -646,8 +693,6 @@ end
 -----------------------------
 RDXEvents:Bind("INIT_DEFERRED", nil, function()
 	if RDXG.ShowRAU then RDXDB.ShowRAU(); end
-	
-	
 end);
 
 ----------------
@@ -658,23 +703,19 @@ function RDXDB.ShowRAU()
 	if RDXPM.Ismanaged("rau") then RDXPM.RestoreLayout(dlg, "rau"); end; 
 	RDXG.ShowRAU = true;
 	dlg:Show();
-	--dlg:Show(.2, true);
 end
 
 function RDXDB.HideRAU()
 	RDXPM.StoreLayout(dlg, "rau");
 	RDXG.ShowRAU = nil;
 	dlg:Hide();
-	--dlg:Hide(.2, true);
 end
 
 function RDXDB.ToggleRAU()
 	if RDXG.ShowRAU then
 		RDXDB.HideRAU();
-		--RDX.printI(VFLI.i18n("Hide RAU"));
 	else
 		RDXDB.ShowRAU()
-		--RDX.printI(VFLI.i18n("Show RAU"));
 	end
 end
 

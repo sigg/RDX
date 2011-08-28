@@ -98,14 +98,14 @@ function RDX.Integrate(parent, data, author, callback)
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetText(VFLI.i18n("Integration: ") .. tostring(author));
 	dlg:SetPoint("LEFT", VFLParent, "LEFT", 25, 0);
-	dlg:SetHeight(500); dlg:SetWidth(245);
+	dlg:SetHeight(500); dlg:SetWidth(250);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar()); --raider
 	dlg:Show();
 	local ca = dlg:GetClientArea();
 
 	local lbl = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Receiving the following objects from |cFF00FFFF") .. tostring(author) .. VFLI.i18n("|r. Objects highlighted in |cFFFF0000RED|r may contain executable Lua code. You should not accept these unless you trust the author. If you press Cancel, no objects will be integrated."));
 	lbl:SetPoint("TOPLEFT", ca, "TOPLEFT");
-	lbl:SetWidth(235); lbl:SetHeight(64);
+	lbl:SetWidth(240); lbl:SetHeight(64);
 
 	local SelectFile; -- Predeclaration for function
 	
