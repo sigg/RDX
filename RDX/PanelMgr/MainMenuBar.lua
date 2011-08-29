@@ -639,11 +639,13 @@ end);
 RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Character");
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.func = function() ToggleCharacter("PaperDollFrame"); end;
 end);
 RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("SpellBook");
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.func = function() 
 	--ToggleFrame(SpellBookFrame);
 		if SpellBookFrame:IsShown() then
@@ -656,26 +658,31 @@ end);
 RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Talents");
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.func = function() ToggleTalentFrame(); end;
 end);
 RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Achievements");
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.func = function() ToggleAchievementFrame(); end;
 end);
 RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Quests");
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.func = function() ToggleFrame(QuestLogFrame); end;
 end);
 RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Encounters");
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.func = function() ToggleFrame(EncounterJournal); end;
 end);
 RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Bags");
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.func = function() OpenAllBags(); end;
 end);
 --RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
@@ -693,26 +700,31 @@ end);
 RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Calendar");
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.func = function() ToggleCalendar(); end;
 end);
 RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Social");
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.func = function() ToggleFriendsFrame(); end;
 end);
 RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Guild");
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.func = function() ToggleGuildFrame(); end;
 end);
 RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("PVP");
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.func = function() TogglePVPFrame(); end;
 end);
 RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("LFD");
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.func = function() ToggleLFDParentFrame(); end;
 end);
 
@@ -750,17 +762,17 @@ RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
 	end
 	
 	local inventoryMenu = {
-		{ text = VFLI.i18n("Potions"), notCheckable = true, func = function() Logistics.DoInvCheck("*potion*"); end },
-		{ text = VFLI.i18n("Healthstone"), notCheckable = true, func = function() Logistics.DoInvCheck("*healthstone*"); end },
-		{ text = VFLI.i18n("Custom..."), notCheckable = true, func = Logistics.InvCheckFrontend },
+		{ text = VFLI.i18n("Potions"), notCheckable = true, keepShownOnClick = false, func = function() Logistics.DoInvCheck("*potion*"); end },
+		{ text = VFLI.i18n("Healthstone"), notCheckable = true, keepShownOnClick = false, func = function() Logistics.DoInvCheck("*healthstone*"); end },
+		{ text = VFLI.i18n("Custom..."), notCheckable = true, keepShownOnClick = false, func = Logistics.InvCheckFrontend },
 		{ text = VFLI.i18n("Recent Searches"), notCheckable = true, hasArrow = true, menuList = recentSearches }
 	}
 	local checkMenu = {
-		{ text = VFLI.i18n("RDX Version"), notCheckable = true, func = RDX.VersionCheck_Start },
-		{ text = VFLI.i18n("Durability"), notCheckable = true, func = Logistics.DuraCheck_Start },
-		{ text = VFLI.i18n("Resists"), notCheckable = true, func = Logistics.ResistCheck_Start },
-		{ text = VFLI.i18n("Ready Check"), notCheckable = true, func = Logistics.ReadyCheck },
-		{ text = VFLI.i18n("Poll"), notCheckable = true, func = Logistics.CustomPollDlg },
+		{ text = VFLI.i18n("RDX Version"), notCheckable = true, keepShownOnClick = false, func = RDX.VersionCheck_Start },
+		{ text = VFLI.i18n("Durability"), notCheckable = true, keepShownOnClick = false, func = Logistics.DuraCheck_Start },
+		{ text = VFLI.i18n("Resists"), notCheckable = true, keepShownOnClick = false, func = Logistics.ResistCheck_Start },
+		{ text = VFLI.i18n("Ready Check"), notCheckable = true, keepShownOnClick = false, func = Logistics.ReadyCheck },
+		{ text = VFLI.i18n("Poll"), notCheckable = true, keepShownOnClick = false, func = Logistics.CustomPollDlg },
 		{ text = VFLI.i18n("Inventory"), notCheckable = true, hasArrow = true, menuList = inventoryMenu }
 	}
 	ent.text = VFLI.i18n("Raid Checks");
@@ -775,10 +787,10 @@ RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
 	ent.notCheckable = true;
 	ent.hasArrow = true;
 	ent.menuList = {
-		{ text = VFLI.i18n("Add Target to Assists"), notCheckable = true, func = Logistics.AddAssist },
-		{ text = VFLI.i18n("Remove Target from Assists"), notCheckable = true, func = Logistics.DropAssist },
-		{ text = VFLI.i18n("Sync Assists"), notCheckable = true, func = Logistics.SyncAssists },
-		{ text = VFLI.i18n("Clear Assists"), notCheckable = true, func = Logistics.ClearAssists }
+		{ text = VFLI.i18n("Add Target to Assists"), notCheckable = true, keepShownOnClick = false, func = Logistics.AddAssist },
+		{ text = VFLI.i18n("Remove Target from Assists"), notCheckable = true, keepShownOnClick = false, func = Logistics.DropAssist },
+		{ text = VFLI.i18n("Sync Assists"), notCheckable = true, keepShownOnClick = false, func = Logistics.SyncAssists },
+		{ text = VFLI.i18n("Clear Assists"), notCheckable = true, keepShownOnClick = false, func = Logistics.ClearAssists }
 	};
 end);
 
@@ -787,12 +799,12 @@ RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
 	ent.notCheckable = true;
 	ent.hasArrow = true;
 	ent.menuList = {
-		{ text = VFLI.i18n("Open Roster"), notCheckable = true, func = RDX.OpenRosterWindow },
-		{ text = VFLI.i18n("Disband Raid"), notCheckable = true, func = Logistics.Disband },
-		{ text = VFLI.i18n("Toggle Keyword Invite"), notCheckable = true, func = Logistics.ToggleKeyword },
-		{ text = VFLI.i18n("Change Invite Keyword"), notCheckable = true, func = Logistics.SetKeyword },
-		{ text = VFLI.i18n("Request Invite"), notCheckable = true, func = Logistics.RequestInvite },
-		{ text = VFLI.i18n("Remote Logout"), notCheckable = true, func = Logistics.BootAfk }
+		{ text = VFLI.i18n("Open Roster"), notCheckable = true, keepShownOnClick = false, func = RDX.OpenRosterWindow },
+		{ text = VFLI.i18n("Disband Raid"), notCheckable = true, keepShownOnClick = false, func = Logistics.Disband },
+		{ text = VFLI.i18n("Toggle Keyword Invite"), notCheckable = true, keepShownOnClick = false, func = Logistics.ToggleKeyword },
+		{ text = VFLI.i18n("Change Invite Keyword"), notCheckable = true, keepShownOnClick = false, func = Logistics.SetKeyword },
+		{ text = VFLI.i18n("Request Invite"), notCheckable = true, keepShownOnClick = false, func = Logistics.RequestInvite },
+		{ text = VFLI.i18n("Remote Logout"), notCheckable = true, keepShownOnClick = false, func = Logistics.BootAfk }
 	};
 end);
 
@@ -802,9 +814,9 @@ RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
 	ent.hasArrow = true;
 	ent.menuList = {
 		{ text = VFLI.i18n("Logs"), notCheckable = true, hasArrow = true, menuList = {
-				{ text = VFLI.i18n("Query Raid Logs"), notCheckable = true, func = Omni.ToggleOmniSearch },
-				{ text = VFLI.i18n("Open Analyser"), notCheckable = true, func = Omni.ToggleOmniBrowser },
-				{ text = VFLI.i18n("Reset Logs: " .. GetMemoryLogs()), notCheckable = true, func = Omni.ResetLogs }
+				{ text = VFLI.i18n("Query Raid Logs"), notCheckable = true, keepShownOnClick = false, func = Omni.ToggleOmniSearch },
+				{ text = VFLI.i18n("Open Analyser"), notCheckable = true, keepShownOnClick = false, func = Omni.ToggleOmniBrowser },
+				{ text = VFLI.i18n("Reset Logs: " .. GetMemoryLogs()), notCheckable = true, keepShownOnClick = false, func = Omni.ResetLogs }
 			}
 		},
 		--{ text = VFLI.i18n("Damage Meters"), notCheckable = true, hasArrow = true, menuList = {
@@ -821,11 +833,11 @@ RDXPM.GuildMenu:RegisterMenuFunction(function(ent)
 	ent.notCheckable = true;
 	ent.hasArrow = true;
 	ent.menuList = {
-		{ text = VFLI.i18n("     Encounter Panel"), notCheckable = true, func = RDX.ToggleEncounterPane },
-		{ text = VFLI.i18n("Track Abilities"), checked = function() return RDXU.atracker; end, func = RDXBM.ToggleAbilityTracker },
-		{ text = VFLI.i18n("Move Alerts"), checked = RDXBM.isMoveAlerts, func = RDXBM.ToggleMoveAlerts },
-		{ text = VFLI.i18n("Sound Alerts"), checked = function() return not RDXU.nosound; end, func = function() RDXU.nosound = not RDXU.nosound; end },
-		{ text = VFLI.i18n("Announcer"), checked = function() return RDXU.spam; end, func = function() if RDXU.spam then RDX.AnnounceOff(); else RDX.AnnounceOn(); end end }
+		{ text = VFLI.i18n("     Encounter Panel"), notCheckable = true, keepShownOnClick = false, func = RDX.ToggleEncounterPane },
+		{ text = VFLI.i18n("Track Abilities"), checked = function() return RDXU.atracker; end, keepShownOnClick = false, func = RDXBM.ToggleAbilityTracker },
+		{ text = VFLI.i18n("Move Alerts"), checked = RDXBM.isMoveAlerts, keepShownOnClick = false, func = RDXBM.ToggleMoveAlerts },
+		{ text = VFLI.i18n("Sound Alerts"), checked = function() return not RDXU.nosound; end, keepShownOnClick = false, func = function() RDXU.nosound = not RDXU.nosound; end },
+		{ text = VFLI.i18n("Announcer"), checked = function() return RDXU.spam; end, keepShownOnClick = false, func = function() if RDXU.spam then RDX.AnnounceOff(); else RDX.AnnounceOn(); end end }
 	};
 end);
 
@@ -853,9 +865,9 @@ RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
 	ent.hasArrow = true;
 	ent.notCheckable = true;
 	ent.menuList = {
-		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, func = RDXDB.ToggleObjectBrowser },
-		{ text = VFLI.i18n("Package Updater"), notCheckable = true, func = RDXDB.ToggleRAU },
-		{ text = VFLI.i18n("OOBE Manager"), notCheckable = true, func = RDXDB.DropOOBE },
+		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleObjectBrowser },
+		{ text = VFLI.i18n("Package Updater"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleRAU },
+		{ text = VFLI.i18n("OOBE Manager"), notCheckable = true, keepShownOnClick = false, func = RDXDB.DropOOBE },
 		--{ text = "     " .. VFLI.i18n("Package Explorer"), notCheckable = true, func = RDXDB.ToggleObjectBrowser },
 		--{ text = "     " .. VFLI.i18n("Package Updater"), notCheckable = true, func = RDXDB.ToggleRAU },
 		--{ text = "     " .. VFLI.i18n("OOBE Manager"), notCheckable = true, func = RDXDB.DropOOBE },
@@ -869,8 +881,8 @@ RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
 	ent.hasArrow = true;
 	ent.notCheckable = true;
 	ent.menuList = {
-		{ text = VFLI.i18n("Backup Packages"), notCheckable = true, func = RDXDB.BackupPackages },
-		{ text = VFLI.i18n("Restore Packages"), notCheckable = true, func = RDXDB.RestorePackages }
+		{ text = VFLI.i18n("Backup Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.BackupPackages },
+		{ text = VFLI.i18n("Restore Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.RestorePackages }
 	};
 end);
 
@@ -951,18 +963,18 @@ RDXPM.MainMenu:RegisterMenuFunction(function(ent)
 	ent.hasArrow = true;
 	ent.notCheckable = true;
 	ent.menuList = {
-		{ text = VFLI.i18n("     Open Set Debugger"), notCheckable = true, func = RDXM_Debug.SetDebugger },
-		{ text = VFLI.i18n("     Open Profiler"), notCheckable = true, func = VFLP.ToggleProfiler },
-		{ text = VFLI.i18n("     Open ErrorDialog"), notCheckable = true, func = VFL.ToggleErrorDialog },
-		{ text = VFLI.i18n("     Fire Disrupt Signal"), notCheckable = true, func = RDX._Disrupt },
-		{ text = VFLI.i18n("     Fire Roster Update Signal"), notCheckable = true, func = RDX._Roster },
-		{ text = VFLI.i18n("     Reset Editor Layout"), notCheckable = true, func = RDXPM.ResetLayouts },
-		{ text = VFLI.i18n("     Garbage Collect"), notCheckable = true, func = VFLGC },
+		{ text = VFLI.i18n("     Open Set Debugger"), notCheckable = true, keepShownOnClick = false, func = RDXM_Debug.SetDebugger },
+		{ text = VFLI.i18n("     Open Profiler"), notCheckable = true, keepShownOnClick = false, func = VFLP.ToggleProfiler },
+		{ text = VFLI.i18n("     Open ErrorDialog"), notCheckable = true, keepShownOnClick = false, func = VFL.ToggleErrorDialog },
+		{ text = VFLI.i18n("     Fire Disrupt Signal"), notCheckable = true, keepShownOnClick = false, func = RDX._Disrupt },
+		{ text = VFLI.i18n("     Fire Roster Update Signal"), notCheckable = true, keepShownOnClick = false, func = RDX._Roster },
+		{ text = VFLI.i18n("     Reset Editor Layout"), notCheckable = true, keepShownOnClick = false, func = RDXPM.ResetLayouts },
+		{ text = VFLI.i18n("     Garbage Collect"), notCheckable = true, keepShownOnClick = false, func = VFLGC },
 		--{ text = VFLI.i18n("Fake Roster Units"), checked = RDXDAL.IsDummy, func = function() RDXEvents:Dispatch("ROSTER_DUMMY"); end },
-		{ text = VFLI.i18n("Store Compiled Code"), checked = RDXM_Debug.IsStoreCompilerActive, func = RDXM_Debug.ToggleStoreCompiler },
-		{ text = VFLI.i18n("Party with me"), checked = RDXM_Debug.IsPartyIncludeMe, func = RDXM_Debug.TogglePartyIncludeMe },
-		{ text = VFLI.i18n("     Wipe CooldownDB"), notCheckable = true, func = RDXCD.WipeCooldownDB },
-		{ text = VFLI.i18n("     Print CooldownDB"), notCheckable = true, func = RDXCD.DebugCooldownDB },
-		{ text = VFLI.i18n("     Reset Chatframes"), notCheckable = true, func = function() FCF_ResetChatWindows(); ReloadUI(); end },
+		{ text = VFLI.i18n("Store Compiled Code"), checked = RDXM_Debug.IsStoreCompilerActive, keepShownOnClick = false, func = RDXM_Debug.ToggleStoreCompiler },
+		{ text = VFLI.i18n("Party with me"), checked = RDXM_Debug.IsPartyIncludeMe, keepShownOnClick = false, func = RDXM_Debug.TogglePartyIncludeMe },
+		{ text = VFLI.i18n("     Wipe CooldownDB"), notCheckable = true, keepShownOnClick = false, func = RDXCD.WipeCooldownDB },
+		{ text = VFLI.i18n("     Print CooldownDB"), notCheckable = true, keepShownOnClick = false, func = RDXCD.DebugCooldownDB },
+		{ text = VFLI.i18n("     Reset Chatframes"), notCheckable = true, keepShownOnClick = false, func = function() FCF_ResetChatWindows(); ReloadUI(); end },
 	};
 end);
