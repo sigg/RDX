@@ -532,7 +532,7 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 	-- create solo, group, raid, inn and pvp desktop
 	--RDXDK.MakeDesktops();
 	
-	if not RDXU.AUI or not RDXDB.ResolvePath(RDXU.AUI) then RDXU.AUI = "desktops:WoWRDX"; end
+	if not RDXU.AUI or not RDXDB.ResolvePath(RDXU.AUI) then RDXU.AUI = "desktops:default"; end
 	if not RDXU.AUIState then RDXU.AUIState = "solo"; end
 	
 	ChangeAUI(RDXU.AUI);

@@ -7,14 +7,48 @@
 --
 -- A few useful built-in structures.
 
+-- 34721, -- Frostweave Bandage
+-- 34722, -- Heavy Frostweave Bandage
+
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 
 	local default = RDXDB.GetOrCreatePackage("default");
+	if not default["autodesk"] then
+		default["autodesk"] = {
+			["ty"] = "Desktop",
+			["version"] = 1,
+			["data"] = {
+				{
+					["offsetleft"] = "0",
+					["b"] = 0,
+					["scale"] = 1,
+					["dgp"] = true,
+					["feature"] = "Desktop main",
+					["offsetbottom"] = "0",
+					["l"] = 0,
+					["offsettop"] = "0",
+					["r"] = 1365.333426704711,
+					["root"] = true,
+					["t"] = 767.9999824928667,
+					["alpha"] = 1,
+					["title"] = "default:autodesk",
+					["offsetright"] = "0",
+					["name"] = "root",
+					["open"] = true,
+					["strata"] = "BACKGROUND",
+					["anchorx"] = 1082.3464433267,
+					["anchory"] = 178.66684301456,
+					["ap"] = "TOPLEFT",
+				},
+			},
+		};
+	end
+	
 	if not default["assists"] then
 		default["assists"] = {
 			["ty"] = "NominativeSet",
 			["version"] = 1,
-			["data"] = {}
+			["data"] = {},
 		};
 	end
 
@@ -168,6 +202,509 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
+	if not default["Logs_Me_tl"] then
+		default["Logs_Me_tl"] = {
+			["ty"] = "TableLog",
+			["version"] = 1,
+			["data"] = {
+				["targ"] = "Player",
+				["src"] = "Player",
+				["filter"] = 1,
+				["etypes"] = {
+					true, -- [1]
+					true, -- [2]
+					true, -- [3]
+					true, -- [4]
+					true, -- [5]
+					true, -- [6]
+					true, -- [7]
+					true, -- [8]
+					true, -- [9]
+					nil, -- [10]
+					nil, -- [11]
+					nil, -- [12]
+					true, -- [13]
+					true, -- [14]
+					true, -- [15]
+					true, -- [16]
+					true, -- [17]
+					true, -- [18]
+					true, -- [19]
+					true, -- [20]
+					true, -- [21]
+					true, -- [22]
+					true, -- [23]
+					true, -- [24]
+					true, -- [25]
+					true, -- [26]
+					nil, -- [27]
+					true, -- [28]
+					true, -- [29]
+					true, -- [30]
+					true, -- [31]
+				},
+				["size"] = 1000,
+			},
+		};
+	end
+	
+	if not default["Party_with_me_fset"] then
+		default["Party_with_me_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"mygroup", -- [1]
+				}, -- [2]
+			},
+		};
+	end
+	
+	if not default["Party_without_me_fset"] then
+		default["Party_without_me_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"mygroup", -- [1]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"me", -- [1]
+					}, -- [2]
+				}, -- [3]
+			},
+		};
+	end
+	
+	-- range
+	if not default["Range_0_10_fset"] then
+		default["Range_0_10_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["class"] = "frs",
+						["n"] = 2,
+					}, -- [2]
+				}, -- [2]
+				{
+					"ol", -- [1]
+				}, -- [3]
+			},
+		};
+	end
+	
+	if not default["Range_0_10_ODM_fset"] then
+		default["Range_0_10_ODM_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["n"] = 2,
+						["class"] = "frs",
+					}, -- [2]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"me", -- [1]
+					}, -- [2]
+				}, -- [3]
+				{
+					"ol", -- [1]
+				}, -- [4]
+				{
+					"not", -- [1]
+					{
+						"dead", -- [1]
+					}, -- [2]
+				}, -- [5]
+				{
+					"nidmask", -- [1]
+					true, -- [2]
+				}, -- [6]
+			},
+		};
+	end
+	
+	if not default["Range_40plus_fset"] then
+		default["Range_40plus_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["file"] = "default:Range_0_15_fset",
+							["class"] = "file",
+						}, -- [2]
+					}, -- [2]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["file"] = "default:Range_15_30_fset",
+							["class"] = "file",
+						}, -- [2]
+					}, -- [2]
+				}, -- [3]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["file"] = "default:Range_30_40_fset",
+							["class"] = "file",
+						}, -- [2]
+					}, -- [2]
+				}, -- [4]
+				{
+					"ol", -- [1]
+				}, -- [5]
+			},
+		};
+	end
+	
+	if not default["Range_0_70_fset"] then
+		default["Range_0_70_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["n"] = 4,
+						["class"] = "frs",
+					}, -- [2]
+				}, -- [2]
+				{
+					"ol", -- [1]
+				}, -- [3]
+			},
+		};
+	end
+	
+	if not default["Range_0_15_ODM_fset"] then
+		default["Range_0_15_ODM_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["file"] = "default:Range_0_15_fset",
+						["class"] = "file",
+					}, -- [2]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["n"] = 2,
+							["class"] = "frs",
+						}, -- [2]
+					}, -- [2]
+				}, -- [3]
+				{
+					"nidmask", -- [1]
+				}, -- [4]
+				{
+					"not", -- [1]
+					{
+						"me", -- [1]
+					}, -- [2]
+				}, -- [5]
+				{
+					"not", -- [1]
+					{
+						"dead", -- [1]
+					}, -- [2]
+				}, -- [6]
+			},
+		};
+	end
+	
+	if not default["Range_not_0_30_dead_fset"] then
+		default["Range_not_0_30_dead_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"or", -- [1]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["n"] = 3,
+							["class"] = "frs",
+						}, -- [2]
+					}, -- [2]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"ol", -- [1]
+					}, -- [2]
+				}, -- [3]
+				{
+					"dead", -- [1]
+				}, -- [4]
+			},
+		};
+	end
+	
+	if not default["Range_70plus_fset"] then
+		default["Range_70plus_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["n"] = 4,
+							["class"] = "frs",
+						}, -- [2]
+					}, -- [2]
+				}, -- [2]
+				{
+					"ol", -- [1]
+				}, -- [3]
+			},
+		};
+	end
+	
+	if not default["Range_0_30_fset"] then
+		default["Range_0_30_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["n"] = 3,
+						["class"] = "frs",
+					}, -- [2]
+				}, -- [2]
+				{
+					"ol", -- [1]
+				}, -- [3]
+			},
+		};
+	end
+	
+	if not default["Range_0_15_fset"] then
+		default["Range_0_15_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["item"] = 34722,
+						["class"] = "itemrange",
+					}, -- [2]
+				}, -- [2]
+				{
+					"ol", -- [1]
+				}, -- [3]
+			},
+		};
+	end
+	
+	if not default["Range_15_30_fset"] then
+		default["Range_15_30_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["n"] = 3,
+						["class"] = "frs",
+					}, -- [2]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["file"] = "default:Range_0_15_fset",
+							["class"] = "file",
+						}, -- [2]
+					}, -- [2]
+				}, -- [3]
+				{
+					"ol", -- [1]
+				}, -- [4]
+			},
+		};
+	end
+	
+	if not default["Range_40_70_fset"] then
+		default["Range_40_70_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["n"] = 4,
+						["class"] = "frs",
+					}, -- [2]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["file"] = "default:Range_0_40_fset",
+							["class"] = "file",
+						}, -- [2]
+					}, -- [2]
+				}, -- [3]
+				{
+					"ol", -- [1]
+				}, -- [4]
+			},
+		};
+	end
+	
+	if not default["Range_0_40_fset"] then
+		default["Range_0_40_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["class"] = "unitinrange",
+					}, -- [2]
+				}, -- [2]
+				{
+					"ol", -- [1]
+				}, -- [3]
+			},
+		};
+	end
+	
+	if not default["Range_30_40_fset"] then
+		default["Range_30_40_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["class"] = "unitinrange",
+					}, -- [2]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["file"] = "default:Range_0_15_fset",
+							["class"] = "file",
+						}, -- [2]
+					}, -- [2]
+				}, -- [3]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["file"] = "default:Range_15_30_fset",
+							["class"] = "file",
+						}, -- [2]
+					}, -- [2]
+				}, -- [4]
+				{
+					"ol", -- [1]
+				}, -- [5]
+			},
+		};
+	end
+	
+	if not default["Range_10_15_fset"] then
+		default["Range_10_15_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"set", -- [1]
+					{
+						["item"] = 34722,
+						["class"] = "itemrange",
+					}, -- [2]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["file"] = "default:Range_0_10_fset",
+							["class"] = "file",
+						}, -- [2]
+					}, -- [2]
+				}, -- [3]
+				{
+					"ol", -- [1]
+				}, -- [4]
+			},
+		};
+	end
+	
+	if not default["Range_30plus_fset"] then
+		default["Range_30plus_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"ol", -- [1]
+				}, -- [2]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["n"] = 3,
+							["class"] = "frs",
+						}, -- [2]
+					}, -- [2]
+				}, -- [3]
+			},
+		};
+	end
+	
 end);
 
 --------------------------------------
@@ -1627,5 +2164,4 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_raid_group8_", ty = "FilterSet"};
 	end
 end);
-
 

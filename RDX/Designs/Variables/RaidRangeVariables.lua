@@ -131,10 +131,10 @@ end
 	end;
 	CreateDescriptor = function()
 		return { feature = "Variables range"; 
-			set1 = { file = "WoWRDX:Range_0_15_fset", class = "file"};
-			set2 = { file = "WoWRDX:Range_15_30_fset", class = "file"};
-			set3 = { file = "WoWRDX:Range_30_40_fset", class = "file"}; 
-			set4 = { file = "WoWRDX:Range_40plus_fset", class = "file"};
+			set1 = { file = "default:Range_0_15_fset", class = "file"};
+			set2 = { file = "default:Range_15_30_fset", class = "file"};
+			set3 = { file = "default:Range_30_40_fset", class = "file"}; 
+			set4 = { file = "default:Range_40plus_fset", class = "file"};
 			raColor1 = _green;
 			raColor2 = _yellow;
 			raColor3 = _orange;

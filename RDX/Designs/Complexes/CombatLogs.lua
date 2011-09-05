@@ -268,7 +268,7 @@ frame.]] .. objname .. [[ = nil;
 			name = "combatlogs", owner = "decor";
 			w = 140; h = 20;
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
-			tablelog = "WoWRDX:Logs_Me_tl"; line = 10; 
+			tablelog = "default:Logs_Me_tl"; line = 10; 
 			spec = [[
 { title = "Time", width = 100, font = Fonts.Default },
 { title = "HP", width = 75, font = Fonts.Default },

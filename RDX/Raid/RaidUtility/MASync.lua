@@ -80,10 +80,6 @@ local function RPCSyncAssists(commInfo, names)
 	for k, v in pairs(names) do
 	    win_set:AddName(v);
 	end
-	local ap = RDXDB.CheckObject("WoWRDX:Assist_List", "Window");
-	if ap then
-		RDXDB.OpenObject("WoWRDX:Assist_List");
-	end
 end
 
 --------------------------------------------------

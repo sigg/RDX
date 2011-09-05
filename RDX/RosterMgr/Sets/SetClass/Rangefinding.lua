@@ -204,9 +204,7 @@ VFLT.AdaptiveSchedule("srs", frsTickLength, UpdateRS);
 function RDXRF.GetSpellRangeSet(spell)
 	-- If we already have a range set for this spell, return it.
 	if type(spell) == "number" then
-		local name, rank = GetSpellInfo(spell);
-		if not rank then rank = ""; end
-		spell =  name .. "(" .. rank ..")";
+		spell = GetSpellInfo(spell);
 	end
 	if srs[spell] then return srs[spell]; end
 	-- Create a range set for this spell.
@@ -219,6 +217,9 @@ end
 
 --- Get an exact range set for the given item.
 function RDXRF.GetItemRangeSet(item)
+	if type(item) == "number" then
+		item = GetItemInfo(item);
+	end
 	if irs[item] then return irs[item]; end
 	local x = RDXDAL.Set:new();
 	x.name = "ItemRange<" .. item .. ">";

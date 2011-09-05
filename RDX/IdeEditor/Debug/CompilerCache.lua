@@ -59,16 +59,16 @@ end
 
 local function EnablePartyIncludeMe()
 	RDXG.pdebug = true;
-	local mbo = RDXDB.TouchObject("WoWRDX:Party_fset");
-	mbo.ty = "SymLink"; mbo.version = 3; mbo.data = {class = "simple", targetpath = "WoWRDX:Party_with_me_fset"};
-	RDXDB.NotifyUpdate("WoWRDX:Party_fset");
+	local mbo = RDXDB.TouchObject("default:Party_fset");
+	mbo.ty = "SymLink"; mbo.version = 3; mbo.data = {class = "simple", targetpath = "default:Party_with_me_fset"};
+	RDXDB.NotifyUpdate("default:Party_fset");
 end
 
 local function DisablePartyIncludeMe()
 	RDXG.pdebug = nil;
-	local mbo = RDXDB.TouchObject("WoWRDX:Party_fset");
-	mbo.ty = "SymLink"; mbo.version = 3; mbo.data = {class = "simple", targetpath = "WoWRDX:Party_without_me_fset"};
-	RDXDB.NotifyUpdate("WoWRDX:Party_fset");
+	local mbo = RDXDB.TouchObject("default:Party_fset");
+	mbo.ty = "SymLink"; mbo.version = 3; mbo.data = {class = "simple", targetpath = "default:Party_without_me_fset"};
+	RDXDB.NotifyUpdate("default:Party_fset");
 end
 
 function RDXM_Debug.TogglePartyIncludeMe()

@@ -179,7 +179,7 @@ function Omni.History(t)
 	local targetTime = now - t;
 	local session = Omni.GetSessionByName("Local");
 	if session then
-		local tbl = session:FindTable("WoWRDX:Logs_Me_tl");
+		local tbl = session:FindTable("default:Logs_Me_tl");
 		if tbl then
 			local ret = Omni.TemporalExtractionTransform(tbl, "LAST", VFL.True, -1, function(tbl, row)
 				if row.tm and row.tm >= targetTime then return true; end
@@ -196,7 +196,7 @@ function Omni.ExtractWindow(t, w)
 	local t0, t1, dt = t-w, t+w;
 	local session = Omni.GetSessionByName("Local");
 	if session then
-		local tbl = session:FindTable("WoWRDX:Logs_Me_tl");
+		local tbl = session:FindTable("default:Logs_Me_tl");
 		dt = tbl.timeOffset;
 		if tbl then
 			local ret = Omni.TemporalExtractionTransform(tbl, "LAST", VFL.True, -1, function(tbl, row)
