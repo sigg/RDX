@@ -16,7 +16,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	if not default["autodesk"] then
 		default["autodesk"] = {
 			["ty"] = "Desktop",
-			["version"] = 1,
+			["version"] = 2,
 			["data"] = {
 				{
 					["offsetleft"] = "0",

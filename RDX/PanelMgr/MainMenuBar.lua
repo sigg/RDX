@@ -864,6 +864,7 @@ RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Package Options");
 	ent.hasArrow = true;
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.menuList = {
 		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleObjectBrowser },
 		{ text = VFLI.i18n("Package Updater"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleRAU },
@@ -880,6 +881,7 @@ RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Backups");
 	ent.hasArrow = true;
 	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
 	ent.menuList = {
 		{ text = VFLI.i18n("Backup Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.BackupPackages },
 		{ text = VFLI.i18n("Restore Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.RestorePackages }

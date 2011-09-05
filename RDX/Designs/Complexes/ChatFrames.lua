@@ -165,14 +165,16 @@ VFLUI.CreateFramePool("ChatFrame",
 			rb:SetScript("OnShow", rb.Hide);
 			rb:Hide();
 			
-			local bf = _G[format("%s%d%s", "ChatFrame", key, "ButtonFrame")];
-			bf:SetScript("OnShow", bf.Hide);
-			bf:Hide();
+			--local bf = _G[format("%s%d%s", "ChatFrame", key, "ButtonFrame")];
+			--bf:SetScript("OnShow", bf.Hide);
+			--bf:Hide();
 			
 			local tab = _G[format("%s%d%s", "ChatFrame", key, "Tab")];
-			tab:SetScript("OnShow", tab.Hide);
-			tab:UnregisterAllEvents();
-			tab:Hide();
+			tab:SetScript("OnDoubleClick", nil);
+			tab:SetScript("OnDragStart", nil);
+			--tab:SetScript("OnShow", tab.Hide);
+			--tab:UnregisterAllEvents();
+			--tab:Hide();
 			
 			-- scroll
 			f:SetScript("OnMouseWheel", scroll);

@@ -633,6 +633,28 @@ local closebtn = VFLUI.CloseButton:new();
 closebtn:SetScript("OnClick", function() RDXDB.HideRAU() end);
 dlg:AddButton(closebtn);
 
+-----------------------
+-- packstore
+-----------------------
+
+function RDX.RequestInvite(toon)
+	SendAddonMessage("RDXPS", "Invite", "WHISPER", toon);
+end;
+-- Process Invite request message via guild comm channel
+
+local function ProcessRequestInvite(arg1)
+	if arg1 == "RDXPS" then
+		-- if still available place then
+		if IsRaidLeader() or IsRaidOfficer() then
+			InviteUnit(arg4);
+		end;
+	end;
+end;
+
+-- test if I am a Packstore
+WoWEvents:Bind("CHAT_MSG_ADDON", nil, ProcessRequestInvite);
+
+
 -----------------------------
 -- DISPATCHER Search
 -----------------------------

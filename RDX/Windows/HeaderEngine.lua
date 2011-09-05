@@ -97,7 +97,7 @@ VFLUI.CreateFramePool("SecureGroupPetHeader", function(pool, frame)
 	CleanupHeader(frame);
 	frame:SetAttribute("useOwnerUnit", nil); frame:SetAttribute("filterOnPet", nil);
 end, function()
-	local f = CreateFrame("Frame", "SGPH" .. VFL.GetNextID(), nil, "SecureGroupPetHeaderTemplate");
+	local f = CreateFrame("Frame", "SGHP" .. VFL.GetNextID(), nil, "SecureGroupPetHeaderTemplate");
 	CleanupHeader(f);
 	f:SetAttribute("useOwnerUnit", nil); f:SetAttribute("filterOnPet", nil);
 	-- Mixin the API

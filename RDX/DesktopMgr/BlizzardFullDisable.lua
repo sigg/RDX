@@ -433,46 +433,43 @@ function RDXDK.DisableUnitframesEngine()
 end
 
 function RDXDK.DisableChatFrames()
-
-	--FCF_Close(ChatFrame3);
-	--FCF_Close(ChatFrame4);
-	--FCF_Close(ChatFrame5);
-	--FCF_Close(ChatFrame6);
 	--FCF_OpenNewWindow = VFL.Noop;
-	--FCF_OpenTemporaryWindow = VFL.Noop;
 	--FCF_SetWindowName = VFL.Noop;
-	ChatFrame1Tab:Hide();
-	--ChatFrame1Tab:SetScript("OnShow", function() ChatFrame1Tab:Hide(); end);
-	ChatFrame1Tab:SetScript("OnShow", ChatFrame1Tab.Hide);
+	--FCF_SetWindowColor
+	--FCF_SetWindowAlpha
+	
+	FCF_ToggleLock = VFL.Noop;
+	
+	--FCF_OpenTemporaryWindow = VFL.Noop;
 	
 	-- ChatFrame could not be resized.
 	FCF_Resize = VFL.Noop;
 	FCF_StopResize = VFL.Noop;
-	-- no Tab
+	
 	FCF_OnUpdate = VFL.Noop;
-	FCF_Tab_OnClick = VFL.Noop;
+	FCF_UpdateButtonSide = VFL.Noop;
+	
+	-- no Tab
+	--FCFTab_OnUpdate
+	--FCF_Tab_OnClick = VFL.Noop;
+	--FCF_SetTabPosition = VFL.Noop;
+	--FCFTab_OnDragStop
+	
 	-- save position disable
 	FCF_SavePositionAndDimensions = VFL.Noop;
 	FCF_RestorePositionAndDimensions = VFL.Noop;
 	
 	-- disable docking
-	FCF_DockFrame = VFL.Noop;
-	FCF_StopDragging = VFL.Noop;
+	--FCF_DockFrame = VFL.Noop;
+	--FCF_UnDockFrame = VFL.Noop;
+	--FCF_StopDragging = VFL.Noop;
 	FCF_UpdateDockPosition = VFL.Noop;
 	-- disable flash
-	FCF_FlashTab = VFL.Noop;
-	ChatFrameMenuButton:Hide();
+	--FCF_FlashTab = VFL.Noop;
 	
-	-- disable create new window chat
-	FCF_OpenNewWindow = VFL.Noop;
-	
+	-- disable button Friends
 	FriendsMicroButton:Hide();
 	FriendsMicroButton:UnregisterAllEvents();
-	--FloatingChatFrame_Update = VFL.Noop;
-	FCF_UpdateButtonSide = VFL.Noop;
-	
-	--FCF_FadeOutChatFrame = VFL.Noop;
-	--FCF_FadeInChatFrame = VFL.Noop;
 	
 	-- strange problem fix
 	local tt = ChatEdit_UpdateHeader;
