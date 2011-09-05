@@ -134,7 +134,7 @@ local function DoBackup(ary)
 end
 
 function RDXDB.BackupPackages()
-	--VFL.poptree:Release();
+	VFL.poptree:Release();
 	ShowPackageListWindow("Backup", "Select packages to back up.\n|cFFFF0000WARNING: Existing backups will be overwritten.\nThe UI will be reloaded.|r", RDXData, DoBackup)
 end
 
@@ -152,7 +152,7 @@ local function DoRestore(ary)
 end
 
 function RDXDB.RestorePackages()
-	--VFL.poptree:Release();
+	VFL.poptree:Release();
 	ShowPackageListWindow("Restore", "Select packages to restore.\n|cFFFF0000WARNING: Existing RDX database will be overwritten.\nThe UI will be reloaded.|r", RDXBackup, DoRestore)
 end
 
@@ -167,7 +167,7 @@ function RDXDB.MasterReset()
 	VFL.poptree:Release();
 	VFLUI.MessageBox("Master Reset", "Do you want to master reset? This will clear the RDX database, and restore all RDX settings to their defaults.", nil, "No", nil, "Yes", DoMasterReset);
 end
-RDXPM.RegisterSlashCommand("masterReset", RDXDB.MasterReset);
+RDXPM.RegisterSlashCommand("masterreset", RDXDB.MasterReset);
 
 local function DoReinstall()
 	RDXU.installers = nil; RDXG.oobe = nil; RDXU.oobe = nil;
