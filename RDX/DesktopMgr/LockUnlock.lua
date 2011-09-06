@@ -148,7 +148,6 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 		--tf:SetFrameStrata(VFLUI.GetRelativeStata(frame:GetFrameStrata(), 1));
 		tf:SetFrameStrata(frame:GetFrameStrata());
 		tf:SetFrameLevel(100);
-		tf:SetBackdrop(VFLUI.BlueDialogBackdrop);
 		tf:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight");
 		tf:Show();
 	
@@ -382,9 +381,11 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 		end
 		if not frameprops.root then
 			if frameprops.dgp then
-				frame.tf:SetBackdrop(VFLUI.MagentaDialogBackdrop);
+				--frame.tf:SetBackdrop(VFLUI.MagentaDialogBackdrop);
+				frame.tf:SetBackdrop(VFLUI.DefaultDialogBorder);
 			else
-				frame.tf:SetBackdrop(VFLUI.BlueDialogBackdrop);
+				--frame.tf:SetBackdrop(VFLUI.BlueDialogBackdrop);
+				frame.tf:SetBackdrop(VFLUI.DefaultDialogBorder);
 			end
 			frame.tf:SetFrameStrata(VFLUI.GetRelativeStata(frame:GetFrameStrata(), 1));
 		end

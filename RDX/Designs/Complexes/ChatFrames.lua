@@ -484,7 +484,8 @@ VFLUI.CreateFramePool("ChatFrameEditBox",
 "key");
 
 RDX.RegisterFeature({
-	name = "chatframeeditbox";
+	name = "chatframeeditboxa";
+	invisible = true;
 	version = 1;
 	title = "Blizzard ChatFrame EditBox";
 	category = "Complexes";
