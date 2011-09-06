@@ -230,17 +230,22 @@ function RDX.ManageChatFrames()
 		end
 	end
 	
-	-- strange problem fix
-	local tt = ChatEdit_UpdateHeader;
+	--for i = 1, 10 do
+	--	f = _G[format("%s%d%s", "ChatFrame", i, "EditBox")];
+	--	f:ClearAllPoints();
+	--end
 	
-	ChatEdit_UpdateHeader = function(editBox)
-		local header = _G[editBox:GetName().."Header"];
-		header:ClearAllPoints();
-		header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
-		if header:GetRight() ~= nil and header:GetLeft() ~= nil then
-			tt(editBox);
-		end
-	end
+	-- strange problem fix
+	--local tt = ChatEdit_UpdateHeader;
+	
+	--ChatEdit_UpdateHeader = function(editBox)
+	--	local header = _G[editBox:GetName().."Header"];
+	--	header:ClearAllPoints();
+	--	header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
+	--	if header:GetRight() ~= nil and header:GetLeft() ~= nil then
+	--		tt(editBox);
+	--	end
+	--end
 	
 end
 
@@ -256,6 +261,7 @@ VFLUI.CreateFramePool("ChatFrame",
 		return f;
 	end, 
 	function(_, f) -- on acquired
+		f:ClearAllPoints();
 		f:Show();
 	end,
 "key");
