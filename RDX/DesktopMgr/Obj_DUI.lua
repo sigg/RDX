@@ -50,7 +50,7 @@ local function WriteAUI(dest, src)
 	end
 end
 
--- The DUI Editor
+-- The AUI Editor
 local dlg = nil;
 
 function RDXDK.IsAUIEditorOpen()
@@ -527,12 +527,7 @@ RDXDK.SwitchState_Disable = SwitchState_Disable;
 ----------------------------
 
 RDXEvents:Bind("INIT_DESKTOP", nil, function()
-	--if not RDXU.Desktops then RDXU.Desktops = {}; end
-	--if not RDXU.Desktops2 then RDXU.Desktops2 = {}; end
-	-- create solo, group, raid, inn and pvp desktop
-	--RDXDK.MakeDesktops();
-	
-	if not RDXU.AUI or not RDXDB.ResolvePath(RDXU.AUI) then RDXU.AUI = "desktops:default"; end
+	if not RDXU.AUI and not RDXDB.ResolvePath(RDXU.AUI) then RDXU.AUI = "desktops:default"; end
 	if not RDXU.AUIState then RDXU.AUIState = "solo"; end
 	
 	ChangeAUI(RDXU.AUI);

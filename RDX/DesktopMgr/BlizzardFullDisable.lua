@@ -432,22 +432,20 @@ function RDXDK.DisableUnitframesEngine()
 	UnitFrameThreatIndicator_OnEvent = VFL.Noop;
 end
 
+-- move into design
+
 function RDXDK.DisableChatFrames()
 	--FCF_OpenNewWindow = VFL.Noop;
 	--FCF_SetWindowName = VFL.Noop;
 	--FCF_SetWindowColor
 	--FCF_SetWindowAlpha
 	
-	FCF_ToggleLock = VFL.Noop;
+	--FCF_ToggleLock = VFL.Noop;
 	
 	--FCF_OpenTemporaryWindow = VFL.Noop;
 	
-	-- ChatFrame could not be resized.
-	FCF_Resize = VFL.Noop;
-	FCF_StopResize = VFL.Noop;
-	
-	FCF_OnUpdate = VFL.Noop;
-	FCF_UpdateButtonSide = VFL.Noop;
+	--FCF_OnUpdate = VFL.Noop;
+	--FCF_UpdateButtonSide = VFL.Noop;
 	
 	-- no Tab
 	--FCFTab_OnUpdate
@@ -456,34 +454,34 @@ function RDXDK.DisableChatFrames()
 	--FCFTab_OnDragStop
 	
 	-- save position disable
-	FCF_SavePositionAndDimensions = VFL.Noop;
-	FCF_RestorePositionAndDimensions = VFL.Noop;
+	--FCF_SavePositionAndDimensions = VFL.Noop;
+	--FCF_RestorePositionAndDimensions = VFL.Noop;
 	
 	-- disable docking
 	--FCF_DockFrame = VFL.Noop;
 	--FCF_UnDockFrame = VFL.Noop;
 	--FCF_StopDragging = VFL.Noop;
-	FCF_UpdateDockPosition = VFL.Noop;
+	--FCF_UpdateDockPosition = VFL.Noop;
 	-- disable flash
 	--FCF_FlashTab = VFL.Noop;
 	
 	-- disable button Friends
-	FriendsMicroButton:Hide();
-	FriendsMicroButton:UnregisterAllEvents();
+	--FriendsMicroButton:Hide();
+	--FriendsMicroButton:UnregisterAllEvents();
 	
 	-- strange problem fix
-	local tt = ChatEdit_UpdateHeader;
+	--local tt = ChatEdit_UpdateHeader;
 	
-	ChatEdit_UpdateHeader = function(editBox)
-		local header = _G[editBox:GetName().."Header"];
-		header:ClearAllPoints();
-		header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
-		if header:GetRight() ~= nil and header:GetLeft() ~= nil then
-			tt(editBox);
-		end
-	end
+	--ChatEdit_UpdateHeader = function(editBox)
+	--	local header = _G[editBox:GetName().."Header"];
+	--	header:ClearAllPoints();
+	--	header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
+	--	if header:GetRight() ~= nil and header:GetLeft() ~= nil then
+	--		tt(editBox);
+	--	end
+	--end
 	
-	
+	RDX.ManageChatFrames();
 	
 end
 
