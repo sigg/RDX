@@ -12,6 +12,7 @@ VFLUI.CreateFramePool("BlizzardElement",
 	end, 
 	function(_, f) -- on acquired
 		f:ClearAllPoints();
+		f:Show();
 	end,
 "key");
 

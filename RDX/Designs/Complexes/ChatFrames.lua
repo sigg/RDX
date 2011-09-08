@@ -184,6 +184,9 @@ function RDX.ManageChatFrames()
 	-- disable button Friends
 	FriendsMicroButton:Hide();
 	FriendsMicroButton:UnregisterAllEvents();
+	ChatFrameMenuButton:Hide();
+	ChatFrameMenuButton:UnregisterAllEvents();
+	ChatFrameMenuButton:SetScript("OnShow", ChatFrameMenuButton.Hide);
 	
 	--hook FCF_OpenNewWindow ??
 	
@@ -199,9 +202,9 @@ function RDX.ManageChatFrames()
 		rb:SetScript("OnShow", rb.Hide);
 		rb:Hide();
 		
-		--local bf = _G[format("%s%d%s", "ChatFrame", key, "ButtonFrame")];
-		--bf:SetScript("OnShow", bf.Hide);
-		--bf:Hide();
+		local bf = _G[format("%s%d%s", "ChatFrame", i, "ButtonFrame")];
+		bf:SetScript("OnShow", bf.Hide);
+		bf:Hide();
 		
 		-- permettre à la fenêtre d'être bouger partout.
 		f:SetClampRectInsets(0,0,0,0);
@@ -236,16 +239,16 @@ function RDX.ManageChatFrames()
 	--end
 	
 	-- strange problem fix
-	--local tt = ChatEdit_UpdateHeader;
+	local tt = ChatEdit_UpdateHeader;
 	
-	--ChatEdit_UpdateHeader = function(editBox)
-	--	local header = _G[editBox:GetName().."Header"];
-	--	header:ClearAllPoints();
-	--	header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
-	--	if header:GetRight() ~= nil and header:GetLeft() ~= nil then
-	--		tt(editBox);
-	--	end
-	--end
+	ChatEdit_UpdateHeader = function(editBox)
+		local header = _G[editBox:GetName().."Header"];
+		header:ClearAllPoints();
+		header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
+		if header:GetRight() ~= nil and header:GetLeft() ~= nil then
+			tt(editBox);
+		end
+	end
 	
 end
 
@@ -337,7 +340,7 @@ RDX.RegisterFeature({
 
 		------------------ On frame creation
 		local createCode = [[
-local btn = VFLUI.AcquireFrame("ChatFrame", 1);
+local btn = VFLUI.AcquireFrame("BlizzardElement", "ChatFrame1");
 if btn then
 	VFLUI.StdSetParent(btn, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
 	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
@@ -351,8 +354,6 @@ if btn then
 	createCode = createCode .. VFLUI.GenerateSetFontCode("btn", desc.font, nil, true);
 	createCode = createCode .. [[
 	frame.]] .. objname .. [[ = btn;
-else
-	--RDX.printW("ChatFrame]] .. desc.number .. [[ is not available or already acquired");
 end
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
@@ -360,7 +361,7 @@ end
 		------------------ On frame destruction.
 		local destroyCode = [[
 local btn = frame.]] .. objname .. [[;
-if btn then btn:Destroy(); end
+if btn then btn:Destroy(); btn = nil; end
 frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
