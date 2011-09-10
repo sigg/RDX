@@ -161,9 +161,8 @@ function RDX.ManageChatFrames()
 	FCF_UpdateButtonSide = VFL.Noop;
 	
 	-- no Tab
-	--FCFTab_OnUpdate
-	--FCF_Tab_OnClick = VFL.Noop;
-	--FCF_SetTabPosition = VFL.Noop;
+	FCFTab_OnUpdate = VFL.Noop;
+	FCF_SetTabPosition = VFL.Noop;
 	--FCFTab_OnDragStop
 	
 	-- disable save position of chatframes (let RDX do it)
@@ -214,9 +213,9 @@ function RDX.ManageChatFrames()
 		local tab = _G[format("%s%d%s", "ChatFrame", i, "Tab")];
 		tab:SetScript("OnDoubleClick", nil);
 		tab:SetScript("OnDragStart", nil);
-		--tab:SetScript("OnShow", tab.Hide);
+		tab:SetScript("OnShow", tab.Hide);
 		--tab:UnregisterAllEvents();
-		--tab:Hide();
+		tab:Hide();
 		
 		-- replace our scroll
 		f:SetScript("OnMouseWheel", scroll);
@@ -251,23 +250,6 @@ function RDX.ManageChatFrames()
 	end
 	
 end
-
-
-
-VFLUI.CreateFramePool("ChatFrame", 
-	function(pool, x) -- on released
-		if (not x) then return; end
-		x:Hide();
-	end,
-	function(_, key) -- on fallback
-		local f = _G[format("%s%d", "ChatFrame", key)];
-		return f;
-	end, 
-	function(_, f) -- on acquired
-		f:ClearAllPoints();
-		f:Show();
-	end,
-"key");
 
 local numberlist = {
 	{ text = "1" },
@@ -334,13 +316,14 @@ RDX.RegisterFeature({
 		if desc.ts then ts = "true"; end
 		if desc.ts == "None" then ts = "false"; end
 		if not desc.color then desc.color = {r=1,g=1,b=1,a=1}; end
+		if not desc.number then desc.number = 1; end
 		
 		local channel = "false"; if desc.channel then channel = "true"; end
 		local fading = "0"; if desc.fading then fading = "1"; end
 
 		------------------ On frame creation
 		local createCode = [[
-local btn = VFLUI.AcquireFrame("BlizzardElement", "ChatFrame1");
+local btn = VFLUI.AcquireFrame("BlizzardElement", "ChatFrame]] .. desc.number .. [[" );
 if btn then
 	VFLUI.StdSetParent(btn, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
 	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
@@ -485,7 +468,7 @@ VFLUI.CreateFramePool("ChatFrameEditBox",
 "key");
 
 RDX.RegisterFeature({
-	name = "chatframeeditboxa";
+	name = "chatframeeditbox";
 	invisible = true;
 	version = 1;
 	title = "Blizzard ChatFrame EditBox";
