@@ -678,7 +678,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 				}, -- [1]
 				{
 					["feature"] = "Design",
-					["design"] = "WoWRDX:ChatFrame1_ds",
+					["design"] = "default:ChatFrame1_ds",
 				}, -- [2]
 				{
 					["feature"] = "layout_single_unitframe",
