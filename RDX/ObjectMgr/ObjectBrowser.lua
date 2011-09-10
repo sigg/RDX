@@ -466,7 +466,7 @@ RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 end);
 
 RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
-	if pkg == "template" then
+	if string.find(pkg, "^template") then
 		table.insert(mnu, {
 			text = VFLI.i18n("Copy Into"), OnClick = function() VFL.poptree:Release(); CopyIntoPackage(pkg); end
 		});

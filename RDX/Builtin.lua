@@ -19,27 +19,148 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["version"] = 2,
 			["data"] = {
 				{
-					["offsetleft"] = "0",
+					["strata"] = "LOW",
 					["b"] = 0,
-					["scale"] = 1,
+					["anchorxrid"] = 255.4666801982218,
+					["uiscale"] = 0.8533333539962769,
 					["dgp"] = true,
+					["resolution"] = "1600",
 					["feature"] = "Desktop main",
-					["offsetbottom"] = "0",
+					["offsetbottom"] = 0,
+					["bkd"] = {
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\a80black",
+						["tileSize"] = 16,
+						["tile"] = true,
+						["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\HalBorder",
+						["edgeSize"] = 8,
+						["insets"] = {
+							["top"] = 2,
+							["right"] = 2,
+							["left"] = 2,
+							["bottom"] = 2,
+						},
+					},
 					["l"] = 0,
-					["offsettop"] = "0",
+					["offsettop"] = 0,
+					["scale"] = 1,
+					["dock"] = {
+						["BOTTOM"] = {
+							["id"] = "default:ActionBar1",
+							["x"] = 0,
+							["point"] = "BOTTOM",
+							["y"] = -10,
+						},
+						["BOTTOMLEFT"] = {
+							["id"] = "default:ChatFrame1",
+							["x"] = -10,
+							["point"] = "BOTTOMLEFT",
+							["y"] = -10,
+						},
+					},
+					["offsetleft"] = 0,
+					["offsetright"] = 0,
 					["r"] = 1365.333426704711,
 					["root"] = true,
 					["t"] = 767.9999824928667,
 					["alpha"] = 1,
-					["title"] = "default:autodesk",
-					["offsetright"] = "0",
+					["anchoryrid"] = 465.386732369479,
+					["title"] = "updated",
+					["font"] = {
+						["title"] = "Default 10pt",
+						["color"] = {
+							["r"] = 1,
+							["g"] = 1,
+							["b"] = 1,
+						},
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["name"] = "Default10",
+						["size"] = 10,
+					},
 					["name"] = "root",
 					["open"] = true,
-					["strata"] = "BACKGROUND",
-					["anchorx"] = 1082.3464433267,
-					["anchory"] = 178.66684301456,
+					["tex"] = {
+						["color"] = {
+							["a"] = 1,
+							["b"] = 1,
+							["g"] = 1,
+							["r"] = 1,
+						},
+						["path"] = "Interface\\Addons\\RDX\\Skin\\bar1",
+						["blendMode"] = "BLEND",
+					},
+					["anchorx"] = 285.333341904534,
+					["anchory"] = 320.3201048020767,
 					["ap"] = "TOPLEFT",
-				},
+				}, -- [1]
+				{
+					["strata"] = "MEDIUM",
+					["dock"] = {
+						["BOTTOM"] = {
+							["id"] = "root",
+							["x"] = 0,
+							["point"] = "BOTTOM",
+							["y"] = 10,
+						},
+					},
+					["scale"] = 1,
+					["t"] = 39.25338038594755,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "default:ActionBar1",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 498.3466885378205,
+					["b"] = 8.533333656676994,
+					["r"] = 866.9866965304984,
+				}, -- [2]
+				{
+					["strata"] = "MEDIUM",
+					["dock"] = {
+						["BOTTOM"] = {
+							["id"] = "default:ChatFrame1",
+							["x"] = 0,
+							["point"] = "TOP",
+							["y"] = 0,
+						},
+					},
+					["scale"] = 1,
+					["t"] = 187.7333479166043,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "default:ChatEditBox1",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 8.533303777835435,
+					["b"] = 162.1333506814285,
+					["r"] = 349.866743416295,
+				}, -- [3]
+				{
+					["strata"] = "MEDIUM",
+					["dock"] = {
+						["TOP"] = {
+							["id"] = "default:ChatEditBox1",
+							["x"] = 0,
+							["point"] = "BOTTOM",
+							["y"] = 0,
+						},
+						["BOTTOMLEFT"] = {
+							["id"] = "root",
+							["x"] = 10,
+							["point"] = "BOTTOMLEFT",
+							["y"] = 10,
+						},
+					},
+					["scale"] = 1,
+					["t"] = 162.1333506814285,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "default:ChatFrame1",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 8.533333656676994,
+					["b"] = 8.533333656676994,
+					["r"] = 349.8667135374535,
+				}, -- [4]
 			},
 		};
 	end
@@ -275,6 +396,294 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 					{
 						"me", -- [1]
 					}, -- [2]
+				}, -- [3]
+			},
+		};
+	end
+	
+	-- action bar and chatframes
+	if not default["ChatEditBox1_ds"] then
+		default["ChatEditBox1_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 30,
+					["version"] = 1,
+					["alpha"] = 1,
+					["w"] = 400,
+				}, -- [1]
+				{
+					["feature"] = "chatframeeditbox",
+					["version"] = 1,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["owner"] = "decor",
+					["w"] = 400,
+					["ak"] = 1,
+				}, -- [2]
+			},
+		};
+	end
+	
+	if not default["ChatEditBox1"] then
+		default["ChatEditBox1"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "default:ChatEditBox1_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
+				}, -- [3]
+			},
+		};
+	end
+	
+	if not default["ActionBar1"] then
+		default["ActionBar1"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "default:ActionBar1_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
+				}, -- [3]
+			},
+		};
+	end
+	
+	if not default["ActionBar1_ds"] then
+		default["ActionBar1_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 36,
+					["version"] = 1,
+					["w"] = 432,
+					["alpha"] = 1,
+				}, -- [1]
+				{
+					["externalButtonSkin"] = "bs_simplesquare",
+					["showtooltip"] = 1,
+					["flo"] = 5,
+					["rows"] = 1,
+					["fontcount"] = {
+						["cr"] = 0.2980392156862745,
+						["flags"] = "THICKOUTLINE",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
+						["justifyV"] = "BOTTOM",
+						["sx"] = 0,
+						["ca"] = 1,
+						["cg"] = 0.3882352941176471,
+						["justifyH"] = "RIGHT",
+						["cb"] = 1,
+						["sy"] = 0,
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 10,
+					},
+					["nIcons"] = 12,
+					["feature"] = "actionbar",
+					["iconspx"] = 0,
+					["cd"] = {
+						["Font"] = {
+							["name"] = "Default",
+							["title"] = "Default",
+							["justifyH"] = "CENTER",
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["justifyV"] = "CENTER",
+							["size"] = 10,
+						},
+						["TimerType"] = "COOLDOWN",
+						["Offsety"] = 0,
+						["UpdateSpeed"] = 0.3,
+						["Offsetx"] = 0,
+						["TextType"] = "Seconds",
+						["HideText"] = 0,
+					},
+					["ButtonSkinOffset"] = 6,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["fontkey"] = {
+						["cr"] = 1,
+						["flags"] = "THICKOUTLINE",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-BoldItalic.ttf",
+						["justifyV"] = "TOP",
+						["cb"] = 0.1058823529411765,
+						["ca"] = 1,
+						["cg"] = 0.6588235294117647,
+						["sy"] = 0,
+						["sx"] = 0,
+						["justifyH"] = "RIGHT",
+						["title"] = "Default",
+						["name"] = "Default",
+						["size"] = 10,
+					},
+					["iconspy"] = 0,
+					["size"] = 36,
+					["showkey"] = 1,
+					["barid"] = "mainbar1",
+					["usebs"] = true,
+					["bkd"] = {
+						["ka"] = 1,
+						["kg"] = 0.1,
+						["kb"] = 0.1,
+						["kr"] = 0.1,
+						["tile"] = false,
+						["_backdrop"] = "solid",
+						["edgeFile"] = "Interface\\AddOns\\RDX_mediapack\\sharedmedia\\borders\\IshBorder",
+						["bgFile"] = "Interface\\Addons\\VFL\\Skin\\white",
+						["_border"] = "IshBorder",
+						["edgeSize"] = 12,
+						["insets"] = {
+							["top"] = 4,
+							["right"] = 4,
+							["left"] = 4,
+							["bottom"] = 4,
+						},
+					},
+					["name"] = "barbut1",
+					["owner"] = "Base",
+					["headerstateCustom"] = "",
+					["headerstateType"] = "Defaultui",
+					["flyoutdirection"] = "UP",
+					["headervisiCustom"] = "",
+					["version"] = 1,
+					["fontmacro"] = {
+						["size"] = 8,
+						["name"] = "Default",
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "BOTTOM",
+						["sx"] = 0,
+						["ca"] = 1,
+						["cg"] = 0.3568627450980392,
+						["title"] = "Default",
+						["cb"] = 0.8901960784313725,
+						["sy"] = 0,
+						["flags"] = "OUTLINE",
+						["justifyH"] = "RIGHT",
+						["cr"] = 1,
+					},
+					["orientation"] = "RIGHT",
+					["anyup"] = 1,
+					["headervisType"] = "None",
+					["headervisiType"] = "None",
+				}, -- [2]
+			},
+		};
+	end
+	
+	if not default["ChatFrame1_ds"] then
+		default["ChatFrame1_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 180,
+					["version"] = 1,
+					["w"] = 400,
+					["alpha"] = 1,
+				}, -- [1]
+				{
+					["number"] = "1",
+					["ts"] = "HH:MM:SS STR",
+					["color"] = {
+						["a"] = 1,
+						["b"] = 1,
+						["g"] = 0.4705882352941176,
+						["r"] = 0.5137254901960784,
+					},
+					["owner"] = "decor",
+					["w"] = "BaseWidth",
+					["feature"] = "chatframe",
+					["h"] = "BaseHeight",
+					["name"] = "cf1",
+					["channel"] = 1,
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["version"] = 1,
+					["font"] = {
+						["sr"] = 0,
+						["face"] = "Fonts\\ARIALN.TTF",
+						["justifyV"] = "CENTER",
+						["name"] = "Default",
+						["sa"] = 1,
+						["sg"] = 0,
+						["justifyH"] = "LEFT",
+						["sb"] = 0,
+						["sx"] = 1,
+						["sy"] = -1,
+						["title"] = "Default",
+						["size"] = 12,
+					},
+				}, -- [2]
+			},
+		};
+	end
+	
+	if not default["ChatFrame1"] then
+		default["ChatFrame1"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "WoWRDX:ChatFrame1_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
 				}, -- [3]
 			},
 		};

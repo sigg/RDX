@@ -218,7 +218,8 @@ end
 --- Get an exact range set for the given item.
 function RDXRF.GetItemRangeSet(item)
 	if type(item) == "number" then
-		item = GetItemInfo(item);
+		local itemtmp = GetItemInfo(item);
+		if itemtmp then item = itemtmp; end
 	end
 	if irs[item] then return irs[item]; end
 	local x = RDXDAL.Set:new();
