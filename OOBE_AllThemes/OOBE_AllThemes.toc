@@ -4,5 +4,5 @@
 ## LoadOnDemand: 1
 ## RequiredDeps: RDX
 ## X-RDX-OOBEName: AllThemes
-## X-RDX-OOBEVersion: 1
+## X-RDX-OOBEVersion: 2
 AllThemes.lua
