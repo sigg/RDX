@@ -1,8 +1,0 @@
-## Interface: 40200
-## Title: |c007ffcff00BE|r - WoWRDX
-## Notes: WoWRDX Builtins
-## LoadOnDemand: 1
-## RequiredDeps: RDX
-## X-RDX-OOBEName: WoWRDX
-## X-RDX-OOBEVersion: 26
-WoWRDX.lua
