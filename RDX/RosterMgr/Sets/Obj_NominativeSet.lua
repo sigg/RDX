@@ -72,7 +72,7 @@ local function EditNominativeSetDialog(parent, path, md)
 		VFL.EscapeTo(esch);
 		if lst then 
 			-- Lowercase the list before saving.
-			for k,name in ipairs(lst) do lst[k] = string.lower(name); end
+			--for k,name in ipairs(lst) do lst[k] = string.lower(name); end
 			md.data = lst;
 			if inst then inst:SetNameList(lst); end
 		end
