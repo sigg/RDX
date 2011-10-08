@@ -401,6 +401,96 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
+	if not default["Arena_fset"] then
+		default["Arena_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"arena", -- [1]
+				true, -- [2]
+				true, -- [3]
+			},
+		};
+	end
+	
+	if not default["Boss_fset"] then
+		default["Boss_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"boss", -- [1]
+			},
+		};
+	end
+
+	if not default["Not_Dead_fset"] then
+		default["Not_Dead_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"not", -- [1]
+					{
+						"dead", -- [1]
+					}, -- [2]
+				}, -- [2]
+				{
+					"ol", -- [1]
+				}, -- [3]
+				{
+					"not", -- [1]
+					{
+						"set", -- [1]
+						{
+							["class"] = "buff",
+							["buff"] = 27827,
+						}, -- [2]
+					}, -- [2]
+				}, -- [4]
+			},
+		};
+	end
+	
+	if not default["Raid_needsHeals_fset"] then
+		default["Raid_needsHeals_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"not", -- [1]
+					{
+						"dead", -- [1]
+					}, -- [2]
+				}, -- [2]
+				{
+					"hp", -- [1]
+					1, -- [2]
+					1, -- [3]
+					0, -- [4]
+					85, -- [5]
+				}, -- [3]
+			},
+		};
+	end
+	
+	if not default["ClassBarDefault_ds"] then
+		default["ClassBarDefault_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 14,
+					["version"] = 1,
+					["w"] = 90,
+					["alpha"] = 1,
+				}, -- [1]
+			},
+		};
+	end
+	
 	-- action bar and chatframes
 	if not default["ChatEditBox1_ds"] then
 		default["ChatEditBox1_ds"] = {
