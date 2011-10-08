@@ -65,6 +65,17 @@ end);
 --		{ text = "Lock Action Buttons", checked = RDXDK.IsActionBindingsLocked, func = RDXDK.ToggleActionBindingsLock }
 --	};
 --end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Backups");
+	ent.hasArrow = true;
+	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
+	ent.menuList = {
+		{ text = VFLI.i18n("Backup Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.BackupPackages },
+		{ text = VFLI.i18n("Restore Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.RestorePackages }
+	};
+end);
 	
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Visibility");
