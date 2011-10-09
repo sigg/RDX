@@ -57,9 +57,11 @@ _f:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 _f:SetWidth(]] .. desc.w .. [[); _f:SetHeight(]] .. desc.h .. [[);
 _f:Show();
 _f:SetScript("OnShow", ]].. camera ..[[);
+RDXEvents:Bind("INIT_DEFERRED", nil, function() _f.guid = nil; end, "frame.]] .. objname .. [[");
 frame.]] .. objname .. [[ = _f;
 ]];
 		local destroyCode = [[
+RDXEvents:Unbind("frame.]] .. objname .. [[");
 frame.]] .. objname .. [[.guid = nil;
 frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
 ]];
