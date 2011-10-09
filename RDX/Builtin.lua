@@ -452,6 +452,25 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
+	if not default["Dead_fset"] then
+		default["Dead_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"and", -- [1]
+				{
+					"ol", -- [1]
+				}, -- [2]
+				{
+					"dead", -- [1]
+				}, -- [3]
+				{
+					"nidmask", -- [1]
+				}, -- [4]
+			},
+		};
+	end
+	
 	if not default["Raid_needsHeals_fset"] then
 		default["Raid_needsHeals_fset"] = {
 			["ty"] = "FilterSet",
