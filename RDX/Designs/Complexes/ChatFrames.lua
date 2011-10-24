@@ -242,10 +242,12 @@ function RDX.ManageChatFrames()
 	
 	ChatEdit_UpdateHeader = function(editBox)
 		local header = _G[editBox:GetName().."Header"];
-		header:ClearAllPoints();
-		header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
-		if header:GetRight() ~= nil and header:GetLeft() ~= nil then
-			tt(editBox);
+		if header then
+			header:ClearAllPoints();
+			header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
+			if header:GetRight() ~= nil and header:GetLeft() ~= nil then
+				tt(editBox);
+			end
 		end
 	end
 	
