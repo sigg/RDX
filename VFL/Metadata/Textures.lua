@@ -20,13 +20,14 @@ ricon("X", "x");
 ricon("Font Picker", "fontsel");
 
 ---------- All blizz icons
-for i=1,GetNumMacroIcons() do
+local ICON_PATH = GetMacroIcons( MACRO_ICON_FILENAMES );
+for i=1,#ICON_PATH do
 	local name = string.format("bicon%03d", i);
 	VFLUI.RegisterTexture({
 		name = name;
 		category = "Blizzard Icons";
 		title = name;
-		path = GetMacroIconInfo(i);
+		path = "Interface\\Icons\\" .. ICON_PATH[i];
 		dx=32; dy=32;
 	}, true);
 end
