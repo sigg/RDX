@@ -223,7 +223,7 @@ function RDX.ManageChatFrames()
 		
 		-- timestamp and color
 		f.RDX_AddMessage = f.AddMessage;
-		f.SetMsg = function(self, ts, color, channel)
+		f.SetMsg = function(self, ts, color, channel, key)
 			self.key = key;
 			self.ts = ts;
 			self.color = color;
@@ -329,7 +329,7 @@ if btn then
 	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
 	--if ]] .. ts .. [[ then
-		btn.SetMsg(btn, "]] .. desc.ts .. [[", ]] .. Serialize(desc.color) .. [[, ]] .. channel .. [[);
+		btn.SetMsg(btn, "]] .. desc.ts .. [[", ]] .. Serialize(desc.color) .. [[, ]] .. channel .. [[, ]] .. desc.number .. [[);
 	--end
 	btn:SetFading(]] .. fading .. [[);
 	SetChatWindowSize(btn:GetID(), ]] .. desc.font.size .. [[);
