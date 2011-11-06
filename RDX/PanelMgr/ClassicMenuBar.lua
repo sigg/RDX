@@ -54,6 +54,14 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.keepShownOnClick = false;
 	ent.menuList = RDXPM.stateTypeMenus;
 end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Third Party");
+	ent.notCheckable = true;
+	ent.hasArrow = true;
+	ent.keepShownOnClick = false;
+	ent.menuList = RDX.thirdpartymenu;
+end);
 	
 --RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 --	ent.text = VFLI.i18n("Action bars");
