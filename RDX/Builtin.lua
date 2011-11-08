@@ -2502,3 +2502,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	
 end);
 
+
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
+	RDXDB.GetObjectInstance("default:Logs_Me_tl");
+end);
