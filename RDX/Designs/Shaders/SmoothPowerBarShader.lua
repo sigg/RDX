@@ -59,7 +59,7 @@ RDX.RegisterFeature({
 	name = "shader_SPB"; 
 	version = 1;	
 	multiple = true;
-	title = VFLI.i18n("StatusBar: Smooth Power");
+	title = VFLI.i18n("Sh: StatusBar Smooth Power Bar");
 	category = VFLI.i18n("Shaders");
 	IsPossible = function(state)
 		if not state:HasSlots("DesignFrame", "EmitClosure", "EmitCreate", "EmitPaint", "EmitDestroy") then return nil; end
