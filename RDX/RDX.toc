@@ -327,7 +327,7 @@ Designs\Variables\Checks\IsMaxLevel.lua
 Designs\Variables\Checks\IsMaxPower.lua
 Designs\Variables\Checks\IsMouseOver.lua
 Designs\Variables\Checks\IsNPC.lua
-Designs\Variables\Checks\IsRaidInRange.lua
+# Designs\Variables\Checks\IsRaidInRange.lua
 Designs\Variables\Checks\IsShiftDown.lua
 Designs\Variables\Checks\IsTapped.lua
 Designs\Variables\Checks\IsTargetExisted.lua
