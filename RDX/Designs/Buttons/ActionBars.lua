@@ -85,6 +85,7 @@ local function _EmitCreateCode(objname, desc)
 	elseif desc.usebkd then
 		if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 	end
+	local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
 	
 	local abid = GetBarNumber(desc.barid);
 	
@@ -134,7 +135,7 @@ local dabid = nil;
 
 -- Create buttons
 for i=1, ]] .. desc.nIcons .. [[ do
-	local btn = RDXUI.ActionButton:new(h, abid, ]] .. desc.size .. [[, ]] .. usebs .. [[, "]] .. ebs .. [[", ]] .. usebkd .. [[, ]] .. Serialize(bkd) .. [[, ]] .. os .. [[, ]] .. hidebs .. [[, "]] .. headerstate .. [[", ]] .. desc.nIcons .. [[, ]] .. Serialize(desc.cd) .. [[, ]] .. showkey .. [[, ]] .. showtooltip .. [[, ]] .. anyup .. [[, ]] .. selfcast .. [[, ]] .. flyoutdirection .. [[);
+	local btn = RDXUI.ActionButton:new(h, abid, ]] .. desc.size .. [[, ]] .. usebs .. [[, "]] .. ebs .. [[", ]] .. usebkd .. [[, ]] .. Serialize(bkd) .. [[, ]] .. os .. [[, ]] .. hidebs .. [[, "]] .. headerstate .. [[", ]] .. desc.nIcons .. [[, ]] .. Serialize(desc.cd) .. [[, ]] .. showkey .. [[, ]] .. showtooltip .. [[, ]] .. anyup .. [[, ]] .. selfcast .. [[, ]] .. flyoutdirection .. [[, ]] .. showgloss .. [[);
 ]];
 		createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtCount", desc.fontcount, nil, true);
 		createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtMacro", desc.fontmacro, nil, true);
@@ -409,6 +410,11 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
 		ui:InsertFrame(ed_bs);
 		
+		local chk_showgloss = VFLUI.Checkbox:new(ui); chk_showgloss:Show();
+		chk_showgloss:SetText(VFLI.i18n("Button Skin Show Gloss"));
+		if desc and desc.showgloss then chk_showgloss:SetChecked(true); else chk_showgloss:SetChecked(); end
+		ui:InsertFrame(chk_showgloss);
+		
 		local chk_bkd = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Backdrop"));
 		local dd_backdrop = VFLUI.MakeBackdropSelectButton(chk_bkd, desc.bkd);
 		dd_backdrop:Show();
@@ -491,6 +497,7 @@ frame.]] .. objname .. [[ = nil;
 				usebs = chk_bs:GetChecked();
 				externalButtonSkin = dd_buttonSkin:GetSelection();
 				ButtonSkinOffset = VFL.clamp(ed_bs.editBox:GetNumber(), 0, 50);
+				showgloss = chk_showgloss:GetChecked();
 				usebkd = chk_bkd:GetChecked();
 				bkd = dd_backdrop:GetSelectedBackdrop();
 				hidebs = chk_hidebs:GetChecked();
