@@ -464,3 +464,10 @@ function RDXDK.UpdateDesktopTools(frameprops)
 	if not dlg then RDXDK.OpenDesktopTools(); end
 	if frameprops then dlg:_update(frameprops); end
 end
+
+RDXPM.RegisterSlashCommand("toggledesk", function()
+	local curdesk = RDXDK.GetCurrentDesktop();
+	if curdesk then
+		RDXDK.ToggleDesktopTools(VFLFULLSCREEN_DIALOG, curdesk:_GetFrameProps("root"));
+	end
+end);
