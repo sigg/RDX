@@ -195,12 +195,12 @@ _f:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 _f:SetWidth(]] .. desc.w .. [[); _f:SetHeight(]] .. desc.h .. [[);
 _f:Show();
 _f.rdxupdate =  function()
-	frame.]] .. objname .. [[:SetUnit("]] .. unit .. [[");
-	]].. camera ..[[(frame.]] .. objname .. [[);
+	_f:SetUnit("]] .. unit .. [[");
+	]].. camera ..[[(_f);
 	if UnitIsVisible("]] .. unit .. [[") then 
-		frame.]] .. objname .. [[:Show();
+		_f:Show();
 	else
-		frame.]] .. objname .. [[:Hide();
+		_f:Hide();
 	end
 end
 
