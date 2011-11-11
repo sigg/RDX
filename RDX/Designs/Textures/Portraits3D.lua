@@ -185,7 +185,7 @@ RDX.RegisterFeature({
 		local camera = "SetCameraZero";
 		if desc and desc.cameraType then camera = desc.cameraType; end
 		local unit = "player";
-		if desc and desc.unit then uid = desc.unit; end
+		if desc and desc.unit then unit = desc.unit; end
 
 		-- Creation/destruction
 		local createCode = [[
@@ -193,7 +193,7 @@ local _f = VFLUI.AcquireFrame("PlayerModel");
 VFLUI.StdSetParent(_f, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[, ]] .. desc.flOffset .. [[);
 _f:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 _f:SetWidth(]] .. desc.w .. [[); _f:SetHeight(]] .. desc.h .. [[);
-
+_f:Show();
 _f.rdxupdate =  function()
 	frame.]] .. objname .. [[:SetUnit("]] .. unit .. [[");
 	]].. camera ..[[(frame.]] .. objname .. [[);
@@ -204,13 +204,14 @@ _f.rdxupdate =  function()
 	end
 end
 
-WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "]] .. unit .. [[" then _f.rdxupdate(), end, "]] .. id .. [[");
---if "]] .. unit .. [[" == "target" then
---	WoWEvents:Bind("PLAYER_TARGET_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
---end
---if "]] .. unit .. [[" == "focus" then
---	WoWEvents:Bind("PLAYER_FOCUS_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
---end
+WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "]] .. unit .. [[" then _f.rdxupdate(); end; end, "]] .. id .. [[");
+if "]] .. unit .. [[" == "target" then
+	WoWEvents:Bind("PLAYER_TARGET_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
+end
+if "]] .. unit .. [[" == "focus" then
+	WoWEvents:Bind("PLAYER_FOCUS_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
+end
+VFLT.schedule(1, _f.rdxupdate);
 frame.]] .. objname .. [[ = _f;
 ]];
 		local destroyCode = [[
