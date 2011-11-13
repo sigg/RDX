@@ -15,7 +15,7 @@ function __SetAuraIcon(btn, meta, tex, apps, dur, tl, dispelType, i, ebsflag, sm
 	if dispelType and DebuffTypeColor[dispelType] then
 		btn._texBorder:SetVertexColor(VFL.explodeColor(DebuffTypeColor[dispelType]));
 	else
-		btn._texBorder:SetVertexColor(1, 1, 1, 1);
+		btn._texBorder:SetVertexColor(VFL.explodeRGBA(btn.bsdefault));
 	end
 	-- Cooldown
 	if dur and dur > 0 and btn.cd then
@@ -53,6 +53,8 @@ local function _EmitCreateCode(objname, desc)
 	elseif desc.usebkd then
 		if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 	end
+	local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
+	local bsdefault = desc.bsdefault or _white;
 	
 	local createCode = [[
 frame.]] .. objname .. [[ = {};
@@ -60,7 +62,7 @@ local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 for i=1, ]] .. desc.nIcons .. [[ do
 	if ]] .. usebs .. [[ then 
 		btn = VFLUI.SkinButton:new();
-		btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, true);
+		btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
 	elseif ]] .. usebkd .. [[ then
 		btn = VFLUI.AcquireFrame("Button");
 		VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
@@ -162,6 +164,8 @@ RDX.RegisterFeature({
 		elseif desc.usebkd then
 			if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 		end
+		local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
+		local bsdefault = desc.bsdefault or _white;
 		
 		local r, g, b, a = bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1;
 		
@@ -445,7 +449,7 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 				end
 			else
 				if ]] .. usebs .. [[ then
-					btn._texBorder:SetVertexColor(1, 1, 1, 1);
+					btn._texBorder:SetVertexColor(VFL.explodeRGBA(]] .. Serialize(bsdefault) .. [[));
 				elseif ]] .. usebkd .. [[ then
 					btn:SetBackdropBorderColor(]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
 				end
@@ -577,6 +581,14 @@ end
 		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
 		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
 		ui:InsertFrame(ed_bs);
+		
+		local chk_showgloss = VFLUI.Checkbox:new(ui); chk_showgloss:Show();
+		chk_showgloss:SetText(VFLI.i18n("Button Skin Show Gloss"));
+		if desc and desc.showgloss then chk_showgloss:SetChecked(true); else chk_showgloss:SetChecked(); end
+		ui:InsertFrame(chk_showgloss);
+		
+		local color_bsdefault = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Button Skin default color"));
+		if desc and desc.bsdefault then color_bsdefault:SetColor(VFL.explodeRGBA(desc.bsdefault)); end
 		
 		local chk_bkd = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Backdrop"));
 		local dd_backdrop = VFLUI.MakeBackdropSelectButton(chk_bkd, desc.bkd);
@@ -814,17 +826,12 @@ end
 				usebs = chk_bs:GetChecked();
 				externalButtonSkin = dd_buttonSkin:GetSelection();
 				ButtonSkinOffset = VFL.clamp(ed_bs.editBox:GetNumber(), 0, 50);
+				showgloss = chk_showgloss:GetChecked();
+				bsdefault = color_bsdefault:GetColor();
 				usebkd = chk_bkd:GetChecked();
 				bkd = dd_backdrop:GetSelectedBackdrop();
 				-- cooldown
 				cd = cd:GetSelectedCooldown();
-				cdTimerType = nil;
-				cdGfxReverse = nil;
-				cdHideTxt = nil;
-				cdFont = nil;
-				cdTxtType = nil;
-				cdoffx = nil;
-				cdoffy = nil;
 				-- other
 				fontst = fontsel2:GetSelectedFont();
 				-- smooth
