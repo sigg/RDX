@@ -36,7 +36,9 @@ function __AuraIconOnLeave()
 	GameTooltip:Hide();
 end
 function __AuraIconOnClick(self)
-	--CancelUnitBuff("player", self.meta.name);
+	if not InCombatLockdown() then
+		CancelUnitBuff("player", self.meta.name);
+	end
 end
 
 --------------- Code emitter helpers
@@ -60,10 +62,10 @@ for i=1, ]] .. desc.nIcons .. [[ do
 		btn = VFLUI.SkinButton:new();
 		btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, true);
 	elseif ]] .. usebkd .. [[ then
-		btn = VFLUI.AcquireFrame("Frame");
+		btn = VFLUI.AcquireFrame("Button");
 		VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
 	else
-		btn = VFLUI.AcquireFrame("Frame");
+		btn = VFLUI.AcquireFrame("Button");
 	end
 	btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
 	btn:SetWidth(]] .. desc.size .. [[); btn:SetHeight(]] .. desc.size .. [[);
@@ -71,8 +73,8 @@ for i=1, ]] .. desc.nIcons .. [[ do
 	btn:SetScript("OnLeave", __AuraIconOnLeave);
 ]];
 	if desc.externalButtonSkin then createCode = createCode .. [[
-	--btn:RegisterForClicks("RightButtonUp");
-	--btn:SetScript("OnClick", __AuraIconOnClick);
+	btn:RegisterForClicks("RightButtonUp");
+	btn:SetScript("OnClick", __AuraIconOnClick);
 ]];
 	end
 	createCode = createCode .. [[
