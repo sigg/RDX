@@ -335,7 +335,40 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 		_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = ]] .. loadCode .. [[(uid, _i, ]] .. raidfilter .. [[, ]] .. auracache .. [[);
 		if not _meta then break; end
 		if (not _meta.isInvisible) and ]] .. aurasfilter .. [[ and ]] .. isstealablefilter .. [[ and ]] .. curefilter .. [[ and ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
-			__SetAuraBar(_icons[_j], _meta, _tex, _apps, _dur, _tl, _dispelt, _i, "]] .. desc.auraType .. [[", ]] .. usedebuffcolor .. [[, ]] .. auranametrunc .. [[, ]] .. auranameab .. [[, ]] .. smooth .. [[, ]] .. countTypeFlag .. [[);
+			if not btn:IsShown() then btn:Show(]] .. smooth .. [[); end
+			if btn.icon then btn.icon:SetTexture(_tex); end
+			
+			if btn.nametxt then
+				if ]] .. auranameab .. [[ then
+					local word, anstr = nil, "";
+					for word in string.gmatch(_meta.properName, "%a+")
+						do anstr = anstr .. word:sub(1, 1);
+					end
+					btn.nametxt:SetText(anstr);
+				elseif ]] .. auranametrunc .. [[ then
+					btn.nametxt:SetText(strsub(_meta.properName, 1, ]] .. auranametrunc .. [[));
+				else
+					btn.nametxt:SetText(_meta.properName);
+				end
+			end
+			
+			if "]] .. desc.auraType .. [[" == "DEBUFFS" and ]] .. usedebuffcolor .. [[ then
+				if _dispelt then
+					btn.sb:SetColorTable(DebuffTypeColor[_dispelt]);
+				else
+					btn.sb:SetColorTable(_grey);
+				end
+			end
+			
+			btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
+			if _dur and _dur > 0 then
+				btn.ftc:SetTimer(GetTime() + _tl - _dur , _dur);
+			else
+				btn.ftc:SetTimer(0, 0);
+			end
+			
+			if _apps and _apps > 1 and btn.stacktxt then btn.stacktxt:SetText(_apps); else btn.stacktxt:SetText(""); end
+			
 			_j = _j + 1;
 		end
 		_i = _i + 1;
