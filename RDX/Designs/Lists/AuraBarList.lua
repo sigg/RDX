@@ -187,11 +187,11 @@ RDX.RegisterFeature({
 		
 		local sbblendcolor = "false"; if desc.sbblendcolor then sbblendcolor = "true"; end
 		
+		local tet = desc.textType or "VFL.Hundredths";
+		local showduration = "false"; if desc.showduration then showduration = "true"; end
 		local blendcolor = "false"; if desc.blendcolor then blendcolor = "true"; end
 		if not desc.color1 then desc.color1 = _white; end
 		if not desc.color2 then desc.color2 = _white; end
-		
-		local tet = desc.textType or "VFL.Hundredths";
 		
 		local showicon = "nil"; if desc.sbtib and desc.sbtib.showicon then showicon = "true"; end
 		
@@ -211,7 +211,7 @@ RDX.RegisterFeature({
 
 		------------ Closure
 		local closureCode = [[
-local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true,true, nil, VFLUI.GetTextTimerTypesString("]] .. tet .. [["), false, false, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide);
+local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true,true, nil, VFLUI.GetTextTimerTypesString("]] .. tet .. [["), false, false, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, ]] .. showduration .. [[, ]] .. blendcolor .. [[);
 ]];
 		if desc.filterName then
 			closureCode = closureCode .. [[
@@ -372,8 +372,14 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 			
 			if "]] .. desc.auraType .. [[" == "DEBUFFS" and ]] .. usedebuffcolor .. [[ and _dispelt then
 				btn.sb:SetColorTable(DebuffTypeColor[_dispelt]);
+]];
+if desc.sbblendcolor then 
+			paintCodeWithoutSort = paintCodeWithoutSort .. [[
 			elseif ]] .. sbblendcolor .. [[ then
 				btn.ftc:SetSBBlendColor(]] .. desc.sbcolorVar1 .. [[, ]] .. desc.sbcolorVar2 .. [[);
+]];
+end			
+			paintCodeWithoutSort = paintCodeWithoutSort .. [[
 			else
 				btn.sb:SetColorTable(_grey);
 			end
@@ -529,6 +535,11 @@ end
 
 		local color2 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Static full color"));
 		if desc and desc.color2 then color2:SetColor(VFL.explodeRGBA(desc.color2)); end
+		
+		local chk_duration = VFLUI.Checkbox:new(ui); chk_duration:Show();
+		chk_duration:SetText(VFLI.i18n("Show max duration"));
+		if desc and desc.showduration then chk_duration:SetChecked(true); else chk_duration:SetChecked(); end
+		ui:InsertFrame(chk_duration);
 		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Aura name parameters")));
 		
@@ -768,6 +779,8 @@ end
 				-- timer text
 				blendcolor = chk_blendcolor:GetChecked();
 				color1 = scolor1; color2 = scolor2;
+				textType = dd_textType:GetSelection();
+				showduration = chk_duration:GetChecked();
 				-- fonts
 				trunc = trunc;
 				abr = chk_abr:GetChecked();
