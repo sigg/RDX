@@ -42,7 +42,7 @@ spColor_cf[4] = ]] .. Serialize(desc.raColor4) .. [[;
 ]];
 		if desc.filterName then
 			closureCode = closureCode ..[[
-local ]] .. objname .. [[_fnames = ]];
+local _fnames = ]];
 			if desc.externalNameFilter then
 				closureCode = closureCode .. [[RDXDB.GetObjectInstance(]] .. string.format("%q", desc.externalNameFilter) .. [[);
 ]];
@@ -65,16 +65,16 @@ local ]] .. objname .. [[_fnames = ]];
 							if not auname then auname = name; end
 							if flag then
 								auname = "!" .. auname;
-								closureCode = closureCode .. objname .. "_fnames[" .. string.format("%q", auname) .. "] = true; ";
+								closureCode = closureCode .. "_fnames[" .. string.format("%q", auname) .. "] = true; ";
 							else
-								closureCode = closureCode .. objname .. "_fnames[" .. string.format("%q", auname) .. "] = true; ";
+								closureCode = closureCode .. "_fnames[" .. string.format("%q", auname) .. "] = true; ";
 							end
 						else
 							if flag then
 								name = "!" .. name;
-								closureCode = closureCode .. objname .. "_fnames[" .. string.format("%q", name) .. "] = true; ";
+								closureCode = closureCode .. "_fnames[" .. string.format("%q", name) .. "] = true; ";
 							else
-								closureCode = closureCode .. objname .. "_fnames[" .. string.format("%q", name) .. "] = true; ";
+								closureCode = closureCode .. "_fnames[" .. string.format("%q", name) .. "] = true; ";
 							end
 						end
 					end
@@ -85,8 +85,8 @@ local ]] .. objname .. [[_fnames = ]];
 
 		local namefilter = "true"; 
 		if desc.filterName then
-			namefilter = "(" .. objname .. "_fnames[spell_name])";
-			namefilter = namefilter .. " and (not (" .. objname .. "_fnames['!'.. spell_name]))";
+			namefilter = "(_fnames[spell_name])";
+			namefilter = namefilter .. " and (not (_fnames['!'.. spell_name]))";
 		end
 
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
