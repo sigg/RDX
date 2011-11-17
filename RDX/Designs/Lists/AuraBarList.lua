@@ -6,46 +6,6 @@
 
 local strsub = string.sub;
 
-function __SetAuraBar(btn, meta, tex, apps, dur, tl, dispelType, i, auratype, usedebuffcolor, auranametrunc, auranameab, smooth, countTypeFlag)
-	if not btn:IsShown() then btn:Show(smooth); end
-	btn.meta = meta;
-	
-	if btn.icon then btn.icon:SetTexture(tex); end
-	
-	if btn.nametxt then
-		if auranameab then
-			local word, anstr = nil, "";
-			for word in string.gmatch(meta.properName, "%a+")
-				do anstr = anstr .. word:sub(1, 1);
-			end
-			btn.nametxt:SetText(anstr);
-		elseif auranametrunc then
-			btn.nametxt:SetText(strsub(meta.properName, 1, auranametrunc));
-		else
-			btn.nametxt:SetText(meta.properName);
-		end
-	end
-	
-	if auratype == "DEBUFFS" and usedebuffcolor then
-		if dispelType then
-			btn.sb:SetColorTable(DebuffTypeColor[dispelType]);
-		else
-			btn.sb:SetColorTable(_grey);
-		end
-	end
-	
-	btn.ftc:SetFormula(countTypeFlag);
-	if dur and dur > 0 then
-		btn.ftc:SetTimer(GetTime() + tl - dur , dur);
-	else
-		btn.ftc:SetTimer(0, 0);
-	end
-	
-	if apps and apps > 1 and btn.stacktxt then btn.stacktxt:SetText(apps); else btn.stacktxt:SetText(""); end
-	
-	return true;
-end
-
 RDX.RegisterFeature({
 	name = "aura_bars2";
 	version = 2;
@@ -349,7 +309,7 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 		_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = ]] .. loadCode .. [[(uid, _i, ]] .. raidfilter .. [[, ]] .. auracache .. [[);
 		if not _meta then break; end
 		if (not _meta.isInvisible) and ]] .. aurasfilter .. [[ and ]] .. isstealablefilter .. [[ and ]] .. curefilter .. [[ and ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
-			local btn = _icons[_j];
+			btn = _icons[_j];
 			if not btn:IsShown() then btn:Show(]] .. smooth .. [[); end
 			
 			if btn.icon then btn.icon:SetTexture(_tex); end
@@ -368,8 +328,6 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 				end
 			end
 			
-			--btn.ftc:SetData(_apps, _tex);
-			
 			if "]] .. desc.auraType .. [[" == "DEBUFFS" and ]] .. usedebuffcolor .. [[ and _dispelt then
 				btn.sb:SetColorTable(DebuffTypeColor[_dispelt]);
 ]];
@@ -385,7 +343,7 @@ end
 			end
 			
 			btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
-			if _dur and _dur > 0 then
+			if _dur and _dur > 0 and btn.ftc then
 				btn.ftc:SetTimer(GetTime() + _tl - _dur , _dur);
 			else
 				btn.ftc:SetTimer(0, 0);

@@ -5,70 +5,6 @@
 
 local strsub = string.sub;
 
-function __SetCooldownBar(btn, meta, tex, apps, dur, tl, dispelType, i, auratype, usedebuffcolor, auranametrunc, auranameab, smooth, countTypeFlag)
-	if not btn:IsShown() then btn:Show(smooth); end
-	btn.meta = meta;
-	
-	if btn.icon then btn.icon:SetTexture(tex); end
-	
-	if btn.nametxt then
-		if auranameab then
-			local word, anstr = nil, "";
-			for word in string.gmatch(meta.properName, "%a+")
-				do anstr = anstr .. word:sub(1, 1);
-			end
-			btn.nametxt:SetText(anstr);
-		elseif auranametrunc then
-			btn.nametxt:SetText(strsub(meta.properName, 1, auranametrunc));
-		else
-			btn.nametxt:SetText(meta.properName);
-		end
-	end
-	
-	if auratype == "DEBUFFS" and usedebuffcolor then
-		if dispelType then
-			btn.sb:SetColorTable(DebuffTypeColor[dispelType]);
-		else
-			btn.sb:SetColorTable(_grey);
-		end
-	end
-	
-	btn.ftc:SetFormula(countTypeFlag);
-	if dur and dur > 0 then
-		btn.ftc:SetTimer(GetTime() + tl - dur , dur);
-	else
-		btn.ftc:SetTimer(0, 0);
-	end
-	
-	if apps and apps > 1 and btn.stacktxt then btn.stacktxt:SetText(apps); else btn.stacktxt:SetText(""); end
-	
-	return true;
-end
-
---------------- Code emitter helpers
-local function _EmitCreateCode(objname, desc)
-	local createCode = [[
-frame.]] .. objname .. [[ = {};
-local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
-for i=1,]] .. desc.nIcons .. [[ do
-	btn = VFLUI.SBTIB:new(btnOwner, ]] .. Serialize(desc.sbtib) .. [[);
-]];
-	if desc.sbtib and desc.sbtib.btype == "Button" then
-		createCode = createCode .. [[
-	btn:SetScript("OnEnter", __CooldownIconOnEnter);
-	btn:SetScript("OnLeave", __CooldownIconOnLeave);
-]];
-	end
-	
-	createCode = createCode .. [[
-	btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
-	frame.]] .. objname .. [[[i] = btn;
-end
-]];
-	createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
-	return createCode;
-end
-
 RDX.RegisterFeature({
 	name = "cooldown_bars";
 	version = 2;
@@ -101,23 +37,71 @@ RDX.RegisterFeature({
 		if desc.externalNameFilter and desc.externalNameFilter ~= "" then
 			if not RDXDB.CheckObject(desc.externalNameFilter, "CooldownFilter") then VFL.AddError(errs, VFLI.i18n("Invalid cooldownfilter")); flg = nil; end
 		end
+		if desc.sbblendcolor then
+			if not desc.sbcolorVar1 or desc.sbcolorVar1 == "" or not state:Slot("ColorVar_" .. desc.sbcolorVar1) then
+				VFL.AddError(errs, VFLI.i18n("Invalid Status Bar Color Variable 1")); flg = nil;
+			end
+			if not desc.sbcolorVar2 or desc.sbcolorVar2 == "" or not state:Slot("ColorVar_" .. desc.sbcolorVar2) then
+				VFL.AddError(errs, VFLI.i18n("Invalid Status Bar Color Variable 2")); flg = nil;
+			end
+		end
 		if flg then state:AddSlot("Bars_" .. desc.name); end
 		return flg;
 	end;
 	ApplyFeature = function(desc, state)
 		local objname = "Bars_" .. desc.name;
-		
+		local loadCode = "unit:GetUsedCooldownsById";
 		-- Event hinting.
 		local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
 		mask = mux:GetPaintMask("COOLDOWN");
 		mux:Event_UnitMask("UNIT_COOLDOWN", mask);
 		mask = bit.bor(mask, 1);
 		
-		local loadCode = "unit:GetUsedCooldownsById";
-		-- only used
-		--if desc.cooldownType == "AVAIL" then
-		--	loadCode = "unit:GetAvailCooldownsById";
-		--end
+		local smooth = "nil"; if desc.smooth then smooth = "RDX.smooth"; end
+		
+		local timefilter = "true"; 
+		if desc.timefilter then timefilter = "(_dur > 0";
+			if (desc.mindurationfilter ~= "") then timefilter = timefilter .. " and _dur >= " .. desc.mindurationfilter; end
+			if (desc.maxdurationfilter ~= "") then timefilter = timefilter .. " and _dur <= " .. desc.maxdurationfilter; end
+			timefilter = timefilter ..")";
+		elseif desc.notimefilter then
+			timefilter = "(_dur == 0)";
+		end
+		local namefilter = "true"; if desc.filterName then
+			namefilter = "(" .. objname .. "_fnames[_bn])";
+			namefilter = namefilter .. " and (not (" .. objname .. "_fnames['!'.._bn]))"
+		end
+		local countTypeFlag = "nil" if desc.countTypeFlag and desc.countTypeFlag ~= "" then countTypeFlag = desc.countTypeFlag; end
+		
+		local auranametrunc = "nil"; if desc.trunc then auranametrunc = desc.trunc; end
+		local auranameab = "true"; if (not desc.abr) then auranameab = "false"; end
+		local sorticons = " "; 
+		desc.sort = nil;
+		if desc.sort then
+			if desc.sortduration then sorticons = sorticons .. [[
+			table.sort(sort_icons, function(x1,x2) return x1._dur < x2._dur; end); ]];
+			end
+			if desc.sortstack then sorticons = sorticons .. [[
+			table.sort(sort_icons, function(x1,x2) return x1._apps < x2._apps; end); ]];
+			end
+			if desc.sorttimeleft then sorticons = sorticons .. [[
+			table.sort(sort_icons, function(x1,x2) return x1._tl < x2._tl; end); ]];
+			end
+			if desc.sortname then sorticons = sorticons .. [[
+			table.sort(sort_icons, function(x1,x2) return x1._bn < x2._bn; end); ]];
+			end
+			
+		end
+		
+		local sbblendcolor = "false"; if desc.sbblendcolor then sbblendcolor = "true"; end
+		
+		local tet = desc.textType or "VFL.Hundredths";
+		local showduration = "false"; if desc.showduration then showduration = "true"; end
+		local blendcolor = "false"; if desc.blendcolor then blendcolor = "true"; end
+		if not desc.color1 then desc.color1 = _white; end
+		if not desc.color2 then desc.color2 = _white; end
+		
+		local showicon = "nil"; if desc.sbtib and desc.sbtib.showicon then showicon = "true"; end
 		
 		-- If there's an external filter, add a quick menu to the window to edit it.
 		if desc.externalNameFilter then
@@ -135,7 +119,7 @@ RDX.RegisterFeature({
 
 		------------ Closure
 		local closureCode = [[
-local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true,true, nil, VFLUI.GetTextTimerTypesString("MinSec"), false, false, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide);
+local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true,true, nil, VFLUI.GetTextTimerTypesString("]] .. tet .. [["), false, false, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, ]] .. showduration .. [[, ]] .. blendcolor .. [[);
 ]];
 		if desc.filterName then
 			closureCode = closureCode .. [[
@@ -182,7 +166,27 @@ local ]] .. objname .. [[_fnames = ]];
 		state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
 
 		----------------- Creation
-		local createCode = _EmitCreateCode(objname, desc);
+		local createCode = [[
+frame.]] .. objname .. [[ = {};
+local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+for i=1,]] .. desc.nIcons .. [[ do
+	btn = VFLUI.SBTIB:new(btnOwner, ]] .. Serialize(desc.sbtib) .. [[);
+]];
+		if desc.sbtib and desc.sbtib.btype == "Button" then
+			createCode = createCode .. [[
+	btn:SetScript("OnEnter", __AuraIconOnEnter);
+	btn:SetScript("OnLeave", __AuraIconOnLeave);
+	btn:RegisterForClicks("RightButtonUp");
+	btn:SetScript("OnClick", __AuraIconOnClick);
+]];
+		end
+	
+		createCode = createCode .. [[
+	btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt, nil, nil, ]] .. Serialize(desc.color1) .. [[, ]] .. Serialize(desc.color2) .. [[);
+	frame.]] .. objname .. [[[i] = btn;
+end
+]];
+		createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 
 		------------------- Destruction
@@ -199,41 +203,7 @@ frame.]] .. objname .. [[ = nil;
 		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);
 
 		------------------- Paint
-		local smooth = "nil"; if desc.smooth then smooth = "RDX.smooth"; end
 		
-		local timefilter = "true"; 
-		if desc.timefilter then timefilter = "(_dur > 0";
-			if (desc.mindurationfilter ~= "") then timefilter = timefilter .. " and _dur >= " .. desc.mindurationfilter; end
-			if (desc.maxdurationfilter ~= "") then timefilter = timefilter .. " and _dur <= " .. desc.maxdurationfilter; end
-			timefilter = timefilter ..")";
-		elseif desc.notimefilter then
-			timefilter = "(_dur == 0)";
-		end
-		local namefilter = "true"; if desc.filterName then
-			namefilter = "(" .. objname .. "_fnames[_bn])";
-			namefilter = namefilter .. " and (not (" .. objname .. "_fnames['!'.._bn]))"
-		end
-		local countTypeFlag = "nil" if desc.countTypeFlag and desc.countTypeFlag ~= "" then countTypeFlag = desc.countTypeFlag; end
-		
-		local auranametrunc = "nil"; if desc.trunc then auranametrunc = desc.trunc; end
-		local auranameab = "true"; if (not desc.abr) then auranameab = "false"; end
-		local sorticons = " "; 
-		desc.sort = nil;
-		if desc.sort then
-			if desc.sortduration then sorticons = sorticons .. [[
-			table.sort(sort_icons, function(x1,x2) return x1._dur < x2._dur; end); ]];
-			end
-			if desc.sortstack then sorticons = sorticons .. [[
-			table.sort(sort_icons, function(x1,x2) return x1._apps < x2._apps; end); ]];
-			end
-			if desc.sorttimeleft then sorticons = sorticons .. [[
-			table.sort(sort_icons, function(x1,x2) return x1._tl < x2._tl; end); ]];
-			end
-			if desc.sortname then sorticons = sorticons .. [[
-			table.sort(sort_icons, function(x1,x2) return x1._bn < x2._bn; end); ]];
-			end
-			
-		end
 
 		local paintCodeWithoutSort = [[
 if band(paintmask, ]] .. mask .. [[) ~= 0 then
@@ -247,9 +217,9 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 			btn = _icons[_j];
 			if not btn:IsShown() then btn:Show(]] .. smooth .. [[); end
 			btn.spellid = _meta;
-			if btn.icon then
-				btn.icon:SetTexture(_tex);
-			end
+			
+			if btn.icon then btn.icon:SetTexture(_tex); end
+			
 			if btn.nametxt then
 				if ]] .. auranameab .. [[ then
 					local word, anstr = nil, "";
@@ -263,6 +233,16 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 					btn.nametxt:SetText(_bn);
 				end
 			end
+]];
+if desc.sbblendcolor then 
+			paintCodeWithoutSort = paintCodeWithoutSort .. [[
+			if ]] .. sbblendcolor .. [[ then
+				btn.ftc:SetSBBlendColor(]] .. desc.sbcolorVar1 .. [[, ]] .. desc.sbcolorVar2 .. [[);
+			end
+]];
+end			
+			paintCodeWithoutSort = paintCodeWithoutSort .. [[
+			
 			btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
 			if _dur and _dur > 0 and btn.ftc then
 				btn.ftc:SetTimer(_start, _dur);
@@ -362,7 +342,7 @@ end
 		ui:InsertFrame(ed_iconspy);
 		
 		-------------- Display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Display parameters")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Statusbar parameters")));
 		
 		local er2 = VFLUI.EmbedRight(ui, VFLI.i18n("Statusbar style"));
 		local sbtib = VFLUI.MakeSBTIBSelectButton(er2, desc.sbtib); sbtib:Show();
@@ -372,7 +352,47 @@ end
 		local countTypeFlag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Count type (true CountUP, false CountDOWN)"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.countTypeFlag then countTypeFlag:SetSelection(desc.countTypeFlag); end
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Font parameters")));
+		local chk_sbblendcolor = VFLUI.Checkbox:new(ui); chk_sbblendcolor:Show();
+		chk_sbblendcolor:SetText(VFLI.i18n("Use blend color"));
+		if desc and desc.sbblendcolor then chk_sbblendcolor:SetChecked(true); else chk_sbblendcolor:SetChecked(); end
+		ui:InsertFrame(chk_sbblendcolor);
+		
+		local sbcolorVar1 = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Static empty color"), state, "ColorVar_");
+		if desc and desc.sbcolorVar1 and type(desc.sbcolorVar1) == "string" then sbcolorVar1:SetSelection(desc.sbcolorVar1); end
+		
+		local sbcolorVar2 = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Static full color"), state, "ColorVar_");
+		if desc and desc.sbcolorVar2 and type(desc.sbcolorVar2) == "string" then sbcolorVar2:SetSelection(desc.sbcolorVar2); end
+		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Text Timer parameters")));
+		
+		local tt = VFLUI.EmbedRight(ui, VFLI.i18n("Text Timer Type"));
+		local dd_textType = VFLUI.Dropdown:new(tt, VFLUI.TextTypesDropdownFunction);
+		dd_textType:SetWidth(200); dd_textType:Show();
+		if desc and desc.textType then 
+			dd_textType:SetSelection(desc.textType); 
+		else
+			dd_textType:SetSelection("VFL.Hundredths");
+		end
+		tt:EmbedChild(dd_textType); tt:Show();
+		ui:InsertFrame(tt);
+		
+		local chk_blendcolor = VFLUI.Checkbox:new(ui); chk_blendcolor:Show();
+		chk_blendcolor:SetText(VFLI.i18n("Use blend color"));
+		if desc and desc.blendcolor then chk_blendcolor:SetChecked(true); else chk_blendcolor:SetChecked(); end
+		ui:InsertFrame(chk_blendcolor);
+		
+		local color1 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Static empty color"));
+		if desc and desc.color1 then color1:SetColor(VFL.explodeRGBA(desc.color1)); end
+
+		local color2 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Static full color"));
+		if desc and desc.color2 then color2:SetColor(VFL.explodeRGBA(desc.color2)); end
+		
+		local chk_duration = VFLUI.Checkbox:new(ui); chk_duration:Show();
+		chk_duration:SetText(VFLI.i18n("Show max duration"));
+		if desc and desc.showduration then chk_duration:SetChecked(true); else chk_duration:SetChecked(); end
+		ui:InsertFrame(chk_duration);
+		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown name parameters")));
 		
 		local ed_trunc = VFLUI.LabeledEdit:new(ui, 50); ed_trunc:Show();
 		ed_trunc:SetText(VFLI.i18n("Max aura length (blank = no truncation)"));
@@ -475,6 +495,16 @@ end
 		ui:InsertFrame(le_names);
 		
 		function ui:GetDescriptor()
+			local ssbcolor1, ssbcolor2, scolor1, scolor2, sstack, sstackVar, sstackMax, sTL = nil, nil, nil, nil, nil, nil, nil, 0;
+			if chk_sbblendcolor:GetChecked() then
+				ssbcolor1 = strtrim(sbcolorVar1:GetSelection() or ""); 
+				ssbcolor2 = strtrim(sbcolorVar2:GetSelection() or "");
+				if ssbcolor1 == "" then ssbcolor1 = nil; end
+				if ssbcolor2 == "" then ssbcolor2 = nil; end
+			end
+			if chk_blendcolor:GetChecked() then
+				scolor1 = color1:GetColor(); scolor2 = color2:GetColor();
+			end
 			local trunc = tonumber(ed_trunc.editBox:GetText());
 			if trunc then trunc = VFL.clamp(trunc, 1, 50); end
 			local filterName, filterNameList, filternl, ext, unitfi = nil, nil, {}, nil, "";
@@ -536,6 +566,13 @@ end
 				-- display bar
 				sbtib = sbtib:GetSelectedSBTIB();
 				countTypeFlag = countTypeFlag:GetSelection();
+				sbblendcolor = chk_sbblendcolor:GetChecked();
+				sbcolorVar1 = ssbcolor1; sbcolorVar2 = ssbcolor2;
+				-- timer text
+				blendcolor = chk_blendcolor:GetChecked();
+				color1 = scolor1; color2 = scolor2;
+				textType = dd_textType:GetSelection();
+				showduration = chk_duration:GetChecked();
 				-- fonts
 				trunc = trunc;
 				abr = chk_abr:GetChecked();
