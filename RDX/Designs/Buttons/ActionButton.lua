@@ -93,13 +93,13 @@ end
 
 RDXUI.ActionButton = {};
 
-function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup, selfcast, flyout)
+function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup, selfcast, flyout, showgloss)
 	local self = nil;
 	if usebs then
 		self = VFLUI.SkinButton:new(parent, "SecureActionButtonBar", id);
 		if not self then self = VFLUI.SkinButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end
 		self:SetWidth(size); self:SetHeight(size);
-		self:SetButtonSkin(ebs, true, true, true, true, true, true, false, true, true, true);
+		self:SetButtonSkin(ebs, true, true, true, true, true, true, false, true, true, showgloss);
 	elseif usebkd then
 		self = VFLUI.BckButton:new(parent, "SecureActionButtonBar", id);
 		if not self then self = VFLUI.BckButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end

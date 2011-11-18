@@ -1,4 +1,6 @@
 
+-- deprecated
+-- use set class unitin range instead.
 RDX.RegisterFeature({
 	name = "var_inrange";
 	title = VFLI.i18n("Var IsRaidInRange?");

@@ -1053,12 +1053,3 @@ VFLEvents:Bind("PLAYER_COMBAT", nil, function(flag)
 	end
 end);
 
-----------------------------------------
--- command
-----------------------------------------
---RDXPM.RegisterSlashCommand("desktop", function(rest)
---	local path = VFL.word(rest);
---	if path then
---		RDXDK.SecuredChangeDesktop(path);
---	end
---end);

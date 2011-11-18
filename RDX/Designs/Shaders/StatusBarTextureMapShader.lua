@@ -59,7 +59,7 @@ end
 
 RDX.RegisterFeature({
 	name = "StatusBar Texture Map";
-	title = VFLI.i18n("Texture: Map and Frac");
+	title = VFLI.i18n("Sh: Texture Map/Frac");
 	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
@@ -111,7 +111,7 @@ end
 		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Show condition variable"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.flag then flag:SetSelection(desc.flag); end
 
-		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "TexVar_");
+		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "Texture_");
 		if desc and desc.texture then texture:SetSelection(desc.texture); end
 
 		local frac = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Fraction variable"), state, "FracVar_");
@@ -164,4 +164,56 @@ end
 	end;
 });
 
+RDX.RegisterFeature({
+	name = "Shader: Texture Transform";
+	title = VFLI.i18n("Sh: Texture Coord");
+	category = VFLI.i18n("Shaders");
+	multiple = true;
+	IsPossible = function(state)
+		if not state:Slot("DesignFrame") then return nil; end
+		if not state:Slot("Base") then return nil; end
+		return true;
+	end;
+	ExposeFeature = function(desc, state, errs)
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
+		-- Verify our texture
+		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
+			VFL.AddError(errs, VFLI.i18n("Invalid texture")); return nil;
+		end
+		return true;
+	end;
+	ApplyFeature = function(desc, state)
+		local objname = RDXUI.ResolveTextureReference(desc.texture);
+		local paintCode = [[
+]] .. objname .. [[:SetTexCoord(]] .. desc.l1 .. "," .. desc.b1 .. "," .. desc.r1 .. "," .. desc.t1 .. [[);
+]];
+		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
+	end;
+	UIFromDescriptor = function(desc, parent, state)
+		local ui = VFLUI.CompoundFrame:new(parent);
 
+		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "Texture_");
+		if desc and desc.texture then texture:SetSelection(desc.texture); end
+
+		local tc1 = NEditor(ui, 4, VFLI.i18n("Texcoords (l,b,r,t)"), 50);
+		if desc then tc1:SetNumbers(desc.l1, desc.b1, desc.r1, desc.t1); end
+		ui:InsertFrame(tc1);
+
+		function ui:GetDescriptor()
+			local l1,b1,r1,t1 = tc1:GetNumbers(0, 1);
+			return {
+				feature = "Shader: Texture Transform";
+				texture = texture:GetSelection(); 
+				l1 = l1; r1 = r1; b1 = b1; t1 = t1;
+			};
+		end
+
+		return ui;
+	end;
+	CreateDescriptor = function()
+		return {
+			feature = "Shader: Texture Transform";
+			l1 = 0; r1 = 1; b1 = 0; t1 = 1;
+		};
+	end;
+});

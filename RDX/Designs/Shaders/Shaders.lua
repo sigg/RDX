@@ -13,7 +13,7 @@
 ------------------------------
 RDX.RegisterFeature({
 	name = "shader_showhide"; version = 1;
-	title = VFLI.i18n("Frame: Show/Hide");
+	title = VFLI.i18n("Sh: Frame Show/Hide");
 	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
