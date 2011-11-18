@@ -351,7 +351,7 @@ function VFLUI.BindSliderToEdit(slider, edit)
 	slider:SetScript("OnValueChanged", function(self, value)
 		if not _recurse_prevent then
 			_recurse_prevent = true;
-			edit:SetText(string.format("%0.2f", value));
+			edit:SetText(string.format("%0.3f", value));
 			_recurse_prevent = false;
 		end
 		if old_ovc then old_ovc(self, arg1); end
@@ -369,5 +369,5 @@ function VFLUI.BindSliderToEdit(slider, edit)
 		if old_otc then old_otc(self); end
 	end);
 
-	edit:SetText(string.format("%0.2f", slider:GetValue()));
+	edit:SetText(string.format("%0.3f", slider:GetValue()));
 end

@@ -80,6 +80,10 @@ local function ABShowGameTooltip(self)
 		end
 	end
 	self.IsShowingTooltip = true;
+	local infoType = GetCursorInfo();
+	if self.usebs and self.ebhide and not HasAction(self.action) and infoType then
+		self:bsShow();
+	end
 end
 
 local function ABHideGameTooltip(self)
@@ -89,11 +93,15 @@ local function ABHideGameTooltip(self)
 		self._texFlash:SetAlpha(0);
 	end
 	self.IsShowingTooltip = nil;
+	--local infoType = GetCursorInfo();
+	if self.usebs and self.ebhide and not HasAction(self.action) then
+		self:bsHide();
+	end
 end
 
 RDXUI.ActionButton = {};
 
-function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup, selfcast, flyout, showgloss)
+function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup, selfcast, flyout, showgloss, bsdefault)
 	local self = nil;
 	if usebs then
 		self = VFLUI.SkinButton:new(parent, "SecureActionButtonBar", id);
@@ -317,8 +325,8 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 					-- default color
 					else
 						if self.usebs then
-							self._texBorder:SetVertexColor(1, 1, 1, 1);
-							self._texGloss:SetVertexColor(1, 1, 1, 1);
+							self._texBorder:SetVertexColor(VFL.explodeRGBA(bsdefault));
+							self._texGloss:SetVertexColor(VFL.explodeRGBA(bsdefault));
 						elseif self.usebkd then
 							self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
 						end
@@ -328,8 +336,8 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 				VFLT.AdaptiveUnschedule("ScheduleactionButton" .. id);
 				self.txtMacro:Hide();
 				if self.usebs then
-					self._texBorder:SetVertexColor(1, 1, 1, 1);
-					self._texGloss:SetVertexColor(1, 1, 1, 1);
+					self._texBorder:SetVertexColor(VFL.explodeRGBA(bsdefault));
+					self._texGloss:SetVertexColor(VFL.explodeRGBA(bsdefault));
 				elseif self.usebkd then
 					self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
 				end
@@ -509,13 +517,13 @@ end
 -------------------------------------------
 RDXUI.MultiCastButton = {};
 
-function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup)
+function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup, showgloss, bsdefault)
 	local self = nil;
 	if usebs then
 		self = VFLUI.SkinButton:new(parent, "SecureActionButtonBar", id);
 		if not self then self = VFLUI.SkinButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end
 		self:SetWidth(size); self:SetHeight(size);
-		self:SetButtonSkin(ebs, true, true, true, true, true, true, false, true, true, true);
+		self:SetButtonSkin(ebs, true, true, true, true, true, true, false, true, true, showgloss);
 	elseif usebkd then
 		self = VFLUI.BckButton:new(parent, "SecureActionButtonBar", id);
 		if not self then self = VFLUI.BckButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end
@@ -687,8 +695,8 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 					-- default color
 					else
 						if self.usebs then
-							self._texBorder:SetVertexColor(1, 1, 1, 1);
-							self._texGloss:SetVertexColor(1, 1, 1, 1);
+							self._texBorder:SetVertexColor(VFL.explodeRGBA(bsdefault));
+							self._texGloss:SetVertexColor(VFL.explodeRGBA(bsdefault));
 						elseif self.usebkd then
 							self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
 						end
@@ -698,8 +706,8 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 				VFLT.AdaptiveUnschedule("SchedulemulticastButton" .. id);
 				self.txtMacro:Hide();
 				if self.usebs then
-					self._texBorder:SetVertexColor(1, 1, 1, 1);
-					self._texGloss:SetVertexColor(1, 1, 1, 1);
+					self._texBorder:SetVertexColor(VFL.explodeRGBA(bsdefault));
+					self._texGloss:SetVertexColor(VFL.explodeRGBA(bsdefault));
 				elseif self.usebkd then
 					self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
 				end
@@ -898,13 +906,13 @@ end
 
 RDXUI.PetActionButton = {};
 
-function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup)
+function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup, showgloss, bsdefault)
 	local self = nil;
 	if usebs then
 		self = VFLUI.SkinButton:new(parent, "SecureActionButtonPet", id);
 		if not self then self = VFLUI.SkinButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 400; end
 		self:SetWidth(size); self:SetHeight(size);
-		self:SetButtonSkin(ebs, true, true, true, true, true, true, false, true, true, true);
+		self:SetButtonSkin(ebs, true, true, true, true, true, true, false, true, true, showgloss);
 	elseif usebkd then
 		self = VFLUI.BckButton:new(parent, "SecureActionButtonPet", id);
 		if not self then self = VFLUI.BckButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 400; end
@@ -1038,8 +1046,8 @@ function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 				-- default color
 				else
 					if self.usebs then
-						self._texBorder:SetVertexColor(1, 1, 1, 1);
-						self._texGloss:SetVertexColor(1, 1, 1, 1);
+						self._texBorder:SetVertexColor(VFL.explodeRGBA(bsdefault));
+						self._texGloss:SetVertexColor(VFL.explodeRGBA(bsdefault));
 					elseif self.usebkd then
 						self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
 					end
@@ -1048,8 +1056,8 @@ function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 		else
 			VFLT.AdaptiveUnschedule("ScheduleactionButtonPet" .. self.id);
 			if self.usebs then
-				self._texBorder:SetVertexColor(1, 1, 1, 1);
-				self._texGloss:SetVertexColor(1, 1, 1, 1);
+				self._texBorder:SetVertexColor(VFL.explodeRGBA(bsdefault));
+				self._texGloss:SetVertexColor(VFL.explodeRGBA(bsdefault));
 			elseif self.usebkd then
 				self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
 			end
@@ -1239,13 +1247,13 @@ end
 
 RDXUI.StanceButton = {};
 
-function RDXUI.StanceButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip)
+function RDXUI.StanceButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, showgloss, bsdefault)
 	local self = nil;
 	if usebs then
 		self = VFLUI.SkinButton:new(parent, "SecureActionButtonStance", id);
 		if not self then self = VFLUI.SkinButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 300; end
 		self:SetWidth(size); self:SetHeight(size);
-		self:SetButtonSkin(ebs, true, true, true, true, true, true, false, true, true, true);
+		self:SetButtonSkin(ebs, true, true, true, true, true, true, false, true, true, showgloss);
 	elseif usebkd then
 		self = VFLUI.BckButton:new(parent, "SecureActionButtonStance", id);
 		if not self then self = VFLUI.BckButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end
@@ -1310,8 +1318,8 @@ function RDXUI.StanceButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 			end
 		else
 			if self.usebs then
-				self._texBorder:SetVertexColor(1, 1, 1, 1);
-				self._texGloss:SetVertexColor(1, 1, 1, 1);
+				self._texBorder:SetVertexColor(VFL.explodeRGBA(bsdefault));
+				self._texGloss:SetVertexColor(VFL.explodeRGBA(bsdefault));
 			elseif usebkd then
 				self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
 			end
@@ -1447,13 +1455,13 @@ end
 
 RDXUI.ActionButtonTest = {};
 
-function RDXUI.ActionButtonTest:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup)
+function RDXUI.ActionButtonTest:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup, showgloss, bsdefault)
 	local self = nil;
 	if usebs then
 		self = VFLUI.SkinButton:new(parent, "SecureActionButtonBarTmp"); id = 400;
 		if not self then self = VFLUI.SkinButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 400; end
 		self:SetWidth(size); self:SetHeight(size);
-		self:SetButtonSkin(ebs, true, true, false, true, true, true, false, true, true, true);
+		self:SetButtonSkin(ebs, true, true, false, true, true, true, false, true, true, showgloss);
 	elseif usebkd then
 		self = VFLUI.BckButton:new(parent, "SecureActionButtonBar", id);
 		if not self then self = VFLUI.BckButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 400; end
@@ -1555,13 +1563,13 @@ end
 
 RDXUI.VehicleButton = {};
 
-function RDXUI.VehicleButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, testmode)
+function RDXUI.VehicleButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, testmode, showgloss, bsdefault)
 	local self = nil;
 	if usebs then
 		self = VFLUI.SkinButton:new(parent, "ButtonVehicle", id);
 		if not self then self = VFLUI.SkinButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 400; end
 		self:SetWidth(size); self:SetHeight(size);
-		self:SetButtonSkin(ebs, true, true, false, true, true, true, false, false, true, true);
+		self:SetButtonSkin(ebs, true, true, false, true, true, true, false, false, true, showgloss);
 	elseif usebkd then
 		self = VFLUI.BckButton:new(parent, "ButtonVehicle", id);
 		if not self then self = VFLUI.BckButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end

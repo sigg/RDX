@@ -16,6 +16,8 @@ local function _EmitCreateCode2(objname, desc, winpath)
 	elseif desc.usebkd then
 		if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 	end
+	local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
+	local bsdefault = desc.bsdefault or _white;
 	
 	local showkey = "nil"; if desc.showkey then showkey = "true"; end
 	local test = "nil"; if desc.test then test = "true"; end
@@ -49,7 +51,7 @@ local dabid = nil;
 
 -- Create buttons
 for i=1, ]] .. desc.nIcons .. [[ do
-	btn = RDXUI.VehicleButton:new(h, abid, ]] .. desc.size .. [[, ]] .. usebs .. [[, "]] .. ebs .. [[", ]] .. usebkd .. [[, ]] .. Serialize(bkd) .. [[, ]] .. os .. [[, nil, nil, ]] .. desc.nIcons .. [[, ]] .. test .. [[);
+	btn = RDXUI.VehicleButton:new(h, abid, ]] .. desc.size .. [[, ]] .. usebs .. [[, "]] .. ebs .. [[", ]] .. usebkd .. [[, ]] .. Serialize(bkd) .. [[, ]] .. os .. [[, nil, nil, ]] .. desc.nIcons .. [[, ]] .. test .. [[, ]] .. showgloss .. [[, ]] .. Serialize(bsdefault) .. [[);
 	if btn then
 		btn:Show();
 ]];
@@ -238,6 +240,15 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
 		ui:InsertFrame(ed_bs);
 		
+		local chk_showgloss = VFLUI.Checkbox:new(ui); chk_showgloss:Show();
+		chk_showgloss:SetText(VFLI.i18n("Button Skin Show Gloss"));
+		if desc and desc.showgloss then chk_showgloss:SetChecked(true); else chk_showgloss:SetChecked(); end
+		ui:InsertFrame(chk_showgloss);
+		
+		local color_bsdefault = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Button Skin default color"));
+		if desc and desc.bsdefault then color_bsdefault:SetColor(VFL.explodeRGBA(desc.bsdefault)); end
+		
+		
 		local chk_bkd = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Backdrop"));
 		local dd_backdrop = VFLUI.MakeBackdropSelectButton(chk_bkd, desc.bkd);
 		dd_backdrop:Show();
@@ -284,6 +295,8 @@ frame.]] .. objname .. [[ = nil;
 				usebs = chk_bs:GetChecked();
 				externalButtonSkin = dd_buttonSkin:GetSelection();
 				ButtonSkinOffset = VFL.clamp(ed_bs.editBox:GetNumber(), 0, 50);
+				showgloss = chk_showgloss:GetChecked();
+				bsdefault = color_bsdefault:GetColor();
 				usebkd = chk_bkd:GetChecked();
 				bkd = dd_backdrop:GetSelectedBackdrop();
 				-- Display

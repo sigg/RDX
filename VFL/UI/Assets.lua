@@ -193,6 +193,13 @@ function VFLUI.SetTexture(obj, descr)
 	else
 		obj:SetVertexColor(1,1,1,1);
 	end
+	if descr.coord then
+		local c = descr.coord;
+		obj:SetTexCoord(c.l, c.b, c.r, c.t);
+	end
+	if descr.rotation then
+		obj:SetRotation(descr.rotation);
+	end
 end
 
 --- Generate the code that will apply a texture to a Texture object.
@@ -216,6 +223,15 @@ function VFLUI.GenerateSetTextureCode(obj, descr)
 
 	else
 		ret = ret .. obj .. [[:SetVertexColor(1,1,1,1);
+]];
+	end
+	if descr.coord then
+		local c = descr.coord;
+		ret = ret .. obj .. ":SetTexCoord(" .. c.l .. "," .. c.b .. "," .. c.r .. "," .. c.t .. [[);
+]];
+	end
+	if descr.rotation then
+		ret = ret .. obj .. ":SetRotation(" .. descr.rotation .. [[);
 ]];
 	end
 	return ret;
