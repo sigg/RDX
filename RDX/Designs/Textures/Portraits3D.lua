@@ -57,11 +57,11 @@ _f:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 _f:SetWidth(]] .. desc.w .. [[); _f:SetHeight(]] .. desc.h .. [[);
 _f:Show();
 _f:SetScript("OnShow", ]].. camera ..[[);
-RDXEvents:Bind("INIT_DEFERRED", nil, function() _f.guid = nil; end, "frame.]] .. objname .. [[");
+--RDXEvents:Bind("INIT_DEFERRED", nil, function() _f.guid = nil; end, "frame.]] .. objname .. [[");
 frame.]] .. objname .. [[ = _f;
 ]];
 		local destroyCode = [[
-RDXEvents:Unbind("frame.]] .. objname .. [[");
+--RDXEvents:Unbind("frame.]] .. objname .. [[");
 frame.]] .. objname .. [[.guid = nil;
 frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
 ]];
@@ -78,11 +78,11 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
 		local paintCode = [[
 if band(paintmask, ]] .. mask .. [[) ~= 0 and UnitExists(uid) then
 	local guid = UnitGUID(uid);
-	if frame.]] .. objname .. [[.guid ~= guid then
+	--if frame.]] .. objname .. [[.guid ~= guid then
 		frame.]] .. objname .. [[:SetUnit(uid);
 		]].. camera ..[[(frame.]] .. objname .. [[);
-		frame.]] .. objname .. [[.guid = guid;
-	end
+		--frame.]] .. objname .. [[.guid = guid;
+	--end
 end
 if UnitIsVisible(uid) then 
 	frame.]] .. objname .. [[:Show();

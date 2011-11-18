@@ -894,17 +894,17 @@ RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
 	ent.func = VFL.Noop;
 end);
 
-local thirdpartymenu = {};
+RDX.thirdpartymenu = {};
 RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Third Party");
 	ent.hasArrow = true;
 	ent.notCheckable = true;
-	ent.menuList = thirdpartymenu;
+	ent.menuList = RDX.thirdpartymenu;
 end);
 
 function RDX.RegisterThirdPartyMenu(menu)
 	if not menu then return nil; end
-	table.insert(thirdpartymenu, menu);
+	table.insert(RDX.thirdpartymenu, menu);
 end
 
 -- temporary removed
