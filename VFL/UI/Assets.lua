@@ -172,6 +172,8 @@ function VFLUI.CopyTexture(tex)
 	if tex.vertexColor then ret.vertexColor = VFL.copy(tex.vertexColor); end
 	if tex.grad1 then ret.grad1 = VFL.copy(tex.grad1); end
 	if tex.grad2 then ret.grad2 = VFL.copy(tex.grad2); end
+	if tex.coord then ret.coord = VFL.copy(tex.coord); end
+	if tex.rotation then ret.rotation = tex.rotation; end
 	return ret;
 end
 
@@ -195,7 +197,7 @@ function VFLUI.SetTexture(obj, descr)
 	end
 	if descr.coord then
 		local c = descr.coord;
-		obj:SetTexCoord(c.l, c.b, c.r, c.t);
+		obj:SetTexCoord(c.l, c.r, c.b, c.t);
 	end
 	if descr.rotation then
 		obj:SetRotation(descr.rotation);
