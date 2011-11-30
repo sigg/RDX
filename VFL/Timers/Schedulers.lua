@@ -61,7 +61,6 @@ function VFLT.AdaptiveSchedule(id, interval, func, ...)
 	table.insert(ads, stbl);
 	return stbl;
 end
-VFLP.RegisterFunc("VFL Time", "Adaptive", VFLT.AdaptiveSchedule, true);
 
 --- Change the dilation of the adaptive scheduler
 -- @param d the time of the dilation
@@ -94,6 +93,7 @@ local function _AS()
 end
 local asframe = CreateFrame("Frame");
 asframe:SetScript("OnUpdate", _AS);
+VFLP.RegisterFunc("VFL Time", "Adaptive", _AS, true);
 
 -----------------------------------------------------------------
 -- ZERO-MEMORY SCHEDULER
@@ -118,7 +118,6 @@ function VFLT.ZMSchedule(dt, func)
 	zmt[tt+i] = func;
 	return tt+i;
 end
-VFLP.RegisterFunc("VFL Time", "ZM", VFLT.ZMSchedule, true);
 
 --- Unschedule a function scheduled by ZMSchedule. 
 -- @param handle the return value from ZMSchedule as the handle.
@@ -146,6 +145,7 @@ local function _ZM()
 end
 local zmframe = CreateFrame("Frame");
 zmframe:SetScript("OnUpdate", _ZM);
+VFLP.RegisterFunc("VFL Time", "ZM", _ZM, true);
 
 function zmtest(n)
 	for i=1,n do
