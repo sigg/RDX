@@ -36,6 +36,8 @@ RDXSS = RegisterVFLModule({
 	parent = RDX;
 });
 
+VFLP.RegisterCategory("RDXSS: Spell System");
+
 -- Burning Crusade: abstract away crazy renamed function...
 if IsPassiveSpell then
 	RDXSS.IsPassiveSpell = IsPassiveSpell;
@@ -400,6 +402,7 @@ local function UpdateSpells()
 	--RDXEvents:Dispatch("SPELLS_BUILD_CLASSES");
 	RDXEvents:Dispatch("SPELLS_UPDATED");
 end
+VFLP.RegisterFunc("RDXSS: Spell System", "UpdateSpells", UpdateSpells, true);
 
 WoWEvents:Bind("LEARNED_SPELL_IN_TAB", nil, UpdateSpells);
 RDXEvents:Bind("INIT_SPELL", nil, UpdateSpells);
@@ -577,6 +580,8 @@ local function __RDXParser(timestamp, event, hideCaster, sourceGUID, sourceName,
 		RDXLocalSpellDB[spellName] = spellId;
 	end
 end
+
+VFLP.RegisterFunc("RDXSS: Spell System", "Parser", __RDXParser, true);
 
 local function EnableStoreLocalSpellDB()
 	--if not RDXG.localSpellDBVersion or RDXG.localSpellDBVersion ~= RDX.GetVersion() or not RDXG.localSpellDBClient or RDXG.localSpellDBClient ~= GetLocale() then
