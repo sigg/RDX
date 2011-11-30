@@ -677,7 +677,7 @@ RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Encounters");
 	ent.notCheckable = true;
 	ent.keepShownOnClick = false;
-	ent.func = function() ToggleFrame(EncounterJournal); end;
+	ent.func = function() ToggleEncounterJournal(); end;
 end);
 RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Bags");
