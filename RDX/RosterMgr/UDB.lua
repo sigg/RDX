@@ -1950,6 +1950,7 @@ local function SwingParse(_, event, _, guid)
 	end
 	_sig_rdx_unit_melee_update:Raise(myunit, myunit.nid, myunit.uid);
 end
+VFLP.RegisterFunc("RDXDAL: UnitDB", "SwingParse", SwingParse, true);
 WoWEvents:Bind("COMBAT_LOG_EVENT_UNFILTERED", nil, SwingParse);
 
 -----------------------------------------------------------------

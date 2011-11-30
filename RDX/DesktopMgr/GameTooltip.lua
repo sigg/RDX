@@ -195,11 +195,13 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	GameTooltip:HookScript("OnTooltipSetItem", function()
 		fix();
 		_,item = GameTooltip:GetItem();
-		_,_,quality = GetItemInfo(item);
-		if quality then
-			r, g, b = GetItemQualityColor(quality);
-			if r and g and b then
-				GameTooltip:_SetBackdropBorderColor(r,g,b,1);
+		if item then
+			_,_,quality = GetItemInfo(item);
+			if quality then
+				r, g, b = GetItemQualityColor(quality);
+				if r and g and b then
+					GameTooltip:_SetBackdropBorderColor(r,g,b,1);
+				end
 			end
 		end
 	end);

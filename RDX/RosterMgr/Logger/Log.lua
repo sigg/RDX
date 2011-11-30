@@ -551,8 +551,7 @@ end
 function RDXLF.IsLogging() return logging; end
 
 -- Only start logging when the system timer is established.
---VFLEvents:Bind("SYSTEM_EPOCH_ESTABLISHED", nil, function() 
-RDXEvents:Bind("INIT_DEFERRED", nil, function()
+VFLEvents:Bind("SYSTEM_EPOCH_ESTABLISHED", nil, function() 
 	MyGUID = UnitGUID("player");
 	RDXLF.SetLogging(true);
 end);

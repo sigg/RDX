@@ -45,7 +45,7 @@ local chk_sc = VFLUI.Checkbox:new(ca);
 chk_sc:SetHeight(16); chk_sc:SetWidth(100);
 chk_sc:SetPoint("LEFT", pathEdit, "RIGHT", 25, 0);
 chk_sc:SetText("Use solid color"); chk_sc:Show();
-chk_sc.check:SetScript("OnClick", function() BaseTextureUpdate(); end);
+chk_sc.check:SetScript("OnClick", function() pathEdit:SetText(""); end);
 
 local cs_sc = VFLUI.ColorSwatch:new(ca);
 cs_sc:SetPoint("LEFT", chk_sc, "RIGHT", 0, -1); cs_sc:Show();
@@ -111,10 +111,10 @@ end);
 dd_blend:SetWidth(90); dd_blend:SetPoint("LEFT", lbl, "RIGHT"); dd_blend:Show();
 
 ------------------ Vertex color
-local VCUpdate, chk_vc, chk_grad;
+local VCUpdate, chk_vc, chk_grad, chk_transform, chk_rotation;
 
 chk_vc = VFLUI.Checkbox:new(ca);
-chk_vc:SetHeight(16); chk_vc:SetWidth(100);
+chk_vc:SetHeight(16); chk_vc:SetWidth(120);
 chk_vc:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT", 0, -8);
 chk_vc:SetText("Use vertex color"); chk_vc:Show();
 chk_vc.check:SetScript("OnClick", function(self)
@@ -158,6 +158,68 @@ cs_grad2:SetPoint("LEFT", cs_grad1, "RIGHT", 3, 0); cs_grad2:Show();
 cs_grad2:SetColor(1,1,1,1);
 function cs_grad2:OnColorChanged() VCUpdate(); end
 
+----- transform
+
+chk_transform = VFLUI.Checkbox:new(ca);
+chk_transform:SetHeight(16); chk_transform:SetWidth(200);
+chk_transform:SetPoint("TOPLEFT", dd_gradDir, "BOTTOMLEFT", 0, -5);
+chk_transform:SetText("Use transform (l,b,r,t):"); chk_transform:Show();
+chk_transform.check:SetScript("OnClick", function(self) 
+	if self:GetChecked() then chk_rotation:SetChecked(nil); end
+	VCUpdate(); 
+end);
+
+local tlEdit = VFLUI.Edit:new(ca);
+tlEdit:SetWidth(40); tlEdit:SetHeight(24);
+tlEdit:SetPoint("TOPLEFT", chk_transform, "BOTTOMLEFT");
+tlEdit:Show();
+--tlEdit:SetScript("OnTextChanged", function(self)
+--	VCUpdate();
+--end);
+
+local tbEdit = VFLUI.Edit:new(ca);
+tbEdit:SetWidth(40); tbEdit:SetHeight(24);
+tbEdit:SetPoint("TOPLEFT", tlEdit, "TOPRIGHT");
+tbEdit:Show();
+--tbEdit:SetScript("OnTextChanged", function(self)
+--	VCUpdate();
+--end);
+
+local trEdit = VFLUI.Edit:new(ca);
+trEdit:SetWidth(40); trEdit:SetHeight(24);
+trEdit:SetPoint("TOPLEFT", tbEdit, "TOPRIGHT");
+trEdit:Show();
+--trEdit:SetScript("OnTextChanged", function(self)
+--	VCUpdate();
+--end);
+
+local ttEdit = VFLUI.Edit:new(ca);
+ttEdit:SetWidth(40); ttEdit:SetHeight(24);
+ttEdit:SetPoint("TOPLEFT", trEdit, "TOPRIGHT");
+ttEdit:Show();
+--ttEdit:SetScript("OnTextChanged", function(self)
+--	VCUpdate();
+--end);
+
+-- rotation
+
+chk_rotation = VFLUI.Checkbox:new(ca);
+chk_rotation:SetHeight(16); chk_rotation:SetWidth(100);
+chk_rotation:SetPoint("TOPLEFT", tlEdit, "BOTTOMLEFT", 0, -5);
+chk_rotation:SetText("Use rotation:"); chk_rotation:Show();
+chk_rotation.check:SetScript("OnClick", function(self) 
+	if self:GetChecked() then chk_transform:SetChecked(nil); end
+	VCUpdate(); 
+end);
+
+local rotationEdit = VFLUI.Edit:new(ca);
+rotationEdit:SetWidth(40); rotationEdit:SetHeight(24);
+rotationEdit:SetPoint("TOPLEFT", chk_rotation, "BOTTOMLEFT");
+rotationEdit:Show();
+--rotationEdit:SetScript("OnTextChanged", function(self)
+--	VCUpdate();
+--end);
+
 function VCUpdate()
 	if chk_vc:GetChecked() then
 		curTex.vertexColor = cs_vc:GetColor();
@@ -169,8 +231,24 @@ function VCUpdate()
 	else
 		curTex.vertexColor = nil;	curTex.gradDir = nil; curTex.grad1 = nil; curTex.grad2 = nil;
 	end
+	if chk_transform:GetChecked() then
+		if not curTex.coord then curTex.coord = {}; end
+		curTex.coord.l = VFL.clamp(tlEdit:GetNumber(), 0, 1) or 0;
+		curTex.coord.r = VFL.clamp(trEdit:GetNumber(), 0, 1) or 1;
+		curTex.coord.b = VFL.clamp(tbEdit:GetNumber(), 0, 1) or 0;
+		curTex.coord.t = VFL.clamp(ttEdit:GetNumber(), 0, 1) or 1;
+		curTex.rotation = nil;
+	elseif chk_rotation:GetChecked() then
+		curTex.coord = nil;
+		curTex.rotation = VFL.clamp(rotationEdit:GetNumber(), 0, 360);
+	else
+		curTex.rotation = nil;
+		curTex.coord = nil;
+	end
 	UpdatePicker();
 end
+
+
 
 ----------- Updater
 function UpdatePicker()
@@ -192,6 +270,17 @@ function UpdatePicker()
 	if curTex.vertexColor then
 		chk_vc:SetChecked(true);
 		cs_vc:SetColor(VFL.explodeRGBA(curTex.vertexColor));
+	end
+	if curTex.coord then
+		chk_transform:SetChecked(true);
+		tlEdit:SetText(curTex.coord.l);
+		tbEdit:SetText(curTex.coord.b);
+		trEdit:SetText(curTex.coord.r);
+		ttEdit:SetText(curTex.coord.t);
+	end
+	if curTex.rotation then
+		chk_rotation:SetChecked(true);
+		rotationEdit:SetText(curTex.rotation);
 	end
 	dd_blend:SetSelection(curTex.blendMode);
 end
