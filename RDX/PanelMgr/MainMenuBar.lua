@@ -59,7 +59,7 @@ local function CreateMainPane()
 	local allwaysshowpanel = nil;
 	local menuOpen = nil;
 	
-	function s:MainPanelLayout(show)
+	--[[function s:MainPanelLayout(show)
 		local totalElapsed = 0;
 		local toSize = 0;
 		local valueshow = 0;
@@ -84,33 +84,43 @@ local function CreateMainPane()
 			end
 		end);
 		
+	end]]
+	
+	function s:MainPanelLayout(show)
+		s:ClearAllPoints();
+		s:SetPoint("TOP", VFLParent, "TOP", -200, 2);
+		s:Show();
 	end
 	
-	function s:HideMainPanel()
+	--[[function s:HideMainPanel()
 		if not ismoving then
 			if showpanel and not allwaysshowpanel then
 				if handlemainpanel then VFLT.ZMUnschedule(handlemainpanel); end
 				handlemainpanel = VFLT.ZMSchedule(2, function() s:MainPanelLayout(); end);
 			end
 		end
+	end]]
+	
+	function s:HideMainPanel()
+		s:Hide();
 	end
 	
 	function s:ShowMainPanel()
-		if not ismoving then 
-			if not showpanel then
+		--if not ismoving then 
+		--	if not showpanel then
 				s:MainPanelLayout(true);
-			else
-				if handlemainpanel then VFLT.ZMUnschedule(handlemainpanel); end
-			end
-		end
+		--	else
+		--		if handlemainpanel then VFLT.ZMUnschedule(handlemainpanel); end
+		--	end
+		--end
 	end
 	
-	s:SetScript("OnEnter", function()
-		s:ShowMainPanel()
-	end);
-	s:SetScript("OnLeave", function()
-		s:HideMainPanel();
-	end);
+	--s:SetScript("OnEnter", function()
+	--	s:ShowMainPanel()
+	--end);
+	--s:SetScript("OnLeave", function()
+	--	s:HideMainPanel();
+	--end);
 	
 	function s:SetAllwaysShow(val)
 		allwaysshowpanel = val;
@@ -141,12 +151,12 @@ local function CreateMainPane()
 			SetActiveTalentGroup(index);
 		end
 	end);
-	btn_CharacterMicroButton:SetScript("OnEnter", function()
-		s:ShowMainPanel()
-	end);
-	btn_CharacterMicroButton:SetScript("OnLeave", function()
-		s:HideMainPanel();
-	end);
+	--btn_CharacterMicroButton:SetScript("OnEnter", function()
+	--	s:ShowMainPanel()
+	--end);
+	--btn_CharacterMicroButton:SetScript("OnLeave", function()
+	--	s:HideMainPanel();
+	--end);
 	s.cmbfs = VFLUI.CreateFontString(s);
 	s.cmbfs:SetPoint("TOP", btn_CharacterMicroButton, "BOTTOM");
 	s.cmbfs:SetWidth(size); s.cmbfs:SetHeight(10);
@@ -167,12 +177,12 @@ local function CreateMainPane()
 		elseif(arg1 == "RightButton") then
 		end
 	end);
-	btn_GuildMicroButton:SetScript("OnEnter", function()
-		s:ShowMainPanel()
-	end);
-	btn_GuildMicroButton:SetScript("OnLeave", function()
-		s:HideMainPanel();
-	end);
+	--btn_GuildMicroButton:SetScript("OnEnter", function()
+	--	s:ShowMainPanel()
+	--end);
+	--btn_GuildMicroButton:SetScript("OnLeave", function()
+	--	s:HideMainPanel();
+	--end);
 	s.gmbfs = VFLUI.CreateFontString(s);
 	s.gmbfs:SetPoint("TOP", btn_GuildMicroButton, "BOTTOM");
 	s.gmbfs:SetWidth(size); s.gmbfs:SetHeight(10);
@@ -221,12 +231,12 @@ local function CreateMainPane()
 			end
 		end
 	end);
-	btn_AUI:SetScript("OnEnter", function()
-		s:ShowMainPanel()
-	end);
-	btn_AUI:SetScript("OnLeave", function()
-		s:HideMainPanel();
-	end);
+	--btn_AUI:SetScript("OnEnter", function()
+	--	s:ShowMainPanel()
+	--end);
+	--btn_AUI:SetScript("OnLeave", function()
+	--	s:HideMainPanel();
+	--end);
 	s.auifs = VFLUI.CreateFontString(s);
 	s.auifs:SetPoint("TOP", btn_AUI, "BOTTOM");
 	s.auifs:SetWidth(size); s.auifs:SetHeight(10);
@@ -248,12 +258,12 @@ local function CreateMainPane()
 			RDXDB.ToggleObjectBrowser();
 		end
 	end);
-	btn_repository:SetScript("OnEnter", function()
-		s:ShowMainPanel()
-	end);
-	btn_repository:SetScript("OnLeave", function()
-		s:HideMainPanel();
-	end);
+	--btn_repository:SetScript("OnEnter", function()
+	--	s:ShowMainPanel()
+	--end);
+	--btn_repository:SetScript("OnLeave", function()
+	--	s:HideMainPanel();
+	--end);
 	s.rfs = VFLUI.CreateFontString(s);
 	s.rfs:SetPoint("TOP", btn_repository, "BOTTOM");
 	s.rfs:SetWidth(size); s.rfs:SetHeight(10);
@@ -279,12 +289,12 @@ local function CreateMainPane()
 			end
 		end
 	end);
-	btn_MainMenuMicroButton:SetScript("OnEnter", function()
-		s:ShowMainPanel()
-	end);
-	btn_MainMenuMicroButton:SetScript("OnLeave", function()
-		s:HideMainPanel();
-	end);
+	--btn_MainMenuMicroButton:SetScript("OnEnter", function()
+	--	s:ShowMainPanel()
+	--end);
+	--btn_MainMenuMicroButton:SetScript("OnLeave", function()
+	--	s:HideMainPanel();
+	--end);
 	s.mmmfs = VFLUI.CreateFontString(s);
 	s.mmmfs:SetPoint("TOP", btn_MainMenuMicroButton, "BOTTOM");
 	s.mmmfs:SetWidth(size + 4); s.mmmfs:SetHeight(10);
@@ -296,12 +306,12 @@ local function CreateMainPane()
 	s.mover:SetPoint("TOPLEFT", btn_CharacterMicroButton, "BOTTOMLEFT");
 	s.mover:SetWidth(5*size); s.mover:SetHeight(10);
 	s.mover:Show();
-	s.mover:SetScript("OnEnter", function()
-		s:ShowMainPanel()
-	end);
-	s.mover:SetScript("OnLeave", function()
-		s:HideMainPanel();
-	end);
+	--s.mover:SetScript("OnEnter", function()
+	--	s:ShowMainPanel()
+	--end);
+	--s.mover:SetScript("OnLeave", function()
+	--	s:HideMainPanel();
+	--end);
 	
 	s.infofs = VFLUI.CreateFontString(s);
 	s.infofs:SetPoint("TOPLEFT", btn_MainMenuMicroButton, "TOPRIGHT");
