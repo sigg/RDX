@@ -279,7 +279,7 @@ RDXDAL.RegisterSetClass({
 -- Aurafilter set by sigg
 --------------------------------------
 
-local auraFilterUpdatePeriod = 0.2;
+local auraFilterUpdatePeriod = 0.5;
 
 local function CreateAuraFilterSet(type, filename)
 	local self = RDXDAL.Set:new();

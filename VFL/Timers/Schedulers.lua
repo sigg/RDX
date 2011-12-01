@@ -89,11 +89,22 @@ local function _AS()
 			entry.x = (target_timescale + .0001) * dilation;
 			entry.last = tas;
 		end
-	end	
+	end
 end
 local asframe = CreateFrame("Frame");
 asframe:SetScript("OnUpdate", _AS);
 VFLP.RegisterFunc("VFL Time", "Adaptive", _AS, true);
+
+function VFLT.GetAdaptiveSize()
+	VFL.print(#ads);
+	for i,entry in ipairs(ads) do
+		if entry.id then
+			VFL.print(entry.id .. " " .. entry.interval);
+		else
+			VFL.print("nil " .. entry.interval);
+		end
+	end
+end
 
 -----------------------------------------------------------------
 -- ZERO-MEMORY SCHEDULER
