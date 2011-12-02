@@ -69,7 +69,7 @@ for i=1,]] .. desc.nIcons .. [[ do
 		btn = VFLUI.SkinButton:new();
 		btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
 	elseif ]] .. usebkd .. [[ then
-		btn = VFLUI.AcquireFrame("Frame");
+		btn = VFLUI.AcquireFrame("Button");
 		VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
 	else
 		btn = VFLUI.AcquireFrame("Frame");
@@ -83,6 +83,10 @@ for i=1,]] .. desc.nIcons .. [[ do
 	btn.tex:SetDrawLayer("ARTWORK", 2);
 	btn.tex:Show();
 ]];	
+	if desc.disableClick then createCode = createCode .. [[
+	btn:Disable();
+]];
+	end
 	createCode = createCode .. VFLUI.GenerateSetTextureCode("btn.tex", desc.texture)
 	createCode = createCode .. [[
 	frame.]] .. objname .. [[[i] = btn;
@@ -234,6 +238,14 @@ end
 		chk_bkd:EmbedChild(dd_backdrop); chk_bkd:Show();
 		ui:InsertFrame(chk_bkd);
 		
+		-------------- Interraction
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Interaction parameters")));
+		
+		local chk_disableClick = VFLUI.Checkbox:new(ui); chk_disableClick:Show();
+		chk_disableClick:SetText(VFLI.i18n("Disable button"));
+		if desc and desc.disableClick then chk_disableClick:SetChecked(true); else chk_disableClick:SetChecked(); end
+		ui:InsertFrame(chk_disableClick);
+		
 		-------------- Data source
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Datasource parameters")));
 		
@@ -287,6 +299,8 @@ end
 				bsdefault = color_bsdefault:GetColor();
 				usebkd = chk_bkd:GetChecked();
 				bkd = dd_backdrop:GetSelectedBackdrop();
+				-- interaction
+				disableClick = chk_disableClick:GetChecked();
 				number = number.editBox:GetText();
 				drawLayer = drawLayer:GetSelection();
 				texture = tsel:GetSelectedTexture();
