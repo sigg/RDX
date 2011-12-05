@@ -443,7 +443,7 @@ frame.]] .. objname .. [[ = nil;
 			headerstateType = "None";
 			headerstateCustom = "";
 			owner = "Base";
-			flo = VFL.clamp(ed_flo.editBox:GetNumber(), 1, 10);
+			flo = 5;
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
 			nIcons = 12; size = 36; rows = 1; orientation = "RIGHT"; iconspx = 5; iconspy = 0;
 			externalButtonSkin = "bs_default";
