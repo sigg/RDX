@@ -21,7 +21,7 @@ RDX.RegisterOtherTextType({
 	repaintType = "event"; -- "event" or "interval"
 	eventType = "RDXEvents"; -- "WoWEvents" or "RDXEvents"
 	eventName = "AUI";
-	interval = 0;
+	interval = 2;
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
@@ -38,7 +38,7 @@ RDX.RegisterOtherTextType({
 	repaintType = "event"; -- "event" or "interval"
 	eventType = "RDXEvents"; -- "WoWEvents" or "RDXEvents"
 	eventName = "AUIState";
-	interval = 0;
+	interval = 2;
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[

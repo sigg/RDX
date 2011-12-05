@@ -177,6 +177,35 @@ RDX.RegisterStatusTextType({
 });
 
 RDX.RegisterStatusTextType({
+	name = "levelrace";
+	title = VFLI.i18n("Level Race");
+	OnExpose = VFL.Noop;
+	OnApply = VFL.Noop;
+	GeneratePaintCode = function(objname) return [[
+	text = UnitLevel(uid);
+	if text then
+		if (text < 0) then
+			text = VFL.tcolorize("?? ", GetQuestDifficultyColor(text));
+		else
+			text = VFL.tcolorize(text, GetQuestDifficultyColor(text)) .. " ";
+		end
+	else
+		text = "";
+	end
+	if UnitIsPlayer(uid) then
+		text = text .. (UnitRace(uid) or "");
+	else
+		if UnitCreatureType(uid) == "Beast" and UnitCreatureFamily(uid) then
+			text = text .. UnitCreatureFamily(uid);
+		else
+			text = text .. UnitCreatureType(uid) or "";
+		end
+	end
+	]] .. objname .. [[:SetText(text);
+]]; end;
+});
+
+RDX.RegisterStatusTextType({
 	name = "guild";
 	title = VFLI.i18n("Guild");
 	OnExpose = VFL.Noop;

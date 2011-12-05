@@ -35,19 +35,21 @@ for i=1, ]] .. desc.nIcons .. [[ do
 		btn = VFLUI.SkinButton:new();
 		btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
 	elseif ]] .. usebkd .. [[ then
-		btn = VFLUI.AcquireFrame("Frame");
+		btn = VFLUI.AcquireFrame("Button");
 		VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
 	else
-		btn = VFLUI.AcquireFrame("Frame");
+		btn = VFLUI.AcquireFrame("Button");
 	end
 	btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
 	btn:SetWidth(]] .. desc.size .. [[); btn:SetHeight(]] .. desc.size .. [[);
+]];
+	if desc.disableClick then createCode = createCode .. [[
+	btn:Disable();
+]];
+	end
+	if not desc.disableShowTooltip then createCode = createCode .. [[
 	btn:SetScript("OnEnter", __CooldownIconOnEnter);
 	btn:SetScript("OnLeave", __CooldownIconOnLeave);
-]];
-	if desc.externalButtonSkin then createCode = createCode .. [[
-	--btn:RegisterForClicks("RightButtonUp");
-	--btn:SetScript("OnClick", __AuraIconOnClick);
 ]];
 	end
 	createCode = createCode .. [[
@@ -426,6 +428,19 @@ end
 		chk_bkd:EmbedChild(dd_backdrop); chk_bkd:Show();
 		ui:InsertFrame(chk_bkd);
 		
+		-------------- Interraction
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Interaction parameters")));
+		
+		local chk_disableClick = VFLUI.Checkbox:new(ui); chk_disableClick:Show();
+		chk_disableClick:SetText(VFLI.i18n("Disable button"));
+		if desc and desc.disableClick then chk_disableClick:SetChecked(true); else chk_disableClick:SetChecked(); end
+		ui:InsertFrame(chk_disableClick);
+		
+		local chk_disableShowTooltip = VFLUI.Checkbox:new(ui); chk_disableShowTooltip:Show();
+		chk_disableShowTooltip:SetText(VFLI.i18n("Disable tooltip"));
+		if desc and desc.disableShowTooltip then chk_disableShowTooltip:SetChecked(true); else chk_disableShowTooltip:SetChecked(); end
+		ui:InsertFrame(chk_disableShowTooltip);
+		
 		-------------- CooldownDisplay
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown parameters")));
 		local ercd = VFLUI.EmbedRight(ui, VFLI.i18n("Cooldown"));
@@ -582,6 +597,9 @@ end
 				bsdefault = color_bsdefault:GetColor();
 				usebkd = chk_bkd:GetChecked();
 				bkd = dd_backdrop:GetSelectedBackdrop();
+				-- interaction
+				disableClick = chk_disableClick:GetChecked();
+				disableShowTooltip = chk_disableShowTooltip:GetChecked();
 				-- cooldown
 				cd = cd:GetSelectedCooldown();
 				-- other

@@ -266,14 +266,14 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 				
 				-- Border and gloss indicator
 				VFLT.AdaptiveUnschedule("ScheduleactionButton" .. id);
-				VFLT.AdaptiveSchedule("ScheduleactionButton" .. id, 0.1, function()
+				VFLT.AdaptiveSchedule("ScheduleactionButton" .. id, 0.5, function()
 					-- flash
 					if self.ga then
-						if self.gacp > 0.5 then
-							self.gacp = 0;
+						if self.gacp then
+							self.gacp = nil;
 							if self.gacolor then self.gacolor = nil; else self.gacolor = true; end
 						else
-							self.gacp = self.gacp + 0.1;
+							self.gacp = true;
 						end
 						if self.gacolor then
 							if self.usebs then
@@ -659,7 +659,7 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 				
 				-- Border and gloss indicator
 				VFLT.AdaptiveUnschedule("SchedulemulticastButton" .. id);
-				VFLT.AdaptiveSchedule("SchedulemulticastButton" .. id, 0.1, function()
+				VFLT.AdaptiveSchedule("SchedulemulticastButton" .. id, 0.5, function()
 					-- current action yellow color
 					if self.ca then
 						if self.usebs then
@@ -1014,7 +1014,7 @@ function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 		if name then
 			-- Border and gloss indicator
 			VFLT.AdaptiveUnschedule("ScheduleactionButtonPet" .. self.id);
-			VFLT.AdaptiveSchedule("ScheduleactionButtonPet" .. self.id, 0.3, function()
+			VFLT.AdaptiveSchedule("ScheduleactionButtonPet" .. self.id, 0.5, function()
 				-- current action yellow color
 				if self.ca then
 					if self.usebs then

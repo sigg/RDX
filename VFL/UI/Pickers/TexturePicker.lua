@@ -111,7 +111,7 @@ end);
 dd_blend:SetWidth(90); dd_blend:SetPoint("LEFT", lbl, "RIGHT"); dd_blend:Show();
 
 ------------------ Vertex color
-local VCUpdate, chk_vc, chk_grad, chk_transform, chk_rotation;
+local VCUpdate, chk_vc, chk_grad, chk_transform, chk_tr2;
 
 chk_vc = VFLUI.Checkbox:new(ca);
 chk_vc:SetHeight(16); chk_vc:SetWidth(120);
@@ -165,7 +165,7 @@ chk_transform:SetHeight(16); chk_transform:SetWidth(200);
 chk_transform:SetPoint("TOPLEFT", dd_gradDir, "BOTTOMLEFT", 0, -5);
 chk_transform:SetText("Use transform (l,b,r,t):"); chk_transform:Show();
 chk_transform.check:SetScript("OnClick", function(self) 
-	if self:GetChecked() then chk_rotation:SetChecked(nil); end
+	if self:GetChecked() then chk_tr2:SetChecked(nil); end
 	VCUpdate(); 
 end);
 
@@ -203,22 +203,54 @@ ttEdit:Show();
 
 -- rotation
 
-chk_rotation = VFLUI.Checkbox:new(ca);
-chk_rotation:SetHeight(16); chk_rotation:SetWidth(100);
-chk_rotation:SetPoint("TOPLEFT", tlEdit, "BOTTOMLEFT", 0, -5);
-chk_rotation:SetText("Use rotation:"); chk_rotation:Show();
-chk_rotation.check:SetScript("OnClick", function(self) 
+chk_tr2 = VFLUI.Checkbox:new(ca);
+chk_tr2:SetHeight(16); chk_tr2:SetWidth(200);
+chk_tr2:SetPoint("TOPLEFT", tlEdit, "BOTTOMLEFT", 0, -5);
+chk_tr2:SetText("Use (ULx, ULy, LLx, LLy, URx, URy, LRx, LRy):"); chk_tr2:Show();
+chk_tr2.check:SetScript("OnClick", function(self) 
 	if self:GetChecked() then chk_transform:SetChecked(nil); end
 	VCUpdate(); 
 end);
 
-local rotationEdit = VFLUI.Edit:new(ca);
-rotationEdit:SetWidth(40); rotationEdit:SetHeight(24);
-rotationEdit:SetPoint("TOPLEFT", chk_rotation, "BOTTOMLEFT");
-rotationEdit:Show();
---rotationEdit:SetScript("OnTextChanged", function(self)
---	VCUpdate();
---end);
+local tULxEdit = VFLUI.Edit:new(ca);
+tULxEdit:SetWidth(40); tULxEdit:SetHeight(24);
+tULxEdit:SetPoint("TOPLEFT", chk_tr2, "BOTTOMLEFT");
+tULxEdit:Show();
+
+local tULyEdit = VFLUI.Edit:new(ca);
+tULyEdit:SetWidth(40); tULyEdit:SetHeight(24);
+tULyEdit:SetPoint("TOPLEFT", tULxEdit, "TOPRIGHT");
+tULyEdit:Show();
+
+local tLLxEdit = VFLUI.Edit:new(ca);
+tLLxEdit:SetWidth(40); tLLxEdit:SetHeight(24);
+tLLxEdit:SetPoint("TOPLEFT", tULyEdit, "TOPRIGHT");
+tLLxEdit:Show();
+
+local tLLyEdit = VFLUI.Edit:new(ca);
+tLLyEdit:SetWidth(40); tLLyEdit:SetHeight(24);
+tLLyEdit:SetPoint("TOPLEFT", tLLxEdit, "TOPRIGHT");
+tLLyEdit:Show();
+
+local tURxEdit = VFLUI.Edit:new(ca);
+tURxEdit:SetWidth(40); tURxEdit:SetHeight(24);
+tURxEdit:SetPoint("TOPLEFT", tULxEdit, "BOTTOMLEFT");
+tURxEdit:Show();
+
+local tURyEdit = VFLUI.Edit:new(ca);
+tURyEdit:SetWidth(40); tURyEdit:SetHeight(24);
+tURyEdit:SetPoint("TOPLEFT", tURxEdit, "TOPRIGHT");
+tURyEdit:Show();
+
+local tLRxEdit = VFLUI.Edit:new(ca);
+tLRxEdit:SetWidth(40); tLRxEdit:SetHeight(24);
+tLRxEdit:SetPoint("TOPLEFT", tURyEdit, "TOPRIGHT");
+tLRxEdit:Show();
+
+local tLRyEdit = VFLUI.Edit:new(ca);
+tLRyEdit:SetWidth(40); tLRyEdit:SetHeight(24);
+tLRyEdit:SetPoint("TOPLEFT", tLRxEdit, "TOPRIGHT");
+tLRyEdit:Show();
 
 function VCUpdate()
 	if chk_vc:GetChecked() then
@@ -232,17 +264,25 @@ function VCUpdate()
 		curTex.vertexColor = nil;	curTex.gradDir = nil; curTex.grad1 = nil; curTex.grad2 = nil;
 	end
 	if chk_transform:GetChecked() then
+		curTex.coord2 = nil;
 		if not curTex.coord then curTex.coord = {}; end
-		curTex.coord.l = VFL.clamp(tlEdit:GetNumber(), 0, 1) or 0;
-		curTex.coord.r = VFL.clamp(trEdit:GetNumber(), 0, 1) or 1;
-		curTex.coord.b = VFL.clamp(tbEdit:GetNumber(), 0, 1) or 0;
-		curTex.coord.t = VFL.clamp(ttEdit:GetNumber(), 0, 1) or 1;
-		curTex.rotation = nil;
-	elseif chk_rotation:GetChecked() then
+		curTex.coord.l = VFL.clamp(tlEdit:GetNumber(), 0, 1);
+		curTex.coord.r = VFL.clamp(trEdit:GetNumber(), 0, 1);
+		curTex.coord.b = VFL.clamp(tbEdit:GetNumber(), 0, 1);
+		curTex.coord.t = VFL.clamp(ttEdit:GetNumber(), 0, 1);
+	elseif chk_tr2:GetChecked() then
 		curTex.coord = nil;
-		curTex.rotation = VFL.clamp(rotationEdit:GetNumber(), 0, 360);
+		if not curTex.coord2 then curTex.coord2 = {}; end
+		curTex.coord2.ULx = VFL.clamp(tULxEdit:GetNumber(), 0, 1);
+		curTex.coord2.ULy = VFL.clamp(tULyEdit:GetNumber(), 0, 1);
+		curTex.coord2.LLx = VFL.clamp(tLLxEdit:GetNumber(), 0, 1);
+		curTex.coord2.LLy = VFL.clamp(tLLyEdit:GetNumber(), 0, 1);
+		curTex.coord2.URx = VFL.clamp(tURxEdit:GetNumber(), 0, 1);
+		curTex.coord2.URy = VFL.clamp(tURyEdit:GetNumber(), 0, 1);
+		curTex.coord2.LRx = VFL.clamp(tLRxEdit:GetNumber(), 0, 1);
+		curTex.coord2.LRy = VFL.clamp(tLRyEdit:GetNumber(), 0, 1);
 	else
-		curTex.rotation = nil;
+		curTex.coord2 = nil;
 		curTex.coord = nil;
 	end
 	UpdatePicker();
@@ -277,10 +317,16 @@ function UpdatePicker()
 		tbEdit:SetText(curTex.coord.b);
 		trEdit:SetText(curTex.coord.r);
 		ttEdit:SetText(curTex.coord.t);
-	end
-	if curTex.rotation then
-		chk_rotation:SetChecked(true);
-		rotationEdit:SetText(curTex.rotation);
+	elseif curTex.coord2 then
+		chk_tr2:SetChecked(true);
+		tULxEdit:SetText(curTex.coord2.ULx);
+		tULyEdit:SetText(curTex.coord2.ULy);
+		tLLxEdit:SetText(curTex.coord2.LLx);
+		tLLyEdit:SetText(curTex.coord2.LLy);
+		tURxEdit:SetText(curTex.coord2.URx);
+		tURyEdit:SetText(curTex.coord2.URy);
+		tLRxEdit:SetText(curTex.coord2.LRx);
+		tLRyEdit:SetText(curTex.coord2.LRy);
 	end
 	dd_blend:SetSelection(curTex.blendMode);
 end

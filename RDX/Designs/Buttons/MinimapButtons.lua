@@ -25,7 +25,8 @@ VFLUI.CreateFramePool("BlizzButton",
 		elseif f:GetName() == "MiniMapBattlefieldFrame" then
 			PVP_UpdateStatus(1);
 		elseif f:GetName() == "MiniMapLFGFrame" then
-			MiniMapLFG_UpdateIsShown();
+			MiniMapLFG_Update();
+		--	MiniMapLFG_UpdateIsShown();
 		elseif f:GetName() == "MiniMapVoiceChatFrame" then
 			MiniMapVoiceChat_Update();
 		end

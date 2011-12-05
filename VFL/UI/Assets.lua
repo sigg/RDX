@@ -173,7 +173,7 @@ function VFLUI.CopyTexture(tex)
 	if tex.grad1 then ret.grad1 = VFL.copy(tex.grad1); end
 	if tex.grad2 then ret.grad2 = VFL.copy(tex.grad2); end
 	if tex.coord then ret.coord = VFL.copy(tex.coord); end
-	if tex.rotation then ret.rotation = tex.rotation; end
+	if tex.coord2 then ret.coord2 = VFL.copy(tex.coord2); end
 	return ret;
 end
 
@@ -198,9 +198,11 @@ function VFLUI.SetTexture(obj, descr)
 	if descr.coord then
 		local c = descr.coord;
 		obj:SetTexCoord(c.l, c.r, c.b, c.t);
-	end
-	if descr.rotation then
-		obj:SetRotation(descr.rotation);
+	elseif descr.coord2 then
+		local c = descr.coord2;
+		obj:SetTexCoord(c.ULx,c.ULy,c.LLx,c.LLy,c.URx,c.URy,c.LRx,c.LRy);
+	else
+		obj:SetTexCoord(0, 1, 0, 1);
 	end
 end
 
@@ -231,9 +233,12 @@ function VFLUI.GenerateSetTextureCode(obj, descr)
 		local c = descr.coord;
 		ret = ret .. obj .. ":SetTexCoord(" .. c.l .. "," .. c.b .. "," .. c.r .. "," .. c.t .. [[);
 ]];
-	end
-	if descr.rotation then
-		ret = ret .. obj .. ":SetRotation(" .. descr.rotation .. [[);
+	elseif descr.coord2 then
+		local c = descr.coord2;
+		ret = ret .. obj .. ":SetTexCoord(" .. c.ULx .. "," .. c.ULy .. "," .. c.LLx .. "," .. c.LLy .. "," .. c.URx .. "," .. c.URy .. "," .. c.LRx .. "," .. c.LRy ..[[);
+]];
+	else
+		ret = ret .. obj .. [[:SetTexCoord(0,1,0,1);
 ]];
 	end
 	return ret;

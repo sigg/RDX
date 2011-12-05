@@ -15,7 +15,7 @@ RDXRF = RegisterVFLModule({
 });
 
 local perf_rf_Enabled = true;
-local frsTickLength = .2;
+local frsTickLength = .5;
 local unit,uid = nil, nil;
 
 -------------------------------------------------------------------
@@ -122,7 +122,7 @@ RDXRF.yd70 = frs_70; RDXRF.yd30 = frs_30; RDXRF.yd10 = frs_10;
 -- WOW 2.4 Unit in range UnitInRange("unit") by Sigg
 ----------------------------------------------------------------------------------------
 local uirs_activity = nil;
-local uirsTickLength = .2;
+local uirsTickLength = .5;
 
 local uirs = RDXDAL.Set:new();
 uirs.name = "Unit in Range<>";

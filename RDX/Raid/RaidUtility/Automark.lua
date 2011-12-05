@@ -117,7 +117,7 @@ RDX.RegisterClickAction({
 
 -- Initial load
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-   VFLT.AdaptiveSchedule("RDXAutomark", .50, function()
+   VFLT.AdaptiveSchedule("RDXAutomark", 1, function()
         for unit,mark in pairs(RDXAM.UnitMarks) do
             if UnitExists(unit.."-target") then
 		if GetRaidTargetIndex(unit.."-target") == RDXAM.NameToNumber[mark] then return; end

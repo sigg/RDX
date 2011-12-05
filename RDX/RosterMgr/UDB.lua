@@ -1542,6 +1542,7 @@ local function ProcessAuraQueue()
 end
 local auraFrame = CreateFrame("Frame");
 auraFrame:SetScript("OnUpdate", ProcessAuraQueue);
+VFLP.RegisterFunc("RDXDAL: UnitDB", "ProcessAuraQueue", ProcessAuraQueue, true);
 
 -- On UNIT_AURA, add the aura'd unit to the aura queue.
 WoWEvents:Bind("UNIT_AURA", nil, function(arg1)
@@ -1573,6 +1574,7 @@ local function ProcessCDQueue()
 end
 local cdFrame = CreateFrame("Frame");
 cdFrame:SetScript("OnUpdate", ProcessCDQueue);
+VFLP.RegisterFunc("RDXDAL: UnitDB", "ProcessCDQueue", ProcessCDQueue, true);
 
 local IsDamageSpell = RDXCD.IsDamageSpell;
 local IsHealSpell = RDXCD.IsHealSpell;

@@ -21,6 +21,21 @@ RDX.RegisterFeature({
 local combopoint = 5;
 local combopoints = 1;
 ]]);
+		elseif desc.useplayer then
+			code:AppendCode([[
+local combopoint = 0;
+if UnitExists("vehicle") then
+	combopoint = GetComboPoints("vehicle");
+else
+	combopoint = GetComboPoints("player");
+end
+local combopoints = 0;
+if UnitExists("vehicle") then
+	combopoints = GetComboPoints("vehicle") / 5;
+else
+	combopoints = GetComboPoints("player") / 5;
+end
+]]); 
 		else
 			code:AppendCode([[
 local combopoint = GetComboPoints(uid);
@@ -32,6 +47,22 @@ local combopoints = GetComboPoints(uid) / 5;
 		local mask = mux:GetPaintMask("COMBO_POINTS");
 		mux:Event_UnitMask("UNIT_COMBO_POINTS", mask);
 	end;
-	UIFromDescriptor = VFL.Nil;
+	UIFromDescriptor = function(desc, parent, state)
+		local ui = VFLUI.CompoundFrame:new(parent);
+		
+		local chk_useplayer = VFLUI.Checkbox:new(ui); chk_useplayer:Show();
+		chk_useplayer:SetText(VFLI.i18n("Use player and vehicle"));
+		if desc and desc.useplayer then chk_useplayer:SetChecked(true); else chk_useplayer:SetChecked(); end
+		ui:InsertFrame(chk_useplayer);
+
+		function ui:GetDescriptor()
+			return {
+				feature = "Variable combo";
+				useplayer = chk_useplayer:GetChecked();
+			};
+		end
+
+		return ui;
+	end;
 	CreateDescriptor = function() return { feature = "Variable combo" }; end
 });

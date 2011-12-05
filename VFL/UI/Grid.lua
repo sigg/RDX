@@ -324,6 +324,7 @@ end
 local function Dxn1StatelessIter(grid, idx)
 	idx = idx + 1;
 	local c,dx = grid.cells, grid.dx;
+	if dx == 0 then dx = 1; end
 	local x,y = mod(idx, dx), ceil(idx / dx);
 	if(x == 0) then x = dx; end
 	if c[x] and c[x][y] then return idx, c[x][y], x, y; end
@@ -332,6 +333,7 @@ end
 local function Dxn5StatelessIter(grid, idx)
 	idx = idx + 1;
 	local c,dy = grid.cells, grid.dy;
+	if dy == 0 then dy = 1; end
 	local y,x = mod(idx, dy), ceil(idx / dy);
 	if(y == 0) then y = dy; end
 	if c[x] and c[x][y] then return idx, c[x][y], x, y;	end

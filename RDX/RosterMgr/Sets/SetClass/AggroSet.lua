@@ -6,7 +6,7 @@
 
 -- Locals
 local aggromap = {};
-local aggroUpdatePeriod = 0.2;
+local aggroUpdatePeriod = 0.5;
 local strlower = string.lower;
 local GetUnitByName = RDXDAL.GetUnitByNameIfInGroup;
 local GetUnitByNumber = RDXDAL.GetUnitByNumber;
@@ -59,7 +59,7 @@ RDXDAL.RegisterSetClass({
 -------------------------------------------------------
 
 local combatmap = {};
-local combatUpdatePeriod = 0.2;
+local combatUpdatePeriod = 0.5;
 
 -- The aggro map is the "feeder" for the aggro set.
 local unit1;
@@ -100,7 +100,7 @@ RDXDAL.RegisterSetClass({
 -- A set class matching all people who are Assisting me
 
 local assistmap = {};
-local assistUpdatePeriod = 0.2;
+local assistUpdatePeriod = 0.5;
 
 local function UpdateAssistMap()
 	for i=1,40 do assistmap[i] = false; end
