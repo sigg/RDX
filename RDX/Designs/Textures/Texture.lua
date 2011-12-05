@@ -142,14 +142,14 @@ _t:Show();
 	end;
 });
 
-RDX.RegisterFeature({
-	name = "arttexture";
-	version = 2;
-	multiple = true;
-	invisible = true;
-	IsPossible = VFL.Nil;
-	VersionMismatch = function(desc)
-		desc.feature = "texture"; desc.version = 1;
-	end;
-});
-
+-- specific function to update the texture path of a feature.
+function RDXDB.SetTextureData(path, feature, key, value, newtexpath )
+	if feature ~= "texture" then return; end
+	local x = RDXDB.GetObjectData(path); if not x then return; end
+	local feat = RDXDB.HasFeature(x.data, feature, key, value);
+	if feat and feat.texture then
+		feat.texture.path = newtexpath;
+		return true;
+	end
+	return nil;
+end
