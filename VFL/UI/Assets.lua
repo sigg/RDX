@@ -195,14 +195,16 @@ function VFLUI.SetTexture(obj, descr)
 	else
 		obj:SetVertexColor(1,1,1,1);
 	end
-	if descr.coord then
-		local c = descr.coord;
-		obj:SetTexCoord(c.l, c.r, c.b, c.t);
-	elseif descr.coord2 then
-		local c = descr.coord2;
-		obj:SetTexCoord(c.ULx,c.ULy,c.LLx,c.LLy,c.URx,c.URy,c.LRx,c.LRy);
-	else
-		obj:SetTexCoord(0, 1, 0, 1);
+	if descr.path then
+		if descr.coord then
+			local c = descr.coord;
+			obj:SetTexCoord(c.l, c.r, c.b, c.t);
+		elseif descr.coord2 then
+			local c = descr.coord2;
+			obj:SetTexCoord(c.ULx,c.ULy,c.LLx,c.LLy,c.URx,c.URy,c.LRx,c.LRy);
+		else
+			obj:SetTexCoord(0, 1, 0, 1);
+		end
 	end
 end
 
@@ -229,17 +231,19 @@ function VFLUI.GenerateSetTextureCode(obj, descr)
 		ret = ret .. obj .. [[:SetVertexColor(1,1,1,1);
 ]];
 	end
-	if descr.coord then
-		local c = descr.coord;
-		ret = ret .. obj .. ":SetTexCoord(" .. c.l .. "," .. c.b .. "," .. c.r .. "," .. c.t .. [[);
+	if descr.path then
+		if descr.coord then
+			local c = descr.coord;
+			ret = ret .. obj .. ":SetTexCoord(" .. c.l .. "," .. c.b .. "," .. c.r .. "," .. c.t .. [[);
 ]];
-	elseif descr.coord2 then
-		local c = descr.coord2;
-		ret = ret .. obj .. ":SetTexCoord(" .. c.ULx .. "," .. c.ULy .. "," .. c.LLx .. "," .. c.LLy .. "," .. c.URx .. "," .. c.URy .. "," .. c.LRx .. "," .. c.LRy ..[[);
+		elseif descr.coord2 then
+			local c = descr.coord2;
+			ret = ret .. obj .. ":SetTexCoord(" .. c.ULx .. "," .. c.ULy .. "," .. c.LLx .. "," .. c.LLy .. "," .. c.URx .. "," .. c.URy .. "," .. c.LRx .. "," .. c.LRy ..[[);
 ]];
-	else
-		ret = ret .. obj .. [[:SetTexCoord(0,1,0,1);
+		else
+			ret = ret .. obj .. [[:SetTexCoord(0,1,0,1);
 ]];
+		end
 	end
 	return ret;
 end

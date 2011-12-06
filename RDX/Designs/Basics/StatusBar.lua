@@ -83,29 +83,32 @@ local ac = 0.2;
 if ]] .. desc.frac .. [[ == 1 or ]] .. desc.frac .. [[ == 0 then ac = nil; else ac = 0.2; end
 ]];
 			if desc.interpolate then
-				if desc.color1 then paintCode = paintCode .. [[
-frame.]] .. objname .. [[:SetValue(]] .. desc.frac .. [[,ac);
+				if colorVar ~= "" then paintCode = paintCode .. [[
+frame.]] .. objname .. [[:SetValueAndColorTable(]] .. desc.frac .. [[, ]] .. desc.colorVar .. [[,ac);
 ]];
                 		else paintCode = paintCode .. [[
-frame.]] .. objname .. [[:SetValueAndColorTable(]] .. desc.frac .. [[, ]] .. desc.colorVar .. [[,ac);
+frame.]] .. objname .. [[:SetValue(]] .. desc.frac .. [[,ac);
 ]];
                 		end
 			else
-				if desc.color1 then paintCode = [[
-frame.]] .. objname .. [[:SetValue(]] .. desc.frac .. [[);
+				if colorVar ~= "" then paintCode = [[
+frame.]] .. objname .. [[:SetValueAndColorTable(]] .. desc.frac .. [[, ]] .. desc.colorVar .. [[);
 ]];
                 		else paintCode = [[
-frame.]] .. objname .. [[:SetValueAndColorTable(]] .. desc.frac .. [[, ]] .. desc.colorVar .. [[);
+frame.]] .. objname .. [[:SetValue(]] .. desc.frac .. [[);
 ]];
                 		end
 			end
-			state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 		elseif colorVar ~= "" then
 			paintCode = [[
-frame.]] .. objname .. [[:SetColorTable(]] .. desc.colorVar .. [[);
+frame.]] .. objname .. [[:SetValueAndColorTable(1, ]] .. desc.colorVar .. [[);
 ]];
-			state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
+		else
+			paintCode = [[
+frame.]] .. objname .. [[:SetValue(1);
+]];
 		end
+		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 		-- Destroy
 		local destroyCode = [[
 frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
@@ -164,6 +167,11 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		local frac = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Fraction variable"), state, "FracVar_");
 		if desc and desc.frac then frac:SetSelection(desc.frac); end
 		
+		local chk_notusecolor = VFLUI.Checkbox:new(ui); chk_notusecolor:Show();
+		chk_notusecolor:SetText(VFLI.i18n("Not use color"));
+		if desc and desc.notusecolor then chk_notusecolor:SetChecked(true); else chk_notusecolor:SetChecked(); end
+		ui:InsertFrame(chk_notusecolor);
+		
 		local colorVar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Color variable"), state, "ColorVar_");
 		if desc and desc.colorVar then colorVar:SetSelection(desc.colorVar); end
 
@@ -189,13 +197,14 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(chk_reducex);
         
 		function ui:GetDescriptor()
-			local scolorVar = strtrim(colorVar:GetSelection() or "");
-			local scolor1, scolor2 = nil, nil;
-			if scolorVar == "" then
-				scolorVar = nil;
-				scolor1 = color1:GetColor(); scolor2 = color2:GetColor();
+			local scolorVar, scolor1, scolor2 = nil, nil, nil;
+			if not chk_notusecolor:GetChecked() then
+				scolorVar = strtrim(colorVar:GetSelection() or "");
+				if scolorVar == "" then
+					scolorVar = nil;
+					scolor1 = color1:GetColor(); scolor2 = color2:GetColor();
+				end
 			end
-
 			return {
 				feature = "statusbar_horiz"; version = 1;
 				name = ed_name.editBox:GetText();
@@ -208,6 +217,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 				drawLayer = drawLayer:GetSelection();
 				sublevel = VFL.clamp(ed_sublevel.editBox:GetNumber(), 1, 20);
 				frac = frac:GetSelection();
+				notusecolor = chk_notusecolor:GetChecked();
 				colorVar = scolorVar; color1 = scolor1; color2 = scolor2;
 				interpolate = chk_interpolate:GetChecked();
 				reducey = chk_reducey:GetChecked();

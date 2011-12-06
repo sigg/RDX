@@ -143,10 +143,9 @@ _t:Show();
 });
 
 -- specific function to update the texture path of a feature.
-function RDXDB.SetTextureData(path, feature, key, value, newtexpath )
-	if feature ~= "texture" then return; end
+function RDXDB.SetTextureData(path, key, value, newtexpath )
 	local x = RDXDB.GetObjectData(path); if not x then return; end
-	local feat = RDXDB.HasFeature(x.data, feature, key, value);
+	local feat = RDXDB.HasFeature(x.data, "texture", key, value);
 	if feat and feat.texture then
 		feat.texture.path = newtexpath;
 		return true;
