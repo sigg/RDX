@@ -333,6 +333,7 @@ if btn then
 	--if ]] .. ts .. [[ then
 		btn.SetMsg(btn, "]] .. desc.ts .. [[", ]] .. Serialize(desc.color) .. [[, ]] .. channel .. [[, ]] .. desc.number .. [[);
 	--end
+	btn:SetBackdrop(nil);
 	btn:SetFading(]] .. fading .. [[);
 	SetChatWindowSize(btn:GetID(), ]] .. desc.font.size .. [[);
 	]];

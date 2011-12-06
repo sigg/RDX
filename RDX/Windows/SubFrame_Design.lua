@@ -50,18 +50,18 @@ end
 -- Code generation functor. Given a unitframe ObjectState, build the
 -- create, paint, cleanup, and destroy functions.
 ----------------------------------------------------------------------
-function RDX.DesignGeneratingFunctor(state, path)
+function RDX.DesignGeneratingFunctor(state, path, winpath)
 	if not state then return nil; end
 
 	--- Build the code from the features
 	local code = VFL.Snippet:new();
-	code:AppendCode([[-- UnitFrame: ]] .. tostring(path) .. [[
-
+	code:AppendCode([[
+local windowpath = ]] .. tostring(winpath) .. [[;
+local designpath = ]] .. tostring(path) .. [[;
 local GetUnitByNumber = RDXDAL.GetUnitByNumber;
 local LoadBuffFromUnit = RDXDAL.LoadBuffFromUnit;
 local LoadDebuffFromUnit = RDXDAL.LoadDebuffFromUnit;
-local band,min,max,clamp = bit.band,math.min,math.max,VFL.clamp;
-local strformat = string.format;
+local band, min, max, clamp, strformat = bit.band, math.min, math.max, VFL.clamp, string.format;
 local btn, _i, _j, _avail, _bn, _tex, _apps, _meta, _start, _dur, _tl, _et, _dispelt, _caster, _isStealable;
 local btnOwner;
 local _icons;
@@ -200,7 +200,7 @@ RDX.RegisterFeature({
 		local path = desc.design;
 		local desPkg, desFile = RDXDB.ParsePath(desc.design);
 		if not RDX.LoadDesign(desc.design, nil, state) then return nil; end
-		local createFrame  = RDX.DesignGeneratingFunctor(dstate, desc.design);	
+		local createFrame  = RDX.DesignGeneratingFunctor(dstate, desc.design, state.path);	
 		if not createFrame then return nil; end
 
 		-- Attach a function allowing other processes to get the ambient dimensions of the unit frame

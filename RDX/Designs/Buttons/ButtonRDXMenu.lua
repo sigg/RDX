@@ -1,5 +1,5 @@
--- ButtonRDX.lua
--- Add a button that will open the window menu
+-- ButtonRDXMenu.lua
+-- Add a button that will open a dropdown menu
 -- OpenRDX
 -- Sigg Rashgarroth EU
 
@@ -29,14 +29,15 @@ RDX.RegisterFeature({
 		------------------ On frame creation
 		local createCode = [[
 local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+local menu = RDXPM.Menu:new();
 btn = VFLUI.AcquireFrame("Button");
 btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
 btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
 btn:Show();
 btn:RegisterForClicks("AnyUp");
-btn:SetScript("OnClick", function() 
-	RDXDK.FrameProperties(RDXDK.GetCurrentDesktop():_GetFrame(windowpath));
+btn:SetScript("OnClick", function(self) 
+	menu:Open("TOP", self, "TOP", 0, 0);
 end);
 frame.]] .. objname .. [[ = btn;
 ]];

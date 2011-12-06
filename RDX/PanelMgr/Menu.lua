@@ -13,11 +13,19 @@ RDXPM.Menu = {};
 RDXPM.Menu.__index = RDXPM.Menu;
 
 function RDXPM.Menu:new()
-	local x = {};
-	x.mm = {};
-	x.entries = {};
-	setmetatable(x, RDXPM.Menu);
-	return x;
+	local self = {};
+	self.mm = {};
+	self.entries = {};
+	setmetatable(self, RDXPM.Menu);
+	return self;
+end
+
+-- Destroy the menu
+function RDXPM.Menu:Destroy()
+	VFL.empty(self.mm); self.mm = nil;
+	VFL.empty(self.entries); self.entries = nil;
+	-- to test
+	self = nil;
 end
 
 function RDXPM.Menu:RegisterMenuFunction(func)
