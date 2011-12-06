@@ -56,8 +56,8 @@ function RDX.DesignGeneratingFunctor(state, path, winpath)
 	--- Build the code from the features
 	local code = VFL.Snippet:new();
 	code:AppendCode([[
-local windowpath = ]] .. tostring(winpath) .. [[;
-local designpath = ]] .. tostring(path) .. [[;
+local windowpath = "]] .. tostring(winpath) .. [[";
+local designpath = "]] .. tostring(path) .. [[";
 local GetUnitByNumber = RDXDAL.GetUnitByNumber;
 local LoadBuffFromUnit = RDXDAL.LoadBuffFromUnit;
 local LoadDebuffFromUnit = RDXDAL.LoadDebuffFromUnit;
