@@ -287,5 +287,10 @@ function RDXUI.GenerateStdWizardPage(parent, title)
 end
 
 
-
-
+-- add package menu
+RDXDB.wizardMenu = RDXPM.Menu:new();
+RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
+	table.insert(mnu, {
+		text = VFLI.i18n("Wizard"), isSubmenu = true, OnClick = function(tree, frame) RDXDB.wizardMenu:Open(tree, frame);  end
+	});
+end);
