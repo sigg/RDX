@@ -292,16 +292,17 @@ local function NewEData(idx)
 			if _debuffscache[i].name then
 				found = nil;
 				for j=1, #_debuffsset do
-					--if (_debuffsset[j].name == _debuffscache[i].name) and (_debuffsset[j].count == _debuffscache[i].count) and (_debuffsset[j].caster == _debuffscache[i].caster) and (_debuffsset[j].expirationTime == _debuffscache[i].expirationTime) then found = true; end
-					if (_debuffsset[j].name == _debuffscache[i].name) then 
-						found = true;
+					if (_debuffsset[j].name == _debuffscache[i].name) and (_debuffsset[j].count == _debuffscache[i].count) and (_debuffsset[j].caster == _debuffscache[i].caster) and (_debuffsset[j].expirationTime == _debuffscache[i].expirationTime) then found = true; end
+					--if (_debuffsset[j].name == _debuffscache[i].name) then 
+					--	found = true;
 						-- test debuff stack different, send a signal to repaint raid windows
-						if (_debuffsset[j].count ~= _debuffscache[i].count) then
-							debuffchangeflag = true;
-						end
-					end
+					--	if (_debuffsset[j].count ~= _debuffscache[i].count) then
+					--		debuffchangeflag = true;
+					--	end
+					--end
 				end
 				if not found then
+					-- update set stuff
 					RDXEvents:Dispatch("UNIT_DEBUFF_" .. _debuffscache[i].name, rdxunit, _debuffscache[i].name, 1);
 					--if rdxunit.name then VFL.print("|cFF00FF00sig +DEBUFF:|r" .. _debuffscache[i].name .. " " .. rdxunit.name); end
 					debuffchangeflag = true;
@@ -315,16 +316,17 @@ local function NewEData(idx)
 			if _debuffsset[i].name then
 				found = nil;
 				for j=1, #_debuffscache do
-					--if (_debuffsset[i].name == _debuffscache[j].name) and (_debuffsset[i].count == _debuffscache[j].count) and (_debuffsset[i].caster == _debuffscache[j].caster) and (_debuffsset[i].expirationTime == _debuffscache[j].expirationTime) then found = true; end
-					if (_debuffsset[i].name == _debuffscache[j].name) then 
-						found = true;
+					if (_debuffsset[i].name == _debuffscache[j].name) and (_debuffsset[i].count == _debuffscache[j].count) and (_debuffsset[i].caster == _debuffscache[j].caster) and (_debuffsset[i].expirationTime == _debuffscache[j].expirationTime) then found = true; end
+					--if (_debuffsset[i].name == _debuffscache[j].name) then 
+					--	found = true;
 						-- test debuff stack different, send a signal to repaint raid windows
-						if (_debuffsset[i].count ~= _debuffscache[j].count) then
-							debuffchangeflag = true;
-						end
-					end
+					--	if (_debuffsset[i].count ~= _debuffscache[j].count) then
+					--		debuffchangeflag = true;
+					--	end
+					--end
 				end
 				if not found then
+					-- update set stuff
 					RDXEvents:Dispatch("UNIT_DEBUFF_" .. _debuffsset[i].name, rdxunit, _debuffsset[i].name, 0);
 					--if rdxunit.name then VFL.print("|cFF00FF00sig -DEBUFF:|r" .. _debuffsset[i].name .. " " .. rdxunit.name); end
 					debuffchangeflag = true;
