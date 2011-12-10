@@ -519,14 +519,16 @@ local function CreateMainPane()
 	end
 	
 	function s:AddMessage(text, delay, func)
-		local msg = {}
-		msg.start = GetTime();
-		msg.duration = delay;
-		msg.text = text;
-		msg.func = func;
-		table.insert(messagelist, msg);
-		s:LayoutMessages();
-		--VFL.print(text);
+		--if s:IsShown() and not func then
+			local msg = {}
+			msg.start = GetTime();
+			msg.duration = delay;
+			msg.text = text;
+			msg.func = func;
+			table.insert(messagelist, msg);
+			s:LayoutMessages();
+			--VFL.print(text);
+		--end
 	end
 	
 	function s:RemoveMessage()
@@ -545,8 +547,8 @@ local function CreateMainPane()
 	VFLT.AdaptiveSchedule("mainpanel", 1, function() s:RemoveMessage(); end);
 	VFLEvents:Bind("ERRORLUA", nil, function(err) s:AddMessage(err, 20, function() VFL.OpenErrorDialog(); end) end);
 	VFLEvents:Bind("ERROR", nil, function(err) s:AddMessage(err, 20, function() VFL.OpenErrorDialog(); end) end);
-	RDXEvents:Bind("INFO", nil, function(err) s:AddMessage(err, 10) end);
-	RDXEvents:Bind("WARNING", nil, function(err) s:AddMessage(err, 10) end);
+	--RDXEvents:Bind("INFO", nil, function(err) s:AddMessage(err, 10) end);
+	--RDXEvents:Bind("WARNING", nil, function(err) s:AddMessage(err, 10) end);
 	RDXEvents:Bind("ERROR", nil, function(err) s:AddMessage(err, 20) end);
 	
 	----------------------
