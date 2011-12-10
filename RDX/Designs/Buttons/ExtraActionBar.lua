@@ -83,7 +83,6 @@ end
 		ui:InsertFrame(anchor);
 		
 		function ui:GetDescriptor()
-			if chk_bs:GetChecked() then chk_bkd:SetChecked(); end
 			return { 
 				feature = "extraactionbar"; version = 1;
 				name = ed_name.editBox:GetText();
