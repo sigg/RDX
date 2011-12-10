@@ -209,6 +209,7 @@ Designs\Buttons\MinimapButtons.lua
 Designs\Buttons\MultiCastBar.lua
 Designs\Buttons\StanceBar.lua
 Designs\Buttons\VehicleBar.lua
+Designs\Buttons\ExtraActionBar.lua
 
 Designs\Colors\ClassColor.lua
 Designs\Colors\ConditionalColor.lua
