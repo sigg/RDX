@@ -28,6 +28,9 @@ RDX.RegisterFeature({
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		flg = flg and RDXUI.UFFrameCheck_Proto("Texture_", desc, state, errs);
 		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
+		if desc.sublevel and (tonumber(desc.sublevel) < 0 or tonumber(desc.sublevel) > 7) then
+			VFL.AddError(errs, VFLI.i18n("Texture level must be between 0 to 7")); flg = nil;
+		end
 		if flg then state:AddSlot("Texture_" .. desc.name); end
 		return flg;
 	end;

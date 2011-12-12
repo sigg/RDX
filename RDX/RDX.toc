@@ -209,7 +209,6 @@ Designs\Buttons\MinimapButtons.lua
 Designs\Buttons\MultiCastBar.lua
 Designs\Buttons\StanceBar.lua
 Designs\Buttons\VehicleBar.lua
-Designs\Buttons\ExtraActionBar.lua
 
 Designs\Colors\ClassColor.lua
 Designs\Colors\ConditionalColor.lua
@@ -229,6 +228,7 @@ Designs\Complexes\Minimap.lua
 Designs\Complexes\MenuBar.lua
 Designs\Complexes\BagsBar.lua
 Designs\Complexes\PlayerPowerBarAlt.lua
+Designs\Complexes\ExtraActionBar.lua
 
 Designs\Lists\AuraBarList.lua
 Designs\Lists\AuraIconList.lua

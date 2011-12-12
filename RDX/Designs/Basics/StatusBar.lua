@@ -30,6 +30,9 @@ RDX.RegisterFeature({
 		if desc.colorVar and (not state:Slot("ColorVar_" .. desc.colorVar)) then
 			VFL.AddError(errs, VFLI.i18n("Missing variable Color")); flg = nil;
 		end
+		if desc.sublevel and (tonumber(desc.sublevel) < 0 or tonumber(desc.sublevel) > 7) then
+			VFL.AddError(errs, VFLI.i18n("Texture level must be between 0 to 7")); flg = nil;
+		end
 		if flg then 
 			state:AddSlot("StatusBar_" .. desc.name);
 			state:AddSlot("Frame_" .. desc.name);
