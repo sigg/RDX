@@ -423,6 +423,24 @@ local function InitObjectDB()
 		end
 		return true;
 	end
+	
+	function RDXDB.CopyIntoAllPackages(srcPkg)
+		local d = RDXData[srcPkg];
+		if not d then return nil, VFLI.i18n("Source package does not exist."); end
+		for k,v in pairs(RDXData) do
+			if v["autodesk"] and k ~= "default" then
+				for file,fd in pairs(d) do
+					if type(fd) == "table" then
+						local newfd = RDXDB.copyfd(fd, srcPkg, k)
+						v[file] = newfd;
+					else
+						v[file] = fd;
+					end
+				end
+			end
+		end
+		return true;
+	end
 
 	--- Empty a package.
 	function RDXDB._EmptyPackage(pkg)
