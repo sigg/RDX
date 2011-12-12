@@ -71,7 +71,7 @@ local ]] .. desc.name .. [[txt = string.format("%0.0f%% | %s / %s", (currentAmou
 
 		function ui:GetDescriptor()
 			return {
-				feature = "Variable: Fractional Currency (cid)";
+				feature = "Variable: Fractional Currency";
 				name = name.editBox:GetText();
 				currencyid = currencyid.editBox:GetText();
 				currencytotalamount = currencytotalamount.editBox:GetText();
@@ -80,5 +80,5 @@ local ]] .. desc.name .. [[txt = string.format("%0.0f%% | %s / %s", (currentAmou
 
 		return ui;
 	end;
-	CreateDescriptor = function() return { feature = "Variable: Fractional Currency (cid)"; name = "cid"; currencyid = "nil"; currencytotalamount = "nil" }; end
+	CreateDescriptor = function() return { feature = "Variable: Fractional Currency"; name = "cid"; currencyid = "nil"; currencytotalamount = "nil" }; end
 });
