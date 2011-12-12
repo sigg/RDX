@@ -1,11 +1,11 @@
--- ExtraActionBar.lua
+-- PlayerPowerBarAlt.lua
 -- OpenRDX
 -- Sigg Rashgarroth EU
 
 RDX.RegisterFeature({
-	name = "extraactionbar";
-	title = VFLI.i18n("Bar ExtraAction");
-	category = VFLI.i18n("Buttons");
+	name = "PlayerPowerBarAlt";
+	title = VFLI.i18n("Blizzard PlayerPowerBarAlt");
+	category = VFLI.i18n("Complexes");
 	test = true;
 	version = 1;
 	IsPossible = function(state)
@@ -29,7 +29,7 @@ RDX.RegisterFeature({
 		local createCode = [[
 local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 
-local h = VFLUI.AcquireFrame("BlizzardElement", "ExtraActionBarFrame");
+local h = VFLUI.AcquireFrame("BlizzardElement", "PlayerPowerBarAlt");
 if h then
 	h.ignoreFramePositionManager = true;
 	VFLUI.StdSetParent(h, btnOwner);
@@ -84,7 +84,7 @@ end
 		
 		function ui:GetDescriptor()
 			return { 
-				feature = "extraactionbar"; version = 1;
+				feature = "PlayerPowerBarAlt"; version = 1;
 				name = ed_name.editBox:GetText();
 				-- layout
 				owner = "Base";
@@ -97,9 +97,9 @@ end
 	end;
 	CreateDescriptor = function()
 		return { 
-			feature = "extraactionbar";
+			feature = "PlayerPowerBarAlt";
 			version = 1; 
-			name = "extraactionbar", 
+			name = "playerpowerbaralt", 
 			owner = "Base";
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
 			flo = 5;

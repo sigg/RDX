@@ -228,6 +228,7 @@ Designs\Complexes\CombatLogs.lua
 Designs\Complexes\Minimap.lua
 Designs\Complexes\MenuBar.lua
 Designs\Complexes\BagsBar.lua
+Designs\Complexes\PlayerPowerBarAlt.lua
 
 Designs\Lists\AuraBarList.lua
 Designs\Lists\AuraIconList.lua
