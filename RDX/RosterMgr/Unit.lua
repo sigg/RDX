@@ -246,6 +246,7 @@ end
 
 function RDXDAL.Unit:FracSmartHealth(source)
 	local ih, h, mh = UnitGetIncomingHeals(self.uid, source), self:Health(), self:MaxHealth();
+	if not ih then ih = 0; end
 	if(mh <= 1) then return 0; end
 	h = (h+ih)/mh;
 	if h<0 then return 0; elseif h>1 then return 1; else return h; end
