@@ -52,7 +52,7 @@ function RDXPM.Menu:RegisterMenuEntry(title, isSubmenu, fn)
 	return true;
 end
 
-function RDXPM.Menu:Open(point, parent, relpoint, x, y)
+function RDXPM.Menu:Open(point, parent, relpoint, x, y, tree)
 	local i = 0;
 	local mm, entries = self.mm, self.entries;
 	for _,func in ipairs(mm) do
@@ -62,11 +62,11 @@ function RDXPM.Menu:Open(point, parent, relpoint, x, y)
 		func(entries[i]);
 	end
 	for j,_ in ipairs(entries) do if j > i then entries[j] = nil; end end
-	--if tree then
-	--	tree:Expand(parent, entries);
-	--else
+	if tree then
+		tree:Expand(parent, entries);
+	else
 		VFLUI.PopUpMenu(entries, point, parent, relpoint, x, y);
-	--end
+	end
 end
 
 function RDXPM.Menu:Close()

@@ -289,8 +289,19 @@ end
 
 -- add package menu
 RDXDB.wizardMenu = RDXPM.Menu:new();
+
+RDXDB.wizardMenu:RegisterMenuFunction(function(ent)
+	ent.text = "Hello";
+	ent.OnClick = function()
+		VFL.poptree:Release();
+		VFL.print("test");
+	end;
+end);
+
 RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 	table.insert(mnu, {
-		text = VFLI.i18n("Wizard"), isSubmenu = true, OnClick = function(self) RDXDB.wizardMenu:Open(VFL.poptree, self); end
+		text = VFLI.i18n("Wizard"), isSubmenu = true, OnClick = function(self) RDXDB.wizardMenu:Open(nil, self, nil, nil, nil, VFL.poptree); end
 	});
 end);
+
+

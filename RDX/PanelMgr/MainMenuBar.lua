@@ -145,6 +145,8 @@ local function CreateMainPane()
 	btn_CharacterMicroButton:SetScript("OnClick", function(self, arg1)
 		if(arg1 == "LeftButton") then
 			RDXPM.CharacterMenu:Open("TOP", btn_CharacterMicroButton, "TOP", 0, 0);
+			--VFL.poptree:Begin(160, 14, self, "BOTTOMLEFT", VFLUI.GetRelativeLocalMousePosition(self));
+			--RDXPM.CharacterMenu:Open(nil, nil, nil, nil, nil, VFL.poptree);
 		elseif(arg1 == "RightButton") then
 			local index = GetActiveTalentGroup();
 			if index == 1 then index = 2; else index = 1; end
@@ -174,6 +176,8 @@ local function CreateMainPane()
 	btn_GuildMicroButton:SetScript("OnClick", function(self, arg1)
 		if(arg1 == "LeftButton") then
 			RDXPM.GuildMenu:Open("TOP", btn_GuildMicroButton, "TOP", 0, 0);
+			--VFL.poptree:Begin(160, 14, self, "BOTTOMLEFT", VFLUI.GetRelativeLocalMousePosition(self));
+			--RDXPM.GuildMenu:Open(nil, nil, nil, nil, nil, VFL.poptree);
 		elseif(arg1 == "RightButton") then
 		end
 	end);
