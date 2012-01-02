@@ -430,6 +430,26 @@ function RDXDK.DisableUnitframesEngine()
 	UnitFrameManaBar_OnEvent = VFL.Noop;
 	UnitFrameManaBar_OnUpdate = VFL.Noop;
 	UnitFrameThreatIndicator_OnEvent = VFL.Noop;
+	-- disable focus function
+	for _, menu in pairs(UnitPopupMenus) do
+		for button, name in pairs(menu) do
+			if (name == 'SET_FOCUS') then
+				table.remove(menu, button);
+			elseif (name == 'CLEAR_FOCUS') then
+				table.remove(menu, button);
+			elseif (name == 'MOVE_PLAYER_FRAME') then
+				table.remove(menu, button);
+			elseif (name == 'MOVE_TARGET_FRAME') then
+				table.remove(menu, button);
+			elseif (name == 'LOCK_FOCUS_FRAME') then
+				table.remove(menu, button);
+			elseif (name == 'UNLOCK_FOCUS_FRAME') then
+				table.remove(menu, button);
+			elseif (name == 'PET_DISMISS') then
+				table.remove(menu, button);
+			end
+		end
+	end
 end
 
 -- move into design
