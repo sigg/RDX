@@ -286,21 +286,24 @@ function RDXUI.GenerateStdWizardPage(parent, title)
 	return frame;
 end
 
-
--- add package menu
+---------------------------------------
+-- Package Wizard
+---------------------------------------
 RDXDB.wizardMenu = RDXPM.Menu:new();
+
+RDXDB.pkgname = "";
 
 RDXDB.wizardMenu:RegisterMenuFunction(function(ent)
 	ent.text = "Hello";
 	ent.OnClick = function()
 		VFL.poptree:Release();
-		VFL.print("test");
+		VFL.print("test " .. RDXDB.pkgname);
 	end;
 end);
 
 RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 	table.insert(mnu, {
-		text = VFLI.i18n("Wizard"), isSubmenu = true, OnClick = function(self) RDXDB.wizardMenu:Open(nil, self, nil, nil, nil, VFL.poptree); end
+		text = VFLI.i18n("Wizard"), isSubmenu = true, OnClick = function(self) RDXDB.pkgname = pkg; RDXDB.wizardMenu:Open(nil, self, nil, nil, nil, VFL.poptree); end
 	});
 end);
 
