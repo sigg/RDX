@@ -163,7 +163,7 @@ function cs_grad2:OnColorChanged() VCUpdate(); end
 chk_transform = VFLUI.Checkbox:new(ca);
 chk_transform:SetHeight(16); chk_transform:SetWidth(200);
 chk_transform:SetPoint("TOPLEFT", dd_gradDir, "BOTTOMLEFT", 0, -5);
-chk_transform:SetText("Use transform (l,b,r,t):"); chk_transform:Show();
+chk_transform:SetText("Use transform (l,r,b,t):"); chk_transform:Show();
 chk_transform.check:SetScript("OnClick", function(self) 
 	if self:GetChecked() then chk_tr2:SetChecked(nil); end
 	VCUpdate(); 
@@ -177,25 +177,25 @@ tlEdit:Show();
 --	VCUpdate();
 --end);
 
-local tbEdit = VFLUI.Edit:new(ca);
-tbEdit:SetWidth(40); tbEdit:SetHeight(24);
-tbEdit:SetPoint("TOPLEFT", tlEdit, "TOPRIGHT");
-tbEdit:Show();
---tbEdit:SetScript("OnTextChanged", function(self)
---	VCUpdate();
---end);
-
 local trEdit = VFLUI.Edit:new(ca);
 trEdit:SetWidth(40); trEdit:SetHeight(24);
-trEdit:SetPoint("TOPLEFT", tbEdit, "TOPRIGHT");
+trEdit:SetPoint("TOPLEFT", tlEdit, "TOPRIGHT");
 trEdit:Show();
 --trEdit:SetScript("OnTextChanged", function(self)
 --	VCUpdate();
 --end);
 
+local tbEdit = VFLUI.Edit:new(ca);
+tbEdit:SetWidth(40); tbEdit:SetHeight(24);
+tbEdit:SetPoint("TOPLEFT", trEdit, "TOPRIGHT");
+tbEdit:Show();
+--tbEdit:SetScript("OnTextChanged", function(self)
+--	VCUpdate();
+--end);
+
 local ttEdit = VFLUI.Edit:new(ca);
 ttEdit:SetWidth(40); ttEdit:SetHeight(24);
-ttEdit:SetPoint("TOPLEFT", trEdit, "TOPRIGHT");
+ttEdit:SetPoint("TOPLEFT", tbEdit, "TOPRIGHT");
 ttEdit:Show();
 --ttEdit:SetScript("OnTextChanged", function(self)
 --	VCUpdate();
@@ -314,8 +314,8 @@ function UpdatePicker()
 	if curTex.coord then
 		chk_transform:SetChecked(true);
 		tlEdit:SetText(curTex.coord.l);
-		tbEdit:SetText(curTex.coord.b);
 		trEdit:SetText(curTex.coord.r);
+		tbEdit:SetText(curTex.coord.b);
 		ttEdit:SetText(curTex.coord.t);
 	elseif curTex.coord2 then
 		chk_tr2:SetChecked(true);
