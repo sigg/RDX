@@ -394,7 +394,8 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	
 	self:RegisterForDrag("LeftButton", "RightButton");
 	self:SetScript("OnDragStart", function()
-		if not InCombatLockdown() and IsShiftKeyDown() then
+		--if not InCombatLockdown() and IsShiftKeyDown() then
+		if not InCombatLockdown() then
 			PickupAction(self:GetAttribute("action"));
 			UpdateState();
 		end
@@ -742,7 +743,8 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 	
 	self:RegisterForDrag("LeftButton", "RightButton");
 	self:SetScript("OnDragStart", function()
-		if not InCombatLockdown() and IsShiftKeyDown() then
+		--if not InCombatLockdown() and IsShiftKeyDown() then
+		if not InCombatLockdown() then
 			PickupAction(self:GetAttribute("action"));
 			UpdateState();
 		end
@@ -1093,7 +1095,8 @@ function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 	
 	self:RegisterForDrag("LeftButton", "RightButton");
 	self:SetScript("OnDragStart", function()
-		if not InCombatLockdown() and IsShiftKeyDown() then
+		--if not InCombatLockdown() and IsShiftKeyDown() then
+		if not InCombatLockdown() then
 			PickupPetAction(self.id);
 			UpdateState();
 		end
