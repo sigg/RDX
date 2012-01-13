@@ -15,6 +15,15 @@ RDX.RegisterFeature({
 		if not desc.raColor2 then desc.raColor2 = _yellow; end
 		if not desc.raColor3 then desc.raColor3 = _blue; end
 		if not desc.raColor4 then desc.raColor4 = _grey; end
+		if desc.filterName then
+			if desc.externalNameFilter then
+				-- one day
+			else
+				if VFL.tsize(desc.filterNameList) == 0 then 
+					VFL.AddError(errs, VFLI.i18n("Empty filter list.")); return nil;
+				end
+			end
+		end
 		state:AddSlot("TimerVar_spell");
 		state:AddSlot("BoolVar_spell_channeled");
 		state:AddSlot("BoolVar_spell_casting");
@@ -211,36 +220,40 @@ end
 		function ui:GetDescriptor()
 			local filterName, filterNameList, filternl, ext, unitfi, maxdurfil, mindurfil = nil, nil, {}, nil, "", "", "";
 			if chk_filterName:GetChecked() then
-				filterNameList = le_names:GetList();
-				local flag;
-				for k,v in pairs(filterNameList) do
-					flag = nil;
-					local test = string.sub(v, 1, 1);
-					if test == "!" then
-						flag = true;
-						v = string.sub(v, 2);
-					end
-					local testnumber = tonumber(v);
-					if testnumber then
-						if flag then
-							filternl[k] = "!" .. testnumber;
-						else
-							filternl[k] = testnumber;
+				if chk_external:GetChecked() then 
+					ext = file_external:GetPath(); filternl = nil;
+				else
+					ext = nil;
+					filterNameList = le_names:GetList();
+					local flag;
+					for k,v in pairs(filterNameList) do
+						flag = nil;
+						local test = string.sub(v, 1, 1);
+						if test == "!" then
+							flag = true;
+							v = string.sub(v, 2);
 						end
-					else
-						if flag then
-							local spellid = RDXSS.GetSpellIdByLocalName(v);
-							if spellid then
-								filternl[k] = "!" .. spellid;
+						local testnumber = tonumber(v);
+						if testnumber then
+							if flag then
+								filternl[k] = "!" .. testnumber;
 							else
-								filternl[k] = "!" .. v;
+								filternl[k] = testnumber;
 							end
 						else
-							filternl[k] = RDXSS.GetSpellIdByLocalName(v) or v;
+							if flag then
+								local spellid = RDXSS.GetSpellIdByLocalName(v);
+								if spellid then
+									filternl[k] = "!" .. spellid;
+								else
+									filternl[k] = "!" .. v;
+								end
+							else
+								filternl[k] = RDXSS.GetSpellIdByLocalName(v) or v;
+							end
 						end
 					end
 				end
-				if chk_external:GetChecked() then ext = file_external:GetPath(); end
 			end
 			return {
 				feature = "var_spellinfo";
