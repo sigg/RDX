@@ -204,6 +204,7 @@ Designs\Buttons\ActionBarsHandler.lua
 Designs\Buttons\ActionButton.lua
 Designs\Buttons\Button.lua
 Designs\Buttons\ButtonRDX.lua
+Designs\Buttons\ButtonRDXMenu.lua
 Designs\Buttons\LDBButton.lua
 Designs\Buttons\MinimapButtons.lua
 Designs\Buttons\MultiCastBar.lua

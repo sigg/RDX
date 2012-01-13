@@ -3,9 +3,19 @@
 -- OpenRDX
 -- Sigg Rashgarroth EU
 
+local _menus = {
+	{ text = "RDXPM.CompactMenu" },
+	{ text = "RDXPM.CharacterMenu" },
+	{ text = "RDXPM.GuildMenu" },
+	{ text = "RDXPM.DuiMenu" },
+	{ text = "RDXPM.ObjectMenu" },
+	{ text = "RDXPM.MainMenu" },
+};
+local function _dd_menus() return _menus; end
+
 RDX.RegisterFeature({
-	name = "buttonrdx"; version = 1; 
-	title = VFLI.i18n("Button RDX Window"); 
+	name = "buttonmenurdx"; version = 1; 
+	title = VFLI.i18n("Button RDX Menu"); 
 	category = VFLI.i18n("Buttons");
 	multiple = true;
 	IsPossible = function(state)
@@ -25,11 +35,12 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		local objname = "Button_" .. desc.name;
-
+		local rdxmenu = "RDXPM.CompactMenu";
+		if desc and desc.rdxmenu then rdxmenu = desc.rdxmenu; end
+		
 		------------------ On frame creation
 		local createCode = [[
 local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
-local menu = RDXPM.Menu:new();
 btn = VFLUI.AcquireFrame("Button");
 btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
 btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
@@ -37,7 +48,7 @@ btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
 btn:Show();
 btn:RegisterForClicks("AnyUp");
 btn:SetScript("OnClick", function(self) 
-	menu:Open("TOP", self, "TOP", 0, 0);
+	]] .. rdxmenu .. [[:Open();
 end);
 frame.]] .. objname .. [[ = btn;
 ]];
@@ -93,16 +104,28 @@ frame.]] .. objname .. [[ = nil;
 		end
 		ui:InsertFrame(chk_hlt);
 		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("RDX Menu Type"));
+		local dd_rdxmenu = VFLUI.Dropdown:new(er, _dd_menus);
+		dd_rdxmenu:SetWidth(200); dd_rdxmenu:Show();
+		if desc and desc.rdxmenu then 
+			dd_rdxmenu:SetSelection(desc.rdxmenu); 
+		else
+			dd_rdxmenu:SetSelection("RDXPM.CompactMenu");
+		end
+		er:EmbedChild(dd_rdxmenu); er:Show();
+		ui:InsertFrame(er);
+		
 		function ui:GetDescriptor()
 			local hlt = nil; if chk_hlt:GetChecked() then hlt = tsel:GetSelectedTexture(); end
 			return { 
-				feature = "buttonrdx"; version = 1;
+				feature = "buttonmenurdx"; version = 1;
 				name = ed_name.editBox:GetText();
 				owner = owner:GetSelection();
 				w = ed_width:GetSelection();
 				h = ed_height:GetSelection();
 				anchor = anchor:GetAnchorInfo();
 				hlt = hlt;
+				rdxmenu = dd_rdxmenu:GetSelection();
 			};
 		end
 
@@ -110,7 +133,7 @@ frame.]] .. objname .. [[ = nil;
 	end;
 	CreateDescriptor = function()
 		return { 
-			feature = "buttonrdx"; version = 1; 
+			feature = "buttonmenurdx"; version = 1; 
 			name = "btn1", owner = "decor", drawLayer = "ARTWORK";
 			w = 30; h = 30;
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};

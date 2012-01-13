@@ -131,6 +131,19 @@ RDX.RegisterClickAction({
 	end;
 });
 
+RDX.RegisterClickAction({
+	name = "rdxunlock";
+	title = "Toggle RDX";
+	GetUI = spellGetUI;
+	GetClickFunc = function(desc)
+		return VFL.Noop;
+	end;
+	ApplySecureAttributes = function(desc, uf, pfx, id)
+		uf:SetAttribute(pfx .. "type" .. id, "macro");
+		uf:SetAttribute(pfx .. "macrotext" .. id, "/rdx toggledesk");
+	end;
+});
+
 -- Cast spell on target
 local function buildSpellMenu()
 	local ret = {};
