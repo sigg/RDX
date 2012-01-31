@@ -68,6 +68,22 @@ function RDXSS.GetSpellRankByBookId(id)
 	return 0, name, q;
 end
 
+-- Given a spell's full name and Booktype (BOOKTYPE_SPELL or BOOKTYPE_PET), return spell's book numerical ID.
+function RDXSS.GetSpellBookId(sname, bkt)
+	if not sname then return nil; end
+	if not bkt then return nil; end
+	for i = 1, MAX_SKILLLINE_TABS do
+		local name, texture, offset, numSpells = GetSpellTabInfo(i);
+		if not name then break; end
+		for s = offset + 1, offset + numSpells do
+			if (sname == GetSpellBookItemName(s,bkt)) then
+				return s;
+			end
+		end
+	end
+	return 0;
+end
+
 ------------------------------------------------
 -- Local spell DB
 ------------------------------------------------
