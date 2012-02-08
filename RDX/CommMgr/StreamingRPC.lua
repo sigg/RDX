@@ -109,16 +109,21 @@ function RPC.StreamingRPCMixin(ch, noglobal)
 	
 	-- Bind our channel to the stream handler.
 	ch.sig:Connect(nil, RPC.StdStreamIn);
-
-	-- Create a recurring timer that cleans up timed-out waits.
-	VFLT.AdaptiveSchedule(nil, 5, function()
+	
+	-- clean timeout will start at the first wait call.
+	local function CleanTimeOut()
 		local t = GetTime();
+		local found = nil;
 		for wid,wto in pairs(wtos) do
+			found = true;
 			if wto < t then
 				waits[wid] = nil; wtos[wid] = nil;
 			end
 		end
-	end);
+		if not found then
+			VFLT.AdaptiveUnschedule("CleanTimeOut " .. ch.name);
+		end
+	end
 
 	------------------------------------- END USER API
 	function ch:Bind(routine, fn)
@@ -157,6 +162,9 @@ function RPC.StreamingRPCMixin(ch, noglobal)
 		timeout = timeout or 30;
 		waits[id] = fn; 
 		wtos[id] = GetTime() + timeout;
+		-- Schedule Cleantimeout
+		VFLT.AdaptiveUnschedule("CleanTimeOut " .. ch.name);
+		VFLT.AdaptiveSchedule("CleanTimeOut " .. ch.name, 5, CleanTimeOut);
 	end
 	
 	function ch:IsSend(stid)

@@ -771,7 +771,8 @@ local function RemoveUnit()
 end
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	VFLT.AdaptiveSchedule("UDB_ubn", timeGC_default, RemoveUnit);
+	VFLT.AdaptiveSchedule2("UDB:RemoveUnit", timeGC_default, RemoveUnit);
+	VFLP.RegisterFunc("RDX", "UDB:RemoveUnit", RemoveUnit, true);
 end);
 
 -------------- Initial unit creation
@@ -1026,8 +1027,6 @@ VFLP.RegisterFunc("RDXDAL: UnitDB", "ProcessPets", ProcessPets, true);
 WoWEvents:Bind("UNIT_PET", nil, ProcessPets);
 WoWEvents:Bind("RAID_ROSTER_UPDATE", nil, ProcessPets);
 WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, ProcessPets);
-
-
 
 ----------------------------------------------------------------------------
 -- ROSTER EVENT BINDINGS
@@ -1495,7 +1494,7 @@ local _sig_rdx_unit_xp_update = RDXEvents:LockSignal("UNIT_XP_UPDATE");
 
 local function RpcNdataSync(ci, t)
 	local unit = RPC.GetSenderUnit(ci);
-	if (not unit) or (not unit:IsValid()) then return; end	
+	if (not unit) or (not unit:IsValid()) or unit.me then return; end	
 	local syncdata = unit:GetNField("sync");
 	VFL.copyInto(syncdata, t);
 	_sig_unit_ndata_sync:Raise(unit, unit.nid, unit.uid);
@@ -1514,7 +1513,8 @@ end
 RDXEvents:Bind("INIT_DEFERRED", nil, function()
 	SendNdataSync();
 	-- Start periodic broadcasts
-	VFLT.AdaptiveSchedule(nil, 60, SendNdataSync);
+	VFLT.AdaptiveSchedule2("UDB:SendNdataSync", 60, SendNdataSync);
+	VFLP.RegisterFunc("RDX", "UDB:SendNdataSync", SendNdataSync, true);
 end);
 
 ------------------------------------------------------------
@@ -1732,7 +1732,7 @@ end);
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	local timemh, timeoh = 0, 0;
 	local hasMainHandEnchant, mainHandExpiration, hasOffHandEnchant, offHandExpiration;
-	VFLT.AdaptiveSchedule("weaponsupdate_update", 1, function()
+	local function weaponsupdate()
 		if myunit then
 			hasMainHandEnchant, mainHandExpiration, _, hasOffHandEnchant, offHandExpiration = GetWeaponEnchantInfo();
 			if hasMainHandEnchant then
@@ -1754,7 +1754,9 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 				timeoh = 0;
 			end
 		end
-	end);
+	end
+	VFLT.AdaptiveSchedule2("UDB:weaponsUpdate", 2, weaponsupdate, true);
+	VFLP.RegisterFunc("RDX", "UDB:weaponsUpdate", weaponsupdate, true);
 end);
 
 --------------------------------------------

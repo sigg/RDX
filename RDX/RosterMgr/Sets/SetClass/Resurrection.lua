@@ -31,6 +31,7 @@ local function Sweep()
 	end
 	RDXDAL.EndEventBatch();
 end
+VFLP.RegisterFunc("RDX", "_rezmonitor", Sweep, true);
 
 local refcount = 0;
 local function Activate()

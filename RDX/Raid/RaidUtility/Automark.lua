@@ -117,17 +117,19 @@ RDX.RegisterClickAction({
 
 -- Initial load
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-   VFLT.AdaptiveSchedule("RDXAutomark", 1, function()
-        for unit,mark in pairs(RDXAM.UnitMarks) do
-            if UnitExists(unit.."-target") then
-		if GetRaidTargetIndex(unit.."-target") == RDXAM.NameToNumber[mark] then return; end
-                SetRaidTarget(unit.."-target", RDXAM.NameToNumber[mark]);
-            else
-		if GetRaidTargetIndex(unit) == RDXAM.NameToNumber[mark] then return; end
-                SetRaidTarget(unit, RDXAM.NameToNumber[mark]);
-            end
-        end
-    end);
+	local function asupdate()
+		for unit,mark in pairs(RDXAM.UnitMarks) do
+			if UnitExists(unit.."-target") then
+				if GetRaidTargetIndex(unit.."-target") == RDXAM.NameToNumber[mark] then return; end
+				SetRaidTarget(unit.."-target", RDXAM.NameToNumber[mark]);
+			else
+				if GetRaidTargetIndex(unit) == RDXAM.NameToNumber[mark] then return; end
+				SetRaidTarget(unit, RDXAM.NameToNumber[mark]);
+			end
+		end
+	end
+	VFLT.AdaptiveSchedule2("Automark", 1, asupdate);
+	VFLP.RegisterFunc("RDX", "Automark", asupdate, true);
 end);
 
 RDXEvents:Bind("ROSTER_UPDATE", nil, function()

@@ -464,7 +464,7 @@ artf_]] .. objname .. [[();
 ]];
 if otherText[desc.ty].repaintType == "interval" then
 		createCode = createCode .. [[
-VFLT.AdaptiveSchedule("artf_]] .. objname .. [[", ]] .. otherText[desc.ty].interval .. [[, artf_]] .. objname .. [[);
+--VFLT.AdaptiveSchedule("artf_]] .. objname .. [[", ]] .. otherText[desc.ty].interval .. [[, artf_]] .. objname .. [[);
 ]];
 else
 		createCode = createCode .. [[

@@ -3,220 +3,406 @@
 
 local opt = nil;
 
-function RDXDK.DisableActionBar()
-	ActionButton_OnLoad = VFL.Noop;
-	ActionButton_OnEvent = VFL.Noop;
-	ActionButton_Update = VFL.Noop;
-	ActionButton_UpdateFlyout = VFL.Noop;
-	ActionButton1:UnregisterAllEvents();
-	ActionButton1:Hide();
-	ActionButton2:UnregisterAllEvents();
-	ActionButton2:Hide();
-	ActionButton3:UnregisterAllEvents();
-	ActionButton3:Hide();
-	ActionButton4:UnregisterAllEvents();
-	ActionButton4:Hide();
-	ActionButton5:UnregisterAllEvents();
-	ActionButton5:Hide();
-	ActionButton6:UnregisterAllEvents();
-	ActionButton6:Hide();
-	ActionButton7:UnregisterAllEvents();
-	ActionButton7:Hide();
-	ActionButton8:UnregisterAllEvents();
-	ActionButton8:Hide();
-	ActionButton9:UnregisterAllEvents();
-	ActionButton9:Hide();
-	ActionButton10:UnregisterAllEvents();
-	ActionButton10:Hide();
-	ActionButton11:UnregisterAllEvents();
-	ActionButton11:Hide();
-	ActionButton12:UnregisterAllEvents();
-	ActionButton12:Hide();
-end
+local disabledframes = {
+	"ActionBarButtonEventsFrame",
+	"ActionBarActionEventsFrame",
+	"ActionButton1",
+	"ActionButton2",
+	"ActionButton3",
+	"ActionButton4",
+	"ActionButton5",
+	"ActionButton6",
+	"ActionButton7",
+	"ActionButton8",
+	"ActionButton9",
+	"ActionButton10",
+	"ActionButton11",
+	"ActionButton12",
+	"PlayerFrameAlternateManaBar",
+	"BonusActionButton1",
+	"BonusActionButton2",
+	"BonusActionButton3",
+	"BonusActionButton4",
+	"BonusActionButton5",
+	"BonusActionButton6",
+	"BonusActionButton7",
+	"BonusActionButton8",
+	"BonusActionButton9",
+	"BonusActionButton10",
+	"BonusActionButton11",
+	"BonusActionButton12",
+	"BonusActionBarFrame",
+	"PossessButton1",
+	"PossessButton2",
+	"PossessBarFrame",
+	"BuffFrame",
+	"ConsolidatedBuffs",
+	"ConsolidatedBuffsTooltip",
+	"TemporaryEnchantFrame",
+	"TempEnchant1",
+	"TempEnchant2",
+	"TempEnchant3",
+	"CastingBarFrame",
+	"ComboPoint1",
+	"ComboPoint2",
+	"ComboPoint3",
+	"ComboPoint4",
+	"ComboPoint5",
+	"ComboFrame",
+	"EclipseBarFrame",
+	"FocusFrameHealthBar",
+	"FocusFrameManaBar",
+	"FocusFrameSpellBar",
+	--"FocusFrameDebuff1",
+	--"FocusFrameDebuff2",
+	--"FocusFrameDebuff3",
+	--"FocusFrameDebuff4",
+	--"FocusFrameDebuff5",
+	--"FocusFrameDebuff6",
+	--"FocusFrameDebuff7",
+	--"FocusFrameDebuff8",
+	"FocusFrameNumericalThreat",
+	"FocusFrame",
+	--"TargetofFocusHealthBar",
+	--"TargetofFocusManaBar",
+	--"TargetofFocusFrameDebuff1",
+	--"TargetofFocusFrameDebuff2",
+	--"TargetofFocusFrameDebuff3",
+	--"TargetofFocusFrameDebuff4",
+	--"TargetofFocusFrame",
+	"MainMenuExpBar",
+	"ExhaustionTick",
+	"MainMenuBarMaxLevelBar",
+	"MainMenuBar",
+	"MinimapCluster",
+	"MultiBarBottomLeftButton1",
+	"MultiBarBottomLeftButton2",
+	"MultiBarBottomLeftButton3",
+	"MultiBarBottomLeftButton4",
+	"MultiBarBottomLeftButton5",
+	"MultiBarBottomLeftButton6",
+	"MultiBarBottomLeftButton7",
+	"MultiBarBottomLeftButton8",
+	"MultiBarBottomLeftButton9",
+	"MultiBarBottomLeftButton10",
+	"MultiBarBottomLeftButton11",
+	"MultiBarBottomLeftButton12",
+	"MultiBarBottomLeft",
+	"MultiBarBottomRightButton1",
+	"MultiBarBottomRightButton2",
+	"MultiBarBottomRightButton3",
+	"MultiBarBottomRightButton4",
+	"MultiBarBottomRightButton5",
+	"MultiBarBottomRightButton6",
+	"MultiBarBottomRightButton7",
+	"MultiBarBottomRightButton8",
+	"MultiBarBottomRightButton9",
+	"MultiBarBottomRightButton10",
+	"MultiBarBottomRightButton11",
+	"MultiBarBottomRightButton12",
+	"MultiBarBottomRight",
+	"MultiBarRightButton1",
+	"MultiBarRightButton2",
+	"MultiBarRightButton3",
+	"MultiBarRightButton4",
+	"MultiBarRightButton5",
+	"MultiBarRightButton6",
+	"MultiBarRightButton7",
+	"MultiBarRightButton8",
+	"MultiBarRightButton9",
+	"MultiBarRightButton10",
+	"MultiBarRightButton11",
+	"MultiBarRightButton12",
+	"MultiBarRight",
+	"MultiBarLeftButton1",
+	"MultiBarLeftButton2",
+	"MultiBarLeftButton3",
+	"MultiBarLeftButton4",
+	"MultiBarLeftButton5",
+	"MultiBarLeftButton6",
+	"MultiBarLeftButton7",
+	"MultiBarLeftButton8",
+	"MultiBarLeftButton9",
+	"MultiBarLeftButton10",
+	"MultiBarLeftButton11",
+	"MultiBarLeftButton12",
+	"MultiBarLeft",
+	"MultiCastFlyoutFrame",
+	"MultiCastFlyoutFrameOpenButton",
+	"MultiCastSummonSpellButton",
+	"MultiCastSlotButton1",
+	"MultiCastSlotButton2",
+	"MultiCastSlotButton3",
+	"MultiCastSlotButton4",
+	"MultiCastActionBarFrame",
+	"PaladinPowerBar",
+	"PartyMemberFrame1Debuff1",
+	"PartyMemberFrame1Debuff2",
+	"PartyMemberFrame1Debuff3",
+	"PartyMemberFrame1Debuff4",
+	"PartyMemberFrame1PowerBarAlt",
+	"PartyMemberFrame1HealthBar",
+	"PartyMemberFrame1ManaBar",
+	"PartyMemberFrame1MyHealPredictionBar",
+	"PartyMemberFrame1OtherHealPredictionBar",
+	"PartyMemberFrame1Speaker",
+	"PartyMemberFrame1SpeakerFrame",
+	"PartyMemberFrame1ReadyCheck",
+	"PartyMemberFrame1PhasingIcon",
+	"PartyMemberFrame1",
+	"PartyMemberFrame2Debuff1",
+	"PartyMemberFrame2Debuff2",
+	"PartyMemberFrame2Debuff3",
+	"PartyMemberFrame2Debuff4",
+	"PartyMemberFrame2PowerBarAlt",
+	"PartyMemberFrame2HealthBar",
+	"PartyMemberFrame2ManaBar",
+	"PartyMemberFrame2MyHealPredictionBar",
+	"PartyMemberFrame2OtherHealPredictionBar",
+	"PartyMemberFrame2Speaker",
+	"PartyMemberFrame2SpeakerFrame",
+	"PartyMemberFrame2ReadyCheck",
+	"PartyMemberFrame2PhasingIcon",
+	"PartyMemberFrame2",
+	"PartyMemberFrame3Debuff1",
+	"PartyMemberFrame3Debuff2",
+	"PartyMemberFrame3Debuff3",
+	"PartyMemberFrame3Debuff4",
+	"PartyMemberFrame3PowerBarAlt",
+	"PartyMemberFrame3HealthBar",
+	"PartyMemberFrame3ManaBar",
+	"PartyMemberFrame3MyHealPredictionBar",
+	"PartyMemberFrame3OtherHealPredictionBar",
+	"PartyMemberFrame3Speaker",
+	"PartyMemberFrame3SpeakerFrame",
+	"PartyMemberFrame3ReadyCheck",
+	"PartyMemberFrame3PhasingIcon",
+	"PartyMemberFrame3",
+	"PartyMemberFrame4Debuff1",
+	"PartyMemberFrame4Debuff2",
+	"PartyMemberFrame4Debuff3",
+	"PartyMemberFrame4Debuff4",
+	"PartyMemberFrame4PowerBarAlt",
+	"PartyMemberFrame4HealthBar",
+	"PartyMemberFrame4ManaBar",
+	"PartyMemberFrame4MyHealPredictionBar",
+	"PartyMemberFrame4OtherHealPredictionBar",
+	"PartyMemberFrame4Speaker",
+	"PartyMemberFrame4SpeakerFrame",
+	"PartyMemberFrame4ReadyCheck",
+	"PartyMemberFrame4PhasingIcon",
+	"PartyMemberFrame4",
+	"PartyMemberFrame1PetFrameDebuff1",
+	"PartyMemberFrame1PetFrameDebuff2",
+	"PartyMemberFrame1PetFrameDebuff3",
+	"PartyMemberFrame1PetFrameDebuff4",
+	"PartyMemberFrame1PetFrameHealthBar",
+	"PartyMemberFrame1PetFrame",
+	"PartyMemberFrame2PetFrameDebuff1",
+	"PartyMemberFrame2PetFrameDebuff2",
+	"PartyMemberFrame2PetFrameDebuff3",
+	"PartyMemberFrame2PetFrameDebuff4",
+	"PartyMemberFrame2PetFrameHealthBar",
+	"PartyMemberFrame2PetFrame",
+	"PartyMemberFrame3PetFrameDebuff1",
+	"PartyMemberFrame3PetFrameDebuff2",
+	"PartyMemberFrame3PetFrameDebuff3",
+	"PartyMemberFrame3PetFrameDebuff4",
+	"PartyMemberFrame3PetFrameHealthBar",
+	"PartyMemberFrame3PetFrame",
+	"PartyMemberFrame4PetFrameDebuff1",
+	"PartyMemberFrame4PetFrameDebuff2",
+	"PartyMemberFrame4PetFrameDebuff3",
+	"PartyMemberFrame4PetFrameDebuff4",
+	"PartyMemberFrame4PetFrameHealthBar",
+	"PartyMemberFrame4PetFrame",
+	"PetActionButton1",
+	"PetActionButton2",
+	"PetActionButton3",
+	"PetActionButton4",
+	"PetActionButton5",
+	"PetActionButton6",
+	"PetActionButton7",
+	"PetActionButton8",
+	"PetActionButton9",
+	"PetActionButton10",
+	"PetActionBarFrame",
+	"PetFrameDebuff1",
+	"PetFrameDebuff2",
+	"PetFrameDebuff3",
+	"PetFrameDebuff4",
+	"PetFrameHealthBar",
+	"PetFrameManaBar",
+	"PetFrameMyHealPredictionBar",
+	"PetFrameOtherHealPredictionBar",
+	"PetFrame",
+	"PetCastingBarFrame",
+	"PlayerFrameHealthBar",
+	"PlayerFrameManaBar",
+	"PlayerFrameMyHealPredictionBar",
+	"PlayerFrameOtherHealPredictionBar",
+	"PlayerSpeakerFrame",
+	"PlayerFrameReadyCheck",
+	"PlayerPVPIconHitArea",
+	"PlayerStatusGlow",
+	"PlayerPlayTime",
+	"PlayerFrameGroupIndicator",
+	"PlayerFrame",
+	"RuneButtonIndividual1",
+	"RuneButtonIndividual2",
+	"RuneButtonIndividual3",
+	"RuneButtonIndividual4",
+	"RuneButtonIndividual5",
+	"RuneButtonIndividual6",
+	"RuneFrame",
+	"ShapeshiftButton1",
+	"ShapeshiftButton2",
+	"ShapeshiftButton3",
+	"ShapeshiftButton4",
+	"ShapeshiftButton5",
+	"ShapeshiftButton6",
+	"ShapeshiftButton7",
+	"ShapeshiftButton8",
+	"ShapeshiftButton9",
+	"ShapeshiftButton10",
+	"ShapeshiftBarFrame",
+	"ShardBarFrameShard1",
+	"ShardBarFrameShard2",
+	"ShardBarFrameShard3",
+	"ShardBarFrame",
+	--"TargetFrameToTNumericalThreat",
+	--"TargetFrameToTDebuffs",
+	--"TargetFrameToTBuffs",
+	"TargetFrameToTManaBar",
+	--"TargetFrameToTOtherHealPredictionBar",
+	--"TargetFrameToTMyHealPredictionBar",
+	"TargetFrameToTHealthBar",
+	"TargetFrameToTTextureFrame",
+	--"TargetFrameToTPowerBarAlt",
+	--"TargetFrameToTSpellBar",
+	"TargetFrameToT",
+	"TargetFrameDebuffs",
+	"TargetFrameBuffs",
+	"TargetFrameHealthBar",
+	"TargetFrameManaBar",
+	"TargetFrameMyHealPredictionBar",
+	"TargetFrameOtherHealPredictionBar",
+	"TargetFrameNumericalThreat",
+	"TargetFrameTextureFrame",
+	"TargetFramePowerBarAlt",
+	"TargetFrameSpellBar",
+	"TargetFrame",
+	--"FocusFrameToTNumericalThreat",
+	--"FocusFrameToTDebuffs",
+	--"FocusFrameToTBuffs",
+	"FocusFrameToTManaBar",
+	--"FocusFrameToTOtherHealPredictionBar",
+	--"FocusFrameToTMyHealPredictionBar",
+	"FocusFrameToTHealthBar",
+	"FocusFrameToTTextureFrame",
+	--"FocusFrameToTPowerBarAlt",
+	--"FocusFrameToTSpellBar",
+	"FocusFrameToT",
+	"FocusFrameNumericalThreat",
+	"FocusFrameDebuffs",
+	"FocusFrameBuffs",
+	"FocusFrameManaBar",
+	"FocusFrameOtherHealPredictionBar",
+	"FocusFrameMyHealPredictionBar",
+	"FocusFrameHealthBar",
+	"FocusFrameTextureFrame",
+	"FocusFramePowerBarAlt",
+	"FocusFrameSpellBar",
+	"FocusFrame",
+	"Boss1TargetFrameNumericalThreat",
+	"Boss1TargetFrameDebuffs",
+	"Boss1TargetFrameBuffs",
+	"Boss1TargetFrameManaBar",
+	"Boss1TargetFrameOtherHealPredictionBar",
+	"Boss1TargetFrameMyHealPredictionBar",
+	"Boss1TargetFrameHealthBar",
+	"Boss1TargetFrameTextureFrame",
+	"Boss1TargetFramePowerBarAlt",
+	"Boss1TargetFrame",
+	"Boss2TargetFrameNumericalThreat",
+	"Boss2TargetFrameDebuffs",
+	"Boss2TargetFrameBuffs",
+	"Boss2TargetFrameManaBar",
+	"Boss2TargetFrameOtherHealPredictionBar",
+	"Boss2TargetFrameMyHealPredictionBar",
+	"Boss2TargetFrameHealthBar",
+	"Boss2TargetFrameTextureFrame",
+	"Boss2TargetFramePowerBarAlt",
+	"Boss2TargetFrame",
+	"Boss3TargetFrameNumericalThreat",
+	"Boss3TargetFrameDebuffs",
+	"Boss3TargetFrameBuffs",
+	"Boss3TargetFrameManaBar",
+	"Boss3TargetFrameOtherHealPredictionBar",
+	"Boss3TargetFrameMyHealPredictionBar",
+	"Boss3TargetFrameHealthBar",
+	"Boss3TargetFrameTextureFrame",
+	"Boss3TargetFramePowerBarAlt",
+	"Boss3TargetFrame",
+	"Boss4TargetFrameNumericalThreat",
+	"Boss4TargetFrameDebuffs",
+	"Boss4TargetFrameBuffs",
+	"Boss4TargetFrameManaBar",
+	"Boss4TargetFrameOtherHealPredictionBar",
+	"Boss4TargetFrameMyHealPredictionBar",
+	"Boss4TargetFrameHealthBar",
+	"Boss4TargetFrameTextureFrame",
+	"Boss4TargetFramePowerBarAlt",
+	"Boss4TargetFrame",
+	"TotemFrameTotem4",
+	"TotemFrameTotem3",
+	"TotemFrameTotem2",
+	"TotemFrameTotem1",
+	"TotemFrame",
+	"VehicleMenuBarActionButton1",
+	"VehicleMenuBarActionButton2",
+	"VehicleMenuBarActionButton3",
+	"VehicleMenuBarActionButton4",
+	"VehicleMenuBarActionButton5",
+	"VehicleMenuBarActionButton6",
+	"VehicleMenuBarHealthBar",    
+	"VehicleMenuBarPowerBar",
+	"VehicleMenuBar",
+};
 
-function RDXDK.DisableBonusBar()
-	BonusActionBar_OnLoad = VFL.Noop;
-	BonusActionBar_OnEvent = VFL.Noop;
-	BonusActionBar_OnUpdate = VFL.Noop;
-	BonusActionButton1:UnregisterAllEvents();
-	BonusActionButton2:UnregisterAllEvents();
-	BonusActionButton3:UnregisterAllEvents();
-	BonusActionButton4:UnregisterAllEvents();
-	BonusActionButton5:UnregisterAllEvents();
-	BonusActionButton6:UnregisterAllEvents();
-	BonusActionButton7:UnregisterAllEvents();
-	BonusActionButton8:UnregisterAllEvents();
-	BonusActionButton9:UnregisterAllEvents();
-	BonusActionButton10:UnregisterAllEvents();
-	BonusActionButton11:UnregisterAllEvents();
-	BonusActionButton12:UnregisterAllEvents();
-	BonusActionBarFrame:UnregisterAllEvents();
-	BonusActionBarFrame:Hide();
-end
+function RDXDK.DisableAll()
+	local f;
 
-function RDXDK.DisableShapeshiftBar()
-	ShapeshiftBar_OnLoad = VFL.Noop;
-	ShapeshiftBar_OnEvent = VFL.Noop;
-	ShapeshiftBar_Update = VFL.Noop;
-	ShapeshiftButton1:UnregisterAllEvents();
-	ShapeshiftButton2:UnregisterAllEvents();
-	ShapeshiftButton3:UnregisterAllEvents();
-	ShapeshiftButton4:UnregisterAllEvents();
-	ShapeshiftButton5:UnregisterAllEvents();
-	ShapeshiftButton6:UnregisterAllEvents();
-	ShapeshiftButton7:UnregisterAllEvents();
-	ShapeshiftButton8:UnregisterAllEvents();
-	ShapeshiftButton9:UnregisterAllEvents();
-	ShapeshiftButton10:UnregisterAllEvents();
-	ShapeshiftBarFrame:UnregisterAllEvents();
-	ShapeshiftBarFrame:Hide();
-end
-
-function RDXDK.DisablePossessBar()
-	PossessBar_OnLoad = VFL.Noop;
-	PossessBar_OnEvent = VFL.Noop;
-	PossessBar_Update = VFL.Noop;
-	PossessButton1:UnregisterAllEvents();
-	PossessButton2:UnregisterAllEvents();
-	PossessBarFrame:UnregisterAllEvents();
-	PossessBarFrame:Hide();
-end
-
-function RDXDK.DisableBuffFrame()
-	BuffFrame_OnLoad = VFL.Noop;
-	BuffFrame_OnEvent = VFL.Noop;
-	BuffFrame_OnUpdate = VFL.Noop;
-	AuraButton_Update = VFL.Noop;
-	AuraButton_OnUpdate = VFL.Noop;
-	BuffFrame:UnregisterAllEvents();
-	BuffFrame:Hide();
-end
-
-function RDXDK.DisableTemporaryEnchant()
-	TemporaryEnchantFrame_OnUpdate = VFL.Noop;
-	TempEnchantButton_OnLoad = VFL.Noop;
-	TempEnchantButton_OnUpdate = VFL.Noop;
-	TempEnchant1:Hide();
-	TempEnchant2:Hide();
-	TemporaryEnchantFrame:UnregisterAllEvents();
-	TemporaryEnchantFrame:Hide();
-end
-
-function RDXDK.DisableCastingBar()
-	CastingBarFrame_OnLoad = VFL.Noop;
-	CastingBarFrame_OnEvent = VFL.Noop;
-	CastingBarFrame_OnUpdate = VFL.Noop;
-	CastingBarFrame:UnregisterAllEvents();
-	CastingBarFrame:Hide();
-end
-
-function RDXDK.DisableComboFrame()
-	ComboFrame_OnEvent = VFL.Noop;
-	ComboFrame_Update = VFL.Noop;
-	ComboFrame:UnregisterAllEvents();
-	ComboFrame:Hide();
-end
-
-function RDXDK.DisableFocusFrame()
-	FocusFrame_OnLoad = VFL.Noop;
-	FocusFrame_OnEvent = VFL.Noop;
-	FocusFrame_Update = VFL.Noop;
-	FocusFrame_OnUpdate = VFL.Noop;
-	FocusFrame_HealthUpdate = VFL.Noop;
-	FocusFrame:UnregisterAllEvents();
-	FocusFrame:Hide();
-	--FocusPortrait:UnregisterAllEvents();
-	FocusFrameHealthBar:UnregisterAllEvents();
-	--FocusFrameHealthBarText:UnregisterAllEvents();
-	FocusFrameManaBar:UnregisterAllEvents();
-	--FocusFrameManaBarText:UnregisterAllEvents();
+	for i,v in ipairs(disabledframes) do
+		f = _G[v];
+		if f then
+			f:UnregisterAllEvents();
+			f:SetScript("OnUpdate", nil);
+			f:SetScript("OnHide", nil);
+			f:Hide();
+		else
+			VFL.print(v);
+		end
+	end
 	
-	Focus_Spellbar_OnLoad = VFL.Noop;
-	Focus_Spellbar_OnEvent = VFL.Noop;
-	FocusFrameSpellBar:UnregisterAllEvents();
-	FocusFrameSpellBar:Hide();
-	
-	--FocusFrameDebuff1:UnregisterAllEvents();
-	--FocusFrameDebuff2:UnregisterAllEvents();
-	--FocusFrameDebuff3:UnregisterAllEvents();
-	--FocusFrameDebuff4:UnregisterAllEvents();
-	--FocusFrameDebuff5:UnregisterAllEvents();
-	--FocusFrameDebuff6:UnregisterAllEvents();
-	--FocusFrameDebuff7:UnregisterAllEvents();
-	--FocusFrameDebuff8:UnregisterAllEvents();
-	
-	FocusFrameNumericalThreat:UnregisterAllEvents();
-end
-
-function RDXDK.DisableTargetofFocusFrame()	
-	--TargetofFocus_OnLoad = VFL.Noop;
-	--TargetofFocus_Update = VFL.Noop;
-	--TargetofFocusFrame:UnregisterAllEvents();
-	--TargetofFocusFrame:Hide();
-	--TargetofFocusHealthBar:UnregisterAllEvents();
-	--TargetofFocusManaBar:UnregisterAllEvents();
-	--TargetofFocusFrameDebuff1:UnregisterAllEvents();
-	--TargetofFocusFrameDebuff2:UnregisterAllEvents();
-	--TargetofFocusFrameDebuff3:UnregisterAllEvents();
-	--TargetofFocusFrameDebuff4:UnregisterAllEvents();
-end
-
-function RDXDK.DisableCompactRaidFrameManager()
-	CompactRaidFrameManager:UnregisterAllEvents();
-	CompactRaidFrameManager:Hide();
-	CompactRaidFrameContainer:UnregisterEvent("RAID_ROSTER_UPDATE");
-	CompactRaidFrameContainer:UnregisterEvent("UNIT_PET");
-	CompactRaidFrameContainer:Hide();
-end
-
-function RDXDK.DisableMainMenuBar()
-	MainMenuBar_OnLoad = VFL.Noop;
-	MainMenuBar_OnEvent = VFL.Noop;
-	--MainMenuBarArtFrame:UnregisterAllEvents();
+	-- MainMenuBarArtFrame some events must be active
 	MainMenuBarArtFrame:UnregisterEvent("BAG_UPDATE");
 	MainMenuBarArtFrame:UnregisterEvent("ACTIONBAR_PAGE_CHANGED");
-	--MainMenuBarArtFrame:UnregisterEvent('KNOWN_CURRENCY_TYPES_UPDATE');
-	--MainMenuBarArtFrame:UnregisterEvent('CURRENCY_DISPLAY_UPDATE');
 	MainMenuBarArtFrame:UnregisterEvent("UNIT_ENTERING_VEHICLE");
 	MainMenuBarArtFrame:UnregisterEvent("UNIT_ENTERED_VEHICLE");
 	MainMenuBarArtFrame:UnregisterEvent("UNIT_EXITING_VEHICLE");
 	MainMenuBarArtFrame:UnregisterEvent("UNIT_EXITED_VEHICLE");
 	MainMenuBarArtFrame:UnregisterEvent("PLAYER_ENTERING_WORLD");
+	MainMenuBarArtFrame:SetScript("OnUpdate", nil);
 	MainMenuBarArtFrame:Hide();
 	
-	ExhaustionTick_OnLoad = VFL.Noop;
-	ExhaustionTick_OnEvent = VFL.Noop;
-	MainMenuExpBar_Update = VFL.Noop;
-	MainMenuBar_ToPlayerArt = VFL.Noop;
-	MainMenuExpBar:UnregisterAllEvents();
-	MainMenuExpBar:Hide();
-	ExhaustionTick:UnregisterAllEvents();
-	ExhaustionTick:Hide();
-	MainMenuBar:UnregisterAllEvents();
-	MainMenuBar:Hide();
-end
+	local ignorebuttons = {
+		"MiniMapMailFrame",
+		"MiniMapBattlefieldFrame",
+		"MinimapPing",
+		"MiniMapVoiceChatFrame",
+	};
 
---MainMenuBarBagButtons todo
---MainMenuBarMicroButtons todo
-
-function RDXDK.DisableMinimap()
-	MinimapCluster:UnregisterAllEvents();
-	MinimapCluster:Hide();
-	--TimeManagerClockButton_OnLoad = VFL.Noop();
-	--TimeManagerClockButton_Update = VFL.Noop();
-	--TimeManagerClockButton_OnUpdate = VFL.Noop();
-end
-
--- The folowing feature is used to hide all buttons around the minimap
-
-local ignorebuttons = {
-	"MiniMapMailFrame",
-	"MiniMapBattlefieldFrame",
-	"MinimapPing",
-	"MiniMapVoiceChatFrame",
-};
-
-function RDXDK.DisableButtonMinimap()
 	local flagfoundbutton = nil
 	local function findButtons()
 		if opt and opt.buttonmm then
@@ -232,204 +418,15 @@ function RDXDK.DisableButtonMinimap()
 	WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, findButtons);
 	RDXEvents:Bind("INIT_DEFERRED", nil, findButtons);
 	findButtons();
-end
-
--- MirrorTimer todo
-
-function RDXDK.DisableMultiBars()
-	MultiActionBar_Update = VFL.Noop;
-	MultiActionBarFrame_OnLoad = VFL.Noop;
-	MultiBarBottomLeft:UnregisterAllEvents();
-	MultiBarBottomLeft:Hide();
-	MultiBarBottomLeftButton1:UnregisterAllEvents();
-	MultiBarBottomLeftButton2:UnregisterAllEvents();
-	MultiBarBottomLeftButton3:UnregisterAllEvents();
-	MultiBarBottomLeftButton4:UnregisterAllEvents();
-	MultiBarBottomLeftButton5:UnregisterAllEvents();
-	MultiBarBottomLeftButton6:UnregisterAllEvents();
-	MultiBarBottomLeftButton7:UnregisterAllEvents();
-	MultiBarBottomLeftButton8:UnregisterAllEvents();
-	MultiBarBottomLeftButton9:UnregisterAllEvents();
-	MultiBarBottomLeftButton10:UnregisterAllEvents();
-	MultiBarBottomLeftButton11:UnregisterAllEvents();
-	MultiBarBottomLeftButton12:UnregisterAllEvents();
-	MultiBarBottomRight:UnregisterAllEvents();
-	MultiBarBottomRight:Hide();
-	MultiBarBottomRightButton1:UnregisterAllEvents();
-	MultiBarBottomRightButton2:UnregisterAllEvents();
-	MultiBarBottomRightButton3:UnregisterAllEvents();
-	MultiBarBottomRightButton4:UnregisterAllEvents();
-	MultiBarBottomRightButton5:UnregisterAllEvents();
-	MultiBarBottomRightButton6:UnregisterAllEvents();
-	MultiBarBottomRightButton7:UnregisterAllEvents();
-	MultiBarBottomRightButton8:UnregisterAllEvents();
-	MultiBarBottomRightButton9:UnregisterAllEvents();
-	MultiBarBottomRightButton10:UnregisterAllEvents();
-	MultiBarBottomRightButton11:UnregisterAllEvents();
-	MultiBarBottomRightButton12:UnregisterAllEvents();
-	MultiBarRight:UnregisterAllEvents();
-	MultiBarRight:Hide();
-	MultiBarRightButton1:UnregisterAllEvents();
-	MultiBarRightButton2:UnregisterAllEvents();
-	MultiBarRightButton3:UnregisterAllEvents();
-	MultiBarRightButton4:UnregisterAllEvents();
-	MultiBarRightButton5:UnregisterAllEvents();
-	MultiBarRightButton6:UnregisterAllEvents();
-	MultiBarRightButton7:UnregisterAllEvents();
-	MultiBarRightButton8:UnregisterAllEvents();
-	MultiBarRightButton9:UnregisterAllEvents();
-	MultiBarRightButton10:UnregisterAllEvents();
-	MultiBarRightButton11:UnregisterAllEvents();
-	MultiBarRightButton12:UnregisterAllEvents();
-	MultiBarLeft:UnregisterAllEvents();
-	MultiBarLeft:Hide();
-	MultiBarLeftButton1:UnregisterAllEvents();
-	MultiBarLeftButton2:UnregisterAllEvents();
-	MultiBarLeftButton3:UnregisterAllEvents();
-	MultiBarLeftButton4:UnregisterAllEvents();
-	MultiBarLeftButton5:UnregisterAllEvents();
-	MultiBarLeftButton6:UnregisterAllEvents();
-	MultiBarLeftButton7:UnregisterAllEvents();
-	MultiBarLeftButton8:UnregisterAllEvents();
-	MultiBarLeftButton9:UnregisterAllEvents();
-	MultiBarLeftButton10:UnregisterAllEvents();
-	MultiBarLeftButton11:UnregisterAllEvents();
-	MultiBarLeftButton12:UnregisterAllEvents();
-end
-
-function RDXDK.DisablePartyMember()
-	ShowPartyFrame = VFL.Noop;
-	PartyMemberFrame_OnLoad = VFL.Noop;
-	PartyMemberFrame_OnEvent = VFL.Noop;
-	PartyMemberFrame_OnUpdate = VFL.Noop;
-	PartyMemberFrame_UpdateMember = VFL.Noop;
-	PartyMemberFrame1:UnregisterAllEvents();
-	PartyMemberFrame1:Hide();
-	PartyMemberFrame2:UnregisterAllEvents();
-	PartyMemberFrame2:Hide();
-	PartyMemberFrame3:UnregisterAllEvents();
-	PartyMemberFrame3:Hide();
-	PartyMemberFrame4:UnregisterAllEvents();
-	PartyMemberFrame4:Hide();
 	
-	PartyMemberFrame_UpdatePet = VFL.Noop;
-	PartyMemberFrame1PetFrame:UnregisterAllEvents();
-	PartyMemberFrame1PetFrame:Hide();
-	PartyMemberFrame2PetFrame:UnregisterAllEvents();
-	PartyMemberFrame2PetFrame:Hide();
-	PartyMemberFrame3PetFrame:UnregisterAllEvents();
-	PartyMemberFrame3PetFrame:Hide();
-	PartyMemberFrame4PetFrame:UnregisterAllEvents();
-	PartyMemberFrame4PetFrame:Hide();
-end
+	-- combatlogs
+	Blizzard_CombatLog_Update_QuickButtons = VFL.Noop;
+	CombatLog_OnEvent = VFL.Noop;
+	ChatFrame2:Hide();
+	ChatFrame2:SetScript("OnShow", ChatFrame2.Hide);
+	ChatFrame2Tab:Hide();
+	ChatFrame2Tab:SetScript("OnShow", ChatFrame2Tab.Hide);
 
-function RDXDK.DisablePetActionBar()
-	PetActionButton_OnLoad = VFL.Noop;
-	PetActionButton_OnEvent = VFL.Noop;
-	PetActionButton1:UnregisterAllEvents();
-	PetActionButton2:UnregisterAllEvents();
-	PetActionButton3:UnregisterAllEvents();
-	PetActionButton4:UnregisterAllEvents();
-	PetActionButton5:UnregisterAllEvents();
-	PetActionButton6:UnregisterAllEvents();
-	PetActionButton7:UnregisterAllEvents();
-	PetActionButton8:UnregisterAllEvents();
-	PetActionButton9:UnregisterAllEvents();
-	PetActionButton10:UnregisterAllEvents();
-	PetActionBar_OnLoad = VFL.Noop;
-	PetActionBar_OnEvent = VFL.Noop;
-	PetActionBarFrame_OnUpdate = VFL.Noop;
-	PetActionBarFrame:UnregisterAllEvents();
-	PetActionBarFrame:Hide();
-end
-
-function RDXDK.DisablePetFrames()
-	PetFrame_OnLoad = VFL.Noop;
-	PetFrame_OnEvent = VFL.Noop;
-	PetFrame_OnUpdate = VFL.Noop;
-	PetFrame:UnregisterAllEvents();
-	PetFrame:Hide();
-	PetFrameHealthBar:UnregisterAllEvents();
-	PetFrameManaBar:UnregisterAllEvents();
-	--PetFrameHappiness:UnregisterAllEvents();
-	PetCastingBarFrame_OnLoad = VFL.Noop;
-	PetCastingBarFrame_OnEvent = VFL.Noop;
-	PetCastingBarFrame:UnregisterAllEvents();
-	PetCastingBarFrame:Hide();
-end
-
-function RDXDK.DisablePlayerFrames()
-	PlayerFrame_OnLoad = VFL.Noop;
-	PlayerFrame_OnEvent = VFL.Noop;
-	PlayerFrame_OnUpdate = VFL.Noop;
-	PlayerFrame:UnregisterAllEvents();
-	PlayerFrame:Hide();
-	PlayerFrameHealthBar:UnregisterAllEvents();
-	UnitFrameHealthBar_OnValueChanged = VFL.Noop;
-	PlayerFrameManaBar:UnregisterAllEvents();
-	PlayerFrameAlternateManaBar:UnregisterAllEvents();
-end
-
-function RDXDK.DisableRuneFrames()
-	RuneButton_OnLoad = VFL.Noop;
-	RuneButton_OnUpdate = VFL.Noop;
-	RuneButtonIndividual1:UnregisterAllEvents();
-	RuneButtonIndividual2:UnregisterAllEvents();
-	RuneButtonIndividual3:UnregisterAllEvents();
-	RuneButtonIndividual4:UnregisterAllEvents();
-	RuneButtonIndividual5:UnregisterAllEvents();
-	RuneButtonIndividual6:UnregisterAllEvents();
-	RuneFrame_OnLoad = VFL.Noop;
-	RuneFrame_OnEvent = VFL.Noop;
-	RuneFrame:UnregisterAllEvents();
-	RuneFrame:Hide();
-end
-
-function RDXDK.DisableTargetFrames()
-	TargetFrame_OnLoad = VFL.Noop;
-	TargetFrame_OnEvent = VFL.Noop;
-	TargetFrame_OnUpdate = VFL.Noop;
-	TargetFrame_HealthUpdate = VFL.Noop;
-	TargetFrame:UnregisterAllEvents();
-	TargetFrame:Hide();
-	TargetFrameHealthBar:UnregisterAllEvents();
-	TargetFrameManaBar:UnregisterAllEvents();
-	TargetFrameSpellBar:UnregisterAllEvents();
-end
-
-function RDXDK.DisableBoss()
-	BossTargetFrame_OnLoad = VFL.Noop;
-	for i=1,4 do
-		local f = _G["Boss"..i.."TargetFrame"];
-		f:SetScript("OnShow", f.Hide);
-		f:UnregisterAllEvents();
-		f.SetScript = VFL.Noop;
-		f:Hide() 
-	end
-end
-
-function RDXDK.DisableTargetofTargetFrames()
-	--TargetofTarget_OnLoad = VFL.Noop;
-	--TargetofTarget_Update = VFL.Noop;
-	--TargetofTargetFrame:UnregisterAllEvents();
-	--TargetofTargetFrame:Hide();
-	--TargetofTargetHealthBar:UnregisterAllEvents();
-	--TargetofTargetHealthCheck = VFL.Noop;
-	--TargetofTargetManaBar:UnregisterAllEvents();
-end
-
-function RDXDK.DisableUnitframesEngine()
-	TextStatusBar_OnEvent = VFL.Noop;
-	TextStatusBar_OnValueChanged = VFL.Noop;
-	--HealthBar_OnValueChanged = VFL.Noop;
-	UnitFrame_OnEvent = VFL.Noop;
-	UnitFrame_Update = VFL.Noop;
-	UnitFrameHealthBar_OnEvent = VFL.Noop;
-	UnitFrameHealthBar_OnUpdate = VFL.Noop;
-	UnitFrameHealthBar_OnValueChanged = VFL.Noop;
-	UnitFrameManaBar_OnEvent = VFL.Noop;
-	UnitFrameManaBar_OnUpdate = VFL.Noop;
-	UnitFrameThreatIndicator_OnEvent = VFL.Noop;
 	-- disable focus function
 	for _, menu in pairs(UnitPopupMenus) do
 		for button, name in pairs(menu) do
@@ -450,7 +447,141 @@ function RDXDK.DisableUnitframesEngine()
 			end
 		end
 	end
+	
+	MainMenuBarBackpackButton_UpdateFreeSlots = VFL.Noop;
+	
+	-- boss
+	for i=1,4 do
+		f = _G["Boss"..i.."TargetFrame"];
+		f:SetScript("OnShow", f.Hide);
+		f.SetScript = VFL.Noop;
+	end
+	
+	--[[
+	ActionButton_OnLoad = VFL.Noop;
+	ActionButton_OnEvent = VFL.Noop;
+	ActionButton_Update = VFL.Noop;
+	ActionButton_UpdateFlyout = VFL.Noop;	
+	
+	
+	AlternatePowerBar_OnEvent = VFL.Noop;
+	TextStatusBar_OnEvent = VFL.Noop;
+	
+	BonusActionBar_OnLoad = VFL.Noop;
+	BonusActionBar_OnEvent = VFL.Noop;
+	BonusActionBar_OnUpdate = VFL.Noop;
+	
+	BossTargetFrame_OnLoad = VFL.Noop;
+	
+	PossessBar_OnLoad = VFL.Noop;
+	PossessBar_OnEvent = VFL.Noop;
+	PossessBar_Update = VFL.Noop;
+	
+	BuffFrame_OnLoad = VFL.Noop;
+	BuffFrame_OnEvent = VFL.Noop;
+	BuffFrame_OnUpdate = VFL.Noop;
+	AuraButton_Update = VFL.Noop;
+	AuraButton_OnUpdate = VFL.Noop;
+	ConsolidatedBuffs_OnUpdate = VFL.Noop;
+	TemporaryEnchantFrame_OnUpdate = VFL.Noop;
+	TempEnchantButton_OnLoad = VFL.Noop;
+	TempEnchantButton_OnUpdate = VFL.Noop;
+	
+	CastingBarFrame_OnLoad = VFL.Noop;
+	CastingBarFrame_OnEvent = VFL.Noop;
+	CastingBarFrame_OnUpdate = VFL.Noop;
+	
+	ComboFrame_OnEvent = VFL.Noop;
+	ComboFrame_Update = VFL.Noop;
+	
+	FocusFrame_OnLoad = VFL.Noop;
+	FocusFrame_OnEvent = VFL.Noop;
+	FocusFrame_Update = VFL.Noop;
+	FocusFrame_OnUpdate = VFL.Noop;
+	FocusFrame_HealthUpdate = VFL.Noop;
+	Focus_Spellbar_OnLoad = VFL.Noop;
+	Focus_Spellbar_OnEvent = VFL.Noop;
+	
+	MainMenuBar_OnLoad = VFL.Noop;
+	MainMenuBar_OnEvent = VFL.Noop;
+	ExhaustionTick_OnLoad = VFL.Noop;
+	ExhaustionTick_OnEvent = VFL.Noop;
+	MainMenuExpBar_Update = VFL.Noop;
+	MainMenuBar_ToPlayerArt = VFL.Noop;
+	
+	MultiActionBar_Update = VFL.Noop;
+	MultiActionBarFrame_OnLoad = VFL.Noop;
+	
+	ShowPartyFrame = VFL.Noop;
+	PartyMemberFrame_OnLoad = VFL.Noop;
+	PartyMemberFrame_OnEvent = VFL.Noop;
+	PartyMemberFrame_OnUpdate = VFL.Noop;
+	PartyMemberFrame_UpdateMember = VFL.Noop;
+	
+	PartyMemberFrame_UpdatePet = VFL.Noop;
+	PetActionButton_OnLoad = VFL.Noop;
+	PetActionButton_OnEvent = VFL.Noop;
+	PetActionBar_OnLoad = VFL.Noop;
+	PetActionBar_OnEvent = VFL.Noop;
+	PetActionBarFrame_OnUpdate = VFL.Noop;
+	
+	PetFrame_OnLoad = VFL.Noop;
+	PetFrame_OnEvent = VFL.Noop;
+	PetFrame_OnUpdate = VFL.Noop;
+	PetCastingBarFrame_OnLoad = VFL.Noop;
+	PetCastingBarFrame_OnEvent = VFL.Noop;
+	
+	PlayerFrame_OnLoad = VFL.Noop;
+	PlayerFrame_OnEvent = VFL.Noop;
+	PlayerFrame_OnUpdate = VFL.Noop;
+	UnitFrameHealthBar_OnValueChanged = VFL.Noop;
+	
+	RuneButton_OnLoad = VFL.Noop;
+	RuneButton_OnUpdate = VFL.Noop;
+	RuneFrame_OnLoad = VFL.Noop;
+	RuneFrame_OnEvent = VFL.Noop;
+	EclipseBar_Update = VFL.Noop;
+	
+	ShapeshiftBar_OnLoad = VFL.Noop;
+	ShapeshiftBar_OnEvent = VFL.Noop;
+	ShapeshiftBar_Update = VFL.Noop;
+	
+	TargetFrame_OnLoad = VFL.Noop;
+	TargetFrame_OnEvent = VFL.Noop;
+	TargetFrame_OnUpdate = VFL.Noop;
+	TargetFrame_HealthUpdate = VFL.Noop;
+	
+	TextStatusBar_OnEvent = VFL.Noop;
+	TextStatusBar_OnValueChanged = VFL.Noop;
+	--HealthBar_OnValueChanged = VFL.Noop;
+	UnitFrame_OnEvent = VFL.Noop;
+	UnitFrame_Update = VFL.Noop;
+	UnitFrameHealthBar_OnEvent = VFL.Noop;
+	UnitFrameHealthBar_OnUpdate = VFL.Noop;
+	UnitFrameHealthBar_OnValueChanged = VFL.Noop;
+	UnitFrameManaBar_OnEvent = VFL.Noop;
+	UnitFrameManaBar_OnUpdate = VFL.Noop;
+	UnitFrameThreatIndicator_OnEvent = VFL.Noop;
+	
+	UIParent_ManageFramePosition = VFL.Noop;
+	
+	VehicleMenuBar_OnLoad = VFL.Noop;
+	VehicleMenuBar_OnEvent = VFL.Noop;
+	VehicleMenuBarPitch_OnLoad = VFL.Noop;
+	VehicleMenuBarPitch_OnEvent = VFL.Noop;
+	]]
 end
+
+
+function RDXDK.DisableCompactRaidFrameManager()
+	CompactRaidFrameManager:UnregisterAllEvents();
+	CompactRaidFrameManager:Hide();
+	CompactRaidFrameContainer:UnregisterEvent("RAID_ROSTER_UPDATE");
+	CompactRaidFrameContainer:UnregisterEvent("UNIT_PET");
+	CompactRaidFrameContainer:Hide();
+end
+
+-- The folowing feature is used to hide all buttons around the minimap
 
 -- move into design
 
@@ -505,59 +636,13 @@ function RDXDK.DisableChatFrames()
 	
 end
 
-function RDXDK.DisableCombatLogsFrames()
-	--CombatLogUpdateFrame
-	--CombatLogQuickButtonFrame_Custom
-	--ChatFrame2:UnregisterAllEvents();
-	Blizzard_CombatLog_Update_QuickButtons = VFL.Noop;
-	CombatLog_OnEvent = VFL.Noop;
-	ChatFrame2:Hide();
-	ChatFrame2:SetScript("OnShow", ChatFrame2.Hide);
-	--ChatFrame2Tab:UnregisterAllEvents();
-	ChatFrame2Tab:Hide();
-	ChatFrame2Tab:SetScript("OnShow", ChatFrame2Tab.Hide);
-	--COMBATLOG:SetScript("OnUpdate", nil);
-	--COMBATLOG:SetScript("OnEvent", nil);
-	--COMBATLOG:SetScript("OnShow", nil);
-	--COMBATLOG:SetScript("OnHide", nil);
-	--CombatLogUpdateFrame:SetScript("OnUpdate", nil);
-	--COMBATLOG:UnregisterAllEvents();
-	--CombatLogUpdateFrame:UnregisterAllEvents();
-end
 
-function RDXDK.DisableUIManager()
-	UIParent_ManageFramePosition = VFL.Noop;
-end
 
-function RDXDK.DisableMicroButton()
-	--TalentMicroButtonAlert
-	--TalentMicroButtonAlert:Hide();
-	--TalentMicroButton_OnEvent = VFL.Noop;
-	--TalentMicroButtonAlert:Hide();
-	MainMenuBarBackpackButton_UpdateFreeSlots = VFL.Noop;
-end
-	
-function RDXDK.DisableVehicleMenuBar()
-	VehicleMenuBar_OnLoad = VFL.Noop;
-	VehicleMenuBar_OnEvent = VFL.Noop;
-	VehicleMenuBarPitch_OnLoad = VFL.Noop;
-	VehicleMenuBarPitch_OnEvent = VFL.Noop;
-	VehicleMenuBar:UnregisterAllEvents();
-	VehicleMenuBar:Hide();
-	VehicleMenuBarActionButton1:UnregisterAllEvents();
-	VehicleMenuBarActionButton2:UnregisterAllEvents();
-	VehicleMenuBarActionButton3:UnregisterAllEvents();
-	VehicleMenuBarActionButton4:UnregisterAllEvents();
-	VehicleMenuBarActionButton5:UnregisterAllEvents();
-	VehicleMenuBarActionButton6:UnregisterAllEvents();
-	VehicleMenuBarHealthBar:UnregisterAllEvents();
-	VehicleMenuBarPowerBar:UnregisterAllEvents();
-end
 
 ------------------------------------------------------
 -- Manager
 ------------------------------------------------------
-
+--[[
 local dlg = nil;
 function RDXDK.BlizzardManage(parent)
 	if dlg then return; end
@@ -919,19 +1004,20 @@ local function disableblizz()
 		if opt.bouf then RDXDK.DisableBoss(); end
 		if opt.uuf then RDXDK.DisableUnitframesEngine(); end
 	end
-end
+end]]
 
 local efdb = nil;
 
 VFLEvents:Bind("PLAYER_COMBAT", nil, function()
 	if efdb then
-		disableblizz();
+		--disableblizz();
+		RDXDK.DisableAll();
 		efdb = nil;
 	end
 end);
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	RDXU.disablebliz = nil;
+	--[[RDXU.disablebliz = nil;
 	if not RDXU.disablebliz2 then 
 		RDXU.disablebliz2 = {
 			ab = true,
@@ -964,9 +1050,10 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 			toolposition = true,
 		}; 
 	end
-	opt = RDXU.disablebliz2;
+	opt = RDXU.disablebliz2;]]
 	if not InCombatLockdown() then
-		disableblizz();
+		--disableblizz();
+		RDXDK.DisableAll();
 	else
 		efdb = true;
 	end

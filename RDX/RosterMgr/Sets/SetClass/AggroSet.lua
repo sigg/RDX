@@ -18,7 +18,6 @@ local function UpdateAggroMap()
 	for i=1,40 do
 		unit = GetUnitByNumber(i);
 		if unit:IsCacheValid() then
-		--if unit:IsValid() then
 			uid = unit.uid; t = uid .. "target"; tt = t .. "target";
 			-- "Target" must be hostile and "targettarget" must be friendly
 			if UnitExists(tt) and UnitIsEnemy(uid, t) and UnitIsFriend(uid, tt) then
@@ -39,6 +38,7 @@ local function UpdateAggroSet()
 	UpdateAggroMap();
 	for i=1,40 do aggroSet:_Set(i, aggromap[i]); end
 end
+VFLP.RegisterFunc("RDX", "AggroUpdate", UpdateAggroSet, true);
 
 function aggroSet:_OnActivate()
 	VFLT.AdaptiveUnschedule("AggroUpdate");

@@ -966,18 +966,6 @@ function VFLUI.FindLayoutRoot(x)
 	return nil;
 end
 
---- Update a dialog's layout. CATACLYSM
---function VFLUI.UpdateDialogLayout(x)
---	local r = VFLUI.FindLayoutRoot(x);
---	if (not r) or r._layout_dirty then return; end
---	r._layout_dirty = true;
---	r._oldOnUpdate = r:GetScript("OnUpdate");
---	r:SetScript("OnUpdate", function(this)
---		this:SetScript("OnUpdate", this._oldOnUpdate); this._oldOnUpdate = nil;
---		this._layout_dirty = nil;
---		this:DialogOnLayout();
---	end);
---end
 function VFLUI.UpdateDialogLayout(x)
 	local r = VFLUI.FindLayoutRoot(x);
 	if (not r) or r._layout_dirty then return; end

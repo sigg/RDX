@@ -30,7 +30,7 @@ local frs_70, frs_30, frs_10;
 local function UpdateFRS()
 	RDXDAL.BeginEventBatch();
 	-- For each valid unit, check its range using CID.
-	for i=1,MAX_UNITS do
+	for i=1,40 do
 		unit = GetUnitByNumber(i); uid = unit.uid;
 		if (not unit:IsCacheValid()) or (not UnitIsVisible(uid)) then
 			frs_70:_Set(i, false); frs_30:_Set(i, false); frs_10:_Set(i, false);
@@ -128,7 +128,7 @@ local uirs = RDXDAL.Set:new();
 uirs.name = "Unit in Range<>";
 
 local function UpdateUIRS()
-	for i=1,MAX_UNITS do
+	for i=1,40 do
 		unit = GetUnitByNumber(i); uid = unit.uid;
 		if unit:IsCacheValid() and UnitInRange(uid) then
 			uirs:_Set(i, true);
@@ -137,6 +137,7 @@ local function UpdateUIRS()
 		end
 	end
 end
+VFLP.RegisterFunc("RDX", "UpdateUIRS", UpdateUIRS, true);
 
 function uirs:_OnActivate()
 	if not perf_rf_Enabled then return; end
@@ -160,13 +161,12 @@ RDXDAL.RegisterSetClass({
 
 ----------------------------------------------------------------------------------------
 -- WOW 2.0 EXACT SPELL/ITEM RANGE CHECKING
--- WOW 2.4 Unit in range UnitInRange("unit") by Sigg
 ----------------------------------------------------------------------------------------
 local srs = {};
 local irs = {};
 
 local function UpdateSRS()
-	for i=1,MAX_UNITS do
+	for i=1,40 do
 		unit = GetUnitByNumber(i); uid = unit.uid;
 		for k,v in pairs(srs) do
 			if unit:IsCacheValid() and (IsSpellInRange(k, uid) == 1) then
@@ -179,7 +179,7 @@ local function UpdateSRS()
 end
 
 local function UpdateIRS()
-	for i=1,MAX_UNITS do
+	for i=1,40 do
 		unit = GetUnitByNumber(i); uid = unit.uid;
 		for k,v in pairs(irs) do
 			if unit:IsCacheValid() and (IsItemInRange(k, uid) == 1) then
@@ -192,13 +192,20 @@ local function UpdateIRS()
 end
 
 local function UpdateRS()
-	RDXDAL.BeginEventBatch();
-	UpdateSRS();
-	UpdateIRS();
-	RDXDAL.EndEventBatch();
+	if not VFL.isempty(srs) then
+		RDXDAL.BeginEventBatch();
+		UpdateSRS();
+		RDXDAL.EndEventBatch();
+	end
+	if not VFL.isempty(irs) then
+		RDXDAL.BeginEventBatch();
+		UpdateIRS();
+		RDXDAL.EndEventBatch();
+	end
 end
 
-VFLT.AdaptiveSchedule("srs", frsTickLength, UpdateRS);
+VFLT.AdaptiveSchedule("Rangefinding", frsTickLength, UpdateRS);
+VFLP.RegisterFunc("RDX", "Rangefinding", UpdateRS, true);
 
 --- Get an exact range set for the given spell.
 function RDXRF.GetSpellRangeSet(spell)
