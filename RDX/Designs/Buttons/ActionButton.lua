@@ -266,7 +266,7 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 				
 				-- Border and gloss indicator
 				VFLT.AdaptiveUnschedule("ScheduleactionButton" .. id);
-				VFLT.AdaptiveSchedule("ScheduleactionButton" .. id, 0.5, function()
+				--[[VFLT.AdaptiveSchedule("ScheduleactionButton" .. id, 0.5, function()
 					-- flash
 					if self.ga then
 						if self.gacp then
@@ -331,7 +331,7 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 							self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
 						end
 					end
-				end);
+				end);]]
 			else
 				VFLT.AdaptiveUnschedule("ScheduleactionButton" .. id);
 				self.txtMacro:Hide();
@@ -660,7 +660,7 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 				
 				-- Border and gloss indicator
 				VFLT.AdaptiveUnschedule("SchedulemulticastButton" .. id);
-				VFLT.AdaptiveSchedule("SchedulemulticastButton" .. id, 0.5, function()
+				--[[VFLT.AdaptiveSchedule("SchedulemulticastButton" .. id, 0.5, function()
 					-- current action yellow color
 					if self.ca then
 						if self.usebs then
@@ -702,7 +702,7 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 							self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
 						end
 					end
-				end);
+				end);]]
 			else
 				VFLT.AdaptiveUnschedule("SchedulemulticastButton" .. id);
 				self.txtMacro:Hide();
@@ -1016,7 +1016,7 @@ function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 		if name then
 			-- Border and gloss indicator
 			VFLT.AdaptiveUnschedule("ScheduleactionButtonPet" .. self.id);
-			VFLT.AdaptiveSchedule("ScheduleactionButtonPet" .. self.id, 0.5, function()
+			--[[VFLT.AdaptiveSchedule("ScheduleactionButtonPet" .. self.id, 0.5, function()
 				-- current action yellow color
 				if self.ca then
 					if self.usebs then
@@ -1054,7 +1054,7 @@ function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 						self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
 					end
 				end
-			end);
+			end);]]
 		else
 			VFLT.AdaptiveUnschedule("ScheduleactionButtonPet" .. self.id);
 			if self.usebs then

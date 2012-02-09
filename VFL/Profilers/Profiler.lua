@@ -633,6 +633,8 @@ local fWeight = ( (SAMPLESIZE-1)/SAMPLESIZE );
 local sWeight = 1 - fWeight;
 local vps, val = 0 , 0;
 
+local muf = CreateFrame("Frame");
+
 local function updateTextPerf()
 	UpdateAddOnMemoryUsage();
 	memtotal_color, ips_color, latency_color = _green, _red, _green;
@@ -684,12 +686,18 @@ WoWEvents:Bind("VARIABLES_LOADED", nil, function()
 		VFLConfig.prof_summary_update_interval = summary_update_interval;
 	end
 	
-	VFLT.AdaptiveSchedule("VFLP.textperf", 1, updateTextPerf);
-	
 	if VFLP.IsEnabled() then
 		if RDX then RDX.printW(VFLI.i18n("Profiler Activated !!!")); end
 		suf:SetScript("OnUpdate", SummaryUpdate);
 		--euf:SetScript("OnUpdate", EventUpdate);
+		local last_as = 0;
+		muf:SetScript("OnUpdate", function(self, elapsed)
+			last_as = last_as + elapsed;
+			if last_as > 1 then
+				updateTextPerf();
+				last_as = 0;
+			end
+		end);
 		ouf:SetScript("OnUpdate", ObjectUpdate);
 		puf:SetScript("OnUpdate", PoolUpdate);
 	end

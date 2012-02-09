@@ -13,6 +13,9 @@ RDX = RegisterVFLModule({
 RDX:LoadVersionFromTOC("RDX");
 --RDX:ModuleSetDebugLevel(7);
 
+-- profiling
+VFLP.RegisterCategory("RDX");
+
 -- The module tablespace
 --RDXM = {};
 local initd = nil;

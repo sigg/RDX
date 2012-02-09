@@ -278,6 +278,8 @@ RDXDAL.RegisterSetClass({
 --------------------------------------
 -- Aurafilter set by sigg
 --------------------------------------
+-- deprecated
+--[[
 
 local auraFilterUpdatePeriod = 0.5;
 
@@ -445,4 +447,4 @@ RDXDAL.RegisterSetClass({
 	end,
 });
 
-
+]]

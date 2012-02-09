@@ -105,6 +105,30 @@ function RDXDK.Desktop:new(parent)
 	function self:_GetFrameProps(name) return framePropsList[name]; end
 	function self:_GetFramePropsList() return framePropsList; end
 	
+	-----------------------------------
+	local framepropsroot = nil;
+	local function GetSavePosition(name)
+		if framepropsroot then
+			local saveposition = framepropsroot.sp;
+			if saveposition and saveposition[name] then
+				local sp = VFL.copy(saveposition[name]);
+				--saveposition[name] = nil;
+				return sp;
+			else
+				return nil;
+			end
+		else
+			return nil;
+		end
+	end
+	local function SetSavePosition(name, fp)
+		if framepropsroot then
+			if not framepropsroot.sp then framepropsroot.sp = {}; end
+			framepropsroot.sp[name] = VFL.copy(fp);
+		end
+	end
+	-------------------------------------
+	
 	----------------------------------------------
 	local lockstate = true;
 	function self:_IsLocked() return lockstate; end
@@ -230,14 +254,16 @@ function RDXDK.Desktop:new(parent)
 			--frame:SetClampedToScreen(frameprops.cts);
 			frame:WMGetPositionalFrame():SetClampedToScreen(true); --frameprops.cts);
 			local ap, l = frameprops.ap, frameprops.l;
+			local sp = GetSavePosition(name)
 			if name == "root" then
 				frame:WMGetPositionalFrame():SetAllPoints(RDXParent);
 				RDXDK:Debug(9, "   -- LayoutFrame AllPoints(RDXParent)");
 			elseif l then
-				--if not ap then ap = VFLUI.GetBoxQuadrantbyPosition(frameprops.l, frameprops.t, frameprops.r, frameprops.b); end
 				if not ap or ap == "Auto" then ap = "TOPLEFT"; end
 				VFLUI.SetAnchorFramebyPosition(frame:WMGetPositionalFrame(), ap, frameprops.l, frameprops.t, frameprops.r, frameprops.b);
 				RDXDK:Debug(9, "   -- LayoutFrame Position(".. ap ..",".. frameprops.l ..")");
+			elseif name ~= "root" and sp then
+				VFLUI.SetAnchorFramebyPosition(frame:WMGetPositionalFrame(), "TOPLEFT", sp.l, sp.t, sp.r, sp.b);
 			else
 				frame:WMGetPositionalFrame():SetPoint("CENTER", RDXParent, "CENTER");
 				RDXDK:Debug(9, "   -- LayoutFrame CENTER(RDXParent)");
@@ -385,6 +411,8 @@ function RDXDK.Desktop:new(parent)
 				local frameprops = nil;
 				if wtype == "Desktop main" then
 					frameprops = RDXDB.GetFeatureData(self._path, wtype);
+					-- store the root in the variable
+					framepropsroot = frameprops;
 				else
 					frameprops = RDXDB.GetFeatureData(self._path, wtype, "name", name);
 				end
@@ -416,6 +444,10 @@ function RDXDK.Desktop:new(parent)
 	
 	local function windowClose(name, wtype)
 		RDXDK:Debug(6, "windowClose " .. name);
+		-- store the position in root feature
+		if name ~= "root" then
+			SetSavePosition(name, framePropsList[name]);
+		end
 		local frame = frameList[name];
 		if frame then
 			if not lockstate then frame:Lock(); end
@@ -658,6 +690,9 @@ function RDXDK.Desktop:new(parent)
 	self.Destroy = VFL.hook(function(s)
 		DesktopEvents:Unbind("desktop");
 		s.nameplate = nil;
+		SetSavePosition = nil;
+		GetSavePosition = nil;
+		framepropsroot = nil;
 		VFL.empty(frameList); framelist = nil;
 		VFL.empty(framePropsList); framePropsList = nil;
 		s.LayoutDesktop = nil; s.UnlayoutDesktop = nil;

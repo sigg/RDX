@@ -8,7 +8,7 @@
 -- Raidwide version check.
 
 -- alpha, beta, RC (Release candidate) or nothing (General Availability)
-local version_flag = "";
+local version_flag = "_alpha";
 
 function RDX.GetVersion()
 	if not RDX.version[4] then RDX.version[4] = 0; end
@@ -111,7 +111,7 @@ local function PatchListener(ci, who)
 	local tbl = RDXDB.GetObjectData("default:RDX" .. RDX.version[1] .. RDX.version[2] .. RDX.version[3]);
 	return tbl;
 end
-RPC_Guild:Bind("request_patch", PatchListener);
+--RPC_Guild:Bind("request_patch", PatchListener);
 
 local function PatchResponse(ci, resp)
 	RDX.printI("PATCH downloaded");
@@ -155,7 +155,7 @@ local function RpcVersionPatch(ci, version)
 	end
 	
 end
-RPC_Guild:Bind("version_patch", RpcVersionPatch);
+--RPC_Guild:Bind("version_patch", RpcVersionPatch);
 
 -- Send the current version to everyone, every 5 minutes.
 local function SendVersionPatch()
@@ -164,11 +164,12 @@ local function SendVersionPatch()
 	end
 end
 
-RDXEvents:Bind("INIT_DEFERRED", nil, function()
-	SendVersionPatch();
+-- disable
+--RDXEvents:Bind("INIT_DEFERRED", nil, function()
+	--SendVersionPatch();
 	-- Start periodic broadcasts
-	VFLT.AdaptiveSchedule(nil, 300, SendVersionPatch);
-end);
+	--VFLT.AdaptiveSchedule(nil, 300, SendVersionPatch);
+--end);
 
 ------------------------------------------
 -- INIT

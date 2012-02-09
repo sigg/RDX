@@ -697,14 +697,21 @@ function RPC.GetOpenInStreams() return open_istreams, VFL.tsize(free_istreams); 
 ------------------------------------------------------------------------------
 local function TimeoutTroll()
 	local t = GetTime();
+	--local found = nil;
 	for strx,strv in pairs(instreams) do
+		--found = true;
 		if strv and (t > strv.timeout) then
 			RPC:Debug(4, "Timing out stream with id ", strv.streamID);
 			strv:Close(); 
 		end
 	end
+	--if not found then
+		-- there is no more instreams we can stop the schedule of the TimeoutTroll
+	--	VFLT.AdaptiveUnschedule2("TimeoutTroll");
+	--end
 end
-VFLT.AdaptiveSchedule(nil, 5, TimeoutTroll);
+
+VFLT.AdaptiveSchedule2("TimeoutTroll", 5, TimeoutTroll);
 
 ---------------------------------------------------------------------------
 -- STANDARD INPUT STREAMS
@@ -771,6 +778,10 @@ function RPC.StdStreamIn(channel, sender, prefix, line)
 	sigStreamInProgress:Raise(strm, "IN", strm.progress, strm.length);
 	-- Apply the block that we read to this stream.
 	strm:HandleBlock(data, (postSeq == char(1)));
+	
+	-- start scheduling TimeoutTroll
+	--VFLT.AdaptiveUnschedule2("TimeoutTroll");
+	--VFLT.AdaptiveSchedule2("TimeoutTroll", 5, TimeoutTroll);
 end
 
 -------------------------

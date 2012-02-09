@@ -269,7 +269,6 @@ RDX.RegisterFeature({
 				VFLP.RegisterFunc("Win: " .. w._path, "RepaintSecure", paintSecure, true);
 				VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", paintData, true);
 				VFLP.RegisterFunc("Win: " .. w._path, "LookupUnit", lookupUnit, true);
-				VFLT.AdaptiveSchedule("Perf" .. w._path, 1, function() w:SetPerfText(VFLP.GetCategoryCPU("Win: " .. w._path)); end);
 			end
 		end
 

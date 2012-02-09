@@ -82,14 +82,14 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 			function self.SetValue(self2, v, t)
 				if not v then return; end
 				if self2._value == v then return; end
-				if t then
-					VFLT.AdaptiveUnschedule(self2);
-					self._totalElapsed = 0;
-					VFLT.AdaptiveSchedule(self2, 0.021, function(_,elapsed)
-						offset = onupdate(self2, elapsed, v, t, maxw, true);
-						if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, offset)); end
-					end);
-				else
+				--if t then
+				--	VFLT.AdaptiveUnschedule(self2);
+				--	self._totalElapsed = 0;
+				--	VFLT.AdaptiveSchedule(self2, 0.021, function(_,elapsed)
+				--		offset = onupdate(self2, elapsed, v, t, maxw, true);
+				--		if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, offset)); end
+				--	end);
+				--else
 					bSetWidth(self2, v*maxw + (1-v)*0.001);
 					if self2._horiFix then
 						self2:SetTexCoord(1-v, 1, 0, 1);
@@ -98,20 +98,20 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 					end
 					if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, v)); end
 					self2._value = v;
-				end
+				--end
 			end
 		elseif(o == "VERTICAL") then
 			function self.SetValue(self2, v, t)
 				if not v then return; end
 				if v < 0 then v = abs(v); end
 				if self2._value == v then return; end
-				if t then
-					self._totalElapsed = 0;
-					VFLT.AdaptiveSchedule(self2, 0.021, function(_,elapsed)
-						offset = onupdate(self2, elapsed, v, t, maxh);
-						if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, offset)); end
-					end);
-				else
+				--if t then
+				--	self._totalElapsed = 0;
+				--	VFLT.AdaptiveSchedule(self2, 0.021, function(_,elapsed)
+				--		offset = onupdate(self2, elapsed, v, t, maxh);
+				--		if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, offset)); end
+				--	end);
+				--else
 					bSetHeight(self2, v*maxh + (1-v)*0.001);
 					if self2._vertFix then
 						self2:SetTexCoord(0, 1, 1-v, 1);
@@ -119,7 +119,7 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 						self2:SetTexCoord(0, 1, 0, v);
 					end
 					if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, v)); end
-				end
+				--end
 			end
 		end
 	end

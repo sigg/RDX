@@ -336,7 +336,6 @@ RDX.RegisterFeature({
 			if w._path and VFLP.IsEnabled() then
 				VFLP.RegisterCategory("Win: " .. w._path);
 				VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", paintData, true);
-				VFLT.AdaptiveSchedule("Perf" .. w._path, 1, function() w:SetPerfText(VFLP.GetCategoryCPU("Win: " .. w._path)); end);
 			end
 		end
 

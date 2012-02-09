@@ -71,25 +71,6 @@ end
 local rs_group = {};
 local rs_guild = {};
 
-local function AddUserRequest(conf, pkgname, username)
-	local found = nil;
-	local rs;
-	if conf == "GROUP" then 
-		rs = rs_group;
-	else
-		rs = rs_guild;
-	end
-	for i,v in ipairs(rs) do
-		if v.pkg == pkgname then
-			table.insert(v.users, username);
-			found = true;
-		end
-	end
-	if not found then
-		table.insert(rs, { pkg = pkgname, users = { username }});
-	end
-end
-
 local function GetNextRequest(conf)
 	local rs;
 	if conf == "GROUP" then 
@@ -125,9 +106,31 @@ local function AsyncSendPck()
 			end
 		end
 	end
+	if VFL.isempty(rs_group) and VFL.isempty(rs_guild) then
+		VFLT.AdaptiveUnschedule("PckUpdater");
+	end
 end
 
-VFLT.AdaptiveSchedule(nil, 10, AsyncSendPck);
+local function AddUserRequest(conf, pkgname, username)
+	local found = nil;
+	local rs;
+	if conf == "GROUP" then 
+		rs = rs_group;
+	else
+		rs = rs_guild;
+	end
+	for i,v in ipairs(rs) do
+		if v.pkg == pkgname then
+			table.insert(v.users, username);
+			found = true;
+		end
+	end
+	if not found then
+		table.insert(rs, { pkg = pkgname, users = { username }});
+	end
+	VFLT.AdaptiveUnschedule("PckUpdater");
+	VFLT.AdaptiveSchedule("PckUpdater", 10, AsyncSendPck);
+end
 
 local function ServerRequestPkg(ci, conf, who, pkg)
 	-- Sanity check sender

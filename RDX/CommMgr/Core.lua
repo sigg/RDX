@@ -32,11 +32,32 @@ RPCEvents.name = "RPCEvents";
 local confs = {};
 local confsByID = {};
 
+-- Run periodic maintenance on conferences
+local function _ConfMaintenance()
+	local t = GetTime();
+	local found = nil;
+	-- Dead conference maintenance
+	for conf,_ in pairs(confs) do
+		if conf.purgeTime then found = true; end
+		if (conf.purgeTime) and (t > conf.purgeTime) then
+			conf:Shutdown();
+			RPC.UnregisterConference(conf);
+		end
+	end
+	if not found then
+		-- there is no more conf with timeout, we can stop the schedule of the _ConfMaintenance
+		VFLT.AdaptiveUnschedule("confMaintenance");
+	end
+end
+
 function RPC.RegisterConference(conf, id, timeout)
 	if (not conf) then error(VFLI.i18n("Attempt to register nil conference")); end
 	if (not id) then error(VFLI.i18n("id is required")); end
 	if timeout then
 		conf.purgeTime = GetTime() + timeout;
+		-- a conf with timeout is set, let schedule the _ConfMaintenance
+		VFLT.AdaptiveUnschedule("confMaintenance");
+		VFLT.AdaptiveSchedule("confMaintenance", 30, _ConfMaintenance);
 	else
 		conf.purgeTime = nil;
 	end
@@ -56,19 +77,6 @@ function RPC.GetConferenceByID(id)
 end
 
 function RPC.Conferences() return confsByID; end
-
--- Run periodic maintenance on conferences
-local function _ConfMaintenance()
-	local t = GetTime();
-	-- Dead conference maintenance
-	for conf,_ in pairs(confs) do
-		if (conf.purgeTime) and (t > conf.purgeTime) then
-			conf:Shutdown();
-			RPC.UnregisterConference(conf);
-		end
-	end
-end
-VFLT.AdaptiveSchedule(nil, 30, _ConfMaintenance);
 
 ---------------------------------------
 -- The global RPC bindings table

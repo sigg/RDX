@@ -146,107 +146,109 @@ end
 --
 -- Au chargement de wow, il faut transformer immédiatement toutes les fenêtres de chat.
 --
-
+local active = true;
 function RDX.ManageChatFrames()
-	-- disable the possibility to unlock chatframe
-	FCF_ToggleLock = VFL.Noop;
-	
-	-- to test
-	--FCF_SetTemporaryWindowType
-	--FCF_OpenTemporaryWindow = VFL.Noop;
-	
-	-- disable mouseover chatframe(when over a chatframe, his offsetlevel change)
-	FCF_OnUpdate = VFL.Noop;
-	-- disable moving button (up,down) on the left or on the right
-	FCF_UpdateButtonSide = VFL.Noop;
-	
-	-- no Tab
-	FCFTab_OnUpdate = VFL.Noop;
-	FCF_SetTabPosition = VFL.Noop;
-	--FCFTab_OnDragStop
-	
-	-- disable save position of chatframes (let RDX do it)
-	FCF_SavePositionAndDimensions = VFL.Noop;
-	FCF_RestorePositionAndDimensions = VFL.Noop;
-	
-	-- disable Function for repositioning the chat dock depending on if there's a shapeshift bar/stance bar, etc...
-	FCF_UpdateDockPosition = VFL.Noop;
-	
-	-- disable dock 	
-	--FCF_DockFrame = VFL.Noop;
-	--FCF_UnDockFrame = VFL.Noop;
-	--FCF_StopDragging = VFL.Noop;
-	
-	-- disable flash
-	--FCF_FlashTab = VFL.Noop;
-	
-	-- disable button Friends
-	FriendsMicroButton:Hide();
-	FriendsMicroButton:UnregisterAllEvents();
-	ChatFrameMenuButton:Hide();
-	ChatFrameMenuButton:UnregisterAllEvents();
-	ChatFrameMenuButton:SetScript("OnShow", ChatFrameMenuButton.Hide);
-	
-	--hook FCF_OpenNewWindow ??
-	
-	local f;
-	for i = 1, 10 do
-		f = _G[format("%s%d", "ChatFrame", i)];
+	if active then
+		-- disable the possibility to unlock chatframe
+		FCF_ToggleLock = VFL.Noop;
 		
-		local cab = _G[format("%s%d%s", "ChatFrame", i, "ClickAnywhereButton")];
-		cab:SetScript("OnShow", cab.Hide);
-		cab:Hide();
+		-- to test
+		--FCF_SetTemporaryWindowType
+		--FCF_OpenTemporaryWindow = VFL.Noop;
 		
-		local rb = _G[format("%s%d%s", "ChatFrame", i, "ResizeButton")];
-		rb:SetScript("OnShow", rb.Hide);
-		rb:Hide();
+		-- disable mouseover chatframe(when over a chatframe, his offsetlevel change)
+		FCF_OnUpdate = VFL.Noop;
+		-- disable moving button (up,down) on the left or on the right
+		FCF_UpdateButtonSide = VFL.Noop;
 		
-		local bf = _G[format("%s%d%s", "ChatFrame", i, "ButtonFrame")];
-		bf:SetScript("OnShow", bf.Hide);
-		bf:Hide();
+		-- no Tab
+		FCFTab_OnUpdate = VFL.Noop;
+		FCF_SetTabPosition = VFL.Noop;
+		--FCFTab_OnDragStop
 		
-		-- permettre à la fenêtre d'être bouger partout.
-		f:SetClampRectInsets(0,0,0,0);
-		f:SetClampedToScreen(false);
+		-- disable save position of chatframes (let RDX do it)
+		FCF_SavePositionAndDimensions = VFL.Noop;
+		FCF_RestorePositionAndDimensions = VFL.Noop;
 		
-		-- Disable tab drag
-		local tab = _G[format("%s%d%s", "ChatFrame", i, "Tab")];
-		tab:SetScript("OnDoubleClick", nil);
-		tab:SetScript("OnDragStart", nil);
-		tab:SetScript("OnShow", tab.Hide);
-		--tab:UnregisterAllEvents();
-		tab:Hide();
+		-- disable Function for repositioning the chat dock depending on if there's a shapeshift bar/stance bar, etc...
+		FCF_UpdateDockPosition = VFL.Noop;
 		
-		-- replace our scroll
-		f:SetScript("OnMouseWheel", scroll);
-		f:EnableMouseWheel(true);
+		-- disable dock 	
+		--FCF_DockFrame = VFL.Noop;
+		--FCF_UnDockFrame = VFL.Noop;
+		--FCF_StopDragging = VFL.Noop;
 		
-		-- timestamp and color
-		f.RDX_AddMessage = f.AddMessage;
-		f.SetMsg = function(self, ts, color, channel, key)
-			self.key = key;
-			self.ts = ts;
-			self.color = color;
-			self.channel = channel;
-			self.AddMessage = changeMessage;
+		-- disable flash
+		--FCF_FlashTab = VFL.Noop;
+		
+		-- disable button Friends
+		FriendsMicroButton:Hide();
+		FriendsMicroButton:UnregisterAllEvents();
+		ChatFrameMenuButton:Hide();
+		ChatFrameMenuButton:UnregisterAllEvents();
+		ChatFrameMenuButton:SetScript("OnShow", ChatFrameMenuButton.Hide);
+		
+		--hook FCF_OpenNewWindow ??
+		
+		local f;
+		for i = 1, 10 do
+			f = _G[format("%s%d", "ChatFrame", i)];
+			
+			local cab = _G[format("%s%d%s", "ChatFrame", i, "ClickAnywhereButton")];
+			cab:SetScript("OnShow", cab.Hide);
+			cab:Hide();
+			
+			local rb = _G[format("%s%d%s", "ChatFrame", i, "ResizeButton")];
+			rb:SetScript("OnShow", rb.Hide);
+			rb:Hide();
+			
+			local bf = _G[format("%s%d%s", "ChatFrame", i, "ButtonFrame")];
+			bf:SetScript("OnShow", bf.Hide);
+			bf:Hide();
+			
+			-- permettre à la fenêtre d'être bouger partout.
+			f:SetClampRectInsets(0,0,0,0);
+			f:SetClampedToScreen(false);
+			
+			-- Disable tab drag
+			local tab = _G[format("%s%d%s", "ChatFrame", i, "Tab")];
+			tab:SetScript("OnDoubleClick", nil);
+			tab:SetScript("OnDragStart", nil);
+			tab:SetScript("OnShow", tab.Hide);
+			--tab:UnregisterAllEvents();
+			tab:Hide();
+			
+			-- replace our scroll
+			f:SetScript("OnMouseWheel", scroll);
+			f:EnableMouseWheel(true);
+			
+			-- timestamp and color
+			f.RDX_AddMessage = f.AddMessage;
+			f.SetMsg = function(self, ts, color, channel, key)
+				self.key = key;
+				self.ts = ts;
+				self.color = color;
+				self.channel = channel;
+				self.AddMessage = changeMessage;
+			end
 		end
-	end
-	
-	--for i = 1, 10 do
-	--	f = _G[format("%s%d%s", "ChatFrame", i, "EditBox")];
-	--	f:ClearAllPoints();
-	--end
-	
-	-- strange problem fix
-	local tt = ChatEdit_UpdateHeader;
-	
-	ChatEdit_UpdateHeader = function(editBox)
-		local header = _G[editBox:GetName().."Header"];
-		if header then
-			header:ClearAllPoints();
-			header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
-			if header:GetRight() ~= nil and header:GetLeft() ~= nil then
-				tt(editBox);
+		
+		--for i = 1, 10 do
+		--	f = _G[format("%s%d%s", "ChatFrame", i, "EditBox")];
+		--	f:ClearAllPoints();
+		--end
+		
+		-- strange problem fix
+		local tt = ChatEdit_UpdateHeader;
+		
+		ChatEdit_UpdateHeader = function(editBox)
+			local header = _G[editBox:GetName().."Header"];
+			if header then
+				header:ClearAllPoints();
+				header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
+				if header:GetRight() ~= nil and header:GetLeft() ~= nil then
+					tt(editBox);
+				end
 			end
 		end
 	end
@@ -270,7 +272,7 @@ RDXUI.NumberListSelectionFunc = amOnBuild;
 
 
 RDX.RegisterFeature({
-	name = "chatframe";
+	name = "chatframea";
 	version = 1;
 	title = VFLI.i18n("Blizzard ChatFrame");
 	category = VFLI.i18n("Complexes");
@@ -471,7 +473,7 @@ VFLUI.CreateFramePool("ChatFrameEditBox",
 "key");
 
 RDX.RegisterFeature({
-	name = "chatframeeditbox";
+	name = "chatframeeditboxa";
 	invisible = true;
 	version = 1;
 	title = "Blizzard ChatFrame EditBox";

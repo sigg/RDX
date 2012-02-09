@@ -42,8 +42,8 @@ local ads = {};
 -- @param func The function to call
 -- @param ... arg to pass to func
 function VFLT.AdaptiveSchedule(id, interval, func, ...)
-	if(not interval) or (interval <= 0.02) then
-		error("VFLT.AdaptiveSchedule: Must provide an interval larger than 0.02 seconds.");
+	if(not interval) or (interval <= 0.2) then
+		error("VFLT.AdaptiveSchedule: Must provide an interval larger than 0.2 seconds.");
 	end
 	if not func then
 		error("VFLT.AdaptiveSchedule: Must provide a function to schedule.");
@@ -79,13 +79,14 @@ end
 
 -- The internals of the adaptive scheduler
 local tas, target_timescale;
-local function _AS()
+local function _AS(self, elapsed)
 	tas = GetTime();
 	for i,entry in ipairs(ads) do
 		-- Target timescale is the number of times this function SHOULD have run.
 		target_timescale = mathdotfloor( (tas - entry.start) / (entry.interval * dilation) );
 		if( (entry.x * idilation) < target_timescale ) then
-			entry.func(unpack(entry), (tas - entry.last));
+			--entry.func(unpack(entry), (tas - entry.last));
+			entry.func();
 			entry.x = (target_timescale + .0001) * dilation;
 			entry.last = tas;
 		end
@@ -93,7 +94,7 @@ local function _AS()
 end
 local asframe = CreateFrame("Frame");
 asframe:SetScript("OnUpdate", _AS);
-VFLP.RegisterFunc("VFL Time", "Adaptive", _AS, true);
+VFLP.RegisterFunc("VFL Time", "Adaptive", _AS);
 
 function VFLT.GetAdaptiveSize()
 	VFL.print(#ads);
@@ -105,6 +106,45 @@ function VFLT.GetAdaptiveSize()
 		end
 	end
 end
+-- /script VFLT.GetAdaptiveSize();
+
+local ads2 = {};
+
+function VFLT.AdaptiveSchedule2(id, interval, func)
+	if not id then VFL.print("id is null"); return; end
+	if ads2[id] then VFL.print("id already exist"); return; end
+	local asframe = VFLUI.AcquireFrame("Frame");
+	asframe.elapsed = 0;
+	function asframe.as(self, elapsed)
+		self.elapsed = self.elapsed + elapsed
+		if self.elapsed > interval then
+			func();
+			self.elapsed = 0;
+		end
+	end
+	asframe:SetScript("OnUpdate", asframe.as);
+	VFLP.RegisterFunc("VFL Time", id, asframe.as);
+	ads2[id] = asframe;
+end
+
+function VFLT.AdaptiveUnschedule2(id)
+	local asframe = ads2[id];
+	if not asframe then return; end
+	VFLP.UnregisterObject(asframe.as);
+	asframe:SetScript("OnUpdate", nil);
+	asframe.as = nil;
+	asframe.elapsed = nil;
+	asframe:Destroy();
+	ads2[id] = nil;
+end
+
+function VFLT.GetAdaptiveSize2()
+	VFL.print(VFL.tsize(ads2));
+	for id,as in pairs(ads2) do
+		VFL.print(id);
+	end
+end
+-- /script VFLT.GetAdaptiveSize2();
 
 -----------------------------------------------------------------
 -- ZERO-MEMORY SCHEDULER

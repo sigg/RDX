@@ -7,6 +7,8 @@
 VFLUI.Framing = {};
 local FormatMicro = VFLT.FormatMicro;
 
+local activateperftext = nil;
+
 -----------------------------------------------------
 -- None FRAMING
 -----------------------------------------------------
@@ -16,7 +18,7 @@ function VFLUI.Framing.None(self, titleHeight, bkdp)
 	self.bkdp = bkdp;
 	
 	local perf, perfText;
-	if VFLP.IsEnabled() then
+	if VFLP.IsEnabled() and activateperftext then
 		perf = VFLUI.AcquireFrame("Frame");
 		perf:SetParent(self);
 		perf:SetFrameLevel(self:GetFrameLevel() + 6);
@@ -59,7 +61,7 @@ function VFLUI.Framing.None(self, titleHeight, bkdp)
 		local l,r = self:GetLeft(), self:GetRight();
 		if not l then return; end
 		local tw = math.abs(r-l);
-		if VFLP.IsEnabled() then
+		if VFLP.IsEnabled() and activateperftext then
 			if tw > 50 then
 				perf:SetWidth(50);
 			else
@@ -74,7 +76,7 @@ function VFLUI.Framing.None(self, titleHeight, bkdp)
 	end
 
 	function self:_FrameDestroy()
-		if VFLP.IsEnabled() then
+		if VFLP.IsEnabled() and activateperftext then
 			perfText:ClearAllPoints();
 			VFLUI.ReleaseRegion(perfText); perfText = nil;
 			perf:ClearAllPoints();
@@ -123,7 +125,7 @@ function VFLUI.Framing.Default(self, titleHeight, bkdp)
 	function self:SetTitleColor(r,g,b) tx2:SetTexture(r,g,b); end
 	
 	local perf, perfText;
-	if VFLP.IsEnabled() then
+	if VFLP.IsEnabled() and activateperftext then
 		perf = VFLUI.AcquireFrame("Frame");
 		perf:SetParent(self);
 		perf:SetFrameLevel(self:GetFrameLevel() + 6);
@@ -173,7 +175,7 @@ function VFLUI.Framing.Default(self, titleHeight, bkdp)
 		local mtw = tw - 10 - (table.getn(self.ctlButtons) * .7 * titleHeight);
 		titleBar:SetWidth(mtw);
 		titleText:SetWidth(mtw);
-		if VFLP.IsEnabled() then
+		if VFLP.IsEnabled() and activateperftext then
 			if tw > 50 then
 				perf:SetWidth(50);
 			else
@@ -188,7 +190,7 @@ function VFLUI.Framing.Default(self, titleHeight, bkdp)
 	end
 
 	function self:_FrameDestroy()
-		if VFLP.IsEnabled() then
+		if VFLP.IsEnabled() and activateperftext then
 			perfText:ClearAllPoints();
 			VFLUI.ReleaseRegion(perfText); perfText = nil;
 			perf:ClearAllPoints();
@@ -242,7 +244,7 @@ function VFLUI.Framing.Sleek(self, titleHeight, bkdp)
 	function self:SetTitleColor(r,g,b,a) decor:SetBackdropColor(r,g,b,a); end
 	
 	local perf, perfText;
-	if VFLP.IsEnabled() then
+	if VFLP.IsEnabled() and activateperftext then
 		perf = VFLUI.AcquireFrame("Frame");
 		perf:SetParent(self);
 		perf:SetFrameLevel(self:GetFrameLevel() + 6);
@@ -315,7 +317,7 @@ function VFLUI.Framing.Sleek(self, titleHeight, bkdp)
 		local mtw = VFL.clamp(tw - ((table.getn(self.ctlButtons) * 12) + 4), 0, 10000);
 		decor:SetWidth(tw);
 		titleBar:SetWidth(mtw); titleText:SetWidth(mtw);
-		if VFLP.IsEnabled() then
+		if VFLP.IsEnabled() and activateperftext then
 			if tw > 50 then
 				perf:SetWidth(50);
 			else
@@ -330,7 +332,7 @@ function VFLUI.Framing.Sleek(self, titleHeight, bkdp)
 	end
 
 	function self:_FrameDestroy()
-		if VFLP.IsEnabled() then
+		if VFLP.IsEnabled() and activateperftext then
 			perfText:ClearAllPoints();
 			VFLUI.ReleaseRegion(perfText); perfText = nil;
 			perf:ClearAllPoints();
@@ -373,7 +375,7 @@ function VFLUI.Framing.Fat(self)
 	function self:SetTitleColor(r,g,b) end
 	
 	local perf, perfText;
-	if VFLP.IsEnabled() then
+	if VFLP.IsEnabled() and activateperftext then
 		perf = VFLUI.AcquireFrame("Frame");
 		perf:SetParent(self);
 		perf:SetFrameLevel(self:GetFrameLevel() + 6);
@@ -418,7 +420,7 @@ function VFLUI.Framing.Fat(self)
 		local mtw = VFL.clamp(tw - (table.getn(self.ctlButtons) * 12) - 5, 0, 10000);
 		decor:SetWidth(tw);
 		titleBar:SetWidth(mtw); titleText:SetWidth(mtw);
-		if VFLP.IsEnabled() then
+		if VFLP.IsEnabled() and activateperftext then
 			if tw > 50 then
 				perf:SetWidth(50);
 			else
@@ -433,7 +435,7 @@ function VFLUI.Framing.Fat(self)
 	end
 
 	function self:_FrameDestroy()
-		if VFLP.IsEnabled() then
+		if VFLP.IsEnabled() and activateperftext then
 			perfText:ClearAllPoints();
 			VFLUI.ReleaseRegion(perfText); perfText = nil;
 			perf:ClearAllPoints();
