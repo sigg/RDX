@@ -48,6 +48,11 @@ RDX.RegisterFeature({
 		if not desc.strata then desc.strata = "LOW"; end
 		if not desc.ap then desc.ap = "TOPLEFT"; end
 		
+		local rdxiconx = "nil";
+		if desc.rdxiconx then rdxiconx = desc.rdxiconx; end
+		local rdxicony = "nil";
+		if desc.rdxicony then rdxicony = desc.rdxicony; end
+		
 		
 		state.Code:Clear();
 		state.Code:AppendCode([[
@@ -56,6 +61,7 @@ DesktopEvents:Dispatch("WINDOW_OPEN", "root", "Desktop main");
 DesktopEvents:Dispatch("DESKTOP_VIEWPORT", ]] .. useviewport .. [[, ]] .. desc.offsetleft .. [[, ]] .. desc.offsettop .. [[, ]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
 DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. desc.anchorx .. [[, ]] .. desc.anchory .. [[, ]] .. Serialize(desc.bkd) .. [[, ]] .. Serialize(desc.font) .. [[, ]] .. Serialize(desc.tex) .. [[);
 DesktopEvents:Dispatch("DESKTOP_REALID", ]] .. desc.anchorxrid .. [[, ]] .. desc.anchoryrid .. [[);
+DesktopEvents:Dispatch("DESKTOP_RDXICON", ]] .. rdxiconx .. [[, ]] .. rdxicony .. [[);
 ]]);
 		return true;
 	end,

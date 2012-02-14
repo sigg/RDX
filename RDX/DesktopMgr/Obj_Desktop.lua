@@ -93,26 +93,28 @@ end
 RDXDK.Desktop = {};
 function RDXDK.Desktop:new(parent)
 	local self = VFLUI.AcquireFrame("Frame");
-	--if not parent then parent = UIParent; end
 	self:SetParent(VFLparent);
 	
-	--frameList contain all windows of the desktop.
-	--framePropsList properties of each window.
-	
+	-------------------------------------------------
+	-- frameList contain all windows of the desktop.
+	-- framePropsList properties of each window.
+	-------------------------------------------------
 	local frameList, framePropsList = {}, {};
 	function self:_GetFrame(name) return frameList[name]; end
 	function self:_GetFrameList() return frameList; end
 	function self:_GetFrameProps(name) return framePropsList[name]; end
 	function self:_GetFramePropsList() return framePropsList; end
 	
-	-----------------------------------
+	-----------------------------------------------------------------------
+	-- When a window is closed, his position is stored in the root context
+	-----------------------------------------------------------------------
 	local framepropsroot = nil;
 	local function GetSavePosition(name)
 		if framepropsroot then
 			local saveposition = framepropsroot.sp;
 			if saveposition and saveposition[name] then
 				local sp = VFL.copy(saveposition[name]);
-				--saveposition[name] = nil;
+				saveposition[name] = nil;
 				return sp;
 			else
 				return nil;
@@ -127,12 +129,12 @@ function RDXDK.Desktop:new(parent)
 			framepropsroot.sp[name] = VFL.copy(fp);
 		end
 	end
-	-------------------------------------
 	
+	----------------------------------------------
+	-- Lock/Unlock the desktop
 	----------------------------------------------
 	local lockstate = true;
 	function self:_IsLocked() return lockstate; end
-	----------------------------------------------
 	
 	local function LockDesktop()
 		RDXDK:Debug(6, "LockDesktop");
@@ -163,6 +165,9 @@ function RDXDK.Desktop:new(parent)
 		lockstate = nil;
 	end
 	
+	----------------------------------------------
+	-- Viewport management
+	----------------------------------------------
 	local function UpdateViewport(viewport, left, top, right, bottom)
 		RDXDK:Debug(6, "UpdateViewport");
 		if viewport then
@@ -193,11 +198,23 @@ function RDXDK.Desktop:new(parent)
 		RDXDK.SetRealidLocation(anchorxrid, anchoryrid);
 	end
 	
+	local function UpdateRDXIcon(anchorx, anchory, save)
+		if save then
+			if framepropsroot then
+			framepropsroot.rdxiconx = anchorx;
+			framepropsroot.rdxicony = anchory;
+			end
+		else
+			RDX.SetRDXIconLocation(anchorx, anchory);
+		end
+	end
+	
 	DesktopEvents:Bind("DESKTOP_LOCK", nil, LockDesktop, "desktop");
 	DesktopEvents:Bind("DESKTOP_UNLOCK", nil, UnlockDesktop, "desktop");
 	DesktopEvents:Bind("DESKTOP_VIEWPORT", nil, UpdateViewport, "desktop");
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP", nil, UpdateGameTooltip, "desktop");
 	DesktopEvents:Bind("DESKTOP_REALID", nil, UpdateRealid, "desktop");
+	DesktopEvents:Bind("DESKTOP_RDXICON", nil, UpdateRDXIcon, "desktop");
 	
 	local function LayoutFrame(name, noanim)
 		local frame, frameprops = frameList[name], framePropsList[name];
