@@ -157,6 +157,7 @@ DesktopMgr\Desktop_Events.lua
 DesktopMgr\DuiMenu.lua
 DesktopMgr\StateMenu.lua
 DesktopMgr\GameTooltip.lua
+DesktopMgr\CombatText.lua
 
 # Windowing library
 Windows\Multiplexer.lua

@@ -379,6 +379,18 @@ local function OpenDesktopTools(parent, froot)
 		DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", chk_tooltipmouse:GetChecked(), froot.anchorx, froot.anchory, dd_bkd:GetSelectedBackdrop(), dd_font:GetSelectedFont(), dd_btexture:GetSelectedTexture());
 	end
 	
+	local separator6 = VFLUI.SeparatorText:new(ca, 1, 216);
+	separator5:SetPoint("TOPLEFT", lblsb, "BOTTOMLEFT", 0, -5);
+	separator5:SetText("Combat Text Font");
+	
+	local ctffont = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Fnt"));
+	ctffont:SetWidth(34); ctffont:SetPoint("TOPLEFT", separator6, "BOTTOMLEFT", 0, -15);
+	local dd_ctf_font = VFLUI.MakeFontSelectButton(ca, froot.ctffont, function() 
+		DesktopEvents:Dispatch("DESKTOP_COMBATTEXT", dd_ctf_font:GetSelectedFont());
+	end, nil); 
+	dd_ctf_font:SetPoint("LEFT", ctffont, "RIGHT");
+	dd_ctf_font:Show();
+	
 	dlg:Show();
 	
 	DesktopEvents:Dispatch("DESKTOP_UNLOCK");
@@ -417,6 +429,8 @@ local function OpenDesktopTools(parent, froot)
 	dlg.Destroy = VFL.hook(function(s)
 		s._esch = nil;
 		updateGametooltip = nil;
+		dd_ctf_font:Destroy(); dd_ctf_font = nil;
+		separator6:Destroy(); separator6 = nil;
 		dd_btexture:Destroy(); dd_btexture = nil;
 		dd_font:Destroy(); dd_font = nil;
 		dd_bkd:Destroy(); dd_bkd = nil;

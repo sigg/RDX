@@ -105,10 +105,12 @@ function RDXDK.Desktop:new(parent)
 	function self:_GetFrameProps(name) return framePropsList[name]; end
 	function self:_GetFramePropsList() return framePropsList; end
 	
+	-- will containe the root frameprops 
+	local framepropsroot = nil;
+	
 	-----------------------------------------------------------------------
 	-- When a window is closed, his position is stored in the root context
 	-----------------------------------------------------------------------
-	local framepropsroot = nil;
 	local function GetSavePosition(name)
 		if framepropsroot then
 			local saveposition = framepropsroot.sp;
@@ -142,16 +144,22 @@ function RDXDK.Desktop:new(parent)
 			frame:Lock();
 		end
 		local tooltipmouse, anchorx, anchory, bkd, font, tex = RDXDK.GetLockGameTooltip();
-		local anchorxrid, anchoryrid = RDXDK.GetLockRealid()
-		local froot = framePropsList["root"];
-		froot.tooltipmouse = tooltipmouse;
-		froot.anchorx = anchorx;
-		froot.anchory = anchory;
-		froot.bkd = bkd;
-		froot.font = font;
-		froot.tex = tex;
-		froot.anchorxrid = anchorxrid;
-		froot.anchoryrid = anchoryrid;
+		local anchorxrid, anchoryrid = RDXDK.GetLockRealid();
+		local topstack_props, bottomstack_props = RDXBM.GetStackProps();
+		local ctffont = RDXDK.GetLockCombatTextFont();
+		if framepropsroot then
+			framepropsroot.tooltipmouse = tooltipmouse;
+			framepropsroot.anchorx = anchorx;
+			framepropsroot.anchory = anchory;
+			framepropsroot.bkd = bkd;
+			framepropsroot.font = font;
+			framepropsroot.tex = tex;
+			framepropsroot.anchorxrid = anchorxrid;
+			framepropsroot.anchoryrid = anchoryrid;
+			framepropsroot.topstack_props = topstack_props;
+			framepropsroot.bottomstack_props = bottomstack_props;
+			framepropsroot.ctffont = ctffont;
+		end
 		lockstate = true;
 	end
 	
@@ -162,6 +170,7 @@ function RDXDK.Desktop:new(parent)
 		end
 		RDXDK.SetUnlockGameTooltip();
 		RDXDK.SetUnlockRealid();
+		RDXBM.SetUnlockAlerts();
 		lockstate = nil;
 	end
 	
@@ -201,12 +210,22 @@ function RDXDK.Desktop:new(parent)
 	local function UpdateRDXIcon(anchorx, anchory, save)
 		if save then
 			if framepropsroot then
-			framepropsroot.rdxiconx = anchorx;
-			framepropsroot.rdxicony = anchory;
+				framepropsroot.rdxiconx = anchorx;
+				framepropsroot.rdxicony = anchory;
 			end
 		else
 			RDX.SetRDXIconLocation(anchorx, anchory);
 		end
+	end
+	
+	local function UpdateAlerts(topstack_props, bottomstack_props)
+		if topstack_props then
+			RDXBM.SetAlertsLocation(topstack_props, bottomstack_props);
+		end
+	end
+	
+	local function UpdateCombatText(font)
+		RDXDK.SetCombatTextFont(font or Fonts.Default10);
 	end
 	
 	DesktopEvents:Bind("DESKTOP_LOCK", nil, LockDesktop, "desktop");
@@ -215,6 +234,8 @@ function RDXDK.Desktop:new(parent)
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP", nil, UpdateGameTooltip, "desktop");
 	DesktopEvents:Bind("DESKTOP_REALID", nil, UpdateRealid, "desktop");
 	DesktopEvents:Bind("DESKTOP_RDXICON", nil, UpdateRDXIcon, "desktop");
+	DesktopEvents:Bind("DESKTOP_ALERTS", nil, UpdateAlerts, "desktop");
+	DesktopEvents:Bind("DESKTOP_COMBATTEXT", nil, UpdateCombatText, "desktop");
 	
 	local function LayoutFrame(name, noanim)
 		local frame, frameprops = frameList[name], framePropsList[name];
