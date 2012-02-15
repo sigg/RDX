@@ -54,7 +54,7 @@ RDX.RegisterFeature({
 		if not desc.topstack_props then desc.topstack_props = {512, 750, "TOP", "BOTTOM", .4, 1}; end
 		if not desc.bottomstack_props then desc.bottomstack_props = {512, 450, "BOTTOM", "TOP", .9, 1}; end
 		
-		if not desc.ctffont then desc.ctffont = VFL.copy(Fonts.Default12); end
+		if not desc.ctffont then desc.ctffont = VFL.copy(Fonts.Default10); end
 		
 		state.Code:Clear();
 		state.Code:AppendCode([[
