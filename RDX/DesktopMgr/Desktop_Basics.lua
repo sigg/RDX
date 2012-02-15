@@ -48,14 +48,24 @@ RDX.RegisterFeature({
 		if not desc.strata then desc.strata = "LOW"; end
 		if not desc.ap then desc.ap = "TOPLEFT"; end
 		
+		if not desc.rdxiconx then desc.rdxiconx = 300; end
+		if not desc.rdxicony then desc.rdxicony = 300; end
+		
+		if not desc.topstack_props then desc.topstack_props = {512, 750, "TOP", "BOTTOM", .4, 1}; end
+		if not desc.bottomstack_props then desc.bottomstack_props = {512, 450, "BOTTOM", "TOP", .9, 1}; end
+		
+		if not desc.ctffont then desc.ctffont = VFL.copy(Fonts.Default12); end
 		
 		state.Code:Clear();
 		state.Code:AppendCode([[
-local encid = "dk_openrdx7";
+local encid = "dk_rdx8";
 DesktopEvents:Dispatch("WINDOW_OPEN", "root", "Desktop main");
 DesktopEvents:Dispatch("DESKTOP_VIEWPORT", ]] .. useviewport .. [[, ]] .. desc.offsetleft .. [[, ]] .. desc.offsettop .. [[, ]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
 DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. desc.anchorx .. [[, ]] .. desc.anchory .. [[, ]] .. Serialize(desc.bkd) .. [[, ]] .. Serialize(desc.font) .. [[, ]] .. Serialize(desc.tex) .. [[);
 DesktopEvents:Dispatch("DESKTOP_REALID", ]] .. desc.anchorxrid .. [[, ]] .. desc.anchoryrid .. [[);
+DesktopEvents:Dispatch("DESKTOP_RDXICON", ]] .. desc.rdxiconx .. [[, ]] .. desc.rdxicony .. [[);
+DesktopEvents:Dispatch("DESKTOP_ALERTS", ]] .. Serialize(desc.topstack_props) .. [[, ]] .. Serialize(desc.bottomstack_props) .. [[);
+DesktopEvents:Dispatch("DESKTOP_COMBATTEXT", ]] .. Serialize(desc.ctffont) .. [[);
 ]]);
 		return true;
 	end,

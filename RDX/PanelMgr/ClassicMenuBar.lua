@@ -147,6 +147,8 @@ local function CreateMiniPane()
 	tx2:SetDrawLayer("BACKGROUND");
 	tx2:SetTexture("Interface\\Addons\\RDX\\Skin\\mmbtn"); tx2:Show();
 	
+	
+	
 	--mini:SetScript("OnEnter", function(self)
 	--	GameTooltip:SetOwner(self, "ANCHOR_NONE");
 	--	GameTooltip:SetPoint("BOTTOMLEFT", self, anchor, 0, 20);
@@ -178,16 +180,13 @@ local function CreateMiniPane()
 		end
 	end);
 	
-	-- function main panel layout
-	function mini:Layout()
-		RDXPM.RestoreLayout(mini, "MiniButton");
-	end
-	
-	mini:SetScript("OnMouseUp", function(this, arg1)
+	mini:SetScript("OnMouseUp", function(self, arg1)
 		if mmvg then
 			mmvg = nil;
 			mini:StopMovingOrSizing();
-			RDXPM.StoreLayout(mini, "MiniButton");
+			--RDXPM.StoreLayout(mini, "MiniButton");
+			local anchorx,_,_,anchory = VFLUI.GetUniversalBoundary(mini);
+			DesktopEvents:Dispatch("DESKTOP_RDXICON", anchorx, anchory, true);
 			return;
 		end
 		if(arg1 == "LeftButton") then
@@ -195,7 +194,23 @@ local function CreateMiniPane()
 		end
 	end);
 	
+	-- function main panel layout
+	function mini:Layout(x,y)
+		--RDXPM.RestoreLayout(mini, "MiniButton");
+		if x and y then
+			mini:ClearAllPoints();
+			mini:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", x, y);
+		else
+			mini:ClearAllPoints();
+			mini:SetPoint("CENTER", RDXParent, "CENTER");
+		end
+	end
+	
 	return mini;
+end
+
+function RDX.SetRDXIconLocation(anchorx, anchory)
+	miniPane:Layout(anchorx, anchory);
 end
 
 ------------

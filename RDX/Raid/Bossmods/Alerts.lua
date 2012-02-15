@@ -491,10 +491,10 @@ end
 
 local taMove, baMove;
 
-local function isMoveAlerts()
-	return taMove;
-end
-RDXBM.isMoveAlerts = isMoveAlerts;
+--local function isMoveAlerts()
+--	return taMove;
+--end
+--RDXBM.isMoveAlerts = isMoveAlerts;
 
 local function MoveAlerts()
 	if taMove then return; end
@@ -512,17 +512,32 @@ local function StopMovingAlerts()
 	baMove:Destroy(); baMove = nil;
 end
 
-local function ToggleMoveAlerts()
-	if isMoveAlerts() then
-		StopMovingAlerts();
-	else
-		MoveAlerts();
-	end
+--local function ToggleMoveAlerts()
+--	if isMoveAlerts() then
+--		StopMovingAlerts();
+--	else
+--		MoveAlerts();
+--	end
+--end
+
+--RDXBM.MoveAlerts = MoveAlerts;
+--RDXBM.StopMovingAlerts = StopMovingAlerts;
+
+function RDXBM.GetStackProps()
+	StopMovingAlerts();
+	return VFL.copy(topstack_props), VFL.copy(bottomstack_props);
 end
 
-RDXBM.MoveAlerts = MoveAlerts;
-RDXBM.StopMovingAlerts = StopMovingAlerts;
-RDXBM.ToggleMoveAlerts = ToggleMoveAlerts;
+function RDXBM.SetUnlockAlerts()
+	MoveAlerts();
+end
+
+function RDXBM.SetAlertsLocation(top, bottom)
+	VFL.copyOver(topstack_props, top);
+	VFL.copyOver(bottomstack_props, bottom);
+end
+
+--RDXBM.ToggleMoveAlerts = ToggleMoveAlerts;
 ------------ Announce toggle
 -- Announce button
 local anbtn = VFLUI.AcquireFrame("Button");
@@ -562,9 +577,10 @@ anbtn:SetScript("OnClick", RDX.AnnounceToggle);
 -- Load prefs into locals
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	RDXU.alert_top_x = nil; RDXU.alert_top_y = nil; RDXU.alert_bottom_x = nil; RDXU.alert_bottom_y = nil;
-
-	if RDXU.alert_top then topstack_props = RDXU.alert_top; else RDXU.alert_top = topstack_props; end
-	if RDXU.alert_bottom then bottomstack_props = RDXU.alert_bottom; else RDXU.alert_bottom = bottomstack_props; end
+	
+	--deprecated manage by Obj_Desktop now
+	--if RDXU.alert_top then topstack_props = RDXU.alert_top; else RDXU.alert_top = topstack_props; end
+	--if RDXU.alert_bottom then bottomstack_props = RDXU.alert_bottom; else RDXU.alert_bottom = bottomstack_props; end
 
 	if RDXU.spam then RDX.AnnounceOn() else RDX.AnnounceOff(); end
 end);
