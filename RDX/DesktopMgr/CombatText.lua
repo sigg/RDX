@@ -20,3 +20,16 @@ end
 function RDXDK.GetLockCombatTextFont()
 	return VFL.copy(fontl);
 end
+
+function RDXDK.debugCT()
+	--local numchild = WorldFrame:GetNumChildren()
+	--for i = 1, numchild do
+	--	local frame = select(i, WorldFrame:GetChildren());
+	--	VFL.print(frame:GetName());
+	--end
+	for i, child in ipairs({WorldFrame:GetRegions()}) do
+		VFL.print(child:GetName());
+	end
+end
+
+-- /script RDXDK.debugCT();
