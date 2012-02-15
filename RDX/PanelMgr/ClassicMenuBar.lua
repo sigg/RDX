@@ -95,6 +95,27 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Debugging");
+	ent.hasArrow = true;
+	ent.notCheckable = true;
+	ent.menuList = {
+		{ text = VFLI.i18n("     Open Set Debugger"), notCheckable = true, keepShownOnClick = false, func = RDXM_Debug.SetDebugger },
+		{ text = VFLI.i18n("     Open Profiler"), notCheckable = true, keepShownOnClick = false, func = VFLP.ToggleProfiler },
+		{ text = VFLI.i18n("     Open ErrorDialog"), notCheckable = true, keepShownOnClick = false, func = VFL.ToggleErrorDialog },
+		{ text = VFLI.i18n("     Fire Disrupt Signal"), notCheckable = true, keepShownOnClick = false, func = RDX._Disrupt },
+		{ text = VFLI.i18n("     Fire Roster Update Signal"), notCheckable = true, keepShownOnClick = false, func = RDX._Roster },
+		{ text = VFLI.i18n("     Reset Editor Layout"), notCheckable = true, keepShownOnClick = false, func = RDXPM.ResetLayouts },
+		{ text = VFLI.i18n("     Garbage Collect"), notCheckable = true, keepShownOnClick = false, func = VFLGC },
+		--{ text = VFLI.i18n("Fake Roster Units"), checked = RDXDAL.IsDummy, func = function() RDXEvents:Dispatch("ROSTER_DUMMY"); end },
+		{ text = VFLI.i18n("Store Compiled Code"), checked = RDXM_Debug.IsStoreCompilerActive, keepShownOnClick = false, func = RDXM_Debug.ToggleStoreCompiler },
+		{ text = VFLI.i18n("Party with me"), checked = RDXM_Debug.IsPartyIncludeMe, keepShownOnClick = false, func = RDXM_Debug.TogglePartyIncludeMe },
+		{ text = VFLI.i18n("     Wipe CooldownDB"), notCheckable = true, keepShownOnClick = false, func = RDXCD.WipeCooldownDB },
+		{ text = VFLI.i18n("     Print CooldownDB"), notCheckable = true, keepShownOnClick = false, func = RDXCD.DebugCooldownDB },
+		{ text = VFLI.i18n("     Reset Chatframes"), notCheckable = true, keepShownOnClick = false, func = function() FCF_ResetChatWindows(); ReloadUI(); end },
+	};
+end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = "**************";
 	ent.notCheckable = true;
 	ent.func = VFL.Noop;

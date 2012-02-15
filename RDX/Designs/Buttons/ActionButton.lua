@@ -152,7 +152,8 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	self.txtMacro:SetAllPoints(self.frtxt);
 	-- text hotkey
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
-	self.txtHotkey:SetAllPoints(self.frtxt);
+	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
+	self.txtHotkey:SetWidth(size + 6); self.txtHotkey:SetHeight(size);
 	
 	local start, duration, enable, spellid = 0, 0, nil, nil;
 	local function UpdateCooldown()
@@ -566,7 +567,8 @@ function RDXUI.MultiCastButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 	self.txtMacro:SetAllPoints(self.frtxt);
 	-- text hotkey
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
-	self.txtHotkey:SetAllPoints(self.frtxt);
+	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
+	self.txtHotkey:SetWidth(size + 6); self.txtHotkey:SetHeight(size);
 	
 	local start, duration, enable = 0, 0, nil;
 	local function UpdateCooldown()
@@ -948,7 +950,8 @@ function RDXUI.PetActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os
 	self.frtxt:SetAllPoints(self);
 	self.frtxt:Show();
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
-	self.txtHotkey:SetAllPoints(self.frtxt);
+	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
+	self.txtHotkey:SetWidth(size + 6); self.txtHotkey:SetHeight(size);
 	
 	local start, duration, enable = 0, 0, nil;
 	local function UpdateCooldown()
@@ -1289,7 +1292,8 @@ function RDXUI.StanceButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	self.frtxt:SetAllPoints(self);
 	self.frtxt:Show();
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
-	self.txtHotkey:SetAllPoints(self.frtxt);
+	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
+	self.txtHotkey:SetWidth(size + 6); self.txtHotkey:SetHeight(size);
 	
 	local start, duration, enable = 0, 0, nil;
 	local function UpdateCooldown()
@@ -1496,7 +1500,8 @@ function RDXUI.ActionButtonTest:new(parent, id, size, usebs, ebs, usebkd, bkd, o
 	self.frtxt:SetAllPoints(self);
 	self.frtxt:Show();
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
-	self.txtHotkey:SetAllPoints(self.frtxt);
+	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
+	self.txtHotkey:SetWidth(size + 6); self.txtHotkey:SetHeight(size);
 	
 	function self:Init()
 		self.cd:SetCooldown(GetTime() + 60 - 120, 120);

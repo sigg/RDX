@@ -41,11 +41,11 @@ end
 VFLP.RegisterFunc("RDX", "AggroUpdate", UpdateAggroSet, true);
 
 function aggroSet:_OnActivate()
-	VFLT.AdaptiveUnschedule("AggroUpdate");
-	VFLT.AdaptiveSchedule("AggroUpdate", aggroUpdatePeriod, UpdateAggroSet);
+	VFLT.AdaptiveUnschedule2("AggroUpdate");
+	VFLT.AdaptiveSchedule2("AggroUpdate", aggroUpdatePeriod, UpdateAggroSet);
 end
 function aggroSet:_OnDeactivate()
-	VFLT.AdaptiveUnschedule("AggroUpdate");
+	VFLT.AdaptiveUnschedule2("AggroUpdate");
 end
 
 RDXDAL.RegisterSetClass({

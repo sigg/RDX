@@ -13,6 +13,42 @@ local function statusBar_SetColorTable(self, c)
 	if c then self:SetVertexColor(c.r, c.g, c.b, c.a or 1); end
 end
 
+local function onupdateH(self, elapsed, v, t, maxx, horiz)
+	self._totalElapsed = self._totalElapsed + elapsed
+	if self._totalElapsed >= t then
+		self._totalElapsed = 0;
+		self:SetScript("OnUpdate", nil);
+		--VFLT.AdaptiveUnschedule(self);
+		if horiz then
+			self._bSetWidth(self, v*maxx + (1-v)*0.001);
+			self:SetTexCoord(0, v, 0, 1);
+		else
+			self._bSetHeight(self, v*maxx + (1-v)*0.001);
+			if self._vertFix then
+				self:SetTexCoord(0, 1, 1-v, 1);
+			else
+				self:SetTexCoord(0, 1, 0, v);
+			end
+		end
+		self._value = v;
+		return v;
+	end
+	offset = VFL.lerp1(1/t*self._totalElapsed, self._value, v);
+	if horiz then
+		self._bSetWidth(self, offset*maxx + (1-offset)*0.001);
+		self:SetTexCoord(0, offset, 0, 1);
+	else
+		self._bSetHeight(self, offset*maxx + (1-offset)*0.001);
+		if self._vertFix then
+			self:SetTexCoord(0, 1, 1-offset, 1);
+		else
+			self:SetTexCoord(0, 1, 0, offset);
+		end
+	end
+	self._value = offset;
+	return offset;
+end
+
 local function onupdate(self, elapsed, v, t, maxx, horiz)
 	self._totalElapsed = self._totalElapsed + elapsed
 	if self._totalElapsed >= t then

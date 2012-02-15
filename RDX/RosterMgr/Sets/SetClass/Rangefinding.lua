@@ -142,12 +142,12 @@ VFLP.RegisterFunc("RDX", "UpdateUIRS", UpdateUIRS, true);
 function uirs:_OnActivate()
 	if not perf_rf_Enabled then return; end
 	RDXRF:Debug(2, "Enabling UIRS");
-	VFLT.AdaptiveUnschedule("uirs");
-	VFLT.AdaptiveSchedule("uirs", uirsTickLength, UpdateUIRS);
+	VFLT.AdaptiveUnschedule2("uirs");
+	VFLT.AdaptiveSchedule2("uirs", uirsTickLength, UpdateUIRS);
 end
 function uirs:_OnDeactivate()
 	RDXRF:Debug(2, "Disabling UIRS");
-	VFLT.AdaptiveUnschedule("uirs");
+	VFLT.AdaptiveUnschedule2("uirs");
 end
 
 RDXDAL.RegisterSet(uirs);
@@ -204,7 +204,7 @@ local function UpdateRS()
 	end
 end
 
-VFLT.AdaptiveSchedule("Rangefinding", frsTickLength, UpdateRS);
+VFLT.AdaptiveSchedule2("Rangefinding", frsTickLength, UpdateRS);
 VFLP.RegisterFunc("RDX", "Rangefinding", UpdateRS, true);
 
 --- Get an exact range set for the given spell.
