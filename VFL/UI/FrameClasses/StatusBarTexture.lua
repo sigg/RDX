@@ -13,72 +13,44 @@ local function statusBar_SetColorTable(self, c)
 	if c then self:SetVertexColor(c.r, c.g, c.b, c.a or 1); end
 end
 
-local function onupdateH(self, elapsed, v, t, maxx, horiz)
+local function onupdateH(self, elapsed, v, t, maxx)
 	self._totalElapsed = self._totalElapsed + elapsed
 	if self._totalElapsed >= t then
 		self._totalElapsed = 0;
-		self:SetScript("OnUpdate", nil);
-		--VFLT.AdaptiveUnschedule(self);
-		if horiz then
-			self._bSetWidth(self, v*maxx + (1-v)*0.001);
-			self:SetTexCoord(0, v, 0, 1);
-		else
-			self._bSetHeight(self, v*maxx + (1-v)*0.001);
-			if self._vertFix then
-				self:SetTexCoord(0, 1, 1-v, 1);
-			else
-				self:SetTexCoord(0, 1, 0, v);
-			end
+		self.f:SetScript("OnUpdate", nil);
+		self._bSetWidth(self, v*maxx + (1-v)*0.001);
+		self:SetTexCoord(0, v, 0, 1);
 		end
 		self._value = v;
 		return v;
 	end
 	offset = VFL.lerp1(1/t*self._totalElapsed, self._value, v);
-	if horiz then
-		self._bSetWidth(self, offset*maxx + (1-offset)*0.001);
-		self:SetTexCoord(0, offset, 0, 1);
-	else
-		self._bSetHeight(self, offset*maxx + (1-offset)*0.001);
-		if self._vertFix then
-			self:SetTexCoord(0, 1, 1-offset, 1);
-		else
-			self:SetTexCoord(0, 1, 0, offset);
-		end
-	end
+	self._bSetWidth(self, offset*maxx + (1-offset)*0.001);
+	self:SetTexCoord(0, offset, 0, 1);
 	self._value = offset;
 	return offset;
 end
 
-local function onupdate(self, elapsed, v, t, maxx, horiz)
+local function onupdateV(self, elapsed, v, t, maxx)
 	self._totalElapsed = self._totalElapsed + elapsed
 	if self._totalElapsed >= t then
 		self._totalElapsed = 0;
-		VFLT.AdaptiveUnschedule(self);
-		if horiz then
-			self._bSetWidth(self, v*maxx + (1-v)*0.001);
-			self:SetTexCoord(0, v, 0, 1);
+		self.f:SetScript("OnUpdate", nil);
+		self._bSetHeight(self, v*maxx + (1-v)*0.001);
+		if self._vertFix then
+			self:SetTexCoord(0, 1, 1-v, 1);
 		else
-			self._bSetHeight(self, v*maxx + (1-v)*0.001);
-			if self._vertFix then
-				self:SetTexCoord(0, 1, 1-v, 1);
-			else
-				self:SetTexCoord(0, 1, 0, v);
-			end
+			self:SetTexCoord(0, 1, 0, v);
 		end
 		self._value = v;
 		return v;
 	end
 	offset = VFL.lerp1(1/t*self._totalElapsed, self._value, v);
-	if horiz then
-		self._bSetWidth(self, offset*maxx + (1-offset)*0.001);
-		self:SetTexCoord(0, offset, 0, 1);
+	self._bSetHeight(self, offset*maxx + (1-offset)*0.001);
+	if self._vertFix then
+		self:SetTexCoord(0, 1, 1-offset, 1);
 	else
-		self._bSetHeight(self, offset*maxx + (1-offset)*0.001);
-		if self._vertFix then
-			self:SetTexCoord(0, 1, 1-offset, 1);
-		else
-			self:SetTexCoord(0, 1, 0, offset);
-		end
+		self:SetTexCoord(0, 1, 0, offset);
 	end
 	self._value = offset;
 	return offset;
@@ -117,15 +89,15 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 		if(o == "HORIZONTAL") then
 			function self.SetValue(self2, v, t)
 				if not v then return; end
+				if v < 0 then v = 0.001; end
 				if self2._value == v then return; end
-				--if t then
-				--	VFLT.AdaptiveUnschedule(self2);
-				--	self._totalElapsed = 0;
-				--	VFLT.AdaptiveSchedule(self2, 0.021, function(_,elapsed)
-				--		offset = onupdate(self2, elapsed, v, t, maxw, true);
-				--		if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, offset)); end
-				--	end);
-				--else
+				if t then
+					self2._totalElapsed = 0;
+					self2.f:SetScript("OnUpdate", function(_,elapsed)
+						offset = onupdateH(self2, elapsed, v, t, maxw);
+						if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, offset)); end
+					end);
+				else
 					bSetWidth(self2, v*maxw + (1-v)*0.001);
 					if self2._horiFix then
 						self2:SetTexCoord(1-v, 1, 0, 1);
@@ -134,20 +106,20 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 					end
 					if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, v)); end
 					self2._value = v;
-				--end
+				end
 			end
 		elseif(o == "VERTICAL") then
 			function self.SetValue(self2, v, t)
 				if not v then return; end
-				if v < 0 then v = abs(v); end
+				if v < 0 then v = 0.001; end
 				if self2._value == v then return; end
-				--if t then
-				--	self._totalElapsed = 0;
-				--	VFLT.AdaptiveSchedule(self2, 0.021, function(_,elapsed)
-				--		offset = onupdate(self2, elapsed, v, t, maxh);
-				--		if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, offset)); end
-				--	end);
-				--else
+				if t then
+					self2._totalElapsed = 0;
+					self2.f:SetScript("OnUpdate", function(_,elapsed)
+						offset = onupdateV(self2, elapsed, v, t, maxw);
+						if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, offset)); end
+					end);
+				else
 					bSetHeight(self2, v*maxh + (1-v)*0.001);
 					if self2._vertFix then
 						self2:SetTexCoord(0, 1, 1-v, 1);
@@ -155,7 +127,8 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 						self2:SetTexCoord(0, 1, 0, v);
 					end
 					if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, v)); end
-				--end
+					self2._value = v;
+				end
 			end
 		end
 	end
