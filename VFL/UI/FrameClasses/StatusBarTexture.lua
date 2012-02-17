@@ -20,7 +20,6 @@ local function onupdateH(self, elapsed, v, t, maxx)
 		self.f:SetScript("OnUpdate", nil);
 		self._bSetWidth(self, v*maxx + (1-v)*0.001);
 		self:SetTexCoord(0, v, 0, 1);
-		end
 		self._value = v;
 		return v;
 	end
