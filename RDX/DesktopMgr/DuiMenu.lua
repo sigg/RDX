@@ -110,7 +110,7 @@ local function AUIList()
 		local thisMenu = {
 			text = v,
 			checked = function()
-				if v == RDXU.AUIState then return true; else return nil; end
+				if strlower(v) == RDXU.AUIState then return true; else return nil; end
 			end,
 			func = function()
 				RDXDK.SwitchState_Disable(strlower(v));
