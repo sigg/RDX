@@ -126,8 +126,8 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 	s.color1 = nil;
 	s.color2 = nil;
 	s._value = -1;
-	s._v = nil;
-	s._t = nil;
+	s.v = nil;
+	s.t = nil;
 	s._vertFix = vertFix;
 	s._horiFix = horiFix;
     
@@ -144,20 +144,20 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 				if not v then return; end
 				if v < 0 then v = 0.001; end
 				if self2._value == v then return; end
-				self2._v = v;
-				self2._t = t;
-				if self2._t then
+				self2.v = v;
+				self2.t = t;
+				if self2.t then
 					self2._totalElapsed = 0;
-					self2.f:SetScript("OnUpdate", newonupdateH);
+					self2.f:SetScript("OnUpdate", function(self, elapsed) newonupdateH(self2, elapsed); end);
 				else
-					bSetWidth(self2, self2._v*self2.maxw + (1-self2._v)*0.001);
+					bSetWidth(self2, self2.v*self2.maxw + (1-self2.v)*0.001);
 					if self2._horiFix then
-						self2:SetTexCoord(1-self2._v, 1, 0, 1);
+						self2:SetTexCoord(1-self2.v, 1, 0, 1);
 					else
-						self2:SetTexCoord(0, self2._v, 0, 1);
+						self2:SetTexCoord(0, self2.v, 0, 1);
 					end
-					if self2.color1 then self2:SetVertexColor(VFL.CVFromCTLerp(self2.color1, self2.color2, self2._v)); end
-					self2._value = self2._v;
+					if self2.color1 then self2:SetVertexColor(VFL.CVFromCTLerp(self2.color1, self2.color2, self2.v)); end
+					self2._value = self2.v;
 				end
 			end
 		elseif(o == "VERTICAL") then
@@ -165,11 +165,11 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 				if not v then return; end
 				if v < 0 then v = 0.001; end
 				if self2._value == v then return; end
-				self2._v = v;
-				self2._t = t;
+				self2.v = v;
+				self2.t = t;
 				if self2.t then
 					self2._totalElapsed = 0;
-					self2.f:SetScript("OnUpdate", newonupdateV);
+					self2.f:SetScript("OnUpdate", function(self, elapsed) newonupdateV(self2, elapsed); end);
 				else
 					bSetHeight(self2, self2.v*self2.maxh + (1-self2.v)*0.001);
 					if self2._vertFix then
@@ -192,8 +192,8 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 		s2.SetValueAndColorTable = nil; s2.SetColorTable = nil;
 		s2.SetOrientation = nil; s2.SetWidth = nil; s2.SetHeight = nil; s2.SetColors = nil;
 		s2._totalElapsed = nil;
-		s2._v = nil;
-		s2._t = nil;
+		s2.v = nil;
+		s2.t = nil;
 		s._value = nil;
 		s2._vertFix = nil;
 		s2._horiFix = nil;
