@@ -435,7 +435,11 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 			key = RDXKB.ToShortKey(key);
 			local bindingText = GetBindingText(key, "KEY_", true);
 			self.txtHotkey:SetText(bindingText or key);
-			if showkey then self.txtHotkey:Show(); else self.txtHotkey:Hide(); end
+		else
+			self.txtHotkey:SetText(RANGE_INDICATOR);
+		end
+		if showkey then
+			self.txtHotkey:Show();
 		else
 			self.txtHotkey:Hide();
 		end
