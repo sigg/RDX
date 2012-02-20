@@ -17,11 +17,11 @@ local function AUIList()
 	end);
 	
 	-----------------------------------
-	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text = VFLI.i18n("Blizzard Frames Manager");
-		ent.func = RDXDK.ToggleBlizzardManage;
-		ent.notCheckable = true;
-	end);
+	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
+	--	ent.text = VFLI.i18n("Blizzard Frames Manager");
+	--	ent.func = RDXDK.ToggleBlizzardManage;
+	--	ent.notCheckable = true;
+	--end);
 	
 	-----------------------------------
 	
@@ -33,7 +33,9 @@ local function AUIList()
 					local path = RDXDB.MakePath(pkgName, objName);
 					local newMenu = {
 						text = objName,
-						notCheckable = true,
+						checked = function()
+							if path == RDXU.AUI then return true; else return nil; end
+						end,
 						func = function()
 							RDXDK.SecuredChangeAUI(path);
 							AUIList();
@@ -91,7 +93,9 @@ local function AUIList()
 	for _,v in ipairs(state) do
 		local thisMenu = {
 			text = v,
-			notCheckable = true,
+			checked = function()
+				if v == RDXU.AUIState then return true; else return nil; end
+			end,
 			func = function()
 				RDXDK.SwitchState_Disable(strlower(v));
 			end;
