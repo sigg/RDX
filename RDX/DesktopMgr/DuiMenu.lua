@@ -51,6 +51,22 @@ local function AUIList()
 		table.insert(subMenus, v);
 	end
 	
+	table.insert(subMenus, {
+		text = "*******************",
+		notCheckable = true,
+		func = VFL.Noop,
+		}
+	);
+	
+	table.insert(subMenus, { 
+		text = "Create a new AUI",
+		notCheckable = true, 
+		func = function()
+			RDXDK.NewAUI();
+		end
+		}
+	);
+	
 	--table.insert(subMenus, {
 	--	text = "*******************",
 	--	notCheckable = true,

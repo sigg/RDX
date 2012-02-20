@@ -543,71 +543,74 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 	end
 end);
 
--- Run all autodesk
-RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
+local function ManageAutoDesk(pkg, dir)
 	local aex, adesk, isexist = nil, nil, nil;
-	for pkg,dir in pairs(RDXDB.GetPackages()) do
-		adesk = dir["autodesk"];
-		if adesk and adesk.ty == "Desktop" then
-			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_solo_dsk", "Desktop");
-			if not isexist then RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_solo_dsk"); end
-			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_party_dsk", "Desktop");
-			if not isexist then 
-				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_party_dsk");
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Party_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Party_Main"} );
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Partytarget_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Partytarget_Main"} );
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Boss_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Boss_Main"} );
-			end
-			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_raid_dsk", "Desktop");
-			if not isexist then 
-				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_raid_dsk");
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", "name", pkg .. ":Raid_Main_GroupAll", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_Main_GroupAll"} );
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", "name", pkg .. ":Boss_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Boss_Main"} );
-			end
-			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_pvp_dsk", "Desktop");
-			if not isexist then 
-				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_pvp_dsk");
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_pvp_dsk", "desktop_window", "name", pkg .. ":Raid_Main_GroupAll", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_Main_GroupAll"} );
-			end
-			isexist = RDXDB.CheckObject("desktops:".. pkg .. "_arena_dsk", "Desktop");
-			if not isexist then 
-				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_arena_dsk");
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Party_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Party_Main"} );
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Partytarget_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Partytarget_Main"} );
-				RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Arena_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Arena_Main"} );
-			end
-			isexist = RDXDB.CheckObject("desktops:".. pkg, "AUI");
-			if not isexist then 
-				local mbo = RDXDB.TouchObject("desktops:".. pkg);
-				mbo.data = {
-					["solo"] = "desktops:".. pkg .. "_solo_dsk";
-					["party"] = "desktops:".. pkg .. "_party_dsk";
-					["raid"] = "desktops:".. pkg .. "_raid_dsk";
-					["pvp"] = "desktops:".. pkg .. "_pvp_dsk";
-					["arena"] = "desktops:".. pkg .. "_arena_dsk";
-					["solo2"] = "desktops:".. pkg .. "_solo_dsk";
-					["party2"] = "desktops:".. pkg .. "_party_dsk";
-					["raid2"] = "desktops:".. pkg .. "_raid_dsk";
-					["pvp2"] = "desktops:".. pkg .. "_pvp_dsk";
-					["arena2"] = "desktops:".. pkg .. "_arena_dsk";
-					["soloflag"] = true;
-					["partyflag"] = true;
-					["raidflag"] = true;
-					["pvpflag"] = true;
-					["arenaflag"] = true;
-					["soloflag2"] = true;
-					["partyflag2"] = true;
-					["raidflag2"] = true;
-					["pvpflag2"] = true;
-					["arenaflag2"] = true;
-				};
-				mbo.ty = "AUI"; 
-				mbo.version = 2;
-			end
+	adesk = dir["autodesk"];
+	if adesk and adesk.ty == "Desktop" then
+		isexist = RDXDB.CheckObject("desktops:".. pkg .. "_solo_dsk", "Desktop");
+		if not isexist then RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_solo_dsk"); end
+		isexist = RDXDB.CheckObject("desktops:".. pkg .. "_party_dsk", "Desktop");
+		if not isexist then 
+			RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_party_dsk");
+			RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Party_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Party_Main"} );
+			RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Partytarget_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Partytarget_Main"} );
+			RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Boss_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Boss_Main"} );
+		end
+		isexist = RDXDB.CheckObject("desktops:".. pkg .. "_raid_dsk", "Desktop");
+		if not isexist then 
+			RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_raid_dsk");
+			RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", "name", pkg .. ":Raid_Main_GroupAll", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_Main_GroupAll"} );
+			RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", "name", pkg .. ":Boss_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Boss_Main"} );
+		end
+		isexist = RDXDB.CheckObject("desktops:".. pkg .. "_pvp_dsk", "Desktop");
+		if not isexist then 
+			RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_pvp_dsk");
+			RDXDB.AddFeatureData("desktops:".. pkg .. "_pvp_dsk", "desktop_window", "name", pkg .. ":Raid_Main_GroupAll", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_Main_GroupAll"} );
+		end
+		isexist = RDXDB.CheckObject("desktops:".. pkg .. "_arena_dsk", "Desktop");
+		if not isexist then 
+			RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_arena_dsk");
+			RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Party_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Party_Main"} );
+			RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Partytarget_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Partytarget_Main"} );
+			RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Arena_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Arena_Main"} );
+		end
+		isexist = RDXDB.CheckObject("desktops:".. pkg, "AUI");
+		if not isexist then 
+			local mbo = RDXDB.TouchObject("desktops:".. pkg);
+			mbo.data = {
+				["solo"] = "desktops:".. pkg .. "_solo_dsk";
+				["party"] = "desktops:".. pkg .. "_party_dsk";
+				["raid"] = "desktops:".. pkg .. "_raid_dsk";
+				["pvp"] = "desktops:".. pkg .. "_pvp_dsk";
+				["arena"] = "desktops:".. pkg .. "_arena_dsk";
+				["solo2"] = "desktops:".. pkg .. "_solo_dsk";
+				["party2"] = "desktops:".. pkg .. "_party_dsk";
+				["raid2"] = "desktops:".. pkg .. "_raid_dsk";
+				["pvp2"] = "desktops:".. pkg .. "_pvp_dsk";
+				["arena2"] = "desktops:".. pkg .. "_arena_dsk";
+				["soloflag"] = true;
+				["partyflag"] = true;
+				["raidflag"] = true;
+				["pvpflag"] = true;
+				["arenaflag"] = true;
+				["soloflag2"] = true;
+				["partyflag2"] = true;
+				["raidflag2"] = true;
+				["pvpflag2"] = true;
+				["arenaflag2"] = true;
+			};
+			mbo.ty = "AUI"; 
+			mbo.version = 2;
 		end
 	end
-end);
+end
 
+-- Run all autodesk
+RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
+	for pkg,dir in pairs(RDXDB.GetPackages()) do
+		ManageAutoDesk(pkg, dir);
+	end
+end);
 
 RDXDB.RegisterObjectType({
 	name = "DUI";
@@ -618,4 +621,84 @@ RDXDB.RegisterObjectType({
 		md.ty = "AUI";
 	end,
 });
+
+
+local function NewPackage_OnOK(x)
+	if RDXDB.CreatePackage(x) then
+		local default = RDXDB.GetOrCreatePackage(x);
+		if not default["autodesk"] then
+			default["autodesk"] = {
+				["ty"] = "Desktop",
+				["version"] = 2,
+				["data"] = {
+					{
+						["strata"] = "LOW",
+						["b"] = 0,
+						["anchorxrid"] = 255.4666801982218,
+						["uiscale"] = 0.8533333539962769,
+						["dgp"] = true,
+						["resolution"] = "1600",
+						["feature"] = "Desktop main",
+						["offsetbottom"] = 0,
+						["bkd"] = {
+							["bgFile"] = "Interface\\Addons\\VFL\\Skin\\a80black",
+							["tileSize"] = 16,
+							["tile"] = true,
+							["edgeFile"] = "Interface\\Addons\\VFL\\Skin\\HalBorder",
+							["edgeSize"] = 8,
+							["insets"] = {
+								["top"] = 2,
+								["right"] = 2,
+								["left"] = 2,
+								["bottom"] = 2,
+							},
+						},
+						["l"] = 0,
+						["offsettop"] = 0,
+						["scale"] = 1,
+						["offsetleft"] = 0,
+						["offsetright"] = 0,
+						["r"] = 1365.333426704711,
+						["root"] = true,
+						["t"] = 767.9999824928667,
+						["alpha"] = 1,
+						["anchoryrid"] = 465.386732369479,
+						["title"] = "updated",
+						["font"] = {
+							["title"] = "Default 10pt",
+							["color"] = {
+								["r"] = 1,
+								["g"] = 1,
+								["b"] = 1,
+							},
+							["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+							["name"] = "Default10",
+							["size"] = 10,
+						},
+						["name"] = "root",
+						["open"] = true,
+						["tex"] = {
+							["color"] = {
+								["a"] = 1,
+								["b"] = 1,
+								["g"] = 1,
+								["r"] = 1,
+							},
+							["path"] = "Interface\\Addons\\RDX\\Skin\\bar1",
+							["blendMode"] = "BLEND",
+						},
+						["anchorx"] = 285.333341904534,
+						["anchory"] = 320.3201048020767,
+						["ap"] = "TOPLEFT",
+					}, -- [1]
+				},
+			};
+		end
+		ManageAutoDesk(x, default);
+	end
+end
+
+function RDXDK.NewAUI()
+	VFLUI.MessageBox(VFLI.i18n("Create New AUI"), VFLI.i18n("Enter name:"), "", VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), NewPackage_OnOK);
+end
 
