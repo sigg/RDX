@@ -13,6 +13,57 @@ local function statusBar_SetColorTable(self, c)
 	if c then self:SetVertexColor(c.r, c.g, c.b, c.a or 1); end
 end
 
+local function newonupdateH(self, elapsed)
+	self._totalElapsed = self._totalElapsed + elapsed
+	if self._totalElapsed >= self.t then
+		self._totalElapsed = 0;
+		self.f:SetScript("OnUpdate", nil);
+		self._bSetWidth(self, self.v*self.maxw + (1-self.v)*0.001);
+		if self._horiFix then
+			self:SetTexCoord(1-self.v, 1, 0, 1);
+		else
+			self:SetTexCoord(0, self.v, 0, 1);
+		end
+		self._value = self.v;
+	else
+		self._value = VFL.lerp1(1/self.t*self._totalElapsed, self._value, self.v);
+		self._bSetWidth(self, self._value*self.maxw + (1-self._value)*0.001);
+		if self._horiFix then
+			self:SetTexCoord(1-self._value, 1, 0, 1);
+		else
+			self:SetTexCoord(0, self._value, 0, 1);
+		end
+	end
+	if self.color1 then self2:SetVertexColor(VFL.CVFromCTLerp(self.color1, self.color2, self._value)); end
+end
+
+local function newonupdateV(self, elapsed)
+	self._totalElapsed = self._totalElapsed + elapsed
+	if self._totalElapsed >= self.t then
+		self._totalElapsed = 0;
+		self.f:SetScript("OnUpdate", nil);
+		self._bSetHeight(self, self.v*self.maxh + (1-self.v)*0.001);
+		if self._vertFix then
+			self:SetTexCoord(0, 1, 1-self.v, 1);
+		else
+			self:SetTexCoord(0, 1, 0, self.v);
+		end
+		self._value = self.v;
+	else
+		self._value = VFL.lerp1(1/self.t*self._totalElapsed, self._value, self.v);
+		self._bSetHeight(self, self._value*self.maxh + (1-self._value)*0.001);
+		if self._vertFix then
+			self:SetTexCoord(0, 1, 1-self._value, 1);
+		else
+			self:SetTexCoord(0, 1, 0, self._value);
+		end
+	end
+	if self.color1 then self2:SetVertexColor(VFL.CVFromCTLerp(self.color1, self.color2, self._value)); end
+end
+
+
+--[[
+
 local function onupdateH(self, elapsed, v, t, maxx)
 	self._totalElapsed = self._totalElapsed + elapsed
 	if self._totalElapsed >= t then
@@ -54,7 +105,7 @@ local function onupdateV(self, elapsed, v, t, maxx)
 	self._value = offset;
 	return offset;
 end
-
+]]
 VFLUI.StatusBarTexture = {};
 function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, sublevel)
 	local f = VFLUI.AcquireFrame("Frame");
@@ -70,41 +121,43 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 	s.f = f;
 
 	-- Internal state variables
-	local color1, color2 = nil, nil;
-	local maxw, maxh = 0.001, 0.001;
-	local offset;
+	s.maxw = 0.001;
+	s.maxh = 0.001;
+	s.color1 = nil;
+	s.color2 = nil;
 	s._value = -1;
+	s._v = nil;
+	s._t = nil;
 	s._vertFix = vertFix;
 	s._horiFix = horiFix;
     
 	s._bSetWidth, s._bSetHeight = s.SetWidth, s.SetHeight;
 	local bSetWidth, bSetHeight = s._bSetWidth, s._bSetHeight;
-	function s:SetWidth(w) maxw = w; bSetWidth(self, w); end
-	function s:SetHeight(h) maxh = h; bSetHeight(self, h); end
-	function s:SetColors(c1, c2) color1 = c1; color2 = c2; end
+	function s:SetWidth(w) s.maxw = w; bSetWidth(self, w); end
+	function s:SetHeight(h) s.maxh = h; bSetHeight(self, h); end
+	function s:SetColors(c1, c2) s.color1 = c1; s.color2 = c2; end
 	
 	function s:SetOrientation(o)
-		bSetWidth(self, maxw); bSetHeight(self, maxh);
+		bSetWidth(self, s.maxw); bSetHeight(self, s.maxh);
 		if(o == "HORIZONTAL") then
 			function self.SetValue(self2, v, t)
 				if not v then return; end
 				if v < 0 then v = 0.001; end
 				if self2._value == v then return; end
-				if t then
+				self2._v = v;
+				self2._t = t;
+				if self2._t then
 					self2._totalElapsed = 0;
-					self2.f:SetScript("OnUpdate", function(_,elapsed)
-						offset = onupdateH(self2, elapsed, v, t, maxw);
-						if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, offset)); end
-					end);
+					self2.f:SetScript("OnUpdate", newonupdateH);
 				else
-					bSetWidth(self2, v*maxw + (1-v)*0.001);
+					bSetWidth(self2, self2._v*self2.maxw + (1-self2._v)*0.001);
 					if self2._horiFix then
-						self2:SetTexCoord(1-v, 1, 0, 1);
+						self2:SetTexCoord(1-self2._v, 1, 0, 1);
 					else
-						self2:SetTexCoord(0, v, 0, 1);
+						self2:SetTexCoord(0, self2._v, 0, 1);
 					end
-					if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, v)); end
-					self2._value = v;
+					if self2.color1 then self2:SetVertexColor(VFL.CVFromCTLerp(self2.color1, self2.color2, self2._v)); end
+					self2._value = self2._v;
 				end
 			end
 		elseif(o == "VERTICAL") then
@@ -112,21 +165,20 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 				if not v then return; end
 				if v < 0 then v = 0.001; end
 				if self2._value == v then return; end
-				if t then
+				self2._v = v;
+				self2._t = t;
+				if self2.t then
 					self2._totalElapsed = 0;
-					self2.f:SetScript("OnUpdate", function(_,elapsed)
-						offset = onupdateV(self2, elapsed, v, t, maxw);
-						if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, offset)); end
-					end);
+					self2.f:SetScript("OnUpdate", newonupdateV);
 				else
-					bSetHeight(self2, v*maxh + (1-v)*0.001);
+					bSetHeight(self2, self2.v*self2.maxh + (1-self2.v)*0.001);
 					if self2._vertFix then
-						self2:SetTexCoord(0, 1, 1-v, 1);
+						self2:SetTexCoord(0, 1, 1-self2.v, 1);
 					else
-						self2:SetTexCoord(0, 1, 0, v);
+						self2:SetTexCoord(0, 1, 0, self2.v);
 					end
-					if color1 then self2:SetVertexColor(VFL.CVFromCTLerp(color1, color2, v)); end
-					self2._value = v;
+					if self2.color1 then self2:SetVertexColor(VFL.CVFromCTLerp(self2.color1, self2.color2, self2.v)); end
+					self2._value = self2.v;
 				end
 			end
 		end
@@ -136,16 +188,19 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 	s.SetColorTable = statusBar_SetColorTable;
 
 	s.Destroy = VFL.hook(function(s2)
-		VFLT.AdaptiveUnschedule(s2);
+		s2.f:SetScript("OnUpdate", nil);
 		s2.SetValueAndColorTable = nil; s2.SetColorTable = nil;
-		color1 = nil; color2 = nil;
 		s2.SetOrientation = nil; s2.SetWidth = nil; s2.SetHeight = nil; s2.SetColors = nil;
-		s2._totalElapsed = nil; s._value = nil;
-		--s2:SetHorizTile(false);
-		--s2:SetVertTile(false);
-		--s2:SetTexCoordModifiesRect(false);
+		s2._totalElapsed = nil;
+		s2._v = nil;
+		s2._t = nil;
+		s._value = nil;
 		s2._vertFix = nil;
 		s2._horiFix = nil;
+		s2.color1 = nil;
+		s2.color2 = nil;
+		s2.maxw = nil;
+		s2.maxh = nil;
 		s2.f:Destroy();
 		s2.f = nil;
 	end, s.Destroy);
