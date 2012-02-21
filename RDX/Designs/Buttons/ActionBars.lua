@@ -179,6 +179,7 @@ RDX.RegisterFeature({
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		desc.owner = "Base";
 		desc.nIcons = 12;
+		
 		if not desc.barid then 
 			if desc.abid then desc.barid = GetBarId(desc.abid); desc.abid = nil; end
 		end
@@ -187,7 +188,7 @@ RDX.RegisterFeature({
 		if not desc.usebkd then desc.usebs = true; end
 		if not desc.externalButtonSkin then desc.externalButtonSkin = "bs_default"; end
 		if not desc.bsdefault then desc.bsdefault = VFL.copy(_white); end
-		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop);
+		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
 		if not desc.flyoutdirection then desc.flyoutdirection = "UP"; end
 		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
 		
@@ -477,6 +478,11 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.showtooltip then chk_showtooltip:SetChecked(true); else chk_showtooltip:SetChecked(); end
 		ui:InsertFrame(chk_showtooltip);
 		
+		local chk_useshaderkey = VFLUI.Checkbox:new(ui); chk_useshaderkey:Show();
+		chk_useshaderkey:SetText(VFLI.i18n("Use Shader Key"));
+		if desc and desc.useshaderkey then chk_useshaderkey:SetChecked(true); else chk_useshaderkey:SetChecked(); end
+		ui:InsertFrame(chk_useshaderkey);
+		
 		function ui:GetDescriptor()
 			if chk_bs:GetChecked() then chk_bkd:SetChecked(); end
 			return { 
@@ -521,6 +527,7 @@ frame.]] .. objname .. [[ = nil;
 				fontmacro = fontmacro:GetSelectedFont();
 				fontcount = fontcount:GetSelectedFont();
 				showtooltip = chk_showtooltip:GetChecked();
+				useshaderkey = chk_useshaderkey:GetChecked();
 			};
 		end
 

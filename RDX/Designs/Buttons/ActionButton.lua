@@ -67,25 +67,29 @@ local function BorderChangeBS(self, elapsed)
 		if self.ga then
 			if self.gacp then
 				self.gacp = nil;
-				self._texBorder:SetVertexColor(1, 0.5, 0, 0.8);
-				self._texGloss:SetVertexColor(1, 0.5, 0, 0.8);
+				self._texBorder:SetVertexColor(1, 0.5, 0, 0.9);
+				self._texGloss:SetVertexColor(1, 0.5, 0, 0.9);
 			else
 				self.gacp = true;
-				self._texBorder:SetVertexColor(1, 1, 0, 0.8);
-				self._texGloss:SetVertexColor(1, 1, 0, 0.8);
+				self._texBorder:SetVertexColor(1, 1, 0, 0.9);
+				self._texGloss:SetVertexColor(1, 1, 0, 0.9);
 			end
 		-- IsCurrentAction IsAutoRepeatAction yellow color
 		elseif self.ca then
-			self._texBorder:SetVertexColor(1, 1, 0, 0.8);
-			self._texGloss:SetVertexColor(1, 1, 0, 0.8);
+			self._texBorder:SetVertexColor(1, 1, 0, 0.9);
+			self._texGloss:SetVertexColor(1, 1, 0, 0.9);
 		-- out of range red color
 		elseif IsActionInRange(self.action) == 0 then
-			self._texBorder:SetVertexColor(1, 0, 0, 0.8);
-			self._texGloss:SetVertexColor(1, 0, 0, 0.8);
+			self._texBorder:SetVertexColor(1, 0, 0, 0.9);
+			self._texGloss:SetVertexColor(1, 0, 0, 0.9);
+		-- out of mana blue color
+		elseif self.ua then
+			self._texBorder:SetVertexColor(0, 0, 1, 0.9);
+			self._texGloss:SetVertexColor(0, 0, 1, 0.9);
 		-- equipement item green color
 		elseif self.ea then
-			self._texBorder:SetVertexColor(0, 1, 0, 0.35);
-			self._texGloss:SetVertexColor(0, 1, 0, 0.35);
+			self._texBorder:SetVertexColor(0, 1, 0, 0.9);
+			self._texGloss:SetVertexColor(0, 1, 0, 0.9);
 		-- default color
 		else
 			self._texBorder:SetVertexColor(explodeRGBA(self.bsdefault));
@@ -102,20 +106,23 @@ local function BorderChangeBKD(self, elapsed)
 		if self.ga then
 			if self.gacp then
 				self.gacp = nil;
-				self:SetBackdropBorderColor(1, 0.5, 0, 0.8);
+				self:SetBackdropBorderColor(1, 0.5, 0, 0.9);
 			else
 				self.gacp = true;
-				self:SetBackdropBorderColor(1, 1, 0, 0.8);
+				self:SetBackdropBorderColor(1, 1, 0, 0.9);
 			end
 		-- IsCurrentAction IsAutoRepeatAction yellow color
 		elseif self.ca then
-			self:SetBackdropBorderColor(1, 1, 0, 0.8);
+			self:SetBackdropBorderColor(1, 1, 0, 0.9);
 		-- out of range red color
 		elseif IsActionInRange(self.action) == 0 then
-			self:SetBackdropBorderColor(1, 0, 0, 0.8);
+			self:SetBackdropBorderColor(1, 0, 0, 0.9);
+		-- out of mana blue color
+		elseif self.ua then
+			self:SetBackdropBorderColor(0, 0, 1, 0.9);
 		-- equipement item green color
 		elseif self.ea then
-			self:SetBackdropBorderColor(0, 1, 0, 0.35);
+			self:SetBackdropBorderColor(0, 1, 0, 0.9);
 		-- default color
 		else
 			self:SetBackdropBorderColor(self.bkd.br or 1, self.bkd.bg or 1, self.bkd.bb or 1, self.bkd.ba or 1);
@@ -132,23 +139,27 @@ local function KeyChange(self, elapsed)
 			if self.gacp then
 				self.gacp = nil;
 				--SetTextColor
-				self.txtHotkey:SetVertexColor(1, 0.5, 0, 0.8);
+				--SetVertexColor
+				self.txtHotkey:SetTextColor(1, 0.5, 0, 0.9);
 			else
 				self.gacp = true;
-				self.txtHotkey:SetVertexColor(1, 1, 0, 0.8);
+				self.txtHotkey:SetTextColor(1, 1, 0, 0.9);
 			end
 		-- IsCurrentAction IsAutoRepeatAction yellow color
 		elseif self.ca then
-			self.txtHotkey:SetVertexColor(1, 1, 0, 0.8);
+			self.txtHotkey:SetTextColor(1, 1, 0, 0.9);
 		-- out of range red color
 		elseif IsActionInRange(self.action) == 0 then
-			self.txtHotkey:SetVertexColor(1, 0, 0, 0.8);
+			self.txtHotkey:SetTextColor(1, 0, 0, 0.9);
+		-- out of mana blue color
+		elseif self.ua then
+			self.txtHotkey:SetTextColor(0, 0, 1, 0.9);
 		-- equipement item green color
 		elseif self.ea then
-			self.txtHotkey:SetVertexColor(0, 1, 0, 0.35);
+			self.txtHotkey:SetTextColor(0, 1, 0, 0.9);
 		-- default color
 		else
-			self.txtHotkey:SetVertexColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
+			self.txtHotkey:SetTextColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
 		end
 	end
 end
@@ -281,17 +292,16 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	local function UpdateUsable()
 		isUsable, notEnoughMana = IsUsableAction(self.action);
 		if (isUsable) then
-			self.icon:SetVertexColor(1.0, 1.0, 1.0);
-			self:GetNormalTexture():SetVertexColor(1.0, 1.0, 1.0);
+			self.icon:SetAlpha(1);
+			self.ua = nil;
 		elseif (notEnoughMana) then
-			self.icon:SetVertexColor(0.5, 0.5, 1.0);
-			self:GetNormalTexture():SetVertexColor(0.5, 0.5, 1.0);
+			self.icon:SetAlpha(0.75);
+			self.ua = true;
 		else
-			self.icon:SetVertexColor(0.4, 0.4, 0.4);
-			self:GetNormalTexture():SetVertexColor(1.0, 1.0, 1.0);
+			self.icon:SetAlpha(0.3);
 		end
 		if (IsConsumableAction(self.action) or IsStackableAction(self.action)) then
-			count = GetActionCount(action);
+			count = GetActionCount(self.action);
 			if (count > (self.maxDisplayCount or 9999)) then
 				self.txtCount:SetText("*");
 			else
@@ -312,11 +322,16 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	end
 	
 	local function UpdateState()
+		if self.usebs then
+			self._texFlash:SetVertexColor(1, 1, 1, 0);
+		--elseif usebkd then
+			--self:SetBackdropBorderColor(1, 1, 1, 0);
+		end
 		if self.error then
 			self.icon:SetTexture("Interface\\InventoryItems\\WoWUnknownItem01.blp");
 		else
 			self.icon:SetTexture(GetActionTexture(self.action));
-			if ( (IsAttackAction(self.action) and IsCurrentAction(self.action)) or IsAutoRepeatAction(self.action) ) then
+			if ((IsAttackAction(self.action) and IsCurrentAction(self.action)) or IsAutoRepeatAction(self.action)) then
 				self.ca = true;
 			else
 				self.ca = nil;
@@ -328,6 +343,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	local function UpdateNewAction()
 		self.action = self:GetAttribute("action");
 		WoWEvents:Unbind("actionButton" .. self.id);
+		self.txtHotkey:Hide();
 		if not self.action then return; end
 		if HasAction(self.action) then
 			WoWEvents:Unbind("actionButton" .. self.id);
@@ -340,6 +356,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 			WoWEvents:Bind("ACTIONBAR_UPDATE_COOLDOWN", nil, UpdateCooldown, "actionButton" .. self.id);
 			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW", nil, UpdateGlow, "actionButton" .. self.id);
 			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE", nil, UpdateGlow, "actionButton" .. self.id);
+			self.txtHotkey:Show();
 		end
 		
 		if self.error then
@@ -379,7 +396,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 				self.txtMacro:Hide();
 				if desc.useshaderkey then
 					self.txtHotkey:SetVertexColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
-				else if self.usebs then
+				elseif self.usebs then
 					self._texBorder:SetVertexColor(VFL.explodeRGBA(self.bsdefault));
 					self._texGloss:SetVertexColor(VFL.explodeRGBA(self.bsdefault));
 				elseif self.usebkd then
@@ -477,7 +494,11 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 			local bindingText = GetBindingText(key, "KEY_", true);
 			self.txtHotkey:SetText(bindingText or key);
 		else
-			self.txtHotkey:SetText(RANGE_INDICATOR);
+			if desc.useshaderkey then
+				self.txtHotkey:SetText(RANGE_INDICATOR);
+			else
+				self.txtHotkey:SetText("");
+			end
 		end
 		-- deprecated.
 		--if desc.showkey then
