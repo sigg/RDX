@@ -54,8 +54,106 @@ VFLUI.CreateFramePool("SecureActionButtonBarTmp",
 	function(_, f) -- on acquired
 		f:ClearAllPoints();
 		f:Show();
-	end);
+	end
+);
 
+---------- shader border or key
+local explodeRGBA = VFL.explodeRGBA;
+local function BorderChangeBS(self, elapsed)
+	self.elapsed = self.elapsed + elapsed;
+	if self.elapsed > 0.5 then
+		self.elapsed = 0;
+		-- IsSpellOverlayed
+		if self.ga then
+			if self.gacp then
+				self.gacp = nil;
+				self._texBorder:SetVertexColor(1, 0.5, 0, 0.8);
+				self._texGloss:SetVertexColor(1, 0.5, 0, 0.8);
+			else
+				self.gacp = true;
+				self._texBorder:SetVertexColor(1, 1, 0, 0.8);
+				self._texGloss:SetVertexColor(1, 1, 0, 0.8);
+			end
+		-- IsCurrentAction IsAutoRepeatAction yellow color
+		elseif self.ca then
+			self._texBorder:SetVertexColor(1, 1, 0, 0.8);
+			self._texGloss:SetVertexColor(1, 1, 0, 0.8);
+		-- out of range red color
+		elseif IsActionInRange(self.action) == 0 then
+			self._texBorder:SetVertexColor(1, 0, 0, 0.8);
+			self._texGloss:SetVertexColor(1, 0, 0, 0.8);
+		-- equipement item green color
+		elseif self.ea then
+			self._texBorder:SetVertexColor(0, 1, 0, 0.35);
+			self._texGloss:SetVertexColor(0, 1, 0, 0.35);
+		-- default color
+		else
+			self._texBorder:SetVertexColor(explodeRGBA(self.bsdefault));
+			self._texGloss:SetVertexColor(explodeRGBA(self.bsdefault));
+		end
+	end
+end
+
+local function BorderChangeBKD(self, elapsed)
+	self.elapsed = self.elapsed + elapsed;
+	if self.elapsed > 0.5 then
+		self.elapsed = 0;
+		-- IsSpellOverlayed
+		if self.ga then
+			if self.gacp then
+				self.gacp = nil;
+				self:SetBackdropBorderColor(1, 0.5, 0, 0.8);
+			else
+				self.gacp = true;
+				self:SetBackdropBorderColor(1, 1, 0, 0.8);
+			end
+		-- IsCurrentAction IsAutoRepeatAction yellow color
+		elseif self.ca then
+			self:SetBackdropBorderColor(1, 1, 0, 0.8);
+		-- out of range red color
+		elseif IsActionInRange(self.action) == 0 then
+			self:SetBackdropBorderColor(1, 0, 0, 0.8);
+		-- equipement item green color
+		elseif self.ea then
+			self:SetBackdropBorderColor(0, 1, 0, 0.35);
+		-- default color
+		else
+			self:SetBackdropBorderColor(self.bkd.br or 1, self.bkd.bg or 1, self.bkd.bb or 1, self.bkd.ba or 1);
+		end
+	end
+end
+
+local function KeyChange(self, elapsed)
+	self.elapsed = self.elapsed + elapsed;
+	if self.elapsed > 0.5 then
+		self.elapsed = 0;
+		-- IsSpellOverlayed
+		if self.ga then
+			if self.gacp then
+				self.gacp = nil;
+				--SetTextColor
+				self.txtHotkey:SetVertexColor(1, 0.5, 0, 0.8);
+			else
+				self.gacp = true;
+				self.txtHotkey:SetVertexColor(1, 1, 0, 0.8);
+			end
+		-- IsCurrentAction IsAutoRepeatAction yellow color
+		elseif self.ca then
+			self.txtHotkey:SetVertexColor(1, 1, 0, 0.8);
+		-- out of range red color
+		elseif IsActionInRange(self.action) == 0 then
+			self.txtHotkey:SetVertexColor(1, 0, 0, 0.8);
+		-- equipement item green color
+		elseif self.ea then
+			self.txtHotkey:SetVertexColor(0, 1, 0, 0.35);
+		-- default color
+		else
+			self.txtHotkey:SetVertexColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
+		end
+	end
+end
+
+-- gametooltip
 local function ABShowGameTooltip(self)
 	if self.action then
 		if HasAction(self.action) then
@@ -101,32 +199,35 @@ end
 
 RDXUI.ActionButton = {};
 
-function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup, selfcast, flyout, showgloss, bsdefault)
+--function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, cd, showkey, showtooltip, anyup, selfcast, flyout, showgloss, bsdefault)
+function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	local self = nil;
-	if usebs then
+	local os = 0; 
+	if desc.usebs then
 		self = VFLUI.SkinButton:new(parent, "SecureActionButtonBar", id);
 		if not self then self = VFLUI.SkinButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end
-		self:SetWidth(size); self:SetHeight(size);
-		self:SetButtonSkin(ebs, true, true, true, true, true, true, false, true, true, showgloss);
-	elseif usebkd then
+		self:SetWidth(desc.size); self:SetHeight(desc.size);
+		self:SetButtonSkin(desc.externalButtonSkin, true, true, true, true, true, true, false, true, true, desc.showgloss);
+		os = desc.ButtonSkinOffset or 0;
+	elseif desc.usebkd then
 		self = VFLUI.BckButton:new(parent, "SecureActionButtonBar", id);
 		if not self then self = VFLUI.BckButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end
-		self:SetWidth(size); self:SetHeight(size);
-		self:SetButtonBkd(bkd);
+		self:SetWidth(desc.size); self:SetHeight(desc.size);
+		self:SetButtonBkd(desc.bkd);
+		if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 	end
-	--VFLUI.StdSetParent(self, parent);
-	--self:SetFrameLevel(parent:GetFrameLevel());
+	
 	-- store the id 1 to 120 of the frame for keybinding. 
 	-- This is not the action. A button id can have many action when using state.
 	self.id = id;
 	self.btype = "";
-	self.usebs = usebs;
-	self.usebkd = usebkd;
-	self.ebhide = ebhide;
-	self.showtooltip = showtooltip;
-	
-	-- animating
-	self.gacp = 0;
+	self.usebs = desc.usebs;
+	self.usebkd = desc.usebkd;
+	self.ebhide = desc.hidebs;
+	self.bsdefault = desc.bsdefault;
+	self.bkd = desc.bkd;
+	self.fontkey = desc.fontkey;
+	self.showtooltip = desc.showtooltip;
 	
 	-- icon texture
 	self.icon = VFLUI.CreateTexture(self);
@@ -136,7 +237,7 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	self.icon:SetDrawLayer("ARTWORK", 2);
 	self.icon:Show();
 	-- cooldown
-	self.cd = VFLUI.CooldownCounter:new(self, cd);
+	self.cd = VFLUI.CooldownCounter:new(self, desc.cd);
 	self.cd:SetAllPoints(self.icon);
 	-- frame for text
 	self.frtxt = VFLUI.AcquireFrame("Frame");
@@ -153,16 +254,16 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	-- text hotkey
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
-	self.txtHotkey:SetWidth(size + 6); self.txtHotkey:SetHeight(size);
+	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
 	
 	local start, duration, enable, spellid = 0, 0, nil, nil;
 	local function UpdateCooldown()
 		start, duration, enable = GetActionCooldown(self.action);
-		--if ( start > 0 and duration > 1.5 and enable > 0 ) then
 		if ( start > 0 and enable > 0 ) then
 			self.cd:SetCooldown(start, duration);
 			self.cd:Show();
 			-- store your real cooldown
+			-- it is not really nice, but I don't know how to improve that...
 			if duration >= 2 then
 				_, spellid  = GetActionInfo(self.action);
 				if spellid then
@@ -176,23 +277,28 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 		end
 	end
 	
-	local isUsable, notEnoughMana = nil, nil;
+	local isUsable, notEnoughMana, count = nil, nil, nil;
 	local function UpdateUsable()
 		isUsable, notEnoughMana = IsUsableAction(self.action);
 		if (isUsable) then
-			self.icon:SetAlpha(1);
-			self.ua = nil;
+			self.icon:SetVertexColor(1.0, 1.0, 1.0);
+			self:GetNormalTexture():SetVertexColor(1.0, 1.0, 1.0);
 		elseif (notEnoughMana) then
-			self.icon:SetAlpha(0.75);
-			self.ua = true;
+			self.icon:SetVertexColor(0.5, 0.5, 1.0);
+			self:GetNormalTexture():SetVertexColor(0.5, 0.5, 1.0);
 		else
-			self.icon:SetAlpha(0.3);
+			self.icon:SetVertexColor(0.4, 0.4, 0.4);
+			self:GetNormalTexture():SetVertexColor(1.0, 1.0, 1.0);
 		end
 		if (IsConsumableAction(self.action) or IsStackableAction(self.action)) then
-			self.txtCount:SetText(GetActionCount(self.action));
-			self.txtCount:Show();
+			count = GetActionCount(action);
+			if (count > (self.maxDisplayCount or 9999)) then
+				self.txtCount:SetText("*");
+			else
+				self.txtCount:SetText(count);
+			end
 		else
-			self.txtCount:Hide();
+			self.txtCount:SetText("");
 		end
 	end
 	
@@ -206,16 +312,11 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	end
 	
 	local function UpdateState()
-		if self.usebs then
-			self._texFlash:SetVertexColor(1, 1, 1, 0);
-		--elseif usebkd then
-			--self:SetBackdropBorderColor(1, 1, 1, 0);
-		end
 		if self.error then
 			self.icon:SetTexture("Interface\\InventoryItems\\WoWUnknownItem01.blp");
 		else
 			self.icon:SetTexture(GetActionTexture(self.action));
-			if (IsCurrentAction(self.action) or IsAutoRepeatAction(self.action)) then
+			if ( (IsAttackAction(self.action) and IsCurrentAction(self.action)) or IsAutoRepeatAction(self.action) ) then
 				self.ca = true;
 			else
 				self.ca = nil;
@@ -226,6 +327,7 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	-- use when bar page changed, and the action is changed
 	local function UpdateNewAction()
 		self.action = self:GetAttribute("action");
+		WoWEvents:Unbind("actionButton" .. self.id);
 		if not self.action then return; end
 		if HasAction(self.action) then
 			WoWEvents:Unbind("actionButton" .. self.id);
@@ -238,8 +340,6 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 			WoWEvents:Bind("ACTIONBAR_UPDATE_COOLDOWN", nil, UpdateCooldown, "actionButton" .. self.id);
 			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW", nil, UpdateGlow, "actionButton" .. self.id);
 			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE", nil, UpdateGlow, "actionButton" .. self.id);
-		else
-			WoWEvents:Unbind("actionButton" .. self.id);
 		end
 		
 		if self.error then
@@ -266,86 +366,29 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 				end
 				
 				-- Border and gloss indicator
-				VFLT.AdaptiveUnschedule("ScheduleactionButton" .. id);
-				--[[VFLT.AdaptiveSchedule("ScheduleactionButton" .. id, 0.5, function()
-					-- flash
-					if self.ga then
-						if self.gacp then
-							self.gacp = nil;
-							if self.gacolor then self.gacolor = nil; else self.gacolor = true; end
-						else
-							self.gacp = true;
-						end
-						if self.gacolor then
-							if self.usebs then
-								self._texBorder:SetVertexColor(1, 0.5, 0, 0.8);
-								self._texGloss:SetVertexColor(1, 0.5, 0, 0.8);
-							elseif self.usebkd then
-								self:SetBackdropBorderColor(1, 0.5, 0, 0.8);
-							end
-						else
-							if self.usebs then
-								self._texBorder:SetVertexColor(1, 1, 0, 0.8);
-								self._texGloss:SetVertexColor(1, 1, 0, 0.8);
-							elseif self.usebkd then
-								self:SetBackdropBorderColor(1, 1, 0, 0.8);
-							end
-						end
-					-- current action yellow color
-					elseif self.ca then
-						if self.usebs then
-							self._texBorder:SetVertexColor(1, 1, 0, 0.8);
-							self._texGloss:SetVertexColor(1, 1, 0, 0.8);
-						elseif self.usebkd then
-							self:SetBackdropBorderColor(1, 1, 0, 0.8);
-						end
-					-- out of range red color
-					elseif IsActionInRange(self.action) == 0 then
-						if self.usebs then
-							self._texBorder:SetVertexColor(1, 0, 0, 0.8);
-							self._texGloss:SetVertexColor(1, 0, 0, 0.8);
-						elseif self.usebkd then
-							self:SetBackdropBorderColor(1, 0, 0, 0.8);
-						end
-					-- out of mana blue color
-					elseif self.ua then
-						if self.usebs then
-							self._texBorder:SetVertexColor(0, 0, 1, 0.8);
-							self._texGloss:SetVertexColor(0, 0, 1, 0.8);
-						elseif self.usebkd then
-							self:SetBackdropBorderColor(0, 0, 1, 0.8);
-						end
-					-- equipement item green color
-					elseif self.ea then
-						if self.usebs then
-							self._texBorder:SetVertexColor(0, 1, 0, 0.35);
-							self._texGloss:SetVertexColor(0, 1, 0, 0.35);
-						elseif self.usebkd then
-							self:SetBackdropBorderColor(0, 1, 0, 0.35);
-						end
-					-- default color
-					else
-						if self.usebs then
-							self._texBorder:SetVertexColor(VFL.explodeRGBA(bsdefault));
-							self._texGloss:SetVertexColor(VFL.explodeRGBA(bsdefault));
-						elseif self.usebkd then
-							self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
-						end
-					end
-				end);]]
-			else
-				VFLT.AdaptiveUnschedule("ScheduleactionButton" .. id);
-				self.txtMacro:Hide();
-				if self.usebs then
-					self._texBorder:SetVertexColor(VFL.explodeRGBA(bsdefault));
-					self._texGloss:SetVertexColor(VFL.explodeRGBA(bsdefault));
+				self.elapsed = 0;
+				if desc.useshaderkey then
+					self:SetScript("OnUpdate", KeyChange);
+				elseif self.usebs then
+					self:SetScript("OnUpdate", BorderChangeBS);
 				elseif self.usebkd then
-					self:SetBackdropBorderColor(bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1);
+					self:SetScript("OnUpdate", BorderChangeBKD);
+				end
+			else
+				self:SetScript("OnUpdate", nil);
+				self.txtMacro:Hide();
+				if desc.useshaderkey then
+					self.txtHotkey:SetVertexColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
+				else if self.usebs then
+					self._texBorder:SetVertexColor(VFL.explodeRGBA(self.bsdefault));
+					self._texGloss:SetVertexColor(VFL.explodeRGBA(self.bsdefault));
+				elseif self.usebkd then
+					self:SetBackdropBorderColor(self.bkd.br or 1, self.bkd.bg or 1, self.bkd.bb or 1, self.bkd.ba or 1);
 				end
 			end
 		end
 		-- Button Skin Hide
-		if self.ebhide and (not HasAction(self.action)) then
+		if desc.hidebs and (not HasAction(self.action)) then
 			self:bsHide();
 		else
 			self:bsShow();
@@ -353,9 +396,8 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 		if self.IsShowingTooltip then ABShowGameTooltip(self); end
 	end
 	
-	-- use when drag new action binding (bug so I added IncombatLockdown)
+	-- use when drag new action binding
 	local function UpdateAction(action)
-		--if self:GetAttribute("action") == action and not InCombatLockdown() then
 		if self:GetAttribute("action") == action then
 			UpdateNewAction();
 		end
@@ -365,9 +407,9 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	self:SetScript("OnEnter", ABShowGameTooltip);
 	
 	self:SetAttribute("type", "action");
-	self:SetAttribute("action", __RDXGetCurrentButtonId(statesString, nbuttons, id));
+	self:SetAttribute("action", __RDXGetCurrentButtonId(statesString, desc.nIcons, id));
 	
-	if anyup then
+	if desc.anyup then
 		self:RegisterForClicks("AnyUp");
 	else
 		self:RegisterForClicks("AnyDown");
@@ -377,15 +419,15 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	self:SetAttribute("checkselfcast", true);
 	self:SetAttribute("checkfocuscast", true);
 	-- Add right click cast on self
-	if selfcast then
+	if desc.selfcast then
 		self:SetAttribute("*unit2", "player");
 	end
 	
-	self:SetAttribute("flyoutDirection", flyout);
+	self:SetAttribute("flyoutDirection", desc.flyoutdirection);
 	
 	-- Add state action for bar change
 	if statesString then
-		__RDXModifyActionButtonState(self, statesString, nbuttons, id);
+		__RDXModifyActionButtonState(self, statesString, desc.nIcons, id);
 	end
 	
 	-- when the state bar change, attribute action is changing
@@ -395,7 +437,6 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	
 	self:RegisterForDrag("LeftButton", "RightButton");
 	self:SetScript("OnDragStart", function()
-		--if not InCombatLockdown() and IsShiftKeyDown() then
 		if not InCombatLockdown() then
 			PickupAction(self:GetAttribute("action"));
 			UpdateState();
@@ -438,11 +479,12 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 		else
 			self.txtHotkey:SetText(RANGE_INDICATOR);
 		end
-		if showkey then
-			self.txtHotkey:Show();
-		else
-			self.txtHotkey:Hide();
-		end
+		-- deprecated.
+		--if desc.showkey then
+		--	self.txtHotkey:Show();
+		--else
+		--	self.txtHotkey:Hide();
+		--end
 	end
 	
 	local function ShowBindingEdit()
@@ -462,16 +504,13 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 	function self:Init()
 		UpdateNewAction();
 		UpdateKeyBinding();
-		--if RDXDK.IsKeyBindingsLocked() then
-			HideBindingEdit();
-		--else
-		--	ShowBindingEdit();
-		--end
+		HideBindingEdit();
 	end
 	
 	self.Destroy = VFL.hook(function(s)
-		VFLT.AdaptiveUnschedule("FlashactionButton" .. s.id);
-		VFLT.AdaptiveUnschedule("ScheduleactionButton" .. s.id);
+		--VFLT.AdaptiveUnschedule("FlashactionButton" .. s.id);
+		--VFLT.AdaptiveUnschedule("ScheduleactionButton" .. s.id);
+		s:SetScript("OnUpdate", nil);
 		DesktopEvents:Unbind("bindingactionButton" .. s.id);
 		RDXEvents:Unbind("bindingactionButton" .. s.id);
 		WoWEvents:Unbind("actionButton" .. s.id);
@@ -503,7 +542,6 @@ function RDXUI.ActionButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, e
 		s.ea = nil;
 		s.ga = nil;
 		s.gacp = nil;
-		s.gacolor = nil;
 		s.flash = nil;
 		s.usebs = nil;
 		s.usebkd = nil;

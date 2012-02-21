@@ -75,28 +75,32 @@ local function _dd_orientations() return _orientations; end
 
 local function _EmitCreateCode(objname, desc)
 	local flo = tonumber(desc.flo); if not flo then flo = 5; end; flo = VFL.clamp(flo,1,10);
-	local usebs = "false"; if desc.usebs then usebs = "true"; end
-	local ebs = desc.externalButtonSkin or "bs_default";
-	local usebkd = "false"; if desc.usebkd then usebkd = "true"; end
-	local bkd = desc.bkd or VFLUI.defaultBackdrop;	
-	local os = 0; 
-	if desc.usebs then 
-		os = desc.ButtonSkinOffset or 0;
-	elseif desc.usebkd then
-		if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
-	end
-	local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
-	local bsdefault = desc.bsdefault or _white;
+	
+	--local usebs = "false"; if desc.usebs then usebs = "true"; end
+	--local ebs = desc.externalButtonSkin or "bs_default";
+	--local usebkd = "false"; if desc.usebkd then usebkd = "true"; end
+	--local bkd = desc.bkd or VFLUI.defaultBackdrop;	
+	--local os = 0; 
+	--if desc.usebs then 
+	--	os = desc.ButtonSkinOffset or 0;
+	--elseif desc.usebkd then
+	--	if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
+	--end
+	
+	--local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
+	--local bsdefault = desc.bsdefault or _white;
+	
 	
 	local abid = GetBarNumber(desc.barid);
 	
-	local hidebs = "nil"; if desc.hidebs then hidebs = "true"; end
-	local showkey = "nil"; if desc.showkey then showkey = "true"; end
-	local showtooltip = "nil"; if desc.showtooltip then showtooltip = "true"; end
-	local anyup = "nil"; if desc.anyup then anyup = "true"; end
-	local selfcast = "nil"; if desc.selfcast then selfcast = "true"; end
-	local nRows = VFL.clamp(desc.rows, 1, 40);
-	local useheader = "true"; if desc.headerstateType == "None" and desc.headervisType == "None" then useheader = "nil"; end
+	--local hidebs = "nil"; if desc.hidebs then hidebs = "true"; end
+	--local showkey = "nil"; if desc.showkey then showkey = "true"; end
+	--local showtooltip = "nil"; if desc.showtooltip then showtooltip = "true"; end
+	--local anyup = "nil"; if desc.anyup then anyup = "true"; end
+	--local selfcast = "nil"; if desc.selfcast then selfcast = "true"; end
+	
+	local useheader = "true";
+	if desc.headerstateType == "None" and desc.headervisType == "None" then useheader = "nil"; end
 	local headerstate = "nil";
 	if desc.headerstateType == "Custom" then
 		headerstate = "'" .. desc.headerstateCustom .. "'";
@@ -111,10 +115,6 @@ local function _EmitCreateCode(objname, desc)
 		headervis = "'" .. __RDXGetVisi(desc.headervisiType) .. "'";
 	end
 
-	if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
-	local flyoutdirection = "UP";
-	if desc.flyoutdirection then flyoutdirection = desc.flyoutdirection; end
-	
 	local createCode = [[
 -- variables
 local abid = ]] .. abid .. [[;
@@ -136,7 +136,7 @@ local dabid = nil;
 
 -- Create buttons
 for i=1, ]] .. desc.nIcons .. [[ do
-	local btn = RDXUI.ActionButton:new(h, abid, ]] .. desc.size .. [[, ]] .. usebs .. [[, "]] .. ebs .. [[", ]] .. usebkd .. [[, ]] .. Serialize(bkd) .. [[, ]] .. os .. [[, ]] .. hidebs .. [[, "]] .. headerstate .. [[", ]] .. desc.nIcons .. [[, ]] .. Serialize(desc.cd) .. [[, ]] .. showkey .. [[, ]] .. showtooltip .. [[, ]] .. anyup .. [[, ]] .. selfcast .. [[, ]] .. flyoutdirection .. [[, ]] .. showgloss .. [[, ]] .. Serialize(bsdefault) .. [[);
+	local btn = RDXUI.ActionButton:new(h, abid, "]] .. headerstate .. [[", ]] .. Serialize(desc) .. [[);
 ]];
 		createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtCount", desc.fontcount, nil, true);
 		createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtMacro", desc.fontmacro, nil, true);
@@ -182,15 +182,22 @@ RDX.RegisterFeature({
 		if not desc.barid then 
 			if desc.abid then desc.barid = GetBarId(desc.abid); desc.abid = nil; end
 		end
+		
 		if not desc.flo then desc.flo = 5; end
 		if not desc.usebkd then desc.usebs = true; end
+		if not desc.externalButtonSkin then desc.externalButtonSkin = "bs_default"; end
+		if not desc.bsdefault then desc.bsdefault = VFL.copy(_white); end
+		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop);
+		if not desc.flyoutdirection then desc.flyoutdirection = "UP"; end
+		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
+		
 		if not desc.headerstateType then desc.headerstateType = "None"; end
 		if desc.headerstateType == "Custom" then
 			local test = __RDXconvertStatesTable(desc.headerstateCustom);
 			if #test == 0 then VFL.AddError(errs, VFLI.i18n("Invalid custom definition")); return nil; end 
 		end
 		if not desc.headervisType then desc.headervisType = "None"; end
-		if not desc.flyoutdirection then desc.flyoutdirection = "UP"; end
+		
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -508,13 +515,6 @@ frame.]] .. objname .. [[ = nil;
 				hidebs = chk_hidebs:GetChecked();
 				-- Cooldown
 				cd = cd:GetSelectedCooldown();
-				cdTimerType = nil;
-				cdGfxReverse = nil;
-				cdHideTxt = nil;
-				cdFont = nil;
-				cdTxtType = nil;
-				cdoffx = nil;
-				cdoffy = nil;
 				-- Display
 				fontkey = fontkey:GetSelectedFont();
 				showkey = chk_showkey:GetChecked();
