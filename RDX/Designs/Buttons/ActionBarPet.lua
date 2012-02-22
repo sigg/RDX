@@ -6,24 +6,6 @@
 
 local function _EmitCreateCode(objname, desc)
 	local flo = tonumber(desc.flo); if not flo then flo = 5; end; flo = VFL.clamp(flo,1,10);
-	local usebs = "false"; if desc.usebs then usebs = "true"; end
-	local ebs = desc.externalButtonSkin or "bs_default";
-	local usebkd = "false"; if desc.usebkd then usebkd = "true"; end
-	local bkd = desc.bkd or VFLUI.defaultBackdrop;	
-	local os = 0; 
-	if desc.usebs then 
-		os = desc.ButtonSkinOffset or 0;
-	elseif desc.usebkd then
-		if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
-	end
-	local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
-	local bsdefault = desc.bsdefault or _white;
-	
-	local hidebs = "nil"; if desc.hidebs then hidebs = "true"; end
-	local showkey = "nil"; if desc.showkey then showkey = "true"; end
-	local showtooltip = "nil"; if desc.showtooltip then showtooltip = "true"; end
-	local anyup = "nil"; if desc.anyup then anyup = "true"; end
-	local nRows = VFL.clamp(desc.rows, 1, 40);
 	
 	local useheader = "true"; if desc.headervisType == "None" then useheader = "nil"; end
 	local headervis = "nil";
@@ -35,8 +17,7 @@ local function _EmitCreateCode(objname, desc)
 	
 	local createCode = [[
 -- variables
-local abid, nbuttons, buttonsize = ]] .. desc.abid .. [[, ]] .. desc.nIcons .. [[, ]] .. desc.size .. [[;
-local showkey = ]] .. showkey .. [[;
+local abid = ]] .. desc.abid .. [[;
 local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 -- Main variable frame.
 frame.]] .. objname .. [[ = {};
@@ -70,11 +51,11 @@ for i=1, ]] .. desc.nIcons .. [[ do
 ]];
 if desc.test then
 	createCode = createCode .. [[
-	btn = RDXUI.ActionButtonTest:new(h, abid, ]] .. desc.size .. [[, ]] .. usebs .. [[, "]] .. ebs .. [[", ]] .. usebkd .. [[, ]] .. Serialize(bkd) .. [[, ]] .. os .. [[, ]] .. hidebs .. [[, statesString, nbuttons, ]] .. Serialize(desc.cd) .. [[, ]] .. showkey .. [[, ]] .. showtooltip .. [[, ]] .. anyup .. [[, ]] .. showgloss .. [[, ]] .. Serialize(bsdefault) .. [[);
+	btn = RDXUI.ActionButtonTest:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
 ]];
 else
 	createCode = createCode .. [[
-	btn = RDXUI.PetActionButton:new(h, abid, ]] .. desc.size .. [[, ]] .. usebs .. [[, "]] .. ebs .. [[", ]] .. usebkd .. [[, ]] .. Serialize(bkd) .. [[, ]] .. os .. [[, ]] .. hidebs .. [[, statesString, nbuttons, ]] .. Serialize(desc.cd) .. [[, ]] .. showkey .. [[, ]] .. showtooltip .. [[, ]] .. anyup .. [[, ]] .. showgloss .. [[, ]] .. Serialize(bsdefault) .. [[);
+	btn = RDXUI.PetActionButton:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
 ]];
 end	
 	createCode = createCode .. [[
@@ -123,9 +104,17 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		desc.owner = "Base";
-		if not desc.headervisiType or desc.headervisiType == "Default" then desc.headervisiType = "Pet"; end
+		
+		if not desc.flo then desc.flo = 5; end
 		if not desc.usebkd then desc.usebs = true; end
+		if not desc.externalButtonSkin then desc.externalButtonSkin = "bs_default"; end
+		if not desc.bsdefault then desc.bsdefault = VFL.copy(_white); end
+		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
+		if not desc.flyoutdirection then desc.flyoutdirection = "UP"; end
 		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
+		
+		if not desc.headervisiType or desc.headervisiType == "Default" then desc.headervisiType = "Pet"; end
+		
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -315,15 +304,23 @@ frame.]] .. objname .. [[ = nil;
 		er_st:EmbedChild(fontkey); er_st:Show();
 		ui:InsertFrame(er_st);
 		
-		local chk_showkey = VFLUI.Checkbox:new(ui); chk_showkey:Show();
-		chk_showkey:SetText(VFLI.i18n("Show Key Binding"));
-		if desc and desc.showkey then chk_showkey:SetChecked(true); else chk_showkey:SetChecked(); end
-		ui:InsertFrame(chk_showkey);
+		--local chk_showkey = VFLUI.Checkbox:new(ui); chk_showkey:Show();
+		--chk_showkey:SetText(VFLI.i18n("Show Key Binding"));
+		--if desc and desc.showkey then chk_showkey:SetChecked(true); else chk_showkey:SetChecked(); end
+		--ui:InsertFrame(chk_showkey);
 		
 		local chk_showtooltip = VFLUI.Checkbox:new(ui); chk_showtooltip:Show();
 		chk_showtooltip:SetText(VFLI.i18n("Show GameTooltip"));
 		if desc and desc.showtooltip then chk_showtooltip:SetChecked(true); else chk_showtooltip:SetChecked(); end
 		ui:InsertFrame(chk_showtooltip);
+		
+		------------- Shader
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Shader Border or Key")));
+		
+		local chk_useshaderkey = VFLUI.Checkbox:new(ui); chk_useshaderkey:Show();
+		chk_useshaderkey:SetText(VFLI.i18n("Use Shader Key"));
+		if desc and desc.useshaderkey then chk_useshaderkey:SetChecked(true); else chk_useshaderkey:SetChecked(); end
+		ui:InsertFrame(chk_useshaderkey);
 		
 		function ui:GetDescriptor()
 			if chk_bs:GetChecked() then chk_bkd:SetChecked(); end
@@ -366,8 +363,9 @@ frame.]] .. objname .. [[ = nil;
 				cdoffy = nil;
 				-- Display
 				fontkey = fontkey:GetSelectedFont();
-				showkey = chk_showkey:GetChecked();
+				--showkey = chk_showkey:GetChecked();
 				showtooltip = chk_showtooltip:GetChecked();
+				useshaderkey = chk_useshaderkey:GetChecked();
 			};
 		end
 
@@ -391,7 +389,7 @@ frame.]] .. objname .. [[ = nil;
 			ButtonSkinOffset = 0;
 			fontkey = fontk;
 			cd = VFL.copy(VFLUI.defaultCooldown);
-			showkey = true;
+			--showkey = true;
 			showtooltip = true;
 		};
 	end;

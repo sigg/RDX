@@ -80,7 +80,7 @@ local btn;
 if ]] .. usebs .. [[ then
 	btn = VFLUI.SkinButton:new(h, "SecureUnitButton");
 	btn:SetWidth(]] .. desc.size .. [[); btn:SetHeight(]] .. desc.size .. [[);
-	btn:SetButtonSkin("]] .. ebs .. [[", true, true, false, true, true, true, false, true, true, true);
+	btn:SetButtonSkin("]] .. ebs .. [[", true, true, false, true, true, true, false, true, true, nil);
 elseif ]] .. usebkd .. [[ then
 	btn = VFLUI.BckButton:new(h, "SecureUnitButton");
 	btn:SetWidth(]] .. desc.size .. [[); btn:SetHeight(]] .. desc.size .. [[);
@@ -103,7 +103,7 @@ btn.icon:Show();
 frame.]] .. objname .. [[[1] = btn;
 
 for i=2, ]] .. desc.nIcons .. [[ do
-	local btn = RDXUI.MultiCastButton:new(btnOwner, abid, ]] .. desc.size .. [[, ]] .. usebs .. [[, "]] .. ebs .. [[", ]] .. usebkd .. [[, ]] .. Serialize(bkd) .. [[, ]] .. os .. [[, ]] .. hidebs .. [[, "", ]] .. desc.nIcons .. [[, ]] .. Serialize(desc.cd) .. [[, ]] .. showkey .. [[, ]] .. showtooltip .. [[, ]] .. anyup .. [[, ]] .. showgloss .. [[, ]] .. Serialize(bsdefault) .. [[);
+	local btn = RDXUI.MultiCastButton:new(btnOwner, abid, nil, ]] .. Serialize(desc) .. [[);
 ]];
 		createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtCount", desc.fontcount, nil, true);
 		createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtMacro", desc.fontmacro, nil, true);
@@ -366,10 +366,10 @@ frame.]] .. objname .. [[ = nil;
 		er_st:EmbedChild(fontkey); er_st:Show();
 		ui:InsertFrame(er_st);
 		
-		local chk_showkey = VFLUI.Checkbox:new(ui); chk_showkey:Show();
-		chk_showkey:SetText(VFLI.i18n("Show Key Binding"));
-		if desc and desc.showkey then chk_showkey:SetChecked(true); else chk_showkey:SetChecked(); end
-		ui:InsertFrame(chk_showkey);
+		--local chk_showkey = VFLUI.Checkbox:new(ui); chk_showkey:Show();
+		--chk_showkey:SetText(VFLI.i18n("Show Key Binding"));
+		--if desc and desc.showkey then chk_showkey:SetChecked(true); else chk_showkey:SetChecked(); end
+		--ui:InsertFrame(chk_showkey);
 		
 		local er_st = VFLUI.EmbedRight(ui, VFLI.i18n("Font Macro"));
 		local fontmacro = VFLUI.MakeFontSelectButton(er_st, desc.fontmacro); fontmacro:Show();
@@ -385,6 +385,14 @@ frame.]] .. objname .. [[ = nil;
 		chk_showtooltip:SetText(VFLI.i18n("Show GameTooltip"));
 		if desc and desc.showtooltip then chk_showtooltip:SetChecked(true); else chk_showtooltip:SetChecked(); end
 		ui:InsertFrame(chk_showtooltip);
+		
+		------------- Shader
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Shader Border or Key")));
+		
+		local chk_useshaderkey = VFLUI.Checkbox:new(ui); chk_useshaderkey:Show();
+		chk_useshaderkey:SetText(VFLI.i18n("Use Shader Key"));
+		if desc and desc.useshaderkey then chk_useshaderkey:SetChecked(true); else chk_useshaderkey:SetChecked(); end
+		ui:InsertFrame(chk_useshaderkey);
 		
 		function ui:GetDescriptor()
 			if chk_bs:GetChecked() then chk_bkd:SetChecked(); end
@@ -420,10 +428,11 @@ frame.]] .. objname .. [[ = nil;
 				cd = cd:GetSelectedCooldown();
 				-- Display
 				fontkey = fontkey:GetSelectedFont();
-				showkey = chk_showkey:GetChecked();
+				--showkey = chk_showkey:GetChecked();
 				fontmacro = fontmacro:GetSelectedFont();
 				fontcount = fontcount:GetSelectedFont();
 				showtooltip = chk_showtooltip:GetChecked();
+				useshaderkey = chk_useshaderkey:GetChecked();
 			};
 		end
 
@@ -453,7 +462,7 @@ frame.]] .. objname .. [[ = nil;
 			fontmacro = fontm;
 			fontcount = fontc;
 			cd = VFL.copy(VFLUI.defaultCooldown);
-			showkey = true;
+			--showkey = true;
 			showtooltip = true;
 		};
 	end;

@@ -76,28 +76,7 @@ local function _dd_orientations() return _orientations; end
 local function _EmitCreateCode(objname, desc)
 	local flo = tonumber(desc.flo); if not flo then flo = 5; end; flo = VFL.clamp(flo,1,10);
 	
-	--local usebs = "false"; if desc.usebs then usebs = "true"; end
-	--local ebs = desc.externalButtonSkin or "bs_default";
-	--local usebkd = "false"; if desc.usebkd then usebkd = "true"; end
-	--local bkd = desc.bkd or VFLUI.defaultBackdrop;	
-	--local os = 0; 
-	--if desc.usebs then 
-	--	os = desc.ButtonSkinOffset or 0;
-	--elseif desc.usebkd then
-	--	if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
-	--end
-	
-	--local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
-	--local bsdefault = desc.bsdefault or _white;
-	
-	
 	local abid = GetBarNumber(desc.barid);
-	
-	--local hidebs = "nil"; if desc.hidebs then hidebs = "true"; end
-	--local showkey = "nil"; if desc.showkey then showkey = "true"; end
-	--local showtooltip = "nil"; if desc.showtooltip then showtooltip = "true"; end
-	--local anyup = "nil"; if desc.anyup then anyup = "true"; end
-	--local selfcast = "nil"; if desc.selfcast then selfcast = "true"; end
 	
 	local useheader = "true";
 	if desc.headerstateType == "None" and desc.headervisType == "None" then useheader = "nil"; end
@@ -458,10 +437,10 @@ frame.]] .. objname .. [[ = nil;
 		er_st:EmbedChild(fontkey); er_st:Show();
 		ui:InsertFrame(er_st);
 		
-		local chk_showkey = VFLUI.Checkbox:new(ui); chk_showkey:Show();
-		chk_showkey:SetText(VFLI.i18n("Show Key Binding"));
-		if desc and desc.showkey then chk_showkey:SetChecked(true); else chk_showkey:SetChecked(); end
-		ui:InsertFrame(chk_showkey);
+		--local chk_showkey = VFLUI.Checkbox:new(ui); chk_showkey:Show();
+		--chk_showkey:SetText(VFLI.i18n("Show Key Binding"));
+		--if desc and desc.showkey then chk_showkey:SetChecked(true); else chk_showkey:SetChecked(); end
+		--ui:InsertFrame(chk_showkey);
 		
 		local er_st = VFLUI.EmbedRight(ui, VFLI.i18n("Font Macro"));
 		local fontmacro = VFLUI.MakeFontSelectButton(er_st, desc.fontmacro); fontmacro:Show();
@@ -477,6 +456,9 @@ frame.]] .. objname .. [[ = nil;
 		chk_showtooltip:SetText(VFLI.i18n("Show GameTooltip"));
 		if desc and desc.showtooltip then chk_showtooltip:SetChecked(true); else chk_showtooltip:SetChecked(); end
 		ui:InsertFrame(chk_showtooltip);
+		
+		------------- Shader
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Shader Border or Key")));
 		
 		local chk_useshaderkey = VFLUI.Checkbox:new(ui); chk_useshaderkey:Show();
 		chk_useshaderkey:SetText(VFLI.i18n("Use Shader Key"));
@@ -523,7 +505,7 @@ frame.]] .. objname .. [[ = nil;
 				cd = cd:GetSelectedCooldown();
 				-- Display
 				fontkey = fontkey:GetSelectedFont();
-				showkey = chk_showkey:GetChecked();
+				--showkey = chk_showkey:GetChecked();
 				fontmacro = fontmacro:GetSelectedFont();
 				fontcount = fontcount:GetSelectedFont();
 				showtooltip = chk_showtooltip:GetChecked();
@@ -558,7 +540,7 @@ frame.]] .. objname .. [[ = nil;
 			fontmacro = fontm;
 			fontcount = fontc;
 			cd = VFL.copy(VFLUI.defaultCooldown);
-			showkey = true;
+			--showkey = true;
 			showtooltip = true;
 		};
 	end;
