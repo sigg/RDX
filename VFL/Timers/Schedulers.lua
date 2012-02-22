@@ -93,7 +93,7 @@ local function _AS(self, elapsed)
 	end
 end
 local asframe = CreateFrame("Frame");
-asframe:SetScript("OnUpdate", _AS);
+--asframe:SetScript("OnUpdate", _AS);
 VFLP.RegisterFunc("VFL Time", "Adaptive", _AS);
 
 function VFLT.GetAdaptiveSize()

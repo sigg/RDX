@@ -207,12 +207,13 @@ local function KeyChange(self, elapsed)
 			end
 		-- default color
 		else
+			
+			if self.txtHotkey:GetText() == RANGE_INDICATOR then
+				self.txtHotkey:Hide();
+			else
+				self.txtHotkey:Show();
+			end
 			if self.color ~= "da" then
-				if self.txtHotkey:GetText() == RANGE_INDICATOR then
-					self.txtHotkey:Hide();
-				else
-					self.txtHotkey:Show();
-				end
 				self.txtHotkey:SetTextColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
 				self.color = "da";
 			end
@@ -1042,7 +1043,7 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	self.frtxt:Show();
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
-	self.txtHotkey:SetWidth(size + 6); self.txtHotkey:SetHeight(size);
+	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
 	
 	local start, duration, enable = 0, 0, nil;
 	local function UpdateCooldown()
@@ -1295,18 +1296,18 @@ end, function(_, key)
 end, VFL.Noop, "key");
 
 function ABSShowGameTooltip(self)
-	if ( not self.tooltipName ) then
-		return;
-	end
+	--if ( not self.tooltipName ) then
+	--	return;
+	--end
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-	if self.isToken then
-		GameTooltip:SetText(self.tooltipName..NORMAL_FONT_COLOR_CODE.." ("..GetBindingText(GetBindingKey("VFLPetButton"..self.id), "KEY_")..")"..FONT_COLOR_CODE_CLOSE, 1.0, 1.0, 1.0);
-		if ( self.tooltipSubtext ) then
-			GameTooltip:AddLine(self.tooltipSubtext, "", 0.5, 0.5, 0.5);
-		end
-	else
+	--if self.isToken then
+	--	GameTooltip:SetText(self.tooltipName..NORMAL_FONT_COLOR_CODE.." ("..GetBindingText(GetBindingKey("VFLPetButton"..self.id), "KEY_")..")"..FONT_COLOR_CODE_CLOSE, 1.0, 1.0, 1.0);
+	--	if ( self.tooltipSubtext ) then
+	--		GameTooltip:AddLine(self.tooltipSubtext, "", 0.5, 0.5, 0.5);
+	--	end
+	--else
 		GameTooltip:SetShapeshift(self.id);
-	end
+	--end
 	GameTooltip:Show();
 end
 
@@ -1361,7 +1362,7 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 	self.frtxt:Show();
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
-	self.txtHotkey:SetWidth(size + 6); self.txtHotkey:SetHeight(size);
+	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
 	
 	local start, duration, enable = 0, 0, nil;
 	local function UpdateCooldown()
@@ -1590,7 +1591,7 @@ function RDXUI.ActionButtonTest:new(parent, id, statesString, desc)
 	self.frtxt:Show();
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
-	self.txtHotkey:SetWidth(size + 6); self.txtHotkey:SetHeight(size);
+	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
 	
 	function self:Init()
 		self.cd:SetCooldown(GetTime() + 60 - 120, 120);
