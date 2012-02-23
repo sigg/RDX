@@ -51,11 +51,11 @@ local function CheckFRSActivity()
 	if not perf_rf_Enabled then return; end
 	if (frs_activity == 0) then -- we need to disable
 		RDXRF:Debug(2, "Disabling FRS");
-		VFLT.AdaptiveUnschedule("frs");
+		VFLT.AdaptiveUnschedule2("frs");
 	elseif (frs_activity > 0) then -- we need to enable
 		RDXRF:Debug(2, "Enabling FRS");
-		VFLT.AdaptiveUnschedule("frs");
-		VFLT.AdaptiveSchedule("frs", frsTickLength, UpdateFRS);
+		VFLT.AdaptiveUnschedule2("frs");
+		VFLT.AdaptiveSchedule2("frs", frsTickLength, UpdateFRS);
 	end
 end
 

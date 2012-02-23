@@ -250,10 +250,10 @@ RDX.RegisterFeature({
 
 		local schedid = "assist" .. math.random(1, 1000000000);
 		state:Attach("Show", true, function(w)
-			VFLT.AdaptiveSchedule(schedid, interval, w.RepaintData);
+			VFLT.AdaptiveSchedule2(schedid, interval, w.RepaintData);
 		end);
 		state:Attach("Hide", true, function(w)
-			VFLT.AdaptiveUnschedule(schedid);
+			VFLT.AdaptiveUnschedule2(schedid);
 		end);
 
 		-- Assist windows have no unit lookup capacities.

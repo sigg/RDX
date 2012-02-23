@@ -24,7 +24,7 @@ RDXDAL.RegisterSet(done);
 local function Sweep()
 	RDXDAL.BeginEventBatch();
 	for un,_,unit in inc:Iterator() do
-		if not unit:IsDead() then	inc:_Set(un, false); end
+		if not unit:IsDead() then inc:_Set(un, false); end
 	end
 	for un,_,unit in done:Iterator() do
 		if not unit:IsDead() then done:_Set(un, false); end
@@ -37,14 +37,14 @@ local refcount = 0;
 local function Activate()
 	refcount = refcount + 1;
 	if refcount == 1 then
-		VFLT.AdaptiveUnschedule("_rezmonitor");
-		VFLT.AdaptiveSchedule("_rezmonitor", 0.5, Sweep); 
+		VFLT.AdaptiveUnschedule2("_rezmonitor");
+		VFLT.AdaptiveSchedule2("_rezmonitor", 0.5, Sweep); 
 	end
 end
 local function Deactivate()
 	if refcount > 0 then
 		refcount = refcount - 1;
-		if refcount == 0 then VFLT.AdaptiveUnschedule("_rezmonitor"); end
+		if refcount == 0 then VFLT.AdaptiveUnschedule2("_rezmonitor"); end
 	end
 end
 inc._OnActivate = Activate; inc._OnDeactivate = Deactivate;
@@ -135,47 +135,50 @@ end);
 -- REZ MONITOR - CASTER SIDE
 -- Watch spellcasts and RPC when rezzes happen.
 ----------------------------------
-local _,ret = UnitClass("player");
-local pclass = ret or "NONE";
 local rezSpell = nil;
-if pclass == "PRIEST" then
-	rezSpell = GetSpellInfo(2006); --VFLI.i18n("Resurrection");
-elseif pclass == "PALADIN" then
-	rezSpell = GetSpellInfo(7328); --VFLI.i18n("Redemption");
-elseif pclass == "SHAMAN" then
-	rezSpell = GetSpellInfo(2008); --VFLI.i18n("Ancestral Spirit");
-elseif pclass == "DRUID" then
-	rezSpell = GetSpellInfo(50769); --VFLI.i18n("Rebirth");
-end
 
-if rezSpell then
-	local rezTarget = nil;
-	-- Detect when a rez is first cast.
-	WoWEvents:Bind("UNIT_SPELLCAST_SENT", nil, function(arg1, arg2, arg3, arg4)
-		if (arg1 ~= "player") or (arg2 ~= rezSpell) then return; end
-		local target = RDXDAL.GetUnitByNameIfInGroup(string.lower(arg4));
-		if target then
-			rezTarget = target;
-			RPC_Group:Invoke("rez_start", target.name);
-		end
-	end);
-
-	-- Detect when a rez is finished.
-	WoWEvents:Bind("UNIT_SPELLCAST_SUCCEEDED", nil, function()
-		if not rezTarget then return; end
-		RPC_Group:Invoke("rez_done", rezTarget.name);
-		rezTarget = nil;
-	end);
-
-	-- Detect rez failure
-	local function fail()
-		if not rezTarget then return; end
-		RPC_Group:Invoke("rez_fail", rezTarget.name);
-		rezTarget = nil;
+RDXEvents:Bind("INIT_DEFERRED", nil, function()
+	local _,ret = UnitClass("player");
+	local pclass = ret or "NONE";
+	if pclass == "PRIEST" then
+		rezSpell = GetSpellInfo(2006); --VFLI.i18n("Resurrection");
+	elseif pclass == "PALADIN" then
+		rezSpell = GetSpellInfo(7328); --VFLI.i18n("Redemption");
+	elseif pclass == "SHAMAN" then
+		rezSpell = GetSpellInfo(2008); --VFLI.i18n("Ancestral Spirit");
+	elseif pclass == "DRUID" then
+		rezSpell = GetSpellInfo(50769); --VFLI.i18n("Rebirth");
 	end
-	WoWEvents:Bind("UNIT_SPELLCAST_FAILED", nil, fail);
-	WoWEvents:Bind("UNIT_SPELLCAST_INTERRUPTED", nil, fail);
-end
+	
+	if rezSpell then
+		local rezTarget = nil;
+		-- Detect when a rez is first cast.
+		WoWEvents:Bind("UNIT_SPELLCAST_SENT", nil, function(arg1, arg2, arg3, arg4)
+			if (arg1 ~= "player") or (arg2 ~= rezSpell) then return; end
+			local target = RDXDAL.GetUnitByNameIfInGroup(string.lower(arg4));
+			if target then
+				rezTarget = target;
+				RPC_Group:Invoke("rez_start", target.name);
+			end
+		end);
+	
+		-- Detect when a rez is finished.
+		WoWEvents:Bind("UNIT_SPELLCAST_SUCCEEDED", nil, function()
+			if not rezTarget then return; end
+			RPC_Group:Invoke("rez_done", rezTarget.name);
+			rezTarget = nil;
+		end);
+	
+		-- Detect rez failure
+		local function fail()
+			if not rezTarget then return; end
+			RPC_Group:Invoke("rez_fail", rezTarget.name);
+			rezTarget = nil;
+		end
+		WoWEvents:Bind("UNIT_SPELLCAST_FAILED", nil, fail);
+		WoWEvents:Bind("UNIT_SPELLCAST_INTERRUPTED", nil, fail);
+	end
+end);
 
 -- Watch for my death. If I have a soulstone up, then broadcast me as "recoverable."
 WoWEvents:Bind("PLAYER_DEAD", nil, function()

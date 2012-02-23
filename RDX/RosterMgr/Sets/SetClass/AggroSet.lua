@@ -84,11 +84,11 @@ local function UpdateCombatSet()
 end
 
 function combatSet:_OnActivate()
-	VFLT.AdaptiveUnschedule("CombatUpdate");
-	VFLT.AdaptiveSchedule("CombatUpdate", combatUpdatePeriod, UpdateCombatSet);
+	VFLT.AdaptiveUnschedule2("CombatUpdate");
+	VFLT.AdaptiveSchedule2("CombatUpdate", combatUpdatePeriod, UpdateCombatSet);
 end
 function combatSet:_OnDeactivate()
-	VFLT.AdaptiveUnschedule("CombatUpdate");
+	VFLT.AdaptiveUnschedule2("CombatUpdate");
 end
 
 RDXDAL.RegisterSetClass({
@@ -126,11 +126,11 @@ local function UpdateAssistSet()
 end
 
 function assistSet:_OnActivate()
-	VFLT.AdaptiveUnschedule("AssistUpdate");
-	VFLT.AdaptiveSchedule("AssistUpdate", assistUpdatePeriod, UpdateAssistSet);
+	VFLT.AdaptiveUnschedule2("AssistUpdate");
+	VFLT.AdaptiveSchedule2("AssistUpdate", assistUpdatePeriod, UpdateAssistSet);
 end
 function assistSet:_OnDeactivate()
-	VFLT.AdaptiveUnschedule("AssistUpdate");
+	VFLT.AdaptiveUnschedule2("AssistUpdate");
 end
 
 RDXDAL.RegisterSetClass({
