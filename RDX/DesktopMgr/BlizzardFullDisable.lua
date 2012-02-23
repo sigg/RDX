@@ -457,6 +457,12 @@ function RDXDK.DisableAll()
 		f.SetScript = VFL.Noop;
 	end
 	
+	CompactRaidFrameManager:UnregisterAllEvents();
+	CompactRaidFrameManager:Hide();
+	CompactRaidFrameContainer:UnregisterEvent("RAID_ROSTER_UPDATE");
+	CompactRaidFrameContainer:UnregisterEvent("UNIT_PET");
+	CompactRaidFrameContainer:Hide();
+	
 	--[[
 	ActionButton_OnLoad = VFL.Noop;
 	ActionButton_OnEvent = VFL.Noop;

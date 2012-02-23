@@ -15,6 +15,8 @@ end
 
 local function newonupdateH(self, elapsed)
 	self._totalElapsed = self._totalElapsed + elapsed
+	if not self._totalElapsed then VFL.print("self._totalElapsed"); end
+	if not self.t then VFL.print("self.t"); end
 	if self._totalElapsed >= self.t then
 		self._totalElapsed = 0;
 		self.f:SetScript("OnUpdate", nil);
@@ -148,8 +150,9 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 				self2.t = t;
 				if self2.t then
 					self2._totalElapsed = 0;
-					self2.f:SetScript("OnUpdate", function(self, elapsed) newonupdateH(self2, elapsed); end);
+					self2.f:SetScript("OnUpdate", function(self3, elapsed) newonupdateH(self2, elapsed); end);
 				else
+					self.f:SetScript("OnUpdate", nil);
 					bSetWidth(self2, self2.v*self2.maxw + (1-self2.v)*0.001);
 					if self2._horiFix then
 						self2:SetTexCoord(1-self2.v, 1, 0, 1);
@@ -169,7 +172,7 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 				self2.t = t;
 				if self2.t then
 					self2._totalElapsed = 0;
-					self2.f:SetScript("OnUpdate", function(self, elapsed) newonupdateV(self2, elapsed); end);
+					self2.f:SetScript("OnUpdate", function(self3, elapsed) newonupdateV(self2, elapsed); end);
 				else
 					bSetHeight(self2, self2.v*self2.maxh + (1-self2.v)*0.001);
 					if self2._vertFix then
