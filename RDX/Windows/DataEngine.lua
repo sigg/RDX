@@ -534,12 +534,12 @@ RDX.RegisterFeature({
 		local slot = desc.slot;
 		state:Attach("Show", true, function(w, init)
 			if not init then
-				VFLT.AdaptiveSchedule2(schedEnt, interval, w[slot]);
+				VFLT.AdaptiveSchedule(schedEnt, interval, w[slot]);
 			end
 		end);
 		-- When we hide, disable the updates
-		state:Attach("Hide", true, function() VFLT.AdaptiveUnschedule2(schedEnt); end);
-		state:Attach("Destroy", true, function() VFLT.AdaptiveUnschedule2(schedEnt); end);
+		state:Attach("Hide", true, function() VFLT.AdaptiveUnschedule(schedEnt); end);
+		state:Attach("Destroy", true, function() VFLT.AdaptiveUnschedule(schedEnt); end);
 		
 		local mux = state:GetSlotValue("Multiplexer");
 		mux:SetNoHinting(true); --remove event repaint

@@ -379,6 +379,7 @@ function RDXDK.DisableAll()
 			f:UnregisterAllEvents();
 			f:SetScript("OnUpdate", nil);
 			f:SetScript("OnHide", nil);
+			f:SetScript("OnShow", nil);
 			f:Hide();
 		else
 			VFL.print(v);
@@ -462,6 +463,9 @@ function RDXDK.DisableAll()
 	CompactRaidFrameContainer:UnregisterEvent("RAID_ROSTER_UPDATE");
 	CompactRaidFrameContainer:UnregisterEvent("UNIT_PET");
 	CompactRaidFrameContainer:Hide();
+	
+	AuraButton_Update = VFL.Noop;
+	MainMenuExpBar_Update = VFL.Noop;
 	
 	--[[
 	ActionButton_OnLoad = VFL.Noop;

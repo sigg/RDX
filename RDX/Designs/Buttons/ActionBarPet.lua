@@ -133,7 +133,7 @@ RDX.RegisterFeature({
 		------------------ On frame destruction.
 		local destroyCode = [[
 local btn = nil;
-for i=1, nbuttons do
+for i=1, ]] .. desc.nIcons .. [[ do
 	btn = frame.]] .. objname .. [[[i];
 	if btn then btn:ClearAllPoints(); btn:Hide(); btn:Destroy(); btn = nil; end
 end
