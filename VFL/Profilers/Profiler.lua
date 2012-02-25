@@ -224,12 +224,15 @@ local function UpdateAList()
 	local n = 3;
 	for i=1, GetNumAddOns() do
 		if IsAddOnLoaded(i) then
-			alist[n] = {
-				addon_index = i;
-				title = GetAddOnInfo(i);
-				mem = 0; CPU = 0; raMem = 0; raCPU = 0, PicCPU = 0, nbPicCPU = 0;
-			};
-			n = n + 1;
+			local name = GetAddOnInfo(i);
+			if not string.find(name, "^RDX_mediapack_") then
+				alist[n] = {
+					addon_index = i;
+					title = name;
+					mem = 0; CPU = 0; raMem = 0; raCPU = 0, PicCPU = 0, nbPicCPU = 0;
+				};
+				n = n + 1;
+			end
 		end
 	end
 	sig_ProfUpdated:Raise();

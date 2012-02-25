@@ -465,7 +465,7 @@ function RDXDK.DisableAll()
 	CompactRaidFrameContainer:Hide();
 	
 	AuraButton_Update = VFL.Noop;
-	MainMenuExpBar_Update = VFL.Noop;
+	TalentMicroButton:UnregisterEvent("PLAYER_TALENT_UPDATE");
 	
 	--[[
 	ActionButton_OnLoad = VFL.Noop;
@@ -580,15 +580,6 @@ function RDXDK.DisableAll()
 	VehicleMenuBarPitch_OnLoad = VFL.Noop;
 	VehicleMenuBarPitch_OnEvent = VFL.Noop;
 	]]
-end
-
-
-function RDXDK.DisableCompactRaidFrameManager()
-	CompactRaidFrameManager:UnregisterAllEvents();
-	CompactRaidFrameManager:Hide();
-	CompactRaidFrameContainer:UnregisterEvent("RAID_ROSTER_UPDATE");
-	CompactRaidFrameContainer:UnregisterEvent("UNIT_PET");
-	CompactRaidFrameContainer:Hide();
 end
 
 -- The folowing feature is used to hide all buttons around the minimap
