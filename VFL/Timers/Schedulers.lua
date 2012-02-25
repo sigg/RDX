@@ -42,7 +42,7 @@ local ads = {};
 -- @param func The function to call
 -- @param ... arg to pass to func
 function VFLT.AdaptiveSchedule(id, interval, func, ...)
-	if(not interval) or (interval <= 0.02) then
+	if(not interval) or (interval <= 0.2) then
 		error("VFLT.AdaptiveSchedule: Must provide an interval larger than 0.2 seconds.");
 	end
 	if not func then
