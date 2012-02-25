@@ -302,6 +302,7 @@ function RDXDK.Desktop:new(parent)
 				RDXDK:Debug(9, "   -- LayoutFrame Position(".. ap ..",".. frameprops.l ..")");
 			elseif name ~= "root" and sp then
 				VFLUI.SetAnchorFramebyPosition(frame:WMGetPositionalFrame(), "TOPLEFT", sp.l, sp.t, sp.r, sp.b);
+				VFL.copyInto(frameprops, sp);
 			else
 				frame:WMGetPositionalFrame():SetPoint("CENTER", RDXParent, "CENTER");
 				RDXDK:Debug(9, "   -- LayoutFrame CENTER(RDXParent)");
