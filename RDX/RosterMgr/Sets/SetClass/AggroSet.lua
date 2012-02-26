@@ -5,6 +5,12 @@
 -- A set class matching all people who are being targeted by a hostile entity.
 
 -- Locals
+
+--
+-- DEPRECATED use the variable isAggro
+--
+
+--[[
 local aggromap = {};
 local aggroUpdatePeriod = 0.5;
 local strlower = string.lower;
@@ -54,6 +60,7 @@ RDXDAL.RegisterSetClass({
 	FindSet = function() return aggroSet; end;
 });
 
+]]
 -------------------------------------------------------
 -- Combat Set
 -------------------------------------------------------

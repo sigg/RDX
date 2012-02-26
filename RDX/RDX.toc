@@ -315,6 +315,7 @@ Designs\Variables\Auras\MaelstromVariables.lua
 Designs\Variables\Auras\ShadowOrbVariables.lua
 Designs\Variables\Auras\SolarVariables.lua
 
+Designs\Variables\Checks\IsAggro.lua
 Designs\Variables\Checks\IsAltDown.lua
 Designs\Variables\Checks\IsControlDown.lua
 Designs\Variables\Checks\IsDeath.lua
