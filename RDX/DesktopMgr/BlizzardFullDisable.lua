@@ -406,14 +406,12 @@ function RDXDK.DisableAll()
 
 	local flagfoundbutton = nil
 	local function findButtons()
-		if opt and opt.buttonmm then
-			for i, child in ipairs({Minimap:GetChildren()}) do
-				flagfoundbutton = nil;
-				for k,v in ipairs(ignorebuttons) do
-					if child:GetName() == v then flagfoundbutton = true; end
-				end
-				if not flagfoundbutton then child:Hide(); end
+		for i, child in ipairs({Minimap:GetChildren()}) do
+			flagfoundbutton = nil;
+			for k,v in ipairs(ignorebuttons) do
+				if child:GetName() == v then flagfoundbutton = true; end
 			end
+			if not flagfoundbutton then child:Hide(); end
 		end
 	end
 	WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, findButtons);
