@@ -50,6 +50,7 @@ RDX.RegisterFeature({
 		
 		if not desc.rdxiconx then desc.rdxiconx = 300; end
 		if not desc.rdxicony then desc.rdxicony = 300; end
+		if not desc.rdxmtxt then desc.rdxmtxt = "default"; end
 		
 		if not desc.topstack_props then desc.topstack_props = {512, 750, "TOP", "BOTTOM", .4, 1}; end
 		if not desc.bottomstack_props then desc.bottomstack_props = {512, 450, "BOTTOM", "TOP", .9, 1}; end
@@ -63,7 +64,8 @@ DesktopEvents:Dispatch("WINDOW_OPEN", "root", "Desktop main");
 DesktopEvents:Dispatch("DESKTOP_VIEWPORT", ]] .. useviewport .. [[, ]] .. desc.offsetleft .. [[, ]] .. desc.offsettop .. [[, ]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
 DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. desc.anchorx .. [[, ]] .. desc.anchory .. [[, ]] .. Serialize(desc.bkd) .. [[, ]] .. Serialize(desc.font) .. [[, ]] .. Serialize(desc.tex) .. [[);
 DesktopEvents:Dispatch("DESKTOP_REALID", ]] .. desc.anchorxrid .. [[, ]] .. desc.anchoryrid .. [[);
-DesktopEvents:Dispatch("DESKTOP_RDXICON", ]] .. desc.rdxiconx .. [[, ]] .. desc.rdxicony .. [[);
+DesktopEvents:Dispatch("DESKTOP_RDXICON_POSITION", ]] .. desc.rdxiconx .. [[, ]] .. desc.rdxicony .. [[);
+DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", ']] .. desc.rdxmtxt  .. [[');
 DesktopEvents:Dispatch("DESKTOP_ALERTS", ]] .. Serialize(desc.topstack_props) .. [[, ]] .. Serialize(desc.bottomstack_props) .. [[);
 DesktopEvents:Dispatch("DESKTOP_COMBATTEXT", ]] .. Serialize(desc.ctffont) .. [[);
 ]]);

@@ -90,7 +90,9 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.notCheckable = true;
 	ent.hasArrow = true;
 	ent.menuList = {
-		{ text = VFLI.i18n("Main Panel"), checked = function() return not RDXPM.IsPanelHidden(); end, func = RDXPM.ToggleHidePanel }
+		{ text = VFLI.i18n("Main Panel"), checked = function() return not RDXPM.IsPanelHidden(); end, func = RDXPM.ToggleHidePanel },
+		{ text = VFLI.i18n("Mini Panel Default"), checked = function() if RDX.GetRDXIconType() == "default" then return true; else return nil; end end, func = function() RDX.ToggleRDXIcon("default"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "default", true); end},
+		{ text = VFLI.i18n("Mini Panel Powered"), checked = function() if RDX.GetRDXIconType() == "poweredbyrdx" then return true; else return nil; end end, func = function() RDX.ToggleRDXIcon("poweredbyrdx"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "poweredbyrdx", true); end},
 	};
 end);
 
@@ -130,13 +132,12 @@ end);
 local function CreateMiniPane()
 	local mini = VFLUI.AcquireFrame("Button");
 	mini:SetParent(VFLDIALOG); 
-	mini:SetScale(Minimap:GetEffectiveScale() / RDXParent:GetEffectiveScale());
+	--mini:SetScale(Minimap:GetEffectiveScale() / RDXParent:GetEffectiveScale());
 	mini:SetMovable(true);
 	mini:SetPoint("CENTER", VFLParent, "CENTER");
-	mini:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight");
-	mini:SetHeight(32); mini:SetWidth(32);
 	mini:SetClampedToScreen(true);
 	mini:Show();
+	
 	local tx1 = VFLUI.CreateTexture(mini);
 	tx1:SetPoint("TOPLEFT", mini, "TOPLEFT"); tx1:SetWidth(56); tx1:SetHeight(56);
 	tx1:SetDrawLayer("OVERLAY");
@@ -147,7 +148,62 @@ local function CreateMiniPane()
 	tx2:SetDrawLayer("BACKGROUND");
 	tx2:SetTexture("Interface\\Addons\\RDX\\Skin\\mmbtn"); tx2:Show();
 	
+	local txtpower = VFLUI.CreateFontString(mini);
+	txtpower:SetPoint('LEFT',mini,'LEFT', 0, 0);
+	txtpower:SetWidth(80); txtpower:SetHeight(20);
+	txtpower:SetFont("Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\Acme7W.ttf", 8);
+	txtpower:SetShadowOffset(1,-1);
+	txtpower:SetShadowColor(0,0,0,1);
+	txtpower:SetText("Powered by");
+	txtpower:SetJustifyH("LEFT"); txtpower:SetJustifyV("BOTTOM");
+	txtpower:Show();
 	
+	local txtrdx = VFLUI.CreateFontString(mini);
+	txtrdx:SetPoint('LEFT',mini,'LEFT', 80, -4);
+	txtrdx:SetWidth(50); txtrdx:SetHeight(20);
+	txtrdx:SetFont("Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\Adventure.ttf", 20);
+	txtrdx:SetShadowOffset(1,-1);
+	txtrdx:SetShadowColor(0,0,0,1);
+	txtrdx:SetJustifyH("LEFT"); txtrdx:SetJustifyV("BOTTOM");
+	txtrdx:SetText("RDX");
+	txtrdx:Show();
+	
+	local mtxtsave = nil;
+	
+	-- function main panel layout
+	function mini:Layout(x, y)
+		if x and y then
+			mini:ClearAllPoints();
+			VFLUI.SetAnchorFramebyPosition(mini, "BOTTOMLEFT", x, nil, nil, y);
+		else
+			mini:ClearAllPoints();
+			mini:SetPoint("CENTER", RDXParent, "CENTER");
+		end
+	end
+	
+	function mini:SetIcon(mtxt)
+		if mtxt == "poweredbyrdx"  then
+			mtxtsave = mtxt;
+			mini:SetHighlightTexture("");
+			mini:SetHeight(20); mini:SetWidth(120);
+			tx1:Hide();
+			tx2:Hide();
+			txtpower:Show();
+			txtrdx:Show();
+		elseif mtxt == "default" then
+			mtxtsave = mtxt;
+			mini:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight");
+			mini:SetHeight(32); mini:SetWidth(32);
+			tx1:Show();
+			tx2:Show();
+			txtpower:Hide();
+			txtrdx:Hide();
+		end
+	end
+	
+	function mini:GetMtxt()
+		return mtxtsave;
+	end
 	
 	--mini:SetScript("OnEnter", function(self)
 	--	GameTooltip:SetOwner(self, "ANCHOR_NONE");
@@ -186,7 +242,7 @@ local function CreateMiniPane()
 			mini:StopMovingOrSizing();
 			--RDXPM.StoreLayout(mini, "MiniButton");
 			local anchorx,_,_,anchory = VFLUI.GetUniversalBoundary(mini);
-			DesktopEvents:Dispatch("DESKTOP_RDXICON", anchorx, anchory, true);
+			DesktopEvents:Dispatch("DESKTOP_RDXICON_POSITION", anchorx, anchory, true);
 			return;
 		end
 		if(arg1 == "LeftButton") then
@@ -194,23 +250,19 @@ local function CreateMiniPane()
 		end
 	end);
 	
-	-- function main panel layout
-	function mini:Layout(x,y)
-		--RDXPM.RestoreLayout(mini, "MiniButton");
-		if x and y then
-			mini:ClearAllPoints();
-			mini:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", x, y);
-		else
-			mini:ClearAllPoints();
-			mini:SetPoint("CENTER", RDXParent, "CENTER");
-		end
-	end
-	
 	return mini;
 end
 
-function RDX.SetRDXIconLocation(anchorx, anchory)
-	miniPane:Layout(anchorx, anchory);
+function RDX.SetRDXIconLocation(anchorx, anchory, mtxt)
+	miniPane:Layout(anchorx, anchory, mtxt);
+end
+
+function RDX.GetRDXIconType()
+	return miniPane:GetMtxt();
+end
+
+function RDX.ToggleRDXIcon(mtxt)
+	miniPane:SetIcon(mtxt);
 end
 
 ------------
@@ -221,6 +273,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	-- Mini Panel
 	miniPane = CreateMiniPane();
 	miniPane:Layout();
+	miniPane:SetIcon("default");
 end);
 
 function RDXPM.GetMiniPane() return miniPane; end

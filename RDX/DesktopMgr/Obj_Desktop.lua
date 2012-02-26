@@ -207,7 +207,7 @@ function RDXDK.Desktop:new(parent)
 		RDXDK.SetRealidLocation(anchorxrid, anchoryrid);
 	end
 	
-	local function UpdateRDXIcon(anchorx, anchory, save)
+	local function UpdateRDXIconPosition(anchorx, anchory, save)
 		if save then
 			if framepropsroot then
 				framepropsroot.rdxiconx = anchorx;
@@ -215,6 +215,16 @@ function RDXDK.Desktop:new(parent)
 			end
 		else
 			RDX.SetRDXIconLocation(anchorx, anchory);
+		end
+	end
+	
+	local function UpdateRDXIconType(mtxt, save)
+		if save then
+			if framepropsroot then
+				framepropsroot.rdxmtxt = mtxt;
+			end
+		else
+			RDX.ToggleRDXIcon(mtxt);
 		end
 	end
 	
@@ -233,7 +243,8 @@ function RDXDK.Desktop:new(parent)
 	DesktopEvents:Bind("DESKTOP_VIEWPORT", nil, UpdateViewport, "desktop");
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP", nil, UpdateGameTooltip, "desktop");
 	DesktopEvents:Bind("DESKTOP_REALID", nil, UpdateRealid, "desktop");
-	DesktopEvents:Bind("DESKTOP_RDXICON", nil, UpdateRDXIcon, "desktop");
+	DesktopEvents:Bind("DESKTOP_RDXICON_POSITION", nil, UpdateRDXIconPosition, "desktop");
+	DesktopEvents:Bind("DESKTOP_RDXICON_TYPE", nil, UpdateRDXIconType, "desktop");
 	DesktopEvents:Bind("DESKTOP_ALERTS", nil, UpdateAlerts, "desktop");
 	DesktopEvents:Bind("DESKTOP_COMBATTEXT", nil, UpdateCombatText, "desktop");
 	
