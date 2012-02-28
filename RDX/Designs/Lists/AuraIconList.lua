@@ -87,7 +87,7 @@ for i=1, ]] .. desc.nIcons .. [[ do
 	btn.tex = VFLUI.CreateTexture(btn);
 	btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
 	btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
-	btn.tex:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+	--btn.tex:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
 	btn.tex:SetDrawLayer("ARTWORK", 2);
 	btn.tex:Show();
 	

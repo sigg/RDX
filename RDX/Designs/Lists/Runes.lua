@@ -48,7 +48,7 @@ for i=1,6 do
 	btn.texrune:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "2") .. [[);
 	btn.texrune:SetPoint("TOPLEFT", btn, "TOPLEFT");
 	btn.texrune:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT");
-	btn.texrune:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+	--btn.texrune:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
 	btn.texrune:SetTexture("Interface\\PlayerFrame\\UI-PlayerFrame-Deathknight-Blood");
 	local runeType = GetRuneType(i);
 	if (runeType) then
@@ -74,7 +74,7 @@ for i=1,6 do
 	btn.texborder = VFLUI.CreateTexture(btn.fraborder);
 	btn.texborder:SetPoint("TOPLEFT", btn, "TOPLEFT");
 	btn.texborder:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT");
-	btn.texborder:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+	--btn.texborder:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
 	btn.texborder:SetTexture("Interface\\PlayerFrame\\UI-PlayerFrame-Deathknight-Ring");
 	btn.texborder:Show();
 
@@ -306,7 +306,7 @@ local function _EmitCreateCode2(objname, desc)
 		btn.tex:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "2") .. [[);
 		btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. ebsos .. [[, -]] .. ebsos .. [[);
 		btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. ebsos .. [[, ]] .. ebsos .. [[);
-		btn.tex:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+		--btn.tex:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
 		btn.tex:SetTexture("Interface\\PlayerFrame\\UI-PlayerFrame-Deathknight-Blood");
 		local runeType = GetRuneType(i);
 		if runeType then
