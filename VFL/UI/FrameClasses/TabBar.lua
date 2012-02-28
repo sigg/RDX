@@ -197,8 +197,9 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		btnLeft:SetWidth(16); btnLeft:SetHeight(tabHeight);
 		btnLeft:SetPoint("RIGHT", scrollable, "LEFT"); btnLeft:Show();
 		btnLeft:SetScript("OnClick", function()
-			local hs = scrollable:GetHorizontalScroll();
-			hs = hs + scrollable:GetWidth(); if(hs > 0) then hs = 0; end
+			local sr, hs = scrollable:GetHorizontalScrollRange(), scrollable:GetHorizontalScroll();
+			hs = hs - scrollable:GetWidth();
+			if(hs < 0) then hs = 0; end
 			scrollable:SetHorizontalScroll(hs);
 			PlaySound("UChatScrollButton");
 		end);
@@ -209,7 +210,8 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		btnRight:SetPoint("LEFT", scrollable, "RIGHT"); btnRight:Show();
 		btnRight:SetScript("OnClick", function()
 			local sr, hs = scrollable:GetHorizontalScrollRange(), scrollable:GetHorizontalScroll();
-			hs = hs - scrollable:GetWidth(); if(hs < (-sr)) then hs = -sr; end
+			hs = hs + scrollable:GetWidth(); 
+			if(hs > sr) then hs = sr; end
 			scrollable:SetHorizontalScroll(hs);
 			PlaySound("UChatScrollButton");
 		end);
@@ -267,7 +269,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		end
 		t:SetHeight(tabHeight); t:SetWidth(width); t:Show();
 		-- Add clickscript
-		t:SetScript("OnClick", function(self) self:SelectTab(self); end);
+		t:SetScript("OnClick", function(self2) self:SelectTab(self2); end);
 		t._tbOnSelect = fnSelect; t._tbOnDeselect = fnDeselect;
 		t.Destroy = VFL.hook(function(s)
 			t._tbOnSelect = nil; t._tbOnDeselect = nil;

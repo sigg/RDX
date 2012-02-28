@@ -298,7 +298,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	self.icon = VFLUI.CreateTexture(self);
 	self.icon:SetPoint("TOPLEFT", self, "TOPLEFT", os, -os);
 	self.icon:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -os, os);
-	--self.icon:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+	self.icon:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
 	self.icon:SetDrawLayer("ARTWORK", 2);
 	self.icon:Show();
 	-- cooldown
@@ -662,7 +662,7 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	self.icon = VFLUI.CreateTexture(self);
 	self.icon:SetPoint("TOPLEFT", self, "TOPLEFT", os, -os);
 	self.icon:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -os, os);
-	--self.icon:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+	self.icon:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
 	self.icon:SetDrawLayer("ARTWORK", 2);
 	self.icon:Show();
 	-- cooldown
@@ -1029,7 +1029,7 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	self.icon = VFLUI.CreateTexture(self);
 	self.icon:SetPoint("TOPLEFT", self, "TOPLEFT", os, -os);
 	self.icon:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -os, os);
-	--self.icon:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+	self.icon:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
 	self.icon:SetDrawLayer("ARTWORK", 2);
 	self.icon:Show();
 	-- cooldown
@@ -1348,7 +1348,7 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 	self.icon = VFLUI.CreateTexture(self);
 	self.icon:SetPoint("TOPLEFT", self, "TOPLEFT", os, -os);
 	self.icon:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -os, os);
-	--self.icon:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+	self.icon:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
 	self.icon:SetDrawLayer("ARTWORK", 2);
 	self.icon:Show();
 	-- cooldown
@@ -1577,7 +1577,7 @@ function RDXUI.ActionButtonTest:new(parent, id, statesString, desc)
 	self.icon = VFLUI.CreateTexture(self);
 	self.icon:SetPoint("TOPLEFT", self, "TOPLEFT", os, -os);
 	self.icon:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -os, os);
-	--self.icon:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+	self.icon:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
 	self.icon:SetDrawLayer("ARTWORK", 2);
 	self.icon:Show();
 	-- cooldown
@@ -1686,7 +1686,7 @@ function RDXUI.VehicleButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, 
 	self.icon = VFLUI.CreateTexture(self);
 	self.icon:SetPoint("TOPLEFT", self, "TOPLEFT", os, -os);
 	self.icon:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -os, os);
-	--self.icon:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+	self.icon:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
 	self.icon:SetDrawLayer("ARTWORK", 2);
 	self.icon:Show();
 	self.frtxt = VFLUI.AcquireFrame("Frame");

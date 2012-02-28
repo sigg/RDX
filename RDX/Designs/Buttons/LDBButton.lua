@@ -91,7 +91,7 @@ VFLUI.CreateFramePool("LDBObjects",
 		
 		ldbo.tex = VFLUI.CreateTexture(ldbo);
 		ldbo.tex:SetPoint("LEFT", ldbo, "LEFT", 0, 0);
-		--ldbo.tex:SetTexCoord(0.08, 1-0.08, 0.08, 1-0.08);
+		ldbo.tex:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
 		
 		ldbo.text = VFLUI.CreateFontString(ldbo);
 		ldbo.text:SetPoint("LEFT", ldbo.tex, "RIGHT", 1, 0);

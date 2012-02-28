@@ -39,7 +39,7 @@ RDX.BlizzardMicroButtons = {
 	"AchievementMicroButton",
 	"QuestLogMicroButton",
 	"GuildMicroButton",
-	"FriendsMicroButton",
+	--"FriendsMicroButton",
 	"PVPMicroButton",
 	"LFDMicroButton",
 	"EJMicroButton",

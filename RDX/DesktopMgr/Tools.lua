@@ -115,7 +115,7 @@ framed:SetHeight(400); framed:SetWidth(216);
 -- Viewport
 local separator1 = VFLUI.SeparatorText:new(framed, 1, 216);
 separator1:SetPoint("TOPLEFT", framed, "TOPLEFT", 0, -5);
-separator1:SetText("Viewport");
+separator1:SetText("Viewport"); separator1:Show();
 
 local updateViewport, setViewport;
 
@@ -393,7 +393,7 @@ local function OpenDesktopTools(parent, froot)
 	dlg:SetTitleColor(0,.5,0);
 	dlg:SetText(VFLI.i18n("Desktop Manager"));
 	dlg:SetPoint("CENTER", VFLParent, "CENTER", -200, 0);
-	dlg:Accomodate(216, 530);
+	dlg:Accomodate(232, 530);
 	dlg:SetClampedToScreen(true);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
@@ -402,18 +402,24 @@ local function OpenDesktopTools(parent, froot)
 	local ca = dlg:GetClientArea();
 	
 	local tabbox = VFLUI.TabBox:new(ca, 22, "TOP");
-	tabbox:SetHeight(530); theBox:SetWidth(216);
+	tabbox:SetHeight(530); tabbox:SetWidth(232);
 	tabbox:SetPoint("TOPLEFT", ca, "TOPLEFT");
 	
-	tabbox:GetTabBar():AddTab(50, function() tabbox:SetClient(framed); SetFramed(froot) end):SetText("Main");
-	tabbox:GetTabBar():AddTab(50, function() tabbox:SetClient(framew); SetFramew(froot) end, function() UnsetFramew() end):SetText("Windows");
-	tabbox:GetTabBar():AddTab(50, function() tabbox:SetClient(frameg); SetFrameg(froot) end):SetText("GameTooltip");
+	tabbox:GetTabBar():AddTab(75, function() tabbox:SetClient(framed); SetFramed(froot) end):SetText("Main");
+	tabbox:GetTabBar():AddTab(75, function() tabbox:SetClient(framew); SetFramew(froot) end, function() UnsetFramew() end):SetText("Windows");
+	tabbox:GetTabBar():AddTab(75, function() tabbox:SetClient(frameg); SetFrameg(froot) end):SetText("GameTooltip");
+	local cli = nil;
+	for i=1,10 do
+		cli = VFLUI.AcquireFrame("Frame"); cli:Hide();
+		tabbox:GetTabBar():AddTab(75, tabbox:GenerateTabFuncs(cli)):SetText("Tab" .. i);
+	end
+	tabbox:Show();
 	
 	dlg.tabbox = tabbox;
 	
-	function dlg:_update(frameprops)
+	--function dlg:_update(frameprops)
 		-- deprecated
-	end
+	--end
 	
 	--local updateCombatText = nil;
 	--local separator6 = VFLUI.SeparatorText:new(ca, 1, 216);
@@ -479,7 +485,7 @@ local function OpenDesktopTools(parent, froot)
 		--chk_lockaction:Destroy(); chk_lockaction = nil;
 		--btndefinekey:Destroy(); btndefinekey = nil;
 		--separator4:Destroy(); separator4 = nil;
-		s._update = nil;
+		--s._update = nil;
 		--updateDockTxt = nil;
 		--VFLUI.ReleaseRegion(txtCurDock); txtCurDock = nil;
 		--ddStrata:Destroy(); ddStrata = nil;
@@ -515,10 +521,10 @@ function RDXDK.ToggleDesktopTools(parent, froot)
 	end
 end
 
-function RDXDK.UpdateDesktopTools(frameprops)
-	if not dlg then RDXDK.OpenDesktopTools(); end
-	if frameprops then dlg:_update(frameprops); end
-end
+--function RDXDK.UpdateDesktopTools(frameprops)
+--	if not dlg then RDXDK.OpenDesktopTools(); end
+--	if frameprops then dlg:_update(frameprops); end
+--end
 
 RDXPM.RegisterSlashCommand("toggledesk", function()
 	local curdesk = RDXDK.GetCurrentDesktop();
