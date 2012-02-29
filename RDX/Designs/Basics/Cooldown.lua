@@ -25,7 +25,9 @@ btn.tex = VFLUI.CreateTexture(btn);
 btn.tex:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "2") .. [[);
 btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. ebsos .. [[, -]] .. ebsos .. [[);
 btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. ebsos .. [[, ]] .. ebsos .. [[);
---btn.tex:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
+if not RDXG.usecleanicons then
+	btn.tex:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
+end
 btn.tex:Show();
 ]];
 	createCode = createCode .. VFLUI.GenerateSetTextureCode("btn.tex", desc.texture);

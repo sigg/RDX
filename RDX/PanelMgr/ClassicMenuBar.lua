@@ -93,6 +93,7 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 		{ text = VFLI.i18n("Main Panel"), checked = function() return not RDXPM.IsPanelHidden(); end, func = RDXPM.ToggleHidePanel },
 		{ text = VFLI.i18n("Mini Panel Default"), checked = function() if RDX.GetRDXIconType() == "default" then return true; else return nil; end end, func = function() RDX.ToggleRDXIcon("default"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "default", true); end},
 		{ text = VFLI.i18n("Mini Panel Powered"), checked = function() if RDX.GetRDXIconType() == "poweredbyrdx" then return true; else return nil; end end, func = function() RDX.ToggleRDXIcon("poweredbyrdx"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "poweredbyrdx", true); end},
+		{ text = VFLI.i18n("Activate Clean Icons (Addon Required)"), checked = RDX.UseCleanIcons, func = RDX.ToggleCleanIcons },
 	};
 end);
 
@@ -263,6 +264,21 @@ end
 
 function RDX.ToggleRDXIcon(mtxt)
 	miniPane:SetIcon(mtxt);
+end
+
+-- clean icon used
+
+function RDX.ToggleCleanIcons()
+	if not RDXG.usecleanicons then
+		RDXG.usecleanicons = true;
+	else
+		RDXG.usecleanicons = nil;
+	end
+	ReloadUI();
+end
+
+function RDX.UseCleanIcons()
+	return RDXG.usecleanicons;
 end
 
 ------------

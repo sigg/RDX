@@ -95,7 +95,9 @@ btn:SetAttribute("spell", ]] .. spell .. [[);
 btn.icon = VFLUI.CreateTexture(btn);
 btn.icon:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
 btn.icon:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
-btn.icon:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
+if not RDXG.usecleanicons then
+	btn.icon:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
+end
 btn.icon:SetDrawLayer("ARTWORK", 2);
 btn.icon:SetTexture("]] .. icontex .. [[");
 btn.icon:Show();
