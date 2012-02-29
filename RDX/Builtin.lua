@@ -2348,7 +2348,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "ags",
+				["class"] = "none",
 			},
 		};
 	end
@@ -2359,7 +2359,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "ags",
+				["class"] = "none",
 			},
 		};
 	end
@@ -2370,7 +2370,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "ags",
+				["class"] = "none",
 			},
 		};
 	end
@@ -2388,7 +2388,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "ags",
+				["class"] = "none",
 			},
 		};
 	end
@@ -2399,7 +2399,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "ags",
+				["class"] = "none",
 			},
 		};
 	end
@@ -2410,7 +2410,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "ags",
+				["class"] = "none",
 			},
 		};
 	end
@@ -2428,7 +2428,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "ags",
+				["class"] = "none",
 			},
 		};
 	end
@@ -2439,7 +2439,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "ags",
+				["class"] = "none",
 			},
 		};
 	end
@@ -2450,7 +2450,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "ags",
+				["class"] = "none",
 			},
 		};
 	end
@@ -2468,7 +2468,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "haspet",
+				["class"] = "none",
 			},
 		};
 	end
@@ -2479,7 +2479,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "haspet",
+				["class"] = "none",
 			},
 		};
 	end
@@ -2490,7 +2490,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "haspet",
+				["class"] = "none",
 			},
 		};
 	end
