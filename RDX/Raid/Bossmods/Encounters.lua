@@ -420,11 +420,11 @@ function RDX.CreateEncPane()
 	tmr:SetScript("OnUpdate", function(self) self:SetTime(encTimer:Get()); end);
 
 	-- Click handlers
-	tBtn:SetScript("OnMouseDown", function(self, arg1)
-		if(arg1 == "LeftButton") and IsShiftKeyDown() then
-			encPane:WMDrag();
-		end
-	end);
+	--tBtn:SetScript("OnMouseDown", function(self, arg1)
+	--	if(arg1 == "LeftButton") and IsShiftKeyDown() then
+	--		encPane:WMDrag();
+	--	end
+	--end);
 	tBtn:SetScript("OnMouseUp", function(self, arg1)
 		if(arg1 == "LeftButton") then 
 			encPane:WMStopDrag();

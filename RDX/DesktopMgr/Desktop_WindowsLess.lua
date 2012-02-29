@@ -71,3 +71,10 @@ end
 function RDXDK._DelRegisteredWindowRDX(path)
 	DesktopEvents:Dispatch("WINDOW_CLOSE", path, "desktop_windowless");
 end
+
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
+	for k,v in pairs(classes) do
+		if v.Init then v.Init(); end
+	end
+end);
+

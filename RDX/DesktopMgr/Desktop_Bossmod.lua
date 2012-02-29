@@ -16,9 +16,6 @@ RDXDK.RegisterWindowLess({
 		RDX.ReleaseEncounterPane();
 		return true;
 	end,
-	IsOpen = function()
-		RDX.IsEncounterPaneShow1();
-	end,
 	Description = "Bossmod",
 	Rebuild = function(id, frame)
 		return true;

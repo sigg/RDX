@@ -532,12 +532,6 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 	
 	ChangeAUI(RDXU.AUI);
 	
-	--if RDXU.autoSwitchState then
-	--	SwitchState_Enable();
-	--else
-	--	SwitchState_Disable(RDXU.AUIState);
-	--end
-	
 	if RDXG.RDXopt and RDXG.RDXopt.upp then
 		SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"));
 	end

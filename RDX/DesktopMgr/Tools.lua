@@ -4,11 +4,12 @@
 -- The desktop tools is opened when you unlock your desktop.
 -- replace the old framesprops.
 
+-------------------
 -- helper
+-------------------
 
 -- The windows list container
 local wl = {};
-
 local function BuildWindowList(pkgfilter)
 	VFL.empty(wl);
 	local desc = nil;
@@ -25,6 +26,17 @@ local function BuildWindowList(pkgfilter)
 		end
 	end
 	table.sort(wl, function(x1,x2) return x1.path<x2.path; end);
+end
+
+-- the windows less list container
+local w2 = {};
+local function BuildWindowLessList()
+	VFL.empty(w2);
+	local desc = nil;
+	for k,v in pairs(RDXDK._GetWindowsLess()) do
+		table.insert(w2, {path = k, data = v});
+	end
+	table.sort(w2, function(x1,x2) return x1.path<x2.path; end);
 end
 
 -- function to create each row of the windows list
@@ -60,17 +72,22 @@ local function CreateWindowsListFrame()
 end
 
 local function WindowListClick(path)
-	-- "Close" case
 	if InCombatLockdown() then return; end	
 	local inst = RDXDB.GetObjectInstance(path, true);
 	if inst then
-		--RDX.printI(VFLI.i18n("Closing Window at <") .. path .. ">");
 		RDXDB.OpenObject(path, "Close");
 		return;
 	end
-	-- "Open" case
-	--RDX.printI(VFLI.i18n("Opening Window at <") .. path .. ">");
 	RDXDB.OpenObject(path);
+end
+
+local function WindowLessListClick(path)
+	if InCombatLockdown() then return; end
+	if RDXDK._IsWindowOpen(path) then
+		RDXDK._DelRegisteredWindowRDX(path);
+	else
+		RDXDK._AddRegisteredWindowRDX(path);
+	end
 end
 
 local function WindowListRightClick(self, path)
@@ -107,7 +124,7 @@ local function WindowListRightClick(self, path)
 end
 
 --
--- TAB 1 Desktop option
+-- TAB Desktop option
 --
 local framed = VFLUI.AcquireFrame("Frame");
 framed:SetHeight(400); framed:SetWidth(216);
@@ -169,7 +186,7 @@ end
 
 -- action bar
 local separator4 = VFLUI.SeparatorText:new(framed, 1, 216);
-separator4:SetPoint("TOPLEFT", leleft, "BOTTOMLEFT", 0, -95);
+separator4:SetPoint("TOPLEFT", leright, "BOTTOMLEFT", 0, -5);
 separator4:SetText("ActionBars"); separator4:Show();
 
 -- button configure keys
@@ -213,7 +230,7 @@ end);
 framed:Hide();
 
 --
--- TAB 2 Windows
+-- TAB Windows
 --
 local winframeprops = nil;
 
@@ -222,11 +239,11 @@ framew:SetHeight(400); framew:SetWidth(216);
 
 local separator2 = VFLUI.SeparatorText:new(framew, 1, 216);
 separator2:SetPoint("TOPLEFT", framew, "TOPLEFT", 0, -5);
-separator2:SetText(VFLI.i18n("Windows List"));
+separator2:SetText(VFLI.i18n("RDX Windows"));
 
 local list = VFLUI.List:new(framew, 12, CreateWindowsListFrame);
 list:SetPoint("TOPLEFT", separator2, "BOTTOMLEFT");
-list:SetWidth(216); list:SetHeight(150);
+list:SetWidth(216); list:SetHeight(200);
 list:Rebuild(); list:Show();
 list:SetDataSource(function(cell, data, pos)
 	local p = data.path;
@@ -244,9 +261,34 @@ list:SetDataSource(function(cell, data, pos)
 	end);
 end, VFL.ArrayLiterator(wl));
 
+-- Windows less
+local separator_winless = VFLUI.SeparatorText:new(framew, 1, 216);
+separator_winless:SetPoint("TOPLEFT", list, "TOPLEFT", 0, -195);
+separator_winless:SetText(VFLI.i18n("External Addons"));
+
+local list2 = VFLUI.List:new(framew, 12, CreateWindowsListFrame);
+list2:SetPoint("TOPLEFT", separator_winless, "BOTTOMLEFT");
+list2:SetWidth(216); list2:SetHeight(50);
+list2:Rebuild(); list2:Show();
+list2:SetDataSource(function(cell, data, pos)
+	local p = data.path;
+	if RDXDK._IsWindowOpen(p) then
+		cell.text:SetText("|cFF00FF00" .. p .. "|r");
+	else
+		cell.text:SetText(p);
+	end
+	cell:SetScript("OnClick", function(self, arg1)
+		if arg1 == "LeftButton" then
+			WindowLessListClick(p); list2:Update();
+		--elseif arg1 == "RightButton" then
+		--	WindowListRightClick(self, p);
+		end
+	end);
+end, VFL.ArrayLiterator(w2));
+
 -- Window option
 local separator3 = VFLUI.SeparatorText:new(framew, 1, 216);
-separator3:SetPoint("TOPLEFT", list, "BOTTOMLEFT", 0, -5);
+separator3:SetPoint("TOPLEFT", list2, "BOTTOMLEFT", 0, -45);
 separator3:SetText("Window options");
 
 local windowName = VFLUI.SimpleText:new(framew, 1, 216);
@@ -305,6 +347,8 @@ local function SetFramew(froot)
 		BuildWindowList();
 	end
 	list:Update();
+	BuildWindowLessList();
+	list2:Update();
 end
 
 local function UnsetFramew()
@@ -383,7 +427,9 @@ end
 
 frameg:Hide();
 
+---------------------------------------
 -- The main panel
+---------------------------------------
 local dlg = nil;
 local function OpenDesktopTools(parent, froot)
 	if dlg then return; end
@@ -405,14 +451,16 @@ local function OpenDesktopTools(parent, froot)
 	tabbox:SetHeight(530); tabbox:SetWidth(232);
 	tabbox:SetPoint("TOPLEFT", ca, "TOPLEFT");
 	
-	tabbox:GetTabBar():AddTab(75, function() tabbox:SetClient(framed); SetFramed(froot) end):SetText("Main");
-	tabbox:GetTabBar():AddTab(75, function() tabbox:SetClient(framew); SetFramew(froot) end, function() UnsetFramew() end):SetText("Windows");
-	tabbox:GetTabBar():AddTab(75, function() tabbox:SetClient(frameg); SetFrameg(froot) end):SetText("GameTooltip");
+	local tab = tabbox:GetTabBar():AddTab(75, function() tabbox:SetClient(framew); SetFramew(froot) end, function() UnsetFramew() end);
+	tabbox:GetTabBar():AddTab(75, function() tabbox:SetClient(framed); SetFramed(froot) end):SetText("Options");
+	tabbox:GetTabBar():AddTab(100, function() tabbox:SetClient(frameg); SetFrameg(froot) end):SetText("GameTooltips");
 	local cli = nil;
 	for i=1,10 do
 		cli = VFLUI.AcquireFrame("Frame"); cli:Hide();
 		tabbox:GetTabBar():AddTab(75, tabbox:GenerateTabFuncs(cli)):SetText("Tab" .. i);
 	end
+	tab:SetText("Windows");
+	tabbox:GetTabBar():SelectTab(tab);
 	tabbox:Show();
 	
 	dlg.tabbox = tabbox;
@@ -441,6 +489,7 @@ local function OpenDesktopTools(parent, froot)
 	DesktopEvents:Dispatch("DESKTOP_UNLOCK");
 	
 	local esch = function()
+		RDXDK.SetFramew_window(nil);
 		DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
 		DesktopEvents:Dispatch("DESKTOP_LOCK");
 		RDXPM.StoreLayout(dlg, "dktools");
@@ -473,35 +522,6 @@ local function OpenDesktopTools(parent, froot)
 	
 	dlg.Destroy = VFL.hook(function(s)
 		s._esch = nil;
-		--updateCombatText = nil;
-		--updateGametooltip = nil;
-		--dd_ctf_font:Destroy(); dd_ctf_font = nil;
-		--separator6:Destroy(); separator6 = nil;
-		--dd_btexture:Destroy(); dd_btexture = nil;
-		--dd_font:Destroy(); dd_font = nil;
-		--dd_bkd:Destroy(); dd_bkd = nil;
-		--chk_tooltipmouse:Destroy(); chk_tooltipmouse = nil;
-		--separator5:Destroy(); separator5 = nil;
-		--chk_lockaction:Destroy(); chk_lockaction = nil;
-		--btndefinekey:Destroy(); btndefinekey = nil;
-		--separator4:Destroy(); separator4 = nil;
-		--s._update = nil;
-		--updateDockTxt = nil;
-		--VFLUI.ReleaseRegion(txtCurDock); txtCurDock = nil;
-		--ddStrata:Destroy(); ddStrata = nil;
-		--slAlpha:Destroy(); slAlpha = nil; edAlpha:Destroy(); edAlpha = nil;
-		--slScale:Destroy(); slScale = nil; edScale:Destroy(); edScale = nil;
-		--windowName:Destroy(); windowName = nil;
-		--separator3:Destroy(); separator3 = nil;
-		--list:Destroy(); list = nil;
-		--separator2:Destroy(); separator2 = nil;
-		--updateViewport = nil;
-		--lebottom:Destroy(); lebottom = nil;
-		--leright:Destroy(); leright = nil;
-		--letop:Destroy(); letop = nil;
-		--leleft:Destroy(); leleft = nil;
-		--chk_viewport:Destroy(); chk_viewport = nil;
-		--separator1:Destroy(); separator1 = nil;
 		s.tabbox:Destroy(); s.tabbox = nil;
 		s.frameprops = nil;
 	end, dlg.Destroy);
@@ -520,11 +540,6 @@ function RDXDK.ToggleDesktopTools(parent, froot)
 		end
 	end
 end
-
---function RDXDK.UpdateDesktopTools(frameprops)
---	if not dlg then RDXDK.OpenDesktopTools(); end
---	if frameprops then dlg:_update(frameprops); end
---end
 
 RDXPM.RegisterSlashCommand("toggledesk", function()
 	local curdesk = RDXDK.GetCurrentDesktop();
