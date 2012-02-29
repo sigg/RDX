@@ -29,6 +29,7 @@ end
 --- Find a set given the descriptor returned by the set finder.
 function RDXDAL.FindSet(descr)
 	if not descr then return nil; end
+	if descr.class == "ags" then descr.class = "empty"; end
 	local cls = GetSetClassByName(descr.class); if not cls then return nil; end
 	return cls.FindSet(descr);
 end
@@ -36,6 +37,7 @@ end
 --- Validate a set
 function RDXDAL.ValidateSet(descr)
 	if not descr then return nil; end
+	if descr.class == "ags" then descr.class = "empty"; end
 	local cls = GetSetClassByName(descr.class); if not cls then return nil; end
 	if cls.ValidateSet then return cls.ValidateSet(descr); else return true; end
 end
