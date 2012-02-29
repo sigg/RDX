@@ -100,7 +100,7 @@ RDXDK.UnimbueManagedFrame = UnimbueManagedFrame
 
 -- Make a frame into a WM-managed frame.
 local function ImbueManagedFrame(frame, name)
-	
+	frame:SetMovable(true);
 	-- Setup default internals
 	frame._dk_name = name; 
 	frame._dk_layout = nil;
