@@ -143,10 +143,23 @@ function RDXDK.Desktop:new(parent)
 		for name, frame in pairs(frameList) do
 			frame:Lock();
 		end
+		lockstate = true;
+	end
+	
+	local function UnlockDesktop()
+		RDXDK:Debug(6, "UnlockDesktop");
+		for name, frame in pairs(frameList) do
+			frame:Unlock(framePropsList[name]);
+		end
+		lockstate = nil;
+	end
+	
+	local function LockGameTooltip()
+		RDXDK:Debug(6, "LockGameTooltip");
 		local tooltipmouse, anchorx, anchory, bkd, font, tex = RDXDK.GetLockGameTooltip();
 		local anchorxrid, anchoryrid = RDXDK.GetLockRealid();
-		local topstack_props, bottomstack_props = RDXBM.GetStackProps();
-		local ctffont = RDXDK.GetLockCombatTextFont();
+		--local topstack_props, bottomstack_props = RDXBM.GetStackProps();
+		--local ctffont = RDXDK.GetLockCombatTextFont();
 		if framepropsroot then
 			framepropsroot.tooltipmouse = tooltipmouse;
 			framepropsroot.anchorx = anchorx;
@@ -156,21 +169,18 @@ function RDXDK.Desktop:new(parent)
 			framepropsroot.tex = tex;
 			framepropsroot.anchorxrid = anchorxrid;
 			framepropsroot.anchoryrid = anchoryrid;
-			framepropsroot.topstack_props = topstack_props;
-			framepropsroot.bottomstack_props = bottomstack_props;
-			framepropsroot.ctffont = ctffont;
+			--framepropsroot.topstack_props = topstack_props;
+			--framepropsroot.bottomstack_props = bottomstack_props;
+			--framepropsroot.ctffont = ctffont;
 		end
 		lockstate = true;
 	end
 	
-	local function UnlockDesktop()
-		RDXDK:Debug(6, "UnlockDesktop");
-		for name, frame in pairs(frameList) do
-			frame:Unlock(framePropsList[name]);
-		end
+	local function UnlockGameTooltip()
+		RDXDK:Debug(6, "UnlockGameTooltip");
 		RDXDK.SetUnlockGameTooltip();
 		RDXDK.SetUnlockRealid();
-		RDXBM.SetUnlockAlerts();
+		--RDXBM.SetUnlockAlerts();
 		lockstate = nil;
 	end
 	
@@ -242,6 +252,8 @@ function RDXDK.Desktop:new(parent)
 	DesktopEvents:Bind("DESKTOP_UNLOCK", nil, UnlockDesktop, "desktop");
 	DesktopEvents:Bind("DESKTOP_VIEWPORT", nil, UpdateViewport, "desktop");
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP", nil, UpdateGameTooltip, "desktop");
+	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP_LOCK", nil, LockGameTooltip, "desktop");
+	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP_UNLOCK", nil, UnlockGameTooltip, "desktop");
 	DesktopEvents:Bind("DESKTOP_REALID", nil, UpdateRealid, "desktop");
 	DesktopEvents:Bind("DESKTOP_RDXICON_POSITION", nil, UpdateRDXIconPosition, "desktop");
 	DesktopEvents:Bind("DESKTOP_RDXICON_TYPE", nil, UpdateRDXIconType, "desktop");

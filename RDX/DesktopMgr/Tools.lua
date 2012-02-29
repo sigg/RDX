@@ -199,12 +199,10 @@ btndefinekey:SetScript("OnClick", function()
 	if not InCombatLockdown() then 
 		if dfkey then
 			btndefinekey:SetText(VFLI.i18n("Click to setup your keys"));
-			DesktopEvents:Dispatch("DESKTOP_UNLOCK");
 			DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
 			dfkey = nil;
 		else
 			btndefinekey:SetText(VFLI.i18n("Lock keys setup"));
-			DesktopEvents:Dispatch("DESKTOP_LOCK");
 			DesktopEvents:Dispatch("DESKTOP_UNLOCK_BINDINGS");
 			dfkey = true;
 		end
@@ -226,6 +224,10 @@ end);
 --dd_Keys:SetPoint("TOPRIGHT", lbl_keys, "BOTTOMRIGHT", 0, 0); dd_Keys:SetWidth(132);
 --dd_Keys:SetSelection(froot.keys, true);
 --dd_Keys:Show();
+
+local function UnsetFramed()
+
+end
 
 framed:Hide();
 
@@ -349,10 +351,12 @@ local function SetFramew(froot)
 	list:Update();
 	BuildWindowLessList();
 	list2:Update();
+	DesktopEvents:Dispatch("DESKTOP_UNLOCK");
 end
 
 local function UnsetFramew()
 	winframeprops = nil;
+	DesktopEvents:Dispatch("DESKTOP_LOCK");
 end
 
 function RDXDK.SetFramew_window(frameprops)
@@ -414,15 +418,23 @@ local dd_btexture = VFLUI.MakeTextureSelectButton(frameg, nil, function() update
 dd_btexture:SetPoint("LEFT", lblsb, "RIGHT");
 dd_btexture:Show();
 
+local ggtemp = nil ;
+
 updateGametooltip = function()
-	--DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", chk_tooltipmouse:GetChecked(), froot.anchorx, froot.anchory, dd_bkd:GetSelectedBackdrop(), dd_font:GetSelectedFont(), dd_btexture:GetSelectedTexture());
+	DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", chk_tooltipmouse:GetChecked(), ggtemp.anchorx, ggtemp.anchory, dd_bkd:GetSelectedBackdrop(), dd_font:GetSelectedFont(), dd_btexture:GetSelectedTexture());
 end
 
 local function SetFrameg(froot)
+	ggtemp = froot;
 	if froot.tooltipmouse then chk_tooltipmouse:SetChecked(true); else chk_tooltipmouse:SetChecked(); end
 	dd_bkd:SetSelectedBackdrop(froot.bkd);
 	dd_font:SetSelectedFont(froot.font);
 	dd_btexture:SetSelectedTexture(froot.tex);
+	DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP_UNLOCK");
+end
+
+local function UnsetFrameg()
+	DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP_LOCK");
 end
 
 frameg:Hide();
@@ -452,8 +464,8 @@ local function OpenDesktopTools(parent, froot)
 	tabbox:SetPoint("TOPLEFT", ca, "TOPLEFT");
 	
 	local tab = tabbox:GetTabBar():AddTab(75, function() tabbox:SetClient(framew); SetFramew(froot) end, function() UnsetFramew() end);
-	tabbox:GetTabBar():AddTab(75, function() tabbox:SetClient(framed); SetFramed(froot) end):SetText("Options");
-	tabbox:GetTabBar():AddTab(100, function() tabbox:SetClient(frameg); SetFrameg(froot) end):SetText("GameTooltips");
+	tabbox:GetTabBar():AddTab(75, function() tabbox:SetClient(framed); SetFramed(froot) end, function() UnsetFramed() end):SetText("Options");
+	tabbox:GetTabBar():AddTab(100, function() tabbox:SetClient(frameg); SetFrameg(froot) end, function() UnsetFrameg() end):SetText("GameTooltips");
 	local cli = nil;
 	for i=1,10 do
 		cli = VFLUI.AcquireFrame("Frame"); cli:Hide();
@@ -485,8 +497,6 @@ local function OpenDesktopTools(parent, froot)
 	--end
 	
 	dlg:Show();
-	
-	DesktopEvents:Dispatch("DESKTOP_UNLOCK");
 	
 	local esch = function()
 		RDXDK.SetFramew_window(nil);
