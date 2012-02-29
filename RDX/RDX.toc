@@ -159,7 +159,9 @@ DesktopMgr\StateMenu.lua
 DesktopMgr\GameTooltip.lua
 DesktopMgr\CombatText.lua
 
+# integrations
 DesktopMgr\Integrations\KingQuest.lua
+DesktopMgr\Integrations\Recount.lua
 
 # Windowing library
 Windows\Multiplexer.lua
