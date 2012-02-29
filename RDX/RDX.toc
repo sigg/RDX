@@ -159,6 +159,8 @@ DesktopMgr\StateMenu.lua
 DesktopMgr\GameTooltip.lua
 DesktopMgr\CombatText.lua
 
+DesktopMgr\Integrations\KingQuest.lua
+
 # Windowing library
 Windows\Multiplexer.lua
 Windows\HeaderEngine.lua
