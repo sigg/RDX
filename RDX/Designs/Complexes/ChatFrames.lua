@@ -272,7 +272,7 @@ RDXUI.NumberListSelectionFunc = amOnBuild;
 
 
 RDX.RegisterFeature({
-	name = "chatframea";
+	name = "chatframe";
 	version = 1;
 	title = VFLI.i18n("Blizzard ChatFrame");
 	category = VFLI.i18n("Complexes");
@@ -473,7 +473,7 @@ VFLUI.CreateFramePool("ChatFrameEditBox",
 "key");
 
 RDX.RegisterFeature({
-	name = "chatframeeditboxa";
+	name = "chatframeeditbox";
 	invisible = true;
 	version = 1;
 	title = "Blizzard ChatFrame EditBox";

@@ -465,6 +465,8 @@ function RDXDK.DisableAll()
 	AuraButton_Update = VFL.Noop;
 	TalentMicroButton:UnregisterEvent("PLAYER_TALENT_UPDATE");
 	
+	RDX.ManageChatFrames();
+	
 	--[[
 	ActionButton_OnLoad = VFL.Noop;
 	ActionButton_OnEvent = VFL.Noop;
