@@ -137,7 +137,6 @@ DesktopMgr\Obj_DUI.lua
 DesktopMgr\BlizzardFullDisable.lua
 #DesktopMgr\Crosshair.lua
 DesktopMgr\LockUnlock.lua
-DesktopMgr\Tools.lua
 DesktopMgr\LockUnlockKeyBindings.lua
 DesktopMgr\LockUnlockActionBindings.lua
 DesktopMgr\ShowHide.lua
@@ -158,6 +157,10 @@ DesktopMgr\DuiMenu.lua
 DesktopMgr\StateMenu.lua
 DesktopMgr\GameTooltip.lua
 DesktopMgr\CombatText.lua
+DesktopMgr\Tools.lua
+DesktopMgr\Tools_windows.lua
+DesktopMgr\Tools_options.lua
+DesktopMgr\Tools_gametooltips.lua
 
 # integrations
 DesktopMgr\Integrations\KingQuest.lua

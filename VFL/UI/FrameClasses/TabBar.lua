@@ -258,6 +258,14 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		if tab._tbOnSelect then tab:_tbOnSelect(); end
 		tab:LockHighlight();
 	end
+	
+	function self:SelectTabName(title)
+		local tab = nil;
+		for i, v in ipairs(tabs) do
+			if v:GetText() == title then tab = v; end
+		end
+		self:SelectTab(tab);
+	end
 
 	--- Adds a tab to the tab bar. The tab will have the given width.
 	function self:AddTab(width, fnSelect, fnDeselect)
@@ -308,7 +316,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		for k,tab in pairs(tabs) do tab:Destroy(); tabs[k] = nil; end
 		UnsetScrollable();
 		tabs = nil; tabWidth = nil;
-
+		self.SelectTabName = nil;
 		self.RemoveTab = nil; self.AddTab = nil; self.SelectTab = nil;
 	end, self.Destroy);
 
