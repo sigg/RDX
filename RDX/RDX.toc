@@ -161,6 +161,8 @@ DesktopMgr\Tools.lua
 DesktopMgr\Tools_windows.lua
 DesktopMgr\Tools_options.lua
 DesktopMgr\Tools_gametooltips.lua
+DesktopMgr\Tools_nameplates.lua
+DesktopMgr\Tools_alerts.lua
 
 # integrations
 DesktopMgr\Integrations\KingQuest.lua

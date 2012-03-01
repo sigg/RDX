@@ -173,7 +173,6 @@ function RDXDK.Desktop:new(parent)
 			--framepropsroot.bottomstack_props = bottomstack_props;
 			--framepropsroot.ctffont = ctffont;
 		end
-		lockstate = true;
 	end
 	
 	local function UnlockGameTooltip()
@@ -181,7 +180,20 @@ function RDXDK.Desktop:new(parent)
 		RDXDK.SetUnlockGameTooltip();
 		RDXDK.SetUnlockRealid();
 		--RDXBM.SetUnlockAlerts();
-		lockstate = nil;
+	end
+	
+	local function LockAlerts()
+		local topstack_props, bottomstack_props = RDXBM.GetStackProps();
+		local ctffont = RDXDK.GetLockCombatTextFont();
+		if framepropsroot then
+			framepropsroot.topstack_props = topstack_props;
+			framepropsroot.bottomstack_props = bottomstack_props;
+			framepropsroot.ctffont = ctffont;
+		end
+	end
+	
+	local function UnlockAlerts()
+		RDXBM.SetUnlockAlerts();
 	end
 	
 	----------------------------------------------
@@ -254,6 +266,8 @@ function RDXDK.Desktop:new(parent)
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP", nil, UpdateGameTooltip, "desktop");
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP_LOCK", nil, LockGameTooltip, "desktop");
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP_UNLOCK", nil, UnlockGameTooltip, "desktop");
+	DesktopEvents:Bind("DESKTOP_ALERTS_LOCK", nil, LockAlerts, "desktop");
+	DesktopEvents:Bind("DESKTOP_ALERTS_UNLOCK", nil, UnlockAlerts, "desktop");
 	DesktopEvents:Bind("DESKTOP_REALID", nil, UpdateRealid, "desktop");
 	DesktopEvents:Bind("DESKTOP_RDXICON_POSITION", nil, UpdateRDXIconPosition, "desktop");
 	DesktopEvents:Bind("DESKTOP_RDXICON_TYPE", nil, UpdateRDXIconType, "desktop");
