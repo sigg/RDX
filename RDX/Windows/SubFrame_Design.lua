@@ -67,6 +67,7 @@ local btnOwner;
 local _icons;
 local text = "";
 local textcolor = _grey
+local tempcolor = {};
 ]]);
 	state:RunSlot("EmitClosure", code);
 	code:AppendCode([[
