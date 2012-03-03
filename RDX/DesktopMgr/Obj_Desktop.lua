@@ -342,7 +342,11 @@ function RDXDK.Desktop:new(parent)
 				VFL.copyInto(frameprops, sp);
 			else
 				frame:WMGetPositionalFrame():SetPoint("CENTER", RDXParent, "CENTER");
+				local rgn = frame:WMGetPositionalFrame();
+				local l,t,r,b = VFLUI.GetUniversalBoundary(rgn);
+				frameprops.l = l; frameprops.t = t; frameprops.r = r; frameprops.b = b; frameprops.ap = "TOPLEFT";
 				RDXDK:Debug(9, "   -- LayoutFrame CENTER(RDXParent)");
+				
 			end
 			frame._dk_layout = true; 
 		end
