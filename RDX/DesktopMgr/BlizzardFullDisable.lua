@@ -465,6 +465,17 @@ function RDXDK.DisableAll()
 	AuraButton_Update = VFL.Noop;
 	TalentMicroButton:UnregisterEvent("PLAYER_TALENT_UPDATE");
 	
+	MultiBarBottomLeft.ignoreFramePositionManager = true;
+	MultiBarRight.ignoreFramePositionManager = true;
+	CastingBarFrame.ignoreFramePositionManager = true;    
+	PlayerPowerBarAlt.ignoreFramePositionManager = true;
+	ExtraActionBarFrame.ignoreFramePositionManager = true;
+	ChatFrame1.ignoreFramePositionManager = true;
+	ChatFrame2.ignoreFramePositionManager = true;
+	ShapeshiftBarFrame.ignoreFramePositionManager = true;
+	PossessBarFrame.ignoreFramePositionManager = true;
+	MultiCastActionBarFrame.ignoreFramePositionManager = true;
+	
 	RDX.ManageChatFrames();
 	
 	--[[

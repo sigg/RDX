@@ -193,6 +193,7 @@ function RDX.ManageChatFrames()
 		local f;
 		for i = 1, 10 do
 			f = _G[format("%s%d", "ChatFrame", i)];
+			f.ignoreFramePositionManager = true;
 			
 			local cab = _G[format("%s%d%s", "ChatFrame", i, "ClickAnywhereButton")];
 			cab:SetScript("OnShow", cab.Hide);
