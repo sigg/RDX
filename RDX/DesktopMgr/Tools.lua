@@ -73,6 +73,8 @@ local function OpenDesktopTools(parent, froot)
 	local esch = function()
 		RDXDK.SetFramew_window(nil);
 		DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
+		DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP_LOCK");
+		DesktopEvents:Dispatch("DESKTOP_ALERTS_LOCK");
 		DesktopEvents:Dispatch("DESKTOP_LOCK");
 		RDXPM.StoreLayout(dlg, "dktools");
 		dlg:Destroy(); dlg = nil;
