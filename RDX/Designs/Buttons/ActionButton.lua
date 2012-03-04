@@ -1097,7 +1097,8 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 		name, subtext, texture, isToken, active, autocastallowed, autocastenabled = GetPetActionInfo(self.id);
 		self.isToken = isToken;
 		self.tooltipSubtext = subtext;
-		if isToken then texture = _G[texture]; self.tooltipName = _G[name] else self.tooltipName = name; end
+		if isToken then texture = _G[texture]; self.tooltipName = _G[name]; else self.tooltipName = name; end
+		if autocastenabled then self.ga = true; else self.ga = nil; end
 		self.icon:SetTexture(texture);
 		if autocastallowed and (not InCombatLockdown()) then
 			self:SetAttribute("macrotext2", "/petautocasttoggle "..name);

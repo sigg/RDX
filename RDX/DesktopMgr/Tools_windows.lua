@@ -243,6 +243,7 @@ end
 
 local function UnsetFramew()
 	winframeprops = nil;
+	RDXDK.SetFramew_window(nil);
 	DesktopEvents:Dispatch("DESKTOP_LOCK");
 end
 

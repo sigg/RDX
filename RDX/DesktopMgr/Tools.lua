@@ -49,39 +49,17 @@ local function OpenDesktopTools(parent, froot)
 	
 	dlg.tabbox = tabbox;
 	
-	--function dlg:_update(frameprops)
-		-- deprecated
-	--end
-	
-	--local updateCombatText = nil;
-	--local separator6 = VFLUI.SeparatorText:new(ca, 1, 216);
-	--separator6:SetPoint("TOPLEFT", lblsb, "BOTTOMLEFT", 0, -5);
-	--separator6:SetText("Combat Text Font");
-	
-	--local ctffont = VFLUI.MakeLabel(nil, ca, VFLI.i18n("Fnt"));
-	--ctffont:SetWidth(34); ctffont:SetPoint("TOPLEFT", separator6, "BOTTOMLEFT", 0, -15);
-	--local dd_ctf_font = VFLUI.MakeFontSelectButton(ca, froot.ctffont, function() updateCombatText(); end, nil); 
-	--dd_ctf_font:SetPoint("LEFT", ctffont, "RIGHT");
-	--dd_ctf_font:Show();
-	
-	--updateCombatText = function()
-	--	DesktopEvents:Dispatch("DESKTOP_COMBATTEXT", dd_ctf_font:GetSelectedFont());
-	--end
-	
 	dlg:Show();
 	
 	local esch = function()
-		RDXDK.SetFramew_window(nil);
-		DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
-		DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP_LOCK");
-		DesktopEvents:Dispatch("DESKTOP_ALERTS_LOCK");
-		DesktopEvents:Dispatch("DESKTOP_LOCK");
+		dlg.tabbox:GetTabBar():UnSelectTab();
 		RDXPM.StoreLayout(dlg, "dktools");
 		dlg:Destroy(); dlg = nil;
 	end
+	VFL.AddEscapeHandler(esch);
 	
 	function dlg:_esch()
-		esch();
+		VFL.EscapeTo(esch);
 	end
 	
 	-- Add button filter on list
@@ -101,7 +79,7 @@ local function OpenDesktopTools(parent, froot)
 	dlg:AddButton(listbtn);
 	
 	local closebtn = VFLUI.CloseButton:new()
-	closebtn:SetScript("OnClick", esch);
+	closebtn:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
 	dlg:AddButton(closebtn);
 	
 	dlg.Destroy = VFL.hook(function(s)
