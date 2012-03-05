@@ -199,14 +199,26 @@ RDX.RegisterFeature({
 				gridAssist = GenHdr(); AccHdr(gridAssist);
 				gridAssist:SetPoint("TOPLEFT", faux, "TOPLEFT");
 				gridT:SetPoint("TOPLEFT", gridAssist, "TOPRIGHT");
+				-- activate update
+				gridAssist:SetAttribute("_ignore", nil);
+				-- to view, set a attribute make the internal engine to run
+				gridAssist:SetAttribute("toto", "ok");
 			else
 				gridT:SetPoint("TOPLEFT", faux, "TOPLEFT");
 			end
 			if showTT then 
 				gridTT = GenHdr(); AccHdr(gridTT);
 				gridTT:SetPoint("TOPLEFT", gridT, "TOPRIGHT");
+				-- activate update
+				gridTT:SetAttribute("_ignore", nil);
+				-- to view, set a attribute make the internal engine to run
+				gridTT:SetAttribute("toto", "ok");
 			end
 			
+			-- activate update
+			gridT:SetAttribute("_ignore", nil);
+			-- to view, set a attribute make the internal engine to run
+			gridT:SetAttribute("toto", "ok");
 
 			-- Profiling hooks
 			if w._path and VFLP.IsEnabled() then
@@ -226,6 +238,12 @@ RDX.RegisterFeature({
 			sh:Destroy();
 		end
 		local function destroy()
+			gridT:SetAttribute("toto", nil);
+			gridT:SetAttribute("_ignore", "RDXIgnore");
+			gridAssist:SetAttribute("toto", nil);
+			gridAssist:SetAttribute("_ignore", "RDXIgnore");
+			gridTT:SetAttribute("toto", nil);
+			gridTT:SetAttribute("_ignore", "RDXIgnore");
 			if VFLP.IsEnabled() then
 				VFLT.AdaptiveUnschedule("Perf" .. win._path);
 			end

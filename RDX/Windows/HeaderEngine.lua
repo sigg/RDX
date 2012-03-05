@@ -87,6 +87,7 @@ VFLUI.CreateFramePool("SecureGroupHeader", function(pool, frame)
 	CleanupHeader(frame);
 end, function()
 	local f = CreateFrame("Frame", "SGH" .. VFL.GetNextID(), nil, "SecureGroupHeaderTemplate");
+	f:SetAttribute("_ignore", "RDXIgnore");
 	CleanupHeader(f);
 	-- Mixin the API
 	VFL.mixin(f, headerAPI);

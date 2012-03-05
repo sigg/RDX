@@ -218,6 +218,10 @@ RDX.RegisterFeature({
 				grid:SetNameList(nlist);
 				nset.SigNamesChanged:Connect(nil, NominativeSetUpdate, win);
 			end
+			-- activate update
+			grid:SetAttribute("_ignore", nil);
+			-- to view, set a attribute make the internal engine to run
+			grid:SetAttribute("toto", "ok");
 			grid:Show();
 
 			if w._path then
@@ -246,6 +250,8 @@ RDX.RegisterFeature({
 		-- DESTROY FUNCTION
 		-- Tear down all this
 		local function destroy()
+			grid:SetAttribute("toto", nil);
+			grid:SetAttribute("_ignore", "RDXIgnore");
 			if VFLP.IsEnabled() then
 				VFLT.AdaptiveUnschedule("Perf" .. win._path);
 			end
