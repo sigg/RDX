@@ -67,14 +67,14 @@ local function OpenDesktopTools(parent, froot)
 	listbtn:SetHighlightColor(0,1,1,1);
 	listbtn:SetScript("OnClick", function()
 		if not RDXG.dktoolnofilter then
-			BuildWindowList();
+			--BuildWindowList();
 			RDXG.dktoolnofilter = true;
 		else
-			local auipkg, auiname = RDXDB.ParsePath(RDXU.AUI);
-			BuildWindowList(auiname);
+			--local auipkg, auiname = RDXDB.ParsePath(RDXU.AUI);
+			--BuildWindowList(auiname);
 			RDXG.dktoolnofilter = nil;
 		end
-		list:Update();
+		--list:Update();
 	end);
 	dlg:AddButton(listbtn);
 	
