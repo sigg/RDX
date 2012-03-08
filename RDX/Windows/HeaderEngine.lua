@@ -150,6 +150,7 @@ function RDX.SmartHeader:new(ty, switchvehicle, winpath)
 		s.OnAllocateFrame = nil; s.OnSecureUpdate = nil; s.icf = nil;
 		-- Invoke :Destroy on any children that have a destroy method
 		for _,child in self:AllChildren() do
+			child:ClearAllPoints();
 			if child.Destroy then 
 				child:Destroy(); child.Destroy = nil; 
 			end
