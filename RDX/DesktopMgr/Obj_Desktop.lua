@@ -162,18 +162,7 @@ function RDXDK.Desktop:new(parent)
 		--local ctffont = RDXDK.GetLockCombatTextFont();
 		if framepropsroot then
 			framepropsroot.gametooltip = desc;
-			--framepropsroot.tooltipmouse = tooltipmouse;
-			--framepropsroot.anchorx = anchorx;
-			--framepropsroot.anchory = anchory;
-			--framepropsroot.bkd = bkd;
-			--framepropsroot.font = font;
-			--framepropsroot.tex = tex;
 			framepropsroot.realid = desc2;
-			--framepropsroot.anchorxrid = anchorxrid;
-			--framepropsroot.anchoryrid = anchoryrid;
-			--framepropsroot.topstack_props = topstack_props;
-			--framepropsroot.bottomstack_props = bottomstack_props;
-			--framepropsroot.ctffont = ctffont;
 		end
 	end
 	
@@ -616,6 +605,11 @@ function RDXDK.Desktop:new(parent)
 				frame:WMGetPositionalFrame():SetFrameStrata(value);
 				frameProps["strata"] = value;
 				frame:UpdateUnlockOverlay(frameProps);
+			elseif key == "LAYOUT" then
+				if frame.SetLayoutRaid then
+					frame:SetLayoutRaid(value);
+				end
+				frameProps["layout"] = value;
 			elseif key == "SCALE" then
 				frame:SetScale(value);
 				frameProps["scale"] = value;
@@ -666,9 +660,9 @@ function RDXDK.Desktop:new(parent)
 					frame:UpdateUnlockOverlay(frameProps);
 				elseif key == "LAYOUT" then
 					if frame.SetLayoutRaid then
-						frame:SetLayoutRaid(layout);
+						frame:SetLayoutRaid(value);
 					end
-					frameProps["layout"] = layout;
+					frameProps["layout"] = value;
 				elseif key == "SCALE" then
 					frame:SetScale(value);
 					frameProps["scale"] = value;

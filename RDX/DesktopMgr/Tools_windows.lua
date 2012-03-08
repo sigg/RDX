@@ -249,7 +249,7 @@ local ddLayout = VFLUI.Dropdown:new(framew, layoutSel, function(value)
 		DesktopEvents:Dispatch("WINDOW_UPDATE", winframeprops.name, "LAYOUT", value);
 	end
 end);
-ddLayout:SetPoint("TOPRIGHT", ddStrata, "BOTTOMRIGHT", 0, 0); ddLayout:SetWidth(132);
+ddLayout:SetPoint("TOPRIGHT", ddStrata, "BOTTOMRIGHT", 0, 0); ddLayout:SetWidth(60);
 ddLayout:SetSelection("10", true);
 ddLayout:Hide();
 
@@ -285,7 +285,7 @@ function RDXDK.SetFramew_window(frameprops)
 		slScale:SetValue(frameprops.scale, true);
 		slAlpha:SetValue(frameprops.alpha, true);
 		ddStrata:SetSelection(frameprops.strata, true);
-		ddLayout:SetSelection(frameprops.layout, true);
+		ddLayout:SetSelection(tostring(frameprops.layout), true);
 	else
 		windowName:SetText(VFLI.i18n("Click on a window of your UI to modify it"));
 		lblScale:Hide(); edScale:Hide(); slScale:Hide();
