@@ -39,15 +39,25 @@ dd_btexture:Show();
 local ggtemp = nil ;
 
 updateGametooltip = function()
-	DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", chk_tooltipmouse:GetChecked(), ggtemp.anchorx, ggtemp.anchory, dd_bkd:GetSelectedBackdrop(), dd_font:GetSelectedFont(), dd_btexture:GetSelectedTexture());
+	local desc = {};
+	desc.tooltipmouse = chk_tooltipmouse:GetChecked();
+	desc.anchorx = ggtemp.anchorx;
+	desc.anchory = ggtemp.anchory;
+	desc.bkd = dd_bkd:GetSelectedBackdrop();
+	desc.font = dd_font:GetSelectedFont();
+	desc.tex = dd_btexture:GetSelectedTexture();
+	DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", desc);
 end
 
 local function SetFrameg(froot)
-	ggtemp = froot;
-	if froot.tooltipmouse then chk_tooltipmouse:SetChecked(true); else chk_tooltipmouse:SetChecked(); end
-	dd_bkd:SetSelectedBackdrop(froot.bkd);
-	dd_font:SetSelectedFont(froot.font);
-	dd_btexture:SetSelectedTexture(froot.tex);
+	local desc = froot.gametooltip;
+	if desc then
+		ggtemp = desc;
+		if desc.tooltipmouse then chk_tooltipmouse:SetChecked(true); else chk_tooltipmouse:SetChecked(); end
+		dd_bkd:SetSelectedBackdrop(desc.bkd);
+		dd_font:SetSelectedFont(desc.font);
+		dd_btexture:SetSelectedTexture(desc.tex);
+	end
 	DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP_UNLOCK");
 end
 

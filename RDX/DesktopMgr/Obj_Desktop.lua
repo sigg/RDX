@@ -156,19 +156,21 @@ function RDXDK.Desktop:new(parent)
 	
 	local function LockGameTooltip()
 		RDXDK:Debug(6, "LockGameTooltip");
-		local tooltipmouse, anchorx, anchory, bkd, font, tex = RDXDK.GetLockGameTooltip();
-		local anchorxrid, anchoryrid = RDXDK.GetLockRealid();
+		local desc = RDXDK.GetLockGameTooltip();
+		local desc2 = RDXDK.GetLockRealid();
 		--local topstack_props, bottomstack_props = RDXBM.GetStackProps();
 		--local ctffont = RDXDK.GetLockCombatTextFont();
 		if framepropsroot then
-			framepropsroot.tooltipmouse = tooltipmouse;
-			framepropsroot.anchorx = anchorx;
-			framepropsroot.anchory = anchory;
-			framepropsroot.bkd = bkd;
-			framepropsroot.font = font;
-			framepropsroot.tex = tex;
-			framepropsroot.anchorxrid = anchorxrid;
-			framepropsroot.anchoryrid = anchoryrid;
+			framepropsroot.gametooltip = desc;
+			--framepropsroot.tooltipmouse = tooltipmouse;
+			--framepropsroot.anchorx = anchorx;
+			--framepropsroot.anchory = anchory;
+			--framepropsroot.bkd = bkd;
+			--framepropsroot.font = font;
+			--framepropsroot.tex = tex;
+			framepropsroot.realid = desc2;
+			--framepropsroot.anchorxrid = anchorxrid;
+			--framepropsroot.anchoryrid = anchoryrid;
 			--framepropsroot.topstack_props = topstack_props;
 			--framepropsroot.bottomstack_props = bottomstack_props;
 			--framepropsroot.ctffont = ctffont;
@@ -218,15 +220,15 @@ function RDXDK.Desktop:new(parent)
 	
 	-- call by desktop_basic
 	-- call by update
-	local function UpdateGameTooltip(tooltipmouse, anchorx, anchory, bkd, font, tex)
-		RDXDK.SetGameTooltipLocation(tooltipmouse, anchorx, anchory);
-		RDXDK.SetGameTooltipBackdrop(bkd or VFLUI.DarkDialogBackdrop);
-		RDXDK.SetGameTooltipFont(font or Fonts.Default10);
-		RDXDK.SetGameTooltipSB(tex or { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; });
+	local function UpdateGameTooltip(desc)
+		RDXDK.SetGameTooltipLocation(desc.tooltipmouse, desc.anchorx, desc.anchory);
+		RDXDK.SetGameTooltipBackdrop(desc.bkd);
+		RDXDK.SetGameTooltipFont(desc.font);
+		RDXDK.SetGameTooltipSB(desc.tex);
 	end
 	
-	local function UpdateRealid(anchorxrid, anchoryrid)
-		RDXDK.SetRealidLocation(anchorxrid, anchoryrid);
+	local function UpdateRealid(desc)
+		RDXDK.SetRealidLocation(desc.anchorxrid, desc.anchoryrid);
 	end
 	
 	local function UpdateRDXIconPosition(anchorx, anchory, save)

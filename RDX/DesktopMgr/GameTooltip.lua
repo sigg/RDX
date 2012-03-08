@@ -124,7 +124,14 @@ function RDXDK.GetLockGameTooltip()
 	btn:SetScript("OnMouseDown", nil);
 	btn:SetScript("OnMouseUp", nil);
 	btn:Hide();
-	return usemouse, anchorx, anchory, bkdtmp, fonttmp, textmp;
+	local desc = {};
+	desc.tooltipmouse = usemouse;
+	desc.anchorx = anchorx;
+	desc.anchory = anchory;
+	desc.bkd = bkdtmp;
+	desc.font = fonttmp;
+	desc.tex = textmp;
+	return desc;
 end
 
 -- realid
@@ -159,7 +166,10 @@ function RDXDK.GetLockRealid()
 	btnrid:SetScript("OnMouseDown", nil);
 	btnrid:SetScript("OnMouseUp", nil);
 	btnrid:Hide();
-	return anchorxrid, anchoryrid;
+	local desc = {};
+	desc.anchorxrid = anchorxrid;
+	desc.anchoryrid = anchoryrid;
+	return desc;
 end
 
 -- Add option to disable tooltip

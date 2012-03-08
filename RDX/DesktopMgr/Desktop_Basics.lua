@@ -29,15 +29,35 @@ RDX.RegisterFeature({
 		if not desc.offsetright then desc.offsetright = 0; end
 		if not desc.offsetbottom then desc.offsetbottom = 0; end
 		
-		local tooltipmouse = "nil"; if desc.tooltipmouse then tooltipmouse = "true"; end
-		if not desc.anchorx then desc.anchorx = 200; end
-		if not desc.anchory then desc.anchory = 200; end
-		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.DarkDialogBackdrop); end
-		if not desc.font then desc.font = VFL.copy(Fonts.Default10); end
-		if not desc.tex then desc.tex = { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; }; end
+		if not desc.gametooltip then
+			desc.gametooltip = {};
+			desc.gametooltip.anchorx = 200;
+			desc.gametooltip.anchory = 200;
+			desc.gametooltip.bkd = VFL.copy(VFLUI.DarkDialogBackdrop);
+			desc.gametooltip.font = VFL.copy(Fonts.Default10);
+			desc.gametooltip.tex = { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; };
+		end
+		local tooltipmouse = "nil"; if desc.gametooltip.tooltipmouse then tooltipmouse = "true"; end
+		--if not desc.anchorx then desc.anchorx = 200; end
+		--if not desc.anchory then desc.anchory = 200; end
+		--if not desc.bkd then desc.bkd = VFL.copy(VFLUI.DarkDialogBackdrop); end
+		--if not desc.font then desc.font = VFL.copy(Fonts.Default10); end
+		--if not desc.tex then desc.tex = { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; }; end
+		desc.anchorx = nil;
+		desc.anchory = nil;
+		desc.bkd = nil;
+		desc.font = nil;
+		desc.tex = nil;
 		
-		if not desc.anchorxrid then desc.anchorxrid = 200; end
-		if not desc.anchoryrid then desc.anchoryrid = 200; end
+		if not desc.realid then
+			desc.realid = {};
+			desc.realid.anchorxrid = 200;
+			desc.realid.anchoryrid = 200;
+		end
+		--if not desc.anchorxrid then desc.anchorxrid = 200; end
+		--if not desc.anchoryrid then desc.anchoryrid = 200; end
+		desc.anchorxrid = nil;
+		desc.anchoryrid = nil;
 		
 		if not desc.open then desc.open = true; end
 		if not desc.root then desc.root = true; end
@@ -62,8 +82,8 @@ RDX.RegisterFeature({
 local encid = "dk_rdx8";
 DesktopEvents:Dispatch("WINDOW_OPEN", "root", "Desktop main");
 DesktopEvents:Dispatch("DESKTOP_VIEWPORT", ]] .. useviewport .. [[, ]] .. desc.offsetleft .. [[, ]] .. desc.offsettop .. [[, ]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
-DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. tooltipmouse .. [[, ]] .. desc.anchorx .. [[, ]] .. desc.anchory .. [[, ]] .. Serialize(desc.bkd) .. [[, ]] .. Serialize(desc.font) .. [[, ]] .. Serialize(desc.tex) .. [[);
-DesktopEvents:Dispatch("DESKTOP_REALID", ]] .. desc.anchorxrid .. [[, ]] .. desc.anchoryrid .. [[);
+DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. Serialize(desc.gametooltip) .. [[);
+DesktopEvents:Dispatch("DESKTOP_REALID", ]] .. Serialize(desc.realid) .. [[);
 DesktopEvents:Dispatch("DESKTOP_RDXICON_POSITION", ]] .. desc.rdxiconx .. [[, ]] .. desc.rdxicony .. [[);
 DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", ']] .. desc.rdxmtxt  .. [[');
 DesktopEvents:Dispatch("DESKTOP_ALERTS", ]] .. Serialize(desc.topstack_props) .. [[, ]] .. Serialize(desc.bottomstack_props) .. [[);
@@ -117,6 +137,7 @@ DesktopEvents:Dispatch("DESKTOP_COMBATTEXT", ]] .. Serialize(desc.ctffont) .. [[
 		if desc and desc.offsetright then offsetright.editBox:SetText(desc.offsetright); else offsetright.editBox:SetText("0"); end
 		ui:InsertFrame(offsetright);
 		
+		--[[
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("GameTooltips")));
 		
 		local chk_tooltipmouse = VFLUI.Checkbox:new(ui); chk_tooltipmouse:Show();
@@ -159,7 +180,7 @@ DesktopEvents:Dispatch("DESKTOP_COMBATTEXT", ]] .. Serialize(desc.ctffont) .. [[
 		local anchoryrid = VFLUI.LabeledEdit:new(ui, 200); anchoryrid:Show();
 		anchoryrid:SetText(VFLI.i18n("Offset y"));
 		if desc and desc.anchoryrid then anchoryrid.editBox:SetText(desc.anchoryrid); else anchoryrid.editBox:SetText("0"); end
-		ui:InsertFrame(anchoryrid);
+		ui:InsertFrame(anchoryrid);]]
 		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Dock properties")));
 		
@@ -199,14 +220,16 @@ DesktopEvents:Dispatch("DESKTOP_COMBATTEXT", ]] .. Serialize(desc.ctffont) .. [[
 				offsetleft = offsetleft.editBox:GetText();
 				offsetbottom = offsetbottom.editBox:GetText();
 				offsetright = offsetright.editBox:GetText();
-				tooltipmouse = chk_tooltipmouse:GetChecked();
-				anchorx = anchorx.editBox:GetText();
-				anchory = anchory.editBox:GetText();
-				bkd = bkd:GetSelectedBackdrop();
-				font = font:GetSelectedFont();
-				tex = tsel:GetSelectedTexture();
-				anchorxrid = anchorxrid.editBox:GetText();
-				anchoryrid = anchoryrid.editBox:GetText();
+				--tooltipmouse = chk_tooltipmouse:GetChecked();
+				--anchorx = anchorx.editBox:GetText();
+				--anchory = anchory.editBox:GetText();
+				--bkd = bkd:GetSelectedBackdrop();
+				--font = font:GetSelectedFont();
+				--tex = tsel:GetSelectedTexture();
+				--anchorxrid = anchorxrid.editBox:GetText();
+				--anchoryrid = anchoryrid.editBox:GetText();
+				gametooltip = desc.gametooltip;
+				realid = desc.realid;
 				dock = desc.dock;
 				dgp = desc.dgp;
 			};
