@@ -175,17 +175,14 @@ end
 -- Add option to disable tooltip
 -- option dgr managed in globalSettings
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	local opt =  RDXU.disablebliz2;
-	if opt and opt.toolposition then
-		hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
-			if usemouse then
-				GameTooltip:SetOwner(parent, "ANCHOR_CURSOR");
-			else
-				GameTooltip:SetOwner(parent, "ANCHOR_NONE");
-				GameTooltip:SetPoint("CENTER", btn, "CENTER");
-			end
-		end);
-	end
+	hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
+		if usemouse then
+			GameTooltip:SetOwner(parent, "ANCHOR_CURSOR");
+		else
+			GameTooltip:SetOwner(parent, "ANCHOR_NONE");
+			GameTooltip:SetPoint("CENTER", btn, "CENTER");
+		end
+	end);
 	
 	local unit, class, item, quality, r, g, b;
 	
