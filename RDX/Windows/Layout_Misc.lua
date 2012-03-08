@@ -11,6 +11,22 @@ local GetRDXUnit = RDXDAL._ReallyFastProject;
 local UIDToNumber = RDXDAL.UIDToNumber;
 local bor,band = bit.bor, bit.band;
 
+local function SetLayoutRaid(self, value)
+	local nmcolumn = tonumber(value);
+	if nmcolumn then
+		local grid = self:WMGetPositionalFrame();
+		for _,child in grid:AllChildren() do
+			child:ClearAllPoints();
+		end
+		-- activate update
+		grid:SetAttribute("_ignore", nil);
+		-- to view, set the number
+		grid:SetAttribute("unitsPerColumn", nmcolumn);
+		-- desactivate update
+		grid:SetAttribute("_ignore", "RDXIgnore");
+	end
+end
+
 -------------------------------------------------------------------
 -- SINGLE HEADER DRIVER
 --
@@ -195,6 +211,9 @@ RDX.RegisterFeature({
 			grid = RDX.SmartHeader:new(htype, hdef.switchvehicle, w._path); 
 			grid:Hide(); grid:SetMovable(true);
 			w:SetClient(grid);
+			
+			-- The desktop is able to set the number of unit per column
+			win.SetLayoutRaid = SetLayoutRaid;
 
 			-- Acclimatize all subframes.
 			grid.OnAllocateFrame = Acclimatize;
@@ -273,6 +292,7 @@ RDX.RegisterFeature({
 			grid:Destroy(); grid = nil;
 			if win._path then VFLP.UnregisterCategory("Win: " .. win._path); end
 			VFL.empty(umap);
+			win.SetLayoutRaid = nil;
 			win.LookupUnit = nil;
 			win = nil;
 		end

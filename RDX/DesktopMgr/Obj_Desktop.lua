@@ -290,6 +290,9 @@ function RDXDK.Desktop:new(parent)
 			frame:SetScale(frameprops.scale);
 			frame:SetAlpha(frameprops.alpha);
 			frame:WMGetPositionalFrame():SetFrameStrata(frameprops.strata);
+			if frame.SetLayoutRaid then
+				frame:SetLayoutRaid(frameprops.layout);
+			end
 		else
 			frame:WMGetPositionalFrame():SetFrameStrata("LOW");
 		end
@@ -659,6 +662,11 @@ function RDXDK.Desktop:new(parent)
 					frame:WMGetPositionalFrame():SetFrameStrata(value);
 					frameProps["strata"] = value;
 					frame:UpdateUnlockOverlay(frameProps);
+				elseif key == "LAYOUT" then
+					if frame.SetLayoutRaid then
+						frame:SetLayoutRaid(layout);
+					end
+					frameProps["layout"] = layout;
 				elseif key == "SCALE" then
 					frame:SetScale(value);
 					frameProps["scale"] = value;

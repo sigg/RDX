@@ -1,4 +1,5 @@
-
+-- OpenRDX
+--
 -------------------
 -- helper
 -------------------
@@ -118,6 +119,18 @@ local function WindowListRightClick(self, path)
 	VFL.poptree:Expand(nil, mnu);
 end
 
+-- layout raid frames
+-- allow to define number of unit per column for the raid frames.
+local layouts = {
+	{ text = "1" },
+	{ text = "5" },
+	{ text = "10" },
+	{ text = "15" },
+	{ text = "25" },
+	{ text = "40" },
+};
+local function layoutSel() return layouts; end
+
 --
 -- TAB Windows
 --
@@ -228,6 +241,18 @@ ddStrata:SetPoint("TOPRIGHT", edAlpha, "BOTTOMRIGHT", 0, 0); ddStrata:SetWidth(1
 ddStrata:SetSelection("MEDIUM", true);
 ddStrata:Hide();
 
+-- layout
+local lblLayout = VFLUI.MakeLabel(nil, framew, VFLI.i18n("Layout units per column:"));
+lblLayout:SetPoint("TOPLEFT", lblStrata, "BOTTOMLEFT"); lblLayout:SetHeight(25); lblLayout:Hide();
+local ddLayout = VFLUI.Dropdown:new(framew, layoutSel, function(value)
+	if winframeprops then
+		DesktopEvents:Dispatch("WINDOW_UPDATE", winframeprops.name, "LAYOUT", value);
+	end
+end);
+ddLayout:SetPoint("TOPRIGHT", ddStrata, "BOTTOMRIGHT", 0, 0); ddLayout:SetWidth(132);
+ddLayout:SetSelection("10", true);
+ddLayout:Hide();
+
 local function SetFramew(froot)
 	local _, auiname = RDXDB.ParsePath(RDXU.AUI);
 	if not RDXG.dktoolnofilter then
@@ -255,15 +280,18 @@ function RDXDK.SetFramew_window(frameprops)
 			lblScale:Show(); edScale:Show(); slScale:Show();
 			lblAlpha:Show(); edAlpha:Show(); slAlpha:Show();
 			lblStrata:Show(); ddStrata:Show();
+			lblLayout:Show(); ddLayout:Show();
 		end
 		slScale:SetValue(frameprops.scale, true);
 		slAlpha:SetValue(frameprops.alpha, true);
 		ddStrata:SetSelection(frameprops.strata, true);
+		ddLayout:SetSelection(frameprops.layout, true);
 	else
 		windowName:SetText(VFLI.i18n("Click on a window of your UI to modify it"));
 		lblScale:Hide(); edScale:Hide(); slScale:Hide();
 		lblAlpha:Hide(); edAlpha:Hide(); slAlpha:Hide();
 		lblStrata:Hide(); ddStrata:Hide();
+		lblLayout:Hide(); ddLayout:Hide();
 	end
 end
 
