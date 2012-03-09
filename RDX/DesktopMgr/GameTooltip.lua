@@ -263,6 +263,11 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	end);
 	GameTooltip:HookScript("OnTooltipSetUnit", function(self)
 		--fix();
+		
+		if descg.HideInCombat and InCombatLockdown() then
+			return self:Hide();
+		end
+		
 		_, unit = self:GetUnit();
 		if unit then
 			classif = UnitClassification(unit);
@@ -305,6 +310,34 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 			end
 		end
 	end);
+	
+	local min, max, txt;
+	local kay = VFL.Kay;
+	
+	GameTooltipStatusBar:SetScript("OnValueChanged", function(self, value)
+		if not self.text then
+			self.text = VFLUI.CreateFontString(self);
+			--self.text:SetPoint("CENTER", GameTooltipStatusBar);
+			self.text:SetAllPoints(GameTooltipStatusBar);
+			VFLUI.SetFont(self.text, descg.font, nil, true);
+			self.text:Show();
+		end
+		if descg.showTextBar then
+			if not value then self.text:SetText(""); return; end
+			min, max = self:GetMinMaxValues()
+			if (value < min) or (value > max) then self.text:SetText(""); return; end
+			_, unit = GameTooltip:GetUnit()
+			if unit then
+				min, max = UnitHealth(unit), UnitHealthMax(unit);
+				txt = kay(min).." / "..kay(max);
+				self.text:SetText(txt);
+			else
+				self.text:SetText("");
+			end
+		else
+			self.text:SetText("");
+		end
+	end)
 	
 	BNToastFrame_UpdateAnchor = VFL.noop;
 	BNToastFrame:ClearAllPoints();
