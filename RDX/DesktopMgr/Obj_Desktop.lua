@@ -158,19 +158,17 @@ function RDXDK.Desktop:new(parent)
 		RDXDK:Debug(6, "LockGameTooltip");
 		local desc = RDXDK.GetLockGameTooltip();
 		local desc2 = RDXDK.GetLockRealid();
-		--local topstack_props, bottomstack_props = RDXBM.GetStackProps();
-		--local ctffont = RDXDK.GetLockCombatTextFont();
 		if framepropsroot then
-			framepropsroot.gametooltip = desc;
-			framepropsroot.realid = desc2;
-		end
+		if not framepropsroot.gametooltip then framepropsroot.gametooltip = {}; end
+		if not framepropsroot.realid then framepropsroot.realid = {}; end
+			VFL.copyInto(framepropsroot.gametooltip, desc);
+			VFL.copyInto(framepropsroot.realid, desc2);
 	end
 	
 	local function UnlockGameTooltip()
 		RDXDK:Debug(6, "UnlockGameTooltip");
 		RDXDK.SetUnlockGameTooltip();
 		RDXDK.SetUnlockRealid();
-		--RDXBM.SetUnlockAlerts();
 	end
 	
 	local function LockAlerts()
@@ -210,14 +208,11 @@ function RDXDK.Desktop:new(parent)
 	-- call by desktop_basic
 	-- call by update
 	local function UpdateGameTooltip(desc)
-		RDXDK.SetGameTooltipLocation(desc.tooltipmouse, desc.anchorx, desc.anchory);
-		RDXDK.SetGameTooltipBackdrop(desc.bkd);
-		RDXDK.SetGameTooltipFont(desc.font);
-		RDXDK.SetGameTooltipSB(desc.tex);
+		RDXDK.SetGameTooltip(desc);
 	end
 	
 	local function UpdateRealid(desc)
-		RDXDK.SetRealidLocation(desc.anchorxrid, desc.anchoryrid);
+		RDXDK.SetRealid(desc);
 	end
 	
 	local function UpdateRDXIconPosition(anchorx, anchory, save)

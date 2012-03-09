@@ -1,8 +1,9 @@
 -- GameTooltip.lua
 
--- use to style gametooltip
-
-local bkdtmp, fonttmp, textmp;
+------------------------------
+-- Gametooltip
+------------------------------
+local descg = {};
 
 local TooltipsList = {
 	ShoppingTooltip1,
@@ -30,8 +31,8 @@ for i, v in ipairs (TooltipsList) do
 	v.SetBackdrop = VFL.Noop;
 end
 
-function RDXDK.SetGameTooltipBackdrop(bkdp)
-	if bkdp then bkdtmp = bkdp; end
+local function SetGameTooltipBackdrop()
+	local bkdtmp = descg.bkd;
 	for i, v in ipairs (TooltipsList) do
 		v:_SetBackdrop(bkdtmp);
 		if bkdtmp.br then
@@ -47,8 +48,8 @@ function RDXDK.SetGameTooltipBackdrop(bkdp)
 	end
 end
 
-function RDXDK.SetGameTooltipFont(font)
-	fonttmp = font;
+local function SetGameTooltipFont()
+	local font = descg.font;
 	VFLUI.SetFont(GameTooltipHeaderText, font, font.size + 3, true);
 	VFLUI.SetFont(GameTooltipText, font, nil, true);
 	VFLUI.SetFont(GameTooltipTextSmall, font, nil, true);
@@ -81,16 +82,11 @@ function RDXDK.SetGameTooltipFont(font)
 	end
 end
 
-function RDXDK.SetGameTooltipSB(tex)
-	textmp = tex;
-	GameTooltipStatusBar:SetStatusBarTexture(tex.path);
-	--GameTooltipStatusBar:SetSBarColor
+local function SetGameTooltipSB()
+	if descg.tex then
+		GameTooltipStatusBar:SetStatusBarTexture(descg.tex.path);
+	end
 end
-
-
-
--- use to move the gametooltip
-local usemouse, anchorx, anchory = nil, 0, 0;
 
 local btn = VFLUI.Button:new();
 btn:SetHeight(50); btn:SetWidth(100);
@@ -99,42 +95,49 @@ btn:SetClampedToScreen(true);
 btn:SetFrameStrata("FULLSCREEN_DIALOG");
 btn:Hide();
 
-function RDXDK.SetGameTooltipLocation(mb, x, y)
-	usemouse, anchorx, anchory = mb, x, y;
-	if x and y then
+local function SetGameTooltipLocation()
+	if descg.anchorx and descg.anchory then
 		btn:ClearAllPoints();
-		btn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", x, y);
+		btn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descg.anchorx, descg.anchory);
 	end
 end
 
--- move game tooltip
+-- on desktop update
+-- update Tooltip
+function RDXDK.SetGameTooltip(desc)
+	VFL.copyInto(descg, desc);
+	SetGameTooltipLocation();
+	SetGameTooltipBackdrop();
+	SetGameTooltipFont();
+	SetGameTooltipSB();
+end
+
 -- on desktop unlock
+-- Show the moving box
 function RDXDK.SetUnlockGameTooltip()
 	btn:ClearAllPoints();
-	btn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", anchorx, anchory);
+	btn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descg.anchorx, descg.anchory);
 	btn:Show();
 	btn:SetMovable(true);
 	btn:SetScript("OnMouseDown", function(th) th:StartMoving(); end);
-	btn:SetScript("OnMouseUp", function(th) th:StopMovingOrSizing(); anchorx,_,_,anchory = VFLUI.GetUniversalBoundary(btn); end);
+	btn:SetScript("OnMouseUp", function(th) th:StopMovingOrSizing(); descg.anchorx,_,_,descg.anchory = VFLUI.GetUniversalBoundary(btn); end);
 end
 
 -- on desktop lock
+-- Hide the moving box
+-- return all data to desktop
 function RDXDK.GetLockGameTooltip()
 	btn:SetMovable(nil);
 	btn:SetScript("OnMouseDown", nil);
 	btn:SetScript("OnMouseUp", nil);
 	btn:Hide();
-	local desc = {};
-	desc.tooltipmouse = usemouse;
-	desc.anchorx = anchorx;
-	desc.anchory = anchory;
-	desc.bkd = bkdtmp;
-	desc.font = fonttmp;
-	desc.tex = textmp;
-	return desc;
+	return descg;
 end
 
--- realid
+------------------------------
+-- RealId
+------------------------------
+local descr = {};
 local anchorxrid, anchoryrid = 0, 0;
 local btnrid = VFLUI.Button:new();
 btnrid:SetHeight(50); btnrid:SetWidth(100);
@@ -143,40 +146,42 @@ btnrid:SetClampedToScreen(true);
 btnrid:SetFrameStrata("FULLSCREEN_DIALOG");
 btnrid:Hide();
 
-function RDXDK.SetRealidLocation(x, y)
-	anchorxrid, anchoryrid = x, y;
-	if anchorxrid and anchoryrid then
+-- on desktop update
+-- update Realid
+function RDXDK.SetRealid(desc)
+	VFL.copyInto(descr, desc);
+	if descr.anchorxrid and descr.anchoryrid then
 		btnrid:ClearAllPoints();
-		btnrid:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", anchorxrid, anchoryrid);
+		btnrid:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descr.anchorxrid, descr.anchoryrid);
 	end
 end
 
+-- on desktop unlock
+-- Show the moving box
 function RDXDK.SetUnlockRealid()
 	btnrid:ClearAllPoints();
-	btnrid:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", anchorxrid, anchoryrid);
+	btnrid:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descr.anchorxrid, descr.anchoryrid);
 	btnrid:Show();
 	btnrid:SetMovable(true);
 	btnrid:SetScript("OnMouseDown", function(th) th:StartMoving(); end);
-	btnrid:SetScript("OnMouseUp", function(th) th:StopMovingOrSizing(); anchorxrid,_,_,anchoryrid = VFLUI.GetUniversalBoundary(btnrid); end);
+	btnrid:SetScript("OnMouseUp", function(th) th:StopMovingOrSizing(); descr.anchorxrid,_,_,descr.anchoryrid = VFLUI.GetUniversalBoundary(btnrid); end);
 end
 
 -- on desktop lock
+-- Hide the moving box
+-- return all data to desktop
 function RDXDK.GetLockRealid()
 	btnrid:SetMovable(nil);
 	btnrid:SetScript("OnMouseDown", nil);
 	btnrid:SetScript("OnMouseUp", nil);
 	btnrid:Hide();
-	local desc = {};
-	desc.anchorxrid = anchorxrid;
-	desc.anchoryrid = anchoryrid;
-	return desc;
+	return descr;
 end
 
--- Add option to disable tooltip
--- option dgr managed in globalSettings
+-- Hook secure
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
-		if usemouse then
+		if descg.usemouse then
 			GameTooltip:SetOwner(parent, "ANCHOR_CURSOR");
 		else
 			GameTooltip:SetOwner(parent, "ANCHOR_NONE");
@@ -184,40 +189,120 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 		end
 	end);
 	
-	local unit, class, item, quality, r, g, b;
+	local unit, class, level, classif, item, quality, r, g, b, colortable;
 	
 	-- for unknown reason, item on world map are blue.
+	-- strongly recommend to use a texture backdrop instead of solid color
 	local function fix()
-		if bkdtmp and bkdtmp.kr then
-			GameTooltip:_SetBackdropColor(bkdtmp.kr or 1, bkdtmp.kg or 1, bkdtmp.kb or 1, bkdtmp.ka or 1);
+		if descg.bkd and descg.bkd.kr then
+			GameTooltip:_SetBackdropColor(descg.bkd.kr or 1, descg.bkd.kg or 1, descg.bkd.kb or 1, descg.bkd.ka or 1);
 		else
 			GameTooltip:_SetBackdropColor(1,1,1,1);
 		end
 	end
 	
-	GameTooltip:HookScript("OnShow", fix);
-	GameTooltip:HookScript("OnHide", function()
-		GameTooltip:_SetBackdropBorderColor(1,1,1,1);
+	-- Show the target
+	local function setTargetText()
+		local target, tserver = UnitName("mouseovertarget");
+		local _,tclass = UnitClass("mouseovertarget");
+		if target and target ~= UNKNOWN and tclass then
+			local targetLine;
+			local left, right, leftText, rightText;
+			for i=1, GameTooltip:NumLines() do
+				left = _G[GameTooltip:GetName().."TextLeft"..i];
+				leftText = left:GetText();
+				right = _G[GameTooltip:GetName().."TextRight"..i];
+				if leftText == "Target:" then
+					if target == player and (tserver == nil or tserver == server) then
+						right:SetText("<<YOU>>");
+						right:SetTextColor(.9, 0, .1);
+					else
+						right:SetText(target);
+						right:SetTextColor(RAID_CLASS_COLORS[tclass].r,RAID_CLASS_COLORS[tclass].g,RAID_CLASS_COLORS[tclass].b);
+					end
+					GameTooltip:Show();
+					targetLine = true;
+				end
+			end
+			if targetLine ~= true then
+				if target == player and (tserver == nil or tserver == server) then
+					GameTooltip:AddDoubleLine("Target:", "<<YOU>>", nil, nil, nil, .9, 0, .1);
+				else
+					local tcolor = RAID_CLASS_COLORS[tclass];
+					if tcolor then
+						GameTooltip:AddDoubleLine("Target:", target, nil,nil,nil,tcolor.r,tcolor.g,tcolor.b);
+					end
+				end
+				GameTooltip:Show();
+			else 
+				targetLine = false;
+			end
+		end
+	end
+	
+	--GameTooltip:HookScript("OnShow", fix);
+	GameTooltip:HookScript("OnHide", function(self)
+		self:_SetBackdropBorderColor(1,1,1,1);
+		-- unschedule setTargetText
+		if descg.showTarget then
+			VFLT.AdaptiveUnschedule2("GameTooltipUpdate");
+		end
 	end);
-	GameTooltip:HookScript("OnTooltipSetItem", function()
-		fix();
-		_,item = GameTooltip:GetItem();
+	GameTooltip:HookScript("OnTooltipSetItem", function(self)
+		--fix();
+		_,item = self:GetItem();
 		if item then
 			_,_,quality = GetItemInfo(item);
 			if quality then
 				r, g, b = GetItemQualityColor(quality);
-				if r and g and b then
-					GameTooltip:_SetBackdropBorderColor(r,g,b,1);
+				if r then
+					self:_SetBackdropBorderColor(r,g,b,1);
 				end
 			end
 		end
 	end);
-	GameTooltip:HookScript("OnTooltipSetUnit", function()
-		fix();
-		_, unit = GameTooltip:GetUnit();
+	GameTooltip:HookScript("OnTooltipSetUnit", function(self)
+		--fix();
+		_, unit = self:GetUnit();
 		if unit then
+			classif = UnitClassification(unit);
 			_,class = UnitClass(unit);
-			GameTooltip:_SetBackdropBorderColor(RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b, 1);
+			level = UnitLevel(unit);
+			-- color BackdropBorder
+			if UnitIsDead(unit) or not UnitIsConnected(unit) then
+				self:_SetBackdropBorderColor(_grey.r, _grey.g, _grey.b, _grey.a);
+			elseif not UnitPlayerControlled(unit) and UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit) then
+				self:_SetBackdropBorderColor(_grey.r, _grey.g, _grey.b, _grey.a);
+			elseif UnitIsFriend("player", unit) then
+				self:_SetBackdropBorderColor(RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b, 1);
+			elseif descg.showDiffColor and level then
+				if level == -1 then
+					level = 85
+				elseif classif == "elite" or classif == "rareelite" then
+					level = level + 3
+				elseif classif == "boss" or classif == "worldboss" then
+					level = level + 5
+				end
+				colortable = GetQuestDifficultyColor(level);
+				self:_SetBackdropBorderColor(colortable.r, colortable.g, colortable.b, 1);
+			else
+				self:_SetBackdropBorderColor(RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b, 1);
+			end
+			-- append text classif or AFK DND
+			if classif then
+				self:AppendText(" (" .. classif .. ")");
+			else
+				if UnitIsAFK(unit) then
+					self:AppendText(" (AFK)")
+				elseif UnitIsDND(unit) then
+					self:AppendText(" (DND)")
+				end
+			end
+			-- schedule setTargetText
+			if descg.showTarget then
+				VFLT.AdaptiveUnschedule2("GameTooltipUpdate");
+				VFLT.AdaptiveSchedule2("GameTooltipUpdate", 0.5, setTargetText);
+			end
 		end
 	end);
 	
