@@ -529,7 +529,7 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		local schedEnt, updater, interval = nil, VFL.Noop, desc.interval;
-		if interval < 0.5 then interval = 0.5; end
+		--if interval < 0.5 then interval = 0.5; end
 		schedEnt = "pra" .. math.random(1, 1000000000);
 		local slot = desc.slot;
 		state:Attach("Show", true, function(w, init)
