@@ -105,7 +105,8 @@ end
 -- on desktop update
 -- update Tooltip
 function RDXDK.SetGameTooltip(desc)
-	VFL.copyInto(descg, desc);
+	--VFL.copyInto(descg, desc);
+	descg = desc;
 	SetGameTooltipLocation();
 	SetGameTooltipBackdrop();
 	SetGameTooltipFont();
@@ -149,7 +150,8 @@ btnrid:Hide();
 -- on desktop update
 -- update Realid
 function RDXDK.SetRealid(desc)
-	VFL.copyInto(descr, desc);
+	--VFL.copyInto(descr, desc);
+	descr = desc;
 	if descr.anchorxrid and descr.anchoryrid then
 		btnrid:ClearAllPoints();
 		btnrid:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descr.anchorxrid, descr.anchoryrid);
@@ -203,50 +205,50 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	
 	-- Show the target
 	local function setTargetText()
-		local target, tserver = UnitName("mouseovertarget");
-		local _,tclass = UnitClass("mouseovertarget");
-		if target and target ~= UNKNOWN and tclass then
-			local targetLine;
-			local left, right, leftText, rightText;
-			for i=1, GameTooltip:NumLines() do
-				left = _G[GameTooltip:GetName().."TextLeft"..i];
-				leftText = left:GetText();
-				right = _G[GameTooltip:GetName().."TextRight"..i];
-				if leftText == "Target:" then
+		if descg.showTarget then
+			local target, tserver = UnitName("mouseovertarget");
+			local _,tclass = UnitClass("mouseovertarget");
+			if target and target ~= UNKNOWN and tclass then
+				local targetLine;
+				local left, right, leftText, rightText;
+				for i=1, GameTooltip:NumLines() do
+					left = _G[GameTooltip:GetName().."TextLeft"..i];
+					leftText = left:GetText();
+					right = _G[GameTooltip:GetName().."TextRight"..i];
+					if leftText == "Target:" then
+						if target == player and (tserver == nil or tserver == server) then
+							right:SetText("<<YOU>>");
+							right:SetTextColor(.9, 0, .1);
+						else
+							right:SetText(target);
+							right:SetTextColor(RAID_CLASS_COLORS[tclass].r,RAID_CLASS_COLORS[tclass].g,RAID_CLASS_COLORS[tclass].b);
+						end
+						GameTooltip:Show();
+						targetLine = true;
+					end
+				end
+				if targetLine ~= true then
 					if target == player and (tserver == nil or tserver == server) then
-						right:SetText("<<YOU>>");
-						right:SetTextColor(.9, 0, .1);
+						GameTooltip:AddDoubleLine("Target:", "<<YOU>>", nil, nil, nil, .9, 0, .1);
 					else
-						right:SetText(target);
-						right:SetTextColor(RAID_CLASS_COLORS[tclass].r,RAID_CLASS_COLORS[tclass].g,RAID_CLASS_COLORS[tclass].b);
+						local tcolor = RAID_CLASS_COLORS[tclass];
+						if tcolor then
+							GameTooltip:AddDoubleLine("Target:", target, nil,nil,nil,tcolor.r,tcolor.g,tcolor.b);
+						end
 					end
 					GameTooltip:Show();
-					targetLine = true;
+				else 
+					targetLine = false;
 				end
-			end
-			if targetLine ~= true then
-				if target == player and (tserver == nil or tserver == server) then
-					GameTooltip:AddDoubleLine("Target:", "<<YOU>>", nil, nil, nil, .9, 0, .1);
-				else
-					local tcolor = RAID_CLASS_COLORS[tclass];
-					if tcolor then
-						GameTooltip:AddDoubleLine("Target:", target, nil,nil,nil,tcolor.r,tcolor.g,tcolor.b);
-					end
-				end
-				GameTooltip:Show();
-			else 
-				targetLine = false;
 			end
 		end
 	end
 	
+	VFLT.AdaptiveSchedule2("GameTooltipUpdate", 0.5, setTargetText);
+	
 	--GameTooltip:HookScript("OnShow", fix);
 	GameTooltip:HookScript("OnHide", function(self)
 		self:_SetBackdropBorderColor(1,1,1,1);
-		-- unschedule setTargetText
-		if descg.showTarget then
-			VFLT.AdaptiveUnschedule2("GameTooltipUpdate");
-		end
 	end);
 	GameTooltip:HookScript("OnTooltipSetItem", function(self)
 		--fix();
@@ -264,7 +266,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	GameTooltip:HookScript("OnTooltipSetUnit", function(self)
 		--fix();
 		
-		if descg.HideInCombat and InCombatLockdown() then
+		if descg.hideInCombat and InCombatLockdown() then
 			return self:Hide();
 		end
 		
@@ -293,20 +295,16 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 			else
 				self:_SetBackdropBorderColor(RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b, 1);
 			end
+			
 			-- append text classif or AFK DND
-			if classif then
-				self:AppendText(" (" .. classif .. ")");
+			if UnitIsAFK(unit) then
+				self:AppendText(" (AFK)")
+			elseif UnitIsDND(unit) then
+				self:AppendText(" (DND)")
 			else
-				if UnitIsAFK(unit) then
-					self:AppendText(" (AFK)")
-				elseif UnitIsDND(unit) then
-					self:AppendText(" (DND)")
+				if classif then
+					self:AppendText(" (" .. classif .. ")");
 				end
-			end
-			-- schedule setTargetText
-			if descg.showTarget then
-				VFLT.AdaptiveUnschedule2("GameTooltipUpdate");
-				VFLT.AdaptiveSchedule2("GameTooltipUpdate", 0.5, setTargetText);
 			end
 		end
 	end);

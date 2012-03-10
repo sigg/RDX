@@ -36,6 +36,30 @@ local dd_btexture = VFLUI.MakeTextureSelectButton(frameg, nil, function() update
 dd_btexture:SetPoint("LEFT", lblsb, "RIGHT");
 dd_btexture:Show();
 
+local chk_showTarget = VFLUI.Checkbox:new(frameg); chk_showTarget:SetHeight(16); chk_showTarget:SetWidth(200);
+chk_showTarget:SetPoint("TOPLEFT", lblsb, "BOTTOMLEFT", 0, -15);
+chk_showTarget:SetText(VFLI.i18n("Show Target"));
+chk_showTarget:Show();
+chk_showTarget.check:SetScript("OnClick", function() updateGametooltip(); end);
+
+local chk_showDiffColor = VFLUI.Checkbox:new(frameg); chk_showDiffColor:SetHeight(16); chk_showDiffColor:SetWidth(200);
+chk_showDiffColor:SetPoint("TOPLEFT", chk_showTarget, "BOTTOMLEFT");
+chk_showDiffColor:SetText(VFLI.i18n("Show Enemy Difiiculty color"));
+chk_showDiffColor:Show();
+chk_showDiffColor.check:SetScript("OnClick", function() updateGametooltip(); end);
+
+local chk_showTextBar = VFLUI.Checkbox:new(frameg); chk_showTextBar:SetHeight(16); chk_showTextBar:SetWidth(200);
+chk_showTextBar:SetPoint("TOPLEFT", chk_showDiffColor, "BOTTOMLEFT");
+chk_showTextBar:SetText(VFLI.i18n("Show Text HP"));
+chk_showTextBar:Show();
+chk_showTextBar.check:SetScript("OnClick", function() updateGametooltip(); end);
+
+local chk_hideInCombat = VFLUI.Checkbox:new(frameg); chk_hideInCombat:SetHeight(16); chk_hideInCombat:SetWidth(200);
+chk_hideInCombat:SetPoint("TOPLEFT", chk_showTextBar, "BOTTOMLEFT");
+chk_hideInCombat:SetText(VFLI.i18n("Hide GameTooltip In combat"));
+chk_hideInCombat:Show();
+chk_hideInCombat.check:SetScript("OnClick", function() updateGametooltip(); end);
+
 local ggtemp = nil ;
 
 updateGametooltip = function()
@@ -46,6 +70,10 @@ updateGametooltip = function()
 	desc.bkd = dd_bkd:GetSelectedBackdrop();
 	desc.font = dd_font:GetSelectedFont();
 	desc.tex = dd_btexture:GetSelectedTexture();
+	desc.showTarget = chk_showTarget:GetChecked();
+	desc.showDiffColor = chk_showDiffColor:GetChecked();
+	desc.showTextBar = chk_showTextBar:GetChecked();
+	desc.hideInCombat = chk_hideInCombat:GetChecked();
 	DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", desc);
 end
 
@@ -57,6 +85,10 @@ local function SetFrameg(froot)
 		dd_bkd:SetSelectedBackdrop(desc.bkd);
 		dd_font:SetSelectedFont(desc.font);
 		dd_btexture:SetSelectedTexture(desc.tex);
+		if desc.showTarget then chk_showTarget:SetChecked(true); else chk_showTarget:SetChecked(); end
+		if desc.showDiffColor then chk_showDiffColor:SetChecked(true); else chk_showDiffColor:SetChecked(); end
+		if desc.showTextBar then chk_showTextBar:SetChecked(true); else chk_showTextBar:SetChecked(); end
+		if desc.hideInCombat then chk_hideInCombat:SetChecked(true); else chk_hideInCombat:SetChecked(); end
 	end
 	DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP_UNLOCK");
 end

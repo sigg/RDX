@@ -161,8 +161,10 @@ function RDXDK.Desktop:new(parent)
 		if framepropsroot then
 			if not framepropsroot.gametooltip then framepropsroot.gametooltip = {}; end
 			if not framepropsroot.realid then framepropsroot.realid = {}; end
-			VFL.copyInto(framepropsroot.gametooltip, desc);
-			VFL.copyInto(framepropsroot.realid, desc2);
+			--VFL.copyInto(framepropsroot.gametooltip, desc);
+			--VFL.copyInto(framepropsroot.realid, desc2);
+			framepropsroot.gametooltip = desc;
+			framepropsroot.realid = desc2;
 		end
 	end
 	
