@@ -159,10 +159,11 @@ function RDXDK.Desktop:new(parent)
 		local desc = RDXDK.GetLockGameTooltip();
 		local desc2 = RDXDK.GetLockRealid();
 		if framepropsroot then
-		if not framepropsroot.gametooltip then framepropsroot.gametooltip = {}; end
-		if not framepropsroot.realid then framepropsroot.realid = {}; end
+			if not framepropsroot.gametooltip then framepropsroot.gametooltip = {}; end
+			if not framepropsroot.realid then framepropsroot.realid = {}; end
 			VFL.copyInto(framepropsroot.gametooltip, desc);
 			VFL.copyInto(framepropsroot.realid, desc2);
+		end
 	end
 	
 	local function UnlockGameTooltip()
