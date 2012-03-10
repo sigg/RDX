@@ -396,6 +396,7 @@ function RDXDK.DisableAll()
 	MainMenuBarArtFrame:UnregisterEvent("UNIT_EXITING_VEHICLE");
 	MainMenuBarArtFrame:UnregisterEvent("UNIT_EXITED_VEHICLE");
 	MainMenuBarArtFrame:UnregisterEvent("PLAYER_ENTERING_WORLD");
+	MainMenuBarArtFrame:UnregisterEvent("UNIT_LEVEL");
 	MainMenuBarArtFrame:SetScript("OnUpdate", nil);
 	MainMenuBarArtFrame:Hide();
 	
