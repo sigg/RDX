@@ -368,8 +368,8 @@ local disabledframes = {
 	"VehicleMenuBarHealthBar",    
 	"VehicleMenuBarPowerBar",
 	"VehicleMenuBar",
-	"ReputationFrame",
-	"ReputationWatchBar",
+	--"ReputationFrame",
+	--"ReputationWatchBar",
 };
 
 function RDXDK.DisableAll()

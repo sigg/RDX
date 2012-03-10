@@ -242,24 +242,26 @@ local function ABShowGameTooltip(self)
 				end
 			end
 		end
-	end
-	self.IsShowingTooltip = true;
-	local infoType = GetCursorInfo();
-	if self.usebs and self.ebhide and not HasAction(self.action) and infoType then
-		self:bsShow();
+		self.IsShowingTooltip = true;
+		local infoType = GetCursorInfo();
+		if self.usebs and self.ebhide and not HasAction(self.action) and infoType then
+			self:bsShow();
+		end
 	end
 end
 
 local function ABHideGameTooltip(self)
 	GameTooltip:Hide();
-	if self.usebs then
-		--self._texGloss:Hide();
-		self._texFlash:SetAlpha(0);
-	end
-	self.IsShowingTooltip = nil;
-	--local infoType = GetCursorInfo();
-	if self.usebs and self.ebhide and not HasAction(self.action) then
-		self:bsHide();
+	if self.action then
+		if self.usebs then
+			--self._texGloss:Hide();
+			self._texFlash:SetAlpha(0);
+		end
+		self.IsShowingTooltip = nil;
+		--local infoType = GetCursorInfo();
+		if self.usebs and self.ebhide and not HasAction(self.action) then
+			self:bsHide();
+		end
 	end
 end
 
