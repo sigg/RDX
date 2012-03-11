@@ -285,7 +285,7 @@ function RDXDK.SetFramew_window(frameprops)
 		slScale:SetValue(frameprops.scale, true);
 		slAlpha:SetValue(frameprops.alpha, true);
 		ddStrata:SetSelection(frameprops.strata, true);
-		ddLayout:SetSelection(tostring(frameprops.layout), true);
+		ddLayout:SetSelection(frameprops.raidlayout, true);
 	else
 		windowName:SetText(VFLI.i18n("Click on a window of your UI to modify it"));
 		lblScale:Hide(); edScale:Hide(); slScale:Hide();

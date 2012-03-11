@@ -280,7 +280,7 @@ function RDXDK.Desktop:new(parent)
 			frame:SetAlpha(frameprops.alpha);
 			frame:WMGetPositionalFrame():SetFrameStrata(frameprops.strata);
 			if frame.SetLayoutRaid then
-				frame:SetLayoutRaid(frameprops.layout);
+				frame:SetLayoutRaid(frameprops.raidlayout);
 			end
 		else
 			frame:WMGetPositionalFrame():SetFrameStrata("LOW");
@@ -607,7 +607,7 @@ function RDXDK.Desktop:new(parent)
 				if frame.SetLayoutRaid then
 					frame:SetLayoutRaid(value);
 				end
-				frameProps["layout"] = value;
+				frameProps["raidlayout"] = value;
 			elseif key == "SCALE" then
 				frame:SetScale(value);
 				frameProps["scale"] = value;
@@ -660,7 +660,7 @@ function RDXDK.Desktop:new(parent)
 					if frame.SetLayoutRaid then
 						frame:SetLayoutRaid(value);
 					end
-					frameProps["layout"] = value;
+					frameProps["raidlayout"] = value;
 				elseif key == "SCALE" then
 					frame:SetScale(value);
 					frameProps["scale"] = value;
@@ -689,8 +689,6 @@ function RDXDK.Desktop:new(parent)
 			frameProps.dgp = nil;
 			frameProps["l"] = nil; frameProps["t"] = nil; frameProps["r"] = nil; frameProps["b"] = nil;
 		end
-		--UnlayoutAll();
-		--LayoutAll();
 	end
 	
 	DesktopEvents:Bind("WINDOW_OPEN", nil, windowOpen, "desktop");
