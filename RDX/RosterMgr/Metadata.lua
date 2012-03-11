@@ -82,6 +82,23 @@ function RDXMD.GetClassIcon(cn)
 	return classIcons[cn] or class_un;
 end
 
+---------------------------------------------------------
+-- metadata about role
+--
+local idToRole = { 
+	"TANK", "HEALER", "DAMAGER", "NONE",
+};
+local roleToId = VFL.invert(idToRole);
+
+function RDXMD.GetRoleName(cid) return idToRole[cid] or VFLI.i18n("Unknown"); end
+
+local idToRoleColor = {};
+idToRoleColor[1] = _blue;
+idToRoleColor[2] = _green;
+idToRoleColor[3] = _red;
+idToRoleColor[4] = _yellow;
+
+function RDXMD.GetRoleColor(cid) return idToRoleColor[cid] or _grey; end
 --
 -- Metadata about talent
 --

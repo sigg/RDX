@@ -108,3 +108,55 @@ function RDXUI.ClassFilterUI:new(parent)
 
 	return self;
 end
+
+------------------------------
+-- Role filter
+------------------------------
+RDXUI.RoleFilterUI = {};
+
+function RDXUI.RoleFilterUI:new(parent)
+	local self = VFLUI.GroupBox:new(parent);
+	VFLUI.GroupBox.MakeTextCaption(self, VFLI.i18n("Roles"));
+	self:SetLayoutConstraint("WIDTH_DOWNWARD_HEIGHT_UPWARD");
+
+	local checks = VFLUI.CheckGroup:new(self);
+	self:SetClient(checks); checks:Show();
+	checks:SetLayout(4, 2);
+	for i=1,4 do 
+		checks.checkBox[i]:SetText(VFL.strtcolor(RDXMD.GetRoleColor(i)) .. RDXMD.GetRoleName(i) .. "|r" ); 
+	end
+
+	local all = VFLUI.Button:new(self);
+	all:SetBackdrop(VFLUI.BorderlessDialogBackdrop);
+	all:SetHeight(16); all:SetWidth(35); all:SetText(VFLI.i18n("All"));
+	all:SetPoint("RIGHT", self:GetCaptionArea(), "RIGHT"); all:Show();
+	all:SetScript("OnClick", function() for i=1,4 do checks.checkBox[i]:SetChecked(true); end end);
+	self:AddDecoration(all);
+
+	local none = VFLUI.Button:new(self);
+	none:SetBackdrop(VFLUI.BorderlessDialogBackdrop);
+	none:SetHeight(16); none:SetWidth(35); none:SetText(VFLI.i18n("None"));
+	none:SetPoint("RIGHT", all, "LEFT"); none:Show();
+	none:SetScript("OnClick", function() for i=1,4 do checks.checkBox[i]:SetChecked(); end end);
+	self:AddDecoration(none);
+
+	function self:GetRoles()
+		local grps = {};
+		for i=1,4 do
+			if checks.checkBox[i]:GetChecked() then grps[i] = true; end
+		end
+		return grps;
+	end
+	function self:SetRoles(grps)
+		if type(grps) ~= "table" then grps = nil; end
+		for i=1,4 do
+			if grps and grps[i] then checks.checkBox[i]:SetChecked(true); else checks.checkBox[i]:SetChecked(); end
+		end
+	end
+
+	self.Destroy = VFL.hook(function(s)
+		s.GetRoles = nil; s.SetRoles = nil;
+	end, self.Destroy);
+
+	return self;
+end
