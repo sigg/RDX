@@ -93,7 +93,8 @@ RosterMgr\Sets\FilterComponent\FC_UnitStatus.lua
 RosterMgr\Sets\FilterComponent\FC_Auras.lua
 # deprecated
 #RosterMgr\Sets\FilterComponent\FC_Targets.lua
-RosterMgr\Sets\FilterComponent\FC_Talent.lua
+# deprecated (replace by role)
+#RosterMgr\Sets\FilterComponent\FC_Talent.lua
 RosterMgr\Sets\FilterComponent\FC_PredictedHealth.lua
 RosterMgr\Sets\FilterComponent\FC_IncHeal.lua
 RosterMgr\Sets\FilterComponent\FC_DamageMeter.lua
@@ -287,7 +288,8 @@ Designs\Textures\RaidLeaderIcon.lua
 Designs\Textures\RaidTargetIcon.lua
 Designs\Textures\ReadyCheckIcon.lua
 Designs\Textures\RoleIcon.lua
-Designs\Textures\TalentIcon.lua
+# deprecated
+#Designs\Textures\TalentIcon.lua
 Designs\Textures\Texture.lua
 
 Designs\Variables\AuraVariables.lua
