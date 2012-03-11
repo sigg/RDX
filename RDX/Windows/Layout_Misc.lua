@@ -256,9 +256,8 @@ RDX.RegisterFeature({
 				local btn = VFLUI.TexturedButton:new(w, 16, "Interface\\AddOns\\RDX\\Skin\\funnel");
 				btn:SetHighlightColor(1,1,0,1);
 				w:AddButton(btn);
-				local path = w._path;
 				btn:SetScript("OnClick", function()
-					local x = RDXDB.GetObjectData(path);
+					local x = RDXDB.GetObjectData(w._path);
 					if (type(x) ~= "table") or (type(x.data) ~= "table") then return; end
 					x = RDXDB.HasFeature(x.data, "header");
 					if not x then return; end
@@ -316,6 +315,19 @@ RDX.RegisterFeature({
 		state:Attach("RepaintData", nil, function(z)
 			local succ,err = pcall(paintData, z);
 			if not succ then RDXDK.PrintError(win, "RepaintData", err); end
+		end);
+		state:Attach("Menu", true, function(win, mnu)
+			table.insert(mnu, {
+				text = VFLI.i18n("Edit Header");
+				OnClick = function()
+					VFL.poptree:Release();
+					local x = RDXDB.GetObjectData(win._path);
+					if (type(x) ~= "table") or (type(x.data) ~= "table") then return; end
+					x = RDXDB.HasFeature(x.data, "header");
+					if not x then return; end
+					RDXDB.MiniFeatureEditor(nil, x, function(newfd)	VFL.copyOver(x, newfd); RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, win._path); end);
+				end;
+			});
 		end);
 	end,
 	UIFromDescriptor = function(desc, parent, state)

@@ -513,7 +513,7 @@ function RDXUI.HeaderEditor:new(parent)
 	local driver_NSet = driver:CreateRadioButton(ui);
 	driver_NSet:SetText(VFLI.i18n("Use nominative Set"));
 	local driver_GC = driver:CreateRadioButton(ui);
-	driver_GC:SetText(VFLI.i18n("Use group/class/role filter"));
+	driver_GC:SetText(VFLI.i18n("Use group/class filter"));
 	driver:SetValue(2);
 
 	-- Group/class section
@@ -522,8 +522,8 @@ function RDXUI.HeaderEditor:new(parent)
 	ui:InsertFrame(classes); 
 	local groups = RDXUI.GroupFilterUI:new(ui); groups:Show();
 	ui:InsertFrame(groups);
-	local roles = RDXUI.RoleFilterUI:new(ui); roles:Show();
-	ui:InsertFrame(roles);
+	--local roles = RDXUI.RoleFilterUI:new(ui); roles:Show();
+	--ui:InsertFrame(roles);
 
 	-- nset section
 	ui:InsertFrame(driver_NSet);
@@ -560,11 +560,11 @@ function RDXUI.HeaderEditor:new(parent)
 	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
 
 	local groupType = VFLUI.RadioGroup:new(ui);
-	groupType:SetLayout(4,2);
+	groupType:SetLayout(3,2);
 	groupType.buttons[1]:SetText(VFLI.i18n("No grouping"));
 	groupType.buttons[2]:SetText(VFLI.i18n("Group by class"));
 	groupType.buttons[3]:SetText(VFLI.i18n("Group by raidgroup"));
-	groupType.buttons[4]:SetText(VFLI.i18n("Group by role"));
+	--groupType.buttons[4]:SetText(VFLI.i18n("Group by role"));
 	ui:InsertFrame(groupType);
 	groupType:SetValue(1);
 
@@ -608,7 +608,7 @@ function RDXUI.HeaderEditor:new(parent)
 		elseif tbl.driver == 2 then
 			classes:SetClasses(tbl.classes);
 			groups:SetGroups(tbl.groups);
-			roles:SetRoles(tbl.roles);
+		--	roles:SetRoles(tbl.roles);
 		end
 		chk_pet:SetChecked(tbl.pet);
 		chk_switchvehicle:SetChecked(tbl.switchvehicle);
@@ -633,7 +633,7 @@ function RDXUI.HeaderEditor:new(parent)
 		else
 			desc.classes = classes:GetClasses();
 			desc.groups = groups:GetGroups();
-			desc.roles = roles:GetRoles();
+		--	desc.roles = roles:GetRoles();
 		end
 		desc.pet = chk_pet:GetChecked();
 		desc.switchvehicle = chk_switchvehicle:GetChecked();
@@ -661,9 +661,9 @@ function RDXUI.ApplyHeaderDescriptor(hdr, hdef)
 	elseif hdef.groupType == 3 then
 		hdr:SetAttribute("groupingOrder", "1,2,3,4,5,6,7,8");
 		hdr:SetAttribute("groupBy", "GROUP");
-	elseif hdef.groupType == 4 then
-		hdr:SetAttribute("groupingOrder", "TANK,DAMAGER,HEALER");
-		hdr:SetAttribute("groupBy", "ROLE");
+	--elseif hdef.groupType == 4 then
+	--	hdr:SetAttribute("groupingOrder", "TANK,DAMAGER,HEALER");
+	--	hdr:SetAttribute("groupBy", "ROLE");
 	else
 		-- No grouping
 		hdr:SetAttribute("groupBy", nil);
@@ -681,9 +681,9 @@ function RDXUI.ApplyHeaderDescriptor(hdr, hdef)
 		if hdef.classes then
 			for i=1,10 do if hdef.classes[i] then gf = gf .. RDXMD.GetClassMnemonic(i) .. ","; end end
 		end
-		if hdef.roles then
-			for i=1,4 do if hdef.roles[i] then gf = gf .. RDXMD.GetRoleName(i) .. ","; end end
-		end
+		--if hdef.roles then
+		--	for i=1,4 do if hdef.roles[i] then gf = gf .. RDXMD.GetRoleName(i) .. ","; end end
+		--end
 		hdr:SetAttribute("groupFilter", gf);
 	end
 end
