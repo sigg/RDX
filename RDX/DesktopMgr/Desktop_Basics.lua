@@ -33,8 +33,8 @@ RDX.RegisterFeature({
 			desc.gametooltip = {};
 			desc.gametooltip.anchorx = 200;
 			desc.gametooltip.anchory = 200;
-			desc.gametooltip.bkd = VFL.copy(VFLUI.DarkDialogBackdrop);
-			desc.gametooltip.font = VFL.copy(Fonts.Default10);
+			desc.gametooltip.bkd = { _border = "IshBorder"; bgFile = "Interface\\Addons\\VFL\\Skin\\black"; tileSize = 16; tile = true; _backdrop = "VFL_black"; edgeSize = 24; edgeFile = "Interface\\AddOns\\RDX_mediapack\\sharedmedia\\borders\\IshBorder";};
+			desc.gametooltip.font = { face = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\BigNoodleTitling.ttf"; justifyH = "LEFT"; size = 14; flags = "OUTLINE"; };
 			desc.gametooltip.tex = { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; };
 		end
 		local tooltipmouse = "nil"; if desc.gametooltip.tooltipmouse then tooltipmouse = "true"; end
