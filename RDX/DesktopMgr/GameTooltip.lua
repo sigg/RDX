@@ -318,6 +318,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 			--self.text:SetPoint("CENTER", GameTooltipStatusBar);
 			self.text:SetAllPoints(GameTooltipStatusBar);
 			VFLUI.SetFont(self.text, descg.font, nil, true);
+			self.text:SetJustifyH("CENTER");
 			self.text:Show();
 		end
 		if descg.showTextBar then
