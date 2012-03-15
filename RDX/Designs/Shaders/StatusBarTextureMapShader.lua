@@ -94,7 +94,7 @@ if ]] .. desc.flag .. [[ then
 	]] .. objname .. [[:SetWidth(VFL.lerp1(]] .. desc.frac .. "," .. desc.w1 .. "," .. desc.w2 .. [[));
 	]] .. objname .. [[:SetHeight(VFL.lerp1(]] .. desc.frac .. "," .. desc.h1 .. "," .. desc.h2 .. [[));
 	]] .. objname .. [[:SetTexCoord(VFL.lerp4(]] .. desc.frac .. "," .. desc.l1 .. "," .. desc.l2 .. "," .. desc.r1 .. "," .. desc.r2 .. "," .. desc.b1 .. "," .. desc.b2 .. "," .. desc.t1 .. "," .. desc.t2 .. [[));
-	]] .. objname .. [[:SetVertexColor(VFL.explodeRGBA(]] .. desc.color .. [[));
+	]] .. objname .. [[:SetVertexColor(explodeRGBA(]] .. desc.color .. [[));
 else
 	]] .. objname .. [[:Hide();
 end

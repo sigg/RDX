@@ -41,7 +41,7 @@ end
 if UnitIsTapped(uid) and not UnitIsTappedByPlayer(uid) then
 	hostileColor = hostileColor_cf[4];
 end
-if UnitIsUnit(uid, "player") or RDXDAL.UnitInGroup(uid) then
+if UnitIsUnit(uid, "player") or UnitInGroup(uid) then
 	hostileColor = hostileColor_cf[5];
 end
 if not UnitExists(uid) then

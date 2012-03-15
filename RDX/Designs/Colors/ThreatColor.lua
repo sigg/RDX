@@ -77,24 +77,24 @@ RDX.RegisterFeature({
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
 local ]] .. desc.name .. [[ = nil;
-local threatSituation = UnitThreatSituation(]] .. unit .. [[, ]] .. unitother .. [[);
+_i = UnitThreatSituation(]] .. unit .. [[, ]] .. unitother .. [[);
 if ]] .. usecustomcolor .. [[ then
-	if threatSituation == 0 then
+	if _i == 0 then
 		]] .. desc.name .. [[ = ]] .. colorVar0 .. [[;
-	elseif threatSituation == 1 then
+	elseif _i == 1 then
 		]] .. desc.name .. [[ = ]] .. colorVar1 .. [[;
-	elseif threatSituation == 2 then
+	elseif _i == 2 then
 		]] .. desc.name .. [[ = ]] .. colorVar2 .. [[;
-	elseif threatSituation == 3 then
+	elseif _i == 3 then
 		]] .. desc.name .. [[ = ]] .. colorVar3 .. [[;
 	else
 		]] .. desc.name .. [[ = ]] .. colorVar0 .. [[;
 	end
 else 
-	if ]] .. usealpha .. [[ and (not threatSituation or threatSituation == 0) then
+	if ]] .. usealpha .. [[ and (not _i or _i == 0) then
 		]] .. desc.name .. [[ = _alphafull;
 	else
-		tempcolor.r, tempcolor.g, tempcolor.b = GetThreatStatusColor(threatSituation);
+		tempcolor.r, tempcolor.g, tempcolor.b = GetThreatStatusColor(_i);
 		]] .. desc.name .. [[ = tempcolor;
 	end
 end

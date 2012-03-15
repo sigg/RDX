@@ -96,7 +96,7 @@ frame.]] .. objname .. [[ = nil;
 
 		------------------- Paint
 		local paintCode = [[
-local btn = frame.]] .. objname .. [[;
+btn = frame.]] .. objname .. [[;
 ]];
 		if desc.dyntexture then
 		paintCode = paintCode .. [[

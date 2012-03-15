@@ -59,15 +59,18 @@ function RDX.DesignGeneratingFunctor(state, path, winpath)
 local windowpath = "]] .. tostring(winpath) .. [[";
 local designpath = "]] .. tostring(path) .. [[";
 local GetUnitByNumber = RDXDAL.GetUnitByNumber;
+local UnitInGroup = RDXDAL.UnitInGroup;
 local LoadBuffFromUnit = RDXDAL.LoadBuffFromUnit;
 local LoadDebuffFromUnit = RDXDAL.LoadDebuffFromUnit;
+local explodeRGBA = VFL.explodeRGBA;
 local band, min, max, clamp, strformat = bit.band, math.min, math.max, VFL.clamp, string.format;
-local btn, _i, _j, _avail, _bn, _tex, _apps, _meta, _start, _dur, _tl, _et, _dispelt, _caster, _isStealable;
+local btn, _i, _j, _avail, _bn, _tex, _apps, _meta, _start, _dur, _tl, _et, _dispelt, _caster, _isStealable, _name;
 local btnOwner;
 local _icons;
-local text = "";
+local text, word = "", "";
 local textcolor = _grey
 local tempcolor = {};
+local _;
 ]]);
 	state:RunSlot("EmitClosure", code);
 	code:AppendCode([[

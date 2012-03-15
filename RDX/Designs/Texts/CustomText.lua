@@ -30,10 +30,6 @@ RDX.RegisterFeature({
 		if colorVar ~= "" then colorBoo = "true"; end 
 		
 		---- Generate the code.
-		local closureCode = [[
-local text = "";
-]];
-		
 		local createCode = [[
 local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
 txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
@@ -61,13 +57,13 @@ text = ]] .. (desc.useNil and 'nil' or '""') .. [[;
 ]] .. md.data.script .. [[
 
 if text then ]] .. tname .. [[:SetText(text); 
-	if ]] .. colorBoo .. [[ then ]] .. tname .. [[:SetTextColor(VFL.explodeRGBA(]] ..colorVar .. [[)); end 
+	if ]] .. colorBoo .. [[ then ]] .. tname .. [[:SetTextColor(explodeRGBA(]] ..colorVar .. [[)); end 
 end
 ]];
 			state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 		end
 		
-		state:Attach(state:Slot("EmitClosure"), true, function(code) code:AppendCode(closureCode); end);
+		--state:Attach(state:Slot("EmitClosure"), true, function(code) code:AppendCode(closureCode); end);
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 		state:Attach(state:Slot("EmitCleanup"), true, function(code) code:AppendCode(cleanupCode); end);
