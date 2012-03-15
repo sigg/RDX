@@ -368,8 +368,8 @@ local disabledframes = {
 	"VehicleMenuBarHealthBar",    
 	"VehicleMenuBarPowerBar",
 	"VehicleMenuBar",
-	--"ReputationFrame",
-	--"ReputationWatchBar",
+	"ReputationFrame",
+	"ReputationWatchBar",
 };
 
 function RDXDK.DisableAll()
@@ -389,13 +389,15 @@ function RDXDK.DisableAll()
 	end
 	
 	-- MainMenuBarArtFrame some events must be active
+	MainMenuBarArtFrame:UnregisterEvent("PLAYER_ENTERING_WORLD");
 	MainMenuBarArtFrame:UnregisterEvent("BAG_UPDATE");
 	MainMenuBarArtFrame:UnregisterEvent("ACTIONBAR_PAGE_CHANGED");
+	--MainMenuBarArtFrame:UnregisterEvent("CURRENCY_DISPLAY_UPDATE");
+	MainMenuBarArtFrame:UnregisterEvent("ADDON_LOADED");
 	MainMenuBarArtFrame:UnregisterEvent("UNIT_ENTERING_VEHICLE");
 	MainMenuBarArtFrame:UnregisterEvent("UNIT_ENTERED_VEHICLE");
 	MainMenuBarArtFrame:UnregisterEvent("UNIT_EXITING_VEHICLE");
 	MainMenuBarArtFrame:UnregisterEvent("UNIT_EXITED_VEHICLE");
-	MainMenuBarArtFrame:UnregisterEvent("PLAYER_ENTERING_WORLD");
 	MainMenuBarArtFrame:UnregisterEvent("UNIT_LEVEL");
 	MainMenuBarArtFrame:SetScript("OnUpdate", nil);
 	MainMenuBarArtFrame:Hide();
@@ -478,6 +480,11 @@ function RDXDK.DisableAll()
 	ShapeshiftBarFrame.ignoreFramePositionManager = true;
 	PossessBarFrame.ignoreFramePositionManager = true;
 	MultiCastActionBarFrame.ignoreFramePositionManager = true;
+	MainMenuBarMaxLevelBar.ignoreFramePositionManager = true;
+	ReputationWatchBar.ignoreFramePositionManager = true;
+	MainMenuBarMaxLevelBar.ignoreFramePositionManager = true;
+	
+	ReputationWatchBar_Update = VFL.Noop;
 	
 	RDX.ManageChatFrames();
 	

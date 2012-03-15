@@ -16,6 +16,7 @@ profw:SetPoint("CENTER", VFLParent, "CENTER");
 profw:SetMovable(true); profw:SetToplevel(nil);
 VFLUI.Window.StdMove(profw, profw:GetTitleBar());
 profw:Hide();
+profw:SetClampedToScreen(true);
 local ca = profw:GetClientArea();
 
 ----------- Detailed prof toggle
@@ -386,27 +387,27 @@ profw:AddButton(closebtn);
 
 function VFLP.ShowProfiler()
 	--if RDXPM and RDXPM.Ismanaged("profiler") then RDXPM.RestoreLayout(profw, "profiler"); end; 
-	if RDXG then RDXG.ShowProfiler = true; end
-	profw:Show(.2, true);
+	--if RDXG then RDXG.ShowProfiler = true; end
+	profw:Show();
 end
 
 function VFLP.HideProfiler()
 	--if RDXPM then RDXPM.StoreLayout(profw, "profiler"); end
-	if RDXG then RDXG.ShowProfiler = nil; end
+	--if RDXG then RDXG.ShowProfiler = nil; end
 	profw:Hide(.2, true);
 end
 
 function VFLP.ToggleProfiler()
-	if RDXG and RDXG.ShowProfiler then
+	if profw:IsShown() then
 		VFLP.HideProfiler();
 	else
 		VFLP.ShowProfiler();
 	end
 end
 
-function VFLP.IsProfilerShown()
-	if RDXG then return RDXG.ShowProfiler; else return nil; end
-end
+--function VFLP.IsProfilerShown()
+--	if RDXG then return RDXG.ShowProfiler; else return nil; end
+--end
 
 -----------------------------
 -- COMMAND
@@ -419,8 +420,8 @@ SlashCmdList["PROFILER"] = function() profw:Show(); end
 -- INIT
 -----------------------------
 
-WoWEvents:Bind("ADDON_LOADED", nil, function()
-	if RDXG and RDXG.ShowProfiler then VFLP.ShowProfiler(); end
+--WoWEvents:Bind("ADDON_LOADED", nil, function()
+	--if RDXG and RDXG.ShowProfiler then VFLP.ShowProfiler(); end
 	--if VFLP.IsEnabled() then
 	--	local latency = nil;
 	--	VFL.AdaptiveSchedule("VFLPProfilerFPSLAG", 2, function()
@@ -430,4 +431,4 @@ WoWEvents:Bind("ADDON_LOADED", nil, function()
 	--	end);
 	--end
 	
-end);
+--end);
