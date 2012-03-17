@@ -153,9 +153,18 @@ RDXDB.RegisterSymLinkClass({
 	GetTargetPath = function(data)
 		return data.targetpath;
 	end;
+	Register = function(path, data)
+		--VFL.print("REGISTER " .. path);
+		local link = RDXDB.GetSymLinkTarget(data);
+		RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(up, uf)
+				local cpath = (up .. ":" .. uf);
+				if cpath == link then RDXDB.NotifyUpdate(path); end
+			end, "symlink_" .. path);
+	end;
 	Unregister = function(path)
 		--VFL.print("UNREGISTER " .. path);
 		VFLEvents:Unbind("symlink_" .. path);
+		RDXDBEvents:Unbind("symlink_" .. path);
 	end;
 	GetUI = function(parent, desc)
 		local ui = VFLUI.CompoundFrame:new(parent);
@@ -722,7 +731,7 @@ RDXDBEvents:Bind("OBJECT_MOVED", nil, function(pkg, file, newpkg, newfile, md)
 			local sl = tysl[md.data.class];
 			if not sl then return; end
 			if sl.Unregister then sl.Unregister(path); end
-			if sl.Register then sl.Register(path2); end
+			if sl.Register then sl.Register(path2, md.data); end
 		end
 	end
 end);
@@ -735,7 +744,7 @@ local function ApplyEvents()
 				if md.data and type(md.data) == "table" then
 					local sl = tysl[md.data.class or "toto"];
 					if not sl then return; end
-					if sl.Register then sl.Register(pkgName .. ":" ..objName); end
+					if sl.Register then sl.Register(pkgName .. ":" ..objName, md.data); end
 				end
 			end
 		end
