@@ -532,10 +532,9 @@ RDX.RegisterFeature({
 		--if interval < 0.5 then interval = 0.5; end
 		schedEnt = "pra" .. math.random(1, 1000000000);
 		local slot = desc.slot;
-		state:Attach("Show", true, function(w, init)
-			if not init then
-				VFLT.AdaptiveSchedule(schedEnt, interval, w[slot]);
-			end
+		state:Attach("Show", true, function(w)
+			VFLT.AdaptiveUnschedule(schedEnt);
+			VFLT.AdaptiveSchedule(schedEnt, interval, w[slot]);
 		end);
 		-- When we hide, disable the updates
 		state:Attach("Hide", true, function() VFLT.AdaptiveUnschedule(schedEnt); end);

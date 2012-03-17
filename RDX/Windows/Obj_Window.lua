@@ -117,7 +117,7 @@ function RDX.Window:new(parent)
 		hide = state:GetSlotFunction("Hide"); show = state:GetSlotFunction("Show");
 		update = state:GetSlotFunction("Update"); destroy = state:GetSlotFunction("Destroy");
 		-- Bind API to window.
-		if self:IsShown() then show(self, true); end
+		if self:IsShown() then show(self); end
 		self:SetScript("OnHide", hide);	self:SetScript("OnShow", show);
 		if update ~= VFL.Noop then self:SetScript("OnUpdate", update); end
 	end
