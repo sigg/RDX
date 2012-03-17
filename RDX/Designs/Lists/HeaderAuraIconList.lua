@@ -336,6 +336,7 @@ for _,child in frame.]] .. objname .. [[:AllChildren() do
 		VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
 		btn:Destroy(); btn = nil;
 	end
+	child.btn = nil;
 end
 local tempEnchant1 = frame.]] .. objname .. [[:GetAttribute("tempEnchant1");
 if tempEnchant1 then
@@ -347,6 +348,7 @@ if tempEnchant1 then
 		VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
 		btn:Destroy(); btn = nil;
 	end
+	tempEnchant1.btn = nil;
 end
 local tempEnchant2 = frame.]] .. objname .. [[:GetAttribute("tempEnchant2");
 if tempEnchant2 then
@@ -358,6 +360,7 @@ if tempEnchant2 then
 		VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
 		btn:Destroy(); btn = nil;
 	end
+	tempEnchant2.btn = nil;
 end
 local tempEnchant3 = frame.]] .. objname .. [[:GetAttribute("tempEnchant3");
 if tempEnchant3 then
@@ -369,6 +372,7 @@ if tempEnchant3 then
 		VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
 		btn:Destroy(); btn = nil;
 	end
+	tempEnchant3.btn = nil;
 end
 frame.]] .. objname .. [[:Destroy();
 frame.]] .. objname .. [[ = nil;
