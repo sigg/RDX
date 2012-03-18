@@ -21,12 +21,13 @@ function VFL.Debug_ShowCode(code)
 	f:SetWidth(500); f:SetHeight(350);
 	f:SetPoint("CENTER", win:GetClientArea(), "CENTER");
 	f:SetText(code);
-	f:Show();
+	f:_Show(.5, true);
 
 	local esch = function()
-		f:Destroy(); f = nil; win:Destroy(); win = nil;
+		f:Hide(.5, true, function() f:Destroy(); f = nil; win:Destroy(); win = nil; end);
 	end;
 	VFL.AddEscapeHandler(esch);
+	
 	local closebtn = VFLUI.CloseButton:new();
 	closebtn:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
 	win:AddButton(closebtn);

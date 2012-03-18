@@ -667,6 +667,14 @@ local function HideUpdate(self, elapsed)
 		if self.z then
 			self:SetScale(self._originalScale or 1);
 		end
+		if self.fhide then self.fhide(); end
+		self._originalAlpha = nil;
+		self._originalScale = nil;
+		self.totalElapsed = nil;
+		self.tmp = nil;
+		self.t = nil;
+		self.z = nil;
+		self.fhide = nil;
 		return;
 	end
 	self:SetAlpha(VFL.lerp1(1/self.t*self.totalElapsed, self._originalAlpha, 0));
@@ -677,16 +685,23 @@ local function HideUpdate(self, elapsed)
 	end
 end
 
-local function TimerHide2(f, t, z)
-	if not t then return; end
-	-- Calling because this function is hooked securely post-show.
-	--f:Show(); 
+local function TimerHide2(f, t, z, fhide)
+	if not t then 
+		f:Hide();
+		if type(func) == "function" then
+			func();
+		end
+		return;
+	end
 	f._originalAlpha = f:GetAlpha();
 	f._originalScale = f:GetScale();
 	f.totalElapsed = 0;
 	f.tmp = 0;
 	f.t = t;
 	f.z = z;
+	if type(fhide) == "function" then
+		f.fhide = fhide;
+	end
 	f:SetScript("OnUpdate", HideUpdate);
 end
 
@@ -695,11 +710,17 @@ local function ShowUpdate(self, elapsed)
 	if self.totalElapsed > self.t then
 		self:SetScript("OnUpdate", nil);
 		self.totalElapsed = 0;
-		self:Show();
 		self:SetAlpha(self._originalAlpha or 1);
 		if self.z then
 			self:SetScale(self._originalScale or 1);
 		end
+		if self.fshow then self.fshow(); end
+		self._originalAlpha = nil;
+		self._originalScale = nil;
+		self.totalElapsed = nil;
+		self.t = nil;
+		self.z = nil;
+		self.fshow = nil;
 		return;
 	end
 	self:SetAlpha(VFL.lerp1(1/self.t*self.totalElapsed, 0, self._originalAlpha));
@@ -708,14 +729,16 @@ local function ShowUpdate(self, elapsed)
 	end
 end
 
-local function TimerShow2(f, t, z)
-	if not t then return; end
-	
+local function TimerShow2(f, t, z, fshow)
+	if not t then f:Show(); return; end
 	f._originalAlpha = f:GetAlpha();
 	f._originalScale = f:GetScale();
 	f.totalElapsed = 0;
 	f.t = t;
 	f.z = z;
+	if type(fshow) == "function" then
+		f.fshow = fshow;
+	end
 	f:SetAlpha(0);
 	if f.z then f:SetScale(0.01); end
 	f:Show();
@@ -775,8 +798,10 @@ function VFLUI.AcquireFrame(frameType, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10)
 	frame.Destroy = GenericDestroy;
 	if not frame._hookedHideShow then
 		frame._hookedHideShow = true;
-		hooksecurefunc(frame, "Hide", TimerHide2);
-		hooksecurefunc(frame, "Show", TimerShow2);
+		--hooksecurefunc(frame, "Hide", TimerHide2);
+		--hooksecurefunc(frame, "Show", TimerShow2);
+		frame._Hide = TimerHide2;      
+		frame._Show = TimerShow2;
 	end
 	--frame.AnimationGroup = frame:CreateAnimationGroup();
 	return frame;

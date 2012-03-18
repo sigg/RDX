@@ -96,7 +96,7 @@ local function VariablesLoaded()
 		--end
 	
 		-- Now init smooth features.
-		RDX.smooth = 0.5;
+		RDX.smooth = 0.2;
 	end);
 end
 

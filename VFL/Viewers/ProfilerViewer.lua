@@ -386,15 +386,11 @@ profw:AddButton(closebtn);
 ----------------
 
 function VFLP.ShowProfiler()
-	--if RDXPM and RDXPM.Ismanaged("profiler") then RDXPM.RestoreLayout(profw, "profiler"); end; 
-	--if RDXG then RDXG.ShowProfiler = true; end
-	profw:Show();
+	profw:_Show(.5);
 end
 
 function VFLP.HideProfiler()
-	--if RDXPM then RDXPM.StoreLayout(profw, "profiler"); end
-	--if RDXG then RDXG.ShowProfiler = nil; end
-	profw:Hide(.2, true);
+	profw:_Hide(.5);
 end
 
 function VFLP.ToggleProfiler()
@@ -404,10 +400,6 @@ function VFLP.ToggleProfiler()
 		VFLP.ShowProfiler();
 	end
 end
-
---function VFLP.IsProfilerShown()
---	if RDXG then return RDXG.ShowProfiler; else return nil; end
---end
 
 -----------------------------
 -- COMMAND

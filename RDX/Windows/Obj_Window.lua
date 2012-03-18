@@ -267,20 +267,10 @@ RDXDB.RegisterObjectType({
 		return w;
 	end,
 	Deinstantiate = function(instance, path, md)
-		instance:Hide(RDX.smooth);
-		--RDX:Debug(5, "Hide WindowObject<", path, ">");
-		--instance:Hide();
-		if RDX.smooth then 
-			VFLT.schedule(RDX.smooth, function()
-				instance:Destroy();
-				instance._path = nil; -- Remove the path previously stored
-				RDX:Debug(5, "Deinstantiate WindowObject<", path, ">");
-			end);
-		else
-			instance:Destroy();
-			instance._path = nil; -- Remove the path previously stored
-			RDX:Debug(5, "Deinstantiate WindowObject<", path, ">");
-		end
+		--instance:_Hide(RDX.smooth, nil, function() instance:Destroy(); instance._path = nil; instance = nil; end);
+		instance:Destroy();
+		instance._path = nil;
+		instance = nil;
 	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {

@@ -250,7 +250,7 @@ function VFLUI.PopMenu:Expand(aFrame, data, limit)
 
 	-- Show the new menu
 	menu:Rebuild();
-	menu:Show(.2); decor:Show(.2);
+	menu:Show(); decor:Show();
 	
 	-- Check for off-screenage
 	local bx, by = 0, 0;

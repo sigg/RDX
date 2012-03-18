@@ -161,8 +161,6 @@ function RDXDK.Desktop:new(parent)
 		if framepropsroot then
 			if not framepropsroot.gametooltip then framepropsroot.gametooltip = {}; end
 			if not framepropsroot.realid then framepropsroot.realid = {}; end
-			--VFL.copyInto(framepropsroot.gametooltip, desc);
-			--VFL.copyInto(framepropsroot.realid, desc2);
 			framepropsroot.gametooltip = desc;
 			framepropsroot.realid = desc2;
 		end
@@ -344,11 +342,11 @@ function RDXDK.Desktop:new(parent)
 		end
 		
 		-- Now show the window !!!
-		if noanim and not frame:IsShown() then
-			frame:Show();
-		elseif not frame:IsShown() then
-			frame:Show(RDX.smooth);
-		end
+		--if noanim and not frame:IsShown() then
+		--	frame:Show();
+		--elseif not frame:IsShown() then
+			frame:_Show(RDX.smooth);
+		--end
 		--RDX:Debug(5, "Show WindowObject<", frame._dk_name, ">");
 		frame:UpdateUnlockOverlay(frameprops);
 		
@@ -407,7 +405,7 @@ function RDXDK.Desktop:new(parent)
 			--if noanim then
 			--	frame:Hide();
 			--else
-			--	frame:Hide(RDX.smooth);
+				frame:_Hide(RDX.smooth);
 			--end
 			--if name ~= "root" and frame:WMGetPositionalFrame() then frame:WMGetPositionalFrame():ClearAllPoints(); end
 			local posFrame = frame:WMGetPositionalFrame();
@@ -1117,7 +1115,7 @@ local function ChangeDesktop(path, nosave)
 	--RDXPM.RemoveAllButtonsWB();
 	
 	if RDX.smooth then
-		VFLT.schedule(RDX.smooth + 0.2, function() 
+		VFLT.schedule(RDX.smooth + 0.1, function() 
 			--RDXPM.GetMainPane():SetDesktopName("|cFFFF0000" .. path .. "|r", path);
 			currentpath = path;
 			-- open

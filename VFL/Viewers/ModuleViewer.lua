@@ -67,14 +67,11 @@ function VFL.OpenModuleDialog()
 		
 	end
 	
-	dlg:Show(.2, true);
+	dlg:_Show(.2, true);
 	
 	-------------------- Interactions
 	local esch = function()
-		dlg:Hide(.2, true);
-		VFLT.ZMSchedule(.25, function()
-			dlg:Destroy(); dlg = nil;
-		end);
+		dlg:Hide(.2, true, function() dlg:Destroy(); dlg = nil; end);
 	end
 	VFL.AddEscapeHandler(esch);
 	
