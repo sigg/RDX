@@ -405,7 +405,7 @@ function RDXDK.Desktop:new(parent)
 			--if noanim then
 			--	frame:Hide();
 			--else
-				frame:_Hide(RDX.smooth);
+			--	frame:_Hide(.5);
 			--end
 			--if name ~= "root" and frame:WMGetPositionalFrame() then frame:WMGetPositionalFrame():ClearAllPoints(); end
 			local posFrame = frame:WMGetPositionalFrame();
@@ -462,135 +462,6 @@ function RDXDK.Desktop:new(parent)
 	
 	-----------------------------------------
 	-- WINDOW
-	
-	local function windowOpen(name, wtype)
-		RDXDK:Debug(6, "windowOpen " .. name .. ":" .. wtype);
-		if not frameList[name] then
-			local frame;
-			if wtype == "desktop_window" or wtype == "desktop_statuswindow" then
-				frame = RDXDB.GetObjectInstance(name);
-			elseif wtype == "desktop_windowless" then 
-				local wless = RDXDK.GetWindowLess(name);
-				if wless then
-					frame = wless.Open(name);
-				end
-			elseif wtype == "Desktop main" then
-				frame = VFLUI.AcquireFrame("Frame");
-			end
-			if frame then
-				local frameprops = nil;
-				if wtype == "Desktop main" then
-					frameprops = RDXDB.GetFeatureData(self._path, wtype);
-					-- store the root in the variable
-					framepropsroot = frameprops;
-				else
-					frameprops = RDXDB.GetFeatureData(self._path, wtype, "name", name);
-				end
-				local dolayout = nil;
-				if not frameprops then
-					frameprops = {
-						feature = wtype;
-						name = name;
-						open = true;
-						scale = 1;
-						alpha = 1;
-						strata = "MEDIUM";
-						anchor = "TOPLEFT";
-					};
-					RDXDB.AddFeatureData(self._path, wtype, "name", name, frameprops);
-					dolayout = true;
-				end
-				RDXDK.AddUnlockOverlay(frame, frameprops);
-				RDXDK.ImbueManagedFrame(frame, name);
-				frameList[name] = frame;
-				framePropsList[name] = frameprops;
-				if dolayout then LayoutFrame(name); end
-				if not lockstate then frame:Unlock(frameprops); end
-			end
-		else
-			RDX.printE("Window " .. name .. " already add");
-		end
-	end
-	
-	local function windowClose(name, wtype)
-		RDXDK:Debug(6, "windowClose " .. name);
-		-- store the position in root feature
-		if name ~= "root" then
-			SetSavePosition(name, framePropsList[name]);
-		end
-		local frame = frameList[name];
-		if frame then
-			if not lockstate then frame:Lock(); end
-			RDXDK.CompletelyUndock(framePropsList[name]);
-			RDXDK.RemoveUnlockOverlay(frame);
-			UnlayoutFrame(name);
-			RDXDK.UnimbueManagedFrame(frame);
-			if wtype == "desktop_window" or wtype == "desktop_statuswindow" then
-				RDXDB._RemoveInstance(name);
-			elseif wtype == "desktop_windowless" then 
-				local wless = RDXDK.GetWindowLess(name);
-				wless.Close(frame, name);
-			end
-			framePropsList[name] = nil;
-			frameList[name] = nil;
-			RDXDB.DelFeatureData(self._path, wtype, "name", name);
-		else
-			RDX.printE("Window " .. name .. " is not in the desktop");
-		end
-	end
-	
-	local function windowRebuild(name, wtype)
-		RDXDK:Debug(6, "windowRebuild " .. name);
-		local frame = frameList[name];
-		if frame then
-			local md = RDXDB.GetObjectData(name);
-			if md and md.data then
-				if not lockstate then frame:Lock(); end
-				UnlayoutDockGroup(name);
-				if wtype == "desktop_window" then
-					if RDX.SetupWindow(name, frame, md.data) then
-						LayoutDockGroup(name);
-						if not lockstate then frame:Unlock(framePropsList[name]); end
-					end
-				elseif wtype == "desktop_statuswindow" then
-					if RDX.SetupStatusWindow(name, frame, md.data) then
-						LayoutDockGroup(name);
-						if not lockstate then frame:Unlock(framePropsList[name]); end
-					end
-				end
-			end
-		--else
-			--windowOpen(name, wtype);
-			--RDX.printE("Window " .. name .. " is not in the desktop");
-		end
-	end
-	
-	local function windowRebuildAll()
-		RDXDK:Debug(6, "windowRebuildAll");
-		for name, frameProps in pairs(framePropsList) do
-			local frame = frameList[name];
-			if frame then
-				local md, _, _, ty = RDXDB.GetObjectData(name);
-				if md and md.data then
-					if not lockstate then frame:Lock(); end
-					UnlayoutDockGroup(name);
-					if ty == "Window" then
-						if RDX.SetupWindow(name, frame, md.data) then
-							LayoutDockGroup(name);
-							if not lockstate then frame:Unlock(framePropsList[name]); end
-						end
-					elseif ty == "StatusWindow" then
-						if RDX.SetupStatusWindow(name, frame, md.data) then
-							LayoutDockGroup(name);
-							if not lockstate then frame:Unlock(framePropsList[name]); end
-						end
-					end
-				end
-			else
-				RDX.printE("Window " .. name .. " is not in the desktop");
-			end
-		end
-	end
 	
 	local function windowUpdate(name, key, value, value2)
 		RDXDK:Debug(6, "windowUpdate " .. name);
@@ -680,6 +551,138 @@ function RDXDK.Desktop:new(parent)
 		end
 	end
 	
+	local function windowOpen(name, wtype)
+		RDXDK:Debug(6, "windowOpen " .. name .. ":" .. wtype);
+		if not frameList[name] then
+			local frame;
+			if wtype == "desktop_window" or wtype == "desktop_statuswindow" then
+				frame = RDXDB.GetObjectInstance(name);
+			elseif wtype == "desktop_windowless" then 
+				local wless = RDXDK.GetWindowLess(name);
+				if wless then
+					frame = wless.Open(name);
+				end
+			elseif wtype == "Desktop main" then
+				frame = VFLUI.AcquireFrame("Frame");
+			end
+			if frame then
+				local frameprops = nil;
+				if wtype == "Desktop main" then
+					frameprops = RDXDB.GetFeatureData(self._path, wtype);
+					-- store the root in the variable
+					framepropsroot = frameprops;
+				else
+					frameprops = RDXDB.GetFeatureData(self._path, wtype, "name", name);
+				end
+				local dolayout = nil;
+				if not frameprops then
+					frameprops = {
+						feature = wtype;
+						name = name;
+						open = true;
+						scale = 1;
+						alpha = 1;
+						strata = "MEDIUM";
+						anchor = "TOPLEFT";
+					};
+					RDXDB.AddFeatureData(self._path, wtype, "name", name, frameprops);
+					dolayout = true;
+				end
+				RDXDK.AddUnlockOverlay(frame, frameprops);
+				RDXDK.ImbueManagedFrame(frame, name);
+				frameList[name] = frame;
+				framePropsList[name] = frameprops;
+				if dolayout then LayoutFrame(name); end
+				if not lockstate then frame:Unlock(frameprops); end
+			end
+		else
+			RDX.printE("Window " .. name .. " already add");
+		end
+	end
+	
+	local function windowClose(name, wtype)
+		RDXDK:Debug(6, "windowClose " .. name);
+		-- store the position in root feature
+		if name ~= "root" then
+			SetSavePosition(name, framePropsList[name]);
+		end
+		local frame = frameList[name];
+		if frame then
+			if not lockstate then frame:Lock(); end
+			RDXDK.CompletelyUndock(framePropsList[name]);
+			RDXDK.RemoveUnlockOverlay(frame);
+			frame:_Hide(.2, nil, function() 
+				UnlayoutFrame(name);
+				RDXDK.UnimbueManagedFrame(frame);
+				if wtype == "desktop_window" or wtype == "desktop_statuswindow" then
+					RDXDB._RemoveInstance(name);
+				elseif wtype == "desktop_windowless" then 
+					local wless = RDXDK.GetWindowLess(name);
+					wless.Close(frame, name);
+				end
+				framePropsList[name] = nil;
+				frameList[name] = nil;
+				RDXDB.DelFeatureData(self._path, wtype, "name", name);
+				windowUpdateAll("OVERLAY");
+			end);
+		else
+			RDX.printE("Window " .. name .. " is not in the desktop");
+		end
+	end
+	
+	local function windowRebuild(name, wtype)
+		RDXDK:Debug(6, "windowRebuild " .. name);
+		local frame = frameList[name];
+		if frame then
+			local md = RDXDB.GetObjectData(name);
+			if md and md.data then
+				if not lockstate then frame:Lock(); end
+				UnlayoutDockGroup(name);
+				if wtype == "desktop_window" then
+					if RDX.SetupWindow(name, frame, md.data) then
+						LayoutDockGroup(name);
+						if not lockstate then frame:Unlock(framePropsList[name]); end
+					end
+				elseif wtype == "desktop_statuswindow" then
+					if RDX.SetupStatusWindow(name, frame, md.data) then
+						LayoutDockGroup(name);
+						if not lockstate then frame:Unlock(framePropsList[name]); end
+					end
+				end
+			end
+		--else
+			--windowOpen(name, wtype);
+			--RDX.printE("Window " .. name .. " is not in the desktop");
+		end
+	end
+	
+	local function windowRebuildAll()
+		RDXDK:Debug(6, "windowRebuildAll");
+		for name, frameProps in pairs(framePropsList) do
+			local frame = frameList[name];
+			if frame then
+				local md, _, _, ty = RDXDB.GetObjectData(name);
+				if md and md.data then
+					if not lockstate then frame:Lock(); end
+					UnlayoutDockGroup(name);
+					if ty == "Window" then
+						if RDX.SetupWindow(name, frame, md.data) then
+							LayoutDockGroup(name);
+							if not lockstate then frame:Unlock(framePropsList[name]); end
+						end
+					elseif ty == "StatusWindow" then
+						if RDX.SetupStatusWindow(name, frame, md.data) then
+							LayoutDockGroup(name);
+							if not lockstate then frame:Unlock(framePropsList[name]); end
+						end
+					end
+				end
+			else
+				RDX.printE("Window " .. name .. " is not in the desktop");
+			end
+		end
+	end
+	
 	local function windowResetPosition()
 		RDXDK:Debug(6, "windowResetPosition");
 		for name, frameProps in pairs(framePropsList) do
@@ -690,7 +693,7 @@ function RDXDK.Desktop:new(parent)
 	end
 	
 	DesktopEvents:Bind("WINDOW_OPEN", nil, windowOpen, "desktop");
-	DesktopEvents:Bind("WINDOW_CLOSE", nil, function(name, wtype) windowClose(name, wtype); windowUpdateAll("OVERLAY"); end, "desktop");
+	DesktopEvents:Bind("WINDOW_CLOSE", nil, function(name, wtype) windowClose(name, wtype); end, "desktop");
 	DesktopEvents:Bind("WINDOW_REBUILD", nil, windowRebuild, "desktop");
 	DesktopEvents:Bind("WINDOW_REBUILD_ALL", nil, windowRebuildAll, "desktop");
 	DesktopEvents:Bind("WINDOW_UPDATE", nil, windowUpdate, "desktop");

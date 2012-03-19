@@ -688,8 +688,8 @@ end
 local function TimerHide2(f, t, z, fhide)
 	if not t then 
 		f:Hide();
-		if type(func) == "function" then
-			func();
+		if type(fhide) == "function" then
+			fhide();
 		end
 		return;
 	end
@@ -703,6 +703,13 @@ local function TimerHide2(f, t, z, fhide)
 		f.fhide = fhide;
 	end
 	f:SetScript("OnUpdate", HideUpdate);
+end
+
+local function TimerHide3(f, t, z, fhide)
+	f:Hide();
+	if type(fhide) == "function" then
+		fhide();
+	end
 end
 
 local function ShowUpdate(self, elapsed)
@@ -743,6 +750,10 @@ local function TimerShow2(f, t, z, fshow)
 	if f.z then f:SetScale(0.01); end
 	f:Show();
 	f:SetScript("OnUpdate", ShowUpdate);
+end
+
+local function TimerShow3(f, t, z, fshow)
+	f:Show();
 end
 
 ----------------------------------
@@ -800,8 +811,8 @@ function VFLUI.AcquireFrame(frameType, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10)
 		frame._hookedHideShow = true;
 		--hooksecurefunc(frame, "Hide", TimerHide2);
 		--hooksecurefunc(frame, "Show", TimerShow2);
-		frame._Hide = TimerHide2;      
-		frame._Show = TimerShow2;
+		frame._Hide = TimerHide3;      
+		frame._Show = TimerShow3;
 	end
 	--frame.AnimationGroup = frame:CreateAnimationGroup();
 	return frame;

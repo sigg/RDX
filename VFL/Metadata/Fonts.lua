@@ -107,6 +107,16 @@ VFLUI.RegisterFont({
 });
 
 VFLUI.RegisterFont({
+	name = "Default10Shadowed";
+	title = "Default Shadowed";
+	face = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf";
+	size = 10;
+	flags = nil;
+	color = {r=1,g=1,b=1};
+	sx = 1; sy = -1; sr = 0; sg = 0; sb = 0; sa = 1;
+});
+
+VFLUI.RegisterFont({
 	name = "BastardusSans";
 	title = "BastardusSans";
 	face = "Interface\\Addons\\VFL\\Fonts\\bs.ttf";

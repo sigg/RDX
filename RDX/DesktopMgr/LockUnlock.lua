@@ -155,7 +155,7 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 		tfIdent = VFLUI.CreateFontString(tf);
 		tfIdent:SetJustifyV("CENTER");
 		tfIdent:SetJustifyH("CENTER");
-		tfIdent:SetFontObject(Fonts.Default10);
+		tfIdent:SetFontObject(Fonts.Default10Shadowed);
 		tfIdent:Show();
 	else
 		tf = VFLUI.AcquireFrame("Frame");
