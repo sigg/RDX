@@ -247,6 +247,7 @@ for _,frame in frame.]] .. objname .. [[:ActiveChildren() do
 		btn.ftc:Destroy(); btn.ftc = nil;
 		btn:Destroy(); btn = nil;
 	end
+	frame.btn = nil;
 end
 local tempEnchant1 = frame.]] .. objname .. [[:GetAttribute("tempEnchant1");
 if tempEnchant1 then
@@ -255,6 +256,7 @@ if tempEnchant1 then
 		btn.ftc:Destroy(); btn.ftc = nil;
 		btn:Destroy(); btn = nil;
 	end
+	tempEnchant1.btn = nil;
 end
 local tempEnchant2 = frame.]] .. objname .. [[:GetAttribute("tempEnchant2");
 if tempEnchant2 then
@@ -263,6 +265,7 @@ if tempEnchant2 then
 		btn.ftc:Destroy(); btn.ftc = nil;
 		btn:Destroy(); btn = nil;
 	end
+	tempEnchant2.btn = nil;
 end
 local tempEnchant3 = frame.]] .. objname .. [[:GetAttribute("tempEnchant3");
 if tempEnchant3 then
@@ -271,6 +274,7 @@ if tempEnchant3 then
 		btn.ftc:Destroy(); btn.ftc = nil;
 		btn:Destroy(); btn = nil;
 	end
+	tempEnchant3.btn = nil;
 end
 frame.]] .. objname .. [[:Destroy();
 frame.]] .. objname .. [[ = nil;

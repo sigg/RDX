@@ -41,7 +41,7 @@ function VFL.OpenErrorDialog()
 	viewBox:SetPoint("TOPLEFT", errorList, "BOTTOMLEFT");
 	viewBox:SetWidth(390); viewBox:SetHeight(250); viewBox:Show();
 	
-	dlg:Show(.2, true);
+	dlg:_Show(.2, true);
 
 	--------------------- Repaint
 	local function Repaint()
@@ -58,10 +58,7 @@ function VFL.OpenErrorDialog()
 	-------------------- Interactions
 	
 	local esch = function()
-		dlg:Hide(.2, true);
-		VFLT.ZMSchedule(.25, function()
-			dlg:Destroy(); dlg = nil;
-		end);
+		dlg:_Hide(.2, true, function() dlg:Destroy(); dlg = nil; end);
 	end
 	VFL.AddEscapeHandler(esch);
 	

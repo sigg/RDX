@@ -595,6 +595,7 @@ VFLUI.CreateFramePool("MessageFrame", function(pool, x)
 end, function() return CreateFrame("MessageFrame", "MessageFrame_" .. VFL.GetNextID()); end);
 
 -- New Hide/Show functions for frames.
+--[[
 local function TimerHide(f, t, z)
 	if not t then return; end
 	-- Calling because this function is hooked securely post-show.
@@ -654,6 +655,94 @@ local function TimerShow(f, t, z)
 			f:SetScale(VFL.lerp1(1/t*totalElapsed, 0.01, f._originalScale));
 		end
 	end);
+end]]
+
+local function HideUpdate(self, elapsed)
+	self.totalElapsed = self.totalElapsed + elapsed;
+	if self.totalElapsed > self.t then
+		self:SetScript("OnUpdate", nil);
+		self.totalElapsed = 0;
+		self:Hide();
+		self:SetAlpha(self._originalAlpha or 1);
+		if self.z then
+			self:SetScale(self._originalScale or 1);
+		end
+		if self.fhide then self.fhide(); end
+		self._originalAlpha = nil;
+		self._originalScale = nil;
+		self.totalElapsed = nil;
+		self.tmp = nil;
+		self.t = nil;
+		self.z = nil;
+		self.fhide = nil;
+		return;
+	end
+	self:SetAlpha(VFL.lerp1(1/self.t*self.totalElapsed, self._originalAlpha, 0));
+	if self.z then
+		self.tmp = VFL.lerp1(1/self.t*self.totalElapsed, self._originalScale, 0.01);
+		if self.tmp == 0 then self.tmp = 0.01; end
+		self:SetScale(self.tmp);
+	end
+end
+
+local function TimerHide2(f, t, z, fhide)
+	if not t then 
+		f:Hide();
+		if type(func) == "function" then
+			func();
+		end
+		return;
+	end
+	f._originalAlpha = f:GetAlpha();
+	f._originalScale = f:GetScale();
+	f.totalElapsed = 0;
+	f.tmp = 0;
+	f.t = t;
+	f.z = z;
+	if type(fhide) == "function" then
+		f.fhide = fhide;
+	end
+	f:SetScript("OnUpdate", HideUpdate);
+end
+
+local function ShowUpdate(self, elapsed)
+	self.totalElapsed = self.totalElapsed + elapsed;
+	if self.totalElapsed > self.t then
+		self:SetScript("OnUpdate", nil);
+		self.totalElapsed = 0;
+		self:SetAlpha(self._originalAlpha or 1);
+		if self.z then
+			self:SetScale(self._originalScale or 1);
+		end
+		if self.fshow then self.fshow(); end
+		self._originalAlpha = nil;
+		self._originalScale = nil;
+		self.totalElapsed = nil;
+		self.t = nil;
+		self.z = nil;
+		self.fshow = nil;
+		return;
+	end
+	self:SetAlpha(VFL.lerp1(1/self.t*self.totalElapsed, 0, self._originalAlpha));
+	if self.z then
+		self:SetScale(VFL.lerp1(1/self.t*self.totalElapsed, 0.01, self._originalScale));
+	end
+end
+
+local function TimerShow2(f, t, z, fshow)
+	if not t then f:Show(); return; end
+	f._originalAlpha = f:GetAlpha();
+	f._originalScale = f:GetScale();
+	f.totalElapsed = 0;
+	f.t = t;
+	f.z = z;
+	if type(fshow) == "function" then
+		f.fshow = fshow;
+	end
+	f:SetAlpha(0);
+	if f.z then f:SetScale(0.01); end
+	f:Show();
+	f:SetScript("OnUpdate", ShowUpdate);
 end
 
 ----------------------------------
@@ -707,11 +796,13 @@ function VFLUI.AcquireFrame(frameType, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10)
 	frame._VFL = true;
 	frame._sourcePool = pool;
 	frame.Destroy = GenericDestroy;
-	--if not frame._hookedHideShow then
-		--frame._hookedHideShow = true;
-		--hooksecurefunc(frame, "Hide", TimerHide);
-		--hooksecurefunc(frame, "Show", TimerShow);
-	--end
+	if not frame._hookedHideShow then
+		frame._hookedHideShow = true;
+		--hooksecurefunc(frame, "Hide", TimerHide2);
+		--hooksecurefunc(frame, "Show", TimerShow2);
+		frame._Hide = TimerHide2;      
+		frame._Show = TimerShow2;
+	end
 	--frame.AnimationGroup = frame:CreateAnimationGroup();
 	return frame;
 end

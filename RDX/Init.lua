@@ -96,8 +96,7 @@ local function VariablesLoaded()
 		--end
 	
 		-- Now init smooth features.
-		-- disable because memory leak
-		--RDX.smooth = 0.2;
+		RDX.smooth = 0.2;
 	end);
 end
 

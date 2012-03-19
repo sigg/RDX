@@ -279,7 +279,7 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 		frame.tfc:Hide();
 	end
 	
-	function frame:Unlock(frameprops, noanim)
+	function frame:Unlock(frameprops)
 		if frame.tfIdent then
 			local h, w = 0, 0;
 			if frame:GetHeight() < 20 then h = 30; end
@@ -294,11 +294,7 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 			frame.tfIdent:SetHeight(frame.tf:GetHeight()-5);
 			frame.tfIdent:SetText(frame._path);
 			
-			if noanim then
-				frame.tf:Show();
-			else
-				frame.tf:Show(.2, true);
-			end
+			frame.tf:_Show(0.5);
 		end
 		frame.tfl.data = frameprops; frame.tfl:Show();
 		frame.tftl.data = frameprops; frame.tftl:Show();
@@ -312,15 +308,11 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 		frame:UpdateUnlockOverlay(frameprops);
 	end
 	
-	function frame:Lock(noanim)
+	function frame:Lock()
 		if frame.tfIdent then
 			frame.tf:SetScript("OnMouseDown", nil);
 			frame.tf:SetScript("OnMouseUp", nil);
-			if noanim then
-				frame.tf:Hide();
-			else
-				frame.tf:Hide(.2, true);
-			end
+			frame.tf:_Hide(0.2);
 		end
 		frame.tfl.data = nil; frame.tfl:Hide();
 		frame.tftl.data = nil; frame.tftl:Hide();
