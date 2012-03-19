@@ -1,0 +1,4 @@
+
+function RDX.RegisterTextureIcon()
+
+end

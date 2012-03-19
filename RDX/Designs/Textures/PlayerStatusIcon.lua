@@ -18,7 +18,7 @@ if UnitAffectingCombat(uid) or ((myunit.rosterName == name) and IsResting()) the
 else
 	if btn:IsShown() then btn:Hide(0.2); end
 end
-]]); 
+]];
 	event = "PLAYER_UPDATE_RESTING";
 });
 

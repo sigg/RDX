@@ -276,6 +276,7 @@ Designs\Texts\StatusText.lua
 Designs\Texts\OtherText.lua
 Designs\Texts\CombatText.lua
 
+Designs\Textures\TextureIcon.lua
 Designs\Textures\ClassIcon.lua
 Designs\Textures\FactionIcon.lua
 Designs\Textures\MasterLooterIcon.lua

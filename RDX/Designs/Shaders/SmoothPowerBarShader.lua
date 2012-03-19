@@ -25,7 +25,7 @@ return function(self)
 		self.fp = self.unit:FracPower();
 ]];
 	if statusBar then onUpdate = onUpdate .. "self.bar:Show(); self.bar:SetValue(self.fp);"; end
-	if textPower then onUpdate = onUpdate .. "self.text:SetText(strformat('%0.0f%%', self.fp*100));"; end
+	if textPower then onUpdate = onUpdate .. "self.text:SetText(string.format('%0.0f%%', self.fp*100));"; end
 	
 	-- stop when max power
 	onUpdate = onUpdate .. [[

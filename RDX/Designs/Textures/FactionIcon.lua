@@ -21,7 +21,7 @@ if pvptype then
 else
 	if btn:IsShown() then btn:Hide(0.2); end
 end
-]]); 
+]];
 	event = "UNIT_FACTION";
 });
 
