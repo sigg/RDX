@@ -82,15 +82,15 @@ frame.]] .. objname .. [[:SetValue(0);
 		local paintCode;
 		if frac ~= "" then
 			paintCode = [[
-local ac = 0.2;
-if ]] .. desc.frac .. [[ == 1 or ]] .. desc.frac .. [[ == 0 then ac = nil; else ac = 0.2; end
+_i = 0.2;
+if ]] .. desc.frac .. [[ == 1 or ]] .. desc.frac .. [[ == 0 then _i = nil; else _i = 0.2; end
 ]];
 			if desc.interpolate then
 				if colorVar ~= "" then paintCode = paintCode .. [[
-frame.]] .. objname .. [[:SetValueAndColorTable(]] .. desc.frac .. [[, ]] .. desc.colorVar .. [[,ac);
+frame.]] .. objname .. [[:SetValueAndColorTable(]] .. desc.frac .. [[, ]] .. desc.colorVar .. [[,_i);
 ]];
                 		else paintCode = paintCode .. [[
-frame.]] .. objname .. [[:SetValue(]] .. desc.frac .. [[,ac);
+frame.]] .. objname .. [[:SetValue(]] .. desc.frac .. [[,_i);
 ]];
                 		end
 			else

@@ -56,7 +56,7 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local fvar = RDXUI.ResolveFrameReference(desc.owner);
 		local paintCode = [[
-]] .. fvar .. [[:SetBackdropBorderColor(VFL.explodeRGBA(]] .. desc.color .. [[));
+]] .. fvar .. [[:SetBackdropBorderColor(explodeRGBA(]] .. desc.color .. [[));
 ]];
 		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 	end;
@@ -80,7 +80,7 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local fvar = RDXUI.ResolveFrameReference(desc.owner);
 		local paintCode = [[
-]] .. fvar .. [[:SetBackdropColor(VFL.explodeRGBA(]] .. desc.color .. [[));
+]] .. fvar .. [[:SetBackdropColor(explodeRGBA(]] .. desc.color .. [[));
 ]];
 		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 	end;

@@ -113,14 +113,14 @@ frame.]] .. objname .. [[ = nil;
 		local smooth = "nil"; if desc.smooth then smooth = "RDX.smooth"; end
 
 		local paintCode = [[
-local number = VFL.clamp(]] .. desc.number .. [[, 0, ]] .. desc.nIcons .. [[);
-if number and number > 0 then
-	for i=1, number do
+_i = VFL.clamp(]] .. desc.number .. [[, 0, ]] .. desc.nIcons .. [[);
+if _i and _i > 0 then
+	for i=1, _i do
 		frame.]] .. objname .. [[[i].tex:SetVertexColor(VFL.explodeRGBA(color]] .. objname .. [[[i]));
 		frame.]] .. objname .. [[[i]:Show();
 	end
-	if number < ]] .. desc.nIcons .. [[ then
-		for i=(number + 1), ]] .. desc.nIcons .. [[ do
+	if _i < ]] .. desc.nIcons .. [[ then
+		for i=(_i + 1), ]] .. desc.nIcons .. [[ do
 			frame.]] .. objname .. [[[i]:Hide();
 		end
 	end

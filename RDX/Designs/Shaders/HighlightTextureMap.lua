@@ -109,7 +109,7 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local tname = RDXUI.ResolveTextureReference(desc.texture);
 		local paintCode = [[
-]] .. tname .. [[:SetVertexColor(VFL.explodeRGBA(]] .. desc.color .. [[));
+]] .. tname .. [[:SetVertexColor(explodeRGBA(]] .. desc.color .. [[));
 ]];
 		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 	end;

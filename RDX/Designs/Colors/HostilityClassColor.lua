@@ -42,27 +42,27 @@ hostileColor_class_cf[13] = ]] .. Serialize(desc.friendlyDeathKnightColor) .. [[
         state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
             code:AppendCode([[
 local ]]  .. desc.name .. [[ = hostileColor_class_cf[1];
-local classMnemonic = unit:GetClassMnemonic();
+_name = unit:GetClassMnemonic();
 if UnitIsFriend(uid, "player") and UnitIsPlayer(uid) then
-    if classMnemonic == "PRIEST" then
+    if _name == "PRIEST" then
         ]] .. desc.name .. [[  = hostileColor_class_cf[4];
-    elseif classMnemonic == "WARLOCK" then
+    elseif _name == "WARLOCK" then
         ]] .. desc.name .. [[  = hostileColor_class_cf[5];
-    elseif classMnemonic == "HUNTER" then
+    elseif _name == "HUNTER" then
         ]] .. desc.name .. [[  = hostileColor_class_cf[6];
-    elseif classMnemonic == "WARRIOR" then
+    elseif _name == "WARRIOR" then
         ]] .. desc.name .. [[  = hostileColor_class_cf[7];
-    elseif classMnemonic == "PALADIN" then
+    elseif _name == "PALADIN" then
         ]] .. desc.name .. [[  = hostileColor_class_cf[8];
-    elseif classMnemonic == "MAGE" then
+    elseif _name == "MAGE" then
         ]] .. desc.name .. [[  = hostileColor_class_cf[9];
-    elseif classMnemonic == "DRUID" then
+    elseif _name == "DRUID" then
         ]] .. desc.name .. [[  = hostileColor_class_cf[10];
-    elseif classMnemonic == "SHAMAN" then
+    elseif _name == "SHAMAN" then
         ]] .. desc.name .. [[  = hostileColor_class_cf[11];
-    elseif classMnemonic == "ROGUE" then
+    elseif _name == "ROGUE" then
         ]] .. desc.name .. [[  = hostileColor_class_cf[12];
-    elseif classMnemonic == "DEATHKNIGHT" then
+    elseif _name == "DEATHKNIGHT" then
         ]] .. desc.name .. [[  = hostileColor_class_cf[13];
     else
         ]] .. desc.name .. [[  = hostileColor_class_cf[1];

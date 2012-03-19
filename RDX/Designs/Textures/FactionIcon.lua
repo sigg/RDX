@@ -1,4 +1,30 @@
 
+RDX.RegisterTextureIcon({
+	name = "Faction";
+	createCode = [[
+]];
+	paintCodeTest = [[
+]];
+	paintCode = [[
+local pvptype, faction, pvpc = nil, nil, nil;
+if UnitIsPVPFreeForAll(uid) then 
+	pvptype = "FFA";
+else
+	faction = UnitFactionGroup(uid);
+	if faction then pvptype = faction; end
+end
+if pvptype then
+	pvpc = RDXMD.GetPVPIcon(pvptype);
+	btn._t:SetTexture("Interface\\TargetingFrame\\UI-PVP-" .. pvptype);
+	btn._t:SetTexCoord(pvpc[1], pvpc[2], pvpc[3], pvpc[4]);
+	if not btn:IsShown() then btn:Show(0.2); end
+else
+	if btn:IsShown() then btn:Hide(0.2); end
+end
+]]); 
+	event = "UNIT_FACTION";
+});
+
 RDX.RegisterFeature({
 	name = "tex_pvp";
 	title = VFLI.i18n("Icon Faction");

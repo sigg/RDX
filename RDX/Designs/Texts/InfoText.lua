@@ -25,8 +25,8 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-local _, duiname = RDXDB.ParsePath(RDXU.AUI);
-text = "AUI: " .. (duiname or "Unknown");
+_, word = RDXDB.ParsePath(RDXU.AUI);
+text = "AUI: " .. (word or "Unknown");
 ]]; end;
 });
 
@@ -128,12 +128,12 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-local ebags, slots = 0, 0;
+_i, _j = 0, 0;
 for i=1, 4 do 
-	slots = GetContainerNumFreeSlots(i);
-	ebags = ebags + slots;
+	_j = GetContainerNumFreeSlots(i);
+	_i = _i + _j;
 end
-text = ebags;
+text = _i;
 ]]; end;
 });
 
@@ -150,8 +150,8 @@ RDX.RegisterOtherTextType({
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
 CheckInbox();
-local mail = GetInboxNumItems();
-if mail then text = mail; else text = "0"; end 
+_i = GetInboxNumItems();
+if _i then text = _i; else text = "0"; end 
 ]]; end;
 });
 
@@ -167,15 +167,15 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-local zone = GetMinimapZoneText();
-local x, y = GetPlayerMapPosition("player");
-local coords;
-if(x == 0 and y == 0) then
-	coords = "";
+_bn = GetMinimapZoneText();
+_i, _j = GetPlayerMapPosition("player");
+_apps = "";
+if(_i == 0 and _j == 0) then
+	_apps = "";
 else
-	coords = " "..format("%.2d || %.2d",x*100,y*100);
+	_apps = " "..format("%.2d || %.2d",_i*100,_j*100);
 end
-text = (zone..coords);
+text = (_bn.._apps);
 ]]; end;
 });
 
@@ -227,20 +227,20 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-local zone = GetMinimapZoneText();
-local pvpType = GetZonePVPInfo();
-if (pvpType == "sanctuary") then 
-  color = VFL.strcolor(.408,.8,.937) .. zone; 
-elseif (pvpType == "arena") then 
-  color = VFL.strcolor(1,.098,.098) ..  zone;
-elseif (pvpType == "friendly") then 
-  color = VFL.strcolor(.098,1,.098) .. zone;
-elseif (pvpType == "hostile" or pvpType == "combat") then 
-  color = VFL.strcolor(1,.098,.098) .. zone;
-elseif (pvpType == "contested") then 
-  color = VFL.strcolor(1,.635,0) .. zone;
-elseif (pvpType == nil) then 
-  color = VFL.strcolor(1,.98,.98) .. zone;
+_bn = GetMinimapZoneText();
+_apps = GetZonePVPInfo();
+if (_apps == "sanctuary") then 
+  color = VFL.strcolor(.408,.8,.937) .. _bn; 
+elseif (_apps == "arena") then 
+  color = VFL.strcolor(1,.098,.098) ..  _bn;
+elseif (_apps == "friendly") then 
+  color = VFL.strcolor(.098,1,.098) .. _bn;
+elseif (_apps == "hostile" or _apps == "combat") then 
+  color = VFL.strcolor(1,.098,.098) .. _bn;
+elseif (_apps == "contested") then 
+  color = VFL.strcolor(1,.635,0) .. _bn;
+elseif (_apps == nil) then 
+  color = VFL.strcolor(1,.98,.98) .. _bn;
 end;
 text = color
 ]]; end;
@@ -379,14 +379,13 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-local money = GetMoney();
-
-if money <= 99 then
-  text = VFL.strcolor(1,.450,.300) .. money .. "c";
-elseif money >= 100 and money <= 9999 then
-  text = VFL.strcolor(.750,.900,1) .. strsub(money,  -4, -3) .. "s " .. VFL.strcolor(1,.450,.300) .. strsub(money,  -2) .. "c";
-elseif money >= 10000 then
-  text = VFL.strtcolor(_yellow) .. strsub(money, 0, -5) .. "g " .. VFL.strcolor(.750,.900,1) .. strsub(money,  -4, -3) .. "s " .. VFL.strcolor(1,.450,.300) .. strsub(money,  -2) .. "c";
+_i = GetMoney();
+if _i <= 99 then
+  text = VFL.strcolor(1,.450,.300) .. _i .. "c";
+elseif _i >= 100 and _i <= 9999 then
+  text = VFL.strcolor(.750,.900,1) .. strsub(_i,  -4, -3) .. "s " .. VFL.strcolor(1,.450,.300) .. strsub(_i,  -2) .. "c";
+elseif _i >= 10000 then
+  text = VFL.strtcolor(_yellow) .. strsub(_i, 0, -5) .. "g " .. VFL.strcolor(.750,.900,1) .. strsub(_i,  -4, -3) .. "s " .. VFL.strcolor(1,.450,.300) .. strsub(_i,  -2) .. "c";
 else
   text = "";
 end
@@ -405,15 +404,15 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-local _, _, scaledPercent, _, _ = UnitDetailedThreatSituation("player", "target");
-if scaledPercent > 90 then
-	text = VFL.strtcolor(_red) .. scaledPercent .. "%";
-elseif scaledPercent > 70 then
-	text = VFL.strtcolor(_orange) .. scaledPercent .. "%";
-elseif scaledPercent > 50 then
-	text = VFL.strtcolor(_yellow) .. scaledPercent .. "%";
+_, _, _i, _, _ = UnitDetailedThreatSituation("player", "target");
+if _i > 90 then
+	text = VFL.strtcolor(_red) .. _i .. "%";
+elseif _i > 70 then
+	text = VFL.strtcolor(_orange) .. _i .. "%";
+elseif _i > 50 then
+	text = VFL.strtcolor(_yellow) .. _i .. "%";
 else
-	text = VFL.strtcolor(_green) .. scaledPercent .. "%";
+	text = VFL.strtcolor(_green) .. _i .. "%";
 end
 ]]; end;
 });
