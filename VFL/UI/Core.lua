@@ -809,10 +809,8 @@ function VFLUI.AcquireFrame(frameType, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10)
 	frame.Destroy = GenericDestroy;
 	if not frame._hookedHideShow then
 		frame._hookedHideShow = true;
-		--hooksecurefunc(frame, "Hide", TimerHide2);
-		--hooksecurefunc(frame, "Show", TimerShow2);
-		frame._Hide = TimerHide3;      
-		frame._Show = TimerShow3;
+		frame._Hide = TimerHide2;
+		frame._Show = TimerShow2;
 	end
 	--frame.AnimationGroup = frame:CreateAnimationGroup();
 	return frame;

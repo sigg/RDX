@@ -191,27 +191,25 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-local time24 = false --True if you want military time
-local hour = date("%H")
-local minute = date("%M")
+_apps = false;
+_i = date("%H");
+_j = date("%M");
 --minute = floor(minute / 10) == 0 and "0" .. minute or minute
-local time = ""
-if time24 == true then
-  time = hour .. ":" .. minute
+text = "";
+
+if _apps then
+	text = _i .. ":" .. _j;
 else
-  local ampm = (floor(hour / 12) == 1) and  "pm" or "am"
-  hour = mod(hour, 12)
-  if hour == 0 then
-    hour = 12
-  end
-  if ampm == "pm" then 
-    ampm = VFL.strtcolor(_bluesky) .. ampm
-  else
-    ampm = VFL.strcolor(1,1,.5) .. ampm
-  end
-  time = hour .. ":" .. minute .. " " .. ampm
+	_meta = (floor(hour / 12) == 1) and  "pm" or "am";
+	_i = mod(_i, 12);
+	if _i == 0 then _i = 12 end
+	if _meta == "pm" then
+		_meta = VFL.strtcolor(_bluesky) .. _meta;
+	else
+		_meta = VFL.strcolor(1,1,.5) .. _meta;
+	end
+	text = _i .. ":" .. _j .. " " .. _meta;
 end
-text = time
 ]]; end;
 });
 
@@ -258,17 +256,17 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-local f = 0;
-local bnf = 0;
+_i = 0;
+_j = 0;
 for n=1, GetNumFriends() do
-  _,_,_,_, conn = GetFriendInfo(n);
-  if conn then f = f +1; end
+  _,_,_,_, _apps = GetFriendInfo(n);
+  if _apps then _i = _i + 1; end
 end
 for bn=1, BNGetNumFriends() do
-  _,_,_,_, conn = BNGetFriendInfo(bn);
-  if conn then bnf = bnf +1; end
+  _,_,_,_, _apps = BNGetFriendInfo(bn);
+  if _apps then _j = _j + 1; end
 end
-text = VFL.strtcolor(_white) .. "F: " .. VFL.strcolor(1,1,.50) .. f .. VFL.strtcolor(_white) .. "/" .. VFL.strcolor(1,1,.5) .. GetNumFriends() .. VFL.strtcolor(_white) .. " BN: " .. VFL.strtcolor(_bluesky) .. bnf .. VFL.strtcolor(_white) ..  "/" .. VFL.strtcolor(_bluesky) .. BNGetNumFriends();
+text = VFL.strtcolor(_white) .. "F: " .. VFL.strcolor(1,1,.50) .. _i .. VFL.strtcolor(_white) .. "/" .. VFL.strcolor(1,1,.5) .. GetNumFriends() .. VFL.strtcolor(_white) .. " BN: " .. VFL.strtcolor(_bluesky) .. _j .. VFL.strtcolor(_white) ..  "/" .. VFL.strtcolor(_bluesky) .. BNGetNumFriends();
 ]]; end;
 });
 
@@ -284,28 +282,28 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-local fpstext = "";
-local fps = floor(GetFramerate() or "" );
-if fps >= 50 then
-  fpstext = VFL.strtcolor(_green) ..fps ..VFL.strtcolor(_white) .."fps ";
-elseif fps <= 49 and fps >= 35 then
-  fpstext = VFL.strtcolor(_yellow) ..fps ..VFL.strtcolor(_white) .."fps ";
-elseif fps <= 34 and fps >= 21 then
-  fpstext = VFL.strtcolor(_orange) ..fps ..VFL.strtcolor(_white) .."fps ";
-elseif fps <= 20 then
-  fpstext = VFL.strtcolor(_red) .. fps .. VFL.strtcolor(_white) .."fps ";
+_apps = "";
+_i = floor(GetFramerate() or "");
+if _i >= 50 then
+  _apps = VFL.strtcolor(_green) .. _i ..VFL.strtcolor(_white) .."fps ";
+elseif _i <= 49 and _i >= 35 then
+  _apps = VFL.strtcolor(_yellow) .. _i ..VFL.strtcolor(_white) .."fps ";
+elseif _i <= 34 and _i >= 21 then
+  _apps = VFL.strtcolor(_orange) .. _i ..VFL.strtcolor(_white) .."fps ";
+elseif _i <= 20 then
+  _apps = VFL.strtcolor(_red) .. _i .. VFL.strtcolor(_white) .."fps ";
 end;
-local _,_,lag = GetNetStats();
-if lag <= 125 then
-  lag = VFL.strtcolor(_green) ..lag.. VFL.strtcolor(_white) .. "ms";
-elseif lag >= 126 and lag <= 250 then
-  lag = VFL.strtcolor(_yellow) ..lag.. VFL.strtcolor(_white) .. "ms";
-elseif lag >= 251 and lag <= 375 then
-  lag = VFL.strtcolor(_orange) ..lag.. VFL.strtcolor(_white) .. "ms";
-elseif lag >= 376 then
-  lag = VFL.strtcolor(_red) ..lag.. VFL.strtcolor(_white) .. "ms";
+_,_, _j = GetNetStats();
+if _j <= 125 then
+  _j = VFL.strtcolor(_green) .. _j .. VFL.strtcolor(_white) .. "ms";
+elseif _j >= 126 and _j <= 250 then
+  _j = VFL.strtcolor(_yellow) .. _j .. VFL.strtcolor(_white) .. "ms";
+elseif _j >= 251 and _j <= 375 then
+  _j = VFL.strtcolor(_orange) .. _j .. VFL.strtcolor(_white) .. "ms";
+elseif _j >= 376 then
+  _j = VFL.strtcolor(_red) .. _j .. VFL.strtcolor(_white) .. "ms";
 end;  
-text = fpstext  .. lag;
+text = _apps  .. _j;
 ]]; end;
 });
 
@@ -321,20 +319,18 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-local total = GetNumGuildMembers(true)
-local onlineTotal = 0
-local offlineTotal = 0
-for i = 1, total 
-do 
-  local name, rank, rankIndex, level, class, zone, note, officernote, online, status, classFileName = GetGuildRosterInfo(i)
-  if online
-  then
-    onlineTotal = onlineTotal + 1
-  else
-    offlineTotal = offlineTotal + 1
-  end
+_i = GetNumGuildMembers(true);
+_j = 0;
+--_bn = 0;
+for i = 1, _i do
+	_,_,_,_,_,_,_,_,_apps = GetGuildRosterInfo(i);
+	if _apps then
+		_j = _j + 1;
+	--else
+	--	_bn = _bn + 1;
+	end
 end
-text =  "Guild: " .. VFL.strtcolor(_green) .. onlineTotal;
+text =  "Guild: " .. VFL.strtcolor(_green) .. _j;
 ]]; end;
 });
 
@@ -350,19 +346,18 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-local currdur, maxdur = Logistics.GetDurability();
-local dura = floor((currdur/maxdur) *100);
-
-if dura >=75 then
-  text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_green) .. dura .. VFL.strtcolor(_white) .. "%";
-elseif dura <=74 and dura >=50 then
-  text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_yellow) .. dura .. VFL.strtcolor(_white) .. "%";
-elseif dura <=49 and dura >=25 then
-  text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_orange)  .. dura .. VFL.strtcolor(_white) .. "%";
-elseif dura <= 24 then
-  text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_red).. dura .. VFL.strtcolor(_white) .. "%";
+_i, _j = Logistics.GetDurability();
+_apps = floor((_i/_j) *100);
+if _apps >=75 then
+	text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_green) .. _apps .. VFL.strtcolor(_white) .. "%";
+elseif _apps <=74 and _apps >=50 then
+	text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_yellow) .. _apps .. VFL.strtcolor(_white) .. "%";
+elseif _apps <=49 and _apps >=25 then
+	text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_orange)  .. _apps .. VFL.strtcolor(_white) .. "%";
+elseif _apps <= 24 then
+	text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_red).. _apps .. VFL.strtcolor(_white) .. "%";
 else
-  text = "";
+	text = "";
 end;
 ]]; end;
 });

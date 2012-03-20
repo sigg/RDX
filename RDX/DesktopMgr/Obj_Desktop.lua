@@ -345,7 +345,8 @@ function RDXDK.Desktop:new(parent)
 		--if noanim and not frame:IsShown() then
 		--	frame:Show();
 		--elseif not frame:IsShown() then
-			frame:_Show(RDX.smooth);
+			--frame:_Show(RDX.smooth);
+			frame:Show();
 		--end
 		--RDX:Debug(5, "Show WindowObject<", frame._dk_name, ">");
 		frame:UpdateUnlockOverlay(frameprops);
@@ -611,7 +612,8 @@ function RDXDK.Desktop:new(parent)
 			if not lockstate then frame:Lock(); end
 			RDXDK.CompletelyUndock(framePropsList[name]);
 			RDXDK.RemoveUnlockOverlay(frame);
-			frame:_Hide(.2, nil, function() 
+			frame:Hide();
+			--frame:_Hide(.2, nil, function() 
 				UnlayoutFrame(name);
 				RDXDK.UnimbueManagedFrame(frame);
 				if wtype == "desktop_window" or wtype == "desktop_statuswindow" then
@@ -624,7 +626,7 @@ function RDXDK.Desktop:new(parent)
 				frameList[name] = nil;
 				RDXDB.DelFeatureData(self._path, wtype, "name", name);
 				windowUpdateAll("OVERLAY");
-			end);
+			--end);
 		else
 			RDX.printE("Window " .. name .. " is not in the desktop");
 		end

@@ -211,15 +211,14 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	local guild, pguild;
 	text = "";
 	textcolor = _grey;
 	if UnitIsPlayer(uid) then
-		guild = GetGuildInfo(uid);
-		if guild then
-			text = guild;
-			pguild = GetGuildInfo("player")
-			if guild == pguild then
+		_apps = GetGuildInfo(uid);
+		if _apps then
+			text = _apps;
+			_meta = GetGuildInfo("player")
+			if _apps == _meta then
 				if string.len(text) > 22 then text = string.sub(text,1,22); end
 				textcolor = _green;
 			else
@@ -239,20 +238,20 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	local classification = UnitClassification(uid);
+	_meta = UnitClassification(uid);
 	text = "";
 	textcolor = _grey;
-	if (classification ~= "normal") then
-		if (classification == "worldboss") then
+	if (_meta ~= "normal") then
+		if (_meta == "worldboss") then
 			text = "Boss";
 			textcolor = _white;
-		elseif (classification == "rareelite") then
+		elseif (_meta == "rareelite") then
 			text = "Rare Elite";
 			textcolor = _yellow;
-		elseif (classification == "elite") then
+		elseif (_meta == "elite") then
 			text = "Elite Mob";
 			textcolor = _yellow;
-		elseif (classification == "rare") then
+		elseif (_meta == "rare") then
 			text = "Rare Mob";
 			textcolor = _grey;
 		end
@@ -461,11 +460,11 @@ RDX.RegisterStatusTextType({
 	OnApply = mpHint;
 	GeneratePaintCode = function(objname) return [[
 		if not unit:IsIncapacitated() then
-			local pt = unit:PowerType();
-			if pt == 0 then text = "Mana: ";
-			elseif pt == 1 then text = "Rage: ";
-			elseif pt == 3 then text = "Energy: ";
-			elseif pt == 6 then text = "Rune: ";
+			_i = unit:PowerType();
+			if _i == 0 then text = "Mana: ";
+			elseif _i == 1 then text = "Rage: ";
+			elseif _i == 3 then text = "Energy: ";
+			elseif _i == 6 then text = "Rune: ";
 			end
 			RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
 			]] .. objname .. [[:SetFormattedText("%s%0.0f%%", text, unit:FracPower()*100);
