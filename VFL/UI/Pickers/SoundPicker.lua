@@ -99,7 +99,7 @@ local function ClosePicker(nosmooth)
 		owner = nil;
 		onCancel = VFL.Noop; onOK = VFL.Noop;
 	else
-		picker:_Hide(.2, true, function()
+		picker:_Hide(.2, nil, function()
 			pathEdit:SetText("");
 			owner = nil;
 			onCancel = VFL.Noop; onOK = VFL.Noop;
@@ -119,7 +119,7 @@ local function OKPicker()
 	ClosePicker();
 end
 
-btnCancel:SetScript("OnClick", CancelPicker);
+btnCancel:SetScript("OnClick", function() CancelPicker(); end);
 btnOK:SetScript("OnClick", OKPicker);
 btnPaste:SetScript("OnClick", function()
 	if clipboard then

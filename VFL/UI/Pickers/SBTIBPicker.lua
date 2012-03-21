@@ -213,10 +213,10 @@ local function ClosePicker(nosmooth)
 		cur = VFL.copy(VFLUI.defaultSBTIB);
 		sbp_owner = nil; onCancel = VFL.Noop; onOK = VFL.Noop;
 	else
-		sbp:_Hide(.2, true, function()
+		sbp:_Hide(.2, nil, function()
 			cur = VFL.copy(VFLUI.defaultSBTIB);
 			sbp_owner = nil; onCancel = VFL.Noop; onOK = VFL.Noop;
-		end
+		end);
 	end
 end
 
@@ -233,7 +233,7 @@ local function OKPicker()
 	ClosePicker();
 end
 
-btnCancel:SetScript("OnClick", CancelPicker);
+btnCancel:SetScript("OnClick", function() CancelPicker(); end);
 btnOK:SetScript("OnClick", OKPicker);
 btnPaste:SetScript("OnClick", function()
 	if clipboard then

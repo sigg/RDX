@@ -258,17 +258,17 @@ local function ClosePicker(nosmooth)
 		cur_r = 1; cur_g = 1; cur_b = 1; cur_a = 1; cp_owner = nil;
 		onCancel = VFL.Noop; onOK = VFL.Noop; onChange = VFL.Noop;
 	else
-		cp:_Hide(.2, true, function()
+		cp:_Hide(.2, nil, function()
 			cur_r = 1; cur_g = 1; cur_b = 1; cur_a = 1; cp_owner = nil;
 			onCancel = VFL.Noop; onOK = VFL.Noop; onChange = VFL.Noop;
 		end);
 	end
 end
 
-local function CancelPicker()
+local function CancelPicker(nosmooth)
 	if not cp:IsShown() then return; end
 	onCancel(cur_r, cur_g, cur_b, cur_a);
-	ClosePicker();
+	ClosePicker(nosmooth);
 end
 
 local function OKPicker()
@@ -277,7 +277,7 @@ local function OKPicker()
 	ClosePicker();
 end
 
-btnCancel:SetScript("OnClick", CancelPicker);
+btnCancel:SetScript("OnClick", function() CancelPicker(); end);
 btnOK:SetScript("OnClick", OKPicker);
 btnPaste:SetScript("OnClick", function()
 	if clip_r then SetColor_All(clip_r, clip_g, clip_b, clip_a); end
@@ -289,11 +289,12 @@ end);
 --- Launch the color picker.
 function VFLUI.ColorPicker(owner, fnOK, fnCancel, fnChange, r, g, b, a)
 	-- Cancel any preexisting color picker.
-	if cp:IsShown() then CancelPicker(); end
+	local smooth = .2;
+	if cp:IsShown() then CancelPicker(true); smooth = nil; end
 	onOK = fnOK or VFL.Noop; onCancel = fnCancel or VFL.Noop; onChange = fnChange or VFL.Noop;
 	cp_owner = owner;
 	SetColor_All(r,g,b,a);
-	cp:_Show(.2);
+	cp:_Show(smooth);
 end
 --- Check the color picker's owner.
 function VFLUI.ColorPickerOwner() return cp_owner; end

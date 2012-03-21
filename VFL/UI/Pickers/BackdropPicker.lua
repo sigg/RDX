@@ -313,7 +313,7 @@ local function ClosePicker(nosmooth)
 		onCancel = VFL.Noop; 
 		onOK = VFL.Noop;
 	else
-		bdp:_Hide(.2, true, function()
+		bdp:_Hide(.2, nil, function()
 			curBackdrop = {};
 			bdp_owner = nil;
 			onCancel = VFL.Noop; 
@@ -334,7 +334,7 @@ local function OKPicker()
 	ClosePicker();
 end
 
-btnCancel:SetScript("OnClick", CancelPicker);
+btnCancel:SetScript("OnClick", function() CancelPicker(); end);
 btnOK:SetScript("OnClick", OKPicker);
 btnPaste:SetScript("OnClick", function()
 	if clipboard then

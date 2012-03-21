@@ -293,7 +293,7 @@ local function ClosePicker(nosmooth)
 		fp_owner = nil;
 		onCancel = VFL.Noop; onOK = VFL.Noop;
 	else
-		fp:_Hide(.2, true, function()
+		fp:_Hide(.2, nil, function()
 			curFont = VFL.copy(Fonts.Default);
 			fp_owner = nil;
 			onCancel = VFL.Noop; onOK = VFL.Noop;
@@ -313,7 +313,7 @@ local function OKPicker()
 	ClosePicker();
 end
 
-btnCancel:SetScript("OnClick", CancelPicker);
+btnCancel:SetScript("OnClick", function() CancelPicker(); end);
 btnOK:SetScript("OnClick", OKPicker);
 btnPaste:SetScript("OnClick", function()
 	if clipboard then

@@ -59,7 +59,9 @@ function VFL.OpenErrorDialog()
 	-------------------- Interactions
 	
 	local esch = function()
-		dlg:_Hide(.2, true, function() dlg:Destroy(); dlg = nil; end);
+		dlg:_Hide(.2, nil, function()
+			dlg:Destroy(); dlg = nil;
+		end);
 	end
 	VFL.AddEscapeHandler(esch);
 	

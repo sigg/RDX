@@ -651,7 +651,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent)
 	sf = VFLUI.VScrollFrame:new(dlg);
 	sf:SetWidth(470); sf:SetHeight(440);
 	sf:SetPoint("TOPLEFT", featList, "TOPRIGHT");
-	--sf:Show();
+	sf:Show();
 
 	------ The error frame
 	local el = VFLUI.List:new(dlg, 10, VFLUI.Selectable.AcquireCell);
