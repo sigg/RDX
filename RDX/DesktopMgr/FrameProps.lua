@@ -112,6 +112,7 @@ function RDXDK.LayoutPropsDialog(frameprops)
 	dlg:SetWidth(250); dlg:SetHeight(300); 
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetText(VFLI.i18n("Layout Properties: ") .. dd.name);
+	dlg:SetClampedToScreen(true);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("frame_props") then RDXPM.RestoreLayout(dlg, "frame_props"); end
@@ -198,15 +199,14 @@ function RDXDK.LayoutPropsDialog(frameprops)
 	end
 	txtCurDock:SetText(str);
 	
-	--dlg:Show(.2, true);
-	dlg:Show();
+	dlg:_Show(.2);
+	--dlg:Show();
 	
 	local esch = function()
-		--dlg:Hide(.2, true);
-		--VFLT.ZMSchedule(.25, function()
+		dlg:_Hide(.2, nil, function()
 			RDXPM.StoreLayout(dlg, "frame_props");
 			dlg:Destroy(); dlg = nil;
-		--end);
+		end);
 	end
 	VFL.AddEscapeHandler(esch);
 

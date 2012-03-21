@@ -17,6 +17,7 @@ function VFL.OpenErrorDialog()
 	dlg:SetText("Errors");
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:SetHeight(400); dlg:SetWidth(400);
+	dlg:SetClampedToScreen(true);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	local ca = dlg:GetClientArea();
 

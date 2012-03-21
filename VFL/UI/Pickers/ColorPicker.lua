@@ -23,6 +23,7 @@ cp:SetPoint("CENTER", VFLParent, "CENTER");
 cp:SetMovable(true); cp:SetToplevel(true);
 VFLUI.Window.StdMove(cp, cp:GetTitleBar());
 cp:Hide();
+cp:SetClampedToScreen(true);
 
 --- Color select texture with wheel and value
 local cs = CreateFrame("ColorSelect");
@@ -251,10 +252,17 @@ local function SetColor_All(r,g,b,a)
 	recurse_flag = nil;
 end
 
-local function ClosePicker()
-	cp:Hide();
-	cur_r = 1; cur_g = 1; cur_b = 1; cur_a = 1; cp_owner = nil;
-	onCancel = VFL.Noop; onOK = VFL.Noop; onChange = VFL.Noop;
+local function ClosePicker(nosmooth)
+	if nosmooth then
+		cp:Hide();
+		cur_r = 1; cur_g = 1; cur_b = 1; cur_a = 1; cp_owner = nil;
+		onCancel = VFL.Noop; onOK = VFL.Noop; onChange = VFL.Noop;
+	else
+		cp:_Hide(.2, true, function()
+			cur_r = 1; cur_g = 1; cur_b = 1; cur_a = 1; cp_owner = nil;
+			onCancel = VFL.Noop; onOK = VFL.Noop; onChange = VFL.Noop;
+		end);
+	end
 end
 
 local function CancelPicker()
@@ -284,8 +292,8 @@ function VFLUI.ColorPicker(owner, fnOK, fnCancel, fnChange, r, g, b, a)
 	if cp:IsShown() then CancelPicker(); end
 	onOK = fnOK or VFL.Noop; onCancel = fnCancel or VFL.Noop; onChange = fnChange or VFL.Noop;
 	cp_owner = owner;
-	cp:Show();
 	SetColor_All(r,g,b,a);
+	cp:_Show(.2);
 end
 --- Check the color picker's owner.
 function VFLUI.ColorPickerOwner() return cp_owner; end

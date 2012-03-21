@@ -28,6 +28,7 @@ RDXDB.RegisterObjectType({
 		dlg:SetPoint("CENTER", VFLParent, "CENTER");
 		dlg:SetWidth(320); dlg:SetHeight(85);
 		dlg:SetText(VFLI.i18n("Edit AuraName: ") .. path);
+		dlg:SetClampedToScreen(true);
 		
 		VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 		if RDXPM.Ismanaged("Auraname") then RDXPM.RestoreLayout(dlg, "Auraname"); end
@@ -54,15 +55,13 @@ RDXDB.RegisterObjectType({
 			end, btn_name, "CENTER");
 		end);
 		
-		dlg:Show();
-		--dlg:Show(.2, true);
+		dlg:_Show(.2);
 
 		local esch = function()
-			--dlg:Hide(.2, true);
-			--VFLT.ZMSchedule(.25, function()
+			dlg:_Hide(.2, nil, function()
 				RDXPM.StoreLayout(dlg, "Auraname");
 				dlg:Destroy(); dlg = nil;
-			--end);
+			end);
 		end
 		VFL.AddEscapeHandler(esch);
 		

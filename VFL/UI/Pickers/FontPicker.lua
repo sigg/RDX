@@ -18,6 +18,7 @@ fp:SetPoint("CENTER", VFLParent, "CENTER");
 fp:SetMovable(true); fp:SetToplevel(nil);
 VFLUI.Window.StdMove(fp, fp:GetTitleBar());
 fp:Hide();
+fp:SetClampedToScreen(true);
 local ca = fp:GetClientArea();
 
 ------ Font preview
@@ -285,16 +286,25 @@ btnOK:SetPoint("LEFT", btnCancel, "RIGHT", 0, 0);
 btnOK:SetText("OK");
 btnOK:Show();
 
-local function ClosePicker()
-	fp:Hide();
-	curFont = VFL.copy(Fonts.Default);
-	fp_owner = nil;
-	onCancel = VFL.Noop; onOK = VFL.Noop;
+local function ClosePicker(nosmooth)
+	if nosmooth then
+		fp:Hide();
+		curFont = VFL.copy(Fonts.Default);
+		fp_owner = nil;
+		onCancel = VFL.Noop; onOK = VFL.Noop;
+	else
+		fp:_Hide(.2, true, function()
+			curFont = VFL.copy(Fonts.Default);
+			fp_owner = nil;
+			onCancel = VFL.Noop; onOK = VFL.Noop;
+		end);
+	end
 end
 
-local function CancelPicker()
+local function CancelPicker(nosmooth)
 	if not fp:IsShown() then return; end
-	onCancel();	ClosePicker();
+	onCancel();
+	ClosePicker(nosmooth);
 end
 
 local function OKPicker()
@@ -320,11 +330,12 @@ end);
 function VFLUI.FontPicker(owner, fnOK, fnCancel, font, flaganchor)
 	if type(font) ~= "table" then font = Fonts.Default; end
 	-- Cancel any preexisting picker.
-	if fp:IsShown() then CancelPicker(); end
+	if fp:IsShown() then CancelPicker(true); end
 	onOK = fnOK or VFL.Noop; onCancel = fnCancel or VFL.Noop;
-	fp_owner = owner; fp:Show();
+	fp_owner = owner;
 	if flaganchor then fp:SetPoint("LEFT", fp_owner, "RIGHT", 10, 0); end
 	curFont = VFL.copy(font); UpdateFontPicker();
+	fp:_Show(.2);
 end
 --- Check the picker's owner.
 function VFLUI.FontPickerOwner() return fp_owner; end

@@ -29,6 +29,7 @@ bdp:SetPoint("CENTER", VFLParent, "CENTER");
 bdp:SetMovable(true); bdp:SetToplevel(nil);
 VFLUI.Window.StdMove(bdp, bdp:GetTitleBar());
 bdp:Hide();
+bdp:SetClampedToScreen(true);
 local ca = bdp:GetClientArea();
 
 ---------- Preview
@@ -304,16 +305,27 @@ btnOK:SetPoint("LEFT", btnCancel, "RIGHT", 0, 0);
 btnOK:SetText("OK");
 btnOK:Show();
 
-local function ClosePicker()
-	bdp:Hide();
-	curBackdrop = {};
-	bdp_owner = nil;
-	onCancel = VFL.Noop; onOK = VFL.Noop;
+local function ClosePicker(nosmooth)
+	if nosmooth then
+		bdp:Hide();
+		curBackdrop = {};
+		bdp_owner = nil;
+		onCancel = VFL.Noop; 
+		onOK = VFL.Noop;
+	else
+		bdp:_Hide(.2, true, function()
+			curBackdrop = {};
+			bdp_owner = nil;
+			onCancel = VFL.Noop; 
+			onOK = VFL.Noop;
+		end);
+	end
 end
 
-local function CancelPicker()
+local function CancelPicker(nosmooth)
 	if not bdp:IsShown() then return; end
-	onCancel();	ClosePicker();
+	onCancel();
+	ClosePicker(nosmooth);
 end
 
 local function OKPicker()
@@ -339,12 +351,14 @@ end);
 function VFLUI.BackdropPicker(owner, fnOK, fnCancel, backdrop, flaganchor)
 	if type(backdrop) ~= "table" then backdrop = {}; end
 	-- Cancel any preexisting picker.
-	if bdp:IsShown() then CancelPicker(); end
+	if bdp:IsShown() then CancelPicker(true); end
 	onOK = fnOK or VFL.Noop; onCancel = fnCancel or VFL.Noop;
-	bdp_owner = owner; bdp:Show();
+	bdp_owner = owner; 
 	if flaganchor then bdp:SetPoint("LEFT", bdp_owner, "RIGHT", 10, 0); end
 	curBackdrop = VFL.copy(backdrop);
 	UpdateBackdropPicker();
+	--bdp:Show();
+	bdp:_Show(.2);
 end
 --- Check the picker's owner.
 function VFLUI.BackdropPickerOwner() return bdp_owner; end

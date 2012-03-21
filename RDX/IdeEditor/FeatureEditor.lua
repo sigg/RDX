@@ -56,7 +56,6 @@ function RDXIE.FeatureEditor(state, callback, path, parent)
 	dlg:SetText(VFLI.i18n("Feature Editor: ") .. path);
 	dlg:SetWidth(700); dlg:SetHeight(500);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
-	dlg:Show();
 	dlg:SetClampedToScreen(true);
 	
 	-- OpenRDX 7.1 RDXPM
@@ -652,7 +651,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent)
 	sf = VFLUI.VScrollFrame:new(dlg);
 	sf:SetWidth(470); sf:SetHeight(440);
 	sf:SetPoint("TOPLEFT", featList, "TOPRIGHT");
-	sf:Show();
+	--sf:Show();
 
 	------ The error frame
 	local el = VFLUI.List:new(dlg, 10, VFLUI.Selectable.AcquireCell);
@@ -688,21 +687,27 @@ function RDXIE.FeatureEditor(state, callback, path, parent)
 	-- Save : Add all modifications
 	local function Save()
 		-- Save the active feature before exiting
-		SaveActiveFeature(true);
-		RDXPM.StoreLayout(dlg, "FeatureEditor");
-		if callback then callback(state); end
-		dlg:Destroy(); dlg = nil;
+		dlg:_Hide(.2, nil, function()
+			SaveActiveFeature(true);
+			RDXPM.StoreLayout(dlg, "FeatureEditor");
+			if callback then callback(state); end
+			dlg:Destroy(); dlg = nil;
+		end);
 	end
 
 	local savebtn = VFLUI.SaveButton:new()
 	savebtn:SetScript("OnClick", Save);
 	dlg:AddButton(savebtn);
+	
+	dlg:_Show(.2);
 
 	-- Close : cancel all modifications
 	local function Close()
-		RDXPM.StoreLayout(dlg, "FeatureEditor");
-		state:Restore();
-		dlg:Destroy(); dlg = nil;
+		dlg:_Hide(.2, nil, function()
+			RDXPM.StoreLayout(dlg, "FeatureEditor");
+			state:Restore();
+			dlg:Destroy(); dlg = nil;
+		end);
 	end
 
 	local closebtn = VFLUI.CloseButton:new()

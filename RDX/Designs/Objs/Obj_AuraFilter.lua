@@ -52,6 +52,7 @@ RDXDB.RegisterObjectType({
 		dlg:SetPoint("CENTER", VFLParent, "CENTER");
 		dlg:SetWidth(310); dlg:SetHeight(270);
 		dlg:SetText(VFLI.i18n("Edit AuraFilter: ") .. path);
+		dlg:SetClampedToScreen(true);
 		
 		VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 		if RDXPM.Ismanaged("Aurafilter") then RDXPM.RestoreLayout(dlg, "Aurafilter"); end
@@ -78,15 +79,14 @@ RDXDB.RegisterObjectType({
 		le_names:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 		le_names:SetWidth(300);	le_names:SetHeight(183); le_names:Show();
 		
-		dlg:Show();
-		--dlg:Show(.2, true);
+		--dlg:Show();
+		dlg:_Show(.2);
 
 		local esch = function()
-			--dlg:Hide(.2, true);
-			--VFLT.ZMSchedule(.25, function()
+			dlg:_Hide(.2, nil, function()
 				RDXPM.StoreLayout(dlg, "Aurafilter");
 				dlg:Destroy(); dlg = nil;
-			--end);
+			end);
 		end
 		VFL.AddEscapeHandler(esch);
 		

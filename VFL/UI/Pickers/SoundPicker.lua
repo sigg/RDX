@@ -17,6 +17,7 @@ picker:SetPoint("CENTER", VFLParent, "CENTER");
 picker:SetMovable(true); picker:SetToplevel(nil);
 VFLUI.Window.StdMove(picker, picker:GetTitleBar());
 picker:Hide();
+picker:SetClampedToScreen(true);
 local ca = picker:GetClientArea();
 
 -- Filename input
@@ -91,16 +92,25 @@ btnOK:SetPoint("LEFT", btnCancel, "RIGHT", 0, 0);
 btnOK:SetText("OK");
 btnOK:Show();
 
-local function ClosePicker()
-	picker:Hide(); 
-	pathEdit:SetText("");
-	owner = nil;
-	onCancel = VFL.Noop; onOK = VFL.Noop;
+local function ClosePicker(nosmooth)
+	if nosmooth then
+		picker:Hide(); 
+		pathEdit:SetText("");
+		owner = nil;
+		onCancel = VFL.Noop; onOK = VFL.Noop;
+	else
+		picker:_Hide(.2, true, function()
+			pathEdit:SetText("");
+			owner = nil;
+			onCancel = VFL.Noop; onOK = VFL.Noop;
+		end);
+	end
 end
 
-local function CancelPicker()
+local function CancelPicker(nosmooth)
 	if not picker:IsShown() then return; end
-	onCancel();	ClosePicker();
+	onCancel();
+	ClosePicker(nosmooth);
 end
 
 local function OKPicker()
@@ -126,12 +136,12 @@ end);
 function VFLUI.SoundPicker(p_owner, fnOK, fnCancel, sound)
 	if type(sound) ~= "string" then sound = ""; end
 	-- Cancel any preexisting picker.
-	if picker:IsShown() then CancelPicker(); end
+	if picker:IsShown() then CancelPicker(true); end
 	onOK = fnOK or VFL.Noop; onCancel = fnCancel or VFL.Noop;
 	owner = p_owner; 
-	picker:Show();
 	pathEdit:SetText(sound);
 	UpdateSoundPicker();
+	picker:_Show(.2);
 end
 --- Check the picker's owner.
 function VFLUI.SoundPickerOwner() return owner; end

@@ -37,6 +37,7 @@ sbp:SetPoint("CENTER", VFLParent, "CENTER");
 sbp:SetMovable(true); sbp:SetToplevel(nil);
 VFLUI.Window.StdMove(sbp, sbp:GetTitleBar());
 sbp:Hide();
+sbp:SetClampedToScreen(true);
 local ca = sbp:GetClientArea();
 
 --local PikCooldownUpdate;
@@ -206,15 +207,23 @@ btnCopy:SetPoint("RIGHT", btnPaste, "LEFT", 0, 0);
 btnCopy:SetText("Copy");
 btnCopy:Show();
 
-local function ClosePicker()
-	sbp:Hide();
-	cur = VFL.copy(VFLUI.defaultSBTIB);
-	sbp_owner = nil; onCancel = VFL.Noop; onOK = VFL.Noop;
+local function ClosePicker(nosmooth)
+	if nosmooth then
+		sbp:Hide();
+		cur = VFL.copy(VFLUI.defaultSBTIB);
+		sbp_owner = nil; onCancel = VFL.Noop; onOK = VFL.Noop;
+	else
+		sbp:_Hide(.2, true, function()
+			cur = VFL.copy(VFLUI.defaultSBTIB);
+			sbp_owner = nil; onCancel = VFL.Noop; onOK = VFL.Noop;
+		end
+	end
 end
 
-local function CancelPicker()
+local function CancelPicker(nosmooth)
 	if not sbp:IsShown() then return; end
-	onCancel(); ClosePicker();
+	onCancel();
+	ClosePicker(nosmooth);
 end
 
 local function OKPicker()
@@ -242,11 +251,12 @@ end);
 function VFLUI.SBTIBPicker(owner, fnOK, fnCancel, sb)
 	if type(sb) ~= "table" then sb = VFL.copy(VFLUI.defaultSBTIB); end
 	-- Cancel any preexisting picker.
-	if sbp:IsShown() then CancelPicker(); end
+	if sbp:IsShown() then CancelPicker(true); end
 	onOK = fnOK or VFL.Noop; onCancel = fnCancel or VFL.Noop;
-	sbp_owner = owner; sbp:Show();
+	sbp_owner = owner;
 	cur = VFL.copy(sb);
 	UpdateSBTIBPicker();
+	sbp:_Show(.2);
 end
 --- Check the picker's owner.
 function VFLUI.SBTIBPickerOwner() return sbp_owner; end

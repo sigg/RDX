@@ -18,6 +18,7 @@ function VFL.OpenModuleDialog()
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:SetHeight(370); dlg:SetWidth(400);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
+	dlg:SetClampedToScreen(true);
 	local ca = dlg:GetClientArea();
 	
 	-- Panel On the left

@@ -30,6 +30,7 @@ tp:SetPoint("CENTER", VFLParent, "CENTER");
 tp:SetMovable(true); tp:SetToplevel(nil);
 VFLUI.Window.StdMove(tp, tp:GetTitleBar());
 tp:Hide();
+tp:SetClampedToScreen(true);
 local ca = tp:GetClientArea();
 
 ------------------ Base texture selector
@@ -500,17 +501,23 @@ btnCopy:SetPoint("RIGHT", btnPaste, "LEFT", 0, 0);
 btnCopy:SetText("Copy");
 btnCopy:Show();
 
-
-
-local function ClosePicker()
-	tp:Hide();
-	curTex = VFL.copy(VFLUI.defaultTexture);
-	tp_owner = nil;	onCancel = VFL.Noop; onOK = VFL.Noop;
+local function ClosePicker(nosmooth)
+	if nosmooth then
+		tp:Hide();
+		curTex = VFL.copy(VFLUI.defaultTexture);
+		tp_owner = nil;	onCancel = VFL.Noop; onOK = VFL.Noop;
+	else
+		tp:_Hide(.2, true, function()
+			curTex = VFL.copy(VFLUI.defaultTexture);
+			tp_owner = nil;	onCancel = VFL.Noop; onOK = VFL.Noop;
+		end);
+	end
 end
 
-local function CancelPicker()
+local function CancelPicker(nosmooth)
 	if not tp:IsShown() then return; end
-	onCancel();	ClosePicker();
+	onCancel();
+	ClosePicker(nosmooth);
 end
 
 local function OKPicker()
@@ -537,12 +544,13 @@ end);
 function VFLUI.TexturePicker(owner, fnOK, fnCancel, tex, flaganchor)
 	if type(tex) ~= "table" then tex = VFL.copy(VFLUI.defaultTexture); end
 	-- Cancel any preexisting picker.
-	if tp:IsShown() then CancelPicker(); end
+	if tp:IsShown() then CancelPicker(true); end
 	onOK = fnOK or VFL.Noop; onCancel = fnCancel or VFL.Noop;
-	tp_owner = owner; tp:Show();
+	tp_owner = owner;
 	if flaganchor then tp:SetPoint("LEFT", tp_owner, "RIGHT", 10, 0); end
 	curTex = VFLUI.CopyTexture(tex); 
 	InitPicker();
+	tp:_Show(.2);
 end
 --- Check the picker's owner.
 function VFLUI.TexturePickerOwner() return tp_owner; end

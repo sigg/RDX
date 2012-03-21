@@ -29,6 +29,7 @@ cp:SetPoint("CENTER", VFLParent, "CENTER");
 cp:SetMovable(true); cp:SetToplevel(nil);
 VFLUI.Window.StdMove(cp, cp:GetTitleBar());
 cp:Hide();
+cp:SetClampedToScreen(true);
 local ca = cp:GetClientArea();
 
 --local PikCooldownUpdate;
@@ -134,15 +135,23 @@ btnCopy:SetPoint("RIGHT", btnPaste, "LEFT", 0, 0);
 btnCopy:SetText("Copy");
 btnCopy:Show();
 
-local function ClosePicker()
-	cp:Hide();
-	curCD = VFL.copy(VFLUI.defaultCooldown);
-	cp_owner = nil;	onCancel = VFL.Noop; onOK = VFL.Noop;
+local function ClosePicker(nosmooth)
+	if nosmooth then
+		cp:Hide();
+		curCD = VFL.copy(VFLUI.defaultCooldown);
+		cp_owner = nil;	onCancel = VFL.Noop; onOK = VFL.Noop;
+	else
+		cp:_Hide(.2, true, function()
+			curCD = VFL.copy(VFLUI.defaultCooldown);
+			cp_owner = nil;	onCancel = VFL.Noop; onOK = VFL.Noop;
+		end);
+	end
 end
 
-local function CancelPicker()
+local function CancelPicker(nosmooth)
 	if not cp:IsShown() then return; end
-	onCancel();	ClosePicker();
+	onCancel();
+	ClosePicker(nosmooth);
 end
 
 local function OKPicker()
@@ -171,11 +180,12 @@ end);
 function VFLUI.CooldownPicker(owner, fnOK, fnCancel, cd)
 	if type(cd) ~= "table" then cd = VFL.copy(VFLUI.defaultCooldown); end
 	-- Cancel any preexisting picker.
-	if cp:IsShown() then CancelPicker(); end
+	if cp:IsShown() then CancelPicker(true); end
 	onOK = fnOK or VFL.Noop; onCancel = fnCancel or VFL.Noop;
-	cp_owner = owner; cp:Show();
+	cp_owner = owner;
 	curCD = VFL.copy(cd);
 	UpdateCooldownPicker();
+	cp:_Show(.2);
 end
 --- Check the picker's owner.
 function VFLUI.CooldownPickerOwner() return cp_owner; end
