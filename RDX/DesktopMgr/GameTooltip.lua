@@ -193,7 +193,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	end);
 	
 	local unit, class, level, classif, item, quality, r, g, b, colortable, requestguid, _;
-	
+	local talents = {};
 	-- for unknown reason, item on world map are blue.
 	-- strongly recommend to use a texture backdrop instead of solid color
 	local function fix()
@@ -366,7 +366,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	end
 	
 	-- By TipTop
-	WowEvents:Bind("INSPECT_READY", nil, function(guid)
+	WoWEvents:Bind("INSPECT_READY", nil, function(guid)
 		if requestguid == guid then
 			TalentText();
 		end

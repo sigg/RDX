@@ -5,7 +5,7 @@ local Icons = {};
 
 function RDX.RegisterTextureIcon(tbl)
 	if (type(tbl) ~= "table") or (type(tbl.name) ~= "string") then return; end
-	if statusText[tbl.name] then RDX.printW("Attempt to register duplicate Icon Type " .. tbl.name); return; end
+	if Icons[tbl.name] then RDX.printW("Attempt to register duplicate Icon Type " .. tbl.name); return; end
 	Icons[tbl.name] = tbl;
 	table.insert(IconsIndex, {value = tbl.name, text = tbl.title});
 end
@@ -142,7 +142,7 @@ btn = frame.]] .. objname .. [[;
 		-- Drawlayer
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Icon Type"));
 		local dd_class = VFLUI.Dropdown:new(er, function() return IconsIndex; end);
-		dd_class:SetWidth(100); dd_class:Show();
+		dd_class:SetWidth(200); dd_class:Show();
 		if desc and desc.class then dd_class:SetSelection(desc.class); else dd_class:SetSelection("Faction"); end
 		er:EmbedChild(dd_class); er:Show();
 		ui:InsertFrame(er);
