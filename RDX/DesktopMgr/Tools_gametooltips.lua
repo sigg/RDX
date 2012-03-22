@@ -60,6 +60,12 @@ chk_hideInCombat:SetText(VFLI.i18n("Hide GameTooltip In combat"));
 chk_hideInCombat:Show();
 chk_hideInCombat.check:SetScript("OnClick", function() updateGametooltip(); end);
 
+local chk_showTalent = VFLUI.Checkbox:new(frameg); chk_showTalent:SetHeight(16); chk_showTalent:SetWidth(200);
+chk_showTalent:SetPoint("TOPLEFT", chk_hideInCombat, "BOTTOMLEFT");
+chk_showTalent:SetText(VFLI.i18n("Skow Talent"));
+chk_showTalent:Show();
+chk_showTalent.check:SetScript("OnClick", function() updateGametooltip(); end);
+
 local ggtemp = nil ;
 
 updateGametooltip = function()
@@ -74,6 +80,7 @@ updateGametooltip = function()
 	desc.showDiffColor = chk_showDiffColor:GetChecked();
 	desc.showTextBar = chk_showTextBar:GetChecked();
 	desc.hideInCombat = chk_hideInCombat:GetChecked();
+	desc.showTalent = chk_showTalent:GetChecked();
 	DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", desc);
 end
 
@@ -89,6 +96,7 @@ local function SetFrameg(froot)
 		if desc.showDiffColor then chk_showDiffColor:SetChecked(true); else chk_showDiffColor:SetChecked(); end
 		if desc.showTextBar then chk_showTextBar:SetChecked(true); else chk_showTextBar:SetChecked(); end
 		if desc.hideInCombat then chk_hideInCombat:SetChecked(true); else chk_hideInCombat:SetChecked(); end
+		if desc.showTalent then chk_showTalent:SetChecked(true); else chk_showTalent:SetChecked(); end
 	end
 	DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP_UNLOCK");
 end

@@ -1,8 +1,9 @@
 -- GameTooltip.lua
 
-------------------------------
+-------------------------------------
 -- Gametooltip
-------------------------------
+-- Some codes are coming from Tiptop
+-------------------------------------
 local descg = {};
 
 local TooltipsList = {
@@ -191,7 +192,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 		end
 	end);
 	
-	local unit, class, level, classif, item, quality, r, g, b, colortable;
+	local unit, class, level, classif, item, quality, r, g, b, colortable, requestguid, _;
 	
 	-- for unknown reason, item on world map are blue.
 	-- strongly recommend to use a texture backdrop instead of solid color
@@ -306,6 +307,68 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 					self:AppendText(" (" .. classif .. ")");
 				end
 			end
+			
+			-- add Talent
+			-- By TipTop
+			if CanInspect(unit) and descg.showTalent then
+				if UnitName(unit) ~= UnitName("player") and UnitLevel(unit) > 9 then
+					local talentline = nil;
+					for i=1, GameTooltip:NumLines() do
+						local left, leftText;
+						left = _G["GameTooltipTextLeft"..i];
+						leftText = left:GetText();
+						if leftText == "Talents:" then
+							talentline = 1;
+						end
+					end
+					if not talentline then
+						if InspectFrame and InspectFrame:IsShown() then	--to not step on default UI's toes
+							GameTooltip:AddDoubleLine("Talents:", "Inspect Frame is open", nil,nil,nil, 1,0,0);
+						elseif Examiner and Examiner:IsShown() then		--same thing with Examiner
+							GameTooltip:AddDoubleLine("Talents:", "Examiner frame is open", nil,nil,nil, 1,0,0);
+						else
+							requestguid = UnitGUID(unit);
+							NotifyInspect(unit);
+							GameTooltip:AddDoubleLine("Talents:", "...");
+						end
+						GameTooltip:Show();
+					end
+				end
+			end
+		end
+	end);
+	
+	-- By TipTop
+	local maxtree,pnts,tree,active,left,leftText,right;
+	local function TalentText()
+		if UnitExists("mouseover") then
+			active = GetActiveTalentGroup(1);
+			maxtree = GetPrimaryTalentTree(true);
+			for i=1,3 do
+				_,tree,_,_,pnts = GetTalentTabInfo(i, 1, nil, active);
+				if not tree then break end
+				talents[i] = pnts;
+				if i == maxtree then
+					maxtree = tree;
+				end
+			end
+			for i=1, GameTooltip:NumLines() do
+				left = _G[GameTooltip:GetName().."TextLeft"..i];
+				leftText = left:GetText();
+				if leftText == "Talents:" then	--finds the Talents line and updates with info
+					right = _G[GameTooltip:GetName().."TextRight"..i];
+					right:SetFormattedText("%s (%s)", maxtree or "", table.concat(talents,"/"));
+				end
+				GameTooltip:Show();
+			end
+		end
+		maxtree,pnts,tree = nil	--reset these variables;
+	end
+	
+	-- By TipTop
+	WowEvents:Bind("INSPECT_READY", nil, function(guid)
+		if requestguid == guid then
+			TalentText();
 		end
 	end);
 	
@@ -323,9 +386,9 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 		end
 		if descg.showTextBar then
 			if not value then self.text:SetText(""); return; end
-			min, max = self:GetMinMaxValues()
+			min, max = self:GetMinMaxValues();
 			if (value < min) or (value > max) then self.text:SetText(""); return; end
-			_, unit = GameTooltip:GetUnit()
+			_, unit = GameTooltip:GetUnit();
 			if unit then
 				min, max = UnitHealth(unit), UnitHealthMax(unit);
 				txt = kay(min).." / "..kay(max);
