@@ -71,6 +71,7 @@ local text, word = "", "";
 local textcolor = _grey
 local tempcolor = {};
 local _;
+local myunit;
 ]]);
 	state:RunSlot("EmitClosure", code);
 	code:AppendCode([[
