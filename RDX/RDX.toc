@@ -280,6 +280,7 @@ Designs\Textures\TextureIcon.lua
 Designs\Textures\ClassIcon.lua
 Designs\Textures\FactionIcon.lua
 Designs\Textures\MasterLooterIcon.lua
+# deprecated
 #Designs\Textures\PetHapinessIcon.lua
 Designs\Textures\PlayerStatusIcon.lua
 Designs\Textures\Portraits2D.lua

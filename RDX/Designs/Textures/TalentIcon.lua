@@ -1,5 +1,6 @@
 ------------------------------------------------
 -- UNITFRAME
+-- DEPRECATED
 ------------------------------------------------
 --- Unit frame sub class icon
 RDX.RegisterFeature({
