@@ -27,7 +27,8 @@ RDX.RegisterFeature({
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.sbtib then desc.sbtib = VFL.copy(VFLUI.defaultSBTIB); end
-		if not desc.countTypeFlag then desc.countTypeFlag = "false"; end
+		if not desc.formulaType then desc.formulaType = "simple"; end
+		--if not desc.countTypeFlag then desc.countTypeFlag = "false"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Bars_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -255,50 +256,6 @@ frame.]] .. objname .. [[ = nil;
 		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);
 
 		------------------- Paint
-		
-
-		local paintCode = [[
-if band(paintmask, ]] .. mask .. [[) ~= 0 then
-	_i, _j, _bn, _tex, _apps, _meta, _dur, _tl, _dispelt, _caster, _isStealable = 1,1,nil,nil,nil,nil,nil,nil,nil,nil;
-	_icons = frame.]] .. objname .. [[;
-	local sort_icons = {};
-	
-	while true do
-		local tbl_icons = {};
-		_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = ]] .. loadCode .. [[(uid, _i, ]] .. raidfilter .. [[, ]] .. auracache .. [[);
-		if not _meta then break; end
-		if (not _meta.isInvisible) and ]] .. aurasfilter .. [[ and ]] .. isstealablefilter .. [[ and ]] .. curefilter .. [[ and ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
-			tbl_icons._bn = _bn;
-			tbl_icons._meta = _meta;
-			tbl_icons._tex = _tex;
-			tbl_icons._apps = _apps;
-			tbl_icons._dispelt = _dispelt;
-			tbl_icons._dur = _dur;
-			tbl_icons._tl = _tl;
-			tbl_icons._i = _i;
-			table.insert(sort_icons, tbl_icons);
-		end
-		_i = _i + 1;
-	end
-	
-	]];
-		paintCode = paintCode .. sorticons;
-		paintCode = paintCode ..[[
-	local tbl_icons;
-	while true do
-		if (_j > ]] .. desc.nIcons .. [[) then break; end
-		tbl_icons = sort_icons[_j];
-		if not tbl_icons then break; end
-		__SetAuraBar(_icons[_j], tbl_icons._meta, tbl_icons._tex, tbl_icons._apps, tbl_icons._dur, tbl_icons._tl, tbl_icons._dispelt, tbl_icons._i, "]] .. desc.auraType .. [[", ]] .. usedebuffcolor .. [[, ]] .. auranametrunc .. [[, ]] .. auranameab .. [[, ]] .. smooth .. [[, ]] .. countTypeFlag .. [[);
-		_j = _j + 1;
-	end
-	
-	while _j <= ]] .. desc.nIcons .. [[ do
-		if _icons[_j]:IsShown() then _icons[_j]:Hide(]] .. smooth .. [[); end
-		_j = _j + 1;
-	end
-end
-]];
 
 		local paintCodeWithoutSort = [[
 if band(paintmask, ]] .. mask .. [[) ~= 0 then
@@ -342,7 +299,7 @@ end
 				btn.sb:SetColorTable(_grey);
 			end
 			
-			btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
+			btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
 			if _dur and _dur > 0 and btn.ftc then
 				btn.ftc:SetTimer(GetTime() + _tl - _dur , _dur);
 			else
@@ -453,6 +410,17 @@ end
 		
 		local countTypeFlag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Count type (true CountUP, false CountDOWN)"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.countTypeFlag then countTypeFlag:SetSelection(desc.countTypeFlag); end
+		
+		local tt = VFLUI.EmbedRight(ui, VFLI.i18n("Formula Type"));
+		local dd_formulaType = VFLUI.Dropdown:new(tt, RDX.GetFormula);
+		dd_formulaType:SetWidth(200); dd_formulaType:Show();
+		if desc and desc.formulaType then 
+			dd_formulaType:SetSelection(desc.formulaType); 
+		else
+			dd_formulaType:SetSelection("simple");
+		end
+		tt:EmbedChild(dd_formulaType); tt:Show();
+		ui:InsertFrame(tt);
 		
 		local chk_bc = VFLUI.Checkbox:new(ui); chk_bc:Show();
 		chk_bc:SetText(VFLI.i18n("Use Bar color debuff"));
@@ -731,6 +699,7 @@ end
 				-- display bar
 				sbtib = sbtib:GetSelectedSBTIB();
 				countTypeFlag = countTypeFlag:GetSelection();
+				formulaType = dd_formulaType:GetSelection();
 				sbcolor = chk_bc:GetChecked();
 				sbblendcolor = chk_sbblendcolor:GetChecked();
 				sbcolorVar1 = ssbcolor1; sbcolorVar2 = ssbcolor2;

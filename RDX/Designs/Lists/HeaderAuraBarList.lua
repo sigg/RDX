@@ -25,7 +25,7 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		local objname = "Bars_" .. desc.name;
-		
+		if not desc.formulaType then desc.formulaType = "simple"; end
 		local countTypeFlag = "nil" if desc.countTypeFlag and desc.countTypeFlag ~= "" then countTypeFlag = desc.countTypeFlag; end
 		local usedebuffcolor = "true"; if (not desc.sbcolor) then usedebuffcolor = "false"; end
 		local auranametrunc = "nil"; if desc.trunc then auranametrunc = desc.trunc; end
@@ -126,7 +126,7 @@ headerAura.updateFunc = function(self)
 				end
 			end
 			
-			frame.btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
+			frame.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
 			frame.btn.ftc:SetTimer(_et - _dur , _dur);
 			if _apps > 1 then frame.btn.stacktxt:SetText(_apps); else frame.btn.stacktxt:SetText("");end
 			
@@ -164,7 +164,7 @@ headerAura.updateFunc = function(self)
 					tempEnchant1.btn.nametxt:SetText(mainHandBuffName);
 				end
 			end
-			tempEnchant1.btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
+			tempEnchant1.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
 			tempEnchant1.btn.ftc:SetTimer(mainHandBuffStart, mainHandBuffDur);
 			if mainHandCharges > 1 then tempEnchant1.btn.stacktxt:SetText(mainHandCharges); else tempEnchant1.btn.stacktxt:SetText("");end
 			tempEnchant1.btn:Show();
@@ -194,7 +194,7 @@ headerAura.updateFunc = function(self)
 					tempEnchant2.btn.nametxt:SetText(offHandBuffName);
 				end
 			end
-			tempEnchant2.btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
+			tempEnchant2.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
 			tempEnchant2.btn.ftc:SetTimer(offHandBuffStart, offHandBuffDur);
 			if offHandCharges > 1 then tempEnchant2.btn.stacktxt:SetText(offHandCharges); else tempEnchant2.btn.stacktxt:SetText("");end
 			tempEnchant2.btn:Show();
@@ -224,7 +224,7 @@ headerAura.updateFunc = function(self)
 					tempEnchant3.btn.nametxt:SetText(thrownBuffName);
 				end
 			end
-			tempEnchant3.btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
+			tempEnchant3.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
 			tempEnchant3.btn.ftc:SetTimer(thrownBuffStart, thrownBuffDur);
 			if thrownCharges > 1 then tempEnchant3.btn.stacktxt:SetText(thrownCharges); else tempEnchant3.btn.stacktxt:SetText("");end
 			tempEnchant3.btn:Show();
@@ -385,6 +385,17 @@ frame.]] .. objname .. [[ = nil;
 		local countTypeFlag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Count type (true CountUP, false CountDOWN)"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.countTypeFlag then countTypeFlag:SetSelection(desc.countTypeFlag); end
 		
+		local tt = VFLUI.EmbedRight(ui, VFLI.i18n("Formula Type"));
+		local dd_formulaType = VFLUI.Dropdown:new(tt, RDX.GetFormula);
+		dd_formulaType:SetWidth(200); dd_formulaType:Show();
+		if desc and desc.formulaType then 
+			dd_formulaType:SetSelection(desc.formulaType); 
+		else
+			dd_formulaType:SetSelection("simplereverse");
+		end
+		tt:EmbedChild(dd_formulaType); tt:Show();
+		ui:InsertFrame(tt);
+		
 		local chk_bc = VFLUI.Checkbox:new(ui); chk_bc:Show();
 		chk_bc:SetText(VFLI.i18n("Use Bar color debuff"));
 		if desc and desc.sbcolor then chk_bc:SetChecked(true); else chk_bc:SetChecked(); end
@@ -451,6 +462,7 @@ frame.]] .. objname .. [[ = nil;
 				-- display
 				sbtib = sbtib:GetSelectedSBTIB();
 				countTypeFlag = countTypeFlag:GetSelection();
+				formulaType = dd_formulaType:GetSelection();
 				sbcolor = chk_bc:GetChecked();
 				-- fonts
 				trunc = trunc;

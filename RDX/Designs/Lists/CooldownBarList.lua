@@ -20,7 +20,8 @@ RDX.RegisterFeature({
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.sbtib then desc.sbtib = VFL.copy(VFLUI.defaultSBTIB); end
-		if not desc.countTypeFlag then desc.countTypeFlag = "false"; end
+		if not desc.formulaType then desc.formulaType = "simple"; end
+		--if not desc.countTypeFlag then desc.countTypeFlag = "false"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Bars_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -243,7 +244,7 @@ if desc.sbblendcolor then
 end			
 			paintCodeWithoutSort = paintCodeWithoutSort .. [[
 			
-			btn.ftc:SetFormula(]] .. countTypeFlag .. [[);
+			btn.ftc:SetFormula(]] .. countTypeFlag .. [[, ']] .. desc.formulaType .. [[');
 			if _dur and _dur > 0 and btn.ftc then
 				btn.ftc:SetTimer(_start, _dur);
 			else
@@ -351,6 +352,17 @@ end
 		
 		local countTypeFlag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Count type (true CountUP, false CountDOWN)"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.countTypeFlag then countTypeFlag:SetSelection(desc.countTypeFlag); end
+		
+		local tt = VFLUI.EmbedRight(ui, VFLI.i18n("Formula Type"));
+		local dd_formulaType = VFLUI.Dropdown:new(tt, RDX.GetFormula);
+		dd_formulaType:SetWidth(200); dd_formulaType:Show();
+		if desc and desc.formulaType then 
+			dd_formulaType:SetSelection(desc.formulaType); 
+		else
+			dd_formulaType:SetSelection("simple");
+		end
+		tt:EmbedChild(dd_formulaType); tt:Show();
+		ui:InsertFrame(tt);
 		
 		local chk_sbblendcolor = VFLUI.Checkbox:new(ui); chk_sbblendcolor:Show();
 		chk_sbblendcolor:SetText(VFLI.i18n("Use blend color"));
@@ -566,6 +578,7 @@ end
 				-- display bar
 				sbtib = sbtib:GetSelectedSBTIB();
 				countTypeFlag = countTypeFlag:GetSelection();
+				formulaType = dd_formulaType:GetSelection();
 				sbblendcolor = chk_sbblendcolor:GetChecked();
 				sbcolorVar1 = ssbcolor1; sbcolorVar2 = ssbcolor2;
 				-- timer text

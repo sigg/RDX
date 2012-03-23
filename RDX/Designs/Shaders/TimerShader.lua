@@ -69,8 +69,35 @@ local function ftSetData(self, txt, tex)
 	if tex and tex ~= "" then self.tex = tex; end
 end
 
-local function ftSetFormula(self, formula)
+local FormulaIndex = {};
+table.insert(FormulaIndex, {value = "simple", text = "Simple"});
+table.insert(FormulaIndex, {value = "cooline", text = "Cooline"});
+
+function RDX.GetFormula()
+	return FormulaIndex;
+end
+
+local function ftSetFormula(self, formula, formulatype)
 	self.formula = formula;
+	self.formulatype = formulatype;
+end
+
+function RDX.coolineFormula(timeleft)
+	if timeleft > 360 then
+		return 1;
+	elseif timeleft > 120 then
+		return 5/6 + ((timeleft - 120)/240)/6;
+	elseif timeleft > 60 then
+		return 4/6 + ((timeleft - 60)/60)/6;
+	elseif timeleft > 30 then
+		return 3/6 + ((timeleft - 30)/30)/6;
+	elseif timeleft > 10 then
+		return 2/6 + ((timeleft - 10)/20)/6;
+	elseif timeleft > 1 then
+		return 1/6 + ((timeleft - 1)/9)/6;
+	else
+		return timeleft/6;
+	end
 end
 
 local function ftSetSBBlendColor(self, sbcolorVar1, sbcolorVar2)
@@ -89,7 +116,7 @@ local function ftDestroy(self)
 	self.txt = nil; self.tex = nil;
 	self.numcolor = nil;
 	self.blftcolor = nil;
-	self.bar = nil; self.SetFormula = nil; self.formula = nil;
+	self.bar = nil; self.SetFormula = nil; self.formula = nil; self.formulatype = nil; 
 	self.text = nil; self.textcolor1 = nil; self.textcolor2 = nil; self.SetTimer = nil;
 	self.textInfo = nil; self.texIcon = nil; self.SetData = nil; 
 	self.SetVariableColor = nil;
@@ -122,10 +149,18 @@ return function(self)
 	if statusBar then 
 		onUpdate = onUpdate .. [[
 self.bar:Show(); 
-if self.formula then 
-	self.bar:SetValue(1 - self.tl/self.dur);
+if self.formula then
+	if self.formulatype == "simple" then
+		self.bar:SetValue(1 - self.tl/self.dur);
+	elseif self.formulatype == "cooline" then
+		self.bar:SetValue(1 - RDX.coolineFormula(self.tl));
+	end
 else
-	self.bar:SetValue(self.tl/self.dur);
+	if self.formulatype == "simple" then
+		self.bar:SetValue(self.tl/self.dur);
+	elseif self.formulatype == "cooline" then
+		self.bar:SetValue(RDX.coolineFormula(self.tl));
+	end
 end
 ]];
 	end
@@ -167,7 +202,9 @@ end;
 		-- variable
 		f.start = 0; f.dur = 0; f.tl = 0;
 		f.txt = ""; f.tex = "";
-		f.formula = "self.tl/self.dur";
+		--f.formula = "self.tl/self.dur";
+		f.formula = true;
+		f.formulatype = "simple";
 		f.numcolor = 0;
 		-- object and updater
 		f.bar = sb; f.SetFormula = ftSetFormula;
@@ -191,6 +228,7 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		local flg = true;
+		if not desc.formulaType then desc.formulaType = "simple"; end
 		if not desc.timerVar or desc.timerVar == "" or not state:Slot("TimerVar_" .. desc.timerVar) then VFL.AddError(errs, VFLI.i18n("Missing variable timer.")); flg = nil; end
 		if desc.statusBar and desc.statusBar ~= "" and not state:Slot("StatusBar_" .. desc.statusBar) then
 			VFL.AddError(errs, VFLI.i18n("Invalid statusbar")); flg = nil;
@@ -216,11 +254,10 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state, errs)
 		local objname = "FreeTimer_" .. math.random(10000000); -- Generate a random ID.
-		if not desc.countTypeFlag then desc.countTypeFlag = "true"; end
 		
 		local sb = strtrim(desc.statusBar or "");
 		local sbblendcolor = "false"; if desc.sbblendcolor then sbblendcolor = "true"; end
-		
+		local countTypeFlag = "nil" if desc.countTypeFlag and desc.countTypeFlag ~= "" then countTypeFlag = desc.countTypeFlag; end
 		local textTimer = strtrim(desc.text or "");
 		local tet = desc.textType or "VFL.Hundredths";
 		local blendcolor = "false"; if desc.blendcolor then blendcolor = "true"; end
@@ -269,7 +306,7 @@ frame.]] .. objname .. [[ = ftc_]] .. objname .. [[(frame, ]] .. sb .. [[, ]] ..
 
 		--- Paint
 		local paintCode = [[
-frame.]] .. objname .. [[:SetFormula(]] .. desc.countTypeFlag .. [[);
+frame.]] .. objname .. [[:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
 ]];
 if desc.sbblendcolor then 
 		paintCode = paintCode .. [[
@@ -299,6 +336,17 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		
 		local countTypeFlag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Count type (true CountUP, false CountDOWN)"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.countTypeFlag then countTypeFlag:SetSelection(desc.countTypeFlag); end
+		
+		local tt = VFLUI.EmbedRight(ui, VFLI.i18n("Formula Type"));
+		local dd_formulaType = VFLUI.Dropdown:new(tt, RDX.GetFormula);
+		dd_formulaType:SetWidth(200); dd_formulaType:Show();
+		if desc and desc.formulaType then 
+			dd_formulaType:SetSelection(desc.formulaType); 
+		else
+			dd_formulaType:SetSelection("simple");
+		end
+		tt:EmbedChild(dd_formulaType); tt:Show();
+		ui:InsertFrame(tt);
 		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Statusbar parameters")));
 		
@@ -479,6 +527,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 				feature = "free_timer"; version = 1;
 				timerVar = timerVar:GetSelection();
 				countTypeFlag = countTypeFlag:GetSelection();
+				formulaType = dd_formulaType:GetSelection();
 				statusBar = statusBar:GetSelection();
 				sbblendcolor = chk_sbblendcolor:GetChecked();
 				sbcolorVar1 = ssbcolor1; sbcolorVar2 = ssbcolor2;
@@ -513,7 +562,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 	end;
 	CreateDescriptor = function()
 		return {
-			feature = "free_timer"; version = 1; countTypeFlag = "true";
+			feature = "free_timer"; version = 1; formulaType = "simple";
 		};
 	end;
 });
