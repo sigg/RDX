@@ -154,7 +154,7 @@ dd_nametxt:Show();
 local chk_showtimertext = VFLUI.Checkbox:new(ca);
 chk_showtimertext:SetHeight(16); chk_showtimertext:SetWidth(300);
 chk_showtimertext:SetPoint("TOPLEFT", lbl8, "BOTTOMLEFT", 0, -15);
-chk_showtimertext:SetText("Show Stack Text");
+chk_showtimertext:SetText("Show Timer Text");
 chk_showtimertext:Show();
 
 local lbl9 = VFLUI.MakeLabel(nil, ca, "Time Text Font:");
