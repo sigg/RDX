@@ -70,8 +70,8 @@ local function ftSetData(self, txt, tex)
 end
 
 local FormulaIndex = {};
-table.insert(FormulaIndex, {value = "simple", text = "Simple"});
-table.insert(FormulaIndex, {value = "cooline", text = "Cooline"});
+table.insert(FormulaIndex, {text = "simple"});
+table.insert(FormulaIndex, {text = "cooline"});
 
 function RDX.GetFormula()
 	return FormulaIndex;
@@ -154,12 +154,16 @@ if self.formula then
 		self.bar:SetValue(1 - self.tl/self.dur);
 	elseif self.formulatype == "cooline" then
 		self.bar:SetValue(1 - RDX.coolineFormula(self.tl));
+	else
+		self.bar:SetValue(1 - self.tl/self.dur);
 	end
 else
 	if self.formulatype == "simple" then
 		self.bar:SetValue(self.tl/self.dur);
 	elseif self.formulatype == "cooline" then
 		self.bar:SetValue(RDX.coolineFormula(self.tl));
+	else
+		self.bar:SetValue(self.tl/self.dur);
 	end
 end
 ]];

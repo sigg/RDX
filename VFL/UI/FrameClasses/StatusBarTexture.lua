@@ -240,7 +240,7 @@ function VFLUI.SBTIB:new(parent, desc)
 			b = tonumber(desc.bkd.insets.bottom or 0);
 		end
 		
-		if desc.showicon then
+		if desc.showicon and not desc.anchorbar then
 			if desc.borientation == "VERTICAL" then
 				iw = desc.w - l - r;
 				ih = desc.w - t - b;
@@ -266,9 +266,16 @@ function VFLUI.SBTIB:new(parent, desc)
 			bw = desc.w - l - r;
 			bh = desc.h - t - b;
 			boffsetx, boffsety = l, b;
+			if desc.borientation == "VERTICAL" then
+				iw = desc.w - l - r;
+				ih = desc.w - t - b;
+			else
+				iw = desc.h - l - r;
+				ih = desc.h - t - b;
+			end
 		end
 	else
-		if desc.showicon then
+		if desc.showicon and not desc.anchorbar then
 			if desc.borientation == "VERTICAL" then
 				iw, ih = desc.w, desc.w;
 				bw, bh = desc.w, desc.h - desc.w;
@@ -288,21 +295,17 @@ function VFLUI.SBTIB:new(parent, desc)
 			end
 		else
 			bw, bh = desc.w, desc.h;
+			if desc.borientation == "VERTICAL" then
+				iw, ih = desc.w, desc.w;
+			else
+				iw, ih = desc.h, desc.h;
+			end
 		end
 	end
 	
 	-- backdrop
 	if desc.bkd then
 		VFLUI.SetBackdrop(f, desc.bkd);
-	end
-	
-	-- icon
-	if desc.showicon then
-		f.icon = VFLUI.CreateTexture(f);
-		f.icon:SetWidth(iw);
-		f.icon:SetHeight(ih);
-		f.icon:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", ioffsetx, ioffsety);
-		f.icon:Show();
 	end
 	
 	-- statusbartexture
@@ -320,6 +323,19 @@ function VFLUI.SBTIB:new(parent, desc)
 	f.sb:SetPoint(desc.banchor, f.bg, desc.banchor);
 	VFLUI.SetTexture(f.sb, desc.btexture);
 	f.sb:Show();
+	
+	-- icon
+	if desc.showicon then
+		f.icon = VFLUI.CreateTexture(f);
+		f.icon:SetWidth(iw);
+		f.icon:SetHeight(ih);
+		if desc.anchorbar then
+			f.icon:SetPoint("CENTER", f.sb, desc.iconposition);
+		else
+			f.icon:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", ioffsetx, ioffsety);
+		end
+		f.icon:Show();
+	end
 	
 	-- stacktxt
 	if desc.showicon then

@@ -32,7 +32,7 @@ VFLUI.Window.SetDefaultFraming(sbp, 20);
 sbp:SetBackdrop(VFLUI.BlackDialogBackdrop);
 sbp:SetText("StatusBar Picker");
 sbp:SetTitleColor(0,0,.6);
-sbp:SetWidth(330); sbp:SetHeight(420);
+sbp:SetWidth(330); sbp:SetHeight(440);
 sbp:SetPoint("CENTER", VFLParent, "CENTER");
 sbp:SetMovable(true); sbp:SetToplevel(nil);
 VFLUI.Window.StdMove(sbp, sbp:GetTitleBar());
@@ -121,8 +121,14 @@ dd_iconposition:SetWidth(180);
 dd_iconposition:SetPoint("LEFT", lbl6, "RIGHT");
 dd_iconposition:Show();
 
+local chk_anchorbar = VFLUI.Checkbox:new(ca);
+chk_anchorbar:SetHeight(16); chk_anchorbar:SetWidth(300);
+chk_anchorbar:SetPoint("TOPLEFT", lbl6, "BOTTOMLEFT", 0, -15);
+chk_anchorbar:SetText("Icon anchor to statusbar");
+chk_anchorbar:Show();
+
 local lbl7 = VFLUI.MakeLabel(nil, ca, "Stack Text Font:");
-lbl7:SetWidth(140); lbl7:SetPoint("TOPLEFT", lbl6, "BOTTOMLEFT", 0, -15);
+lbl7:SetWidth(140); lbl7:SetPoint("TOPLEFT", chk_anchorbar, "BOTTOMLEFT", 0, -15);
 local dd_stacktxt = VFLUI.MakeFontSelectButton(ca, nil, nil, true); 
 dd_stacktxt:SetPoint("LEFT", lbl7, "RIGHT");
 dd_stacktxt:Show();
@@ -155,6 +161,7 @@ function PikSBTIBUpdate()
 	cur.btexture = dd_btexture:GetSelectedTexture();
 	if chk_showicon:GetChecked() then cur.showicon = true; else cur.showicon = nil; end
 	cur.iconposition = dd_iconposition:GetSelection();
+	if chk_anchorbar:GetChecked() then cur.anchorbar = true; else cur.anchorbar = nil; end
 	cur.stacktxt = dd_stacktxt:GetSelectedFont();
 	if chk_showname:GetChecked() then cur.showname = true; else cur.showname = nil; end
 	cur.nametxt = dd_nametxt:GetSelectedFont();
@@ -174,6 +181,9 @@ function UpdateSBTIBPicker()
 		chk_showicon:SetChecked(true);
 	end
 	dd_iconposition:SetSelection(cur.iconposition or "LEFT");
+	if cur.anchorbar then
+		chk_anchorbar:SetChecked(true);
+	end
 	dd_stacktxt:SetSelectedFont(cur.stacktxt);
 	if cur.showname then
 		chk_showname:SetChecked(true);
