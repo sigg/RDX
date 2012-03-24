@@ -103,6 +103,7 @@ RDX.RegisterFeature({
 		if not desc.color2 then desc.color2 = _white; end
 		
 		local showicon = "nil"; if desc.sbtib and desc.sbtib.showicon then showicon = "true"; end
+		local showtimertext = "nil"; if desc.sbtib and desc.sbtib.showtimertext then showtimertext = "true"; end
 		
 		-- If there's an external filter, add a quick menu to the window to edit it.
 		if desc.externalNameFilter then
@@ -120,7 +121,7 @@ RDX.RegisterFeature({
 
 		------------ Closure
 		local closureCode = [[
-local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true,true, nil, VFLUI.GetTextTimerTypesString("]] .. tet .. [["), false, false, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, ]] .. showduration .. [[, ]] .. blendcolor .. [[);
+local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true, ]] .. showtimertext .. [[, nil, VFLUI.GetTextTimerTypesString("]] .. tet .. [["), false, false, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, ]] .. showduration .. [[, ]] .. blendcolor .. [[);
 ]];
 		if desc.filterName then
 			closureCode = closureCode .. [[

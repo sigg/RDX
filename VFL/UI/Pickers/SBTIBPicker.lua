@@ -32,7 +32,7 @@ VFLUI.Window.SetDefaultFraming(sbp, 20);
 sbp:SetBackdrop(VFLUI.BlackDialogBackdrop);
 sbp:SetText("StatusBar Picker");
 sbp:SetTitleColor(0,0,.6);
-sbp:SetWidth(330); sbp:SetHeight(440);
+sbp:SetWidth(330); sbp:SetHeight(500);
 sbp:SetPoint("CENTER", VFLParent, "CENTER");
 sbp:SetMovable(true); sbp:SetToplevel(nil);
 VFLUI.Window.StdMove(sbp, sbp:GetTitleBar());
@@ -127,8 +127,14 @@ chk_anchorbar:SetPoint("TOPLEFT", lbl6, "BOTTOMLEFT", 0, -15);
 chk_anchorbar:SetText("Icon anchor to statusbar");
 chk_anchorbar:Show();
 
+local chk_showstacktext = VFLUI.Checkbox:new(ca);
+chk_showstacktext:SetHeight(16); chk_showstacktext:SetWidth(300);
+chk_showstacktext:SetPoint("TOPLEFT", chk_anchorbar, "BOTTOMLEFT", 0, -15);
+chk_showstacktext:SetText("Show Stack Text");
+chk_showstacktext:Show();
+
 local lbl7 = VFLUI.MakeLabel(nil, ca, "Stack Text Font:");
-lbl7:SetWidth(140); lbl7:SetPoint("TOPLEFT", chk_anchorbar, "BOTTOMLEFT", 0, -15);
+lbl7:SetWidth(140); lbl7:SetPoint("TOPLEFT", chk_showstacktext, "BOTTOMLEFT", 0, -15);
 local dd_stacktxt = VFLUI.MakeFontSelectButton(ca, nil, nil, true); 
 dd_stacktxt:SetPoint("LEFT", lbl7, "RIGHT");
 dd_stacktxt:Show();
@@ -145,8 +151,14 @@ local dd_nametxt = VFLUI.MakeFontSelectButton(ca, nil, nil, true);
 dd_nametxt:SetPoint("LEFT", lbl8, "RIGHT");
 dd_nametxt:Show();
 
+local chk_showtimertext = VFLUI.Checkbox:new(ca);
+chk_showtimertext:SetHeight(16); chk_showtimertext:SetWidth(300);
+chk_showtimertext:SetPoint("TOPLEFT", lbl8, "BOTTOMLEFT", 0, -15);
+chk_showtimertext:SetText("Show Stack Text");
+chk_showtimertext:Show();
+
 local lbl9 = VFLUI.MakeLabel(nil, ca, "Time Text Font:");
-lbl9:SetWidth(140); lbl9:SetPoint("TOPLEFT", lbl8, "BOTTOMLEFT", 0, -15);
+lbl9:SetWidth(140); lbl9:SetPoint("TOPLEFT", chk_showtimertext, "BOTTOMLEFT", 0, -15);
 local dd_timetxt = VFLUI.MakeFontSelectButton(ca, nil, nil, true); 
 dd_timetxt:SetPoint("LEFT", lbl9, "RIGHT");
 dd_timetxt:Show();
@@ -162,9 +174,11 @@ function PikSBTIBUpdate()
 	if chk_showicon:GetChecked() then cur.showicon = true; else cur.showicon = nil; end
 	cur.iconposition = dd_iconposition:GetSelection();
 	if chk_anchorbar:GetChecked() then cur.anchorbar = true; else cur.anchorbar = nil; end
+	if chk_showstacktext:GetChecked() then cur.showstacktext = true; else cur.showstacktext = nil; end
 	cur.stacktxt = dd_stacktxt:GetSelectedFont();
 	if chk_showname:GetChecked() then cur.showname = true; else cur.showname = nil; end
 	cur.nametxt = dd_nametxt:GetSelectedFont();
+	if chk_showtimertext:GetChecked() then cur.showtimertext = true; else cur.showtimertext = nil; end
 	cur.timetxt = dd_timetxt:GetSelectedFont();
 end
 
@@ -184,11 +198,17 @@ function UpdateSBTIBPicker()
 	if cur.anchorbar then
 		chk_anchorbar:SetChecked(true);
 	end
+	if cur.showstacktext then
+		chk_showstacktext:SetChecked(true);
+	end
 	dd_stacktxt:SetSelectedFont(cur.stacktxt);
 	if cur.showname then
 		chk_showname:SetChecked(true);
 	end
 	dd_nametxt:SetSelectedFont(cur.nametxt);
+	if cur.showtimertext then
+		chk_showtimertext:SetChecked(true);
+	end
 	dd_timetxt:SetSelectedFont(cur.timetxt);
 end
 

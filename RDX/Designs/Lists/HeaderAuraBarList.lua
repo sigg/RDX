@@ -39,6 +39,9 @@ RDX.RegisterFeature({
 		if desc.separateown == "BEFORE" then sortdir = "1"; end
 		if desc.separateown == "AFTER" then sortdir = "-1"; end
 		
+		local showicon = "nil"; if desc.sbtib and desc.sbtib.showicon then showicon = "true"; end
+		local showtimertext = "nil"; if desc.sbtib and desc.sbtib.showtimertext then showtimertext = "true"; end
+		
 		local _, _, dx, dy = string.find(desc.template, "^RDXAB(.*)x(.*)Template$");
 		--local borientation, isize, barx, bary;
 		--if desc.showtex then
@@ -68,7 +71,7 @@ RDX.RegisterFeature({
 		
 		------------ Closure
 		local closureCode = [[
-local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true,true, nil, VFLUI.GetTextTimerTypesString("MinSec"), false, false, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide);
+local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true, ]] .. showtimertext .. [[, nil, VFLUI.GetTextTimerTypesString("MinSec"), false, false, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide);
 ]];
 		state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
 

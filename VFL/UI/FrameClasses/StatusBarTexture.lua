@@ -338,16 +338,18 @@ function VFLUI.SBTIB:new(parent, desc)
 	end
 	
 	-- stacktxt
-	if desc.showicon then
-		f.stacktxt = VFLUI.CreateFontString(f);
-		f.stacktxt:SetAllPoints(f.icon);
-		VFLUI.SetFont(f.stacktxt, desc.stacktxt, nil, true);
-		f.stacktxt:Show();
-	else
-		f.stacktxt = VFLUI.CreateFontString(f);
-		f.stacktxt:SetAllPoints(f);
-		VFLUI.SetFont(f.stacktxt, desc.stacktxt, nil, true);
-		f.stacktxt:Show();
+	if desc.showstacktext then
+		if desc.showicon then
+			f.stacktxt = VFLUI.CreateFontString(f);
+			f.stacktxt:SetAllPoints(f.icon);
+			VFLUI.SetFont(f.stacktxt, desc.stacktxt, nil, true);
+			f.stacktxt:Show();
+		else
+			f.stacktxt = VFLUI.CreateFontString(f);
+			f.stacktxt:SetAllPoints(f);
+			VFLUI.SetFont(f.stacktxt, desc.stacktxt, nil, true);
+			f.stacktxt:Show();
+		end
 	end
 	
 	if desc.showname then
@@ -359,15 +361,17 @@ function VFLUI.SBTIB:new(parent, desc)
 	end
 	
 	-- timetxt
-	f.timetxt = VFLUI.CreateFontString(f.bg);
-	f.timetxt:SetAllPoints(f.bg);
-	VFLUI.SetFont(f.timetxt, desc.timetxt, nil, true);
-	f.timetxt:Show();
+	if desc.showtimertext then
+		f.timetxt = VFLUI.CreateFontString(f.bg);
+		f.timetxt:SetAllPoints(f.bg);
+		VFLUI.SetFont(f.timetxt, desc.timetxt, nil, true);
+		f.timetxt:Show();
+	end
 	
 	f.Destroy = VFL.hook(function(s2)
-		VFLUI.ReleaseRegion(s2.timetxt); s2.timetxt = nil;
+		if s2.timetxt then VFLUI.ReleaseRegion(s2.timetxt); s2.timetxt = nil; end
 		if s2.nametxt then VFLUI.ReleaseRegion(s2.nametxt); s2.nametxt = nil; end
-		VFLUI.ReleaseRegion(s2.stacktxt); s2.stacktxt = nil;
+		if s2.stacktxt then VFLUI.ReleaseRegion(s2.stacktxt); s2.stacktxt = nil; end
 		s2.sb:Destroy(); s2.sb = nil;
 		s2.bg:Destroy(); s2.bg = nil;
 		if s2.icon then VFLUI.ReleaseRegion(s2.icon); s2.icon = nil; end
