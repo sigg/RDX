@@ -282,8 +282,8 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 	function frame:Unlock(frameprops)
 		if frame.tfIdent then
 			local h, w = 0, 0;
-			if frame:GetHeight() < 20 then h = 30; end
-			if frame:GetWidth() < 20 then w = 30; end
+			if frame:GetHeight() < 10 then h = 10; end
+			if frame:GetWidth() < 10 then w = 10; end
 			frame.tf:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0);
 			frame.tf:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", w, -h);
 			
