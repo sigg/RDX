@@ -368,7 +368,7 @@ local disabledframes = {
 	"VehicleMenuBarHealthBar",    
 	"VehicleMenuBarPowerBar",
 	"VehicleMenuBar",
-	"ReputationFrame",
+	--"ReputationFrame",
 	"ReputationWatchBar",
 };
 
