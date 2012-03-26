@@ -200,7 +200,7 @@ text = "";
 if _apps then
 	text = _i .. ":" .. _j;
 else
-	_meta = (floor(hour / 12) == 1) and  "pm" or "am";
+	_meta = (floor(_i / 12) == 1) and  "pm" or "am";
 	_i = mod(_i, 12);
 	if _i == 0 then _i = 12 end
 	if _meta == "pm" then
