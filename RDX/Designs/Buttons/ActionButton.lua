@@ -370,12 +370,27 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 		end
 	end
 	
-	local function UpdateGlow()
-		local spellType, id, subType  = GetActionInfo(self.action);
-		if (spellType == "spell" and IsSpellOverlayed(id)) then
-			self.ga = true;
-		else
-			self.ga = nil;
+	local function ShowGlow()
+		local actionType, id, subType = GetActionInfo(self.action);
+		if ( actionType == "spell" and id == arg1 ) then
+			ActionButton_ShowOverlayGlow(self);
+		elseif ( actionType == "macro" ) then
+			local _, _, spellId = GetMacroSpell(id);
+			if ( spellId and spellId == arg1 ) then
+				ActionButton_ShowOverlayGlow(self);
+			end
+		end
+	end
+	
+	local function HideGlow()
+		local actionType, id, subType = GetActionInfo(self.action);
+		if ( actionType == "spell" and id == arg1 ) then
+			ActionButton_HideOverlayGlow(self);
+		elseif ( actionType == "macro" ) then
+			local _, _, spellId = GetMacroSpell(id);
+			if (spellId and spellId == arg1 ) then
+				ActionButton_HideOverlayGlow(self);
+			end
 		end
 	end
 	
@@ -412,8 +427,8 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 			WoWEvents:Bind("PLAYER_ENTER_COMBAT", nil, UpdateState, "actionButton" .. self.id);
 			WoWEvents:Bind("ACTIONBAR_UPDATE_USABLE", nil, UpdateUsable, "actionButton" .. self.id);
 			WoWEvents:Bind("ACTIONBAR_UPDATE_COOLDOWN", nil, UpdateCooldown, "actionButton" .. self.id);
-			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW", nil, UpdateGlow, "actionButton" .. self.id);
-			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE", nil, UpdateGlow, "actionButton" .. self.id);
+			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW", nil, ShowGlow, "actionButton" .. self.id);
+			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE", nil, HideGlow, "actionButton" .. self.id);
 			self.txtHotkey:Show();
 		end
 		
@@ -750,6 +765,7 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 		self.action = self:GetAttribute("action");
 		WoWEvents:Unbind("multicastButton" .. self.id);
 		self.txtHotkey:Hide();
+		ActionButton_HideOverlayGlow(self);
 		if not self.action then return; end
 		if HasAction(self.action) then
 			WoWEvents:Unbind("multicastButton" .. self.id);
