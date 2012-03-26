@@ -130,10 +130,10 @@ local _t = VFLUI.CreateTexture(]] .. fvar .. [[);
 local _r = VFLUI.CreateTexture(]] .. fvar .. [[);
 local _b = VFLUI.CreateTexture(]] .. fvar .. [[);
 
-_l:SetTexture(VFL.explodeRGBA(]] .. Serialize(desc.color) .. [[);
-_t:SetTexture(VFL.explodeRGBA(]] .. Serialize(desc.color) .. [[);
-_r:SetTexture(VFL.explodeRGBA(]] .. Serialize(desc.color) .. [[);
-_b:SetTexture(VFL.explodeRGBA(]] .. Serialize(desc.color) .. [[);
+_l:SetTexture(VFL.explodeRGBA(]] .. Serialize(desc.color) .. [[));
+_t:SetTexture(VFL.explodeRGBA(]] .. Serialize(desc.color) .. [[));
+_r:SetTexture(VFL.explodeRGBA(]] .. Serialize(desc.color) .. [[));
+_b:SetTexture(VFL.explodeRGBA(]] .. Serialize(desc.color) .. [[));
 
 _l:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[);
 _t:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[);
@@ -150,10 +150,10 @@ _t:SetPoint("TOP", ]] .. fvar .. [[, "TOP");
 _r:SetPoint("RIGHT", ]] .. fvar .. [[, "RIGHT");
 _b:SetPoint("BOTTOM", ]] .. fvar .. [[, "BOTTOM");
 
-_l:SetWidth(]] .. (desc.size or "1") .. [[); _t:SetHeight(]] .. fvar .. [[:GetHeight());
+_l:SetWidth(]] .. (desc.size or "1") .. [[); _l:SetHeight(]] .. fvar .. [[:GetHeight());
 _t:SetWidth(]] .. fvar .. [[:GetWidth()); _t:SetHeight(]] .. (desc.size or "1") .. [[);
-_r:SetWidth(]] .. (desc.size or "1") .. [[); _t:SetHeight(]] .. fvar .. [[:GetHeight());
-_b:SetWidth(]] .. fvar .. [[:GetWidth()); _t:SetHeight(]] .. (desc.size or "1") .. [[);
+_r:SetWidth(]] .. (desc.size or "1") .. [[); _r:SetHeight(]] .. fvar .. [[:GetHeight());
+_b:SetWidth(]] .. fvar .. [[:GetWidth()); _b:SetHeight(]] .. (desc.size or "1") .. [[);
 
 _l:Show();
 _t:Show();
