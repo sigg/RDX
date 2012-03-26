@@ -452,7 +452,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 			self.icon:SetTexture("Interface\\InventoryItems\\WoWUnknownItem01.blp");
 		else
 			self.icon:SetTexture(GetActionTexture(self.action));
-			--[[if self.usebs then
+			if self.usebs then
 				local spellType, id, subType  = GetActionInfo(self.action);
 				if ( spellType == "spell" and IsSpellOverlayed(id) ) then
 					ActionButton_ShowOverlayGlow(self.framesup);
@@ -480,7 +480,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 				else
 					ActionButton_HideOverlayGlow(self);
 				end
-			end]]
+			end
 			UpdateState();
 			UpdateUsable();
 			UpdateCooldown();
