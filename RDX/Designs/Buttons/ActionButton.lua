@@ -311,7 +311,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	-- frame for text
 	self.frtxt = VFLUI.AcquireFrame("Frame");
 	self.frtxt:SetParent(self);
-	self.frtxt:SetFrameLevel(self:GetFrameLevel() + 2);
+	self.frtxt:SetFrameLevel(self:GetFrameLevel() + 3);
 	self.frtxt:SetAllPoints(self);
 	self.frtxt:Show();
 	-- text count
@@ -370,26 +370,42 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 		end
 	end
 	
-	local function ShowGlow()
+	local function ShowGlow(arg1)
 		local actionType, id, subType = GetActionInfo(self.action);
 		if ( actionType == "spell" and id == arg1 ) then
-			ActionButton_ShowOverlayGlow(self);
+			if self.usebs then
+				ActionButton_ShowOverlayGlow(self.framesup);
+			else
+				ActionButton_ShowOverlayGlow(self);
+			end
 		elseif ( actionType == "macro" ) then
 			local _, _, spellId = GetMacroSpell(id);
 			if ( spellId and spellId == arg1 ) then
-				ActionButton_ShowOverlayGlow(self);
+				if self.usebs then
+					ActionButton_ShowOverlayGlow(self.framesup);
+				else
+					ActionButton_ShowOverlayGlow(self);
+				end
 			end
 		end
 	end
 	
-	local function HideGlow()
+	local function HideGlow(arg1)
 		local actionType, id, subType = GetActionInfo(self.action);
 		if ( actionType == "spell" and id == arg1 ) then
-			ActionButton_HideOverlayGlow(self);
+			if self.usebs then
+				ActionButton_HideOverlayGlow(self.framesup);
+			else
+				ActionButton_HideOverlayGlow(self);
+			end
 		elseif ( actionType == "macro" ) then
 			local _, _, spellId = GetMacroSpell(id);
 			if (spellId and spellId == arg1 ) then
-				ActionButton_HideOverlayGlow(self);
+				if self.usebs then
+					ActionButton_HideOverlayGlow(self.framesup);
+				else
+					ActionButton_HideOverlayGlow(self);
+				end
 			end
 		end
 	end
@@ -436,7 +452,35 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 			self.icon:SetTexture("Interface\\InventoryItems\\WoWUnknownItem01.blp");
 		else
 			self.icon:SetTexture(GetActionTexture(self.action));
-			UpdateGlow();
+			--[[if self.usebs then
+				local spellType, id, subType  = GetActionInfo(self.action);
+				if ( spellType == "spell" and IsSpellOverlayed(id) ) then
+					ActionButton_ShowOverlayGlow(self.framesup);
+				elseif ( spellType == "macro" ) then
+					local _, _, spellId = GetMacroSpell(id);
+					if ( spellId and IsSpellOverlayed(spellId) ) then
+						ActionButton_ShowOverlayGlow(self.framesup);
+					else
+						ActionButton_HideOverlayGlow(self.framesup);
+					end
+				else
+					ActionButton_HideOverlayGlow(self.framesup);
+				end
+			else
+				local spellType, id, subType  = GetActionInfo(self.action);
+				if ( spellType == "spell" and IsSpellOverlayed(id) ) then
+					ActionButton_ShowOverlayGlow(self);
+				elseif ( spellType == "macro" ) then
+					local _, _, spellId = GetMacroSpell(id);
+					if ( spellId and IsSpellOverlayed(spellId) ) then
+						ActionButton_ShowOverlayGlow(self);
+					else
+						ActionButton_HideOverlayGlow(self);
+					end
+				else
+					ActionButton_HideOverlayGlow(self);
+				end
+			end]]
 			UpdateState();
 			UpdateUsable();
 			UpdateCooldown();
