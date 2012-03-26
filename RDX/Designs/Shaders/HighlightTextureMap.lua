@@ -41,7 +41,7 @@ RDX.RegisterFeature({
 		local paintCode = [[
 if ]] .. desc.flag .. [[ then
 	]] .. tname .. [[:Show();
-	]] .. tname .. [[:SetVertexColor(VFL.explodeRGBA(]] .. desc.color .. [[));
+	]] .. tname .. [[:SetVertexColor(explodeRGBA(]] .. desc.color .. [[));
 end
 ]];
 		-- If there's not already a highlight preamble for this texture, add it.

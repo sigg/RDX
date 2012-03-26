@@ -280,8 +280,6 @@ Designs\Textures\TextureIcon.lua
 Designs\Textures\ClassIcon.lua
 Designs\Textures\FactionIcon.lua
 Designs\Textures\MasterLooterIcon.lua
-# deprecated
-#Designs\Textures\PetHapinessIcon.lua
 Designs\Textures\PlayerStatusIcon.lua
 Designs\Textures\Portraits2D.lua
 Designs\Textures\Portraits3D.lua
@@ -290,8 +288,6 @@ Designs\Textures\RaidLeaderIcon.lua
 Designs\Textures\RaidTargetIcon.lua
 Designs\Textures\ReadyCheckIcon.lua
 Designs\Textures\RoleIcon.lua
-# deprecated
-#Designs\Textures\TalentIcon.lua
 Designs\Textures\Texture.lua
 
 Designs\Variables\AuraVariables.lua
