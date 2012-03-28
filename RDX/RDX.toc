@@ -134,6 +134,7 @@ DesktopMgr\Docks.lua
 DesktopMgr\DocksHelper.lua
 DesktopMgr\ManagedFrame.lua
 DesktopMgr\FrameProps.lua
+DesktopMgr\GlobalScale.lua
 DesktopMgr\Obj_DUI.lua
 DesktopMgr\BlizzardFullDisable.lua
 #DesktopMgr\Crosshair.lua
