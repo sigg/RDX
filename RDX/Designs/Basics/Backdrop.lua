@@ -111,7 +111,7 @@ RDX.RegisterFeature({
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if not RDXUI.UFOwnerCheck(desc.owner, state, errs) then return nil; end
 		-- Verify there isn't two backdrops on the same owner frame
-		if state:Slot("Bkdp_" .. desc.owner) or state:Slot("Bkdp_rdx_" .. desc.owner) then
+		if state:Slot("Bkdp_rdx_" .. desc.owner) then
 			VFL.AddError(errs, VFLI.i18n("Owner frame already has a backdrop")); return nil;
 		end
 		if desc.sublevel and (tonumber(desc.sublevel) < 0 or tonumber(desc.sublevel) > 7) then

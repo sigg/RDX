@@ -184,7 +184,7 @@ end
 -- Hook secure
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
-		if descg.usemouse then
+		if descg.tooltipmouse then
 			GameTooltip:SetOwner(parent, "ANCHOR_CURSOR");
 		else
 			GameTooltip:SetOwner(parent, "ANCHOR_NONE");

@@ -240,10 +240,14 @@ RDX.RegisterFeature({
 		local function destroy()
 			gridT:SetAttribute("toto", nil);
 			gridT:SetAttribute("_ignore", "RDXIgnore");
-			gridAssist:SetAttribute("toto", nil);
-			gridAssist:SetAttribute("_ignore", "RDXIgnore");
-			gridTT:SetAttribute("toto", nil);
-			gridTT:SetAttribute("_ignore", "RDXIgnore");
+			if gridAssist then
+				gridAssist:SetAttribute("toto", nil);
+				gridAssist:SetAttribute("_ignore", "RDXIgnore");
+			end
+			if gridTT then
+				gridTT:SetAttribute("toto", nil);
+				gridTT:SetAttribute("_ignore", "RDXIgnore");
+			end
 			if VFLP.IsEnabled() then
 				VFLT.AdaptiveUnschedule("Perf" .. win._path);
 			end
