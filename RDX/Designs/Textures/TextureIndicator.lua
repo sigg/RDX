@@ -87,7 +87,7 @@ local rdxset_yellow = RDXDAL.FindSet({class = "file", file = "default:set_yellow
 if not rdxset_yellow:IsOpen() then rdxset_yellow:Open(); end
 ]];
 	createCode = [[
-btn._t:SetTexture(0,1,1,1);
+btn._t:SetTexture(1,1,0,1);
 ]];
 	paintCodeTest = [[
 if not btn:IsShown() then btn:Show(); end
@@ -126,6 +126,16 @@ RDX.RegisterFeature({
 		return flg;
 	end;
 	ApplyFeature = function(desc, state)
+		local path = Indicators[desc.class].set.file; local afname = desc.name;
+		state:GetContainingWindowState():Attach("Menu", true, function(win, mnu)
+			table.insert(mnu, {
+				text = VFLI.i18n("Edit Indicator: ") .. afname;
+				OnClick = function()
+					VFL.poptree:Release();
+					RDXDB.OpenObject(path, "Edit", VFLDIALOG);
+				end;
+			});
+		end);
 		local objname = "Frame_" .. desc.name;
 		------------------ On frame creation
 		local createCode = [[
@@ -240,7 +250,7 @@ btn = frame.]] .. objname .. [[;
 	CreateDescriptor = function()
 		return { 
 			feature = "tex_indicator", name = "Indicator1", owner = "decor", drawLayer = "ARTWORK";
-			w = 4; h = 4; sublevel = 2;
+			w = 4; h = 4; sublevel = 2; class = "Blue";
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
 		};
 	end;
