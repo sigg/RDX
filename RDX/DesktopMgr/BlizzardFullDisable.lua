@@ -486,6 +486,9 @@ function RDXDK.DisableAll()
 	
 	ReputationWatchBar_Update = VFL.Noop;
 	
+	-- TO BE TESTED
+	FCF_OnUpdate = VFL.Noop;
+	
 	RDX.ManageChatFrames();
 	
 	--[[
