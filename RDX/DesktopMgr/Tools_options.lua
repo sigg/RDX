@@ -102,7 +102,10 @@ local function SetFramed(froot)
 end
 
 local function UnsetFramed()
-
+	if dfkey then
+		DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
+		dfkey = nil;
+	end
 end
 
 framed:Hide();
