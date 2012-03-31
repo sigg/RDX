@@ -1039,6 +1039,23 @@ VFLUI.CreateFramePool("SecureActionButtonPet",
 	end,
 "key");
 
+VFLUI.CreateFramePool("AutoCastShine", 
+	function(pool, x)
+	if (not x) then return; end
+		--VFLUI._CleanupButton(x);
+		--VFLUI._CleanupLayoutFrame(x);
+		x:Hide(); x:SetParent(VFLParent); x:ClearAllPoints();
+		end,
+	function()
+		local f = CreateFrame("Frame", "ACS" .. VFL.GetNextID(), nil, "AutoCastShineTemplate");
+		return f;
+	end, 
+	function(_, f) -- on acquired
+		f:ClearAllPoints();
+		f:Show();
+	end
+);
+
 function ABPShowGameTooltip(self)
 	if ( not self.tooltipName ) then
 		return;
@@ -1113,6 +1130,22 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
 	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
 	
+	local cos = os + 2;
+	self.autocastshine = VFLUI.AcquireFrame("AutoCastShine");
+	self.autocastshine:SetParent(self);
+	self.autocastshine:SetFrameLevel(self:GetFrameLevel() + 2);
+	self.autocastshine:SetPoint("TOPLEFT", self, "TOPLEFT", cos, -cos);
+	self.autocastshine:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -cos, cos);
+	self.autocastshine:Show();
+	
+	self.autocastable = VFLUI.CreateTexture(self);
+	self.autocastable:SetPoint("TOPLEFT", self, "TOPLEFT", os, -os);
+	self.autocastable:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -os, os);
+	self.autocastable:SetTexture("Interface\\Buttons\\UI-AutoCastableOverlay");
+	self.autocastable:SetTexCoord(0.2, 0.8, 0.2, 0.8);
+	self.autocastable:SetDrawLayer("ARTWORK", 3);
+	self.autocastable:Show();
+	
 	local start, duration, enable = 0, 0, nil;
 	local function UpdateCooldown()
 		start, duration, enable = GetPetActionCooldown(self.id);
@@ -1160,7 +1193,17 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 		self.isToken = isToken;
 		self.tooltipSubtext = subtext;
 		if isToken then texture = _G[texture]; self.tooltipName = _G[name]; else self.tooltipName = name; end
-		if autocastenabled then self.ga = true; else self.ga = nil; end
+		if autocastallowed then 
+			self.autocastable:Show();
+		else 
+			self.autocastable:Hide();
+		end
+		
+		if autocastenabled then 
+			AutoCastShine_AutoCastStart(self.autocastshine);
+		else 
+			AutoCastShine_AutoCastStop(self.autocastshine);
+		end
 		self.icon:SetTexture(texture);
 		if autocastallowed and (not InCombatLockdown()) then
 			self:SetAttribute("macrotext2", "/petautocasttoggle "..name);
@@ -1297,6 +1340,9 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	end
 	
 	self.Destroy = VFL.hook(function(s)
+		AutoCastShine_AutoCastStop(s.autocastshine);
+		s.autocastshine:Destroy(); s.autocastshine = nil;
+		VFLUI.ReleaseRegion(s.autocastable); s.autocastable = nil;
 		s:SetScript("OnUpdate", nil);
 		DesktopEvents:Unbind("bindingactionButtonPet" .. s.id);
 		RDXEvents:Unbind("bindingactionButtonPet" .. s.id);
