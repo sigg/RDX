@@ -10,12 +10,13 @@
 -- DEPRECATED use the variable isAggro
 --
 
---[[
-local aggromap = {};
-local aggroUpdatePeriod = 0.5;
 local strlower = string.lower;
 local GetUnitByName = RDXDAL.GetUnitByNameIfInGroup;
 local GetUnitByNumber = RDXDAL.GetUnitByNumber;
+
+--[[
+local aggromap = {};
+local aggroUpdatePeriod = 0.5;
 
 -- The aggro map is the "feeder" for the aggro set.
 local unit, uid, t, tt;
