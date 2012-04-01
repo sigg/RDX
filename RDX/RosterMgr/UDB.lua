@@ -620,6 +620,9 @@ local function NewNData(name)
 	end
 	
 	self.AddCooldown = function(x, spellid, timeleft)
+		-- test spellid group ?
+		-- if yes, replace cooldown spellid by groupid
+		-- to be analysed
 		-- this could be a optional cooldown or return;
 		if not cd_possi[spellid] then
 			local tbl = RDXCD.GetCDs();

@@ -211,11 +211,11 @@ RDXCD.RegisterCooldown(nil, nil, "MAGE", "Frost", 31687, 3*60, nil, "SPELL_CAST_
 
 
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 73899, 8, nil, "SPELL_CAST_SUCCESS"); -- Frappe primordiale
-RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 8042, 6, nil, "SPELL_CAST_SUCCESS"); -- Horion de terre
-RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 8050, 6, nil, "SPELL_CAST_SUCCESS"); -- Horion de flammes
-RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 57994, 6, nil, "SPELL_CAST_SUCCESS"); -- Cisaille de vent
+RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 8042, 6, "Horion", "SPELL_CAST_SUCCESS"); -- Horion de terre
+RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 8050, 6, "Horion", "SPELL_CAST_SUCCESS"); -- Horion de flammes
+RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 57994, 6, "Horion", "SPELL_CAST_SUCCESS"); -- Cisaille de vent
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 2484, 15, nil, "SPELL_CAST_SUCCESS"); -- Totem de lien terrestre
-RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 8056, 6, nil, "SPELL_CAST_SUCCESS"); -- Horion de givre
+RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 8056, 6, "Horion", "SPELL_CAST_SUCCESS"); -- Horion de givre
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 1535, 10, nil, "SPELL_CAST_SUCCESS"); -- Nova de feu
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 421, 3, nil, "SPELL_CAST_SUCCESS"); -- Chaine d'éclair
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 20608, 30*60, nil, "SPELL_CAST_SUCCESS"); -- Réincarnation

@@ -574,8 +574,8 @@ end
 				nIcons = VFL.clamp(ed_mb.editBox:GetNumber(), 1, 40);
 				rows = VFL.clamp(ed_rows.editBox:GetNumber(), 1, 40);
 				orientation = dd_orientation:GetSelection();
-				iconspx = VFL.clamp(ed_iconspx.editBox:GetNumber(), 0, 200);
-				iconspy = VFL.clamp(ed_iconspy.editBox:GetNumber(), 0, 200);
+				iconspx = VFL.clamp(ed_iconspx.editBox:GetNumber(), -100, 200);
+				iconspy = VFL.clamp(ed_iconspy.editBox:GetNumber(), -100, 200);
 				-- display bar
 				sbtib = sbtib:GetSelectedSBTIB();
 				countTypeFlag = countTypeFlag:GetSelection();
