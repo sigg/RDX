@@ -237,6 +237,7 @@ Designs\Colors\TwoBlendColor.lua
 Designs\Colors\MyColor.lua
 
 Designs\Complexes\ChatFrames.lua
+Designs\Complexes\ChatFrameManager.lua
 Designs\Complexes\CombatLogs.lua
 Designs\Complexes\Minimap.lua
 Designs\Complexes\MenuBar.lua
