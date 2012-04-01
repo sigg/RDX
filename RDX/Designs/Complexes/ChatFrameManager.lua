@@ -40,7 +40,7 @@ RDXUI.ChatframeManager = {};
 function RDXUI.ChatframeManager:new(parent, desc)
 	local self = VFLUI.AcquireFrame("Frame");
 	
-	local tabbox = VFLUI.TabBox:new(self, 22, "TOP");
+	local tabbox = VFLUI.TabBox:new(self, 22, "TOP", 5, 5);
 	tabbox:SetHeight(desc.h); tabbox:SetWidth(desc.w);
 	tabbox:SetPoint("TOPLEFT", self, "TOPLEFT");
 	tabbox:SetBackdrop(nil);
@@ -57,9 +57,9 @@ function RDXUI.ChatframeManager:new(parent, desc)
 		OpenChatframe(3, "Hello3");
 		tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(ChatFrame3); end, function() end):SetText("Hello3");
 		VFLUI.SetFont(ChatFrame3, desc.font);
-		OpenChatframe(4, "Hello4");
-		tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(ChatFrame4); end, function() end):SetText("Hello4");
-		VFLUI.SetFont(ChatFrame4, desc.font);
+		--OpenChatframe(4, "Hello4");
+		--tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(ChatFrame4); end, function() end):SetText("Hello4");
+		--VFLUI.SetFont(ChatFrame4, desc.font);
 	--end
 	--local cli = nil;
 	--for i=1,10 do
