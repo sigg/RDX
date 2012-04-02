@@ -748,7 +748,7 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	-- text hotkey
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
-	self.txtHotkey:SetWidth(size + 6); self.txtHotkey:SetHeight(size);
+	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
 	
 	local start, duration, enable = 0, 0, nil;
 	local function UpdateCooldown()
@@ -883,7 +883,7 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	self:SetScript("OnEnter", ABShowGameTooltip);
 	
 	self:SetAttribute("type", "action");
-	self:SetAttribute("action", __RDXGetCurrentButtonId(statesString, nbuttons, id));
+	self:SetAttribute("action", __RDXGetCurrentButtonId(statesString, desc.nIcons, id));
 	
 	if desc.anyup then
 		self:RegisterForClicks("AnyUp");

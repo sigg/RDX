@@ -6,7 +6,7 @@
 -- typically the client is populated with a different frame depend on which tab was clicked. Procedures
 -- to easily enable this are provided.
 
-local function NewTabBox(fp, parent, tabHeight, orientation)
+local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 	local self = VFLUI.AcquireFrame("Frame");
 	if parent then
 		self:SetParent(parent); self:SetFrameStrata(parent:GetFrameStrata());
@@ -15,6 +15,8 @@ local function NewTabBox(fp, parent, tabHeight, orientation)
 	self:SetBackdrop(VFLUI.DefaultDialogBackdrop);
 
 	local curClient = nil;
+	if not offsetx then offsetx = 0; end
+	if not offsety then offsety = 0; end
 
 	--- Set the client frame for this window.
 	function self:SetClient(cli)
@@ -24,11 +26,11 @@ local function NewTabBox(fp, parent, tabHeight, orientation)
 		if not cli then return; end
 		cli:SetParent(self);	cli:ClearAllPoints();
 		if orientation == "TOP" then
-			cli:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -tabHeight);
+			cli:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -tabHeight-offsety);
 		elseif orientation == "BOTTOM" then
-			cli:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 5, tabHeight);
+			cli:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 5, tabHeight+offsety);
 		end
-		cli:SetWidth(self:GetWidth() - 10); cli:SetHeight(self:GetHeight() - tabHeight - 5);
+		cli:SetWidth(self:GetWidth() - 10 - 2*offsetx); cli:SetHeight(self:GetHeight() - tabHeight - 10 - 3*offsety );
 		cli:Show();
 	end
 

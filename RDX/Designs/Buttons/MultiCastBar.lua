@@ -105,7 +105,7 @@ btn.icon:Show();
 frame.]] .. objname .. [[[1] = btn;
 
 for i=2, ]] .. desc.nIcons .. [[ do
-	local btn = RDXUI.MultiCastButton:new(btnOwner, abid, nil, ]] .. Serialize(desc) .. [[);
+	local btn = RDXUI.MultiCastButton:new(btnOwner, abid, "", ]] .. Serialize(desc) .. [[);
 ]];
 		createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtCount", desc.fontcount, nil, true);
 		createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtMacro", desc.fontmacro, nil, true);
