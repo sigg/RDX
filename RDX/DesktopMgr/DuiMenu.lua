@@ -1,4 +1,5 @@
-local state = {"Solo", "Party", "Raid", "PvP", "Arena", "solo2", "party2", "raid2", "pvp2", "arena2"}
+--local state = {"Solo", "Party", "Raid", "PvP", "Arena", "solo2", "party2", "raid2", "pvp2", "arena2"};
+local state = {"Solo", "Party", "Raid", "PvP", "Arena"};
 
 local subMenus = {};
 local stateTypeMenus = {};
