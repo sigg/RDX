@@ -209,8 +209,8 @@ RDXCD.RegisterCooldown(nil, nil, "MAGE", "Arcane", 12042, 2*60, nil, "SPELL_CAST
 RDXCD.RegisterCooldown(nil, nil, "MAGE", "Arcane", 44425, 4, nil, "SPELL_CAST_SUCCESS"); -- Barrage des arcanes
 RDXCD.RegisterCooldown(nil, nil, "MAGE", "Frost", 31687, 3*60, nil, "SPELL_CAST_SUCCESS"); -- Invocation d'un élémentaire d'eau
 
-
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 73899, 8, nil, "SPELL_CAST_SUCCESS"); -- Frappe primordiale
+RDXCD.RegisterCooldownGroup("Horion", "Interface\\Icons\\Spell_Holy_PrayerOfFortitude", 6)
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 8042, 6, "Horion", "SPELL_CAST_SUCCESS"); -- Horion de terre
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 8050, 6, "Horion", "SPELL_CAST_SUCCESS"); -- Horion de flammes
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 57994, 6, "Horion", "SPELL_CAST_SUCCESS"); -- Cisaille de vent

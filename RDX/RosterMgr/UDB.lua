@@ -523,6 +523,8 @@ local function NewNData(name)
 	-- spellid = true
 	local cd_used = {};
 	-- spellid = start
+	local cd_group = {};
+	-- spellid = true
 	
 	local i, spellid, start, duration, cd;
 	local GetCooldownInfoBySpellid = RDXCD.GetCooldownInfoBySpellid;
@@ -622,6 +624,9 @@ local function NewNData(name)
 	self.AddCooldown = function(x, spellid, timeleft)
 		-- test spellid group ?
 		-- if yes, replace cooldown spellid by groupid
+		if cd_group[spellid] then
+			spellid = cd_group[spellid];
+		end
 		-- to be analysed
 		-- this could be a optional cooldown or return;
 		if not cd_possi[spellid] then
@@ -678,6 +683,9 @@ local function NewNData(name)
 				--VFL.print("PROCESS RACE COOLDOWN " .. v.spellname);
 				cd_possi[k] = v.duration;
 				cd_avail[k] = true;
+			end
+			if v.group then
+				cd_group[k] = v.group;
 			end
 		end
 	end

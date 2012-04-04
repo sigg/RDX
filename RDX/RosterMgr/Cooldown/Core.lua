@@ -28,13 +28,13 @@ function RDXCD.GetCDCs() return cdc; end
 local cdt = {};
 function RDXCD.GetCDTs() return cdt; end
 
--- Talent Cooldowns only
+-- Boss Cooldowns only
 local cdb = {};
 function RDXCD.GetCDBs() return cdb; end
 
 -- Cooldown group registry
-local cdg = {};
-function RDXCD.GetCDGs() return cdg; end
+--local cdg = {};
+--function RDXCD.GetCDGs() return cdg; end
 
 -- Cooldowns based on event spell damage event
 local cddmgspell = {};
@@ -65,10 +65,17 @@ local cdsumspell = {};
 -- CLASS PRIEST DRUID PALADIN SHAMAN WARRIOR WARLOCK MAGE ROGUE HUNTER DEATHKNIGHT
 -- text : race:class:talentindex:spellname
 
-function RDXCD.RegisterCooldown(race, boss, class, talent, spellid, duration, group, event)
+function RDXCD.RegisterCooldownGroup(spellid, icon, duration)
+	RDXCD.RegisterCooldown(nil, nil, nil, nil, spellid, duration, nil, nil, icon, spellid)
+	return true;
+end
+
+function RDXCD.RegisterCooldown(race, boss, class, talent, spellid, duration, group, event, gicon, gtext)
 	if not spellid then VFL.print(VFLI.i18n("|cFFFF0000[RDX]|r Info : Attempt to register an anonymous omni cooldown.")); return; end
 	if cd[spellid] then VFL.print(VFLI.i18n("|cFFFF0000[RDX]|r Info : Attempt to register duplicate object type ") .. spellid .. "."); return; end
 	local spellname, _, icon = GetSpellInfo(spellid);
+	if gicon then icon = gicon; end
+	if gtext then spellname = gtext; end
 	if not spellname then VFL.print(VFLI.i18n("|cFFFF0000[RDX]|r Info : unknown spellid ") .. spellid .. "."); return; end
 	local text = "";
 	if race then text = text .. race .. ":"; end
@@ -116,10 +123,10 @@ function RDXCD.GetCooldownInfoByText(text)
 	return spellid;
 end
 
-function RDXCD.GetGroupCooldowns(group)
-	if not group then return nil; end
-	return cdg[group];
-end
+--function RDXCD.GetGroupCooldowns(group)
+--	if not group then return nil; end
+--	return cdg[group];
+--end
 
 function RDXCD.IsDamageSpell(spellid)
 	return cddmgspell[spellid];
