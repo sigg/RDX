@@ -6,6 +6,22 @@
 -----------------------------------------------
 local numchat = 0;
 
+VFLUI.CreateFramePool("RDXChatFrame", 
+	function(pool, x) -- on released
+		if (not x) then return; end
+		x:Hide();
+		--VFLUI._CleanupLayoutFrame(x);
+	end,
+	function() -- on fallback
+		local f = CreateFrame("ScrollingMessageFrame", "SMF" .. VFL.GetNextID(), nil, "ChatFrameTemplate");
+		return f;
+	end, 
+	function(_, f) -- on acquired
+		--f:Show();
+		--f:ClearAllPoints();
+	end
+);
+
 local function OpenChatframe(i, name)
 	chatFrame = _G["ChatFrame"..i];
 		
@@ -46,17 +62,40 @@ function RDXUI.ChatframeManager:new(parent, desc)
 	tabbox:SetBackdrop(nil);
 	
 	-- step 1 initialise all chat windows
-	FCF_ResetChatWindows();
+	--FCF_ResetChatWindows();
+	
+	local cfrdx1 = VFLUI.AcquireFrame("RDXChatFrame");
+	ChatFrame_AddMessageGroup(cfrdx1, "SAY");
+	ChatFrame_AddMessageGroup(cfrdx1, "YELL");
+	ChatFrame_AddMessageGroup(cfrdx1, "GUILD");
+	ChatFrame_AddMessageGroup(cfrdx1, "WHISPER");
+	ChatFrame_AddMessageGroup(cfrdx1, "BN_WHISPER");
+	ChatFrame_AddMessageGroup(cfrdx1, "PARTY");
+	ChatFrame_AddMessageGroup(cfrdx1, "PARTY_LEADER");
+	ChatFrame_AddMessageGroup(cfrdx1, "CHANNEL");
+	self.cfrdx1 = cfrdx1;
+	
+	
+	local cfrdx2 = VFLUI.AcquireFrame("RDXChatFrame");
+	ChatFrame_AddMessageGroup(cfrdx2, "SAY");
+	ChatFrame_AddMessageGroup(cfrdx2, "YELL");
+	ChatFrame_AddMessageGroup(cfrdx2, "GUILD");
+	ChatFrame_AddMessageGroup(cfrdx2, "WHISPER");
+	ChatFrame_AddMessageGroup(cfrdx2, "BN_WHISPER");
+	ChatFrame_AddMessageGroup(cfrdx2, "PARTY");
+	ChatFrame_AddMessageGroup(cfrdx2, "PARTY_LEADER");
+	ChatFrame_AddMessageGroup(cfrdx2, "CHANNEL");
+	self.cfrdx2 = cfrdx2;
 	
 	--if not desc then desc = {}; end
 	--desc.chatframe1 = true
 	--if desc.chatframe1 then
-		tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(ChatFrame1); end, function() end):SetText("Hello1");
-		VFLUI.SetFont(ChatFrame1, desc.font);
+		tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(cfrdx1); end, function() end):SetText("Hello1");
+		VFLUI.SetFont(cfrdx1, desc.font);
 		--FCF_OpenNewWindow("Hello3");
-		OpenChatframe(3, "Hello3");
-		tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(ChatFrame3); end, function() end):SetText("Hello3");
-		VFLUI.SetFont(ChatFrame3, desc.font);
+		--OpenChatframe(3, "Hello3");
+		tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(cfrdx2); end, function() end):SetText("Hello3");
+		VFLUI.SetFont(cfrdx2, desc.font);
 		--OpenChatframe(4, "Hello4");
 		--tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(ChatFrame4); end, function() end):SetText("Hello4");
 		--VFLUI.SetFont(ChatFrame4, desc.font);
@@ -78,6 +117,8 @@ function RDXUI.ChatframeManager:new(parent, desc)
 	self:Show();
 	
 	self.Destroy = VFL.hook(function(s)
+		s.cfrdx1:Destroy();
+		s.cfrdx2:Destroy();
 		s.tabbox:GetTabBar():UnSelectTab();
 		s.tabbox:Destroy(); s.tabbox = nil;
 	end, self.Destroy);
