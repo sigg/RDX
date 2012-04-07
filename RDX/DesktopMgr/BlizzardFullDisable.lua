@@ -401,6 +401,7 @@ function RDXDK.DisableAll()
 	MainMenuBarArtFrame:UnregisterEvent("UNIT_LEVEL");
 	MainMenuBarArtFrame:SetScript("OnUpdate", nil);
 	MainMenuBarArtFrame:Hide();
+	MainMenuBar_ToPlayerArt = VFL.Noop;
 	
 	local ignorebuttons = {
 		"MiniMapMailFrame",
