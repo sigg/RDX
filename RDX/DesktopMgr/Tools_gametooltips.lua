@@ -62,7 +62,7 @@ chk_hideInCombat.check:SetScript("OnClick", function() updateGametooltip(); end)
 
 local chk_showTalent = VFLUI.Checkbox:new(frameg); chk_showTalent:SetHeight(16); chk_showTalent:SetWidth(200);
 chk_showTalent:SetPoint("TOPLEFT", chk_hideInCombat, "BOTTOMLEFT");
-chk_showTalent:SetText(VFLI.i18n("Skow Talent"));
+chk_showTalent:SetText(VFLI.i18n("Show Talent"));
 chk_showTalent:Show();
 chk_showTalent.check:SetScript("OnClick", function() updateGametooltip(); end);
 
