@@ -4,6 +4,29 @@
 -- ChatFrameManager
 -- to replace defaut tab manager of blizzard
 -----------------------------------------------
+
+-- scroll
+
+local function scroll(self, arg1)
+	if arg1 > 0 then
+		if IsShiftKeyDown() then
+			self:ScrollToTop();
+		elseif IsControlKeyDown() then
+			self:PageUp();
+		else
+			self:ScrollUp();
+		end
+	elseif arg1 < 0 then
+		if IsShiftKeyDown() then
+			self:ScrollToBottom();
+		elseif IsControlKeyDown() then
+			self:PageDown();
+		else
+			self:ScrollDown();
+		end
+	end
+end
+
 local numchat = 0;
 
 VFLUI.CreateFramePool("RDXChatFrame", 
@@ -14,6 +37,10 @@ VFLUI.CreateFramePool("RDXChatFrame",
 	end,
 	function() -- on fallback
 		local f = CreateFrame("ScrollingMessageFrame", "SMF" .. VFL.GetNextID(), nil, "ChatFrameTemplate");
+		f:UnregisterEvent("UPDATE_CHAT_WINDOWS");
+		f:UnregisterEvent("UPDATE_CHAT_COLOR");
+		f:SetScript("OnMouseWheel", scroll);
+		f:EnableMouseWheel(true);
 		return f;
 	end, 
 	function(_, f) -- on acquired
@@ -65,14 +92,53 @@ function RDXUI.ChatframeManager:new(parent, desc)
 	--FCF_ResetChatWindows();
 	
 	local cfrdx1 = VFLUI.AcquireFrame("RDXChatFrame");
+	ChatFrame_AddMessageGroup(cfrdx1, "SYSTEM");
 	ChatFrame_AddMessageGroup(cfrdx1, "SAY");
+	ChatFrame_AddMessageGroup(cfrdx1, "EMOTE");
 	ChatFrame_AddMessageGroup(cfrdx1, "YELL");
-	ChatFrame_AddMessageGroup(cfrdx1, "GUILD");
 	ChatFrame_AddMessageGroup(cfrdx1, "WHISPER");
 	ChatFrame_AddMessageGroup(cfrdx1, "BN_WHISPER");
 	ChatFrame_AddMessageGroup(cfrdx1, "PARTY");
 	ChatFrame_AddMessageGroup(cfrdx1, "PARTY_LEADER");
+	ChatFrame_AddMessageGroup(cfrdx1, "RAID");
+	ChatFrame_AddMessageGroup(cfrdx1, "RAID_LEADER");
+	ChatFrame_AddMessageGroup(cfrdx1, "RAID_WARNING");
+	ChatFrame_AddMessageGroup(cfrdx1, "BATTLEGROUND");
+	ChatFrame_AddMessageGroup(cfrdx1, "BATTLEGROUND_LEADER");
+	ChatFrame_AddMessageGroup(cfrdx1, "GUILD");
+	ChatFrame_AddMessageGroup(cfrdx1, "OFFICER");
+	ChatFrame_AddMessageGroup(cfrdx1, "MONSTER_SAY");
+	ChatFrame_AddMessageGroup(cfrdx1, "MONSTER_YELL");
+	ChatFrame_AddMessageGroup(cfrdx1, "MONSTER_EMOTE");
+	ChatFrame_AddMessageGroup(cfrdx1, "MONSTER_WHISPER");
+	ChatFrame_AddMessageGroup(cfrdx1, "MONSTER_BOSS_EMOTE");
+	ChatFrame_AddMessageGroup(cfrdx1, "MONSTER_BOSS_WHISPER");
+	ChatFrame_AddMessageGroup(cfrdx1, "ERRORS");
+	ChatFrame_AddMessageGroup(cfrdx1, "AFK");
+	ChatFrame_AddMessageGroup(cfrdx1, "DND");
+	ChatFrame_AddMessageGroup(cfrdx1, "IGNORED");
+	ChatFrame_AddMessageGroup(cfrdx1, "BG_HORDE");
+	ChatFrame_AddMessageGroup(cfrdx1, "BG_ALLIANCE");
+	ChatFrame_AddMessageGroup(cfrdx1, "BG_NEUTRAL");
+	ChatFrame_AddMessageGroup(cfrdx1, "COMBAT_XP_GAIN");
+	ChatFrame_AddMessageGroup(cfrdx1, "COMBAT_HONOR_GAIN");
+	ChatFrame_AddMessageGroup(cfrdx1, "COMBAT_FACTION_CHANGE");
+	ChatFrame_AddMessageGroup(cfrdx1, "SKILL");
+	ChatFrame_AddMessageGroup(cfrdx1, "LOOT");
+	ChatFrame_AddMessageGroup(cfrdx1, "CURRENCY");
+	ChatFrame_AddMessageGroup(cfrdx1, "MONEY");
+	ChatFrame_AddMessageGroup(cfrdx1, "OPENING");
+	ChatFrame_AddMessageGroup(cfrdx1, "TRADESKILLS");
+	ChatFrame_AddMessageGroup(cfrdx1, "PET_INFO");
+	ChatFrame_AddMessageGroup(cfrdx1, "COMBAT_MISC_INFO");
+	ChatFrame_AddMessageGroup(cfrdx1, "ACHIEVEMENT");
+	ChatFrame_AddMessageGroup(cfrdx1, "GUILD_ACHIEVEMENT");
 	ChatFrame_AddMessageGroup(cfrdx1, "CHANNEL");
+	ChatFrame_AddMessageGroup(cfrdx1, "TARGETICONS");
+	ChatFrame_AddMessageGroup(cfrdx1, "BN_WHISPER");
+	ChatFrame_AddMessageGroup(cfrdx1, "BN_CONVERSATION");
+	ChatFrame_AddMessageGroup(cfrdx1, "BN_INLINE_TOAST_ALERT");
+	ChatFrame_AddMessageGroup(cfrdx1, "COMBAT_GUILD_XP_GAIN");
 	self.cfrdx1 = cfrdx1;
 	
 	
