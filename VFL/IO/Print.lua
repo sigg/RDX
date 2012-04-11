@@ -21,7 +21,8 @@ function VFL.print(str)
 	elseif type(str) == "function" then str = "function";
 	elseif type(str) == "table" then str = "table";
 	end 
-	ChatFrame1:AddMessage(str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+	--ChatFrame1:AddMessage(str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+	VFLIO.Console:AddMessage(str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
 end
 
 --- Print the contain of a table "KEY " .. k .. ",VALUE " .. v
