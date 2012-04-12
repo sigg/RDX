@@ -166,14 +166,14 @@ end
 
 local dlg = nil;
 local function ChatFrameManagerDialog(parent)
+	if dlg then return ; end
 	------------------ CREATE
-	if dlg then return nil; end
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
-	dlg:SetTitleColor(0,0,.6);
+	dlg:SetTitleColor(0,.6,0);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
-	dlg:SetWidth(370); dlg:SetHeight(480);
+	dlg:SetHeight(550); dlg:SetWidth(842);
 	dlg:SetText(VFLI.i18n("ChatFrame Manager"));
 	dlg:Show();
 	
@@ -181,77 +181,69 @@ local function ChatFrameManagerDialog(parent)
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	
 	local ca = dlg:GetClientArea();
-	local tabbox = VFLUI.TabBox:new(ca, 22, "TOP");
-	tabbox:SetHeight(400); tabbox:SetWidth(370);
-	tabbox:SetPoint("TOPLEFT", ca, "TOPLEFT");
-	tabbox:SetBackdrop(nil);
 	
-	local cf1 = RDXPM.ChatFrameEditor:new(ca);
-	local cf2 = RDXPM.ChatFrameEditor:new(ca);
-	local cf3 = RDXPM.ChatFrameEditor:new(ca);
-	local cf4 = RDXPM.ChatFrameEditor:new(ca);
-	local cf5 = RDXPM.ChatFrameEditor:new(ca);
-	local cf6 = RDXPM.ChatFrameEditor:new(ca);
-	local cf7 = RDXPM.ChatFrameEditor:new(ca);
-	local cf8 = RDXPM.ChatFrameEditor:new(ca);
-	local cf9 = RDXPM.ChatFrameEditor:new(ca);
-	local cf10 = RDXPM.ChatFrameEditor:new(ca);
-	tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(cf1); end, function() end):SetText("ChatFrame1");
-	tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(cf2); end, function() end):SetText("ChatFrame2");
-	tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(cf3); end, function() end):SetText("ChatFrame3");
-	tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(cf4); end, function() end):SetText("ChatFrame4");
-	tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(cf5); end, function() end):SetText("ChatFrame5");
-	tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(cf6); end, function() end):SetText("ChatFrame6");
-	tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(cf7); end, function() end):SetText("ChatFrame7");
-	tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(cf8); end, function() end):SetText("ChatFrame8");
-	tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(cf9); end, function() end):SetText("ChatFrame9");
-	tabbox:GetTabBar():AddTab("60", function() tabbox:SetClient(cf10); end, function() end):SetText("ChatFrame10");
+	----------------------------------
+	-- The table list
+	----------------------------------
+	local tlist = {};
+	local sel = "";
 	
-
+	local ctlTblList = VFLUI.List:new(dlg, 12, function()
+		local c = VFLUI.Selectable:new();
+		c:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+		c.OnDeparent = c.Destroy;
+		return c;
+	end);
+	ctlTblList:SetPoint("TOPLEFT", ca, "TOPLEFT");
+	ctlTblList:SetWidth(156); ctlTblList:SetHeight(500); 
+	ctlTblList:Rebuild(); ctlTblList:Show();
+	ctlTblList:SetDataSource(VFLUI.Selectable.ApplyData_TextOnly, VFL.ArrayLiterator(tlist));
+	
+	-----------------------------
+	-- The table viewer
+	-----------------------------
+	local ctlTbl = RDXPM.ChatFrameEditor:new(ca)
+	ctlTbl:SetPoint("TOPLEFT", ctlTblList, "TOPRIGHT");
+	ctlTbl:SetWidth(676); ctlTbl:SetHeight(500);
+	
+	
+	-----------------------------
+	-- ListData
+	-----------------------------
+	local tinfo = { text = "ChatFrame1", 
+		OnClick = function(self, arg1)
+			if(arg1 == "LeftButton") then
+				-- Save previous
+				
+				-- Open the new
+				sel = "ChatFrame1";
+				ctlTbl:SetDescriptor(RDXG.Chatframes[sel]);
+			elseif(arg1 == "RightButton") then
+				--TableRightClick(self, tbl, dlg);
+			end
+		end 
+	};
+	table.insert(tlist, tinfo);
+	ctlTblList:Update();
+	
+	sel = "ChatFrame1";
+	ctlTbl:SetDescriptor(RDXG.Chatframes[sel]);
+				
 	----------------- INTERACT
 	local esch = function()
-		cf1:Destroy(); cf1 = nil;
-		cf2:Destroy(); cf2 = nil;
-		cf3:Destroy(); cf3 = nil;
-		cf4:Destroy(); cf4 = nil;
-		cf5:Destroy(); cf5 = nil;
-		cf6:Destroy(); cf6 = nil;
-		cf7:Destroy(); cf7 = nil;
-		cf8:Destroy(); cf8 = nil;
-		cf9:Destroy(); cf9 = nil;
-		cf10:Destroy(); cf10 = nil;
-		tabbox:Destroy(); tabbox = nil;
+		RDXPM.StoreLayout(dlg, "ChatFrameManager");
 		dlg:Destroy(); dlg = nil;
 	end
 	VFL.AddEscapeHandler(esch);
 	
-	local function Save()
-		--if chk_fe:GetChecked() then 
-		--	md.data = fe:GetDescriptor();
-		--else
-		--	md.data = {};
-		--end
-		--local size = ed_size.editBox:GetNumber();
-		--if size == 0 then size = 1000; end
-		--md.data.size = size;
-		--md.data.filter = chk_fe:GetChecked();
-		--if callback then callback(md.data); end
-		--RDXDB.NotifyUpdate(path);
-		VFL.EscapeTo(esch);
-	end
-
-	local savebtn = VFLUI.SaveButton:new()
-	savebtn:SetScript("OnClick", Save);
-	dlg:AddButton(savebtn);
-
 	local closebtn = VFLUI.CloseButton:new(dlg);
 	closebtn:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
 	dlg:AddButton(closebtn);
 	
 	----------------- DESTROY
 	dlg.Destroy = VFL.hook(function(s)
-		--VFLUI.DestroyScrollingCompoundFrame(ui, sf);
-		--ui = nil; sf = nil;
+		if ctlTbl then ctlTbl:Destroy(); ctlTbl = nil; end
+		if ctlTblList then ctlTblList:Destroy(); ctlTblList = nil; end
 	end, dlg.Destroy);
 end
 
