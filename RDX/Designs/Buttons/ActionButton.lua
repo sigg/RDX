@@ -432,7 +432,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	local function UpdateNewAction()
 		self.action = self:GetAttribute("action");
 		WoWEvents:Unbind("actionButton" .. self.id);
-		self.txtHotkey:Hide();
+		--self.txtHotkey:Hide();
 		if not self.action then return; end
 		if HasAction(self.action) then
 			WoWEvents:Unbind("actionButton" .. self.id);
