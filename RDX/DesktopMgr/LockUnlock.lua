@@ -138,7 +138,6 @@ function(_, f) -- onacquire
 	end);
 end);
 
-
 function RDXDK.AddUnlockOverlay(frame, frameprops)
 	-- create the blue window
 	local tf, tfIdent;
@@ -287,7 +286,7 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 			frame.tf:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0);
 			frame.tf:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", w, -h);
 			
-			RDXDK.StdMove(frame, frame.tf, function() RDXDK.SetFramew_window(frameprops); end);
+			RDXDK.StdMove(frame, frame.tf, function() RDXDK.SetFramew_window(frameprops); DesktopEvents:Dispatch("WINDOW_UPDATE_ALL", "OVERLAY", frameprops); end);
 			
 			frame.tfIdent:SetPoint("CENTER", frame.tf, "CENTER", 0, 10);
 			frame.tfIdent:SetWidth(frame.tf:GetWidth()+200); 
@@ -308,7 +307,7 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 		frame:UpdateUnlockOverlay(frameprops);
 	end
 	
-	function frame:Lock()
+	function frame:Lock(frameprops)
 		if frame.tfIdent then
 			frame.tf:SetScript("OnMouseDown", nil);
 			frame.tf:SetScript("OnMouseUp", nil);
@@ -323,9 +322,10 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 		frame.tfb.data = nil; frame.tfb:Hide();
 		frame.tfbl.data = nil; frame.tfbl:Hide();
 		frame.tfc.data = nil; frame.tfc:Hide();
+		frameprops.select = nil;
 	end
 	
-	function frame:UpdateUnlockOverlay(frameprops)
+	function frame:UpdateUnlockOverlay(frameprops, select)
 		if RDXDK.IsDockedPoint(frameprops, "LEFT") then
 			frame.tfl:SetBackdrop(VFLUI.RedDialogBackdrop);
 		else
@@ -374,10 +374,18 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 		if not frameprops.root then
 			if frameprops.dgp then
 				--frame.tf:SetBackdrop(VFLUI.MagentaDialogBackdrop);
-				frame.tf:SetBackdrop(VFLUI.DefaultDialogBorder);
+				if frameprops == select then
+					frame.tf:SetBackdrop(VFLUI.DefaultDialogBorder);
+				else
+					frame.tf:SetBackdrop(VFLUI.MagentaDialogBackdrop);
+				end
 			else
-				--frame.tf:SetBackdrop(VFLUI.BlueDialogBackdrop);
-				frame.tf:SetBackdrop(VFLUI.DefaultDialogBorder);
+				if frameprops == select then
+					frame.tf:SetBackdrop(VFLUI.DefaultDialogBorder);
+				else
+					frame.tf:SetBackdrop(VFLUI.BlueDialogBackdrop);
+				end
+				
 			end
 			frame.tf:SetFrameStrata(VFLUI.GetRelativeStata(frame:GetFrameStrata(), 1));
 		end

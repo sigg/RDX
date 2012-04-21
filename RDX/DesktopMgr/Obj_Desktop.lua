@@ -141,7 +141,7 @@ function RDXDK.Desktop:new(parent)
 	local function LockDesktop()
 		RDXDK:Debug(6, "LockDesktop");
 		for name, frame in pairs(frameList) do
-			frame:Lock();
+			frame:Lock(framePropsList[name]);
 		end
 		lockstate = true;
 	end
@@ -544,7 +544,7 @@ function RDXDK.Desktop:new(parent)
 						frameProps["l"] = l; frameProps["t"] = t; frameProps["r"] = r; frameProps["b"] = b;
 					end
 				elseif key == "OVERLAY" then
-					frame:UpdateUnlockOverlay(frameProps);
+					frame:UpdateUnlockOverlay(frameProps, value);
 				end
 			else
 				RDX.printE("Window " .. name .. " is not in the desktop");
