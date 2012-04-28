@@ -138,6 +138,8 @@ function(_, f) -- onacquire
 	end);
 end);
 
+local se = nil;
+
 function RDXDK.AddUnlockOverlay(frame, frameprops)
 	-- create the blue window
 	local tf, tfIdent;
@@ -293,7 +295,7 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 			frame.tfIdent:SetHeight(frame.tf:GetHeight()-5);
 			frame.tfIdent:SetText(frame._path);
 			
-			frame.tf:_Show(0.5);
+			frame.tf:Show();
 		end
 		frame.tfl.data = frameprops; frame.tfl:Show();
 		frame.tftl.data = frameprops; frame.tftl:Show();
@@ -311,7 +313,7 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 		if frame.tfIdent then
 			frame.tf:SetScript("OnMouseDown", nil);
 			frame.tf:SetScript("OnMouseUp", nil);
-			frame.tf:_Hide(0.2);
+			frame.tf:Hide();
 		end
 		frame.tfl.data = nil; frame.tfl:Hide();
 		frame.tftl.data = nil; frame.tftl:Hide();
@@ -322,10 +324,12 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 		frame.tfb.data = nil; frame.tfb:Hide();
 		frame.tfbl.data = nil; frame.tfbl:Hide();
 		frame.tfc.data = nil; frame.tfc:Hide();
-		frameprops.select = nil;
+		se = nil;
 	end
 	
 	function frame:UpdateUnlockOverlay(frameprops, select)
+		if select then se = select; end
+		if not select and se then select = se; end
 		if RDXDK.IsDockedPoint(frameprops, "LEFT") then
 			frame.tfl:SetBackdrop(VFLUI.RedDialogBackdrop);
 		else
