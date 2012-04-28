@@ -68,11 +68,11 @@ function VFL.OpenModuleDialog()
 		
 	end
 	
-	dlg:_Show(.2, true);
+	dlg:_Show(.2);
 	
 	-------------------- Interactions
 	local esch = function()
-		dlg:Hide(.2, true, function() dlg:Destroy(); dlg = nil; end);
+		dlg:Hide(.2, nil, function() dlg:Destroy(); dlg = nil; end);
 	end
 	VFL.AddEscapeHandler(esch);
 	

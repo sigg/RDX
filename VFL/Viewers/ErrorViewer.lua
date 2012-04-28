@@ -42,7 +42,7 @@ function VFL.OpenErrorDialog()
 	viewBox:SetPoint("TOPLEFT", errorList, "BOTTOMLEFT");
 	viewBox:SetWidth(390); viewBox:SetHeight(250); viewBox:Show();
 	
-	dlg:_Show(.2, true);
+	dlg:_Show(.2);
 
 	--------------------- Repaint
 	local function Repaint()

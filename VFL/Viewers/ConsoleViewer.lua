@@ -23,7 +23,7 @@ function VFL.OpenConsoleDialog()
 	VFLIO.Console:SetParent(ca);
 	VFLIO.Console:Show();
 
-	dlg:_Show(.2, true);
+	dlg:_Show(.2);
 
 	-------------------- Interactions
 	
