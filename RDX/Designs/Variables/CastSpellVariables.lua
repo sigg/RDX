@@ -14,7 +14,7 @@ RDX.RegisterFeature({
 		if not desc.raColor1 then desc.raColor1 = _green; end
 		if not desc.raColor2 then desc.raColor2 = _yellow; end
 		if not desc.raColor3 then desc.raColor3 = _blue; end
-		if not desc.raColor4 then desc.raColor4 = _grey; end
+		if not desc.raColor4 then desc.raColor4 = _red; end
 		if desc.filterName then
 			if desc.externalNameFilter then
 				-- one day
@@ -275,7 +275,7 @@ end
 			raColor1 = _green;
 			raColor2 = _yellow;
 			raColor3 = _blue;
-			raColor4 = _grey;
+			raColor4 = _red;
 		}; 
 	end
 });
