@@ -92,18 +92,18 @@ function RDXDB.IsProtectedPkg(name)
 	return protectedPkg[name];
 end
 
-local function nu_iter(pkg, file, data, matchPath)
-	if (data.ty == "SymLink") and (data.data == matchPath) then
-		RDXDBEvents:Dispatch("OBJECT_UPDATED", pkg, file);
-	end
-end
+--local function nu_iter(pkg, file, data, matchPath)
+--	if (data.ty == "SymLink") and (data.data == matchPath) then
+--		RDXDBEvents:Dispatch("OBJECT_UPDATED", pkg, file);
+--	end
+--end
 --- Notify downstream processes that a file has been updated.
 function RDXDB.NotifyUpdate(path)
 	--VFL.print("notify update " .. path);
 	local pkg,obj = ParsePath(path); if (not pkg) or (not obj) then return; end
 	RDXDBEvents:Dispatch("OBJECT_UPDATED", pkg, obj);
 	-- All symlinks into this file are considered to be updated as well.
-	RDXDB.Foreach(nu_iter, path);
+	--RDXDB.Foreach(nu_iter, path);
 end
 
 --- Completely clear the RDX database and restart RDX. WARNING: data loss.

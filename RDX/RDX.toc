@@ -2,7 +2,7 @@
 ## Title: |c007ffcffRDX|r
 ## Notes: RDX is Raid Data Exchange - UI and raid mods.
 ## Author: Raid Informatics / OpenRDX Project
-## Version: 8.3.0
+## Version: 9.0.0
 ## RequiredDeps: VFL, RDX_mediapack
 ## OptionalDeps: RDX_filesystem, RDX_localspelldb, RDX_combatlogs, RDX_recovery, RDX_languagepack_frFR, RDX_languagepack_deDE, RDX_languagepack_ruRU
 ## SavedVariables: RDXSession
@@ -11,6 +11,9 @@ RDX.xml
 
 # ROOT.LUA MUST LOAD FIRST (RDX)
 Root.lua
+
+# Disable Blizzard stuff
+BlizzardFullDisable.lua
 
 # Frontend and commands (RDXPM Panel Manager)
 PanelMgr\Core.lua
@@ -136,7 +139,6 @@ DesktopMgr\ManagedFrame.lua
 DesktopMgr\FrameProps.lua
 DesktopMgr\GlobalScale.lua
 DesktopMgr\Obj_DUI.lua
-DesktopMgr\BlizzardFullDisable.lua
 #DesktopMgr\Crosshair.lua
 DesktopMgr\LockUnlock.lua
 DesktopMgr\LockUnlockKeyBindings.lua
@@ -153,22 +155,29 @@ DesktopMgr\Desktop_Basics.lua
 DesktopMgr\Desktop_Windows.lua
 DesktopMgr\Desktop_StatusWindows.lua
 DesktopMgr\Desktop_WindowsLess.lua
-DesktopMgr\Desktop_Bossmod.lua
-DesktopMgr\Desktop_Events.lua
+#DesktopMgr\Desktop_Bossmod.lua
+#DesktopMgr\Desktop_Events.lua
 DesktopMgr\DuiMenu.lua
 DesktopMgr\StateMenu.lua
 DesktopMgr\GameTooltip.lua
 DesktopMgr\CombatText.lua
+
+# States
+DesktopMgr\States\States.lua
+
+# Desktop Tools
 DesktopMgr\Tools.lua
 DesktopMgr\Tools_windows.lua
+DesktopMgr\Tools_states.lua
 DesktopMgr\Tools_options.lua
 DesktopMgr\Tools_gametooltips.lua
 DesktopMgr\Tools_nameplates.lua
 DesktopMgr\Tools_alerts.lua
 
-# integrations
+# Integrations
 DesktopMgr\Integrations\KingQuest.lua
 DesktopMgr\Integrations\Recount.lua
+DesktopMgr\Integrations\RDX_Bossmod.lua
 
 # Windowing library
 Windows\Multiplexer.lua
@@ -196,6 +205,10 @@ Windows\WindowLessList.lua
 Windows\IconEditor.lua
 Windows\AuraCache.lua
 Windows\AudioCues.lua
+
+# Tab Manager
+TabMgr\Obj_TabManager.lua
+TabMgr\Obj_ChatFrame.lua
 
 # Design Library
 Designs\Obj_Design.lua
@@ -236,8 +249,9 @@ Designs\Colors\ThreatColor.lua
 Designs\Colors\TwoBlendColor.lua
 Designs\Colors\MyColor.lua
 
-Designs\Complexes\ChatFrames.lua
-Designs\Complexes\ChatFrameManager.lua
+Designs\Complexes\TabManager.lua
+#Deprecated
+#Designs\Complexes\ChatFrames.lua
 Designs\Complexes\CombatLogs.lua
 Designs\Complexes\Minimap.lua
 Designs\Complexes\MenuBar.lua

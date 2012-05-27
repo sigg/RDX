@@ -41,7 +41,7 @@
 --	end
 --end);
 
---RDXEvents:Bind("INIT_POST_DESKTOP", nil, function()	
+--DesktopEvents:Bind("INIT_POST_DESKTOP", nil, function()	
 --	if RDXDK.IsKeyBindingsLocked() then
 --		RDXDK.LockKeyBindings();
 --	else

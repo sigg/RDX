@@ -199,11 +199,10 @@ function RDXDK.LayoutPropsDialog(frameprops)
 	end
 	txtCurDock:SetText(str);
 	
-	dlg:_Show(.2);
-	--dlg:Show();
+	dlg:_Show(RDX.smooth);
 	
 	local esch = function()
-		dlg:_Hide(.2, nil, function()
+		dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "frame_props");
 			dlg:Destroy(); dlg = nil;
 		end);

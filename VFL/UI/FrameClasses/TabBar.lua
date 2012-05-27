@@ -247,7 +247,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 
 	--- Select the given tab.
 	local curTab = nil;
-	function self:SelectTab(tab)
+	function self:SelectTab(tab, a, b, c)
 		if curTab == tab then return; end
 		if curTab then
 			if curTab._tbOnDeselect then curTab:_tbOnDeselect(); end
@@ -255,16 +255,16 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		end
 		curTab = tab;
 		if not tab then return; end
-		if tab._tbOnSelect then tab:_tbOnSelect(); end
+		if tab._tbOnSelect then tab:_tbOnSelect(a, b, c); end
 		tab:LockHighlight();
 	end
 	
-	function self:SelectTabName(title)
+	function self:SelectTabName(title, a, b, c)
 		local tab = nil;
 		for i, v in ipairs(tabs) do
 			if v:GetText() == title then tab = v; end
 		end
-		self:SelectTab(tab);
+		self:SelectTab(tab, a, b, c);
 	end
 	
 	function self:UnSelectTab()

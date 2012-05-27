@@ -223,7 +223,7 @@ code:AppendCode([[
 end
 ]]);
 	end;
-	GetUI = RDXDAL.TrivialSortUI("mpp", VFLI.i18n("Mana%"));
+	GetUI = RDXDAL.TrivialSortUI("mpp", VFLI.i18n("Power%"));
 	GetBlankDescriptor = function() return {op = "mpp"}; end;
 	Events = function(desc, ev) ev["UNIT_POWER"] = true; end
 });

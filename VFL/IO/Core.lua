@@ -32,22 +32,57 @@ VFLUI.CreateFramePool("ChatFrame",
 		if (not x) then return; end
 		VFLUI._CleanupLayoutFrame(x);
 	end,
-	function(_, key) -- on fallback
-		local f = CreateFrame("ScrollingMessageFrame", "SMF" .. key, nil, "ChatFrameTemplate");
+	function() -- on fallback
+		local id = VFL.GetNextID()
+		local f = CreateFrame("ScrollingMessageFrame", "SMF" .. id, nil, "VFLChatFrameTemplate");
 		f:UnregisterEvent("UPDATE_CHAT_WINDOWS");
 		f:UnregisterEvent("UPDATE_CHAT_COLOR");
 		f:SetScript("OnMouseWheel", scroll);
 		f:EnableMouseWheel(true);
+		f:SetID(1);
 		return f;
 	end, 
 	function(_, f) -- on acquired
 		--f:Show();
 		--f:ClearAllPoints();
+		ChatFrame_RemoveAllMessageGroups(f);
+		f.channelList = {};
+		f.zoneChannelList = {};
+	end
+);
+
+-- hack
+--local ts = ChatEdit_UpdateHeader;
+--ChatEdit_UpdateHeader = function(editBox)
+--	local header = _G[editBox:GetName().."Header"];
+--	if header then
+--		header:ClearAllPoints();
+--		header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
+--		if header:GetRight() ~= nil and header:GetLeft() ~= nil then
+--			ts(editBox);
+--		end
+--	end
+--end
+
+VFLUI.CreateFramePool("ChatFrameEditBox", 
+	function(pool, x) -- on released
+		if (not x) then return; end
+		--VFLUI._CleanupLayoutFrame(x);
+		x:Hide();
+	end,
+	function(_, key) -- on fallback
+		--local f = CreateFrame("EditBox", "EB" .. key, nil, "ChatFrameEditBoxTemplate");
+		local f = _G["ChatFrame1EditBox"];
+		return f;
+	end, 
+	function(_, f) -- on acquired
+		--f:Show();
+		f:ClearAllPoints();
 	end,
 "key");
 
 
-VFLIO.Console = VFLUI.AcquireFrame("ChatFrame", "console");
+VFLIO.Console = VFLUI.AcquireFrame("ChatFrame");
 ChatFrame_AddMessageGroup(VFLIO.Console, "SYSTEM");
 
 

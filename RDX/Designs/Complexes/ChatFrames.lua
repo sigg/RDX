@@ -146,7 +146,7 @@ end
 --
 -- Au chargement de wow, il faut transformer immédiatement toutes les fenêtres de chat.
 --
-local active = true;
+local active = false;
 function RDX.ManageChatFrames()
 	if active then
 		-- disable the possibility to unlock chatframe
@@ -254,6 +254,19 @@ function RDX.ManageChatFrames()
 		end
 	end
 	
+	--local tt = ChatEdit_UpdateHeader;
+		
+	--ChatEdit_UpdateHeader = function(editBox)
+	--	local header = _G[editBox:GetName().."Header"];
+	--	if header then
+	--		header:ClearAllPoints();
+	--		header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
+	--		if header:GetRight() ~= nil and header:GetLeft() ~= nil then
+	--			tt(editBox);
+	--		end
+	--	end
+	--end
+	
 end
 
 local numberlist = {
@@ -273,7 +286,7 @@ RDXUI.NumberListSelectionFunc = amOnBuild;
 
 
 RDX.RegisterFeature({
-	name = "chatframe";
+	name = "chatframea";
 	version = 1;
 	title = VFLI.i18n("Blizzard ChatFrame");
 	category = VFLI.i18n("Complexes");
@@ -450,28 +463,7 @@ frame.]] .. objname .. [[ = nil;
 -- ChatFrame editbox
 -----------------------------------------------
 
---ChatEdit_OnHide
 
-VFLUI.CreateFramePool("ChatFrameEditBox", 
-	function(pool, x) -- on released
-		if (not x) then return; end
-		x:Hide();
-		--VFLUI._CleanupLayoutFrame(x);
-	end,
-	function(_, key) -- on fallback
-		local f = nil;
-		--if key > 0 and key < 8 then
-			f = _G["ChatFrame1EditBox"];
-			-- "ChatFrame2EditBox"
-			-- "ChatFrame3EditBox"
-		--end
-		return f;
-	end, 
-	function(_, f) -- on acquired
-		--f:Show();
-		f:ClearAllPoints();
-	end,
-"key");
 
 RDX.RegisterFeature({
 	name = "chatframeeditbox";

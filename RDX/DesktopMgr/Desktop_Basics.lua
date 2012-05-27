@@ -80,7 +80,7 @@ RDX.RegisterFeature({
 		state.Code:Clear();
 		state.Code:AppendCode([[
 local encid = "dk_rdx8";
-DesktopEvents:Dispatch("WINDOW_OPEN", "root", "Desktop main");
+DesktopEvents:Dispatch("WINDOW_OPEN", "root");
 DesktopEvents:Dispatch("DESKTOP_VIEWPORT", ]] .. useviewport .. [[, ]] .. desc.offsetleft .. [[, ]] .. desc.offsettop .. [[, ]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
 DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. Serialize(desc.gametooltip) .. [[);
 DesktopEvents:Dispatch("DESKTOP_REALID", ]] .. Serialize(desc.realid) .. [[);

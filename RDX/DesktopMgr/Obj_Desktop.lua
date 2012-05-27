@@ -199,11 +199,13 @@ function RDXDK.Desktop:new(parent)
 			WorldFrame:SetAllPoints(RDXParent);
 		end
 		local froot = framePropsList["root"];
-		froot.viewport = viewport;
-		froot.offsetleft = left;
-		froot.offsettop = top;
-		froot.offsetright = right;
-		froot.offsetbottom = bottom;
+		if froot then
+			froot.viewport = viewport;
+			froot.offsetleft = left;
+			froot.offsettop = top;
+			froot.offsetright = right;
+			froot.offsetbottom = bottom;
+		end
 	end
 	
 	-- call by desktop_basic
@@ -552,7 +554,21 @@ function RDXDK.Desktop:new(parent)
 		end
 	end
 	
-	local function windowOpen(name, wtype)
+	local function windowOpen(name)
+		local wtype = "";
+		if name == "root" then
+			wtype = "Desktop main";
+		else
+			local _, _, _, ty = RDXDB.GetObjectData(name);
+			if ty == "Window" then
+				wtype = "desktop_window";
+			elseif ty == "StatusWindow" then
+				wtype = "desktop_statuswindow";
+			else
+				wtype = "desktop_windowless";
+			end
+		end
+	
 		RDXDK:Debug(6, "windowOpen " .. name .. ":" .. wtype);
 		if not frameList[name] then
 			local frame;
@@ -597,11 +613,25 @@ function RDXDK.Desktop:new(parent)
 				if not lockstate then frame:Unlock(frameprops); end
 			end
 		else
-			RDX.printE("Window " .. name .. " already add");
+			--RDX.printE("Window " .. name .. " already add");
 		end
 	end
 	
-	local function windowClose(name, wtype)
+	local function windowClose(name)
+		local wtype = "";
+		if name == "root" then
+			wtype = "Desktop main";
+		else
+			local _, _, _, ty = RDXDB.GetObjectData(name);
+			if ty == "Window" then
+				wtype = "desktop_window";
+			elseif ty == "StatusWindow" then
+				wtype = "desktop_statuswindow";
+			else
+				wtype = "desktop_windowless";
+			end
+		end
+		
 		RDXDK:Debug(6, "windowClose " .. name);
 		-- store the position in root feature
 		if name ~= "root" then
@@ -628,11 +658,25 @@ function RDXDK.Desktop:new(parent)
 				windowUpdateAll("OVERLAY");
 			--end);
 		else
-			RDX.printE("Window " .. name .. " is not in the desktop");
+			--RDX.printE("Window " .. name .. " is not in the desktop");
 		end
 	end
 	
-	local function windowRebuild(name, wtype)
+	local function windowRebuild(name)
+		local wtype = "";
+		if name == "root" then
+			wtype = "Desktop main";
+		else
+			local _, _, _, ty = RDXDB.GetObjectData(name);
+			if ty == "Window" then
+				wtype = "desktop_window";
+			elseif ty == "StatusWindow" then
+				wtype = "desktop_statuswindow";
+			else
+				wtype = "desktop_windowless";
+			end
+		end
+		
 		RDXDK:Debug(6, "windowRebuild " .. name);
 		local frame = frameList[name];
 		if frame then
@@ -755,6 +799,77 @@ function RDXDK.Desktop:new(parent)
 	DesktopEvents:Bind("WINDOW_PARENTDOCK", nil, windowparentdock, "desktop");
 	DesktopEvents:Bind("WINDOW_DOCKOFFSET", nil, windowdockoffset, "desktop");
 	
+	----------------------------------------------
+	-- States manager
+	----------------------------------------------
+	
+	--Frameprops.states = {}
+	--Frameprops.states.SOLO = {};
+	--Frameprops.states.SOLO.OnSelect = {};
+	--Frameprops.states.SOLO.OnSelect[1] = {};
+	--Frameprops.states.SOLO.OnSelect[1].type = "WINDOW_OPEN"
+	--Frameprops.states.SOLO.OnSelect[1].srcname
+	--Frameprops.states.SOLO.OnSelect[1].wtype
+	--Frameprops.states.SOLO.OnSelect[2] = {};
+	--Frameprops.states.SOLO.OnSelect[2].type = "WINDOW_DOCK"
+	--Frameprops.states.SOLO.OnSelect[2].srcname
+	--Frameprops.states.SOLO.OnSelect[2].srcpt
+	--Frameprops.states.SOLO.OnSelect[2].tgtname
+	--Frameprops.states.SOLO.OnSelect[2].tgtpt
+	
+	--local current_state = "SOLO";
+	--function self:_GetCurrentState() return current_state; end
+	if not RDXU.currentstate then RDXU.currentstate = "SOLO"; end
+	
+	local function ChangeState(value)
+		if framepropsroot then
+			if not framepropsroot.states then
+				framepropsroot.states = {}
+				framepropsroot.states["SOLO"] = {};
+				framepropsroot.states["SOLO"].OnSelect = {};
+				framepropsroot.states["SOLO"].OnUnselect = {};
+				framepropsroot.states["PARTY"] = {};
+				framepropsroot.states["PARTY"].OnSelect = {};
+				framepropsroot.states["PARTY"].OnUnselect = {};
+				framepropsroot.states["RAID"] = {};
+				framepropsroot.states["RAID"].OnSelect = {};
+				framepropsroot.states["RAID"].OnUnselect = {};
+				framepropsroot.states["BATTLEGROUND"] = {};
+				framepropsroot.states["BATTLEGROUND"].OnSelect = {};
+				framepropsroot.states["BATTLEGROUND"].OnUnselect = {};
+				framepropsroot.states["ARENA"] = {};
+				framepropsroot.states["ARENA"].OnSelect = {};
+				framepropsroot.states["ARENA"].OnUnselect = {};
+			end
+		
+			local tbl = framepropsroot.states[RDXU.currentstate].OnUnselect;
+			-- close windows
+			for k,v in pairs(tbl) do
+				if v.action == "WINDOW_CLOSE" then
+					windowClose(v.name);
+				end
+			end
+			
+			local tbl = framepropsroot.states[value].OnSelect;
+			-- open windows
+			for k,v in pairs(tbl) do
+				if v.action == "WINDOW_OPEN" then
+					windowOpen(v.name);
+				end
+			end
+			-- dock windows
+			for k,v in pairs(tbl) do
+				if v.action == "WINDOW_DOCK" then
+					--DesktopEvents:Dispatch(k, v.srcname, v.srcpt, v.tgtname, v.tgtpt);
+				end
+			end
+			
+			RDXU.currentstate = value;
+		end
+	end
+	
+	DesktopEvents:Bind("DESKTOP_STATE", nil, ChangeState, "desktop");
+	
 	-- BETA nameplate
 	--local nstate = RDX.GenericWindowState:new();
 	--local dstate = RDX.DesignState:new();
@@ -780,6 +895,9 @@ function RDXDK.Desktop:new(parent)
 		VFL.empty(framePropsList); framePropsList = nil;
 		s.LayoutDesktop = nil; s.UnlayoutDesktop = nil;
 		s._IsLocked = nil;
+		ChangeState = nil;
+		--s._GetCurrentState = nil;
+		--current_state = nil;
 		s._GetFrame = nil; s._GetFrameList = nil; 
 		s._GetFrameProps = nil; s._GetFramePropsList = nil;
 	end, self.Destroy);
@@ -958,6 +1076,10 @@ RDXDB.RegisterObjectType({
 		-- Attempt to setup the desktop; if it fails, just bail out.
 		if not SetupDesktop(path, dk, obj.data) then dk:Destroy(); return nil; end
 		dk:LayoutDesktop();
+		VFLT.NextFrame(math.random(10000000), function()
+			DesktopEvents:Dispatch("INIT_POST_DESKTOP");
+			DesktopEvents:DeleteKey("INIT_POST_DESKTOP");
+		end);
 		return dk;
 	end,
 	Deinstantiate = function(instance, path, obj, nosave)
@@ -1042,18 +1164,8 @@ function RDXDK._CloseWindowRDX(path, windowsbar)
 end
 
 function RDXDK._AsyncRebuildWindowRDX(path)
-	local _, _, _, ty = RDXDB.GetObjectData(path);
-	local a = "";
-	if ty == "Window" then
-		a = "desktop_window";
-	elseif ty == "StatusWindow" then
-		a = "desktop_statuswindow";
-	else
-		a = "desktop_windowless";
-	end
-	
 	VFLT.ZMSchedule(0.01, function()
-		DesktopEvents:Dispatch("WINDOW_REBUILD", path, a);
+		DesktopEvents:Dispatch("WINDOW_REBUILD", path);
 	end);
 end
 
@@ -1119,8 +1231,8 @@ local function ChangeDesktop(path, nosave)
 	
 	--RDXPM.RemoveAllButtonsWB();
 	
-	if RDX.smooth then
-		VFLT.schedule(RDX.smooth + 0.1, function() 
+	--if RDX.smooth then
+	--	VFLT.schedule(RDX.smooth + 0.1, function() 
 			--RDXPM.GetMainPane():SetDesktopName("|cFFFF0000" .. path .. "|r", path);
 			currentpath = path;
 			-- open
@@ -1131,18 +1243,18 @@ local function ChangeDesktop(path, nosave)
 			--else
 			--	RDXPM.SetStatusText("|cFFFF0000ERROR|r");
 			--end
-		end);
-	else
-		currentpath = path;
+	--	end);
+	--else
+	--	currentpath = path;
 		-- open
-		currentDesktop = RDXDB.GetObjectInstance(path);
+	--	currentDesktop = RDXDB.GetObjectInstance(path);
 		
 		--if currentDesktop then 
 		--	if not RDXDK.IsDesktopLocked() then RDXDK.LockDesktop(); RDXDK.CloseMiniWindowList(); end
 		--else
 		--	RDXPM.SetStatusText("|cFFFF0000ERROR|r");
 		--end
-	end
+	--end
 end
 RDXDK._ChangeDesktop = ChangeDesktop;
 

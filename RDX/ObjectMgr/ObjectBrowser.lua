@@ -585,7 +585,7 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	expl:Rebuild();
 	
 	--dlg:Show();
-	dlg:_Show(.2);
+	dlg:_Show(RDX.smooth);
 	---------------- Clipboard handling
 	local clipboardPath, clipboardOp, btnPaste = nil, nil, nil;
 
@@ -610,15 +610,15 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	----------------- Control buttons
 	local cbtn = nil ;
 	
-	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("New Package"), 90);
+	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("New Package"), 100);
 	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 0, 25);
 	cbtn:SetScript("OnClick", NewPackage);
 	
-	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Mass Send"), 90);
+	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Mass Send"), 100);
 	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 0, 0);
 	cbtn:SetScript("OnClick", function() RDX.MassIntegrate(dlg); end);
 	
-	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("New Object"), 90);
+	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("New Object"), 100);
 	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 160, 25);
 	cbtn:SetScript("OnClick", function()
 		local _, _, activePkg = expl:_GetSelection();
@@ -629,18 +629,18 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 		end
 	end);
 
-	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Copy"), 90);
-	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 250, 25);
+	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Copy"), 100);
+	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 260, 25);
 	cbtn:SetScript("OnClick", ClipboardCopy);
 
-	btnPaste = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Paste"), 90);
+	btnPaste = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Paste"), 100);
 	btnPaste:SetPoint("TOPLEFT", cbtn, "TOPRIGHT");
 	btnPaste:Disable();
 	btnPaste:SetScript("OnClick", ClipboardPaste);
 	
 	-- Escapement
 	local esch = function()
-		dlg:_Hide(.2, nil, function() 
+		dlg:_Hide(RDX.smooth, nil, function() 
 			RDXPM.StoreLayout(dlg, "ObjectBrowser");
 			dlg:Destroy(); dlg = nil;
 			if selCallback then selCallback(nil); end

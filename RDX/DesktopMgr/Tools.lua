@@ -41,18 +41,19 @@ local function OpenDesktopTools(parent, froot)
 	tabbox:SetPoint("TOPLEFT", ca, "TOPLEFT");
 	
 	for i, v in ipairs(tools) do
-		tabbox:GetTabBar():AddTab(v.width, function() tabbox:SetClient(v.cli); v.funcSet(froot) end, function() v.funcUnset() end):SetText(v.title);
+		tabbox:GetTabBar():AddTab(v.width, function() tabbox:SetClient(v.cli); v.funcSet(froot) end, function() v.funcUnset(froot) end):SetText(v.title);
 	end
 	
-	tabbox:GetTabBar():SelectTabName("Windows");
 	tabbox:Show();
 	
 	dlg.tabbox = tabbox;
 	
-	dlg:_Show(.5);
+	dlg:_Show(RDX.smooth, nil, function()
+		tabbox:GetTabBar():SelectTabName("Windows");
+	end);
 	
 	local esch = function()
-		dlg:_Hide(.2, nil, function() 
+		dlg:_Hide(RDX.smooth, nil, function() 
 			dlg.tabbox:GetTabBar():UnSelectTab();
 			RDXPM.StoreLayout(dlg, "dktools");
 			dlg:Destroy(); dlg = nil; 
@@ -65,20 +66,21 @@ local function OpenDesktopTools(parent, froot)
 	end
 	
 	-- Add button filter on list
-	local listbtn = VFLUI.TexturedButton:new(dlg, 16, "Interface\\AddOns\\RDX\\Skin\\menu");
-	listbtn:SetHighlightColor(0,1,1,1);
-	listbtn:SetScript("OnClick", function()
-		if not RDXG.dktoolnofilter then
-			--BuildWindowList();
-			RDXG.dktoolnofilter = true;
-		else
-			--local auipkg, auiname = RDXDB.ParsePath(RDXU.AUI);
-			--BuildWindowList(auiname);
-			RDXG.dktoolnofilter = nil;
-		end
-		--list:Update();
-	end);
-	dlg:AddButton(listbtn);
+	--local listbtn = VFLUI.TexturedButton:new(dlg, 16, "Interface\\AddOns\\RDX\\Skin\\menu");
+	--listbtn:SetHighlightColor(0,1,1,1);
+	--listbtn:SetScript("OnClick", function()
+	--	if not RDXG.dktoolnofilter then
+	--		--BuildWindowList();
+	--		RDXG.dktoolnofilter = true;
+	--	else
+	--		--local auipkg, auiname = RDXDB.ParsePath(RDXU.AUI);
+	--		--BuildWindowList(auiname);
+	--		RDXG.dktoolnofilter = nil;
+	--	end
+	--	--list:Update();
+	--end);
+	--dlg:AddButton(listbtn);
+	RDXG.dktoolnofilter = nil;
 	
 	local closebtn = VFLUI.CloseButton:new()
 	closebtn:SetScript("OnClick", function() VFL.EscapeTo(esch); end);

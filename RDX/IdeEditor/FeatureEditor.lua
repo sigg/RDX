@@ -687,7 +687,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent)
 	-- Save : Add all modifications
 	local function Save()
 		-- Save the active feature before exiting
-		dlg:_Hide(.2, nil, function()
+		dlg:_Hide(RDX.smooth, nil, function()
 			SaveActiveFeature(true);
 			RDXPM.StoreLayout(dlg, "FeatureEditor");
 			if callback then callback(state); end
@@ -699,11 +699,11 @@ function RDXIE.FeatureEditor(state, callback, path, parent)
 	savebtn:SetScript("OnClick", Save);
 	dlg:AddButton(savebtn);
 	
-	dlg:_Show(.2);
+	dlg:_Show(RDX.smooth);
 
 	-- Close : cancel all modifications
 	local function Close()
-		dlg:_Hide(.2, nil, function()
+		dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "FeatureEditor");
 			state:Restore();
 			dlg:Destroy(); dlg = nil;

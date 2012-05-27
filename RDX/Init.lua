@@ -80,10 +80,9 @@ local function VariablesLoaded()
 		RDX:Debug(3, "DISPATCH INIT_SPELL");
 		RDXEvents:Dispatch("INIT_SPELL");
 		RDXEvents:DeleteKey("INIT_SPELL");
-		RDX:Debug(3, "DISPATCH INIT_POST_DESKTOP");
-		RDXEvents:Dispatch("INIT_POST_DESKTOP");
-		RDXEvents:DeleteKey("INIT_POST_DESKTOP");
-		--DesktopEvents:Dispatch("DESKTOP_UPDATE_BINDINGS");
+		RDX:Debug(3, "DISPATCH INIT_POST");
+		RDXEvents:Dispatch("INIT_POST");
+		RDXEvents:DeleteKey("INIT_POST");
 	end);
 
 	VFLT.ZMSchedule(4, function()

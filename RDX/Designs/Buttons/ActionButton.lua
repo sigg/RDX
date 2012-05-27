@@ -630,7 +630,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_UNLOCK_BINDINGS", nil, ShowBindingEdit, "bindingactionButton" .. self.id);
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButton" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButton" .. self.id);
-	RDXEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingactionButton" .. self.id);
+	DesktopEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingactionButton" .. self.id);
 	
 	-------------------------- init
 	function self:Init()
@@ -642,7 +642,6 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	self.Destroy = VFL.hook(function(s)
 		s:SetScript("OnUpdate", nil);
 		DesktopEvents:Unbind("bindingactionButton" .. s.id);
-		RDXEvents:Unbind("bindingactionButton" .. s.id);
 		WoWEvents:Unbind("actionButton" .. s.id);
 		WoWEvents:Unbind("mainactionButton" .. s.id);
 		VFLEvents:Unbind("mainactionButton" .. s.id);
@@ -953,7 +952,7 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_UNLOCK_BINDINGS", nil, ShowBindingEdit, "bindingmulticastButton" .. self.id);
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingmulticastButton" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingmulticastButton" .. self.id);
-	RDXEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingmulticastButton" .. self.id);
+	DesktopEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingmulticastButton" .. self.id);
 	
 	-------------------------- init
 	function self:Init()
@@ -965,7 +964,6 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	self.Destroy = VFL.hook(function(s)
 		s:SetScript("OnUpdate", nil);
 		DesktopEvents:Unbind("bindingmulticastButton" .. s.id);
-		RDXEvents:Unbind("bindingmulticastButton" .. s.id);
 		WoWEvents:Unbind("multicastButton" .. s.id);
 		WoWEvents:Unbind("mainmulticastButton" .. s.id);
 		VFLEvents:Unbind("mainmulticastButton" .. s.id);
@@ -1330,7 +1328,7 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_UNLOCK_BINDINGS", nil, ShowBindingEdit, "bindingactionButtonPet" .. self.id);
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButtonPet" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButtonPet" .. self.id);
-	RDXEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingactionButtonPet" .. self.id);
+	DesktopEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingactionButtonPet" .. self.id);
 	
 	-------------------------- init
 	function self:Init()
@@ -1345,7 +1343,6 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 		VFLUI.ReleaseRegion(s.autocastable); s.autocastable = nil;
 		s:SetScript("OnUpdate", nil);
 		DesktopEvents:Unbind("bindingactionButtonPet" .. s.id);
-		RDXEvents:Unbind("bindingactionButtonPet" .. s.id);
 		WoWEvents:Unbind("actionButtonPet" .. s.id);
 		WoWEvents:Unbind("mainactionButtonPet" .. s.id);
 		VFLEvents:Unbind("mainactionButtonPet" .. s.id);
@@ -1605,7 +1602,7 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_UNLOCK_BINDINGS", nil, ShowBindingEdit, "bindingactionButtonStance" .. self.id);
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButtonStance" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButtonStance" .. self.id);
-	RDXEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingactionButtonStance" .. self.id);
+	DesktopEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingactionButtonStance" .. self.id);
 	
 	-------------------------- init
 	function self:Init()
@@ -1618,7 +1615,6 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 		s:SetAttribute("type", nil);
 		s:SetAttribute("spell", nil);
 		DesktopEvents:Unbind("bindingactionButtonStance" .. s.id);
-		RDXEvents:Unbind("bindingactionButtonStance" .. s.id);
 		WoWEvents:Unbind("actionButtonStance" .. s.id);
 		WoWEvents:Unbind("mainactionButtonStance" .. s.id);
 		VFLEvents:Unbind("mainactionButtonStance" .. s.id);
@@ -1918,7 +1914,7 @@ function RDXUI.VehicleButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, 
 	DesktopEvents:Bind("DESKTOP_UNLOCK_BINDINGS", nil, ShowBindingEdit, "bindingactionButtonVehicle" .. self.id);
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButtonVehicle" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButtonVehicle" .. self.id);
-	RDXEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingactionButtonVehicle" .. self.id);
+	DesktopEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingactionButtonVehicle" .. self.id);
 	
 	-------------------------- init
 	function self:Init()
@@ -1933,7 +1929,6 @@ function RDXUI.VehicleButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, 
 	
 	self.Destroy = VFL.hook(function(s)
 		DesktopEvents:Unbind("bindingactionButtonVehicle" .. s.id);
-		RDXEvents:Unbind("bindingactionButtonVehicle" .. s.id);
 		WoWEvents:Unbind("actionButtonVehicle" .. s.id);
 		s.btnbind.id = nil;
 		s.btnbind.btype = nil;

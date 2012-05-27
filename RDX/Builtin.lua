@@ -165,6 +165,107 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
+	if not default["ChatFrame1_cf"] then
+		default["ChatFrame1_cf"] = {
+			["ty"] = "ChatFrame",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "General",
+				["discussion"] = {
+					["SAY"] = true,
+					["EMOTE"] = true,
+					["YELL"] = true,
+					["GUILD"] = true,
+					["OFFICER"] = true,
+					["GUILD_ACHIEVEMENT"] = true,
+					["ACHIEVEMENT"] = true,
+					["WHISPER"] = true,
+					["BN_WHISPER"] = true,
+					["PARTY"] = true,
+					["PARTY_LEADER"] = true,
+					["RAID"] = true,
+					["RAID_LEADER"] = true,
+					["RAID_WARNING"] = true,
+					["BATTLEGROUND"] = true,
+					["BATTLEGROUND_LEADER"] = true,
+					["BN_CONVERSATION"] = true,
+				},
+				["creature"] = {
+					["MONSTER_SAY"] = true,
+					["MONSTER_EMOTE"] = true,
+					["MONSTER_YELL"] = true,
+					["MONSTER_WHISPER"] = true,
+					["MONSTER_BOSS_EMOTE"] = true,
+					["MONSTER_BOSS_WHISPER"] = true,
+				},
+				["combat"] = {
+					["COMBAT_FACTION_CHANGE"] = true,
+					["SKILL"] = true,
+					["LOOT"] = true,
+					["CURRENCY"] = true,
+					["MONEY"] = true,
+				},
+				["pvp"] = {
+					["BG_SYSTEM_HORDE"] = true,
+					["BG_SYSTEM_ALLIANCE"] = true,
+					["BG_SYSTEM_NEUTRAL"] = true,
+				},
+				["system"] = {
+					["SYSTEM"] = true,
+					["ERRORS"] = true,
+					["IGNORED"] = true,
+					["CHANNEL"] = true,
+					["BN_INLINE_TOAST_ALERT"] = true,
+				},
+				["channels"] = {
+					["CHANNEL1"] = true,
+					["CHANNEL2"] = true,
+					["CHANNEL3"] = true,
+				},
+			},
+		};
+	end
+	
+	if not default["ChatFrame2_cf"] then
+		default["ChatFrame2_cf"] = {
+			["ty"] = "ChatFrame",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Loot",
+				["discussion"] = {
+				},
+				["creature"] = {
+				},
+				["combat"] = {
+					["LOOT"] = true,
+				},
+				["pvp"] = {
+				},
+				["system"] = {
+				},
+				["channels"] = {
+				},
+			},
+		};
+	end
+	
+	if not default["ChatFrames_tm"] then
+		default["ChatFrames_tm"] = {
+			["ty"] = "TabManager",
+			["version"] = 1,
+			["data"] = {
+				["cfm"] = {
+					{
+						["op"] = "default:ChatFrame1_cf",
+					},
+					{
+						["op"] = "default:ChatFrame2_cf",
+					},
+				},
+			},
+		};
+	end
+	
 	if not default["assists"] then
 		default["assists"] = {
 			["ty"] = "NominativeSet",

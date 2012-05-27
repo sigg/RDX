@@ -201,20 +201,20 @@ RDX.RegisterFeature({
 			grid.OnOrient = VFL.Noop;
 			grid:SetPoint("TOPLEFT", faux, "TOPLEFT"); grid:Show();
 			-- Profiling hooks
-			if w._path and VFLP.IsEnabled() then
-				VFLP.RegisterCategory("Win: " .. w._path);
-				VFLP.RegisterFunc("Win: " .. w._path, "RepaintLayout", relayout, true);
-				VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", update, true);
-			end
+			--if w._path and VFLP.IsEnabled() then
+			--	VFLP.RegisterCategory("Win: " .. w._path);
+			--	VFLP.RegisterFunc("Win: " .. w._path, "RepaintLayout", relayout, true);
+			--	VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", update, true);
+			--end
 		end
 
 		local function destroy()
-			if VFLP.IsEnabled() then
-				VFLT.AdaptiveUnschedule("Perf" .. win._path);
-			end
+			--if VFLP.IsEnabled() then
+			--	VFLT.AdaptiveUnschedule("Perf" .. win._path);
+			--end
 			if win then
 				-- Remove profiler hooks
-				if win._path then VFLP.UnregisterCategory("Win: " .. win._path); end
+				--if win._path then VFLP.UnregisterCategory("Win: " .. win._path); end
 				-- Remove API
 				win.LookupUnit = nil;
 				-- BUGFIX: remember to remove client refs before destroying client..

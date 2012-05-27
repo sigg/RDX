@@ -19,7 +19,7 @@ local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 	if not offsety then offsety = 0; end
 
 	--- Set the client frame for this window.
-	function self:SetClient(cli)
+	function self:SetClient(cli, flag)
 		if curClient == cli then return; end
 		if curClient then curClient:Hide(); end
 		curClient = cli;
@@ -30,7 +30,12 @@ local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 		elseif orientation == "BOTTOM" then
 			cli:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 5, tabHeight+offsety);
 		end
-		cli:SetWidth(self:GetWidth() - 10 - 2*offsetx); cli:SetHeight(self:GetHeight() - tabHeight - 10 - 3*offsety );
+		cli:SetWidth(self:GetWidth() - 10 - 2*offsetx);
+		if flag then
+			cli:SetHeight(self:GetHeight() - tabHeight - 10 - 3*offsety - 25);
+		else
+			cli:SetHeight(self:GetHeight() - tabHeight - 10 - 3*offsety);
+		end
 		cli:Show();
 	end
 

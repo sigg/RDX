@@ -277,4 +277,4 @@ local function Init()
 	end
 end
 
-RDXEvents:Bind("INIT_POST_DESKTOP", nil, Init);
+RDXEvents:Bind("INIT_POST", nil, Init);

@@ -306,30 +306,30 @@ end
 -- The AUI object type.
 RDXDB.RegisterObjectType({
 	name = "AUI";
-	New = function(path, md)
-		md.version = 1;
-		md.data = {};
-		md.data["solo"] = "desktops:" .. RDX.pspace .. "_solo";
-		md.data["party"] = "desktops:" .. RDX.pspace .. "_party";
-		md.data["raid"] = "desktops:" .. RDX.pspace .. "_raid";
-		md.data["pvp"] = "desktops:" .. RDX.pspace .. "_pvp";
-		md.data["arena"] = "desktops:" .. RDX.pspace .. "_arena";
-		md.data["solo2"] = "desktops:" .. RDX.pspace .. "_solo2";
-		md.data["party2"] = "desktops:" .. RDX.pspace .. "_party2";
-		md.data["raid2"] = "desktops:" .. RDX.pspace .. "_raid2";
-		md.data["pvp2"] = "desktops:" .. RDX.pspace .. "_pvp2";
-		md.data["arena2"] = "desktops:" .. RDX.pspace .. "_arena2";
-		md.data["soloflag"] = true;
-		md.data["partyflag"] = true;
-		md.data["raidflag"] = true;
-		md.data["pvpflag"] = true;
-		md.data["arenaflag"] = true;
-		md.data["soloflag2"] = true;
-		md.data["partyflag2"] = true;
-		md.data["raidflag2"] = true;
-		md.data["pvpflag2"] = true;
-		md.data["arenaflag2"] = true;
-	end;
+	--New = function(path, md)
+	--	md.version = 1;
+	--	md.data = {};
+	--	md.data["solo"] = "desktops:" .. RDX.pspace .. "_solo";
+	--	md.data["party"] = "desktops:" .. RDX.pspace .. "_party";
+	--	md.data["raid"] = "desktops:" .. RDX.pspace .. "_raid";
+	--	md.data["pvp"] = "desktops:" .. RDX.pspace .. "_pvp";
+	--	md.data["arena"] = "desktops:" .. RDX.pspace .. "_arena";
+	--	md.data["solo2"] = "desktops:" .. RDX.pspace .. "_solo2";
+	--	md.data["party2"] = "desktops:" .. RDX.pspace .. "_party2";
+	--	md.data["raid2"] = "desktops:" .. RDX.pspace .. "_raid2";
+	--	md.data["pvp2"] = "desktops:" .. RDX.pspace .. "_pvp2";
+	--	md.data["arena2"] = "desktops:" .. RDX.pspace .. "_arena2";
+	--	md.data["soloflag"] = true;
+	--	md.data["partyflag"] = true;
+	--	md.data["raidflag"] = true;
+	--	md.data["pvpflag"] = true;
+	--	md.data["arenaflag"] = true;
+	--	md.data["soloflag2"] = true;
+	--	md.data["partyflag2"] = true;
+	--	md.data["raidflag2"] = true;
+	--	md.data["pvpflag2"] = true;
+	--	md.data["arenaflag2"] = true;
+	--end;
 	Edit = function(path, md, parent)
 		RDXDK.OpenAUIEditor(path, md, parent);
 	end;

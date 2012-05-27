@@ -77,10 +77,10 @@ RDXDB.RegisterObjectType({
 		le_names:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 		le_names:SetWidth(300);	le_names:SetHeight(183); le_names:Show();
 
-		dlg:_Show(.2);
+		dlg:_Show(RDX.smooth);
 
 		local esch = function()
-			dlg:_Hide(.2, nil, function()
+			dlg:_Hide(RDX.smooth, nil, function()
 				RDXPM.StoreLayout(dlg, "Spellfilter");
 				dlg:Destroy(); dlg = nil;
 			end);

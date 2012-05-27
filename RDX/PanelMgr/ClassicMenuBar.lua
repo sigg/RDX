@@ -28,14 +28,24 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.hasArrow = true;
 	ent.keepShownOnClick = false;
 	ent.menuList = {
-		{ text = VFLI.i18n("Tutorial RDX"), notCheckable = true, keepShownOnClick = false, func = function() RDX.NewLearnWizard(); end },
-		{ text = VFLI.i18n("Global Scale"), notCheckable = true, keepShownOnClick = false, func = RDXDK.GlobalScaleDialog },
-		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleObjectBrowser },
-		{ text = VFLI.i18n("Package Updater"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleRAU },
-		{ text = VFLI.i18n("Switch Talent"), notCheckable = true, keepShownOnClick = false, func = function() 
+		{ text = VFLI.i18n("Tutorial RDX"), notCheckable = true, func = function() RDX.NewLearnWizard(); end },
+		{ text = VFLI.i18n("Global Scale"), notCheckable = true, func = RDXDK.GlobalScaleDialog },
+		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, func = RDXDB.ToggleObjectBrowser },
+		{ text = VFLI.i18n("Package Updater"), notCheckable = true, func = RDXDB.ToggleRAU },
+		{ text = VFLI.i18n("Switch Talent"), notCheckable = true, func = function() 
 			local index = GetActiveTalentGroup();
 			if index == 1 then index = 2; else index = 1; end
-			SetActiveTalentGroup(index); end 
+			SetActiveTalentGroup(index); 
+			end 
+		},
+		{ text = VFLI.i18n("Chatframe Manager"), notCheckable = true, func = function()
+			CURRENT_CHAT_FRAME_ID = 1;
+			ShowUIPanel(ChatConfigFrame);
+			end 
+		},
+		{ text = VFLI.i18n("Test Death mode"), notCheckable = true, func = function()
+			StaticPopup_Show("DEATH");
+			end 
 		},
 	};
 end);
@@ -48,13 +58,13 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.menuList = RDXPM.subMenus;
 end);
 
-RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Theme state");
-	ent.notCheckable = true;
-	ent.hasArrow = true;
-	ent.keepShownOnClick = false;
-	ent.menuList = RDXPM.stateTypeMenus;
-end);
+--RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+--	ent.text = VFLI.i18n("Theme state");
+--	ent.notCheckable = true;
+--	ent.hasArrow = true;
+--	ent.keepShownOnClick = false;
+--	ent.menuList = RDXPM.stateTypeMenus;
+--end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Third Party");

@@ -60,7 +60,7 @@ local function AUIList()
 	);
 	
 	table.insert(subMenus, { 
-		text = "Create a new AUI",
+		text = "Create a new theme",
 		notCheckable = true, 
 		func = function()
 			RDXDK.NewAUI();

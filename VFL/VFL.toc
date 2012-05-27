@@ -104,6 +104,7 @@ UI\Pickers\CooldownPicker.lua
 UI\Pickers\SBTIBPicker.lua
 
 #IO VFLIO
+IO\VFLChatFrameTemplate.xml
 IO\Core.lua
 IO\Print.lua
 

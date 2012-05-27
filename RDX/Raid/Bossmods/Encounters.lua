@@ -539,7 +539,7 @@ end
 -- INIT
 ------------------------
 -- After the window manager is loaded, we can register the encpane and show it
-RDXEvents:Bind("INIT_POST_DESKTOP", nil, function()
+RDXEvents:Bind("INIT_POST", nil, function()
 	-- Restore the last selected encounter.
 	-- If the encounter is invalid, revert to default.
 	if (not RDXU.active_encounter) or (not edb[RDXU.active_encounter]) then 
