@@ -137,8 +137,7 @@ DesktopMgr\Docks.lua
 DesktopMgr\DocksHelper.lua
 DesktopMgr\ManagedFrame.lua
 DesktopMgr\FrameProps.lua
-DesktopMgr\GlobalScale.lua
-DesktopMgr\Obj_DUI.lua
+DesktopMgr\Obj_AUI.lua
 #DesktopMgr\Crosshair.lua
 DesktopMgr\LockUnlock.lua
 DesktopMgr\LockUnlockKeyBindings.lua
@@ -159,20 +158,18 @@ DesktopMgr\Desktop_WindowsLess.lua
 #DesktopMgr\Desktop_Events.lua
 DesktopMgr\DuiMenu.lua
 DesktopMgr\StateMenu.lua
+DesktopMgr\States.lua
 DesktopMgr\GameTooltip.lua
 DesktopMgr\CombatText.lua
 
-# States
-DesktopMgr\States\States.lua
-
 # Desktop Tools
-DesktopMgr\Tools.lua
-DesktopMgr\Tools_windows.lua
-DesktopMgr\Tools_states.lua
-DesktopMgr\Tools_options.lua
-DesktopMgr\Tools_gametooltips.lua
-DesktopMgr\Tools_nameplates.lua
-DesktopMgr\Tools_alerts.lua
+DesktopMgr\Tools\Tools.lua
+DesktopMgr\Tools\Tools_windows.lua
+DesktopMgr\Tools\Tools_states.lua
+DesktopMgr\Tools\Tools_options.lua
+DesktopMgr\Tools\Tools_gametooltips.lua
+DesktopMgr\Tools\Tools_nameplates.lua
+DesktopMgr\Tools\Tools_alerts.lua
 
 # Integrations
 DesktopMgr\Integrations\KingQuest.lua

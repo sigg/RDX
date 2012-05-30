@@ -1,4 +1,4 @@
--- StreamingRPC.lua
+﻿-- StreamingRPC.lua
 -- RDX - Raid Data Exchange
 -- (C)2006 Bill Johnson
 --
@@ -223,6 +223,7 @@ end
 RDXEvents:Bind("PARTY_IS_RAID", nil, _RPC_Checkraid);
 RDXEvents:Bind("PARTY_IS_NONRAID", nil, _RPC_Checkraid);
 VFLEvents:Bind("PLAYER_IN_BATTLEGROUND", nil, _RPC_Checkraid);
+VFLEvents:Bind("PLAYER_IN_ARENA", nil, _RPC_Checkraid);
 
 ---- Tests
 --[[

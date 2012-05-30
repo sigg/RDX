@@ -188,9 +188,31 @@ list2:SetDataSource(function(cell, data, pos)
 	end);
 end, VFL.ArrayLiterator(w2));
 
+local separatorGS = VFLUI.SeparatorText:new(framew, 1, 216);
+separatorGS:SetPoint("TOPLEFT", list2, "BOTTOMLEFT", 0, -45);
+separatorGS:SetText(VFLI.i18n("Options"));
+
+-- scale
+local lblGScale = VFLUI.MakeLabel(nil, framew, VFLI.i18n("Global Scale:"));
+lblGScale:SetPoint("TOPLEFT", separatorGS, "BOTTOMLEFT"); lblGScale:SetHeight(25); lblGScale:Show();
+
+local slGScale = VFLUI.HScrollBar:new(framew, nil, function(value)
+	if value == 0 then value = 0.01; end
+	DesktopEvents:Dispatch("WINDOW_UPDATE_ALL", "SCALE", value);
+end);
+slGScale:SetPoint("TOPLEFT", lblGScale, "BOTTOMLEFT", 16, 0); slGScale:SetWidth(140);
+slGScale:Show();
+slGScale:SetMinMaxValues(.1, 2.0); slGScale:SetValue(1, true);
+
+local edGScale = VFLUI.Edit:new(framew, true); edGScale:SetHeight(25); edGScale:SetWidth(50);
+edGScale:SetPoint("LEFT", slGScale, "RIGHT", 16, 0); edGScale:Show();
+
+VFLUI.BindSliderToEdit(slGScale, edGScale);
+
+
 -- Window option
 local separator3 = VFLUI.SeparatorText:new(framew, 1, 216);
-separator3:SetPoint("TOPLEFT", list2, "BOTTOMLEFT", 0, -45);
+separator3:SetPoint("TOPLEFT", slGScale, "BOTTOMLEFT", -16, -5);
 separator3:SetText("Window options");
 
 local windowName = VFLUI.SimpleText:new(framew, 1, 216);
@@ -255,11 +277,13 @@ ddLayout:Hide();
 
 local function SetFramew(froot)
 	local _, auiname = RDXDB.ParsePath(RDXU.AUI);
-	if not RDXG.dktoolnofilter then
-		BuildWindowList(auiname);
-	else
-		BuildWindowList();
-	end
+	
+	if not RDXU.GlobalScale then RDXU.GlobalScale = {}; end
+	local scale = RDXU.GlobalScale[auiname];
+	if not scale then scale = 1; end
+	slGScale:SetValue(scale);
+	
+	BuildWindowList(auiname);
 	list:Update();
 	BuildWindowLessList();
 	list2:Update();
@@ -267,6 +291,8 @@ local function SetFramew(froot)
 end
 
 local function UnsetFramew()
+	local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+	RDXU.GlobalScale[auiname] = slGScale:GetValue();
 	winframeprops = nil;
 	RDXDK.SetFramew_window(nil);
 	DesktopEvents:Dispatch("DESKTOP_LOCK");

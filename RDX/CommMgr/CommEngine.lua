@@ -1,4 +1,4 @@
--- CommEngine.lua
+﻿-- CommEngine.lua
 -- RDX - Raid Data Exchange
 -- (C)2006 Bill Johnson
 --

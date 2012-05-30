@@ -1,4 +1,4 @@
--- UDB.lua
+﻿-- UDB.lua
 -- RDX
 -- (C)2006 Bill Johnson
 --
@@ -127,6 +127,68 @@ function RDXDAL.InRaid() return isRaid; end
 --- Return TRUE iff we are solo, nil otherwise.
 function RDXDAL.IsSolo() return isSolo; end
 local IsSolo = RDXDAL.IsSolo;
+
+
+
+-- New system switch state
+local currentstate = "";
+function RDXDAL.GetCurrentState()
+	return currentstate;
+end
+
+local _sig_rdx_roster_state = RDXEvents:LockSignal("ROSTER_STATE");
+
+local function SwitchState()
+	--VFL.print("SwitchState from " .. currentstate);
+	if select(2, IsInInstance()) == "arena" then
+		--VFL.print("ARENA MODE");
+		if currentstate ~= "ARENA" then
+			currentstate = "ARENA";
+			VFL.print("ARENA MODE SET");
+			_sig_rdx_roster_state:Raise("ARENA");
+		end
+	elseif select(2,IsInInstance()) == "pvp" then
+		--VFL.print("BATTLEGROUND MODE");
+		if currentstate ~= "BATTLEGROUND" then
+			currentstate = "BATTLEGROUND";
+			VFL.print("BATTLEGROUND MODE SET");
+			_sig_rdx_roster_state:Raise("BATTLEGROUND");
+		end
+	elseif isRaid then
+		--VFL.print("RAID MODE");
+		if currentstate ~= "RAID" then
+			currentstate = "RAID";
+			VFL.print("RAID MODE SET");
+			_sig_rdx_roster_state:Raise("RAID");
+		end
+	elseif isSolo then
+		--VFL.print("SOLO MODE");
+		if currentstate ~= "SOLO" then
+			currentstate = "SOLO";
+			VFL.print("SOLO MODE SET");
+			_sig_rdx_roster_state:Raise("SOLO");
+		end
+	else
+		--VFL.print("PARTY MODE");
+		if currentstate ~= "PARTY" then
+			currentstate = "PARTY";
+			VFL.print("PARTY MODE SET");
+			_sig_rdx_roster_state:Raise("PARTY");
+		end
+	end
+end
+
+
+
+-- prevent the function to be call to many times
+--local function SwitchStateLatch()
+--	VFLT.CreatePeriodicLatch(0.5, SwitchState);
+--end
+
+--RDXEvents:Bind("PARTY_IS_RAID", nil, SwitchStateLatch);
+--RDXEvents:Bind("PARTY_IS_NONRAID", nil, SwitchStateLatch);
+--VFLEvents:Bind("PLAYER_IN_BATTLEGROUND", nil, SwitchStateLatch);
+--VFLEvents:Bind("PLAYER_IN_ARENA", nil, SwitchStateLatch);
 
 ---------------------------------------------
 -- Queue Update aura and cd
@@ -1044,33 +1106,22 @@ WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, ProcessPets);
 ----------------------------------------------------------------------------
 local SetRaid, SetNonRaid;
 local process_flag = nil;
+
 -- Called on the WoW RAID_ROSTER_UPDATE event.
--- Latched to prevent uberspam.
+-- Latched to prevent uberspam. (when too many people join the raid)
 local OnRaidRosterUpdate = VFLT.CreatePeriodicLatch(1, function()
-	--if not InCombatLockdown() then
-		local n = GetNumRaidMembers();
-	
-		-- If we weren't in a raid, transition to raid status
-		if not isRaid then
-			if(n > 0) then SetRaid(); return; end
-			ProcessRoster();
-			return;
-		end
-	
-		if(n == 0) then SetNonRaid(); return; end
-	
+	local n = GetNumRaidMembers();
+
+	-- If we weren't in a raid, transition to raid status
+	if not isRaid then
+		if(n > 0) then SetRaid(); return; end
 		ProcessRoster();
-	--else
-	--	process_flag = true;
-	--end
-
-end);
-
-VFLEvents:Bind("PLAYER_COMBAT", nil, function()
-	if process_flag then
-		OnRaidRosterUpdate();
-		process_flag = nil;
+		return;
 	end
+
+	if(n == 0) then SetNonRaid(); return; end
+
+	ProcessRoster();
 end);
 
 -- Called on the WoW PARTY_MEMBERS_CHANGED event
@@ -1088,13 +1139,17 @@ local OnPartyMembersChanged = VFLT.CreatePeriodicLatch(1, function()
 	-- Process roster
 	ProcessRoster();
 	ProcessPets();
-	if soloChanged then RDXEvents:Dispatch("PARTY_IS_NONRAID"); end
+	if soloChanged then
+		SwitchState();
+		RDXEvents:Dispatch("PARTY_IS_NONRAID"); 
+	end
 end);
 
 -- Internal: Flip between raid and nonraid status
 function SetRaid(noReprocess)
 	RDX:Debug(1, "SetRaid()");
 
+	-- unbind party event
 	WoWEvents:Unbind("party_roster");
 	
 	isRaid = true; isSolo = false;
@@ -1109,7 +1164,8 @@ function SetRaid(noReprocess)
 		FlushAuras();
 		RDXDAL.EndEventBatch();
 	end
-
+	
+	SwitchState();
 	RDXEvents:Dispatch("PARTY_IS_RAID");
 end
 
@@ -1132,7 +1188,7 @@ function SetNonRaid(noReprocess)
 	end
 
 	WoWEvents:Bind("PARTY_MEMBERS_CHANGED", nil, OnPartyMembersChanged, "party_roster");
-
+	SwitchState();
 	RDXEvents:Dispatch("PARTY_IS_NONRAID");
 end
 
@@ -1149,7 +1205,7 @@ end);
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, OnRaidRosterUpdate);
 
 -- bug GUID not available at INIT_VARIABLES_LOADED, and unitraid
--- his event is only fire when you log in the game, not on reloadUI
+-- this event is only fire when you log in the game, not on reloadUI
 WoWEvents:Bind("KNOWLEDGE_BASE_SYSTEM_MOTD_UPDATED", nil, function()
 	VFLT.NextFrame(math.random(10000000), function() RDX._Roster(); RDXEvents:Dispatch("ROSTER_NIDS_CHANGED"); end);
 end);

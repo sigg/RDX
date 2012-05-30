@@ -1,4 +1,4 @@
--- Obj_Desktop.lua
+﻿-- Obj_Desktop.lua
 -- OpenRDX
 
 RDXDK = RegisterVFLModule({
@@ -806,19 +806,16 @@ function RDXDK.Desktop:new(parent)
 	--Frameprops.states = {}
 	--Frameprops.states.SOLO = {};
 	--Frameprops.states.SOLO.OnSelect = {};
-	--Frameprops.states.SOLO.OnSelect[1] = {};
-	--Frameprops.states.SOLO.OnSelect[1].type = "WINDOW_OPEN"
-	--Frameprops.states.SOLO.OnSelect[1].srcname
-	--Frameprops.states.SOLO.OnSelect[1].wtype
-	--Frameprops.states.SOLO.OnSelect[2] = {};
-	--Frameprops.states.SOLO.OnSelect[2].type = "WINDOW_DOCK"
-	--Frameprops.states.SOLO.OnSelect[2].srcname
-	--Frameprops.states.SOLO.OnSelect[2].srcpt
-	--Frameprops.states.SOLO.OnSelect[2].tgtname
-	--Frameprops.states.SOLO.OnSelect[2].tgtpt
+	--Frameprops.states.SOLO.OnSelect["aa"] = {};
+	--Frameprops.states.SOLO.OnSelect["aa"].type = "WINDOW_OPEN"
+	--Frameprops.states.SOLO.OnSelect["aa"].name
+	--Frameprops.states.SOLO.OnSelect["bb"] = {};
+	--Frameprops.states.SOLO.OnSelect["bb"].type = "WINDOW_DOCK"
+	--Frameprops.states.SOLO.OnSelect["bb"].srcname
+	--Frameprops.states.SOLO.OnSelect["bb"].srcpt
+	--Frameprops.states.SOLO.OnSelect["bb"].tgtname
+	--Frameprops.states.SOLO.OnSelect["bb"].tgtpt
 	
-	--local current_state = "SOLO";
-	--function self:_GetCurrentState() return current_state; end
 	if not RDXU.currentstate then RDXU.currentstate = "SOLO"; end
 	
 	local function ChangeState(value)
@@ -868,7 +865,26 @@ function RDXDK.Desktop:new(parent)
 		end
 	end
 	
+	local newvalue;
+	local function SecuredChangeState(value)
+		if not InCombatLockdown() then 
+			ChangeState(value); 
+		else
+			newvalue = value;
+		end
+	end
+	
+	VFLEvents:Bind("PLAYER_COMBAT", nil, function(flag)
+		if not flag and newvalue then
+			ChangeState(newvalue);
+			newvalue = nil;
+		end
+	end, "desktop");
+	
 	DesktopEvents:Bind("DESKTOP_STATE", nil, ChangeState, "desktop");
+	
+	-- RDX ROSTER
+	RDXEvents:Bind("ROSTER_STATE", nil, SecuredChangeState, "desktop");
 	
 	-- BETA nameplate
 	--local nstate = RDX.GenericWindowState:new();
@@ -886,7 +902,12 @@ function RDXDK.Desktop:new(parent)
 	--DesktopEvents:Bind("NAMEPLATE", nil, nameplate, "desktop");
 	
 	self.Destroy = VFL.hook(function(s)
+		RDXEvents:Unbind("desktop");
 		DesktopEvents:Unbind("desktop");
+		VFLEvents:Unbind("desktop");
+		SecuredChangeState = nil;
+		newvalue = nil;
+		ChangeState = nil;
 		s.nameplate = nil;
 		SetSavePosition = nil;
 		GetSavePosition = nil;
@@ -895,9 +916,6 @@ function RDXDK.Desktop:new(parent)
 		VFL.empty(framePropsList); framePropsList = nil;
 		s.LayoutDesktop = nil; s.UnlayoutDesktop = nil;
 		s._IsLocked = nil;
-		ChangeState = nil;
-		--s._GetCurrentState = nil;
-		--current_state = nil;
 		s._GetFrame = nil; s._GetFrameList = nil; 
 		s._GetFrameProps = nil; s._GetFramePropsList = nil;
 	end, self.Destroy);
