@@ -274,9 +274,13 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 			curTab = nil;
 		end
 	end
+	
+	function self:_GetCurrentTab()
+		return curTab;
+	end
 
 	--- Adds a tab to the tab bar. The tab will have the given width.
-	function self:AddTab(width, fnSelect, fnDeselect)
+	function self:AddTab(width, fnSelect, fnDeselect, heightclientoffset)
 		local t = nil;
 		if orientation == "TOP" then
 			t = NewTabButtonTop();
@@ -287,8 +291,11 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		-- Add clickscript
 		t:SetScript("OnClick", function(self2) self:SelectTab(self2); end);
 		t._tbOnSelect = fnSelect; t._tbOnDeselect = fnDeselect;
+		-- add reduceheight
+		if not heightclientoffset then heightclientoffset = 0; end
+		t._heightclientoffset = heightclientoffset;
 		t.Destroy = VFL.hook(function(s)
-			t._tbOnSelect = nil; t._tbOnDeselect = nil;
+			t._tbOnSelect = nil; t._tbOnDeselect = nil; t._heightclientoffset = nil;
 		end, t.Destroy);
 		-- Add to data structures
 		tabWidth = tabWidth + width;
@@ -324,7 +331,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		for k,tab in pairs(tabs) do tab:Destroy(); tabs[k] = nil; end
 		UnsetScrollable();
 		tabs = nil; tabWidth = nil;
-		self.SelectTabName = nil; self.UnSelectTab = nil;
+		self.SelectTabName = nil; self.UnSelectTab = nil; self._GetCurrentTab = nil;
 		self.RemoveTab = nil; self.AddTab = nil; self.SelectTab = nil;
 	end, self.Destroy);
 

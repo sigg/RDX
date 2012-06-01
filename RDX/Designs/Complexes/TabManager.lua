@@ -72,7 +72,7 @@ if (md) and (ty == "TabManager") and (md.data) then
 					end
 				end
 			end
-			tabbox:GetTabBar():AddTab("80", function(self) tabbox:SetClient(cf, true); ChatEdit_SetLastActiveWindow(cf.editBox); end, function() end):SetText(md2.data.title);
+			tabbox:GetTabBar():AddTab("80", function(self) tabbox:SetClient(cf, true); ChatEdit_SetLastActiveWindow(cf.editBox); end, function() end, -25):SetText(md2.data.title);
 			tabbox.cfs["cf" .. count] = cf;
 		end
 	end

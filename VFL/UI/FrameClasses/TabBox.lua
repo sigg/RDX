@@ -13,37 +13,7 @@ local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 		self:SetFrameLevel(parent:GetFrameLevel() + 1);
 	end
 	self:SetBackdrop(VFLUI.DefaultDialogBackdrop);
-
-	local curClient = nil;
-	if not offsetx then offsetx = 0; end
-	if not offsety then offsety = 0; end
-
-	--- Set the client frame for this window.
-	function self:SetClient(cli, flag)
-		if curClient == cli then return; end
-		if curClient then curClient:Hide(); end
-		curClient = cli;
-		if not cli then return; end
-		cli:SetParent(self);	cli:ClearAllPoints();
-		if orientation == "TOP" then
-			cli:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -tabHeight-offsety);
-		elseif orientation == "BOTTOM" then
-			cli:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 5, tabHeight+offsety);
-		end
-		cli:SetWidth(self:GetWidth() - 10 - 2*offsetx);
-		if flag then
-			cli:SetHeight(self:GetHeight() - tabHeight - 10 - 3*offsety - 25);
-		else
-			cli:SetHeight(self:GetHeight() - tabHeight - 10 - 3*offsety);
-		end
-		cli:Show();
-	end
-
-	--- Generate the AddTab() functions for the given client.
-	function self:GenerateTabFuncs(cli)
-		return function() self:SetClient(cli); end;
-	end
-
+	
 	local tabBar = VFLUI.TabBar:new(self, tabHeight, orientation);
 	if orientation == "TOP" then
 		tabBar:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -2);
@@ -55,12 +25,40 @@ local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 	--- Get the TabBar for this TabBox.
 	function self:GetTabBar() return tabBar; end
 
+	local curClient = nil;
+	if not offsetx then offsetx = 0; end
+	if not offsety then offsety = 0; end
+
+	--- Set the client frame for this window.
+	function self:SetClient(cli)
+		if curClient == cli then return; end
+		if curClient then curClient:Hide(); end
+		curClient = cli;
+		if not cli then return; end
+		cli:SetParent(self);	cli:ClearAllPoints();
+		if orientation == "TOP" then
+			cli:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -tabHeight-offsety);
+		elseif orientation == "BOTTOM" then
+			cli:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 5, tabHeight+offsety);
+		end
+		local tab = tabBar:_GetCurrentTab();
+		cli:SetWidth(self:GetWidth() - 10 - 2*offsetx);
+		cli:SetHeight(self:GetHeight() - tabHeight - 10 - 3*offsety + tab._heightclientoffset);
+		cli:Show();
+	end
+
+	--- Generate the AddTab() functions for the given client.
+	function self:GenerateTabFuncs(cli)
+		return function() self:SetClient(cli); end;
+	end
+
 	-- Resize/show handling
 	local function OnResize()
 		tabBar:SetWidth(self:GetWidth() - 10);
 		if curClient then 
-			curClient:SetWidth(math.max(self:GetWidth() - 10, 0));
-			curClient:SetHeight(math.max(0, self:GetHeight() - tabHeight - 5));
+			local tab = tabBar:_GetCurrentTab();
+			curClient:SetWidth(math.max(self:GetWidth() - 10 - 2*offsetx, 0));
+			curClient:SetHeight(math.max(0, self:GetHeight() - tabHeight - 10 - 3*offsety + tab._heightclientoffset));
 		end
 	end 
 	self:SetScript("OnSizeChanged", OnResize);
