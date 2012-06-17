@@ -129,6 +129,8 @@ function RDXDK.Desktop:new(parent)
 		if framepropsroot then
 			if not framepropsroot.sp then framepropsroot.sp = {}; end
 			framepropsroot.sp[name] = VFL.copy(fp);
+			framepropsroot.sp[name].dock = nil;
+			framepropsroot.sp[name].dgp = nil;
 		end
 	end
 	
@@ -1094,10 +1096,6 @@ RDXDB.RegisterObjectType({
 		-- Attempt to setup the desktop; if it fails, just bail out.
 		if not SetupDesktop(path, dk, obj.data) then dk:Destroy(); return nil; end
 		dk:LayoutDesktop();
-		VFLT.NextFrame(math.random(10000000), function()
-			DesktopEvents:Dispatch("INIT_POST_DESKTOP");
-			DesktopEvents:DeleteKey("INIT_POST_DESKTOP");
-		end);
 		return dk;
 	end,
 	Deinstantiate = function(instance, path, obj, nosave)

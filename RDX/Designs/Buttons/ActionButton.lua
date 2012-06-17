@@ -630,7 +630,10 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_UNLOCK_BINDINGS", nil, ShowBindingEdit, "bindingactionButton" .. self.id);
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButton" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButton" .. self.id);
-	DesktopEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingactionButton" .. self.id);
+	
+	VFLT.NextFrame(math.random(10000000), function()
+		UpdateKeyBinding();
+	end);
 	
 	-------------------------- init
 	function self:Init()
@@ -952,7 +955,10 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_UNLOCK_BINDINGS", nil, ShowBindingEdit, "bindingmulticastButton" .. self.id);
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingmulticastButton" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingmulticastButton" .. self.id);
-	DesktopEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingmulticastButton" .. self.id);
+	
+	VFLT.NextFrame(math.random(10000000), function()
+		UpdateKeyBinding();
+	end);
 	
 	-------------------------- init
 	function self:Init()
@@ -1328,7 +1334,10 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_UNLOCK_BINDINGS", nil, ShowBindingEdit, "bindingactionButtonPet" .. self.id);
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButtonPet" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButtonPet" .. self.id);
-	DesktopEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingactionButtonPet" .. self.id);
+	
+	VFLT.NextFrame(math.random(10000000), function()
+		UpdateKeyBinding();
+	end);
 	
 	-------------------------- init
 	function self:Init()
@@ -1602,7 +1611,10 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_UNLOCK_BINDINGS", nil, ShowBindingEdit, "bindingactionButtonStance" .. self.id);
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButtonStance" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButtonStance" .. self.id);
-	DesktopEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingactionButtonStance" .. self.id);
+	
+	VFLT.NextFrame(math.random(10000000), function()
+		UpdateKeyBinding();
+	end);
 	
 	-------------------------- init
 	function self:Init()
@@ -1914,7 +1926,10 @@ function RDXUI.VehicleButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, 
 	DesktopEvents:Bind("DESKTOP_UNLOCK_BINDINGS", nil, ShowBindingEdit, "bindingactionButtonVehicle" .. self.id);
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButtonVehicle" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButtonVehicle" .. self.id);
-	DesktopEvents:Bind("INIT_POST_DESKTOP", nil, UpdateKeyBinding, "bindingactionButtonVehicle" .. self.id);
+	
+	VFLT.NextFrame(math.random(10000000), function()
+		UpdateKeyBinding();
+	end);
 	
 	-------------------------- init
 	function self:Init()

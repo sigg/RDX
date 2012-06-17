@@ -47,8 +47,6 @@ local function Preload()
 	--for i=1,10 do 
 	--	tmpbtn[i]:Destroy();
 	--end
-	
-	-- hack
 end
 
 -- VariablesLoaded: Called on VARIABLES_LOADED, that is to say after ALL addons have been loaded.

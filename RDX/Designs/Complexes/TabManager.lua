@@ -17,6 +17,7 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
+		if not desc.bkd then desc.bkd = { edgeFile="Interface\\Addons\\VFL\\Skin\\tab_top", edgeSize = 16, insets = { left = 5, right = 5, top = 4, bottom = 0 } }; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -38,7 +39,7 @@ tabbox:SetWidth(]] .. desc.w .. [[); tabbox:SetHeight(]] .. desc.h .. [[);
 tabbox:SetBackdrop(nil);
 tabbox:Show();
 tabbox.cfs = {};
-local cn = RDX.CreateChatChannelList(GetChannelList());
+--local cn = RDX.CreateChatChannelList(GetChannelList());
 local md,_,_,ty = RDXDB.GetObjectData("]] .. desc.cfm .. [[");
 if (md) and (ty == "TabManager") and (md.data) then
 	local count, title = 0, "";
@@ -46,51 +47,52 @@ if (md) and (ty == "TabManager") and (md.data) then
 		local md2,_,_,ty2 = RDXDB.GetObjectData(v.op);
 		if (md2) and (ty2 == "ChatFrame") and (md2.data) then
 			count = count + 1;
-			local cf = VFLUI.AcquireFrame("ChatFrame");
-			if count == 1 then title = md2.data.title; end
-			VFLUI.SetFont(cf, ]] .. Serialize(desc.font) .. [[);
-			
-			for k,v in pairs(md2.data.discussion) do
-				ChatFrame_AddMessageGroup(cf, k);
+			local flag = RDXDB.GetObjectInstance(v.op, true);
+			local f, tab;
+			if flag then
+				f = VFLUI.SimpleText:new(nil, 5, 100);
+				f._path = nil;
+				f:SetText("Already acquired !");
+				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
+				tab = tabbox:GetTabBar():AddTab("80", function(self, arg1) tabbox:SetClient(f, true); end, function() end);
+			else
+				f = RDXDB.GetObjectInstance(v.op);
+				local _, _, _, _, objdesc = RDXDB.GetObjectData(v.op);
+				f._path = v.op;
+				VFLUI.SetBackdrop(f.cfbg, ]] .. Serialize(desc.bkd) .. [[);
+				VFLUI.SetBackdrop(f.ebbg, ]] .. Serialize(desc.bkd) .. [[);
+				VFLUI.SetFont(f.cf, ]] .. Serialize(desc.font) .. [[);
+				tab = tabbox:GetTabBar():AddTab("80", function(self, arg1)
+					tabbox:SetClient(f, true); ChatEdit_SetLastActiveWindow(f.cf.editBox);
+				end, function() end, function(mnu, dlg) return objdesc.GenerateBrowserMenu(mnu, v.op, nil, dlg) end);
 			end
-			for k,v in pairs(md2.data.creature) do
-				ChatFrame_AddMessageGroup(cf, k);
-			end
-			for k,v in pairs(md2.data.combat) do
-				ChatFrame_AddMessageGroup(cf, k);
-			end
-			for k,v in pairs(md2.data.pvp) do
-				ChatFrame_AddMessageGroup(cf, k);
-			end
-			for k,v in pairs(md2.data.system) do
-				ChatFrame_AddMessageGroup(cf, k);
-			end
-			for k,v in pairs(md2.data.channels) do
-				for k2,v2 in ipairs(cn) do
-					if v2.type == k then
-						ChatFrame_AddChannel(cf, v2.channelName);
-					end
-				end
-			end
-			tabbox:GetTabBar():AddTab("80", function(self) tabbox:SetClient(cf, true); ChatEdit_SetLastActiveWindow(cf.editBox); end, function() end, -25):SetText(md2.data.title);
-			tabbox.cfs["cf" .. count] = cf;
+			tab.font:SetText(md2.data.title);
+			f.tab = tab;
+			tabbox.cfs["cf" .. count] = f;
 		end
 	end
 	
-	DesktopEvents:Bind("INIT_POST_DESKTOP", nil, function() tabbox:GetTabBar():SelectTabName(title); end, "tabmanager]] .. objname .. [[");
-	
+	VFLT.NextFrame(math.random(10000000), function()
+		tabbox:GetTabBar():SelectTabId(1);
+	end);
 end
 
+tabbox:GetTabBar():SetBackdropTab(]] .. Serialize(desc.bkd) .. [[);
+tabbox:GetTabBar():SetFontTab(]] .. Serialize(desc.font) .. [[);
 frame.]] .. objname .. [[ = tabbox;
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 
 		------------------ On frame destruction.
 		local destroyCode = [[
-DesktopEvents:Unbind("tabmanager]] .. objname .. [[");
 local btn = frame.]] .. objname .. [[;
 for k,v in pairs(tabbox.cfs) do
-	v:Destroy(); v = nil;
+	v.tab = nil;
+	if v._path then
+		RDXDB._RemoveInstance(v._path); v = nil;
+	else
+		v:Destroy(); v = nil;
+	end
 end
 btn:Destroy(); btn = nil; 
 frame.]] .. objname .. [[ = nil;
@@ -149,6 +151,12 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.fading then chk_fading:SetChecked(true); else chk_fading:SetChecked(); end
 		ui:InsertFrame(chk_fading);
 		
+		-- Backdrop
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop style"));
+		local bkd = VFLUI.MakeBackdropSelectButton(er, desc.bkd); bkd:Show();
+		er:EmbedChild(bkd); er:Show();
+		ui:InsertFrame(er);
+		
 		function ui:GetDescriptor()
 			return { 
 				feature = "tabmanager"; version = 1;
@@ -163,6 +171,7 @@ frame.]] .. objname .. [[ = nil;
 				channel = chk_channel:GetChecked();
 				font = fontsel:GetSelectedFont();
 				fading = chk_fading:GetChecked();
+				bkd = bkd:GetSelectedBackdrop();
 			};
 		end
 
@@ -178,6 +187,7 @@ frame.]] .. objname .. [[ = nil;
 			ts = "None";
 			color = {r=1,g=1,b=1,a=1};
 			font = VFL.copy(Fonts.Default);
+			bkd =  { edgeFile="Interface\\Addons\\VFL\\Skin\\tab_top", edgeSize = 16, insets = { left = 5, right = 5, top = 4, bottom = 0 } };
 		};
 	end;
 });

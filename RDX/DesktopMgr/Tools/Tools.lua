@@ -41,7 +41,8 @@ local function OpenDesktopTools(parent, froot)
 	tabbox:SetPoint("TOPLEFT", ca, "TOPLEFT");
 	
 	for i, v in ipairs(tools) do
-		tabbox:GetTabBar():AddTab(v.width, function() tabbox:SetClient(v.cli); v.funcSet(froot) end, function() v.funcUnset(froot) end):SetText(v.title);
+		local tab = tabbox:GetTabBar():AddTab(v.width, function() tabbox:SetClient(v.cli); v.funcSet(froot) end, function() v.funcUnset(froot) end);
+		tab.font:SetText(v.title);
 	end
 	
 	tabbox:Show();

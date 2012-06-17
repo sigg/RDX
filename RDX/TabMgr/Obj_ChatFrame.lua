@@ -268,9 +268,6 @@ local function EditChatFrameDialog(parent, path, md)
 
 	-- Sanity checks
 	if (not path) or (not md) or (not md.data) then return nil; end
-	
-	-- See if this chatframe was already instantiated...
-	local inst = RDXDB.GetObjectInstance(path, true);
 
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
@@ -300,7 +297,8 @@ local function EditChatFrameDialog(parent, path, md)
 	tabbox:SetPoint("TOPLEFT", ca, "TOPLEFT", -5, -30);
 	tabbox:SetBackdrop(nil);
 	
-	tabbox:GetTabBar():AddTab("80", function() 
+	local tab = nil;
+	tab = tabbox:GetTabBar():AddTab("80", function() 
 		tabbox:SetClient(adecor);   
 		for k,v in ipairs(CHAT_CONFIG_CHAT_LEFT) do
 			v.enabled = md.data.discussion[v.type];
@@ -311,9 +309,10 @@ local function EditChatFrameDialog(parent, path, md)
 			md.data.discussion[v.type] = v.enabled;
 			v.enabled = nil;
 		end
-	end):SetText("Player");
+	end);
+	tab.font:SetText("Player");
 	
-	tabbox:GetTabBar():AddTab("80", function() 
+	tab = tabbox:GetTabBar():AddTab("80", function() 
 		tabbox:SetClient(bdecor);   
 		for k,v in ipairs(CHAT_CONFIG_CHAT_CREATURE_LEFT) do
 			v.enabled = md.data.creature[v.type];
@@ -324,9 +323,10 @@ local function EditChatFrameDialog(parent, path, md)
 			md.data.creature[v.type] = v.enabled;
 			v.enabled = nil;
 		end
-	end):SetText("Creature");
+	end);
+	tab.font:SetText("Creature");
 	
-	tabbox:GetTabBar():AddTab("80", function() 
+	tab = tabbox:GetTabBar():AddTab("80", function() 
 		tabbox:SetClient(cdecor);   
 		for k,v in ipairs(CHAT_CONFIG_OTHER_COMBAT) do
 			v.enabled = md.data.combat[v.type];
@@ -337,9 +337,10 @@ local function EditChatFrameDialog(parent, path, md)
 			md.data.combat[v.type] = v.enabled;
 			v.enabled = nil;
 		end
-	end):SetText(COMBAT);
+	end);
+	tab.font:SetText(COMBAT);
 	
-	tabbox:GetTabBar():AddTab("80", function() 
+	tab = tabbox:GetTabBar():AddTab("80", function() 
 		tabbox:SetClient(ddecor);   
 		for k,v in ipairs(CHAT_CONFIG_OTHER_PVP) do
 			v.enabled = md.data.pvp[v.type];
@@ -350,9 +351,10 @@ local function EditChatFrameDialog(parent, path, md)
 			md.data.pvp[v.type] = v.enabled;
 			v.enabled = nil;
 		end
-	end):SetText(PVP);
+	end);
+	tab.font:SetText(PVP);
 	
-	tabbox:GetTabBar():AddTab("80", function() 
+	tab = tabbox:GetTabBar():AddTab("80", function() 
 		tabbox:SetClient(edecor);   
 		for k,v in ipairs(CHAT_CONFIG_OTHER_SYSTEM) do
 			v.enabled = md.data.system[v.type];
@@ -363,11 +365,12 @@ local function EditChatFrameDialog(parent, path, md)
 			md.data.system[v.type] = v.enabled;
 			v.enabled = nil;
 		end
-	end):SetText(OTHER);
+	end);
+	tab.font:SetText(OTHER);
 	
 	local channelList;
 	
-	tabbox:GetTabBar():AddTab("80", function() 
+	tab = tabbox:GetTabBar():AddTab("80", function() 
 		tabbox:SetClient(fdecor);
 		
 		channelList = RDX.CreateChatChannelList(GetChannelList());
@@ -403,7 +406,8 @@ local function EditChatFrameDialog(parent, path, md)
 			md.data.channels[v.type] = v.enabled;
 			v.enabled = nil;
 		end
-	end):SetText("Channels");
+	end);
+	tab.font:SetText("Channels");
 	
 	tabbox:Show();
 	tabbox:GetTabBar():SelectTabName("Player");
@@ -419,7 +423,14 @@ local function EditChatFrameDialog(parent, path, md)
 	local function Save()
 		md.data.title = ed_name.editBox:GetText();
 		dlg.tabbox:GetTabBar():UnSelectTab();
-		RDXDB.NotifyUpdate(path);
+		--RDXDB.NotifyUpdate(path);
+		-- See if this chatframe was already instantiated...
+		local inst = RDXDB.GetObjectInstance(path, true);
+		if inst then 
+			inst:ClearMessages();
+			inst:AddMessages(md.data);
+			inst:SetTabText(md.data);
+		end
 		VFL.EscapeTo(esch);
 	end
 	
@@ -441,6 +452,73 @@ local function EditChatFrameDialog(parent, path, md)
 		s.tabbox:Destroy(); s.tabbox = nil;
 		s.ed_name:Destroy(); s.ed_name = nil;
 	end, dlg.Destroy);
+end
+
+--------------------------------------------------
+-- The object.
+-- Provides slots for Create, Destroy, Show, and Hide events.
+-- Based on the VFL Window object, which allows custom
+-- framing.
+--------------------------------------------------
+RDX.ChatFrame = {};
+function RDX.ChatFrame:new(parent)
+	local self = VFLUI.AcquireFrame("ChatFrame2");
+	
+	function self:ClearMessages()
+		ChatFrame_RemoveAllMessageGroups(self.cf);
+		ChatFrame_RemoveAllChannels(self.cf);
+	end
+
+	function self:AddMessages(desc)
+		for k,v in pairs(desc.discussion) do
+			ChatFrame_AddMessageGroup(self.cf, k);
+		end
+		for k,v in pairs(desc.creature) do
+			ChatFrame_AddMessageGroup(self.cf, k);
+		end
+		for k,v in pairs(desc.combat) do
+			ChatFrame_AddMessageGroup(self.cf, k);
+		end
+		for k,v in pairs(desc.pvp) do
+			ChatFrame_AddMessageGroup(self.cf, k);
+		end
+		for k,v in pairs(desc.system) do
+			ChatFrame_AddMessageGroup(self.cf, k);
+		end
+		local cn = RDX.CreateChatChannelList(GetChannelList());
+		for k,v in pairs(desc.channels) do
+			for k2,v2 in ipairs(cn) do
+				if v2.type == k then
+					ChatFrame_AddChannel(self.cf, v2.channelName);
+				end
+			end
+		end
+	end
+	
+	function self:SetTabText(desc)
+		if self.tab then
+			self.tab.font:SetText(desc.title);
+		end	
+	end
+	
+	self.Destroy = VFL.hook(function(s)
+		s.SetTabText = nil;
+		s.ClearMessages = nil; s.AddMessages = nil;
+	end, self.Destroy);
+
+	return self;
+end
+
+-----------------------------------------------------------
+-- Window meta-control
+-----------------------------------------------------------
+-- Master priming function for compiling windows.
+local function SetupChatFrame(path, cf, desc)
+	if (not cf) or (not desc) then return nil; end
+	cf:ClearMessages();
+	cf:AddMessages(desc);
+	cf:SetTabText(desc);
+	return true;
 end
 
 -- Chatframe RDX object registration
@@ -496,6 +574,16 @@ RDXDB.RegisterObjectType({
 	Edit = function(path, md, parent)
 		EditChatFrameDialog(parent or VFLDIALOG, path, md);
 	end;
+	Instantiate = function(path, md)
+		local cf = RDX.ChatFrame:new();
+		-- Attempt to setup the window; if it fails, just bail out.
+		if not SetupChatFrame(path, cf, md.data) then cf:Destroy(); return nil; end
+		return cf;
+	end,
+	Deinstantiate = function(instance, path, md)
+		instance:Destroy();
+		instance = nil;
+	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),
