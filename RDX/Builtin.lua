@@ -116,33 +116,6 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 				{
 					["strata"] = "MEDIUM",
 					["dock"] = {
-						["BOTTOM"] = {
-							["id"] = "default:ChatFrame1",
-							["x"] = 0,
-							["point"] = "TOP",
-							["y"] = 0,
-						},
-					},
-					["scale"] = 1,
-					["t"] = 187.7333479166043,
-					["open"] = true,
-					["feature"] = "desktop_window",
-					["name"] = "default:ChatEditBox1",
-					["alpha"] = 1,
-					["anchor"] = "TOPLEFT",
-					["l"] = 8.533303777835435,
-					["b"] = 162.1333506814285,
-					["r"] = 349.866743416295,
-				}, -- [3]
-				{
-					["strata"] = "MEDIUM",
-					["dock"] = {
-						["TOP"] = {
-							["id"] = "default:ChatEditBox1",
-							["x"] = 0,
-							["point"] = "BOTTOM",
-							["y"] = 0,
-						},
 						["BOTTOMLEFT"] = {
 							["id"] = "root",
 							["x"] = 10,
@@ -154,7 +127,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 					["t"] = 162.1333506814285,
 					["open"] = true,
 					["feature"] = "desktop_window",
-					["name"] = "default:ChatFrame1",
+					["name"] = "default:Tab1",
 					["alpha"] = 1,
 					["anchor"] = "TOPLEFT",
 					["l"] = 8.533333656676994,
@@ -231,6 +204,40 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["ty"] = "ChatFrame",
 			["version"] = 1,
 			["data"] = {
+				["title"] = "Guild",
+				["discussion"] = {
+					["GUILD"] = true,
+					["OFFICER"] = true,
+					["GUILD_ACHIEVEMENT"] = true,
+					["BN_WHISPER"] = true,
+					["PARTY"] = true,
+					["PARTY_LEADER"] = true,
+					["RAID"] = true,
+					["RAID_LEADER"] = true,
+					["RAID_WARNING"] = true,
+					["BATTLEGROUND"] = true,
+					["BATTLEGROUND_LEADER"] = true,
+					["BN_CONVERSATION"] = true,
+				},
+				["creature"] = {
+				},
+				["combat"] = {
+				},
+				["pvp"] = {
+				},
+				["system"] = {
+				},
+				["channels"] = {
+				},
+			},
+		};
+	end
+	
+	if not default["ChatFrame3_cf"] then
+		default["ChatFrame3_cf"] = {
+			["ty"] = "ChatFrame",
+			["version"] = 1,
+			["data"] = {
 				["title"] = "Loot",
 				["discussion"] = {
 				},
@@ -249,8 +256,8 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	if not default["ChatFrames_tm"] then
-		default["ChatFrames_tm"] = {
+	if not default["Primary_tm"] then
+		default["Primary_tm"] = {
 			["ty"] = "TabManager",
 			["version"] = 1,
 			["data"] = {
@@ -260,6 +267,9 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 					},
 					{
 						["op"] = "default:ChatFrame2_cf",
+					},
+					{
+						["op"] = "default:ChatFrame3_cf",
 					},
 				},
 			},
@@ -611,62 +621,6 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	-- action bar and chatframes
-	if not default["ChatEditBox1_ds"] then
-		default["ChatEditBox1_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "base_default",
-					["h"] = 30,
-					["version"] = 1,
-					["alpha"] = 1,
-					["w"] = 400,
-				}, -- [1]
-				{
-					["feature"] = "chatframeeditbox",
-					["version"] = 1,
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["owner"] = "decor",
-					["w"] = 400,
-					["ak"] = 1,
-				}, -- [2]
-			},
-		};
-	end
-	
-	if not default["ChatEditBox1"] then
-		default["ChatEditBox1"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-					["bkd"] = {
-						["_border"] = "none",
-						["_backdrop"] = "none",
-					},
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "default:ChatEditBox1_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
-			},
-		};
-	end
-	
 	if not default["ActionBar1"] then
 		default["ActionBar1"] = {
 			["ty"] = "Window",
@@ -820,33 +774,42 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	if not default["ChatFrame1_ds"] then
-		default["ChatFrame1_ds"] = {
+	if not default["Tab1_ds"] then
+		default["Tab1_ds"] = {
 			["ty"] = "Design",
 			["version"] = 1,
 			["data"] = {
 				{
 					["feature"] = "base_default",
-					["h"] = 180,
+					["h"] = 200,
 					["version"] = 1,
 					["w"] = 400,
 					["alpha"] = 1,
 				}, -- [1]
 				{
-					["number"] = "1",
-					["ts"] = "HH:MM:SS STR",
+					["ts"] = "None",
 					["color"] = {
 						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
 						["b"] = 1,
-						["g"] = 0.4705882352941176,
-						["r"] = 0.5137254901960784,
 					},
 					["owner"] = "decor",
-					["w"] = "BaseWidth",
-					["feature"] = "chatframe",
-					["h"] = "BaseHeight",
-					["name"] = "cf1",
-					["channel"] = 1,
+					["w"] = "400",
+					["feature"] = "tabmanager",
+					["h"] = "200",
+					["version"] = 1,
+					["bkd"] = {
+						["_border"] = "HalStraight",
+						["edgeSize"] = 8,
+						["edgeFile"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalBorder",
+						["insets"] = {
+							["top"] = 2,
+							["right"] = 2,
+							["left"] = 2,
+							["bottom"] = 2,
+						},
+					},
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -854,28 +817,34 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 						["rp"] = "TOPLEFT",
 						["af"] = "Base",
 					},
-					["version"] = 1,
 					["font"] = {
 						["sr"] = 0,
-						["face"] = "Fonts\\ARIALN.TTF",
+						["color"] = {
+							["r"] = 1,
+							["g"] = 1,
+							["b"] = 1,
+						},
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
 						["justifyV"] = "CENTER",
-						["name"] = "Default",
+						["sb"] = 0,
 						["sa"] = 1,
 						["sg"] = 0,
-						["justifyH"] = "LEFT",
-						["sb"] = 0,
+						["name"] = "Default",
 						["sx"] = 1,
 						["sy"] = -1,
+						["justifyH"] = "CENTER",
 						["title"] = "Default",
 						["size"] = 12,
 					},
+					["name"] = "cf1",
+					["cfm"] = "default:Primary_tm",
 				}, -- [2]
 			},
 		};
 	end
 	
-	if not default["ChatFrame1"] then
-		default["ChatFrame1"] = {
+	if not default["Tab1"] then
+		default["Tab1"] = {
 			["ty"] = "Window",
 			["version"] = 1,
 			["data"] = {
@@ -888,7 +857,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 				}, -- [1]
 				{
 					["feature"] = "Design",
-					["design"] = "default:ChatFrame1_ds",
+					["design"] = "default:Tab1_ds",
 				}, -- [2]
 				{
 					["feature"] = "layout_single_unitframe",
