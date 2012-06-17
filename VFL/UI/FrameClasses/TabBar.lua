@@ -5,14 +5,24 @@
 -- A tab bar is a scrollable row of clickable buttons that are usually used
 -- to perform manipulations on an underlying window.
 
+--local topTabBackdrop = {
+--	edgeFile="Interface\\Addons\\VFL\\Skin\\tab_top", edgeSize = 16,
+--	insets = { left = 5, right = 5, top = 4, bottom = 5 }
+--};
+
 local topTabBackdrop = {
-	edgeFile="Interface\\Addons\\VFL\\Skin\\tab_top", edgeSize = 16,
-	insets = { left = 5, right = 5, top = 4, bottom = 0 }
+	edgeFile="Interface\\Addons\\VFL\\Skin\\HalBorder", edgeSize = 8,
+	insets = { left = 2, right = 2, top = 2, bottom = 2 },
 };
 
+--local bottomTabBackdrop = {
+--	edgeFile="Interface\\Addons\\VFL\\Skin\\tab_bottom", edgeSize = 16,
+--	insets = { left = 5, right = 5, top = 4, bottom = 5 }
+--};
+
 local bottomTabBackdrop = {
-	edgeFile="Interface\\Addons\\VFL\\Skin\\tab_bottom", edgeSize = 16,
-	insets = { left = 5, right = 5, top = 4, bottom = 5 }
+	edgeFile="Interface\\Addons\\VFL\\Skin\\HalBorder", edgeSize = 8,
+	insets = { left = 2, right = 2, top = 2, bottom = 2 },
 };
 
 local function NewTabButtonTop()
@@ -24,7 +34,7 @@ local function NewTabButtonTop()
 	tex:SetTexture(1, 1, 1, 0.1);
 	tex:SetDrawLayer("ARTWORK", 1);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
-	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 0);
+	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
 	tex:Show();
 	btn.texBkg = tex;
 
@@ -33,7 +43,7 @@ local function NewTabButtonTop()
 	tex:SetTexture(1, 1, 1, 0);
 	tex:SetDrawLayer("ARTWORK", 2);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
-	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 0);
+	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
 	tex:Show();
 	btn:SetNormalTexture(tex);
 
@@ -42,7 +52,7 @@ local function NewTabButtonTop()
 	tex:SetTexture(0.5, 0.5, 0.5, 1);
 	tex:SetDrawLayer("ARTWORK", 2);	
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
-	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 0);
+	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
 	tex:Show();
 	btn:SetDisabledTexture(tex);
 
@@ -51,7 +61,7 @@ local function NewTabButtonTop()
 	tex:SetTexture(1, 1, 1, 0.2);
 	tex:SetDrawLayer("ARTWORK", 2);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
-	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 0);
+	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
 	tex:Show();
 	btn:SetHighlightTexture(tex);
 	btn.texHlt = tex;
@@ -61,14 +71,20 @@ local function NewTabButtonTop()
 	tex:SetTexture(1, 1, 1, 0.4);
 	tex:SetDrawLayer("ARTWORK", 2);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
-	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 0);
+	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
 	tex:Show();
 	btn:SetPushedTexture(tex);
 
 	-- Fonts
-	btn:SetNormalFontObject(Fonts.Default);
+	--btn:SetNormalFontObject(Fonts.Default);
+	btn.font = VFLUI.CreateFontString(btn);
+	btn.font:SetAllPoints(btn);
+	btn.font:Show();
+	VFLUI.SetFont(btn.font, Fonts.default);
 
 	btn.Destroy = VFL.hook(function(s)
+		VFLUI.ReleaseRegion(s.font);
+		s.font = nil;
 		VFLUI.ReleaseRegion(s.texBkg);
 		s.texBkg = nil;
 		VFLUI.ReleaseRegion(s.texHlt);
@@ -129,9 +145,14 @@ local function NewTabButtonBottom()
 	btn:SetPushedTexture(tex);
 
 	-- Fonts
-	btn:SetNormalFontObject(Fonts.Default);
+	--btn:SetNormalFontObject(Fonts.Default);
+	btn.font = VFLUI.CreateFontString(btn);
+	btn.font:SetAllPoints(btn);
+	btn.font:Show();
 
 	btn.Destroy = VFL.hook(function(s)
+		VFLUI.ReleaseRegion(s.font);
+		s.font = nil;
 		VFLUI.ReleaseRegion(s.texBkg);
 		s.texBkg = nil;
 		VFLUI.ReleaseRegion(s.texHlt);
@@ -262,9 +283,15 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 	function self:SelectTabName(title, a, b, c)
 		local tab = nil;
 		for i, v in ipairs(tabs) do
-			if v:GetText() == title then tab = v; end
+			if v.font:GetText() == title then tab = v; end
 		end
 		self:SelectTab(tab, a, b, c);
+	end
+	
+	function self:SelectTabId(id, a, b, c)
+		if id then
+			self:SelectTab(tabs[id], a, b, c);
+		end
 	end
 	
 	function self:UnSelectTab()
@@ -280,7 +307,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 	end
 
 	--- Adds a tab to the tab bar. The tab will have the given width.
-	function self:AddTab(width, fnSelect, fnDeselect, heightclientoffset)
+	function self:AddTab(width, fnSelect, fnDeselect, fnMenu, heightclientoffset)
 		local t = nil;
 		if orientation == "TOP" then
 			t = NewTabButtonTop();
@@ -288,10 +315,25 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 			t = NewTabButtonBottom();
 		end
 		t:SetHeight(tabHeight); t:SetWidth(width); t:Show();
-		-- Add clickscript
-		t:SetScript("OnClick", function(self2) self:SelectTab(self2); end);
+		
+		local mnu = {};
+		
 		t._tbOnSelect = fnSelect; t._tbOnDeselect = fnDeselect;
-		-- add reduceheight
+		-- Add clickscript
+		t:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+		t:SetScript("OnClick", function(self2, arg1) 
+			if(arg1 == "LeftButton") then 
+				self:SelectTab(self2); 
+			else
+				VFL.empty(mnu);
+				if fnMenu then fnMenu(mnu, t); end
+				if #mnu > 0 then
+					VFL.poptree:Begin(120, 12, t, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(t));
+					VFL.poptree:Expand(nil, mnu);
+				end
+			end;
+		end);
+		-- add heightclientoffset
 		if not heightclientoffset then heightclientoffset = 0; end
 		t._heightclientoffset = heightclientoffset;
 		t.Destroy = VFL.hook(function(s)
@@ -315,6 +357,19 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 			rt:Destroy();
 		end
 	end
+	
+	--- Change look and feel
+	function self:SetBackdropTab(desc)
+		for i, v in ipairs(tabs) do
+			VFLUI.SetBackdrop(v, desc);
+		end
+	end
+	
+	function self:SetFontTab(desc)
+		for i, v in ipairs(tabs) do
+			VFLUI.SetFont(v.font, desc);
+		end
+	end
 
 	local function OnResize()
 		if(tabWidth >= self:GetWidth()) then SetScrollable(); else UnsetScrollable(); end
@@ -331,7 +386,8 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		for k,tab in pairs(tabs) do tab:Destroy(); tabs[k] = nil; end
 		UnsetScrollable();
 		tabs = nil; tabWidth = nil;
-		self.SelectTabName = nil; self.UnSelectTab = nil; self._GetCurrentTab = nil;
+		self.SetBackdropTab = nil; self.SetFontTab = nil;
+		self.SelectTabName = nil; self.SelectTabId = nil; self.UnSelectTab = nil; self._GetCurrentTab = nil;
 		self.RemoveTab = nil; self.AddTab = nil; self.SelectTab = nil;
 	end, self.Destroy);
 

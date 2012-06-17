@@ -84,6 +84,7 @@ function tabbox()
 	local cli = nil;
 	for i=1,10 do
 		cli = VFLUI.Button:new(); cli:SetText("cli " .. i); cli:Hide();
-		theBox:GetTabBar():AddTab(50, theBox:GenerateTabFuncs(cli)):SetText(i);
+		local tab = theBox:GetTabBar():AddTab(50, theBox:GenerateTabFuncs(cli));
+		tab.font:SetText(i);
 	end
 end

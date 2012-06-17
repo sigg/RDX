@@ -51,18 +51,86 @@ VFLUI.CreateFramePool("ChatFrame",
 	end
 );
 
+VFLUI.CreateFramePool("ChatFrame2", 
+	function(pool, x) -- on released
+		if (not x) then return; end
+		x:SetScript("OnShow", nil);
+		x:SetScript("OnSizeChanged", nil);
+		--VFLUI._CleanupLayoutFrame(x);
+		x:Hide(); x:SetParent(nil);
+	end,
+	function() -- on fallback
+		-- main frame
+		local f = CreateFrame("Frame");
+		f:SetWidth(400); f:SetHeight(250);
+		-- cf bg
+		f.cfbg = CreateFrame("Frame");
+		f.cfbg:SetParent(f);
+		f.cfbg:SetWidth(f:GetWidth()); f.cfbg:SetHeight(f:GetHeight() - 26);
+		f.cfbg:SetPoint("TOP", f, "TOP");
+		f.cfbg:Show();
+		-- eb bg
+		f.ebbg = CreateFrame("Frame");
+		f.ebbg:SetParent(f);
+		f.ebbg:SetWidth(f:GetWidth()); f.ebbg:SetHeight(26);
+		f.ebbg:SetPoint("TOP", f.cfbg, "BOTTOM");
+		f.ebbg:Show();
+		
+		-- the chatframe
+		f.cf = CreateFrame("ScrollingMessageFrame", "SMF" .. VFL.GetNextID(), nil, "VFLChatFrameTemplate");
+		f.cf:SetParent(f.cfbg);
+		f.cf:SetWidth(f:GetWidth() - 10); f.cf:SetHeight(f:GetHeight() - 36);
+		f.cf:SetPoint("TOPLEFT", f.cfbg, "TOPLEFT", 5, -5);
+		f.cf:Show();
+		
+		f.cf:UnregisterEvent("UPDATE_CHAT_WINDOWS");
+		f.cf:UnregisterEvent("UPDATE_CHAT_COLOR");
+		f.cf:SetScript("OnMouseWheel", scroll);
+		f.cf:EnableMouseWheel(true);
+		f.cf:SetID(1);
+		local left, mid, right, l2, m2, r2 = select(6, f.cf.editBox:GetRegions());
+		left:Hide();
+		mid:Hide();
+		right:Hide();
+		l2:SetTexture(nil);
+		m2:SetTexture(nil);
+		r2:SetTexture(nil);
+		
+		return f;
+	end, 
+	function(_, f) -- on acquired
+		--f:Show();
+		--f:ClearAllPoints();
+		ChatFrame_RemoveAllMessageGroups(f.cf);
+		f.cf.channelList = {};
+		f.cf.zoneChannelList = {};
+		
+		f:SetScript("OnShow", function(self)
+			self.cfbg:SetWidth(self:GetWidth()); self.cfbg:SetHeight(self:GetHeight() - 26);
+			self.ebbg:SetWidth(self:GetWidth()); self.ebbg:SetHeight(26);
+			self.cf:SetWidth(self:GetWidth() - 10); self.cf:SetHeight(self:GetHeight() - 36);
+		end);
+		
+		f:SetScript("OnSizeChanged", function(self)
+			self.cfbg:SetWidth(self:GetWidth()); self.cfbg:SetHeight(self:GetHeight() - 26);
+			self.ebbg:SetWidth(self:GetWidth()); self.ebbg:SetHeight(26);
+			self.cf:SetWidth(self:GetWidth() - 10); self.cf:SetHeight(self:GetHeight() - 36);
+		end);
+	end
+);
+
 -- hack
---local ts = ChatEdit_UpdateHeader;
---ChatEdit_UpdateHeader = function(editBox)
---	local header = _G[editBox:GetName().."Header"];
---	if header then
---		header:ClearAllPoints();
---		header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
---		if header:GetRight() ~= nil and header:GetLeft() ~= nil then
---			ts(editBox);
---		end
---	end
---end
+local ts = ChatEdit_UpdateHeader;
+ChatEdit_UpdateHeader = function(editBox)
+	local header = _G[editBox:GetName().."Header"];
+	if header then
+		header:ClearAllPoints();
+		header:SetPoint("LEFT", editBox, "LEFT", 15, 0);
+		if header:GetRight() ~= nil and header:GetLeft() ~= nil then
+			ts(editBox);
+		end
+	end
+end
 
 VFLUI.CreateFramePool("ChatFrameEditBox", 
 	function(pool, x) -- on released

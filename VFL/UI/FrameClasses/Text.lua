@@ -29,6 +29,36 @@ function VFLUI.SimpleText:new(parent, nblines, width)
 	return self;
 end
 
+VFLUI.StaticText = {};
+function VFLUI.StaticText:new(parent, tt)
+	local self = VFLUI.AcquireFrame("Frame");
+	if parent then
+		self:SetParent(parent); 
+		self:SetFrameStrata(parent:GetFrameStrata()); 
+		self:SetFrameLevel(parent:GetFrameLevel() + 1);
+	end
+
+	--self:SetHeight(12 * nblines); self:SetWidth(width); 
+	self:Show();
+
+	local txt = VFLUI.CreateFontString(self);
+	txt:SetPoint("TOPLEFT", self, "TOPLEFT");
+	txt:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT");
+	VFLUI.SetFont(txt, Fonts.Default, 10);
+	txt:SetJustifyV("CENTER"); txt:SetJustifyH("CENTER");
+	txt:SetText(""); txt:Show();
+	self.text = txt;
+
+	self.SetText = function(s, t) s.text:SetText(t); end
+
+	self.Destroy = VFL.hook(function(s)
+		s.SetText = nil;
+		VFLUI.ReleaseRegion(s.text); s.text = nil;
+	end, self.Destroy);
+
+	return self;
+end
+
 VFLUI.SeparatorText = {};
 function VFLUI.SeparatorText:new(parent, nblines, width)
 	local self = VFLUI.AcquireFrame("Button");
