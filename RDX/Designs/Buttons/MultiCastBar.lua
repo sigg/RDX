@@ -223,10 +223,10 @@ frame.]] .. objname .. [[ = nil;
 		er:EmbedChild(dd_totembar); er:Show();
 		ui:InsertFrame(er);
 		
-		local chk_anyup = VFLUI.Checkbox:new(ui); chk_anyup:Show();
-		chk_anyup:SetText(VFLI.i18n("Click AnyUp"));
-		if desc and desc.anyup then chk_anyup:SetChecked(true); else chk_anyup:SetChecked(); end
-		ui:InsertFrame(chk_anyup);
+		local chk_anydown = VFLUI.Checkbox:new(ui); chk_anydown:Show();
+		chk_anydown:SetText(VFLI.i18n("Click AnyDown"));
+		if desc and desc.anydown then chk_anydown:SetChecked(true); else chk_anydown:SetChecked(); end
+		ui:InsertFrame(chk_anydown);
 		
 		------------- Visibility
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Visibility parameters")));
@@ -403,7 +403,7 @@ frame.]] .. objname .. [[ = nil;
 				name = ed_name.editBox:GetText();
 				totembar = dd_totembar:GetSelection();
 				nIcons = 5;
-				anyup = chk_anyup:GetChecked();
+				anydown = chk_anydown:GetChecked();
 				--Visibility
 				headervisiType = dd_visi:GetSelection();
 				headervisiCustom = ed_visicustom.editBox:GetText();

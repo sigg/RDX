@@ -243,10 +243,10 @@ frame.]] .. objname .. [[ = nil;
 		er:EmbedChild(dd_bars); er:Show();
 		ui:InsertFrame(er);
 		
-		local chk_anyup = VFLUI.Checkbox:new(ui); chk_anyup:Show();
-		chk_anyup:SetText(VFLI.i18n("Click AnyUp"));
-		if desc and desc.anyup then chk_anyup:SetChecked(true); else chk_anyup:SetChecked(); end
-		ui:InsertFrame(chk_anyup);
+		local chk_anydown = VFLUI.Checkbox:new(ui); chk_anydown:Show();
+		chk_anydown:SetText(VFLI.i18n("Click AnyDown"));
+		if desc and desc.anydown then chk_anydown:SetChecked(true); else chk_anydown:SetChecked(); end
+		ui:InsertFrame(chk_anydown);
 		
 		local chk_selfcast = VFLUI.Checkbox:new(ui); chk_selfcast:Show();
 		chk_selfcast:SetText(VFLI.i18n("Right click self cast"));
@@ -473,7 +473,7 @@ frame.]] .. objname .. [[ = nil;
 				--abid = VFL.clamp(ed_id.editBox:GetNumber(), 1, 120);
 				barid = dd_bars:GetSelection();
 				nIcons = 12;
-				anyup = chk_anyup:GetChecked();
+				anydown = chk_anydown:GetChecked();
 				selfcast = chk_selfcast:GetChecked();
 				--States
 				headerstateType = dd_states:GetSelection();

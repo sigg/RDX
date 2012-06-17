@@ -543,10 +543,10 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	self:SetAttribute("type", "action");
 	self:SetAttribute("action", __RDXGetCurrentButtonId(statesString, desc.nIcons, id));
 	
-	if desc.anyup then
-		self:RegisterForClicks("AnyUp");
-	else
+	if desc.anydown then
 		self:RegisterForClicks("AnyDown");
+	else
+		self:RegisterForClicks("AnyUp");
 	end
 	self:SetAttribute('useparent-actionpage', nil);
 	--self:SetAttribute('useparent-unit', true);
@@ -887,10 +887,10 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	self:SetAttribute("type", "action");
 	self:SetAttribute("action", __RDXGetCurrentButtonId(statesString, desc.nIcons, id));
 	
-	if desc.anyup then
-		self:RegisterForClicks("AnyUp");
-	else
+	if desc.anydown then
 		self:RegisterForClicks("AnyDown");
+	else
+		self:RegisterForClicks("AnyUp");
 	end
 	
 	self:RegisterForDrag("LeftButton", "RightButton");
@@ -1267,10 +1267,10 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	self:SetAttribute("*action1", self.id);
 	self:SetAttribute("type2", "macro");
 	
-	if anyup then
-		self:RegisterForClicks("AnyUp");
-	else
+	if desc.anydown then
 		self:RegisterForClicks("AnyDown");
+	else
+		self:RegisterForClicks("AnyUp");
 	end
 	
 	self:RegisterForDrag("LeftButton", "RightButton");
