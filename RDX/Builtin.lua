@@ -144,6 +144,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["version"] = 1,
 			["data"] = {
 				["title"] = "General",
+				["tabwidth"] = 80,
 				["discussion"] = {
 					["SAY"] = true,
 					["EMOTE"] = true,
@@ -205,6 +206,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["version"] = 1,
 			["data"] = {
 				["title"] = "Guild",
+				["tabwidth"] = 80,
 				["discussion"] = {
 					["GUILD"] = true,
 					["OFFICER"] = true,
@@ -239,6 +241,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["version"] = 1,
 			["data"] = {
 				["title"] = "Loot",
+				["tabwidth"] = 80,
 				["discussion"] = {
 				},
 				["creature"] = {

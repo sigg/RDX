@@ -274,7 +274,7 @@ local function EditChatFrameDialog(parent, path, md)
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
-	dlg:SetWidth(490); dlg:SetHeight(363);
+	dlg:SetWidth(490); dlg:SetHeight(383);
 	dlg:SetText(VFLI.i18n("Edit ChatFrame: ") .. path);
 	if RDXPM.Ismanaged("ChatFrame") then RDXPM.RestoreLayout(dlg, "ChatFrame"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
@@ -282,7 +282,7 @@ local function EditChatFrameDialog(parent, path, md)
 	local ca = dlg:GetClientArea();
 	
 	local ed_name = VFLUI.LabeledEdit:new(ca, 150);
-	ed_name:SetText(VFLI.i18n("Title"));
+	ed_name:SetText(VFLI.i18n("Tab Title"));
 	ed_name.editBox:SetText(md.data.title);
 	ed_name:SetHeight(25); ed_name:SetWidth(250);
 	ed_name:SetPoint("TOPLEFT", ca, "TOPLEFT");
@@ -292,9 +292,18 @@ local function EditChatFrameDialog(parent, path, md)
 	local cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Change chat color"), 150);
 	cbtn:SetPoint("TOPLEFT", ed_name, "TOPRIGHT", 50, 0);
 	
+	local ed_tabwidth = VFLUI.LabeledEdit:new(ca, 150);
+	ed_tabwidth:SetText(VFLI.i18n("Tab Width"));
+	ed_tabwidth.editBox:SetText(md.data.tabwidth);
+	ed_tabwidth:SetHeight(25); ed_tabwidth:SetWidth(250);
+	ed_tabwidth:SetPoint("TOPLEFT", ed_name, "BOTTOMLEFT");
+	ed_tabwidth:Show();
+	dlg.ed_tabwidth = ed_tabwidth;
+	
+	
 	local tabbox = VFLUI.TabBox:new(dlg, 22, "TOP");
 	tabbox:SetWidth(490); tabbox:SetHeight(315);
-	tabbox:SetPoint("TOPLEFT", ca, "TOPLEFT", -5, -30);
+	tabbox:SetPoint("TOPLEFT", ed_tabwidth, "BOTTOMLEFT", -5, 0);
 	tabbox:SetBackdrop(nil);
 	
 	local tab = nil;
@@ -422,14 +431,15 @@ local function EditChatFrameDialog(parent, path, md)
 
 	local function Save()
 		md.data.title = ed_name.editBox:GetText();
+		md.data.tabwidth = ed_tabwidth.editBox:GetText();
 		dlg.tabbox:GetTabBar():UnSelectTab();
 		--RDXDB.NotifyUpdate(path);
 		-- See if this chatframe was already instantiated...
 		local inst = RDXDB.GetObjectInstance(path, true);
 		if inst then 
-			inst:ClearMessages();
+			inst:RemoveMessages();
 			inst:AddMessages(md.data);
-			inst:SetTabText(md.data);
+			inst:SetTabOptions(md.data);
 		end
 		VFL.EscapeTo(esch);
 	end
@@ -450,8 +460,51 @@ local function EditChatFrameDialog(parent, path, md)
 
 	dlg.Destroy = VFL.hook(function(s)
 		s.tabbox:Destroy(); s.tabbox = nil;
+		s.ed_tabwidth:Destroy(); s.ed_tabwidth = nil;
 		s.ed_name:Destroy(); s.ed_name = nil;
 	end, dlg.Destroy);
+end
+
+-- Copy Paste dialog
+local dlg2 = nil;
+local function EditScriptDialog(parent, data)
+	if dlg then
+		RDX.printI(VFLI.i18n("A copy paste editor is already open. Please close it first."));
+		return;
+	end
+	-- Sanity checks
+	local ctype, font = nil, nil;
+
+	dlg2 = VFLUI.Window:new(parent);
+	VFLUI.Window.SetDefaultFraming(dlg2, 22);
+	dlg2:SetTitleColor(0,0,.6);
+	dlg2:SetBackdrop(VFLUI.BlackDialogBackdrop);
+	dlg2:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg2:SetWidth(500); dlg2:SetHeight(500);
+	dlg2:SetText(VFLI.i18n("Text Editor"));
+	dlg2:Show();
+	VFLUI.Window.StdMove(dlg2, dlg2:GetTitleBar());
+
+	local editor = VFLUI.TextEditor:new(dlg2, ctype, font);
+	editor:SetPoint("TOPLEFT", dlg2:GetClientArea(), "TOPLEFT");
+	editor:SetWidth(490); editor:SetHeight(430); editor:Show();
+	msglink = "";
+	for _,v in ipairs(data) do
+		msglink = msglink .. v .. "\n";
+	end
+	editor:SetText(msglink or "");
+	editor:GetEditWidget():SetFocus();
+
+	local esch = function() dlg2:Destroy(); end
+	VFL.AddEscapeHandler(esch);
+
+	local btnClose = VFLUI.CloseButton:new(dlg2);
+	dlg2:AddButton(btnClose);
+	btnClose:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
+
+	dlg2.Destroy = VFL.hook(function(s)
+		editor:Destroy(); editor = nil;
+	end, dlg2.Destroy);
 end
 
 --------------------------------------------------
@@ -464,7 +517,19 @@ RDX.ChatFrame = {};
 function RDX.ChatFrame:new(parent)
 	local self = VFLUI.AcquireFrame("ChatFrame2");
 	
-	function self:ClearMessages()
+	self.msgmax = 100;
+	self.msgs = {};
+	
+	-- hack
+	self.cf._AddMessage = self.cf.AddMessage;
+	
+	self.cf.AddMessage = function(frame, msg, ...)
+		if(#self.msgs >= self.msgmax) then table.remove(self.msgs, 1); end
+		table.insert(self.msgs, msg);
+		frame:_AddMessage(msg, ...)
+	end
+	
+	function self:RemoveMessages()
 		ChatFrame_RemoveAllMessageGroups(self.cf);
 		ChatFrame_RemoveAllChannels(self.cf);
 	end
@@ -495,15 +560,17 @@ function RDX.ChatFrame:new(parent)
 		end
 	end
 	
-	function self:SetTabText(desc)
+	function self:SetTabOptions(desc)
 		if self.tab then
 			self.tab.font:SetText(desc.title);
+			self.tab:SetWidth(desc.tabwidth);
 		end	
 	end
-	
+
 	self.Destroy = VFL.hook(function(s)
-		s.SetTabText = nil;
-		s.ClearMessages = nil; s.AddMessages = nil;
+		s.cf.AddMessage = s.cf._AddMessage;
+		s.SetTabOptions = nil;
+		s.AddMessages = nil; s.RemoveMessages = nil;
 	end, self.Destroy);
 
 	return self;
@@ -515,9 +582,9 @@ end
 -- Master priming function for compiling windows.
 local function SetupChatFrame(path, cf, desc)
 	if (not cf) or (not desc) then return nil; end
-	cf:ClearMessages();
+	cf:RemoveMessages();
 	cf:AddMessages(desc);
-	cf:SetTabText(desc);
+	cf:SetTabOptions(desc);
 	return true;
 end
 
@@ -528,6 +595,7 @@ RDXDB.RegisterObjectType({
 		md.version = 1;
 		md.data = {};
 		md.data.title = "Chat";
+		md.data.tabwidth = 80;
 		md.data.discussion = {};
 		md.data.discussion["SAY"] = true;
 		md.data.discussion["EMOTE"] = true;
@@ -591,6 +659,26 @@ RDXDB.RegisterObjectType({
 				VFL.poptree:Release(); 
 				RDXDB.OpenObject(path, "Edit", dlg);
 			end
+		});
+		table.insert(mnu, {
+			text = VFLI.i18n("Open copy paste");
+			OnClick = function()
+				VFL.poptree:Release();
+				local inst = RDXDB.GetObjectInstance(path, true);
+				if inst then 
+					EditScriptDialog(dlg, inst.msgs);
+				end
+			end;
+		});
+		table.insert(mnu, {
+			text = VFLI.i18n("Clear Messages");
+			OnClick = function()
+				VFL.poptree:Release();
+				local inst = RDXDB.GetObjectInstance(path, true);
+				if inst then 
+					inst.cf:Clear();
+				end
+			end;
 		});
 	end;
 });

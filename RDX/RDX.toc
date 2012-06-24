@@ -203,9 +203,58 @@ Windows\IconEditor.lua
 Windows\AuraCache.lua
 Windows\AudioCues.lua
 
+# Raid Logger
+Raid\RaidLogger\Omni.lua
+Raid\RaidLogger\Table.lua
+Raid\RaidLogger\TableViewer.lua
+Raid\RaidLogger\Filter.lua
+Raid\RaidLogger\Transforms.lua
+Raid\RaidLogger\UI.lua
+Raid\RaidLogger\Remote.lua
+Raid\RaidLogger\Search.lua
+# deprecated
+#Raid\RaidLogger\Obj_TableLog.lua
+
+# Raid Status
+Raid\RaidStatus\Obj_Status.lua
+Raid\RaidStatus\Quantities.lua
+Raid\RaidStatus\StatWindow.lua
+
+# Raid Utility
+Raid\RaidUtility\Core.lua
+Raid\RaidUtility\LogisticsWindow.lua
+Raid\RaidUtility\Poll.lua
+Raid\RaidUtility\Inventory.lua
+Raid\RaidUtility\Durability.lua
+Raid\RaidUtility\Resists.lua
+Raid\RaidUtility\CharacterSheet.lua
+Raid\RaidUtility\MASync.lua
+Raid\RaidUtility\RaidWindow.lua
+Raid\RaidUtility\RaidInvites.lua
+Raid\RaidUtility\Automark.lua
+
+# Bossmods
+Raid\Bossmods\Encounters.lua
+Raid\Bossmods\Core.lua
+Raid\Bossmods\HOT.lua
+Raid\Bossmods\MultiTrack.lua
+Raid\Bossmods\Alerts.lua
+# Dynamic Bossmods
+Raid\Bossmods\Obj_Bossmod.lua
+Raid\Bossmods\Bossmod_Basics.lua
+Raid\Bossmods\Bossmod_Events.lua
+Raid\Bossmods\Bossmod_Alerts.lua
+Raid\Bossmods\Bossmod_Windows.lua
+Raid\Bossmods\Bossmod_Auras.lua
+Raid\Bossmods\Bossmod_Hot.lua
+Raid\Bossmods\AbilityTracker.lua
+Raid\Bossmods\AbilityTrackWindow.lua
+Raid\Bossmods\BossmodMenu.lua
+
 # Tab Manager
 TabMgr\Obj_TabManager.lua
 TabMgr\Obj_ChatFrame.lua
+TabMgr\Obj_CombatLogs.lua
 
 # Design Library
 Designs\Obj_Design.lua
@@ -249,7 +298,7 @@ Designs\Colors\MyColor.lua
 Designs\Complexes\TabManager.lua
 #Deprecated
 #Designs\Complexes\ChatFrames.lua
-Designs\Complexes\CombatLogs.lua
+#Designs\Complexes\CombatLogs.lua
 Designs\Complexes\Minimap.lua
 Designs\Complexes\MenuBar.lua
 Designs\Complexes\BagsBar.lua
@@ -382,53 +431,6 @@ Metadata\Sounds.lua
 Wizards\Wizard.lua
 Wizards\WindowWizard.lua
 Wizards\LearnWizard.lua
-
-# Raid Logger
-Raid\RaidLogger\Omni.lua
-Raid\RaidLogger\Table.lua
-Raid\RaidLogger\TableViewer.lua
-Raid\RaidLogger\Filter.lua
-Raid\RaidLogger\Transforms.lua
-Raid\RaidLogger\UI.lua
-Raid\RaidLogger\Remote.lua
-Raid\RaidLogger\Search.lua
-Raid\RaidLogger\Obj_TableLog.lua
-
-# Raid Status
-Raid\RaidStatus\Obj_Status.lua
-Raid\RaidStatus\Quantities.lua
-Raid\RaidStatus\StatWindow.lua
-
-# Raid Utility
-Raid\RaidUtility\Core.lua
-Raid\RaidUtility\LogisticsWindow.lua
-Raid\RaidUtility\Poll.lua
-Raid\RaidUtility\Inventory.lua
-Raid\RaidUtility\Durability.lua
-Raid\RaidUtility\Resists.lua
-Raid\RaidUtility\CharacterSheet.lua
-Raid\RaidUtility\MASync.lua
-Raid\RaidUtility\RaidWindow.lua
-Raid\RaidUtility\RaidInvites.lua
-Raid\RaidUtility\Automark.lua
-
-# Bossmods
-Raid\Bossmods\Encounters.lua
-Raid\Bossmods\Core.lua
-Raid\Bossmods\HOT.lua
-Raid\Bossmods\MultiTrack.lua
-Raid\Bossmods\Alerts.lua
-# Dynamic Bossmods
-Raid\Bossmods\Obj_Bossmod.lua
-Raid\Bossmods\Bossmod_Basics.lua
-Raid\Bossmods\Bossmod_Events.lua
-Raid\Bossmods\Bossmod_Alerts.lua
-Raid\Bossmods\Bossmod_Windows.lua
-Raid\Bossmods\Bossmod_Auras.lua
-Raid\Bossmods\Bossmod_Hot.lua
-Raid\Bossmods\AbilityTracker.lua
-Raid\Bossmods\AbilityTrackWindow.lua
-Raid\Bossmods\BossmodMenu.lua
 
 # More Misc stuff
 Version.lua

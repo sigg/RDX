@@ -49,12 +49,13 @@ if (md) and (ty == "TabManager") and (md.data) then
 			count = count + 1;
 			local flag = RDXDB.GetObjectInstance(v.op, true);
 			local f, tab;
+			if not md2.data.tabwidth then md2.data.tabwidth = 80; end
 			if flag then
 				f = VFLUI.SimpleText:new(nil, 5, 100);
 				f._path = nil;
 				f:SetText("Already acquired !");
 				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
-				tab = tabbox:GetTabBar():AddTab("80", function(self, arg1) tabbox:SetClient(f, true); end, function() end);
+				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1) tabbox:SetClient(f, true); end, function() end);
 			else
 				f = RDXDB.GetObjectInstance(v.op);
 				local _, _, _, _, objdesc = RDXDB.GetObjectData(v.op);
@@ -62,9 +63,36 @@ if (md) and (ty == "TabManager") and (md.data) then
 				VFLUI.SetBackdrop(f.cfbg, ]] .. Serialize(desc.bkd) .. [[);
 				VFLUI.SetBackdrop(f.ebbg, ]] .. Serialize(desc.bkd) .. [[);
 				VFLUI.SetFont(f.cf, ]] .. Serialize(desc.font) .. [[);
-				tab = tabbox:GetTabBar():AddTab("80", function(self, arg1)
+				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1)
 					tabbox:SetClient(f, true); ChatEdit_SetLastActiveWindow(f.cf.editBox);
 				end, function() end, function(mnu, dlg) return objdesc.GenerateBrowserMenu(mnu, v.op, nil, dlg) end);
+			end
+			tab.font:SetText(md2.data.title);
+			f.tab = tab;
+			tabbox.cfs["cf" .. count] = f;
+		elseif (md2) and (ty2 == "CombatLogs") and (md2.data) then
+			count = count + 1;
+			local flag = RDXDB.GetObjectInstance(v.op, true);
+			local f, tab;
+			if not md2.data.tabwidth then md2.data.tabwidth = 80; end
+			if flag then
+				f = VFLUI.SimpleText:new(nil, 5, 100);
+				f._path = nil;
+				f:SetText("Already acquired !");
+				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
+				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1) tabbox:SetClient(f, true); end, function() end);
+			else
+				f = RDXDB.GetObjectInstance(v.op);
+				local _, _, _, _, objdesc = RDXDB.GetObjectData(v.op);
+				f._path = v.op;
+				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
+				--VFLUI.SetBackdrop(f.ebbg, ]] .. Serialize(desc.bkd) .. [[);
+				--VFLUI.SetFont(f.cf, ]] .. Serialize(desc.font) .. [[);
+				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, 
+					function(self, arg1) tabbox:SetClient(f, true); end, 
+					function() end,
+					function(mnu, dlg) return objdesc.GenerateBrowserMenu(mnu, v.op, nil, dlg) end
+				);
 			end
 			tab.font:SetText(md2.data.title);
 			f.tab = tab;

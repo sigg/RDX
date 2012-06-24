@@ -81,8 +81,32 @@ local function NewTabButtonTop()
 	btn.font:SetAllPoints(btn);
 	btn.font:Show();
 	VFLUI.SetFont(btn.font, Fonts.default);
+	
+	btn.StartFlash = function()
+		btn.elapsed = 0;
+		btn:SetScript("OnUpdate", function(self, elapsed)
+			self.elapsed = self.elapsed + elapsed
+			if self.elapsed > 0.5 then
+				if self.hlt then
+					self:UnlockHighlight();
+					self.hlt = nil;
+				else
+					self:LockHighlight();
+					self.hlt = true;
+				end
+				self.elapsed = 0;
+			end
+		end);
+	end
+	
+	btn.StopFlash = function()
+		btn:SetScript("OnUpdate", nil);
+	end
 
 	btn.Destroy = VFL.hook(function(s)
+		s:StopFlash();
+		s.StartFlash = nil;
+		s.StopFlash = nil;
 		VFLUI.ReleaseRegion(s.font);
 		s.font = nil;
 		VFLUI.ReleaseRegion(s.texBkg);
@@ -149,8 +173,32 @@ local function NewTabButtonBottom()
 	btn.font = VFLUI.CreateFontString(btn);
 	btn.font:SetAllPoints(btn);
 	btn.font:Show();
+	
+	btn.StartFlash = function()
+		btn.elapsed = 0;
+		btn:SetScript("OnUpdate", function(self, elapsed)
+			self.elapsed = self.elapsed + elapsed
+			if self.elapsed > 0.5 then
+				if self.hlt then
+					self:UnlockHighlight();
+					self.hlt = nil;
+				else
+					self:LockHighlight();
+					self.hlt = true;
+				end
+				self.elapsed = 0;
+			end
+		end);
+	end
+	
+	btn.StopFlash = function()
+		btn:SetScript("OnUpdate", nil);
+	end
 
 	btn.Destroy = VFL.hook(function(s)
+		s:StopFlash();
+		s.StartFlash = nil;
+		s.StopFlash = nil;
 		VFLUI.ReleaseRegion(s.font);
 		s.font = nil;
 		VFLUI.ReleaseRegion(s.texBkg);
@@ -277,6 +325,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		curTab = tab;
 		if not tab then return; end
 		if tab._tbOnSelect then tab:_tbOnSelect(a, b, c); end
+		tab:StopFlash();
 		tab:LockHighlight();
 	end
 	
