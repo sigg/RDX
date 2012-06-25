@@ -51,9 +51,15 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 							["y"] = -10,
 						},
 						["BOTTOMLEFT"] = {
-							["id"] = "default:ChatFrame1",
+							["id"] = "default:TabManager1",
 							["x"] = -10,
 							["point"] = "BOTTOMLEFT",
+							["y"] = -10,
+						},
+						["BOTTOMRIGHT"] = {
+							["id"] = "default:TabManager2",
+							["x"] = 10,
+							["point"] = "BOTTOMRIGHT",
 							["y"] = -10,
 						},
 					},
@@ -127,7 +133,28 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 					["t"] = 162.1333506814285,
 					["open"] = true,
 					["feature"] = "desktop_window",
-					["name"] = "default:Tab1",
+					["name"] = "default:TabManager1",
+					["alpha"] = 1,
+					["anchor"] = "TOPLEFT",
+					["l"] = 8.533333656676994,
+					["b"] = 8.533333656676994,
+					["r"] = 349.8667135374535,
+				}, -- [3]
+				{
+					["strata"] = "MEDIUM",
+					["dock"] = {
+						["BOTTOMRIGHT"] = {
+							["id"] = "root",
+							["x"] = -10,
+							["point"] = "BOTTOMRIGHT",
+							["y"] = 10,
+						},
+					},
+					["scale"] = 1,
+					["t"] = 162.1333506814285,
+					["open"] = true,
+					["feature"] = "desktop_window",
+					["name"] = "default:TabManager2",
 					["alpha"] = 1,
 					["anchor"] = "TOPLEFT",
 					["l"] = 8.533333656676994,
@@ -138,8 +165,8 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	if not default["ChatFrame1_cf"] then
-		default["ChatFrame1_cf"] = {
+	if not default["ChatFrame1"] then
+		default["ChatFrame1"] = {
 			["ty"] = "ChatFrame",
 			["version"] = 1,
 			["data"] = {
@@ -200,8 +227,8 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	if not default["ChatFrame2_cf"] then
-		default["ChatFrame2_cf"] = {
+	if not default["ChatFrame2"] then
+		default["ChatFrame2"] = {
 			["ty"] = "ChatFrame",
 			["version"] = 1,
 			["data"] = {
@@ -235,8 +262,8 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	if not default["ChatFrame3_cf"] then
-		default["ChatFrame3_cf"] = {
+	if not default["ChatFrame3"] then
+		default["ChatFrame3"] = {
 			["ty"] = "ChatFrame",
 			["version"] = 1,
 			["data"] = {
@@ -259,22 +286,274 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	if not default["Primary_tm"] then
-		default["Primary_tm"] = {
+	if not default["TabManager1_tm"] then
+		default["TabManager1_tm"] = {
 			["ty"] = "TabManager",
 			["version"] = 1,
 			["data"] = {
 				["cfm"] = {
 					{
-						["op"] = "default:ChatFrame1_cf",
+						["op"] = "default:ChatFrame1",
 					},
 					{
-						["op"] = "default:ChatFrame2_cf",
+						["op"] = "default:ChatFrame2",
 					},
 					{
-						["op"] = "default:ChatFrame3_cf",
+						["op"] = "default:ChatFrame3",
 					},
 				},
+			},
+		};
+	end
+	
+	if not default["TabManager1_ds"] then
+		default["TabManager1_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 200,
+					["version"] = 1,
+					["w"] = 400,
+					["alpha"] = 1,
+				}, -- [1]
+				{
+					["ts"] = "None",
+					["color"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["owner"] = "decor",
+					["w"] = "400",
+					["feature"] = "tabmanager",
+					["h"] = "200",
+					["version"] = 1,
+					["bkd"] = {
+						["_border"] = "HalStraight",
+						["edgeSize"] = 8,
+						["edgeFile"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalBorder",
+						["insets"] = {
+							["top"] = 2,
+							["right"] = 2,
+							["left"] = 2,
+							["bottom"] = 2,
+						},
+					},
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["font"] = {
+						["sr"] = 0,
+						["color"] = {
+							["r"] = 1,
+							["g"] = 1,
+							["b"] = 1,
+						},
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["sy"] = -1,
+						["justifyH"] = "CENTER",
+						["title"] = "Default",
+						["size"] = 12,
+					},
+					["name"] = "cf1",
+					["cfm"] = "default:TabManager1_tm",
+				}, -- [2]
+			},
+		};
+	end
+	
+	if not default["TabManager1"] then
+		default["TabManager1"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "default:TabManager1_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
+				}, -- [3]
+			},
+		};
+	end
+	
+	if not default["CombatLogs1"] then
+		default["CombatLogs1"] = {
+			["ty"] = "CombatLogs",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Combat",
+				["filter"] = 1,
+				["tabwidth"] = "80",
+				["size"] = 1000,
+				["filters"] = {
+					["targ"] = "player",
+					["etypes"] = {
+						true, -- [1]
+						true, -- [2]
+						true, -- [3]
+						true, -- [4]
+						true, -- [5]
+						true, -- [6]
+						true, -- [7]
+						true, -- [8]
+						true, -- [9]
+						nil, -- [10]
+						nil, -- [11]
+						nil, -- [12]
+						true, -- [13]
+						true, -- [14]
+						true, -- [15]
+						true, -- [16]
+						true, -- [17]
+						true, -- [18]
+						true, -- [19]
+						true, -- [20]
+						true, -- [21]
+						true, -- [22]
+						true, -- [23]
+						true, -- [24]
+						true, -- [25]
+						true, -- [26]
+						nil, -- [27]
+						true, -- [28]
+						true, -- [29]
+						true, -- [30]
+						true, -- [31]
+					},
+					["src"] = "player",
+				},
+			},
+		};
+	end
+	
+	if not default["TabManager2_tm"] then
+		default["TabManager2_tm"] = {
+			["ty"] = "TabManager",
+			["version"] = 1,
+			["data"] = {
+				["cfm"] = {
+					{
+						["op"] = "default:CombatLogs1",
+					},
+				},
+			},
+		};
+	end
+	
+	if not default["TabManager2_ds"] then
+		default["TabManager2_ds"] = {
+			["ty"] = "Design",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "base_default",
+					["h"] = 200,
+					["version"] = 1,
+					["w"] = 400,
+					["alpha"] = 1,
+				}, -- [1]
+				{
+					["ts"] = "None",
+					["color"] = {
+						["a"] = 1,
+						["r"] = 1,
+						["g"] = 1,
+						["b"] = 1,
+					},
+					["owner"] = "decor",
+					["w"] = "400",
+					["feature"] = "tabmanager",
+					["h"] = "200",
+					["version"] = 1,
+					["bkd"] = {
+						["_border"] = "HalStraight",
+						["edgeSize"] = 8,
+						["edgeFile"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalBorder",
+						["insets"] = {
+							["top"] = 2,
+							["right"] = 2,
+							["left"] = 2,
+							["bottom"] = 2,
+						},
+					},
+					["anchor"] = {
+						["dx"] = 0,
+						["dy"] = 0,
+						["lp"] = "TOPLEFT",
+						["rp"] = "TOPLEFT",
+						["af"] = "Base",
+					},
+					["font"] = {
+						["sr"] = 0,
+						["color"] = {
+							["r"] = 1,
+							["g"] = 1,
+							["b"] = 1,
+						},
+						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
+						["justifyV"] = "CENTER",
+						["sb"] = 0,
+						["sa"] = 1,
+						["sg"] = 0,
+						["name"] = "Default",
+						["sx"] = 1,
+						["sy"] = -1,
+						["justifyH"] = "CENTER",
+						["title"] = "Default",
+						["size"] = 12,
+					},
+					["name"] = "cf1",
+					["cfm"] = "default:TabManager2_tm",
+				}, -- [2]
+			},
+		};
+	end
+	
+	if not default["TabManager2"] then
+		default["TabManager2"] = {
+			["ty"] = "Window",
+			["version"] = 1,
+			["data"] = {
+				{
+					["feature"] = "Frame: None",
+					["bkd"] = {
+						["_border"] = "none",
+						["_backdrop"] = "none",
+					},
+				}, -- [1]
+				{
+					["feature"] = "Design",
+					["design"] = "default:TabManager2_ds",
+				}, -- [2]
+				{
+					["feature"] = "layout_single_unitframe",
+					["version"] = 1,
+					["unit"] = "player",
+				}, -- [3]
 			},
 		};
 	end
@@ -434,51 +713,6 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 					["ty"] = "hpp",
 					["h"] = "14",
 				}, -- [8]
-			},
-		};
-	end
-	if not default["Logs_Me_tl"] then
-		default["Logs_Me_tl"] = {
-			["ty"] = "TableLog",
-			["version"] = 1,
-			["data"] = {
-				["targ"] = "Player",
-				["src"] = "Player",
-				["filter"] = 1,
-				["etypes"] = {
-					true, -- [1]
-					true, -- [2]
-					true, -- [3]
-					true, -- [4]
-					true, -- [5]
-					true, -- [6]
-					true, -- [7]
-					true, -- [8]
-					true, -- [9]
-					nil, -- [10]
-					nil, -- [11]
-					nil, -- [12]
-					true, -- [13]
-					true, -- [14]
-					true, -- [15]
-					true, -- [16]
-					true, -- [17]
-					true, -- [18]
-					true, -- [19]
-					true, -- [20]
-					true, -- [21]
-					true, -- [22]
-					true, -- [23]
-					true, -- [24]
-					true, -- [25]
-					true, -- [26]
-					nil, -- [27]
-					true, -- [28]
-					true, -- [29]
-					true, -- [30]
-					true, -- [31]
-				},
-				["size"] = 1000,
 			},
 		};
 	end
@@ -773,100 +1007,6 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 					["headervisType"] = "None",
 					["headervisiType"] = "None",
 				}, -- [2]
-			},
-		};
-	end
-	
-	if not default["Tab1_ds"] then
-		default["Tab1_ds"] = {
-			["ty"] = "Design",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "base_default",
-					["h"] = 200,
-					["version"] = 1,
-					["w"] = 400,
-					["alpha"] = 1,
-				}, -- [1]
-				{
-					["ts"] = "None",
-					["color"] = {
-						["a"] = 1,
-						["r"] = 1,
-						["g"] = 1,
-						["b"] = 1,
-					},
-					["owner"] = "decor",
-					["w"] = "400",
-					["feature"] = "tabmanager",
-					["h"] = "200",
-					["version"] = 1,
-					["bkd"] = {
-						["_border"] = "HalStraight",
-						["edgeSize"] = 8,
-						["edgeFile"] = "Interface\\Addons\\RDX_mediapack\\Halcyon\\HalBorder",
-						["insets"] = {
-							["top"] = 2,
-							["right"] = 2,
-							["left"] = 2,
-							["bottom"] = 2,
-						},
-					},
-					["anchor"] = {
-						["dx"] = 0,
-						["dy"] = 0,
-						["lp"] = "TOPLEFT",
-						["rp"] = "TOPLEFT",
-						["af"] = "Base",
-					},
-					["font"] = {
-						["sr"] = 0,
-						["color"] = {
-							["r"] = 1,
-							["g"] = 1,
-							["b"] = 1,
-						},
-						["face"] = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf",
-						["justifyV"] = "CENTER",
-						["sb"] = 0,
-						["sa"] = 1,
-						["sg"] = 0,
-						["name"] = "Default",
-						["sx"] = 1,
-						["sy"] = -1,
-						["justifyH"] = "CENTER",
-						["title"] = "Default",
-						["size"] = 12,
-					},
-					["name"] = "cf1",
-					["cfm"] = "default:Primary_tm",
-				}, -- [2]
-			},
-		};
-	end
-	
-	if not default["Tab1"] then
-		default["Tab1"] = {
-			["ty"] = "Window",
-			["version"] = 1,
-			["data"] = {
-				{
-					["feature"] = "Frame: None",
-					["bkd"] = {
-						["_border"] = "none",
-						["_backdrop"] = "none",
-					},
-				}, -- [1]
-				{
-					["feature"] = "Design",
-					["design"] = "default:Tab1_ds",
-				}, -- [2]
-				{
-					["feature"] = "layout_single_unitframe",
-					["version"] = 1,
-					["unit"] = "player",
-				}, -- [3]
 			},
 		};
 	end
@@ -2576,6 +2716,6 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 end);
 
 
-RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
-	RDXDB.GetObjectInstance("default:Logs_Me_tl");
-end);
+--RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
+--	RDXDB.GetObjectInstance("default:Logs_Me_tl");
+--end);

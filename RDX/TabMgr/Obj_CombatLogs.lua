@@ -251,11 +251,13 @@ function RDX.CombatLogs:new(path, desc)
 			LastNLiterator(obj.table.data, math.floor(self2:GetHeight() / 10))
 		);
 		self2:Rebuild();
+		local ft = obj.font;
+		if not ft then ft = Fonts.Default; end
 		Omni._ApplyColSpecToList(self2, { 
-			{ title = "Time", width = 60, font = Fonts.Default },
-			{ title = "Amt", width = 50, font = Fonts.Default },
-			{ title = "Ability", width = 195, font = Fonts.Default },
-			{ title = "Misc", width = 87, font = Fonts.Default }
+			{ title = "Time", width = 60, font = ft },
+			{ title = "Amt", width = 50, font = ft },
+			{ title = "Ability", width = 195, font = ft },
+			{ title = "Misc", width = 87, font = ft }
 		});
 		self2:Update();
 	end);

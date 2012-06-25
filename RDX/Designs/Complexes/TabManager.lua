@@ -86,8 +86,7 @@ if (md) and (ty == "TabManager") and (md.data) then
 				local _, _, _, _, objdesc = RDXDB.GetObjectData(v.op);
 				f._path = v.op;
 				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
-				--VFLUI.SetBackdrop(f.ebbg, ]] .. Serialize(desc.bkd) .. [[);
-				--VFLUI.SetFont(f.cf, ]] .. Serialize(desc.font) .. [[);
+				f.font = ]] .. Serialize(desc.font) .. [[;
 				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, 
 					function(self, arg1) tabbox:SetClient(f, true); end, 
 					function() end,
@@ -117,6 +116,7 @@ local btn = frame.]] .. objname .. [[;
 for k,v in pairs(tabbox.cfs) do
 	v.tab = nil;
 	if v._path then
+		v.font = nil;
 		RDXDB._RemoveInstance(v._path); v = nil;
 	else
 		v:Destroy(); v = nil;
