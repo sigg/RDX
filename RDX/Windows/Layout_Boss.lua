@@ -22,6 +22,7 @@ RDX.RegisterFeature({
 		if state:Slot("Layout") then return nil; end
 		return true;
 	end;
+	IsSecured = VFL.True;
 	ExposeFeature = function(desc, state, errs)
 		if not desc then return nil; end
 		state:AddSlot("Layout");

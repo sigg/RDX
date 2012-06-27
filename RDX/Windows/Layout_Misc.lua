@@ -46,7 +46,8 @@ RDX.RegisterFeature({
 		if state:Slot("SecureDataSource") then return nil; end -- Can't use a DataSource with a header.
 		if state:Slot("Layout") then return nil; end
 		return true;
-	end,
+	end;
+	IsSecured = VFL.True;
 	ExposeFeature = function(desc, state, errs)
 		if not desc then return nil; end
 		if (not desc.header) or (not desc.header.driver) then

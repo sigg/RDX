@@ -24,7 +24,8 @@ RDX.RegisterFeature({
 		if state:Slot("AssistFrame") then return nil; end
 		if state:Slot("Layout") then return nil; end
 		return true;
-	end,
+	end;
+	IsSecured = VFL.True;
 	ExposeFeature = function(desc, state, errs)
 		if not desc then return nil; end
 		state:AddSlot("HeaderDriver");

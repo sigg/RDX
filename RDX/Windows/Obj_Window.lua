@@ -374,3 +374,10 @@ function RDX.CloneWindow(path, upath, parent)
 		ui = nil; sf = nil;
 	end, dlg.Destroy);
 end
+
+--
+-- function to ckeck if a windows is secured or not.
+--
+function RDX.IsWindowSecured(path)
+	
+end

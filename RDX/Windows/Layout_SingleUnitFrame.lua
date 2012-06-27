@@ -167,6 +167,10 @@ RDX.RegisterFeature({
 		if state:Slot("Layout") then return nil; end
 		return true;
 	end;
+	IsSecured = function(desc)
+		if not desc then return nil; end
+		return desc.clickable;
+	end;
 	ExposeFeature = function(desc, state, errs)
 		if not desc then return nil; end
 		state:AddSlot("Layout");
