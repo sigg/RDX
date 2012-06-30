@@ -126,7 +126,7 @@ local function NewTabButtonBottom(parent)
 	local tex = VFLUI.CreateTexture(btn);
 	tex:SetTexture(1, 1, 1, 0.1);
 	tex:SetDrawLayer("ARTWORK", 1);
-	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, 0);
+	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
 	tex:Show();
 	btn.texBkg = tex;
@@ -135,7 +135,7 @@ local function NewTabButtonBottom(parent)
 	tex = btn:CreateTexture();
 	tex:SetTexture(1, 1, 1, 0);
 	tex:SetDrawLayer("ARTWORK", 1);
-	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, 0);
+	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
 	tex:Show();
 	btn:SetNormalTexture(tex);
@@ -144,7 +144,7 @@ local function NewTabButtonBottom(parent)
 	tex = btn:CreateTexture();
 	tex:SetTexture(0.5, 0.5, 0.5, 1);
 	tex:SetDrawLayer("ARTWORK", 1);	
-	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, 0);
+	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
 	tex:Show();
 	btn:SetDisabledTexture(tex);
@@ -153,8 +153,8 @@ local function NewTabButtonBottom(parent)
 	tex = VFLUI.CreateTexture(btn);
 	tex:SetTexture(1, 1, 1, 0.2);
 	tex:SetDrawLayer("ARTWORK", 1);
-	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 5, 0);
-	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -5, 4);
+	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
+	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
 	tex:Show();
 	btn:SetHighlightTexture(tex);
 	btn.texHlt = tex;
@@ -163,8 +163,8 @@ local function NewTabButtonBottom(parent)
 	tex = btn:CreateTexture();
 	tex:SetTexture(1, 1, 1, 0.4);
 	tex:SetDrawLayer("ARTWORK", 1);
-	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 5, 0);
-	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -5, 4);
+	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
+	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
 	tex:Show();
 	btn:SetPushedTexture(tex);
 
@@ -173,6 +173,7 @@ local function NewTabButtonBottom(parent)
 	btn.font = VFLUI.CreateFontString(btn);
 	btn.font:SetAllPoints(btn);
 	btn.font:Show();
+	VFLUI.SetFont(btn.font, Fonts.default);
 	
 	btn.StartFlash = function()
 		btn.elapsed = 0;
