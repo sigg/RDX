@@ -296,9 +296,6 @@ Designs\Colors\TwoBlendColor.lua
 Designs\Colors\MyColor.lua
 
 Designs\Complexes\TabManager.lua
-#Deprecated
-#Designs\Complexes\ChatFrames.lua
-#Designs\Complexes\CombatLogs.lua
 Designs\Complexes\Minimap.lua
 Designs\Complexes\MenuBar.lua
 Designs\Complexes\BagsBar.lua
