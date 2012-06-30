@@ -63,7 +63,7 @@ RDX.RegisterFeature({
 		end);
 
 		---------------- The unit framepool
-		local uf = state:GetSlotFunction("SetupSubFrame");
+		local genUF = state:GetSlotFunction("SetupSubFrame");
 		local dx, dy = (state:GetSlotFunction("SubFrameDimensions"))();
 		dx = dx or 50; dy = dy or 12; -- BUGFIX: incase something goes wrong, don't crash/do unreasonable things
 
@@ -77,7 +77,18 @@ RDX.RegisterFeature({
 			local frame = VFLUI.AcquireFrame("Frame");
 			frame:SetParent(grid); frame:SetFrameLevel(grid:GetFrameLevel() + 1);
 			-- Imbue it with unit-frame-hood.
-			uf(frame); 
+			local succ,err = pcall(genUF, frame);
+			if not succ then 
+				RDXDK.PrintError(w, "genUF", err);
+				frame.txterror = VFLUI.SimpleText:new(nil, 5, 100);
+				frame.txterror:SetPoint("CENTER", frame, "CENTER");
+				frame.txterror:SetWidth(120); frame.txterror:SetHeight(12);
+				frame.txterror:Show();
+				frame.txterror:SetText("Error compilation UF!");
+				frame.Destroy = VFL.hook(function(frame)
+					frame.txterror:Destroy(); frame.txterror = nil;
+				end, frame.Destroy);
+			end 
 			if not frame.Cleanup then
 				frame.Cleanup = VFL.Noop;
 				frame.SetData = VFL.Noop;

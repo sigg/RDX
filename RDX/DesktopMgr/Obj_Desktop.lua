@@ -76,13 +76,14 @@ setmetatable(_err_norepeat, {__mode = 'k'});
 function RDXDK.PrintError(win, info, err)
 	if (type(win) == "table") and (not _err_norepeat[win]) then
 		_err_norepeat[win] = true;
-		local ident, path = "<unknown>", "<unknown>";
+		local ident, path = nil, "<unknown>";
 		if (type(win._dk_name) == "string") then
 			ident = win._dk_name;
 		end
 		if (type(win._path) == "string") then
 			path = win._path;
 		end
+		if not ident then ident = path; end
 		VFL.TripError("RDX", "Window <" .. ident .. "> caused a paint error.", "Pointer: " .. tostring(win) .. "\nIdentity: " .. ident .. "\nPath: " .. path .. "\nError\n--------\n" .. err);
 	end
 end

@@ -14,7 +14,7 @@ function VFLUI.SimpleText:new(parent, nblines, width)
 	local txt = VFLUI.CreateFontString(self);
 	txt:SetPoint("TOPLEFT", self, "TOPLEFT");
 	txt:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT");
-	VFLUI.SetFont(txt, Fonts.Default, 10);
+	VFLUI.SetFont(txt, Fonts.Default10Shadowed, 10);
 	txt:SetJustifyV("TOP"); txt:SetJustifyH("LEFT");
 	txt:SetText(""); txt:Show();
 	self.text = txt;

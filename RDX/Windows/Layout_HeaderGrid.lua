@@ -106,7 +106,18 @@ RDX.RegisterFeature({
 
 		-- "Acclimatize" a frame to this window.
 		local function Acclimatize(hgrid, hdr, frame)
-			genUF(frame); 
+			local succ,err = pcall(genUF, frame);
+			if not succ then 
+				RDXDK.PrintError(w, "genUF", err);
+				frame.txterror = VFLUI.SimpleText:new(nil, 5, 100);
+				frame.txterror:SetPoint("CENTER", frame, "CENTER");
+				frame.txterror:SetWidth(120); frame.txterror:SetHeight(12);
+				frame.txterror:Show();
+				frame.txterror:SetText("Error compilation UF!");
+				frame.Destroy = VFL.hook(function(frame)
+					frame.txterror:Destroy(); frame.txterror = nil;
+				end, frame.Destroy);
+			end
 			if not frame.Cleanup then
 				frame.Cleanup = VFL.Noop;
 				frame.SetData = VFL.Noop;
