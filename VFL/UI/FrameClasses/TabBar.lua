@@ -25,7 +25,7 @@ local bottomTabBackdrop = {
 	insets = { left = 2, right = 2, top = 2, bottom = 2 },
 };
 
-local function NewTabButtonTop()
+local function NewTabButtonTop(parent)
 	local btn = VFLUI.AcquireFrame("Button");
 	btn:SetBackdrop(topTabBackdrop);
 
@@ -118,7 +118,7 @@ local function NewTabButtonTop()
 	return btn;
 end
 
-local function NewTabButtonBottom()
+local function NewTabButtonBottom(parent)
 	local btn = VFLUI.AcquireFrame("Button");
 	btn:SetBackdrop(bottomTabBackdrop);
 
@@ -356,12 +356,12 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 	end
 
 	--- Adds a tab to the tab bar. The tab will have the given width.
-	function self:AddTab(width, fnSelect, fnDeselect, fnMenu, heightclientoffset)
+	function self:AddTab(width, fnSelect, fnDeselect, fnMenu, showOnMouseOver, notSelectable, heightclientoffset)
 		local t = nil;
 		if orientation == "TOP" then
-			t = NewTabButtonTop();
+			t = NewTabButtonTop(self);
 		elseif orientation == "BOTTOM" then
-			t = NewTabButtonBottom();
+			t = NewTabButtonBottom(self);
 		end
 		t:SetHeight(tabHeight); t:SetWidth(width); t:Show();
 		
@@ -371,8 +371,10 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		-- Add clickscript
 		t:RegisterForClicks("LeftButtonUp", "RightButtonUp");
 		t:SetScript("OnClick", function(self2, arg1) 
-			if(arg1 == "LeftButton") then 
-				self:SelectTab(self2); 
+			if(arg1 == "LeftButton") then
+				if not notSelectable then
+					self:SelectTab(self2);
+				end
 			else
 				VFL.empty(mnu);
 				if fnMenu then fnMenu(mnu, t); end
@@ -382,6 +384,15 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 				end
 			end;
 		end);
+		if showOnMouseOver then
+			t:SetScript("OnEnter", function(self2, arg1) 
+				t:SetAlpha(1);
+			end);
+			t:SetScript("OnLeave", function(self2, arg1) 
+				t:SetAlpha(0.5);
+			end);
+			t:SetAlpha(0.5);
+		end		
 		-- add heightclientoffset
 		if not heightclientoffset then heightclientoffset = 0; end
 		t._heightclientoffset = heightclientoffset;

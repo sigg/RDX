@@ -5,7 +5,7 @@ local framew = VFLUI.AcquireFrame("Frame");
 framew:SetHeight(400); framew:SetWidth(216);
 
 local soloseparator = VFLUI.SeparatorText:new(framew, 1, 216);
-soloseparator:SetPoint("TOPLEFT", framew, "TOPLEFT", 0, -5);
+soloseparator:SetPoint("TOPLEFT", framew, "TOPLEFT", 5, -5);
 soloseparator:SetText(VFLI.i18n("State SOLO"));
 
 local soloselect = VFLUI.OKButton:new(framew);

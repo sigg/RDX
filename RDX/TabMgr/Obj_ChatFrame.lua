@@ -302,8 +302,8 @@ local function EditChatFrameDialog(parent, path, md)
 	
 	
 	local tabbox = VFLUI.TabBox:new(dlg, 22, "TOP");
-	tabbox:SetWidth(490); tabbox:SetHeight(315);
-	tabbox:SetPoint("TOPLEFT", ed_tabwidth, "BOTTOMLEFT", -5, 0);
+	tabbox:SetWidth(480); tabbox:SetHeight(300);
+	tabbox:SetPoint("TOPLEFT", ed_tabwidth, "BOTTOMLEFT", 0, 0);
 	tabbox:SetBackdrop(nil);
 	
 	local tab = nil;

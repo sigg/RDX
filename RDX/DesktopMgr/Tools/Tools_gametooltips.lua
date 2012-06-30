@@ -9,7 +9,7 @@ local updateGametooltip = nil;
 
 -- gametooltips
 local separator5 = VFLUI.SeparatorText:new(frameg, 1, 216);
-separator5:SetPoint("TOPLEFT", frameg, "TOPLEFT", 0, -5);
+separator5:SetPoint("TOPLEFT", frameg, "TOPLEFT", 5, -5);
 separator5:SetText("GameTooltips");
 
 local chk_tooltipmouse = VFLUI.Checkbox:new(frameg); chk_tooltipmouse:SetHeight(16); chk_tooltipmouse:SetWidth(200);

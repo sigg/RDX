@@ -7,7 +7,7 @@ framed:SetHeight(400); framed:SetWidth(216);
 
 -- Viewport
 local separator1 = VFLUI.SeparatorText:new(framed, 1, 216);
-separator1:SetPoint("TOPLEFT", framed, "TOPLEFT", 0, -5);
+separator1:SetPoint("TOPLEFT", framed, "TOPLEFT", 5, -5);
 separator1:SetText("Viewport"); separator1:Show();
 
 local updateViewport, setViewport;

@@ -140,7 +140,7 @@ local framew = VFLUI.AcquireFrame("Frame");
 framew:SetHeight(400); framew:SetWidth(216);
 
 local separator2 = VFLUI.SeparatorText:new(framew, 1, 216);
-separator2:SetPoint("TOPLEFT", framew, "TOPLEFT", 0, -5);
+separator2:SetPoint("TOPLEFT", framew, "TOPLEFT", 5, -5);
 separator2:SetText(VFLI.i18n("RDX Windows"));
 
 local list = VFLUI.List:new(framew, 12, CreateWindowsListFrame);

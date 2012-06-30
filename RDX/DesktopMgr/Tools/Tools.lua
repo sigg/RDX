@@ -38,7 +38,7 @@ local function OpenDesktopTools(parent, froot)
 	
 	local tabbox = VFLUI.TabBox:new(ca, 22, "TOP");
 	tabbox:SetHeight(530); tabbox:SetWidth(232);
-	tabbox:SetPoint("TOPLEFT", ca, "TOPLEFT");
+	tabbox:SetPoint("TOPLEFT", ca, "TOPLEFT", 0, 0);
 	
 	for i, v in ipairs(tools) do
 		local tab = tabbox:GetTabBar():AddTab(v.width, function() tabbox:SetClient(v.cli); v.funcSet(froot) end, function() v.funcUnset(froot) end);

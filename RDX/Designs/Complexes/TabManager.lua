@@ -53,9 +53,9 @@ if (md) and (ty == "TabManager") and (md.data) then
 			if flag then
 				f = VFLUI.SimpleText:new(nil, 5, 100);
 				f._path = nil;
-				f:SetText("Already acquired !");
+				f:SetText("Already acquired!");
 				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
-				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1) tabbox:SetClient(f, true); end, function() end);
+				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1) tabbox:SetClient(f); end, function() end);
 			else
 				f = RDXDB.GetObjectInstance(v.op);
 				local _, _, _, _, objdesc = RDXDB.GetObjectData(v.op);
@@ -80,7 +80,7 @@ if (md) and (ty == "TabManager") and (md.data) then
 				f._path = nil;
 				f:SetText("Already acquired !");
 				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
-				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1) tabbox:SetClient(f, true); end, function() end);
+				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1) tabbox:SetClient(f); end, function() end);
 			else
 				f = RDXDB.GetObjectInstance(v.op);
 				local _, _, _, _, objdesc = RDXDB.GetObjectData(v.op);
@@ -98,6 +98,27 @@ if (md) and (ty == "TabManager") and (md.data) then
 			tabbox.cfs["cf" .. count] = f;
 		end
 	end
+	count = count + 1;
+	local f = VFLUI.AcquireFrame("Frame");
+	f._path = nil;
+	tab = tabbox:GetTabBar():AddTab(20,
+		function(self, arg1) end, 
+		function() end,
+		function(mnu, dlg)
+			table.insert(mnu, {
+				text = VFLI.i18n("Add"),
+				OnClick = function() 
+					VFL.poptree:Release(); 
+					RDXDB.OpenObject(path, "Edit", dlg);
+				end
+			});
+		end,
+		true,
+		true
+	);
+	tab.font:SetText("");
+	f.tab = tab;
+	tabbox.cfs["cf" .. count] = f;
 	
 	VFLT.NextFrame(math.random(10000000), function()
 		tabbox:GetTabBar():SelectTabId(1);

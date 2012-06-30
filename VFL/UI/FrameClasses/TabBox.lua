@@ -16,9 +16,9 @@ local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 	
 	local tabBar = VFLUI.TabBar:new(self, tabHeight, orientation);
 	if orientation == "TOP" then
-		tabBar:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -2);
+		tabBar:SetPoint("TOPLEFT", self, "TOPLEFT", 0, -2);
 	elseif orientation == "BOTTOM" then
-		tabBar:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 5, 2);
+		tabBar:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 2);
 	end
 	tabBar:Show();
 
@@ -37,13 +37,13 @@ local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 		if not cli then return; end
 		cli:SetParent(self);	cli:ClearAllPoints();
 		if orientation == "TOP" then
-			cli:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -tabHeight-offsety);
+			cli:SetPoint("TOPLEFT", self, "TOPLEFT", 0, -tabHeight-offsety);
 		elseif orientation == "BOTTOM" then
-			cli:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 5, tabHeight+offsety);
+			cli:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, tabHeight+offsety);
 		end
 		local tab = tabBar:_GetCurrentTab();
-		cli:SetWidth(self:GetWidth() - 10 - 2*offsetx);
-		cli:SetHeight(self:GetHeight() - tabHeight - 10 - 3*offsety + tab._heightclientoffset);
+		cli:SetWidth(self:GetWidth() - 2*offsetx);
+		cli:SetHeight(self:GetHeight() - tabHeight - 3*offsety + tab._heightclientoffset);
 		cli:Show();
 	end
 
@@ -54,11 +54,11 @@ local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 
 	-- Resize/show handling
 	local function OnResize()
-		tabBar:SetWidth(self:GetWidth() - 10);
+		tabBar:SetWidth(self:GetWidth());
 		if curClient then 
 			local tab = tabBar:_GetCurrentTab();
-			curClient:SetWidth(math.max(self:GetWidth() - 10 - 2*offsetx, 0));
-			curClient:SetHeight(math.max(0, self:GetHeight() - tabHeight - 10 - 3*offsety + tab._heightclientoffset));
+			curClient:SetWidth(math.max(self:GetWidth() - 2*offsetx, 0));
+			curClient:SetHeight(math.max(0, self:GetHeight() - tabHeight - 3*offsety + tab._heightclientoffset));
 		end
 	end 
 	self:SetScript("OnSizeChanged", OnResize);
