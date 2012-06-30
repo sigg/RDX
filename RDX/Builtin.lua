@@ -167,7 +167,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	
 	if not default["ChatFrame1"] then
 		default["ChatFrame1"] = {
-			["ty"] = "ChatFrame",
+			["ty"] = "TabChatFrame",
 			["version"] = 1,
 			["data"] = {
 				["title"] = "General",
@@ -229,7 +229,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	
 	if not default["ChatFrame2"] then
 		default["ChatFrame2"] = {
-			["ty"] = "ChatFrame",
+			["ty"] = "TabChatFrame",
 			["version"] = 1,
 			["data"] = {
 				["title"] = "Guild",
@@ -264,7 +264,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	
 	if not default["ChatFrame3"] then
 		default["ChatFrame3"] = {
-			["ty"] = "ChatFrame",
+			["ty"] = "TabChatFrame",
 			["version"] = 1,
 			["data"] = {
 				["title"] = "Loot",
@@ -402,7 +402,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	
 	if not default["CombatLogs1"] then
 		default["CombatLogs1"] = {
-			["ty"] = "CombatLogs",
+			["ty"] = "TabChatFrame",
 			["version"] = 1,
 			["data"] = {
 				["title"] = "Combat",

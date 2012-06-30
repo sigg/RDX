@@ -590,7 +590,7 @@ end
 
 -- Chatframe RDX object registration
 RDXDB.RegisterObjectType({
-	name = "ChatFrame";
+	name = "TabChatFrame";
 	New = function(path, md)
 		md.version = 1;
 		md.data = {};
@@ -691,13 +691,13 @@ RDXPM.RegisterTabCategory(VFLI.i18n("ChatFrames"));
 -- Update hooks
 ------------------------------------------
 RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)
-	if md and md.ty == "ChatFrame" then
+	if md and md.ty == "TabChatFrame" then
 		local path = RDXDB.MakePath(pkg,file);
 		RDXPM.UnregisterTab(path, "ChatFrames")
 	end
 end);
 RDXDBEvents:Bind("OBJECT_MOVED", nil, function(pkg, file, newpkg, newfile, md)
-	if md and md.ty == "ChatFrame" then
+	if md and md.ty == "TabChatFrame" then
 		local path = RDXDB.MakePath(pkg,file);
 		RDXPM.UnregisterTab(path, "ChatFrames")
 	end
@@ -705,7 +705,7 @@ end);
 RDXDBEvents:Bind("OBJECT_CREATED", nil, function(pkg, file) 
 	local path = RDXDB.MakePath(pkg,file);
 	local obj,_,_,ty = RDXDB.GetObjectData(path)
-	if ty == "ChatFrame" then
+	if ty == "TabChatFrame" then
 		local data = obj.data;
 		local tit = "";
 		if data then tit = obj.data.title; end
@@ -721,7 +721,7 @@ end);
 RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(pkg, file) 
 	local path = RDXDB.MakePath(pkg,file);
 	local obj,_,_,ty = RDXDB.GetObjectData(path)
-	if ty == "ChatFrame" then
+	if ty == "TabChatFrame" then
 		RDXPM.UnregisterTab(path, "ChatFrames");
 		local data = obj.data;
 		local tit = "";
@@ -737,10 +737,10 @@ RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(pkg, file)
 end);
 
 -- run on UI load 
-local function RegisterChatFrames()
+local function RegisterTabChatFrames()
 	for pkgName,pkg in pairs(RDXData) do
 		for objName,obj in pairs(pkg) do
-			if type(obj) == "table" and obj.ty == "ChatFrame" then 
+			if type(obj) == "table" and obj.ty == "TabChatFrame" then 
 				local path = RDXDB.MakePath(pkgName, objName);
 				local data = obj.data;
 				local tit = "";
@@ -758,5 +758,5 @@ local function RegisterChatFrames()
 end
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	RegisterChatFrames();
+	RegisterTabChatFrames();
 end);

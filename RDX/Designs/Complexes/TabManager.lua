@@ -17,6 +17,7 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if desc.owner == "Base" then desc.owner = "decor"; end
+		if not desc.orientation then desc.orientation = "TOP"; end
 		if not desc.bkd then desc.bkd = { edgeFile="Interface\\Addons\\VFL\\Skin\\tab_top", edgeSize = 16, insets = { left = 5, right = 5, top = 4, bottom = 0 } }; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
@@ -32,20 +33,19 @@ RDX.RegisterFeature({
 		local objname = "Frame_" .. desc.name;
 		------------------ On frame creation
 		local createCode = [[
-local tabbox = VFLUI.TabBox:new(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[, 22, "TOP");
+local tabbox = VFLUI.TabBox:new(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[, 22, "]] .. desc.orientation .. [[");
 tabbox:SetFrameLevel(frame:GetFrameLevel());
 tabbox:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 tabbox:SetWidth(]] .. desc.w .. [[); tabbox:SetHeight(]] .. desc.h .. [[);
 tabbox:SetBackdrop(nil);
 tabbox:Show();
 tabbox.cfs = {};
---local cn = RDX.CreateChatChannelList(GetChannelList());
 local md,_,_,ty = RDXDB.GetObjectData("]] .. desc.cfm .. [[");
 if (md) and (ty == "TabManager") and (md.data) then
 	local count, title = 0, "";
 	for k,v in pairs(md.data.cfm) do
 		local md2,_,_,ty2 = RDXDB.GetObjectData(v.op);
-		if (md2) and (ty2 == "ChatFrame") and (md2.data) then
+		if (md2) and (ty2 == "TabChatFrame") and (md2.data) then
 			count = count + 1;
 			local flag = RDXDB.GetObjectInstance(v.op, true);
 			local f, tab;
@@ -70,7 +70,7 @@ if (md) and (ty == "TabManager") and (md.data) then
 			tab.font:SetText(md2.data.title);
 			f.tab = tab;
 			tabbox.cfs["cf" .. count] = f;
-		elseif (md2) and (ty2 == "CombatLogs") and (md2.data) then
+		elseif (md2) and (ty2 == "TabCombatLogs") and (md2.data) then
 			count = count + 1;
 			local flag = RDXDB.GetObjectInstance(v.op, true);
 			local f, tab;
@@ -94,6 +94,32 @@ if (md) and (ty == "TabManager") and (md.data) then
 				);
 			end
 			tab.font:SetText(md2.data.title);
+			f.tab = tab;
+			tabbox.cfs["cf" .. count] = f;
+		elseif (md2) and (ty2 == "TabWindow") and (md2.data) then
+			count = count + 1;
+			local flag = RDXDB.GetObjectInstance(v.op, true);
+			local f, tab;
+			--if not md2.data.tabwidth then md2.data.tabwidth = 80; end
+			if flag then
+				f = VFLUI.SimpleText:new(nil, 5, 100);
+				f._path = nil;
+				f:SetText("Already acquired !");
+				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
+				tab = tabbox:GetTabBar():AddTab(80, function(self, arg1) tabbox:SetClient(f); end, function() end);
+			else
+				f = RDXDB.GetObjectInstance(v.op);
+				local _, _, _, _, objdesc = RDXDB.GetObjectData(v.op);
+				f._path = v.op;
+				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
+				--f.font = ]] .. Serialize(desc.font) .. [[;
+				tab = tabbox:GetTabBar():AddTab(80, 
+					function(self, arg1) tabbox:SetClient(f, true); end, 
+					function() end,
+					function(mnu, dlg) return objdesc.GenerateBrowserMenu(mnu, v.op, nil, dlg) end
+				);
+			end
+			tab.font:SetText("Map");
 			f.tab = tab;
 			tabbox.cfs["cf" .. count] = f;
 		end
@@ -171,34 +197,46 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.cfm then cfmsel:SetPath(desc.cfm); end
 		ui:InsertFrame(cfmsel);
 		
-		local er_ts = VFLUI.EmbedRight(ui, VFLI.i18n("Timestamp type"));
-		local dd_ts = VFLUI.Dropdown:new(er_ts, VFL.ASDateListSelectionFunc);
-		dd_ts:SetWidth(150); dd_ts:Show();
-		if desc and desc.ts then
-			dd_ts:SetSelection(desc.ts);
+		--local er_ts = VFLUI.EmbedRight(ui, VFLI.i18n("Timestamp type"));
+		--local dd_ts = VFLUI.Dropdown:new(er_ts, VFL.ASDateListSelectionFunc);
+		--dd_ts:SetWidth(150); dd_ts:Show();
+		--if desc and desc.ts then
+		--	dd_ts:SetSelection(desc.ts);
+		--else
+		--	dd_ts:SetSelection("None");
+		--end
+		--er_ts:EmbedChild(dd_ts); er_ts:Show();
+		--ui:InsertFrame(er_ts);
+		
+		--local color = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Timestamp color"));
+		--if desc and desc.color then color:SetColor(VFL.explodeRGBA(desc.color)); end
+		
+		--local chk_channel = VFLUI.Checkbox:new(ui); chk_channel:Show();
+		--chk_channel:SetText(VFLI.i18n("Minimize channel name"));
+		--if desc and desc.channel then chk_channel:SetChecked(true); else chk_channel:SetChecked(); end
+		--ui:InsertFrame(chk_channel);
+		
+		-- Orientation
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation"));
+		local dd_orientation = VFLUI.Dropdown:new(er, RDXUI.InserModeDropdownFunction);
+		dd_orientation:SetWidth(150); dd_orientation:Show();
+		if desc and desc.orientation then 
+			dd_orientation:SetSelection(desc.orientation); 
 		else
-			dd_ts:SetSelection("None");
+			dd_orientation:SetSelection("TOP");
 		end
-		er_ts:EmbedChild(dd_ts); er_ts:Show();
-		ui:InsertFrame(er_ts);
-		
-		local color = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Timestamp color"));
-		if desc and desc.color then color:SetColor(VFL.explodeRGBA(desc.color)); end
-		
-		local chk_channel = VFLUI.Checkbox:new(ui); chk_channel:Show();
-		chk_channel:SetText(VFLI.i18n("Minimize channel name"));
-		if desc and desc.channel then chk_channel:SetChecked(true); else chk_channel:SetChecked(); end
-		ui:InsertFrame(chk_channel);
+		er:EmbedChild(dd_orientation); er:Show();
+		ui:InsertFrame(er);
 		
 		local er_font = VFLUI.EmbedRight(ui, VFLI.i18n("Font"));
 		local fontsel = VFLUI.MakeFontSelectButton(er_font, desc.font); fontsel:Show();
 		er_font:EmbedChild(fontsel); er_font:Show();
 		ui:InsertFrame(er_font);
 		
-		local chk_fading = VFLUI.Checkbox:new(ui); chk_fading:Show();
-		chk_fading:SetText(VFLI.i18n("Fading"));
-		if desc and desc.fading then chk_fading:SetChecked(true); else chk_fading:SetChecked(); end
-		ui:InsertFrame(chk_fading);
+		--local chk_fading = VFLUI.Checkbox:new(ui); chk_fading:Show();
+		--chk_fading:SetText(VFLI.i18n("Fading"));
+		--if desc and desc.fading then chk_fading:SetChecked(true); else chk_fading:SetChecked(); end
+		--ui:InsertFrame(chk_fading);
 		
 		-- Backdrop
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop style"));
@@ -215,11 +253,12 @@ frame.]] .. objname .. [[ = nil;
 				h = ed_height:GetSelection();
 				anchor = anchor:GetAnchorInfo();
 				cfm = cfmsel:GetPath();
-				ts = dd_ts:GetSelection();
-				color = color:GetColor();
-				channel = chk_channel:GetChecked();
+				--ts = dd_ts:GetSelection();
+				--color = color:GetColor();
+				--channel = chk_channel:GetChecked();
+				orientation = dd_orientation:GetSelection();
 				font = fontsel:GetSelectedFont();
-				fading = chk_fading:GetChecked();
+				--fading = chk_fading:GetChecked();
 				bkd = bkd:GetSelectedBackdrop();
 			};
 		end

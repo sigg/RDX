@@ -253,8 +253,9 @@ Raid\Bossmods\BossmodMenu.lua
 
 # Tab Manager
 TabMgr\Obj_TabManager.lua
-TabMgr\Obj_ChatFrame.lua
-TabMgr\Obj_CombatLogs.lua
+TabMgr\Obj_TabChatFrame.lua
+TabMgr\Obj_TabCombatLogs.lua
+TabMgr\Obj_TabWindow.lua
 
 # Design Library
 Designs\Obj_Design.lua

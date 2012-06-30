@@ -119,8 +119,8 @@ local function EditCombatLogsDialog(parent, path, md)
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:SetWidth(370); dlg:SetHeight(520);
-	dlg:SetText(VFLI.i18n("Edit ChatFrame: ") .. path);
-	if RDXPM.Ismanaged("ChatFrame") then RDXPM.RestoreLayout(dlg, "ChatFrame"); end
+	dlg:SetText(VFLI.i18n("Edit CombatLogs: ") .. path);
+	if RDXPM.Ismanaged("CombatLogs") then RDXPM.RestoreLayout(dlg, "CombatLogs"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	dlg:Show();
 	local ca = dlg:GetClientArea();
@@ -169,7 +169,7 @@ local function EditCombatLogsDialog(parent, path, md)
 	
 	----------------- INTERACT
 	local esch = function()
-		RDXPM.StoreLayout(dlg, "ChatFrame");
+		RDXPM.StoreLayout(dlg, "CombatLogs");
 		dlg:Destroy(); dlg = nil;
 	end
 	VFL.AddEscapeHandler(esch);
@@ -320,7 +320,7 @@ end
 
 -- Chatframe RDX object registration
 RDXDB.RegisterObjectType({
-	name = "CombatLogs";
+	name = "TabCombatLogs";
 	New = function(path, md)
 		md.version = 1;
 		md.data = {};
@@ -371,13 +371,13 @@ RDXPM.RegisterTabCategory(VFLI.i18n("CombatLogs"));
 -- Update hooks
 ------------------------------------------
 RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)
-	if md and md.ty == "CombatLogs" then
+	if md and md.ty == "TabCombatLogs" then
 		local path = RDXDB.MakePath(pkg,file);
 		RDXPM.UnregisterTab(path, "CombatLogs")
 	end
 end);
 RDXDBEvents:Bind("OBJECT_MOVED", nil, function(pkg, file, newpkg, newfile, md)
-	if md and md.ty == "CombatLogs" then
+	if md and md.ty == "TabCombatLogs" then
 		local path = RDXDB.MakePath(pkg,file);
 		RDXPM.UnregisterTab(path, "CombatLogs")
 	end
@@ -385,7 +385,7 @@ end);
 RDXDBEvents:Bind("OBJECT_CREATED", nil, function(pkg, file) 
 	local path = RDXDB.MakePath(pkg,file);
 	local obj,_,_,ty = RDXDB.GetObjectData(path)
-	if ty == "CombatLogs" then
+	if ty == "TabCombatLogs" then
 		local data = obj.data;
 		local tit = "";
 		if data then tit = obj.data.title; end
@@ -401,7 +401,7 @@ end);
 RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(pkg, file) 
 	local path = RDXDB.MakePath(pkg,file);
 	local obj,_,_,ty = RDXDB.GetObjectData(path)
-	if ty == "CombatLogs" then
+	if ty == "TabCombatLogs" then
 		RDXPM.UnregisterTab(path, "CombatLogs");
 		local data = obj.data;
 		local tit = "";
@@ -417,10 +417,10 @@ RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(pkg, file)
 end);
 
 -- run on UI load 
-local function RegisterCombatLogs()
+local function RegisterTabCombatLogs()
 	for pkgName,pkg in pairs(RDXData) do
 		for objName,obj in pairs(pkg) do
-			if type(obj) == "table" and obj.ty == "CombatLogs" then 
+			if type(obj) == "table" and obj.ty == "TabCombatLogs" then 
 				local path = RDXDB.MakePath(pkgName, objName);
 				local data = obj.data;
 				local tit = "";
@@ -438,5 +438,5 @@ local function RegisterCombatLogs()
 end
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	RegisterCombatLogs();
+	RegisterTabCombatLogs();
 end);
