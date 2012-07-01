@@ -12,7 +12,7 @@ local function BuildWindowList(pkgfilter)
 	for pkg,data in pairs(RDXData) do
 		if not pkgfilter or pkg == pkgfilter or RDXDB.IsCommonPackage(pkg) then
 			for file,md in pairs(data) do
-				if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "Window$") then
+				if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "^Window$") then
 					local hide = RDXDB.HasFeature(md.data, "WindowListHide");
 					if not hide then
 						table.insert(wl, {path = RDXDB.MakePath(pkg, file), data = md.data});
