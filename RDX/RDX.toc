@@ -197,11 +197,12 @@ Windows\Subframe_Design.lua
 #Windows\SubFrame_AssistDesign.lua
 Windows\Framing.lua
 Windows\Skein.lua
-Windows\WindowList.lua
-Windows\WindowLessList.lua
+#Windows\WindowList.lua
+#Windows\WindowLessList.lua
 Windows\IconEditor.lua
-Windows\AuraCache.lua
+#Windows\AuraCache.lua
 Windows\AudioCues.lua
+Windows\Miscs.lua
 
 # Raid Logger
 Raid\RaidLogger\Omni.lua
