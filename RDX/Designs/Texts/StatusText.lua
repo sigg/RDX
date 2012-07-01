@@ -614,8 +614,20 @@ txt:Show();
 ]] .. tname .. [[:SetText("");
 ]] .. tname .. [[:SetTextColor(1,1,1,1);
 ]];
-
-		local paintCode = statusText[desc.ty].GeneratePaintCode(tname) .. colorExpr;
+		local paintCode;
+		if desc.hidecombat then
+			paintCode = [[
+			if UnitAffectingCombat(uid) then
+				]] .. tname .. [[:SetText("");
+			else
+]];
+			paintCode = paintCode .. statusText[desc.ty].GeneratePaintCode(tname) .. colorExpr;
+			paintCode = paintCode .. [[
+			end
+]];
+		else
+			paintCode = statusText[desc.ty].GeneratePaintCode(tname) .. colorExpr;
+		end
 		
 		local paintCodeTest;
 		if statusText[desc.ty].GeneratePaintCodeTest then
@@ -673,6 +685,11 @@ txt:Show();
 		
 		local colorVar = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Color variable"), state, "ColorVar_");
 		if desc and desc.color then colorVar:SetSelection(desc.color); end
+		
+		local chk_hidecombat = VFLUI.Checkbox:new(ui); chk_hidecombat:Show();
+		chk_hidecombat:SetText(VFLI.i18n("Hide Under combat"));
+		if desc and desc.hidecombat then chk_hidecombat:SetChecked(true); else chk_hidecombat:SetChecked(); end
+		ui:InsertFrame(chk_hidecombat);
 
 		function ui:GetDescriptor()
 			local _,ty = display:GetSelection();
@@ -691,6 +708,7 @@ txt:Show();
 				font = fontsel:GetSelectedFont();
 				staticColor = sc;
 				color = scolorVar;
+				hidecombat = chk_hidecombat:GetChecked();
 			};
 		end
 		
