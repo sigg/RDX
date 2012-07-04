@@ -125,7 +125,7 @@ RDX.RegisterFeature({
 
 		-- Create
 		local createCode = [[
-VFLUI.SetBackdropBorderRDX(]] .. fvar .. [[, ]] .. Serialize(desc.color) .. [[, "]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[, ]] .. (desc.size or "1") .. [[);
+VFLUI.SetBackdropBorderRDX(]] .. fvar .. [[, ]] .. Serialize(desc.color) .. [[, "]] .. desc.drawLayer .. [[", ]] .. desc.sublevel .. [[, ]] .. desc.size .. [[);
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 	end;

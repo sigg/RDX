@@ -458,10 +458,10 @@ function VFLUI.SetBackdropBorderRDX(frame, color, drawlayer, sublevel, size)
 	_t:SetTexture(VFL.explodeRGBA(color));
 	_r:SetTexture(VFL.explodeRGBA(color));
 	_b:SetTexture(VFL.explodeRGBA(color));
-	_l:SetDrawLayer(drawLayer, sublevel);
-	_t:SetDrawLayer(drawLayer, sublevel);
-	_r:SetDrawLayer(drawLayer, sublevel);
-	_b:SetDrawLayer(drawLayer, sublevel);
+	_l:SetDrawLayer(drawlayer, sublevel);
+	_t:SetDrawLayer(drawlayer, sublevel);
+	_r:SetDrawLayer(drawlayer, sublevel);
+	_b:SetDrawLayer(drawlayer, sublevel);
 	_l:SetVertexColor(1,1,1,1);
 	_t:SetVertexColor(1,1,1,1);
 	_r:SetVertexColor(1,1,1,1);
