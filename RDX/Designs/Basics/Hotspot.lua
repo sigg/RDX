@@ -34,9 +34,9 @@ RDX.RegisterFeature({
 		if state:Slot("Hotspot_" .. n) or state:Slot("Frame_" .. n) then
 			VFL.AddError(errs, VFLI.i18n("Duplicate variable name")); return nil;
 		end
-		if (not tonumber(desc.w)) or (not tonumber(desc.h)) then
-			VFL.AddError(errs, VFLI.i18n("Bad or missing width/height parameters")); return nil;
-		end
+		--if (not tonumber(desc.w)) or (not tonumber(desc.h)) then
+		--	VFL.AddError(errs, VFLI.i18n("Bad or missing width/height parameters")); return nil;
+		--end
 		if (not desc.anchor) or (not desc.anchor.af) or desc.anchor.af ~= "Base" then
 			VFL.AddError(errs, VFLI.i18n("Hotspot always anchor to Base")); return nil;
 		end
