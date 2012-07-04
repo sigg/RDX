@@ -21,13 +21,13 @@ local function Preload()
 	local pn = string.lower(UnitName("player"));
 	local rn = string.lower(GetRealmName());
 	-- BUGFIX: Quash all non-alpha-numerics in realmname, replace with underscores
-	local lc = GetLocale();
-	if lc == "ruRU" or lc == "koKR" or lc == "zhCN" or lc == "zhTW"  then
+	--local lc = GetLocale();
+	--if lc == "ruRU" or lc == "koKR" or lc == "zhCN" or lc == "zhTW"  then
 		-- do nothing
-	else
-		pn = string.gsub(pn, "[^%w_]", "");
-		rn = string.gsub(rn, "[^%w_]", "");
-	end
+	--else
+	--	pn = string.gsub(pn, "[^%w_]", "");
+	--	rn = string.gsub(rn, "[^%w_]", "");
+	--end
 	RDX.pn = pn;
 	--rn = string.gsub(rn, "[ ]", "_");
 	RDX.pspace = RDX.pn .. "_" .. rn;
