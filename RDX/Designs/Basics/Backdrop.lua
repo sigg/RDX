@@ -125,61 +125,9 @@ RDX.RegisterFeature({
 
 		-- Create
 		local createCode = [[
-local _l = VFLUI.CreateTexture(]] .. fvar .. [[);
-local _t = VFLUI.CreateTexture(]] .. fvar .. [[);
-local _r = VFLUI.CreateTexture(]] .. fvar .. [[);
-local _b = VFLUI.CreateTexture(]] .. fvar .. [[);
-
-_l:SetTexture(VFL.explodeRGBA(]] .. Serialize(desc.color) .. [[));
-_t:SetTexture(VFL.explodeRGBA(]] .. Serialize(desc.color) .. [[));
-_r:SetTexture(VFL.explodeRGBA(]] .. Serialize(desc.color) .. [[));
-_b:SetTexture(VFL.explodeRGBA(]] .. Serialize(desc.color) .. [[));
-
-_l:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[);
-_t:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[);
-_r:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[);
-_b:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[);
-
-_l:SetVertexColor(1,1,1,1);
-_t:SetVertexColor(1,1,1,1);
-_r:SetVertexColor(1,1,1,1);
-_b:SetVertexColor(1,1,1,1);
-
-_l:SetPoint("LEFT", ]] .. fvar .. [[, "LEFT");
-_t:SetPoint("TOP", ]] .. fvar .. [[, "TOP");
-_r:SetPoint("RIGHT", ]] .. fvar .. [[, "RIGHT");
-_b:SetPoint("BOTTOM", ]] .. fvar .. [[, "BOTTOM");
-
-_l:SetWidth(]] .. (desc.size or "1") .. [[); _l:SetHeight(]] .. fvar .. [[:GetHeight());
-_t:SetWidth(]] .. fvar .. [[:GetWidth()); _t:SetHeight(]] .. (desc.size or "1") .. [[);
-_r:SetWidth(]] .. (desc.size or "1") .. [[); _r:SetHeight(]] .. fvar .. [[:GetHeight());
-_b:SetWidth(]] .. fvar .. [[:GetWidth()); _b:SetHeight(]] .. (desc.size or "1") .. [[);
-
-_l:Show();
-_t:Show();
-_r:Show();
-_b:Show();
-
-]] .. fvar .. [[_l = _l;
-]] .. fvar .. [[_t = _t;
-]] .. fvar .. [[_r = _r;
-]] .. fvar .. [[_b = _b;
-
+VFLUI.SetBackdropBorderRDX(]] .. fvar .. [[, ]] .. Serialize(desc.color) .. [[, "]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[, ]] .. (desc.size or "1") .. [[);
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
-
-		-- Destroy
-		local destroyCode = [[
-]] .. fvar .. [[_l:Destroy();
-]] .. fvar .. [[_l = nil;
-]] .. fvar .. [[_t:Destroy();
-]] .. fvar .. [[_l = nil;
-]] .. fvar .. [[_r:Destroy();
-]] .. fvar .. [[_r = nil;
-]] .. fvar .. [[_b:Destroy();
-]] .. fvar .. [[_b = nil;
-]];
-		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);

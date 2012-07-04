@@ -447,6 +447,65 @@ function VFLUI.SetBackdrop(frame, bkdp)
 	end
 end
 
+function VFLUI.SetBackdropBorderRDX(frame, color, drawlayer, sublevel, size)
+	if (type(frame) ~= "table") or (type(color) ~= "table") then return; end
+	if frame._rdxbl then error("Owner frame already has a backdrop border RDX"); end
+	local _l = VFLUI.CreateTexture(frame);
+	local _t = VFLUI.CreateTexture(frame);
+	local _r = VFLUI.CreateTexture(frame);
+	local _b = VFLUI.CreateTexture(frame);
+	_l:SetTexture(VFL.explodeRGBA(color));
+	_t:SetTexture(VFL.explodeRGBA(color));
+	_r:SetTexture(VFL.explodeRGBA(color));
+	_b:SetTexture(VFL.explodeRGBA(color));
+	_l:SetDrawLayer(drawLayer, sublevel);
+	_t:SetDrawLayer(drawLayer, sublevel);
+	_r:SetDrawLayer(drawLayer, sublevel);
+	_b:SetDrawLayer(drawLayer, sublevel);
+	_l:SetVertexColor(1,1,1,1);
+	_t:SetVertexColor(1,1,1,1);
+	_r:SetVertexColor(1,1,1,1);
+	_b:SetVertexColor(1,1,1,1);
+	_l:SetPoint("LEFT", frame, "LEFT");
+	_t:SetPoint("TOP", frame, "TOP");
+	_r:SetPoint("RIGHT", frame, "RIGHT");
+	_b:SetPoint("BOTTOM", frame, "BOTTOM");
+	_l:SetWidth(size or 1); _l:SetHeight(frame:GetHeight());
+	_t:SetWidth(frame:GetWidth()); _t:SetHeight(size or 1);
+	_r:SetWidth(size or 1); _r:SetHeight(frame:GetHeight());
+	_b:SetWidth(frame:GetWidth()); _b:SetHeight(size or 1);
+	
+	_l:Show();
+	_t:Show();
+	_r:Show();
+	_b:Show();
+	
+	frame._rdxbl = _l;
+	frame._rdxbt = _t;
+	frame._rdxbr = _r;
+	frame._rdxbb = _b;
+	
+	frame.Destroy = VFL.hook(function(s)
+		s._rdxbl:Destroy();
+		s._rdxbl = nil;
+		s._rdxbt:Destroy();
+		s._rdxbt = nil;
+		s._rdxbr:Destroy();
+		s._rdxbr = nil;
+		frame._rdxbb:Destroy();
+		s._rdxbb = nil;
+	end, frame.Destroy);
+end
+
+function VFLUI.ApplyColorBackdropBorderRDX(frame, color)
+	if (type(frame) ~= "table") or (type(color) ~= "table") then return; end
+	if not frame._rdxbl then error("Owner frame does not have a backdrop border RDX"); end
+	frame._rdxbl:SetTexture(VFL.explodeRGBA(color));
+	frame._rdxbt:SetTexture(VFL.explodeRGBA(color));
+	frame._rdxbr:SetTexture(VFL.explodeRGBA(color));
+	frame._rdxbb:SetTexture(VFL.explodeRGBA(color));
+end
+
 -------------------------------
 -- SOUND SYSTEM
 -------------------------------
