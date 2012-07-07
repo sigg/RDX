@@ -190,7 +190,9 @@ local function BuildFilterComponentMenu()
 	for _,cdata in pairs(filterCategories) do
 		table.insert(ret, CreateCategoryEntry(cdata.name));
 		for _,fdata in pairs(cdata.entries) do
-			table.insert(ret, CreateFilterEntry(fdata));
+			if not fdata.invisible then
+				table.insert(ret, CreateFilterEntry(fdata));
+			end
 		end
 	end
 	return ret;
@@ -342,4 +344,5 @@ function RDXDAL.FilterEvents_UnitUpdate(md, ev, adapter)
 		md[ev] = { actionid = 1, adapter = adapter };
 	end
 end
+
 

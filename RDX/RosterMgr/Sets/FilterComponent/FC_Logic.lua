@@ -261,3 +261,20 @@ RDXDAL.RegisterFilterComponent({
 	SetsFromDescriptor = VFL.Noop,
 	ValidateDescriptor = VFL.True,
 });
+
+RDXDAL.RegisterFilterComponent({
+	name = "subclasses", title = VFLI.i18n("subclasses"), invisible = true, category = VFLI.i18n("Logic"),
+	UIFromDescriptor = function(desc, parent)
+		local ui = VFLUI.FilterDialogFrame:new(parent);
+		ui:SetText(VFLI.i18n("True")); ui:Show();
+		ui.GetDescriptor = function() return {"true"}; end;
+		return ui;
+	end,
+	GetBlankDescriptor = function() return {"true"}; end,
+	FilterFromDescriptor = function(desc, metadata)
+		return "(true)";
+	end,
+	EventsFromDescriptor = VFL.Noop,
+	SetsFromDescriptor = VFL.Noop,
+	ValidateDescriptor = VFL.True,
+});
