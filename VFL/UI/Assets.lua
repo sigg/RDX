@@ -447,7 +447,7 @@ function VFLUI.SetBackdrop(frame, bkdp)
 	end
 end
 
-function VFLUI.SetBackdropBorderRDX(frame, color, drawlayer, sublevel, size)
+function VFLUI.SetBackdropBorderRDX(frame, color, drawlayer, sublevel, size, bgcolor)
 	if (type(frame) ~= "table") or (type(color) ~= "table") then return; end
 	if frame._rdxbl then error("Owner frame already has a backdrop border RDX"); end
 	local _l = VFLUI.CreateTexture(frame);
@@ -485,16 +485,39 @@ function VFLUI.SetBackdropBorderRDX(frame, color, drawlayer, sublevel, size)
 	frame._rdxbr = _r;
 	frame._rdxbb = _b;
 	
+	if bgcolor then
+		local _bg = VFLUI.CreateTexture(frame);
+		_bg:SetTexture(VFL.explodeRGBA(bgcolor));
+		_bg:SetDrawLayer("BACKGROUND", 0);
+		_bg:SetVertexColor(1,1,1,1);
+		_bg:SetAllPoints(frame);
+		_bg:Show();
+		frame._rdxbbg = _bg;
+	end
+	
 	frame.Destroy = VFL.hook(function(s)
+		if s._rdxbbg then
+			s._rdxbbg:Destroy();
+			s._rdxbbg = nil;
+		end
 		s._rdxbl:Destroy();
 		s._rdxbl = nil;
 		s._rdxbt:Destroy();
 		s._rdxbt = nil;
 		s._rdxbr:Destroy();
 		s._rdxbr = nil;
-		frame._rdxbb:Destroy();
+		s._rdxbb:Destroy();
 		s._rdxbb = nil;
 	end, frame.Destroy);
+end
+
+function VFLUI.ResizeBackdropBorderRDX(frame, size)
+	if (type(frame) ~= "table") then return; end
+	if not frame._rdxbl then error("Owner frame does not have a backdrop border RDX"); end
+	frame._rdxbl:SetWidth(size or 1); frame._rdxbl:SetHeight(frame:GetHeight());
+	frame._rdxbt:SetWidth(frame:GetWidth()); frame._rdxbt:SetHeight(size or 1);
+	frame._rdxbr:SetWidth(size or 1); frame._rdxbr:SetHeight(frame:GetHeight());
+	frame._rdxbb:SetWidth(frame:GetWidth()); frame._rdxbb:SetHeight(size or 1);
 end
 
 function VFLUI.ApplyColorBackdropBorderRDX(frame, color)
