@@ -1649,8 +1649,9 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	-- Create player-talent-specific bindings if they don't exist
 	-- default:bindings_player
 	-- type talent&name&realm
+	local bindings = RDXDB.GetOrCreatePackage("bindings");
 	
-	local mbo = RDXDB.TouchObject("default:bindings_player_" .. RDX.pspace .. "1");
+	local mbo = RDXDB.TouchObject("bindings:bindings_player_" .. RDX.pspace .. "1");
 	if not mbo.data then
 		mbo.data = {
 			["1"] = {
@@ -1663,7 +1664,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	     mbo.ty = "MouseBindings"; 
 	     mbo.version = 1;
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_player_" .. RDX.pspace .. "2");
+	local mbo = RDXDB.TouchObject("bindings:bindings_player_" .. RDX.pspace .. "2");
 	if not mbo.data then
 		mbo.data = {
 			["1"] = {
@@ -1676,7 +1677,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	     mbo.ty = "MouseBindings"; 
 	     mbo.version = 1;
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_player_" .. RDX.pspace .. "3");
+	local mbo = RDXDB.TouchObject("bindings:bindings_player_" .. RDX.pspace .. "3");
 	if not mbo.data then
 		mbo.data = {
 			["1"] = {
@@ -1689,9 +1690,9 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	     mbo.ty = "MouseBindings"; 
 	     mbo.version = 1;
 	end
-	local mbsl = RDXDB.TouchObject("default:bindings_player");
+	local mbsl = RDXDB.TouchObject("bindings:bindings_player");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_player_", ty = "MouseBindings"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "bindings", prefixfile = "bindings_player_", ty = "MouseBindings"};
 	end
 	
 	--
@@ -1699,7 +1700,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	-- default:bindings_target
 	-- type talent&name&realm
 	
-	local mbo = RDXDB.TouchObject("default:bindings_target_" .. RDX.pspace .. "1");
+	local mbo = RDXDB.TouchObject("bindings:bindings_target_" .. RDX.pspace .. "1");
 	if not mbo.data then
 		mbo.data = {
 			["1"] = {
@@ -1715,7 +1716,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	     mbo.ty = "MouseBindings"; 
 	     mbo.version = 1;
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_target_" .. RDX.pspace .. "2");
+	local mbo = RDXDB.TouchObject("bindings:bindings_target_" .. RDX.pspace .. "2");
 	if not mbo.data then
 		mbo.data = {
 			["1"] = {
@@ -1731,7 +1732,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	     mbo.ty = "MouseBindings"; 
 	     mbo.version = 1;
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_target_" .. RDX.pspace .. "3");
+	local mbo = RDXDB.TouchObject("bindings:bindings_target_" .. RDX.pspace .. "3");
 	if not mbo.data then
 		mbo.data = {
 			["1"] = {
@@ -1747,64 +1748,64 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	     mbo.ty = "MouseBindings"; 
 	     mbo.version = 1;
 	end
-	local mbsl = RDXDB.TouchObject("default:bindings_target");
+	local mbsl = RDXDB.TouchObject("bindings:bindings_target");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_target_", ty = "MouseBindings"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "bindings", prefixfile = "bindings_target_", ty = "MouseBindings"};
 	end
 	
 	-- heal bindings
 	
-	local mbo = RDXDB.TouchObject("default:bindings_heal_" .. RDX.pspace .. "1");
+	local mbo = RDXDB.TouchObject("bindings:bindings_heal_" .. RDX.pspace .. "1");
 	if not mbo.data then
 		mbo.data = heal_default();
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_heal_" .. RDX.pspace .. "2");
+	local mbo = RDXDB.TouchObject("bindings:bindings_heal_" .. RDX.pspace .. "2");
 	if not mbo.data then
 		mbo.data = heal_default();
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_heal_" .. RDX.pspace .. "3");
+	local mbo = RDXDB.TouchObject("bindings:bindings_heal_" .. RDX.pspace .. "3");
 	if not mbo.data then
 		mbo.data = heal_default();
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
 	-- Create symlink if it doesn't exist
-	local mbsl = RDXDB.TouchObject("default:bindings_heal");
+	local mbsl = RDXDB.TouchObject("bindings:bindings_heal");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_heal_", ty = "MouseBindings"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "bindings", prefixfile = "bindings_heal_", ty = "MouseBindings"};
 	end
 	
 	-- damage
-	local mbo = RDXDB.TouchObject("default:bindings_dmg_" .. RDX.pspace .. "1");
+	local mbo = RDXDB.TouchObject("bindings:bindings_dmg_" .. RDX.pspace .. "1");
 	if not mbo.data then
 		mbo.data = dmg_default();
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_dmg_" .. RDX.pspace .. "2");
+	local mbo = RDXDB.TouchObject("bindings:bindings_dmg_" .. RDX.pspace .. "2");
 	if not mbo.data then
 		mbo.data = dmg_default();
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_dmg_" .. RDX.pspace .. "3");
+	local mbo = RDXDB.TouchObject("bindings:bindings_dmg_" .. RDX.pspace .. "3");
 	if not mbo.data then
 		mbo.data = dmg_default();
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 	end
 	-- Create symlink if it doesn't exist
-	local mbsl = RDXDB.TouchObject("default:bindings_dmg");
+	local mbsl = RDXDB.TouchObject("bindings:bindings_dmg");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "bindings_dmg_", ty = "MouseBindings"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "bindings", prefixfile = "bindings_dmg_", ty = "MouseBindings"};
 	end
 	
 	-- decurse
-	local mbo = RDXDB.TouchObject("default:bindings_decurse_druid");
+	local mbo = RDXDB.TouchObject("bindings:bindings_decurse_druid");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -1816,7 +1817,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_decurse_priest");
+	local mbo = RDXDB.TouchObject("bindings:bindings_decurse_priest");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -1832,7 +1833,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_decurse_mage");
+	local mbo = RDXDB.TouchObject("bindings:bindings_decurse_mage");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -1844,7 +1845,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_decurse_paladin");
+	local mbo = RDXDB.TouchObject("bindings:bindings_decurse_paladin");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -1856,7 +1857,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_decurse_shaman");
+	local mbo = RDXDB.TouchObject("bindings:bindings_decurse_shaman");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -1868,7 +1869,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_default");
+	local mbo = RDXDB.TouchObject("bindings:bindings_default");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -1876,27 +1877,27 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_decurse");
+	local mbo = RDXDB.TouchObject("bindings:bindings_decurse");
 	if not mbo.data then 
 		mbo.ty = "SymLink"; 
 		mbo.version = 3;
 		mbo.data = {
-			["targetpath_5"] = "default:bindings_default",
+			["targetpath_5"] = "bindings:bindings_default",
 			["class"] = "class",
-			["targetpath_7"] = "default:bindings_decurse_mage",
-			["targetpath_8"] = "default:bindings_default",
-			["targetpath_2"] = "default:bindings_decurse_druid",
-			["targetpath_3"] = "default:bindings_decurse_paladin",
-			["targetpath_4"] = "default:bindings_decurse_shaman",
-			["targetpath_1"] = "default:bindings_decurse_priest",
-			["targetpath_10"] = "default:bindings_default",
-			["targetpath_9"] = "default:bindings_default",
-			["targetpath_6"] = "default:bindings_default",
+			["targetpath_7"] = "bindings:bindings_decurse_mage",
+			["targetpath_8"] = "bindings:bindings_default",
+			["targetpath_2"] = "bindings:bindings_decurse_druid",
+			["targetpath_3"] = "bindings:bindings_decurse_paladin",
+			["targetpath_4"] = "bindings:bindings_decurse_shaman",
+			["targetpath_1"] = "bindings:bindings_decurse_priest",
+			["targetpath_10"] = "bindings:bindings_default",
+			["targetpath_9"] = "bindings:bindings_default",
+			["targetpath_6"] = "bindings:bindings_default",
 		};
 	end
 	
 	-- dispell a buff on mob
-	local mbo = RDXDB.TouchObject("default:bindings_dispell_shaman");
+	local mbo = RDXDB.TouchObject("bindings:bindings_dispell_shaman");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -1908,7 +1909,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_dispell_priest");
+	local mbo = RDXDB.TouchObject("bindings:bindings_dispell_priest");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -1920,27 +1921,27 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_dispell");
+	local mbo = RDXDB.TouchObject("bindings:bindings_dispell");
 	if not mbo.data then 
 		mbo.ty = "SymLink"; 
 		mbo.version = 3;
 		mbo.data = {
-			["targetpath_5"] = "default:bindings_default",
+			["targetpath_5"] = "bindings:bindings_default",
 			["class"] = "class",
-			["targetpath_7"] = "default:bindings_default",
-			["targetpath_8"] = "default:bindings_default",
-			["targetpath_2"] = "default:bindings_default",
-			["targetpath_3"] = "default:bindings_default",
-			["targetpath_4"] = "default:bindings_dispell_shaman",
-			["targetpath_1"] = "default:bindings_dispell_priest",
-			["targetpath_10"] = "default:bindings_default",
-			["targetpath_9"] = "default:bindings_default",
-			["targetpath_6"] = "default:bindings_default",
+			["targetpath_7"] = "bindings:bindings_default",
+			["targetpath_8"] = "bindings:bindings_default",
+			["targetpath_2"] = "bindings:bindings_default",
+			["targetpath_3"] = "bindings:bindings_default",
+			["targetpath_4"] = "bindings:bindings_dispell_shaman",
+			["targetpath_1"] = "bindings:bindings_dispell_priest",
+			["targetpath_10"] = "bindings:bindings_default",
+			["targetpath_9"] = "bindings:bindings_default",
+			["targetpath_6"] = "bindings:bindings_default",
 		};
 	end
 	
 	-- buff
-	local mbo = RDXDB.TouchObject("default:bindings_buff_warrior");
+	local mbo = RDXDB.TouchObject("bindings:bindings_buff_warrior");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -1951,7 +1952,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_buff_paladin");
+	local mbo = RDXDB.TouchObject("bindings:bindings_buff_paladin");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -1966,7 +1967,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_buff_druid");
+	local mbo = RDXDB.TouchObject("bindings:bindings_buff_druid");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -1977,7 +1978,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_buff_priest");
+	local mbo = RDXDB.TouchObject("bindings:bindings_buff_priest");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -1992,7 +1993,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:bindings_buff_mage");
+	local mbo = RDXDB.TouchObject("bindings:bindings_buff_mage");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -2008,27 +2009,27 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_buff");
+	local mbo = RDXDB.TouchObject("bindings:bindings_buff");
 	if not mbo.data then 
 		mbo.ty = "SymLink"; 
 		mbo.version = 3;
 		mbo.data = {
-			["targetpath_5"] = "default:bindings_buff_warrior",
+			["targetpath_5"] = "bindings:bindings_buff_warrior",
 			["class"] = "class",
-			["targetpath_7"] = "default:bindings_buff_mage",
-			["targetpath_8"] = "default:bindings_default",
-			["targetpath_2"] = "default:bindings_buff_druid",
-			["targetpath_3"] = "default:bindings_buff_paladin",
-			["targetpath_4"] = "default:bindings_default",
-			["targetpath_1"] = "default:bindings_buff_priest",
-			["targetpath_10"] = "default:bindings_default",
-			["targetpath_9"] = "default:bindings_default",
-			["targetpath_6"] = "default:bindings_default",
+			["targetpath_7"] = "bindings:bindings_buff_mage",
+			["targetpath_8"] = "bindings:bindings_default",
+			["targetpath_2"] = "bindings:bindings_buff_druid",
+			["targetpath_3"] = "bindings:bindings_buff_paladin",
+			["targetpath_4"] = "bindings:bindings_default",
+			["targetpath_1"] = "bindings:bindings_buff_priest",
+			["targetpath_10"] = "bindings:bindings_default",
+			["targetpath_9"] = "bindings:bindings_default",
+			["targetpath_6"] = "bindings:bindings_default",
 		};
 	end
 	
 	-- interrupt
-	local mbo = RDXDB.TouchObject("default:bindings_interrupt_priest");
+	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt_priest");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -2044,7 +2045,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_interrupt_rogue");
+	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt_rogue");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -2056,7 +2057,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_interrupt_deathknight");
+	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt_deathknight");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -2068,7 +2069,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_interrupt_hunter");
+	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt_hunter");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -2084,7 +2085,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_interrupt_warlock");
+	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt_warlock");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -2096,7 +2097,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_interrupt_paladin");
+	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt_paladin");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -2116,7 +2117,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_interrupt_mage");
+	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt_mage");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -2128,7 +2129,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_interrupt_warrior");
+	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt_warrior");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -2144,7 +2145,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_interrupt_druid");
+	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt_druid");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -2160,7 +2161,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_interrupt_shaman");
+	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt_shaman");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
@@ -2172,22 +2173,22 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:bindings_interrupt");
+	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt");
 	if not mbo.data then 
 		mbo.ty = "SymLink"; 
 		mbo.version = 3;
 		mbo.data = {
-			["targetpath_5"] = "default:bindings_interrupt_warrior",
+			["targetpath_5"] = "bindings:bindings_interrupt_warrior",
 			["class"] = "class",
-			["targetpath_7"] = "default:bindings_interrupt_mage",
-			["targetpath_8"] = "default:bindings_interrupt_rogue",
-			["targetpath_2"] = "default:bindings_interrupt_druid",
-			["targetpath_3"] = "default:bindings_interrupt_paladin",
-			["targetpath_4"] = "default:bindings_interrupt_shaman",
-			["targetpath_1"] = "default:bindings_interrupt_priest",
-			["targetpath_10"] = "default:bindings_interrupt_deathknight",
-			["targetpath_9"] = "default:bindings_interrupt_hunter",
-			["targetpath_6"] = "default:bindings_interrupt_warlock",
+			["targetpath_7"] = "bindings:bindings_interrupt_mage",
+			["targetpath_8"] = "bindings:bindings_interrupt_rogue",
+			["targetpath_2"] = "bindings:bindings_interrupt_druid",
+			["targetpath_3"] = "bindings:bindings_interrupt_paladin",
+			["targetpath_4"] = "bindings:bindings_interrupt_shaman",
+			["targetpath_1"] = "bindings:bindings_interrupt_priest",
+			["targetpath_10"] = "bindings:bindings_interrupt_deathknight",
+			["targetpath_9"] = "bindings:bindings_interrupt_hunter",
+			["targetpath_6"] = "bindings:bindings_interrupt_warlock",
 		};
 	end
 	
@@ -2199,7 +2200,8 @@ end);
 --
 
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
-	local mbo = RDXDB.TouchObject("default:aurafilter_priest_buff");
+	local aurafilters = RDXDB.GetOrCreatePackage("aurafilters");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_priest_buff");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2214,7 +2216,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:aurafilter_druid_buff");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_druid_buff");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2226,7 +2228,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:aurafilter_paladin_buff");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_paladin_buff");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2238,7 +2240,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:aurafilter_shaman_buff");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_shaman_buff");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2248,7 +2250,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:aurafilter_mage_buff");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_mage_buff");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2257,7 +2259,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:aurafilter_hunter_buff");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_hunter_buff");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2266,7 +2268,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:aurafilter_warrior_buff");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_warrior_buff");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2277,7 +2279,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:aurafilter_deathknight_buff");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_deathknight_buff");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2285,7 +2287,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:aurafilter_warlock_buff");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_warlock_buff");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2293,7 +2295,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:aurafilter_rogue_buff");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_rogue_buff");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2301,25 +2303,25 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 
-	local mbsl = RDXDB.TouchObject("default:aurafilter_buff");
+	local mbsl = RDXDB.TouchObject("aurafilters:aurafilter_buff");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "class" then
 		mbsl.ty = "SymLink"; mbsl.version = 3; 
 		mbsl.data = {
 			class = "class",
-			targetpath_1 = "default:aurafilter_priest_buff",
-			targetpath_2 = "default:aurafilter_druid_buff",
-			targetpath_3 = "default:aurafilter_paladin_buff",
-			targetpath_4 = "default:aurafilter_shaman_buff",
-			targetpath_5 = "default:aurafilter_warrior_buff",
-			targetpath_6 = "default:aurafilter_warlock_buff",
-			targetpath_7 = "default:aurafilter_mage_buff",
-			targetpath_8 = "default:aurafilter_rogue_buff",
-			targetpath_9 = "default:aurafilter_hunter_buff",
-			targetpath_10 = "default:aurafilter_deathknight_buff",
+			targetpath_1 = "aurafilters:aurafilter_priest_buff",
+			targetpath_2 = "aurafilters:aurafilter_druid_buff",
+			targetpath_3 = "aurafilters:aurafilter_paladin_buff",
+			targetpath_4 = "aurafilters:aurafilter_shaman_buff",
+			targetpath_5 = "aurafilters:aurafilter_warrior_buff",
+			targetpath_6 = "aurafilters:aurafilter_warlock_buff",
+			targetpath_7 = "aurafilters:aurafilter_mage_buff",
+			targetpath_8 = "aurafilters:aurafilter_rogue_buff",
+			targetpath_9 = "aurafilters:aurafilter_hunter_buff",
+			targetpath_10 = "aurafilters:aurafilter_deathknight_buff",
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:aurafilter_dot");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_dot");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2331,7 +2333,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:aurafilter_block");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_block");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2353,7 +2355,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("default:aurafilter_boss");
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_boss");
 	if not mbo.data then 
 		mbo.ty = "AuraFilter"; 
 		mbo.version = 1;
@@ -2369,43 +2371,44 @@ end);
 -- Builtin default set magic, curse, poison
 ---------------------------------------------
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
-	local mbo = RDXDB.TouchObject("default:set_debuff_primary");
+	local sets = RDXDB.GetOrCreatePackage("sets");
+	local mbo = RDXDB.TouchObject("sets:set_debuff_primary");
 	if not mbo.data then
 		mbo.ty = "SymLink";
 		mbo.version = 3;
 		mbo.data = {
-			["targetpath_5"] = "default:set_debuff_none",
+			["targetpath_5"] = "sets:set_debuff_none",
 			["class"] = "class",
-			["targetpath_7"] = "default:set_debuff_curse",
-			["targetpath_8"] = "default:set_debuff_none",
-			["targetpath_2"] = "default:set_debuff_poison",
-			["targetpath_3"] = "default:set_debuff_poison",
-			["targetpath_4"] = "default:set_debuff_curse",
-			["targetpath_1"] = "default:set_debuff_magic",
-			["targetpath_10"] = "default:set_debuff_none",
-			["targetpath_9"] = "default:set_debuff_none",
-			["targetpath_6"] = "default:set_debuff_magic",
+			["targetpath_7"] = "sets:set_debuff_curse",
+			["targetpath_8"] = "sets:set_debuff_none",
+			["targetpath_2"] = "sets:set_debuff_poison",
+			["targetpath_3"] = "sets:set_debuff_poison",
+			["targetpath_4"] = "sets:set_debuff_curse",
+			["targetpath_1"] = "sets:set_debuff_magic",
+			["targetpath_10"] = "sets:set_debuff_none",
+			["targetpath_9"] = "sets:set_debuff_none",
+			["targetpath_6"] = "sets:set_debuff_magic",
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_debuff_secondary");
+	local mbo = RDXDB.TouchObject("sets:set_debuff_secondary");
 	if not mbo.data then
 		mbo.ty = "SymLink";
 		mbo.version = 3;
 		mbo.data = {
-			["targetpath_5"] = "default:set_debuff_none",
+			["targetpath_5"] = "sets:set_debuff_none",
 			["class"] = "class",
-			["targetpath_7"] = "default:set_debuff_none",
-			["targetpath_8"] = "default:set_debuff_none",
-			["targetpath_2"] = "default:set_debuff_curse",
-			["targetpath_3"] = "default:set_debuff_disease",
-			["targetpath_4"] = "default:set_debuff_none",
-			["targetpath_1"] = "default:set_debuff_disease",
-			["targetpath_10"] = "default:set_debuff_none",
-			["targetpath_9"] = "default:set_debuff_none",
-			["targetpath_6"] = "default:set_debuff_none",
+			["targetpath_7"] = "sets:set_debuff_none",
+			["targetpath_8"] = "sets:set_debuff_none",
+			["targetpath_2"] = "sets:set_debuff_curse",
+			["targetpath_3"] = "sets:set_debuff_disease",
+			["targetpath_4"] = "sets:set_debuff_none",
+			["targetpath_1"] = "sets:set_debuff_disease",
+			["targetpath_10"] = "sets:set_debuff_none",
+			["targetpath_9"] = "sets:set_debuff_none",
+			["targetpath_6"] = "sets:set_debuff_none",
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_debuff");
+	local mbo = RDXDB.TouchObject("sets:set_debuff");
 	if not mbo.data then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;
@@ -2414,20 +2417,20 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 				{
 					"set", -- [1]
 					{
-						["file"] = "default:set_debuff_primary",
+						["file"] = "sets:set_debuff_primary",
 						["class"] = "file",
 					}, -- [2]
 				}, -- [2]
 				{
 					"set", -- [1]
 					{
-						["file"] = "default:set_debuff_secondary",
+						["file"] = "sets:set_debuff_secondary",
 						["class"] = "file",
 					}, -- [2]
 				}, -- [3]
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_debuff_both");
+	local mbo = RDXDB.TouchObject("sets:set_debuff_both");
 	if not mbo.data then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;
@@ -2436,20 +2439,20 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			{
 				"set", -- [1]
 				{
-					["file"] = "default:set_debuff_primary",
+					["file"] = "sets:set_debuff_primary",
 					["class"] = "file",
 				}, -- [2]
 			}, -- [2]
 			{
 				"set", -- [1]
 				{
-					["file"] = "default:set_debuff_secondary",
+					["file"] = "sets:set_debuff_secondary",
 					["class"] = "file",
 				}, -- [2]
 			}, -- [3]
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_debuff_none");
+	local mbo = RDXDB.TouchObject("sets:set_debuff_none");
 	if not mbo.data then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;
@@ -2461,7 +2464,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 					"set", -- [1]
 					{
 						["class"] = "file",
-						["file"] = "default:set_debuff_primary",
+						["file"] = "sets:set_debuff_primary",
 					}, -- [2]
 				}, -- [2]
 			}, -- [2]
@@ -2471,13 +2474,13 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 					"set", -- [1]
 					{
 						["class"] = "file",
-						["file"] = "default:set_debuff_secondary",
+						["file"] = "sets:set_debuff_secondary",
 					}, -- [2]
 				}, -- [2]
 			}, -- [3]
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_debuff_magic");
+	local mbo = RDXDB.TouchObject("sets:set_debuff_magic");
 	if not mbo.data then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;
@@ -2502,7 +2505,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			}, -- [3]
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_debuff_curse");
+	local mbo = RDXDB.TouchObject("sets:set_debuff_curse");
 	if not mbo.data then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;
@@ -2517,7 +2520,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			}, -- [2]
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_debuff_poison");
+	local mbo = RDXDB.TouchObject("sets:set_debuff_poison");
 	if not mbo.data then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;
@@ -2532,7 +2535,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			}, -- [2]
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_debuff_disease");
+	local mbo = RDXDB.TouchObject("sets:set_debuff_disease");
 	if not mbo.data then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;
@@ -2554,7 +2557,7 @@ end);
 --------------------------------------
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	-- Create player-specific set yellow if they don't exist
-	local mbo = RDXDB.TouchObject("default:set_yellow_" .. RDX.pspace .. "1");
+	local mbo = RDXDB.TouchObject("sets:set_yellow_" .. RDX.pspace .. "1");
 	if not mbo.data then 
 		mbo.ty = "FilterSet"; 
 		mbo.version = 1;
@@ -2565,7 +2568,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_yellow_" .. RDX.pspace .. "2");
+	local mbo = RDXDB.TouchObject("sets:set_yellow_" .. RDX.pspace .. "2");
 	if not mbo.data then 
 		mbo.ty = "FilterSet"; 
 		mbo.version = 1;
@@ -2576,7 +2579,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_yellow_" .. RDX.pspace .. "3");
+	local mbo = RDXDB.TouchObject("sets:set_yellow_" .. RDX.pspace .. "3");
 	if not mbo.data then 
 		mbo.ty = "FilterSet"; 
 		mbo.version = 1;
@@ -2588,13 +2591,13 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	-- Create symlink if it doesn't exist
-	local mbsl = RDXDB.TouchObject("default:set_yellow");
+	local mbsl = RDXDB.TouchObject("sets:set_yellow");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_yellow_", ty = "FilterSet"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "sets", prefixfile = "set_yellow_", ty = "FilterSet"};
 	end
 	
 	-- Create player-specific set red if they don't exist
-	local mbo = RDXDB.TouchObject("default:set_red_" .. RDX.pspace .. "1");
+	local mbo = RDXDB.TouchObject("sets:set_red_" .. RDX.pspace .. "1");
 	if not mbo.data then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;
@@ -2605,7 +2608,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_red_" .. RDX.pspace .. "2");
+	local mbo = RDXDB.TouchObject("sets:set_red_" .. RDX.pspace .. "2");
 	if not mbo.data then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;
@@ -2616,7 +2619,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_red_" .. RDX.pspace .. "3");
+	local mbo = RDXDB.TouchObject("sets:set_red_" .. RDX.pspace .. "3");
 	if not mbo.data then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;
@@ -2628,13 +2631,13 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	-- Create symlink if it doesn't exist
-	local mbsl = RDXDB.TouchObject("default:set_red");
+	local mbsl = RDXDB.TouchObject("sets:set_red");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_red_", ty = "FilterSet"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "sets", prefixfile = "set_red_", ty = "FilterSet"};
 	end
 	
 	-- Create player-specific set green if they don't exist
-	local mbo = RDXDB.TouchObject("default:set_green_" .. RDX.pspace .. "1");
+	local mbo = RDXDB.TouchObject("sets:set_green_" .. RDX.pspace .. "1");
 	if not mbo.data then
 		mbo.ty = "FilterSet"; 
 		mbo.version = 1;
@@ -2645,7 +2648,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_green_" .. RDX.pspace .. "2");
+	local mbo = RDXDB.TouchObject("sets:set_green_" .. RDX.pspace .. "2");
 	if not mbo.data then
 		mbo.ty = "FilterSet"; 
 		mbo.version = 1;
@@ -2656,7 +2659,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_green_" .. RDX.pspace .. "3");
+	local mbo = RDXDB.TouchObject("sets:set_green_" .. RDX.pspace .. "3");
 	if not mbo.data then
 		mbo.ty = "FilterSet"; 
 		mbo.version = 1;
@@ -2668,13 +2671,13 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	-- Create symlink if it doesn't exist
-	local mbsl = RDXDB.TouchObject("default:set_green");
+	local mbsl = RDXDB.TouchObject("sets:set_green");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_green_", ty = "FilterSet"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "sets", prefixfile = "set_green_", ty = "FilterSet"};
 	end
 	
 	-- Create player-specific set blue if they don't exist
-	local mbo = RDXDB.TouchObject("default:set_blue_" .. RDX.pspace .. "1");
+	local mbo = RDXDB.TouchObject("sets:set_blue_" .. RDX.pspace .. "1");
 	if not mbo.data then
 		mbo.ty = "FilterSet"; 
 		mbo.version = 1;
@@ -2685,7 +2688,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_blue_" .. RDX.pspace .. "2");
+	local mbo = RDXDB.TouchObject("sets:set_blue_" .. RDX.pspace .. "2");
 	if not mbo.data then
 		mbo.ty = "FilterSet"; 
 		mbo.version = 1;
@@ -2696,7 +2699,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
-	local mbo = RDXDB.TouchObject("default:set_blue_" .. RDX.pspace .. "3");
+	local mbo = RDXDB.TouchObject("sets:set_blue_" .. RDX.pspace .. "3");
 	if not mbo.data then
 		mbo.ty = "FilterSet"; 
 		mbo.version = 1;
@@ -2708,9 +2711,9 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	-- Create symlink if it doesn't exist
-	local mbsl = RDXDB.TouchObject("default:set_blue");
+	local mbsl = RDXDB.TouchObject("sets:set_blue");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "default", prefixfile = "set_blue_", ty = "FilterSet"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", pkg = "sets", prefixfile = "set_blue_", ty = "FilterSet"};
 	end
 	
 end);

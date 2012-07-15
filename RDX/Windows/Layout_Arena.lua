@@ -210,9 +210,10 @@ RDX.RegisterFeature({
 			grid:SetPoint("TOPLEFT", faux, "TOPLEFT"); grid:Show();
 			-- Profiling hooks
 			if w._path then
-				VFLP.RegisterCategory("Win: " .. w._path);
-				VFLP.RegisterFunc("Win: " .. w._path, "RepaintLayout", relayout, true);
-				VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", update, true);
+				--VFLP.RegisterCategory("Win: " .. w._path);
+				--VFLP.RegisterFunc("Win: " .. w._path, "RepaintLayout", relayout, true);
+				--VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", update, true);
+				VFLP.RegisterFunc("Windows", w._path, update, true);
 			end
 		end
 

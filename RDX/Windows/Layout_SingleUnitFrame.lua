@@ -350,8 +350,9 @@ RDX.RegisterFeature({
 
 			-- Profiling hooks
 			if w._path and VFLP.IsEnabled() then
-				VFLP.RegisterCategory("Win: " .. w._path);
-				VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", paintData, true);
+				--VFLP.RegisterCategory("Win: " .. w._path);
+				--VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", paintData, true);
+				VFLP.RegisterFunc("Windows", w._path, paintData, true);
 			end
 		end
 

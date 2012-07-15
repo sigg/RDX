@@ -107,25 +107,25 @@ local function AUIList()
 
 	--table.insert(stateTypeMenus, autoMenu);
 
-	for _,v in ipairs(state) do
-		local thisMenu = {
-			text = v,
-			checked = function()
-				if strlower(v) == RDXU.AUIState then return true; else return nil; end
-			end,
-			func = function()
-				RDXDK.SwitchState_Disable(strlower(v));
-			end;
-		};
-		table.insert(stateTypeMenus, thisMenu);
-	end
+	--for _,v in ipairs(state) do
+	--	local thisMenu = {
+	--		text = v,
+	--		checked = function()
+	--			if strlower(v) == RDXU.AUIState then return true; else return nil; end
+	--		end,
+	--		func = function()
+	--			RDXDK.SwitchState_Disable(strlower(v));
+	--		end;
+	--	};
+	--	table.insert(stateTypeMenus, thisMenu);
+	--end
 
-	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text = VFLI.i18n("Theme state");
-		ent.hasArrow = true;
-		ent.notCheckable = true;
-		ent.menuList = stateTypeMenus;
-	end);
+	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
+	--	ent.text = VFLI.i18n("Theme state");
+	--	ent.hasArrow = true;
+	--	ent.notCheckable = true;
+	--	ent.menuList = stateTypeMenus;
+	--end);
 	
 	-----------------------------------
 	local editListMenu = {		

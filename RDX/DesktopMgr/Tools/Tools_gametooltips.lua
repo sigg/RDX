@@ -107,4 +107,4 @@ end
 
 frameg:Hide();
 
-RDXDK.RegisterTool("GameTooltip", 100, frameg, SetFrameg, UnsetFrameg);
+RDXDK.RegisterTool("G", 30, frameg, SetFrameg, UnsetFrameg);

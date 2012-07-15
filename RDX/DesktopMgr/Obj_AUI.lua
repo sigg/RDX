@@ -372,15 +372,15 @@ local function ChangeAUI(path, nosave)
 	RDXU.AUI = path;
 	currentAUI = RDXDB.GetObjectInstance(RDXU.AUI);
 	if currentAUI then
-		local state;
-		if RDXU.autoSwitchState then
-			state = "A:" .. RDXU.AUIState;
-		else
-			state = RDXU.AUIState;
-		end
+		--local state;
+		--if RDXU.autoSwitchState then
+		--	state = "A:" .. RDXU.AUIState;
+		--else
+		--	state = RDXU.AUIState;
+		--end
 		
 		local _, auiname = RDXDB.ParsePath(RDXU.AUI);
-		RDXDK.SecuredChangeState(RDXU.AUIState, true);
+		RDXDK.SecuredChangeState("default", true);
 		RDXEvents:Dispatch("AUI", auiname);
 	end
 end
@@ -409,7 +409,7 @@ local function ChangeState(state)
 	RDX:Debug(3, "Change AUI state " .. state);
 	RDXU.AUIState = state;
 	local inst = RDXDB.GetObjectInstance(RDXU.AUI);
-	if inst then
+	if inst and inst[state] then
 		RDXDK.SecuredChangeDesktop(inst[state]);
 		VFLGC();
 	end
@@ -431,77 +431,6 @@ VFLEvents:Bind("PLAYER_COMBAT", nil, function(flag)
 		newstate = nil;
 	end
 end);
-
--- SWITCH desktop function
-local function SwitchState()
-	RDXU.ActiveTalentGroup = GetActiveTalentGroup();
-	local tf = ""; if RDXU.ActiveTalentGroup == 2 then tf = "2"; end
-	if RDXU.autoSwitchState then
-		local inst = RDXDB.GetObjectInstance(RDXU.AUI);
-		if VFL.InArena() then
-			if inst["arenaflag" .. tf] then
-				if RDXU.AUIState ~= "arena" .. tf then
-					RDXDK.SecuredChangeState("arena" .. tf);
-				end
-			else
-				if RDXU.AUIState ~= "solo" .. tf then
-					RDXDK.SecuredChangeState("solo" .. tf);
-				end
-			end
-		elseif VFL.InBattleground() then
-			if inst["pvpflag" .. tf] then
-				if RDXU.AUIState ~= "pvp" .. tf then
-					RDXDK.SecuredChangeState("pvp" .. tf);
-				end
-			else
-				if RDXU.AUIState ~= "solo" .. tf then
-					RDXDK.SecuredChangeState("solo" .. tf);
-				end
-			end
-		elseif RDXDAL.InRaid() then
-			if inst["raidflag" .. tf] then
-				if RDXU.AUIState ~= "raid" .. tf then
-					RDXDK.SecuredChangeState("raid" .. tf);
-				end
-			else
-				if RDXU.AUIState ~= "solo" .. tf then
-					RDXDK.SecuredChangeState("solo" .. tf);
-				end
-			end
-		elseif RDXDAL.IsSolo() then
-				RDXDK.SecuredChangeState("solo" .. tf);
-		elseif (RDXDAL.GetNumUnits() > 1) then
-			if inst["partyflag" .. tf] then
-				if RDXU.AUIState ~= "party" .. tf then
-					RDXDK.SecuredChangeState("party" .. tf);
-				end
-			else
-				if RDXU.AUIState ~= "solo" .. tf then
-					RDXDK.SecuredChangeState("solo" .. tf);
-				end
-			end
-		end
-	end
-end
-
-local function SwitchState_Enable()
-	RDXU.autoSwitchState = true;
-	RDXEvents:Bind("PARTY_IS_RAID", nil, function() SwitchState(); end,"RDX_ChangeState");
-	RDXEvents:Bind("PARTY_IS_NONRAID", nil, function() SwitchState(); end, "RDX_ChangeState");
-	VFLEvents:Bind("PLAYER_IN_ARENA", nil, function(flag) if flag then SwitchState(); end; end, "RDX_ChangeState");
-	VFLEvents:Bind("PLAYER_IN_BATTLEGROUND", nil, function(flag) if flag then SwitchState(); end; end, "RDX_ChangeState");
-	SwitchState();
-end;
-RDXDK.SwitchState_Enable = SwitchState_Enable;
-
-local function SwitchState_Disable(state)
-	RDXU.autoSwitchState = nil;
-	RDXEvents:Unbind("RDX_ChangeState");
-	VFLEvents:Unbind("RDX_ChangeState");
-	if state then RDXDK.SecuredChangeState(state); end
-end;
-RDXDK.SwitchState_Disable = SwitchState_Disable;
-
 
 -----------------------------------------------------------------
 -- Update hooks - make sure when a desktop changes we reload it.
@@ -528,7 +457,7 @@ RDXDK.SwitchState_Disable = SwitchState_Disable;
 
 RDXEvents:Bind("INIT_DESKTOP", nil, function()
 	if not RDXU.AUI and not RDXDB.ResolvePath(RDXU.AUI) then RDXU.AUI = "desktops:default"; end
-	if not RDXU.AUIState then RDXU.AUIState = "solo"; end
+	if not RDXU.AUIState then RDXU.AUIState = "default"; end
 	
 	ChangeAUI(RDXU.AUI);
 	
@@ -541,7 +470,7 @@ local function ManageAutoDesk(pkg, dir)
 	local aex, adesk, isexist = nil, nil, nil;
 	adesk = dir["autodesk"];
 	if adesk and adesk.ty == "Desktop" then
-		isexist = RDXDB.CheckObject("desktops:".. pkg .. "_solo_dsk", "Desktop");
+		--[[isexist = RDXDB.CheckObject("desktops:".. pkg .. "_solo_dsk", "Desktop");
 		if not isexist then RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_solo_dsk"); end
 		isexist = RDXDB.CheckObject("desktops:".. pkg .. "_party_dsk", "Desktop");
 		if not isexist then 
@@ -567,34 +496,19 @@ local function ManageAutoDesk(pkg, dir)
 			RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Party_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Party_Main"} );
 			RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Partytarget_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Partytarget_Main"} );
 			RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Arena_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Arena_Main"} );
-		end
+		end]]
 		isexist = RDXDB.CheckObject("desktops:".. pkg, "AUI");
 		if not isexist then 
 			local mbo = RDXDB.TouchObject("desktops:".. pkg);
 			mbo.data = {
-				["solo"] = "desktops:".. pkg .. "_solo_dsk";
-				["party"] = "desktops:".. pkg .. "_party_dsk";
-				["raid"] = "desktops:".. pkg .. "_raid_dsk";
-				["pvp"] = "desktops:".. pkg .. "_pvp_dsk";
-				["arena"] = "desktops:".. pkg .. "_arena_dsk";
-				["solo2"] = "desktops:".. pkg .. "_solo_dsk";
-				["party2"] = "desktops:".. pkg .. "_party_dsk";
-				["raid2"] = "desktops:".. pkg .. "_raid_dsk";
-				["pvp2"] = "desktops:".. pkg .. "_pvp_dsk";
-				["arena2"] = "desktops:".. pkg .. "_arena_dsk";
-				["soloflag"] = true;
-				["partyflag"] = true;
-				["raidflag"] = true;
-				["pvpflag"] = true;
-				["arenaflag"] = true;
-				["soloflag2"] = true;
-				["partyflag2"] = true;
-				["raidflag2"] = true;
-				["pvpflag2"] = true;
-				["arenaflag2"] = true;
 			};
 			mbo.ty = "AUI"; 
 			mbo.version = 2;
+			local isexist2 = RDXDB.CheckObject("desktops:".. pkg .. "_default", "Desktop");
+			if not isexist2 then 
+				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_default");
+				mbo.data["default"] = "desktops:".. pkg .. "_default";
+			end
 		end
 	end
 end

@@ -10,6 +10,8 @@ RDXDK = RegisterVFLModule({
 });
 --RDXDK:ModuleSetDebugLevel(10);
 
+VFLP.RegisterCategory("Windows");
+
 DesktopEvents = DispatchTable:new();
 -- Main currentDesktop Object
 local currentDesktop = nil;
@@ -252,19 +254,28 @@ function RDXDK.Desktop:new(parent)
 		RDXDK.SetCombatTextFont(font or Fonts.Default10);
 	end
 	
+	local function UpdateNameplate(desc, flag)
+		RDXDK.SetNameplate(desc);
+		if flag and framepropsroot then
+			if not framepropsroot.nameplates then framepropsroot.nameplates = {}; end
+			framepropsroot.nameplates = desc;
+		end
+	end
+	
 	DesktopEvents:Bind("DESKTOP_LOCK", nil, LockDesktop, "desktop");
 	DesktopEvents:Bind("DESKTOP_UNLOCK", nil, UnlockDesktop, "desktop");
 	DesktopEvents:Bind("DESKTOP_VIEWPORT", nil, UpdateViewport, "desktop");
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP", nil, UpdateGameTooltip, "desktop");
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP_LOCK", nil, LockGameTooltip, "desktop");
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP_UNLOCK", nil, UnlockGameTooltip, "desktop");
-	DesktopEvents:Bind("DESKTOP_ALERTS_LOCK", nil, LockAlerts, "desktop");
-	DesktopEvents:Bind("DESKTOP_ALERTS_UNLOCK", nil, UnlockAlerts, "desktop");
 	DesktopEvents:Bind("DESKTOP_REALID", nil, UpdateRealid, "desktop");
 	DesktopEvents:Bind("DESKTOP_RDXICON_POSITION", nil, UpdateRDXIconPosition, "desktop");
 	DesktopEvents:Bind("DESKTOP_RDXICON_TYPE", nil, UpdateRDXIconType, "desktop");
 	DesktopEvents:Bind("DESKTOP_ALERTS", nil, UpdateAlerts, "desktop");
+	DesktopEvents:Bind("DESKTOP_ALERTS_LOCK", nil, LockAlerts, "desktop");
+	DesktopEvents:Bind("DESKTOP_ALERTS_UNLOCK", nil, UnlockAlerts, "desktop");
 	DesktopEvents:Bind("DESKTOP_COMBATTEXT", nil, UpdateCombatText, "desktop");
+	DesktopEvents:Bind("DESKTOP_NAMEPLATE", nil, UpdateNameplate, "desktop");
 	
 	local function LayoutFrame(name, noanim)
 		local frame, frameprops = frameList[name], framePropsList[name];

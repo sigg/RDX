@@ -15,4 +15,4 @@ end
 
 framea:Hide();
 
-RDXDK.RegisterTool("Alerts", 75, framea, SetFramea, UnsetFramea);
+RDXDK.RegisterTool("A", 30, framea, SetFramea, UnsetFramea);

@@ -144,35 +144,35 @@ local function SwitchState()
 		--VFL.print("ARENA MODE");
 		if currentstate ~= "ARENA" then
 			currentstate = "ARENA";
-			VFL.print("ARENA MODE SET");
+			--VFL.print("ARENA MODE SET");
 			_sig_rdx_roster_state:Raise("ARENA");
 		end
 	elseif select(2,IsInInstance()) == "pvp" then
 		--VFL.print("BATTLEGROUND MODE");
 		if currentstate ~= "BATTLEGROUND" then
 			currentstate = "BATTLEGROUND";
-			VFL.print("BATTLEGROUND MODE SET");
+			--VFL.print("BATTLEGROUND MODE SET");
 			_sig_rdx_roster_state:Raise("BATTLEGROUND");
 		end
 	elseif isRaid then
 		--VFL.print("RAID MODE");
 		if currentstate ~= "RAID" then
 			currentstate = "RAID";
-			VFL.print("RAID MODE SET");
+			--VFL.print("RAID MODE SET");
 			_sig_rdx_roster_state:Raise("RAID");
 		end
 	elseif isSolo then
 		--VFL.print("SOLO MODE");
 		if currentstate ~= "SOLO" then
 			currentstate = "SOLO";
-			VFL.print("SOLO MODE SET");
+			--VFL.print("SOLO MODE SET");
 			_sig_rdx_roster_state:Raise("SOLO");
 		end
 	else
 		--VFL.print("PARTY MODE");
 		if currentstate ~= "PARTY" then
 			currentstate = "PARTY";
-			VFL.print("PARTY MODE SET");
+			--VFL.print("PARTY MODE SET");
 			_sig_rdx_roster_state:Raise("PARTY");
 		end
 	end

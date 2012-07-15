@@ -110,4 +110,4 @@ end
 
 framed:Hide();
 
-RDXDK.RegisterTool("Options", 75, framed, SetFramed, UnsetFramed);
+RDXDK.RegisterTool("O", 30, framed, SetFramed, UnsetFramed);

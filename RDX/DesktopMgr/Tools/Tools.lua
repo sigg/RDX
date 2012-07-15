@@ -50,7 +50,7 @@ local function OpenDesktopTools(parent, froot)
 	dlg.tabbox = tabbox;
 	
 	dlg:_Show(RDX.smooth, nil, function()
-		tabbox:GetTabBar():SelectTabName("Windows");
+		tabbox:GetTabBar():SelectTabId(1);
 	end);
 	
 	local esch = function()

@@ -212,11 +212,12 @@ RDX.RegisterFeature({
 			grid.OnOrient = VFL.Noop;
 			grid:SetPoint("TOPLEFT", faux, "TOPLEFT"); grid:Show();
 			-- Profiling hooks
-			--if w._path and VFLP.IsEnabled() then
+			if w._path then
 			--	VFLP.RegisterCategory("Win: " .. w._path);
 			--	VFLP.RegisterFunc("Win: " .. w._path, "RepaintLayout", relayout, true);
 			--	VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", update, true);
-			--end
+				VFLP.RegisterFunc("Windows", w._path, update, true);
+			end
 		end
 
 		local function destroy()

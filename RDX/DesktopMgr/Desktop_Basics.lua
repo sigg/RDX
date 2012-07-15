@@ -36,7 +36,7 @@ RDX.RegisterFeature({
 			desc.gametooltip.bkd = { _border = "IshBorder"; bgFile = "Interface\\Addons\\VFL\\Skin\\black"; tileSize = 16; tile = true; _backdrop = "VFL_black"; edgeSize = 24; edgeFile = "Interface\\AddOns\\RDX_mediapack\\sharedmedia\\borders\\IshBorder";};
 			desc.gametooltip.font = { face = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\BigNoodleTitling.ttf"; justifyH = "LEFT"; size = 14; flags = "OUTLINE"; };
 			desc.gametooltip.tex = { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; };
-		end
+		end	
 		local tooltipmouse = "nil"; if desc.gametooltip.tooltipmouse then tooltipmouse = "true"; end
 		--if not desc.anchorx then desc.anchorx = 200; end
 		--if not desc.anchory then desc.anchory = 200; end
@@ -58,6 +58,12 @@ RDX.RegisterFeature({
 		--if not desc.anchoryrid then desc.anchoryrid = 200; end
 		desc.anchorxrid = nil;
 		desc.anchoryrid = nil;
+		
+		if not desc.nameplates then
+			desc.nameplates = {};
+			desc.nameplates.font = { face = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\BigNoodleTitling.ttf"; justifyH = "LEFT"; size = 14; flags = "OUTLINE"; };
+			desc.nameplates.tex = { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; };
+		end
 		
 		if not desc.open then desc.open = true; end
 		if not desc.root then desc.root = true; end
@@ -88,6 +94,7 @@ DesktopEvents:Dispatch("DESKTOP_RDXICON_POSITION", ]] .. desc.rdxiconx .. [[, ]]
 DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", ']] .. desc.rdxmtxt  .. [[');
 DesktopEvents:Dispatch("DESKTOP_ALERTS", ]] .. Serialize(desc.topstack_props) .. [[, ]] .. Serialize(desc.bottomstack_props) .. [[);
 DesktopEvents:Dispatch("DESKTOP_COMBATTEXT", ]] .. Serialize(desc.ctffont) .. [[);
+DesktopEvents:Dispatch("DESKTOP_NAMEPLATE", ]] .. Serialize(desc.nameplates) .. [[);
 ]]);
 		return true;
 	end,

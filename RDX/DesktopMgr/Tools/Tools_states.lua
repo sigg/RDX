@@ -185,4 +185,4 @@ local function UnsetFramew(froot)
 end
 
 framew:Hide();
-RDXDK.RegisterTool("States", 75, framew, SetFramew, UnsetFramew, true);
+RDXDK.RegisterTool("S", 30, framew, SetFramew, UnsetFramew, true);

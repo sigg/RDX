@@ -161,6 +161,7 @@ DesktopMgr\StateMenu.lua
 DesktopMgr\States.lua
 DesktopMgr\GameTooltip.lua
 DesktopMgr\CombatText.lua
+DesktopMgr\Nameplates.lua
 
 # Desktop Tools
 DesktopMgr\Tools\Tools.lua

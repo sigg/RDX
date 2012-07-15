@@ -234,12 +234,13 @@ RDX.RegisterFeature({
 			gridT:SetAttribute("toto", "ok");
 
 			-- Profiling hooks
-			if w._path and VFLP.IsEnabled() then
-				VFLP.RegisterCategory("Win: " .. w._path);
-				VFLP.RegisterFunc("Win: " .. w._path, "RepaintLayout", paintAll, true);
-				VFLP.RegisterFunc("Win: " .. w._path, "RepaintSecure", paintSecure, true);
-				VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", paintData, true);
-				VFLP.RegisterFunc("Win: " .. w._path, "LookupUnit", lookupUnit, true);
+			if w._path then
+				--VFLP.RegisterCategory("Win: " .. w._path);
+				--VFLP.RegisterFunc("Win: " .. w._path, "RepaintLayout", paintAll, true);
+				--VFLP.RegisterFunc("Win: " .. w._path, "RepaintSecure", paintSecure, true);
+				--VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", paintData, true);
+				--VFLP.RegisterFunc("Win: " .. w._path, "LookupUnit", lookupUnit, true);
+				VFLP.RegisterFunc("Windows", w._path, paintData, true);
 			end
 		end
 

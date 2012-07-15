@@ -275,13 +275,14 @@ RDX.RegisterFeature({
 					if not x then return; end
 					RDXDB.MiniFeatureEditor(nil, x, function(newfd)	VFL.copyOver(x, newfd); RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, w._path); end);
 				end);
-				if VFLP.IsEnabled() then
+				--if VFLP.IsEnabled() then
 					-- Profiling hooks.
-					VFLP.RegisterCategory("Win: " .. w._path);
-					VFLP.RegisterFunc("Win: " .. w._path, "RepaintSecure", paintSecure, true);
-					VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", paintData, true);
-					VFLP.RegisterFunc("Win: " .. w._path, "LookupUnit", lookupUnit, true);
-				end
+					--VFLP.RegisterCategory("Win: " .. w._path);
+					--VFLP.RegisterFunc("Win: " .. w._path, "RepaintSecure", paintSecure, true);
+					--VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", paintData, true);
+					--VFLP.RegisterFunc("Win: " .. w._path, "LookupUnit", lookupUnit, true);
+					VFLP.RegisterFunc("Windows", w._path, paintData, true);
+				--end
 			end
 		end
 

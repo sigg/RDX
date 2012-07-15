@@ -29,7 +29,7 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.keepShownOnClick = false;
 	ent.menuList = {
 		{ text = VFLI.i18n("Tutorial RDX"), notCheckable = true, func = function() RDX.NewLearnWizard(); end },
-		{ text = VFLI.i18n("Global Scale"), notCheckable = true, func = RDXDK.GlobalScaleDialog },
+		--{ text = VFLI.i18n("Global Scale"), notCheckable = true, func = RDXDK.GlobalScaleDialog },
 		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, func = RDXDB.ToggleObjectBrowser },
 		{ text = VFLI.i18n("Package Updater"), notCheckable = true, func = RDXDB.ToggleRAU },
 		{ text = VFLI.i18n("Switch Talent"), notCheckable = true, func = function() 

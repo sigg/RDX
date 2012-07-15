@@ -323,4 +323,4 @@ end
 
 framew:Hide();
 
-RDXDK.RegisterTool("Windows", 75, framew, SetFramew, UnsetFramew, true);
+RDXDK.RegisterTool("W", 30, framew, SetFramew, UnsetFramew, true);
