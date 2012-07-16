@@ -30,18 +30,20 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		local objname = "Icons_" .. desc.name;
-		local usebs = "false"; if desc.usebs then usebs = "true"; end
+		local driver = desc.driver or 2;
 		local ebs = desc.externalButtonSkin or "bs_default";
-		local usebkd = "false"; if desc.usebkd then usebkd = "true"; end
-		local bkd = desc.bkd or VFLUI.defaultBackdrop;	
-		local os = 0; 
-		if desc.usebs then 
-			os = desc.ButtonSkinOffset or 0;
-		elseif desc.usebkd then
-			if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
-		end
 		local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
 		local bsdefault = desc.bsdefault or _white;
+		local bkd = desc.bkd or VFLUI.defaultBackdrop;
+		local bordersize = desc.bordersize or 1;
+		local os = 0; 
+		if driver == 1 then 
+			os = desc.ButtonSkinOffset or 0;
+		elseif driver == 2 then
+			if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
+		elseif driver == 3 then
+			os = desc.bordersize or 1;
+		end
 		
 		if not desc.w then desc.w = 20; end
 		if not desc.h then desc.h = 20; end
@@ -65,12 +67,15 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 frame.]] .. objname .. [[ = {};
 btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 for i=1,]] .. desc.nIcons .. [[ do
-	if ]] .. usebs .. [[ then 
+	if ]] .. driver .. [[ == 1 then 
 		btn = VFLUI.SkinButton:new();
 		btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
-	elseif ]] .. usebkd .. [[ then
+	elseif ]] .. driver .. [[ == 2 then
 		btn = VFLUI.AcquireFrame("Button");
 		VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
+	elseif ]] .. driver .. [[ == 3 then
+		btn = VFLUI.AcquireFrame("Button");
+		VFLUI.SetBackdropBorderRDX(btn, _black, "ARTWORK", 5, ]] .. bordersize .. [[);
 	else
 		btn = VFLUI.AcquireFrame("Frame");
 	end
@@ -202,19 +207,27 @@ end
 		ui:InsertFrame(ed_height);
 		
 		-------------- Display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Button Skin parameters")));
 		
-		local chk_bs = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Button Skin"));
-		local dd_buttonSkin = VFLUI.Dropdown:new(chk_bs, VFLUI.GetButtonSkinList);
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Skin parameters")));
+		
+		local driver = VFLUI.DisjointRadioGroup:new();
+		
+		local driver_BS = driver:CreateRadioButton(ui);
+		driver_BS:SetText(VFLI.i18n("Use Button Skin"));
+		local driver_BD = driver:CreateRadioButton(ui);
+		driver_BD:SetText(VFLI.i18n("Use Backdrop"));
+		local driver_RB = driver:CreateRadioButton(ui);
+		driver_RB:SetText(VFLI.i18n("Use RDX Border"));
+		driver:SetValue(desc.driver or 2);
+		
+		ui:InsertFrame(driver_BS);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Button Skin"));
+		local dd_buttonSkin = VFLUI.Dropdown:new(er, VFLUI.GetButtonSkinList);
 		dd_buttonSkin:SetWidth(150); dd_buttonSkin:Show();
 		dd_buttonSkin:SetSelection(desc.externalButtonSkin); 
-		if desc and desc.usebs then
-			chk_bs:SetChecked(true);
-		else
-			chk_bs:SetChecked();
-		end
-		chk_bs:EmbedChild(dd_buttonSkin); chk_bs:Show();
-		ui:InsertFrame(chk_bs);
+		er:EmbedChild(dd_buttonSkin); er:Show();
+		ui:InsertFrame(er);
 		
 		local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
 		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
@@ -229,16 +242,20 @@ end
 		local color_bsdefault = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Button Skin default color"));
 		if desc and desc.bsdefault then color_bsdefault:SetColor(VFL.explodeRGBA(desc.bsdefault)); end
 		
-		local chk_bkd = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Backdrop"));
-		local dd_backdrop = VFLUI.MakeBackdropSelectButton(chk_bkd, desc.bkd);
+		ui:InsertFrame(driver_RB);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop"));
+		local dd_backdrop = VFLUI.MakeBackdropSelectButton(er, desc.bkd);
 		dd_backdrop:Show();
-		if desc and desc.usebkd then
-			chk_bkd:SetChecked(true);
-		else
-			chk_bkd:SetChecked();
-		end
-		chk_bkd:EmbedChild(dd_backdrop); chk_bkd:Show();
-		ui:InsertFrame(chk_bkd);
+		er:EmbedChild(dd_backdrop); er:Show();
+		ui:InsertFrame(er);
+		
+		ui:InsertFrame(driver_BD);
+		
+		local ed_borsize = VFLUI.LabeledEdit:new(ui, 50); ed_borsize:Show();
+		ed_borsize:SetText(VFLI.i18n("Border size"));
+		if desc and desc.bordersize then ed_borsize.editBox:SetText(desc.bordersize); end
+		ui:InsertFrame(ed_borsize);
 		
 		-------------- Interraction
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Interaction parameters")));
@@ -294,13 +311,13 @@ end
 				w = VFL.clamp(ed_width.editBox:GetNumber(), 1, 100);
 				h = VFL.clamp(ed_height.editBox:GetNumber(), 1, 100);
 				-- display
-				usebs = chk_bs:GetChecked();
+				driver = driver:GetValue();
 				externalButtonSkin = dd_buttonSkin:GetSelection();
 				ButtonSkinOffset = VFL.clamp(ed_bs.editBox:GetNumber(), 0, 50);
 				showgloss = chk_showgloss:GetChecked();
 				bsdefault = color_bsdefault:GetColor();
-				usebkd = chk_bkd:GetChecked();
 				bkd = dd_backdrop:GetSelectedBackdrop();
+				bordersize = VFL.clamp(ed_borsize.editBox:GetNumber(), 0, 50);
 				-- interaction
 				disableClick = chk_disableClick:GetChecked();
 				number = number.editBox:GetText();

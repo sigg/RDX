@@ -234,3 +234,7 @@ SetCVar("bloattest", 0) -- 1 might make nameplates larger but it fixes the disap
 SetCVar("bloatnameplates", 0) -- 1 makes nameplates larger depending on threat percentage.
 SetCVar("bloatthreat", 0) -- 1 makes nameplates resize depending on threat gain/loss. Only active when a mob has multiple units on its threat table.
 
+SetCVar("ShowClassColorInNameplate", 1)
+SetCVar("nameplateShowEnemyTotems", 1)
+
+SetCVar("spreadnameplates", 0) -- 0 makes nameplates overlap.
