@@ -237,4 +237,4 @@ SetCVar("bloatthreat", 0) -- 1 makes nameplates resize depending on threat gain/
 SetCVar("ShowClassColorInNameplate", 1)
 SetCVar("nameplateShowEnemyTotems", 1)
 
-SetCVar("spreadnameplates", 0) -- 0 makes nameplates overlap.
+--SetCVar("spreadnameplates", 0) -- 0 makes nameplates overlap.
