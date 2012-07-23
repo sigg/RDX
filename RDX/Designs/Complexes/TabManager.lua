@@ -129,6 +129,39 @@ if (md) and (ty == "TabManager") and (md.data) then
 			tab.font:SetText(tabtitle);
 			f.tab = tab;
 			tabbox.cfs["cf" .. count] = f;
+		elseif (md2) and (ty2 == "TabMap") and (md2.data) then
+			count = count + 1;
+			local flag = RDXDB.GetObjectInstance(v.op, true);
+			local f, tab;
+			
+			local tabtitle, tabwidth = "Tab", 80;
+			--for k, v in pairs(md2.data) do
+			--	if v.feature == "taboptions" then
+			--		tabtitle = v.tabtitle;
+			--		tabwidth = v.tabwidth;
+			--	end
+			--end
+			if flag then
+				f = VFLUI.SimpleText:new(nil, 5, 100);
+				f._path = nil;
+				f:SetText("Already acquired !");
+				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
+				tab = tabbox:GetTabBar():AddTab(tabwidth, function(self, arg1) tabbox:SetClient(f); end, function() end);
+			else
+				f = RDXDB.GetObjectInstance(v.op);
+				local _, _, _, _, objdesc = RDXDB.GetObjectData(v.op);
+				f._path = v.op;
+				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
+				--f.font = ]] .. Serialize(desc.font) .. [[;
+				tab = tabbox:GetTabBar():AddTab(tabwidth, 
+					function(self, arg1) tabbox:SetClient(f, true); end, 
+					function() end,
+					function(mnu, dlg) return objdesc.GenerateBrowserMenu(mnu, v.op, nil, dlg) end
+				);
+			end
+			tab.font:SetText(tabtitle);
+			f.tab = tab;
+			tabbox.cfs["cf" .. count] = f;
 		end
 	end
 	count = count + 1;

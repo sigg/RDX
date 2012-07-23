@@ -2,27 +2,6 @@
 -- OpenRDX
 -- Sigg Rashgarroth EU
 
-
-VFLUI.CreateFramePool("Minimap",
-	function(pool, x)
-		x:SetZoom(0);
-		x:SetBlipTexture("Interface\\Minimap\\ObjectIcons");
-		x:SetMaskTexture("Textures\\MinimapMask");
-		VFLUI._CleanupLayoutFrame(x);
-	end, 
-	function(_, key) 
-		--return CreateFrame("Minimap");
-		return Minimap;
-	end,
-	function(_, f) -- on acquired
-		--f:Show();
-		MinimapBackdrop:Hide();
-		GameTimeFrame:Hide();
-		--TimeManagerClockButton:Hide();
-		f:ClearAllPoints();
-	end,
-"key");
-
 RDX.RegisterFeature({
 	name = "minimap"; 
 	version = 1; 

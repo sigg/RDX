@@ -594,6 +594,32 @@ VFLUI.CreateFramePool("MessageFrame", function(pool, x)
 	CleanupFrame(x);
 end, function() return CreateFrame("MessageFrame", "MessageFrame_" .. VFL.GetNextID()); end);
 
+-- Class: Minimap
+-- working so badly
+VFLUI.CreateFramePool("Minimap",
+	function(pool, x)
+		x:SetZoom(2);
+		x:SetBlipTexture("Interface\\Minimap\\ObjectIcons");
+		--x:SetMaskTexture("Textures\\MinimapMask");
+		x:SetScript('OnMouseWheel', nil);
+		VFLUI._CleanupLayoutFrame(x);
+	end, 
+	function() 
+		return CreateFrame("Minimap");
+	end,
+	function(_, f) -- on acquired
+		f:ClearAllPoints();
+		f:EnableMouseWheel(true);
+		f:SetScript('OnMouseWheel', function(_, dir)
+			if (dir > 0) then
+				Minimap_ZoomIn();
+			else
+				Minimap_ZoomOut();
+			end
+		end)
+	end
+);
+
 -- New Hide/Show functions for frames.
 
 local function HideUpdate(self, elapsed)
