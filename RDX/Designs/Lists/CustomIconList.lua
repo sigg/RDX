@@ -69,18 +69,20 @@ btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 for i=1,]] .. desc.nIcons .. [[ do
 	if ]] .. driver .. [[ == 1 then 
 		btn = VFLUI.SkinButton:new();
+		btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
 		btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
 	elseif ]] .. driver .. [[ == 2 then
 		btn = VFLUI.AcquireFrame("Button");
+		btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
 		VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
 	elseif ]] .. driver .. [[ == 3 then
 		btn = VFLUI.AcquireFrame("Button");
-		VFLUI.SetBackdropBorderRDX(btn, _black, "ARTWORK", 5, ]] .. bordersize .. [[);
+		btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
+		VFLUI.SetBackdropBorderRDX(btn, _black, "ARTWORK", 7, ]] .. bordersize .. [[);
 	else
 		btn = VFLUI.AcquireFrame("Frame");
 	end
 	btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
-	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
 	btn.tex = VFLUI.CreateTexture(btn);
 	btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
 	btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
@@ -242,7 +244,7 @@ end
 		local color_bsdefault = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Button Skin default color"));
 		if desc and desc.bsdefault then color_bsdefault:SetColor(VFL.explodeRGBA(desc.bsdefault)); end
 		
-		ui:InsertFrame(driver_RB);
+		ui:InsertFrame(driver_BD);
 		
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop"));
 		local dd_backdrop = VFLUI.MakeBackdropSelectButton(er, desc.bkd);
@@ -250,7 +252,7 @@ end
 		er:EmbedChild(dd_backdrop); er:Show();
 		ui:InsertFrame(er);
 		
-		ui:InsertFrame(driver_BD);
+		ui:InsertFrame(driver_RB);
 		
 		local ed_borsize = VFLUI.LabeledEdit:new(ui, 50); ed_borsize:Show();
 		ed_borsize:SetText(VFLI.i18n("Border size"));
@@ -298,7 +300,6 @@ end
 		if desc and desc.color5 then color5:SetColor(VFL.explodeRGBA(desc.color5)); end
 		
 		function ui:GetDescriptor()
-			if chk_bs:GetChecked() then chk_bkd:SetChecked(); end
 			return { 
 				feature = "custom_icons"; version = 1;
 				name = ed_name.editBox:GetText();
