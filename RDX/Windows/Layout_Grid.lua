@@ -39,7 +39,7 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		---------------- Parameters
 		local cols, axis, limit, dxn = desc.cols or 1, desc.axis or 1, desc.limit or 1000, 1;
-		local autoShowHide = desc.autoShowHide;
+		--local autoShowHide = desc.autoShowHide;
 		if desc.dxn == 1 then dxn = 5; end
 		local defaultPaintMask = 0;
 
@@ -170,13 +170,13 @@ RDX.RegisterFeature({
 		local function relayout()
 			if (not win) or (not grid) then return; end
 			local n = sizeFunc(); if not n then return; end
-			if autoShowHide then
-				if win:IsShown() and n == 0 then
-					win:Hide(); return;
-				elseif (not win:IsShown()) and n>0 then
-					win:Show(); return; -- Showing will provoke a repaint; skip the rest of this one.
-				end
-			end
+			--if autoShowHide then
+			--	if win:IsShown() and n == 0 then
+			--		win:Hide(); return;
+			--	elseif (not win:IsShown()) and n>0 then
+			--		win:Show(); return; -- Showing will provoke a repaint; skip the rest of this one.
+			--	end
+			--end
 			if not desc.countTitle then setTitle(" (" .. n .. ")"); end
 			n = math.min(limit, n);
 			-- Burning Crusade: Do not attempt to resize a secure window while in combat.
@@ -307,10 +307,10 @@ RDX.RegisterFeature({
 		end
 		ui:InsertFrame(chk_limit);
 
-		local chk_ash = VFLUI.Checkbox:new(ui); chk_ash:Show();
-		chk_ash:SetText(VFLI.i18n("Auto hide/show this window when empty/nonempty"));
-		if desc then chk_ash:SetChecked(desc.autoShowHide); end
-		ui:InsertFrame(chk_ash);
+		--local chk_ash = VFLUI.Checkbox:new(ui); chk_ash:Show();
+		--chk_ash:SetText(VFLI.i18n("Auto hide/show this window when empty/nonempty"));
+		--if desc then chk_ash:SetChecked(desc.autoShowHide); end
+		--ui:InsertFrame(chk_ash);
 
 		local chk_title = VFLUI.Checkbox:new(ui); chk_title:Show();
 		chk_title:SetText(VFLI.i18n("Do not show UnitFrame count in title"));
@@ -326,7 +326,7 @@ RDX.RegisterFeature({
 			return { 
 				feature = "Grid Layout"; 
 				axis = axis:GetValue(); cols = cols; dxn = rg_dxn:GetValue(); limit = limit;
-				autoShowHide = chk_ash:GetChecked();
+				--autoShowHide = chk_ash:GetChecked();
 				countTitle = chk_title:GetChecked();
 			};
 		end

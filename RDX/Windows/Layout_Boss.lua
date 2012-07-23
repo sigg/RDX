@@ -38,7 +38,7 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		---------------- Parameters
 		local cols, axis, limit, dxn = desc.cols or 1, desc.axis or 1, desc.limit or 1000, 1;
-		local autoShowHide = desc.autoShowHide;
+		--local autoShowHide = desc.autoShowHide;
 		if desc.dxn == 1 then dxn = 5; end
 		local defaultPaintMask = 0;
 
@@ -297,10 +297,10 @@ RDX.RegisterFeature({
 		end
 		ui:InsertFrame(chk_limit);
 
-		local chk_ash = VFLUI.Checkbox:new(ui); chk_ash:Show();
-		chk_ash:SetText(VFLI.i18n("Auto hide/show this window when empty/nonempty"));
-		if desc then chk_ash:SetChecked(desc.autoShowHide); end
-		ui:InsertFrame(chk_ash);
+		--local chk_ash = VFLUI.Checkbox:new(ui); chk_ash:Show();
+		--chk_ash:SetText(VFLI.i18n("Auto hide/show this window when empty/nonempty"));
+		--if desc then chk_ash:SetChecked(desc.autoShowHide); end
+		--ui:InsertFrame(chk_ash);
 
 		local chk_title = VFLUI.Checkbox:new(ui); chk_title:Show();
 		chk_title:SetText(VFLI.i18n("Do not show UnitFrame count in title"));
@@ -316,7 +316,7 @@ RDX.RegisterFeature({
 			return { 
 				feature = "Boss Layout"; 
 				axis = axis:GetValue(); cols = cols; dxn = rg_dxn:GetValue(); limit = limit;
-				autoShowHide = chk_ash:GetChecked();
+				--autoShowHide = chk_ash:GetChecked();
 				countTitle = chk_title:GetChecked();
 			};
 		end
