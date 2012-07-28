@@ -150,7 +150,7 @@ end);
 
 
 
-
+--test
 
 -- The Window object type.
 RDXDB.RegisterObjectType({
@@ -165,6 +165,16 @@ RDXDB.RegisterObjectType({
 	Instantiate = function(path, md)
 		local f = VFLUI.AcquireFrame("Frame");
 		--f:SetMaskTexture("Interface\\AddOns\\RDX_mediapack\\minimap\\SquareMinimapMask");
+		
+		for i = 1,12 do
+			local tex = VFLUI.CreateTexture(f);
+			--tex:SetAllPoints(f);
+			--tex:SetTexture("Interface\\WorldMap\\TheCapeOfStranglethorn\\TheCapeOfStranglethorn6");
+			tex:Show();
+			f.tex = tex;
+		end
+		
+		f:SetScript("OnResize", function() end);
 		
 		return f;
 	end,
