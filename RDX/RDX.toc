@@ -13,7 +13,7 @@ RDX.xml
 Root.lua
 
 # Disable Blizzard stuff
-BlizzardFullDisable.lua
+BlizzFullDisable.lua
 
 # Frontend and commands (RDXPM Panel Manager)
 PanelMgr\Core.lua
