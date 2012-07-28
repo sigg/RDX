@@ -402,7 +402,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	
 	if not default["CombatLogs1"] then
 		default["CombatLogs1"] = {
-			["ty"] = "TabChatFrame",
+			["ty"] = "TabCombatLogs",
 			["version"] = 1,
 			["data"] = {
 				["title"] = "Combat",
