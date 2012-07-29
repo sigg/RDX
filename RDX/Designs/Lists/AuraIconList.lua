@@ -43,34 +43,39 @@ end
 
 --------------- Code emitter helpers
 local function _EmitCreateCode(objname, desc)
-	local usebs = "false"; if desc.usebs then usebs = "true"; end
+	local driver = desc.driver or 2;
 	local ebs = desc.externalButtonSkin or "bs_default";
-	local usebkd = "false"; if desc.usebkd then usebkd = "true"; end
-	local bkd = desc.bkd or VFLUI.defaultBackdrop;	
-	local os = 0; 
-	if desc.usebs then 
-		os = desc.ButtonSkinOffset or 0;
-	elseif desc.usebkd then
-		if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
-	end
 	local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
 	local bsdefault = desc.bsdefault or _white;
+	local bkd = desc.bkd or VFLUI.defaultBackdrop;
+	local bordersize = desc.bordersize or 1;
+	local os = 0; 
+	if driver == 1 then 
+		os = desc.ButtonSkinOffset or 0;
+	elseif driver == 2 then
+		if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
+	elseif driver == 3 then
+		os = desc.bordersize or 1;
+	end
 	
 	local createCode = [[
 frame.]] .. objname .. [[ = {};
 local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 for i=1, ]] .. desc.nIcons .. [[ do
-	if ]] .. usebs .. [[ then 
+	if ]] .. driver .. [[ == 1 then 
 		btn = VFLUI.SkinButton:new();
+		btn:SetWidth(]] .. desc.size .. [[); btn:SetHeight(]] .. desc.size .. [[);
 		btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
-	elseif ]] .. usebkd .. [[ then
+	elseif ]] .. driver .. [[ == 2 then
 		btn = VFLUI.AcquireFrame("Button");
+		btn:SetWidth(]] .. desc.size .. [[); btn:SetHeight(]] .. desc.size .. [[);
 		VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
-	else
+	elseif ]] .. driver .. [[ == 3 then
 		btn = VFLUI.AcquireFrame("Button");
+		btn:SetWidth(]] .. desc.size .. [[); btn:SetHeight(]] .. desc.size .. [[);
+		VFLUI.SetBackdropBorderRDX(btn, _black, "ARTWORK", 7, ]] .. bordersize .. [[);
 	end
 	btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
-	btn:SetWidth(]] .. desc.size .. [[); btn:SetHeight(]] .. desc.size .. [[);
 	btn:RegisterForClicks("RightButtonUp");
 	btn:SetScript("OnClick", __AuraIconOnClick);
 ]];
@@ -160,18 +165,20 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local objname = "Icons_" .. desc.name;
 		
-		local usebs = "false"; if desc.usebs then usebs = "true"; end
+		local driver = desc.driver or 2;
 		local ebs = desc.externalButtonSkin or "bs_default";
-		local usebkd = "false"; if desc.usebkd then usebkd = "true"; end
-		local bkd = desc.bkd or VFLUI.defaultBackdrop;	
-		local os = 0; 
-		if desc.usebs then 
-			os = desc.ButtonSkinOffset or 0;
-		elseif desc.usebkd then
-			if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
-		end
 		local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
 		local bsdefault = desc.bsdefault or _white;
+		local bkd = desc.bkd or VFLUI.defaultBackdrop;
+		local bordersize = desc.bordersize or 1;
+		local os = 0; 
+		if driver == 1 then 
+			os = desc.ButtonSkinOffset or 0;
+		elseif driver == 2 then
+			if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
+		elseif driver == 3 then
+			os = desc.bordersize or 1;
+		end
 		
 		local r, g, b, a = bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1;
 		
@@ -360,16 +367,20 @@ frame.]] .. objname .. [[ = nil;
 			btn.meta = _meta;
 			btn.tex:SetTexture(_tex);
 			if _dispelt and DebuffTypeColor[_dispelt] then
-				if ]] .. usebs .. [[ then
+				if ]] .. driver .. [[ == 1 then
 					btn._texBorder:SetVertexColor(VFL.explodeColor(DebuffTypeColor[_dispelt]));
-				elseif ]] .. usebkd .. [[ then
+				elseif ]] .. driver .. [[ == 2 then
 					btn:SetBackdropBorderColor(VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
+				elseif ]] .. driver .. [[ == 3 then
+					VFLUI.ApplyColorBackdropBorderRDX(btn, DebuffTypeColor[_dispelt]);
 				end
 			else
-				if ]] .. usebs .. [[ then
-					btn._texBorder:SetVertexColor(1, 1, 1, 1);
-				elseif ]] .. usebkd .. [[ then
+				if ]] .. driver .. [[ == 1 then
+					btn._texBorder:SetVertexColor(VFL.explodeRGBA(]] .. Serialize(bsdefault) .. [[));
+				elseif ]] .. driver .. [[ == 2 then
 					btn:SetBackdropBorderColor(]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+				elseif ]] .. driver .. [[ == 3 then
+					VFLUI.ApplyColorBackdropBorderRDX(btn, ]] .. Serialize(bsdefault) .. [[);
 				end
 			end
 			-- Cooldown
@@ -448,16 +459,20 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 			btn.meta = _meta;
 			btn.tex:SetTexture(_tex);
 			if _dispelt and DebuffTypeColor[_dispelt] then
-				if ]] .. usebs .. [[ then
+				if ]] .. driver .. [[ == 1 then
 					btn._texBorder:SetVertexColor(VFL.explodeColor(DebuffTypeColor[_dispelt]));
-				elseif ]] .. usebkd .. [[ then
+				elseif ]] .. driver .. [[ == 2 then
 					btn:SetBackdropBorderColor(VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
+				elseif ]] .. driver .. [[ == 3 then
+					VFLUI.ApplyColorBackdropBorderRDX(btn, DebuffTypeColor[_dispelt]);
 				end
 			else
-				if ]] .. usebs .. [[ then
+				if ]] .. driver .. [[ == 1 then
 					btn._texBorder:SetVertexColor(VFL.explodeRGBA(]] .. Serialize(bsdefault) .. [[));
-				elseif ]] .. usebkd .. [[ then
+				elseif ]] .. driver .. [[ == 2 then
 					btn:SetBackdropBorderColor(]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+				elseif ]] .. driver .. [[ == 3 then
+					VFLUI.ApplyColorBackdropBorderRDX(btn, ]] .. Serialize(bsdefault) .. [[);
 				end
 			end
 
@@ -569,43 +584,54 @@ end
 		ui:InsertFrame(ed_size);
 
 		-------------- Display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Button Skin parameters")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Skin parameters")));
 		
-		local chk_bs = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Button Skin"));
-		local dd_buttonSkin = VFLUI.Dropdown:new(chk_bs, VFLUI.GetButtonSkinList);
+		local driver = VFLUI.DisjointRadioGroup:new();
+		
+		local driver_BS = driver:CreateRadioButton(ui);
+		driver_BS:SetText(VFLI.i18n("Use Button Skin"));
+		local driver_BD = driver:CreateRadioButton(ui);
+		driver_BD:SetText(VFLI.i18n("Use Backdrop"));
+		local driver_RB = driver:CreateRadioButton(ui);
+		driver_RB:SetText(VFLI.i18n("Use RDX Border"));
+		driver:SetValue(desc.driver or 2);
+		
+		ui:InsertFrame(driver_BS);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Button Skin"));
+		local dd_buttonSkin = VFLUI.Dropdown:new(er, VFLUI.GetButtonSkinList);
 		dd_buttonSkin:SetWidth(150); dd_buttonSkin:Show();
 		dd_buttonSkin:SetSelection(desc.externalButtonSkin); 
-		if desc and desc.usebs then
-			chk_bs:SetChecked(true);
-		else
-			chk_bs:SetChecked();
-		end
-		chk_bs:EmbedChild(dd_buttonSkin); chk_bs:Show();
-		ui:InsertFrame(chk_bs);
+		er:EmbedChild(dd_buttonSkin); er:Show();
+		ui:InsertFrame(er);
 		
 		local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
-		ed_bs:SetText(VFLI.i18n("Button Skin: Size Offset"));
+		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
 		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
 		ui:InsertFrame(ed_bs);
 		
 		local chk_showgloss = VFLUI.Checkbox:new(ui); chk_showgloss:Show();
-		chk_showgloss:SetText(VFLI.i18n("Button Skin: Show Gloss"));
+		chk_showgloss:SetText(VFLI.i18n("Button Skin Show Gloss"));
 		if desc and desc.showgloss then chk_showgloss:SetChecked(true); else chk_showgloss:SetChecked(); end
 		ui:InsertFrame(chk_showgloss);
 		
-		local color_bsdefault = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Button Skin: Default Color"));
+		local color_bsdefault = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Button Skin default color"));
 		if desc and desc.bsdefault then color_bsdefault:SetColor(VFL.explodeRGBA(desc.bsdefault)); end
 		
-		local chk_bkd = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Backdrop"));
-		local dd_backdrop = VFLUI.MakeBackdropSelectButton(chk_bkd, desc.bkd);
+		ui:InsertFrame(driver_BD);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop"));
+		local dd_backdrop = VFLUI.MakeBackdropSelectButton(er, desc.bkd);
 		dd_backdrop:Show();
-		if desc and desc.usebkd then
-			chk_bkd:SetChecked(true);
-		else
-			chk_bkd:SetChecked();
-		end
-		chk_bkd:EmbedChild(dd_backdrop); chk_bkd:Show();
-		ui:InsertFrame(chk_bkd);
+		er:EmbedChild(dd_backdrop); er:Show();
+		ui:InsertFrame(er);
+		
+		ui:InsertFrame(driver_RB);
+		
+		local ed_borsize = VFLUI.LabeledEdit:new(ui, 50); ed_borsize:Show();
+		ed_borsize:SetText(VFLI.i18n("Border size"));
+		if desc and desc.bordersize then ed_borsize.editBox:SetText(desc.bordersize); end
+		ui:InsertFrame(ed_borsize);
 		
 		-------------- Interraction
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Interaction parameters")));
@@ -781,7 +807,6 @@ end
 		
 		function ui:GetDescriptor()
 			local filterName, filterNameList, filternl, ext, unitfi, maxdurfil, mindurfil = nil, nil, {}, nil, "", "", "";
-			if chk_bs:GetChecked() then chk_bkd:SetChecked(); end
 			if chk_nameauras:GetChecked() then
 				unitfi = string.lower(ed_unitfilter.editBox:GetText());
 			end
@@ -842,13 +867,13 @@ end
 				iconspy = VFL.clamp(ed_iconspy.editBox:GetNumber(), -200, 200);
 				size = VFL.clamp(ed_size.editBox:GetNumber(), 1, 100);
 				-- display
-				usebs = chk_bs:GetChecked();
+				driver = driver:GetValue();
 				externalButtonSkin = dd_buttonSkin:GetSelection();
 				ButtonSkinOffset = VFL.clamp(ed_bs.editBox:GetNumber(), 0, 50);
 				showgloss = chk_showgloss:GetChecked();
 				bsdefault = color_bsdefault:GetColor();
-				usebkd = chk_bkd:GetChecked();
 				bkd = dd_backdrop:GetSelectedBackdrop();
+				bordersize = VFL.clamp(ed_borsize.editBox:GetNumber(), 0, 50);
 				-- interaction
 				disableClick = chk_disableClick:GetChecked();
 				disableShowTooltip = chk_disableShowTooltip:GetChecked();
@@ -897,10 +922,11 @@ end
 			owner = "decor";
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
 			nIcons = 4; size = 20; rows = 1; orientation = "RIGHT"; iconspx = 5; iconspy = 0;
-			cd = VFL.copy(VFLUI.defaultCooldown);
 			externalButtonSkin = "bs_default";
 			ButtonSkinOffset = 0;
 			bkd = VFL.copy(VFLUI.defaultBackdrop);
+			drawLayer = "ARTWORK";
+			cd = VFL.copy(VFLUI.defaultCooldown);
 		};
 	end;
 });

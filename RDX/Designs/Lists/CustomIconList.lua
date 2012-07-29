@@ -30,6 +30,7 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		local objname = "Icons_" .. desc.name;
+		
 		local driver = desc.driver or 2;
 		local ebs = desc.externalButtonSkin or "bs_default";
 		local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
@@ -79,8 +80,6 @@ for i=1,]] .. desc.nIcons .. [[ do
 		btn = VFLUI.AcquireFrame("Button");
 		btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
 		VFLUI.SetBackdropBorderRDX(btn, _black, "ARTWORK", 7, ]] .. bordersize .. [[);
-	else
-		btn = VFLUI.AcquireFrame("Frame");
 	end
 	btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
 	btn.tex = VFLUI.CreateTexture(btn);
