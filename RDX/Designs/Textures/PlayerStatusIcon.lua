@@ -14,7 +14,7 @@ _name = UnitName(uid);
 myunit = RDXDAL.GetMyUnit();
 if UnitAffectingCombat(uid) or ((myunit.rosterName == _name) and IsResting()) then
 	btn._t:SetTexCoord(0, 0.5, 0, 0.421875);
-	if UnitAffectingCombat(uid) then btn._t:SetTexCoord(0.5, 1, 0, 0.5); end
+	if UnitAffectingCombat(uid) then btn._t:SetTexCoord(0.5, 1, 0, 0.49); end
 	if not btn:IsShown() then btn:Show(); end
 else
 	if btn:IsShown() then btn:Hide(); end
