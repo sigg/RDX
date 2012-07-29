@@ -61,6 +61,7 @@ RDX.RegisterFeature({
 			unitother = "'" .. desc.unitother .. "'";
 		end
 		local usealpha = "nil"; if desc.usealpha then usealpha = "true"; end
+		local useblack = "nil"; if desc.useblack then useblack = "true"; end
 		local usecustomcolor = "nil";
 		local colorVar0 = "nil";
 		local colorVar1 = "nil";
@@ -93,6 +94,8 @@ if ]] .. usecustomcolor .. [[ then
 else 
 	if ]] .. usealpha .. [[ and (not _i or _i == 0) then
 		]] .. desc.name .. [[ = _alphafull;
+	elseif ]] .. useblack .. [[ and (not _i or _i == 0) then
+		]] .. desc.name .. [[ = _black;
 	else
 		tempcolor.r, tempcolor.g, tempcolor.b = GetThreatStatusColor(_i);
 		]] .. desc.name .. [[ = tempcolor;
@@ -131,6 +134,11 @@ end
 		if desc and desc.usealpha then chk_usealpha:SetChecked(true); else chk_usealpha:SetChecked(); end
 		ui:InsertFrame(chk_usealpha);
 		
+		local chk_useblack = VFLUI.Checkbox:new(ui); chk_useblack:Show();
+		chk_useblack:SetText(VFLI.i18n("Default color, use black"));
+		if desc and desc.useblack then chk_useblack:SetChecked(true); else chk_useblack:SetChecked(); end
+		ui:InsertFrame(chk_useblack);
+		
 		local chk_usecustomcolor = VFLUI.Checkbox:new(ui); chk_usecustomcolor:Show();
 		chk_usecustomcolor:SetText(VFLI.i18n("Use custom color"));
 		if desc and desc.usecustomcolor then chk_usecustomcolor:SetChecked(true); else chk_usecustomcolor:SetChecked(); end
@@ -152,6 +160,7 @@ end
 				unit = dd_unit:GetSelection();
 				unitother = dd_unitother:GetSelection();
 				usealpha = chk_usealpha:GetChecked();
+				useblack = chk_useblack:GetChecked();
 				usecustomcolor = chk_usecustomcolor:GetChecked();
 				colorVar0 = colorVar0:GetSelection();
 				colorVar1 = colorVar1:GetSelection();
