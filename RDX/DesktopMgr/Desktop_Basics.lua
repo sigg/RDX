@@ -33,7 +33,7 @@ RDX.RegisterFeature({
 			desc.gametooltip = {};
 			desc.gametooltip.anchorx = 200;
 			desc.gametooltip.anchory = 200;
-			desc.gametooltip.bkd = { _border = "IshBorder"; bgFile = "Interface\\Addons\\VFL\\Skin\\black"; tileSize = 16; tile = true; _backdrop = "VFL_black"; edgeSize = 24; edgeFile = "Interface\\AddOns\\RDX_mediapack\\sharedmedia\\borders\\IshBorder";};
+			desc.gametooltip.bkd = { _border = "fer9"; bgFile = "Interface\\Addons\\VFL\\Skin\\black"; tileSize = 16; tile = true; _backdrop = "VFL_black"; edgeSize = 12; edgeFile = "Interface\\AddOns\\RDX_mediapack\\Ferous\\Borders\\fer9";};
 			desc.gametooltip.font = { face = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\BigNoodleTitling.ttf"; justifyH = "LEFT"; size = 14; flags = "OUTLINE"; };
 			desc.gametooltip.tex = { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; };
 		end	
