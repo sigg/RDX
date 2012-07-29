@@ -73,8 +73,10 @@ local OnShow = function(self)
 	
 	--VFLUI.ResizeBackdropBorderRDX(self.healthBar, 1);
 	--VFLUI.ResizeBackdropBorderRDX(self.castBar, 1);
-	VFLUI.ResizeBackdropRDX(self.healthBar, 2);
-	VFLUI.ResizeBackdropRDX(self.castBar, 2)
+	if self.healthBar._fbd then
+		VFLUI.ResizeBackdropRDX(self.healthBar, 2);
+		VFLUI.ResizeBackdropRDX(self.castBar, 2)
+	end
 end
 
 --
