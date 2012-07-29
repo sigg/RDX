@@ -61,9 +61,12 @@ RDX.RegisterFeature({
 		
 		if not desc.nameplates then
 			desc.nameplates = {};
+			desc.nameplates.bkd = { _border = "fer9"; bgFile = "Interface\\Addons\\VFL\\Skin\\white"; tileSize = 16; tile = true; _backdrop = "solid"; edgeSize =8; edgeFile = "Interface\\AddOns\\RDX_mediapack\\Ferous\\Borders\\fer9"; kr = 0; kg = 0; kb = 0; ka = 0.5};
 			desc.nameplates.font = { face = "Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\BigNoodleTitling.ttf"; justifyH = "LEFT"; size = 14; flags = "OUTLINE"; };
 			desc.nameplates.tex = { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; };
 		end
+		
+		if not desc.nameplates.bkd then desc.nameplates.bkd = { _border = "fer9"; bgFile = "Interface\\Addons\\VFL\\Skin\\white"; tileSize = 16; tile = true; _backdrop = "solid"; edgeSize =8; edgeFile = "Interface\\AddOns\\RDX_mediapack\\Ferous\\Borders\\fer9"; kr = 0; kg = 0; kb = 0; ka = 0.5}; end
 		
 		if not desc.open then desc.open = true; end
 		if not desc.root then desc.root = true; end

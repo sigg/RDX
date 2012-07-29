@@ -26,13 +26,16 @@ local OnUpdate = function(self, elapsed)
 	self.elapsed = self.elapsed + elapsed;
 	if self.elapsed >= 0.2 then
 		if not self.glowRegion:IsShown() then
-			VFLUI.ApplyColorBackdropBorderRDX(self.healthBar, _black);
+			--VFLUI.ApplyColorBackdropBorderRDX(self.healthBar, _black);
+			VFLUI.ApplyColorBBBackdropRDX(self.healthBar, _white)
 		else
 			r, g, b = self.glowRegion:GetVertexColor();
 			if g + b == 0 then
-				VFLUI.ApplyColorBackdropBorderRDX(self.healthBar, _red);
+			--	VFLUI.ApplyColorBackdropBorderRDX(self.healthBar, _red);
+				VFLUI.ApplyColorBBBackdropRDX(self.healthBar, _red)
 			else
-				VFLUI.ApplyColorBackdropBorderRDX(self.healthBar, _yellow);
+			--	VFLUI.ApplyColorBackdropBorderRDX(self.healthBar, _yellow);
+				VFLUI.ApplyColorBBBackdropRDX(self.healthBar, _yellow)
 			end
 		end
 		self.elapsed = 0
@@ -68,8 +71,10 @@ local OnShow = function(self)
 		self.levelTextRegion:SetText(level..(elite and "+" or ""));
 	end
 	
-	VFLUI.ResizeBackdropBorderRDX(self.healthBar, 1);
-	VFLUI.ResizeBackdropBorderRDX(self.castBar, 1);
+	--VFLUI.ResizeBackdropBorderRDX(self.healthBar, 1);
+	--VFLUI.ResizeBackdropBorderRDX(self.castBar, 1);
+	VFLUI.ResizeBackdropRDX(self.healthBar, 2);
+	VFLUI.ResizeBackdropRDX(self.castBar, 2)
 end
 
 --
@@ -137,9 +142,6 @@ local CreateNameplate = function(frame)
 	castBar.castbarOverlay = castbarOverlay;
 	castBar.shieldedRegion = shieldedRegion;
 	castBar.spellIconRegion = spellIconRegion;
-	
-	VFLUI.SetBackdropBorderRDX(frame.healthBar, _black, "ARTWORK", 5, 1, _alphaBlack);
-	VFLUI.SetBackdropBorderRDX(frame.castBar, _black, "ARTWORK", 5, 1, _alphaBlack);
 
 	--frame.oldname = nameTextRegion
 	--nameTextRegion:Hide()
@@ -161,6 +163,11 @@ local CreateNameplate = function(frame)
 		castBar:SetStatusBarTexture(descn.tex.path);
 		highlightRegion:SetTexture(descn.tex.path);
 		highlightRegion:SetVertexColor(0.25, 0.25, 0.25);
+	end
+	
+	if descn.bkd then
+		VFLUI.SetBackdropRDX(healthBar, descn.bkd, 2, 1);
+		VFLUI.SetBackdropRDX(castBar, descn.bkd, 2, 1);
 	end
 
 	castBar:HookScript("OnShow", OnShowCB)
@@ -200,6 +207,10 @@ function RDXDK.SetNameplate(desc)
 			v.castBar:SetStatusBarTexture(descn.tex.path);
 			v.highlightRegion:SetTexture(descn.tex.path);
 			v.highlightRegion:SetVertexColor(0.25, 0.25, 0.25);
+		end
+		if descn.bkd then
+			VFLUI.SetBackdropRDX(v.healthBar, descn.bkd, 2, 1);
+			VFLUI.SetBackdropRDX(v.castBar, descn.bkd, 2, 1);
 		end
 	end
 end

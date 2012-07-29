@@ -23,6 +23,12 @@ local dd_btexture = VFLUI.MakeTextureSelectButton(framen, nil, function() update
 dd_btexture:SetPoint("LEFT", lblsb, "RIGHT");
 dd_btexture:Show();
 
+local lblbkd = VFLUI.MakeLabel(nil, framen, VFLI.i18n("Bkd"));
+lblbkd:SetWidth(34); lblbkd:SetPoint("TOPLEFT", lblsb, "BOTTOMLEFT", 0, -15);
+local dd_bkd = VFLUI.MakeBackdropSelectButton(framen, nil, function() updateNameplate(); end, nil); 
+dd_bkd:SetPoint("LEFT", lblbkd, "RIGHT");
+dd_bkd:Show();
+
 local nptemp = nil ;
 
 updateNameplate = function()
@@ -30,7 +36,7 @@ updateNameplate = function()
 	--desc.tooltipmouse = chk_tooltipmouse:GetChecked();
 	--desc.anchorx = ggtemp.anchorx;
 	--desc.anchory = ggtemp.anchory;
-	--desc.bkd = dd_bkd:GetSelectedBackdrop();
+	desc.bkd = dd_bkd:GetSelectedBackdrop();
 	desc.font = dd_font:GetSelectedFont();
 	desc.tex = dd_btexture:GetSelectedTexture();
 	--desc.showTarget = chk_showTarget:GetChecked();
@@ -46,7 +52,7 @@ local function SetFramen(froot)
 	if desc then
 		nptemp = desc;
 		--if desc.tooltipmouse then chk_tooltipmouse:SetChecked(true); else chk_tooltipmouse:SetChecked(); end
-		--dd_bkd:SetSelectedBackdrop(desc.bkd);
+		dd_bkd:SetSelectedBackdrop(desc.bkd);
 		dd_font:SetSelectedFont(desc.font);
 		dd_btexture:SetSelectedTexture(desc.tex);
 		--if desc.showTarget then chk_showTarget:SetChecked(true); else chk_showTarget:SetChecked(); end

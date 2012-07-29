@@ -447,6 +447,94 @@ function VFLUI.SetBackdrop(frame, bkdp)
 	end
 end
 
+--Two backdrop, create two frames
+function VFLUI.SetBackdropRDX(frame, bkdp, offset, borderlevel)
+	if (type(frame) ~= "table") or (type(bkdp) ~= "table") then return; end
+	if not offset then offset = 0; end
+	if not borderlevel then borderlevel = 1; end
+	
+	if not frame._fbd then
+		local fbd = VFLUI.AcquireFrame("Frame");
+		fbd:SetParent(frame);
+		fbd:Show();
+		frame._fbd = fbd;
+	end
+	frame._fbd:ClearAllPoints();
+	frame._fbd:SetPoint("CENTER", frame, "CENTER");
+	frame._fbd:SetWidth(frame:GetWidth() + offset); 
+	frame._fbd:SetHeight(frame:GetHeight() + offset);
+	frame._fbd:SetFrameLevel(frame:GetFrameLevel() - 1);
+	
+	if not frame._fbb then
+		local fbb = VFLUI.AcquireFrame("Frame");
+		fbb:SetParent(frame);
+		fbb:Show();
+		frame._fbb = fbb;
+	end
+	frame._fbb:ClearAllPoints();
+	frame._fbb:SetPoint("CENTER", frame, "CENTER");
+	frame._fbb:SetWidth(frame:GetWidth() + offset); 
+	frame._fbb:SetHeight(frame:GetHeight() + offset);
+	frame._fbb:SetFrameLevel(frame:GetFrameLevel() + borderlevel);
+	
+	local bkdp_bd = VFL.copy(bkdp);
+	bkdp_bd.edgeFile = nil;
+	bkdp_bd.edgeSize = nil;
+	bkdp_bd.insets = nil;
+	frame._fbd:SetBackdrop(bkdp_bd);
+	
+	local bkdp_bb = VFL.copy(bkdp);
+	bkdp_bb.bgFile = nil;
+	bkdp_bb.tile = nil;
+	bkdp_bb.tileSize = nil;
+	frame._fbb:SetBackdrop(bkdp_bb);
+	
+	if bkdp.br then
+		frame._fbb:SetBackdropBorderColor(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+	else
+		frame._fbb:SetBackdropBorderColor(1,1,1,1);
+	end
+	if bkdp.kr then
+		frame._fbd:SetBackdropColor(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
+	else
+		frame._fbd:SetBackdropColor(1,1,1,1);
+	end
+end
+
+function VFLUI.ResizeBackdropRDX(frame, offset)
+	if (type(frame) ~= "table") then return; end
+	if not frame._fbd then error("Owner frame does not have a backdrop RDX"); end
+	if not offset then offset = 0; end
+	frame._fbd:ClearAllPoints();
+	frame._fbd:SetPoint("CENTER", frame, "CENTER");
+	frame._fbd:SetWidth(frame:GetWidth() + offset); 
+	frame._fbd:SetHeight(frame:GetHeight() + offset);
+	frame._fbb:ClearAllPoints();
+	frame._fbb:SetPoint("CENTER", frame, "CENTER");
+	frame._fbb:SetWidth(frame:GetWidth() + offset); 
+	frame._fbb:SetHeight(frame:GetHeight() + offset);
+end
+
+function VFLUI.SetBorderLevelBackdropRDX(frame, borderlevel)
+	if (type(frame) ~= "table") then return; end
+	if not frame._fbd then error("Owner frame does not have a backdrop RDX"); end
+	if not borderlevel then borderlevel = 1; end
+	frame._fbb:SetFrameLevel(frame:GetFrameLevel() + borderlevel);
+end
+
+function VFLUI.ApplyColorBDBackdropRDX(frame, color)
+	if (type(frame) ~= "table") or (type(color) ~= "table") then return; end
+	if not frame._fbd then error("Owner frame does not have a backdrop RDX"); end
+	frame._fbd:SetBackdropColor(VFL.explodeRGBA(color));
+end
+
+function VFLUI.ApplyColorBBBackdropRDX(frame, color)
+	if (type(frame) ~= "table") or (type(color) ~= "table") then return; end
+	if not frame._fbd then error("Owner frame does not have a backdrop RDX"); end
+	frame._fbb:SetBackdropBorderColor(VFL.explodeRGBA(color));
+end
+
+-- Border Texture
 function VFLUI.SetBackdropBorderRDX(frame, color, drawlayer, sublevel, size, bgcolor)
 	if (type(frame) ~= "table") or (type(color) ~= "table") then return; end
 	if frame._rdxbl then error("Owner frame already has a backdrop border RDX"); end

@@ -174,7 +174,7 @@ RDXDB.RegisterObjectType({
 			f.tex = tex;
 		end
 		
-		f:SetScript("OnResize", function() end);
+		--f:SetScript("OnResize", function() end);
 		
 		return f;
 	end,
