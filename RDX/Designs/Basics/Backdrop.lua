@@ -114,6 +114,7 @@ RDX.RegisterFeature({
 		if state:Slot("Bkdp_rdx_" .. desc.owner) then
 			VFL.AddError(errs, VFLI.i18n("Owner frame already has a backdrop")); return nil;
 		end
+		if not desc.drawLayer then desc.drawLayer = "ARTWORK"; end
 		if desc.sublevel and (tonumber(desc.sublevel) < 0 or tonumber(desc.sublevel) > 7) then
 			VFL.AddError(errs, VFLI.i18n("Texture level must be between 0 to 7")); return nil;
 		end
@@ -169,7 +170,7 @@ VFLUI.SetBackdropBorderRDX(]] .. fvar .. [[, ]] .. Serialize(desc.color) .. [[, 
 		return ui;
 	end;
 	CreateDescriptor = function()
-		return { feature = "backdrop_rdx"; owner = "decor"; version = 1; sublevel = 1; size = 1; color = {r=0,g=0,b=0,a=1};};
+		return { feature = "backdrop_rdx"; owner = "decor"; version = 1; drawLayer = "ARTWORK"; sublevel = 1; size = 1; color = {r=0,g=0,b=0,a=1};};
 	end;
 });
 
