@@ -122,7 +122,7 @@ frame.]] .. objname .. [[ = nil;
 _i = VFL.clamp(]] .. desc.number .. [[, 0, ]] .. desc.nIcons .. [[);
 if _i and _i > 0 then
 	for i=1, _i do
-		frame.]] .. objname .. [[[i].tex:SetVertexColor(VFL.explodeRGBA(color]] .. objname .. [[[i]));
+		frame.]] .. objname .. [[[i].tex:SetVertexColor(explodeRGBA(color]] .. objname .. [[[i]));
 		frame.]] .. objname .. [[[i]:Show();
 	end
 	if _i < ]] .. desc.nIcons .. [[ then
