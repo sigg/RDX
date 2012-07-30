@@ -499,6 +499,12 @@ function VFLUI.SetBackdropRDX(frame, bkdp, offset, borderlevel)
 	else
 		frame._fbd:SetBackdropColor(1,1,1,1);
 	end
+	frame.Destroy = VFL.hook(function(s)
+		s._fbb:Destroy();
+		s._fbb = nil;
+		s._fbd:Destroy();
+		s._fbd = nil;
+	end, frame.Destroy);
 end
 
 function VFLUI.ResizeBackdropRDX(frame, offset)
