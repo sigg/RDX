@@ -97,7 +97,6 @@ RDX.RegisterFeature({
 		desc.nIcons = 8;
 		if not desc.flo then desc.flo = 5; end
 		
-		if not desc.usebkd then desc.usebs = true; end
 		if not desc.externalButtonSkin then desc.externalButtonSkin = "bs_default"; end
 		if not desc.bsdefault then desc.bsdefault = VFL.copy(_white); end
 		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
@@ -233,19 +232,26 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(ed_size);
 		
 		-------------- Display
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Button Skin parameters")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Skin parameters")));
 		
-		local chk_bs = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Button Skin"));
-		local dd_buttonSkin = VFLUI.Dropdown:new(chk_bs, VFLUI.GetButtonSkinList);
+		local driver = VFLUI.DisjointRadioGroup:new();
+		
+		local driver_BS = driver:CreateRadioButton(ui);
+		driver_BS:SetText(VFLI.i18n("Use Button Skin"));
+		local driver_BD = driver:CreateRadioButton(ui);
+		driver_BD:SetText(VFLI.i18n("Use Backdrop"));
+		local driver_RB = driver:CreateRadioButton(ui);
+		driver_RB:SetText(VFLI.i18n("Use RDX Border"));
+		driver:SetValue(desc.driver or 2);
+		
+		ui:InsertFrame(driver_BS);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Button Skin"));
+		local dd_buttonSkin = VFLUI.Dropdown:new(er, VFLUI.GetButtonSkinList);
 		dd_buttonSkin:SetWidth(150); dd_buttonSkin:Show();
 		dd_buttonSkin:SetSelection(desc.externalButtonSkin); 
-		if desc and desc.usebs then
-			chk_bs:SetChecked(true);
-		else
-			chk_bs:SetChecked();
-		end
-		chk_bs:EmbedChild(dd_buttonSkin); chk_bs:Show();
-		ui:InsertFrame(chk_bs);
+		er:EmbedChild(dd_buttonSkin); er:Show();
+		ui:InsertFrame(er);
 		
 		local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
 		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
@@ -260,16 +266,20 @@ frame.]] .. objname .. [[ = nil;
 		local color_bsdefault = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Button Skin default color"));
 		if desc and desc.bsdefault then color_bsdefault:SetColor(VFL.explodeRGBA(desc.bsdefault)); end
 		
-		local chk_bkd = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Backdrop"));
-		local dd_backdrop = VFLUI.MakeBackdropSelectButton(chk_bkd, desc.bkd);
+		ui:InsertFrame(driver_BD);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop"));
+		local dd_backdrop = VFLUI.MakeBackdropSelectButton(er, desc.bkd);
 		dd_backdrop:Show();
-		if desc and desc.usebkd then
-			chk_bkd:SetChecked(true);
-		else
-			chk_bkd:SetChecked();
-		end
-		chk_bkd:EmbedChild(dd_backdrop); chk_bkd:Show();
-		ui:InsertFrame(chk_bkd);
+		er:EmbedChild(dd_backdrop); er:Show();
+		ui:InsertFrame(er);
+		
+		ui:InsertFrame(driver_RB);
+		
+		local ed_borsize = VFLUI.LabeledEdit:new(ui, 50); ed_borsize:Show();
+		ed_borsize:SetText(VFLI.i18n("Border size"));
+		if desc and desc.bordersize then ed_borsize.editBox:SetText(desc.bordersize); end
+		ui:InsertFrame(ed_borsize);
 		
 		-------------- COOLDOWN
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown parameters")));
@@ -323,13 +333,13 @@ frame.]] .. objname .. [[ = nil;
 				iconspy = VFL.clamp(ed_iconspy.editBox:GetNumber(), -20, 200);
 				size = VFL.clamp(ed_size.editBox:GetNumber(), 20, 100);
 				-- display
-				usebs = chk_bs:GetChecked();
+				driver = driver:GetValue();
 				externalButtonSkin = dd_buttonSkin:GetSelection();
 				ButtonSkinOffset = VFL.clamp(ed_bs.editBox:GetNumber(), 0, 50);
 				showgloss = chk_showgloss:GetChecked();
 				bsdefault = color_bsdefault:GetColor();
-				usebkd = chk_bkd:GetChecked();
 				bkd = dd_backdrop:GetSelectedBackdrop();
+				bordersize = VFL.clamp(ed_borsize.editBox:GetNumber(), 0, 50);
 				-- Cooldown
 				cd = cd:GetSelectedCooldown();
 				-- Display
@@ -355,8 +365,9 @@ frame.]] .. objname .. [[ = nil;
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
 			size = 36; rows = 1; orientation = "RIGHT"; iconspx = 5; iconspy = 0;
 			externalButtonSkin = "bs_default";
-			bkd = VFL.copy(VFLUI.defaultBackdrop);
 			ButtonSkinOffset = 0;
+			bkd = VFL.copy(VFLUI.defaultBackdrop);
+			drawLayer = "ARTWORK";
 			fontkey = fontk;
 			cd = VFL.copy(VFLUI.defaultCooldown);
 			--showkey = true;

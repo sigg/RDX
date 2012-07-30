@@ -576,3 +576,36 @@ function VFLUI.BckButton:new(parent, btype, id)
 	return obj;
 end
 
+VFLUI.BRButton = {};
+function VFLUI.BRButton:new(parent, btype, id)
+	if not btype then btype = "Button"; end
+	local obj = VFLUI.AcquireFrame(btype, id);
+	if not obj then return nil; end
+	if parent then
+		obj:SetParent(parent);
+		--obj:SetFrameStrata(parent:GetFrameStrata());
+		--obj:SetFrameLevel(parent:GetFrameLevel() + 1);
+	end
+	obj:Show();
+	
+	-- set button skin function
+	obj.SetButtonBR = function(self, level, bordersize)
+		VFLUI.SetBackdropBorderRDX(self, _black, "ARTWORK", level, bordersize);
+	end;
+	
+	obj.bsHide = function(self)
+		--self.frbkd:Hide();
+	end
+	
+	obj.bsShow = function(self)
+		--self.frbkd:Show();
+	end
+
+	obj.Destroy = VFL.hook(function(s)
+		s.SetButtonBR = nil; s.bsHide = nil; s.bsShow = nil;
+		--s.frbkd:Destroy(); s.frbkd = nil;
+	end, obj.Destroy);
+
+	return obj;
+end
+
