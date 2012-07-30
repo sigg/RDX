@@ -14,7 +14,7 @@ function RDXUI.totembarSelectionFunc() return totembar; end
 local function _EmitCreateCode(objname, desc)
 	local flo = tonumber(desc.flo); if not flo then flo = 5; end; flo = VFL.clamp(flo,1,10);
 	
-	local driver = desc.driver or 2;
+	local driver = desc.driver or 1;
 	local ebs = desc.externalButtonSkin or "bs_default";
 	local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
 	local bsdefault = desc.bsdefault or _white;

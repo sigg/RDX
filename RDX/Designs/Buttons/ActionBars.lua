@@ -171,6 +171,8 @@ RDX.RegisterFeature({
 		if not desc.flyoutdirection then desc.flyoutdirection = "UP"; end
 		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
 		
+		if not desc.driver then desc.driver = 1; end
+		
 		if not desc.headerstateType then desc.headerstateType = "None"; end
 		if desc.headerstateType == "Custom" then
 			local test = __RDXconvertStatesTable(desc.headerstateCustom);

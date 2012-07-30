@@ -112,6 +112,8 @@ RDX.RegisterFeature({
 		if not desc.flyoutdirection then desc.flyoutdirection = "UP"; end
 		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
 		
+		if not desc.driver then desc.driver = 1; end
+		
 		if not desc.headervisiType or desc.headervisiType == "Default" then desc.headervisiType = "Pet"; end
 		
 		local flg = true;
