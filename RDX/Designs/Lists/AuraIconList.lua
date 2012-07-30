@@ -8,25 +8,6 @@
 -- Code for aura icons attached to unitframes.
 --
 
-function __SetAuraIcon(btn, meta, tex, apps, dur, tl, dispelType, i, ebsflag, smooth)
-	if not btn:IsShown() then btn:Show(smooth); end
-	btn.meta = meta;
-	btn.tex:SetTexture(tex);
-	if dispelType and DebuffTypeColor[dispelType] then
-		btn._texBorder:SetVertexColor(VFL.explodeColor(DebuffTypeColor[dispelType]));
-	else
-		btn._texBorder:SetVertexColor(VFL.explodeRGBA(btn.bsdefault));
-	end
-	-- Cooldown
-	if dur and dur > 0 and btn.cd then
-		btn.cd:SetCooldown(GetTime() + tl - dur , dur);
-	else
-		btn.cd:SetCooldown(0, 0);
-	end
-	if apps and (apps > 1) then btn.sttxt:SetText(apps); else btn.sttxt:SetText(""); end
-	return true;
-end
-
 local ShowAuraTooltip = RDXDAL.ShowAuraTooltip;
 
 function __AuraIconOnEnter(self)
@@ -210,8 +191,12 @@ RDX.RegisterFeature({
 		end
 
 		------------ Closure
+		-- Add the default color BS
+		local closureCode = "";
+		closureCode = closureCode ..[[
+local ]] .. objname .. [[_bs = ]] .. Serialize(bsdefault) .. [[;
+]];
 		if desc.filterName then
-			local closureCode = "";
 			closureCode = closureCode ..[[
 local ]] .. objname .. [[_fnames = ]];
 			if desc.externalNameFilter then
@@ -251,8 +236,8 @@ local ]] .. objname .. [[_fnames = ]];
 					end
 				end
 			end
-			state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
 		end
+		state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
 		
 		----------------- Creation
 		local createCode = _EmitCreateCode(objname, desc);
@@ -376,11 +361,11 @@ frame.]] .. objname .. [[ = nil;
 				end
 			else
 				if ]] .. driver .. [[ == 1 then
-					btn._texBorder:SetVertexColor(VFL.explodeRGBA(]] .. Serialize(bsdefault) .. [[));
+					btn._texBorder:SetVertexColor(explodeRGBA(]] .. objname .. [[_bs));
 				elseif ]] .. driver .. [[ == 2 then
 					btn:SetBackdropBorderColor(]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
 				elseif ]] .. driver .. [[ == 3 then
-					VFLUI.ApplyColorBackdropBorderRDX(btn, ]] .. Serialize(bsdefault) .. [[);
+					VFLUI.ApplyColorBackdropBorderRDX(btn, ]] .. objname .. [[_bs);
 				end
 			end
 			-- Cooldown
@@ -400,49 +385,6 @@ frame.]] .. objname .. [[ = nil;
 		if btn:IsShown() then btn:Hide(]] .. smooth .. [[); end
 		_j = _j + 1;
 	end
-]];
-
-		local paintCode = [[
-if band(paintmask, ]] .. mask .. [[) ~= 0 then
-	_i, _j, _bn, _tex, _apps, _meta, _dur, _tl, _dispelt, _caster, _isStealable = 1,1,nil,nil,nil,nil,nil,nil,nil,nil;
-	_icons = frame.]] .. objname .. [[;
-	local sort_icons = {};
-
-	while true do
-		local tbl_icons = {};
-		_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = ]] .. loadCode .. [[(uid, _i, ]] .. raidfilter .. [[, ]] .. auracache .. [[);
-		if not _meta then break; end
-		if (not _meta.isInvisible) and ]] .. aurasfilter .. [[ and ]] .. isstealablefilter .. [[ and ]] .. curefilter .. [[ and ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
-			tbl_icons._bn = _bn;
-			tbl_icons._meta = _meta;
-			tbl_icons._tex = _tex;
-			tbl_icons._apps = _apps;
-			tbl_icons._dispelt = _dispelt;
-			tbl_icons._dur = _dur;
-			tbl_icons._tl = _tl;
-			tbl_icons._i = _i;
-			table.insert(sort_icons, tbl_icons);
-		end
-		_i = _i + 1;
-	end
-	
-	]];
-		paintCode = paintCode .. sorticons;
-		paintCode = paintCode ..[[
-	local tbl_icons;
-	while true do
-		if (_j > ]] .. desc.nIcons .. [[) then break; end
-		tbl_icons = sort_icons[_j];
-		if not tbl_icons then break; end
-		__SetAuraIcon(_icons[_j], tbl_icons._meta, tbl_icons._tex, tbl_icons._apps, tbl_icons._dur, tbl_icons._tl, tbl_icons._dispelt, tbl_icons._i, nil, ]] .. smooth .. [[);
-		_j = _j + 1;
-	end
-	
-	while _j <= ]] .. desc.nIcons .. [[ do
-		if _icons[_j]:IsShown() then _icons[_j]:Hide(]] .. smooth .. [[); end
-		_j = _j + 1;
-	end
-end
 ]];
 
 		local paintCodeWithoutSort = [[
@@ -468,11 +410,11 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 				end
 			else
 				if ]] .. driver .. [[ == 1 then
-					btn._texBorder:SetVertexColor(VFL.explodeRGBA(]] .. Serialize(bsdefault) .. [[));
+					btn._texBorder:SetVertexColor(explodeRGBA(]] .. objname .. [[_bs));
 				elseif ]] .. driver .. [[ == 2 then
 					btn:SetBackdropBorderColor(]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
 				elseif ]] .. driver .. [[ == 3 then
-					VFLUI.ApplyColorBackdropBorderRDX(btn, ]] .. Serialize(bsdefault) .. [[);
+					VFLUI.ApplyColorBackdropBorderRDX(btn, ]] .. objname .. [[_bs);
 				end
 			end
 
@@ -497,8 +439,6 @@ end
 ]];
 		if desc.test then
 			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCodeTest); end);
-		elseif desc.sort then
-			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCode); end);
 		else
 			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCodeWithoutSort); end);
 		end
