@@ -70,6 +70,12 @@ RDX.RegisterFeature({
 		--mux:Event_UnitMask("UNIT_BUFFWEAPON_UPDATE", smask);
 		
 		--mask = bit.bor(mask, 1);
+		
+		local closureCode = "";
+		closureCode = closureCode ..[[
+local ]] .. objname .. [[_bs = ]] .. Serialize(bsdefault) .. [[;
+]];
+		state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
 
 		----------------- Creation
 		local createCode = [[
@@ -147,19 +153,19 @@ headerAura.updateFunc = function(self)
 			child.btn.tex:SetTexture(_tex);
 			if _dispelt and DebuffTypeColor[_dispelt] then
 				if ]] .. driver .. [[ == 1 then
-					child.btn._texBorder:SetVertexColor(VFL.explodeColor(DebuffTypeColor[_dispelt]));
+					child.btn._texBorder:SetVertexColor(explodeRGBA(DebuffTypeColor[_dispelt]));
 				elseif ]] .. driver .. [[ == 2 then
-					child.btn:SetBackdropBorderColor(VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
+					child.btn:SetBackdropBorderColor(explodeRGBA(DebuffTypeColor[_dispelt]));
 				elseif ]] .. driver .. [[ == 3 then
 					VFLUI.ApplyColorBackdropBorderRDX(child.btn, DebuffTypeColor[_dispelt]);
 				end
 			else
 				if ]] .. driver .. [[ == 1 then
-					child.btn._texBorder:SetVertexColor(VFL.explodeRGBA(]] .. Serialize(bsdefault) .. [[));
+					child.btn._texBorder:SetVertexColor(explodeRGBA(]] .. objname .. [[_bs));
 				elseif ]] .. driver .. [[ == 2 then
 					child.btn:SetBackdropBorderColor(]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
 				elseif ]] .. driver .. [[ == 3 then
-					VFLUI.ApplyColorBackdropBorderRDX(child.btn, ]] .. Serialize(bsdefault) .. [[);
+					VFLUI.ApplyColorBackdropBorderRDX(child.btn, ]] .. objname .. [[_bs);
 				end
 			end
 			child.btn.cd:SetCooldown(_et - _dur, _dur);
