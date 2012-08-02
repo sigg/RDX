@@ -434,20 +434,175 @@ end
 
 function VFLUI.SetBackdrop(frame, bkdp)
 	if (type(frame) ~= "table") or (type(bkdp) ~= "table") then return; end
-	frame:SetBackdrop(bkdp);
-	if bkdp.br then
-		frame:SetBackdropBorderColor(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
-	else
-		frame:SetBackdropBorderColor(1,1,1,1);
-	end
-	if bkdp.kr then
-		frame:SetBackdropColor(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
-	else
-		frame:SetBackdropColor(1,1,1,1);
+	if not bkdp.offset then bkdp.offset = 0; end
+	if not bkdp.borderlevel then bkdp.borderlevel = 2; end
+	if not bkdp._bkdtype or bkdp._bkdtype == 1 then
+		-- default backdrop
+		frame:SetBackdrop(bkdp);
+		if bkdp.br then
+			frame:SetBackdropBorderColor(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+		else
+			frame:SetBackdropBorderColor(1,1,1,1);
+		end
+		if bkdp.kr then
+			frame:SetBackdropColor(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
+		else
+			frame:SetBackdropColor(1,1,1,1);
+		end
+	elseif bkdp._bkdtype == 2 then
+		-- double frame backdrop (one background, one sup)
+		if not frame._fbd and not frame._fbb then
+			local fbd = VFLUI.AcquireFrame("Frame");
+			fbd:SetParent(frame);
+			fbd:Show();
+			frame._fbd = fbd;
+			local fbb = VFLUI.AcquireFrame("Frame");
+			fbb:SetParent(frame);
+			fbb:Show();
+			frame._fbb = fbb;
+			frame.Destroy = VFL.hook(function(s)
+				s._fbb:Destroy();
+				s._fbb = nil;
+				s._fbd:Destroy();
+				s._fbd = nil;
+			end, frame.Destroy);
+		end
+		
+		frame._fbd:ClearAllPoints();
+		frame._fbd:SetPoint("CENTER", frame, "CENTER");
+		frame._fbd:SetWidth(frame:GetWidth() + bkdp.off); 
+		frame._fbd:SetHeight(frame:GetHeight() + bkdp.off);
+		frame._fbd:SetFrameLevel(frame:GetFrameLevel() - 1);
+		
+		frame._fbb:ClearAllPoints();
+		frame._fbb:SetPoint("CENTER", frame, "CENTER");
+		frame._fbb:SetWidth(frame:GetWidth() + bkdp.off); 
+		frame._fbb:SetHeight(frame:GetHeight() + bkdp.off);
+		frame._fbb:SetFrameLevel(frame:GetFrameLevel() + bkdp.borl);
+		
+		local bkdp_bd = VFL.copy(bkdp);
+		bkdp_bd.edgeFile = nil;
+		bkdp_bd.edgeSize = nil;
+		bkdp_bd.insets = nil;
+		frame._fbd:SetBackdrop(bkdp_bd);
+		
+		local bkdp_bb = VFL.copy(bkdp);
+		bkdp_bb.bgFile = nil;
+		bkdp_bb.tile = nil;
+		bkdp_bb.tileSize = nil;
+		frame._fbb:SetBackdrop(bkdp_bb);
+		
+		if bkdp.br then
+			frame._fbb:SetBackdropBorderColor(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+		else
+			frame._fbb:SetBackdropBorderColor(1,1,1,1);
+		end
+		if bkdp.kr then
+			frame._fbd:SetBackdropColor(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
+		else
+			frame._fbd:SetBackdropColor(1,1,1,1);
+		end
+	elseif bkdp._bkdtype == 3 then
+		-- Texture backdrop
+		if not frame._rdxbl then 
+			local _l = VFLUI.CreateTexture(frame);
+			local _t = VFLUI.CreateTexture(frame);
+			local _r = VFLUI.CreateTexture(frame);
+			local _b = VFLUI.CreateTexture(frame);
+			local _bg = VFLUI.CreateTexture(frame);
+			_bg:Show();
+			_l:Show();
+			_t:Show();
+			_r:Show();
+			_b:Show();
+			frame._rdxbl = _l;
+			frame._rdxbt = _t;
+			frame._rdxbr = _r;
+			frame._rdxbb = _b;
+			frame._rdxbbg = _bg;
+		
+			frame.Destroy = VFL.hook(function(s)
+				s._rdxbbg:Destroy();
+				s._rdxbbg = nil;
+				s._rdxbl:Destroy();
+				s._rdxbl = nil;
+				s._rdxbt:Destroy();
+				s._rdxbt = nil;
+				s._rdxbr:Destroy();
+				s._rdxbr = nil;
+				s._rdxbb:Destroy();
+				s._rdxbb = nil;
+			end, frame.Destroy);
+		end
+		
+		if bkdp.br then
+			frame._rdxbl:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+			frame._rdxbt:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+			frame._rdxbr:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+			frame._rdxbb:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+		else
+			frame._rdxbl:SetTexture(1,1,1,1);
+			frame._rdxbt:SetTexture(1,1,1,1);
+			frame._rdxbr:SetTexture(1,1,1,1);
+			frame._rdxbb:SetTexture(1,1,1,1);
+		end
+		frame._rdxbl:SetDrawLayer(bkdp.dl, bkdp.sl);
+		frame._rdxbt:SetDrawLayer(bkdp.dl, bkdp.sl);
+		frame._rdxbr:SetDrawLayer(bkdp.dl, bkdp.sl);
+		frame._rdxbb:SetDrawLayer(bkdp.dl, bkdp.sl);
+		--frame._rdxbl:SetVertexColor(1,1,1,1);
+		--frame._rdxbt:SetVertexColor(1,1,1,1);
+		--frame._rdxbr:SetVertexColor(1,1,1,1);
+		--frame._rdxbb:SetVertexColor(1,1,1,1);
+		frame._rdxbl:SetPoint("LEFT", frame, "LEFT");
+		frame._rdxbt:SetPoint("TOP", frame, "TOP");
+		frame._rdxbr:SetPoint("RIGHT", frame, "RIGHT");
+		frame._rdxbb:SetPoint("BOTTOM", frame, "BOTTOM");
+		frame._rdxbl:SetWidth(bkdp.bors or 1); frame._rdxbl:SetHeight(frame:GetHeight());
+		frame._rdxbt:SetWidth(frame:GetWidth()); frame._rdxbt:SetHeight(bkdp.bors or 1);
+		frame._rdxbr:SetWidth(bkdp.bors or 1); frame._rdxbr:SetHeight(frame:GetHeight());
+		frame._rdxbb:SetWidth(frame:GetWidth()); frame._rdxbb:SetHeight(bkdp.bors or 1);
+		
+		if bkdp.kr then
+			frame._rdxbbg:SetTexture(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
+		end
+		
+		frame._rdxbbg:SetDrawLayer("BACKGROUND", 0);
+		frame._rdxbbg:SetVertexColor(1,1,1,1);
+		frame._rdxbbg:SetAllPoints(frame);
+			
+		end
 	end
 end
 
---Two backdrop, create two frames
+function VFLUI.SetBackdropColor(frame, r, g, b, a)
+	if frame._fbd then
+		frame._fbd:SetBackdropColor(r or 1, g or 1, b or 1, a or 1);
+	elseif frame._rdxbl then
+		frame._rdxbbg:SetTexture(r or 1, g or 1, b or 1, a or 1);
+	else
+		frame:SetBackdropColor(r or 1, g or 1, b or 1, a or 1);
+	end
+end
+
+function VFLUI.SetBackdropBorderColor(frame, r, g, b, a)
+	if frame._fbd then
+		frame._fbb:SetBackdropBorderColor(r or 1, g or 1, b or 1, a or 1);
+	elseif frame._rdxbl then
+		frame._rdxbl:SetTexture(r or 1, g or 1, b or 1, a or 1);
+		frame._rdxbt:SetTexture(r or 1, g or 1, b or 1, a or 1);
+		frame._rdxbr:SetTexture(r or 1, g or 1, b or 1, a or 1);
+		frame._rdxbb:SetTexture(r or 1, g or 1, b or 1, a or 1);
+	else
+		frame:SetBackdropBorderColor(r or 1, g or 1, b or 1, a or 1);
+	end
+end
+
+
+
+
+
+--Two backdrop, create two frames -- deprecated !!!!
 function VFLUI.SetBackdropRDX(frame, bkdp, offset, borderlevel)
 	if (type(frame) ~= "table") or (type(bkdp) ~= "table") then return; end
 	if not offset then offset = 0; end
@@ -540,7 +695,7 @@ function VFLUI.ApplyColorBBBackdropRDX(frame, color)
 	frame._fbb:SetBackdropBorderColor(VFL.explodeRGBA(color));
 end
 
--- Border Texture
+-- Border Texture -- deprecated
 function VFLUI.SetBackdropBorderRDX(frame, color, drawlayer, sublevel, size, bgcolor)
 	if (type(frame) ~= "table") or (type(color) ~= "table") then return; end
 	if frame._rdxbl then error("Owner frame already has a backdrop border RDX"); end
