@@ -434,8 +434,10 @@ end
 
 function VFLUI.SetBackdrop(frame, bkdp)
 	if (type(frame) ~= "table") or (type(bkdp) ~= "table") then return; end
-	if not bkdp.offset then bkdp.offset = 0; end
-	if not bkdp.borderlevel then bkdp.borderlevel = 2; end
+	if not bkdp.boff then bkdp.boff = 1; end
+	if not bkdp.borl then bkdp.borl = 2; end
+	if not bkdp.bors then bkdp.bors = 2; end
+	if not bkdp.dl then bkdp.dl = "ARTWORK"; end
 	if not bkdp._bkdtype or bkdp._bkdtype == 1 then
 		-- default backdrop
 		frame:SetBackdrop(bkdp);
@@ -470,14 +472,14 @@ function VFLUI.SetBackdrop(frame, bkdp)
 		
 		frame._fbd:ClearAllPoints();
 		frame._fbd:SetPoint("CENTER", frame, "CENTER");
-		frame._fbd:SetWidth(frame:GetWidth() + bkdp.off); 
-		frame._fbd:SetHeight(frame:GetHeight() + bkdp.off);
+		frame._fbd:SetWidth(frame:GetWidth() + bkdp.boff); 
+		frame._fbd:SetHeight(frame:GetHeight() + bkdp.boff);
 		frame._fbd:SetFrameLevel(frame:GetFrameLevel() - 1);
 		
 		frame._fbb:ClearAllPoints();
 		frame._fbb:SetPoint("CENTER", frame, "CENTER");
-		frame._fbb:SetWidth(frame:GetWidth() + bkdp.off); 
-		frame._fbb:SetHeight(frame:GetHeight() + bkdp.off);
+		frame._fbb:SetWidth(frame:GetWidth() + bkdp.boff); 
+		frame._fbb:SetHeight(frame:GetHeight() + bkdp.boff);
 		frame._fbb:SetFrameLevel(frame:GetFrameLevel() + bkdp.borl);
 		
 		local bkdp_bd = VFL.copy(bkdp);
@@ -510,11 +512,11 @@ function VFLUI.SetBackdrop(frame, bkdp)
 			local _r = VFLUI.CreateTexture(frame);
 			local _b = VFLUI.CreateTexture(frame);
 			local _bg = VFLUI.CreateTexture(frame);
-			_bg:Show();
 			_l:Show();
 			_t:Show();
 			_r:Show();
 			_b:Show();
+			_bg:Show();
 			frame._rdxbl = _l;
 			frame._rdxbt = _t;
 			frame._rdxbr = _r;
@@ -546,10 +548,10 @@ function VFLUI.SetBackdrop(frame, bkdp)
 			frame._rdxbr:SetTexture(1,1,1,1);
 			frame._rdxbb:SetTexture(1,1,1,1);
 		end
-		frame._rdxbl:SetDrawLayer(bkdp.dl, bkdp.sl);
-		frame._rdxbt:SetDrawLayer(bkdp.dl, bkdp.sl);
-		frame._rdxbr:SetDrawLayer(bkdp.dl, bkdp.sl);
-		frame._rdxbb:SetDrawLayer(bkdp.dl, bkdp.sl);
+		frame._rdxbl:SetDrawLayer(bkdp.dl, bkdp.borl);
+		frame._rdxbt:SetDrawLayer(bkdp.dl, bkdp.borl);
+		frame._rdxbr:SetDrawLayer(bkdp.dl, bkdp.borl);
+		frame._rdxbb:SetDrawLayer(bkdp.dl, bkdp.borl);
 		--frame._rdxbl:SetVertexColor(1,1,1,1);
 		--frame._rdxbt:SetVertexColor(1,1,1,1);
 		--frame._rdxbr:SetVertexColor(1,1,1,1);

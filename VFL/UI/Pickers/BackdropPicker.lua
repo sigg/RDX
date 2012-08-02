@@ -7,6 +7,7 @@
 VFLUI.defaultBackdrop = {
 	_border = "none";
 	_backdrop = "none";
+	_bkdtype = 1;
 };
 
 VFLUI.nilBackdrop = {
@@ -14,6 +15,7 @@ VFLUI.nilBackdrop = {
 	bgFile = nil;
 	_backdrop = "none";
 	edgeFile = nil;
+	_bkdtype = 1;
 };
 
 local curBackdrop, clipboard = {}, nil;
@@ -24,7 +26,7 @@ local UpdateBackdropPicker;
 local bdp = VFLUI.Window:new(VFLFULLSCREEN);
 VFLUI.Window.SetDefaultFraming(bdp, 20);
 bdp:SetText("Backdrop Picker"); bdp:SetTitleColor(0,0,.6);
-bdp:SetWidth(280); bdp:SetHeight(290);
+bdp:SetWidth(290); bdp:SetHeight(335);
 bdp:SetPoint("CENTER", VFLParent, "CENTER");
 bdp:SetMovable(true); bdp:SetToplevel(nil);
 VFLUI.Window.StdMove(bdp, bdp:GetTitleBar());
@@ -46,17 +48,12 @@ pvwfb:SetBackdrop({
 });
 pvwfb:Show();
 
-local pvwf = VFLUI.AcquireFrame("Frame");
-pvwf:SetParent(pvwfb); pvwf:SetPoint("CENTER", pvwfb, "CENTER");
-pvwf:SetWidth(243); pvwf:SetHeight(86);
-pvwf:Show();
-
 ----------- Border and Backdrop styles
 local dd_border, dd_backdrop;
 
 -------------------- Border
 local lbl2 = VFLUI.MakeLabel(nil, ca, "Border:");
-lbl2:SetWidth(80); lbl2:SetPoint("TOPLEFT", pvwf, "BOTTOMLEFT", -13, -10);
+lbl2:SetWidth(80); lbl2:SetPoint("TOPLEFT", pvwfb, "BOTTOMLEFT", 0, -10);
 
 dd_border = VFLUI.Dropdown:new(ca, VFLUI.GetBackdropBorderList, function(selectedBorder)
 	VFLUI.ApplyBaseBackdrop(curBackdrop, selectedBorder);
@@ -229,8 +226,92 @@ function BackdropColorUpdate()
 	UpdateBackdropPicker();
 end
 
+----------------- Specific bkdp 2
+
+local bkdp2Update;
+
+local lbl_off = VFLUI.CreateFontString(ca);
+VFLUI.SetFont(lbl_off, Fonts.Default, 10);
+lbl_off:SetWidth(50); lbl_off:SetHeight(20);
+lbl_off:SetPoint("TOPLEFT", chk_kcolor, "BOTTOMLEFT", -2, -5);
+lbl_off:Show(); lbl_off:SetText("Dou Off");
+
+local e_boff = VFLUI.Edit:new(ca);
+e_boff:SetWidth(42); e_boff:SetHeight(25); e_boff:Show();
+--e_boff:SetScript("OnTextChanged", function() bkdp2Update() end);
+e_boff:SetPoint("LEFT", lbl_off, "RIGHT");
+
+local lbl_borl = VFLUI.CreateFontString(ca);
+VFLUI.SetFont(lbl_borl, Fonts.Default, 10);
+lbl_borl:SetWidth(50); lbl_borl:SetHeight(20);
+lbl_borl:SetPoint("LEFT", e_boff, "RIGHT");
+lbl_borl:Show(); lbl_borl:SetText("Dou Level");
+
+local e_borl = VFLUI.Edit:new(ca);
+e_borl:SetWidth(42); e_borl:SetHeight(25); e_borl:Show();
+--e_borl:SetScript("OnTextChanged", function() bkdp2Update() end);
+e_borl:SetPoint("LEFT", lbl_borl, "RIGHT");
+
+local lbl_bors = VFLUI.CreateFontString(ca);
+VFLUI.SetFont(lbl_bors, Fonts.Default, 10);
+lbl_bors:SetWidth(50); lbl_bors:SetHeight(20);
+lbl_bors:SetPoint("LEFT", e_borl, "RIGHT");
+lbl_bors:Show(); lbl_bors:SetText("Tex size");
+
+local e_bors = VFLUI.Edit:new(ca);
+e_bors:SetWidth(42); e_bors:SetHeight(25); e_bors:Show();
+--e_bors:SetScript("OnTextChanged", function() bkdp2Update() end);
+e_bors:SetPoint("LEFT", lbl_bors, "RIGHT");
+
+function bkdp2Update()
+	-- Early out with invalid numbers.
+	local boff = tonumber(e_boff:GetText()); if not boff then return; end
+	local borl = tonumber(e_borl:GetText()); if not borl then return; end
+	local bors = tonumber(e_bors:GetText()); if not bors then return; end
+	-- Clamp ranges
+	boff = math.floor(VFL.clamp(boff, 0, 1024));
+	borl = math.floor(VFL.clamp(borl, 0, 1024));
+	bors = math.floor(VFL.clamp(bors, 0, 1024));
+	-- Apply settings
+	local changed = nil;
+	if boff ~= curBackdrop.boff then curBackdrop.boff = boff; changed = true; end
+	if borl ~= curBackdrop.borl then curBackdrop.borl = borl; changed = true; end
+	if bors ~= curBackdrop.bors then curBackdrop.bors = bors; changed = true; end
+	-- Update
+	if changed then UpdateBackdropPicker(); end
+end
+
+----------------------- Driver
+local FlagsUpdate;
+
+local rg = VFLUI.RadioGroup:new(ca);
+rg:SetPoint("TOPLEFT", lbl_off, "BOTTOMLEFT", 0, -5);
+rg:Show();
+rg:SetLayout(3,3);
+rg.buttons[1]:SetWidth(70);
+rg.buttons[2]:SetWidth(70);
+rg.buttons[3]:SetWidth(70);
+rg.buttons[1]:SetText(VFLI.i18n("Default")); 
+rg.buttons[2]:SetText(VFLI.i18n("Double"));
+rg.buttons[3]:SetText(VFLI.i18n("Texture"));
+rg.buttons[1].button:HookScript("OnClick", function() FlagsUpdate(); end);
+rg.buttons[2].button:HookScript("OnClick", function() FlagsUpdate(); end);
+rg.buttons[3].button:HookScript("OnClick", function() FlagsUpdate(); end);
+
+function FlagsUpdate()
+	if rg:GetValue() ~= curBackdrop._bkdtype then 
+		curBackdrop._bkdtype = rg:GetValue();
+		UpdateBackdropPicker();
+	end
+end
 --------------- Updater
+local pvwf;
 UpdateBackdropPicker = function()
+	if pvwf then pvwf:Destroy(); end
+	pvwf = VFLUI.AcquireFrame("Frame");
+	pvwf:SetParent(pvwfb); pvwf:SetPoint("CENTER", pvwfb, "CENTER");
+	pvwf:SetWidth(243); pvwf:SetHeight(86);
+	pvwf:Show();
 	VFLUI.SetBackdrop(pvwf, curBackdrop);
 	--if curBackdrop._backdrop == "none" then
 	--	pvwf:SetBackdrop({
@@ -258,7 +339,7 @@ UpdateBackdropPicker = function()
 		if b_l:GetNumber() ~= curBackdrop.insets.left then b_l:SetText(curBackdrop.insets.left); end
 		if b_r:GetNumber() ~= curBackdrop.insets.right then b_r:SetText(curBackdrop.insets.right); end
 		if b_b:GetNumber() ~= curBackdrop.insets.bottom then b_b:SetText(curBackdrop.insets.bottom); end
-		if b_t:GetNumber() ~= curBackdrop.insets.top then	b_t:SetText(curBackdrop.insets.top); end
+		if b_t:GetNumber() ~= curBackdrop.insets.top then b_t:SetText(curBackdrop.insets.top); end
 	else
 		b_l:SetText(""); b_r:SetText(""); b_t:SetText(""); b_b:SetText("");
 	end
@@ -278,6 +359,14 @@ UpdateBackdropPicker = function()
 		chk_kcolor:SetChecked(nil);
 		cs_kcolor:SetColor(1,1,1,1);
 	end
+	
+	-- bkdp2
+	VFL.print(curBackdrop.boff);
+	if e_boff:GetNumber() ~= curBackdrop.boff then e_boff:SetText(curBackdrop.boff); end
+	if e_borl:GetNumber() ~= curBackdrop.borl then e_borl:SetText(curBackdrop.borl); end
+	if e_bors:GetNumber() ~= curBackdrop.bors then e_bors:SetText(curBackdrop.bors); end
+	if rg:GetValue() ~= curBackdrop._bkdtype then rg:SetValue(curBackdrop._bkdtype); end
+	
 end
 
 ----------- Buttons
@@ -356,6 +445,7 @@ function VFLUI.BackdropPicker(owner, fnOK, fnCancel, backdrop, flaganchor)
 	bdp_owner = owner; 
 	if flaganchor then bdp:SetPoint("LEFT", bdp_owner, "RIGHT", 10, 0); end
 	curBackdrop = VFL.copy(backdrop);
+	VFL.print(curBackdrop.boff);
 	UpdateBackdropPicker();
 	--bdp:Show();
 	bdp:_Show(.2);
