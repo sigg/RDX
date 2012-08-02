@@ -570,8 +570,6 @@ function VFLUI.SetBackdrop(frame, bkdp)
 		frame._rdxbbg:SetDrawLayer("BACKGROUND", 0);
 		frame._rdxbbg:SetVertexColor(1,1,1,1);
 		frame._rdxbbg:SetAllPoints(frame);
-			
-		end
 	end
 end
 
