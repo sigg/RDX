@@ -438,12 +438,12 @@ function VFLUI.SetBackdrop(frame, bkdp)
 	if frame._fbd then
 		frame._fbd:SetBackdrop(nil);
 		frame._fbb:SetBackdrop(nil);
-	elseif frame._rdxbf then
+	end
+	if frame._rdxbf then
 		frame:SetBackdrop(nil);
 		frame._rdxbf:Hide();
-	else
-		frame:SetBackdrop(nil);
 	end
+	frame:SetBackdrop(nil);
 	
 	frame:SetBackdrop(nil);
 	if not bkdp._bkdtype or bkdp._bkdtype == 1 then

@@ -48,6 +48,10 @@ pvwfb:SetBackdrop({
 });
 pvwfb:Show();
 
+local pvwf = VFLUI.AcquireFrame("Frame");
+pvwf:SetParent(pvwfb); pvwf:SetPoint("CENTER", pvwfb, "CENTER");
+pvwf:SetWidth(243); pvwf:SetHeight(86);
+pvwf:Show();
 ----------- Border and Backdrop styles
 local dd_border, dd_backdrop;
 
@@ -305,14 +309,9 @@ function FlagsUpdate()
 	end
 end
 --------------- Updater
-local pvwf;
+
 UpdateBackdropPicker = function()
 	curBackdrop.dl = "ARTWORK";
-	if pvwf then pvwf:Destroy(); end
-	pvwf = VFLUI.AcquireFrame("Frame");
-	pvwf:SetParent(pvwfb); pvwf:SetPoint("CENTER", pvwfb, "CENTER");
-	pvwf:SetWidth(243); pvwf:SetHeight(86);
-	pvwf:Show();
 	VFLUI.SetBackdrop(pvwf, curBackdrop);
 	--if curBackdrop._backdrop == "none" then
 	--	pvwf:SetBackdrop({
