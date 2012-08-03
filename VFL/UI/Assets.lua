@@ -434,6 +434,18 @@ end
 
 function VFLUI.SetBackdrop(frame, bkdp)
 	if (type(frame) ~= "table") or (type(bkdp) ~= "table") then return; end
+	
+	if frame._fbd then
+		frame._fbd:SetBackdrop(nil);
+		frame._fbb:SetBackdrop(nil);
+	elseif frame._rdxbf then
+		frame:SetBackdrop(nil);
+		frame._rdxbf:Hide();
+	else
+		frame:SetBackdrop(nil);
+	end
+	
+	frame:SetBackdrop(nil);
 	if not bkdp._bkdtype or bkdp._bkdtype == 1 then
 		-- default backdrop
 		frame:SetBackdrop(bkdp);
@@ -568,6 +580,7 @@ function VFLUI.SetBackdrop(frame, bkdp)
 			end, frame.Destroy);
 		end
 		
+		frame._rdxbf:Show();
 		frame._rdxbf:SetFrameLevel(frame:GetFrameLevel() + bkdp.borl);
 		
 		if bkdp.br then
