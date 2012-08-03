@@ -434,10 +434,6 @@ end
 
 function VFLUI.SetBackdrop(frame, bkdp)
 	if (type(frame) ~= "table") or (type(bkdp) ~= "table") then return; end
-	if not bkdp.boff then bkdp.boff = 1; end
-	if not bkdp.borl then bkdp.borl = 2; end
-	if not bkdp.bors then bkdp.bors = 2; end
-	if not bkdp.dl then bkdp.dl = "ARTWORK"; end
 	if not bkdp._bkdtype or bkdp._bkdtype == 1 then
 		-- default backdrop
 		frame:SetBackdrop(bkdp);
@@ -474,13 +470,15 @@ function VFLUI.SetBackdrop(frame, bkdp)
 		frame._fbd:SetPoint("CENTER", frame, "CENTER");
 		frame._fbd:SetWidth(frame:GetWidth() + bkdp.boff); 
 		frame._fbd:SetHeight(frame:GetHeight() + bkdp.boff);
-		frame._fbd:SetFrameLevel(frame:GetFrameLevel() - 1);
+		frame._fbd:SetFrameLevel(frame:GetFrameLevel());
+		frame._fbd:Show();
 		
 		frame._fbb:ClearAllPoints();
 		frame._fbb:SetPoint("CENTER", frame, "CENTER");
 		frame._fbb:SetWidth(frame:GetWidth() + bkdp.boff); 
 		frame._fbb:SetHeight(frame:GetHeight() + bkdp.boff);
 		frame._fbb:SetFrameLevel(frame:GetFrameLevel() + bkdp.borl);
+		frame._fbb:Show();
 		
 		local bkdp_bd = VFL.copy(bkdp);
 		bkdp_bd.edgeFile = nil;
@@ -515,18 +513,19 @@ function VFLUI.SetBackdrop(frame, bkdp)
 			local _t = VFLUI.CreateTexture(_f);
 			local _r = VFLUI.CreateTexture(_f);
 			local _b = VFLUI.CreateTexture(_f);
-			local _bg = VFLUI.CreateTexture(_f);
 			_l:Show();
 			_t:Show();
 			_r:Show();
 			_b:Show();
-			_bg:Show();
 			
 			_f._l = _l;
 			_f._t = _t;
 			_f._r = _r;
 			_f._b = _b;
-			_f._bg = _bg;
+			
+			local _bg = VFLUI.CreateTexture(frame);
+			_bg:Show();
+			frame._bg = _bg;
 			
 			-- store the border sise
 			_f.bors = bkdp.bors;
@@ -562,12 +561,14 @@ function VFLUI.SetBackdrop(frame, bkdp)
 				s._rdxbf._r = nil;
 				s._rdxbf._b:Destroy();
 				s._rdxbf._b = nil;
-				s._rdxbf._bg:Destroy();
-				s._rdxbf._bg = nil;
+				s._bg:Destroy();
+				s._bg = nil;
 				s._rdxbf:Destroy();
 				s._rdxbf = nil;
 			end, frame.Destroy);
 		end
+		
+		frame._rdxbf:SetFrameLevel(frame:GetFrameLevel() + bkdp.borl);
 		
 		if bkdp.br then
 			frame._rdxbf._l:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
@@ -595,12 +596,12 @@ function VFLUI.SetBackdrop(frame, bkdp)
 		end
 		
 		if bkdp.kr then
-			frame._rdxbf._bg:SetTexture(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
+			frame._bg:SetTexture(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
 		end
 		
-		frame._rdxbf._bg:SetDrawLayer("BACKGROUND", 0);
+		frame._bg:SetDrawLayer("BACKGROUND", 1);
 		--frame._rdxbf._bg:SetVertexColor(1,1,1,1);
-		frame._rdxbf._bg:SetAllPoints(frame);
+		frame._bg:SetAllPoints(frame);
 	end
 end
 

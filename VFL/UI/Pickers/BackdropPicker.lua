@@ -238,7 +238,7 @@ lbl_off:Show(); lbl_off:SetText("Dou Off");
 
 local e_boff = VFLUI.Edit:new(ca);
 e_boff:SetWidth(42); e_boff:SetHeight(25); e_boff:Show();
---e_boff:SetScript("OnTextChanged", function() bkdp2Update() end);
+e_boff:SetScript("OnTextChanged", function() bkdp2Update() end);
 e_boff:SetPoint("LEFT", lbl_off, "RIGHT");
 
 local lbl_borl = VFLUI.CreateFontString(ca);
@@ -249,7 +249,7 @@ lbl_borl:Show(); lbl_borl:SetText("Dou Level");
 
 local e_borl = VFLUI.Edit:new(ca);
 e_borl:SetWidth(42); e_borl:SetHeight(25); e_borl:Show();
---e_borl:SetScript("OnTextChanged", function() bkdp2Update() end);
+e_borl:SetScript("OnTextChanged", function() bkdp2Update() end);
 e_borl:SetPoint("LEFT", lbl_borl, "RIGHT");
 
 local lbl_bors = VFLUI.CreateFontString(ca);
@@ -260,14 +260,14 @@ lbl_bors:Show(); lbl_bors:SetText("Tex size");
 
 local e_bors = VFLUI.Edit:new(ca);
 e_bors:SetWidth(42); e_bors:SetHeight(25); e_bors:Show();
---e_bors:SetScript("OnTextChanged", function() bkdp2Update() end);
+e_bors:SetScript("OnTextChanged", function() bkdp2Update() end);
 e_bors:SetPoint("LEFT", lbl_bors, "RIGHT");
 
 function bkdp2Update()
 	-- Early out with invalid numbers.
-	local boff = tonumber(e_boff:GetText()); if not boff then return; end
-	local borl = tonumber(e_borl:GetText()); if not borl then return; end
-	local bors = tonumber(e_bors:GetText()); if not bors then return; end
+	local boff = tonumber(e_boff:GetText()); --if not boff then return; end
+	local borl = tonumber(e_borl:GetText()); --if not borl then return; end
+	local bors = tonumber(e_bors:GetText()); --if not bors then return; end
 	-- Clamp ranges
 	boff = math.floor(VFL.clamp(boff, 0, 1024));
 	borl = math.floor(VFL.clamp(borl, 0, 1024));
@@ -307,6 +307,7 @@ end
 --------------- Updater
 local pvwf;
 UpdateBackdropPicker = function()
+	curBackdrop.dl = "ARTWORK";
 	if pvwf then pvwf:Destroy(); end
 	pvwf = VFLUI.AcquireFrame("Frame");
 	pvwf:SetParent(pvwfb); pvwf:SetPoint("CENTER", pvwfb, "CENTER");
@@ -361,11 +362,18 @@ UpdateBackdropPicker = function()
 	end
 	
 	-- bkdp2
-	VFL.print(curBackdrop.boff);
-	if e_boff:GetNumber() ~= curBackdrop.boff then e_boff:SetText(curBackdrop.boff); end
-	if e_borl:GetNumber() ~= curBackdrop.borl then e_borl:SetText(curBackdrop.borl); end
-	if e_bors:GetNumber() ~= curBackdrop.bors then e_bors:SetText(curBackdrop.bors); end
-	if rg:GetValue() ~= curBackdrop._bkdtype then rg:SetValue(curBackdrop._bkdtype); end
+	--if e_boff:GetNumber() ~= curBackdrop.boff then 
+		e_boff:SetText(curBackdrop.boff); 
+	--end
+	--if e_borl:GetNumber() ~= curBackdrop.borl then 
+		e_borl:SetText(curBackdrop.borl); 
+	--end
+	--if e_bors:GetNumber() ~= curBackdrop.bors then 
+		e_bors:SetText(curBackdrop.bors);
+	--end
+	--if rg:GetValue() ~= curBackdrop._bkdtype then 
+		rg:SetValue(curBackdrop._bkdtype);
+	--end
 	
 end
 
@@ -445,7 +453,6 @@ function VFLUI.BackdropPicker(owner, fnOK, fnCancel, backdrop, flaganchor)
 	bdp_owner = owner; 
 	if flaganchor then bdp:SetPoint("LEFT", bdp_owner, "RIGHT", 10, 0); end
 	curBackdrop = VFL.copy(backdrop);
-	VFL.print(curBackdrop.boff);
 	UpdateBackdropPicker();
 	--bdp:Show();
 	bdp:_Show(.2);
