@@ -94,7 +94,8 @@ RDX.RegisterFeature({
 	end;
 });
 
--- From an idea of Crispii
+-- From an idea of Crispii 
+-- deprecated now, integrated into RDX backdrop
 
 RDX.RegisterFeature({
 	name = "backdrop_rdx";
