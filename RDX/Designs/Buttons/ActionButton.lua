@@ -787,7 +787,7 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 		self:SetWidth(desc.size); self:SetHeight(desc.size);
 		self:SetButtonSkin(desc.externalButtonSkin, true, true, true, true, true, true, false, true, true, desc.showgloss);
 		os = desc.ButtonSkinOffset or 0;
-	elseif desc.driver then
+	elseif desc.driver == 2 then
 		self = VFLUI.BckButton:new(parent, "SecureActionButtonBar", id);
 		if not self then self = VFLUI.BckButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end
 		self:SetWidth(desc.size); self:SetHeight(desc.size);
