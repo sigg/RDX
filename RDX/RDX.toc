@@ -272,6 +272,7 @@ Designs\Basics\Cooldown.lua
 Designs\Basics\Hotspot.lua
 Designs\Basics\StatusBar.lua
 Designs\Basics\SubFrame.lua
+Designs\Basics\Texture.lua
 
 Designs\Buttons\ActionBarPet.lua
 Designs\Buttons\ActionBars.lua
@@ -304,6 +305,7 @@ Designs\Complexes\MenuBar.lua
 Designs\Complexes\BagsBar.lua
 Designs\Complexes\PlayerPowerBarAlt.lua
 Designs\Complexes\ExtraActionBar.lua
+Designs\Complexes\Portraits3D.lua
 
 Designs\Lists\AuraBarList.lua
 Designs\Lists\AuraIconList.lua
@@ -329,6 +331,7 @@ Designs\Shaders\Shaders.lua
 Designs\Shaders\SmoothPowerBarShader.lua
 Designs\Shaders\StatusBarTextureMapShader.lua
 Designs\Shaders\TimerShader.lua
+Designs\Shaders\Portraits2D.lua
 
 Designs\Texts\CustomText.lua
 Designs\Texts\InfoText.lua
@@ -337,21 +340,6 @@ Designs\Texts\StaticText.lua
 Designs\Texts\StatusText.lua
 Designs\Texts\OtherText.lua
 Designs\Texts\CombatText.lua
-
-Designs\Textures\TextureIcon.lua
-Designs\Textures\TextureIndicator.lua
-Designs\Textures\ClassIcon.lua
-Designs\Textures\FactionIcon.lua
-Designs\Textures\MasterLooterIcon.lua
-Designs\Textures\PlayerStatusIcon.lua
-Designs\Textures\Portraits2D.lua
-Designs\Textures\Portraits3D.lua
-Designs\Textures\PvpIcon.lua
-Designs\Textures\RaidLeaderIcon.lua
-Designs\Textures\RaidTargetIcon.lua
-Designs\Textures\ReadyCheckIcon.lua
-Designs\Textures\RoleIcon.lua
-Designs\Textures\Texture.lua
 
 Designs\Variables\AuraVariables.lua
 Designs\Variables\CastLagVariables.lua
