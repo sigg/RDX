@@ -13,16 +13,17 @@
 -------------------------------------------
 RDX.IsDesignEditorOpen = RDXIE.IsFeatureEditorOpen;
 
-function RDX.DesignEditor(state, callback, augText, parent)
-	local dlg = RDXIE.FeatureEditor(state, callback, augText, parent);
+function RDX.DesignEditor(state, callback, augText, parent, offline)
+	local dlg = RDXIE.FeatureEditor(state, callback, augText, parent, offline);
 	if not dlg then return nil; end
 	
-	RDX.TogglePreviewWindow(dlg);
-	
-	------ Close procedure
-	dlg.Destroy = VFL.hook(function(s)
-		RDX.ClosePreviewWindow();
-	end, dlg.Destroy);
+	if not offline then
+		RDX.TogglePreviewWindow(dlg);
+		------ Close procedure
+		dlg.Destroy = VFL.hook(function(s)
+			RDX.ClosePreviewWindow();
+		end, dlg.Destroy);
+	end
 end
 
 ----------------------------------------------------------------------
@@ -30,13 +31,13 @@ end
 ----------------------------------------------------------------------
 local dState = RDX.DesignState:new();
 
-local function EditDesign(parent, path, md)
+local function EditDesign(parent, path, md, offline)
 	if RDX.IsDesignEditorOpen() then return; end
 	dState:LoadDescriptor(md.data, path);
 	RDX.DesignEditor(dState, function(x)
 		md.data = x:GetDescriptor();
 		RDXDB.NotifyUpdate(path);
-	end, path, parent);
+	end, path, parent, offline);
 end
 
 RDXDB.RegisterObjectType({
@@ -45,15 +46,19 @@ RDXDB.RegisterObjectType({
 	New = function(path, md)
 		md.version = 1;
 	end;
-	Edit = function(path, md, parent)
-		EditDesign(parent, path, md);
+	Edit = function(path, md, parent, offline)
+		EditDesign(parent, path, md, offline);
 	end;
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),
 			OnClick = function()
 				VFL.poptree:Release();
-				RDXDB.OpenObject(path, "Edit", dlg);
+				if IsShiftKeyDown() then
+					RDXDB.OpenObject(upath, "Edit", dlg, true);
+				else
+					RDXDB.OpenObject(path, "Edit", dlg);
+				end
 			end
 		});
 	end;

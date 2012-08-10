@@ -42,7 +42,7 @@ local function MoveFeatureDragStart(btn)
 	end
 end
 
-function RDXIE.FeatureEditor(state, callback, path, parent)
+function RDXIE.FeatureEditor(state, callback, path, parent, offline)
 	if (dlg) or (not state) then return nil; end
 	RDXIEEvents:Dispatch("OPEN");
 	

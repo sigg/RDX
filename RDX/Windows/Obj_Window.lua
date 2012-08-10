@@ -178,7 +178,11 @@ local function SetupWindow(path, win, desc)
 			text = VFLI.i18n("Edit Design");
 			OnClick = function()
 				VFL.poptree:Release();
-				RDXDB.OpenObject(upath, "Edit", VFLDIALOG);
+				if IsShiftKeyDown() then
+					RDXDB.OpenObject(upath, "Edit", VFLDIALOG, true);
+				else
+					RDXDB.OpenObject(upath, "Edit", VFLDIALOG);
+				end
 			end;
 		});
 	end);
