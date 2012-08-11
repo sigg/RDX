@@ -96,6 +96,8 @@ VFLUI.CreateFramePool("ChatFrame2",
 		m2:SetTexture(nil);
 		r2:SetTexture(nil);
 		
+		f.cf.editBox:SetScript("OnHide", nil);
+		
 		return f;
 	end, 
 	function(_, f) -- on acquired
@@ -131,8 +133,6 @@ ChatEdit_UpdateHeader = function(editBox)
 		end
 	end
 end
--- reset the defaut editbox on hide
-ChatEdit_OnHide = VFL.Noop;
 
 VFLUI.CreateFramePool("ChatFrameEditBox", 
 	function(pool, x) -- on released
