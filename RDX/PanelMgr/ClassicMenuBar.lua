@@ -240,9 +240,13 @@ local function CreateMiniPane()
 			end
 		elseif (arg1 == "RightButton") then
 			if not InCombatLockdown() then
-				local curdesk = RDXDK.GetCurrentDesktop();
-				if curdesk then
-					RDXDK.ToggleDesktopTools(VFLFULLSCREEN_DIALOG, curdesk:_GetFrameProps("root"));
+				if IsShiftKeyDown() then
+					RDXDB.ToggleObjectBrowser();
+				else
+					local curdesk = RDXDK.GetCurrentDesktop();
+					if curdesk then
+						RDXDK.ToggleDesktopTools(VFLFULLSCREEN_DIALOG, curdesk:_GetFrameProps("root"));
+					end
 				end
 			end
 		end
