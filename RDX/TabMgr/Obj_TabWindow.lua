@@ -45,6 +45,22 @@ RDXDB.RegisterObjectType({
 				RDXDB.OpenObject(path, "Edit", dlg);
 			end
 		});
+		local feat = RDXDB.GetFeatureData(path, "Design");
+		if not feat then feat = RDXDB.GetFeatureData(path, "Assist Frames"); end
+		if feat then
+			local upath = feat["design"];
+			table.insert(mnu, {
+				text = VFLI.i18n("Edit Design"),
+				OnClick = function() 
+					VFL.poptree:Release();
+					if IsShiftKeyDown() then
+						RDXDB.OpenObject(upath, "Edit", VFLDIALOG, true);
+					else
+						RDXDB.OpenObject(upath, "Edit", VFLDIALOG);
+					end
+				end
+			});
+		end
 		table.insert(mnu, {
 			text = VFLI.i18n("Transform Window"),
 			OnClick = function() 
