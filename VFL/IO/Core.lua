@@ -131,6 +131,8 @@ ChatEdit_UpdateHeader = function(editBox)
 		end
 	end
 end
+-- reset the defaut editbox on hide
+ChatEdit_OnHide = VFL.Noop;
 
 VFLUI.CreateFramePool("ChatFrameEditBox", 
 	function(pool, x) -- on released
