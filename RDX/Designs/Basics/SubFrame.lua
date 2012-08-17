@@ -99,6 +99,6 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
 		return ui;
 	end;
 	CreateDescriptor = function()
-		return { feature = "Subframe"; name = "subframe"; owner = "decor"; w = 90; h = 14; anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0}, flOffset = 1};
+		return { feature = "Subframe"; name = "subframe"; owner = "decor"; w = 90; h = 14; anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0}; flOffset = 1; bkd = VFL.copy(VFLUI.defaultBackdrop); };
 	end;
 });
