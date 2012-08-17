@@ -576,17 +576,25 @@ _t:Show();
 			createCode = createCode .. VFLUI.GenerateSetTextureCode("_t", desc.texture);
 		elseif desc.ftype == 2 then
 			createCode = createCode .. [[
-local btn, owner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
-if ]] .. driver .. [[ == 1 then 
-	btn = VFLUI.SkinButton:new();
-	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-	btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
-elseif ]] .. driver .. [[ == 2 then
-	btn = VFLUI.AcquireFrame("Frame");
-	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-	VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
-end
-btn:SetParent(owner);
+local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+]];
+		if driver == 1 then 
+			createCode = createCode .. [[
+btn = VFLUI.AcquireFrame("Button");
+]];
+		elseif driver == 2 then
+			createCode = createCode .. [[
+btn = VFLUI.SkinButton:new();
+btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
+]];
+		elseif driver == 3 then
+			createCode = createCode .. [[
+btn = VFLUI.AcquireFrame("Button");
+VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
+]];
+		end
+		createCode = createCode .. [[
+btn:SetParent(btnOwner);
 btn:SetFrameLevel(owner:GetFrameLevel());
 btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
@@ -614,9 +622,9 @@ btn:Hide();
 				});
 			end);
 			createCode = createCode .. [[
-local btn, owner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 btn = VFLUI.AcquireFrame("Frame");
-btn:SetParent(owner);
+btn:SetParent(btnOwner);
 btn:SetFrameLevel(owner:GetFrameLevel());
 btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
@@ -749,11 +757,15 @@ btn = ]] .. objname .. [[;
 		
 		local driver = VFLUI.DisjointRadioGroup:new();
 		
+		local driver_NS = driver:CreateRadioButton(ui);
+		driver_NS:SetText(VFLI.i18n("No Skin"));
 		local driver_BS = driver:CreateRadioButton(ui);
 		driver_BS:SetText(VFLI.i18n("Use Button Skin"));
 		local driver_BD = driver:CreateRadioButton(ui);
 		driver_BD:SetText(VFLI.i18n("Use Backdrop"));
-		driver:SetValue(desc.driver or 2);
+		driver:SetValue(desc.driver or 1);
+		
+		ui:InsertFrame(driver_NS);
 		
 		ui:InsertFrame(driver_BS);
 		
