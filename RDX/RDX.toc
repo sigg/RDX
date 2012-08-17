@@ -266,13 +266,13 @@ Designs\PreviewWindow.lua
 #Designs\Animations\AnimationFrame.lua
 #Designs\Animations\AnimationTexture.lua
 #Designs\Animations\AnimationText.lua
-#Designs\Basics\Backdrop.lua
 Designs\Basics\BaseFrame.lua
 Designs\Basics\Cooldown.lua
 Designs\Basics\Hotspot.lua
 Designs\Basics\StatusBar.lua
 Designs\Basics\SubFrame.lua
 Designs\Basics\Texture.lua
+Designs\Basics\Text.lua
 
 Designs\Buttons\ActionBarPet.lua
 Designs\Buttons\ActionBars.lua
@@ -332,14 +332,6 @@ Designs\Shaders\SmoothPowerBarShader.lua
 Designs\Shaders\StatusBarTextureMapShader.lua
 Designs\Shaders\TimerShader.lua
 Designs\Shaders\Portraits2D.lua
-
-Designs\Texts\CustomText.lua
-Designs\Texts\InfoText.lua
-Designs\Texts\NamePlateText.lua
-Designs\Texts\StaticText.lua
-Designs\Texts\StatusText.lua
-Designs\Texts\OtherText.lua
-Designs\Texts\CombatText.lua
 
 Designs\Variables\AuraVariables.lua
 Designs\Variables\CastLagVariables.lua
