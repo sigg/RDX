@@ -310,6 +310,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 			
 			-- add Talent
 			-- By TipTop
+			--[[ disable no authorization yet
 			if CanInspect(unit) and descg.showTalent then
 				if UnitName(unit) ~= UnitName("player") and UnitLevel(unit) > 9 then
 					local talentline = nil;
@@ -334,11 +335,12 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 						GameTooltip:Show();
 					end
 				end
-			end
+			end]]
 		end
 	end);
 	
 	-- By TipTop
+	--[[ disable no authorization yet
 	local maxtree,pnts,tree,active,left,leftText,right;
 	local function TalentText()
 		if UnitExists("mouseover") then
@@ -363,14 +365,15 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 			end
 		end
 		maxtree,pnts,tree = nil	--reset these variables;
-	end
+	end]]
 	
 	-- By TipTop
+	--[[ disable no authorization yet
 	WoWEvents:Bind("INSPECT_READY", nil, function(guid)
 		if requestguid == guid then
 			TalentText();
 		end
-	end);
+	end);]]
 	
 	local min, max, txt;
 	local kay = VFL.Kay;
