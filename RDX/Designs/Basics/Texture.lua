@@ -595,7 +595,7 @@ VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
 		end
 		createCode = createCode .. [[
 btn:SetParent(btnOwner);
-btn:SetFrameLevel(owner:GetFrameLevel());
+btn:SetFrameLevel(btnOwner:GetFrameLevel());
 btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
 btn._t = VFLUI.CreateTexture(btn);
