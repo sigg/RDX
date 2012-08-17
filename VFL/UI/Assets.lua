@@ -608,6 +608,8 @@ function VFLUI.SetBackdrop(frame, bkdp)
 		
 		if bkdp.kr then
 			frame._bg:SetTexture(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
+		else
+			frame._bg:SetTexture(nil);
 		end
 		
 		frame._bg:SetDrawLayer("BACKGROUND", 1);

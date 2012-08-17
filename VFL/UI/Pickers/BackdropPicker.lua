@@ -225,6 +225,7 @@ function BackdropColorUpdate()
 		local r,g,b,a = cs_kcolor:GetColorValues();
 		curBackdrop.kr = r; curBackdrop.kg = g; curBackdrop.kb = b; curBackdrop.ka = a;
 	else
+		VFL.print("toto");
 		curBackdrop.kr = nil; curBackdrop.kg = nil; curBackdrop.kb = nil; curBackdrop.ka = nil;
 	end
 	UpdateBackdropPicker();
@@ -249,7 +250,7 @@ local lbl_borl = VFLUI.CreateFontString(ca);
 VFLUI.SetFont(lbl_borl, Fonts.Default, 10);
 lbl_borl:SetWidth(50); lbl_borl:SetHeight(20);
 lbl_borl:SetPoint("LEFT", e_boff, "RIGHT");
-lbl_borl:Show(); lbl_borl:SetText("Dou Level");
+lbl_borl:Show(); lbl_borl:SetText("Level");
 
 local e_borl = VFLUI.Edit:new(ca);
 e_borl:SetWidth(42); e_borl:SetHeight(25); e_borl:Show();
