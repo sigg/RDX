@@ -66,7 +66,6 @@ if (md) and (ty == "TabManager") and (md.data) then
 				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1)
 					tabbox:SetClient(f, true);
 					ChatEdit_SetLastActiveWindow(f.cf.editBox);
-					DEFAULT_CHAT_FRAME = f.cf;
 				end, function() end, function(mnu, dlg) return objdesc.GenerateBrowserMenu(mnu, v.op, nil, dlg) end);
 			end
 			tab.font:SetText(md2.data.title);
