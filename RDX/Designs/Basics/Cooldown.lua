@@ -1,58 +1,4 @@
-
---------------- Code emitter helpers
-local function _EmitCreateCode(objname, desc)
-	local ebsflag, ebs, ebsos = "false", "bs_default", 0;
-	if desc.externalButtonSkin then
-		ebsflag = "true";
-		ebs = desc.externalButtonSkin;
-		if desc.ButtonSkinOffset then ebsos = desc.ButtonSkinOffset; end
-	end
-	
-	if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
-	local createCode = [[
-local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
-if ]] .. ebsflag .. [[ then 
-	btn = VFLUI.SkinButton:new();
-	btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, true);
-else
-	btn = VFLUI.AcquireFrame("Frame");
-end
-btn:SetParent(btnOwner);
-btn:SetFrameLevel(btnOwner:GetFrameLevel());
-btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-btn.tex = VFLUI.CreateTexture(btn);
-btn.tex:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "2") .. [[);
-btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. ebsos .. [[, -]] .. ebsos .. [[);
-btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. ebsos .. [[, ]] .. ebsos .. [[);
-if not RDXG.usecleanicons then
-	btn.tex:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
-end
-btn.tex:Show();
-]];
-	createCode = createCode .. VFLUI.GenerateSetTextureCode("btn.tex", desc.texture);
-	createCode = createCode .. [[
-btn.cd = VFLUI.CooldownCounter:new(btn, ]] .. Serialize(desc.cd) .. [[);
-btn.cd:SetAllPoints(btn.tex);
-btn.cd:Show();
-]];
-	if desc.gt then
-	local gtType = __RDX_GetGameTooltipType(desc.gt);
-	createCode = createCode .. [[
-btn:SetScript("OnEnter", ]] .. gtType .. [[);
-btn:SetScript("OnLeave", __RDX_OnLeave);
-]];
-	else
-	createCode = createCode .. [[
-
-]];
-	end
-	createCode = createCode .. [[
-frame.]] .. objname .. [[ = btn;
-
-]];
-	return createCode;
-end
+-- OpenRDX
 
 RDX.RegisterFeature({
 	name = "texture_cooldown";
@@ -67,21 +13,88 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 		if not desc.timerVar or desc.timerVar == "" then VFL.AddError(errs, VFLI.i18n("Missing variable Timer")); flg = nil; end
-		if flg then state:AddSlot("Frame_" .. desc.name); end
+		if flg then 
+			state:AddSlot("Frame_" .. desc.name);
+			state:AddSlot("Cooldown_" .. desc.name);
+			if desc.driver == 3 then
+				state:AddSlot("Bkdp_" .. desc.name);
+			end
+		end
 		return flg;
 	end;
 	ApplyFeature = function(desc, state)
 		local objname = "Frame_" .. desc.name;
 		local texIcondata = desc.tex or "";
 		
+		local driver = desc.driver or 1;
+		local ebs = desc.externalButtonSkin or "bs_default";
+		local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
+		local bsdefault = desc.bsdefault or _white;
+		local bkd = desc.bkd or VFLUI.defaultBackdrop;
+		local bordersize = desc.bordersize or 1;
+		local os = 0; 
+		if driver == 2 then 
+			os = desc.ButtonSkinOffset or 0;
+		elseif driver == 3 then
+			if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
+		end
+		
+		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
+		
 		----------------- Creation
-		local createCode = _EmitCreateCode(objname, desc);
+		local createCode = [[
+local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+]];
+		if driver == 1 then 
+			createCode = createCode .. [[
+btn = VFLUI.AcquireFrame("Button");
+]];
+		elseif driver == 2 then
+			createCode = createCode .. [[
+btn = VFLUI.SkinButton:new();
+btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
+]];
+		elseif driver == 3 then
+			createCode = createCode .. [[
+btn = VFLUI.AcquireFrame("Button");
+VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
+]];
+		end
+		createCode = createCode .. [[
+btn:SetParent(btnOwner);
+btn:SetFrameLevel(btnOwner:GetFrameLevel());
+btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
+btn.tex = VFLUI.CreateTexture(btn);
+btn.tex:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "2") .. [[);
+btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
+btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
+if not RDXG.usecleanicons then
+	btn.tex:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
+end
+btn.tex:Show();
+]];
+		createCode = createCode .. VFLUI.GenerateSetTextureCode("btn.tex", desc.texture);
+		createCode = createCode .. [[
+btn.cd = VFLUI.CooldownCounter:new(btn, ]] .. Serialize(desc.cd) .. [[);
+btn.cd:SetAllPoints(btn.tex);
+btn.cd:Show();
+]];
+		if desc.gt then
+			local gtType = __RDX_GetGameTooltipType(desc.gt);
+			createCode = createCode .. [[
+btn:SetScript("OnEnter", ]] .. gtType .. [[);
+btn:SetScript("OnLeave", __RDX_OnLeave);
+]];
+		end
+		createCode = createCode .. [[
+frame.]] .. objname .. [[ = btn;
+]];
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 
 		------------------- Destruction
@@ -148,25 +161,49 @@ frame.]] .. objname .. [[:Hide();
 		if desc and desc.timerVar then timerVar:SetSelection(desc.timerVar); end
 		
 		------------- ButtonSkin
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Button Skin parameters")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Skin parameters")));
 		
-		local chk_bs = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use Button Skin"));
-		local dd_buttonSkin = VFLUI.Dropdown:new(chk_bs, VFLUI.GetButtonSkinList);
+		local driver = VFLUI.DisjointRadioGroup:new();
+		
+		local driver_NS = driver:CreateRadioButton(ui);
+		driver_NS:SetText(VFLI.i18n("No Skin"));
+		local driver_BS = driver:CreateRadioButton(ui);
+		driver_BS:SetText(VFLI.i18n("Use Button Skin"));
+		local driver_BD = driver:CreateRadioButton(ui);
+		driver_BD:SetText(VFLI.i18n("Use Backdrop"));
+		driver:SetValue(desc.driver or 1);
+		
+		ui:InsertFrame(driver_NS);
+		
+		ui:InsertFrame(driver_BS);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Button Skin"));
+		local dd_buttonSkin = VFLUI.Dropdown:new(er, VFLUI.GetButtonSkinList);
 		dd_buttonSkin:SetWidth(150); dd_buttonSkin:Show();
-		if desc and desc.externalButtonSkin then
-			chk_bs:SetChecked(true);
-			dd_buttonSkin:SetSelection(desc.externalButtonSkin); 
-		else
-			chk_bs:SetChecked();
-			dd_buttonSkin:SetSelection("bs_default");
-		end
-		chk_bs:EmbedChild(dd_buttonSkin); chk_bs:Show();
-		ui:InsertFrame(chk_bs);
+		dd_buttonSkin:SetSelection(desc.externalButtonSkin); 
+		er:EmbedChild(dd_buttonSkin); er:Show();
+		ui:InsertFrame(er);
 		
 		local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
 		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
 		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
 		ui:InsertFrame(ed_bs);
+		
+		local chk_showgloss = VFLUI.Checkbox:new(ui); chk_showgloss:Show();
+		chk_showgloss:SetText(VFLI.i18n("Button Skin Show Gloss"));
+		if desc and desc.showgloss then chk_showgloss:SetChecked(true); else chk_showgloss:SetChecked(); end
+		ui:InsertFrame(chk_showgloss);
+		
+		local color_bsdefault = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Button Skin default color"));
+		if desc and desc.bsdefault then color_bsdefault:SetColor(VFL.explodeRGBA(desc.bsdefault)); end
+		
+		ui:InsertFrame(driver_BD);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop"));
+		local dd_backdrop = VFLUI.MakeBackdropSelectButton(er, desc.bkd);
+		dd_backdrop:Show();
+		er:EmbedChild(dd_backdrop); er:Show();
+		ui:InsertFrame(er);
 		
 		-------------- Texture
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Texture parameters")));
@@ -207,19 +244,18 @@ frame.]] .. objname .. [[:Hide();
 				owner = owner:GetSelection();
 				anchor = anchor:GetAnchorInfo();
 				timerVar = timerVar:GetSelection();
-				externalButtonSkin = ebs;
+				--display
+				driver = driver:GetValue();
+				externalButtonSkin = dd_buttonSkin:GetSelection();
 				ButtonSkinOffset = VFL.clamp(ed_bs.editBox:GetNumber(), 0, 50);
+				showgloss = chk_showgloss:GetChecked();
+				bsdefault = color_bsdefault:GetColor();
+				bkd = dd_backdrop:GetSelectedBackdrop();
+				--
 				texture = tsel:GetSelectedTexture();
 				dyntexture = chk_dyntexture:GetChecked();
 				tex = tex:GetSelection();
 				cd = cd:GetSelectedCooldown();
-				cdTimerType = nil;
-				cdGfxReverse = nil;
-				cdHideTxt = nil;
-				cdFont = nil;
-				cdTxtType = nil;
-				cdoffx = nil;
-				cdoffy = nil;
 				gt = gt:GetSelection();
 			};
 		end
@@ -231,12 +267,13 @@ frame.]] .. objname .. [[:Hide();
 		return { 
 			feature = "texture_cooldown";
 			version = 1;
-			name = "texcd1";
+			name = "cooldown1";
 			owner = "decor";
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
 			w = 36; h = 36;
 			externalButtonSkin = "bs_default";
 			ButtonSkinOffset = 0;
+			bkd = VFL.copy(VFLUI.defaultBackdrop);
 			cd = VFL.copy(VFLUI.defaultCooldown);
 		};
 	end;
