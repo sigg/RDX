@@ -103,7 +103,6 @@ local function OpenPreviewWindow(parent)
 			createFrame(curUF);
 			curUF:SetPoint("CENTER", preview_window.middle, "CENTER", 0, 0); 
 			curUF:Show();
-			
 			if curUF then
 				unit = RDXDAL.ProjectUnitID("player");
 				if unit then
@@ -121,10 +120,21 @@ local function OpenPreviewWindow(parent)
 					preview_window:SetHeight(curUF:GetHeight());
 				end
 			end
+
 		end
 	end
 	
-	RDXIEEvents:Bind("REBUILD", nil, UpdateUnitFrameDesign, "IEREBUILD");
+	RDXIEEvents:Bind("REBUILD", nil, function(state, path) 
+		local succ,err = pcall(UpdateUnitFrameDesign, state, path);
+		if not succ then
+			RDXDK.PrintError(preview_window, "UpdateUnitFrameDesign", err);
+			local _errs = VFL.Error:new();
+			_errs:AddError(err)
+			ShowErrors(_errs);
+		else
+			HideErrors();
+		end
+	end, "IEREBUILD");
 	
 	local unit;
 	local function PaintUnitFrame()
