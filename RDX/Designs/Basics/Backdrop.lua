@@ -10,6 +10,11 @@
 ------------------------------------------------------
 -- Backdrop feature. Adds a backdrop to a subframe.
 ------------------------------------------------------
+
+
+-- deprecated
+-- backdrop is add as an option in the objects subframe, button, statusbar etc ...
+
 RDX.RegisterFeature({
 	name = "backdrop";
 	title = VFLI.i18n("Backdrop");

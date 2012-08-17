@@ -438,14 +438,16 @@ function VFLUI.SetBackdrop(frame, bkdp)
 	if frame._fbd then
 		frame._fbd:SetBackdrop(nil);
 		frame._fbb:SetBackdrop(nil);
+		frame._fbd:Hide();
+		frame._fbb:Hide();
 	end
 	if frame._rdxbf then
-		frame:SetBackdrop(nil);
+		frame._bg:Hide();
+		frame._rdxbf:SetScript("OnSizeChanged", nil);
 		frame._rdxbf:Hide();
 	end
 	frame:SetBackdrop(nil);
-	
-	frame:SetBackdrop(nil);
+
 	if not bkdp._bkdtype or bkdp._bkdtype == 1 then
 		-- default backdrop
 		frame:SetBackdrop(bkdp);
@@ -539,27 +541,6 @@ function VFLUI.SetBackdrop(frame, bkdp)
 			_bg:Show();
 			frame._bg = _bg;
 			
-			-- store the border sise
-			_f.bors = bkdp.bors;
-			
-			local function rsize(self)
-				self._l:ClearAllPoints();
-				self._t:ClearAllPoints();
-				self._r:ClearAllPoints();
-				self._b:ClearAllPoints();
-				self._l:SetPoint("LEFT", self, "LEFT");
-				self._t:SetPoint("TOP", self, "TOP");
-				self._r:SetPoint("RIGHT", self, "RIGHT");
-				self._b:SetPoint("BOTTOM", self, "BOTTOM");
-				self._l:SetWidth(self.bors or 1); self._l:SetHeight(self:GetHeight());
-				self._t:SetWidth(self:GetWidth()); self._t:SetHeight(self.bors or 1);
-				self._r:SetWidth(self.bors or 1); self._r:SetHeight(self:GetHeight());
-				self._b:SetWidth(self:GetWidth()); self._b:SetHeight(self.bors or 1);
-			end
-			
-			_f.rsize = rsize;
-			_f:SetScript("OnSizeChanged", rsize);
-			
 			frame._rdxbf = _f;
 			
 			frame.Destroy = VFL.hook(function(s)
@@ -583,6 +564,28 @@ function VFLUI.SetBackdrop(frame, bkdp)
 		frame._rdxbf:Show();
 		frame._rdxbf:SetFrameLevel(frame:GetFrameLevel() + bkdp.borl);
 		
+		-- store the border sise
+		frame._rdxbf.bors = bkdp.bors;
+		
+		local function rsize(self)
+			self._l:ClearAllPoints();
+			self._t:ClearAllPoints();
+			self._r:ClearAllPoints();
+			self._b:ClearAllPoints();
+			self._l:SetPoint("LEFT", self, "LEFT");
+			self._t:SetPoint("TOP", self, "TOP");
+			self._r:SetPoint("RIGHT", self, "RIGHT");
+			self._b:SetPoint("BOTTOM", self, "BOTTOM");
+			self._l:SetWidth(self.bors or 1); self._l:SetHeight(self:GetHeight());
+			self._t:SetWidth(self:GetWidth()); self._t:SetHeight(self.bors or 1);
+			self._r:SetWidth(self.bors or 1); self._r:SetHeight(self:GetHeight());
+			self._b:SetWidth(self:GetWidth()); self._b:SetHeight(self.bors or 1);
+		end
+		
+		frame._rdxbf.rsize = rsize;
+		frame._rdxbf:SetScript("OnSizeChanged", rsize);
+		frame._rdxbf:rsize();
+		
 		if bkdp.br then
 			frame._rdxbf._l:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
 			frame._rdxbf._t:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
@@ -603,18 +606,14 @@ function VFLUI.SetBackdrop(frame, bkdp)
 		--frame._rdxbf._r:SetVertexColor(1,1,1,1);
 		--frame._rdxbf._b:SetVertexColor(1,1,1,1);
 		
-		if bkdp.bors then
-			frame._rdxbf.bors = bkdp.bors;
-			frame._rdxbf:rsize();
-		end
-		
 		if bkdp.kr then
 			frame._bg:SetTexture(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
 		end
 		
 		frame._bg:SetDrawLayer("BACKGROUND", 1);
-		--frame._rdxbf._bg:SetVertexColor(1,1,1,1);
+		--frame._bg:SetVertexColor(1,1,1,1);
 		frame._bg:SetAllPoints(frame);
+		frame._bg:Show();
 	end
 end
 
@@ -718,20 +717,20 @@ function VFLUI.ResizeBackdropRDX(frame, offset)
 	frame._fbb:SetWidth(frame:GetWidth() + offset); 
 	frame._fbb:SetHeight(frame:GetHeight() + offset);
 end
-
+-- deprecated
 function VFLUI.SetBorderLevelBackdropRDX(frame, borderlevel)
 	if (type(frame) ~= "table") then return; end
 	if not frame._fbd then error("Owner frame does not have a backdrop RDX"); end
 	if not borderlevel then borderlevel = 1; end
 	frame._fbb:SetFrameLevel(frame:GetFrameLevel() + borderlevel);
 end
-
+-- deprecated
 function VFLUI.ApplyColorBDBackdropRDX(frame, color)
 	if (type(frame) ~= "table") or (type(color) ~= "table") then return; end
 	if not frame._fbd then error("Owner frame does not have a backdrop RDX"); end
 	frame._fbd:SetBackdropColor(VFL.explodeRGBA(color));
 end
-
+-- deprecated
 function VFLUI.ApplyColorBBBackdropRDX(frame, color)
 	if (type(frame) ~= "table") or (type(color) ~= "table") then return; end
 	if not frame._fbd then error("Owner frame does not have a backdrop RDX"); end
@@ -802,7 +801,7 @@ function VFLUI.SetBackdropBorderRDX(frame, color, drawlayer, sublevel, size, bgc
 		s._rdxbb = nil;
 	end, frame.Destroy);
 end
-
+-- deprecated
 function VFLUI.ResizeBackdropBorderRDX(frame, size)
 	if (type(frame) ~= "table") then return; end
 	if not frame._rdxbl then error("Owner frame does not have a backdrop border RDX"); end
@@ -811,7 +810,7 @@ function VFLUI.ResizeBackdropBorderRDX(frame, size)
 	frame._rdxbr:SetWidth(size or 1); frame._rdxbr:SetHeight(frame:GetHeight());
 	frame._rdxbb:SetWidth(frame:GetWidth()); frame._rdxbb:SetHeight(size or 1);
 end
-
+-- deprecated
 function VFLUI.ApplyColorBackdropBorderRDX(frame, color)
 	if (type(frame) ~= "table") or (type(color) ~= "table") then return; end
 	if not frame._rdxbl then error("Owner frame does not have a backdrop border RDX"); end

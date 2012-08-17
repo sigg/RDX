@@ -323,6 +323,7 @@ end
 
 function RDXUI.DescriptorCheck(desc, state, errs)
 	if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor")); return nil; end
+	if desc.owner == "Base" then desc.owner = "decor"; end
 	return true;
 end
 

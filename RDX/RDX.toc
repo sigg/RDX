@@ -266,7 +266,7 @@ Designs\PreviewWindow.lua
 #Designs\Animations\AnimationFrame.lua
 #Designs\Animations\AnimationTexture.lua
 #Designs\Animations\AnimationText.lua
-Designs\Basics\Backdrop.lua
+#Designs\Basics\Backdrop.lua
 Designs\Basics\BaseFrame.lua
 Designs\Basics\Cooldown.lua
 Designs\Basics\Hotspot.lua

@@ -16,7 +16,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not RDXUI.UFLayoutCheck(desc, state, errs) then return nil; end
 		if desc.flOffset < 1 then desc.flOffset = 1 end
 		local flg = true;
@@ -24,13 +23,17 @@ RDX.RegisterFeature({
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 		if flg then 
-			state:AddSlot("Subframe_" .. desc.name);
 			state:AddSlot("Frame_" .. desc.name);
+			state:AddSlot("Subframe_" .. desc.name);
+			if desc.usebkd then
+				state:AddSlot("Bkdp_" .. desc.name);
+			end
 		end
 		return flg;
 	end;
 	ApplyFeature = function(desc, state)
 		local objname = "Frame_" .. desc.name;
+		
 		local createCode = [[
 local _f = VFLUI.AcquireFrame("Frame");
 _f:SetParent(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
@@ -38,6 +41,13 @@ _f:SetFrameLevel(frame:GetFrameLevel() + (]] .. desc.flOffset .. [[));
 _f:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 _f:SetWidth(]] .. desc.w .. [[); _f:SetHeight(]] .. desc.h .. [[);
 _f:Show();
+]];
+		if desc.usebkd then
+			createCode = createCode .. [[
+VFLUI.SetBackdrop(_f, ]] .. Serialize(desc.bkd) .. [[);
+]];
+		end
+		createCode = createCode .. [[
 frame.]] .. objname .. [[ = _f;
 ]];
 		local destroyCode = [[
@@ -64,6 +74,12 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
 		ed_flOffset:SetText(VFLI.i18n("FrameLevel offset"));
 		if desc and desc.flOffset then ed_flOffset.editBox:SetText(desc.flOffset); end
 		ui:InsertFrame(ed_flOffset);
+		
+		local chk_er = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Add Backdrop"));
+		local bkd = VFLUI.MakeBackdropSelectButton(chk_er, desc.bkd); bkd:Show();
+		chk_er:EmbedChild(bkd); chk_er:Show();
+		if desc and desc.usebkd then chk_er:SetChecked(true); else chk_er:SetChecked(); end
+		ui:InsertFrame(chk_er);
 
 		function ui:GetDescriptor()
 			local a = ed_flOffset.editBox:GetNumber(); if not a then a=1; end a = VFL.clamp(a, 1, 50);
@@ -73,8 +89,10 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
 				name = ed_name.editBox:GetText();
 				w = ed_width:GetSelection();
 				h = ed_height:GetSelection();
-				flOffset = a; 
 				anchor = anchor:GetAnchorInfo();
+				flOffset = a;
+				usebkd = chk_er:GetChecked();
+				bkd = bkd:GetSelectedBackdrop();
 			};
 		end
 
@@ -82,16 +100,5 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
 	end;
 	CreateDescriptor = function()
 		return { feature = "Subframe"; name = "subframe"; owner = "decor"; w = 90; h = 14; anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0}, flOffset = 1};
-	end;
-});
-
-RDX.RegisterFeature({
-	name = "artSubframe";
-	version = 2;
-	multiple = true;
-	invisible = true;
-	IsPossible = VFL.Nil;
-	VersionMismatch = function(desc)
-		desc.feature = "Subframe"; desc.version = 1;
 	end;
 });
