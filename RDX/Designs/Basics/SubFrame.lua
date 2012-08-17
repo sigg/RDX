@@ -18,6 +18,7 @@ RDX.RegisterFeature({
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if not RDXUI.UFLayoutCheck(desc, state, errs) then return nil; end
 		if desc.flOffset < 1 then desc.flOffset = 1 end
+		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);

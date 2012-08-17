@@ -17,7 +17,8 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
+		if not RDXUI.UFLayoutCheck(desc, state, errs) then return nil; end
+		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
@@ -34,8 +35,11 @@ RDX.RegisterFeature({
 			VFL.AddError(errs, VFLI.i18n("Texture level must be between 0 to 7")); flg = nil;
 		end
 		if flg then 
-			state:AddSlot("StatusBar_" .. desc.name);
 			state:AddSlot("Frame_" .. desc.name);
+			state:AddSlot("StatusBar_" .. desc.name);
+			if desc.usebkd then
+				state:AddSlot("Bkdp_" .. desc.name);
+			end
 		end
 		return flg;
 	end;
@@ -63,6 +67,11 @@ _t:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 _t:SetWidth(]] .. desc.w .. [[); _t:SetHeight(]] .. desc.h .. [[);
 _t:Show();
 ]];
+		if desc.usebkd then
+			createCode = createCode .. [[
+VFLUI.SetBackdrop(_f, ]] .. Serialize(desc.bkd) .. [[);
+]];
+		end
 		createCode = createCode .. VFLUI.GenerateSetTextureCode("_t", desc.texture);
 		if desc.color1 then createCode = createCode .. [[
 _t:SetColors(c1_]] .. objname .. [[, c2_]] .. objname .. [[);
@@ -133,6 +142,12 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		anchor:SetAFArray(RDXUI.ComposeAnchorList(state));
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
+		
+		local chk_er = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Add Backdrop"));
+		local bkd = VFLUI.MakeBackdropSelectButton(chk_er, desc.bkd); bkd:Show();
+		chk_er:EmbedChild(bkd); chk_er:Show();
+		if desc and desc.usebkd then chk_er:SetChecked(true); else chk_er:SetChecked(); end
+		ui:InsertFrame(chk_er);
 
 		-- Orientation
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation"));
@@ -210,11 +225,13 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 			end
 			return {
 				feature = "statusbar_horiz"; version = 1;
+				owner = owner:GetSelection();
 				name = ed_name.editBox:GetText();
 				w = ed_width:GetSelection();
 				h = ed_height:GetSelection();
-				owner = owner:GetSelection();
 				anchor = anchor:GetAnchorInfo();
+				usebkd = chk_er:GetChecked();
+				bkd = bkd:GetSelectedBackdrop();
 				orientation = dd_orientation:GetSelection();
 				texture = tsel:GetSelectedTexture();
 				drawLayer = drawLayer:GetSelection();
@@ -238,6 +255,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 			orientation = "HORIZONTAL";
 			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
 			texture = VFL.copy(VFLUI.defaultTexture);
+			bkd = VFL.copy(VFLUI.defaultBackdrop);
 		};
 	end;
 });
