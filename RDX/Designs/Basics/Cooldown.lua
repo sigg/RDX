@@ -14,12 +14,11 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		local flg = true;
-		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
+		flg = flg and RDXUI.UFFrameCheck_Proto("Cooldown_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 		if not desc.timerVar or desc.timerVar == "" then VFL.AddError(errs, VFLI.i18n("Missing variable Timer")); flg = nil; end
 		if flg then 
-			state:AddSlot("Frame_" .. desc.name);
 			state:AddSlot("Cooldown_" .. desc.name);
 			if desc.driver == 3 then
 				state:AddSlot("Bkdp_" .. desc.name);
@@ -28,7 +27,7 @@ RDX.RegisterFeature({
 		return flg;
 	end;
 	ApplyFeature = function(desc, state)
-		local objname = "Frame_" .. desc.name;
+		local objname = "Cooldown_" .. desc.name;
 		local texIcondata = desc.tex or "";
 		
 		local driver = desc.driver or 1;
@@ -147,7 +146,7 @@ frame.]] .. objname .. [[:Hide();
 		
 		local ed_name, ed_width, ed_height = RDXUI.GenNameWidthHeightPortion(ui, desc, state);
 		
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", });
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		local anchor = RDXUI.UnitFrameAnchorSelector:new(ui); anchor:Show();

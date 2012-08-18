@@ -514,31 +514,31 @@ RDX.RegisterFeature({
 		local flg = true;
 		if desc.ftype == 1 then
 			flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
-			flg = flg and RDXUI.UFFrameCheck_Proto("Texture2_", desc, state, errs);
+			flg = flg and RDXUI.UFFrameCheck_Proto("Texture_", desc, state, errs);
 			flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 			if desc.sublevel and (tonumber(desc.sublevel) < 0 or tonumber(desc.sublevel) > 7) then
 				VFL.AddError(errs, VFLI.i18n("Texture level must be between 0 to 7")); flg = nil;
 			end
-			if flg then state:AddSlot("Texture2_" .. desc.name); state:AddSlot("Texture_" .. desc.name); end
+			if flg then state:AddSlot("Texture_" .. desc.name); state:AddSlot("TextureCustom_" .. desc.name); end
 		elseif desc.ftype == 2 then
-			flg = flg and RDXUI.UFFrameCheck_Proto("Texture2_", desc, state, errs);
+			flg = flg and RDXUI.UFFrameCheck_Proto("Texture_", desc, state, errs);
 			flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 			flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 			if desc.ictype then
 				if not Icons[desc.ictype] then VFL.AddError(errs, VFLI.i18n("Missing ictype")); flg = nil; end
 			end
-			if flg then state:AddSlot("Texture2_" .. desc.name); end
+			if flg then state:AddSlot("Texture_" .. desc.name); end
 		elseif desc.ftype == 3 then
 			if state:Slot("Tx_rdx_" .. desc.intype) then
 				VFL.AddError(errs, VFLI.i18n("Texture Indicator class already add")); return nil;
 			end
-			flg = flg and RDXUI.UFFrameCheck_Proto("Texture2_", desc, state, errs);
+			flg = flg and RDXUI.UFFrameCheck_Proto("Texture_", desc, state, errs);
 			flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 			flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 			if desc.intype then
 				if not Indicators[desc.intype] then VFL.AddError(errs, VFLI.i18n("Missing intype")); flg = nil; end
 			end
-			if flg then state:AddSlot("Texture2_" .. desc.name); state:AddSlot("Tx_rdx_" .. desc.intype); end
+			if flg then state:AddSlot("Texture_" .. desc.name); state:AddSlot("Tx_rdx_" .. desc.intype); end
 		end
 		return flg;
 	end;
@@ -728,7 +728,7 @@ btn = ]] .. objname .. [[;
 		local ed_name, ed_width, ed_height = RDXUI.GenNameWidthHeightPortion(ui, desc, state);
 		
 		-- Owner
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", });
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		-- Anchor

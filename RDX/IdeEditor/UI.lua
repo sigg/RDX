@@ -58,12 +58,11 @@ function RDXUI.ComposeObjectList(state, prefix, includeBase)
 end
 
 function RDXUI.ComposeFrameList(state)
-	return RDXUI.ComposeObjectList(state, "Frame_", true);
+	return RDXUI.ComposeObjectList(state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", }, true);
 end
 
 function RDXUI.ComposeAnchorList(state)
-	--return RDXUI.ComposeObjectList(state, "Frame_", true);
-	return RDXUI.ComposeObjectList(state, {"Frame_", "Text_", "Texture_", }, true);
+	return RDXUI.ComposeObjectList(state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", "Text_", "Texture_", }, true);
 end
 
 ----------------------------------------------------
@@ -163,6 +162,21 @@ function RDXUI.ResolveFrameReference(ref)
 	end
 end
 
+function RDXUI.ResolveButtonReference(ref)
+	if (not ref) or (ref == "") or (ref == "Base") then return "frame"; end
+	return "frame.Button_" .. ref;
+end
+
+function RDXUI.ResolveCooldownReference(ref)
+	if (not ref) or (ref == "") or (ref == "Base") then return "frame"; end
+	return "frame.Cooldown_" .. ref;
+end
+
+function RDXUI.ResolveStatusBarReference(ref)
+	if (not ref) or (ref == "") or (ref == "Base") then return "frame"; end
+	return "frame.StatusBar_" .. ref;
+end
+
 function RDXUI.ResolveTextureReference(ref)
 	if (not ref) or (ref == "") or (ref == "Base") then return "tex1"; end
 	return "frame.Texture_" .. ref;
@@ -177,7 +191,7 @@ end
 -- anchor descriptor
 function RDXUI.ResolveAnchorReference(ref)
 	if (not ref) or (ref == "") or (ref == "Base") then return "frame"; end
-	if string.find(ref, "^Frame_") or string.find(ref, "^Texture_") or string.find(ref, "^Text_") then
+	if string.find(ref, "^Frame_") or string.find(ref, "^Button_") or string.find(ref, "^Cooldown_") or string.find(ref, "^StatusBar_") or string.find(ref, "^Texture_") or string.find(ref, "^Text_") then
 		return "frame." .. ref;
 	else
 		return "frame.Frame_" .. ref;
@@ -298,7 +312,8 @@ function RDXUI.UFAnchorCheck(anchor, state, errs)
 	if (not anchor.af) then
 		VFL.AddError(errs, VFLI.i18n("Missing anchor target frame")); return nil;
 	end
-	if (anchor.af == "Base") or (state:Slot("Frame_" .. anchor.af)) or (state:Slot("Text_" .. anchor.af)) or (state:Slot("Texture_" .. anchor.af)) then return true; end
+	--if (anchor.af == "Base") or (state:Slot("Frame_" .. anchor.af)) or (state:Slot("Button_" .. anchor.af)) or (state:Slot("Cooldown_" .. anchor.af)) or (state:Slot("StatusBar_" .. anchor.af)) or (state:Slot("Text_" .. anchor.af)) or (state:Slot("Texture_" .. anchor.af)) then return true; end
+	if (anchor.af == "Base") then return true; end
 	if state:Slot(anchor.af) then return true; end
 	VFL.AddError(errs, VFLI.i18n("Invalid anchor target definition")); return nil;
 end
@@ -310,8 +325,9 @@ function RDXUI.UFOwnerCheck(owner, state, errs, allowBase)
 		return nil;
 	end
 	if allowBase and (owner == "Base") then return true; end
-	--if (owner == "Base") then return true; end
-	if (state:Slot("Frame_" .. owner)) or (state:Slot("Subframe_" .. owner)) then return true; end
+	
+	--if (state:Slot("Frame_" .. owner)) or (state:Slot("Button_" .. owner)) or (state:Slot("Cooldown_" .. owner)) or (state:Slot("StatusBar_" .. owner)) then return true; end
+	if state:Slot(owner) then return true; end
 	VFL.AddError(errs, VFLI.i18n("Invalid owner definition")); return nil;
 end
 
@@ -323,7 +339,15 @@ end
 
 function RDXUI.DescriptorCheck(desc, state, errs)
 	if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor")); return nil; end
-	if desc.owner == "Base" then desc.owner = "decor"; end
+	if desc.owner == "Base" then desc.owner = "Frame_decor"; end
+	
+	if desc.owner then
+		if string.find(desc.owner, "^Frame_") or string.find(desc.owner, "^Button_") or string.find(desc.owner, "^Cooldown_") or string.find(desc.owner, "^StatusBar_") then
+		
+		else
+			desc.owner = "Frame_" .. desc.owner;
+		end
+	end	
 	return true;
 end
 

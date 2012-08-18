@@ -237,13 +237,13 @@ RDX.RegisterFeature({
 		if desc.statusBar and desc.statusBar ~= "" and not state:Slot("StatusBar_" .. desc.statusBar) then
 			VFL.AddError(errs, VFLI.i18n("Invalid statusbar")); flg = nil;
 		end
-		if desc.text and desc.text ~= "" and not state:Slot("Text_" .. desc.text) then
+		if desc.text and desc.text ~= "" and not state:Slot("TextCustom_" .. desc.text) then
 			VFL.AddError(errs, VFLI.i18n("Invalid text") .. " Timer"); flg = nil;
 		end
-		if desc.textInfo and desc.textInfo ~= "" and not state:Slot("Text_" .. desc.textInfo) then
+		if desc.textInfo and desc.textInfo ~= "" and not state:Slot("TextCustom_" .. desc.textInfo) then
 			VFL.AddError(errs, VFLI.i18n("Invalid text") .. " Info"); flg = nil;
 		end
-		if desc.texIcon and desc.texIcon ~= "" and not state:Slot("Texture_" .. desc.texIcon) then
+		if desc.texIcon and desc.texIcon ~= "" and not state:Slot("TextureCustom_" .. desc.texIcon) then
 			VFL.AddError(errs, VFLI.i18n("Invalid texture")); flg = nil;
 		end
 		if desc.sbblendcolor then
@@ -280,7 +280,7 @@ RDX.RegisterFeature({
 		if texIcondata == "" then texIcondata = "nil"; end
 		
 		local sbPresent, txtPresent, txtInfoPresent, texIconPresent = "true", "true", "true", "true";
-		if sb == "" then sbPresent = "false"; sb = "nil"; else sb = RDXUI.ResolveFrameReference(desc.statusBar); end
+		if sb == "" then sbPresent = "false"; sb = "nil"; else sb = RDXUI.ResolveStatusBarReference(desc.statusBar); end
 		if textTimer == "" then txtPresent = "false"; textTimer = "nil"; else textTimer = RDXUI.ResolveTextReference(desc.text); end
 		if textInfo == "" then txtInfoPresent = "false"; textInfo = "nil"; else textInfo = RDXUI.ResolveTextReference(desc.textInfo); end
 		if texIcon == "" then texIconPresent = "false"; texIcon = "nil"; else texIcon = RDXUI.ResolveTextureReference(desc.texIcon); end
@@ -423,7 +423,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Icon texture parameters")));
 		
-		local texIcon = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "Texture_");
+		local texIcon = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "TextureCustom_");
 		if desc and desc.texIcon then texIcon:SetSelection(desc.texIcon); end
 
 		local tex = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture variable"), state, "TexVar_");

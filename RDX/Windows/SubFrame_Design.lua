@@ -40,6 +40,7 @@ function RDX.DesignState:new()
 		state:AddSlot("PaintHint", true);
 		-- Add the decor-frame slot
 		state:AddSlot("Subframe_decor");
+		state:AddSlot("Frame_decor");
 	end
 
 	st:Clear();

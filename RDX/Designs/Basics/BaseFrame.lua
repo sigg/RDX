@@ -45,6 +45,11 @@ local BaseHeight = ]] .. dy .. [[;
 frame:SetWidth(]] .. dx .. [[); frame:SetHeight(]] .. dy .. [[);
 frame:SetAlpha(]] .. alpha .. [[);
 ]];
+		if desc.usebkd then
+			createCode = createCode .. [[
+VFLUI.SetBackdrop(frame.Frame_decor, ]] .. Serialize(desc.bkd) .. [[);
+]];
+		end
 		if desc.ph then
 			createCode = createCode .. [[
 local btn = VFLUI.AcquireFrame("SecureUnitButton");
@@ -96,6 +101,14 @@ frame._phs:Destroy(); frame._phs = nil;
 		chk_hlt:Show(); chk_hlt:SetText(VFLI.i18n("Disable highlight on mouseover"));
 		if desc and desc.hlt then chk_hlt:SetChecked(true); end
 		ui:InsertFrame(chk_hlt);
+		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Decor")));
+		
+		local chk_er = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Add Backdrop"));
+		local bkd = VFLUI.MakeBackdropSelectButton(chk_er, desc.bkd); bkd:Show();
+		chk_er:EmbedChild(bkd); chk_er:Show();
+		if desc and desc.usebkd then chk_er:SetChecked(true); else chk_er:SetChecked(); end
+		ui:InsertFrame(chk_er);
 
 		function ui:GetDescriptor()
 			local a = ed_alpha.editBox:GetNumber(); if not a then a = 1; end
@@ -107,6 +120,8 @@ frame._phs:Destroy(); frame._phs = nil;
 				alpha = a; 
 				ph = chk_ph:GetChecked();
 				hlt = chk_hlt:GetChecked();
+				usebkd = chk_er:GetChecked();
+				bkd = bkd:GetSelectedBackdrop();
 			};
 		end
 
@@ -116,16 +131,7 @@ frame._phs:Destroy(); frame._phs = nil;
 		return { 
 			feature = "base_default"; version = 1;
 			w = 90; h = 14; alpha = 1; ph = false;
+			bkd = VFL.copy(VFLUI.defaultBackdrop);
 		};
-	end;
-});
-
-RDX.RegisterFeature({
-	name = "artbase_default"; 
-	version = 2;
-	invisible = true;
-	IsPossible = VFL.Nil;
-	VersionMismatch = function(desc)
-		desc.feature = "base_default"; desc.version = 1;
 	end;
 });

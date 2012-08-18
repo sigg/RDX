@@ -20,13 +20,13 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		-- Verify our texture
-		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
+		if (not desc.texture) or (not state:Slot("TextureCustom_" .. desc.texture)) then
 			VFL.AddError(errs, VFLI.i18n("Invalid texture")); return nil;
 		end
 		return true;
 	end;
 	ApplyFeature = function(desc, state)
-		local objname = "Texture_" .. desc.texture;
+		local objname = RDXUI.ResolveTextureReference(desc.texture);
 
 		-- Event hinting.
 		local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
@@ -47,7 +47,7 @@ end
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
-		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Apply portrait to texture"), state, "Texture_");
+		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Apply portrait to texture"), state, "TextureCustom_");
 		if desc and desc.texture then texture:SetSelection(desc.texture); end
 
 		function ui:GetDescriptor()

@@ -21,7 +21,7 @@ RDX.RegisterFeature({
 		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
-		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
+		flg = flg and RDXUI.UFFrameCheck_Proto("StatusBar_", desc, state, errs);
 		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 		if desc.frac and desc.frac ~= "" then
 			if not tonumber(desc.frac) and not (state:Slot("FracVar_" .. desc.frac)) then 
@@ -35,7 +35,6 @@ RDX.RegisterFeature({
 			VFL.AddError(errs, VFLI.i18n("Texture level must be between 0 to 7")); flg = nil;
 		end
 		if flg then 
-			state:AddSlot("Frame_" .. desc.name);
 			state:AddSlot("StatusBar_" .. desc.name);
 			if desc.usebkd then
 				state:AddSlot("Bkdp_" .. desc.name);
@@ -44,7 +43,7 @@ RDX.RegisterFeature({
 		return flg;
 	end;
 	ApplyFeature = function(desc, state)
-		local objname = "Frame_" .. desc.name;
+		local objname = "StatusBar_" .. desc.name;
 		-- Closure
 		if desc.color1 then
 			local closureCode = [[
@@ -134,7 +133,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		local ed_name, ed_width, ed_height = RDXUI.GenNameWidthHeightPortion(ui, desc, state);
 
 		-- Owner
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", });
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 		
 		-- Anchor

@@ -74,7 +74,7 @@ RDX.RegisterFeature({
 			VFL.AddError(errs, VFLI.i18n("Invalid flag variable")); return nil;
 		end
 		-- Verify our texture
-		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
+		if (not desc.texture) or (not state:Slot("TextureCustom_" .. desc.texture)) then
 			VFL.AddError(errs, VFLI.i18n("Invalid texture")); return nil;
 		end
 		-- Verify our blend fraction
@@ -111,7 +111,7 @@ end
 		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Show condition variable"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.flag then flag:SetSelection(desc.flag); end
 
-		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "Texture_");
+		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "TextureCustom_");
 		if desc and desc.texture then texture:SetSelection(desc.texture); end
 
 		local frac = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Fraction variable"), state, "FracVar_");
@@ -177,7 +177,7 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		-- Verify our texture
-		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
+		if (not desc.texture) or (not state:Slot("TextureCustom_" .. desc.texture)) then
 			VFL.AddError(errs, VFLI.i18n("Invalid texture")); return nil;
 		end
 		return true;
@@ -192,7 +192,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
-		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "Texture_");
+		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "TextureCustom_");
 		if desc and desc.texture then texture:SetSelection(desc.texture); end
 
 		local tc1 = NEditor(ui, 4, VFLI.i18n("Texcoords (l,b,r,t)"), 50);

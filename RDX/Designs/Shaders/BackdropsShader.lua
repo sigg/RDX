@@ -7,25 +7,23 @@ local function bdc_ef(desc, state, errs)
 	if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 	if desc.owner == "Base" then desc.owner = "decor"; end
 	if not desc.flag then desc.flag = "true"; end
+	local flg = true;
+	flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
+	
 	if not RDXUI.IsValidBoolVar(desc.flag, state) then
-		VFL.AddError(errs, VFLI.i18n("Invalid flag variable")); return nil;
+		VFL.AddError(errs, VFLI.i18n("Invalid flag variable")); flg = nil;
 	end
-	-- Verify our frame
-	if (not desc.owner) or ((desc.owner ~= "Base") and (not state:Slot("Subframe_" .. desc.owner))) then
-		VFL.AddError(errs, VFLI.i18n("Owner frame does not exist")); return nil;
-	end
-	-- Verify color
 	if (not desc.color) or (not state:Slot("ColorVar_" .. desc.color)) then
-		VFL.AddError(errs, VFLI.i18n("Invalid color variable")); return nil;
+		VFL.AddError(errs, VFLI.i18n("Invalid color variable")); flg = nil;
 	end
-	return true;
+	return flg;
 end
 
 local function bdc_uifd(desc, parent, state)
 	local ui = VFLUI.CompoundFrame:new(parent);
 
 	-- Owner
-	local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
+	local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", });
 	if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 	-- Color var

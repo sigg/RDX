@@ -41,12 +41,12 @@ RDX.RegisterFeature({
 			VFL.AddError(errs, VFLI.i18n("Hotspot always anchor to Base")); return nil;
 		end
 		state:AddSlot("Hotspot_" .. n);
-		if(n ~= "") then state:AddSlot("Frame_" .. n); end
+		--if(n ~= "") then state:AddSlot("Frame_" .. n); end
 		return true;
 	end;
 	ApplyFeature = function(desc, state)
 		local n = strtrim(desc.name);
-		local objname = n;   if(n == "") then objname = "_phs"; else objname = "Frame_" .. n; end
+		local objname = n;   if (n == "") then objname = "_phs"; else objname = "Hotspot_" .. n; end
 		if n == "" then n = "nil"; else n = string.format("%q", n); end
 		local ty = "Button"; if desc.secure then ty = "SecureUnitButton"; end
 		local flo = tonumber(desc.flo); if not flo then flo = 1; end flo = VFL.clamp(flo,1,10);

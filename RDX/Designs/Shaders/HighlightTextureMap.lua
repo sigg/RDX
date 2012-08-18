@@ -28,7 +28,7 @@ RDX.RegisterFeature({
 			VFL.AddError(errs, VFLI.i18n("Invalid flag variable")); return nil;
 		end
 		-- Verify our texture
-		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
+		if (not desc.texture) or (not state:Slot("TextureCustom_" .. desc.texture)) then
 			VFL.AddError(errs, VFLI.i18n("Invalid texture")); return nil;
 		end
 		if (not desc.color) or (not state:Slot("ColorVar_" .. desc.color)) then
@@ -60,7 +60,7 @@ end
 		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Show condition variable"), state, "BoolVar_", nil, "true", "false");
 		if desc and desc.flag then flag:SetSelection(desc.flag); end
 
-		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "Texture_");
+		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "TextureCustom_");
 		if desc and desc.texture then texture:SetSelection(desc.texture); end
 		
 		local color = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Color variable"), state, "ColorVar_");
@@ -98,7 +98,7 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		-- Verify our texture
-		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
+		if (not desc.texture) or (not state:Slot("TextureCustom_" .. desc.texture)) then
 			VFL.AddError(errs, VFLI.i18n("Invalid texture")); return nil;
 		end
 		if (not desc.color) or (not state:Slot("ColorVar_" .. desc.color)) then
@@ -116,7 +116,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
-		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "Texture_");
+		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "TextureCustom_");
 		if desc and desc.texture then texture:SetSelection(desc.texture); end
 		
 		local color = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Color variable"), state, "ColorVar_");
@@ -155,7 +155,7 @@ RDX.RegisterFeature({
 			desc.texture = desc.owner;
 			desc.owner = nil;
 		end
-		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
+		if (not desc.texture) or (not state:Slot("TextureCustom_" .. desc.texture)) then
 			VFL.AddError(errs, VFLI.i18n("Invalid texture")); return nil;
 		end
 		if (not desc.var) then VFL.AddError(errs, VFLI.i18n("Invalid texture variable")); return nil; end
@@ -171,7 +171,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
-		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "Texture_");
+		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "TextureCustom_");
 		if desc and desc.texture then texture:SetSelection(desc.texture); end
 
 		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture variable"), state, "TexVar_");

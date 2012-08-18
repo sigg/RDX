@@ -37,7 +37,7 @@ end
 		local ui = VFLUI.CompoundFrame:new(parent);
 
 		-- Owner
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Frame"), state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Frame"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", });
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Flag variable"), state, "BoolVar_", nil, "true", "false");

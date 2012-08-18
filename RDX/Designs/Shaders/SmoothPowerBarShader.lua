@@ -81,7 +81,7 @@ RDX.RegisterFeature({
 		local sb = strtrim(desc.statusBar or "");
 		local txt = strtrim(desc.text or "");
 		local sbPresent, txtPresent = "true", "true";
-		if sb == "" then sbPresent = "false"; sb = "nil"; else sb = RDXUI.ResolveFrameReference(desc.statusBar); end
+		if sb == "" then sbPresent = "false"; sb = "nil"; else sb = RDXUI.ResolveStatusBarReference(desc.statusBar); end
 		if txt == "" then txtPresent = "false"; txt = "nil"; else txt = RDXUI.ResolveTextReference(desc.text); end
 
 		--- Closure

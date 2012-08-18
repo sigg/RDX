@@ -1251,7 +1251,7 @@ end
 
 		local ed_name, ed_width, ed_height = RDXUI.GenNameWidthHeightPortion(ui, desc, state);
 
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, "Subframe_");
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", });
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		local anchor = RDXUI.UnitFrameAnchorSelector:new(ui); anchor:Show();

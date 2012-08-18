@@ -61,7 +61,7 @@ end
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Frame", state, "Subframe_", true);
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, "Frame", state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", }, true);
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 		
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Animation Loop Type"));
