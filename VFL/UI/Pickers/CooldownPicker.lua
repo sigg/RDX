@@ -136,16 +136,16 @@ btnCopy:SetText("Copy");
 btnCopy:Show();
 
 local function ClosePicker(nosmooth)
-	if nosmooth then
+	--if nosmooth then
 		cp:Hide();
 		curCD = VFL.copy(VFLUI.defaultCooldown);
 		cp_owner = nil;	onCancel = VFL.Noop; onOK = VFL.Noop;
-	else
-		cp:_Hide(.2, nil, function()
-			curCD = VFL.copy(VFLUI.defaultCooldown);
-			cp_owner = nil;	onCancel = VFL.Noop; onOK = VFL.Noop;
-		end);
-	end
+	--else
+	--	cp:_Hide(.2, nil, function()
+	--		curCD = VFL.copy(VFLUI.defaultCooldown);
+	--		cp_owner = nil;	onCancel = VFL.Noop; onOK = VFL.Noop;
+	--	end);
+	--end
 end
 
 local function CancelPicker(nosmooth)
@@ -185,7 +185,8 @@ function VFLUI.CooldownPicker(owner, fnOK, fnCancel, cd)
 	cp_owner = owner;
 	curCD = VFL.copy(cd);
 	UpdateCooldownPicker();
-	cp:_Show(.2);
+	cp:Show();
+	--cp:_Show(.2);
 end
 --- Check the picker's owner.
 function VFLUI.CooldownPickerOwner() return cp_owner; end

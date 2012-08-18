@@ -238,16 +238,16 @@ btnCopy:SetText("Copy");
 btnCopy:Show();
 
 local function ClosePicker(nosmooth)
-	if nosmooth then
+	--if nosmooth then
 		sbp:Hide();
 		cur = VFL.copy(VFLUI.defaultSBTIB);
 		sbp_owner = nil; onCancel = VFL.Noop; onOK = VFL.Noop;
-	else
-		sbp:_Hide(.2, nil, function()
-			cur = VFL.copy(VFLUI.defaultSBTIB);
-			sbp_owner = nil; onCancel = VFL.Noop; onOK = VFL.Noop;
-		end);
-	end
+	--else
+	--	sbp:_Hide(.2, nil, function()
+	--		cur = VFL.copy(VFLUI.defaultSBTIB);
+	--		sbp_owner = nil; onCancel = VFL.Noop; onOK = VFL.Noop;
+	--	end);
+	--end
 end
 
 local function CancelPicker(nosmooth)
@@ -286,7 +286,8 @@ function VFLUI.SBTIBPicker(owner, fnOK, fnCancel, sb)
 	sbp_owner = owner;
 	cur = VFL.copy(sb);
 	UpdateSBTIBPicker();
-	sbp:_Show(.2);
+	sbp:Show();
+	--sbp:_Show(.2);
 end
 --- Check the picker's owner.
 function VFLUI.SBTIBPickerOwner() return sbp_owner; end

@@ -23,14 +23,14 @@ function VFL.OpenConsoleDialog()
 	VFLIO.Console:SetParent(ca);
 	VFLIO.Console:Show();
 
-	dlg:_Show(.2);
+	dlg:Show();
 
 	-------------------- Interactions
 	
 	local esch = function()
-		dlg:_Hide(.2, nil, function()
+		--dlg:_Hide(.2, nil, function()
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 	

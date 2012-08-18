@@ -403,20 +403,20 @@ btnOK:SetText("OK");
 btnOK:Show();
 
 local function ClosePicker(nosmooth)
-	if nosmooth then
+	--if nosmooth then
 		bdp:Hide();
 		curBackdrop = {};
 		bdp_owner = nil;
 		onCancel = VFL.Noop; 
 		onOK = VFL.Noop;
-	else
-		bdp:_Hide(.2, nil, function()
-			curBackdrop = {};
-			bdp_owner = nil;
-			onCancel = VFL.Noop; 
-			onOK = VFL.Noop;
-		end);
-	end
+	--else
+	--	bdp:_Hide(.2, nil, function()
+	--		curBackdrop = {};
+	--		bdp_owner = nil;
+	--		onCancel = VFL.Noop; 
+	--		onOK = VFL.Noop;
+	--	end);
+	--end
 end
 
 local function CancelPicker(nosmooth)
@@ -454,8 +454,8 @@ function VFLUI.BackdropPicker(owner, fnOK, fnCancel, backdrop, flaganchor)
 	if flaganchor then bdp:SetPoint("LEFT", bdp_owner, "RIGHT", 10, 0); end
 	curBackdrop = VFL.copy(backdrop);
 	UpdateBackdropPicker();
-	--bdp:Show();
-	bdp:_Show(.2);
+	bdp:Show();
+	--bdp:_Show(.2);
 end
 --- Check the picker's owner.
 function VFLUI.BackdropPickerOwner() return bdp_owner; end

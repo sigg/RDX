@@ -49,16 +49,17 @@ local function OpenDesktopTools(parent, froot)
 	
 	dlg.tabbox = tabbox;
 	
-	dlg:_Show(RDX.smooth, nil, function()
+	dlg:Show();
+	--dlg:_Show(RDX.smooth, nil, function()
 		tabbox:GetTabBar():SelectTabId(1);
-	end);
+	--end);
 	
 	local esch = function()
-		dlg:_Hide(RDX.smooth, nil, function() 
+		--dlg:_Hide(RDX.smooth, nil, function() 
 			dlg.tabbox:GetTabBar():UnSelectTab();
 			RDXPM.StoreLayout(dlg, "dktools");
 			dlg:Destroy(); dlg = nil; 
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 	

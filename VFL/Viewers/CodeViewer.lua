@@ -15,7 +15,7 @@ function VFL.Debug_ShowCode(code)
 	win:SetText("Code Viewer"); win:SetTitleColor(0.6, 0, 0);
 	win:SetWidth(510); win:SetHeight(385); win:SetPoint("CENTER", VFLParent, "CENTER");
 	VFLUI.Window.StdMove(win, win:GetTitleBar());
-	win:_Show(.2);
+	win:Show();
 	win:SetClampedToScreen(true);
 
 	local f = VFLUI.TextEditor:new(win:GetClientArea());
@@ -25,7 +25,9 @@ function VFL.Debug_ShowCode(code)
 	f:Show();
 
 	local esch = function()
-		win:Hide(.5, nil, function() f:Destroy(); f = nil; win:Destroy(); win = nil; end);
+		--win:_Hide(.5, nil, function() 
+		f:Destroy(); f = nil; win:Destroy(); win = nil; 
+		--end);
 	end;
 	VFL.AddEscapeHandler(esch);
 	

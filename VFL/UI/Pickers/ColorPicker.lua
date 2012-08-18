@@ -253,16 +253,16 @@ local function SetColor_All(r,g,b,a)
 end
 
 local function ClosePicker(nosmooth)
-	if nosmooth then
+	--if nosmooth then
 		cp:Hide();
 		cur_r = 1; cur_g = 1; cur_b = 1; cur_a = 1; cp_owner = nil;
 		onCancel = VFL.Noop; onOK = VFL.Noop; onChange = VFL.Noop;
-	else
-		cp:_Hide(.2, nil, function()
-			cur_r = 1; cur_g = 1; cur_b = 1; cur_a = 1; cp_owner = nil;
-			onCancel = VFL.Noop; onOK = VFL.Noop; onChange = VFL.Noop;
-		end);
-	end
+	--else
+	--	cp:_Hide(.2, nil, function()
+	--		cur_r = 1; cur_g = 1; cur_b = 1; cur_a = 1; cp_owner = nil;
+	--		onCancel = VFL.Noop; onOK = VFL.Noop; onChange = VFL.Noop;
+	--	end);
+	--end
 end
 
 local function CancelPicker(nosmooth)
@@ -294,7 +294,8 @@ function VFLUI.ColorPicker(owner, fnOK, fnCancel, fnChange, r, g, b, a)
 	onOK = fnOK or VFL.Noop; onCancel = fnCancel or VFL.Noop; onChange = fnChange or VFL.Noop;
 	cp_owner = owner;
 	SetColor_All(r,g,b,a);
-	cp:_Show(smooth);
+	cp:Show();
+	--cp:_Show(smooth);
 end
 --- Check the color picker's owner.
 function VFLUI.ColorPickerOwner() return cp_owner; end

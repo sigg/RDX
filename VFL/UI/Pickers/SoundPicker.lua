@@ -93,18 +93,18 @@ btnOK:SetText("OK");
 btnOK:Show();
 
 local function ClosePicker(nosmooth)
-	if nosmooth then
+	--if nosmooth then
 		picker:Hide(); 
 		pathEdit:SetText("");
 		owner = nil;
 		onCancel = VFL.Noop; onOK = VFL.Noop;
-	else
-		picker:_Hide(.2, nil, function()
-			pathEdit:SetText("");
-			owner = nil;
-			onCancel = VFL.Noop; onOK = VFL.Noop;
-		end);
-	end
+	--else
+	--	picker:_Hide(.2, nil, function()
+	--		pathEdit:SetText("");
+	--		owner = nil;
+	--		onCancel = VFL.Noop; onOK = VFL.Noop;
+	--	end);
+	--end
 end
 
 local function CancelPicker(nosmooth)
@@ -141,7 +141,8 @@ function VFLUI.SoundPicker(p_owner, fnOK, fnCancel, sound)
 	owner = p_owner; 
 	pathEdit:SetText(sound);
 	UpdateSoundPicker();
-	picker:_Show(.2);
+	picker:Show();
+	--picker:_Show(.2);
 end
 --- Check the picker's owner.
 function VFLUI.SoundPickerOwner() return owner; end

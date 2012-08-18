@@ -584,8 +584,8 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	expl:SetRightClickFunctions(PackageRightClick, ObjectRightClick);
 	expl:Rebuild();
 	
-	--dlg:Show();
-	dlg:_Show(RDX.smooth);
+	dlg:Show();
+	--dlg:_Show(RDX.smooth);
 	---------------- Clipboard handling
 	local clipboardPath, clipboardOp, btnPaste = nil, nil, nil;
 
@@ -640,11 +640,11 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	
 	-- Escapement
 	local esch = function()
-		dlg:_Hide(RDX.smooth, nil, function() 
+		--dlg:_Hide(RDX.smooth, nil, function() 
 			RDXPM.StoreLayout(dlg, "ObjectBrowser");
 			dlg:Destroy(); dlg = nil;
 			if selCallback then selCallback(nil); end
-		end);
+		--end);
 	end;
 	VFL.AddEscapeHandler(esch);
 	

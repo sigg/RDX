@@ -502,16 +502,16 @@ btnCopy:SetText("Copy");
 btnCopy:Show();
 
 local function ClosePicker(nosmooth)
-	if nosmooth then
+	--if nosmooth then
 		tp:Hide();
 		curTex = VFL.copy(VFLUI.defaultTexture);
 		tp_owner = nil;	onCancel = VFL.Noop; onOK = VFL.Noop;
-	else
-		tp:_Hide(.2, nil, function()
-			curTex = VFL.copy(VFLUI.defaultTexture);
-			tp_owner = nil;	onCancel = VFL.Noop; onOK = VFL.Noop;
-		end);
-	end
+	--else
+	--	tp:_Hide(.2, nil, function()
+	--		curTex = VFL.copy(VFLUI.defaultTexture);
+	--		tp_owner = nil;	onCancel = VFL.Noop; onOK = VFL.Noop;
+	--	end);
+	--end
 end
 
 local function CancelPicker(nosmooth)
@@ -550,7 +550,8 @@ function VFLUI.TexturePicker(owner, fnOK, fnCancel, tex, flaganchor)
 	if flaganchor then tp:SetPoint("LEFT", tp_owner, "RIGHT", 10, 0); end
 	curTex = VFLUI.CopyTexture(tex); 
 	InitPicker();
-	tp:_Show(.2);
+	tp:Show();
+	--tp:_Show(.2);
 end
 --- Check the picker's owner.
 function VFLUI.TexturePickerOwner() return tp_owner; end

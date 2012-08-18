@@ -287,18 +287,18 @@ btnOK:SetText("OK");
 btnOK:Show();
 
 local function ClosePicker(nosmooth)
-	if nosmooth then
+	--if nosmooth then
 		fp:Hide();
 		curFont = VFL.copy(Fonts.Default);
 		fp_owner = nil;
 		onCancel = VFL.Noop; onOK = VFL.Noop;
-	else
-		fp:_Hide(.2, nil, function()
-			curFont = VFL.copy(Fonts.Default);
-			fp_owner = nil;
-			onCancel = VFL.Noop; onOK = VFL.Noop;
-		end);
-	end
+	--else
+	--	fp:_Hide(.2, nil, function()
+	--		curFont = VFL.copy(Fonts.Default);
+	--		fp_owner = nil;
+	--		onCancel = VFL.Noop; onOK = VFL.Noop;
+	--	end);
+	--end
 end
 
 local function CancelPicker(nosmooth)
@@ -335,7 +335,8 @@ function VFLUI.FontPicker(owner, fnOK, fnCancel, font, flaganchor)
 	fp_owner = owner;
 	if flaganchor then fp:SetPoint("LEFT", fp_owner, "RIGHT", 10, 0); end
 	curFont = VFL.copy(font); UpdateFontPicker();
-	fp:_Show(.2);
+	fp:Show();
+	--fp:_Show(.2);
 end
 --- Check the picker's owner.
 function VFLUI.FontPickerOwner() return fp_owner; end

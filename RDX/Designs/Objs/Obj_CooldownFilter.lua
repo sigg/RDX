@@ -76,14 +76,15 @@ RDXDB.RegisterObjectType({
 		end);
 		le_names:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 		le_names:SetWidth(300);	le_names:SetHeight(183); le_names:Show();
-
-		dlg:_Show(RDX.smooth);
+		
+		dlg:Show();
+		--dlg:_Show(RDX.smooth);
 
 		local esch = function()
-			dlg:_Hide(RDX.smooth, nil, function()
+			--dlg:_Hide(RDX.smooth, nil, function()
 				RDXPM.StoreLayout(dlg, "CooldownFilter");
 				dlg:Destroy(); dlg = nil;
-			end);
+			--end);
 		end
 		VFL.AddEscapeHandler(esch);
 		

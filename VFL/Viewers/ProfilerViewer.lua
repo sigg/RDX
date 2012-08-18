@@ -386,11 +386,11 @@ profw:AddButton(closebtn);
 ----------------
 
 function VFLP.ShowProfiler()
-	profw:_Show(.5);
+	profw:Show();
 end
 
 function VFLP.HideProfiler()
-	profw:_Hide(.5);
+	profw:Hide();
 end
 
 function VFLP.ToggleProfiler()

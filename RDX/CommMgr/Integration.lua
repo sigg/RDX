@@ -389,15 +389,15 @@ local function _IntegrateSendUI(parent, data)
 		return ret;
 	end
 
-	dlg:Show(.2, true);
+	dlg:Show();
 
 	-- Teardown
 	local esch = function() 
-		dlg:Hide(.2, true);
-		VFLT.ZMSchedule(.25, function()
+		--dlg:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
 			RDXPM.StoreLayout(dlg, "integratesend");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 
