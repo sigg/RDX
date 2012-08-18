@@ -101,7 +101,7 @@ end
 			version = 1; 
 			name = "playerpowerbaralt", 
 			owner = "Base";
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			flo = 5;
 		};
 	end;

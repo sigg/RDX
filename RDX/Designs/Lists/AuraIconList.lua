@@ -120,7 +120,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
 		if not desc.iconspx then desc.iconspx = 0; end
 		if not desc.iconspy then desc.iconspy = 0; end
@@ -859,8 +858,8 @@ end
 			version = 1;
 			name = "ai1";
 			auraType = "BUFFS";
-			owner = "decor";
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			owner = "Frame_decor";
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			nIcons = 4; size = 20; rows = 1; orientation = "RIGHT"; iconspx = 5; iconspy = 0;
 			externalButtonSkin = "bs_default";
 			ButtonSkinOffset = 0;

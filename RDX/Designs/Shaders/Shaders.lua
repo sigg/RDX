@@ -23,7 +23,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.flag then desc.flag = "true"; end
 		if not (desc.flag == "true" or desc.flag == "false" or state:Slot("BoolVar_" .. desc.flag)) then
 			VFL.AddError(errs, VFLI.i18n("Invalid flag variable")); return nil;
@@ -70,7 +69,7 @@ if ]] .. inverse .. desc.flag .. [[ then ]] .. fname .. [[:Show(); else ]] .. fn
 	CreateDescriptor = function()
 		return {
 			feature = "shader_showhide"; version = 1;
-			owner = "decor"; flag = "true";
+			owner = "Frame_decor"; flag = "true";
 		};
 	end;
 });

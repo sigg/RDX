@@ -19,7 +19,6 @@ RDX.RegisterFeature({
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Bars_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
-		--flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
 		if flg then state:AddSlot("Bars_" .. desc.name); end
 		return flg;
 	end;
@@ -485,7 +484,7 @@ frame.]] .. objname .. [[ = nil;
 			name = "sab1";
 			auraType = "BUFFS";
 			owner = "Base";
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			template = "RDXAB20x120Template"; orientation = "LEFT"; wrapafter = 10; maxwraps = 2; xoffset = 0; yoffset = 0;
 			sbtib = VFL.copy(VFLUI.defaultSBTIB);
 			countTypeFlag = "true";

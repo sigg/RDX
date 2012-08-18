@@ -250,9 +250,9 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		return {
 			feature = "statusbar_horiz"; version = 1;
 			name = "statusBar";
-			w = 90; h = 14; owner = "decor"; 
+			w = 90; h = 14; owner = "Frame_decor"; 
 			orientation = "HORIZONTAL";
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			texture = VFL.copy(VFLUI.defaultTexture);
 			bkd = VFL.copy(VFLUI.defaultBackdrop);
 		};

@@ -14,7 +14,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -138,9 +137,9 @@ end
 	CreateDescriptor = function()
 		return { 
 			feature = "minimap"; version = 1; 
-			name = "minimap1", owner = "decor";
+			name = "minimap1", owner = "Frame_decor";
 			w = 140; h = 140;
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			blipType = "Blizzard"; maskType = "Blizzard";
 		};
 	end;

@@ -18,7 +18,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.sbtib then desc.sbtib = VFL.copy(VFLUI.defaultSBTIB); end
 		if not desc.formulaType then desc.formulaType = "simple"; end
 		--if not desc.countTypeFlag then desc.countTypeFlag = "false"; end
@@ -616,8 +615,8 @@ end
 			version = 1;
 			name = "ab1";
 			cooldownType = "USED";
-			owner = "decor";
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			owner = "Frame_decor";
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			nIcons = 10; rows = 1; orientation = "DOWN"; iconspx = 0; iconspy = 1;
 			sbtib = VFL.copy(VFLUI.defaultSBTIB);
 		};

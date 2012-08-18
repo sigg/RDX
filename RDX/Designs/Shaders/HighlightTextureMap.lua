@@ -259,7 +259,7 @@ if ]] .. inverse .. desc.flag .. [[ then ]] .. tname .. [[:Show(); else ]] .. tn
 	CreateDescriptor = function()
 		return {
 			feature = "shaderTex_showhide"; version = 1;
-			owner = "Base"; flag = "true";
+			flag = "true";
 		};
 	end;
 });

@@ -15,7 +15,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.usebkd then desc.usebs = true; end
 		if (not desc.number) or (not state:Slot("NumberVar_" .. desc.number)) then
 			VFL.AddError(errs, VFLI.i18n("Invalid number object pointer")); return nil;
@@ -338,8 +337,8 @@ end
 			feature = "custom_icons";
 			version = 1;
 			name = "customicon1";
-			owner = "decor";
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			owner = "Frame_decor";
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			w = 20; h = 20;
 			orientation = "RIGHT"; iconspx = 5; iconspy = 0;
 			externalButtonSkin = "bs_default";

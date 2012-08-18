@@ -15,7 +15,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Button_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -110,9 +109,9 @@ frame.]] .. objname .. [[ = nil;
 	CreateDescriptor = function()
 		return { 
 			feature = "buttonrdx"; version = 1; 
-			name = "btn1", owner = "decor", drawLayer = "ARTWORK";
+			name = "btn1", owner = "Frame_decor", drawLayer = "ARTWORK";
 			w = 30; h = 30;
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 		};
 	end;
 });

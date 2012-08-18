@@ -970,7 +970,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.tyo then desc.tyo = "gold"; end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -1405,8 +1404,8 @@ end
 	CreateDescriptor = function()
 		return { 
 			feature = "txt2"; version = 1;
-			name = "text1", w = 50, h = 14, owner = "decor",
-			anchor = { lp = "LEFT", af = "Base", rp = "LEFT", dx = 0, dy = 0 };
+			name = "text1", w = 50, h = 14, owner = "Frame_decor",
+			anchor = { lp = "LEFT", af = "Frame_decor", rp = "LEFT", dx = 0, dy = 0 };
 			font = VFL.copy(Fonts.Default);
 			ftype = 1;
 			ty = "fdld";

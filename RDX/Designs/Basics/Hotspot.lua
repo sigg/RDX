@@ -37,8 +37,8 @@ RDX.RegisterFeature({
 		--if (not tonumber(desc.w)) or (not tonumber(desc.h)) then
 		--	VFL.AddError(errs, VFLI.i18n("Bad or missing width/height parameters")); return nil;
 		--end
-		if (not desc.anchor) or (not desc.anchor.af) or desc.anchor.af ~= "Base" then
-			VFL.AddError(errs, VFLI.i18n("Hotspot always anchor to Base")); return nil;
+		if desc.anchor and desc.anchor.af and desc.anchor.af ~= "Base" then
+			desc.anchor.af = "Base";
 		end
 		state:AddSlot("Hotspot_" .. n);
 		--if(n ~= "") then state:AddSlot("Frame_" .. n); end
@@ -157,7 +157,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		return {
 			feature = "hotspot"; version = 1;
 			name = "";
-			w = 90; h = 14; anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0 };
+			w = 90; h = 14; anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0 };
 			secure = true;
 			mover = false;
 			hlt = { path = "Interface\\QuestFrame\\UI-QuestTitleHighlight", blendMode = "ADD" };

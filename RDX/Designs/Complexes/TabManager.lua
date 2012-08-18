@@ -16,7 +16,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.orientation then desc.orientation = "TOP"; end
 		if not desc.bkd then desc.bkd = { edgeFile="Interface\\Addons\\VFL\\Skin\\tab_top", edgeSize = 16, insets = { left = 5, right = 5, top = 4, bottom = 0 } }; end
 		local flg = true;
@@ -309,9 +308,9 @@ frame.]] .. objname .. [[ = nil;
 	CreateDescriptor = function()
 		return { 
 			feature = "tabmanager"; version = 1; 
-			name = "cf1", owner = "decor";
+			name = "cf1", owner = "Frame_decor";
 			w = 400; h = 200;
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			cfm = "default:ChatFrames_tm";
 			ts = "None";
 			color = {r=1,g=1,b=1,a=1};

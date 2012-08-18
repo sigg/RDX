@@ -34,7 +34,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
@@ -142,9 +141,9 @@ end
 	CreateDescriptor = function()
 		return { 
 			feature = "portrait_3d"; version = 1; 
-			name = "portrait3d"; owner = "decor";
+			name = "portrait3d"; owner = "Frame_decor";
 			w = 30; h = 30; 
-			anchor = {lp = "RIGHT", af = "Base", rp = "LEFT", dx = 0, dy = 0}; 
+			anchor = {lp = "RIGHT", af = "Frame_decor", rp = "LEFT", dx = 0, dy = 0}; 
 			flOffset = 0;
 		};
 	end;
@@ -169,7 +168,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
@@ -280,9 +278,9 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 	CreateDescriptor = function()
 		return { 
 			feature = "portrait_3d2"; version = 1; 
-			name = "portrait3d"; owner = "decor";
+			name = "portrait3d"; owner = "Frame_decor";
 			w = 30; h = 30; 
-			anchor = {lp = "RIGHT", af = "Base", rp = "LEFT", dx = 0, dy = 0};
+			anchor = {lp = "RIGHT", af = "Frame_decor", rp = "LEFT", dx = 0, dy = 0};
 			unit = "player";
 			flOffset = 1;
 		};

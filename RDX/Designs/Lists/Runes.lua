@@ -104,7 +104,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -257,8 +256,8 @@ end
 			feature = "runes_bar"; 
 			version = 1;
 			name = "rune_bar";
-			owner = "decor";
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			owner = "Frame_decor";
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			size = 20; rows = 1; orientation = "RIGHT"; iconspx = 5; iconspy = 0;
 			font = font;
 			cd = VFL.copy(VFLUI.defaultCooldown);
@@ -360,7 +359,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -591,8 +589,8 @@ end
 			feature = "runes_bar_vars"; 
 			version = 1;
 			name = "rune_bar_skin";
-			owner = "decor";
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			owner = "Frame_decor";
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			sizew = 20; sizeh = 20; rows = 1; orientation = "RIGHT"; iconspx = 5; iconspy = 0;
 			cd = VFL.copy(VFLUI.defaultCooldown);
 			externalButtonSkin = "bs_default";

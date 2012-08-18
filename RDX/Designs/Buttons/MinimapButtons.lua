@@ -66,7 +66,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		if (not desc.mbuttontype) then
 			VFL.AddError(errs, VFLI.i18n("Invalide button type")); return nil;
 		end
@@ -78,7 +77,6 @@ RDX.RegisterFeature({
 		return flg;
 	end;
 	ApplyFeature = function(desc, state)
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		local objname = "Button_" .. desc.name;
 
 		------------------ On frame creation
@@ -159,9 +157,9 @@ if frame.]] .. objname .. [[ then frame.]] .. objname .. [[:Destroy(); frame.]] 
 	CreateDescriptor = function()
 		return { 
 			feature = "minimapbutton"; version = 1; 
-			name = "but1", owner = "decor";
+			name = "but1", owner = "Frame_decor";
 			w = 32; h = 32;
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 		};
 	end;
 });

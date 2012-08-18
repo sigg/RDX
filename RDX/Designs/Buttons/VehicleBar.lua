@@ -90,7 +90,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		--if desc.owner == "Base" then desc.owner = "decor"; end
 		desc.owner = "Base";
 		if not desc.headervisiType then desc.headervisiType = "Vehicle"; end
 		if not desc.usebkd then desc.usebs = true; end
@@ -318,7 +317,7 @@ frame.]] .. objname .. [[ = nil;
 			headervisiType = "Vehicle";
 			headervisiCustom = "";
 			owner = "Base";
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			size = 36; rows = 1; orientation = "RIGHT"; iconspx = 5; iconspy = 0;
 			externalButtonSkin = "bs_default";
 			cd = VFL.copy(VFLUI.defaultCooldown);

@@ -886,9 +886,9 @@ btn = ]] .. objname .. [[;
 	CreateDescriptor = function()
 		return { 
 			feature = "texture2"; version = 1; 
-			name = "tex1", owner = "decor",
+			name = "tex1", owner = "Frame_decor",
 			w = 45; h = 45;
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			drawLayer = "ARTWORK"; sublevel = 1;
 			
 			externalButtonSkin = "bs_default";

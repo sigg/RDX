@@ -62,7 +62,7 @@ function RDXUI.ComposeFrameList(state)
 end
 
 function RDXUI.ComposeAnchorList(state)
-	return RDXUI.ComposeObjectList(state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", "Text_", "Texture_", }, true);
+	return RDXUI.ComposeObjectList(state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", "Text_", "Texture_", });
 end
 
 ----------------------------------------------------
@@ -339,6 +339,10 @@ end
 function RDXUI.DescriptorCheck(desc, state, errs)
 	if not desc then VFL.AddError(errs, VFLI.i18n("Missing descriptor")); return nil; end
 	if desc.owner == "Base" then desc.owner = "Frame_decor"; end
+	--if desc.anchor.af == "Base" then desc.anchor.af = "Frame_decor"; end
+	if desc.anchor and desc.anchor.af and desc.anchor.af == "Base" then
+		desc.anchor.af = "Frame_decor";
+	end
 	
 	if desc.owner then
 		if string.find(desc.owner, "^Frame_") or string.find(desc.owner, "^Button_") or string.find(desc.owner, "^Cooldown_") or string.find(desc.owner, "^StatusBar_") then

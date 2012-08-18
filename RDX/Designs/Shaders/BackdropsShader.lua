@@ -5,7 +5,6 @@
 ----------------------------------------------------------------------
 local function bdc_ef(desc, state, errs)
 	if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-	if desc.owner == "Base" then desc.owner = "decor"; end
 	if not desc.flag then desc.flag = "true"; end
 	local flg = true;
 	flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);

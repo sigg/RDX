@@ -15,13 +15,14 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
+		desc.owner = "Base";
 		if not desc.usebkd then desc.usebs = true; end
 		if not desc.xoffset then desc.xoffset = "0"; end
 		if not desc.yoffset then desc.yoffset = "0"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Icons_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
-		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs, true);
+		--flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs, true);
 		if flg then state:AddSlot("Icons_" .. desc.name); end
 		return flg;
 	end;
@@ -456,8 +457,8 @@ frame.]] .. objname .. [[ = nil;
 		------------- Layout
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
 
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", }, true);
-		if desc and desc.owner then owner:SetSelection(desc.owner); end
+		--local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", }, true);
+		--if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		local anchor = RDXUI.UnitFrameAnchorSelector:new(ui); anchor:Show();
 		anchor:SetAFArray(RDXUI.ComposeAnchorList(state));
@@ -624,7 +625,7 @@ frame.]] .. objname .. [[ = nil;
 				auraType = dd_auraType:GetSelection();
 				showweapons = chk_showweapons:GetChecked();
 				-- layout
-				owner = owner:GetSelection();
+				owner = "Base";
 				anchor = anchor:GetAnchorInfo();
 				template = dd_template:GetSelection();
 				point = dd_point:GetSelection();
@@ -662,7 +663,7 @@ frame.]] .. objname .. [[ = nil;
 			name = "sai1";
 			auraType = "BUFFS";
 			owner = "Base";
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			template = "RDXAB30x30Template"; orientation = "LEFT"; wrapafter = 10; maxwraps = 2; xoffset = 0; yoffset = 0; point = "TOPLEFT";
 			externalButtonSkin = "bs_default";
 			ButtonSkinOffset = 0;

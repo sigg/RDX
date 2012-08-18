@@ -207,7 +207,6 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if desc.owner == "Base" then desc.owner = "decor"; end
 		if not desc.ldbo or desc.ldbo == "null" then VFL.AddError(errs, VFLI.i18n("Invalid object LDB")); return nil; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
@@ -313,9 +312,9 @@ frame.]] .. objname .. [[ = nil;
 	CreateDescriptor = function()
 		return { 
 			feature = "ldbobject"; version = 1; 
-			name = "ldbo1", owner = "decor";
+			name = "ldbo1", owner = "Frame_decor";
 			w = 140; h = 20;
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			font = VFL.copy(Fonts.Default);
 		};
 	end;

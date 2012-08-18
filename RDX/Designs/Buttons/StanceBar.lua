@@ -364,7 +364,7 @@ frame.]] .. objname .. [[ = nil;
 			headervisiCustom = "";
 			owner = "Base";
 			flo = 5;
-			anchor = { lp = "TOPLEFT", af = "Base", rp = "TOPLEFT", dx = 0, dy = 0};
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			size = 36; rows = 1; orientation = "RIGHT"; iconspx = 5; iconspy = 0;
 			externalButtonSkin = "bs_default";
 			ButtonSkinOffset = 0;
