@@ -154,8 +154,7 @@ end
 --- A helper function to resolve a frame reference to a variable on the object.
 function RDXUI.ResolveFrameReference(ref)
 	if (not ref) or (ref == "") or (ref == "Base") then return "frame"; end
-	if string.find(ref, "^Frame_") then
-		VFL.TripError("RDX", VFLI.i18n("Warning: deprecated frame reference"), VFLI.i18n("Deprecated frame reference <") .. ref .. ">");
+	if string.find(ref, "^Frame_") or string.find(ref, "^Button_") or string.find(ref, "^Cooldown_") or string.find(ref, "^StatusBar_") then
 		return "frame." .. ref;
 	else
 		return "frame.Frame_" .. ref;
