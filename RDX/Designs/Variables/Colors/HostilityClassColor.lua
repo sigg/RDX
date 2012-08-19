@@ -5,7 +5,7 @@
 RDX.RegisterFeature({
     name = "colorvar_hostility_class";
     title = VFLI.i18n("Color Hostility & Class");
-    category = VFLI.i18n("Colors");
+    category = VFLI.i18n("Variable Colors");
     multiple = true;
     IsPossible = function(state)
        if not state:Slot("DesignFrame") then return nil; end

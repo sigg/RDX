@@ -1,29 +1,31 @@
 
-
 RDX.RegisterFeature({
-	name = "color_difficulty";
-	title = VFLI.i18n("Color Difficulty"); 
-	category = VFLI.i18n("Colors");
+	name = "ColorVariable_Mycolor";
+	title = VFLI.i18n("Color My Color");
+	category = VFLI.i18n("Variable Colors");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("EmitPaintPreamble") then return nil; end
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
-		if state:Slot("ColorVar_difficultyColor") then
+		if state:Slot("ColorVar_myColor") then
 			VFL.AddError(errs, VFLI.i18n("Duplicate variable name")); return nil;
 		end
-		state:AddSlot("Var_difficultyColor");
-		state:AddSlot("ColorVar_difficultyColor");
+		state:AddSlot("Var_myColor");
+		state:AddSlot("ColorVar_myColor");
 		return true;
 	end;
 	ApplyFeature = function(desc, state)
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
-			code:AppendCode("local difficultyColor = GetQuestDifficultyColor(UnitLevel(uid));");
+			code:AppendCode([[
+local myunit = RDXDAL.GetMyUnit();		
+local myColor = myunit:GetClassColor();
+]]);
 		end);
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function()
-		return { feature = "color_difficulty"; };
+		return { feature = "ColorVariable_Mycolor"; };
 	end;
 });

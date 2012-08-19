@@ -287,18 +287,6 @@ Designs\Buttons\MultiCastBar.lua
 Designs\Buttons\StanceBar.lua
 Designs\Buttons\VehicleBar.lua
 
-Designs\Colors\ClassColor.lua
-Designs\Colors\ConditionalColor.lua
-Designs\Colors\DifficultyColor.lua
-Designs\Colors\HlsTrasformColor.lua
-Designs\Colors\HostilityClassColor.lua
-Designs\Colors\HostilityColor.lua
-Designs\Colors\PowerColor.lua
-Designs\Colors\StaticColor.lua
-Designs\Colors\ThreatColor.lua
-Designs\Colors\TwoBlendColor.lua
-Designs\Colors\MyColor.lua
-
 Designs\Complexes\TabManager.lua
 Designs\Complexes\Minimap.lua
 Designs\Complexes\MenuBar.lua
@@ -393,6 +381,18 @@ Designs\Variables\Checks\IsTapped.lua
 Designs\Variables\Checks\IsTargetExisted.lua
 Designs\Variables\Checks\IsSolarDirection.lua
 Designs\Variables\Checks\HasCooldownUsed.lua
+
+Designs\Variables\Colors\ClassColor.lua
+Designs\Variables\Colors\ConditionalColor.lua
+Designs\Variables\Colors\DifficultyColor.lua
+Designs\Variables\Colors\HlsTrasformColor.lua
+Designs\Variables\Colors\HostilityClassColor.lua
+Designs\Variables\Colors\HostilityColor.lua
+Designs\Variables\Colors\PowerColor.lua
+Designs\Variables\Colors\StaticColor.lua
+Designs\Variables\Colors\ThreatColor.lua
+Designs\Variables\Colors\TwoBlendColor.lua
+Designs\Variables\Colors\MyColor.lua
 
 # Class
 Metadata\Metadata_Warlock.lua
