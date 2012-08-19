@@ -433,7 +433,7 @@ function VFLUI.ApplyBaseBackdrop(bkdp, border, backdrop)
 end
 
 function VFLUI.SetBackdrop(frame, bkdp)
-	if (type(frame) ~= "table") or (type(bkdp) ~= "table") then return; end
+	if (type(frame) ~= "table") then return; end
 	
 	if frame._fbd then
 		frame._fbd:SetBackdrop(nil);
@@ -447,175 +447,178 @@ function VFLUI.SetBackdrop(frame, bkdp)
 		frame._rdxbf:Hide();
 	end
 	frame:SetBackdrop(nil);
+	
+	if (type(bkdp) == "table") then
 
-	if not bkdp._bkdtype or bkdp._bkdtype == 1 then
-		-- default backdrop
-		frame:SetBackdrop(bkdp);
-		if bkdp.br then
-			frame:SetBackdropBorderColor(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
-		else
-			frame:SetBackdropBorderColor(1,1,1,1);
-		end
-		if bkdp.kr then
-			frame:SetBackdropColor(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
-		else
-			frame:SetBackdropColor(1,1,1,1);
-		end
-	elseif bkdp._bkdtype == 2 then
-		-- double frame backdrop (one background, one sup)
-		if not frame._fbd and not frame._fbb then
-			local fbd = VFLUI.AcquireFrame("Frame");
-			fbd:SetParent(frame);
-			fbd:Show();
-			frame._fbd = fbd;
-			local fbb = VFLUI.AcquireFrame("Frame");
-			fbb:SetParent(frame);
-			fbb:Show();
-			frame._fbb = fbb;
-			frame.Destroy = VFL.hook(function(s)
-				s._fbb:Destroy();
-				s._fbb = nil;
-				s._fbd:Destroy();
-				s._fbd = nil;
-			end, frame.Destroy);
-		end
-		
-		frame._fbd:ClearAllPoints();
-		frame._fbd:SetPoint("CENTER", frame, "CENTER");
-		frame._fbd:SetWidth(frame:GetWidth() + bkdp.boff); 
-		frame._fbd:SetHeight(frame:GetHeight() + bkdp.boff);
-		frame._fbd:SetFrameLevel(frame:GetFrameLevel());
-		frame._fbd:Show();
-		
-		frame._fbb:ClearAllPoints();
-		frame._fbb:SetPoint("CENTER", frame, "CENTER");
-		frame._fbb:SetWidth(frame:GetWidth() + bkdp.boff); 
-		frame._fbb:SetHeight(frame:GetHeight() + bkdp.boff);
-		frame._fbb:SetFrameLevel(frame:GetFrameLevel() + bkdp.borl);
-		frame._fbb:Show();
-		
-		local bkdp_bd = VFL.copy(bkdp);
-		bkdp_bd.edgeFile = nil;
-		bkdp_bd.edgeSize = nil;
-		bkdp_bd.insets = nil;
-		frame._fbd:SetBackdrop(bkdp_bd);
-		
-		local bkdp_bb = VFL.copy(bkdp);
-		bkdp_bb.bgFile = nil;
-		bkdp_bb.tile = nil;
-		bkdp_bb.tileSize = nil;
-		frame._fbb:SetBackdrop(bkdp_bb);
-		
-		if bkdp.br then
-			frame._fbb:SetBackdropBorderColor(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
-		else
-			frame._fbb:SetBackdropBorderColor(1,1,1,1);
-		end
-		if bkdp.kr then
-			frame._fbd:SetBackdropColor(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
-		else
-			frame._fbd:SetBackdropColor(1,1,1,1);
-		end
-	elseif bkdp._bkdtype == 3 then
-		-- Texture backdrop
-		if not frame._rdxbf then 
-			local _f = VFLUI.AcquireFrame("Frame");
-			_f:SetParent(frame);
-			_f:SetAllPoints(frame);
-			_f:Show();
-			local _l = VFLUI.CreateTexture(_f);
-			local _t = VFLUI.CreateTexture(_f);
-			local _r = VFLUI.CreateTexture(_f);
-			local _b = VFLUI.CreateTexture(_f);
-			_l:Show();
-			_t:Show();
-			_r:Show();
-			_b:Show();
+		if not bkdp._bkdtype or bkdp._bkdtype == 1 then
+			-- default backdrop
+			frame:SetBackdrop(bkdp);
+			if bkdp.br then
+				frame:SetBackdropBorderColor(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+			else
+				frame:SetBackdropBorderColor(1,1,1,1);
+			end
+			if bkdp.kr then
+				frame:SetBackdropColor(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
+			else
+				frame:SetBackdropColor(1,1,1,1);
+			end
+		elseif bkdp._bkdtype == 2 then
+			-- double frame backdrop (one background, one sup)
+			if not frame._fbd and not frame._fbb then
+				local fbd = VFLUI.AcquireFrame("Frame");
+				fbd:SetParent(frame);
+				fbd:Show();
+				frame._fbd = fbd;
+				local fbb = VFLUI.AcquireFrame("Frame");
+				fbb:SetParent(frame);
+				fbb:Show();
+				frame._fbb = fbb;
+				frame.Destroy = VFL.hook(function(s)
+					s._fbb:Destroy();
+					s._fbb = nil;
+					s._fbd:Destroy();
+					s._fbd = nil;
+				end, frame.Destroy);
+			end
 			
-			_f._l = _l;
-			_f._t = _t;
-			_f._r = _r;
-			_f._b = _b;
+			frame._fbd:ClearAllPoints();
+			frame._fbd:SetPoint("CENTER", frame, "CENTER");
+			frame._fbd:SetWidth(frame:GetWidth() + bkdp.boff); 
+			frame._fbd:SetHeight(frame:GetHeight() + bkdp.boff);
+			frame._fbd:SetFrameLevel(frame:GetFrameLevel());
+			frame._fbd:Show();
 			
-			local _bg = VFLUI.CreateTexture(frame);
-			_bg:Show();
-			frame._bg = _bg;
+			frame._fbb:ClearAllPoints();
+			frame._fbb:SetPoint("CENTER", frame, "CENTER");
+			frame._fbb:SetWidth(frame:GetWidth() + bkdp.boff); 
+			frame._fbb:SetHeight(frame:GetHeight() + bkdp.boff);
+			frame._fbb:SetFrameLevel(frame:GetFrameLevel() + bkdp.borl);
+			frame._fbb:Show();
 			
-			frame._rdxbf = _f;
+			local bkdp_bd = VFL.copy(bkdp);
+			bkdp_bd.edgeFile = nil;
+			bkdp_bd.edgeSize = nil;
+			bkdp_bd.insets = nil;
+			frame._fbd:SetBackdrop(bkdp_bd);
 			
-			frame.Destroy = VFL.hook(function(s)
-				s._rdxbf.rsize = nil;
-				s._rdxbf.bors = nil;
-				s._rdxbf._l:Destroy();
-				s._rdxbf._l = nil;
-				s._rdxbf._t:Destroy();
-				s._rdxbf._t = nil;
-				s._rdxbf._r:Destroy();
-				s._rdxbf._r = nil;
-				s._rdxbf._b:Destroy();
-				s._rdxbf._b = nil;
-				s._bg:Destroy();
-				s._bg = nil;
-				s._rdxbf:Destroy();
-				s._rdxbf = nil;
-			end, frame.Destroy);
+			local bkdp_bb = VFL.copy(bkdp);
+			bkdp_bb.bgFile = nil;
+			bkdp_bb.tile = nil;
+			bkdp_bb.tileSize = nil;
+			frame._fbb:SetBackdrop(bkdp_bb);
+			
+			if bkdp.br then
+				frame._fbb:SetBackdropBorderColor(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+			else
+				frame._fbb:SetBackdropBorderColor(1,1,1,1);
+			end
+			if bkdp.kr then
+				frame._fbd:SetBackdropColor(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
+			else
+				frame._fbd:SetBackdropColor(1,1,1,1);
+			end
+		elseif bkdp._bkdtype == 3 then
+			-- Texture backdrop
+			if not frame._rdxbf then 
+				local _f = VFLUI.AcquireFrame("Frame");
+				_f:SetParent(frame);
+				_f:SetAllPoints(frame);
+				_f:Show();
+				local _l = VFLUI.CreateTexture(_f);
+				local _t = VFLUI.CreateTexture(_f);
+				local _r = VFLUI.CreateTexture(_f);
+				local _b = VFLUI.CreateTexture(_f);
+				_l:Show();
+				_t:Show();
+				_r:Show();
+				_b:Show();
+				
+				_f._l = _l;
+				_f._t = _t;
+				_f._r = _r;
+				_f._b = _b;
+				
+				local _bg = VFLUI.CreateTexture(frame);
+				_bg:Show();
+				frame._bg = _bg;
+				
+				frame._rdxbf = _f;
+				
+				frame.Destroy = VFL.hook(function(s)
+					s._rdxbf.rsize = nil;
+					s._rdxbf.bors = nil;
+					s._rdxbf._l:Destroy();
+					s._rdxbf._l = nil;
+					s._rdxbf._t:Destroy();
+					s._rdxbf._t = nil;
+					s._rdxbf._r:Destroy();
+					s._rdxbf._r = nil;
+					s._rdxbf._b:Destroy();
+					s._rdxbf._b = nil;
+					s._bg:Destroy();
+					s._bg = nil;
+					s._rdxbf:Destroy();
+					s._rdxbf = nil;
+				end, frame.Destroy);
+			end
+			
+			frame._rdxbf:Show();
+			frame._rdxbf:SetFrameLevel(frame:GetFrameLevel() + bkdp.borl);
+			
+			-- store the border sise
+			frame._rdxbf.bors = bkdp.bors;
+			
+			local function rsize(self)
+				self._l:ClearAllPoints();
+				self._t:ClearAllPoints();
+				self._r:ClearAllPoints();
+				self._b:ClearAllPoints();
+				self._l:SetPoint("LEFT", self, "LEFT");
+				self._t:SetPoint("TOP", self, "TOP");
+				self._r:SetPoint("RIGHT", self, "RIGHT");
+				self._b:SetPoint("BOTTOM", self, "BOTTOM");
+				self._l:SetWidth(self.bors or 1); self._l:SetHeight(self:GetHeight());
+				self._t:SetWidth(self:GetWidth()); self._t:SetHeight(self.bors or 1);
+				self._r:SetWidth(self.bors or 1); self._r:SetHeight(self:GetHeight());
+				self._b:SetWidth(self:GetWidth()); self._b:SetHeight(self.bors or 1);
+			end
+			
+			frame._rdxbf.rsize = rsize;
+			frame._rdxbf:SetScript("OnSizeChanged", rsize);
+			frame._rdxbf:rsize();
+			
+			if bkdp.br then
+				frame._rdxbf._l:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+				frame._rdxbf._t:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+				frame._rdxbf._r:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+				frame._rdxbf._b:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+			else
+				frame._rdxbf._l:SetTexture(1,1,1,1);
+				frame._rdxbf._t:SetTexture(1,1,1,1);
+				frame._rdxbf._r:SetTexture(1,1,1,1);
+				frame._rdxbf._b:SetTexture(1,1,1,1);
+			end
+			frame._rdxbf._l:SetDrawLayer(bkdp.dl, bkdp.borl);
+			frame._rdxbf._t:SetDrawLayer(bkdp.dl, bkdp.borl);
+			frame._rdxbf._r:SetDrawLayer(bkdp.dl, bkdp.borl);
+			frame._rdxbf._b:SetDrawLayer(bkdp.dl, bkdp.borl);
+			--frame._rdxbf._l:SetVertexColor(1,1,1,1);
+			--frame._rdxbf._t:SetVertexColor(1,1,1,1);
+			--frame._rdxbf._r:SetVertexColor(1,1,1,1);
+			--frame._rdxbf._b:SetVertexColor(1,1,1,1);
+			
+			if bkdp.kr then
+				frame._bg:SetTexture(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
+			else
+				frame._bg:SetTexture(nil);
+			end
+			
+			frame._bg:SetDrawLayer("BACKGROUND", 1);
+			--frame._bg:SetVertexColor(1,1,1,1);
+			frame._bg:SetAllPoints(frame);
+			frame._bg:Show();
 		end
-		
-		frame._rdxbf:Show();
-		frame._rdxbf:SetFrameLevel(frame:GetFrameLevel() + bkdp.borl);
-		
-		-- store the border sise
-		frame._rdxbf.bors = bkdp.bors;
-		
-		local function rsize(self)
-			self._l:ClearAllPoints();
-			self._t:ClearAllPoints();
-			self._r:ClearAllPoints();
-			self._b:ClearAllPoints();
-			self._l:SetPoint("LEFT", self, "LEFT");
-			self._t:SetPoint("TOP", self, "TOP");
-			self._r:SetPoint("RIGHT", self, "RIGHT");
-			self._b:SetPoint("BOTTOM", self, "BOTTOM");
-			self._l:SetWidth(self.bors or 1); self._l:SetHeight(self:GetHeight());
-			self._t:SetWidth(self:GetWidth()); self._t:SetHeight(self.bors or 1);
-			self._r:SetWidth(self.bors or 1); self._r:SetHeight(self:GetHeight());
-			self._b:SetWidth(self:GetWidth()); self._b:SetHeight(self.bors or 1);
-		end
-		
-		frame._rdxbf.rsize = rsize;
-		frame._rdxbf:SetScript("OnSizeChanged", rsize);
-		frame._rdxbf:rsize();
-		
-		if bkdp.br then
-			frame._rdxbf._l:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
-			frame._rdxbf._t:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
-			frame._rdxbf._r:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
-			frame._rdxbf._b:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
-		else
-			frame._rdxbf._l:SetTexture(1,1,1,1);
-			frame._rdxbf._t:SetTexture(1,1,1,1);
-			frame._rdxbf._r:SetTexture(1,1,1,1);
-			frame._rdxbf._b:SetTexture(1,1,1,1);
-		end
-		frame._rdxbf._l:SetDrawLayer(bkdp.dl, bkdp.borl);
-		frame._rdxbf._t:SetDrawLayer(bkdp.dl, bkdp.borl);
-		frame._rdxbf._r:SetDrawLayer(bkdp.dl, bkdp.borl);
-		frame._rdxbf._b:SetDrawLayer(bkdp.dl, bkdp.borl);
-		--frame._rdxbf._l:SetVertexColor(1,1,1,1);
-		--frame._rdxbf._t:SetVertexColor(1,1,1,1);
-		--frame._rdxbf._r:SetVertexColor(1,1,1,1);
-		--frame._rdxbf._b:SetVertexColor(1,1,1,1);
-		
-		if bkdp.kr then
-			frame._bg:SetTexture(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
-		else
-			frame._bg:SetTexture(nil);
-		end
-		
-		frame._bg:SetDrawLayer("BACKGROUND", 1);
-		--frame._bg:SetVertexColor(1,1,1,1);
-		frame._bg:SetAllPoints(frame);
-		frame._bg:Show();
 	end
 end
 

@@ -11,8 +11,11 @@
 --};
 
 local topTabBackdrop = {
-	edgeFile="Interface\\Addons\\VFL\\Skin\\HalBorder", edgeSize = 8,
-	insets = { left = 2, right = 2, top = 2, bottom = 2 },
+	edgeFile="Interface\\Addons\\VFL\\Skin\\HalBorder"; edgeSize = 8;
+	insets = { left = 2, right = 2, top = 2, bottom = 2 };
+	_bkdtype = 1;
+	borl = 2;
+	bors = 1;
 };
 
 --local bottomTabBackdrop = {
@@ -21,8 +24,11 @@ local topTabBackdrop = {
 --};
 
 local bottomTabBackdrop = {
-	edgeFile="Interface\\Addons\\VFL\\Skin\\HalBorder", edgeSize = 8,
-	insets = { left = 2, right = 2, top = 2, bottom = 2 },
+	edgeFile="Interface\\Addons\\VFL\\Skin\\HalBorder"; edgeSize = 8;
+	insets = { left = 2, right = 2, top = 2, bottom = 2 };
+	_bkdtype = 1;
+	borl = 2;
+	bors = 1;
 };
 
 local function NewTabButtonTop(parent)

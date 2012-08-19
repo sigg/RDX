@@ -26,16 +26,13 @@ local OnUpdate = function(self, elapsed)
 	self.elapsed = self.elapsed + elapsed;
 	if self.elapsed >= 0.2 then
 		if not self.glowRegion:IsShown() then
-			--VFLUI.ApplyColorBackdropBorderRDX(self.healthBar, _black);
-			VFLUI.ApplyColorBBBackdropRDX(self.healthBar, _white)
+			VFLUI.SetBackdropBorderColor(self.healthBar, 1, 1, 1, 1);
 		else
 			r, g, b = self.glowRegion:GetVertexColor();
 			if g + b == 0 then
-			--	VFLUI.ApplyColorBackdropBorderRDX(self.healthBar, _red);
-				VFLUI.ApplyColorBBBackdropRDX(self.healthBar, _red)
+				VFLUI.SetBackdropBorderColor(self.healthBar, 1, 0, 0, 1);
 			else
-			--	VFLUI.ApplyColorBackdropBorderRDX(self.healthBar, _yellow);
-				VFLUI.ApplyColorBBBackdropRDX(self.healthBar, _yellow)
+				VFLUI.SetBackdropBorderColor(self.healthBar, 0, 1, 1, 1);
 			end
 		end
 		self.elapsed = 0
@@ -73,10 +70,12 @@ local OnShow = function(self)
 	
 	--VFLUI.ResizeBackdropBorderRDX(self.healthBar, 1);
 	--VFLUI.ResizeBackdropBorderRDX(self.castBar, 1);
-	if self.healthBar._fbd then
-		VFLUI.ResizeBackdropRDX(self.healthBar, 2);
-		VFLUI.ResizeBackdropRDX(self.castBar, 2)
-	end
+	--if self.healthBar._fbd then
+	--	VFLUI.ResizeBackdropRDX(self.healthBar, 2);
+	--	VFLUI.ResizeBackdropRDX(self.castBar, 2)
+	--end
+	VFLUI.SetBackdrop(self.healthBar, descn.bkd);
+	VFLUI.SetBackdrop(self.castBar, descn.bkd);
 end
 
 --
@@ -168,8 +167,8 @@ local CreateNameplate = function(frame)
 	end
 	
 	if descn.bkd then
-		VFLUI.SetBackdropRDX(healthBar, descn.bkd, 2, 1);
-		VFLUI.SetBackdropRDX(castBar, descn.bkd, 2, 1);
+		VFLUI.SetBackdrop(healthBar, descn.bkd);
+		VFLUI.SetBackdrop(castBar, descn.bkd);
 	end
 
 	castBar:HookScript("OnShow", OnShowCB)
@@ -211,8 +210,8 @@ function RDXDK.SetNameplate(desc)
 			v.highlightRegion:SetVertexColor(0.25, 0.25, 0.25);
 		end
 		if descn.bkd then
-			VFLUI.SetBackdropRDX(v.healthBar, descn.bkd, 2, 1);
-			VFLUI.SetBackdropRDX(v.castBar, descn.bkd, 2, 1);
+			VFLUI.SetBackdrop(v.healthBar, descn.bkd);
+			VFLUI.SetBackdrop(v.castBar, descn.bkd);
 		end
 	end
 end

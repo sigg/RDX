@@ -8,6 +8,8 @@ VFLUI.defaultBackdrop = {
 	_border = "none";
 	_backdrop = "none";
 	_bkdtype = 1;
+	borl = 2;
+	bors = 1;
 };
 
 VFLUI.nilBackdrop = {
@@ -16,6 +18,8 @@ VFLUI.nilBackdrop = {
 	_backdrop = "none";
 	edgeFile = nil;
 	_bkdtype = 1;
+	borl = 2;
+	bors = 1;
 };
 
 local curBackdrop, clipboard = {}, nil;

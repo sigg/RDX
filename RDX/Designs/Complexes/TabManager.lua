@@ -17,7 +17,7 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if not desc.orientation then desc.orientation = "TOP"; end
-		if not desc.bkd then desc.bkd = { edgeFile="Interface\\Addons\\VFL\\Skin\\tab_top", edgeSize = 16, insets = { left = 5, right = 5, top = 4, bottom = 0 } }; end
+		if not desc.bkd then desc.bkd = { edgeFile="Interface\\Addons\\VFL\\Skin\\HalBorder"; edgeSize = 8; insets = { left = 2, right = 2, top = 2, bottom = 2 }; _bkdtype = 1; borl = 2; bors = 1; }; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Frame_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -36,7 +36,7 @@ local tabbox = VFLUI.TabBox:new(]] .. RDXUI.ResolveFrameReference(desc.owner) ..
 tabbox:SetFrameLevel(frame:GetFrameLevel());
 tabbox:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 tabbox:SetWidth(]] .. desc.w .. [[); tabbox:SetHeight(]] .. desc.h .. [[);
-tabbox:SetBackdrop(nil);
+VFLUI.SetBackdrop(tabbox, nil);
 tabbox:Show();
 tabbox.cfs = {};
 local md,_,_,ty = RDXDB.GetObjectData("]] .. desc.cfm .. [[");

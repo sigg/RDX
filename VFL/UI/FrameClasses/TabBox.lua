@@ -12,7 +12,7 @@ local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 		self:SetParent(parent); self:SetFrameStrata(parent:GetFrameStrata());
 		self:SetFrameLevel(parent:GetFrameLevel() + 1);
 	end
-	self:SetBackdrop(VFLUI.DefaultDialogBackdrop);
+	VFLUI.SetBackdrop(self, VFLUI.DefaultDialogBackdrop)
 	
 	local tabBar = VFLUI.TabBar:new(self, tabHeight, orientation);
 	if orientation == "TOP" then
