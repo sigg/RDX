@@ -13,7 +13,8 @@ local _menus = {
 local function _dd_menus() return _menus; end
 
 RDX.RegisterFeature({
-	name = "button2"; version = 1; 
+	name = "button2";
+	version = 1; 
 	title = VFLI.i18n("Button"); 
 	category = VFLI.i18n("Basics");
 	multiple = true;
@@ -136,21 +137,32 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		local ftype_1 = ftype:CreateRadioButton(ui);
 		ftype_1:SetText(VFLI.i18n("Use Script Button"));
 		local ftype_2 = ftype:CreateRadioButton(ui);
-		ftype_2:SetText(VFLI.i18n("Use Icon Texture"));
+		ftype_2:SetText(VFLI.i18n("Use Menu RDX Button"));
 		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Script Button")));
 		ui:InsertFrame(ftype_1);
 		
 		local gt = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("GameTooltip"), state, "GameTooltips_");
 		if desc and desc.gt then gt:SetSelection(desc.gt); end
-		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Script parameters")));
 
 		local editor = VFLUI.TextEditor:new(ui, "LuaEditBox");
 		editor:SetHeight(200); editor:Show();
 		editor:SetText(desc.editor or "");
 		editor:GetEditWidget():SetFocus();
 		ui:InsertFrame(editor);
+		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Menu RDX Button")));
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("RDX Menu Type"));
+		local dd_rdxmenu = VFLUI.Dropdown:new(er, _dd_menus);
+		dd_rdxmenu:SetWidth(200); dd_rdxmenu:Show();
+		if desc and desc.rdxmenu then 
+			dd_rdxmenu:SetSelection(desc.rdxmenu); 
+		else
+			dd_rdxmenu:SetSelection("RDXPM.CompactMenu");
+		end
+		er:EmbedChild(dd_rdxmenu); er:Show();
+		ui:InsertFrame(er);
 		
 		function ui:GetDescriptor()
 			local hlt = nil; if chk_hlt:GetChecked() then hlt = tsel:GetSelectedTexture(); end
@@ -162,8 +174,8 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 				owner = owner:GetSelection();
 				anchor = anchor:GetAnchorInfo();
 				hlt = hlt;
-				editor = editor:GetText();
 				gt = gt:GetSelection();
+				editor = editor:GetText();
 				rdxmenu = dd_rdxmenu:GetSelection();
 			};
 		end
