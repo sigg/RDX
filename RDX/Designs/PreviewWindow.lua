@@ -78,6 +78,8 @@ local function OpenPreviewWindow(parent)
 	end
 	
 	local curUF, unit = nil, nil;
+	local aa = VFLUI.AcquireFrame("Frame");
+	
 	local function UpdateUnitFrameDesign(state, path)
 		if not InCombatLockdown() then
 			-- Destroy the old frame
@@ -103,6 +105,7 @@ local function OpenPreviewWindow(parent)
 			createFrame(curUF);
 			curUF:SetPoint("CENTER", preview_window.middle, "CENTER", 0, 0); 
 			curUF:Show();
+			
 			if curUF then
 				unit = RDXDAL.ProjectUnitID("player");
 				if unit then
@@ -120,6 +123,9 @@ local function OpenPreviewWindow(parent)
 					preview_window:SetHeight(curUF:GetHeight());
 				end
 			end
+			
+			aa:SetParent(curUF);
+			aa:SetFrameLevel(curUF:GetFrameLevel() + 5);
 
 		end
 	end
@@ -135,6 +141,21 @@ local function OpenPreviewWindow(parent)
 			HideErrors();
 		end
 	end, "IEREBUILD");
+	
+	local bkd = {
+		_bkdtype = 3; bors = 1; borl = 2; dl = "ARTWORK";
+		br = .5; bg = .75; bb = 1; ba = 1;
+	};
+	
+	RDXIEEvents:Bind("SELECT", nil, function(name)
+		if curUF and curUF[name] then
+			aa:SetAllPoints(curUF[name]);
+			VFLUI.SetBackdrop(aa, bkd);
+			aa:Show();
+		else
+			aa:Hide();
+		end
+	end, "IESELECT");
 	
 	local unit;
 	local function PaintUnitFrame()
@@ -154,7 +175,9 @@ local function OpenPreviewWindow(parent)
 	preview_window.Destroy = VFL.hook(function(s)
 		if curUF then curUF:Destroy(); end
 		VFLT.AdaptiveUnschedule("__uf_preview");
+		RDXIEEvents:Unbind("IESELECT");
 		RDXIEEvents:Unbind("IEREBUILD");
+		aa:Destroy();
 		preview_window._dk_name = nil;
 		preview_window.bottom:Destroy(); preview_window.bottom = nil;
 		--VFLUI.ReleaseRegion(preview_window.middle.tex); preview_window.middle.tex = nil;

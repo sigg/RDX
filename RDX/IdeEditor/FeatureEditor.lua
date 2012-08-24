@@ -138,7 +138,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline)
 		SaveActiveFeature(true);
 		-- Find the feature on the local state; if not found, fail out.
 		local fd = state:_GetFeatureByIndex(idx);
-		if not fd then return; end
+		if not fd then RDXIEEvents:Dispatch("SELECT"); return; end
 		local feat = RDXDB.GetFeatureByDescriptor(fd);
 		if not feat then return; end
 		-- Update the active feature. Rebuild the feature list.
@@ -147,8 +147,8 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline)
 		RebuildFeatureList();
 		-- Now build the feature config UI.
 		ResetFeatureUI();   
-		if (not feat.UIFromDescriptor) then return; end -- no UI
-		ui = feat.UIFromDescriptor(fd, sf, state); if not ui then return; end
+		if (not feat.UIFromDescriptor) then RDXIEEvents:Dispatch("SELECT"); return; end -- no UI
+		ui = feat.UIFromDescriptor(fd, sf, state); if not ui then RDXIEEvents:Dispatch("SELECT"); return; end
 		-- Layout and show the feature config UI.
 		ui.isLayoutRoot = true;
 		ui:SetParent(sf); sf:SetScrollChild(ui);
@@ -160,8 +160,28 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline)
 		vflErrors:Clear();
 		if state:_ExposeFeatureInSitu(fd, feat, vflErrors) then
 			HideErrors();
+			if fd.feature == "base_default" then
+				RDXIEEvents:Dispatch("SELECT", "Frame_decor");
+			elseif fd.feature == "Subframe" then
+				RDXIEEvents:Dispatch("SELECT", "Frame_" .. fd.name);
+			elseif fd.feature == "txt2" then
+				RDXIEEvents:Dispatch("SELECT", "Text_" .. fd.name);
+			elseif fd.feature == "texture2" then
+				RDXIEEvents:Dispatch("SELECT", "Texture_" .. fd.name);
+			elseif fd.feature == "statusbar_horiz" then
+				RDXIEEvents:Dispatch("SELECT", "StatusBar_" .. fd.name);
+			elseif fd.feature == "Cooldown" then
+				RDXIEEvents:Dispatch("SELECT", "Cooldown_" .. fd.name);
+			elseif fd.feature == "texture_cooldown" then
+				RDXIEEvents:Dispatch("SELECT", "Button_" .. fd.name);
+			elseif fd.feature == "hotspot" then
+				RDXIEEvents:Dispatch("SELECT", "Hotspot_" .. fd.name);
+			else
+				RDXIEEvents:Dispatch("SELECT");
+			end
 		else
 			ShowErrors(vflErrors);
+			RDXIEEvents:Dispatch("SELECT");
 		end
 	end
 	
