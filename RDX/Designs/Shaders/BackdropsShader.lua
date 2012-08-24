@@ -22,7 +22,7 @@ local function bdc_uifd(desc, parent, state)
 	local ui = VFLUI.CompoundFrame:new(parent);
 
 	-- Owner
-	local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", });
+	local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", });
 	if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 	-- Color var

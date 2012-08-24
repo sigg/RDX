@@ -160,7 +160,7 @@ end
 		ui:InsertFrame(ed_name);
 				
 		-- Owner
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", });
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", });
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 		
 		-- Anchor

@@ -325,7 +325,7 @@ frame.]] .. objname .. [[ = nil;
 		------------- Layout
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
 		
-		--local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", });
+		--local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", });
 		--if desc and desc.owner then owner:SetSelection(desc.owner); end
 		
 		local ed_flo = VFLUI.LabeledEdit:new(ui, 50); ed_flo:Show();
