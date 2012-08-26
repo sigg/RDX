@@ -68,6 +68,7 @@ RDX.RegisterFeature({
 	title = VFLI.i18n("Buttons");
 	category = VFLI.i18n("Lists");
 	multiple = true;
+	test = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end
@@ -81,33 +82,31 @@ RDX.RegisterFeature({
 		end
 		
 		if not desc.flo then desc.flo = 5; end
-		
 		if not desc.driver then desc.driver = 1; end
 		if not desc.externalButtonSkin then desc.externalButtonSkin = "bs_default"; end
 		if not desc.bsdefault then desc.bsdefault = VFL.copy(_white); end
 		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
-		
 		if not desc.flyoutdirection then desc.flyoutdirection = "UP"; end
 		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
-		
 		if not desc.headerstateType then desc.headerstateType = "None"; end
+		if not desc.headervisType then desc.headervisType = "None"; end
+		
 		if desc.headerstateType == "Custom" then
 			local test = __RDXconvertStatesTable(desc.headerstateCustom);
 			if #test == 0 then VFL.AddError(errs, VFLI.i18n("Invalid custom definition")); return nil; end 
 		end
-		if not desc.headervisType then desc.headervisType = "None"; end
-		
+
 		local flg = true;
-		flg = flg and RDXUI.UFFrameCheck_Proto("Bar_", desc, state, errs);
+		flg = flg and RDXUI.UFFrameCheck_Proto("Buttons_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
-		if flg then state:AddSlot("Bar_" .. desc.name); end
+		if flg then state:AddSlot("Buttons_" .. desc.name); end
 		return flg;
 	end;
 	ApplyFeature = function(desc, state)
 		if not VFLUI.isFacePathExist(desc.fontkey.face) then desc.fontkey = VFL.copy(Fonts.Default); end
 		if not desc.fontmacro or not VFLUI.isFacePathExist(desc.fontmacro.face) then desc.fontmacro = VFL.copy(Fonts.Default); end
 		if not desc.fontcount or not VFLUI.isFacePathExist(desc.fontcount.face) then desc.fontcount = VFL.copy(Fonts.Default); end		
-		local objname = "Bar_" .. desc.name;
+		local objname = "Buttons_" .. desc.name;
 		
 		local flo = tonumber(desc.flo); if not flo then flo = 5; end; flo = VFL.clamp(flo,1,10);
 		
@@ -134,6 +133,10 @@ RDX.RegisterFeature({
 			abid = GetBarNumber(desc.barid);
 		elseif  desc.ftype == 2 then
 			desc.nIcons = 10;
+		elseif  desc.ftype == 3 then
+			desc.nIcons = 8;
+		elseif  desc.ftype == 4 then
+			desc.nIcons = 3;
 		end
 		
 		------------------ On frame creation
@@ -160,45 +163,58 @@ h = __RDXCreateHeaderHandlerAttribute(]] .. headerstate .. [[, ]] .. headervis .
 			createCode = createCode .. [[
 h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
 ]];
+		elseif desc.ftype == 3 and useheader then
+			createCode = createCode .. [[
+h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
+]];
+		elseif desc.ftype == 4 and useheader then
+			createCode = createCode .. [[
+h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
+]];
 		else
 			createCode = createCode .. [[
 h = VFLUI.AcquireFrame("Frame");
-h:Show();
 ]];
 		end
 
 		createCode = createCode .. [[
+h:Show();
 VFLUI.StdSetParent(h, btnOwner);
 h:SetFrameLevel(btnOwner:GetFrameLevel() + ]] .. flo .. [[);
-local dabid = nil;
 
 -- Create buttons
 for i=1, ]] .. desc.nIcons .. [[ do
 ]];
 		if desc.test then
 			createCode = createCode .. [[
-btn = RDXUI.ActionButtonTest:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
+	btn = RDXUI.ActionButtonTest:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
 ]];
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtHotkey", desc.fontkey, nil, true);
 		elseif desc.ftype == 1 then
 			createCode = createCode .. [[
-btn = RDXUI.ActionButton:new(h, abid, "]] .. headerstate .. [[", ]] .. Serialize(desc) .. [[);
+	btn = RDXUI.ActionButton:new(h, abid, "]] .. headerstate .. [[", ]] .. Serialize(desc) .. [[);
 ]];
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtCount", desc.fontcount, nil, true);
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtMacro", desc.fontmacro, nil, true);
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtHotkey", desc.fontkey, nil, true);
 		elseif desc.ftype == 2 then
 			createCode = createCode .. [[
-btn = RDXUI.PetActionButton:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
+	btn = RDXUI.PetActionButton:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
+]];
+			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtHotkey", desc.fontkey, nil, true);
+		elseif desc.ftype == 3 then
+			createCode = createCode .. [[
+	btn = RDXUI.StanceButton:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
+]];
+			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtHotkey", desc.fontkey, nil, true);
+		elseif desc.ftype == 4 then
+			createCode = createCode .. [[
+	btn = RDXUI.VehicleButton:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
 ]];
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtHotkey", desc.fontkey, nil, true);
 		end
 		createCode = createCode .. [[
-	if not btn.error then
-		if btn.Init then btn:Init(); end
-	else
-		dabid = abid;
-	end
+	if btn.Init then btn:Init(); end
 	btn:Show();
 	frame.]] .. objname .. [[[i] = btn;
 	abid = abid + 1;
@@ -207,12 +223,7 @@ end
 frame.]] .. objname .. [[header = h;
 
 ]];
-	createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
-	createCode = createCode .. [[
---if dabid then
-	--RDX.printE("Action Button ".. dabid .." already used");
---end
-]];
+		createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 		
 		
@@ -220,7 +231,7 @@ frame.]] .. objname .. [[header = h;
 		------------------ On frame destruction.
 		local destroyCode = [[
 for i=1, ]] .. desc.nIcons .. [[ do
-	local btn = frame.]] .. objname .. [[[i];
+	btn = frame.]] .. objname .. [[[i];
 	if btn then btn:ClearAllPoints(); btn:Hide(); btn:Destroy(); btn = nil; end
 end
 frame.]] .. objname .. [[header:Destroy();
@@ -443,8 +454,10 @@ frame.]] .. objname .. [[ = nil;
 		local ftype_2 = ftype:CreateRadioButton(ui);
 		ftype_2:SetText(VFLI.i18n("Use Pet Actions Bar"));
 		local ftype_3 = ftype:CreateRadioButton(ui);
-		ftype_3:SetText(VFLI.i18n("Use Indicator Texture"));
-		ftype:SetValue(desc.ftype or 2);
+		ftype_3:SetText(VFLI.i18n("Use Stance Bar"));
+		local ftype_4 = ftype:CreateRadioButton(ui);
+		ftype_4:SetText(VFLI.i18n("Use Vehicle Bar"));
+		ftype:SetValue(desc.ftype or 1);
 		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Actions Bar")));
 		ui:InsertFrame(ftype_1);
@@ -500,12 +513,22 @@ frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Pet Actions Bar")));
 		ui:InsertFrame(ftype_2);
 		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Stance Bar")));
+		ui:InsertFrame(ftype_3);
+		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Vehicle Bar")));
+		ui:InsertFrame(ftype_4);
+		
 		function ui:GetDescriptor()
 			local nIcons = 12;
 			if ftype:GetValue() == 1 then
 				nIcons = 12;
 			elseif ftype:GetValue() == 2 then
 				nIcons = 10;
+			elseif ftype:GetValue() == 3 then
+				nIcons = 8;
+			elseif ftype:GetValue() == 4 then
+				nIcons = 3;
 			end
 			return { 
 				feature = "listbuttons"; version = 1;
@@ -553,6 +576,11 @@ frame.]] .. objname .. [[ = nil;
 				headerstateCustom = ed_custom.editBox:GetText();
 			};
 		end
+		
+		ui.Destroy = VFL.hook(function(s) 
+			ftype:Destroy(); ftype = nil;
+			driver:Destroy(); driver = nil; 
+		end, ui.Destroy);
 
 		return ui;
 	end;
@@ -608,5 +636,27 @@ RDX.RegisterFeature({
 	VersionMismatch = function(desc)
 		desc.feature = "listbuttons";
 		desc.ftype = 2;
+	end;
+});
+
+RDX.RegisterFeature({
+	name = "stancebar";
+	version = 31338;
+	invisible = true;
+	IsPossible = VFL.Nil;
+	VersionMismatch = function(desc)
+		desc.feature = "listbuttons";
+		desc.ftype = 3;
+	end;
+});
+
+RDX.RegisterFeature({
+	name = "vehiclebar";
+	version = 31338;
+	invisible = true;
+	IsPossible = VFL.Nil;
+	VersionMismatch = function(desc)
+		desc.feature = "listbuttons";
+		desc.ftype = 4;
 	end;
 });

@@ -1466,23 +1466,21 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 	local self = nil;
 	local os = 0;
 	if desc.driver == 1 then
+		self = VFLUI.BRButton:new(parent, "SecureActionButtonStance", id);
+		if not self then self = VFLUI.BRButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 300; end
+		self:SetWidth(desc.size); self:SetHeight(desc.size);
+	elseif desc.driver == 2 then
 		self = VFLUI.SkinButton:new(parent, "SecureActionButtonStance", id);
 		if not self then self = VFLUI.SkinButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 300; end
 		self:SetWidth(desc.size); self:SetHeight(desc.size);
 		self:SetButtonSkin(desc.externalButtonSkin, true, true, true, true, true, true, false, true, true, desc.showgloss);
 		os = desc.ButtonSkinOffset or 0;
-	elseif desc.driver == 2 then
+	elseif desc.driver == 3 then
 		self = VFLUI.BckButton:new(parent, "SecureActionButtonStance", id);
 		if not self then self = VFLUI.BckButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 300; end
 		self:SetWidth(desc.size); self:SetHeight(desc.size);
 		self:SetButtonBkd(desc.bkd);
 		if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
-	elseif desc.driver == 3 then
-		self = VFLUI.BRButton:new(parent, "SecureActionButtonStance", id);
-		if not self then self = VFLUI.BRButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 300; end
-		self:SetWidth(desc.size); self:SetHeight(desc.size);
-		self:SetButtonBR(5, desc.bordersize);
-		os = desc.bordersize;
 	end
 	
 	self.id = id;
@@ -1533,33 +1531,29 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 	local texture, name, isActive, isCastable = "", nil, nil, nil;
 	local function UpdateState()
 		texture, name, isActive, isCastable = GetShapeshiftFormInfo(self.id);
-		if desc.driver == 1 then
+		if desc.driver == 2 then
 			self._texFlash:SetVertexColor(1, 1, 1, 0);
 		--elseif usebkd then
 		--	self:SetBackdropBorderColor(0, 0, 0, 0);
 		end
 		self.icon:SetTexture(texture);
 		if isActive then
-			if desc.useshaderkey then
+			if desc.useshaderkey or desc.driver == 1 then
 				self.txtHotkey:SetTextColor(1, 1, 0, 0.9);
-			elseif desc.driver == 1 then
+			elseif desc.driver == 2 then
 				self._texBorder:SetVertexColor(1, 1, 0, 0.9);
 				self._texGloss:SetVertexColor(1, 1, 0, 0.9);
-			elseif desc.driver == 2 then
-				self:SetBackdropBorderColor(1, 1, 0, 0.9);
 			elseif desc.driver == 3 then
-				VFLUI.ApplyColorBackdropBorderRDX(self, _green);
+				self:SetBackdropBorderColor(1, 1, 0, 0.9);
 			end
 		else
-			if desc.useshaderkey then
+			if desc.useshaderkey or desc.driver == 1 then
 				self.txtHotkey:SetTextColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
-			elseif desc.driver == 1 then
+			elseif desc.driver == 2 then
 				self._texBorder:SetVertexColor(VFL.explodeRGBA(self.bsdefault));
 				self._texGloss:SetVertexColor(VFL.explodeRGBA(self.bsdefault));
-			elseif desc.driver == 2 then
-				self:SetBackdropBorderColor(self.bkd.br or 1, self.bkd.bg or 1, self.bkd.bb or 1, self.bkd.ba or 1);
 			elseif desc.driver == 3 then
-				VFLUI.ApplyColorBackdropBorderRDX(self, VFL.explodeRGBA(self.bsdefault));
+				self:SetBackdropBorderColor(self.bkd.br or 1, self.bkd.bg or 1, self.bkd.bb or 1, self.bkd.ba or 1);
 			end
 		end
 		if isCastable then
@@ -1715,23 +1709,21 @@ function RDXUI.ActionButtonTest:new(parent, id, statesString, desc)
 	local self = nil;
 	local os = 0;
 	if desc.driver == 1 then
+		self = VFLUI.BRButton:new(parent, "SecureActionButtonBarTmp"); id = 500;
+		if not self then self = VFLUI.BRButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end
+		self:SetWidth(desc.size); self:SetHeight(desc.size);
+	elseif desc.driver == 2 then
 		self = VFLUI.SkinButton:new(parent, "SecureActionButtonBarTmp"); id = 500;
 		if not self then self = VFLUI.SkinButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 400; end
 		self:SetWidth(desc.size); self:SetHeight(desc.size);
 		self:SetButtonSkin(desc.externalButtonSkin, true, true, true, true, true, true, false, true, true, desc.showgloss);
 		os = desc.ButtonSkinOffset or 0;
-	elseif desc.driver == 2 then
+	elseif desc.driver == 3 then
 		self = VFLUI.BckButton:new(parent, "SecureActionButtonBarTmp"); id = 500;
 		if not self then self = VFLUI.BckButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 400; end
 		self:SetWidth(desc.size); self:SetHeight(desc.size);
 		self:SetButtonBkd(desc.bkd);
 		if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
-	elseif desc.driver == 3 then
-		self = VFLUI.BRButton:new(parent, "SecureActionButtonBarTmp"); id = 500;
-		if not self then self = VFLUI.BRButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end
-		self:SetWidth(desc.size); self:SetHeight(desc.size);
-		self:SetButtonBR(5, desc.bordersize);
-		os = desc.bordersize;
 	end
 	--VFLUI.StdSetParent(self, parent);
 	--self:SetFrameLevel(parent:GetFrameLevel());
@@ -1833,31 +1825,42 @@ end
 
 RDXUI.VehicleButton = {};
 
-function RDXUI.VehicleButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, ebhide, statesString, nbuttons, testmode, showgloss, bsdefault)
+function RDXUI.VehicleButton:new(parent, id, statesString, desc )
 	local self = nil;
-	if usebs then
+	local os = 0;
+	if desc.driver == 1 then
+		self = VFLUI.BRButton:new(parent, "SecureActionButtonBar", id);
+		if not self then self = VFLUI.BRButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end
+		self:SetWidth(desc.size); self:SetHeight(desc.size);
+	elseif desc.driver == 2 then
 		self = VFLUI.SkinButton:new(parent, "ButtonVehicle", id);
 		if not self then self = VFLUI.SkinButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 400; end
-		self:SetWidth(size); self:SetHeight(size);
-		self:SetButtonSkin(ebs, true, true, false, true, true, true, false, false, true, showgloss);
-	elseif usebkd then
+		self:SetWidth(desc.size); self:SetHeight(desc.size);
+		self:SetButtonSkin(desc.externalButtonSkin, true, true, false, true, true, true, false, false, true, desc.showgloss);
+		os = desc.ButtonSkinOffset or 0;
+	elseif desc.driver == 3 then
 		self = VFLUI.BckButton:new(parent, "ButtonVehicle", id);
 		if not self then self = VFLUI.BckButton:new(parent, "SecureActionButtonBarTmp"); self.error = true; id = 200; end
-		self:SetWidth(size); self:SetHeight(size);
-		self:SetButtonBkd(bkd);
+		self:SetWidth(desc.size); self:SetHeight(desc.size);
+		self:SetButtonBkd(desc.bkd);
+		if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 	end
 	--VFLUI.StdSetParent(self, parent);
 	--self:SetFrameLevel(parent:GetFrameLevel());
 	
 	self.id = id;
 	self.btype = "Vehicle";
-	self.usebs = usebs;
-	self.usebkd = usebkd;
+	self.driver = desc.driver;
+	--self.usebs = desc.usebs;
+	--self.usebkd = desc.usebkd;
 	
 	-- icon texture
 	self.icon = VFLUI.CreateTexture(self);
 	self.icon:SetPoint("TOPLEFT", self, "TOPLEFT", os, -os);
 	self.icon:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -os, os);
+	if not RDXG.usecleanicons then
+		self.icon:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
+	end
 	self.icon:SetDrawLayer("ARTWORK", 2);
 	self.icon:Show();
 	self.frtxt = VFLUI.AcquireFrame("Frame");
@@ -1879,31 +1882,26 @@ function RDXUI.VehicleButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, 
 			self.icon:SetTexture("Interface\\Vehicles\\UI-Vehicles-Button-Exit-Up");
 			self.icon:SetTexCoord(0.140625, 0.859375, 0.140625, 0.859375);
 		end
-		if testmode then
-			self.icon:Show();
-			self:bsShow();
-		else
-			if IsVehicleAimAngleAdjustable() then
-				if self.id == 1 or self.id == 2 then
-					self.icon:Show();
-					self:bsShow();
-				end
-			else
-				if self.id == 1 or self.id == 2 then
-					self.icon:Hide();
-					self:bsHide();
-				end
+		if IsVehicleAimAngleAdjustable() then
+			if self.id == 1 or self.id == 2 then
+				self.icon:Show();
+				self:bsShow();
 			end
-			if CanExitVehicle() then
-				if self.id == 3 then
-					self.icon:Show();
-					self:bsShow();
-				end
-			else
-				if self.id == 3 then
-					self.icon:Hide();
-					self:bsHide();
-				end
+		else
+			if self.id == 1 or self.id == 2 then
+				self.icon:Hide();
+				self:bsHide();
+			end
+		end
+		if CanExitVehicle() then
+			if self.id == 3 then
+				self.icon:Show();
+				self:bsShow();
+			end
+		else
+			if self.id == 3 then
+				self.icon:Hide();
+				self:bsHide();
 			end
 		end
 	end
@@ -1979,11 +1977,7 @@ function RDXUI.VehicleButton:new(parent, id, size, usebs, ebs, usebkd, bkd, os, 
 	function self:Init()
 		UpdateNewAction();
 		UpdateKeyBinding();
-		--if RDXDK.IsKeyBindingsLocked() then
-			HideBindingEdit();
-		--else
-		--	ShowBindingEdit();
-		--end
+		HideBindingEdit();
 	end
 	
 	self.Destroy = VFL.hook(function(s)

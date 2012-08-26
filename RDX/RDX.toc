@@ -275,10 +275,7 @@ Designs\Basics\Button.lua
 Designs\Basics\Texture.lua
 Designs\Basics\Text.lua
 
-Designs\Buttons\ActionBarPet.lua
 Designs\Buttons\MultiCastBar.lua
-Designs\Buttons\StanceBar.lua
-Designs\Buttons\VehicleBar.lua
 
 Designs\Complexes\TabManager.lua
 Designs\Complexes\Minimap.lua
