@@ -721,8 +721,6 @@ btn = ]] .. objname .. [[;
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
-		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Default parameters")));
 
 		-- Name/width/height
 		local ed_name, ed_width, ed_height = RDXUI.GenNameWidthHeightPortion(ui, desc, state);
@@ -886,11 +884,12 @@ btn = ]] .. objname .. [[;
 	CreateDescriptor = function()
 		return { 
 			feature = "texture2"; version = 1; 
-			name = "tex1", owner = "Frame_decor",
+			name = "tex1";
 			w = 45; h = 45;
+			owner = "Frame_decor";
 			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			drawLayer = "ARTWORK"; sublevel = 1;
-			
+			ftype = 2;
 			externalButtonSkin = "bs_default";
 			ButtonSkinOffset = 0;
 			bkd = VFL.copy(VFLUI.defaultBackdrop);

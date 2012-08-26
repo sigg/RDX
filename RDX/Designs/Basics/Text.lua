@@ -1180,7 +1180,7 @@ artf_]] .. desc.name .. [[();
 ]];
 			if otherText[desc.tyo].repaintType == "interval" then
 				createCode = createCode .. [[
-VFLT.AdaptiveSchedule("artf_]] .. desc.name .. [[", ]] .. otherText[desc.tyo].interval .. [[, artf_]] .. desc.name .. [[);
+VFLT.AdaptiveSchedule2("artf_]] .. desc.name .. [[", ]] .. otherText[desc.tyo].interval .. [[, artf_]] .. desc.name .. [[);
 ]];
 			else
 				createCode = createCode .. [[
@@ -1192,7 +1192,7 @@ VFLT.AdaptiveSchedule("artf_]] .. desc.name .. [[", ]] .. otherText[desc.tyo].in
 ]];
 			if otherText[desc.tyo].repaintType == "interval" then
 				destroyCode = destroyCode .. [[
-VFLT.AdaptiveUnschedule("artf_]] .. desc.name .. [[");
+VFLT.AdaptiveUnschedule2("artf_]] .. desc.name .. [[");
 ]]
 			else
 				destroyCode = destroyCode .. [[
@@ -1245,8 +1245,6 @@ end
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
-		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Default parameters")));
 
 		local ed_name, ed_width, ed_height = RDXUI.GenNameWidthHeightPortion(ui, desc, state);
 

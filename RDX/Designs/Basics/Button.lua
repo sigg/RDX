@@ -26,7 +26,7 @@ RDX.RegisterFeature({
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		local flg = true;
-		if desc.ftype == 1 or desc.ftype == 2 then
+		if desc.ftype == 1 or desc.ftype == 2 or desc.ftype == 3 then
 			flg = flg and RDXUI.UFFrameCheck_Proto("Button_", desc, state, errs);
 			flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 			flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
@@ -74,31 +74,54 @@ frame.]] .. objname .. [[ = btn;
 		local destroyCode = "";
 		local paintCode = "";
 		
+		
+		if desc.ftype == 1 then
+		
 		------------------ On frame creation
-		createCode = createCode .. [[
+			createCode = createCode .. [[
 btn:SetScript("OnClick", function() ]] .. desc.editor .. [[ end);
 ]];
-		if desc.gt then
-		local gtType = __RDX_GetGameTooltipType(desc.gt);
-		createCode = createCode .. [[
+			if desc.gt then
+				local gtType = __RDX_GetGameTooltipType(desc.gt);
+				createCode = createCode .. [[
 btn:SetScript("OnEnter", ]] .. gtType .. [[);
 btn:SetScript("OnLeave", __RDX_OnLeave);
 ]];
-		end
+			end
 
-		if desc.gt and desc.gt ~= "" then
+			if desc.gt and desc.gt ~= "" then
 		------------------- Paint
 			paintCode = [[
 frame.]] .. objname .. [[.gtid = ]] .. desc.gt .. [[;
+]];
+			end
+		elseif desc.ftype == 2 then
+			createCode = createCode .. [[
+btn:SetScript("OnClick", function(self) 
+	]] .. rdxmenu .. [[:Open();
+end);
+]];
+		elseif desc.ftype == 3 then
+			createCode = createCode .. [[
+btn:SetScript("OnClick", function(self) 
+	RDXDK.FrameProperties(RDXDK.GetCurrentDesktop():_GetFrame(windowpath));
+end);
 ]];
 		end
 		
 		------------------ On frame destruction.
 		destroyCode = [[
+if frame.]] .. objname .. [[.hltTex then
+	frame.]] .. objname .. [[.hltTex:Destroy();
+	frame.]] .. objname .. [[.hltTex = nil;
+end
+if frame.]] .. objname .. [[.ntTex then
+	frame.]] .. objname .. [[.ntTex:Destroy();
+	frame.]] .. objname .. [[.ntTex = nil;
+end
 frame.]] .. objname .. [[.gtid = nil;
 frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 ]];
-		
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
@@ -121,11 +144,11 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 		
-		local chk_hlt = VFLUI.Checkbox:new(ui); chk_hlt:Show();
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Common Parameters")));
+		
+		local chk_hlt = VFLUI.CheckEmbedRight(parent, VFLI.i18n("Highlight")); chk_hlt:Show();
 		local tsel = VFLUI.MakeTextureSelectButton(chk_hlt); tsel:Show();
-		tsel:SetPoint("RIGHT", chk_hlt, "RIGHT");
-		chk_hlt.Destroy = VFL.hook(function() tsel:Destroy(); end, chk_hlt.Destroy);
-		chk_hlt:SetText(VFLI.i18n("Highlight"));
+		chk_hlt:EmbedChild(tsel);
 		if desc and desc.hlt then
 			chk_hlt:SetChecked(true); tsel:SetSelectedTexture(desc.hlt);
 		else
@@ -133,13 +156,26 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		end
 		ui:InsertFrame(chk_hlt);
 		
+		local chk_nt = VFLUI.CheckEmbedRight(parent, VFLI.i18n("Normal")); chk_nt:Show();
+		local tsel2 = VFLUI.MakeTextureSelectButton(chk_nt); tsel2:Show();
+		chk_nt:EmbedChild(tsel2);
+		if desc and desc.nt then
+			chk_nt:SetChecked(true); tsel2:SetSelectedTexture(desc.nt);
+		else
+			chk_nt:SetChecked();
+		end
+		ui:InsertFrame(chk_nt);
+		
 		local ftype = VFLUI.DisjointRadioGroup:new();
 		local ftype_1 = ftype:CreateRadioButton(ui);
-		ftype_1:SetText(VFLI.i18n("Use Script Button"));
+		ftype_1:SetText(VFLI.i18n("Use Custom Button"));
 		local ftype_2 = ftype:CreateRadioButton(ui);
 		ftype_2:SetText(VFLI.i18n("Use Menu RDX Button"));
+		local ftype_3 = ftype:CreateRadioButton(ui);
+		ftype_3:SetText(VFLI.i18n("Use Menu Window Button"));
+		ftype:SetValue(desc.ftype or 1);
 		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Script Button")));
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Custom Button")));
 		ui:InsertFrame(ftype_1);
 		
 		local gt = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("GameTooltip"), state, "GameTooltips_");
@@ -152,6 +188,7 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		ui:InsertFrame(editor);
 		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Menu RDX Button")));
+		ui:InsertFrame(ftype_2);
 		
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("RDX Menu Type"));
 		local dd_rdxmenu = VFLUI.Dropdown:new(er, _dd_menus);
@@ -164,8 +201,12 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		er:EmbedChild(dd_rdxmenu); er:Show();
 		ui:InsertFrame(er);
 		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Menu Window Button")));
+		ui:InsertFrame(ftype_3);
+		
 		function ui:GetDescriptor()
 			local hlt = nil; if chk_hlt:GetChecked() then hlt = tsel:GetSelectedTexture(); end
+			local nt = nil; if chk_nt:GetChecked() then nt = tsel2:GetSelectedTexture(); end
 			return { 
 				feature = "button2"; version = 1;
 				name = ed_name.editBox:GetText();
@@ -174,6 +215,8 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 				owner = owner:GetSelection();
 				anchor = anchor:GetAnchorInfo();
 				hlt = hlt;
+				nt = nt;
+				ftype = ftype:GetValue();
 				gt = gt:GetSelection();
 				editor = editor:GetText();
 				rdxmenu = dd_rdxmenu:GetSelection();
@@ -189,11 +232,46 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 	CreateDescriptor = function()
 		return { 
 			feature = "button2"; version = 1; 
-			name = "btn1", owner = "Frame_decor", drawLayer = "ARTWORK";
+			name = "btn1";
 			w = 30; h = 30;
+			 owner = "Frame_decor";
 			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
+			hlt = { path = "Interface\\QuestFrame\\UI-QuestTitleHighlight", blendMode = "ADD" };
+			ftype = 1;
 		};
 	end;
 });
 
+RDX.RegisterFeature({
+	name = "artbutton";
+	version = 31338;
+	invisible = true;
+	IsPossible = VFL.Nil;
+	VersionMismatch = function(desc)
+		desc.feature = "button2";
+		desc.ftype = 1;
+	end;
+});
+
+RDX.RegisterFeature({
+	name = "buttonmenurdx";
+	version = 31338;
+	invisible = true;
+	IsPossible = VFL.Nil;
+	VersionMismatch = function(desc)
+		desc.feature = "button2";
+		desc.ftype = 2;
+	end;
+});
+
+RDX.RegisterFeature({
+	name = "buttonrdx";
+	version = 31338;
+	invisible = true;
+	IsPossible = VFL.Nil;
+	VersionMismatch = function(desc)
+		desc.feature = "button2";
+		desc.ftype = 3;
+	end;
+});
 

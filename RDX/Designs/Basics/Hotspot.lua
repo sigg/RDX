@@ -123,11 +123,9 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 		if desc and desc.mover then chk_mover:SetChecked(true); end
 		ui:InsertFrame(chk_mover);
 		
-		local chk_hlt = VFLUI.Checkbox:new(ui); chk_hlt:Show();
+		local chk_hlt = VFLUI.CheckEmbedRight(parent, VFLI.i18n("Highlight")); chk_hlt:Show();
 		local tsel = VFLUI.MakeTextureSelectButton(chk_hlt); tsel:Show();
-		tsel:SetPoint("RIGHT", chk_hlt, "RIGHT");
-		chk_hlt.Destroy = VFL.hook(function() tsel:Destroy(); end, chk_hlt.Destroy);
-		chk_hlt:SetText(VFLI.i18n("Highlight"));
+		chk_hlt:EmbedChild(tsel);
 		if desc and desc.hlt then
 			chk_hlt:SetChecked(true); tsel:SetSelectedTexture(desc.hlt);
 		else

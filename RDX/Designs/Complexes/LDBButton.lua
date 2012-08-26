@@ -78,7 +78,7 @@ VFLUI.CreateFramePool("LDBObjects",
 		ldbo:Hide();
 		ldbo:Disable();
 		LDB.UnregisterCallback(ldbo, "LibDataBroker_AttributeChanged_" .. ldbo.name);
-		--VFLT.AdaptiveUnschedule("LDBObject".. ldbo.name);
+		ldbo:SetScript("OnUpdate", nil);
 		VFLUI._CleanupLayoutFrame(ldbo);
 	end,
 	function(_, key) -- create
@@ -122,10 +122,16 @@ VFLUI.CreateFramePool("LDBObjects",
 		ldbo:Show();
 		ldbo:Enable();
 		LDB.RegisterCallback(ldbo, "LibDataBroker_AttributeChanged_" .. ldbo.name, "Updater");
-		--VFLT.AdaptiveUnschedule("LDBObject".. ldbo.name);
-		--VFLT.AdaptiveSchedule("LDBObject".. ldbo.name, 15, function()
-		--	ldbo.Updater(_, _, ldbo.name, "text");
-		--end);
+		
+		ldbo.elapsed = 0;
+		
+		ldbo:SetScript("OnUpdate", function(self, elapsed)
+			self.elapsed = self.elapsed + elapsed
+			if self.elapsed > 15 then
+				self.Updater(_, _, self.name, "text");
+				self.elapsed = 0;
+			end
+		end);
 	end,
 	"key"
 );
@@ -198,8 +204,8 @@ RDX.RegisterFeature({
 	name = "ldbobject"; 
 	multiple = true; 
 	version = 1; 
-	title = VFLI.i18n("Button LDB"); 
-	category = VFLI.i18n("Buttons");
+	title = VFLI.i18n("Ace LDB"); 
+	category = VFLI.i18n("Complexes");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("Base") then return nil; end

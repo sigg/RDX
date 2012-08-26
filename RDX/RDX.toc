@@ -271,6 +271,7 @@ Designs\Basics\Cooldown.lua
 Designs\Basics\Hotspot.lua
 Designs\Basics\StatusBar.lua
 Designs\Basics\SubFrame.lua
+Designs\Basics\Button.lua
 Designs\Basics\Texture.lua
 Designs\Basics\Text.lua
 
@@ -278,11 +279,6 @@ Designs\Buttons\ActionBarPet.lua
 Designs\Buttons\ActionBars.lua
 Designs\Buttons\ActionBarsHandler.lua
 Designs\Buttons\ActionButton.lua
-Designs\Buttons\Button.lua
-Designs\Buttons\ButtonRDX.lua
-Designs\Buttons\ButtonRDXMenu.lua
-Designs\Buttons\LDBButton.lua
-Designs\Buttons\MinimapButtons.lua
 Designs\Buttons\MultiCastBar.lua
 Designs\Buttons\StanceBar.lua
 Designs\Buttons\VehicleBar.lua
@@ -294,6 +290,8 @@ Designs\Complexes\BagsBar.lua
 Designs\Complexes\PlayerPowerBarAlt.lua
 Designs\Complexes\ExtraActionBar.lua
 Designs\Complexes\Portraits3D.lua
+Designs\Complexes\LDBButton.lua
+Designs\Complexes\MinimapButtons.lua
 
 Designs\Lists\AuraBarList.lua
 Designs\Lists\AuraIconList.lua

@@ -55,9 +55,9 @@ RDXUI.BlizzButtonsSelectionFunc = amOnBuild;
 RDX.RegisterFeature({
 	name = "minimapbutton";
 	version = 1;
-	title = VFLI.i18n("Button Minimap");
+	title = VFLI.i18n("Blizzard Minimap Button");
 	test = true;
-	category = VFLI.i18n("Buttons");
+	category = VFLI.i18n("Complexes");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
