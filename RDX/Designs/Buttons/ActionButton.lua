@@ -372,13 +372,16 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	-- text count
 	self.txtCount = VFLUI.CreateFontString(self.frtxt);
 	self.txtCount:SetAllPoints(self.frtxt);
+	self.txtCount:Show();
 	-- text macro
 	self.txtMacro = VFLUI.CreateFontString(self.frtxt);
 	self.txtMacro:SetAllPoints(self.frtxt);
+	self.txtMacro:Show();
 	-- text hotkey
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
 	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
+	self.txtHotkey:Show();
 	
 	local start, duration, enable, spellid = 0, 0, nil, nil;
 	local function UpdateCooldown()
@@ -508,7 +511,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 			WoWEvents:Bind("ACTIONBAR_UPDATE_COOLDOWN", nil, UpdateCooldown, "actionButton" .. self.id);
 			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW", nil, ShowGlow, "actionButton" .. self.id);
 			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE", nil, HideGlow, "actionButton" .. self.id);
-			self.txtHotkey:Show();
+			--self.txtHotkey:Show();
 		end
 		
 		if self.error then
@@ -899,14 +902,14 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	local function UpdateNewAction()
 		self.action = self:GetAttribute("action");
 		WoWEvents:Unbind("multicastButton" .. self.id);
-		self.txtHotkey:Hide();
+		--self.txtHotkey:Hide();
 		if not self.action then return; end
 		if HasAction(self.action) then
 			WoWEvents:Unbind("multicastButton" .. self.id);
 			WoWEvents:Bind("ACTIONBAR_UPDATE_STATE", nil, UpdateState, "multicastButton" .. self.id);
 			WoWEvents:Bind("ACTIONBAR_UPDATE_USABLE", nil, UpdateUsable, "multicastButton" .. self.id);
 			WoWEvents:Bind("ACTIONBAR_UPDATE_COOLDOWN", nil, UpdateCooldown, "multicastButton" .. self.id);
-			self.txtHotkey:Show();
+			--self.txtHotkey:Show();
 		end
 		
 		if self.error then
