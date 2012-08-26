@@ -455,7 +455,7 @@ ww:RegisterPage(9, {
 				end
 			end
 		end
-		VFLT.AdaptiveSchedule("__uf_sample", 1, PaintUnitFrame);
+		VFLT.AdaptiveSchedule2("__uf_sample", 1, PaintUnitFrame);
 
 		-- Hook design chooser into renderer.
 		ofDesign.OnPathChanged = UpdateUnitFrameDesign;
@@ -467,7 +467,7 @@ ww:RegisterPage(9, {
 		page.Destroy = VFL.hook(function(s)
 			ofDesign:Destroy();
 			if curUF then curUF:Destroy(); end
-			VFLT.AdaptiveUnschedule("__uf_sample");
+			VFLT.AdaptiveUnschedule2("__uf_sample");
 		end, page.Destroy);
 		wizard:OnNext(function(wiz) wiz:SetPage(10); end);
 		return page;

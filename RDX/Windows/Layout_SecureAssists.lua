@@ -263,7 +263,7 @@ RDX.RegisterFeature({
 				gridTT:SetAttribute("_ignore", "RDXIgnore");
 			end
 			if VFLP.IsEnabled() then
-				VFLT.AdaptiveUnschedule("Perf" .. win._path);
+				VFLT.AdaptiveUnschedule2("Perf" .. win._path);
 			end
 			win:SetClient(nil); -- BUGFIX: remember to remove client refs before destroying client..
 			destroySubHdr(gridAssist); gridAssist = nil;

@@ -94,9 +94,9 @@ function MultiTrack.Open()
 	-- Only make/show the tracker if it's enabled.
 	--if enabled then
 		if (not _multi_track_window) then _CreateMultiTracker(); end
-		VFLT.AdaptiveUnschedule("multitrack");
+		VFLT.AdaptiveUnschedule2("multitrack");
 		_multi_track_window:Show();
-		VFLT.AdaptiveSchedule("multitrack", traceDelay, _multi_track_window.RepaintAll );
+		VFLT.AdaptiveSchedule2("multitrack", traceDelay, _multi_track_window.RepaintAll );
 	--end
 	
 	-- Cause tracers to begin tracking
@@ -118,7 +118,7 @@ end
 
 function MultiTrack.Close()
 	_isOpen = false;
-	VFLT.AdaptiveUnschedule("multitrack");
+	VFLT.AdaptiveUnschedule2("multitrack");
 	for k,v in ipairs(_tracers) do
 		v:Close();
 		_tracers[k] = nil;

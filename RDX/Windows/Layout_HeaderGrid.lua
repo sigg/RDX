@@ -289,7 +289,7 @@ RDX.RegisterFeature({
 		-- Tear down all this
 		local function destroy(w)
 			if VFLP.IsEnabled() then
-				VFLT.AdaptiveUnschedule("Perf" .. win._path);
+				VFLT.AdaptiveUnschedule2("Perf" .. win._path);
 			end
 			if switchvehicle then WoWEvents:Unbind(win); end
 			win:SetClient(nil); -- BUGFIX: remember to remove client refs before destroying client..

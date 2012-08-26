@@ -121,7 +121,7 @@ function RPC.StreamingRPCMixin(ch, noglobal)
 			end
 		end
 		if not found then
-			VFLT.AdaptiveUnschedule("CleanTimeOut " .. ch.name);
+			VFLT.AdaptiveUnschedule2("CleanTimeOut " .. ch.name);
 		end
 	end
 
@@ -163,8 +163,8 @@ function RPC.StreamingRPCMixin(ch, noglobal)
 		waits[id] = fn; 
 		wtos[id] = GetTime() + timeout;
 		-- Schedule Cleantimeout
-		VFLT.AdaptiveUnschedule("CleanTimeOut " .. ch.name);
-		VFLT.AdaptiveSchedule("CleanTimeOut " .. ch.name, 5, CleanTimeOut);
+		VFLT.AdaptiveUnschedule2("CleanTimeOut " .. ch.name);
+		VFLT.AdaptiveSchedule2("CleanTimeOut " .. ch.name, 5, CleanTimeOut);
 	end
 	
 	function ch:IsSend(stid)

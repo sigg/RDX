@@ -205,7 +205,7 @@ local function UpdateRS()
 end
 
 VFLT.AdaptiveSchedule2("Rangefinding", frsTickLength, UpdateRS);
-VFLP.RegisterFunc("RDX", "Rangefinding", UpdateRS, true);
+--VFLP.RegisterFunc("RDX", "Rangefinding", UpdateRS, true);
 
 --- Get an exact range set for the given spell.
 function RDXRF.GetSpellRangeSet(spell)

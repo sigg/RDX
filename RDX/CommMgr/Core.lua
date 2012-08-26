@@ -46,7 +46,7 @@ local function _ConfMaintenance()
 	end
 	if not found then
 		-- there is no more conf with timeout, we can stop the schedule of the _ConfMaintenance
-		VFLT.AdaptiveUnschedule("confMaintenance");
+		VFLT.AdaptiveUnschedule2("confMaintenance");
 	end
 end
 
@@ -56,8 +56,8 @@ function RPC.RegisterConference(conf, id, timeout)
 	if timeout then
 		conf.purgeTime = GetTime() + timeout;
 		-- a conf with timeout is set, let schedule the _ConfMaintenance
-		VFLT.AdaptiveUnschedule("confMaintenance");
-		VFLT.AdaptiveSchedule("confMaintenance", 30, _ConfMaintenance);
+		VFLT.AdaptiveUnschedule2("confMaintenance");
+		VFLT.AdaptiveSchedule2("confMaintenance", 30, _ConfMaintenance);
 	else
 		conf.purgeTime = nil;
 	end

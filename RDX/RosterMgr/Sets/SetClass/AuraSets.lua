@@ -365,10 +365,10 @@ local function CreateAuraFilterSet(type, filename)
 	
 	-- Bind/unbind events on act/deact.
 	self._OnActivate = function(x)
-		VFLT.AdaptiveSchedule("AuraFilterUpdate" .. filename, auraFilterUpdatePeriod, auraFilterRebuild, x);
+		VFLT.AdaptiveSchedule2("AuraFilterUpdate" .. filename, auraFilterUpdatePeriod, auraFilterRebuild, x);
 	end;
 	self._OnDeactivate = function(x)
-		VFLT.AdaptiveUnschedule("AuraFilterUpdate" .. filename);
+		VFLT.AdaptiveUnschedule2("AuraFilterUpdate" .. filename);
 	end
 
 	return self;

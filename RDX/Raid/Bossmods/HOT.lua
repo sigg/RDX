@@ -177,12 +177,12 @@ end
 --- Register this tracer to be continually monitored by the system.
 function HOT.Tracer:Open()
 	self.Open = VFL.Noop; -- make sure it doesn't open twice
-	VFLT.AdaptiveSchedule(self, traceDelay, self.Execute, self);
+	VFLT.AdaptiveSchedule2(self, traceDelay, self.Execute, self);
 end
 
 --- Close a tracer previously Opened.
 function HOT.Tracer:Close()
-	VFLT.AdaptiveUnschedule(self);
+	VFLT.AdaptiveUnschedule2(self);
 	self.sigAcq:DisconnectAll();
 	self.sigTrace:DisconnectAll();
 	self.sigLost:DisconnectAll();

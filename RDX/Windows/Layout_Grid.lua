@@ -222,7 +222,7 @@ RDX.RegisterFeature({
 
 		local function destroy()
 			--if VFLP.IsEnabled() then
-			--	VFLT.AdaptiveUnschedule("Perf" .. win._path);
+			--	VFLT.AdaptiveUnschedule2("Perf" .. win._path);
 			--end
 			if win then
 				-- Remove profiler hooks

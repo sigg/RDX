@@ -291,7 +291,7 @@ RDX.RegisterFeature({
 		local function destroy()
 			grid:SetAttribute("toto", nil);
 			if VFLP.IsEnabled() then
-				VFLT.AdaptiveUnschedule("Perf" .. win._path);
+				VFLT.AdaptiveUnschedule2("Perf" .. win._path);
 			end
 			win:SetClient(nil); -- BUGFIX: remember to remove client refs before destroying client..
 			-- Unbind events

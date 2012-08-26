@@ -168,7 +168,7 @@ end
 --RDXEvents:Bind("INIT_DEFERRED", nil, function()
 	--SendVersionPatch();
 	-- Start periodic broadcasts
-	--VFLT.AdaptiveSchedule(nil, 300, SendVersionPatch);
+	--VFLT.AdaptiveSchedule2(nil, 300, SendVersionPatch);
 --end);
 
 ------------------------------------------

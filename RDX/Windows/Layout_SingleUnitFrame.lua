@@ -361,7 +361,7 @@ RDX.RegisterFeature({
 		local function destroy(w)
 			-- Adaptive schedule
 			if VFLP.IsEnabled() then
-				VFLT.AdaptiveUnschedule("Perf" .. win._path);
+				VFLT.AdaptiveUnschedule2("Perf" .. win._path);
 			end
 			-- Unbind us from all events we bound to in Create()
 			WoWEvents:Unbind(w); RDXEvents:Unbind(w);

@@ -17,8 +17,8 @@ end
 ---------------------------------------------------
 local function InitThreat()
 	-- to be fixed
-	--VFLT.AdaptiveUnschedule("threat_target");
-	--VFLT.AdaptiveSchedule("threat_target", 5, GlobalThreatUpdate);
+	VFLT.AdaptiveUnschedule2("threat_target");
+	VFLT.AdaptiveSchedule2("threat_target", 5, GlobalThreatUpdate);
 end
 
 RDXEvents:Bind("INIT_DEFERRED", nil, InitThreat);

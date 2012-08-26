@@ -107,7 +107,7 @@ local function AsyncSendPck()
 		end
 	end
 	if VFL.isempty(rs_group) and VFL.isempty(rs_guild) then
-		VFLT.AdaptiveUnschedule("PckUpdater");
+		VFLT.AdaptiveUnschedule2("PckUpdater");
 	end
 end
 
@@ -128,8 +128,8 @@ local function AddUserRequest(conf, pkgname, username)
 	if not found then
 		table.insert(rs, { pkg = pkgname, users = { username }});
 	end
-	VFLT.AdaptiveUnschedule("PckUpdater");
-	VFLT.AdaptiveSchedule("PckUpdater", 10, AsyncSendPck);
+	VFLT.AdaptiveUnschedule2("PckUpdater");
+	VFLT.AdaptiveSchedule2("PckUpdater", 10, AsyncSendPck);
 end
 
 local function ServerRequestPkg(ci, conf, who, pkg)

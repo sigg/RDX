@@ -845,7 +845,7 @@ end
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	VFLT.AdaptiveSchedule2("UDB:RemoveUnit", timeGC_default, RemoveUnit);
-	VFLP.RegisterFunc("RDX", "UDB:RemoveUnit", RemoveUnit, true);
+	--VFLP.RegisterFunc("RDX", "UDB:RemoveUnit", RemoveUnit, true);
 end);
 
 -------------- Initial unit creation
@@ -1581,7 +1581,7 @@ RDXEvents:Bind("INIT_DEFERRED", nil, function()
 	SendNdataSync();
 	-- Start periodic broadcasts
 	VFLT.AdaptiveSchedule2("UDB:SendNdataSync", 60, SendNdataSync);
-	VFLP.RegisterFunc("RDX", "UDB:SendNdataSync", SendNdataSync, true);
+	--VFLP.RegisterFunc("RDX", "UDB:SendNdataSync", SendNdataSync, true);
 end);
 
 ------------------------------------------------------------
@@ -1823,7 +1823,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 		end
 	end
 	VFLT.AdaptiveSchedule2("UDB:weaponsUpdate", 2, weaponsupdate, true);
-	VFLP.RegisterFunc("RDX", "UDB:weaponsUpdate", weaponsupdate, true);
+	--VFLP.RegisterFunc("RDX", "UDB:weaponsUpdate", weaponsupdate, true);
 end);
 
 --------------------------------------------

@@ -168,13 +168,13 @@ local function OpenPreviewWindow(parent)
 			end
 		end
 	end
-	VFLT.AdaptiveSchedule("__uf_preview", 1, PaintUnitFrame);
+	VFLT.AdaptiveSchedule2("__uf_preview", 1, PaintUnitFrame);
 	
 	--preview_window.UpdateFrame = UpdateUnitFrameDesign;
 	
 	preview_window.Destroy = VFL.hook(function(s)
 		if curUF then curUF:Destroy(); end
-		VFLT.AdaptiveUnschedule("__uf_preview");
+		VFLT.AdaptiveUnschedule2("__uf_preview");
 		RDXIEEvents:Unbind("IESELECT");
 		RDXIEEvents:Unbind("IEREBUILD");
 		aa:Destroy();

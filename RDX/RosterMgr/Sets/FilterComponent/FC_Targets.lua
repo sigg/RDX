@@ -100,11 +100,11 @@ end
 local function _Checkraid()
 	if RDXDAL.GetNumUnits() == 1 then
 		--VFL.print("stop");
-		VFLT.AdaptiveUnschedule("target_update");
+		VFLT.AdaptiveUnschedule2("target_update");
 	else
 		--VFL.print("launch");
-		VFLT.AdaptiveUnschedule("target_update");
-		VFLT.AdaptiveSchedule("target_update", 0.2, targetparse);
+		VFLT.AdaptiveUnschedule2("target_update");
+		VFLT.AdaptiveSchedule2("target_update", 0.2, targetparse);
 	end
 end
 
