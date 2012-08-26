@@ -4,45 +4,6 @@
 -- AUI Adaptive User Interface or theme
 -- Replacement of the old autoswitch desktop.
 
-local function createDesktop(name)
-	local mde = RDXDB.TouchObject("desktops:" .. RDX.pspace .. "_" .. name);
-	if not mde.data then
-	mde.data = {};
-	mde.ty = "Desktop"; 
-	mde.version = 2;
-	table.insert(mde.data, { feature = "Desktop main"; title = RDX.pspace .. "_" .. name; resolution = VFLUI.GetCurrentResolution(); uiscale = VFLUI.GetCurrentEffectiveScale();});
-	end;
-end
-
-function RDXDK.MakeDesktops()
-	local mde = RDXDB.TouchObject("desktops:default");
-	if not mde.data then
-	mde.data = {};
-	mde.ty = "Desktop"; 
-	mde.version = 2;
-	table.insert(mde.data, { feature = "Desktop main"; title = "default"; resolution = VFLUI.GetCurrentResolution(); uiscale = VFLUI.GetCurrentEffectiveScale();});
-	end;
-	
-	createDesktop("inn");
-	createDesktop("solo");
-	createDesktop("party");
-	createDesktop("raid");
-	createDesktop("pvp");
-	createDesktop("arena");
-	
-	createDesktop("inn2");
-	createDesktop("solo2");
-	createDesktop("party2");
-	createDesktop("raid2");
-	createDesktop("pvp2");
-	createDesktop("arena2");
-	
-	--if not RDXDB.CheckObject("desktops:" .. RDX.pspace, "DUI") then
-		RDXDB.CreateObject("desktops", RDX.pspace, "AUI", true);
-	--end
-	
-end;
-
 local function WriteAUI(dest, src)
 	VFL.empty(dest);
 	for k,v in pairs(src) do
@@ -306,30 +267,6 @@ end
 -- The AUI object type.
 RDXDB.RegisterObjectType({
 	name = "AUI";
-	--New = function(path, md)
-	--	md.version = 1;
-	--	md.data = {};
-	--	md.data["solo"] = "desktops:" .. RDX.pspace .. "_solo";
-	--	md.data["party"] = "desktops:" .. RDX.pspace .. "_party";
-	--	md.data["raid"] = "desktops:" .. RDX.pspace .. "_raid";
-	--	md.data["pvp"] = "desktops:" .. RDX.pspace .. "_pvp";
-	--	md.data["arena"] = "desktops:" .. RDX.pspace .. "_arena";
-	--	md.data["solo2"] = "desktops:" .. RDX.pspace .. "_solo2";
-	--	md.data["party2"] = "desktops:" .. RDX.pspace .. "_party2";
-	--	md.data["raid2"] = "desktops:" .. RDX.pspace .. "_raid2";
-	--	md.data["pvp2"] = "desktops:" .. RDX.pspace .. "_pvp2";
-	--	md.data["arena2"] = "desktops:" .. RDX.pspace .. "_arena2";
-	--	md.data["soloflag"] = true;
-	--	md.data["partyflag"] = true;
-	--	md.data["raidflag"] = true;
-	--	md.data["pvpflag"] = true;
-	--	md.data["arenaflag"] = true;
-	--	md.data["soloflag2"] = true;
-	--	md.data["partyflag2"] = true;
-	--	md.data["raidflag2"] = true;
-	--	md.data["pvpflag2"] = true;
-	--	md.data["arenaflag2"] = true;
-	--end;
 	Edit = function(path, md, parent)
 		RDXDK.OpenAUIEditor(path, md, parent);
 	end;
@@ -348,7 +285,7 @@ RDXDB.RegisterObjectType({
 			text = VFLI.i18n("Edit"),
 			OnClick = function()
 				VFL.poptree:Release();
-				RDXDB.OpenObject(path, "Edit", dlg);
+				--RDXDB.OpenObject(path, "Edit", dlg);
 			end
 		});
 	end;
@@ -361,7 +298,6 @@ RDXDB.RegisterObjectType({
 local currentAUI = nil;
 
 local function ChangeAUI(path, nosave)
-	--RDX.printI("Change desktop " .. path);
 	if RDXDK.IsAUIEditorOpen() then RDXDK.CloseAUIEditor() end
 	RDX:Debug(3, "Change AUI " .. path);
 	-- close
@@ -372,13 +308,6 @@ local function ChangeAUI(path, nosave)
 	RDXU.AUI = path;
 	currentAUI = RDXDB.GetObjectInstance(RDXU.AUI);
 	if currentAUI then
-		--local state;
-		--if RDXU.autoSwitchState then
-		--	state = "A:" .. RDXU.AUIState;
-		--else
-		--	state = RDXU.AUIState;
-		--end
-		
 		local _, auiname = RDXDB.ParsePath(RDXU.AUI);
 		RDXDK.SecuredChangeState("default", true);
 		RDXEvents:Dispatch("AUI", auiname);
@@ -387,7 +316,7 @@ end
 
 local newpath;
 function RDXDK.SecuredChangeAUI(path, nosave)
-	if not InCombatLockdown() then 
+	if not InCombatLockdown() then
 		ChangeAUI(path, nosave); 
 	else
 		newpath = path;
@@ -470,33 +399,6 @@ local function ManageAutoDesk(pkg, dir)
 	local aex, adesk, isexist = nil, nil, nil;
 	adesk = dir["autodesk"];
 	if adesk and adesk.ty == "Desktop" then
-		--[[isexist = RDXDB.CheckObject("desktops:".. pkg .. "_solo_dsk", "Desktop");
-		if not isexist then RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_solo_dsk"); end
-		isexist = RDXDB.CheckObject("desktops:".. pkg .. "_party_dsk", "Desktop");
-		if not isexist then 
-			RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_party_dsk");
-			RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Party_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Party_Main"} );
-			RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Partytarget_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Partytarget_Main"} );
-			RDXDB.AddFeatureData("desktops:".. pkg .. "_party_dsk", "desktop_window", "name", pkg .. ":Boss_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Boss_Main"} );
-		end
-		isexist = RDXDB.CheckObject("desktops:".. pkg .. "_raid_dsk", "Desktop");
-		if not isexist then 
-			RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_raid_dsk");
-			RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", "name", pkg .. ":Raid_Main_GroupAll", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_Main_GroupAll"} );
-			RDXDB.AddFeatureData("desktops:".. pkg .. "_raid_dsk", "desktop_window", "name", pkg .. ":Boss_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Boss_Main"} );
-		end
-		isexist = RDXDB.CheckObject("desktops:".. pkg .. "_pvp_dsk", "Desktop");
-		if not isexist then 
-			RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_pvp_dsk");
-			RDXDB.AddFeatureData("desktops:".. pkg .. "_pvp_dsk", "desktop_window", "name", pkg .. ":Raid_Main_GroupAll", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Raid_Main_GroupAll"} );
-		end
-		isexist = RDXDB.CheckObject("desktops:".. pkg .. "_arena_dsk", "Desktop");
-		if not isexist then 
-			RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_arena_dsk");
-			RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Party_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Party_Main"} );
-			RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Partytarget_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Partytarget_Main"} );
-			RDXDB.AddFeatureData("desktops:".. pkg .. "_arena_dsk", "desktop_window", "name", pkg .. ":Arena_Main", { feature = "desktop_window"; open = true; scale = 1; alpha = 1; strata = "MEDIUM"; anchor = "TOPLEFT"; name = pkg .. ":Arena_Main"} );
-		end]]
 		isexist = RDXDB.CheckObject("desktops:".. pkg, "AUI");
 		if not isexist then 
 			local mbo = RDXDB.TouchObject("desktops:".. pkg);
