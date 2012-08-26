@@ -276,9 +276,6 @@ Designs\Basics\Texture.lua
 Designs\Basics\Text.lua
 
 Designs\Buttons\ActionBarPet.lua
-Designs\Buttons\ActionBars.lua
-Designs\Buttons\ActionBarsHandler.lua
-Designs\Buttons\ActionButton.lua
 Designs\Buttons\MultiCastBar.lua
 Designs\Buttons\StanceBar.lua
 Designs\Buttons\VehicleBar.lua
@@ -293,6 +290,9 @@ Designs\Complexes\Portraits3D.lua
 Designs\Complexes\LDBButton.lua
 Designs\Complexes\MinimapButtons.lua
 
+Designs\Lists\ActionBarsHandler.lua
+Designs\Lists\ActionButton.lua
+Designs\Lists\Buttons.lua
 Designs\Lists\AuraBarList.lua
 Designs\Lists\AuraIconList.lua
 Designs\Lists\ComboIconList.lua

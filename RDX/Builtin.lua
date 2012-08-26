@@ -1006,6 +1006,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 					["anyup"] = 1,
 					["headervisType"] = "None",
 					["headervisiType"] = "None",
+					["driver"] = 2,
 				}, -- [2]
 			},
 		};

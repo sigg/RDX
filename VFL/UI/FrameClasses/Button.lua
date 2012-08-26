@@ -590,7 +590,7 @@ function VFLUI.BRButton:new(parent, btype, id)
 	
 	-- set button skin function
 	obj.SetButtonBR = function(self, level, bordersize)
-		VFLUI.SetBackdropBorderRDX(self, _black, "ARTWORK", level, bordersize);
+		--VFLUI.SetBackdropBorderRDX(self, _black, "ARTWORK", level, bordersize);
 	end;
 	
 	obj.bsHide = function(self)

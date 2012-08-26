@@ -78,18 +78,6 @@ function __RDXGetStates(statestype)
 	return str;
 end
 
-function __RDXGetVisi(visitype)
-	local str = "";
-	if visitype == "InCombat" then
-		str = "[combat] show; hide;";
-	elseif visitype == "InStealth" then
-		str = "[stealth, harm] show; hide";
-	elseif visitype == "InForm3" then
-		str = "[form:3] show; hide";
-	end
-	return str;
-end
-
 local _visi = {
 	{ text = "None"},
 	{ text = "Pet"},
@@ -97,6 +85,8 @@ local _visi = {
 	{ text = "Vehicle"},
 	{ text = "VehicleInCombat"},
 	{ text = "InCombat"},
+	{ text = "InStealth"},
+	{ text = "InForm3"},
 	{ text = "Custom"},
 };
 function __RDX_dd_visi() return _visi; end
@@ -113,6 +103,10 @@ function __RDXGetOtherVisi(visitype)
 		str = "[combat] show; hide; [target=vehicle,exists] show; hide;";
 	elseif visitype == "InCombat" then
 		str = "[combat] show; hide;";
+	elseif visitype == "InStealth" then
+		str = "[stealth, harm] show; hide";
+	elseif visitype == "InForm3" then
+		str = "[form:3] show; hide";
 	end
 	return str;
 end
