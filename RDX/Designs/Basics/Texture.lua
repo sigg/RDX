@@ -578,22 +578,22 @@ _t:Show();
 			createCode = createCode .. [[
 local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 ]];
-		if driver == 1 then 
-			createCode = createCode .. [[
+			if driver == 1 then 
+				createCode = createCode .. [[
 btn = VFLUI.AcquireFrame("Button");
 ]];
-		elseif driver == 2 then
-			createCode = createCode .. [[
+			elseif driver == 2 then
+				createCode = createCode .. [[
 btn = VFLUI.SkinButton:new();
 btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
 ]];
-		elseif driver == 3 then
-			createCode = createCode .. [[
+			elseif driver == 3 then
+				createCode = createCode .. [[
 btn = VFLUI.AcquireFrame("Button");
 VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
 ]];
-		end
-		createCode = createCode .. [[
+			end
+			createCode = createCode .. [[
 btn:SetParent(btnOwner);
 btn:SetFrameLevel(btnOwner:GetFrameLevel());
 btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
@@ -625,7 +625,7 @@ btn:Hide();
 local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 btn = VFLUI.AcquireFrame("Frame");
 btn:SetParent(btnOwner);
-btn:SetFrameLevel(owner:GetFrameLevel());
+btn:SetFrameLevel(btnOwner:GetFrameLevel());
 btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
 btn._t = VFLUI.CreateTexture(btn);
