@@ -28,10 +28,10 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.hasArrow = true;
 	ent.keepShownOnClick = false;
 	ent.menuList = {
-		{ text = VFLI.i18n("Tutorial RDX"), notCheckable = true, func = function() RDX.NewLearnWizard(); end },
+		--{ text = VFLI.i18n("Tutorial RDX"), notCheckable = true, func = function() RDX.NewLearnWizard(); end },
 		--{ text = VFLI.i18n("Global Scale"), notCheckable = true, func = RDXDK.GlobalScaleDialog },
 		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, func = RDXDB.ToggleObjectBrowser },
-		{ text = VFLI.i18n("Package Updater"), notCheckable = true, func = RDXDB.ToggleRAU },
+		--{ text = VFLI.i18n("Package Updater"), notCheckable = true, func = RDXDB.ToggleRAU },
 		{ text = VFLI.i18n("Switch Talent"), notCheckable = true, func = function() 
 			local index = GetActiveTalentGroup();
 			if index == 1 then index = 2; else index = 1; end
@@ -43,7 +43,7 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 			ShowUIPanel(ChatConfigFrame);
 			end 
 		},
-		{ text = VFLI.i18n("Test Death mode"), notCheckable = true, func = function()
+		{ text = VFLI.i18n("Show Release Corps Button"), notCheckable = true, func = function()
 			StaticPopup_Show("DEATH");
 			end 
 		},
@@ -86,22 +86,26 @@ end);
 --end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Backups");
+	ent.text = VFLI.i18n("Packages");
 	ent.hasArrow = true;
 	ent.notCheckable = true;
 	ent.keepShownOnClick = false;
 	ent.menuList = {
+		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleObjectBrowser },
+		{ text = VFLI.i18n("Package Updater"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleRAU },
+		{ text = VFLI.i18n("OOBE Manager"), notCheckable = true, keepShownOnClick = false, func = RDXDB.DropOOBE },
 		{ text = VFLI.i18n("Backup Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.BackupPackages },
 		{ text = VFLI.i18n("Restore Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.RestorePackages }
 	};
 end);
 	
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Visibility");
+	ent.text = VFLI.i18n("Settings");
 	ent.notCheckable = true;
 	ent.hasArrow = true;
 	ent.menuList = {
-		{ text = VFLI.i18n("Main Panel"), checked = function() return not RDXPM.IsPanelHidden(); end, func = RDXPM.ToggleHidePanel },
+	--	{ text = VFLI.i18n("Main Panel"), checked = function() return not RDXPM.IsPanelHidden(); end, func = RDXPM.ToggleHidePanel },
+		{ text = VFLI.i18n("RDX Settings"), notCheckable = true, func = RDXPM.ToggleRDXManage },
 		{ text = VFLI.i18n("Mini Panel Default"), checked = function() if RDX.GetRDXIconType() == "default" then return true; else return nil; end end, func = function() RDX.ToggleRDXIcon("default"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "default", true); end},
 		{ text = VFLI.i18n("Mini Panel Powered"), checked = function() if RDX.GetRDXIconType() == "poweredbyrdx" then return true; else return nil; end end, func = function() RDX.ToggleRDXIcon("poweredbyrdx"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "poweredbyrdx", true); end},
 		{ text = VFLI.i18n("Activate Clean Icons (Addon Required)"), checked = RDX.UseCleanIcons, func = RDX.ToggleCleanIcons },

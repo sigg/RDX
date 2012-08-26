@@ -21,34 +21,20 @@ function RDXPM.RDXManage(parent)
 	sf:SetWidth(305); sf:SetHeight(240);
 	sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	
-	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Main Panel")));
-	
-	local chk_asmp = VFLUI.Checkbox:new(ui); chk_asmp:Show();
-	chk_asmp:SetText(VFLI.i18n("Always Show Main Panel"));
-	if opt and opt.asmp then chk_asmp:SetChecked(true); else chk_asmp:SetChecked(); end
-	ui:InsertFrame(chk_asmp);
-	
-	--local chk_hmp = VFLUI.Checkbox:new(ui); chk_hmp:Show();
-	--chk_hmp:SetText(VFLI.i18n("Always Hide Main Panel"));
-	--if opt and opt.hmp then chk_hmp:SetChecked(true); else chk_hmp:SetChecked(); end
-	--ui:InsertFrame(chk_hmp);
-	
-	
 	local chk_upp = VFLUI.Checkbox:new(ui); chk_upp:Show();
 	chk_upp:SetText(VFLI.i18n("Use Perfect Pixel"));
 	if opt and opt.upp then chk_upp:SetChecked(true); else chk_upp:SetChecked(); end
 	ui:InsertFrame(chk_upp);
 	
-	local er = VFLUI.EmbedRight(ui, VFLI.i18n("Main Menu Skin"));
-	local dd_mmskin = VFLUI.Dropdown:new(er, RDX.GetMainMenuSkins);
-	dd_mmskin:SetWidth(100); dd_mmskin:Show();
-	dd_mmskin:SetSelection(opt.mmskin or "Crystal");
-	er:EmbedChild(dd_mmskin); er:Show(); ui:InsertFrame(er);
+	local chk_dnp = VFLUI.Checkbox:new(ui); chk_dnp:Show();
+	chk_dnp:SetText(VFLI.i18n("Disable RDX Nameplates"));
+	if opt and opt.dnp then chk_dnp:SetChecked(true); else chk_dnp:SetChecked(); end
+	ui:InsertFrame(chk_dnp);
 	
-	--local chk_dgr = VFLUI.Checkbox:new(ui); chk_dgr:Show();
-	--chk_dgr:SetText(VFLI.i18n("Enable GameTooltip in RDX (ReloadUI need)"));
-	--if opt and opt.dgr then chk_dgr:SetChecked(true); else chk_dgr:SetChecked(); end
-	--ui:InsertFrame(chk_dgr);
+	local chk_dgt = VFLUI.Checkbox:new(ui); chk_dgt:Show();
+	chk_dgt:SetText(VFLI.i18n("Disable RDX Gametooltips"));
+	if opt and opt.dgt then chk_dgt:SetChecked(true); else chk_dgt:SetChecked(); end
+	ui:InsertFrame(chk_dgt);
 	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 	
@@ -69,19 +55,13 @@ function RDXPM.RDXManage(parent)
 	end
 	
 	local function Save()
-		opt.asmp = chk_asmp:GetChecked();
-		--opt.hmp = chk_hmp:GetChecked();
 		opt.upp = chk_upp:GetChecked();
-		--opt.dgr = chk_dgr:GetChecked();
-		local mainPane = RDXPM.GetMainPane();
-		if mainPane then
-			mainPane:SetAllwaysShow(opt.asmp);
-		end
+		opt.dnp = chk_dnp:GetChecked();
+		opt.dgt = chk_dgt:GetChecked();
 		if opt.upp then
 			SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"));
 		end
-		opt.mmskin = dd_mmskin:GetSelection();
-		mainPane:SetSkin(opt.mmskin);
+		ReloadUI();
 		VFL.EscapeTo(esch);
 	end
 	

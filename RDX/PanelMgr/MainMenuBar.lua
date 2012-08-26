@@ -353,21 +353,21 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	if not RDXG.RDXopt then RDXG.RDXopt = {}; RDXG.RDXopt.hmp = true; end
 	local opt = RDXG.RDXopt;
 	
-	VFLT.NextFrame(math.random(10000000), function()
-		mainPane = CreateMainPane();
-		mainPane:HideMainPanel();	
-		mainPane:SetAllwaysShow(opt.asmp);
-	
-		if RDXPM.IsPanelHidden() then
-			RDXPM.HidePanel();
-		else
-			RDXPM.ShowPanel();
-		end
-		-- skin update
-		if opt.mmskin and RDX.IsMMSkinValid(opt.mmskin) then
-			mainPane:SetSkin(opt.mmskin);
-		end
-	end);
+	--VFLT.NextFrame(math.random(10000000), function()
+	--	mainPane = CreateMainPane();
+	--	mainPane:HideMainPanel();	
+	--	mainPane:SetAllwaysShow(opt.asmp);
+	--
+	--	if RDXPM.IsPanelHidden() then
+	--		RDXPM.HidePanel();
+	--	else
+	--		RDXPM.ShowPanel();
+	--	end
+	--	-- skin update
+	--	if opt.mmskin and RDX.IsMMSkinValid(opt.mmskin) then
+	--		mainPane:SetSkin(opt.mmskin);
+	--	end
+	--end);
 end);
 
 function RDXPM.GetMainPane() return mainPane; end
@@ -375,12 +375,12 @@ function RDXPM.GetMainPane() return mainPane; end
 -- TODO: Need a global option for hidden/shown panel.
 function RDXPM.ShowPanel()
 	RDXG.RDXopt.hmp = false;
-	mainPane:Show();
+	--mainPane:Show();
 end
 
 function RDXPM.HidePanel()
 	RDXG.RDXopt.hmp = true;
-	mainPane:Hide();
+	--mainPane:Hide();
 end
 
 function RDXPM.IsPanelHidden()
@@ -394,8 +394,8 @@ function RDXPM.ToggleHidePanel()
 		RDXPM.HidePanel();
 	end
 end
-RDXPM.RegisterSlashCommand("showpanel", RDXPM.ShowPanel);
-RDXPM.RegisterSlashCommand("hidepanel", RDXPM.HidePanel);
+--RDXPM.RegisterSlashCommand("showpanel", RDXPM.ShowPanel);
+--RDXPM.RegisterSlashCommand("hidepanel", RDXPM.HidePanel);
 
 RDXPM.CharacterMenu:RegisterMenuFunction(function(ent)
 	ent.text = "Character";

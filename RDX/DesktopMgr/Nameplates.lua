@@ -237,16 +237,22 @@ local function search()
 end
 VFLP.RegisterFunc("RDX", "Nameplates", search, true);
 
-WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, function() 
-	VFLT.AdaptiveUnschedule2("nameplatesearch");
-	VFLT.AdaptiveSchedule2("nameplatesearch", 0.2, search);
+RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+	local opt =  RDXG.RDXopt;
+	if not opt.dnp then
+		WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, function() 
+			VFLT.AdaptiveUnschedule2("nameplatesearch");
+			VFLT.AdaptiveSchedule2("nameplatesearch", 0.2, search);
+		end);
+		
+		SetCVar("bloattest", 0) -- 1 might make nameplates larger but it fixes the disappearing ones.
+		SetCVar("bloatnameplates", 0) -- 1 makes nameplates larger depending on threat percentage.
+		SetCVar("bloatthreat", 0) -- 1 makes nameplates resize depending on threat gain/loss. Only active when a mob has multiple units on its threat table.
+		
+		SetCVar("ShowClassColorInNameplate", 1)
+		SetCVar("nameplateShowEnemyTotems", 1)
+		
+		--SetCVar("spreadnameplates", 0) -- 0 makes nameplates overlap.
+	end
+
 end);
-
-SetCVar("bloattest", 0) -- 1 might make nameplates larger but it fixes the disappearing ones.
-SetCVar("bloatnameplates", 0) -- 1 makes nameplates larger depending on threat percentage.
-SetCVar("bloatthreat", 0) -- 1 makes nameplates resize depending on threat gain/loss. Only active when a mob has multiple units on its threat table.
-
-SetCVar("ShowClassColorInNameplate", 1)
-SetCVar("nameplateShowEnemyTotems", 1)
-
---SetCVar("spreadnameplates", 0) -- 0 makes nameplates overlap.
