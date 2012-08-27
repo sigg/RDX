@@ -561,11 +561,11 @@ function VFLUI.BckButton:new(parent, btype, id)
 	end;
 	
 	obj.bsHide = function(self)
-		--self.frbkd:Hide();
+		self:Hide();
 	end
 	
 	obj.bsShow = function(self)
-		--self.frbkd:Show();
+		self:Show();
 	end
 
 	obj.Destroy = VFL.hook(function(s)

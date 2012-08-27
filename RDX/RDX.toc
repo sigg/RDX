@@ -290,6 +290,7 @@ Designs\Complexes\MinimapButtons.lua
 Designs\Lists\ActionBarsHandler.lua
 Designs\Lists\ActionButton.lua
 Designs\Lists\Buttons.lua
+
 Designs\Lists\AuraBarList.lua
 Designs\Lists\AuraIconList.lua
 Designs\Lists\ComboIconList.lua

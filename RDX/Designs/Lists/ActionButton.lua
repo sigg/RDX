@@ -1156,6 +1156,7 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
 	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
+	self.txtHotkey:Show();
 	
 	local cos = os + 2;
 	self.autocastshine = VFLUI.AcquireFrame("AutoCastShine");
@@ -1825,7 +1826,7 @@ end
 
 RDXUI.VehicleButton = {};
 
-function RDXUI.VehicleButton:new(parent, id, statesString, desc )
+function RDXUI.VehicleButton:new(parent, id, statesString, desc)
 	local self = nil;
 	local os = 0;
 	if desc.driver == 1 then
