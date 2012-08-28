@@ -3,6 +3,15 @@ local state = {"Solo", "Party", "Raid", "PvP", "Arena"};
 
 local subMenus = {};
 local stateTypeMenus = {};
+local thirdpartymenu = {};
+
+function RDXDK.RegisterThirdPartyMenu(id, menu)
+	if not id or not menu then return nil; end
+	if thirdpartymenu[id] then return nil; end
+	thirdpartymenu[id] = menu;
+end
+
+
 -----------------------------------------
 -- DUI change
 -----------------------------------------
@@ -32,16 +41,33 @@ local function AUIList()
 			for objName, obj in pairs(pkg) do
 				if type(obj) == "table" and obj.ty == "AUI" then 
 					local path = RDXDB.MakePath(pkgName, objName);
-					local newMenu = {
-						text = objName,
-						checked = function()
-							if path == RDXU.AUI then return true; else return nil; end
-						end,
-						func = function()
-							RDXDK.SecuredChangeAUI(path);
-							AUIList();
-						end
-					};
+					local newMenu;
+					local tbl = thirdpartymenu[objName];
+					if tbl then
+						newMenu = {
+							text = objName,
+							checked = function()
+								if path == RDXU.AUI then return true; else return nil; end
+							end,
+							func = function()
+								RDXDK.SecuredChangeAUI(path);
+								AUIList();
+							end,
+							hasArrow = true;
+							menuList = tbl;
+						};
+					else
+						newMenu = {
+							text = objName,
+							checked = function()
+								if path == RDXU.AUI then return true; else return nil; end
+							end,
+							func = function()
+								RDXDK.SecuredChangeAUI(path);
+								AUIList();
+							end
+						};
+					end
 					table.insert(sortDUI, newMenu);
 				end
 			end

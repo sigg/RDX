@@ -661,19 +661,6 @@ RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
 	ent.func = VFL.Noop;
 end);
 
-RDX.thirdpartymenu = {};
-RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Third Party");
-	ent.hasArrow = true;
-	ent.notCheckable = true;
-	ent.menuList = RDX.thirdpartymenu;
-end);
-
-function RDX.RegisterThirdPartyMenu(menu)
-	if not menu then return nil; end
-	table.insert(RDX.thirdpartymenu, menu);
-end
-
 -- temporary removed
 --RDXPM.ObjectMenu:RegisterMenuFunction(function(ent)
 --	ent.text = VFLI.i18n("Window Wizard");
