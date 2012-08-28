@@ -1144,15 +1144,35 @@ txt:Show();
 ]] .. tname .. [[:SetText("");
 ]] .. tname .. [[:SetTextColor(1,1,1,1);
 ]];
-			if desc.hidecombat then
+			if desc.hidecombat and desc.hideresting then
 				paintCode = [[
-			if UnitAffectingCombat(uid) then
-				]] .. tname .. [[:SetText("");
-			else
+if UnitAffectingCombat(uid) or IsResting() then
+	]] .. tname .. [[:SetText("");
+else
 ]];
 				paintCode = paintCode .. statusText[desc.ty].GeneratePaintCode(tname) .. colorExpr;
 				paintCode = paintCode .. [[
-			end
+end
+]];
+			elseif desc.hidecombat then
+				paintCode = [[
+if UnitAffectingCombat(uid) then
+	]] .. tname .. [[:SetText("");
+else
+]];
+				paintCode = paintCode .. statusText[desc.ty].GeneratePaintCode(tname) .. colorExpr;
+				paintCode = paintCode .. [[
+end
+]];
+			elseif desc.hideresting then
+				paintCode = [[
+if IsResting() then
+	]] .. tname .. [[:SetText("");
+else
+]];
+				paintCode = paintCode .. statusText[desc.ty].GeneratePaintCode(tname) .. colorExpr;
+				paintCode = paintCode .. [[
+end
 ]];
 			else
 				paintCode = statusText[desc.ty].GeneratePaintCode(tname) .. colorExpr;
@@ -1337,6 +1357,11 @@ end
 		if desc and desc.hidecombat then chk_hidecombat:SetChecked(true); else chk_hidecombat:SetChecked(); end
 		ui:InsertFrame(chk_hidecombat);
 		
+		local chk_hideresting = VFLUI.Checkbox:new(ui); chk_hideresting:Show();
+		chk_hideresting:SetText(VFLI.i18n("Hide Under resting"));
+		if desc and desc.hideresting then chk_hideresting:SetChecked(true); else chk_hideresting:SetChecked(); end
+		ui:InsertFrame(chk_hideresting);
+		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Text Type Info")));
 		ui:InsertFrame(ftype_5);
 		
@@ -1387,6 +1412,7 @@ end
 				ty = ty;
 				staticColor = sc;
 				hidecombat = chk_hidecombat:GetChecked();
+				hideresting = chk_hideresting:GetChecked();
 				tyo = tyo;
 				useNil = chk_useNil:GetChecked();
 				script = scriptsel:GetPath();
