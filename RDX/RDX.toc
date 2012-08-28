@@ -262,10 +262,6 @@ TabMgr\Obj_TabWindow.lua
 # Design Library
 Designs\Obj_Design.lua
 Designs\PreviewWindow.lua
-#Designs\Animations\AnimationGroup.lua
-#Designs\Animations\AnimationFrame.lua
-#Designs\Animations\AnimationTexture.lua
-#Designs\Animations\AnimationText.lua
 Designs\Basics\BaseFrame.lua
 Designs\Basics\Cooldown.lua
 Designs\Basics\Hotspot.lua
