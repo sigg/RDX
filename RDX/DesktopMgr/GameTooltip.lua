@@ -25,52 +25,56 @@ local TooltipsList = {
 
 local function SetGameTooltipBackdrop()
 	local bkdtmp = descg.bkd;
-	for i, v in ipairs (TooltipsList) do
-		v:_SetBackdrop(bkdtmp);
-		if bkdtmp.br then
-			v:_SetBackdropBorderColor(bkdtmp.br or 1, bkdtmp.bg or 1, bkdtmp.bb or 1, bkdtmp.ba or 1);
-		else
-			v:_SetBackdropBorderColor(1,1,1,1);
-		end
-		if bkdtmp.kr then
-			v:_SetBackdropColor(bkdtmp.kr or 1, bkdtmp.kg or 1, bkdtmp.kb or 1, bkdtmp.ka or 1);
-		else
-			v:_SetBackdropColor(1,1,1,1);
+	if bkdtmp then
+		for i, v in ipairs (TooltipsList) do
+			v:_SetBackdrop(bkdtmp);
+			if bkdtmp.br then
+				v:_SetBackdropBorderColor(bkdtmp.br or 1, bkdtmp.bg or 1, bkdtmp.bb or 1, bkdtmp.ba or 1);
+			else
+				v:_SetBackdropBorderColor(1,1,1,1);
+			end
+			if bkdtmp.kr then
+				v:_SetBackdropColor(bkdtmp.kr or 1, bkdtmp.kg or 1, bkdtmp.kb or 1, bkdtmp.ka or 1);
+			else
+				v:_SetBackdropColor(1,1,1,1);
+			end
 		end
 	end
 end
 
 local function SetGameTooltipFont()
 	local font = descg.font;
-	VFLUI.SetFont(GameTooltipHeaderText, font, font.size + 3, true);
-	VFLUI.SetFont(GameTooltipText, font, nil, true);
-	VFLUI.SetFont(GameTooltipTextSmall, font, nil, true);
-	VFLUI.SetFont(ShoppingTooltip1TextLeft1, font, nil, true);
-	VFLUI.SetFont(ShoppingTooltip1TextLeft2, font, nil, true);
-	VFLUI.SetFont(ShoppingTooltip1TextLeft3, font, nil, true);
-	VFLUI.SetFont(ShoppingTooltip2TextLeft1, font, nil, true);
-	VFLUI.SetFont(ShoppingTooltip2TextLeft2, font, nil, true);
-	VFLUI.SetFont(ShoppingTooltip2TextLeft3, font, nil, true);
-	VFLUI.SetFont(ShoppingTooltip3TextLeft1, font, nil, true);
-	VFLUI.SetFont(ShoppingTooltip3TextLeft2, font, nil, true);
-	VFLUI.SetFont(ShoppingTooltip3TextLeft3, font, nil, true);
-	
-	for i = 1, ShoppingTooltip1:NumLines() do
-		VFLUI.SetFont(_G["ShoppingTooltip1TextRight"..i], font, nil, true);
-	end
-	for i = 1, ShoppingTooltip2:NumLines() do
-		VFLUI.SetFont(_G["ShoppingTooltip2TextRight"..i], font, nil, true);
-	end
-	for i = 1, ShoppingTooltip3:NumLines() do
-		VFLUI.SetFont(_G["ShoppingTooltip3TextRight"..i], font, nil, true);
-	end
-	
-	if GameTooltipMoneyFrame1 then
-		VFLUI.SetFont(GameTooltipMoneyFrame1PrefixText, font, nil, true);
-		VFLUI.SetFont(GameTooltipMoneyFrame1SuffixText, font, nil, true);
-		VFLUI.SetFont(GameTooltipMoneyFrame1CopperButtonText, font, nil, true);
-		VFLUI.SetFont(GameTooltipMoneyFrame1SilverButtonText, font, nil, true);
-		VFLUI.SetFont(GameTooltipMoneyFrame1GoldButtonText, font, nil, true);
+	if font then
+		VFLUI.SetFont(GameTooltipHeaderText, font, font.size + 3, true);
+		VFLUI.SetFont(GameTooltipText, font, nil, true);
+		VFLUI.SetFont(GameTooltipTextSmall, font, nil, true);
+		VFLUI.SetFont(ShoppingTooltip1TextLeft1, font, nil, true);
+		VFLUI.SetFont(ShoppingTooltip1TextLeft2, font, nil, true);
+		VFLUI.SetFont(ShoppingTooltip1TextLeft3, font, nil, true);
+		VFLUI.SetFont(ShoppingTooltip2TextLeft1, font, nil, true);
+		VFLUI.SetFont(ShoppingTooltip2TextLeft2, font, nil, true);
+		VFLUI.SetFont(ShoppingTooltip2TextLeft3, font, nil, true);
+		VFLUI.SetFont(ShoppingTooltip3TextLeft1, font, nil, true);
+		VFLUI.SetFont(ShoppingTooltip3TextLeft2, font, nil, true);
+		VFLUI.SetFont(ShoppingTooltip3TextLeft3, font, nil, true);
+		
+		for i = 1, ShoppingTooltip1:NumLines() do
+			VFLUI.SetFont(_G["ShoppingTooltip1TextRight"..i], font, nil, true);
+		end
+		for i = 1, ShoppingTooltip2:NumLines() do
+			VFLUI.SetFont(_G["ShoppingTooltip2TextRight"..i], font, nil, true);
+		end
+		for i = 1, ShoppingTooltip3:NumLines() do
+			VFLUI.SetFont(_G["ShoppingTooltip3TextRight"..i], font, nil, true);
+		end
+		
+		if GameTooltipMoneyFrame1 then
+			VFLUI.SetFont(GameTooltipMoneyFrame1PrefixText, font, nil, true);
+			VFLUI.SetFont(GameTooltipMoneyFrame1SuffixText, font, nil, true);
+			VFLUI.SetFont(GameTooltipMoneyFrame1CopperButtonText, font, nil, true);
+			VFLUI.SetFont(GameTooltipMoneyFrame1SilverButtonText, font, nil, true);
+			VFLUI.SetFont(GameTooltipMoneyFrame1GoldButtonText, font, nil, true);
+		end
 	end
 end
 

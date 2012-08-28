@@ -482,6 +482,9 @@ function VFLUI.SetBackdrop(frame, bkdp)
 				end, frame.Destroy);
 			end
 			
+			if not bkdp.boff then bkdp.boff = 1; end
+			if not bkdp.borl then bkdp.borl = 2; end
+			
 			frame._fbd:ClearAllPoints();
 			frame._fbd:SetPoint("CENTER", frame, "CENTER");
 			frame._fbd:SetWidth(frame:GetWidth() + bkdp.boff); 
