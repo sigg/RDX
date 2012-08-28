@@ -241,7 +241,6 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	local opt =  RDXG.RDXopt;
 	if not opt.dnp then
 		WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, function() 
-			VFLT.AdaptiveUnschedule2("nameplatesearch");
 			VFLT.AdaptiveSchedule2("nameplatesearch", 0.2, search);
 		end);
 		

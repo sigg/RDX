@@ -102,8 +102,8 @@ end
 -- update Tooltip
 function RDXDK.SetGameTooltip(desc)
 	--VFL.copyInto(descg, desc);
+	descg = desc;
 	if not opt.dgt then
-		descg = desc;
 		SetGameTooltipLocation();
 		SetGameTooltipBackdrop();
 		SetGameTooltipFont();
