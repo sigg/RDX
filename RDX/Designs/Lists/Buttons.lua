@@ -111,7 +111,8 @@ RDX.RegisterFeature({
 		local flo = tonumber(desc.flo); if not flo then flo = 5; end; flo = VFL.clamp(flo,1,10);
 		
 		local useheader = nil;
-		if desc.headerstateType ~= "None" or desc.headervisType ~= "None" then useheader = true; end
+		if desc.headerstateType ~= "None" or desc.headervisiType ~= "None" then useheader = true; end
+		
 		local headerstate = "nil";
 		if desc.headerstateType == "Custom" then
 			headerstate = "'" .. desc.headerstateCustom .. "'";
