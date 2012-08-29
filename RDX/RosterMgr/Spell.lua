@@ -35,7 +35,6 @@ RDXSS = RegisterVFLModule({
 	version = {1,0,0};
 	parent = RDX;
 });
-
 VFLP.RegisterCategory("RDXSS: Spell System");
 
 -- Burning Crusade: abstract away crazy renamed function...
@@ -420,8 +419,8 @@ local function UpdateSpells()
 end
 VFLP.RegisterFunc("RDXSS: Spell System", "UpdateSpells", UpdateSpells, true);
 
-WoWEvents:Bind("LEARNED_SPELL_IN_TAB", nil, UpdateSpells);
-RDXEvents:Bind("INIT_SPELL", nil, UpdateSpells);
+--WoWEvents:Bind("LEARNED_SPELL_IN_TAB", nil, UpdateSpells);
+--RDXEvents:Bind("INIT_SPELL", nil, UpdateSpells);
 
 -- Master updater for the spell companion.
 local function UpdateSpellsCompanion()

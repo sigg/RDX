@@ -206,7 +206,7 @@ local function _RPC_Checkraid()
 		--RDX.printI(VFLI.i18n("Switching to |cFF00FF00BATTLEGROUND|r channel"));
 		RDX:Debug(2, "|cFF0000FFSwitch channel PVP|r");
 		RDX.ImbueAddonChannel(RPC_Group, "RDX", "BATTLEGROUND");
-	elseif RDXDAL.InRaid() then
+	elseif IsInRaid() then
 		--RDX.printI(VFLI.i18n("Switching to |cFF00FF00RAID|r channel"));
 		RDX:Debug(2, "|cFF0000FFSwitch channel RAID|r");
 		RDX.ImbueAddonChannel(RPC_Group, "RDX", "RAID");

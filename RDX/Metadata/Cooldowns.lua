@@ -79,6 +79,8 @@ Logistics.RegisterCooldown({
 -- talent : 
 --RDXCD.RegisterCooldown(race, class, talent, spellid, duration, group, event);
 
+--[[
+
 -- PRIEST SPELL
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 17, 3, nil, "SPELL_CAST_SUCCESS"); --  Mot de pouvoir : Bouclier
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 8092, 8, nil, "SPELL_DAMAGE"); -- Attaque mentale
@@ -447,3 +449,5 @@ RDXCD.RegisterCooldown("Item", nil, nil, nil, 42292, 2*60, nil, "SPELL_CAST_SUCC
 RDXCD.RegisterCooldown("Item", nil, nil, nil, 74241, 45, nil, "SPELL_AURA_APPLIED");  -- Power Torrent
 RDXCD.RegisterCooldown("Item", nil, nil, nil, 89091, 45, nil, "SPELL_AURA_APPLIED");  -- DMC: Volcano
 --end, nil, "SPELL_CAST_SUCCESS");
+
+]]

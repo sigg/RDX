@@ -10,14 +10,10 @@ RDXMD = RegisterVFLModule({
 	parent = RDX;
 });
 
---
--- Metadata about class
---
-
 local idToClass = { 
 	"PRIEST", "DRUID", "PALADIN", 
 	"SHAMAN", "WARRIOR", "WARLOCK", 
-	"MAGE", "ROGUE", "HUNTER", "DEATHKNIGHT"
+	"MAGE", "ROGUE", "HUNTER", "DEATHKNIGHT", "MONK"
 };
 local classToID = VFL.invert(idToClass);
 
@@ -25,12 +21,12 @@ local idToLocalName = {
 	VFLI.i18n("Priest"), VFLI.i18n("Druid"), VFLI.i18n("Paladin"), 
 	VFLI.i18n("Shaman"), VFLI.i18n("Warrior"), VFLI.i18n("Warlock"), 
 	VFLI.i18n("Mage"), VFLI.i18n("Rogue"), VFLI.i18n("Hunter"), 
-	VFLI.i18n("DeathKnight");
+	VFLI.i18n("DeathKnight"), VFLI.i18n("Monk"),
 };
 local localNameToID = VFL.invert(idToLocalName);
 
 local idToClassColor = {};
-for i=1,10 do
+for i=1,11 do
 	idToClassColor[i] = RAID_CLASS_COLORS[idToClass[i]];
 end
 local nameToClassColor = RAID_CLASS_COLORS;
@@ -129,6 +125,7 @@ talentIndex["MAGE"] = 19;
 talentIndex["ROGUE"] = 22;
 talentIndex["HUNTER"] = 25;
 talentIndex["DEATHKNIGHT"] = 28;
+talentIndex["MONK"] = 31;
 
 local idToSubClassColor = { 
 	RAID_CLASS_COLORS["PRIEST"], RAID_CLASS_COLORS["PRIEST"], RAID_CLASS_COLORS["PRIEST"],
@@ -141,6 +138,7 @@ local idToSubClassColor = {
 	RAID_CLASS_COLORS["ROGUE"], RAID_CLASS_COLORS["ROGUE"], RAID_CLASS_COLORS["ROGUE"],
 	RAID_CLASS_COLORS["HUNTER"], RAID_CLASS_COLORS["HUNTER"], RAID_CLASS_COLORS["HUNTER"],
 	RAID_CLASS_COLORS["DEATHKNIGHT"], RAID_CLASS_COLORS["DEATHKNIGHT"], RAID_CLASS_COLORS["DEATHKNIGHT"],
+	RAID_CLASS_COLORS["MONK"], RAID_CLASS_COLORS["MONK"], RAID_CLASS_COLORS["MONK"],
 };
 local localSubClassColorToID = VFL.invert(idToSubClassColor);
 local _unsbColor = { r=.5, g=.5, b=.5};
@@ -206,33 +204,33 @@ end
 function RDXMD.GetTextureSubClassById(id)
 	return idToTexture[id] or _unsbTex;
 end
-
+-- TODOMOP
 function RDXMD.GetSelfTextureTalent()
 	local myunit = RDXDAL.GetMyUnit();
 	local a = myunit:GetClassMnemonic();
 	local tabPSTmp, idtab = 0, 1;
-	for i=1,GetNumTalentTabs() do
-		local _, _, _, _, tabPS = GetTalentTabInfo(i);
-		if tabPS > tabPSTmp then
-			tabPSTmp = tabPS;
-			idtab = i;
-		end;
-	end;
+	--for i=1,GetNumTalentTabs() do
+	--	local _, _, _, _, tabPS = GetTalentTabInfo(i);
+	--	if tabPS > tabPSTmp then
+	--		tabPSTmp = tabPS;
+	--		idtab = i;
+	--	end;
+	--end;
 	local id = talentIndex[a] + idtab - 1;
 	return idToTexture[id];
 end
-
+-- TODOMOP
 function RDXMD.GetSelfTalent()
 	local myunit = RDXDAL.GetMyUnit();
 	local a = myunit:GetClassMnemonic();
 	local tabPSTmp, idtab = 0, 1;
-	for i=1,GetNumTalentTabs() do
-		local _, _, _, _, tabPS = GetTalentTabInfo(i);
-		if tabPS > tabPSTmp then
-			tabPSTmp = tabPS;
-			idtab = i;
-		end;
-	end;
+	--for i=1,GetNumTalentTabs() do
+	--	local _, _, _, _, tabPS = GetTalentTabInfo(i);
+	--	if tabPS > tabPSTmp then
+	--		tabPSTmp = tabPS;
+	--		idtab = i;
+	--	end;
+	--end;
 	if talentIndex[a] then
 		local id = talentIndex[a] + idtab - 1;
 		return id;
@@ -240,16 +238,16 @@ function RDXMD.GetSelfTalent()
 		return 1;
 	end
 end
-
+-- TODOMOP
 function RDXMD.GetSelfTalentNoIndex()
 	local tabPSTmp, idtab = 0, 1;
-	for i=1,GetNumTalentTabs() do
-		local _, _, _, _, tabPS = GetTalentTabInfo(i);
-		if tabPS > tabPSTmp then
-			tabPSTmp = tabPS;
-			idtab = i;
-		end;
-	end;
+	--for i=1,GetNumTalentTabs() do
+	--	local _, _, _, _, tabPS = GetTalentTabInfo(i);
+	--	if tabPS > tabPSTmp then
+	--		tabPSTmp = tabPS;
+	--		idtab = i;
+	--	end;
+	--end;
 	return idtab;
 end
 

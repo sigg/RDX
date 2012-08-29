@@ -109,26 +109,16 @@ end
 
 -- Internal: raid or party status and member count
 local function party_GetNumUnits()
-	return GetNumPartyMembers() + 1;
+	return GetNumSubgroupMembers() + 1;
 end
 
 local function raid_GetNumUnits()
-	return GetNumRaidMembers();
+	return GetNumGroupMembers();
 end
 
 --- @return The total number of units in the RDX unit database.
 local GetNumUnits = party_GetNumUnits;
 RDXDAL.GetNumUnits = GetNumUnits;
-
-local isRaid, isSolo = false, true;
-
---- Return TRUE iff we are currently in a raid group, nil otherwise.
-function RDXDAL.InRaid() return isRaid; end
---- Return TRUE iff we are solo, nil otherwise.
-function RDXDAL.IsSolo() return isSolo; end
-local IsSolo = RDXDAL.IsSolo;
-
-
 
 -- New system switch state
 local currentstate = "";
@@ -154,26 +144,26 @@ local function SwitchState()
 			--VFL.print("BATTLEGROUND MODE SET");
 			_sig_rdx_roster_state:Raise("BATTLEGROUND");
 		end
-	elseif isRaid then
+	elseif IsInRaid() then
 		--VFL.print("RAID MODE");
 		if currentstate ~= "RAID" then
 			currentstate = "RAID";
 			--VFL.print("RAID MODE SET");
 			_sig_rdx_roster_state:Raise("RAID");
 		end
-	elseif isSolo then
-		--VFL.print("SOLO MODE");
-		if currentstate ~= "SOLO" then
-			currentstate = "SOLO";
-			--VFL.print("SOLO MODE SET");
-			_sig_rdx_roster_state:Raise("SOLO");
-		end
-	else
+	elseif IsInGroup() then
 		--VFL.print("PARTY MODE");
 		if currentstate ~= "PARTY" then
 			currentstate = "PARTY";
 			--VFL.print("PARTY MODE SET");
 			_sig_rdx_roster_state:Raise("PARTY");
+		end
+	else
+		--VFL.print("SOLO MODE");
+		if currentstate ~= "SOLO" then
+			currentstate = "SOLO";
+			--VFL.print("SOLO MODE SET");
+			_sig_rdx_roster_state:Raise("SOLO");
 		end
 	end
 end
@@ -845,7 +835,7 @@ end
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	VFLT.AdaptiveSchedule2("UDB:RemoveUnit", timeGC_default, RemoveUnit);
-	--VFLP.RegisterFunc("RDX", "UDB:RemoveUnit", RemoveUnit, true);
+	VFLP.RegisterFunc("RDX", "UDB:RemoveUnit", RemoveUnit, true);
 end);
 
 -------------- Initial unit creation
@@ -880,12 +870,12 @@ end
 
 -- Defer the creation and application of edata and ndata until the VARS_LOADED phase.
 -- This gives all mods a chance to load first.
+-- Create and apply EData.
+for i=1, NUM_UNITS do
+	edata[i] = NewEData(i);
+	VFL.mixin(ubi[i], edata[i], true);
+end
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	-- Create and apply EData.
-	for i=1, NUM_UNITS do
-		edata[i] = NewEData(i);
-		VFL.mixin(ubi[i], edata[i], true);
-	end
 	-- Create all NData that doesn't exist
 	for n,unit in pairs(ubn) do VFL.mixin(unit, GetNData(n), true); end
 end);
@@ -921,7 +911,8 @@ local function party_GetRosterInfo(idx, uid)
 	if not uid then return nil; end
 	local class = UnitClass(uid);
 	local llv = 0;
-	if IsSolo() or UnitIsPartyLeader(uid) then llv = 2; end
+	--if IsSolo() or UnitIsPartyLeader(uid) then llv = 2; end
+	if UnitIsGroupLeader(uid) then llv = 2; end
 	local name, server = UnitName(uid);
 	if (server and server ~= "") then
 		name = name.."-"..server;
@@ -932,6 +923,7 @@ end
 -- Main roster processing.
 local _rtouched, _gtouched = {}, {};
 local function ProcessRoster()
+	RDXDAL:Debug(3, "ProcessRoster");
 	VFL.empty(_rtouched);
 	VFL.empty(_gtouched);
 
@@ -945,7 +937,7 @@ local function ProcessRoster()
 
 	-- Iterate over all valid units
 	local n = GetNumUnits();
-	RDXDAL:Debug(2, "ProcessRoster(): processing ", n, " units.");
+	RDXDAL:Debug(4, "ProcessRoster(): processing ", n, " units.");
 	for i=1,n do
 		iunit = ubi[i];
 		uid = num2id[i];
@@ -984,7 +976,7 @@ local function ProcessRoster()
 			iunit:Validate();
 			-- If engine unit has changed, schedule it for rediscovery
 			if(iunit.name ~= name) then 
-				RDX:Debug(2, "Roster: NID<", tostring(i), "> ", tostring(iunit.name), " -> ", tostring(name));
+				RDXDAL:Debug(5, "Roster: NID<", tostring(i), "> ", tostring(iunit.name), " -> ", tostring(name));
 				iunit.name = name;
 				-- When an engine unit changes identities, update auras too.
 				auraq[i] = true;
@@ -1034,7 +1026,7 @@ local function ProcessRoster()
 	if (n < 40) and (ubi[n+1]:_ValidMetatable()) then roster_changed = true; end
 	for i=(n+1),40 do
 		if ubi[i]:Invalidate() then
-			RDX:Debug(7, "Roster: NID<", i, "> quashed.");
+			RDXDAL:Debug(6, "Roster: NID<", i, "> quashed.");
 		end
 	end
 
@@ -1045,7 +1037,7 @@ local function ProcessRoster()
 
 	-- Notify of a roster update
 	if roster_changed then RDXEvents:Dispatch("ROSTER_NIDS_CHANGED", _rtouched); end
-	RDX:Debug(1, "ROSTER_UPDATE");
+	RDXDAL:Debug(3,"FIRE ROSTER_UPDATE");
 	RDXEvents:Dispatch("ROSTER_UPDATE", _rtouched);
 	RDXDAL.EndEventBatch();
 end
@@ -1056,16 +1048,16 @@ local _petrtouched, _petgtouched = {}, {};
 -- Latched to prevent uberspam.
 --local ProcessPets = VFLT.CreatePeriodicLatch(1, function()
 local function ProcessPets()
+	RDXDAL:Debug(3, "ProcessPets");
 	VFL.empty(_petrtouched);
 	VFL.empty(_petgtouched);
-	--VFL.print("test");
-	--RDX:Debug(2, "Roster: ProcessPets()");
 	local unit, uid, changed;
 	changed = nil;
 	for i=41,80 do
 		unit = ubi[i]; uid =  num2id[i];
 		if UnitExists(uid) then
 			if not unit:IsValid() then
+				VFL.print(uid);
 				unit:Validate();
 				unit.uid = uid;
 				unit.name = strlower(UnitName(uid));
@@ -1077,19 +1069,22 @@ local function ProcessPets()
 				unit.nid = i;
 				if unit.name then _petrtouched[unit.name] = unit; end
 				if unit.guid then _petgtouched[unit.guid] = unit; end
+				RDXDAL:Debug(5, "PetRoster: NID<", tostring(i), "> ", tostring(unit.name));
 			end
 		elseif unit:_ValidMetatable() then
+			RDXDAL:Debug(6, "PetRoster: NID<", i, "> quashed.");
 			unit:Invalidate();
 			changed = true;
 		end
 	end
-	if changed then 
-		RDX:Debug(1, "ROSTER_PETS_CHANGED");
+	if changed then
+		RDXDAL:Debug(3,"FIRE ROSTER_PETS_CHANGED");
 		RDXEvents:Dispatch("ROSTER_PETS_CHANGED"); 
 	end
 end
 --end);
 VFLP.RegisterFunc("RDXDAL: UnitDB", "ProcessPets", ProcessPets, true);
+WoWEvents:Bind("UNIT_PET", nil, ProcessPets);
 
 --function RDX.ProcessPetsDelay()
 --	VFLT.ZMSchedule(1, function() ProcessPets(); end);
@@ -1097,62 +1092,17 @@ VFLP.RegisterFunc("RDXDAL: UnitDB", "ProcessPets", ProcessPets, true);
 
 -- Pets: whenever a major change in the raid roster happens, or a UNIT_PET happens
 -- let's update the pets.
-WoWEvents:Bind("UNIT_PET", nil, ProcessPets);
-WoWEvents:Bind("RAID_ROSTER_UPDATE", nil, ProcessPets);
-WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, ProcessPets);
+--WoWEvents:Bind("GROUP_ROSTER_UPDATE", nil, ProcessPets);
+--WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, ProcessPets);
 
 ----------------------------------------------------------------------------
 -- ROSTER EVENT BINDINGS
 ----------------------------------------------------------------------------
-local SetRaid, SetNonRaid;
 local process_flag = nil;
 
--- Called on the WoW RAID_ROSTER_UPDATE event.
--- Latched to prevent uberspam. (when too many people join the raid)
-local OnRaidRosterUpdate = VFLT.CreatePeriodicLatch(1, function()
-	local n = GetNumRaidMembers();
+local function SetRaid(noReprocess)
+	RDXDAL:Debug(2, "SetRaid");
 
-	-- If we weren't in a raid, transition to raid status
-	if not isRaid then
-		if(n > 0) then SetRaid(); return; end
-		ProcessRoster();
-		return;
-	end
-
-	if(n == 0) then SetNonRaid(); return; end
-
-	ProcessRoster();
-end);
-
--- Called on the WoW PARTY_MEMBERS_CHANGED event
--- Latched to prevent uberspam.
-local OnPartyMembersChanged = VFLT.CreatePeriodicLatch(1, function()
-	if isRaid then return; end
-	-- Check solo state
-	local soloChanged = nil;
-	local n = GetNumUnits();
-	if n == 1 and (not isSolo) then
-		isSolo = true; soloChanged = true;
-	elseif n > 1 and isSolo then
-		isSolo = false; soloChanged = true;
-	end
-	-- Process roster
-	ProcessRoster();
-	ProcessPets();
-	if soloChanged then
-		SwitchState();
-		RDXEvents:Dispatch("PARTY_IS_NONRAID"); 
-	end
-end);
-
--- Internal: Flip between raid and nonraid status
-function SetRaid(noReprocess)
-	RDX:Debug(1, "SetRaid()");
-
-	-- unbind party event
-	WoWEvents:Unbind("party_roster");
-	
-	isRaid = true; isSolo = false;
 	SetRaidIDDatabase();
 	GetNumUnits = raid_GetNumUnits;
 	GetRosterInfo = GetRaidRosterInfo;
@@ -1166,18 +1116,16 @@ function SetRaid(noReprocess)
 	end
 	
 	SwitchState();
+	-- use by old stuff
 	RDXEvents:Dispatch("PARTY_IS_RAID");
 end
 
-function SetNonRaid(noReprocess)
-	RDX:Debug(1, "SetNonRaid()");
+local function SetParty(noReprocess)
+	RDXDAL:Debug(2, "SetParty");
 	
-	isRaid = nil;
 	SetPartyIDDatabase();
 	GetNumUnits = party_GetNumUnits;
 	GetRosterInfo = party_GetRosterInfo;
-
-	if GetNumUnits() == 1 then isSolo = true; else isSolo = false; end
 
 	if not noReprocess then
 		RDXDAL.BeginEventBatch();
@@ -1187,28 +1135,64 @@ function SetNonRaid(noReprocess)
 		RDXDAL.EndEventBatch();
 	end
 
-	WoWEvents:Bind("PARTY_MEMBERS_CHANGED", nil, OnPartyMembersChanged, "party_roster");
 	SwitchState();
 	RDXEvents:Dispatch("PARTY_IS_NONRAID");
 end
 
--- Before everything loads, let's setup in a default nonraid state
-RDXEvents:Bind("INIT_PRELOAD", nil, function()
-	-- RAID_ROSTER_UPDATE should be replace by UNIT_NAME_UPDATE
-	WoWEvents:Bind("RAID_ROSTER_UPDATE", nil, OnRaidRosterUpdate, "raid_roster");
-	-- Test sigg
-	SetRaid(true);
-	--SetNonRaid(true);
-end);
+local function SetSolo(noReprocess)
+	RDXDAL:Debug(2, "SetSolo");
+	
+	SetPartyIDDatabase();
+	GetNumUnits = party_GetNumUnits;
+	GetRosterInfo = party_GetRosterInfo;
 
--- After everything loads, let's double check our party/raid status.
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, OnRaidRosterUpdate);
+	if not noReprocess then
+		RDXDAL.BeginEventBatch();
+		ProcessRoster();
+		ProcessPets();
+		FlushAuras();
+		RDXDAL.EndEventBatch();
+	end
+
+	SwitchState();
+	RDXEvents:Dispatch("PARTY_IS_NONRAID");
+end
+
+-- Called on the WoW RAID_ROSTER_UPDATE event.
+-- Latched to prevent uberspam. (when too many people join the raid)
+local OnGroupRosterUpdate = VFLT.CreatePeriodicLatch(1, function()
+	RDXDAL:Debug(2, "OnGroupRosterUpdate");
+	if IsInRaid() then
+		SetRaid();
+	elseif IsInGroup() then
+		SetParty();
+	else 
+		SetSolo();
+	end
+end);
+WoWEvents:Bind("GROUP_ROSTER_UPDATE", nil, OnGroupRosterUpdate);
+
+-- Before everything loads, let's setup in a default nonraid state
+--RDXEvents:Bind("INIT_PRELOAD", nil, function()
+--	RDXDAL:Debug(1, "INIT_PRELOAD");	
+--end);
+
+-- After everything loads, let's double check our party/raid status. 
+RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function() 
+	if IsInRaid() then
+		SetRaid();
+	elseif IsInGroup() then
+		SetParty();
+	else 
+		SetSolo();
+	end 
+end);
 
 -- bug GUID not available at INIT_VARIABLES_LOADED, and unitraid
 -- this event is only fire when you log in the game, not on reloadUI
-WoWEvents:Bind("KNOWLEDGE_BASE_SYSTEM_MOTD_UPDATED", nil, function()
-	VFLT.NextFrame(math.random(10000000), function() RDX._Roster(); RDXEvents:Dispatch("ROSTER_NIDS_CHANGED"); end);
-end);
+--WoWEvents:Bind("KNOWLEDGE_BASE_SYSTEM_MOTD_UPDATED", nil, function()
+--	VFLT.NextFrame(math.random(10000000), function() RDX._Roster(); RDXEvents:Dispatch("ROSTER_NIDS_CHANGED"); end);
+--end);
 
 ------------------------------------------------------------
 -- Arena roster
@@ -1581,7 +1565,7 @@ RDXEvents:Bind("INIT_DEFERRED", nil, function()
 	SendNdataSync();
 	-- Start periodic broadcasts
 	VFLT.AdaptiveSchedule2("UDB:SendNdataSync", 60, SendNdataSync);
-	--VFLP.RegisterFunc("RDX", "UDB:SendNdataSync", SendNdataSync, true);
+	VFLP.RegisterFunc("RDX", "UDB:SendNdataSync", SendNdataSync, true);
 end);
 
 ------------------------------------------------------------
@@ -1823,7 +1807,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 		end
 	end
 	VFLT.AdaptiveSchedule2("UDB:weaponsUpdate", 2, weaponsupdate, true);
-	--VFLP.RegisterFunc("RDX", "UDB:weaponsUpdate", weaponsupdate, true);
+	VFLP.RegisterFunc("RDX", "UDB:weaponsUpdate", weaponsupdate, true);
 end);
 
 --------------------------------------------
@@ -2123,8 +2107,9 @@ function VFL._ForceTalentSwitch(f, nosend)
 		end
 	end
 end
-WoWEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() VFL._ForceTalentSwitch(GetActiveTalentGroup()); end);
-WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, function() VFL._ForceTalentSwitch(GetActiveTalentGroup(), true); end);
+-- TODOMOP
+--WoWEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() VFL._ForceTalentSwitch(GetActiveTalentGroup()); end);
+--WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, function() VFL._ForceTalentSwitch(GetActiveTalentGroup(), true); end);
 
 function VFL.GetPlayerTalent()
 	return talent;

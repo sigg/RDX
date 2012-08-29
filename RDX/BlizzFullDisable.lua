@@ -19,19 +19,19 @@ local disabledframes = {
 	"ActionButton11",
 	"ActionButton12",
 	"PlayerFrameAlternateManaBar",
-	"BonusActionButton1",
-	"BonusActionButton2",
-	"BonusActionButton3",
-	"BonusActionButton4",
-	"BonusActionButton5",
-	"BonusActionButton6",
-	"BonusActionButton7",
-	"BonusActionButton8",
-	"BonusActionButton9",
-	"BonusActionButton10",
-	"BonusActionButton11",
-	"BonusActionButton12",
-	"BonusActionBarFrame",
+	--"BonusActionButton1",
+	--"BonusActionButton2",
+	--"BonusActionButton3",
+	--"BonusActionButton4",
+	--"BonusActionButton5",
+	--"BonusActionButton6",
+	--"BonusActionButton7",
+	--"BonusActionButton8",
+	--"BonusActionButton9",
+	--"BonusActionButton10",
+	--"BonusActionButton11",
+	--"BonusActionButton12",
+	--"BonusActionBarFrame",
 	"PossessButton1",
 	"PossessButton2",
 	"PossessBarFrame",
@@ -148,7 +148,7 @@ local disabledframes = {
 	"PartyMemberFrame1Speaker",
 	"PartyMemberFrame1SpeakerFrame",
 	"PartyMemberFrame1ReadyCheck",
-	"PartyMemberFrame1PhasingIcon",
+	--"PartyMemberFrame1PhasingIcon",
 	"PartyMemberFrame1",
 	"PartyMemberFrame2Debuff1",
 	"PartyMemberFrame2Debuff2",
@@ -162,7 +162,7 @@ local disabledframes = {
 	"PartyMemberFrame2Speaker",
 	"PartyMemberFrame2SpeakerFrame",
 	"PartyMemberFrame2ReadyCheck",
-	"PartyMemberFrame2PhasingIcon",
+	--"PartyMemberFrame2PhasingIcon",
 	"PartyMemberFrame2",
 	"PartyMemberFrame3Debuff1",
 	"PartyMemberFrame3Debuff2",
@@ -176,7 +176,7 @@ local disabledframes = {
 	"PartyMemberFrame3Speaker",
 	"PartyMemberFrame3SpeakerFrame",
 	"PartyMemberFrame3ReadyCheck",
-	"PartyMemberFrame3PhasingIcon",
+	--"PartyMemberFrame3PhasingIcon",
 	"PartyMemberFrame3",
 	"PartyMemberFrame4Debuff1",
 	"PartyMemberFrame4Debuff2",
@@ -190,7 +190,7 @@ local disabledframes = {
 	"PartyMemberFrame4Speaker",
 	"PartyMemberFrame4SpeakerFrame",
 	"PartyMemberFrame4ReadyCheck",
-	"PartyMemberFrame4PhasingIcon",
+	--"PartyMemberFrame4PhasingIcon",
 	"PartyMemberFrame4",
 	"PartyMemberFrame1PetFrameDebuff1",
 	"PartyMemberFrame1PetFrameDebuff2",
@@ -255,17 +255,17 @@ local disabledframes = {
 	"RuneButtonIndividual5",
 	"RuneButtonIndividual6",
 	"RuneFrame",
-	"ShapeshiftButton1",
-	"ShapeshiftButton2",
-	"ShapeshiftButton3",
-	"ShapeshiftButton4",
-	"ShapeshiftButton5",
-	"ShapeshiftButton6",
-	"ShapeshiftButton7",
-	"ShapeshiftButton8",
-	"ShapeshiftButton9",
-	"ShapeshiftButton10",
-	"ShapeshiftBarFrame",
+	"StanceButton1",
+	"StanceButton2",
+	"StanceButton3",
+	"StanceButton4",
+	"StanceButton5",
+	"StanceButton6",
+	"StanceButton7",
+	"StanceButton8",
+	"StanceButton9",
+	"StanceButton10",
+	"StanceBarFrame",
 	"ShardBarFrameShard1",
 	"ShardBarFrameShard2",
 	"ShardBarFrameShard3",
@@ -359,15 +359,15 @@ local disabledframes = {
 	"TotemFrameTotem2",
 	"TotemFrameTotem1",
 	"TotemFrame",
-	"VehicleMenuBarActionButton1",
-	"VehicleMenuBarActionButton2",
-	"VehicleMenuBarActionButton3",
-	"VehicleMenuBarActionButton4",
-	"VehicleMenuBarActionButton5",
-	"VehicleMenuBarActionButton6",
-	"VehicleMenuBarHealthBar",    
-	"VehicleMenuBarPowerBar",
-	"VehicleMenuBar",
+	--"VehicleMenuBarActionButton1",
+	--"VehicleMenuBarActionButton2",
+	--"VehicleMenuBarActionButton3",
+	--"VehicleMenuBarActionButton4",
+	--"VehicleMenuBarActionButton5",
+	--"VehicleMenuBarActionButton6",
+	--"VehicleMenuBarHealthBar",    
+	--"VehicleMenuBarPowerBar",
+	--"VehicleMenuBar",
 	--"ReputationFrame",
 	"ReputationWatchBar",
 };
@@ -381,10 +381,10 @@ local function DisableAll()
 			f:UnregisterAllEvents();
 			f:SetScript("OnUpdate", nil);
 			f:SetScript("OnHide", nil);
-			f:SetScript("OnShow", nil);
+			f:SetScript("OnShow", f.Hide);
 			f:Hide();
 		else
-			VFL.print(v);
+			VFL.print("BD:This object do not exist " .. v);
 		end
 	end
 	
@@ -460,7 +460,7 @@ local function DisableAll()
 	ChatFrame2:SetScript("OnShow", ChatFrame2.Hide);
 	ChatFrame2Tab:Hide();
 	ChatFrame2Tab:SetScript("OnShow", ChatFrame2Tab.Hide);
-
+	
 	-- disable focus function
 	for _, menu in pairs(UnitPopupMenus) do
 		for button, name in pairs(menu) do
@@ -507,7 +507,7 @@ local function DisableAll()
 	ExtraActionBarFrame.ignoreFramePositionManager = true;
 	ChatFrame1.ignoreFramePositionManager = true;
 	ChatFrame2.ignoreFramePositionManager = true;
-	ShapeshiftBarFrame.ignoreFramePositionManager = true;
+	StanceBarFrame.ignoreFramePositionManager = true;
 	PossessBarFrame.ignoreFramePositionManager = true;
 	MultiCastActionBarFrame.ignoreFramePositionManager = true;
 	MainMenuBarMaxLevelBar.ignoreFramePositionManager = true;

@@ -46,6 +46,8 @@ end
 ]]
 
 -- load cooldown at login
+-- TODOMOP
+--[[
 RDXEvents:Bind("INIT_SPELL", nil, function()
 	local myunit = RDXDAL.GetMyUnit();
 	local cd_used, cd_avail, cd_possi = myunit:GetCooldowns();
@@ -70,6 +72,7 @@ RDXEvents:Bind("INIT_SPELL", nil, function()
 		i=i+1;
 	end		
 end);
+]]
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	if not RDXU.CooldownDB then RDXU.CooldownDB = {}; end
