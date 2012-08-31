@@ -87,10 +87,13 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.hasArrow = true;
 	ent.notCheckable = true;
 	ent.menuList = {
+		{ text = VFLI.i18n("**** Blizzard ****"), notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
 		{ text = VFLI.i18n("     Show Release Corps Button"), notCheckable = true, func = function()
 			StaticPopup_Show("DEATH");
 			end 
 		},
+		{ text = VFLI.i18n("     Reset Blizzard Chatframes"), notCheckable = true, keepShownOnClick = false, func = function() FCF_ResetChatWindows(); ReloadUI(); end },
+		{ text = VFLI.i18n("**** RDX ****"), notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
 		{ text = VFLI.i18n("     Open Set Debugger"), notCheckable = true, keepShownOnClick = false, func = RDXM_Debug.SetDebugger },
 		{ text = VFLI.i18n("     Open Profiler"), notCheckable = true, keepShownOnClick = false, func = VFLP.ToggleProfiler },
 		{ text = VFLI.i18n("     Open ErrorDialog"), notCheckable = true, keepShownOnClick = false, func = VFL.ToggleErrorDialog },
@@ -104,7 +107,6 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 		{ text = VFLI.i18n("Party with me"), checked = RDXM_Debug.IsPartyIncludeMe, keepShownOnClick = false, func = RDXM_Debug.TogglePartyIncludeMe },
 		{ text = VFLI.i18n("     Wipe CooldownDB"), notCheckable = true, keepShownOnClick = false, func = RDXCD.WipeCooldownDB },
 		{ text = VFLI.i18n("     Print CooldownDB"), notCheckable = true, keepShownOnClick = false, func = RDXCD.DebugCooldownDB },
-		{ text = VFLI.i18n("     Reset Blizzard Chatframes"), notCheckable = true, keepShownOnClick = false, func = function() FCF_ResetChatWindows(); ReloadUI(); end },
 	};
 end);
 
@@ -151,12 +153,12 @@ local function CreateMiniPane()
 	
 	local txtrdx = VFLUI.CreateFontString(mini);
 	txtrdx:SetPoint('LEFT',mini,'LEFT', 80, -4);
-	txtrdx:SetWidth(50); txtrdx:SetHeight(20);
+	txtrdx:SetWidth(60); txtrdx:SetHeight(20);
 	txtrdx:SetFont("Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\Adventure.ttf", 20);
 	txtrdx:SetShadowOffset(1,-1);
 	txtrdx:SetShadowColor(0,0,0,1);
 	txtrdx:SetJustifyH("LEFT"); txtrdx:SetJustifyV("BOTTOM");
-	txtrdx:SetText("RDX");
+	txtrdx:SetText("RDX9");
 	txtrdx:Show();
 	
 	local mtxtsave = nil;
@@ -176,7 +178,7 @@ local function CreateMiniPane()
 		if mtxt == "poweredbyrdx"  then
 			mtxtsave = mtxt;
 			mini:SetHighlightTexture("");
-			mini:SetHeight(20); mini:SetWidth(120);
+			mini:SetHeight(20); mini:SetWidth(130);
 			tx1:Hide();
 			tx2:Hide();
 			txtpower:Show();
