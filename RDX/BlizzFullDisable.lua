@@ -4,6 +4,7 @@
 local opt = nil;
 
 local disabledframes = {
+	"ActionBarController",
 	"ActionBarButtonEventsFrame",
 	"ActionBarActionEventsFrame",
 	"ActionButton1",
