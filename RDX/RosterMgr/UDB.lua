@@ -1056,7 +1056,7 @@ local function ProcessPets()
 	changed = nil;
 	for i=41,80 do
 		unit = ubi[i]; uid =  num2id[i];
-		if UnitExists(uid) then
+		if uid and UnitExists(uid) then
 			if not unit:IsValid() then
 				unit:Validate();
 				unit.uid = uid;
