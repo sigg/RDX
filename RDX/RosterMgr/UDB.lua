@@ -119,6 +119,7 @@ end
 --- @return The total number of units in the RDX unit database.
 local GetNumUnits = party_GetNumUnits;
 RDXDAL.GetNumUnits = GetNumUnits;
+SetPartyIDDatabase();
 
 -- New system switch state
 local currentstate = "";
@@ -1057,7 +1058,6 @@ local function ProcessPets()
 		unit = ubi[i]; uid =  num2id[i];
 		if UnitExists(uid) then
 			if not unit:IsValid() then
-				VFL.print(uid);
 				unit:Validate();
 				unit.uid = uid;
 				unit.name = strlower(UnitName(uid));
