@@ -330,7 +330,7 @@ RDXDAL.RegisterSortOperator({
 	category = VFLI.i18n("Basic");
 	EmitClosure = function(desc, code, vars)
 		code:AppendCode(" local " .. desc.vname .. " = { }; " .. desc.vname .. "[0] = 0; ");
-		for i = 1,10 do
+		for i = 1,11 do
             if i and desc[i] then
                 code:AppendCode(desc.vname .. "[" .. desc[i] .. "] = " .. i .. "; ");
             end
