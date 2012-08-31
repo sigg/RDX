@@ -1,4 +1,4 @@
-## Interface: 40300
+## Interface: 50001
 ## Title: |c007ffcffRDX|r
 ## Notes: RDX is Raid Data Exchange - UI and raid mods.
 ## Author: Raid Informatics / OpenRDX Project
@@ -270,8 +270,6 @@ Designs\Basics\SubFrame.lua
 Designs\Basics\Button.lua
 Designs\Basics\Texture.lua
 Designs\Basics\Text.lua
-
-Designs\Buttons\MultiCastBar.lua
 
 Designs\Complexes\TabManager.lua
 Designs\Complexes\Minimap.lua
