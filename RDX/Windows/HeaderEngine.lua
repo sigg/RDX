@@ -656,7 +656,7 @@ function RDXUI.ApplyHeaderDescriptor(hdr, hdef)
 	hdr:SetAttribute("unitsPerColumn", hdef.h);
 	hdr:SetAttribute("maxColumns", hdef.w or 1);
 	if hdef.groupType == 2 then
-		hdr:SetAttribute("groupingOrder", "PRIEST,DRUID,PALADIN,SHAMAN,WARRIOR,WARLOCK,MAGE,ROGUE,HUNTER,DEATHKNIGHT");
+		hdr:SetAttribute("groupingOrder", "PRIEST,DRUID,PALADIN,SHAMAN,WARRIOR,WARLOCK,MAGE,ROGUE,HUNTER,DEATHKNIGHT,MONK");
 		hdr:SetAttribute("groupBy", "CLASS");
 	elseif hdef.groupType == 3 then
 		hdr:SetAttribute("groupingOrder", "1,2,3,4,5,6,7,8");
@@ -679,7 +679,7 @@ function RDXUI.ApplyHeaderDescriptor(hdr, hdef)
 			for i=1,8 do if hdef.groups[i] then gf = gf .. i .. ","; end end
 		end
 		if hdef.classes then
-			for i=1,10 do if hdef.classes[i] then gf = gf .. RDXMD.GetClassMnemonic(i) .. ","; end end
+			for i=1,11 do if hdef.classes[i] then gf = gf .. RDXMD.GetClassMnemonic(i) .. ","; end end
 		end
 		--if hdef.roles then
 		--	for i=1,4 do if hdef.roles[i] then gf = gf .. RDXMD.GetRoleName(i) .. ","; end end
