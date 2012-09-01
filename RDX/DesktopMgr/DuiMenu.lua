@@ -42,8 +42,14 @@ local function AUIList()
 				if type(obj) == "table" and obj.ty == "AUI" then 
 					local path = RDXDB.MakePath(pkgName, objName);
 					local newMenu;
+					local submenu = {};
+					local flag = nil;
 					local tbl = thirdpartymenu[objName];
 					if tbl then
+						VFL.copyInto(submenu, tbl);
+						flag = true;
+					end
+					if flag then
 						newMenu = {
 							text = objName,
 							checked = function()
@@ -54,7 +60,7 @@ local function AUIList()
 								AUIList();
 							end,
 							hasArrow = true;
-							menuList = tbl;
+							menuList = submenu;
 						};
 					else
 						newMenu = {
@@ -78,21 +84,21 @@ local function AUIList()
 		table.insert(subMenus, v);
 	end
 	
-	table.insert(subMenus, {
-		text = "*******************",
-		notCheckable = true,
-		func = VFL.Noop,
-		}
-	);
+	--table.insert(subMenus, {
+	--	text = "*******************",
+	--	notCheckable = true,
+	--	func = VFL.Noop,
+	--	}
+	--);
 	
-	table.insert(subMenus, { 
-		text = "Create a new theme",
-		notCheckable = true, 
-		func = function()
-			RDXDK.NewAUI();
-		end
-		}
-	);
+	--table.insert(subMenus, { 
+	--	text = "Create a new theme",
+	--	notCheckable = true, 
+	--	func = function()
+	--		RDXDK.NewAUI();
+	--	end
+	--	}
+	--);
 	
 	--table.insert(subMenus, {
 	--	text = "*******************",
