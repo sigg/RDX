@@ -50,55 +50,60 @@ local function Preload()
 end
 
 -- VariablesLoaded: Called on VARIABLES_LOADED, that is to say after ALL addons have been loaded.
+local loaded = nil;
 local function VariablesLoaded()
-	RDX:Debug(2, "Init: VariablesLoaded()");
-
-	-- Session variables
-	if not RDXSession then RDXSession = {}; end
-	-- RDXG (Global session variables)
-	if not RDXSession.global then RDXSession.global = {}; end
-	RDXG = RDXSession.global;
-	-- RDXU (User session variables)
-	if not RDXSession[RDX.pspace] then RDXSession[RDX.pspace] = {}; end
-	RDXU = RDXSession[RDX.pspace];
+	if not loaded then
+		RDX:Debug(2, "Init: VariablesLoaded()");
 	
-	RDX:Debug(3, "DISPATCH INIT_VARIABLES_LOADED");
-	RDXEvents:Dispatch("INIT_VARIABLES_LOADED");
-	RDXEvents:DeleteKey("INIT_VARIABLES_LOADED");
-	
-	RDX:Debug(3, "DISPATCH INIT_POST_VARIABLES_LOADED");
-	RDXEvents:Dispatch("INIT_POST_VARIABLES_LOADED");
-	RDXEvents:DeleteKey("INIT_POST_VARIABLES_LOADED");
-	
-	RDX:Debug(3, "DISPATCH INIT_DESKTOP");
-	RDXEvents:Dispatch("INIT_DESKTOP");
-	RDXEvents:DeleteKey("INIT_DESKTOP");
-	
-	VFLT.NextFrame(math.random(10000000), function()
-		RDX:Debug(3, "DISPATCH INIT_SPELL");
-		RDXEvents:Dispatch("INIT_SPELL");
-		RDXEvents:DeleteKey("INIT_SPELL");
-		RDX:Debug(3, "DISPATCH INIT_POST");
-		RDXEvents:Dispatch("INIT_POST");
-		RDXEvents:DeleteKey("INIT_POST");
-	end);
-
-	VFLT.ZMSchedule(4, function()
-		RDX:Debug(3, "DISPATCH INIT_DEFERRED");
-		RDXEvents:Dispatch("INIT_DEFERRED");
-		RDXEvents:DeleteKey("INIT_DEFERRED");
+		-- Session variables
+		if not RDXSession then RDXSession = {}; end
+		-- RDXG (Global session variables)
+		if not RDXSession.global then RDXSession.global = {}; end
+		RDXG = RDXSession.global;
+		-- RDXU (User session variables)
+		if not RDXSession[RDX.pspace] then RDXSession[RDX.pspace] = {}; end
+		RDXU = RDXSession[RDX.pspace];
 		
-		--if not RDXG.hideLW and installer then
-		--	RDX.NewLearnWizard(RDXG.learnNum);
-		--end
+		RDX:Debug(3, "DISPATCH INIT_VARIABLES_LOADED");
+		RDXEvents:Dispatch("INIT_VARIABLES_LOADED");
+		RDXEvents:DeleteKey("INIT_VARIABLES_LOADED");
+		
+		RDX:Debug(3, "DISPATCH INIT_POST_VARIABLES_LOADED");
+		RDXEvents:Dispatch("INIT_POST_VARIABLES_LOADED");
+		RDXEvents:DeleteKey("INIT_POST_VARIABLES_LOADED");
+		
+		RDX:Debug(3, "DISPATCH INIT_DESKTOP");
+		RDXEvents:Dispatch("INIT_DESKTOP");
+		RDXEvents:DeleteKey("INIT_DESKTOP");
+		
+		VFLT.NextFrame(math.random(10000000), function()
+			RDX:Debug(3, "DISPATCH INIT_SPELL");
+			RDXEvents:Dispatch("INIT_SPELL");
+			RDXEvents:DeleteKey("INIT_SPELL");
+			RDX:Debug(3, "DISPATCH INIT_POST");
+			RDXEvents:Dispatch("INIT_POST");
+			RDXEvents:DeleteKey("INIT_POST");
+		end);
 	
-		-- Now init smooth features.
-		RDX.smooth = 0.2;
-	end);
+		VFLT.ZMSchedule(4, function()
+			RDX:Debug(3, "DISPATCH INIT_DEFERRED");
+			RDXEvents:Dispatch("INIT_DEFERRED");
+			RDXEvents:DeleteKey("INIT_DEFERRED");
+			
+			--if not RDXG.hideLW and installer then
+			--	RDX.NewLearnWizard(RDXG.learnNum);
+			--end
+		
+			-- Now init smooth features.
+			RDX.smooth = 0.2;
+		end);
+		loaded = true;
+	end
 end
 
 -- Bind initialization events DEPRECATED
-WoWEvents:Bind("VARIABLES_LOADED", nil, VariablesLoaded);
+--WoWEvents:Bind("VARIABLES_LOADED", nil, VariablesLoaded);
+WoWEvents:Bind("PLAYER_LOGIN", nil, VariablesLoaded);
 
 ------------------------------- Last function that runs should always be Preload() ------------------------------
 Preload();
