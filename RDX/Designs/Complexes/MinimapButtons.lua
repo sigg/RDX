@@ -10,6 +10,10 @@ VFLUI.CreateFramePool("BlizzButton",
 	end,
 	function(_, key) -- on fallback
 		local f = key;
+		if not f then 
+			VFL.print("error acquiring button key that not exist");
+			f = CreateFrame("Frame", "Frame_" .. VFL.GetNextID());
+		end
 		return f;
 	end, 
 	function(_, f) -- on acquired
@@ -37,11 +41,11 @@ local BlizzButtons = {
 	{ text = "MiniMapTracking" },
 	{ text = "MiniMapVoiceChatFrame" },
 	{ text = "MiniMapWorldMapButton" },
-	{ text = "MiniMapLFGFrame" },
+	--{ text = "MiniMapLFGFrame" },
 	{ text = "MinimapZoomIn" },
 	{ text = "MinimapZoomOut" },
 	{ text = "MiniMapMailFrame" },
-	{ text = "MiniMapBattlefieldFrame" },
+	--{ text = "MiniMapBattlefieldFrame" },
 	{ text = "GameTimeFrame" },
 	{ text = "FeedbackUIButton" },
 	{ text = "MiniMapRecordingButton" },
@@ -66,7 +70,7 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if (not desc.mbuttontype) then
+		if (not desc.mbuttontype) or not _G[desc.mbuttontype] then
 			VFL.AddError(errs, VFLI.i18n("Invalide button type")); return nil;
 		end
 		local flg = true;
