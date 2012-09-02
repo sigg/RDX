@@ -903,7 +903,7 @@ btn = ]] .. objname .. [[;
 -- specific function to update the texture path of a feature.
 function RDXDB.SetTextureData(path, key, value, newtexpath )
 	local x = RDXDB.GetObjectData(path); if not x then return; end
-	local feat = RDXDB.HasFeature(x.data, "texture", key, value);
+	local feat = RDXDB.HasFeature(x.data, "texture2", key, value);
 	if feat and feat.texture then
 		feat.texture.path = newtexpath;
 		return true;
