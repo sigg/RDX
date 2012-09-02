@@ -22,7 +22,9 @@ function VFL.print(str)
 	elseif type(str) == "table" then str = "table";
 	end 
 	ChatFrame1:AddMessage(str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
-	VFLIO.Console:AddMessage(str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+	if VFLIO and VFLIO.Console then
+		VFLIO.Console:AddMessage(str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+	end
 end
 
 --- Print the contain of a table "KEY " .. k .. ",VALUE " .. v
