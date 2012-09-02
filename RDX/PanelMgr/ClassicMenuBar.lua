@@ -87,13 +87,13 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.hasArrow = true;
 	ent.notCheckable = true;
 	ent.menuList = {
-		{ text = VFLI.i18n("**** Blizzard ****"), notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
+		{ text = VFLI.i18n("**** Blizzard ****"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
 		{ text = VFLI.i18n("     Show Release Corps Button"), notCheckable = true, func = function()
 			StaticPopup_Show("DEATH");
 			end 
 		},
 		{ text = VFLI.i18n("     Reset Blizzard Chatframes"), notCheckable = true, keepShownOnClick = false, func = function() FCF_ResetChatWindows(); ReloadUI(); end },
-		{ text = VFLI.i18n("**** RDX ****"), notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
+		{ text = VFLI.i18n("**** RDX ****"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
 		{ text = VFLI.i18n("     Open Set Debugger"), notCheckable = true, keepShownOnClick = false, func = RDXM_Debug.SetDebugger },
 		{ text = VFLI.i18n("     Open Profiler"), notCheckable = true, keepShownOnClick = false, func = VFLP.ToggleProfiler },
 		{ text = VFLI.i18n("     Open ErrorDialog"), notCheckable = true, keepShownOnClick = false, func = VFL.ToggleErrorDialog },
@@ -112,6 +112,7 @@ end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = "**************";
+	ent.isTitle = true;
 	ent.notCheckable = true;
 	ent.func = VFL.Noop;
 	end);

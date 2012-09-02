@@ -37,13 +37,24 @@ local function AUIList()
 	
 	local sortDUI = {};
 	for pkgName, pkg in pairs(RDXData) do
-		--if pkgName == "desktops" then
+		if pkgName == "desktops" then
 			for objName, obj in pairs(pkg) do
 				if type(obj) == "table" and obj.ty == "AUI" then 
 					local path = RDXDB.MakePath(pkgName, objName);
 					local newMenu;
 					local submenu = {};
 					local flag = nil;
+					local data = obj.data;
+					if #data > 1 then
+						table.insert(submenu,{ text = VFLI.i18n("**** Layout ****"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop });
+						for i, v in ipairs(data)do
+							table.insert(submenu, { text = v, notCheckable = true, keepShownOnClick = false, func = function()
+								RDXDK.SecuredChangeAUI(path, v);
+								AUIList();
+							end, });
+						end
+						flag = true;
+					end
 					local tbl = thirdpartymenu[objName];
 					if tbl then
 						VFL.copyInto(submenu, tbl);
@@ -56,7 +67,7 @@ local function AUIList()
 								if path == RDXU.AUI then return true; else return nil; end
 							end,
 							func = function()
-								RDXDK.SecuredChangeAUI(path);
+								RDXDK.SecuredChangeAUI(path, "default");
 								AUIList();
 							end,
 							hasArrow = true;
@@ -69,7 +80,7 @@ local function AUIList()
 								if path == RDXU.AUI then return true; else return nil; end
 							end,
 							func = function()
-								RDXDK.SecuredChangeAUI(path);
+								RDXDK.SecuredChangeAUI(path, "default");
 								AUIList();
 							end
 						};
@@ -77,7 +88,7 @@ local function AUIList()
 					table.insert(sortDUI, newMenu);
 				end
 			end
-		--end
+		end
 	end
 	table.sort(sortDUI, function(x1,x2) return x1.text < x2.text; end);
 	for i, v in pairs(sortDUI) do
@@ -108,7 +119,7 @@ local function AUIList()
 	--);
 	
 	--table.insert(subMenus, { 
-	--	text = "Edit AUI",
+	--	text = "Edit current AUI",
 	--	notCheckable = true, 
 	--	func = function()
 	--		local md = RDXDB.GetObjectData(RDXU.AUI);
@@ -160,21 +171,21 @@ local function AUIList()
 	--end);
 	
 	-----------------------------------
-	local editListMenu = {		
-		{ text = VFLI.i18n("Edit Current Desktop"), notCheckable = true, func = function()
-			local md = RDXDB.GetObjectData(RDXDK.GetCurrentDesktopPath());
-			if md then RDXDK.ToggleDesktopEditor(VFLDIALOG, RDXDK.GetCurrentDesktopPath(), md); end
-		end },
-		{ text = VFLI.i18n("Clear Desktop"), notCheckable = true, func = RDXDK.DeskClear },
-		{ text = VFLI.i18n("Reset Desktop"), notCheckable = true, func = RDXDK.DeskReset }
-	}
+	--local editListMenu = {		
+	--	{ text = VFLI.i18n("Edit Current Desktop"), notCheckable = true, func = function()
+	--		local md = RDXDB.GetObjectData(RDXDK.GetCurrentDesktopPath());
+	---		if md then RDXDK.ToggleDesktopEditor(VFLDIALOG, RDXDK.GetCurrentDesktopPath(), md); end
+	--	end },
+	--	{ text = VFLI.i18n("Clear Desktop"), notCheckable = true, func = RDXDK.DeskClear },
+	--	{ text = VFLI.i18n("Reset Desktop"), notCheckable = true, func = RDXDK.DeskReset }
+	--}
 
-	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text = VFLI.i18n("Manage Desktop");
-		ent.notCheckable = true;
-		ent.hasArrow = true;
-		ent.menuList = editListMenu;
-	end);
+	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
+	--	ent.text = VFLI.i18n("Manage Desktop");
+	--	ent.notCheckable = true;
+	--	ent.hasArrow = true;
+	--	ent.menuList = editListMenu;
+	--end);
 	
 	-----------------------------------
 	--local windowListMenu = {
