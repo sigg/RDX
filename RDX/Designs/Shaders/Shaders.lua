@@ -13,7 +13,7 @@
 ------------------------------
 RDX.RegisterFeature({
 	name = "shader_showhide"; version = 1;
-	title = VFLI.i18n("Sh: Frame Show/Hide");
+	title = VFLI.i18n("Sh: Object Show/Hide");
 	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
@@ -32,7 +32,7 @@ RDX.RegisterFeature({
 		return flg;
 	end;
 	ApplyFeature = function(desc, state)
-		local fname = RDXUI.ResolveFrameReference(desc.owner);
+		local fname = RDXUI.ResolveObjectReference(desc.owner);
 		local inverse = "";
 		if desc.inverse then inverse = "not "; end
 		local paintCode = [[
@@ -44,7 +44,7 @@ if ]] .. inverse .. desc.flag .. [[ then ]] .. fname .. [[:Show(); else ]] .. fn
 		local ui = VFLUI.CompoundFrame:new(parent);
 
 		-- Owner
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("frame"), state, {"Frame_", "Button_", "Cooldown_", });
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("frame"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", "Texture_", "Text_",});
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Flag variable"), state, "BoolVar_", nil, "true", "false");
@@ -74,7 +74,17 @@ if ]] .. inverse .. desc.flag .. [[ then ]] .. fname .. [[:Show(); else ]] .. fn
 	end;
 });
 
-
+RDX.RegisterFeature({
+	name = "shaderTex_showhide";
+	version = 31338;
+	invisible = true;
+	IsPossible = VFL.Nil;
+	VersionMismatch = function(desc)
+		desc.feature = "shader_showhide";
+		desc.owner = desc.texture;
+		desc.texture = nil;
+	end;
+});
 
 
 

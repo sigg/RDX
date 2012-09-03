@@ -14,7 +14,7 @@
 ---------------------------------------------------------------------------------
 RDX.RegisterFeature({
 	name = "Highlight: Texture Map";
-	title = VFLI.i18n("Sh: Texture Highlight");
+	title = VFLI.i18n("Sh: Texture Map and Highlight");
 	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
@@ -194,72 +194,5 @@ RDX.RegisterFeature({
 	end;
 });
 
-------------------------------
--- Show/Hide Texture shader
-------------------------------
-RDX.RegisterFeature({
-	name = "shaderTex_showhide"; version = 1;
-	title = VFLI.i18n("Sh: Texture Show/Hide");
-	category = VFLI.i18n("Shaders");
-	multiple = true;
-	IsPossible = function(state)
-		if not state:Slot("DesignFrame") then return nil; end
-		if not state:Slot("Base") then return nil; end
-		return true;
-	end;
-	ExposeFeature = function(desc, state, errs)
-		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if not desc.texture and desc.owner then
-			desc.texture = desc.owner;
-			desc.owner = nil;
-		end
-		if (not desc.texture) or (not state:Slot("Texture_" .. desc.texture)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid texture")); return nil;
-		end
-		if not desc.flag then desc.flag = "true"; end
-		if not (desc.flag == "true" or desc.flag == "false" or state:Slot("BoolVar_" .. desc.flag)) then
-			VFL.AddError(errs, VFLI.i18n("Invalid flag variable")); return nil;
-		end
-		return true;
-	end;
-	ApplyFeature = function(desc, state)
-		local tname = RDXUI.ResolveTextureReference(desc.texture);
-		local inverse = "";
-		if desc.inverse then inverse = "not "; end
-		local paintCode = [[
-if ]] .. inverse .. desc.flag .. [[ then ]] .. tname .. [[:Show(); else ]] .. tname .. [[:Hide(); end
-]];
-		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
-	end;
-	UIFromDescriptor = function(desc, parent, state)
-		local ui = VFLUI.CompoundFrame:new(parent);
 
-		local texture = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Texture"), state, "Texture_");
-		if desc and desc.texture then texture:SetSelection(desc.texture); end
 
-		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Flag variable"), state, "BoolVar_", nil, "true", "false");
-		if desc and desc.flag then flag:SetSelection(desc.flag); end
-		
-		local chk_inverse = VFLUI.Checkbox:new(ui); chk_inverse:Show();
-		chk_inverse:SetText(VFLI.i18n("Inverse variable"));
-		if desc and desc.inverse then chk_inverse:SetChecked(true); else chk_inverse:SetChecked(); end
-		ui:InsertFrame(chk_inverse);
-		
-		function ui:GetDescriptor()
-			return {
-				feature = "shaderTex_showhide"; version = 1;
-				texture = texture:GetSelection();
-				flag = flag:GetSelection();
-				inverse = chk_inverse:GetChecked();
-			};
-		end
-
-		return ui;
-	end;
-	CreateDescriptor = function()
-		return {
-			feature = "shaderTex_showhide"; version = 1;
-			flag = "true";
-		};
-	end;
-});

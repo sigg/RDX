@@ -151,6 +151,10 @@ function RDXUI.UnitFrameAnchorSelector:new(parent)
 	return self;
 end
 
+function RDXUI.ResolveObjectReference(ref)
+	if (not ref) or (ref == "") or (ref == "Base") then return "frame"; end
+	return "frame." .. ref;
+end
 --- A helper function to resolve a frame reference to a variable on the object.
 function RDXUI.ResolveFrameReference(ref)
 	if (not ref) or (ref == "") or (ref == "Base") then return "frame"; end
@@ -324,8 +328,6 @@ function RDXUI.UFOwnerCheck(owner, state, errs, allowBase)
 		return nil;
 	end
 	if allowBase and (owner == "Base") then return true; end
-	
-	--if (state:Slot("Frame_" .. owner)) or (state:Slot("Button_" .. owner)) or (state:Slot("Cooldown_" .. owner)) or (state:Slot("StatusBar_" .. owner)) then return true; end
 	if state:Slot(owner) then return true; end
 	VFL.AddError(errs, VFLI.i18n("Invalid owner definition")); return nil;
 end
