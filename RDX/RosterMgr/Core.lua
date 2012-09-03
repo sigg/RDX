@@ -266,8 +266,8 @@ local function scanHand(hand)
 end;
 
 local function LoadWeaponsBuff()
-	local hasMainHandEnchant, mainHandExpiration, mainHandCharges, hasOffHandEnchant, offHandExpiration, offHandCharges, hasThrownEnchant, thrownExpiration, thrownCharges = GetWeaponEnchantInfo();
-	local mainHandBuffName, mainHandBuffRank, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, offHandBuffName, offHandBuffRank, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot, thrownBuffName, thrownBuffRank, thrownBuffStart, thrownBuffDur, thrownTex, thrownBuffTex, thrownSlot;
+	local hasMainHandEnchant, mainHandExpiration, mainHandCharges, hasOffHandEnchant, offHandExpiration, offHandCharges = GetWeaponEnchantInfo();
+	local mainHandBuffName, mainHandBuffRank, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, offHandBuffName, offHandBuffRank, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot;
 	if hasMainHandEnchant then
 		mainHandBuffName, mainHandBuffRank, mainHandTex, mainHandSlot = scanHand("MainHandSlot");
 		mainHandBuffDur, mainHandBuffTex = RDXDAL.getBuffWeaponInfo(mainHandBuffName);
@@ -294,20 +294,7 @@ local function LoadWeaponsBuff()
 		offHandBuffStart = 0;
 		offHandBuffDur = 0;
 	end
-	if hasThrownEnchant then
-		thrownBuffName, thrownBuffRank, thrownTex, thrownSlot = scanHand("RangedSlot");
-		thrownBuffDur, thrownBuffTex = RDXDAL.getBuffWeaponInfo(thrownBuffName);
-		if thrownBuffDur and thrownBuffDur > 0 then
-			thrownBuffStart = GetTime() - (thrownBuffDur - thrownExpiration / 1000);
-		else 
-			thrownBuffStart = 0;
-			thrownBuffDur = 0;
-		end
-	else
-		thrownBuffStart = 0;
-		thrownBuffDur = 0;
-	end
-	return hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot, hasThrownEnchant, thrownBuffName, thrownBuffRank, thrownCharges, thrownBuffStart, thrownBuffDur, thrownTex, thrownBuffTex, thrownSlot;
+	return hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot;
 end
 VFLP.RegisterFunc("RDXDAL: UnitAura", "LoadWeaponsBuff", LoadWeaponsBuff, true);
 

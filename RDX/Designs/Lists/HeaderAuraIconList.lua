@@ -176,12 +176,11 @@ headerAura.updateFunc = function(self)
 			child.btn:Hide();
 		end
 	end
-	local hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot, hasThrownEnchant, thrownBuffName, thrownBuffRank, thrownCharges, thrownBuffStart, thrownBuffDur, thrownTex, thrownBuffTex, thrownSlot;
+	local hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot;
 	local tempEnchant1 = self:GetAttribute("tempEnchant1");
 	local tempEnchant2 = self:GetAttribute("tempEnchant2");
-	local tempEnchant3 = self:GetAttribute("tempEnchant3");
-	if tempEnchant1 or tempEnchant2 or tempEnchant3 then
-		hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot, hasThrownEnchant, thrownBuffName, thrownBuffRank, thrownCharges, thrownBuffStart, thrownBuffDur, thrownTex, thrownBuffTex, thrownSlot = RDXDAL.LoadWeaponsBuff();
+	if tempEnchant1 or tempEnchant2 then
+		hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot = RDXDAL.LoadWeaponsBuff();
 	end
 	if tempEnchant1 then
 		if not tempEnchant1.btn then
@@ -296,63 +295,6 @@ headerAura.updateFunc = function(self)
 			tempEnchant2.btn:Hide();
 		end
 	end
-	local tempEnchant3 = self:GetAttribute("tempEnchant3");
-	if tempEnchant3 then
-		if not tempEnchant3.btn then
-			local btn;
-			if ]] .. driver .. [[ == 1 then 
-				btn = VFLUI.SkinButton:new();
-				btn:SetAllPoints(tempEnchant3);
-				btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
-			elseif ]] .. driver .. [[ == 2 then
-				btn = VFLUI.AcquireFrame("Frame");
-				btn:SetAllPoints(tempEnchant3);
-				VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
-			elseif ]] .. driver .. [[ == 3 then
-				btn = VFLUI.AcquireFrame("Frame");
-				btn:SetAllPoints(tempEnchant3);
-				VFLUI.SetBackdropBorderRDX(btn, _black, "ARTWORK", 7, ]] .. bordersize .. [[);
-				btn:SetScript("OnSizeChanged", function(self)
-					VFLUI.ResizeBackdropBorderRDX(self, ]] .. bordersize .. [[);
-				end);
-			end
-			btn:SetParent(tempEnchant3); btn:SetFrameLevel(tempEnchant3:GetFrameLevel());
-			btn.tex = VFLUI.CreateTexture(btn);
-			btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
-			btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
-			if not RDXG.usecleanicons then
-				btn.tex:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
-			end
-			btn.tex:SetDrawLayer("ARTWORK", 2);
-			btn.tex:Show();
-			
-			btn.cd = VFLUI.CooldownCounter:new(btn, ]] .. Serialize(desc.cd) .. [[);
-			btn.cd:SetAllPoints(btn.tex);
-			btn.cd:Show();
-			
-			btn.frtxt = VFLUI.AcquireFrame("Frame");
-			btn.frtxt:SetParent(btn);
-			btn.frtxt:SetFrameLevel(btn:GetFrameLevel() + 2);
-			btn.frtxt:SetAllPoints(btn);
-			btn.frtxt:Show();
-			
-			btn.sttxt = VFLUI.CreateFontString(btn.frtxt);
-			btn.sttxt:SetAllPoints(btn.frtxt);
-			btn.sttxt:Show();
-			]];
-			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.sttxt", desc.fontst, nil, true);
-			createCode = createCode .. [[
-			tempEnchant3.btn = btn;
-		end
-		if hasThrownEnchant then
-			tempEnchant3.btn.tex:SetTexture(thrownTex);
-			tempEnchant3.btn.cd:SetCooldown(thrownBuffStart, thrownBuffDur);
-			if thrownCharges > 1 then tempEnchant3.btn.sttxt:SetText(thrownCharges); else tempEnchant3.btn.sttxt:SetText("");end
-			tempEnchant3.btn:Show();
-		else
-			tempEnchant3.btn:Hide();
-		end
-	end
 end
 headerAura:updateFunc();
 frame.]] .. objname .. [[ = headerAura;
@@ -395,18 +337,6 @@ if tempEnchant2 then
 		btn:Destroy(); btn = nil;
 	end
 	tempEnchant2.btn = nil;
-end
-local tempEnchant3 = frame.]] .. objname .. [[:GetAttribute("tempEnchant3");
-if tempEnchant3 then
-	local btn = tempEnchant3.btn;
-	if btn then
-		VFLUI.ReleaseRegion(btn.sttxt); btn.sttxt = nil;
-		btn.frtxt:Destroy(); btn.frtxt = nil;
-		btn.cd:Destroy(); btn.cd = nil;
-		VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
-		btn:Destroy(); btn = nil;
-	end
-	tempEnchant3.btn = nil;
 end
 frame.]] .. objname .. [[:Destroy();
 frame.]] .. objname .. [[ = nil;
