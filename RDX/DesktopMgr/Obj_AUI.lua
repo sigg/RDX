@@ -26,20 +26,33 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 	if dlg then return; end
 	if (not path) or (not md) or (not md.data) then return nil; end
 	local inst = RDXDB.GetObjectInstance(path, true);
+	local pkg, file = RDXDB.ParsePath(path);
+	
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
 	dlg:SetWidth(270); dlg:SetHeight(350);
 	dlg:SetTitleColor(0,.6,0);
-	dlg:SetText("Manage AUI");
+	dlg:SetText("List of layout in the theme " .. file);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("AUI_editor") then RDXPM.RestoreLayout(dlg, "AUI_editor"); end
 	
-	local le_names = VFLUI.ListEditor:new(dlg, md.data, function(cell,data) 
-		cell.text:SetText(data);
-	end);
+	local le_names = VFLUI.ListEditor:new(dlg, md.data, 
+		function(cell,data) 
+			cell.text:SetText(data);
+		end, 
+		nil,
+		function(list, ty, ctl, txt) 
+			if txt and txt ~= "" and not VFL.vfind(list, txt) then
+				table.insert(list, txt);
+				ctl:SetText("");
+			else
+				VFLUI.MessageBox("Error", "Enter something else please.");
+			end
+		end,
+	);
 	le_names:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	le_names:SetWidth(260);	le_names:SetHeight(263); le_names:Show();
 	
@@ -61,17 +74,31 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 	
 	local function Save()
 		local lst = le_names:GetList();
-		VFL.EscapeTo(esch);
-		if lst then
-			md.data = lst;
+		if lst then			
+			-- new layout are created
 			for i, v in ipairs(lst) do
 				local isexist2 = RDXDB.CheckObject(path .. "_" .. v, "Desktop");
-				local pkg, file = RDXDB.ParsePath(path);
 				if not isexist2 then 
 					RDXDB.Copy(file .. ":autodesk", path .. "_" .. v);
 				end
 			end
+			
+			local currentlayout = nil;
+			-- search for old layout dropped
+			for i, v in ipairs(md.data) do
+				if not VFL.vfind(lst, v) then
+					RDXDB.DeleteObject(path .. "_" .. v);
+					-- check if we are deleting the current theme layout
+					if v == RDXU.AUIState then currentlayout = true; end
+				end
+			end
+			md.data = lst;
 			if inst then WriteAUI(inst, lst); end
+			-- in the case the current layout has been deleted, a reload ui is done.
+			if currentlayout then
+				RDXU.AUIState = "default";
+				ReloadUI();
+			end
 		end
 		VFL.EscapeTo(esch);
 	end
@@ -136,16 +163,23 @@ local currentAUI = nil;
 local function ChangeAUI(path, state, nosave)
 	if RDXDK.IsAUIEditorOpen() then RDXDK.CloseAUIEditor() end
 	RDX:Debug(3, "Change AUI " .. path);
-	-- close
-	if currentAUI then
-		RDXDB._RemoveInstance(RDXU.AUI);
-		currentAUI = nil;
-	end
-	RDXU.AUI = path;
-	currentAUI = RDXDB.GetObjectInstance(RDXU.AUI);
-	if currentAUI then
-		local _, auiname = RDXDB.ParsePath(RDXU.AUI);
-		RDXDK.SecuredChangeState(state);
+	if RDXU.AUI == path then
+		if RDXU.AUIState == state then
+			-- do nothing
+		else
+			RDXDK.SecuredChangeState(state);
+		end
+	else
+		if currentAUI then
+			RDXDB._RemoveInstance(RDXU.AUI);
+			currentAUI = nil;
+		end
+		RDXU.AUI = path;
+		currentAUI = RDXDB.GetObjectInstance(RDXU.AUI);
+		if currentAUI then
+			local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+			RDXDK.SecuredChangeState(state);
+		end
 		RDXEvents:Dispatch("AUI", auiname);
 	end
 end
@@ -233,30 +267,36 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 	end
 end);
 
-local function ManageAutoDesk(pkg, dir)
-	local aex, adesk, isexist = nil, nil, nil;
-	adesk = dir["autodesk"];
-	if adesk and adesk.ty == "Desktop" then
-		isexist = RDXDB.CheckObject("desktops:".. pkg, "AUI");
-		if not isexist then 
-			local mbo = RDXDB.TouchObject("desktops:".. pkg);
-			mbo.data = {};
-			mbo.ty = "AUI"; 
-			mbo.version = 2;
+local function ManageAutoDesk()
+	for pkg,dir in pairs(RDXDB.GetPackages()) do
+		local aex, adesk, isexist = nil, nil, nil;
+		adesk = dir["autodesk"];
+		if adesk and adesk.ty == "Desktop" then
+			isexist = RDXDB.CheckObject("desktops:".. pkg, "AUI");
+			if not isexist then 
+				local mbo = RDXDB.TouchObject("desktops:".. pkg);
+				mbo.data = {};
+				mbo.ty = "AUI"; 
+				mbo.version = 2;
+				table.insert(mbo.data, "default");
+			else
+				local mbo = RDXDB.TouchObject("desktops:".. pkg);
+				if not VFL.vfind(mbo.data, "default") then
+					table.insert(mbo.data, "default");
+				end
+			end
 			local isexist2 = RDXDB.CheckObject("desktops:".. pkg .. "_default", "Desktop");
 			if not isexist2 then 
 				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_default");
-				table.insert(mbo.data, "default");
 			end
 		end
 	end
 end
+RDXDK.ManageAutoDesk = ManageAutoDesk;
 
 -- Run all autodesk
 RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
-	for pkg,dir in pairs(RDXDB.GetPackages()) do
-		ManageAutoDesk(pkg, dir);
-	end
+	ManageAutoDesk();
 end);
 
 local function NewPackage_OnOK(x)
@@ -337,4 +377,6 @@ end
 function RDXDK.NewAUI()
 	VFLUI.MessageBox(VFLI.i18n("Create New AUI"), VFLI.i18n("Enter name:"), "", VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), NewPackage_OnOK);
 end
+
+
 

@@ -48,10 +48,17 @@ local function AUIList()
 					if #data > 1 then
 						table.insert(submenu,{ text = VFLI.i18n("**** Layout ****"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop });
 						for i, v in ipairs(data)do
-							table.insert(submenu, { text = v, notCheckable = true, keepShownOnClick = false, func = function()
-								RDXDK.SecuredChangeAUI(path, v);
-								AUIList();
-							end, });
+							table.insert(submenu, { 
+									text = v, 
+									checked = function()
+										if path == RDXU.AUI and v == RDXU.AUIState then return true; else return nil; end
+									end,
+									func = function()
+										RDXDK.SecuredChangeAUI(path, v);
+										AUIList();
+									end,
+								}
+							);
 						end
 						flag = true;
 					end
