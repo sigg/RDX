@@ -27,6 +27,7 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 	if (not path) or (not md) or (not md.data) then return nil; end
 	local inst = RDXDB.GetObjectInstance(path, true);
 	local pkg, file = RDXDB.ParsePath(path);
+	local tmpdata = VFL.copy(md.data);
 	
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
@@ -51,8 +52,7 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 			else
 				VFLUI.MessageBox("Error", "Enter something else please.");
 			end
-		end,
-	);
+		end);
 	le_names:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	le_names:SetWidth(260);	le_names:SetHeight(263); le_names:Show();
 	
@@ -85,8 +85,11 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 			
 			local currentlayout = nil;
 			-- search for old layout dropped
-			for i, v in ipairs(md.data) do
+			VFL.tprint(lst);
+			for i, v in ipairs(tmpdata) do
+				VFL.print(v);
 				if not VFL.vfind(lst, v) then
+					VFL.print(path .. "_" .. v);
 					RDXDB.DeleteObject(path .. "_" .. v);
 					-- check if we are deleting the current theme layout
 					if v == RDXU.AUIState then currentlayout = true; end
@@ -160,10 +163,10 @@ RDXDB.RegisterObjectType({
 
 local currentAUI = nil;
 
-local function ChangeAUI(path, state, nosave)
+local function ChangeAUI(path, state, force)
 	if RDXDK.IsAUIEditorOpen() then RDXDK.CloseAUIEditor() end
 	RDX:Debug(3, "Change AUI " .. path);
-	if RDXU.AUI == path then
+	if RDXU.AUI == path and not force then
 		if RDXU.AUIState == state then
 			-- do nothing
 		else
@@ -260,7 +263,7 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 	if not RDXU.AUI and not RDXDB.ResolvePath(RDXU.AUI) then RDXU.AUI = "desktops:default"; end
 	if not RDXU.AUIState then RDXU.AUIState = "default"; end
 	
-	ChangeAUI(RDXU.AUI, RDXU.AUIState);
+	ChangeAUI(RDXU.AUI, RDXU.AUIState, true);
 	
 	if RDXG.RDXopt and RDXG.RDXopt.upp then
 		SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"));
