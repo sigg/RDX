@@ -104,14 +104,14 @@ local function AUIList()
 	
 	table.insert(subMenus, {
 		text = "*******************",
-		ent.isTitle = true;
+		isTitle = true,
 		notCheckable = true,
 		func = VFL.Noop,
 		}
 	);
 	
 	table.insert(subMenus, { 
-		text = VFLI.i18n("Create a new empty theme"),
+		text = VFLI.i18n("Create a new theme"),
 		notCheckable = true, 
 		func = function()
 			RDXDK.NewAUI();
@@ -127,9 +127,9 @@ local function AUIList()
 		end
 		}
 	);
-	
+	local pkg, file = RDXDB.ParsePath(RDXU.AUI);
 	table.insert(subMenus, { 
-		text = VFLI.i18n("Manage layouts of the current theme"),
+		text = VFLI.i18n("Manage layouts " .. file),
 		notCheckable = true, 
 		func = function()
 			local md = RDXDB.GetObjectData(RDXU.AUI);
@@ -279,3 +279,5 @@ RDXDBEvents:Bind("OBJECT_MOVED", nil, function(pkg, file, npkg, nfile, md)
 end);
 
 RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function() AUIList(); end);
+
+RDXDK.AUIList = AUIList;

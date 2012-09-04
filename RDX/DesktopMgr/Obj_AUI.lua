@@ -102,6 +102,7 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 				RDXU.AUIState = "default";
 				ReloadUI();
 			end
+			RDXDK.AUIList();
 		end
 		VFL.EscapeTo(esch);
 	end
@@ -384,7 +385,6 @@ end
 local wl = {};
 local function BuildPackageList()
 	VFL.empty(wl);
-	local desc = nil;
 	for pkg,dir in pairs(RDXDB.GetPackages()) do
 		local adesk = dir["autodesk"];
 		if adesk and adesk.ty == "Desktop" then
@@ -392,6 +392,7 @@ local function BuildPackageList()
 		end
 	end
 	table.sort(wl, function(x1,x2) return x1.text<x2.text; end);
+	return wl;
 end
 
 
@@ -404,7 +405,7 @@ function RDXDK.DuplicateAUI()
 	dlg2:SetTitleColor(0,.6,0);
 	dlg2:SetBackdrop(VFLUI.DefaultDialogBackdrop);
 	dlg2:SetPoint("CENTER", VFLParent, "CENTER");
-	dlg2:SetWidth(330); dlg2:SetHeight(125);
+	dlg2:SetWidth(230); dlg2:SetHeight(125);
 	dlg2:SetText("Duplicate a theme");
 	VFLUI.Window.StdMove(dlg2, dlg2:GetTitleBar());
 	
@@ -412,9 +413,11 @@ function RDXDK.DuplicateAUI()
 	sf:SetWidth(200); sf:SetHeight(70);
 	sf:SetPoint("TOPLEFT", dlg2:GetClientArea(), "TOPLEFT");
 	
+	BuildPackageList();
+	
 	local er = VFLUI.EmbedRight(ui, VFLI.i18n("Themes"));
 	local dd_pkg = VFLUI.Dropdown:new(er, BuildPackageList);
-	dd_pkg:SetWidth(150); dd_pkg:Show();
+	dd_pkg:SetWidth(100); dd_pkg:Show();
 	er:EmbedChild(dd_pkg); er:Show();
 	ui:InsertFrame(er);
 	
@@ -450,6 +453,7 @@ function RDXDK.DuplicateAUI()
 		local pkgname = dd_pkg:GetSelection();
 		local new_name = ed_newname.editBox:GetText();
 		RDXDB.CopyPackage(pkgname, new_name);
+		ManageAutoDesk();
 		VFL.EscapeTo(esch);
 	end);
 
