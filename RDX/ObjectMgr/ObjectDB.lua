@@ -390,6 +390,7 @@ local function InitObjectDB()
 	end
 	
 	function RDXDB.CopyPackage(srcPkg, dstPkg)
+		if not srcPkg or not dstPkg then return nil; end
 		local d = RDXData[srcPkg];
 		if not d then return nil, VFLI.i18n("Source package does not exist."); end
 		local e = RDXData[dstPkg];

@@ -381,5 +381,84 @@ function RDXDK.NewAUI()
 	VFLUI.MessageBox(VFLI.i18n("Create New AUI"), VFLI.i18n("Enter name:"), "", VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), NewPackage_OnOK);
 end
 
+local wl = {};
+local function BuildPackageList()
+	VFL.empty(wl);
+	local desc = nil;
+	for pkg,dir in pairs(RDXDB.GetPackages()) do
+		local adesk = dir["autodesk"];
+		if adesk and adesk.ty == "Desktop" then
+			table.insert(wl, {text = pkg});
+		end
+	end
+	table.sort(wl, function(x1,x2) return x1.text<x2.text; end);
+end
+
+
+local dlg2 = nil;
+function RDXDK.DuplicateAUI()
+	if dlg2 then return; end
+	
+	dlg2 = VFLUI.Window:new(parent);
+	VFLUI.Window.SetDefaultFraming(dlg2, 22);
+	dlg2:SetTitleColor(0,.6,0);
+	dlg2:SetBackdrop(VFLUI.DefaultDialogBackdrop);
+	dlg2:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg2:SetWidth(330); dlg2:SetHeight(125);
+	dlg2:SetText("Duplicate a theme");
+	VFLUI.Window.StdMove(dlg2, dlg2:GetTitleBar());
+	
+	local ui, sf = VFLUI.CreateScrollingCompoundFrame(dlg2);
+	sf:SetWidth(200); sf:SetHeight(70);
+	sf:SetPoint("TOPLEFT", dlg2:GetClientArea(), "TOPLEFT");
+	
+	local er = VFLUI.EmbedRight(ui, VFLI.i18n("Themes"));
+	local dd_pkg = VFLUI.Dropdown:new(er, BuildPackageList);
+	dd_pkg:SetWidth(150); dd_pkg:Show();
+	er:EmbedChild(dd_pkg); er:Show();
+	ui:InsertFrame(er);
+	
+	local ed_newname = VFLUI.LabeledEdit:new(ui, 200); ed_newname:Show();
+	ed_newname:SetText(VFLI.i18n("Enter a new name"));
+	ui:InsertFrame(ed_newname);
+	
+	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
+	
+	dlg2:Show();
+	--dlg2:Show(.2, true);
+	
+	local esch = function()
+		--dlg2:Hide(.2, true);
+		--VFLT.ZMSchedule(.25, function()
+			RDXPM.StoreLayout(dlg2, "rdx_duplicate window");
+			dlg2:Destroy(); dlg2 = nil;
+		--end);
+	end
+	
+	VFL.AddEscapeHandler(esch);
+	function dlg2:_esch() VFL.EscapeTo(esch); end
+	
+	local btnClose = VFLUI.CloseButton:new(dlg2);
+	dlg2:AddButton(btnClose);
+	btnClose:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
+	
+	local btnOK = VFLUI.OKButton:new(dlg2);
+	btnOK:SetHeight(25); btnOK:SetWidth(60);
+	btnOK:SetPoint("BOTTOMRIGHT", dlg2:GetClientArea(), "BOTTOMRIGHT", -15, 0);
+	btnOK:SetText("OK"); btnOK:Show();
+	btnOK:SetScript("OnClick", function()
+		local pkgname = dd_pkg:GetSelection();
+		local new_name = ed_newname.editBox:GetText();
+		RDXDB.CopyPackage(pkgname, new_name);
+		VFL.EscapeTo(esch);
+	end);
+
+	-- Destructor
+	dlg2.Destroy = VFL.hook(function(s)
+		btnOK:Destroy(); btnOK = nil;
+		VFLUI.DestroyScrollingCompoundFrame(ui, sf);
+		ui = nil; sf = nil;
+	end, dlg2.Destroy);
+end
 
 

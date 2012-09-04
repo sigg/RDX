@@ -324,7 +324,7 @@ function RDX.CloneWindow(path, upath, parent)
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
-	dlg:SetWidth(230); dlg:SetHeight(125);
+	dlg:SetWidth(330); dlg:SetHeight(125);
 	dlg:SetText("Clone Window");
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	
@@ -332,12 +332,12 @@ function RDX.CloneWindow(path, upath, parent)
 	sf:SetWidth(200); sf:SetHeight(70);
 	sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	
-	local ed_path = VFLUI.LabeledEdit:new(ui, 100); ed_path:Show();
+	local ed_path = VFLUI.LabeledEdit:new(ui, 200); ed_path:Show();
 	ed_path:SetText(VFLI.i18n("Window Path"));
 	if path then ed_path.editBox:SetText(path); else ed_path.editBox:SetText("null"); end
 	ui:InsertFrame(ed_path);
 	
-	local ed_upath = VFLUI.LabeledEdit:new(ui, 100); ed_upath:Show();
+	local ed_upath = VFLUI.LabeledEdit:new(ui, 200); ed_upath:Show();
 	ed_upath:SetText(VFLI.i18n("Design Path"));
 	if upath then ed_upath.editBox:SetText(upath); else ed_upath.editBox:SetText("null"); end
 	ui:InsertFrame(ed_upath);

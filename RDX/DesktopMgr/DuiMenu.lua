@@ -102,38 +102,41 @@ local function AUIList()
 		table.insert(subMenus, v);
 	end
 	
-	--table.insert(subMenus, {
-	--	text = "*******************",
-	--	notCheckable = true,
-	--	func = VFL.Noop,
-	--	}
-	--);
+	table.insert(subMenus, {
+		text = "*******************",
+		ent.isTitle = true;
+		notCheckable = true,
+		func = VFL.Noop,
+		}
+	);
 	
-	--table.insert(subMenus, { 
-	--	text = "Create a new theme",
-	--	notCheckable = true, 
-	--	func = function()
-	--		RDXDK.NewAUI();
-	--	end
-	--	}
-	--);
+	table.insert(subMenus, { 
+		text = VFLI.i18n("Create a new empty theme"),
+		notCheckable = true, 
+		func = function()
+			RDXDK.NewAUI();
+		end
+		}
+	);
 	
-	--table.insert(subMenus, {
-	--	text = "*******************",
-	--	notCheckable = true,
-	--	func = VFL.Noop,
-	--	}
-	--);
+	table.insert(subMenus, { 
+		text = VFLI.i18n("Duplicate a theme"),
+		notCheckable = true, 
+		func = function()
+			RDXDK.DuplicateAUI();
+		end
+		}
+	);
 	
-	--table.insert(subMenus, { 
-	--	text = "Edit current AUI",
-	--	notCheckable = true, 
-	--	func = function()
-	--		local md = RDXDB.GetObjectData(RDXU.AUI);
-	--		if md then RDXDK.ToggleAUIEditor(RDXU.AUI, md); end
-	--	end
-	--	}
-	--);
+	table.insert(subMenus, { 
+		text = VFLI.i18n("Manage layouts of the current theme"),
+		notCheckable = true, 
+		func = function()
+			local md = RDXDB.GetObjectData(RDXU.AUI);
+			if md then RDXDK.ToggleAUIEditor(RDXU.AUI, md); end
+		end
+		}
+	);
 
 	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
 		ent.text = VFLI.i18n("Themes");
