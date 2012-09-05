@@ -344,7 +344,6 @@ frame.]] .. objname .. [[ = nil;
 	while true do
 		if (_j > ]] .. desc.nIcons .. [[) then break; end
 		_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = nil, true, nil, nil, {}, nil, "Interface\\Addons\\RDX\\Skin\\whackaMole", 6, nil, 60, nil, 50, true, true;
-		if not _meta then break; end
 		--if (not _meta.isInvisible) and ]] .. aurasfilter .. [[ and ]] .. isstealablefilter .. [[ and ]] .. curefilter .. [[ and ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
 			btn = _icons[_j];
 			if not btn:IsShown() then btn:Show(smooth); end
@@ -396,7 +395,7 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 		if not _meta then break; end
 		if (not _meta.isInvisible) and ]] .. aurasfilter .. [[ and ]] .. isstealablefilter .. [[ and ]] .. curefilter .. [[ and ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
 			btn = _icons[_j];
-			if not btn:IsShown() then btn:Show(smooth); end
+			if not btn:IsShown() then btn:Show(); end
 			btn.meta = _meta;
 			btn.tex:SetTexture(_tex);
 			if _dispelt and DebuffTypeColor[_dispelt] then
@@ -431,7 +430,7 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 	end
 	while _j <= ]] .. desc.nIcons .. [[ do
 		btn = _icons[_j];
-		if btn:IsShown() then btn:Hide(]] .. smooth .. [[); end
+		if btn:IsShown() then btn:Hide(); end
 		_j = _j + 1;
 	end
 end

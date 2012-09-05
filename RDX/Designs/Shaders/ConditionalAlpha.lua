@@ -3,7 +3,7 @@
 -----------------------------------------------------------
 RDX.RegisterFeature({
 	name = "shader_ca"; version = 1;
-	title = VFLI.i18n("Sh: Frame Conditional Alpha");
+	title = VFLI.i18n("Sh: Object Conditional Alpha");
 	category = VFLI.i18n("Shaders");
 	multiple = true;
 	IsPossible = function(state)
@@ -22,7 +22,7 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ApplyFeature = function(desc, state)
-		local fname = RDXUI.ResolveFrameReference(desc.owner);
+		local fname = RDXUI.ResolveObjectReference(desc.owner);
 		local paintCode = [[
 if ]] .. desc.flag .. [[ then
 	]] .. fname .. [[:SetAlpha(]] .. desc.trueAlpha .. [[);
@@ -36,7 +36,7 @@ end
 		local ui = VFLUI.CompoundFrame:new(parent);
 
 		-- Owner
-		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Frame"), state, {"Frame_", "Button_", "Cooldown_", });
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Frame"), state, {"Frame_", "Button_", "Cooldown_", "StatusBar_", "Texture_", "Text_",});
 		if desc and desc.owner then owner:SetSelection(desc.owner); end
 
 		local flag = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Flag variable"), state, "BoolVar_", nil, "true", "false");

@@ -61,14 +61,16 @@ local function EnablePartyIncludeMe()
 	RDXG.pdebug = true;
 	local mbo = RDXDB.TouchObject("default:Party_fset");
 	mbo.ty = "SymLink"; mbo.version = 3; mbo.data = {class = "simple", targetpath = "default:Party_with_me_fset"};
-	RDXDB.NotifyUpdate("default:Party_fset");
+	--RDXDB.NotifyUpdate("default:Party_fset");
+	RDXEvents:Dispatch("DISRUPT_WINDOWS");
 end
 
 local function DisablePartyIncludeMe()
 	RDXG.pdebug = nil;
 	local mbo = RDXDB.TouchObject("default:Party_fset");
 	mbo.ty = "SymLink"; mbo.version = 3; mbo.data = {class = "simple", targetpath = "default:Party_without_me_fset"};
-	RDXDB.NotifyUpdate("default:Party_fset");
+	--RDXDB.NotifyUpdate("default:Party_fset");
+	RDXEvents:Dispatch("DISRUPT_WINDOWS");
 end
 
 function RDXM_Debug.TogglePartyIncludeMe()
