@@ -85,7 +85,6 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 			
 			local currentlayout = nil;
 			-- search for old layout dropped
-			VFL.tprint(lst);
 			for i, v in ipairs(tmpdata) do
 				VFL.print(v);
 				if not VFL.vfind(lst, v) then
