@@ -167,26 +167,24 @@ end
 
 -- Rebuild the core spell database
 local function BuildCoreSpellDB()
-	local i=1;
-	while true do
-		local name,q = GetSpellBookItemName(i, BOOKTYPE_SPELL);
-		if not name then break; end
-		local level = GetSpellAvailableLevel(i, BOOKTYPE_SPELL);
-		if (level and level <= UnitLevel("player")) then 
-			if SpellFilter(i,name,q) then
-				if not q or q == "" then
-					spFN[name] = i;
+	for i = 1, GetNumSpellTabs() do
+		local name, texture, offset, numSpells, isGuild = GetSpellTabInfo(i);
+		for s = offset + 1, offset + numSpells do
+			local spellName, subSpellName = GetSpellBookItemName(s, BOOKTYPE_SPELL);
+			if SpellFilter(s,spellName,subSpellName) then
+				if not subSpellName or subSpellName == "" then
+					spFN[spellName] = s;
 				else
-					spFN[name.."("..q..")"] = i;
+					spFN[spellName.."("..subSpellName..")"] = s;
 				end
 			end
-			if not q or q == "" then
-				FullspFN[name] = i;
+			
+			if not subSpellName or subSpellName == "" then
+				FullspFN[spellName] = s;
 			else
-				FullspFN[name.."("..q..")"] = i;
+				FullspFN[spellName.."("..subSpellName..")"] = s;
 			end
 		end
-		i=i+1;
 	end
 	IFullspFN = VFL.invert(FullspFN);
 end
@@ -414,13 +412,13 @@ local function UpdateSpells()
 	RDXEvents:Dispatch("SPELLS_RESET");
 	BuildCoreSpellDB();
 	RDXEvents:Dispatch("SPELLS_BUILD_CATEGORIES");
-	--RDXEvents:Dispatch("SPELLS_BUILD_CLASSES");
+	RDXEvents:Dispatch("SPELLS_BUILD_CLASSES");
 	RDXEvents:Dispatch("SPELLS_UPDATED");
 end
 VFLP.RegisterFunc("RDXSS: Spell System", "UpdateSpells", UpdateSpells, true);
 
---WoWEvents:Bind("LEARNED_SPELL_IN_TAB", nil, UpdateSpells);
---RDXEvents:Bind("INIT_SPELL", nil, UpdateSpells);
+WoWEvents:Bind("LEARNED_SPELL_IN_TAB", nil, UpdateSpells);
+RDXEvents:Bind("INIT_SPELL", nil, UpdateSpells);
 
 -- Master updater for the spell companion.
 local function UpdateSpellsCompanion()
@@ -432,6 +430,7 @@ local function UpdateSpellsCompanion()
 	RDXEvents:Dispatch("SPELLS_COMPANION_UPDATED");
 end
 
+-- TODOMOP
 --WoWEvents:Bind("COMPANION_LEARNED", nil, UpdateSpellsCompanion);
 --WoWEvents:Bind("COMPANION_UPDATE", nil, UpdateSpellsCompanion);
 --RDXEvents:Bind("INIT_SPELL", nil, UpdateSpellsCompanion);
