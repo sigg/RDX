@@ -354,6 +354,7 @@ RDX.RegisterFeature({
 		if not state:Slot("Create") then return nil; end if not state:Slot("Destroy") then return nil; end
 		if not state:Slot("Show") then return nil; end if not state:Slot("Hide") then return nil; end
 		if state:Slot("MultiplexerArgs") then return nil; end
+		if state:Slot("IsSingleUnitFrame") then return nil; end
 		return true;
 	end;
 	ExposeFeature = function(desc, state, errs)
