@@ -717,21 +717,8 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	if not default["Party_with_me_fset"] then
-		default["Party_with_me_fset"] = {
-			["ty"] = "FilterSet",
-			["version"] = 1,
-			["data"] = {
-				"and", -- [1]
-				{
-					"mygroup", -- [1]
-				}, -- [2]
-			},
-		};
-	end
-	
-	if not default["Party_without_me_fset"] then
-		default["Party_without_me_fset"] = {
+	if not default["Party_fset"] then
+		default["Party_fset"] = {
 			["ty"] = "FilterSet",
 			["version"] = 1,
 			["data"] = {

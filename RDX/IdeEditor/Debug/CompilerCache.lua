@@ -60,17 +60,55 @@ end
 local function EnablePartyIncludeMe()
 	RDXG.pdebug = true;
 	local mbo = RDXDB.TouchObject("default:Party_fset");
-	mbo.ty = "SymLink"; mbo.version = 3; mbo.data = {class = "simple", targetpath = "default:Party_with_me_fset"};
-	--RDXDB.NotifyUpdate("default:Party_fset");
-	RDXEvents:Dispatch("DISRUPT_WINDOWS");
+	if mbo.ty == "SymLink" then
+		mbo.ty = "FilterSet";
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"mygroup", -- [1]
+			}, -- [2]
+			{
+				"not", -- [1]
+				{
+					"me", -- [1]
+				}, -- [2]
+			}, -- [3]
+		};
+	end
+	VFL.empty(mbo.data);
+	table.insert(mbo.data, "and");
+	table.insert(mbo.data, {"mygroup"});
+	local inst = RDXDB.GetObjectInstance("default:Party_fset", true);
+	if inst then inst:SetFilter(mbo.data); end
 end
 
 local function DisablePartyIncludeMe()
 	RDXG.pdebug = nil;
 	local mbo = RDXDB.TouchObject("default:Party_fset");
-	mbo.ty = "SymLink"; mbo.version = 3; mbo.data = {class = "simple", targetpath = "default:Party_without_me_fset"};
-	--RDXDB.NotifyUpdate("default:Party_fset");
-	RDXEvents:Dispatch("DISRUPT_WINDOWS");
+	if mbo.ty == "SymLink" then
+		mbo.ty = "FilterSet";
+		mbo.version = 1;
+		mbo.data = {
+			"and", -- [1]
+			{
+				"mygroup", -- [1]
+			}, -- [2]
+			{
+				"not", -- [1]
+				{
+					"me", -- [1]
+				}, -- [2]
+			}, -- [3]
+		};
+	end
+	VFL.empty(mbo.data);
+	table.insert(mbo.data, "and");
+	table.insert(mbo.data, {"mygroup"});
+	table.insert(mbo.data, {"not", {"me"}});
+	local inst = RDXDB.GetObjectInstance("default:Party_fset", true);
+	if inst then inst:SetFilter(mbo.data); end
+	
 end
 
 function RDXM_Debug.TogglePartyIncludeMe()
