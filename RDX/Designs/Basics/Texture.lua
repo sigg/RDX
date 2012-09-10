@@ -896,6 +896,8 @@ btn = ]] .. objname .. [[;
 			
 			cleanupPolicy = 1;
 			texture = VFL.copy(VFLUI.defaultTexture);
+			ictype = "Faction";
+			intype = "Blue";
 		};
 	end;
 });
