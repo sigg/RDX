@@ -326,7 +326,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 						["g"] = 1,
 						["b"] = 1,
 					},
-					["owner"] = "decor",
+					["owner"] = "Frame_decor",
 					["w"] = "400",
 					["feature"] = "tabmanager",
 					["h"] = "200",
@@ -484,7 +484,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 						["g"] = 1,
 						["b"] = 1,
 					},
-					["owner"] = "decor",
+					["owner"] = "Frame_decor",
 					["w"] = "400",
 					["feature"] = "tabmanager",
 					["h"] = "200",
@@ -903,7 +903,8 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 						["size"] = 10,
 					},
 					["nIcons"] = 12,
-					["feature"] = "actionbar",
+					["feature"] = "listbuttons",
+					["ftype"] = 1,
 					["iconspx"] = 0,
 					["cd"] = {
 						["Font"] = {
