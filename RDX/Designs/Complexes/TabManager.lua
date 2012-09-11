@@ -4,6 +4,8 @@
 -- backdrop
 -- font
 
+RDX_DEFAULT_CHATFRAME = nil;
+
 RDX.RegisterFeature({
 	name = "tabmanager";
 	version = 1;
@@ -65,6 +67,13 @@ if (md) and (ty == "TabManager") and (md.data) then
 				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1)
 					tabbox:SetClient(f, true);
 					ChatEdit_SetLastActiveWindow(f.cf.editBox);
+					
+					if RDX_DEFAULT_CHATFRAME ~= f then
+						if RDX_DEFAULT_CHATFRAME then VFLUI.SetBackdropBorderColor(RDX_DEFAULT_CHATFRAME.ebbg, 0, 0, 0, 1); end
+						VFLUI.SetBackdropBorderColor(f.ebbg, 0, 1, 0, 1);
+						RDX_DEFAULT_CHATFRAME = f;
+						DEFAULT_CHAT_FRAME = f.cf;
+					end
 				end, function() end, function(mnu, dlg) return objdesc.GenerateBrowserMenu(mnu, v.op, nil, dlg) end);
 			end
 			tab.font:SetText(md2.data.title);

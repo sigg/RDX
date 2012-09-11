@@ -20,8 +20,10 @@ function VFL.print(str)
 	if type(str) == "number" then str = tostring(str);
 	elseif type(str) == "function" then str = "function";
 	elseif type(str) == "table" then str = "table";
-	end 
-	ChatFrame1:AddMessage(str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+	end
+	if DEFAULT_CHAT_FRAME then
+		DEFAULT_CHAT_FRAME:AddMessage(str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+	end
 	if VFLIO and VFLIO.Console then
 		VFLIO.Console:AddMessage(str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
 	end
