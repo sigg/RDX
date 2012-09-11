@@ -108,7 +108,6 @@ local function DisablePartyIncludeMe()
 	table.insert(mbo.data, {"not", {"me"}});
 	local inst = RDXDB.GetObjectInstance("default:Party_fset", true);
 	if inst then inst:SetFilter(mbo.data); end
-	
 end
 
 function RDXM_Debug.TogglePartyIncludeMe()
@@ -117,6 +116,7 @@ function RDXM_Debug.TogglePartyIncludeMe()
 	else
 		EnablePartyIncludeMe();
 	end
+	ReloadUI();
 end
 
 function RDXM_Debug.IsPartyIncludeMe()
