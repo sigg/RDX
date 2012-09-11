@@ -55,17 +55,16 @@ if (md) and (ty == "TabManager") and (md.data) then
 				f = VFLUI.SimpleText:new(nil, 5, 100);
 				f._path = nil;
 				f:SetText("Already acquired!");
-				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
-				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1) tabbox:SetClient(f); end, function() end);
+				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1) 
+					tabbox:SetClient(f);
+					VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
+				end, function() end);
 			else
 				f = RDXDB.GetObjectInstance(v.op);
 				local _, _, _, _, objdesc = RDXDB.GetObjectData(v.op);
 				f._path = v.op;
-				VFLUI.SetBackdrop(f.cfbg, ]] .. Serialize(desc.bkd) .. [[);
-				VFLUI.SetBackdrop(f.ebbg, ]] .. Serialize(desc.bkd) .. [[);
-				VFLUI.SetFont(f.cf, ]] .. Serialize(desc.font) .. [[);
 				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1)
-					tabbox:SetClient(f, true);
+					tabbox:SetClient(f);
 					ChatEdit_SetLastActiveWindow(f.cf.editBox);
 					
 					if RDX_DEFAULT_CHATFRAME ~= f then
@@ -74,6 +73,10 @@ if (md) and (ty == "TabManager") and (md.data) then
 						RDX_DEFAULT_CHATFRAME = f;
 						DEFAULT_CHAT_FRAME = f.cf;
 					end
+					
+					VFLUI.SetBackdrop(f.cfbg, ]] .. Serialize(desc.bkd) .. [[);
+					VFLUI.SetBackdrop(f.ebbg, ]] .. Serialize(desc.bkd) .. [[);
+					VFLUI.SetFont(f.cf, ]] .. Serialize(desc.font) .. [[);
 				end, function() end, function(mnu, dlg) return objdesc.GenerateBrowserMenu(mnu, v.op, nil, dlg) end);
 			end
 			tab.font:SetText(md2.data.title);
@@ -88,16 +91,20 @@ if (md) and (ty == "TabManager") and (md.data) then
 				f = VFLUI.SimpleText:new(nil, 5, 100);
 				f._path = nil;
 				f:SetText("Already acquired !");
-				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
-				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1) tabbox:SetClient(f); end, function() end);
+				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, function(self, arg1)
+					tabbox:SetClient(f);
+					VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
+				end, function() end);
 			else
 				f = RDXDB.GetObjectInstance(v.op);
 				local _, _, _, _, objdesc = RDXDB.GetObjectData(v.op);
 				f._path = v.op;
-				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
-				f.font = ]] .. Serialize(desc.font) .. [[;
 				tab = tabbox:GetTabBar():AddTab(md2.data.tabwidth, 
-					function(self, arg1) tabbox:SetClient(f, true); end, 
+					function(self, arg1)
+						tabbox:SetClient(f); 
+						VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
+						f.font = ]] .. Serialize(desc.font) .. [[;
+					end, 
 					function() end,
 					function(mnu, dlg) return objdesc.GenerateBrowserMenu(mnu, v.op, nil, dlg) end
 				);
@@ -121,16 +128,20 @@ if (md) and (ty == "TabManager") and (md.data) then
 				f = VFLUI.SimpleText:new(nil, 5, 100);
 				f._path = nil;
 				f:SetText("Already acquired !");
-				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
-				tab = tabbox:GetTabBar():AddTab(tabwidth, function(self, arg1) tabbox:SetClient(f); end, function() end);
+				tab = tabbox:GetTabBar():AddTab(tabwidth, function(self, arg1)
+					tabbox:SetClient(f);
+					VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
+				end, function() end);
 			else
 				f = RDXDB.GetObjectInstance(v.op);
 				local _, _, _, _, objdesc = RDXDB.GetObjectData(v.op);
 				f._path = v.op;
-				VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
-				--f.font = ]] .. Serialize(desc.font) .. [[;
 				tab = tabbox:GetTabBar():AddTab(tabwidth, 
-					function(self, arg1) tabbox:SetClient(f, true); end, 
+					function(self, arg1)
+						tabbox:SetClient(f);
+						VFLUI.SetBackdrop(f, ]] .. Serialize(desc.bkd) .. [[);
+						--f.font = ]] .. Serialize(desc.font) .. [[;
+					end, 
 					function() end,
 					function(mnu, dlg) return objdesc.GenerateBrowserMenu(mnu, v.op, nil, dlg) end
 				);
