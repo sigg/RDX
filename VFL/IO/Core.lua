@@ -144,8 +144,8 @@ end
 VFL_DEFAULT_CHATFRAME = nil;
 local cslaw = ChatEdit_SetLastActiveWindow;
 ChatEdit_SetLastActiveWindow = function(editBox)
-	if VFL_DEFAULT_CHATFRAME then VFL_DEFAULT_CHATFRAME.editBox.edittex:Hide(); end;
-	editBox.edittex:Show();
+	if VFL_DEFAULT_CHATFRAME and VFL_DEFAULT_CHATFRAME.editBox.edittex then VFL_DEFAULT_CHATFRAME.editBox.edittex:Hide(); end;
+	if editBox.edittex then editBox.edittex:Show(); end
 	VFL_DEFAULT_CHATFRAME = editBox.chatFrame;
 	cslaw(editBox);
 end
