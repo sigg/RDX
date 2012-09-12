@@ -43,7 +43,6 @@ ObjectMgr\Miscs\Feat_Script.lua
 ObjectMgr\Miscs\Feat_Debug.lua
 ObjectMgr\Install\Recovery.lua
 ObjectMgr\Install\OOBE.lua
-ObjectMgr\Install\OOBEMenu.lua
 
 # Communication Manager (RDXCM)
 CommMgr\Core.lua

@@ -59,7 +59,9 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 		--{ text = VFLI.i18n("Package Updater"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleRAU },
 		--{ text = VFLI.i18n("OOBE Manager"), notCheckable = true, keepShownOnClick = false, func = RDXDB.DropOOBE },
 		{ text = VFLI.i18n("Backup Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.BackupPackages },
-		{ text = VFLI.i18n("Restore Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.RestorePackages }
+		{ text = VFLI.i18n("Restore Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.RestorePackages },
+		{ text = VFLI.i18n("***********"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
+		{ text = VFLI.i18n("Launch Installer"), notCheckable = true, keepShownOnClick = false, func = function() RDX.StartInstaller(true); end},
 	};
 end);
 

@@ -149,17 +149,17 @@ local function ShowInstallerDialog(title, text, onOK, onCancel, onDecline)
 	--	end);
 	--end
 
-	--local btnDecline = nil;
-	--if onCancel and onDecline then
-	--	btnDecline = VFLUI.CancelButton:new(dlg);
-	--	btnDecline:SetHeight(25); btnDecline:SetWidth(60);
-	--	btnDecline:SetPoint("RIGHT", btnCancel, "LEFT");
-	--	btnDecline:SetText(VFLI.i18n("Decline")); btnDecline:Show();
-	--	btnDecline:SetScript("OnClick", function()
-	--		dlg:Destroy();
-	--		onDecline();
-	--	end);
-	--end
+	local btnDecline = nil;
+	if onCancel and onDecline then
+		btnDecline = VFLUI.CancelButton:new(dlg);
+		btnDecline:SetHeight(25); btnDecline:SetWidth(60);
+		btnDecline:SetPoint("RIGHT", btnOK, "LEFT");
+		btnDecline:SetText(VFLI.i18n("Decline")); btnDecline:Show();
+		btnDecline:SetScript("OnClick", function()
+			dlg:Destroy();
+			onDecline();
+		end);
+	end
 
 	dlg.Destroy = VFL.hook(function(s)
 		btnOK:Destroy(); btnOK = nil;
@@ -174,7 +174,7 @@ end
 ---------------------------------------------
 -- INSTALLER CORE
 ---------------------------------------------
-local installs = nil; -- installer storage
+local installs = {}; -- installer storage
 local rlui_flag = nil; -- Do we need to reload ui?
 local loadedOOBEs = nil; -- What version(s) of installer addons were loaded?
 local cur_oobe_version = nil; -- The version number of the currently loaded OOBE.
@@ -239,15 +239,15 @@ local function PreInstall()
 	for _,obj in pairs(installs) do
 		obj._preinst = nil;
 		local curVersion = RDX.GetOOBEObjectVersion(obj.name) or 0;
-		if (obj.version > curVersion) then
+		--if (obj.version > curVersion) then
 			RDX:Debug(3, "Preinstalling OOBE object ", obj.name, " oobeVersion ", obj.version, " currentVersion ", curVersion);
 			if obj.PreInstallCondition() then
 				obj._preinst = true;
 				obj.PreInstallScript();
 			end
-		else
-			RDX:Debug(3, "Skipping OOBE object ", obj.name, " oobeVersion ", obj.version, " currentVersion ", curVersion);
-		end
+		--else
+		--	RDX:Debug(3, "Skipping OOBE object ", obj.name, " oobeVersion ", obj.version, " currentVersion ", curVersion);
+		--end
 	end
 	for k,obj in pairs(installs) do
 		if not obj._preinst then installs[k] = nil; end
@@ -274,7 +274,8 @@ local function InstallFreeAll()
 	RDX.GetOOBEOptionState = nil;
 	RDX.OOBESetDefaultUserDesktop = nil;
 	ClearToggles();
-	if rlui_flag then ReloadUI(); end
+	--if rlui_flag then ReloadUI(); end
+	ReloadUI();
 end
 local function InstallDone()
 	-- Save that we've seen these installers on this character.
@@ -328,16 +329,16 @@ local function DeferredInstaller()
 
 	-- Step 5: Show the first install options screen and wait for user feedback before proceeding.
 	if(VFL.tsize(toggles) > 0) then
-		ShowInstallerDialog(VFLI.i18n("RDX Installer"), VFLI.i18n("RDX has detected packages to install. The following user options are available. Select Decline to decline all, or Cancel to close."), InstallPhase2, InstallFreeAll, InstallDone);
+		ShowInstallerDialog(VFLI.i18n("RDX Installer"), VFLI.i18n("The following packages are available. (Warning, packages already installed will reset)"), InstallPhase2, InstallFreeAll, InstallDone);
 	else
 		InstallPhase2();
 	end
 end
 
 -- Begin install
-local function StartInstaller()
+local function StartInstaller(force)
 	-- Step 1: expose registration API.
-	installs = {};
+	VFL.empty(installs);
 	RDX.RegisterOOBEObject = function(tbl)
 		if (type(tbl) ~= "table") or (type(tbl.name) ~= "string") or (installs[tbl.name]) then
 			error(VFLI.i18n("Invalid OOBE object registration."));
@@ -421,7 +422,7 @@ local function StartInstaller()
 		-- If we've encountered an OOBE addon...
 		if(instName and instVersion) then
 			-- If we haven't seen this installer, or only seen an older version...
-			if (not installers[instName]) or (installers[instName] < instVersion) then
+			if (not installers[instName]) or (installers[instName] < instVersion) or force then
 				cur_oobe_version = instVersion;
 				-- Load it up
 				local n, title = GetAddOnInfo(i);
@@ -429,7 +430,7 @@ local function StartInstaller()
 				if loaded then
 					if not loadedOOBEs then loadedOOBEs = {}; end
 					loadedOOBEs[instName] = instVersion
-					RDX.printI(VFLI.i18n("Loading installer addon: ") .. title);
+					RDX.printI(VFLI.i18n("Loading installer addon : ") .. title);
 				end
 			end
 		end
@@ -453,3 +454,4 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	StartInstaller();
 end);
 
+RDX.StartInstaller = StartInstaller;
