@@ -98,6 +98,13 @@ VFLUI.CreateFramePool("ChatFrame2",
 		
 		f.cf.editBox:SetScript("OnHide", nil);
 		
+		f.cf.editBox.edittex = f:CreateTexture();
+		f.cf.editBox.edittex:SetPoint("LEFT", f.ebbg, "LEFT");
+		f.cf.editBox.edittex:SetWidth(20);
+		f.cf.editBox.edittex:SetHeight(20);
+		f.cf.editBox.edittex:SetTexture("Interface\\Addons\\VFL\\Skin\\sb_right_pressed"); 
+		f.cf.editBox.edittex:Hide();
+		
 		return f;
 	end, 
 	function(_, f) -- on acquired
@@ -133,6 +140,26 @@ ChatEdit_UpdateHeader = function(editBox)
 		end
 	end
 end
+
+VFL_DEFAULT_CHATFRAME = nil;
+local cslaw = ChatEdit_SetLastActiveWindow;
+ChatEdit_SetLastActiveWindow = function(editBox)
+	if VFL_DEFAULT_CHATFRAME then VFL_DEFAULT_CHATFRAME.editBox.edittex:Hide(); end;
+	editBox.edittex:Show();
+	VFL_DEFAULT_CHATFRAME = editBox.chatFrame;
+	cslaw(editBox);
+end
+
+
+
+--if VFL_DEFAULT_CHATFRAME ~= f then
+--	if RDX_DEFAULT_CHATFRAME then VFLUI.SetBackdropBorderColor(RDX_DEFAULT_CHATFRAME.ebbg, 0, 0, 0, 1); end
+--	VFLUI.SetBackdropBorderColor(f.ebbg, 0, 1, 0, 1);
+--	RDX_DEFAULT_CHATFRAME = f;
+--	
+--end
+
+--DEFAULT_CHAT_FRAME = f.cf;
 
 VFLUI.CreateFramePool("ChatFrameEditBox", 
 	function(pool, x) -- on released
