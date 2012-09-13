@@ -894,13 +894,19 @@ function RDXDK.Desktop:new(parent)
 			-- open windows
 			for k,v in pairs(tbl) do
 				if v.action == "WINDOW_OPEN" then
-					windowOpen(v.name);
+					if not frameList[v.name] then
+						VFL.print("WINDOW_OPEN " .. v.name);
+						windowOpen(v.name);
+					end
 				end
 			end
 			
 			for k,v in pairs(tbl) do
 				if v.action == "WINDOW_CLOSE" then
-					windowClose(v.name);
+					if frameList[v.name] then
+						VFL.print("WINDOW_CLOSE " .. v.name);
+						windowClose(v.name);
+					end
 				end
 			end
 			
