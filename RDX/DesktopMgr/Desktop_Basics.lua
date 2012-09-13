@@ -86,6 +86,10 @@ RDX.RegisterFeature({
 		
 		if not desc.ctffont then desc.ctffont = VFL.copy(Fonts.Default10); end
 		
+		if not desc.blizzard then
+			desc.blizzard = {};
+		end
+		
 		state.Code:Clear();
 		state.Code:AppendCode([[
 local encid = "dk_rdx8";
@@ -98,6 +102,7 @@ DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", ']] .. desc.rdxmtxt  .. [[');
 DesktopEvents:Dispatch("DESKTOP_ALERTS", ]] .. Serialize(desc.topstack_props) .. [[, ]] .. Serialize(desc.bottomstack_props) .. [[);
 DesktopEvents:Dispatch("DESKTOP_COMBATTEXT", ]] .. Serialize(desc.ctffont) .. [[);
 DesktopEvents:Dispatch("DESKTOP_NAMEPLATE", ]] .. Serialize(desc.nameplates) .. [[);
+DesktopEvents:Dispatch("DESKTOP_BLIZZARD", ]] .. Serialize(desc.blizzard) .. [[);
 ]]);
 		return true;
 	end,

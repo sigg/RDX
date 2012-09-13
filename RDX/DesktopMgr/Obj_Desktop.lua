@@ -159,6 +159,15 @@ function RDXDK.Desktop:new(parent)
 		lockstate = nil;
 	end
 	
+	-- GAMETOOLTIP
+	local function UpdateGameTooltip(desc)
+		RDXDK.SetGameTooltip(desc);
+	end
+	
+	local function UpdateRealid(desc)
+		RDXDK.SetRealid(desc);
+	end
+	
 	local function LockGameTooltip()
 		RDXDK:Debug(6, "LockGameTooltip");
 		local desc = RDXDK.GetLockGameTooltip();
@@ -175,6 +184,13 @@ function RDXDK.Desktop:new(parent)
 		RDXDK:Debug(6, "UnlockGameTooltip");
 		RDXDK.SetUnlockGameTooltip();
 		RDXDK.SetUnlockRealid();
+	end
+	
+	-- ALERT
+	local function UpdateAlerts(topstack_props, bottomstack_props)
+		if topstack_props then
+			RDXBM.SetAlertsLocation(topstack_props, bottomstack_props);
+		end
 	end
 	
 	local function LockAlerts()
@@ -215,13 +231,6 @@ function RDXDK.Desktop:new(parent)
 	
 	-- call by desktop_basic
 	-- call by update
-	local function UpdateGameTooltip(desc)
-		RDXDK.SetGameTooltip(desc);
-	end
-	
-	local function UpdateRealid(desc)
-		RDXDK.SetRealid(desc);
-	end
 	
 	local function UpdateRDXIconPosition(anchorx, anchory, save)
 		if save then
@@ -244,16 +253,13 @@ function RDXDK.Desktop:new(parent)
 		end
 	end
 	
-	local function UpdateAlerts(topstack_props, bottomstack_props)
-		if topstack_props then
-			RDXBM.SetAlertsLocation(topstack_props, bottomstack_props);
-		end
-	end
 	
+	-- TEXT
 	local function UpdateCombatText(font)
 		RDXDK.SetCombatTextFont(font or Fonts.Default10);
 	end
 	
+	-- NAMEPLATE
 	local function UpdateNameplate(desc, flag)
 		RDXDK.SetNameplate(desc);
 		if flag and framepropsroot then
@@ -262,6 +268,26 @@ function RDXDK.Desktop:new(parent)
 		end
 	end
 	
+	--
+	local function UpdateBlizzard(desc)
+		RDXDK.SetBlizzard(desc);
+	end
+	
+	local function LockBlizzard()
+		RDXDK:Debug(6, "LockBlizzard");
+		local desc = RDXDK.GetLockBlizzard();
+		if framepropsroot then
+			if not framepropsroot.blizzard then framepropsroot.blizzard = {}; end
+			framepropsroot.blizzard = desc;
+		end
+	end
+	
+	local function UnlockBlizzard()
+		RDXDK:Debug(6, "UnlockBlizzard");
+		RDXDK.SetUnlockBlizzard();
+	end
+	
+	--
 	DesktopEvents:Bind("DESKTOP_LOCK", nil, LockDesktop, "desktop");
 	DesktopEvents:Bind("DESKTOP_UNLOCK", nil, UnlockDesktop, "desktop");
 	DesktopEvents:Bind("DESKTOP_VIEWPORT", nil, UpdateViewport, "desktop");
@@ -276,6 +302,9 @@ function RDXDK.Desktop:new(parent)
 	DesktopEvents:Bind("DESKTOP_ALERTS_UNLOCK", nil, UnlockAlerts, "desktop");
 	DesktopEvents:Bind("DESKTOP_COMBATTEXT", nil, UpdateCombatText, "desktop");
 	DesktopEvents:Bind("DESKTOP_NAMEPLATE", nil, UpdateNameplate, "desktop");
+	DesktopEvents:Bind("DESKTOP_BLIZZARD", nil, UpdateBlizzard, "desktop");
+	DesktopEvents:Bind("DESKTOP_BLIZZARD_LOCK", nil, LockBlizzard, "desktop");
+	DesktopEvents:Bind("DESKTOP_BLIZZARD_UNLOCK", nil, UnlockBlizzard, "desktop");
 	
 	local function LayoutFrame(name, noanim)
 		local frame, frameprops = frameList[name], framePropsList[name];
