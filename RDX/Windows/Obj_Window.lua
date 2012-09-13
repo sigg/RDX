@@ -301,16 +301,16 @@ RDXDB.RegisterObjectType({
 				end
 			});
 		end
-		--table.insert(mnu, {
-		--	text = VFLI.i18n("Transform Tab Window"),
-		--	OnClick = function() 
-		--		VFL.poptree:Release();
-		--		local pkg, file = RDXDB.ParsePath(path);
-		--		md.ty = "TabWindow";
-		--		md.version = 2;
-		--		RDXDBEvents:Dispatch("OBJECT_MOVED", pkg, file, pkg, file, md);
-		--	end
-		--});
+		table.insert(mnu, {
+			text = VFLI.i18n("Transform Tab Window"),
+			OnClick = function() 
+				VFL.poptree:Release();
+				local pkg, file = RDXDB.ParsePath(path);
+				md.ty = "TabWindow";
+				md.version = 2;
+				RDXDBEvents:Dispatch("OBJECT_MOVED", pkg, file, pkg, file, md);
+			end
+		});
 		
 	end,
 });

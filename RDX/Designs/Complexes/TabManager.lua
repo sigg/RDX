@@ -8,6 +8,7 @@ RDX.RegisterFeature({
 	name = "tabmanager";
 	version = 1;
 	title = VFLI.i18n("RDX Tab Manager");
+	multiple = true;
 	category = VFLI.i18n("Complexes");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -179,7 +180,7 @@ frame.]] .. objname .. [[ = tabbox;
 		------------------ On frame destruction.
 		local destroyCode = [[
 local btn = frame.]] .. objname .. [[;
-for k,v in pairs(tabbox.cfs) do
+for k,v in pairs(btn.cfs) do
 	v.tab = nil;
 	if v._path then
 		v.font = nil;
@@ -290,7 +291,7 @@ frame.]] .. objname .. [[ = nil;
 			name = "cf1", owner = "Frame_decor";
 			w = 400; h = 200;
 			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
-			cfm = "default:ChatFrames_tm";
+			cfm = "default:TabManager1_tm";
 			ts = "None";
 			color = {r=1,g=1,b=1,a=1};
 			font = VFL.copy(Fonts.Default);

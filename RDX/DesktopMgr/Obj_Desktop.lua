@@ -1155,14 +1155,14 @@ RDXDB.RegisterObjectType({
 				RDXDB.OpenObject(path, "Edit", dlg);
 			end
 		});
-		if RDXDK.GetCurrentDesktopPath() ~= path then 
-			table.insert(mnu, {
-				text = VFLI.i18n("Open"),
-				OnClick = function()
-					VFL.poptree:Release();
-					RDXDK.SecuredChangeDesktop(path);
-				end
-			});
+		--if RDXDK.GetCurrentDesktopPath() ~= path then 
+		--	table.insert(mnu, {
+		--		text = VFLI.i18n("Open"),
+		--		OnClick = function()
+		--			VFL.poptree:Release();
+		--			RDXDK.SecuredChangeDesktop(path);
+		--		end
+		--	});
 		--else
 		--	table.insert(mnu, {
 		--		text = VFLI.i18n("Rebuild Desktop"),
@@ -1171,6 +1171,18 @@ RDXDB.RegisterObjectType({
 		--			RDXDK.SecuredChangeDesktop(path);
 		--		end
 		--	});
+		--end
+		if IsShiftKeyDown() then
+			local pkg, file = RDXDB.ParsePath(path);
+			table.insert(mnu, {
+				text = VFLI.i18n("Copy from default"),
+				OnClick = function()
+					VFL.poptree:Release();
+					RDXDB.Copy("desktops:" .. pkg .. "_default", path, "FORCE")
+					
+					
+				end
+			});
 		end
 	end,
 });
