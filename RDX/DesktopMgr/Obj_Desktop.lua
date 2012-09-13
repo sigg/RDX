@@ -1151,6 +1151,10 @@ RDXDB.RegisterObjectType({
 		-- Attempt to setup the desktop; if it fails, just bail out.
 		if not SetupDesktop(path, dk, obj.data) then dk:Destroy(); return nil; end
 		dk:LayoutDesktop();
+		VFLT.NextFrame(math.random(10000000), function()
+			local state = RDXDAL.GetCurrentState();
+			DesktopEvents:Dispatch("DESKTOP_STATE", state);
+		end);
 		return dk;
 	end,
 	Deinstantiate = function(instance, path, obj, nosave)
