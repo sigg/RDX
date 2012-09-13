@@ -277,7 +277,6 @@ Designs\Complexes\Minimap.lua
 Designs\Complexes\MenuBar.lua
 Designs\Complexes\BagsBar.lua
 Designs\Complexes\PlayerPowerBarAlt.lua
-Designs\Complexes\ExtraActionBar.lua
 Designs\Complexes\Portraits3D.lua
 Designs\Complexes\LDBButton.lua
 Designs\Complexes\MinimapButtons.lua
