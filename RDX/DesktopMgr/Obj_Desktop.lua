@@ -867,28 +867,28 @@ function RDXDK.Desktop:new(parent)
 				framepropsroot.states = {}
 				framepropsroot.states["SOLO"] = {};
 				framepropsroot.states["SOLO"].OnSelect = {};
-				framepropsroot.states["SOLO"].OnUnselect = {};
+				--framepropsroot.states["SOLO"].OnUnselect = {};
 				framepropsroot.states["PARTY"] = {};
 				framepropsroot.states["PARTY"].OnSelect = {};
-				framepropsroot.states["PARTY"].OnUnselect = {};
+				--framepropsroot.states["PARTY"].OnUnselect = {};
 				framepropsroot.states["RAID"] = {};
 				framepropsroot.states["RAID"].OnSelect = {};
-				framepropsroot.states["RAID"].OnUnselect = {};
+				--framepropsroot.states["RAID"].OnUnselect = {};
 				framepropsroot.states["BATTLEGROUND"] = {};
 				framepropsroot.states["BATTLEGROUND"].OnSelect = {};
-				framepropsroot.states["BATTLEGROUND"].OnUnselect = {};
+				--framepropsroot.states["BATTLEGROUND"].OnUnselect = {};
 				framepropsroot.states["ARENA"] = {};
 				framepropsroot.states["ARENA"].OnSelect = {};
-				framepropsroot.states["ARENA"].OnUnselect = {};
+				--framepropsroot.states["ARENA"].OnUnselect = {};
 			end
 		
-			local tbl = framepropsroot.states[RDXU.currentstate].OnUnselect;
+			--local tbl = framepropsroot.states[RDXU.currentstate].OnUnselect;
 			-- close windows
-			for k,v in pairs(tbl) do
-				if v.action == "WINDOW_CLOSE" then
-					windowClose(v.name);
-				end
-			end
+			--for k,v in pairs(tbl) do
+			--	if v.action == "WINDOW_CLOSE" then
+			--		windowClose(v.name);
+			--	end
+			--end
 			
 			local tbl = framepropsroot.states[value].OnSelect;
 			-- open windows
@@ -897,9 +897,17 @@ function RDXDK.Desktop:new(parent)
 					windowOpen(v.name);
 				end
 			end
+			
+			for k,v in pairs(tbl) do
+				if v.action == "WINDOW_CLOSE" then
+					windowClose(v.name);
+				end
+			end
+			
 			-- dock windows
 			for k,v in pairs(tbl) do
 				if v.action == "WINDOW_DOCK" then
+					--TODO
 					--DesktopEvents:Dispatch(k, v.srcname, v.srcpt, v.tgtname, v.tgtpt);
 				end
 			end
