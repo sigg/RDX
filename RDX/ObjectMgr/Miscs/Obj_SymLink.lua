@@ -296,6 +296,12 @@ RDXDB.RegisterSymLinkClass({
 		if desc and desc.targetpath_10 then ff10:SetPath(desc.targetpath_10); end
 		ff10:Show();
 		ui:InsertFrame(ff10);
+		
+		local ff11 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff11:SetLabel(VFLI.i18n("MONK"));
+		if desc and desc.targetpath_11 then ff11:SetPath(desc.targetpath_11); end
+		ff11:Show();
+		ui:InsertFrame(ff11);
 
 		ui.GetDescriptor = function(x)
 			return {
@@ -310,6 +316,7 @@ RDXDB.RegisterSymLinkClass({
 				targetpath_8 = ff8:GetPath(),
 				targetpath_9 = ff9:GetPath(),
 				targetpath_10 = ff10:GetPath(),
+				targetpath_11 = ff11:GetPath(),
 			};
 		end;
 
@@ -453,6 +460,18 @@ RDXDB.RegisterSymLinkClass({
 		if desc and desc.targetpath_10_2 then ff10_2:SetPath(desc.targetpath_10_2); end
 		ff10_2:Show();
 		ui:InsertFrame(ff10_2);
+		
+		local ff11_1 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff11_1:SetLabel(VFLI.i18n("MONK TALENT 1"));
+		if desc and desc.targetpath_11_1 then ff11_1:SetPath(desc.targetpath_11_1); end
+		ff11_1:Show();
+		ui:InsertFrame(ff11_1);
+		
+		local ff11_2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff11_2:SetLabel(VFLI.i18n("MONK TALENT 2"));
+		if desc and desc.targetpath_11_2 then ff11_2:SetPath(desc.targetpath_11_2); end
+		ff11_2:Show();
+		ui:InsertFrame(ff11_2);
 
 		ui.GetDescriptor = function(x)
 			return {
@@ -467,6 +486,7 @@ RDXDB.RegisterSymLinkClass({
 				targetpath_8_1 = ff8_1:GetPath(),
 				targetpath_9_1 = ff9_1:GetPath(),
 				targetpath_10_1 = ff10_1:GetPath(),
+				targetpath_11_1 = ff11_1:GetPath(),
 				targetpath_1_2 = ff1_2:GetPath(),
 				targetpath_2_2 = ff2_2:GetPath(),
 				targetpath_3_2 = ff3_2:GetPath(),
@@ -477,6 +497,7 @@ RDXDB.RegisterSymLinkClass({
 				targetpath_8_2 = ff8_2:GetPath(),
 				targetpath_9_2 = ff9_2:GetPath(),
 				targetpath_10_2 = ff10_2:GetPath(),
+				targetpath_11_2 = ff11_2:GetPath(),
 			};
 		end;
 
@@ -605,7 +626,7 @@ RDXDB.RegisterSymLinkClass({
 });
 
 -- symlink for windows class (holy combo, shard, rune or other)
-
+-- deprecated
 RDXDB.RegisterSymLinkClass({
 	name = "class&form";
 	title = "class&form";
@@ -626,6 +647,8 @@ RDXDB.RegisterSymLinkClass({
 			return data["DRUIDCAT"];
 		elseif class == "PALADIN" then
 			return data["PALADIN"];
+		elseif class == "MONK" then
+			return data["MONK"];
 		else
 			return data["all"];
 		end
@@ -684,10 +707,16 @@ RDXDB.RegisterSymLinkClass({
 		ui:InsertFrame(ff7);
 		
 		local ff8 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
-		ff8:SetLabel(VFLI.i18n("ALL"));
-		if desc and desc.all then ff8:SetPath(desc.all); end
+		ff8:SetLabel(VFLI.i18n("MONK"));
+		if desc and desc.MONK then ff8:SetPath(desc.MONK); end
 		ff8:Show();
 		ui:InsertFrame(ff8);
+		
+		local ff9 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		ff9:SetLabel(VFLI.i18n("ALL"));
+		if desc and desc.all then ff9:SetPath(desc.all); end
+		ff9:Show();
+		ui:InsertFrame(ff9);
 
 		ui.GetDescriptor = function(x)
 			return {
@@ -699,7 +728,8 @@ RDXDB.RegisterSymLinkClass({
 				DRUIDELEM = ff5:GetPath(),
 				DRUIDCAT = ff6:GetPath(),
 				PALADIN = ff7:GetPath(),
-				all = ff8:GetPath(),
+				MONK = ff8:GetPath(),
+				all = ff9:GetPath(),
 			};
 		end;
 
