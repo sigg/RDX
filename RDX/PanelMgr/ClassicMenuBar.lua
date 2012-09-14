@@ -49,21 +49,19 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.menuList = RDXPM.subMenus;
 end);
 
-RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Packages");
-	ent.hasArrow = true;
-	ent.notCheckable = true;
-	ent.keepShownOnClick = false;
-	ent.menuList = {
-		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleObjectBrowser },
+--RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+--	ent.text = VFLI.i18n("Packages");
+--	ent.hasArrow = true;
+--	ent.notCheckable = true;
+--	ent.keepShownOnClick = false;
+--	ent.menuList = {
+--		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleObjectBrowser },
 		--{ text = VFLI.i18n("Package Updater"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleRAU },
 		--{ text = VFLI.i18n("OOBE Manager"), notCheckable = true, keepShownOnClick = false, func = RDXDB.DropOOBE },
-		{ text = VFLI.i18n("Backup Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.BackupPackages },
-		{ text = VFLI.i18n("Restore Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.RestorePackages },
-		{ text = VFLI.i18n("***********"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
-		{ text = VFLI.i18n("Launch Installer"), notCheckable = true, keepShownOnClick = false, func = function() RDX.StartInstaller(true); end},
-	};
-end);
+		
+		
+--	};
+--end);
 
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
@@ -81,6 +79,8 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 		{ text = VFLI.i18n("Mini Panel Default"), checked = function() if RDX.GetRDXIconType() == "default" then return true; else return nil; end end, func = function() RDX.ToggleRDXIcon("default"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "default", true); end},
 		{ text = VFLI.i18n("Mini Panel Powered"), checked = function() if RDX.GetRDXIconType() == "poweredbyrdx" then return true; else return nil; end end, func = function() RDX.ToggleRDXIcon("poweredbyrdx"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "poweredbyrdx", true); end},
 		{ text = VFLI.i18n("Activate Clean Icons (Addon Required)"), checked = RDX.UseCleanIcons, func = RDX.ToggleCleanIcons },
+		{ text = VFLI.i18n("***********"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
+		{ text = VFLI.i18n("Launch Installer"), notCheckable = true, keepShownOnClick = false, func = function() RDX.StartInstaller(true); end},
 	};
 end);
 
@@ -109,7 +109,22 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 		--{ text = VFLI.i18n("Party with me"), checked = RDXM_Debug.IsPartyIncludeMe, keepShownOnClick = false, func = RDXM_Debug.TogglePartyIncludeMe },
 		{ text = VFLI.i18n("Wipe CooldownDB"), notCheckable = true, keepShownOnClick = false, func = RDXCD.WipeCooldownDB },
 		{ text = VFLI.i18n("Print CooldownDB"), notCheckable = true, keepShownOnClick = false, func = RDXCD.DebugCooldownDB },
+		{ text = VFLI.i18n("Backup Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.BackupPackages },
+		{ text = VFLI.i18n("Restore Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.RestorePackages },
 	};
+end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = "**************";
+	ent.isTitle = true;
+	ent.notCheckable = true;
+	ent.func = VFL.Noop;
+	end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Package Explorer");
+	ent.notCheckable = true;
+	ent.func = RDXDB.ToggleObjectBrowser;
 end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
