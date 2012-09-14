@@ -161,7 +161,7 @@ DesktopMgr\States.lua
 DesktopMgr\GameTooltip.lua
 DesktopMgr\CombatText.lua
 DesktopMgr\Nameplates.lua
-DesktopMgr\Blizzard.lua
+DesktopMgr\Blizzelem.lua
 
 # Desktop Tools
 DesktopMgr\Tools\Tools.lua
