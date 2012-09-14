@@ -127,16 +127,18 @@ local function AUIList()
 		end
 		}
 	);
-	local pkg, file = RDXDB.ParsePath(RDXU.AUI);
-	table.insert(subMenus, { 
-		text = VFLI.i18n("Manage layouts " .. file),
-		notCheckable = true, 
-		func = function()
-			local md = RDXDB.GetObjectData(RDXU.AUI);
-			if md then RDXDK.ToggleAUIEditor(RDXU.AUI, md); end
-		end
-		}
-	);
+	if RDXU.AUI then
+		local pkg, file = RDXDB.ParsePath(RDXU.AUI);
+		table.insert(subMenus, { 
+			text = VFLI.i18n("Manage layouts " .. file),
+			notCheckable = true, 
+			func = function()
+				local md = RDXDB.GetObjectData(RDXU.AUI);
+				if md then RDXDK.ToggleAUIEditor(RDXU.AUI, md); end
+			end
+			}
+		);
+	end
 
 	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
 		ent.text = VFLI.i18n("Themes");
