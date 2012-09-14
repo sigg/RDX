@@ -186,7 +186,7 @@ local function SetupWindow(path, win, desc)
 			end;
 		});
 	end);
-	if RDXG.cdebug then
+	if RDXM_Debug.IsStoreCompilerActive() then
 		state:Attach("Menu", true, function(win, mnu)
 			local x = tostring(RDXM_Debug.GetStoreCompiledObject(upath) or "");
 			table.insert(mnu, {

@@ -1022,7 +1022,7 @@ local function SetupDesktop(path, dk, desc)
 	
 	local code = dkState.Code:GetCode();
 	
-	if RDXG.cdebug and RDXM_Debug.StoreCompiledObject then
+	if RDXM_Debug.IsStoreCompilerActive() then
 		RDXM_Debug.StoreCompiledObject(path, code);
 	end
 

@@ -139,7 +139,7 @@ return _create;
 	code = code:GetCode();
 
 	-- If the debug module is enabled, store the compiled code for possible later analysis
-	if path and RDXG.cdebug and RDXM_Debug.StoreCompiledObject then
+	if path and RDXM_Debug.IsStoreCompilerActive() then
 		RDXM_Debug.StoreCompiledObject(path, code);
 	end
 
@@ -239,7 +239,7 @@ RDX.RegisterFeature({
 		--		});
 		--end);
 		
-		--if RDXG.cdebug then
+		--if RDXM_Debug.IsStoreCompilerActive() then
 		--	state:Attach("Menu", true, function(win, mnu)
 		--		local x = tostring(RDXM_Debug.GetStoreCompiledObject(path) or "");
 		--		table.insert(mnu, {

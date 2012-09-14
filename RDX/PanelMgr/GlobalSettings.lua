@@ -36,6 +36,16 @@ function RDXPM.RDXManage(parent)
 	if opt and opt.dgt then chk_dgt:SetChecked(true); else chk_dgt:SetChecked(); end
 	ui:InsertFrame(chk_dgt);
 	
+	local chk_scc = VFLUI.Checkbox:new(ui); chk_scc:Show();
+	chk_scc:SetText(VFLI.i18n("Store Compiled Code"));
+	if opt and opt.scc then chk_scc:SetChecked(true); else chk_scc:SetChecked(); end
+	ui:InsertFrame(chk_scc);
+	
+	local chk_pwm = VFLUI.Checkbox:new(ui); chk_pwm:Show();
+	chk_pwm:SetText(VFLI.i18n("Party with me"));
+	if opt and opt.pwm then chk_pwm:SetChecked(true); else chk_pwm:SetChecked(); end
+	ui:InsertFrame(chk_pwm);
+	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 	
 	dlg:Show();
@@ -58,6 +68,8 @@ function RDXPM.RDXManage(parent)
 		opt.upp = chk_upp:GetChecked();
 		opt.dnp = chk_dnp:GetChecked();
 		opt.dgt = chk_dgt:GetChecked();
+		opt.scc = chk_scc:GetChecked();
+		opt.pwm = chk_pwm:GetChecked();
 		if opt.upp then
 			SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"));
 		end

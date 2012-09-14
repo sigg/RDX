@@ -32,17 +32,17 @@ RDXDB.RegisterObjectMenuHandler(function(mnu, opath, dialog)
 	end
 end);
 
-local function EnableStoreCompiler()
-	RDXG.cdebug = true;
-	VFLReloadUI();
-end
+--local function EnableStoreCompiler()
+--	RDXG.cdebug = true;
+--	VFLReloadUI();
+--end
 
-local function DisableStoreCompiler()
-	RDXG.cdebug = nil;
-end
+--local function DisableStoreCompiler()
+--	RDXG.cdebug = nil;
+--end
 
 function RDXM_Debug.ToggleStoreCompiler()
-	if RDXG.cdebug then
+	if RDXG.RDXopt and RDXG.RDXopt.scc then
 		DisableStoreCompiler();
 		RDX.printI(VFLI.i18n("Disable Store Compiler"));
 	else
@@ -52,13 +52,15 @@ function RDXM_Debug.ToggleStoreCompiler()
 end
 
 function RDXM_Debug.IsStoreCompilerActive()
-	return RDXG.cdebug;
+	if RDXG.RDXopt then
+		return RDXG.RDXopt.scc;
+	end
 end
 
 -- party with me
 
 local function EnablePartyIncludeMe()
-	RDXG.pdebug = true;
+	--RDXG.pdebug = true;
 	local mbo = RDXDB.TouchObject("default:Party_fset");
 	if mbo.ty == "SymLink" then
 		mbo.ty = "FilterSet";
@@ -84,7 +86,7 @@ local function EnablePartyIncludeMe()
 end
 
 local function DisablePartyIncludeMe()
-	RDXG.pdebug = nil;
+	--RDXG.pdebug = nil;
 	local mbo = RDXDB.TouchObject("default:Party_fset");
 	if mbo.ty == "SymLink" then
 		mbo.ty = "FilterSet";
@@ -110,17 +112,19 @@ local function DisablePartyIncludeMe()
 	if inst then inst:SetFilter(mbo.data); end
 end
 
-function RDXM_Debug.TogglePartyIncludeMe()
-	if RDXG.pdebug then
-		DisablePartyIncludeMe();
-	else
-		EnablePartyIncludeMe();
-	end
-	ReloadUI();
-end
+--function RDXM_Debug.TogglePartyIncludeMe()
+--	if RDXG.pdebug then
+--		DisablePartyIncludeMe();
+--	else
+--		EnablePartyIncludeMe();
+--	end
+--	ReloadUI();
+--end
 
 function RDXM_Debug.IsPartyIncludeMe()
-	return RDXG.pdebug;
+	if RDXG.RDXopt then
+		return RDXG.RDXopt.pwm;
+	end
 end
 
 -----------------------------------
@@ -128,10 +132,10 @@ end
 -----------------------------------
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	if RDXG.cdebug then 
+	if RDXM_Debug.IsStoreCompilerActive() then 
 		RDX.printW("Store Compiler code Activated !!!");
 	end
-	if RDXG.pdebug then
+	if RDXM_Debug.IsPartyIncludeMe() then
 		EnablePartyIncludeMe();
 	else
 		DisablePartyIncludeMe();

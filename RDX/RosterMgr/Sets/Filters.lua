@@ -56,7 +56,7 @@ function RDXDAL.FilterFunctor(fd, path)
 	-- Prepend closures and locals
 	local cl, loc = RDXDAL.FilterBuildClosureStringFromMetadata(meta), RDXDAL.FilterBuildLocalsStringFromMetadata(meta);
 	--RDX:Debug(1, "RDXDAL.FilterFunctor(): generating filter: " .. cl .. "return function(unit) " .. loc .. " return " .. expr .. "; end;");
-	if path and RDXG.cdebug and RDXM_Debug.StoreCompiledObject then
+	if path and RDXM_Debug.IsStoreCompilerActive() then
 		RDXM_Debug.StoreCompiledObject(path, "RDXDAL.FilterFunctor(): generating filter: " .. cl .. " return function(unit) " .. loc .. " return (unit:IsCacheValid() and " .. expr .. "); end;");
 	end
 	-- We should now have an evaluable expression that will return our filter function...
