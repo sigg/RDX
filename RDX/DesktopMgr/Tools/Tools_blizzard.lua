@@ -26,7 +26,9 @@ local function SetFrameb(froot)
 	local desc = froot.blizzard;
 	if desc then
 		bbtemp = desc;
-		lewh.editBox:SetText(desc.quest.h or 400);
+		if desc and desc.quest then
+			lewh.editBox:SetText(desc.quest.h or 400);
+		end
 	end
 	DesktopEvents:Dispatch("DESKTOP_BLIZZARD_UNLOCK");
 end
