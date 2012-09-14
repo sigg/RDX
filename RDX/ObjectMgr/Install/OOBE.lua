@@ -21,14 +21,17 @@ end
 
 -- Get the version of an OOBE object.
 function RDX.GetOOBEObjectVersion(x)
-	local v = IsLocalObject(x);
-	if v then return v; else return IsGlobalObject(x); end
+	--local v = IsLocalObject(x);
+	--if v then return v; else 
+		return IsGlobalObject(x); 
+	--end
 end
 
 function RDX.CheckOOBEObjectVersion(x, vt, strict)
-	local v = IsLocalObject(x);
-	if not v then v = IsGlobalObject(x); end
-	if not v then return nil; else return true; end
+	--local v = IsLocalObject(x);
+	--if not v then v = IsGlobalObject(x); end
+	--if not v then return nil; else return true; end
+	return IsGlobalObject(x);
 --[[
 	if strict then
 		return (v == vt);
@@ -40,15 +43,15 @@ end
 
 -- Drop one OOBE
 function RDX.ClearInstaller(name)
-	if RDXU then RDXU.oobe[name] = nil; end
-	if RDXU then RDXU.installers[name] = nil; end
+	--if RDXU then RDXU.oobe[name] = nil; end
+	if RDXG then RDXG.installers[name] = nil; end
 	if RDXG then RDXG.oobe[name] = nil; end
 end
 
 -- Clear all installer data
 function RDX.ClearInstallerData()
-	if RDXU then RDXU.oobe = {}; RDXU.installers = {}; end
-	if RDXG then RDXG.oobe = {}; end
+	--if RDXU then RDXU.oobe = {}; end
+	if RDXG then RDXG.oobe = {}; RDXG.installers = {}; end
 end
 
 ---------------------------------------------
@@ -205,13 +208,13 @@ end
 local function UpdateVersion(data)
 	if type(data) ~= "table" then return; end
 	RDX.printI(VFLI.i18n("Installing object: |cFFFFFFFF") .. data.title .. VFLI.i18n("|r |cFF00FF00(version ") .. data.version .. ")|r");
-	if(data.context == "GLOBAL") then
+	--if(data.context == "GLOBAL") then
 		local g = RDXG.oobe; if not g then return; end
 		g[data.name] = data.version or 0;
-	else
-		local l = RDXU.oobe; if not l then return; end
-		l[data.name] = data.version or 0;
-	end
+	--else
+	--	local l = RDXU.oobe; if not l then return; end
+	--	l[data.name] = data.version or 0;
+	--end
 end
 
 -- Run library installers
@@ -280,7 +283,8 @@ end
 local function InstallDone()
 	-- Save that we've seen these installers on this character.
 	if loadedOOBEs then
-		for k,v in pairs(loadedOOBEs) do RDXU.installers[k] = v; end
+		for k,v in pairs(loadedOOBEs) do RDXG.installers[k] = v; end
+		--for k,v in pairs(loadedOOBEs) do RDXU.installers[k] = v; end
 	end
 	InstallFreeAll();
 end
@@ -415,7 +419,8 @@ local function StartInstaller(force)
 	end;
 
 	-- Step 2: Dynaload OOBE addons. Load only the installers the user hasn't seen on the current character.
-	local installers, instName = RDXU.installers, nil;
+	--local installers, instName = RDXU.installers, nil;
+	local installers, instName = RDXG.installers, nil;
 	for i=1,GetNumAddOns() do
 		instName = GetAddOnMetadata(i, "X-RDX-OOBEName");
 		instVersion = tonumber(GetAddOnMetadata(i, "X-RDX-OOBEVersion"));
@@ -449,8 +454,9 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	RDXG.bundles = nil; RDXG.OOBE_Installed = nil;
 	-- Create our new data files if they don't exist
 	if type(RDXG.oobe) ~= "table" then RDXG.oobe = {}; end
-	if type(RDXU.oobe) ~= "table" then RDXU.oobe = {}; end
-	if type(RDXU.installers) ~= "table" then RDXU.installers = {}; end
+	--if type(RDXU.oobe) ~= "table" then RDXU.oobe = {}; end
+	--if type(RDXU.installers) ~= "table" then RDXU.installers = {}; end
+	if type(RDXG.installers) ~= "table" then RDXG.installers = {}; end
 	StartInstaller();
 end);
 
