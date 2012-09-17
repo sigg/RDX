@@ -19,7 +19,7 @@ local function unitSel() return units; end
 RDX.RegisterFeature({
 	name = "ColorVariable: Threat Color";
 	title = VFLI.i18n("Color Threat");
-	category = VFLI.i18n("Variable Colors");
+	category = VFLI.i18n("Variables Colors");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("EmitPaintPreamble") then return nil; end

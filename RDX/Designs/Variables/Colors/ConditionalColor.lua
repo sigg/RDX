@@ -2,7 +2,7 @@
 RDX.RegisterFeature({
 	name = "ColorVariable: Conditional Color";
 	title = VFLI.i18n("Color Conditional");
-	category = VFLI.i18n("Variable Colors");
+	category = VFLI.i18n("Variables Colors");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end

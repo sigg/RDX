@@ -2,7 +2,7 @@
 RDX.RegisterFeature({
 	name = "var_isAggro";
 	title = VFLI.i18n("Var IsAggro?");
-	category = VFLI.i18n("Variables Check");
+	category = VFLI.i18n("Variables True/False");
 	test = true;
 	IsPossible = function(state)
 		if not state:Slot("EmitPaintPreamble") then return nil; end

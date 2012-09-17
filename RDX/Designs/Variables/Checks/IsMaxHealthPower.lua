@@ -3,7 +3,7 @@
 RDX.RegisterFeature({
 	name = "var_IsMaxHealthPower";
 	title = VFLI.i18n("Var IsMaxHealthPower?");
-	category = VFLI.i18n("Variables Check");
+	category = VFLI.i18n("Variables True/False");
 	test = true;
 	IsPossible = function(state)
 		if not state:Slot("EmitPaintPreamble") then return nil; end

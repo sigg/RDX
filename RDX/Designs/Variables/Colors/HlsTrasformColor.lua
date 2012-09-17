@@ -16,7 +16,7 @@ end
 RDX.RegisterFeature({
 	name = "color_hlsxform";
 	title = VFLI.i18n("Color HLS Transform"); 
-	category = VFLI.i18n("Variable Colors");
+	category = VFLI.i18n("Variables Colors");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:HasSlots("DesignFrame", "EmitClosure", "EmitPaintPreamble") then return nil; end
