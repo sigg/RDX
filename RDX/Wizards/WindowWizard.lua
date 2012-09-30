@@ -1,80 +1,212 @@
--- WindowWizard.lua
--- RDX - Raid Data Exchange
--- (C)2006 Bill Johnson
---
--- THIS FILE CONTAINS COPYRIGHTED MATERIAL SUBJECT TO THE TERMS OF A SEPARATE
--- LICENSE. UNLICENSED COPYING IS PROHIBITED.
---
--- Implementation of the Window Wizard.
+-- ThemeWizard.lua
+-- OpenRDX
+-- 
+
+local wtype = {
+	{ text = "ActionBar1" },
+	{ text = "ActionBar3" },
+	{ text = "ActionBar4" },
+	{ text = "ActionBar5" },
+	{ text = "ActionBar6" },
+	{ text = "ActionBarStance" },
+	{ text = "ActionBarPet" },
+	{ text = "ActionBarVehicle" },
+	
+	{ text = "Player_Main" },
+	{ text = "Player_CastBar" },
+	--{ text = "Player_PowerBarAlt" },
+	{ text = "Player_Alternate_Bar" },
+	{ text = "Player_Buff_Secured_Icon" },
+	{ text = "Player_Debuff_Icon" },
+	{ text = "Player_Cooline" },
+	{ text = "Player_Cooldowns_Used" },
+	--{ text = "ClassBar" },
+	
+	{ text = "Target_Main" },
+	{ text = "Target_CastBar" },
+	{ text = "Target_Alternate_Bar" },
+	{ text = "Target_Debuff" },
+	{ text = "Targettarget_Main" },
+	
+	{ text = "Pet_Main" },
+	{ text = "Pettarget_Main" },
+	
+	{ text = "Focus_Main" },
+	{ text = "Focus_CastBar" },
+	{ text = "Focustarget_Main" },
+
+	{ text = "MiniMap" },
+	{ text = "MiniMapButtons" },
+	{ text = "MainPanel" },
+	{ text = "MainMenu" },
+	{ text = "Bags" },
+	{ text = "TabManager" },
+	{ text = "FactionBar" },
+	{ text = "XpBar" },
+	
+	{ text = "Party_Main" },
+	{ text = "Partytarget_Main" },
+	--{ text = "Partypet_Main" },
+	
+	{ text = "Raid_Main" },
+	--{ text = "Raid_Main_Group1" },
+	--{ text = "Raid_Main_Group2" },
+	--{ text = "Raid_Main_Group3" },
+	--{ text = "Raid_Main_Group4" },
+	--{ text = "Raid_Main_Group5" },
+	--{ text = "Raid_Main_Group6" },
+	--{ text = "Raid_Main_Group7" },
+	--{ text = "Raid_Main_Group8" },
+	--{ text = "Raid_Main_GroupAll" },
+	{ text = "Raidpet_Main" },
+	
+	{ text = "Boss_Main" },
+	--{ text = "Bosstarget_Main" },
+	{ text = "Bosspet_Main" },
+	
+	{ text = "Arena_Main" },
+	--{ text = "Arenatarget_Main" },
+	{ text = "Arenapet_Main" },
+	
+	--{ text = "TabDamageMeter" },
+	--{ text = "TabHealMeter" },
+	--{ text = "TabThread" },
+	
+};
+local function GetWindowsType() return wtype; end
+
+-- page 1 type de fenêtre
+-- page 2 frame
+-- page 3 design (copy or new)
+-- page 4 new default (size)
+-- page 5 new display (nos skin, button skin or backdrop)
+-- page 6 new display (Cooldown)
+-- page 7 new display (Font)
+-- page 8 new layout (Orientation, row number, width spacing, height spacing)
+-- page 6 new display (STIB)
+-- 
+
 local ww = RDXUI.Wizard:new();
+
+local page_id = 0;
+local function GetNextPageId()
+	page_id = page_id + 1;
+	return page_id;
+end
 
 ---------------------------------------------
 -- WIZARD PAGES
 ---------------------------------------------
-ww:RegisterPage(1, {
+ww:RegisterPage(GetNextPageId(), "intro", {
 	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, "Package/Prefix");
+		local page = RDXUI.GenerateStdWizardPage(parent, "Wizard Tool");
+		
+		local plb = VFLUI.MakeLabel(nil, page, "Welcome to the Window Wizard. This tool will help you to build some windows for your theme.\n");
+		plb:SetWidth(250); plb:SetHeight(30);
+		plb:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+		
+		wizard:OnNext(function(wiz) wiz:SetPage(nil, "wtype"); end);
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		if not desc then errs:AddError("Invalid descriptor."); end
+		if (not desc.pkg) then errs:AddError("Invalid package name."); end
+		if (not desc.suffix) then errs:AddError("Invalid suffix."); end
+		return not errs:HasError();
+	end;
+});
+
+-------------------------------------------
+-- Page: Select type of window
+-------------------------------------------
+ww:RegisterPage(GetNextPageId(), "wtype", {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, "Window type/Suffix");
+		
+		local lbl = VFLUI.MakeLabel(nil, page, "Select the type of window you want to create:");
+		lbl:SetWidth(250); lbl:SetHeight(30);
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+		
+		local dd_wtype = VFLUI.Dropdown:new(page, GetWindowsType, nil, desc.wtype);
+		dd_wtype:SetWidth(225); 
+		dd_wtype:SetPoint("TOPRIGHT", lbl, "BOTTOMRIGHT");
+		dd_wtype:Show();
+		
+		--[[local page = RDXUI.GenerateStdWizardPage(parent, "Package/Prefix");
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "Select a package to create your new window in. You may select a preexisting package or enter a name for a new package.\n\nPackage names must contain only alphanumeric characters and underscores.");
 		lbl:SetWidth(250); lbl:SetHeight(60);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		local edPkg = RDXDB.PackageSelector:new(page);
 		edPkg:SetPoint("TOPRIGHT", lbl, "BOTTOMRIGHT"); edPkg:SetWidth(225); edPkg:Show();
-		if desc and desc.pkg then edPkg:SetPackage(desc.pkg); end
+		if desc and desc.pkg then edPkg:SetPackage(desc.pkg); end]]
 
-		local lbl = VFLUI.MakeLabel(nil, page, "Enter a prefix for this window. The prefix will be added to each of this window's objects. By using different prefixes, you can create multiple windows in a single package.");
+		local lbl = VFLUI.MakeLabel(nil, page, "Enter a suffix for this window. The suffix will be added to each of this window's objects. By using different suffix, you can create multiple windows in a single theme.");
 		lbl:SetWidth(250); lbl:SetHeight(40);
-		lbl:SetPoint("TOPRIGHT", edPkg, "BOTTOMRIGHT", 0, -10);
-		local edPfx = VFLUI.Edit:new(page);
-		edPfx:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
-		edPfx:SetHeight(25); edPfx:SetWidth(250); edPfx:Show();
-		if desc and desc.prefix then edPfx:SetText(desc.prefix); end
+		lbl:SetPoint("TOPRIGHT", dd_wtype, "BOTTOMRIGHT", 0, -10);
+		local edSfx = VFLUI.Edit:new(page);
+		edSfx:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
+		edSfx:SetHeight(25); edSfx:SetWidth(250); edSfx:Show();
+		if desc and desc.suffix then edSfx:SetText(desc.suffix); end
+		
 
-		local lbl = VFLUI.MakeLabel(nil, page, "Enter a window title for this window.");
+		local lbl = VFLUI.MakeLabel(nil, page, "Enter a window title for this window. (optional)");
 		lbl:SetWidth(250); lbl:SetHeight(10);
-		lbl:SetPoint("TOPRIGHT", edPfx, "BOTTOMRIGHT", 0, -10);
+		lbl:SetPoint("TOPRIGHT", edSfx, "BOTTOMRIGHT", 0, -10);
 		local edTtl = VFLUI.Edit:new(page);
 		edTtl:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
 		edTtl:SetHeight(25); edTtl:SetWidth(250); edTtl:Show();
 		if desc and desc.title then edTtl:SetText(desc.title); end
 
 		function page:GetDescriptor()
-			local pt = VFL.trim(edPfx:GetText());
-			if (pt ~= "") and (not string.find(pt, "_$")) then pt = pt .. "_"; end
-			return { pkg = edPkg:GetPackage(); prefix = pt; title = edTtl:GetText(); };
+			local st = VFL.trim(edSfx:GetText());
+			if (st ~= "") and (not string.find(st, "_$")) then st = "_" .. st; end
+			local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+			return {
+				wtype = dd_wtype:GetSelection();
+				pkg = auiname;
+				suffix = st;
+				title = edTtl:GetText();
+			};
 		end
 
 		page.Destroy = VFL.hook(function(s)
-			edPkg:Destroy(); edPkg = nil;
-			edPfx:Destroy(); edPfx = nil;
+			--edPkg:Destroy(); edPkg = nil;
+			dd_wtype:Destroy(); dd_wtype = nil;
+			edSfx:Destroy(); edSfx = nil;
 			edTtl:Destroy(); edTtl = nil;
 		end, page.Destroy);
-		wizard:OnNext(function(wiz) wiz:SetPage(2); end);
+		wizard:OnNext(function(wiz) wiz:SetPage(nil, "chkwin"); end);
 		return page;
 	end;
 	Verify = function(desc, wizard, errs)
 		if not desc then errs:AddError("Invalid descriptor."); end
 		if (not desc.pkg) then errs:AddError("Invalid package name."); end
-		if (not desc.prefix) then errs:AddError("Invalid prefix."); end
+		if (not desc.suffix) then errs:AddError("Invalid suffix."); end
 		return not errs:HasError();
 	end;
 });
-ww:RegisterPage(2, {
+
+-------------------------------------------
+-- Page: Check duplicate window
+-------------------------------------------
+ww:RegisterPage(GetNextPageId(), "chkwin", {
 	OpenPage = function(parent, wizard, desc)
 		-- Formulate our page first.
 		local txt = "";
-		local p1d = wizard:GetPageDescriptor(1);
+		local p1d = wizard:GetPageDescriptor(nil, "wtype");
 		if not RDXDB.GetPackage(p1d.pkg) then
 			txt = txt .. "The package '" .. p1d.pkg .. "' does not exist and will be created.\n";
 		end
 
-		local chk = p1d.pkg .. ":" .. p1d.prefix .. "window";
+		local chk = p1d.pkg .. ":" .. pld.wtype .. p1d.suffix;
 		if RDXDB.GetObjectData(chk) then
 			txt = txt .. "The data files for this window already exist. If you proceed, they will be overwritten and the window will be rebuilt from scratch.\n";
 		end
 
-		if txt == "" then wizard:SetPage(3); return; end -- Peaceout if we don't have anything to say.
+		if txt == "" then wizard:SetPage(nil, "framing"); return; end -- Peaceout if we don't have anything to say.
 		txt = txt .. "\nClick Next to confirm, or Cancel to abort.";
+		txt = txt .. "\nClick Prev to add a suffix to the name of your window.";
 
 		local page = RDXUI.GenerateStdWizardPage(parent, "Confirm");
 		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
@@ -83,14 +215,14 @@ ww:RegisterPage(2, {
 		lbl:SetText(txt);
 		page:SetHeight(80);
 
-		wizard:OnNext(function(wiz) wiz:SetPage(3); end);
+		wizard:OnNext(function(wiz) wiz:SetPage(nil, "framing"); end);
 		return page;
 	end;
 	Verify = VFL.True;
 });
 
 -------------------------------------------
--- Pg 3: Framing page
+-- Page: Framing page
 -------------------------------------------
 RDX.RegisterFeature({
 	name = "__veni_frametest";
@@ -115,7 +247,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "__veni_frametest"; }; end;
 });
-ww:RegisterPage(3, {
+ww:RegisterPage(GetNextPageId(), "framing", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Framing");
 		parent:SetBackdropColor(1,1,1,0.4);
@@ -124,7 +256,7 @@ ww:RegisterPage(3, {
 
 		-- Build sample window
 		local state = RDX.WindowState:new();
-		state:AddFeature({feature = "Frame: Default"});
+		state:AddFeature({feature = "Frame: None"});
 		state:AddFeature({feature = "__veni_frametest"});
 		local sample = RDX.Window:new(page);
 
@@ -178,7 +310,7 @@ ww:RegisterPage(3, {
 			btnPrev:Destroy(); btnPrev = nil; btnNext:Destroy(); btnNext = nil;
 			sample:Destroy(); sample = nil;
 		end, page.Destroy);
-		wizard:OnNext(function(wiz) wiz:SetPage(4); end);
+		wizard:OnNext(function(wiz) wiz:SetPage(nil, "designtype"); end);
 		return page;
 	end;
 	Verify = function(desc, wizard, errs)
@@ -189,49 +321,62 @@ ww:RegisterPage(3, {
 });
 
 -----------------------------------------------------------
--- Pg. 4: Type page
+-- Page: Design Type page
 -----------------------------------------------------------
-ww:RegisterPage(4, {
+ww:RegisterPage(GetNextPageId(), "designtype", {
 	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, "Window Type");
-		local lbl = VFLUI.MakeLabel(nil, page, "Select the type of window you want to create. Clickable windows cannot sort or filter while in combat.");
+		local page = RDXUI.GenerateStdWizardPage(parent, "Design");
+		
+		local p1d = wizard:GetPageDescriptor(nil, "wtype");
+		
+		local lbl = VFLUI.MakeLabel(nil, page, "Select the type of design you want to use.");
 		lbl:SetWidth(250); lbl:SetHeight(30);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 
 		local btn1 = VFLUI.Button:new(page);
 		btn1:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT", 5, -15);
 		btn1:SetWidth(25); btn1:SetHeight(25); btn1:Show(); btn1:SetText(">");
-		local blbl = VFLUI.MakeLabel(nil, page, "A window that can filter and re-sort in combat. |cFFFF0000Not clickable.|r |cFF00FF00Works in parties or raids.|r |cFF666666(Grid Layout)|r");
+		local blbl = VFLUI.MakeLabel(nil, page, "Copy the design of the same window type from another theme.");
 		blbl:SetWidth(200); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn1, "RIGHT");
 		wizard:MakeNextButton(btn1, function(w, dsc)
-			dsc.windowType = 1; w:SetPage(6);
+			dsc.designType = 1; w:SetPage("design");
 		end);
 		
 		local btn2 = VFLUI.Button:new(page);
 		btn2:SetPoint("TOP", btn1, "BOTTOM", 0, -20);
 		btn2:SetWidth(25); btn2:SetHeight(25); btn2:Show(); btn2:SetText(">");
-		blbl = VFLUI.MakeLabel(nil, page, "A simple, one-column group or class window that can filter in combat, but cannot sort. |cFF00FF00Clickable.|r |cFFFF0000Works in raids only.|r |cFF666666(Single Raid Header)|r");
+		blbl = VFLUI.MakeLabel(nil, page, "Copy an existing design in the current theme");
 		blbl:SetWidth(200); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn2, "RIGHT");
 		wizard:MakeNextButton(btn2, function(w, dsc)
-			dsc.windowType = 2; w:SetPage(5);
+			dsc.designType = 2; w:SetPage("design");
 		end);
 
 		local btn3 = VFLUI.Button:new(page);
 		btn3:SetPoint("TOP", btn2, "BOTTOM", 0, -20);
 		btn3:SetWidth(25); btn3:SetHeight(25); btn3:Show(); btn3:SetText(">");
-		blbl = VFLUI.MakeLabel(nil, page, "A filtered window in a grid layout. |cFF00FF00Clickable. Works in parties or raids. No sorting artifacts.|r |cFFFF0000Cannot show pets!|r |cFF666666(Header Grid)|r");
+		blbl = VFLUI.MakeLabel(nil, page, "Use an existing design in the current theme (windows will share the same design, any modification in the design will impact all windows)");
 		blbl:SetWidth(200); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn3, "RIGHT");
 		wizard:MakeNextButton(btn3, function(w, dsc)
-			dsc.windowType = 3; w:SetPage(6);
+			dsc.designType = 3; w:SetPage("design");
 		end);
-
+		
 		local btn4 = VFLUI.Button:new(page);
 		btn4:SetPoint("TOP", btn3, "BOTTOM", 0, -20);
 		btn4:SetWidth(25); btn4:SetHeight(25); btn4:Show(); btn4:SetText(">");
-		blbl = VFLUI.MakeLabel(nil, page, "A filtered window in a grid layout. |cFF00FF00Clickable. Works in parties or raids. Can show pets. |r |cFFFF0000Sorting artifacts!|r |cFF666666(secure Grid Layout)|r");
+		blbl = VFLUI.MakeLabel(nil, page, "Create a new empty or predefined design. Predefined Design are only available for simple windows like actionbar, buff icons, etc ... PlayerFrame will be empty.");
 		blbl:SetWidth(200); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn4, "RIGHT");
+		
 		wizard:MakeNextButton(btn4, function(w, dsc)
-			dsc.windowType = 4; w:SetPage(6);
+			dsc.windowType = 4; 
+			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
+				w:SetPage(nil, "singleheader");
+			else
+				--if pld.wtype == "ActionBar1" then
+				--	w:SetPage(nil, "ActionBar1");
+				--else
+					w:SetPage(nil, "done");
+				--end
+			end
 		end);
 
 		function page:GetDescriptor() return {}; end
@@ -244,187 +389,29 @@ ww:RegisterPage(4, {
 });
 
 --------------------------------------------------------
--- Page 5: Header definition (for single-header windows)
+-- Page: The Infamous Unitframe Page
 --------------------------------------------------------
-ww:RegisterPage(5, {
+ww:RegisterPage(GetNextPageId(), "design", {
 	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, "Header Definition");
-		page:SetWidth(315); page:SetHeight(350);
-
-		local lbl = VFLUI.MakeLabel(nil, page, "Choose which groups and classes you want to display and how you would like to sort them.");
-		lbl:SetWidth(325); lbl:SetHeight(20);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-
-		local he = RDXUI.HeaderEditor:new(page);
-		he:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT", 0, -5);
-		he:SetWidth(315); he:DialogOnLayout(); he:Show();
-		if desc and desc.header then he:SetDescriptor(desc.header); end
-
-		function page:GetDescriptor()
-			return { header = he:GetDescriptor() };
-		end
-		page.Destroy = VFL.hook(function(s)
-			he:Destroy(); he = nil;
-		end, page.Destroy);
-		wizard:OnNext(function(wiz) wiz:SetPage(9); end);
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		if not desc then errs:AddError("Invalid descriptor."); end
-		if (not desc.header) then errs:AddError("Please create a header definition."); end
-		return not errs:HasError();
-	end
-});
-
---------------------------------------------------------
--- Page 6: Filter definition (for grid-shaped windows)
---------------------------------------------------------
-ww:RegisterPage(6, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, "Filter");
-		local lbl = VFLUI.MakeLabel(nil, page, "Create a filter for the window by dragging conditions from the left to the right. Conditions can be dragged to any spot marked 'Drag a Filter Component Here'. You can combine conditions using logic operations like AND, OR, and NOT. Your filter must use at least one condition; use the 'Everyone' condition to make a window that displays everyone.");
-		lbl:SetWidth(430); lbl:SetHeight(40);
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-
-		local fe = RDXDAL.FilterEditor:new(page);
-		fe:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
-		fe:Show();
-		if desc and desc.filter then fe:LoadDescriptor(desc.filter); else fe:LoadDescriptor(nil); end
-
-		page:SetWidth(fe:GetWidth());
-		page:SetHeight(fe:GetHeight() + 65);
-
-		function page:GetDescriptor()
-			return { filter = fe:GetDescriptor() };
-		end
-
-		page.Destroy = VFL.hook(function(s)
-			fe:Destroy(); fe = nil;
-		end, page.Destroy);
-		wizard:OnNext(function(wiz) wiz:SetPage(7); end);
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		if not desc then errs:AddError("Invalid descriptor."); end
-		if (not desc.filter) then errs:AddError("Please create a filter."); end
-		return not errs:HasError();
-	end
-});
-
---------------------------------------------------------
--- Page 7: Sort definition (for grid-shaped windows)
---------------------------------------------------------
-ww:RegisterPage(7, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, "Sort");
-		local lbl = VFLUI.MakeLabel(nil, page, "Select a sort ordering for your window:");
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-
-		-- Figure out if we're secure or not. If secure, get rid of the nonsecure sorts.
-		local nSorts = 4;
-		local p4d = wizard:GetPageDescriptor(4);
-		if p4d.windowType == 1 then nSorts = 6; end
-
-		local rg_sort = VFLUI.RadioGroup:new(page);
-		rg_sort:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
-		rg_sort:SetLayout(nSorts, 2); rg_sort:Show();
-		rg_sort.buttons[1]:SetText("Alphabetical");
-		rg_sort.buttons[2]:SetText("Class");
-		rg_sort.buttons[3]:SetText("Group Number");
-		rg_sort.buttons[4]:SetText("Raid Index");
-		if nSorts > 4 then -- add nonsecure sorts
-			rg_sort.buttons[5]:SetText("HP");
-			rg_sort.buttons[6]:SetText("Mana");
-		end
-		rg_sort:SetWidth(250); rg_sort:SetHeight(16*math.ceil(nSorts/2));
-		if desc and desc.sort then rg_sort:SetValue(desc.sort); else rg_sort:SetValue(1); end
-
-		local chk_reverse = VFLUI.Checkbox:new(page); chk_reverse:Show();
-		chk_reverse:SetHeight(20); chk_reverse:SetWidth(120);
-		chk_reverse:SetPoint("TOPLEFT", rg_sort, "BOTTOMLEFT");
-		chk_reverse:SetText("Reverse sort");
-		if desc and desc.reverse then chk_reverse:SetChecked(true); else chk_reverse:SetChecked(); end
-		
-		page:SetHeight(100);
-		function page:GetDescriptor()
-			return { sort = rg_sort:GetValue() or 1; reverse = chk_reverse:GetChecked();  };
-		end
-		page.Destroy = VFL.hook(function(s)
-			rg_sort:Destroy(); chk_reverse:Destroy();
-		end, page.Destroy);
-
-		wizard:OnNext(function(wiz) wiz:SetPage(8); end);
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		if not desc then errs:AddError("Invalid descriptor."); end
-		return not errs:HasError();
-	end
-});
-
---------------------------------------------------------
--- Page 8: Layout definition (for grid-shaped windows)
---------------------------------------------------------
-ww:RegisterPage(8, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, "Window Layout");
-		local lbl = VFLUI.MakeLabel(nil, page, "Choose the layout of your window:");
-		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-
-		local layout = VFLUI.DisjointRadioGroup:new();
-
-		local layout_SC = layout:CreateRadioButton(page);
-		layout_SC:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT"); layout_SC:SetWidth(100);
-		layout_SC:SetText("Single column"); layout_SC:Show();
-
-		local layout_grid = layout:CreateRadioButton(page);
-		layout_grid:SetPoint("LEFT", layout_SC, "LEFT", 0, -20); layout_grid:SetWidth(90);
-		layout_grid:SetText("Grid of width"); layout_grid:Show();
-
-		local ed_gw = VFLUI.Edit:new(page);
-		ed_gw:SetHeight(25); ed_gw:SetWidth(50);
-		ed_gw:SetPoint("LEFT", layout_grid, "RIGHT"); ed_gw:Show();
-		if desc and desc.cols then ed_gw:SetText(desc.cols); end
-
-		if desc and desc.layout then layout:SetValue(desc.layout); else layout:SetValue(1); end
-
-		function page:GetDescriptor()
-			local cols = VFL.clamp(ed_gw:GetNumber(), 1, 20);
-			return { layout = layout:GetValue() or 1, cols = cols };
-		end
-
-		page:SetHeight(100);
-
-		page.Destroy = VFL.hook(function(s)
-			layout_SC:Destroy(); layout_grid:Destroy(); ed_gw:Destroy();
-		end, page.Destroy);
-		wizard:OnNext(function(wiz) wiz:SetPage(9); end);
-		return page;
-	end;
-	Verify = function(desc, wizard, errs)
-		if not desc then errs:AddError("Invalid descriptor."); end
-		if not desc.layout then errs:AddError("Invalid layout."); end
-		return not errs:HasError();
-	end
-});
-
---------------------------------------------------------
--- Page 9: The Infamous Unitframe Page
---------------------------------------------------------
-ww:RegisterPage(9, {
-	OpenPage = function(parent, wizard, desc)
-		local page = RDXUI.GenerateStdWizardPage(parent, "Unit Frame");
+		local page = RDXUI.GenerateStdWizardPage(parent, "Design");
 		parent:SetBackdropColor(1,1,1,0.4);
 		page:SetWidth(300); page:SetHeight(220);
-		local lbl = VFLUI.MakeLabel(nil, page, "Choose a unit frame design for your window. A preview will be shown below.");
+		local lbl = VFLUI.MakeLabel(nil, page, "Choose a design for your window. A preview will be shown below.");
 		lbl:SetWidth(300); lbl:SetHeight(20);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+		
+		local p1d = wizard:GetPageDescriptor(nil, "wtype");
 
 		-- Design chooser box
-		local ofDesign = RDXDB.ObjectFinder:new(page, function(p,f,md) return (md and type(md) == "table" and md.ty=="Design"); end);
+		local ofDesign;
+		if wizard:GetPageDescriptor(nil, "designtype").designType == 1 then
+			ofDesign = RDXDB.ObjectFinder:new(page, function(p,f,md) return (md and type(md) == "table" and md.ty == "Design" and string.find(f, pld.wtype .. "$")) end);
+		else
+			ofDesign = RDXDB.ObjectFinder:new(page, function(p,f,md) return (md and type(md) == "table" and md.ty == "Design" and p == pld.pkg) end);
+		end
 		ofDesign:SetPoint("BOTTOM", page, "BOTTOM");
 		ofDesign:SetWidth(300); ofDesign:Show();
-		ofDesign:SetLabel("Frame type:");
+		ofDesign:SetLabel("Design:");
 		if desc and desc.design then ofDesign:SetPath(desc.design); end
 
 		-- Unitframe sample renderer
@@ -469,7 +456,15 @@ ww:RegisterPage(9, {
 			if curUF then curUF:Destroy(); end
 			VFLT.AdaptiveUnschedule2("__uf_sample");
 		end, page.Destroy);
-		wizard:OnNext(function(wiz) wiz:SetPage(10); end);
+		
+		wizard:OnNext(function(wiz) 
+			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
+				w:SetPage(nil, "singleheader");
+			else
+				w:SetPage(nil, "done");
+			end
+		end);
+		
 		return page;
 	end;
 	Verify = function(desc, wizard, errs)
@@ -478,7 +473,7 @@ ww:RegisterPage(9, {
 			errs:AddError("Missing design");
 		else
 			if not RDX.LoadUnitFrameDesign(desc.design, RDXDB.ObjectState.Verify, RDX._exportedWindowState) then
-				VFL.AddError(errs, "Could not load UnitFrameDesign at <" .. tostring(desc.design) .. ">.");
+				VFL.AddError(errs, "Could not load Design at <" .. tostring(desc.design) .. ">.");
 			end
 		end
 		return not errs:HasError();
@@ -486,9 +481,9 @@ ww:RegisterPage(9, {
 });
 
 --------------------------------------------------------
--- Page 10: Add Highlights
+-- Page: Add Highlights
 --------------------------------------------------------
-ww:RegisterPage(10, {
+--[[ww:RegisterPage(GetNextPageId(), "designhighlight", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Highlights");
 		page:SetWidth(336); page:SetHeight(378);
@@ -555,11 +550,11 @@ ww:RegisterPage(10, {
 		return not errs:HasError();
 	end
 });
-
+]]
 --------------------------------------------------------
--- Page 11: Add alpha fade
+-- Page: Add alpha fade
 --------------------------------------------------------
-ww:RegisterPage(11, {
+--[[ww:RegisterPage(GetNextPageId(), "designalpha",{
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Alpha Fade");
 		page:SetWidth(300); page:SetHeight(250);
@@ -607,11 +602,178 @@ ww:RegisterPage(11, {
 		return not errs:HasError();
 	end
 });
+]]
+--------------------------------------------------------
+-- Page: Header definition (for single-header windows)
+--------------------------------------------------------
+ww:RegisterPage(GetNextPageId(), "singleheader", {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, "Header Definition");
+		page:SetWidth(315); page:SetHeight(350);
+
+		local lbl = VFLUI.MakeLabel(nil, page, "Choose which groups and classes you want to display and how you would like to sort them.");
+		lbl:SetWidth(325); lbl:SetHeight(20);
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+
+		local he = RDXUI.HeaderEditor:new(page);
+		he:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT", 0, -5);
+		he:SetWidth(315); he:DialogOnLayout(); he:Show();
+		if desc and desc.header then he:SetDescriptor(desc.header); end
+
+		function page:GetDescriptor()
+			return { header = he:GetDescriptor() };
+		end
+		page.Destroy = VFL.hook(function(s)
+			he:Destroy(); he = nil;
+		end, page.Destroy);
+		wizard:OnNext(function(wiz) wiz:SetPage(nil, "done"); end);
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		if not desc then errs:AddError("Invalid descriptor."); end
+		if (not desc.header) then errs:AddError("Please create a header definition."); end
+		return not errs:HasError();
+	end
+});
 
 --------------------------------------------------------
--- Page 12: Mouse bindings
+-- Page: Filter definition (for grid-shaped windows)
 --------------------------------------------------------
-ww:RegisterPage(12, {
+--[[ww:RegisterPage(GetNextPageId(), "filterset", {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, "Filter");
+		local lbl = VFLUI.MakeLabel(nil, page, "Create a filter for the window by dragging conditions from the left to the right. Conditions can be dragged to any spot marked 'Drag a Filter Component Here'. You can combine conditions using logic operations like AND, OR, and NOT. Your filter must use at least one condition; use the 'Everyone' condition to make a window that displays everyone.");
+		lbl:SetWidth(430); lbl:SetHeight(40);
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+
+		local fe = RDXDAL.FilterEditor:new(page);
+		fe:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
+		fe:Show();
+		if desc and desc.filter then fe:LoadDescriptor(desc.filter); else fe:LoadDescriptor(nil); end
+
+		page:SetWidth(fe:GetWidth());
+		page:SetHeight(fe:GetHeight() + 65);
+
+		function page:GetDescriptor()
+			return { filter = fe:GetDescriptor() };
+		end
+
+		page.Destroy = VFL.hook(function(s)
+			fe:Destroy(); fe = nil;
+		end, page.Destroy);
+		wizard:OnNext(function(wiz) wiz:SetPage(7); end);
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		if not desc then errs:AddError("Invalid descriptor."); end
+		if (not desc.filter) then errs:AddError("Please create a filter."); end
+		return not errs:HasError();
+	end
+});]]
+
+--------------------------------------------------------
+-- Page: Sort definition (for grid-shaped windows)
+--------------------------------------------------------
+--[[ww:RegisterPage(GetNextPageId(), "sort", {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, "Sort");
+		local lbl = VFLUI.MakeLabel(nil, page, "Select a sort ordering for your window:");
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+
+		-- Figure out if we're secure or not. If secure, get rid of the nonsecure sorts.
+		local nSorts = 4;
+		local p4d = wizard:GetPageDescriptor(4);
+		if p4d.windowType == 1 then nSorts = 6; end
+
+		local rg_sort = VFLUI.RadioGroup:new(page);
+		rg_sort:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
+		rg_sort:SetLayout(nSorts, 2); rg_sort:Show();
+		rg_sort.buttons[1]:SetText("Alphabetical");
+		rg_sort.buttons[2]:SetText("Class");
+		rg_sort.buttons[3]:SetText("Group Number");
+		rg_sort.buttons[4]:SetText("Raid Index");
+		if nSorts > 4 then -- add nonsecure sorts
+			rg_sort.buttons[5]:SetText("HP");
+			rg_sort.buttons[6]:SetText("Mana");
+		end
+		rg_sort:SetWidth(250); rg_sort:SetHeight(16*math.ceil(nSorts/2));
+		if desc and desc.sort then rg_sort:SetValue(desc.sort); else rg_sort:SetValue(1); end
+
+		local chk_reverse = VFLUI.Checkbox:new(page); chk_reverse:Show();
+		chk_reverse:SetHeight(20); chk_reverse:SetWidth(120);
+		chk_reverse:SetPoint("TOPLEFT", rg_sort, "BOTTOMLEFT");
+		chk_reverse:SetText("Reverse sort");
+		if desc and desc.reverse then chk_reverse:SetChecked(true); else chk_reverse:SetChecked(); end
+		
+		page:SetHeight(100);
+		function page:GetDescriptor()
+			return { sort = rg_sort:GetValue() or 1; reverse = chk_reverse:GetChecked();  };
+		end
+		page.Destroy = VFL.hook(function(s)
+			rg_sort:Destroy(); chk_reverse:Destroy();
+		end, page.Destroy);
+
+		wizard:OnNext(function(wiz) wiz:SetPage(8); end);
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		if not desc then errs:AddError("Invalid descriptor."); end
+		return not errs:HasError();
+	end
+});]]
+
+--------------------------------------------------------
+-- Page: Layout definition (for grid-shaped windows)
+--------------------------------------------------------
+--[[ww:RegisterPage(GetNextPageId(), {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, "Window Layout");
+		local lbl = VFLUI.MakeLabel(nil, page, "Choose the layout of your window:");
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+
+		local layout = VFLUI.DisjointRadioGroup:new();
+
+		local layout_SC = layout:CreateRadioButton(page);
+		layout_SC:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT"); layout_SC:SetWidth(100);
+		layout_SC:SetText("Single column"); layout_SC:Show();
+
+		local layout_grid = layout:CreateRadioButton(page);
+		layout_grid:SetPoint("LEFT", layout_SC, "LEFT", 0, -20); layout_grid:SetWidth(90);
+		layout_grid:SetText("Grid of width"); layout_grid:Show();
+
+		local ed_gw = VFLUI.Edit:new(page);
+		ed_gw:SetHeight(25); ed_gw:SetWidth(50);
+		ed_gw:SetPoint("LEFT", layout_grid, "RIGHT"); ed_gw:Show();
+		if desc and desc.cols then ed_gw:SetText(desc.cols); end
+
+		if desc and desc.layout then layout:SetValue(desc.layout); else layout:SetValue(1); end
+
+		function page:GetDescriptor()
+			local cols = VFL.clamp(ed_gw:GetNumber(), 1, 20);
+			return { layout = layout:GetValue() or 1, cols = cols };
+		end
+
+		page:SetHeight(100);
+
+		page.Destroy = VFL.hook(function(s)
+			layout_SC:Destroy(); layout_grid:Destroy(); ed_gw:Destroy();
+		end, page.Destroy);
+		wizard:OnNext(function(wiz) wiz:SetPage(9); end);
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		if not desc then errs:AddError("Invalid descriptor."); end
+		if not desc.layout then errs:AddError("Invalid layout."); end
+		return not errs:HasError();
+	end
+});]]
+
+
+
+--------------------------------------------------------
+-- Page: Mouse bindings
+--------------------------------------------------------
+ww:RegisterPage(GetNextPageId(), "mousebindings", {
 	OpenPage = function(parent, wizard, desc)
 		-- Figure out if we're secure or not. If not, just peaceout.
 		local p4d = wizard:GetPageDescriptor(4);
@@ -644,12 +806,12 @@ ww:RegisterPage(12, {
 		if desc and desc.mb then ofMB:SetPath(desc.mb); end
 
 		local btype_extl = nil;
-		if wizard:GetPageDescriptor(4).windowType ~= 4 then
-	  	btype_extl = btype:CreateRadioButton(page);
-			btype_extl:SetPoint("TOPLEFT", ofMB, "BOTTOMLEFT");
-			btype_extl:SetWidth(250); btype_extl:Show();
-			btype_extl:SetText("Use external program (Clique etc.)");
-		end
+		--if wizard:GetPageDescriptor(4).windowType ~= 4 then
+	  	--btype_extl = btype:CreateRadioButton(page);
+		--	btype_extl:SetPoint("TOPLEFT", ofMB, "BOTTOMLEFT");
+		--	btype_extl:SetWidth(250); btype_extl:Show();
+		--	btype_extl:SetText("Use external program (Clique etc.)");
+		--end
 
 		btype:SetValue(1);
 
@@ -666,7 +828,7 @@ ww:RegisterPage(12, {
 			if btype_extl then btype_extl:Destroy(); end
 		end, page.Destroy);
 
-		wizard:OnNext(function(wiz) wiz:SetPage(20); end);
+		wizard:OnNext(function(wiz) wiz:SetPage(nil, "done"); end);
 		return page;
 	end;
 	Verify = function(desc, wizard, errs)
@@ -676,9 +838,9 @@ ww:RegisterPage(12, {
 });
 
 --------------------
--- Page 20 (done)
+-- Page (done)
 --------------------
-ww:RegisterPage(20, {
+ww:RegisterPage(GetNextPageId(), "done", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Done!");
 		local lbl = VFLUI.MakeLabel(nil, page, "You have now entered all information necessary to create your window.\n\nIf you click OK, your window will be created and moved to the center of the screen.\n\nIf you choose Cancel, this process will be aborted and no changes will be made.");
@@ -759,30 +921,28 @@ function ww:OnOK()
 	------------------------ BASIC SETUP
 	local obj, pd;
 	-- Get the window type
-	pd = self:GetPageDescriptor(4);
-	if not pd then error("Missing window type"); end
-	local wtype = pd.windowType;
-	if type(wtype) ~= "number" then error("Bad window type (should be impossible!)"); end
+	--pd = self:GetPageDescriptor(4);
+	--if not pd then error("Missing window type"); end
+	--local wtype = pd.windowType;
+	--if type(wtype) ~= "number" then error("Bad window type (should be impossible!)"); end
 	-- Setup the package/prefix
-	pd = self:GetPageDescriptor(1);
-	local pkg, prefix, title = pd.pkg, pd.prefix, pd.title;
-	local pkgData = RDXDB.GetOrCreatePackage(pkg);
-	if not pkgData then error("Bad package in window wizard (should be impossible!)"); end
+	pd = self:GetPageDescriptor(nil, "wtype");
+	local wtype, pkg, suffix, title = pd.wtype, pd.pkg, pd.suffix, pd.title;
+	--local pkgData = RDXDB.GetOrCreatePackage(pkg);
+	--if not pkgData then error("Bad package in window wizard (should be impossible!)"); end
 
-
+	------------------------- CLOSE EXISTING
+	DesktopEvents:Dispatch("WINDOW_CLOSE", RDXDB.MakePath(pkg, wtype .. suffix));
 	------------------------- CLEANUP PREEXISTING
 	-- Delete all preexisting files in that package, destroying instances as well.
-	RDXDB.DeleteObject(RDXDB.MakePath(pkg, prefix .. "set"));
-	RDXDB.DeleteObject(RDXDB.MakePath(pkg, prefix .. "sort"));
-	RDXDB.DeleteObject(RDXDB.MakePath(pkg, prefix .. "unitframe"));
-	RDXDB.DeleteObject(RDXDB.MakePath(pkg, prefix .. "window"));
-	RDXDB.DeleteObject(RDXDB.MakePath(pkg, prefix .. "wizard"));
-	-- Excise the window's definition from the window manager.
-	--RDXDK._CloseWindowRDX(RDXDB.MakePath(pkg, prefix .. "window"));
-	RDXDK.QueueLockdownAction(RDXDK._CloseWindowRDX, RDXDB.MakePath(pkg, prefix .. "window"));
+	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_set"));
+	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_sort"));
+	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_ds"));
+	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix));
+	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_wz")); -- wizard
 
 	-------------------------- GENERATE SET AND SORT IF NECESSARY
-	if wtype ~= 2 then
+	--[[if wtype ~= 2 then
 		-- Create the FilterSet
 		obj = RDXDB._DirectCreateObject(pkg, prefix .. "set");
 		obj.ty = "FilterSet"; obj.version = 1;
@@ -815,101 +975,285 @@ function ww:OnOK()
 			sort = sortFunc;
 			set = { class = "file"; file = RDXDB.MakePath(pkg, prefix .. "set"); } 
 		};
+	end]]
+
+	---------------------------- GENERATE DESIGN
+	if self:GetPageDescriptor(nil, "designtype").designType == 1 or self:GetPageDescriptor(nil, "designtype").designType == 2 then
+		-- Copy the unitframe object
+		local design = RDXDB.ResolvePath(self:GetPageDescriptor(nil, "design").design);
+		RDXDB.Copy(design, RDXDB.MakePath(pkg, wtype .. suffix .. "_ds"));
+		local ufd = RDXDB.GetObjectData(RDXDB.MakePath(pkg, wtype .. suffix .. "_ds"));
+		if not ufd then error("Missing design in wizard"); end
+	elseif self:GetPageDescriptor(nil, "designtype").designType == 3 then
+		-- do nothing, reuse a existing design
+	elseif self:GetPageDescriptor(nil, "designtype").designType == 4 then
+		-- Create a default empty object
+		local dState = RDX.DesignState:new();
+		dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
+		
+		-- simple object has default design
+		if wtype == "ActionBar1" then
+		
+		
+		end
+		
+		
+		obj = RDXDB._DirectCreateObject(pkg, wtype .. suffix .. "_ds");
+		obj.ty = "Design"; obj.version = 1;
+		obj.data = dState:GetDescriptor();
+		dState = nil;
 	end
 
-	---------------------------- GENERATE UNITFRAME
-	-- Copy the unitframe object
-	local design = RDXDB.ResolvePath(self:GetPageDescriptor(9).design);
-
-	RDXDB.Copy(design, RDXDB.MakePath(pkg, prefix .. "unitframe"));
-	local ufd = RDXDB.GetObjectData(RDXDB.MakePath(pkg, prefix .. "unitframe"));
-	if not ufd then error("Missing unitframe in wizard"); end
-
 	-- Generate highlights
-	local htAdded = nil;
-	pd = self:GetPageDescriptor(10);
-	htAdded = handleHighlight(pd.hlt1set, pd.hlt1color, ufd.data, 1, htAdded);
-	htAdded = handleHighlight(pd.hlt2set, pd.hlt2color, ufd.data, 2, htAdded);
-	htAdded = handleHighlight(pd.hlt3set, pd.hlt3color, ufd.data, 3, htAdded);
-	htAdded = handleHighlight(pd.hlt4set, pd.hlt4color, ufd.data, 4, htAdded);
+	--local htAdded = nil;
+	--pd = self:GetPageDescriptor(10);
+	--htAdded = handleHighlight(pd.hlt1set, pd.hlt1color, ufd.data, 1, htAdded);
+	--htAdded = handleHighlight(pd.hlt2set, pd.hlt2color, ufd.data, 2, htAdded);
+	--htAdded = handleHighlight(pd.hlt3set, pd.hlt3color, ufd.data, 3, htAdded);
+	--htAdded = handleHighlight(pd.hlt4set, pd.hlt4color, ufd.data, 4, htAdded);
 
 	-- Generate alpha shader
-	pd = self:GetPageDescriptor(11);
-	handleAlpha(pd.alphaset, pd.falseAlpha, pd.trueAlpha, ufd.data);
+	--pd = self:GetPageDescriptor(11);
+	--handleAlpha(pd.alphaset, pd.falseAlpha, pd.trueAlpha, ufd.data);
 
 
 	---------------------------- GENERATE WINDOW
 	-- Create the window.
 	local state = RDX.GenericWindowState:new();
 	-- Frame:
-	local frame = self:GetPageDescriptor(3);
-	if frame then frame = frame.frame; else frame = "Frame: Default"; end
-	state:AddFeature({
-		feature = frame,
-		title = title,
-	});
-	-- Unitframe
-	state:AddFeature({feature = "UnitFrame", design = RDXDB.MakePath(pkg, prefix .. "unitframe"); });
-	-- Datasource
-	if(wtype == 4) then
-		state:AddFeature({feature = "Data Source: Secure", sortPath = RDXDB.MakePath(pkg, prefix .. "sort"); });
-	elseif(wtype == 1) or (wtype == 3) then
-		state:AddFeature({feature = "Data Source: Sort", sortPath = RDXDB.MakePath(pkg, prefix .. "sort"); });
+	local frame = self:GetPageDescriptor(nil, "framing");
+	if frame then frame = frame.frame; else frame = "Frame: None"; end
+	state:AddFeature({feature = frame, title = title, });
+	-- Design
+	if self:GetPageDescriptor(nil, "designtype").designType == 1 or self:GetPageDescriptor(nil, "designtype").designType == 2 or self:GetPageDescriptor(nil, "designtype").designType == 4 then
+		state:AddFeature({feature = "Design", design = RDXDB.MakePath(pkg, wtype .. suffix .. "_ds"), });
+	else
+		state:AddFeature({feature = "Design", design = self:GetPageDescriptor(nil, "design").design});
 	end
-	-- Layout
-	if(wtype == 2) then
-		-- Single Raid Header.
+	-- Datasource and Layout
+	--if(wtype == 4) then
+	--	state:AddFeature({feature = "Data Source: Secure", sortPath = RDXDB.MakePath(pkg, prefix .. "sort"); });
+	--elseif(wtype == 1) or (wtype == 3) then
+	--	state:AddFeature({feature = "Data Source: Sort", sortPath = RDXDB.MakePath(pkg, prefix .. "sort"); });
+	--end
+	if wtype == "ActionBar1" or wtype == "ActionBar3" or wtype == "ActionBar4" or wtype == "ActionBar5" or wtype == "ActionBar6" or wtype == "ActionBarStance" or wtype == "ActionBarPet" or wtype == "ActionBarVehicle" then
+		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "player", });
+	elseif wtype == "Player_Main" then
+		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "player", switchvehicle = true, clickable = true, });
+	elseif wtype == "Player_CastBar" or wtype == "Player_Alternate_Bar" or wtype == "Player_Buff_Secured_Icon" or wtype == "Player_Debuff_Icon" or wtype == "Player_Cooline" or wtype == "Player_Cooldowns_Used" then
+		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "player", switchvehicle = true, });
+	elseif wtype == "Target_Main" or wtype == "Target_CastBar" or wtype == "Target_Alternate_Bar" or wtype == "Target_Debuff" then
+		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "target", clickable = true, });
+	elseif wtype == "Targettarget_Main" then
+		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "targettarget", clickable = true, });
+	elseif wtype == "Pet_Main" then
+		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "pet", switchvehicle = true, clickable = true, });
+	elseif wtype == "Pettarget_Main" then
+		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "pettarget", clickable = true, });
+	elseif wtype == "Focus_Main" or wtype == "Focus_CastBar" then
+		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "focus", clickable = true, });
+	elseif wtype == "Focustarget_Main" then
+		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "focustarget", clickable = true, });
+	elseif wtype == "MiniMap" or wtype == "MiniMapButtons" or wtype == "MainPanel" or wtype == "MainMenu" or wtype == "Bags" or wtype == "TabManager" or wtype == "FactionBar" or wtype == "XpBar" then
+		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "player", });
+	elseif wtype == "Party_Main" then
+		state:AddFeature({
+			feature = "Data Source: Secure Set";
+			set = {
+				file = "default:Party_fset",
+				class = "file",
+			},
+			rostertype = "RAID";
+		});
+		state:AddFeature({
+			feature = "Header Grid";
+			bkt = 1,
+			switchvehicle = 1,
+			dxn = 1,
+			axis = 2,
+			cols = 1,
+		});
+		state:AddFeature({
+			feature = "mp_args";
+			version = 1,
+			period = 0.2,
+			dpm1 = 0,
+		});
+	elseif wtype == "Partytarget_Main" then
+		state:AddFeature({
+			feature = "Data Source: Secure Set";
+			set = {
+				file = "default:Party_fset",
+				class = "file",
+			},
+			rostertype = "RAID";
+		});
+		state:AddFeature({
+			feature = "Secure Assists";
+			interval = 0.2,
+			suffix1 = "target",
+			suffix2 = "targettarget",
+		});
+	--elseif wtype == "Partypet_Main" then
+	--	state:AddFeature({
+	--		feature = "Data Source: Secure Set";
+	--		set = {
+	--			file = "default:Party_fset",
+	--			class = "file",
+	--		},
+	--		rostertype = "RAID";
+	--	});
+	--	state:AddFeature({
+	--		feature = "Secure Assists";
+	--		interval = 0.2,
+	--		suffix1 = "target",
+	--		suffix2 = "targettarget",
+	--	});
+	elseif wtype == "Raid_Main" then
+		local header = self:GetPageDescriptor(20).header;
+		header.pet = nil;
 		state:AddFeature({
 			feature = "header"; version = 1;
-			header = self:GetPageDescriptor(5).header;
+			header = header;
 		});
-	else
-		-- Determine grid layout settings.
-		pd = self:GetPageDescriptor(8);
-		local cols = 1; if pd.layout == 2 then cols = pd.cols; end
-		local axis, dxn = 1, 1;
-		if(wtype == 3) then -- Header grid
-			if(cols > 1) then 
-				axis = 2; dxn = 2; 
-			else
-				cols = 100;
-			end
-			state:AddFeature({
-				feature = "Header Grid";
-				axis = axis; dxn = dxn; cols = cols;
-				hlt = true;
-			});
-		else
-			state:AddFeature({
-				feature = "Grid Layout";
-				axis = 1; dxn = 2; cols = cols;
-			});
-		end
+		state:AddFeature({
+			feature = "mp_args";
+			version = 1,
+			period = 0.2,
+			dpm1 = 0,
+		});
+	elseif wtype == "Raidpet_Main" then
+		local header = self:GetPageDescriptor(20).header;
+		header.pet = true;
+		state:AddFeature({
+			feature = "header"; version = 1;
+			header = header;
+		});
+		state:AddFeature({
+			feature = "mp_args";
+			version = 1,
+			period = 0.2,
+			dpm1 = 0,
+		});
+	elseif wtype == "Boss_Main" then
+		state:AddFeature({
+			feature = "Data Source: Secure Set";
+			set = {
+				file = "default:Boss_fset",
+				class = "file",
+			},
+			rostertype = "BOSS";
+		});
+		state:AddFeature({
+			feature = "Boss Layout";
+			dxn = 1,
+			cols = 1,
+			axis = 1,
+		});
+		state:AddFeature({
+			feature = "mp_args";
+			version = 1,
+			period = 0.2,
+			dpm1 = 0,
+		});
+	elseif wtype == "Arena_Main" then
+		state:AddFeature({
+			feature = "Data Source: Secure Set";
+			set = {
+				file = "default:Arena_fset",
+				class = "file",
+			},
+			rostertype = "ARENA";
+		});
+		state:AddFeature({
+			feature = "Arena Layout";
+			dxn = 1,
+			cols = 1,
+			axis = 1,
+		});
+		state:AddFeature({
+			feature = "mp_args";
+			version = 1,
+			period = 0.2,
+			dpm1 = 0,
+		});
+	elseif wtype == "Arenapet_Main" then
+		state:AddFeature({
+			feature = "Data Source: Secure Set";
+			set = {
+				file = "default:Arenapet_fset",
+				class = "file",
+			},
+			rostertype = "ARENAPET";
+		});
+		state:AddFeature({
+			feature = "Arena Layout";
+			dxn = 1,
+			cols = 1,
+			axis = 1,
+		});
+		state:AddFeature({
+			feature = "mp_args";
+			version = 1,
+			period = 0.2,
+			dpm1 = 0,
+		});
 	end
-	-- Mousebindings
-	if(wtype ~= 1) then
-		pd = self:GetPageDescriptor(12);
-		if pd.btype == 2 then
-			state:AddFeature({feature = "mousebindings", version = 1, mbFriendly = pd.mb});
-		elseif pd.btype == 3 then
-			state:AddFeature({feature = "Mouse Bindings (Exported)"});
-		end
+	--if(wtype == 2) then
+		-- Single Raid Header.
+	--	state:AddFeature({
+	--		feature = "header"; version = 1;
+	--		header = self:GetPageDescriptor(5).header;
+	--	});
+	--else
+		-- Determine grid layout settings.
+	--	pd = self:GetPageDescriptor(8);
+	--	local cols = 1; if pd.layout == 2 then cols = pd.cols; end
+	--	local axis, dxn = 1, 1;
+	--	if(wtype == 3) then -- Header grid
+	--		if(cols > 1) then 
+	--			axis = 2; dxn = 2; 
+	--		else
+	--			cols = 100;
+	--		end
+	--		state:AddFeature({
+	--			feature = "Header Grid";
+	--			axis = axis; dxn = dxn; cols = cols;
+	--			hlt = true;
+	--		});
+	--	else
+	--		state:AddFeature({
+	--			feature = "Grid Layout";
+	--			axis = 1; dxn = 2; cols = cols;
+	--		});
+	--	end
+	--end
+	-- MouseBindings
+	if wtype == "Player_Main" or wtype == "Pet_Main" or wtype == "Targettarget_Main" or wtype == "Focustarget_Main" or wtype == "Party_Main" or wtype == "Partypet_Main" or wtype == "Raid_Main" or wtype == "Raidpet_Main" then
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "heal", mbFriendly = "bindings:bindings_heal", });
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "player", mbFriendly = "bindings:bindings_player", });
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "decurse", mbFriendly = "bindings:bindings_decurse", });
+	elseif wtype == "Target_Main" or wtype == "Pettarget_Main" or wtype == "Focus_Main" or wtype == "Partytarget_Main" or wtype == "Boss_Main" or wtype == "Bosspet_Main" or wtype == "Arena_Main" or wtype == "Arenapet_Main" then
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "dmg", mbFriendly = "bindings:bindings_dmg", });
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "target", mbFriendly = "bindings:bindings_target", });
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "interrupt", mbFriendly = "bindings:bindings_interrupt", });
+	elseif wtype == "Target_CastBar" then
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "interrupt", mbFriendly = "bindings:bindings_interrupt", });
 	end
 
 	-- Create the subobjects
-	obj = RDXDB._DirectCreateObject(pkg, prefix .. "window");
+	obj = RDXDB._DirectCreateObject(pkg, wtype .. suffix);
 	obj.ty = "Window"; obj.version = 1;
 	obj.data = state:GetDescriptor();
 	state = nil;
 
 	-- Create the wizard object
-	obj = RDXDB._DirectCreateObject(pkg, prefix .. "wizard");
-	obj.ty = "WindowWizard"; obj.version = 2;
-	obj.data = self:GetDescriptor();
+	--obj = RDXDB._DirectCreateObject(pkg, prefix .. "wz");
+	--obj.ty = "WindowWizard"; obj.version = 2;
+	--obj.data = self:GetDescriptor();
 
 	-- Open the window!
-	--RDXDK._OpenWindowRDX(RDXDB.MakePath(pkg, prefix .. "window"));
-	RDXDK.QueueLockdownAction(RDXDK._OpenWindowRDX, RDXDB.MakePath(pkg, prefix .. "window"));
+	DesktopEvents:Dispatch("WINDOW_OPEN", RDXDB.MakePath(pkg, wtype .. suffix));
 end
 
 ww.title = "Window Wizard";

@@ -179,6 +179,9 @@ end
 
 --- Apply a texture descriptor to a Texture.
 function VFLUI.SetTexture(obj, descr)
+	if not descr then
+		obj:SetTexture(nil);
+	end
 	if descr.color then
 		obj:SetTexture(VFL.explodeRGBA(descr.color));
 	elseif descr.path then
@@ -275,6 +278,168 @@ end
 
 function VFLUI.GetButtonSkinList() return buttonskinsList; end
 VFLUI.RegisterButtonSkin({ name = "bs_default"; title = "None"; });
+
+function VFLUI.SetButtonSkin(frame, bsp)
+	if (type(frame) ~= "table") then return; end
+	
+	if frame.framesup and not bsp then
+		VFLUI.SetTexture(frame._texBackdrop, nil);
+		frame._texBackdrop:Hide();
+		VFLUI.SetTexture(frame._texBorder, nil);
+		frame._texBorder:Hide();
+		VFLUI.SetTexture(frame._texFlash, nil);
+		frame._texFlash:Hide();
+		VFLUI.SetTexture(frame._texNormal, nil);
+		frame:SetNormalTexture(frame._texNormal);
+		VFLUI.SetTexture(frame._texPushed, nil);
+		frame:SetPushedTexture(frame._texPushed);
+		VFLUI.SetTexture(frame._texDisabled, nil);
+		frame:SetDisabledTexture(frame._texDisabled);
+		VFLUI.SetTexture(frame._texHighlight, nil);
+		frame:SetHighlightTexture(frame._texHighlight);
+		VFLUI.SetTexture(frame._texGloss, nil);
+		frame._texGloss:Hide();
+		
+		frame.framesup:Hide();
+	end
+	
+	if (type(bsp) == "table") then
+		if not frame.framesup then
+			local framesup = VFLUI.AcquireFrame("Frame");
+			framesup:SetParent(frame);
+			framesup:SetFrameStrata(frame:GetFrameStrata());
+			framesup:SetFrameLevel(frame:GetFrameLevel() + 2);
+			framesup:SetAllPoints(frame);
+			framesup:Show();
+			frame.framesup = framesup;
+			
+			local _texBackdrop = VFLUI.CreateTexture(frame);
+			_texBackdrop:SetAllPoints(frame);
+			_texBackdrop:Hide();
+			frame._texBackdrop = _texBackdrop;
+			
+			local _texBorder = VFLUI.CreateTexture(framesup);
+			_texBorder:SetAllPoints(framesup);
+			_texBorder:Hide();
+			frame._texBorder = _texBorder;
+			
+			local _texFlash = VFLUI.CreateTexture(framesup);
+			_texFlash:SetAllPoints(framesup);
+			_texFlash:Hide();
+			frame._texFlash = _texFlash;
+			
+			-- normal
+			local _texNormal = VFLUI.CreateTexture(frame);
+			_texNormal:SetAllPoints(frame);
+			frame._texNormal = _texNormal;
+			
+			-- pushed
+			local _texPushed = VFLUI.CreateTexture(frame);
+			_texPushed:SetAllPoints(frame);
+			frame._texPushed = _texPushed;
+			
+			-- disabled
+			local _texDisabled = VFLUI.CreateTexture(frame);
+			_texDisabled:SetAllPoints(frame);
+			frame._texDisabled = _texDisabled;
+			
+			-- checked
+			local _texChecked = VFLUI.CreateTexture(frame);
+			_texChecked:SetAllPoints(frame);
+			frame._texChecked = _texChecked;
+			
+			-- highlights
+			local _texHighlight = VFLUI.CreateTexture(frame);
+			_texHighlight:SetAllPoints(frame);
+			frame._texHighlight = _texHighlight;
+			
+			-- gloss
+			local _texGloss = VFLUI.CreateTexture(frame);
+			_texGloss:SetAllPoints(frame);
+			frame._texGloss = _texGloss;
+			
+			frame.Destroy = VFL.hook(function(s)
+				VFLUI.ReleaseRegion(s._texBackdrop); s._texBackdrop = nil;
+				VFLUI.ReleaseRegion(s._texBorder); s._texBorder = nil;
+				VFLUI.ReleaseRegion(s._texFlash); s._texFlash = nil;
+				VFLUI.ReleaseRegion(s._texNormal); s._texNormal = nil;
+				VFLUI.ReleaseRegion(s._texPushed); s._texPushed = nil;
+				VFLUI.ReleaseRegion(s._texDisabled); s._texDisabled = nil;
+				VFLUI.ReleaseRegion(s._texChecked); s._texChecked = nil;
+				VFLUI.ReleaseRegion(s._texHighlight); s._texHighlight = nil;
+				VFLUI.ReleaseRegion(s._texGloss); s._texGloss = nil;
+				s.framesup:Destroy(); s.framesup = nil;
+			end, frame.Destroy);
+		end
+		
+		local desc = VFLUI.GetButtonSkin(bsp.name);
+		if not desc then return; end
+		if desc.backdrop then
+			VFLUI.SetTexture(frame._texBackdrop, desc.backdrop);
+			frame._texBackdrop:SetDrawLayer("ARTWORK", 1);
+			frame._texBackdrop:Show();
+		end
+		if desc.border then
+			VFLUI.SetTexture(frame._texBorder, desc.border);
+			frame._texBorder:SetDrawLayer("ARTWORK", 6);
+			frame._texBorder:Show();
+		end
+		if desc.flash then
+			VFLUI.SetTexture(frame._texFlash, desc.flash);
+			frame._texFlash:SetDrawLayer("ARTWORK", 7);
+			frame._texFlash:Show();
+		end
+		if desc.normal then
+			VFLUI.SetTexture(frame._texNormal, desc.normal);
+			frame._texNormal:SetDrawLayer("ARTWORK", 3);
+			frame:SetNormalTexture(frame._texNormal);
+		end
+		if desc.pushed then
+			VFLUI.SetTexture(frame._texPushed, desc.pushed);
+			frame._texPushed:SetDrawLayer("ARTWORK", 3);
+			frame:SetPushedTexture(frame._texPushed);
+		end
+		if desc.disabled then
+			VFLUI.SetTexture(frame._texDisabled, desc.disabled);
+			frame._texDisabled:SetDrawLayer("ARTWORK", 3);
+			frame:SetDisabledTexture(frame._texDisabled);
+		end
+		if desc.checked and frame:GetObjectType() == "CheckButton" then
+		--	VFLUI.SetTexture(frame:GetCheckedTexture(), desc.checked);
+		--	frame:GetCheckedTexture():SetDrawLayer("ARTWORK", 3);
+		--	frame:GetCheckedTexture():Show();
+		--	frame.ctex = desc.checked;
+		end
+		if desc.highlight then
+			VFLUI.SetTexture(frame._texHighlight, desc.highlight);
+			frame._texHighlight:SetDrawLayer("ARTWORK", 3);
+			frame:SetHighlightTexture(frame._texHighlight);
+		end
+		if desc.gloss then
+			VFLUI.SetTexture(frame._texGloss, desc.gloss);
+			frame._texGloss:SetDrawLayer("ARTWORK", 4);
+			frame._texGloss:Show();
+		end
+		
+		if not bsp.showflash then
+			VFLUI.SetTexture(frame._texFlash, nil);
+		end
+		
+		if not bsp.showgloss then
+			VFLUI.SetTexture(frame._texGloss, nil);
+		end
+		
+		if bsp.br then
+			frame._texBorder:SetVertexColor(bsp.br or 1, bsp.bg or 1, bsp.bb or 1, bsp.ba or 1);
+		end
+	end
+end
+
+function VFLUI.SetButtonSkinBorderColor(frame, r, g, b, a)
+	if frame._texBorder then
+		frame._texBorder:SetVertexColor(r or 1, g or 1, b or 1, a or 1);
+	end
+end
 
 -------------------------------------------------
 -- COOLDOWN SYSTEM
@@ -617,7 +782,7 @@ function VFLUI.SetBackdrop(frame, bkdp)
 				frame._bg:SetTexture(nil);
 			end
 			
-			frame._bg:SetDrawLayer("BACKGROUND", 1);
+			frame._bg:SetDrawLayer(bkdp.dl, bkdp.bgl or 1);
 			--frame._bg:SetVertexColor(1,1,1,1);
 			frame._bg:SetAllPoints(frame);
 			frame._bg:Show();

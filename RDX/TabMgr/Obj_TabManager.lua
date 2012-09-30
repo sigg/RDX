@@ -319,6 +319,109 @@ local function EditTabManagerDialog(parent, path, md)
 	end, dlg.Destroy);
 end
 
+--the instance
+RDX.TabManager = {};
+function RDX.TabManager:new(parent, path, desc)
+	local tabbox = VFLUI.TabBox:new(nil, desc.height, desc.orientation);
+	VFLUI.SetBackdrop(tabbox, nil);
+	tabbox:Show();
+	tabbox.cfs = {};
+	
+	tabbox.count = 0;
+	tabbox.title = "";
+	
+	function tabbox:RemoveMessages()
+		
+	end
+	-- add TabChatframe
+	function tabbox:AddChatFrame(path, tabdata)
+		tabbox.count = tabbox.count + 1;
+		local flag = RDXDB.GetObjectInstance(path, true);
+		local f, tab;
+		if not tabdata.tabwidth then tabdata.tabwidth = 80; end
+		if flag then
+			f = VFLUI.SimpleText:new(nil, 5, 100);
+			f._path = nil;
+			f:SetText("Already acquired!");
+			tab = tabbox:GetTabBar():AddTab(tabdata.tabwidth, function(self, arg1) 
+				tabbox:SetClient(f);
+				VFLUI.SetBackdrop(f, desc.bkd);
+			end, function() end);
+		else
+			f = RDXDB.GetObjectInstance(path);
+			local _, _, _, _, objdesc = RDXDB.GetObjectData(path);
+			f._path = path;
+			tab = tabbox:GetTabBar():AddTab(tabdata.tabwidth, function(self, arg1)
+				tabbox:SetClient(f);
+				ChatEdit_SetLastActiveWindow(f.cf.editBox);
+				VFLUI.SetBackdrop(f.cfbg, desc.bkd);
+				VFLUI.SetBackdrop(f.ebbg, desc.bkd);
+				VFLUI.SetFont(f.cf, desc.font);
+			end,
+			function() end, 
+			function(mnu, dlg) 
+				return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg)
+			end);
+		end
+		tab.font:SetText(tabdata.title);
+		f.tab = tab;
+		tabbox.cfs["cf" .. tabbox.count] = f;
+	end
+	
+	function self:AddCombatLogs(path, tabdata)
+		tabbox.count = tabbox.count + 1;
+		local flag = RDXDB.GetObjectInstance(path, true);
+		local f, tab;
+		if not tabdata.tabwidth then tabdata.tabwidth = 80; end
+		if flag then
+			f = VFLUI.SimpleText:new(nil, 5, 100);
+			f._path = nil;
+			f:SetText("Already acquired !");
+			tab = tabbox:GetTabBar():AddTab(tabdata.tabwidth, function(self, arg1)
+				tabbox:SetClient(f);
+				VFLUI.SetBackdrop(f, desc.bkd);
+			end, function() end);
+		else
+			f = RDXDB.GetObjectInstance(path);
+			local _, _, _, _, objdesc = RDXDB.GetObjectData(path);
+			f._path = path;
+			tab = tabbox:GetTabBar():AddTab(tabdata.tabwidth, function(self, arg1)
+				tabbox:SetClient(f); 
+				VFLUI.SetBackdrop(f, desc.bkd);
+				f.font = desc.font;
+			end, function() end,
+			function(mnu, dlg) return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg) end);
+		end
+		tab.font:SetText(tabdata.title);
+		f.tab = tab;
+		tabbox.cfs["cf" .. tabbox.count] = f;	
+	end
+
+	tabbox.Destroy = VFL.hook(function(s)
+		for k,v in pairs(s.cfs) do
+			v.tab = nil;
+			if v._path then
+				v.font = nil;
+				RDXDB._RemoveInstance(v._path); v = nil;
+			else
+				v:Destroy(); v = nil;
+			end
+		end
+		s.SetTabOptions = nil;
+		s.AddMessages = nil;
+		s.RemoveMessages = nil;
+		s.count = nil;
+		s.title = nil;
+	end, tabbox.Destroy);
+
+	return self;
+end
+
+-----------------------------------------------------------
+-- Window meta-control
+-----------------------------------------------------------
+
+-- object TabManager
 RDXDB.RegisterObjectType({
 	name = "TabManager";
 	New = function(path, md)
@@ -327,6 +430,16 @@ RDXDB.RegisterObjectType({
 	Edit = function(path, md, parent)
 		EditTabManagerDialog(parent or VFLDIALOG, path, md);
 	end;
+	Instantiate = function(path, md, desc)
+		local tm = RDX.TabManager:new(nil, path, md.data, desc);
+		-- Attempt to setup the window; if it fails, just bail out.
+		-- if not SetupTabManager(path, tm, md.data) then tm:Destroy(); return nil; end
+		return tm;
+	end,
+	Deinstantiate = function(instance, path, md)
+		instance:Destroy();
+		instance = nil;
+	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),

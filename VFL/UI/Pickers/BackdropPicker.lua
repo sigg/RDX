@@ -30,7 +30,7 @@ local UpdateBackdropPicker;
 local bdp = VFLUI.Window:new(VFLFULLSCREEN);
 VFLUI.Window.SetDefaultFraming(bdp, 20);
 bdp:SetText("Backdrop Picker"); bdp:SetTitleColor(0,0,.6);
-bdp:SetWidth(290); bdp:SetHeight(335);
+bdp:SetWidth(290); bdp:SetHeight(360);
 bdp:SetPoint("CENTER", VFLParent, "CENTER");
 bdp:SetMovable(true); bdp:SetToplevel(nil);
 VFLUI.Window.StdMove(bdp, bdp:GetTitleBar());
@@ -254,7 +254,7 @@ local lbl_borl = VFLUI.CreateFontString(ca);
 VFLUI.SetFont(lbl_borl, Fonts.Default, 10);
 lbl_borl:SetWidth(50); lbl_borl:SetHeight(20);
 lbl_borl:SetPoint("LEFT", e_boff, "RIGHT");
-lbl_borl:Show(); lbl_borl:SetText("Level");
+lbl_borl:Show(); lbl_borl:SetText("Bd Level");
 
 local e_borl = VFLUI.Edit:new(ca);
 e_borl:SetWidth(42); e_borl:SetHeight(25); e_borl:Show();
@@ -264,7 +264,7 @@ e_borl:SetPoint("LEFT", lbl_borl, "RIGHT");
 local lbl_bors = VFLUI.CreateFontString(ca);
 VFLUI.SetFont(lbl_bors, Fonts.Default, 10);
 lbl_bors:SetWidth(50); lbl_bors:SetHeight(20);
-lbl_bors:SetPoint("LEFT", e_borl, "RIGHT");
+lbl_bors:SetPoint("TOPLEFT", lbl_off, "BOTTOMLEFT", 0, -5);
 lbl_bors:Show(); lbl_bors:SetText("Tex size");
 
 local e_bors = VFLUI.Edit:new(ca);
@@ -272,20 +272,34 @@ e_bors:SetWidth(42); e_bors:SetHeight(25); e_bors:Show();
 e_bors:SetScript("OnTextChanged", function() bkdp2Update() end);
 e_bors:SetPoint("LEFT", lbl_bors, "RIGHT");
 
+local lbl_bgl = VFLUI.CreateFontString(ca);
+VFLUI.SetFont(lbl_bgl, Fonts.Default, 10);
+lbl_bgl:SetWidth(50); lbl_bgl:SetHeight(20);
+lbl_bgl:SetPoint("LEFT", e_bors, "RIGHT");
+lbl_bgl:Show(); lbl_bgl:SetText("Bg Lebel");
+
+local e_bgl = VFLUI.Edit:new(ca);
+e_bgl:SetWidth(42); e_bgl:SetHeight(25); e_bgl:Show();
+e_bgl:SetScript("OnTextChanged", function() bkdp2Update() end);
+e_bgl:SetPoint("LEFT", lbl_bgl, "RIGHT");
+
 function bkdp2Update()
 	-- Early out with invalid numbers.
 	local boff = tonumber(e_boff:GetText()); --if not boff then return; end
 	local borl = tonumber(e_borl:GetText()); --if not borl then return; end
 	local bors = tonumber(e_bors:GetText()); --if not bors then return; end
+	local bgl = tonumber(e_bgl:GetText()); --if not bors then return; end
 	-- Clamp ranges
 	boff = math.floor(VFL.clamp(boff, 0, 1024));
 	borl = math.floor(VFL.clamp(borl, 0, 1024));
-	bors = math.floor(VFL.clamp(bors, 0, 1024));
+	bors = math.floor(VFL.clamp(bors, 0, 1024));     
+	bgl = math.floor(VFL.clamp(bgl, 0, 1024));
 	-- Apply settings
 	local changed = nil;
 	if boff ~= curBackdrop.boff then curBackdrop.boff = boff; changed = true; end
 	if borl ~= curBackdrop.borl then curBackdrop.borl = borl; changed = true; end
 	if bors ~= curBackdrop.bors then curBackdrop.bors = bors; changed = true; end
+	if bgl ~= curBackdrop.bgl then curBackdrop.bgl = bgl; changed = true; end
 	-- Update
 	if changed then UpdateBackdropPicker(); end
 end
@@ -294,7 +308,7 @@ end
 local FlagsUpdate;
 
 local rg = VFLUI.RadioGroup:new(ca);
-rg:SetPoint("TOPLEFT", lbl_off, "BOTTOMLEFT", 0, -5);
+rg:SetPoint("TOPLEFT", lbl_bors, "BOTTOMLEFT", 0, -5);
 rg:Show();
 rg:SetLayout(3,3);
 rg.buttons[1]:SetWidth(70);
@@ -375,6 +389,7 @@ UpdateBackdropPicker = function()
 	--if e_bors:GetNumber() ~= curBackdrop.bors then 
 		e_bors:SetText(curBackdrop.bors);
 	--end
+		e_bgl:SetText(curBackdrop.bgl);
 	--if rg:GetValue() ~= curBackdrop._bkdtype then 
 		rg:SetValue(curBackdrop._bkdtype);
 	--end

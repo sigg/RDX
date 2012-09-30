@@ -867,19 +867,14 @@ function RDXDK.Desktop:new(parent)
 				framepropsroot.states = {}
 				framepropsroot.states["SOLO"] = {};
 				framepropsroot.states["SOLO"].OnSelect = {};
-				--framepropsroot.states["SOLO"].OnUnselect = {};
 				framepropsroot.states["PARTY"] = {};
 				framepropsroot.states["PARTY"].OnSelect = {};
-				--framepropsroot.states["PARTY"].OnUnselect = {};
 				framepropsroot.states["RAID"] = {};
 				framepropsroot.states["RAID"].OnSelect = {};
-				--framepropsroot.states["RAID"].OnUnselect = {};
 				framepropsroot.states["BATTLEGROUND"] = {};
 				framepropsroot.states["BATTLEGROUND"].OnSelect = {};
-				--framepropsroot.states["BATTLEGROUND"].OnUnselect = {};
 				framepropsroot.states["ARENA"] = {};
 				framepropsroot.states["ARENA"].OnSelect = {};
-				--framepropsroot.states["ARENA"].OnUnselect = {};
 			end
 		
 			--local tbl = framepropsroot.states[RDXU.currentstate].OnUnselect;
@@ -895,7 +890,7 @@ function RDXDK.Desktop:new(parent)
 			for k,v in pairs(tbl) do
 				if v.action == "WINDOW_OPEN" then
 					if not frameList[v.name] then
-						VFL.print("WINDOW_OPEN " .. v.name);
+						--VFL.print("WINDOW_OPEN " .. v.name);
 						windowOpen(v.name);
 					end
 				end
@@ -904,7 +899,7 @@ function RDXDK.Desktop:new(parent)
 			for k,v in pairs(tbl) do
 				if v.action == "WINDOW_CLOSE" then
 					if frameList[v.name] then
-						VFL.print("WINDOW_CLOSE " .. v.name);
+						--VFL.print("WINDOW_CLOSE " .. v.name);
 						windowClose(v.name);
 					end
 				end
@@ -1197,8 +1192,18 @@ RDXDB.RegisterObjectType({
 				OnClick = function()
 					VFL.poptree:Release();
 					RDXDB.Copy("desktops:" .. pkg .. "_default", path, "FORCE")
-					
-					
+				end
+			});
+			table.insert(mnu, {
+				text = VFLI.i18n("Reset States"),
+				OnClick = function()
+					VFL.poptree:Release();
+					for k,v in pairs (md.data) do
+						if v.feature == "Desktop main" then
+							v.states = nil;
+							ReloadUI();
+						end
+					end
 				end
 			});
 		end

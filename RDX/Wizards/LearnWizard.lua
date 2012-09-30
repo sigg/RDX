@@ -19,7 +19,6 @@ For more informations, tutorials, communities, visit us at:
 http://www.wowrdx.com
 
 Sigg / Rashgarroth FR
-Siggounet / Galakrond US
 
 Email:
 sigg@wowrdx.com
@@ -29,37 +28,36 @@ Click on the button Next to start the tutorial.
 };
 
 page_default[GetNextPageId()] = {
-	title = "Classic Menu";
+	title = "RDX Menu";
 	txt = [[
 The small RDX icon in the center of your screen is the classic menu.
 Move it with the key shift and the mouse.
 
 The classic menu contains some quick links to handle your UI.
-You can also show/hide the main menu which contains more options.
 
 Right click on the classic menu to edit your current Theme.
 ]];
 };
 
-page_default[GetNextPageId()] = {
-	title = "Main Menu";
-	txt = [[
-Click on the classic menu, visibility and show Main Menu.
-The Main Menu is located on the top of your screen. 
-Solo, Multi, UI, Repo, Settings
+--page_default[GetNextPageId()] = {
+--	title = "Main Menu";
+--	txt = [[
+--Click on the classic menu, visibility and show Main Menu.
+--The Main Menu is located on the top of your screen. 
+--Solo, Multi, UI, Repo, Settings
 
-You can customize the main menu:
-Click on the menu Settings and select RDX Settings.
-You can disable the animation of the main menu, check the box Always show main panel.
-You can change the icon texture here. Click on the disk to save when finish.
-]];
-};
+--You can customize the main menu:
+--Click on the menu Settings and select RDX Settings.
+--You can disable the animation of the main menu, check the box Always show main panel.
+--You can change the icon texture here. Click on the disk to save when finish.
+--]];
+--};
 
 page_default[GetNextPageId()] = {
 	title = "Blizzard UI";
 	txt = [[
 All the Blizzard UI elements are hidden by default
-If you wish to display some elements, Click on the Main Menu UI and select Blizzard Frame Manager.
+If you wish to display some elements, Click on the RDX Menu and select Blizzard Frame Manager.
 Uncheck the components you wish to display.
 Your UI will be reload.
 ]];
@@ -68,21 +66,21 @@ Your UI will be reload.
 page_default[GetNextPageId()] = {
 	title = "Theme";
 	txt = [[
-RDX 8.1.1 contains 10 themes AUI.
+RDX 9 contains 10 themes AUI.
 To select a theme, click on the Classic Menu, theme the submenu Themes.
 Your current theme will be closed (all your modifications are saved), the new theme will be open.
 ]];
 };
 
-page_default[GetNextPageId()] = {
-	title = "Theme states";
-	txt = [[
-Each theme come with 5 predefined desktop.
-SOLO, PARTY, RAID, ARENA, PVP.
+--page_default[GetNextPageId()] = {
+--	title = "Theme states";
+--	txt = [[
+--Each theme come with 5 predefined desktop.
+--SOLO, PARTY, RAID, ARENA, PVP.
 
-Click on the Classic Menu, Theme States and select the state you want.
-]];
-};
+--Click on the Classic Menu, Theme States and select the state you want.
+--]];
+--};
 
 page_default[GetNextPageId()] = {
 	name = "desktop_manager";
@@ -185,7 +183,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	local ww = RDXUI.Wizard:new();
 
 	for i,v in ipairs(page_defaultI) do
-		ww:RegisterPage(i, {
+		ww:RegisterPage(i, v.title, {
 			OpenPage = function(parent, wizard, desc)
 				local page = RDXUI.GenerateStdWizardPage(parent, v.title);
 				

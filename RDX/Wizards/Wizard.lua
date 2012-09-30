@@ -14,6 +14,7 @@ function RDXUI.Wizard:new(desc)
 	local x = {};
 	x.desc = desc or {};
 	x.page = {};
+	x.index = {};
 	x.pageNum = nil; x.history = {};
 	x.child = nil;
 	x.window = nil; 
@@ -34,9 +35,9 @@ function RDXUI.Wizard:Open(parent, num)
 		win:SetBackdrop(VFLUI.BlackDialogBackdrop);
 		win:SetTitleColor(0,0,.6); win:SetText(self.title);
 		win:SetPoint("TOPLEFT", VFLParent, "TOPLEFT", 100, -200);
-		--win:SetMovable(true); 
+		win:SetMovable(true); 
 		VFLUI.Window.StdMove(win, win:GetTitleBar());
-		--win:SetClampedToScreen(true);
+		win:SetClampedToScreen(true);
 		win:Show();
 		self.window = win;
 		
@@ -104,8 +105,7 @@ end
 
 --- Close the wizard.
 function RDXUI.Wizard:Close(result)
-	--self.window:Destroy(); self.window = nil;
-	self.window:Hide();
+	self.window:Destroy(); self.window = nil;
 	if result then
 		self:OnOK();
 		self.desc._ok = true;
@@ -115,9 +115,17 @@ function RDXUI.Wizard:Close(result)
 end
 
 --- Set the page number for this wizard.
-function RDXUI.Wizard:SetPage(num)
+function RDXUI.Wizard:SetPage(num, name)
 	-- Sanity check arguments
-	if not num then error(VFLI.i18n("expected number, got nil")); end
+	if not num then
+		-- try finding by name
+		if name then
+			num = self.index[name];
+		end
+		if not num then
+			error(VFLI.i18n("expected number, got nil"));
+		end
+	end
 	local pgdef = self.page[num]; if not pgdef then return; end
 
 	-- Clean out the existing page.
@@ -255,14 +263,31 @@ function RDXUI.Wizard:SetDescriptor(desc)
 	self.desc = desc;
 end
 
-function RDXUI.Wizard:GetPageDescriptor(n)
-	return self.desc[n];
+function RDXUI.Wizard:GetPageDescriptor(num, name)
+	if not num then
+		-- try finding by name
+		if name then
+			num = self.index[name];
+		end
+		if not num then
+			error(VFLI.i18n("expected number, got nil ") .. name);
+		end
+	end
+	return self.desc[num];
 end
 
 ------------ Page Registration
-function RDXUI.Wizard:RegisterPage(n, tbl)
-	if (not n) or (not tbl) then error(VFLI.i18n("usage: RegisterPage(pageNum, page)")); end
+function RDXUI.Wizard:RegisterPage(n, name, tbl)
+	if (not n) or (not tbl) then error(VFLI.i18n("usage: RegisterPage(pageNum, pageIndex, page)")); end
 	self.page[n] = tbl;
+	-- store a name reference to the page number
+	if name then
+		if not self.index[name] then
+			self.index[name] = n;
+		else
+			error(VFLI.i18n("Same PageIndex ") .. name);
+		end
+	end
 end
 
 
@@ -289,22 +314,22 @@ end
 ---------------------------------------
 -- Package Wizard
 ---------------------------------------
-RDXDB.wizardMenu = RDXPM.Menu:new();
+--RDXDB.wizardMenu = RDXPM.Menu:new();
 
-RDXDB.pkgname = "";
+--RDXDB.pkgname = "";
 
-RDXDB.wizardMenu:RegisterMenuFunction(function(ent)
-	ent.text = "Hello";
-	ent.OnClick = function()
-		VFL.poptree:Release();
-		VFL.print("test " .. RDXDB.pkgname);
-	end;
-end);
+--RDXDB.wizardMenu:RegisterMenuFunction(function(ent)
+--	ent.text = "Hello";
+--	ent.OnClick = function()
+--		VFL.poptree:Release();
+--		VFL.print("test " .. RDXDB.pkgname);
+--	end;
+--end);
 
-RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
-	table.insert(mnu, {
-		text = VFLI.i18n("Wizard"), isSubmenu = true, OnClick = function(self) RDXDB.pkgname = pkg; RDXDB.wizardMenu:Open(nil, self, nil, nil, nil, VFL.poptree); end
-	});
-end);
+--RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
+--	table.insert(mnu, {
+--		text = VFLI.i18n("Wizard"), isSubmenu = true, OnClick = function(self) RDXDB.pkgname = pkg; RDXDB.wizardMenu:Open(nil, self, nil, nil, nil, VFL.poptree); end
+--	});
+--end);
 
 

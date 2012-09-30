@@ -120,51 +120,61 @@ end);
 
 
 local function SetFramew(froot)
-	if not froot.states then
-		froot.states = {}
-		froot.states["SOLO"] = {};
-		froot.states["SOLO"].OnSelect = {};
-		--froot.states["SOLO"].OnUnselect = {};
-		froot.states["PARTY"] = {};
-		froot.states["PARTY"].OnSelect = {};
+	--if not froot.states then
+	--	froot.states = {}
+	--	froot.states["SOLO"] = {};
+	--	froot.states["SOLO"].OnSelect = {};
+	--	--froot.states["SOLO"].OnUnselect = {};
+	--	froot.states["PARTY"] = {};
+	--	froot.states["PARTY"].OnSelect = {};
 		--froot.states["PARTY"].OnUnselect = {};
-		froot.states["RAID"] = {};
-		froot.states["RAID"].OnSelect = {};
-		--froot.states["RAID"].OnUnselect = {};
-		froot.states["BATTLEGROUND"] = {};
-		froot.states["BATTLEGROUND"].OnSelect = {};
+	--	froot.states["RAID"] = {};
+	--	froot.states["RAID"].OnSelect = {};
+	--	--froot.states["RAID"].OnUnselect = {};
+	--	froot.states["BATTLEGROUND"] = {};
+	--	froot.states["BATTLEGROUND"].OnSelect = {};
 		--froot.states["BATTLEGROUND"].OnUnselect = {};
-		froot.states["ARENA"] = {};
-		froot.states["ARENA"].OnSelect = {};
+	--	froot.states["ARENA"] = {};
+	--	froot.states["ARENA"].OnSelect = {};
 		--froot.states["ARENA"].OnUnselect = {};
-	end
+	--end
 	
 	soloselect:SetScript("OnClick", function()
-		RDXDK.EditStateActionDialog(framew, froot.states["SOLO"].OnSelect);
+		if froot.states and froot.states.SOLO then
+			RDXDK.EditStateActionDialog(framew, froot.states.SOLO.OnSelect);
+		end
 	end);
 	--solounselect:SetScript("OnClick", function()
 	--	RDXDK.EditStateActionDialog(framew, froot.states["SOLO"].OnUnselect);
 	--end);
 	partyselect:SetScript("OnClick", function()
-		RDXDK.EditStateActionDialog(framew, froot.states["PARTY"].OnSelect);
+		if froot.states and froot.states.PARTY then
+			RDXDK.EditStateActionDialog(framew, froot.states.PARTY.OnSelect);
+		end
 	end);
 	--partyunselect:SetScript("OnClick", function()
 	--	RDXDK.EditStateActionDialog(framew, froot.states["PARTY"].OnUnselect);
 	--end);
 	raidselect:SetScript("OnClick", function()
-		RDXDK.EditStateActionDialog(framew, froot.states["RAID"].OnSelect);
+		if froot.states and froot.states.RAID then
+			RDXDK.EditStateActionDialog(framew, froot.states.RAID.OnSelect);
+		end
 	end);
 	--raidunselect:SetScript("OnClick", function()
 	--	RDXDK.EditStateActionDialog(framew, froot.states["RAID"].OnUnselect);
 	--end);
 	bgselect:SetScript("OnClick", function()
-		RDXDK.EditStateActionDialog(framew, froot.states["BATTLEGROUND"].OnSelect);
+		if froot.states and froot.states.BATTLEGROUND then
+			RDXDK.EditStateActionDialog(framew, froot.states.BATTLEGROUND.OnSelect);
+		end
 	end);
 	--bgunselect:SetScript("OnClick", function()
 	--	RDXDK.EditStateActionDialog(framew, froot.states["BATTLEGROUND"].OnUnselect);
 	--end);
 	arenaselect:SetScript("OnClick", function()
-		RDXDK.EditStateActionDialog(framew, froot.states["ARENA"].OnSelect);
+		if froot.states and froot.states.ARENA then
+			RDXDK.EditStateActionDialog(framew, froot.states.ARENA.OnSelect);
+		end
 	end);
 	--arenaunselect:SetScript("OnClick", function()
 	--	RDXDK.EditStateActionDialog(framew, froot.states["ARENA"].OnUnselect);

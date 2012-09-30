@@ -355,23 +355,24 @@ RDXDAL.RegisterFilterComponent({
 	ValidateDescriptor = VFL.True,
 });
 
-RDXDAL.RegisterFilterComponent({
-	name = "raidpetsecure", title = VFLI.i18n("Raid Pet Secure"), category = VFLI.i18n("Group Composition"),
-	UIFromDescriptor = function(desc, parent)
-		local ui = VFLUI.FilterDialogFrame:new(parent);
-		ui:SetText(VFLI.i18n("Raid Pet Secure")); ui:Show();
-		ui.GetDescriptor = function() return {"raidpetsecure"}; end;
-		return ui;
-	end,
-	GetBlankDescriptor = function() return {"raidpetsecure"}; end,
-	FilterFromDescriptor = function(desc, metadata)
-		table.insert(metadata, {class = "LOCAL", name = "raidpetsecurenid", value = "unit.nid"})
-		return "(raidpetsecurenid and (raidpetsecurenid >= 1) and (raidpetsecurenid <= 40))";
-	end,
-	EventsFromDescriptor = VFL.Noop,
-	SetsFromDescriptor = VFL.Noop,
-	ValidateDescriptor = VFL.True,
-});
+-- deprecated
+--RDXDAL.RegisterFilterComponent({
+--	name = "raidpetsecure", title = VFLI.i18n("Raid Pet Secure"), category = VFLI.i18n("Group Composition"),
+--	UIFromDescriptor = function(desc, parent)
+--		local ui = VFLUI.FilterDialogFrame:new(parent);
+--		ui:SetText(VFLI.i18n("Raid Pet Secure")); ui:Show();
+--		ui.GetDescriptor = function() return {"raidpetsecure"}; end;
+--		return ui;
+--	end,
+--	GetBlankDescriptor = function() return {"raidpetsecure"}; end,
+--	FilterFromDescriptor = function(desc, metadata)
+--		table.insert(metadata, {class = "LOCAL", name = "raidpetsecurenid", value = "unit.nid"})
+--		return "(raidpetsecurenid and (raidpetsecurenid >= 1) and (raidpetsecurenid <= 40))";
+--	end,
+--	EventsFromDescriptor = VFL.Noop,
+--	SetsFromDescriptor = VFL.Noop,
+--	ValidateDescriptor = VFL.True,
+--});
 
 RDXDAL.RegisterFilterComponent({
 	name = "arena", title = VFLI.i18n("Arena"), category = VFLI.i18n("Group Composition"),

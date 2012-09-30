@@ -2,6 +2,7 @@
 -- Sigg / Rashgarroth EU
 
 local tysl = {};
+local savelink = {}; -- use to store previous link to check a change.
 
 function RDXDB.GetSymLinkTarget(data)
 	if not data or not data.class then return; end
@@ -36,7 +37,7 @@ local function EditSymlink(parent, path, md)
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", VFLParent, "CENTER");
-	dlg:SetWidth(335); dlg:SetHeight(320);
+	dlg:SetWidth(335); dlg:SetHeight(350);
 	dlg:SetText(VFLI.i18n("Edit Symlink: ") .. path);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("symlink_editor") then RDXPM.RestoreLayout(dlg, "symlink_editor"); end
@@ -77,6 +78,7 @@ local function EditSymlink(parent, path, md)
 		if sl and sl.Unregister then sl.Unregister(path); end
 		if sl and sl.Register then sl.Register(path); end
 		RDXDB.NotifyUpdate(path);
+		savelink[path] = RDXDB.ResolvePath(path);
 	end);
 
 	dlg.Destroy = VFL.hook(function(s)
@@ -94,6 +96,7 @@ function RDXDB.EditSymLink(path, parent)
 end
 
 --- Repoint the given symlink at another destination.
+-- DEPRECATED
 function RDXDB.SetSymLinkTarget(linkPath, targetPath)
 	-- Sanity check
 	local data = RDXDB._AccessPathRaw(RDXDB.ParsePath(linkPath));
@@ -159,7 +162,7 @@ RDXDB.RegisterSymLinkClass({
 		RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(up, uf)
 				local cpath = (up .. ":" .. uf);
 				if cpath == link then RDXDB.NotifyUpdate(path); end
-			end, "symlink_" .. path);
+		end, "symlink_" .. path);
 	end;
 	Unregister = function(path)
 		--VFL.print("UNREGISTER " .. path);
@@ -193,7 +196,13 @@ RDXDB.RegisterSymLinkClass({
 	end;
 	Register = function(path)
 		--VFL.print("REGISTER " .. path);
-		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() RDXDB.NotifyUpdate(path); end, "symlink_" .. path);
+		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function()
+			local newlink = RDXDB.ResolvePath(path);
+			if savelink[path] ~= newlink then
+				RDXDB.NotifyUpdate(path);
+				savelink[path] = newlink;
+			end
+		end, "symlink_" .. path);
 	end;
 	Unregister = function(path)
 		--VFL.print("UNREGISTER " .. path);
@@ -333,7 +342,13 @@ RDXDB.RegisterSymLinkClass({
 		return data["targetpath_" .. RDXMD.GetClassID(select(2, UnitClass("PLAYER"))) .. "_" .. GetActiveTalentGroup()];
 	end;
 	Register = function(path)
-		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() RDXDB.NotifyUpdate(path); end, "symlink_" .. path);
+		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function()
+			local newlink = RDXDB.ResolvePath(path);
+			if savelink[path] ~= newlink then
+				RDXDB.NotifyUpdate(path);
+				savelink[path] = newlink;
+			end
+		end, "symlink_" .. path);
 	end;
 	Unregister = function(path)
 		VFLEvents:Unbind("symlink_" .. path);
@@ -581,7 +596,13 @@ RDXDB.RegisterSymLinkClass({
 	end;
 	Register = function(path)
 		--VFL.print("REGISTER " .. path);
-		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() RDXDB.NotifyUpdate(path); end, "symlink_" .. path);
+		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() 
+			local newlink = RDXDB.ResolvePath(path);
+			if savelink[path] ~= newlink then
+				RDXDB.NotifyUpdate(path);
+				savelink[path] = newlink;
+			end
+		end, "symlink_" .. path);
 	end;
 	Unregister = function(path)
 		VFLEvents:Unbind("symlink_" .. path);
@@ -625,37 +646,62 @@ RDXDB.RegisterSymLinkClass({
 	end;
 });
 
--- symlink for windows class (holy combo, shard, rune or other)
--- deprecated
+-- symlink for windows class (holy, shard, rune or other)
 RDXDB.RegisterSymLinkClass({
 	name = "class&form";
 	title = "class&form";
 	GetTargetPath = function(data)
 		local class = select(2, UnitClass("PLAYER"));
-		local index = GetShapeshiftForm();
+		local form = GetShapeshiftForm();
+		local spec = GetSpecialization();
 		if class == "DEATHKNIGHT" then
 			return data["DEATHKNIGHT"];
-		elseif class == "SHAMAN" then
-			return data["SHAMAN"];
-		elseif class == "ROGUE" then
-			return data["ROGUE"];
-		elseif class == "WARLOCK" then
-			return data["WARLOCK"];
-		elseif class == "DRUID" and index == 5 then
-			return data["DRUIDELEM"];
-		elseif class == "DRUID" and index == 3 then
-			return data["DRUIDCAT"];
+		--elseif class == "SHAMAN" then
+		--	return data["SHAMAN"];
+		--elseif class == "ROGUE" then
+		--	return data["ROGUE"];
+		elseif class == "WARLOCK" and spec == SPEC_WARLOCK_AFFLICTION then --and IsPlayerSpell(WARLOCK_SOULBURN) then
+			return data["WARLOCK_AFFLICTION"];
+		elseif class == "WARLOCK" and spec == SPEC_WARLOCK_DESTRUCTION then --and IsPlayerSpell(WARLOCK_BURNING_EMBERS) then
+			return data["WARLOCK_DESTRUCTION"];
+		elseif class == "WARLOCK" and spec == SPEC_WARLOCK_DEMONOLOGY then
+			return data["WARLOCK_DEMONOLOGY"];
+		elseif class == "DRUID" and (form == MOONKIN_FORM or not form) and spec == 1 then
+			return data["DRUID_MOONKIN"];
+		--elseif class == "DRUID" and form == 3 then
+		--	return data["DRUIDCAT"];
 		elseif class == "PALADIN" then
 			return data["PALADIN"];
 		elseif class == "MONK" then
 			return data["MONK"];
+		elseif class == "PRIEST" and spec == SPEC_PRIEST_SHADOW then
+			return data["PRIEST_SHADOW"];
 		else
 			return data["all"];
 		end
 	end;
 	Register = function(path)
-		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() RDXDB.NotifyUpdate(path); end, "symlink_" .. path);
-		VFLEvents:Bind("PLAYER_FORM_UPDATE", nil, function() RDXDB.NotifyUpdate(path); end, "symlink_" .. path);
+		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function()
+			local newlink = RDXDB.ResolvePath(path);
+			if savelink[path] ~= newlink then
+				RDXDB.NotifyUpdate(path);
+				savelink[path] = newlink;
+			end
+		end, "symlink_" .. path);
+		VFLEvents:Bind("PLAYER_FORM_UPDATE", nil, function() 
+			local newlink = RDXDB.ResolvePath(path);
+			if savelink[path] ~= newlink then
+				RDXDB.NotifyUpdate(path);
+				savelink[path] = newlink;
+			end
+		end, "symlink_" .. path);
+		--WoWEvents:Bind("SPELLS_CHANGED", nil, function() 
+		--	local newlink = RDXDB.ResolvePath(path);
+		--	if savelink[path] ~= newlink then
+		--		RDXDB.NotifyUpdate(path);
+		--		savelink[path] = newlink;
+		--	end
+		--end, "symlink_" .. path);
 	end;
 	Unregister = function(path)
 		--VFL.print("UNREGISTER " .. path);
@@ -664,72 +710,93 @@ RDXDB.RegisterSymLinkClass({
 	GetUI = function(parent, desc)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		
-		local ff = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
-		ff:SetLabel(VFLI.i18n("DEATHKNIGHT"));
-		if desc and desc.DEATHKNIGHT then ff:SetPath(desc.DEATHKNIGHT); end
-		ff:Show();
-		ui:InsertFrame(ff);
+		local dk = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		dk:SetLabel(VFLI.i18n("DEATHKNIGHT"));
+		if desc and desc.DEATHKNIGHT then dk:SetPath(desc.DEATHKNIGHT); end
+		dk:Show();
+		ui:InsertFrame(dk);
 		
-		local ff2 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
-		ff2:SetLabel(VFLI.i18n("SHAMAN"));
-		if desc and desc.SHAMAN then ff2:SetPath(desc.SHAMAN); end
-		ff2:Show();
-		ui:InsertFrame(ff2);
+		--local sh = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		--sh:SetLabel(VFLI.i18n("SHAMAN"));
+		--if desc and desc.SHAMAN then sh:SetPath(desc.SHAMAN); end
+		--sh:Show();
+		--ui:InsertFrame(sh);
 		
-		local ff3 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
-		ff3:SetLabel(VFLI.i18n("ROGUE"));
-		if desc and desc.ROGUE then ff3:SetPath(desc.ROGUE); end
-		ff3:Show();
-		ui:InsertFrame(ff3);
+		--local ff3 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		--ff3:SetLabel(VFLI.i18n("ROGUE"));
+		--if desc and desc.ROGUE then ff3:SetPath(desc.ROGUE); end
+		--ff3:Show();
+		--ui:InsertFrame(ff3);
 		
-		local ff4 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
-		ff4:SetLabel(VFLI.i18n("WARLOCK"));
-		if desc and desc.WARLOCK then ff4:SetPath(desc.WARLOCK); end
-		ff4:Show();
-		ui:InsertFrame(ff4);
+		local wlaf = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		wlaf:SetLabel(VFLI.i18n("WARLOCK AFFLICTION"));
+		if desc and desc.WARLOCK_AFFLICTION then wlaf:SetPath(desc.WARLOCK_AFFLICTION); end
+		wlaf:Show();
+		ui:InsertFrame(wlaf);
 		
-		local ff5 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
-		ff5:SetLabel(VFLI.i18n("DRUID ELEM"));
-		if desc and desc.DRUIDELEM then ff5:SetPath(desc.DRUIDELEM); end
-		ff5:Show();
-		ui:InsertFrame(ff5);
+		local wldt = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		wldt:SetLabel(VFLI.i18n("WARLOCK DESTRUCTION"));
+		if desc and desc.WARLOCK_DESTRUCTION then wldt:SetPath(desc.WARLOCK_DESTRUCTION); end
+		wldt:Show();
+		ui:InsertFrame(wldt);
 		
-		local ff6 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
-		ff6:SetLabel(VFLI.i18n("DRUID CAT"));
-		if desc and desc.DRUIDCAT then ff6:SetPath(desc.DRUIDCAT); end
-		ff6:Show();
-		ui:InsertFrame(ff6);
+		local wldm = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		wldm:SetLabel(VFLI.i18n("WARLOCK DEMONOLOGY"));
+		if desc and desc.WARLOCK_DEMONOLOGY then wldm:SetPath(desc.WARLOCK_DEMONOLOGY); end
+		wldm:Show();
+		ui:InsertFrame(wldm);
 		
-		local ff7 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
-		ff7:SetLabel(VFLI.i18n("PALADIN"));
-		if desc and desc.PALADIN then ff7:SetPath(desc.PALADIN); end
-		ff7:Show();
-		ui:InsertFrame(ff7);
+		local drm = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		drm:SetLabel(VFLI.i18n("DRUID MOONKIN"));
+		if desc and desc.DRUID_MOONKIN then drm:SetPath(desc.DRUID_MOONKIN); end
+		drm:Show();
+		ui:InsertFrame(drm);
 		
-		local ff8 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
-		ff8:SetLabel(VFLI.i18n("MONK"));
-		if desc and desc.MONK then ff8:SetPath(desc.MONK); end
-		ff8:Show();
-		ui:InsertFrame(ff8);
+		--local ff6 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		--ff6:SetLabel(VFLI.i18n("DRUID CAT"));
+		--if desc and desc.DRUIDCAT then ff6:SetPath(desc.DRUIDCAT); end
+		--ff6:Show();
+		--ui:InsertFrame(ff6);
 		
-		local ff9 = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
-		ff9:SetLabel(VFLI.i18n("ALL"));
-		if desc and desc.all then ff9:SetPath(desc.all); end
-		ff9:Show();
-		ui:InsertFrame(ff9);
+		local pa = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		pa:SetLabel(VFLI.i18n("PALADIN"));
+		if desc and desc.PALADIN then pa:SetPath(desc.PALADIN); end
+		pa:Show();
+		ui:InsertFrame(pa);
+		
+		local mo = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		mo:SetLabel(VFLI.i18n("MONK"));
+		if desc and desc.MONK then mo:SetPath(desc.MONK); end
+		mo:Show();
+		ui:InsertFrame(mo);
+		
+		local prs = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		prs:SetLabel(VFLI.i18n("PRIEST SHADOW"));
+		if desc and desc.PRIEST_SHADOW then prs:SetPath(desc.PRIEST_SHADOW); end
+		prs:Show();
+		ui:InsertFrame(prs);
+		
+		local all = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table"); end);
+		all:SetLabel(VFLI.i18n("ALL"));
+		if desc and desc.all then all:SetPath(desc.all); end
+		all:Show();
+		ui:InsertFrame(all);
 
 		ui.GetDescriptor = function(x)
 			return {
 				class = "class&form", 
-				DEATHKNIGHT = ff:GetPath(),
-				SHAMAN = ff2:GetPath(),
-				ROGUE = ff3:GetPath(),
-				WARLOCK = ff4:GetPath(),
-				DRUIDELEM = ff5:GetPath(),
-				DRUIDCAT = ff6:GetPath(),
-				PALADIN = ff7:GetPath(),
-				MONK = ff8:GetPath(),
-				all = ff9:GetPath(),
+				DEATHKNIGHT = dk:GetPath(),
+				--SHAMAN = sh:GetPath(),
+				--ROGUE = ff3:GetPath(),
+				WARLOCK_AFFLICTION = wlaf:GetPath(),
+				WARLOCK_DESTRUCTION = wldt:GetPath(),
+				WARLOCK_DEMONOLOGY = wldm:GetPath(),
+				DRUID_MOONKIN = drm:GetPath(),
+				--DRUIDCAT = ff6:GetPath(),
+				PALADIN = pa:GetPath(),
+				MONK = mo:GetPath(),
+				PRIEST_SHADOW = prs:GetPath(),
+				all = all:GetPath(),
 			};
 		end;
 
@@ -772,9 +839,11 @@ local function ApplyEvents()
 		for objName,md in pairs(pkg) do
 			if type(md) == "table" and md.ty == "SymLink" then
 				if md.data and type(md.data) == "table" then
-					local sl = tysl[md.data.class or "toto"];
+					local sl = tysl[md.data.class];
 					if not sl then return; end
 					if sl.Register then sl.Register(pkgName .. ":" ..objName, md.data); end
+					-- store the path
+					savelink[pkgName .. ":" ..objName] = RDXDB.ResolvePath(pkgName .. ":" ..objName);
 				end
 			end
 		end

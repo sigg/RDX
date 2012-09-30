@@ -38,11 +38,6 @@ RDX.RegisterFeature({
 			desc.gametooltip.tex = { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; };
 		end	
 		local tooltipmouse = "nil"; if desc.gametooltip.tooltipmouse then tooltipmouse = "true"; end
-		--if not desc.anchorx then desc.anchorx = 200; end
-		--if not desc.anchory then desc.anchory = 200; end
-		--if not desc.bkd then desc.bkd = VFL.copy(VFLUI.DarkDialogBackdrop); end
-		--if not desc.font then desc.font = VFL.copy(Fonts.Default10); end
-		--if not desc.tex then desc.tex = { path = "Interface\\Addons\\RDX\\Skin\\bar1"; blendMode = "BLEND"; color = {r=1,g=1,b=1,a=1}; }; end
 		desc.anchorx = nil;
 		desc.anchory = nil;
 		desc.bkd = nil;
@@ -54,8 +49,6 @@ RDX.RegisterFeature({
 			desc.realid.anchorxrid = 200;
 			desc.realid.anchoryrid = 200;
 		end
-		--if not desc.anchorxrid then desc.anchorxrid = 200; end
-		--if not desc.anchoryrid then desc.anchoryrid = 200; end
 		desc.anchorxrid = nil;
 		desc.anchoryrid = nil;
 		
@@ -90,9 +83,99 @@ RDX.RegisterFeature({
 			desc.blizzard = {};
 		end
 		
+		local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+		
+		if not desc.states then
+			desc.states = {};
+			desc.states.SOLO = {};
+			desc.states.SOLO.OnSelect = {};
+			desc.states.SOLO.OnSelect.arena = {};
+			desc.states.SOLO.OnSelect.arena.name = auiname .. ":Arena_Main";
+			desc.states.SOLO.OnSelect.arena.action = "WINDOW_CLOSE";
+			desc.states.SOLO.OnSelect.party = {};
+			desc.states.SOLO.OnSelect.party.name = auiname .. ":Party_Main";
+			desc.states.SOLO.OnSelect.party.action = "WINDOW_CLOSE";
+			desc.states.SOLO.OnSelect.partytarget = {};
+			desc.states.SOLO.OnSelect.partytarget.name = auiname .. ":Partytarget_Main";
+			desc.states.SOLO.OnSelect.partytarget.action = "WINDOW_CLOSE";
+			desc.states.SOLO.OnSelect.raid = {};
+			desc.states.SOLO.OnSelect.raid.name = auiname .. ":Raid_Main";
+			desc.states.SOLO.OnSelect.raid.action = "WINDOW_CLOSE";
+			desc.states.SOLO.OnSelect.boss = {};
+			desc.states.SOLO.OnSelect.boss.name = auiname .. ":Boss_Main";
+			desc.states.SOLO.OnSelect.boss.action = "WINDOW_CLOSE";
+			desc.states.PARTY = {};
+			desc.states.PARTY.OnSelect = {};
+			desc.states.PARTY.OnSelect.arena = {};
+			desc.states.PARTY.OnSelect.arena.name = auiname .. ":Arena_Main";
+			desc.states.PARTY.OnSelect.arena.action = "WINDOW_CLOSE";
+			desc.states.PARTY.OnSelect.party = {};
+			desc.states.PARTY.OnSelect.party.name = auiname .. ":Party_Main";
+			desc.states.PARTY.OnSelect.party.action = "WINDOW_OPEN";
+			desc.states.PARTY.OnSelect.partytarget = {};
+			desc.states.PARTY.OnSelect.partytarget.name = auiname .. ":Partytarget_Main";
+			desc.states.PARTY.OnSelect.partytarget.action = "WINDOW_OPEN";
+			desc.states.PARTY.OnSelect.raid = {};
+			desc.states.PARTY.OnSelect.raid.name = auiname .. ":Raid_Main";
+			desc.states.PARTY.OnSelect.raid.action = "WINDOW_CLOSE";
+			desc.states.PARTY.OnSelect.boss = {};
+			desc.states.PARTY.OnSelect.boss.name = auiname .. ":Boss_Main";
+			desc.states.PARTY.OnSelect.boss.action = "WINDOW_CLOSE";
+			desc.states.RAID = {};
+			desc.states.RAID.OnSelect = {};
+			desc.states.RAID.OnSelect.arena = {};
+			desc.states.RAID.OnSelect.arena.name = auiname .. ":Arena_Main";
+			desc.states.RAID.OnSelect.arena.action = "WINDOW_CLOSE";
+			desc.states.RAID.OnSelect.party = {};
+			desc.states.RAID.OnSelect.party.name = auiname .. ":Party_Main";
+			desc.states.RAID.OnSelect.party.action = "WINDOW_CLOSE";
+			desc.states.RAID.OnSelect.partytarget = {};
+			desc.states.RAID.OnSelect.partytarget.name = auiname .. ":Partytarget_Main";
+			desc.states.RAID.OnSelect.partytarget.action = "WINDOW_CLOSE";
+			desc.states.RAID.OnSelect.raid = {};
+			desc.states.RAID.OnSelect.raid.name = auiname .. ":Raid_Main";
+			desc.states.RAID.OnSelect.raid.action = "WINDOW_OPEN";
+			desc.states.RAID.OnSelect.boss = {};
+			desc.states.RAID.OnSelect.boss.name = auiname .. ":Boss_Main";
+			desc.states.RAID.OnSelect.boss.action = "WINDOW_OPEN";
+			desc.states.BATTLEGROUND = {};
+			desc.states.BATTLEGROUND.OnSelect = {};
+			desc.states.BATTLEGROUND.OnSelect.arena = {};
+			desc.states.BATTLEGROUND.OnSelect.arena.name = auiname .. ":Arena_Main";
+			desc.states.BATTLEGROUND.OnSelect.arena.action = "WINDOW_CLOSE";
+			desc.states.BATTLEGROUND.OnSelect.party = {};
+			desc.states.BATTLEGROUND.OnSelect.party.name = auiname .. ":Party_Main";
+			desc.states.BATTLEGROUND.OnSelect.party.action = "WINDOW_CLOSE";
+			desc.states.BATTLEGROUND.OnSelect.partytarget = {};
+			desc.states.BATTLEGROUND.OnSelect.partytarget.name = auiname .. ":Partytarget_Main";
+			desc.states.BATTLEGROUND.OnSelect.partytarget.action = "WINDOW_CLOSE";
+			desc.states.BATTLEGROUND.OnSelect.raid = {};
+			desc.states.BATTLEGROUND.OnSelect.raid.name = auiname .. ":Raid_Main";
+			desc.states.BATTLEGROUND.OnSelect.raid.action = "WINDOW_OPEN";
+			desc.states.BATTLEGROUND.OnSelect.boss = {};
+			desc.states.BATTLEGROUND.OnSelect.boss.name = auiname .. ":Boss_Main";
+			desc.states.BATTLEGROUND.OnSelect.boss.action = "WINDOW_CLOSE";
+			desc.states.ARENA = {};
+			desc.states.ARENA.OnSelect = {};
+			desc.states.ARENA.OnSelect.arena = {};
+			desc.states.ARENA.OnSelect.arena.name = auiname .. ":Arena_Main";
+			desc.states.ARENA.OnSelect.arena.action = "WINDOW_OPEN";
+			desc.states.ARENA.OnSelect.party = {};
+			desc.states.ARENA.OnSelect.party.name = auiname .. ":Party_Main";
+			desc.states.ARENA.OnSelect.party.action = "WINDOW_OPEN";
+			desc.states.ARENA.OnSelect.partytarget = {};
+			desc.states.ARENA.OnSelect.partytarget.name = auiname .. ":Partytarget_Main";
+			desc.states.ARENA.OnSelect.partytarget.action = "WINDOW_OPEN";
+			desc.states.ARENA.OnSelect.raid = {};
+			desc.states.ARENA.OnSelect.raid.name = auiname .. ":Raid_Main";
+			desc.states.ARENA.OnSelect.raid.action = "WINDOW_CLOSE";
+			desc.states.ARENA.OnSelect.boss = {};
+			desc.states.ARENA.OnSelect.boss.name = auiname .. ":Boss_Main";
+			desc.states.ARENA.OnSelect.boss.action = "WINDOW_CLOSE";
+		end
+		
 		state.Code:Clear();
 		state.Code:AppendCode([[
-local encid = "dk_rdx8";
 DesktopEvents:Dispatch("WINDOW_OPEN", "root");
 DesktopEvents:Dispatch("DESKTOP_VIEWPORT", ]] .. useviewport .. [[, ]] .. desc.offsetleft .. [[, ]] .. desc.offsettop .. [[, ]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
 DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. Serialize(desc.gametooltip) .. [[);
@@ -121,17 +204,6 @@ DesktopEvents:Dispatch("DESKTOP_BLIZZARD", ]] .. Serialize(desc.blizzard) .. [[)
 		if desc and desc.viewport then chk_viewport:SetChecked(true); else chk_viewport:SetChecked(); end
 		ui:InsertFrame(chk_viewport);
 		
-		--local er = VFLUI.EmbedRight(ui, VFLI.i18n("Anchor:"));
-		--local dd_vanchor = VFLUI.Dropdown:new(er, RDXUI.AnchorPointSelectionFunc);
-		--dd_vanchor:SetWidth(200); dd_vanchor:Show();
-		--if desc and desc.vanchor then 
-		--	dd_vanchor:SetSelection(desc.vanchor); 
-		--else
-		--	dd_vanchor:SetSelection("CENTER");
-		--end
-		--er:EmbedChild(dd_vanchor); er:Show();
-		--ui:InsertFrame(er);
-		
 		local offsettop = VFLUI.LabeledEdit:new(ui, 200); offsettop:Show();
 		offsettop:SetText(VFLI.i18n("Offset Top"));
 		if desc and desc.offsettop then offsettop.editBox:SetText(desc.offsettop); else offsettop.editBox:SetText("0"); end
@@ -151,51 +223,6 @@ DesktopEvents:Dispatch("DESKTOP_BLIZZARD", ]] .. Serialize(desc.blizzard) .. [[)
 		offsetright:SetText(VFLI.i18n("Offset Right"));
 		if desc and desc.offsetright then offsetright.editBox:SetText(desc.offsetright); else offsetright.editBox:SetText("0"); end
 		ui:InsertFrame(offsetright);
-		
-		--[[
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("GameTooltips")));
-		
-		local chk_tooltipmouse = VFLUI.Checkbox:new(ui); chk_tooltipmouse:Show();
-		chk_tooltipmouse:SetText(VFLI.i18n("Mouse anchor GameTooltip"));
-		if desc and desc.tooltipmouse then chk_tooltipmouse:SetChecked(true); else chk_tooltipmouse:SetChecked(); end
-		ui:InsertFrame(chk_tooltipmouse);
-		
-		local anchorx = VFLUI.LabeledEdit:new(ui, 200); anchorx:Show();
-		anchorx:SetText(VFLI.i18n("Offset x"));
-		if desc and desc.anchorx then anchorx.editBox:SetText(desc.anchorx); else anchorx.editBox:SetText("200"); end
-		ui:InsertFrame(anchorx);
-		
-		local anchory = VFLUI.LabeledEdit:new(ui, 200); anchory:Show();
-		anchory:SetText(VFLI.i18n("Offset y"));
-		if desc and desc.anchory then anchory.editBox:SetText(desc.anchory); else anchory.editBox:SetText("0"); end
-		ui:InsertFrame(anchory);
-		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop style"));
-		local bkd = VFLUI.MakeBackdropSelectButton(er, desc.bkd); bkd:Show();
-		er:EmbedChild(bkd); er:Show();
-		ui:InsertFrame(er);
-		
-		local er_st = VFLUI.EmbedRight(ui, VFLI.i18n("Font"));
-		local font = VFLUI.MakeFontSelectButton(er_st, desc.font); font:Show();
-		er_st:EmbedChild(font); er_st:Show();
-		ui:InsertFrame(er_st);
-		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Texture"));
-		local tsel = VFLUI.MakeTextureSelectButton(er, desc.tex); tsel:Show();
-		er:EmbedChild(tsel); er:Show();
-		ui:InsertFrame(er);
-		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Realid properties")));
-		
-		local anchorxrid = VFLUI.LabeledEdit:new(ui, 200); anchorxrid:Show();
-		anchorxrid:SetText(VFLI.i18n("Offset x"));
-		if desc and desc.anchorxrid then anchorxrid.editBox:SetText(desc.anchorxrid); else anchorxrid.editBox:SetText("200"); end
-		ui:InsertFrame(anchorxrid);
-		
-		local anchoryrid = VFLUI.LabeledEdit:new(ui, 200); anchoryrid:Show();
-		anchoryrid:SetText(VFLI.i18n("Offset y"));
-		if desc and desc.anchoryrid then anchoryrid.editBox:SetText(desc.anchoryrid); else anchoryrid.editBox:SetText("0"); end
-		ui:InsertFrame(anchoryrid);]]
 		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Dock properties")));
 		
@@ -229,24 +256,27 @@ DesktopEvents:Dispatch("DESKTOP_BLIZZARD", ]] .. Serialize(desc.blizzard) .. [[)
 				--resolution = VFLUI.GetCurrentResolution();
 				--scale = VFLUI.GetCurrentEffectiveScale();
 				--perfectpixel = chk_perfectpixel:GetChecked();
-				viewport = chk_viewport:GetChecked();
 				--vanchor = dd_vanchor:GetSelection();
+				viewport = chk_viewport:GetChecked();
 				offsettop = offsettop.editBox:GetText();
 				offsetleft = offsetleft.editBox:GetText();
 				offsetbottom = offsetbottom.editBox:GetText();
 				offsetright = offsetright.editBox:GetText();
-				--tooltipmouse = chk_tooltipmouse:GetChecked();
-				--anchorx = anchorx.editBox:GetText();
-				--anchory = anchory.editBox:GetText();
-				--bkd = bkd:GetSelectedBackdrop();
-				--font = font:GetSelectedFont();
-				--tex = tsel:GetSelectedTexture();
-				--anchorxrid = anchorxrid.editBox:GetText();
-				--anchoryrid = anchoryrid.editBox:GetText();
 				gametooltip = desc.gametooltip;
 				realid = desc.realid;
+				nameplates = desc.nameplates;
+				rdxiconx = desc.rdxiconx;
+				rdxicony = desc.rdxicony;
+				rdxmtxt = desc.rdxmtxt;
+				topstack_props = desc.topstack_props;
+				bottomstack_props = desc.bottomstack_props;
+				blizzard = desc.blizzard;
 				dock = desc.dock;
 				dgp = desc.dgp;
+				-- save position
+				sp = desc.sp;
+				-- states
+				states = desc.states;
 			};
 		end
 

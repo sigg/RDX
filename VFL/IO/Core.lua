@@ -151,14 +151,6 @@ ChatEdit_SetLastActiveWindow = function(editBox)
 end
 
 
-
---if VFL_DEFAULT_CHATFRAME ~= f then
---	if RDX_DEFAULT_CHATFRAME then VFLUI.SetBackdropBorderColor(RDX_DEFAULT_CHATFRAME.ebbg, 0, 0, 0, 1); end
---	VFLUI.SetBackdropBorderColor(f.ebbg, 0, 1, 0, 1);
---	RDX_DEFAULT_CHATFRAME = f;
---	
---end
-
 --DEFAULT_CHAT_FRAME = f.cf;
 
 VFLUI.CreateFramePool("ChatFrameEditBox", 

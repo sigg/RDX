@@ -146,6 +146,8 @@ local power = {
     { text = "SPELL_POWER_SOUL_SHARDS" },
     { text = "SPELL_POWER_ECLIPSE" },
     { text = "SPELL_POWER_HOLY_POWER" },
+    { text = "SPELL_POWER_SHADOW_ORBS" },
+    { text = "SPELL_POWER_LIGHT_FORCE" },
     { text = "ALTERNATE_POWER_INDEX" },
 };
 function RDXUI.PowerSelectionFunc() return power; end

@@ -684,6 +684,7 @@ RDXCD.RegisterCooldown("Scourge", nil, nil, nil, 7744, 2*60, nil, "SPELL_CAST_SU
 
 --ITEM
 RDXCD.RegisterCooldown("Item", nil, nil, nil, 42292, 2*60, nil, "SPELL_CAST_SUCCESS"); -- PVP trinket
+
 RDXCD.RegisterCooldown("Item", nil, nil, nil, 74241, 45, nil, "SPELL_AURA_APPLIED");  -- Power Torrent
 RDXCD.RegisterCooldown("Item", nil, nil, nil, 89091, 45, nil, "SPELL_AURA_APPLIED");  -- DMC: Volcano
 RDXCD.RegisterCooldown("Item", nil, nil, nil, 97007, 60, nil, "SPELL_CAST_SUCCESS"); -- Rune of Zeth

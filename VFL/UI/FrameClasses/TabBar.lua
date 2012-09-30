@@ -228,6 +228,26 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 	
 	local scrollable, scrollChild = nil, nil;
 	local btnLeft, btnRight = nil, nil;
+	
+	local TabDragContext = VFLUI.DragContext:new();
+	
+	local function TabDragStart(btn)
+		local proxy = VFLUI.CreateGenericDragProxy(btn, "");
+		TabDragContext:Drag(btn, proxy);
+	end
+	
+	local function TabDropOn(target, proxy, source, context)
+		if target == source then
+			--RDX.NewLearnWizardName("docking_windows");
+		else
+			-- récupère l'id de la target cible
+			local id = VFL.vfind(tabs, target);
+			if id then
+				self:MoveTab(source, id)
+			end
+			--DesktopEvents:Dispatch("WINDOW_DOCK", proxy.data, proxy.point, target.data, target.point, offset);
+		end
+	end
 
 	-- Rebuild the anchor structure of the tabs
 	local function ReanchorTabs()
@@ -376,7 +396,11 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		
 		t._tbOnSelect = fnSelect; t._tbOnDeselect = fnDeselect;
 		-- Add clickscript
-		t:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+		t:RegisterForClicks("LeftButtonDown", "RightButtonDown");
+		-- drag
+		t.OnDrop = TabDropOn;
+		TabDragContext:RegisterDragTarget(t);
+		
 		t:SetScript("OnClick", function(self2, arg1) 
 			if(arg1 == "LeftButton") then
 				if not notSelectable then
@@ -399,7 +423,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 				t:SetAlpha(0.5);
 			end);
 			t:SetAlpha(0.5);
-		end		
+		end
 		-- add heightclientoffset
 		if not heightclientoffset then heightclientoffset = 0; end
 		t._heightclientoffset = heightclientoffset;
@@ -422,6 +446,16 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 			tabWidth = tabWidth - rt:GetWidth();
 			UpdateScrollable();
 			rt:Destroy();
+		end
+	end
+	
+	--- Move a tab to a new point.
+	function self:MoveTab(x, i)
+		local t = VFL.vremove(tabs, x);
+		if t then
+			table.insert(tabs, i, t);
+			ReanchorTabs();
+			UpdateScrollable();
 		end
 	end
 	
@@ -450,12 +484,13 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 
 	-- Destructor
 	self.Destroy = VFL.hook(function(s)
-		for k,tab in pairs(tabs) do tab:Destroy(); tabs[k] = nil; end
+		for k,tab in pairs(tabs) do tab.OnDrop = nil; TabDragContext:UnregisterDragTarget(x); tab:Destroy(); tabs[k] = nil; end
+		TabDragContext = nil;
 		UnsetScrollable();
 		tabs = nil; tabWidth = nil;
 		self.SetBackdropTab = nil; self.SetFontTab = nil;
 		self.SelectTabName = nil; self.SelectTabId = nil; self.UnSelectTab = nil; self._GetCurrentTab = nil;
-		self.RemoveTab = nil; self.AddTab = nil; self.SelectTab = nil;
+		self.MoveTab = nil; self.RemoveTab = nil; self.AddTab = nil; self.SelectTab = nil;
 	end, self.Destroy);
 
 	return self;

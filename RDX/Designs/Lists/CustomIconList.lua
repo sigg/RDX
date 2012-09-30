@@ -87,7 +87,7 @@ for i=1,]] .. desc.nIcons .. [[ do
 	if not RDXG.usecleanicons then
 		btn.tex:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
 	end
-	btn.tex:SetDrawLayer("ARTWORK", 2);
+	btn.tex:SetDrawLayer("ARTWORK", 3);
 	btn.tex:Show();
 ]];	
 	if desc.disableClick then createCode = createCode .. [[

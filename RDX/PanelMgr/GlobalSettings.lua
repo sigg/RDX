@@ -46,6 +46,18 @@ function RDXPM.RDXManage(parent)
 	if opt and opt.pwm then chk_pwm:SetChecked(true); else chk_pwm:SetChecked(); end
 	ui:InsertFrame(chk_pwm);
 	
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Enable Blizzard")));
+	
+	local chk_ec = VFLUI.Checkbox:new(ui); chk_ec:Show();
+	chk_ec:SetText(VFLI.i18n("Enable Blizzard Chatframe/CombatLogs"));
+	if opt and opt.ec then chk_ec:SetChecked(true); else chk_ec:SetChecked(); end
+	ui:InsertFrame(chk_ec);
+	
+	local chk_ea = VFLUI.Checkbox:new(ui); chk_ea:Show();
+	chk_ea:SetText(VFLI.i18n("Enable Blizzard ActionBars"));
+	if opt and opt.ea then chk_ea:SetChecked(true); else chk_ea:SetChecked(); end
+	ui:InsertFrame(chk_ea);
+	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 	
 	dlg:Show();
@@ -70,6 +82,8 @@ function RDXPM.RDXManage(parent)
 		opt.dgt = chk_dgt:GetChecked();
 		opt.scc = chk_scc:GetChecked();
 		opt.pwm = chk_pwm:GetChecked();
+		opt.ec = chk_ec:GetChecked();
+		opt.ea = chk_ea:GetChecked();
 		if opt.upp then
 			SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"));
 		end

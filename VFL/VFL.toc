@@ -2,7 +2,7 @@
 ## Title: |c007ffcffVFL|r
 ## Notes: VFL (Venificus Function Library) is a set of reusable UI elements, objects, and functions designed to accelerate UI mod development.
 ## Author: Venificus
-## Version: 8.0.0
+## Version: 9.0.0
 ## SavedVariables: VFLModuleData, VFLConfig, VFL_Profiler_Data
 VFL.xml
 
@@ -99,6 +99,7 @@ UI\Pickers\ColorPicker.lua
 UI\Pickers\FontPicker.lua
 UI\Pickers\TexturePicker.lua
 UI\Pickers\BackdropPicker.lua
+UI\Pickers\ButtonSkinPicker.lua
 UI\Pickers\SoundPicker.lua
 UI\Pickers\CooldownPicker.lua
 UI\Pickers\SBTIBPicker.lua

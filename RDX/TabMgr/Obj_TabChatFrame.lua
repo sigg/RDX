@@ -591,7 +591,7 @@ end
 -- Chatframe RDX object registration
 RDXDB.RegisterObjectType({
 	name = "TabChatFrame";
-	New = function(path, md)
+	--[[New = function(path, md)
 		md.version = 1;
 		md.data = {};
 		md.data.title = "Chat";
@@ -638,7 +638,7 @@ RDXDB.RegisterObjectType({
 		md.data.system["CHANNEL"] = true;
 		md.data.system["BN_INLINE_TOAST_ALERT"] = true;
 		md.data.channels = {};
-	end;
+	end;]]
 	Edit = function(path, md, parent)
 		EditChatFrameDialog(parent or VFLDIALOG, path, md);
 	end;

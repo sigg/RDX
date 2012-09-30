@@ -165,127 +165,6 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	if not default["ChatFrame1"] then
-		default["ChatFrame1"] = {
-			["ty"] = "TabChatFrame",
-			["version"] = 1,
-			["data"] = {
-				["title"] = "General",
-				["tabwidth"] = 80,
-				["discussion"] = {
-					["SAY"] = true,
-					["EMOTE"] = true,
-					["YELL"] = true,
-					["GUILD"] = true,
-					["OFFICER"] = true,
-					["GUILD_ACHIEVEMENT"] = true,
-					["ACHIEVEMENT"] = true,
-					["WHISPER"] = true,
-					["BN_WHISPER"] = true,
-					["PARTY"] = true,
-					["PARTY_LEADER"] = true,
-					["RAID"] = true,
-					["RAID_LEADER"] = true,
-					["RAID_WARNING"] = true,
-					["BATTLEGROUND"] = true,
-					["BATTLEGROUND_LEADER"] = true,
-					["BN_CONVERSATION"] = true,
-				},
-				["creature"] = {
-					["MONSTER_SAY"] = true,
-					["MONSTER_EMOTE"] = true,
-					["MONSTER_YELL"] = true,
-					["MONSTER_WHISPER"] = true,
-					["MONSTER_BOSS_EMOTE"] = true,
-					["MONSTER_BOSS_WHISPER"] = true,
-				},
-				["combat"] = {
-					["COMBAT_FACTION_CHANGE"] = true,
-					["SKILL"] = true,
-					["LOOT"] = true,
-					["CURRENCY"] = true,
-					["MONEY"] = true,
-				},
-				["pvp"] = {
-					["BG_SYSTEM_HORDE"] = true,
-					["BG_SYSTEM_ALLIANCE"] = true,
-					["BG_SYSTEM_NEUTRAL"] = true,
-				},
-				["system"] = {
-					["SYSTEM"] = true,
-					["ERRORS"] = true,
-					["IGNORED"] = true,
-					["CHANNEL"] = true,
-					["BN_INLINE_TOAST_ALERT"] = true,
-				},
-				["channels"] = {
-					["CHANNEL1"] = true,
-					["CHANNEL2"] = true,
-					["CHANNEL3"] = true,
-				},
-			},
-		};
-	end
-	
-	if not default["ChatFrame2"] then
-		default["ChatFrame2"] = {
-			["ty"] = "TabChatFrame",
-			["version"] = 1,
-			["data"] = {
-				["title"] = "Guild",
-				["tabwidth"] = 80,
-				["discussion"] = {
-					["GUILD"] = true,
-					["OFFICER"] = true,
-					["GUILD_ACHIEVEMENT"] = true,
-					["BN_WHISPER"] = true,
-					["PARTY"] = true,
-					["PARTY_LEADER"] = true,
-					["RAID"] = true,
-					["RAID_LEADER"] = true,
-					["RAID_WARNING"] = true,
-					["BATTLEGROUND"] = true,
-					["BATTLEGROUND_LEADER"] = true,
-					["BN_CONVERSATION"] = true,
-				},
-				["creature"] = {
-				},
-				["combat"] = {
-				},
-				["pvp"] = {
-				},
-				["system"] = {
-				},
-				["channels"] = {
-				},
-			},
-		};
-	end
-	
-	if not default["ChatFrame3"] then
-		default["ChatFrame3"] = {
-			["ty"] = "TabChatFrame",
-			["version"] = 1,
-			["data"] = {
-				["title"] = "Loot",
-				["tabwidth"] = 80,
-				["discussion"] = {
-				},
-				["creature"] = {
-				},
-				["combat"] = {
-					["LOOT"] = true,
-				},
-				["pvp"] = {
-				},
-				["system"] = {
-				},
-				["channels"] = {
-				},
-			},
-		};
-	end
-	
 	if not default["TabManager1_tm"] then
 		default["TabManager1_tm"] = {
 			["ty"] = "TabManager",
@@ -293,13 +172,13 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["data"] = {
 				["cfm"] = {
 					{
-						["op"] = "default:ChatFrame1",
+						["op"] = "tabs:ChatFrame1",
 					},
 					{
-						["op"] = "default:ChatFrame2",
+						["op"] = "tabs:ChatFrame2",
 					},
 					{
-						["op"] = "default:ChatFrame3",
+						["op"] = "tabs:ChatFrame3",
 					},
 				},
 			},
@@ -400,56 +279,6 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	if not default["CombatLogs1"] then
-		default["CombatLogs1"] = {
-			["ty"] = "TabCombatLogs",
-			["version"] = 1,
-			["data"] = {
-				["title"] = "Combat",
-				["filter"] = 1,
-				["tabwidth"] = "80",
-				["size"] = 1000,
-				["filters"] = {
-					["targ"] = "player",
-					["etypes"] = {
-						true, -- [1]
-						true, -- [2]
-						true, -- [3]
-						true, -- [4]
-						true, -- [5]
-						true, -- [6]
-						true, -- [7]
-						true, -- [8]
-						true, -- [9]
-						nil, -- [10]
-						nil, -- [11]
-						nil, -- [12]
-						true, -- [13]
-						true, -- [14]
-						true, -- [15]
-						true, -- [16]
-						true, -- [17]
-						true, -- [18]
-						true, -- [19]
-						true, -- [20]
-						true, -- [21]
-						true, -- [22]
-						true, -- [23]
-						true, -- [24]
-						true, -- [25]
-						true, -- [26]
-						nil, -- [27]
-						true, -- [28]
-						true, -- [29]
-						true, -- [30]
-						true, -- [31]
-					},
-					["src"] = "player",
-				},
-			},
-		};
-	end
-	
 	if not default["TabManager2_tm"] then
 		default["TabManager2_tm"] = {
 			["ty"] = "TabManager",
@@ -457,7 +286,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["data"] = {
 				["cfm"] = {
 					{
-						["op"] = "default:CombatLogs1",
+						["op"] = "tabs:CombatLogs1",
 					},
 				},
 			},
@@ -736,14 +565,32 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
+	if not default["Partypet_fset"] then
+		default["Party_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"raidpet", -- [1]
+			},
+		};
+	end
+	
 	if not default["Arena_fset"] then
 		default["Arena_fset"] = {
 			["ty"] = "FilterSet",
 			["version"] = 1,
 			["data"] = {
 				"arena", -- [1]
-				true, -- [2]
-				true, -- [3]
+			},
+		};
+	end
+	
+	if not default["Arenapet_fset"] then
+		default["Arena_fset"] = {
+			["ty"] = "FilterSet",
+			["version"] = 1,
+			["data"] = {
+				"arenapet", -- [1]
 			},
 		};
 	end
@@ -1427,6 +1274,472 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	
 end);
 
+--------------------------------------------
+-- Builtin ClassFrame and combat logs tab
+--------------------------------------------
+
+RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
+	--
+	-- Create player-talent-specific bindings if they don't exist
+	-- default:bindings_player
+	-- type talent&name&realm
+	local tabs = RDXDB.GetOrCreatePackage("tabs");
+	
+	if not tabs["ChatFrame1"] then
+		tabs["ChatFrame1"] = {
+			["ty"] = "TabChatFrame",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "General",
+				["tabwidth"] = 80,
+				["discussion"] = {
+					["SAY"] = true,
+					["EMOTE"] = true,
+					["YELL"] = true,
+					["GUILD"] = true,
+					["OFFICER"] = true,
+					["GUILD_ACHIEVEMENT"] = true,
+					["ACHIEVEMENT"] = true,
+					["WHISPER"] = true,
+					["BN_WHISPER"] = true,
+					["PARTY"] = true,
+					["PARTY_LEADER"] = true,
+					["RAID"] = true,
+					["RAID_LEADER"] = true,
+					["RAID_WARNING"] = true,
+					["BATTLEGROUND"] = true,
+					["BATTLEGROUND_LEADER"] = true,
+					["BN_CONVERSATION"] = true,
+				},
+				["creature"] = {
+					["MONSTER_SAY"] = true,
+					["MONSTER_EMOTE"] = true,
+					["MONSTER_YELL"] = true,
+					["MONSTER_WHISPER"] = true,
+					["MONSTER_BOSS_EMOTE"] = true,
+					["MONSTER_BOSS_WHISPER"] = true,
+				},
+				["combat"] = {
+					["COMBAT_FACTION_CHANGE"] = true,
+					["SKILL"] = true,
+					["LOOT"] = true,
+					["CURRENCY"] = true,
+					["MONEY"] = true,
+				},
+				["pvp"] = {
+					["BG_SYSTEM_HORDE"] = true,
+					["BG_SYSTEM_ALLIANCE"] = true,
+					["BG_SYSTEM_NEUTRAL"] = true,
+				},
+				["system"] = {
+					["SYSTEM"] = true,
+					["ERRORS"] = true,
+					["IGNORED"] = true,
+					["CHANNEL"] = true,
+					["BN_INLINE_TOAST_ALERT"] = true,
+				},
+				["channels"] = {
+					["CHANNEL1"] = true,
+					["CHANNEL2"] = true,
+					["CHANNEL3"] = true,
+				},
+			},
+		};
+	end
+	
+	if not tabs["ChatFrame2"] then
+		tabs["ChatFrame2"] = {
+			["ty"] = "TabChatFrame",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Guild",
+				["tabwidth"] = 80,
+				["discussion"] = {
+					["GUILD"] = true,
+					["OFFICER"] = true,
+					["GUILD_ACHIEVEMENT"] = true,
+					["BN_WHISPER"] = true,
+					["PARTY"] = true,
+					["PARTY_LEADER"] = true,
+					["RAID"] = true,
+					["RAID_LEADER"] = true,
+					["RAID_WARNING"] = true,
+					["BATTLEGROUND"] = true,
+					["BATTLEGROUND_LEADER"] = true,
+					["BN_CONVERSATION"] = true,
+				},
+				["creature"] = {
+				},
+				["combat"] = {
+				},
+				["pvp"] = {
+				},
+				["system"] = {
+				},
+				["channels"] = {
+				},
+			},
+		};
+	end
+	
+	if not tabs["ChatFrame3"] then
+		tabs["ChatFrame3"] = {
+			["ty"] = "TabChatFrame",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Loot",
+				["tabwidth"] = 80,
+				["discussion"] = {
+				},
+				["creature"] = {
+				},
+				["combat"] = {
+					["LOOT"] = true,
+				},
+				["pvp"] = {
+				},
+				["system"] = {
+				},
+				["channels"] = {
+				},
+			},
+		};
+	end
+	
+	if not tabs["ChatFrame4"] then
+		tabs["ChatFrame4"] = {
+			["ty"] = "TabChatFrame",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Pvp",
+				["tabwidth"] = 80,
+				["discussion"] = {
+					["PARTY"] = true,
+					["PARTY_LEADER"] = true,
+					["RAID"] = true,
+					["RAID_LEADER"] = true,
+					["RAID_WARNING"] = true,
+					["BATTLEGROUND"] = true,
+					["BATTLEGROUND_LEADER"] = true,
+				},
+				["creature"] = {
+				},
+				["combat"] = {
+				},
+				["pvp"] = {
+					["BG_SYSTEM_HORDE"] = true,
+					["BG_SYSTEM_ALLIANCE"] = true,
+					["BG_SYSTEM_NEUTRAL"] = true,
+				},
+				["system"] = {
+				},
+				["channels"] = {
+				},
+			},
+		};
+	end
+	
+	if not tabs["ChatFrame5"] then
+		tabs["ChatFrame5"] = {
+			["ty"] = "TabChatFrame",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Creature",
+				["tabwidth"] = 80,
+				["discussion"] = {
+				},
+				["creature"] = {
+					["MONSTER_SAY"] = true,
+					["MONSTER_EMOTE"] = true,
+					["MONSTER_YELL"] = true,
+					["MONSTER_WHISPER"] = true,
+					["MONSTER_BOSS_EMOTE"] = true,
+					["MONSTER_BOSS_WHISPER"] = true,
+				},
+				["combat"] = {
+				},
+				["pvp"] = {
+				},
+				["system"] = {
+				},
+				["channels"] = {
+				},
+			},
+		};
+	end
+	
+	if not tabs["ChatFrame6"] then
+		tabs["ChatFrame6"] = {
+			["ty"] = "TabChatFrame",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "System",
+				["tabwidth"] = 80,
+				["discussion"] = {
+				},
+				["creature"] = {
+				},
+				["combat"] = {
+				},
+				["pvp"] = {
+				},
+				["system"] = {
+					["SYSTEM"] = true,
+					["ERRORS"] = true,
+					["IGNORED"] = true,
+					["CHANNEL"] = true,
+					["BN_INLINE_TOAST_ALERT"] = true,
+				},
+				["channels"] = {
+				},
+			},
+		};
+	end
+	
+	if not tabs["ChatFrame7"] then
+		tabs["ChatFrame7"] = {
+			["ty"] = "TabChatFrame",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Undefined",
+				["tabwidth"] = 80,
+				["discussion"] = {
+				},
+				["creature"] = {
+				},
+				["combat"] = {
+				},
+				["pvp"] = {
+				},
+				["system"] = {
+				},
+				["channels"] = {
+				},
+			},
+		};
+	end
+	
+	if not tabs["ChatFrame8"] then
+		tabs["ChatFrame8"] = {
+			["ty"] = "TabChatFrame",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Undefined",
+				["tabwidth"] = 80,
+				["discussion"] = {
+				},
+				["creature"] = {
+				},
+				["combat"] = {
+				},
+				["pvp"] = {
+				},
+				["system"] = {
+				},
+				["channels"] = {
+				},
+			},
+		};
+	end
+	
+	if not tabs["ChatFrame9"] then
+		tabs["ChatFrame9"] = {
+			["ty"] = "TabChatFrame",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Undefined",
+				["tabwidth"] = 80,
+				["discussion"] = {
+				},
+				["creature"] = {
+				},
+				["combat"] = {
+				},
+				["pvp"] = {
+				},
+				["system"] = {
+				},
+				["channels"] = {
+				},
+			},
+		};
+	end
+	
+	if not tabs["ChatFrame10"] then
+		tabs["ChatFrame10"] = {
+			["ty"] = "TabChatFrame",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Undefined",
+				["tabwidth"] = 80,
+				["discussion"] = {
+				},
+				["creature"] = {
+				},
+				["combat"] = {
+				},
+				["pvp"] = {
+				},
+				["system"] = {
+				},
+				["channels"] = {
+				},
+			},
+		};
+	end
+	
+	if not tabs["CombatLogs1"] then
+		tabs["CombatLogs1"] = {
+			["ty"] = "TabCombatLogs",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Player",
+				["filter"] = 1,
+				["tabwidth"] = "80",
+				["size"] = 1000,
+				["filters"] = {
+					["targ"] = "player",
+					["etypes"] = {
+						true, -- [1]
+						true, -- [2]
+						true, -- [3]
+						true, -- [4]
+						true, -- [5]
+						true, -- [6]
+						true, -- [7]
+						true, -- [8]
+						true, -- [9]
+						nil, -- [10]
+						nil, -- [11]
+						nil, -- [12]
+						true, -- [13]
+						true, -- [14]
+						true, -- [15]
+						true, -- [16]
+						true, -- [17]
+						true, -- [18]
+						true, -- [19]
+						true, -- [20]
+						true, -- [21]
+						true, -- [22]
+						true, -- [23]
+						true, -- [24]
+						true, -- [25]
+						true, -- [26]
+						nil, -- [27]
+						true, -- [28]
+						true, -- [29]
+						true, -- [30]
+						true, -- [31]
+					},
+					["src"] = "player",
+				},
+			},
+		};
+	end
+	
+	if not tabs["CombatLogs2"] then
+		tabs["CombatLogs2"] = {
+			["ty"] = "TabCombatLogs",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "All",
+				["filter"] = 1,
+				["tabwidth"] = "80",
+				["size"] = 1000,
+				["filters"] = {
+					["targ"] = "*",
+					["etypes"] = {
+						true, -- [1]
+						true, -- [2]
+						true, -- [3]
+						true, -- [4]
+						true, -- [5]
+						true, -- [6]
+						true, -- [7]
+						true, -- [8]
+						true, -- [9]
+						nil, -- [10]
+						nil, -- [11]
+						nil, -- [12]
+						true, -- [13]
+						true, -- [14]
+						true, -- [15]
+						true, -- [16]
+						true, -- [17]
+						true, -- [18]
+						true, -- [19]
+						true, -- [20]
+						true, -- [21]
+						true, -- [22]
+						true, -- [23]
+						true, -- [24]
+						true, -- [25]
+						true, -- [26]
+						nil, -- [27]
+						true, -- [28]
+						true, -- [29]
+						true, -- [30]
+						true, -- [31]
+					},
+					["src"] = "*",
+				},
+			},
+		};
+	end
+	
+	if not tabs["CombatLogs3"] then
+		tabs["CombatLogs3"] = {
+			["ty"] = "TabCombatLogs",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Undefined",
+				["filter"] = 1,
+				["tabwidth"] = "80",
+				["size"] = 1000,
+				["filters"] = {
+					["targ"] = "*",
+					["src"] = "*",
+				},
+			},
+		};
+	end
+	
+	if not tabs["CombatLogs4"] then
+		tabs["CombatLogs4"] = {
+			["ty"] = "TabCombatLogs",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Undefined",
+				["filter"] = 1,
+				["tabwidth"] = "80",
+				["size"] = 1000,
+				["filters"] = {
+					["targ"] = "*",
+					["src"] = "*",
+				},
+			},
+		};
+	end
+	
+	if not tabs["CombatLogs5"] then
+		tabs["CombatLogs5"] = {
+			["ty"] = "TabCombatLogs",
+			["version"] = 1,
+			["data"] = {
+				["title"] = "Undefined",
+				["filter"] = 1,
+				["tabwidth"] = "80",
+				["size"] = 1000,
+				["filters"] = {
+					["targ"] = "*",
+					["src"] = "*",
+				},
+			},
+		};
+	end
+end);
+
 --------------------------------------
 -- Builtin default mouse bindings
 --------------------------------------
@@ -1523,6 +1836,13 @@ local function heal_default()
 			["action"] = "cast",
 			["spell"] = 57934,
 		    },
+		};
+	elseif class == "MONK" then
+		ret = {
+		   -- ["1"] = {
+			--["action"] = "cast",
+			--["spell"] = 57934,
+		 --   },
 		};
 	else
 		ret = {};
@@ -1623,6 +1943,17 @@ local function dmg_default()
 			["action"] = "cast",
 			["spell"] = 77575,
 		    },
+		};
+	elseif class == "MONK" then
+		ret = {
+		   -- ["1"] = {
+			--["action"] = "cast",
+			--["spell"] = 47541,
+		 --   },
+		   -- ["2"] = {
+			--["action"] = "cast",
+			--["spell"] = 77575,
+		    --},
 		};
 	else
 		ret = {};
@@ -1858,6 +2189,14 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
+	local mbo = RDXDB.TouchObject("bindings:bindings_decurse_monk");
+	if not mbo.data then 
+		mbo.ty = "MouseBindings"; 
+		mbo.version = 1;
+		mbo.data = {
+		};
+	end
+	
 	local mbo = RDXDB.TouchObject("bindings:bindings_default");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
@@ -1882,6 +2221,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["targetpath_10"] = "bindings:bindings_default",
 			["targetpath_9"] = "bindings:bindings_default",
 			["targetpath_6"] = "bindings:bindings_default",
+			["targetpath_11"] = "bindings:bindings_decurse_monk",
 		};
 	end
 	
@@ -1926,6 +2266,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["targetpath_10"] = "bindings:bindings_default",
 			["targetpath_9"] = "bindings:bindings_default",
 			["targetpath_6"] = "bindings:bindings_default",
+			["targetpath_11"] = "bindings:bindings_default",
 		};
 	end
 	
@@ -2014,6 +2355,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["targetpath_10"] = "bindings:bindings_default",
 			["targetpath_9"] = "bindings:bindings_default",
 			["targetpath_6"] = "bindings:bindings_default",
+			["targetpath_11"] = "bindings:bindings_default",
 		};
 	end
 	
@@ -2162,6 +2504,14 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
+	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt_monk");
+	if not mbo.data then 
+		mbo.ty = "MouseBindings"; 
+		mbo.version = 1;
+		mbo.data = {
+		};
+	end
+	
 	local mbo = RDXDB.TouchObject("bindings:bindings_interrupt");
 	if not mbo.data then 
 		mbo.ty = "SymLink"; 
@@ -2178,6 +2528,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["targetpath_10"] = "bindings:bindings_interrupt_deathknight",
 			["targetpath_9"] = "bindings:bindings_interrupt_hunter",
 			["targetpath_6"] = "bindings:bindings_interrupt_warlock",
+			["targetpath_11"] = "bindings:bindings_interrupt_monk",
 		};
 	end
 	
@@ -2291,6 +2642,14 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 		};
 	end
+	
+	local mbo = RDXDB.TouchObject("aurafilters:aurafilter_monk_buff");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+		};
+	end
 
 	local mbsl = RDXDB.TouchObject("aurafilters:aurafilter_buff");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "class" then
@@ -2307,6 +2666,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			targetpath_8 = "aurafilters:aurafilter_rogue_buff",
 			targetpath_9 = "aurafilters:aurafilter_hunter_buff",
 			targetpath_10 = "aurafilters:aurafilter_deathknight_buff",
+			targetpath_11 = "aurafilters:aurafilter_monk_buff",
 		};
 	end
 	
@@ -2377,6 +2737,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["targetpath_10"] = "sets:set_debuff_none",
 			["targetpath_9"] = "sets:set_debuff_none",
 			["targetpath_6"] = "sets:set_debuff_magic",
+			["targetpath_11"] = "sets:set_debuff_none",
 		};
 	end
 	local mbo = RDXDB.TouchObject("sets:set_debuff_secondary");
@@ -2395,6 +2756,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["targetpath_10"] = "sets:set_debuff_none",
 			["targetpath_9"] = "sets:set_debuff_none",
 			["targetpath_6"] = "sets:set_debuff_none",
+			["targetpath_11"] = "sets:set_debuff_none",
 		};
 	end
 	local mbo = RDXDB.TouchObject("sets:set_debuff");

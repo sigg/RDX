@@ -263,7 +263,7 @@ RDX.RegisterFeature({
 		local function create(w)
 			win = w;
 			frame = VFLUI.AcquireFrame(frameType);
-			frame:SetScale(1); frame:SetMovable(true); --frame:Show();
+			frame:SetScale(1); frame:SetMovable(true); frame:Show(); -- TODOMOP TEST
 			frame:SetAttribute("unit", uid);
 			w:SetClient(frame);
 			-- indicate toggle vehicle, must be before genUF

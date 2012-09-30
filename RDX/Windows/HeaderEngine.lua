@@ -535,7 +535,7 @@ function RDXUI.HeaderEditor:new(parent)
 	--------------- Pet/Vehicle section
 	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Pet/Vehicle parameters")));
 	local chk_pet = VFLUI.Checkbox:new(ui); 
-	chk_pet:Show(); chk_pet:SetText(VFLI.i18n("Show Pet"));
+	chk_pet:Show(); chk_pet:SetText(VFLI.i18n("Show Pet instead of Unit"));
 	ui:InsertFrame(chk_pet);
 	
 	local chk_switchvehicle = VFLUI.Checkbox:new(ui); chk_switchvehicle:Show();
