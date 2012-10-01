@@ -350,7 +350,7 @@ end
 local mainPane;
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	if not RDXG.RDXopt then RDXG.RDXopt = {}; RDXG.RDXopt.hmp = true; end
+	--if not RDXG.RDXopt then RDXG.RDXopt = {}; RDXG.RDXopt.hmp = true; end
 	local opt = RDXG.RDXopt;
 	
 	--VFLT.NextFrame(math.random(10000000), function()

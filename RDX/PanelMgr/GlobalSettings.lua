@@ -121,3 +121,7 @@ end
 function RDXPM.IsRDXManageOpen()
 	if dlg then return true; else return nil; end
 end
+
+RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+	if not RDXG.RDXopt then RDXG.RDXopt = {}; end
+end);

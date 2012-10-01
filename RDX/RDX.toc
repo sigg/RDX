@@ -2,7 +2,7 @@
 ## Title: |c007ffcffRDX|r
 ## Notes: RDX is Raid Data Exchange - UI and raid mods.
 ## Author: Raid Informatics / OpenRDX Project
-## Version: 9.0.3
+## Version: 9.0.4
 ## RequiredDeps: VFL, RDX_mediapack
 ## OptionalDeps: RDX_filesystem, RDX_localspelldb, RDX_combatlogs, RDX_recovery, RDX_languagepack_frFR, RDX_languagepack_deDE, RDX_languagepack_ruRU
 ## SavedVariables: RDXSession
@@ -11,9 +11,6 @@ RDX.xml
 
 # ROOT.LUA MUST LOAD FIRST (RDX)
 Root.lua
-
-# Disable Blizzard stuff
-BlizzFullDisable.lua
 
 # Frontend and commands (RDXPM Panel Manager)
 PanelMgr\Core.lua
@@ -24,6 +21,9 @@ PanelMgr\MainMenuSkin.lua
 PanelMgr\GlobalSettings.lua
 PanelMgr\MainMenuBar.lua
 PanelMgr\ClassicMenuBar.lua
+
+# Disable Blizzard stuff
+BlizzFullDisable.lua
 
 # Objects and features manager (RDXDB database -> RDXOM)
 ObjectMgr\ObjectDB.lua
