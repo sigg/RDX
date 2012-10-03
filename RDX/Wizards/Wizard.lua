@@ -14,7 +14,7 @@ function RDXUI.Wizard:new(desc)
 	local x = {};
 	x.desc = desc or {};
 	x.page = {};
-	x.index = {};
+	x.idx = {};
 	x.pageNum = nil; x.history = {};
 	x.child = nil;
 	x.window = nil; 
@@ -32,7 +32,8 @@ function RDXUI.Wizard:Open(parent, num)
 
 		local win = VFLUI.Window:new(parent);
 		VFLUI.Window.SetDefaultFraming(win, 20);
-		win:SetBackdrop(VFLUI.BlackDialogBackdrop);
+		win:SetBackdrop(VFLUI.WhiteBackdrop);
+		win:SetBackdropColor(.8,.8,1,0.6);
 		win:SetTitleColor(0,0,.6); win:SetText(self.title);
 		win:SetPoint("TOPLEFT", VFLParent, "TOPLEFT", 100, -200);
 		win:SetMovable(true); 
@@ -120,12 +121,15 @@ function RDXUI.Wizard:SetPage(num, name)
 	if not num then
 		-- try finding by name
 		if name then
-			num = self.index[name];
+			num = self.idx[name];
 		end
 		if not num then
 			error(VFLI.i18n("expected number, got nil"));
 		end
 	end
+	--if not name then name = "null"; end
+	--VFL.print("page " .. name .. " " .. num);
+	
 	local pgdef = self.page[num]; if not pgdef then return; end
 
 	-- Clean out the existing page.
@@ -135,15 +139,16 @@ function RDXUI.Wizard:SetPage(num, name)
 	self.pageNum = nil;
 	-- Return the window back to its ordinary settings
 	self.window:SetBackdrop(VFLUI.BlackDialogBackdrop);
-	self.window:SetBackdropColor(1,1,1,1); self.window:SetBackdropBorderColor(1,1,1,1);
+	self.window:SetBackdropColor(1,1,1,1); 
+	self.window:SetBackdropBorderColor(1,1,1,1);
 
 	-- Attempt to open the new page.
 	self.pageNum = num;
 	local child = pgdef.OpenPage(self.window, self, self.desc[num]);
 	if not child then
 		-- If we're still on the same page, quash the page.
-	--	if self.pageNum == num then self.pageNum = nil; end
-	--	return; 
+		if self.pageNum == num then self.pageNum = nil; end
+		return; 
 	end
 
 	-- Add to history.
@@ -168,6 +173,7 @@ function RDXUI.Wizard:SavePage()
 		if self.pageNum and self.child.GetDescriptor then
 			local pgdef = self.page[self.pageNum];
 			desc = self.child:GetDescriptor();
+			VFL.tprint(desc);
 			vflErrors:Clear();
 			if pgdef.Verify(desc, self, vflErrors) then
 				self.desc[self.pageNum] = desc;
@@ -267,13 +273,19 @@ function RDXUI.Wizard:GetPageDescriptor(num, name)
 	if not num then
 		-- try finding by name
 		if name then
-			num = self.index[name];
+			num = self.idx[name];
 		end
 		if not num then
 			error(VFLI.i18n("expected number, got nil ") .. name);
 		end
 	end
-	return self.desc[num];
+	--if not name then name = "null"; end
+	--VFL.print("Descriptorpage " .. name .. " " .. num);
+	--if self.desc[num] then
+		return self.desc[num];
+	--else
+		--VFL.print("error");
+	--end
 end
 
 ------------ Page Registration
@@ -282,8 +294,8 @@ function RDXUI.Wizard:RegisterPage(n, name, tbl)
 	self.page[n] = tbl;
 	-- store a name reference to the page number
 	if name then
-		if not self.index[name] then
-			self.index[name] = n;
+		if not self.idx[name] then
+			self.idx[name] = n;
 		else
 			error(VFLI.i18n("Same PageIndex ") .. name);
 		end

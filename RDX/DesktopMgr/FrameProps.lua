@@ -44,11 +44,11 @@ function RDXDK.FrameProperties(frame)
 	
 	local feat = RDXDB.GetFeatureData(frameprops.name, "Design");
 	local upath = feat["design"];
-	table.insert(mnu, {text = VFLI.i18n("Clone Window"), OnClick = function() 
-		VFL.poptree:Release();
-		RDX.CloneWindow(frameprops.name, upath, VFLDIALOG); 
-		end;
-	});
+	--table.insert(mnu, {text = VFLI.i18n("Clone Window"), OnClick = function() 
+	--	VFL.poptree:Release();
+	--	RDX.CloneWindow(frameprops.name, upath, VFLDIALOG); 
+	--	end;
+	--});
 	
 	if RDXDK.IsDocked(frameprops) then
 		if not RDXDK.IsDGP(frameprops) then

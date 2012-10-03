@@ -128,6 +128,12 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Window Wizard");
+	ent.notCheckable = true;
+	ent.func = RDX.NewWindowWizard;
+end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = "**************";
 	ent.isTitle = true;
 	ent.notCheckable = true;

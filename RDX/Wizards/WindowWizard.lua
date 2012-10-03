@@ -122,13 +122,17 @@ ww:RegisterPage(GetNextPageId(), "intro", {
 ww:RegisterPage(GetNextPageId(), "wtype", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Window type/Suffix");
+		parent:SetBackdropColor(1,1,1,0.4);
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "Select the type of window you want to create:");
 		lbl:SetWidth(250); lbl:SetHeight(30);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local dd_wtype = VFLUI.Dropdown:new(page, GetWindowsType, nil, desc.wtype);
-		dd_wtype:SetWidth(225); 
+		local dd_wtype = VFLUI.Dropdown:new(page, GetWindowsType);
+		if desc and desc.wtype then 
+			dd_wtype:SetSelection(desc.wtype); 
+		end
+		dd_wtype:SetWidth(250); 
 		dd_wtype:SetPoint("TOPRIGHT", lbl, "BOTTOMRIGHT");
 		dd_wtype:Show();
 		
@@ -182,7 +186,8 @@ ww:RegisterPage(GetNextPageId(), "wtype", {
 	Verify = function(desc, wizard, errs)
 		if not desc then errs:AddError("Invalid descriptor."); end
 		if (not desc.pkg) then errs:AddError("Invalid package name."); end
-		if (not desc.suffix) then errs:AddError("Invalid suffix."); end
+		if (not desc.suffix) then errs:AddError("Invalid suffix."); end    
+		if (not desc.wtype) then errs:AddError("Invalid window type."); end
 		return not errs:HasError();
 	end;
 });
@@ -199,7 +204,8 @@ ww:RegisterPage(GetNextPageId(), "chkwin", {
 			txt = txt .. "The package '" .. p1d.pkg .. "' does not exist and will be created.\n";
 		end
 
-		local chk = p1d.pkg .. ":" .. pld.wtype .. p1d.suffix;
+		local chk = p1d.pkg .. ":" .. p1d.wtype;
+		if p1d.suffix then chk = chk .. p1d.suffix; end
 		if RDXDB.GetObjectData(chk) then
 			txt = txt .. "The data files for this window already exist. If you proceed, they will be overwritten and the window will be rebuilt from scratch.\n";
 		end
@@ -209,6 +215,8 @@ ww:RegisterPage(GetNextPageId(), "chkwin", {
 		txt = txt .. "\nClick Prev to add a suffix to the name of your window.";
 
 		local page = RDXUI.GenerateStdWizardPage(parent, "Confirm");
+		parent:SetBackdropColor(1,1,1,0.4);
+		
 		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		lbl:SetWidth(250); lbl:SetHeight(80); lbl:SetJustifyV("TOP");
@@ -339,7 +347,7 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		local blbl = VFLUI.MakeLabel(nil, page, "Copy the design of the same window type from another theme.");
 		blbl:SetWidth(200); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn1, "RIGHT");
 		wizard:MakeNextButton(btn1, function(w, dsc)
-			dsc.designType = 1; w:SetPage("design");
+			dsc.designType = 1; w:SetPage(nil, "design");
 		end);
 		
 		local btn2 = VFLUI.Button:new(page);
@@ -348,7 +356,7 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		blbl = VFLUI.MakeLabel(nil, page, "Copy an existing design in the current theme");
 		blbl:SetWidth(200); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn2, "RIGHT");
 		wizard:MakeNextButton(btn2, function(w, dsc)
-			dsc.designType = 2; w:SetPage("design");
+			dsc.designType = 2; w:SetPage(nil, "design");
 		end);
 
 		local btn3 = VFLUI.Button:new(page);
@@ -357,7 +365,7 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		blbl = VFLUI.MakeLabel(nil, page, "Use an existing design in the current theme (windows will share the same design, any modification in the design will impact all windows)");
 		blbl:SetWidth(200); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn3, "RIGHT");
 		wizard:MakeNextButton(btn3, function(w, dsc)
-			dsc.designType = 3; w:SetPage("design");
+			dsc.designType = 3; w:SetPage(nil, "design");
 		end);
 		
 		local btn4 = VFLUI.Button:new(page);
@@ -394,18 +402,18 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 ww:RegisterPage(GetNextPageId(), "design", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Design");
-		parent:SetBackdropColor(1,1,1,0.4);
+		--parent:SetBackdropColor(1,1,1,0.4);
 		page:SetWidth(300); page:SetHeight(220);
 		local lbl = VFLUI.MakeLabel(nil, page, "Choose a design for your window. A preview will be shown below.");
 		lbl:SetWidth(300); lbl:SetHeight(20);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
-		local p1d = wizard:GetPageDescriptor(nil, "wtype");
+		local pld = wizard:GetPageDescriptor(nil, "wtype");
 
 		-- Design chooser box
 		local ofDesign;
 		if wizard:GetPageDescriptor(nil, "designtype").designType == 1 then
-			ofDesign = RDXDB.ObjectFinder:new(page, function(p,f,md) return (md and type(md) == "table" and md.ty == "Design" and string.find(f, pld.wtype .. "$")) end);
+			ofDesign = RDXDB.ObjectFinder:new(page, function(p,f,md) return (md and type(md) == "table" and md.ty == "Design" and string.find(f, pld.wtype)) end);
 		else
 			ofDesign = RDXDB.ObjectFinder:new(page, function(p,f,md) return (md and type(md) == "table" and md.ty == "Design" and p == pld.pkg) end);
 		end
@@ -422,9 +430,9 @@ ww:RegisterPage(GetNextPageId(), "design", {
 			-- Destroy the old frame
 			if curUF then curUF:Destroy(); curUF = nil; end
 			-- Load the new design.
-			local ufState = RDX.LoadUnitFrameDesign(design, nil, RDX._exportedWindowState);
+			local ufState = RDX.LoadDesign(design, nil, RDX._exportedWindowState);
 			if not ufState then return; end
-			local createFrame = RDX.UnitFrameGeneratingFunctor(ufState);
+			local createFrame = RDX.DesignGeneratingFunctor(ufState);
 			if not createFrame then return; end
 			-- Success, update the uf.
 			curDesign = design;
@@ -459,9 +467,9 @@ ww:RegisterPage(GetNextPageId(), "design", {
 		
 		wizard:OnNext(function(wiz) 
 			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
-				w:SetPage(nil, "singleheader");
+				wiz:SetPage(nil, "singleheader");
 			else
-				w:SetPage(nil, "done");
+				wiz:SetPage(nil, "done");
 			end
 		end);
 		
@@ -472,7 +480,7 @@ ww:RegisterPage(GetNextPageId(), "design", {
 		if not desc.design then 
 			errs:AddError("Missing design");
 		else
-			if not RDX.LoadUnitFrameDesign(desc.design, RDXDB.ObjectState.Verify, RDX._exportedWindowState) then
+			if not RDX.LoadDesign(desc.design, RDXDB.ObjectState.Verify, RDX._exportedWindowState) then
 				VFL.AddError(errs, "Could not load Design at <" .. tostring(desc.design) .. ">.");
 			end
 		end

@@ -677,10 +677,10 @@ function RDXDK.Desktop:new(parent)
 		
 		RDXDK:Debug(6, "windowClose " .. name);
 		-- store the position in root feature
-		if name ~= "root" then
+		local frame = frameList[name];
+		if name ~= "root" and frame then
 			SetSavePosition(name, framePropsList[name]);
 		end
-		local frame = frameList[name];
 		if frame then
 			if not lockstate then frame:Lock(); end
 			RDXDK.CompletelyUndock(framePropsList[name]);
