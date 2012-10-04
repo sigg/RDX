@@ -51,6 +51,7 @@ end
 -- Script RDX object registration
 RDXDB.RegisterObjectType({
 	name = "Patch";
+	invisible = true;
 	New = function(path, md)
 		md.version = 1;
 	end;

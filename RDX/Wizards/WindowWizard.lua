@@ -1277,6 +1277,7 @@ end
 ------------------------------------
 RDXDB.RegisterObjectType({
 	name = "WindowWizard",
+	invisible = true;
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = "Open",

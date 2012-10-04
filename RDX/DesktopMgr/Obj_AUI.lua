@@ -132,6 +132,10 @@ end
 -- The AUI object type.
 RDXDB.RegisterObjectType({
 	name = "AUI";
+	invisible = true;
+	New = function(path, md)
+		md.version = 1;
+	end; 
 	Edit = function(path, md, parent)
 		RDXDK.OpenAUIEditor(path, md, parent);
 	end;

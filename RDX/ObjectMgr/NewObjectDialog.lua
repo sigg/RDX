@@ -62,7 +62,15 @@ function RDXDB.NewObjectDialog(parent, pkgName)
 	function UpdateTypeList()
 		VFL.empty(otypes); local i = 0;
 		for k,v in pairs(RDXDB._GetObjectTypes()) do
-			if v.New then i=i+1; otypes[i] = k; end
+			if IsShiftKeyDown() then
+				if v.invisible and v.New then
+					i=i+1; otypes[i] = k;
+				end
+			else
+				if not v.invisible then
+					i=i+1; otypes[i] = k;
+				end
+			end
 		end
 		-- Burning Crusade: remove table.setn
 		if not table.maxn then table.setn(otypes, i); end

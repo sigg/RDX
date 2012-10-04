@@ -10,6 +10,7 @@
 
 RDXDB.RegisterObjectType({
 	name = "VirtualSet";
+	invisible = true;
 	Instantiate = function(path, obj)
 		local x = RDXDAL.Set:new();
 		RDXDAL.RegisterSet(x); x.name = "<vset:" .. path .. ">";
@@ -19,6 +20,7 @@ RDXDB.RegisterObjectType({
 
 RDXDB.RegisterObjectType({
 	name = "VirtualNominativeSet";
+	invisible = true;
 	Instantiate = function(path, obj)
 		local x = RDXDAL.NominativeSet:new();
 		RDXDAL.RegisterSet(x); x.name = "<vnset:" .. path .. ">";

@@ -321,13 +321,14 @@ end
 -- Chatframe RDX object registration
 RDXDB.RegisterObjectType({
 	name = "TabCombatLogs";
-	--[[New = function(path, md)
+	invisible = true;
+	New = function(path, md)
 		md.version = 1;
 		md.data = {};
 		md.data.title = "Combat";
 		md.data.tabwidth = 80;
 		md.data.size = 1000;		
-	end;]]
+	end;
 	Edit = function(path, md, parent)
 		EditCombatLogsDialog(parent or VFLDIALOG, path, md);
 	end;

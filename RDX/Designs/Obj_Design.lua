@@ -66,6 +66,7 @@ RDXDB.RegisterObjectType({
 
 RDXDB.RegisterObjectType({
 	name = "UnitFrameType";
+	invisible = true;
 	isFeatureDriven = true;
 	version = 2;
 	VersionMismatch = function(md)
@@ -76,6 +77,7 @@ RDXDB.RegisterObjectType({
 
 RDXDB.RegisterObjectType({
 	name = "ArtFrameType";
+	invisible = true;
 	isFeatureDriven = true;
 	version = 2;
 	VersionMismatch = function(md)

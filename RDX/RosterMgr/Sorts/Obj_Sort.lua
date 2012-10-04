@@ -137,6 +137,7 @@ RDXDB.RegisterObjectType({
 
 RDXDB.RegisterObjectType({
 	name = "SecureSort",
+	invisible = true;
 	version = 2;
 	VersionMismatch = function(md)
 		md.version = 2;

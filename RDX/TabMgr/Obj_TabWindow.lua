@@ -7,6 +7,7 @@
 RDXDB.RegisterObjectType({
 	name = "TabWindow";
 	isFeatureDriven = true;
+	invisible = true;
 	New = function(path, md)
 		md.version = 1;
 	end,
@@ -173,7 +174,7 @@ end);
 -- The Window object type.
 RDXDB.RegisterObjectType({
 	name = "TabMap";
-	isFeatureDriven = true;
+	invisible = true;
 	New = function(path, md)
 		md.version = 1;
 	end,
