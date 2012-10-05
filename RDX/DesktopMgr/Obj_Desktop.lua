@@ -863,19 +863,6 @@ function RDXDK.Desktop:new(parent)
 	
 	local function ChangeState(value)
 		if framepropsroot then
-			if not framepropsroot.states then
-				framepropsroot.states = {}
-				framepropsroot.states["SOLO"] = {};
-				framepropsroot.states["SOLO"].OnSelect = {};
-				framepropsroot.states["PARTY"] = {};
-				framepropsroot.states["PARTY"].OnSelect = {};
-				framepropsroot.states["RAID"] = {};
-				framepropsroot.states["RAID"].OnSelect = {};
-				framepropsroot.states["BATTLEGROUND"] = {};
-				framepropsroot.states["BATTLEGROUND"].OnSelect = {};
-				framepropsroot.states["ARENA"] = {};
-				framepropsroot.states["ARENA"].OnSelect = {};
-			end
 		
 			--local tbl = framepropsroot.states[RDXU.currentstate].OnUnselect;
 			-- close windows
@@ -934,6 +921,97 @@ function RDXDK.Desktop:new(parent)
 	end, "desktop");
 	
 	DesktopEvents:Bind("DESKTOP_STATE", nil, ChangeState, "desktop");
+	
+	DesktopEvents:Bind("DESKTOP_RESETSTATE", nil, function()
+		local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+		VFL.empty(framepropsroot.states);
+		framepropsroot.states.SOLO = {};
+		framepropsroot.states.SOLO.OnSelect = {};
+		framepropsroot.states.SOLO.OnSelect.arena = {};
+		framepropsroot.states.SOLO.OnSelect.arena.name = auiname .. ":Arena_Main";
+		framepropsroot.states.SOLO.OnSelect.arena.action = "WINDOW_CLOSE";
+		framepropsroot.states.SOLO.OnSelect.party = {};
+		framepropsroot.states.SOLO.OnSelect.party.name = auiname .. ":Party_Main";
+		framepropsroot.states.SOLO.OnSelect.party.action = "WINDOW_CLOSE";
+		framepropsroot.states.SOLO.OnSelect.partytarget = {};
+		framepropsroot.states.SOLO.OnSelect.partytarget.name = auiname .. ":Partytarget_Main";
+		framepropsroot.states.SOLO.OnSelect.partytarget.action = "WINDOW_CLOSE";
+		framepropsroot.states.SOLO.OnSelect.raid = {};
+		framepropsroot.states.SOLO.OnSelect.raid.name = auiname .. ":Raid_Main";
+		framepropsroot.states.SOLO.OnSelect.raid.action = "WINDOW_CLOSE";
+		framepropsroot.states.SOLO.OnSelect.boss = {};
+		framepropsroot.states.SOLO.OnSelect.boss.name = auiname .. ":Boss_Main";
+		framepropsroot.states.SOLO.OnSelect.boss.action = "WINDOW_CLOSE";
+		framepropsroot.states.PARTY = {};
+		framepropsroot.states.PARTY.OnSelect = {};
+		framepropsroot.states.PARTY.OnSelect.arena = {};
+		framepropsroot.states.PARTY.OnSelect.arena.name = auiname .. ":Arena_Main";
+		framepropsroot.states.PARTY.OnSelect.arena.action = "WINDOW_CLOSE";
+		framepropsroot.states.PARTY.OnSelect.party = {};
+		framepropsroot.states.PARTY.OnSelect.party.name = auiname .. ":Party_Main";
+		framepropsroot.states.PARTY.OnSelect.party.action = "WINDOW_OPEN";
+		framepropsroot.states.PARTY.OnSelect.partytarget = {};
+		framepropsroot.states.PARTY.OnSelect.partytarget.name = auiname .. ":Partytarget_Main";
+		framepropsroot.states.PARTY.OnSelect.partytarget.action = "WINDOW_OPEN";
+		framepropsroot.states.PARTY.OnSelect.raid = {};
+		framepropsroot.states.PARTY.OnSelect.raid.name = auiname .. ":Raid_Main";
+		framepropsroot.states.PARTY.OnSelect.raid.action = "WINDOW_CLOSE";
+		framepropsroot.states.PARTY.OnSelect.boss = {};
+		framepropsroot.states.PARTY.OnSelect.boss.name = auiname .. ":Boss_Main";
+		framepropsroot.states.PARTY.OnSelect.boss.action = "WINDOW_CLOSE";
+		framepropsroot.states.RAID = {};
+		framepropsroot.states.RAID.OnSelect = {};
+		framepropsroot.states.RAID.OnSelect.arena = {};
+		framepropsroot.states.RAID.OnSelect.arena.name = auiname .. ":Arena_Main";
+		framepropsroot.states.RAID.OnSelect.arena.action = "WINDOW_CLOSE";
+		framepropsroot.states.RAID.OnSelect.party = {};
+		framepropsroot.states.RAID.OnSelect.party.name = auiname .. ":Party_Main";
+		framepropsroot.states.RAID.OnSelect.party.action = "WINDOW_CLOSE";
+		framepropsroot.states.RAID.OnSelect.partytarget = {};
+		framepropsroot.states.RAID.OnSelect.partytarget.name = auiname .. ":Partytarget_Main";
+		framepropsroot.states.RAID.OnSelect.partytarget.action = "WINDOW_CLOSE";
+		framepropsroot.states.RAID.OnSelect.raid = {};
+		framepropsroot.states.RAID.OnSelect.raid.name = auiname .. ":Raid_Main";
+		framepropsroot.states.RAID.OnSelect.raid.action = "WINDOW_OPEN";
+		framepropsroot.states.RAID.OnSelect.boss = {};
+		framepropsroot.states.RAID.OnSelect.boss.name = auiname .. ":Boss_Main";
+		framepropsroot.states.RAID.OnSelect.boss.action = "WINDOW_OPEN";
+		framepropsroot.states.BATTLEGROUND = {};
+		framepropsroot.states.BATTLEGROUND.OnSelect = {};
+		framepropsroot.states.BATTLEGROUND.OnSelect.arena = {};
+		framepropsroot.states.BATTLEGROUND.OnSelect.arena.name = auiname .. ":Arena_Main";
+		framepropsroot.states.BATTLEGROUND.OnSelect.arena.action = "WINDOW_CLOSE";
+		framepropsroot.states.BATTLEGROUND.OnSelect.party = {};
+		framepropsroot.states.BATTLEGROUND.OnSelect.party.name = auiname .. ":Party_Main";
+		framepropsroot.states.BATTLEGROUND.OnSelect.party.action = "WINDOW_CLOSE";
+		framepropsroot.states.BATTLEGROUND.OnSelect.partytarget = {};
+		framepropsroot.states.BATTLEGROUND.OnSelect.partytarget.name = auiname .. ":Partytarget_Main";
+		framepropsroot.states.BATTLEGROUND.OnSelect.partytarget.action = "WINDOW_CLOSE";
+		framepropsroot.states.BATTLEGROUND.OnSelect.raid = {};
+		framepropsroot.states.BATTLEGROUND.OnSelect.raid.name = auiname .. ":Raid_Main";
+		framepropsroot.states.BATTLEGROUND.OnSelect.raid.action = "WINDOW_OPEN";
+		framepropsroot.states.BATTLEGROUND.OnSelect.boss = {};
+		framepropsroot.states.BATTLEGROUND.OnSelect.boss.name = auiname .. ":Boss_Main";
+		framepropsroot.states.BATTLEGROUND.OnSelect.boss.action = "WINDOW_CLOSE";
+		framepropsroot.states.ARENA = {};
+		framepropsroot.states.ARENA.OnSelect = {};
+		framepropsroot.states.ARENA.OnSelect.arena = {};
+		framepropsroot.states.ARENA.OnSelect.arena.name = auiname .. ":Arena_Main";
+		framepropsroot.states.ARENA.OnSelect.arena.action = "WINDOW_OPEN";
+		framepropsroot.states.ARENA.OnSelect.party = {};
+		framepropsroot.states.ARENA.OnSelect.party.name = auiname .. ":Party_Main";
+		framepropsroot.states.ARENA.OnSelect.party.action = "WINDOW_OPEN";
+		framepropsroot.states.ARENA.OnSelect.partytarget = {};
+		framepropsroot.states.ARENA.OnSelect.partytarget.name = auiname .. ":Partytarget_Main";
+		framepropsroot.states.ARENA.OnSelect.partytarget.action = "WINDOW_OPEN";
+		framepropsroot.states.ARENA.OnSelect.raid = {};
+		framepropsroot.states.ARENA.OnSelect.raid.name = auiname .. ":Raid_Main";
+		framepropsroot.states.ARENA.OnSelect.raid.action = "WINDOW_CLOSE";
+		framepropsroot.states.ARENA.OnSelect.boss = {};
+		framepropsroot.states.ARENA.OnSelect.boss.name = auiname .. ":Boss_Main";
+		framepropsroot.states.ARENA.OnSelect.boss.action = "WINDOW_CLOSE";
+		ReloadUI();
+	end, "desktop");
 	
 	-- RDX ROSTER
 	RDXEvents:Bind("ROSTER_STATE", nil, SecuredChangeState, "desktop");

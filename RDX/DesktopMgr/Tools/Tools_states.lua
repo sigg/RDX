@@ -4,82 +4,41 @@
 local framew = VFLUI.AcquireFrame("Frame");
 framew:SetHeight(400); framew:SetWidth(216);
 
-local soloseparator = VFLUI.SeparatorText:new(framew, 1, 216);
-soloseparator:SetPoint("TOPLEFT", framew, "TOPLEFT", 5, -5);
-soloseparator:SetText(VFLI.i18n("State SOLO"));
+local separator = VFLUI.SeparatorText:new(framew, 1, 216);
+separator:SetPoint("TOPLEFT", framew, "TOPLEFT", 5, -5);
+separator:SetText(VFLI.i18n("States"));
 
 local soloselect = VFLUI.OKButton:new(framew);
-soloselect:SetText(VFLI.i18n("OnEnter")); soloselect:SetHeight(25); soloselect:SetWidth(100);
-soloselect:SetPoint("TOPLEFT", soloseparator, "BOTTOMLEFT");
+soloselect:SetText(VFLI.i18n("SOLO")); soloselect:SetHeight(25); soloselect:SetWidth(216);
+soloselect:SetPoint("TOPLEFT", separator, "BOTTOMLEFT");
 soloselect:Show();
 
---local solounselect = VFLUI.OKButton:new(framew);
---solounselect:SetText(VFLI.i18n("OnLeave")); solounselect:SetHeight(25); solounselect:SetWidth(100);
---solounselect:SetPoint("TOPLEFT", soloselect, "TOPRIGHT");
---solounselect:Show();
-
-local partyseparator = VFLUI.SeparatorText:new(framew, 1, 216);
-partyseparator:SetPoint("TOPLEFT", soloselect, "BOTTOMLEFT", 0, -5);
-partyseparator:SetText(VFLI.i18n("State PARTY"));
-
 local partyselect = VFLUI.OKButton:new(framew);
-partyselect:SetText(VFLI.i18n("OnEnter")); partyselect:SetHeight(25); partyselect:SetWidth(100);
-partyselect:SetPoint("TOPLEFT", partyseparator, "BOTTOMLEFT");
+partyselect:SetText(VFLI.i18n("PARTY")); partyselect:SetHeight(25); partyselect:SetWidth(216);
+partyselect:SetPoint("TOPLEFT", soloselect, "BOTTOMLEFT");
 partyselect:Show();
 
---local partyunselect = VFLUI.OKButton:new(framew);
---partyunselect:SetText(VFLI.i18n("OnLeave")); partyunselect:SetHeight(25); partyunselect:SetWidth(100);
---partyunselect:SetPoint("TOPLEFT", partyselect, "TOPRIGHT");
---partyunselect:Show();
-
-local raidseparator = VFLUI.SeparatorText:new(framew, 1, 216);
-raidseparator:SetPoint("TOPLEFT", partyselect, "BOTTOMLEFT", 0, -5);
-raidseparator:SetText(VFLI.i18n("State RAID"));
-
 local raidselect = VFLUI.OKButton:new(framew);
-raidselect:SetText(VFLI.i18n("OnEnter")); raidselect:SetHeight(25); raidselect:SetWidth(100);
-raidselect:SetPoint("TOPLEFT", raidseparator, "BOTTOMLEFT");
+raidselect:SetText(VFLI.i18n("RAID")); raidselect:SetHeight(25); raidselect:SetWidth(216);
+raidselect:SetPoint("TOPLEFT", partyselect, "BOTTOMLEFT");
 raidselect:Show();
 
---local raidunselect = VFLUI.OKButton:new(framew);
---raidunselect:SetText(VFLI.i18n("OnLeave")); raidunselect:SetHeight(25); raidunselect:SetWidth(100);
---raidunselect:SetPoint("TOPLEFT", raidselect, "TOPRIGHT");
---raidunselect:Show();
-
-local bgseparator = VFLUI.SeparatorText:new(framew, 1, 216);
-bgseparator:SetPoint("TOPLEFT", raidselect, "BOTTOMLEFT", 0, -5);
-bgseparator:SetText(VFLI.i18n("State BG"));
-
 local bgselect = VFLUI.OKButton:new(framew);
-bgselect:SetText(VFLI.i18n("OnEnter")); bgselect:SetHeight(25); bgselect:SetWidth(100);
-bgselect:SetPoint("TOPLEFT", bgseparator, "BOTTOMLEFT");
+bgselect:SetText(VFLI.i18n("BG")); bgselect:SetHeight(25); bgselect:SetWidth(216);
+bgselect:SetPoint("TOPLEFT", raidselect, "BOTTOMLEFT");
 bgselect:Show();
 
---local bgunselect = VFLUI.OKButton:new(framew);
---bgunselect:SetText(VFLI.i18n("OnLeave")); bgunselect:SetHeight(25); bgunselect:SetWidth(100);
---bgunselect:SetPoint("TOPLEFT", bgselect, "TOPRIGHT");
---bgunselect:Show();
-
-local arenaseparator = VFLUI.SeparatorText:new(framew, 1, 216);
-arenaseparator:SetPoint("TOPLEFT", bgselect, "BOTTOMLEFT", 0, -5);
-arenaseparator:SetText(VFLI.i18n("State ARENA"));
-
 local arenaselect = VFLUI.OKButton:new(framew);
-arenaselect:SetText(VFLI.i18n("OnEnter")); arenaselect:SetHeight(25); arenaselect:SetWidth(100);
-arenaselect:SetPoint("TOPLEFT", arenaseparator, "BOTTOMLEFT");
+arenaselect:SetText(VFLI.i18n("ARENA")); arenaselect:SetHeight(25); arenaselect:SetWidth(216);
+arenaselect:SetPoint("TOPLEFT", bgselect, "BOTTOMLEFT");
 arenaselect:Show();
-
---local arenaunselect = VFLUI.OKButton:new(framew);
---arenaunselect:SetText(VFLI.i18n("OnLeave")); arenaunselect:SetHeight(25); arenaunselect:SetWidth(100);
---arenaunselect:SetPoint("TOPLEFT", arenaselect, "TOPRIGHT");
---arenaunselect:Show();
 
 local testseparator = VFLUI.SeparatorText:new(framew, 1, 216);
 testseparator:SetPoint("TOPLEFT", arenaselect, "BOTTOMLEFT", 0, -5);
-testseparator:SetText(VFLI.i18n("Test state"));
+testseparator:SetText(VFLI.i18n("Test"));
 
 local solo = VFLUI.OKButton:new(framew);
-solo:SetText(VFLI.i18n("SOLO")); solo:SetHeight(25); solo:SetWidth(100);
+solo:SetText(VFLI.i18n("SOLO")); solo:SetHeight(25); solo:SetWidth(216);
 solo:SetPoint("TOPLEFT", testseparator, "BOTTOMLEFT");
 solo:Show();
 solo:SetScript("OnClick", function()
@@ -87,7 +46,7 @@ solo:SetScript("OnClick", function()
 end);
 
 local party = VFLUI.OKButton:new(framew);
-party:SetText(VFLI.i18n("PARTY")); party:SetHeight(25); party:SetWidth(100);
+party:SetText(VFLI.i18n("PARTY")); party:SetHeight(25); party:SetWidth(216);
 party:SetPoint("TOPLEFT", solo, "BOTTOMLEFT");
 party:Show();
 party:SetScript("OnClick", function()
@@ -95,7 +54,7 @@ party:SetScript("OnClick", function()
 end);
 
 local raid = VFLUI.OKButton:new(framew);
-raid:SetText(VFLI.i18n("RAID")); raid:SetHeight(25); raid:SetWidth(100);
+raid:SetText(VFLI.i18n("RAID")); raid:SetHeight(25); raid:SetWidth(216);
 raid:SetPoint("TOPLEFT", party, "BOTTOMLEFT");
 raid:Show();
 raid:SetScript("OnClick", function()
@@ -103,7 +62,7 @@ raid:SetScript("OnClick", function()
 end);
 
 local bg = VFLUI.OKButton:new(framew);
-bg:SetText(VFLI.i18n("BG")); bg:SetHeight(25); bg:SetWidth(100);
+bg:SetText(VFLI.i18n("BG")); bg:SetHeight(25); bg:SetWidth(216);
 bg:SetPoint("TOPLEFT", raid, "BOTTOMLEFT");
 bg:Show();
 bg:SetScript("OnClick", function()
@@ -111,33 +70,27 @@ bg:SetScript("OnClick", function()
 end);
 
 local arena = VFLUI.OKButton:new(framew);
-arena:SetText(VFLI.i18n("ARENA")); arena:SetHeight(25); arena:SetWidth(100);
+arena:SetText(VFLI.i18n("ARENA")); arena:SetHeight(25); arena:SetWidth(216);
 arena:SetPoint("TOPLEFT", bg, "BOTTOMLEFT");
 arena:Show();
 arena:SetScript("OnClick", function()
 	DesktopEvents:Dispatch("DESKTOP_STATE", "ARENA");
 end);
 
+local resetseparator = VFLUI.SeparatorText:new(framew, 1, 216);
+resetseparator:SetPoint("TOPLEFT", arena, "BOTTOMLEFT", 0, -5);
+resetseparator:SetText(VFLI.i18n("Options"))
+
+local reset = VFLUI.OKButton:new(framew);
+reset:SetText(VFLI.i18n("Reset states to default")); reset:SetHeight(25); reset:SetWidth(216);
+reset:SetPoint("TOPLEFT", resetseparator, "BOTTOMLEFT");
+reset:Show();
+reset:SetScript("OnClick", function()
+	DesktopEvents:Dispatch("DESKTOP_RESETSTATE");
+end);
+
 
 local function SetFramew(froot)
-	--if not froot.states then
-	--	froot.states = {}
-	--	froot.states["SOLO"] = {};
-	--	froot.states["SOLO"].OnSelect = {};
-	--	--froot.states["SOLO"].OnUnselect = {};
-	--	froot.states["PARTY"] = {};
-	--	froot.states["PARTY"].OnSelect = {};
-		--froot.states["PARTY"].OnUnselect = {};
-	--	froot.states["RAID"] = {};
-	--	froot.states["RAID"].OnSelect = {};
-	--	--froot.states["RAID"].OnUnselect = {};
-	--	froot.states["BATTLEGROUND"] = {};
-	--	froot.states["BATTLEGROUND"].OnSelect = {};
-		--froot.states["BATTLEGROUND"].OnUnselect = {};
-	--	froot.states["ARENA"] = {};
-	--	froot.states["ARENA"].OnSelect = {};
-		--froot.states["ARENA"].OnUnselect = {};
-	--end
 	
 	soloselect:SetScript("OnClick", function()
 		if froot.states and froot.states.SOLO then
