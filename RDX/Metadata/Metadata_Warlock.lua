@@ -10,11 +10,11 @@
 -- Metadata for the Warlock class's spells.
 local _,class = UnitClass("player");
 if class == "WARLOCK" then
-	RDXEvents:Bind("SPELLS_BUILD_CLASSES", nil, function()
-		RDXSS.ClassifySpell(VFLI.i18n("Detect Lesser Invisibility()"), "Detect Invisibility");
-		RDXSS.ClassifySpell(VFLI.i18n("Detect Invisibility()"), "Detect Invisibility");
-		RDXSS.ClassifySpell(VFLI.i18n("Detect Greater Invisibility()"), "Detect Invisibility");
-	end);
+	--RDXEvents:Bind("SPELLS_BUILD_CLASSES", nil, function()
+	--	RDXSS.ClassifySpell(VFLI.i18n("Detect Lesser Invisibility()"), "Detect Invisibility");
+	--	RDXSS.ClassifySpell(VFLI.i18n("Detect Invisibility()"), "Detect Invisibility");
+	--	RDXSS.ClassifySpell(VFLI.i18n("Detect Greater Invisibility()"), "Detect Invisibility");
+	--end);
 
 	--RDXEvents:Bind("SPELLS_BUILD_CATEGORIES", nil, function()
 	--	RDXSS.CategorizeClass(VFLI.i18n("Shadow Bolt"), "DIRECT");
