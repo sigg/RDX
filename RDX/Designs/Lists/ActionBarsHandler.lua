@@ -66,6 +66,7 @@ function __RDXGetStates(statestype)
 		elseif class == "ROGUE" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 6;";
 		elseif class == "DRUID" then str = str .. " [bonusbar:1,stealth] 5; [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8; [bonusbar:4] 9;";
 		elseif class == "WARRIOR" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8;";
+		elseif class == "WARLOCK" then str = str .. " [bonusbar:1] 6;";
 		elseif class == "MONK" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8;";
 		end
 	elseif statestype == "Stance" then
@@ -96,9 +97,9 @@ function __RDX_dd_visi() return _visi; end
 function __RDXGetOtherVisi(visitype)
 	local str = "";
 	if visitype == "Pet" then
-		str = "[target=pet,exists] show; hide;";
+		str = "[@pet,exists,nopossessbar] show; hide;";
 	elseif visitype == "PetInCombat" then
-		str = "[combat] show; hide; [target=pet,exists] show; hide;";
+		str = "[combat] show; hide; [@pet,exists,nopossessbar] show; hide;";
 	elseif visitype == "Vehicle" then
 		str = "[target=vehicle,exists] show; hide;";
 	elseif visitype == "VehicleInCombat" then
@@ -109,6 +110,8 @@ function __RDXGetOtherVisi(visitype)
 		str = "[stealth, harm] show; hide";
 	elseif visitype == "InForm3" then
 		str = "[form:3] show; hide";
+	elseif visitype == "ExtraBar" then
+		str = "[extrabar] show; hide";
 	end
 	return str;
 end
