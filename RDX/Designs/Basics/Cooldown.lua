@@ -31,14 +31,12 @@ RDX.RegisterFeature({
 		local texIcondata = desc.tex or "";
 		
 		local driver = desc.driver or 1;
-		local ebs = desc.externalButtonSkin or "bs_default";
-		local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
-		local bsdefault = desc.bsdefault or _white;
+		local bs = desc.bs or VFLUI.defaultButtonSkin;
 		local bkd = desc.bkd or VFLUI.defaultBackdrop;
-		local bordersize = desc.bordersize or 1;
+		
 		local os = 0; 
-		if driver == 2 then 
-			os = desc.ButtonSkinOffset or 0;
+		if driver == 2 then
+			if desc.bs and desc.bs.insets then os = desc.bs.insets or 0; end
 		elseif driver == 3 then
 			if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 		end
@@ -55,8 +53,8 @@ btn = VFLUI.AcquireFrame("Button");
 ]];
 		elseif driver == 2 then
 			createCode = createCode .. [[
-btn = VFLUI.SkinButton:new();
-btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
+btn = VFLUI.AcquireFrame("Button");
+VFLUI.SetButtonSkin(btn, ]] .. Serialize(bs) .. [[);
 ]];
 		elseif driver == 3 then
 			createCode = createCode .. [[
@@ -176,25 +174,11 @@ frame.]] .. objname .. [[:Hide();
 		
 		ui:InsertFrame(driver_BS);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Button Skin"));
-		local dd_buttonSkin = VFLUI.Dropdown:new(er, VFLUI.GetButtonSkinList);
-		dd_buttonSkin:SetWidth(150); dd_buttonSkin:Show();
-		dd_buttonSkin:SetSelection(desc.externalButtonSkin); 
-		er:EmbedChild(dd_buttonSkin); er:Show();
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("ButtonSkin"));
+		local dd_buttonskin = VFLUI.MakeButtonSkinSelectButton(er, desc.bs);
+		dd_buttonskin:Show();
+		er:EmbedChild(dd_buttonskin); er:Show();
 		ui:InsertFrame(er);
-		
-		local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
-		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
-		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
-		ui:InsertFrame(ed_bs);
-		
-		local chk_showgloss = VFLUI.Checkbox:new(ui); chk_showgloss:Show();
-		chk_showgloss:SetText(VFLI.i18n("Button Skin Show Gloss"));
-		if desc and desc.showgloss then chk_showgloss:SetChecked(true); else chk_showgloss:SetChecked(); end
-		ui:InsertFrame(chk_showgloss);
-		
-		local color_bsdefault = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Button Skin default color"));
-		if desc and desc.bsdefault then color_bsdefault:SetColor(VFL.explodeRGBA(desc.bsdefault)); end
 		
 		ui:InsertFrame(driver_BD);
 		
@@ -232,8 +216,6 @@ frame.]] .. objname .. [[:Hide();
 		if desc and desc.gt then gt:SetSelection(desc.gt); end
 		
 		function ui:GetDescriptor()
-			local ebs = nil;
-			if chk_bs:GetChecked() then ebs = dd_buttonSkin:GetSelection(); end
 			return { 
 				feature = "texture_cooldown"; 
 				version = 1;
@@ -245,10 +227,7 @@ frame.]] .. objname .. [[:Hide();
 				timerVar = timerVar:GetSelection();
 				--display
 				driver = driver:GetValue();
-				externalButtonSkin = dd_buttonSkin:GetSelection();
-				ButtonSkinOffset = VFL.clamp(ed_bs.editBox:GetNumber(), 0, 50);
-				showgloss = chk_showgloss:GetChecked();
-				bsdefault = color_bsdefault:GetColor();
+				bs = dd_buttonskin:GetSelectedButtonSkin();
 				bkd = dd_backdrop:GetSelectedBackdrop();
 				--
 				texture = tsel:GetSelectedTexture();
@@ -270,9 +249,7 @@ frame.]] .. objname .. [[:Hide();
 			owner = "Frame_decor";
 			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			w = 36; h = 36;
-			externalButtonSkin = "bs_default";
-			ButtonSkinOffset = 0;
-			bkd = VFL.copy(VFLUI.defaultBackdrop);
+			driver = 1;
 			cd = VFL.copy(VFLUI.defaultCooldown);
 		};
 	end;

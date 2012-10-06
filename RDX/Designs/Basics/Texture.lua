@@ -545,14 +545,14 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local objname = RDXUI.ResolveTextureReference(desc.name);
 		
-		local driver = desc.driver or 2;
+		local driver = desc.driver or 1;
 		local bs = desc.bs or VFLUI.defaultButtonSkin;
 		local bkd = desc.bkd or VFLUI.defaultBackdrop;
 		
 		local os = 0; 
-		if driver == 1 then 
-			os = desc.ButtonSkinOffset or 0;
-		elseif driver == 2 then
+		if driver == 2 then
+			if desc.bs and desc.bs.insets then os = desc.bs.insets or 0; end
+		elseif driver == 3 then
 			if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 		end
 		------------------ On Closure
@@ -771,26 +771,6 @@ btn = ]] .. objname .. [[;
 		er:EmbedChild(dd_buttonskin); er:Show();
 		ui:InsertFrame(er);
 		
-		--local er = VFLUI.EmbedRight(ui, VFLI.i18n("Button Skin"));
-		--local dd_buttonSkin = VFLUI.Dropdown:new(er, VFLUI.GetButtonSkinList);
-		--dd_buttonSkin:SetWidth(150); dd_buttonSkin:Show();
-		--dd_buttonSkin:SetSelection(desc.externalButtonSkin); 
-		--er:EmbedChild(dd_buttonSkin); er:Show();
-		--ui:InsertFrame(er);
-		
-		--local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
-		--ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
-		--if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
-		--ui:InsertFrame(ed_bs);
-		
-		--local chk_showgloss = VFLUI.Checkbox:new(ui); chk_showgloss:Show();
-		--chk_showgloss:SetText(VFLI.i18n("Button Skin Show Gloss"));
-		--if desc and desc.showgloss then chk_showgloss:SetChecked(true); else chk_showgloss:SetChecked(); end
-		--ui:InsertFrame(chk_showgloss);
-		
-		--local color_bsdefault = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Button Skin default color"));
-		--if desc and desc.bsdefault then color_bsdefault:SetColor(VFL.explodeRGBA(desc.bsdefault)); end
-		
 		ui:InsertFrame(driver_BD);
 		
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop"));
@@ -852,18 +832,6 @@ btn = ]] .. objname .. [[;
 		function ui:GetDescriptor()
 			local _,ict = dd_ictype:GetSelection();
 			local _,int = dd_intype:GetSelection();
-			
-			local driver = driver:GetValue();
-			local bs = dd_buttonskin:GetSelectedButtonSkin();
-			local bkd = dd_backdrop:GetSelectedBackdrop();
-			if driver == 1 then
-				bs = nil;
-				bkd = nil;
-			elseif driver == 2 then
-				bkd = nil;
-			elseif driver == 3 then
-				bs = nil;
-			end
 			return { 
 				feature = "texture2"; version = 1;
 				name = ed_name.editBox:GetText();
@@ -875,9 +843,9 @@ btn = ]] .. objname .. [[;
 				drawLayer = drawLayer:GetSelection();
 				sublevel = VFL.clamp(ed_sublevel.editBox:GetNumber(), 1, 20);
 				--
-				driver = driver;
-				bs = bs;
-				bkd = bkd;
+				driver = driver:GetValue();
+				bs = dd_buttonskin:GetSelectedButtonSkin();
+				bkd = dd_backdrop:GetSelectedBackdrop();
 				--
 				ftype = ftype:GetValue();
 				cleanupPolicy = cleanupPolicy:GetValue();
@@ -902,10 +870,8 @@ btn = ]] .. objname .. [[;
 			owner = "Frame_decor";
 			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
 			drawLayer = "ARTWORK"; sublevel = 1;
+			driver = 1;
 			ftype = 2;
-			externalButtonSkin = "bs_default";
-			ButtonSkinOffset = 0;
-			bkd = VFL.copy(VFLUI.defaultBackdrop);
 			cleanupPolicy = 1;
 			texture = VFL.copy(VFLUI.defaultTexture);
 			ictype = "Faction";

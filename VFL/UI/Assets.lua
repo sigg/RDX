@@ -432,6 +432,7 @@ function VFLUI.SetButtonSkin(frame, bsp)
 		
 		if bsp.br then
 			frame._texBorder:SetVertexColor(bsp.br or 1, bsp.bg or 1, bsp.bb or 1, bsp.ba or 1);
+			frame._texGloss:SetVertexColor(bsp.br or 1, bsp.bg or 1, bsp.bb or 1, bsp.ba or 1);
 		end
 	end
 end
@@ -439,6 +440,7 @@ end
 function VFLUI.SetButtonSkinBorderColor(frame, r, g, b, a)
 	if frame._texBorder then
 		frame._texBorder:SetVertexColor(r or 1, g or 1, b or 1, a or 1);
+		frame._texGloss:SetVertexColor(r or 1, g or 1, b or 1, a or 1);
 	end
 end
 
