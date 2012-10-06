@@ -114,9 +114,9 @@ RDXCD.RegisterCooldown(nil, nil, "PRIEST","Discipline", 33206, 3*60, nil, "SPELL
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Discipline", 47540, 10, nil, "SPELL_CAST_SUCCESS"); -- Pénitence
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Holy", 62618, 3*60, nil, "SPELL_CAST_SUCCESS"); -- Mot de pouvoir : Barrière
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Shadow", 64044, 45, nil, "SPELL_CAST_SUCCESS"); -- Horreur psychique
-RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 527, 8, nil, "SPELL_CAST_SUCCESS"); -- Purify
+RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 527, 8, nil, "SPELL_CAST_SUCCESS"); -- Purify  -- CURE MAGIC DISEASE
 --RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Shadow", 15473, 1.5, nil, "SPELL_CAST_SUCCESS"); -- Forme d'Ombre
-RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Shadow", 15487, 45, nil, "SPELL_CAST_SUCCESS"); -- Silence
+RDXCD.RegisterCooldown(nil, nil, "PRIEST", "Shadow", 15487, 45, nil, "SPELL_CAST_SUCCESS"); -- Silence  -- INTERRUPT
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 109964, 60, nil, "SPELL_CAST_SUCCESS"); -- Spirit Shell
 RDXCD.RegisterCooldown(nil, nil, "PRIEST", nil, 15286, 3*60, nil, "SPELL_CAST_SUCCESS"); -- Vampiric Embrace
 
@@ -145,7 +145,7 @@ RDXCD.RegisterCooldown(nil, nil, "PALADIN", nil, 25780, 1.5, nil, "SPELL_CAST_SU
 RDXCD.RegisterCooldown(nil, nil, "PALADIN", nil, 62124, 8, nil, "SPELL_CAST_SUCCESS"); --  Main de rétribution
 RDXCD.RegisterCooldown(nil, nil, "PALADIN", nil, 633, 10*60, nil, "SPELL_CAST_SUCCESS"); --  Imposition des mains
 RDXCD.RegisterCooldown(nil, nil, "PALADIN", nil, 642, 5*60, nil, "SPELL_CAST_SUCCESS"); --  Bouclier divin
-RDXCD.RegisterCooldown(nil, nil, "PALADIN", nil, 4987, 8, nil, "SPELL_CAST_SUCCESS"); --  Cleanse  -- CURE DICEASE POISON
+RDXCD.RegisterCooldown(nil, nil, "PALADIN", nil, 4987, 8, nil, "SPELL_CAST_SUCCESS"); --  Cleanse  -- CURE DISEASE POISON
 RDXCD.RegisterCooldown(nil, nil, "PALADIN", nil, 121183, 8, nil, "SPELL_CAST_SUCCESS"); --  comtemplation
 RDXCD.RegisterCooldown(nil, nil, "PALADIN", nil, 498, 60, nil, "SPELL_CAST_SUCCESS"); --  Protection divine
 RDXCD.RegisterCooldown(nil, nil, "PALADIN", nil, 96231, 15, nil, "SPELL_CAST_SUCCESS"); --  Réprimandes -- INTERRUPT
@@ -234,7 +234,7 @@ RDXCD.RegisterCooldown(nil, nil, "MAGE", nil, 131784, 30*60, nil, "SPELL_CAST_SU
 RDXCD.RegisterCooldown(nil, nil, "MAGE", nil, 2136, 8, nil, "SPELL_CAST_SUCCESS"); -- Trait de feu
 RDXCD.RegisterCooldown(nil, nil, "MAGE", nil, 1953, 15, nil, "SPELL_CAST_SUCCESS"); -- transfert
 RDXCD.RegisterCooldown(nil, nil, "MAGE", nil, 122, 25, nil, "SPELL_CAST_SUCCESS"); -- Nova de givre
-RDXCD.RegisterCooldown(nil, nil, "MAGE", nil, 2139, 24, nil, "SPELL_CAST_SUCCESS"); -- contresort
+RDXCD.RegisterCooldown(nil, nil, "MAGE", nil, 2139, 24, nil, "SPELL_CAST_SUCCESS"); -- contresort    -- INTERRUPT
 RDXCD.RegisterCooldown(nil, nil, "MAGE", nil, 120, 10, nil, "SPELL_CAST_SUCCESS"); -- cone de froid
 RDXCD.RegisterCooldown(nil, nil, "MAGE", nil, 45438, 5*60, nil, "SPELL_CAST_SUCCESS"); -- bloc de glace
 RDXCD.RegisterCooldown(nil, nil, "MAGE", nil, 475, 8, nil, "SPELL_CAST_SUCCESS"); -- remove curse  -- CURE CURSE
@@ -283,8 +283,8 @@ RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 73899, 8, nil, "SPELL_CAST_SUCCE
 RDXCD.RegisterCooldownGroup("Horion", "Interface\\Icons\\Spell_Holy_PrayerOfFortitude", 6)
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 8042, 6, "Horion", "SPELL_CAST_SUCCESS"); -- Horion de terre
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 8050, 6, "Horion", "SPELL_CAST_SUCCESS"); -- Horion de flammes
-RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 57994, 6, "Horion", "SPELL_CAST_SUCCESS"); -- Cisaille de vent
-RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 51886, 8, nil, "SPELL_CAST_SUCCESS"); -- Cleanse spirit  -- CURE Curse
+RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 57994, 6, "Horion", "SPELL_CAST_SUCCESS"); -- Cisaille de vent  -- INTERRUPT
+RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 51886, 8, nil, "SPELL_CAST_SUCCESS"); -- Cleanse spirit
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 8056, 6, "Horion", "SPELL_CAST_SUCCESS"); -- Horion de givre
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 2484, 30, nil, "SPELL_CAST_SUCCESS"); -- Totem de lien terrestre
 RDXCD.RegisterCooldown(nil, nil, "SHAMAN", nil, 115356, 8, nil, "SPELL_CAST_SUCCESS"); -- Stormblast
@@ -437,9 +437,9 @@ RDXCD.RegisterCooldown(nil, nil, "DRUID", nil, 112071, 3*60, nil, "SPELL_CAST_SU
 RDXCD.RegisterCooldown(nil, nil, "DRUID", nil, 5229, 60, nil, "SPELL_CAST_SUCCESS"); -- enrager
 RDXCD.RegisterCooldown(nil, nil, "DRUID", nil, 102342, 2*60, nil, "SPELL_CAST_SUCCESS"); -- ironbark
 RDXCD.RegisterCooldown(nil, nil, "DRUID", nil, 88423, 8, nil, "SPELL_CAST_SUCCESS"); -- Natural's cure  ---- CURE Magic Curse poison
-RDXCD.RegisterCooldown(nil, nil, "DRUID", nil, 2782, 8, nil, "SPELL_CAST_SUCCESS"); -- Remove corruption  ---- CURE  Curse poison
+RDXCD.RegisterCooldown(nil, nil, "DRUID", nil, 2782, 8, nil, "SPELL_CAST_SUCCESS"); -- Remove corruption
 RDXCD.RegisterCooldown(nil, nil, "DRUID", nil, 62606, 1.5, nil, "SPELL_CAST_SUCCESS"); -- Savage Defense
-RDXCD.RegisterCooldown(nil, nil, "DRUID", nil, 106839, 15, nil, "SPELL_CAST_SUCCESS"); -- Skull Bash
+RDXCD.RegisterCooldown(nil, nil, "DRUID", nil, 106839, 15, nil, "SPELL_CAST_SUCCESS"); -- Skull Bash    -- INTERRUPT
 RDXCD.RegisterCooldown(nil, nil, "DRUID", "Balance", 78675, 60, nil, "SPELL_CAST_SUCCESS"); -- Rayon solaire
 RDXCD.RegisterCooldown(nil, nil, "DRUID", "Balance", 48505, 1.5*60, nil, "SPELL_CAST_SUCCESS"); -- Météore
 RDXCD.RegisterCooldown(nil, nil, "DRUID", "Balance", 78674, 15, nil, "SPELL_CAST_SUCCESS"); -- Eruption stellaire
@@ -513,7 +513,7 @@ RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 34026, 6, nil, "SPELL_CAST_SUCCE
 
 -- talent
 RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 109248, 45, nil, "SPELL_CAST_SUCCESS"); -- binding shot
-RDXCD.RegisterCooldown(nil, nil, "HUNTER", "Marksmanship", 34490, 20, nil, "SPELL_CAST_SUCCESS"); -- Flèche baillon
+RDXCD.RegisterCooldown(nil, nil, "HUNTER", "Marksmanship", 34490, 20, nil, "SPELL_CAST_SUCCESS"); -- Flèche baillon -- INTERRUPT
 RDXCD.RegisterCooldown(nil, nil, "HUNTER", "Survival", 19386, 60, nil, "SPELL_CAST_SUCCESS"); -- Piqure de wyverne
 RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 109304, 2*60, nil, "SPELL_CAST_SUCCESS"); -- Exhilaration
 RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 120679, 30, nil, "SPELL_CAST_SUCCESS"); -- Dire Beast
@@ -641,8 +641,51 @@ RDXCD.RegisterCooldown(nil, nil, "WARLOCK", nil, 119049, 60, nil, "SPELL_CAST_SU
 
 
 
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 109132, 20, nil, "SPELL_CAST_SUCCESS"); -- Roll
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115546, 8, nil, "SPELL_CAST_SUCCESS"); -- Provoke
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115450, 8, nil, "SPELL_CAST_SUCCESS"); -- Detox     CURE POISON DISEASE
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 126892, 30*60, nil, "SPELL_CAST_SUCCESS"); -- Zen Pilgrimage
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115080, 1.5*60, nil, "SPELL_CAST_SUCCESS"); -- Touch of death
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115203, 3*60, nil, "SPELL_CAST_SUCCESS"); -- Fortifying Brew
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115072, 15, nil, "SPELL_CAST_SUCCESS"); -- Expel harm
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 116705, 15, nil, "SPELL_CAST_SUCCESS"); -- Spear Hand Strike
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115078, 15, nil, "SPELL_CAST_SUCCESS"); -- Paralysis
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115460, 0.5, nil, "SPELL_CAST_SUCCESS"); -- Healing sphere
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 117368, 60, nil, "SPELL_CAST_SUCCESS"); -- Grapple weapon
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115543, 20, nil, "SPELL_CAST_SUCCESS"); -- Leer of the Ox
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115176, 3*60, nil, "SPELL_CAST_SUCCESS"); -- Zen Meditation
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 101643, 45, nil, "SPELL_CAST_SUCCESS"); -- Transcendence
 
+-- spe
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115213, 3*60, nil, "SPELL_CAST_SUCCESS"); -- Avert Harm
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 122057, 35, nil, "SPELL_CAST_SUCCESS"); -- clash
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115308, 9, nil, "SPELL_CAST_SUCCESS"); -- elusive brew
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115288, 60, nil, "SPELL_CAST_SUCCESS"); -- energizing brew
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 113656, 25, nil, "SPELL_CAST_SUCCESS"); -- fists of fury
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 101545, 25, nil, "SPELL_CAST_SUCCESS"); -- Flying Serpent kick
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115295, 30, nil, "SPELL_CAST_SUCCESS"); -- Guard
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 121253, 8, nil, "SPELL_CAST_SUCCESS"); -- Keg Smash
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 116849, 2*60, nil, "SPELL_CAST_SUCCESS"); -- Life cocoon
+--RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 119582, 1, nil, "SPELL_CAST_SUCCESS"); -- Purifying brew
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115151, 8, nil, "SPELL_CAST_SUCCESS"); -- Renewing mist
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115310, 3*60, nil, "SPELL_CAST_SUCCESS"); -- Revival
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 107428, 8, nil, "SPELL_CAST_SUCCESS"); -- Rising sun kick
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115315, 30, nil, "SPELL_CAST_SUCCESS"); -- Summon Black Ox Statue
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115313, 30, nil, "SPELL_CAST_SUCCESS"); -- Summon ade Serpent Statue
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 116680, 45, nil, "SPELL_CAST_SUCCESS"); -- Thunder focus tea
+--RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 116740, 1, nil, "SPELL_CAST_SUCCESS"); -- Tigereye Brew
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 122470, 1.5*60, nil, "SPELL_CAST_SUCCESS"); -- Touch of karma
 
+-- talent
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 116841, 30, nil, "SPELL_CAST_SUCCESS"); -- Tiger's Lust
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 123986, 8, nil, "SPELL_CAST_SUCCESS"); -- Chi wave
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 115399, 1.5*60, nil, "SPELL_CAST_SUCCESS"); -- Chi Brew
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 119392, 60, nil, "SPELL_CAST_SUCCESS"); -- Charging Ox Wave
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 119381, 45, nil, "SPELL_CAST_SUCCESS"); -- Leg Sweep
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 122278, 1.5*60, nil, "SPELL_CAST_SUCCESS"); -- Dampen Harm
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 122783, 1.5*60, nil, "SPELL_CAST_SUCCESS"); -- Diffuse Magic
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 123904, 3*60, nil, "SPELL_CAST_SUCCESS"); -- Invoke Xuen, the White Tiger
+RDXCD.RegisterCooldown(nil, nil, "MONK", nil, 116847, 30, nil, "SPELL_CAST_SUCCESS"); -- Rushing Jade wing
 
 RDXCD.RegisterCooldown("Troll", nil, nil, nil, 26297, 3*60, nil, "SPELL_CAST_SUCCESS"); -- Berserk
 RDXCD.RegisterCooldown("NightElf", nil, nil, nil, 58984, 2*60, nil, "SPELL_CAST_SUCCESS"); -- Camouflage de l'ombre
