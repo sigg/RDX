@@ -1766,7 +1766,7 @@ end
 RDXUI.VehicleButton = {};
 
 function RDXUI.VehicleButton:new(parent, id, statesString, desc)
-	local self = VFLUI.AcquireFrame("SecureActionButtonBar", id);
+	local self = VFLUI.AcquireFrame("ButtonVehicle", id);
 	if not self then self = VFLUI.AcquireFrame("SecureActionButtonBarTmp") self.error = true; id = 600; end
 	self:SetParent(parent);
 	self:SetWidth(desc.size); self:SetHeight(desc.size);
@@ -1818,29 +1818,30 @@ function RDXUI.VehicleButton:new(parent, id, statesString, desc)
 		if IsVehicleAimAngleAdjustable() then
 			if self.id == 1 or self.id == 2 then
 				self.icon:Show();
-				self:bsShow();
+				self:Show();
 			end
 		else
 			if self.id == 1 or self.id == 2 then
 				self.icon:Hide();
-				self:bsHide();
+				self:Hide();
 			end
 		end
 		if CanExitVehicle() then
 			if self.id == 3 then
 				self.icon:Show();
-				self:bsShow();
+				self:Show();
 			end
 		else
 			if self.id == 3 then
 				self.icon:Hide();
-				self:bsHide();
+				self:Hide();
 			end
 		end
 	end
 	
 	-- use when drag new action binding
 	local function UpdateAction(arg1)
+		VFL.print(arg1);
 		if arg1 == "player" then UpdateNewAction(); end
 	end
 	

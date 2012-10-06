@@ -52,7 +52,7 @@ __RDXconvertStatesTable = convertStatesTable;
 function __RDXGetStates(statestype)
 	local str, myunit = "", RDXDAL.GetMyUnit();
 	if statestype == "Actionbar" then
-		str = "[bar:2] 1; [bar:3] 2; [bar:4] 3; [bar:5] 4; [bar:6] 5; [bonusbar:5] possess;";
+		str = "[bar:2] 1; [bar:3] 2; [bar:4] 3; [bar:5] 4; [bar:6] 5; [bonusbar:5] 11;";
 	elseif statestype == "Shift" then
 		str = "[mod:shift] 9;";
 	elseif statestype == "Ctrl" then
@@ -60,12 +60,13 @@ function __RDXGetStates(statestype)
 	elseif statestype == "Alt" then
 		str = "[mod:alt] 9;";
 	elseif statestype == "Defaultui" then
-		str = "[bar:2] 1; [bar:3] 2; [bar:4] 3; [bar:5] 4; [bar:6] 5; [bonusbar:5] possess;";
+		str = "[bar:2] 1; [bar:3] 2; [bar:4] 3; [bar:5] 4; [bar:6] 5; [bonusbar:5] 10; [overridebar] 11; [possessbar] 11; [vehicleui] 11;";
 		local class = myunit:GetClassMnemonic();
 		if class == "PRIEST" then str = str .. " [bonusbar:1] 6;";
 		elseif class == "ROGUE" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 6;";
 		elseif class == "DRUID" then str = str .. " [bonusbar:1,stealth] 5; [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8; [bonusbar:4] 9;";
 		elseif class == "WARRIOR" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8;";
+		elseif class == "MONK" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8;";
 		end
 	elseif statestype == "Stance" then
 		local class = myunit:GetClassMnemonic();
@@ -73,6 +74,7 @@ function __RDXGetStates(statestype)
 		elseif class == "ROGUE" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 6;";
 		elseif class == "DRUID" then str = str .. " [bonusbar:1,stealth] 5; [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8; [bonusbar:4] 9;";
 		elseif class == "WARRIOR" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8;";
+		elseif class == "MONK" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8;";
 		end
 	end
 	return str;
@@ -141,11 +143,11 @@ function __RDXModifyActionButtonState(btn, statesString, nbuttons, id)
 	for _, v in ipairs (statesTable) do
 		local page = v.page;
 		--if page == "possess" then page = 10; end
-		if page == "possess" and id < 13 then
-			btn:SetAttribute('action--' .. v.page, id + 120);
-		elseif page ~= "possess" then
+		--if page == "possess" and id < 13 then
+		--	btn:SetAttribute('action--' .. v.page, id + 120);
+		--elseif page ~= "possess" then
 			btn:SetAttribute('action--' .. v.page, id + (nbuttons * page));
-		end
+		--end
 	end
 	btn:SetAttribute("_childupdate", [[
 		--print("child " .. newpage);
