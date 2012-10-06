@@ -30,7 +30,7 @@ local UpdateBackdropPicker;
 local bdp = VFLUI.Window:new(VFLFULLSCREEN);
 VFLUI.Window.SetDefaultFraming(bdp, 20);
 bdp:SetText("Backdrop Picker"); bdp:SetTitleColor(0,0,.6);
-bdp:SetWidth(290); bdp:SetHeight(360);
+bdp:SetWidth(290); bdp:SetHeight(375);
 bdp:SetPoint("CENTER", VFLParent, "CENTER");
 bdp:SetMovable(true); bdp:SetToplevel(nil);
 VFLUI.Window.StdMove(bdp, bdp:GetTitleBar());
@@ -91,7 +91,7 @@ local function MakeBox(x, lw)
 end
 
 local b_l = MakeBox("Inset L", 40);
-b_l:SetPoint("TOPLEFT", lbl2, "BOTTOMLEFT", 40, -5);
+b_l:SetPoint("TOPLEFT", lbl2, "BOTTOMLEFT", 40, -10);
 local b_t = MakeBox("T");
 b_t:SetPoint("LEFT", b_l, "RIGHT", 17, 0);
 local b_r = MakeBox("R");
@@ -126,7 +126,7 @@ local BorderColorUpdate;
 
 local chk_bcolor = VFLUI.Checkbox:new(ca);
 chk_bcolor:SetHeight(16); chk_bcolor:SetWidth(100);
-chk_bcolor:SetPoint("TOPLEFT", b_l, "BOTTOMLEFT", -40, 0);
+chk_bcolor:SetPoint("TOPLEFT", b_l, "BOTTOMLEFT", -40, -5);
 chk_bcolor:SetText("Border color"); chk_bcolor:Show();
 chk_bcolor.check:SetScript("OnClick", function() BorderColorUpdate(); end);
 
@@ -170,7 +170,7 @@ end
 
 -------------------- Backdrop
 lbl = VFLUI.MakeLabel(nil, ca, "Backdrop:");
-lbl:SetWidth(80); lbl:SetPoint("TOPLEFT", chk_bcolor, "BOTTOMLEFT", 0, -9);
+lbl:SetWidth(80); lbl:SetPoint("TOPLEFT", chk_bcolor, "BOTTOMLEFT", 0, -12);
 dd_backdrop = VFLUI.Dropdown:new(ca, VFLUI.GetBackdropList, function(selectedBackdrop)
 	VFLUI.ApplyBaseBackdrop(curBackdrop, nil, selectedBackdrop);
 	UpdateBackdropPicker();
@@ -184,7 +184,7 @@ local TileUpdate;
 
 local chk_tile = VFLUI.Checkbox:new(ca);
 chk_tile:SetHeight(16); chk_tile:SetWidth(180);
-chk_tile:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT", 0, -8);
+chk_tile:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT", 0, -12);
 chk_tile:SetText("Tile backdrop with tiles of size:");
 chk_tile:Show();
 chk_tile.check:SetScript("OnClick", function() TileUpdate(); end);
