@@ -181,32 +181,33 @@ end
 function VFLUI.SetTexture(obj, descr)
 	if not descr then
 		obj:SetTexture(nil);
-	end
-	if descr.color then
-		obj:SetTexture(VFL.explodeRGBA(descr.color));
-	elseif descr.path then
-		obj:SetTexture(descr.path);
 	else
-		return;
-	end
-	obj:SetBlendMode(descr.blendMode);
-	if descr.vertexColor then
-		obj:SetVertexColor(VFL.explodeRGBA(descr.vertexColor));
-	elseif descr.gradDir then
-		local c = descr.grad1
-		obj:SetGradientAlpha(descr.gradDir, c.r, c.g, c.b, c.a, VFL.explodeRGBA(descr.grad2));
-	else
-		obj:SetVertexColor(1,1,1,1);
-	end
-	if descr.path then
-		if descr.coord then
-			local c = descr.coord;
-			obj:SetTexCoord(c.l, c.r, c.b, c.t);
-		elseif descr.coord2 then
-			local c = descr.coord2;
-			obj:SetTexCoord(c.ULx,c.ULy,c.LLx,c.LLy,c.URx,c.URy,c.LRx,c.LRy);
+		if descr.color then
+			obj:SetTexture(VFL.explodeRGBA(descr.color));
+		elseif descr.path then
+			obj:SetTexture(descr.path);
 		else
-			obj:SetTexCoord(0, 1, 0, 1);
+			return;
+		end
+		obj:SetBlendMode(descr.blendMode);
+		if descr.vertexColor then
+			obj:SetVertexColor(VFL.explodeRGBA(descr.vertexColor));
+		elseif descr.gradDir then
+			local c = descr.grad1
+			obj:SetGradientAlpha(descr.gradDir, c.r, c.g, c.b, c.a, VFL.explodeRGBA(descr.grad2));
+		else
+			obj:SetVertexColor(1,1,1,1);
+		end
+		if descr.path then
+			if descr.coord then
+				local c = descr.coord;
+				obj:SetTexCoord(c.l, c.r, c.b, c.t);
+			elseif descr.coord2 then
+				local c = descr.coord2;
+				obj:SetTexCoord(c.ULx,c.ULy,c.LLx,c.LLy,c.URx,c.URy,c.LRx,c.LRy);
+			else
+				obj:SetTexCoord(0, 1, 0, 1);
+			end
 		end
 	end
 end

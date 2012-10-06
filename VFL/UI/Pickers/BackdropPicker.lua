@@ -485,8 +485,12 @@ function VFLUI.CloseBackdropPicker() ClosePicker(); end
 local function GetBackdropInfoString(bkdp)
 	local str = "";
 	if type(bkdp) == "table" then
-		if bkdp._border then str = str .. VFLUI.GetBackdropBorderTitle(bkdp._border) .. "/"; end
-		if bkdp._backdrop then str = str .. VFLUI.GetBackdropTitle(bkdp._backdrop); end
+		if bkdp._bkdtype == 3 then
+			str = str .. "Backdrop Texture";
+		else
+			if bkdp._border then str = str .. VFLUI.GetBackdropBorderTitle(bkdp._border) .. "/"; end
+			if bkdp._backdrop then str = str .. VFLUI.GetBackdropTitle(bkdp._backdrop); end
+		end
 	end
 	if str == "" then str = "unknown"; end
 	return str;

@@ -2,6 +2,10 @@
 -- OpenRDX
 --
 
+VFLUI.defaultButtonSkin = {
+	name = "bs_default";
+};
+
 local curButtonSkin, clipboard = {}, nil;
 local onOK, onCancel, bsp_owner = VFL.Noop, VFL.Noop, nil;
 local UpdateButtonSkinPicker;
@@ -32,7 +36,7 @@ pvwfb:SetBackdrop({
 });
 pvwfb:Show();
 
-local pvwf = VFLUI.AcquireFrame("Frame");
+local pvwf = VFLUI.AcquireFrame("Button");
 pvwf:SetParent(pvwfb); pvwf:SetPoint("CENTER", pvwfb, "CENTER");
 pvwf:SetWidth(80); pvwf:SetHeight(80);
 pvwf:Show();
@@ -43,8 +47,7 @@ local lbl2 = VFLUI.MakeLabel(nil, ca, "ButtonSkin:");
 lbl2:SetWidth(80); lbl2:SetPoint("TOPLEFT", pvwfb, "BOTTOMLEFT", 0, -10);
 
 dd_buttonskin = VFLUI.Dropdown:new(ca, VFLUI.GetButtonSkinList, function(selectedButtonSkin)
-	--VFLUI.ApplyBaseBackdrop(curButtonSkin, selectedButtonSkin);
-	VFL.copyInto(curButtonSkin, selectedButtonSkin);
+	curButtonSkin.name = selectedButtonSkin;
 	UpdateButtonSkinPicker();
 end);
 dd_buttonskin:SetWidth(190); 
@@ -72,7 +75,7 @@ local function MakeBox(x, lw)
 end
 
 local b_l = MakeBox("Inset", 40);
-b_l:SetPoint("TOPLEFT", lbl2, "BOTTOMLEFT", 40, -5);
+b_l:SetPoint("TOPLEFT", lbl2, "BOTTOMLEFT", 40, -10);
 --local b_t = MakeBox("T");
 --b_t:SetPoint("LEFT", b_l, "RIGHT", 17, 0);
 --local b_r = MakeBox("R");
@@ -81,7 +84,7 @@ b_l:SetPoint("TOPLEFT", lbl2, "BOTTOMLEFT", 40, -5);
 --b_b:SetPoint("LEFT", b_r, "RIGHT", 17, 0);
 
 function InsetsUpdate()
-	if not curButtonSkin.insets then return; end
+	--if not curButtonSkin.insets then return; end
 	-- Early out with invalid numbers.
 	local l = tonumber(b_l:GetText()); if not l then return; end
 	--local r = tonumber(b_r:GetText()); if not r then return; end
@@ -94,7 +97,7 @@ function InsetsUpdate()
 	--b = math.floor(VFL.clamp(b, 0, 1024));
 	-- Apply settings
 	local changed = nil;
-	if l ~=	curButtonSkin.insets.left then curButtonSkin.insets.left = l; changed = true; end
+	if l ~=	curButtonSkin.insets then curButtonSkin.insets = l; changed = true; end
 	--if r ~= curBackdrop.insets.right then curBackdrop.insets.right = r; changed = true; end
 	--if t ~= curBackdrop.insets.top then curBackdrop.insets.top = t; changed = true; end
 	--if b ~= curBackdrop.insets.bottom then curBackdrop.insets.bottom = b; changed = true; end
@@ -136,13 +139,14 @@ chk_showflash:SetText("Show Flash"); chk_showflash:Show();
 chk_showflash.check:SetScript("OnClick", function() ShowFlashUpdate(); end);
 
 function ShowFlashUpdate()
-	if curButtonSkin.showflash then
-		local es = chk_showflash:GetChecked();
-		if curButtonSkin.showflash ~= es then
-			curButtonSkin.showflash = es;
-			UpdateButtonSkinPicker();
+	--if curButtonSkin.showflash then
+		if chk_showflash:GetChecked() then
+			curButtonSkin.showflash = true;
+		else
+			curButtonSkin.showflash = nil;
 		end
-	end
+		UpdateButtonSkinPicker();
+	--end
 end
 
 -------------------- ShowGloss
@@ -155,13 +159,14 @@ chk_showgloss:SetText("Show Gloss"); chk_showgloss:Show();
 chk_showgloss.check:SetScript("OnClick", function() ShowGlossUpdate(); end);
 
 function ShowGlossUpdate()
-	if curButtonSkin.showgloss then
-		local es = chk_showgloss:GetChecked();
-		if curButtonSkin.showgloss ~= es then
-			curButtonSkin.showgloss = es;
-			UpdateButtonSkinPicker();
+	--if curButtonSkin.showgloss then
+		if chk_showgloss:GetChecked() then
+			curButtonSkin.showgloss = true;
+		else
+			curButtonSkin.showgloss = nil;
 		end
-	end
+		UpdateButtonSkinPicker();
+	--end
 end
 --------------- Updater
 
@@ -286,7 +291,7 @@ function VFLUI.CloseButtonSkin() ClosePicker(); end
 local function GetButtonSkinInfoString(bkdp)
 	local str = "";
 	if type(bkdp) == "table" then
-		if bkdp.name then str = str .. VFLUI.GetBackdropBorderTitle(bkdp.name); end
+		if bkdp.name then str = str .. bkdp.name; end
 	end
 	if str == "" then str = "unknown"; end
 	return str;
@@ -294,7 +299,7 @@ end
 
 function VFLUI.MakeButtonSkinSelectButton(parent, buttonskin, fnOK, flaganchor)
 	if not fnOK then fnOK = VFL.Noop; end
-	if not buttonskin then buttonskin = {}; end
+	if not buttonskin then buttonskin = VFL.copy(defaultButtonSkin); end
 
 	local self = VFLUI.Button:new(parent);
 	self:SetWidth(180); self:SetHeight(24);
