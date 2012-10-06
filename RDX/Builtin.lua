@@ -730,7 +730,6 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 					["alpha"] = 1,
 				}, -- [1]
 				{
-					["externalButtonSkin"] = "bs_simplesquare",
 					["showtooltip"] = 1,
 					["flo"] = 5,
 					["rows"] = 1,
@@ -769,7 +768,6 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 						["TextType"] = "Seconds",
 						["HideText"] = 0,
 					},
-					["ButtonSkinOffset"] = 6,
 					["anchor"] = {
 						["dx"] = 0,
 						["dy"] = 0,
@@ -796,7 +794,10 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 					["size"] = 36,
 					["showkey"] = 1,
 					["barid"] = "mainbar1",
-					["usebs"] = true,
+					["bs"] = {
+						["name"] = "bs_simplesquare";
+						["insets"] = 6;
+					},
 					["bkd"] = {
 						["ka"] = 1,
 						["kg"] = 0.1,
@@ -2125,17 +2126,6 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	end
 	
 	-- decurse
-	local mbo = RDXDB.TouchObject("bindings:bindings_decurse_druid");
-	if not mbo.data then 
-		mbo.ty = "MouseBindings"; 
-		mbo.version = 1;
-		mbo.data = {
-			["1"] = {
-				["action"] = "cast",
-				["spell"] = 2782,
-			},
-		};
-	end
 	
 	local mbo = RDXDB.TouchObject("bindings:bindings_decurse_priest");
 	if not mbo.data then 
@@ -2145,22 +2135,6 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 			["1"] = {
 				["action"] = "cast",
 				["spell"] = 527,
-			},
-			["2"] = {
-				["action"] = "cast",
-				["spell"] = 528,
-			},
-		};
-	end
-	
-	local mbo = RDXDB.TouchObject("bindings:bindings_decurse_mage");
-	if not mbo.data then 
-		mbo.ty = "MouseBindings"; 
-		mbo.version = 1;
-		mbo.data = {
-			["1"] = {
-				["action"] = "cast",
-				["spell"] = 475,
 			},
 		};
 	end
@@ -2177,6 +2151,18 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		};
 	end
 	
+	local mbo = RDXDB.TouchObject("bindings:bindings_decurse_mage");
+	if not mbo.data then 
+		mbo.ty = "MouseBindings"; 
+		mbo.version = 1;
+		mbo.data = {
+			["1"] = {
+				["action"] = "cast",
+				["spell"] = 475,
+			},
+		};
+	end
+	
 	local mbo = RDXDB.TouchObject("bindings:bindings_decurse_shaman");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
@@ -2184,7 +2170,19 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			["1"] = {
 				["action"] = "cast",
-				["spell"] = 51886,
+				["spell"] = 77130,
+			},
+		};
+	end
+	
+	local mbo = RDXDB.TouchObject("bindings:bindings_decurse_druid");
+	if not mbo.data then 
+		mbo.ty = "MouseBindings"; 
+		mbo.version = 1;
+		mbo.data = {
+			["1"] = {
+				["action"] = "cast",
+				["spell"] = 88423,
 			},
 		};
 	end
@@ -2194,6 +2192,10 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.ty = "MouseBindings"; 
 		mbo.version = 1;
 		mbo.data = {
+			["1"] = {
+				["action"] = "cast",
+				["spell"] = 115450,
+			},
 		};
 	end
 	
