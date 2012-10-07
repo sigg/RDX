@@ -242,6 +242,18 @@ function VFLUI.Separator:new(parent, str, objHeight, fontHeight)
 	return f;
 end
 
+VFLUI.EmptySeparator = {};
+function VFLUI.EmptySeparator:new(parent, objHeight)
+	if type(objHeight) ~= "number" then objHeight = 16; end
+	objHeight = VFL.clamp(objHeight, 2, 10000);
+
+	local f = VFLUI.AcquireFrame("Frame");
+	VFLUI.StdSetParent(f, parent);
+	f:SetHeight(objHeight); f:Show();
+
+	return f;
+end
+
 --------------- Dialog box helpers
 -- A dialog control for filter entries.
 VFLUI.FilterDialogFrame = {};

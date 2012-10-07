@@ -284,18 +284,15 @@ Designs\Complexes\MinimapButtons.lua
 Designs\Lists\ActionBarsHandler.lua
 Designs\Lists\ActionButton.lua
 Designs\Lists\Buttons.lua
-
+Designs\Lists\Icons.lua
 Designs\Lists\AuraBarList.lua
-Designs\Lists\AuraIconList.lua
-Designs\Lists\ComboIconList.lua
 Designs\Lists\CooldownBarList.lua
-Designs\Lists\CooldownIconList.lua
 Designs\Lists\Runes.lua
 Designs\Lists\AuraButtonTemplate.xml
 Designs\Lists\HeaderAuraEngine.lua
 Designs\Lists\HeaderAuraIconList.lua
 Designs\Lists\HeaderAuraBarList.lua
-Designs\Lists\CustomIconList.lua
+
 
 Designs\Objs\Obj_AuraFilter.lua
 Designs\Objs\Obj_AuraName.lua

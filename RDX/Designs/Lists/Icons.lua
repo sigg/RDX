@@ -43,52 +43,63 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		--if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
-		--if not desc.iconspx then desc.iconspx = 0; end
-		--if not desc.iconspy then desc.iconspy = 0; end
-		--if not desc.usebkd then desc.usebs = true; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Icons_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
-		--if not desc.mindurationfilter then desc.mindurationfilter = 0; end
-		if (not tonumber(desc.mindurationfilter)) then 
-			if (desc.mindurationfilter ~= "") then VFL.AddError(errs, VFLI.i18n("Min duration is not a number or empty")); flg = nil; end 
-		end
-		--if not desc.maxdurationfilter then desc.maxdurationfilter = 3000; end
-		if (not tonumber(desc.maxdurationfilter)) then 
-			if (desc.maxdurationfilter ~= "") then VFL.AddError(errs, VFLI.i18n("Max duration is not a number or empty")); flg = nil; end 
+		if desc.ftype == 1 or desc.ftype == 2 then
+			if (not tonumber(desc.mindurationfilter)) then 
+				if (desc.mindurationfilter ~= "") then VFL.AddError(errs, VFLI.i18n("Min duration is not a number or empty")); flg = nil; end 
+			end
+			if (not tonumber(desc.maxdurationfilter)) then 
+				if (desc.maxdurationfilter ~= "") then VFL.AddError(errs, VFLI.i18n("Max duration is not a number or empty")); flg = nil; end 
+			end
 		end
 		if desc.externalNameFilter and desc.externalNameFilter ~= "" then
 			if not RDXDB.CheckObject(desc.externalNameFilter, "AuraFilter") then VFL.AddError(errs, VFLI.i18n("Invalid aurafilter")); flg = nil; end
 		end
+		if desc.ftype == 3 then
+			if (not desc.number) or (not state:Slot("NumberVar_" .. desc.number)) then
+				VFL.AddError(errs, VFLI.i18n("Invalid number object pointer")); return nil;
+			end
+		end
+		
 		if flg then state:AddSlot("Icons_" .. desc.name); end
 		return flg;
 	end;
 	ApplyFeature = function(desc, state)
 		local objname = "Icons_" .. desc.name;
 		
-		local driver = desc.driver or 2;
-		local ebs = desc.externalButtonSkin or "bs_default";
-		local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
-		local bsdefault = desc.bsdefault or _white;
+		local driver = desc.driver or 1;
+		local bs = desc.bs or VFLUI.defaultButtonSkin;
 		local bkd = desc.bkd or VFLUI.defaultBackdrop;
 		
-		local os = 0; 
+		local os = 0;
 		if driver == 2 then
-			os = desc.ButtonSkinOffset or 0;
+			if desc.bs and desc.bs.insets then os = desc.bs.insets or 0; end
 		elseif driver == 3 then
 			if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 		end
 		
-		local r, g, b, a = bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1;
+		local r, g, b, a = 1, 1, 1, 1;
+		if driver == 2 then
+			r, g, b, a = bs.br or 1, bs.bg or 1, bs.bb or 1, bs.ba or 1;
+		elseif driver == 3 then
+			r, g, b, a = bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1;
+		end
+		
+		if not desc.drawLayer then desc.drawLayer = "ARTWORK"; end
+		if not desc.sublevel then desc.sublevel = 3; end
+		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
 		
 		local loadCode = "";
+		
+		local mux, mask = nil, 0;
 		
 		if desc.ftype == 1 then
 			loadCode = "LoadBuffFromUnit";
 			-- Event hinting.
-			local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
+			mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
 			if desc.auraType == "DEBUFFS" then
 				mask = mux:GetPaintMask("DEBUFFS");
 				mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
@@ -114,11 +125,7 @@ RDX.RegisterFeature({
 			end
 
 			------------ Closure
-			-- Add the default color BS
 			local closureCode = "";
-			closureCode = closureCode ..[[
-local ]] .. objname .. [[_bs = ]] .. Serialize(bsdefault) .. [[;
-]];
 			if desc.filterName then
 				closureCode = closureCode ..[[
 local ]] .. objname .. [[_fnames = ]];
@@ -164,7 +171,7 @@ RDXDB.GetObjectInstance(]] .. string.format("%q", desc.externalNameFilter) .. [[
 			state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
 		elseif desc.ftype == 2 then
 			-- Event hinting.
-			local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
+			mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
 			mask = mux:GetPaintMask("COOLDOWN");
 			mux:Event_UnitMask("UNIT_COOLDOWN", mask);
 			mask = bit.bor(mask, 1);
@@ -234,6 +241,18 @@ RDXDB.GetObjectInstance(]] .. string.format("%q", desc.externalNameFiltercd) .. 
 				state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
 			end
 		elseif desc.ftype == 3 then
+			desc.nIcons = 5;
+			desc.rows = 1
+			local closureCode = [[
+local color]] .. objname .. [[ = {};
+color]] .. objname .. [[[1] = ]] .. Serialize(desc.color1) .. [[;
+color]] .. objname .. [[[2] = ]] .. Serialize(desc.color2) .. [[;
+color]] .. objname .. [[[3] = ]] .. Serialize(desc.color3) .. [[;
+color]] .. objname .. [[[4] = ]] .. Serialize(desc.color4) .. [[;
+color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
+]];
+		state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
+		
 		end
 		
 		----------------- Creation
@@ -241,26 +260,19 @@ RDXDB.GetObjectInstance(]] .. string.format("%q", desc.externalNameFiltercd) .. 
 frame.]] .. objname .. [[ = {};
 local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 for i=1, ]] .. desc.nIcons .. [[ do
+	btn = VFLUI.AcquireFrame("Button");
+	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
+	btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
 ]];
-		if driver == 1 then 
+		if driver == 2 then
 			createCode = createCode .. [[
-btn = VFLUI.AcquireFrame("Button");
-]];
-		elseif driver == 2 then
-			createCode = createCode .. [[
-btn = VFLUI.SkinButton:new();
-btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
+VFLUI.SetButtonSkin(btn, ]] .. Serialize(bs) .. [[);
 ]];
 		elseif driver == 3 then
 			createCode = createCode .. [[
-btn = VFLUI.AcquireFrame("Button");
 VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
 ]];
 		end
-		createCode = createCode .. [[
-btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
-]];
 		if desc.ftype == 1 and not desc.disableClick then createCode = createCode .. [[
 btn:RegisterForClicks("RightButtonUp");
 btn:SetScript("OnClick", __AuraIconOnClick);
@@ -290,9 +302,13 @@ btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os ..
 if not RDXG.usecleanicons then
 	btn.tex:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
 end
-btn.tex:SetDrawLayer("ARTWORK", 2);
+btn.tex:SetDrawLayer("ARTWORK", 3);
 btn.tex:Show();
-
+]];
+		if desc.ftype == 3 then
+			createCode = createCode .. VFLUI.GenerateSetTextureCode("btn.tex", desc.texture)
+		end
+		createCode = createCode .. [[
 btn.cd = VFLUI.CooldownCounter:new(btn, ]] .. Serialize(desc.cd) .. [[);
 btn.cd:SetAllPoints(btn.tex);
 btn.cd:Show();
@@ -389,6 +405,9 @@ frame.]] .. objname .. [[ = nil;
 			namefilter = namefilter .. " and (not (" .. objname .. "_fnames['!'.._bn] or " .. objname .. "_fnames['!'.._meta.category]))"
 		end
 		
+		local number = 0;
+		if desc.number then number = desc.number; end
+		
 		--local sorticons = " ";
 		--desc.sort = nil;
 		--if desc.sort then
@@ -419,20 +438,16 @@ frame.]] .. objname .. [[ = nil;
 			btn.meta = _meta;
 			btn.tex:SetTexture(_tex);
 			if _dispelt and DebuffTypeColor[_dispelt] then
-				if ]] .. driver .. [[ == 1 then
-					btn._texBorder:SetVertexColor(VFL.explodeColor(DebuffTypeColor[_dispelt]));
-				elseif ]] .. driver .. [[ == 2 then
-					btn:SetBackdropBorderColor(VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
+				if ]] .. driver .. [[ == 2 then
+					VFLUI.SetButtonSkinBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
 				elseif ]] .. driver .. [[ == 3 then
-					VFLUI.ApplyColorBackdropBorderRDX(btn, DebuffTypeColor[_dispelt]);
+					VFLUI.SetBackdropBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
 				end
 			else
-				if ]] .. driver .. [[ == 1 then
-					btn._texBorder:SetVertexColor(explodeRGBA(]] .. objname .. [[_bs));
-				elseif ]] .. driver .. [[ == 2 then
-					btn:SetBackdropBorderColor(]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+				if ]] .. driver .. [[ == 2 then
+					VFLUI.SetButtonSkinBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
 				elseif ]] .. driver .. [[ == 3 then
-					VFLUI.ApplyColorBackdropBorderRDX(btn, ]] .. objname .. [[_bs);
+					VFLUI.SetBackdropBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
 				end
 			end
 			-- Cooldown
@@ -468,20 +483,16 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 			btn.meta = _meta;
 			btn.tex:SetTexture(_tex);
 			if _dispelt and DebuffTypeColor[_dispelt] then
-				if ]] .. driver .. [[ == 1 then
-					btn._texBorder:SetVertexColor(VFL.explodeColor(DebuffTypeColor[_dispelt]));
-				elseif ]] .. driver .. [[ == 2 then
-					btn:SetBackdropBorderColor(VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
+				if ]] .. driver .. [[ == 2 then
+					VFLUI.SetButtonSkinBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
 				elseif ]] .. driver .. [[ == 3 then
-					VFLUI.ApplyColorBackdropBorderRDX(btn, DebuffTypeColor[_dispelt]);
+					VFLUI.SetBackdropBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
 				end
 			else
-				if ]] .. driver .. [[ == 1 then
-					btn._texBorder:SetVertexColor(explodeRGBA(]] .. objname .. [[_bs));
-				elseif ]] .. driver .. [[ == 2 then
-					btn:SetBackdropBorderColor(]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+				if ]] .. driver .. [[ == 2 then
+					VFLUI.SetButtonSkinBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
 				elseif ]] .. driver .. [[ == 3 then
-					VFLUI.ApplyColorBackdropBorderRDX(btn, ]] .. objname .. [[_bs);
+					VFLUI.SetBackdropBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
 				end
 			end
 
@@ -531,12 +542,33 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 	end
 end
 ]];
+		local paintCodeCustom = [[
+_i = VFL.clamp(]] .. number .. [[, 0, ]] .. desc.nIcons .. [[);
+if _i and _i > 0 then
+	for i=1, _i do
+		frame.]] .. objname .. [[[i].tex:SetVertexColor(explodeRGBA(color]] .. objname .. [[[i]));
+		frame.]] .. objname .. [[[i]:Show();
+	end
+	if _i < ]] .. desc.nIcons .. [[ then
+		for i=(_i + 1), ]] .. desc.nIcons .. [[ do
+			frame.]] .. objname .. [[[i]:Hide();
+		end
+	end
+else
+	for i=1,]] .. desc.nIcons .. [[ do
+		frame.]] .. objname .. [[[i]:Hide();
+	end
+end
+
+]];
 		if desc.test then
 			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCodeTest); end);
 		elseif desc.ftype == 1 then
 			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCodeAura); end);
 		elseif desc.ftype == 2 then
 			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCodeCd); end);
+		elseif desc.ftype == 3 then
+			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCodeCustom); end);
 		end
 		------------------- Cleanup
 		local cleanupCode = [[
@@ -633,25 +665,11 @@ end
 		
 		ui:InsertFrame(driver_BS);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Button Skin"));
-		local dd_buttonSkin = VFLUI.Dropdown:new(er, VFLUI.GetButtonSkinList);
-		dd_buttonSkin:SetWidth(150); dd_buttonSkin:Show();
-		dd_buttonSkin:SetSelection(desc.externalButtonSkin); 
-		er:EmbedChild(dd_buttonSkin); er:Show();
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("ButtonSkin"));
+		local dd_buttonskin = VFLUI.MakeButtonSkinSelectButton(er, desc.bs);
+		dd_buttonskin:Show();
+		er:EmbedChild(dd_buttonskin); er:Show();
 		ui:InsertFrame(er);
-		
-		local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
-		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
-		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
-		ui:InsertFrame(ed_bs);
-		
-		local chk_showgloss = VFLUI.Checkbox:new(ui); chk_showgloss:Show();
-		chk_showgloss:SetText(VFLI.i18n("Button Skin Show Gloss"));
-		if desc and desc.showgloss then chk_showgloss:SetChecked(true); else chk_showgloss:SetChecked(); end
-		ui:InsertFrame(chk_showgloss);
-		
-		local color_bsdefault = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Button Skin default color"));
-		if desc and desc.bsdefault then color_bsdefault:SetColor(VFL.explodeRGBA(desc.bsdefault)); end
 		
 		ui:InsertFrame(driver_BD);
 		
@@ -673,6 +691,23 @@ end
 		chk_disableShowTooltip:SetText(VFLI.i18n("Disable tooltip"));
 		if desc and desc.disableShowTooltip then chk_disableShowTooltip:SetChecked(true); else chk_disableShowTooltip:SetChecked(); end
 		ui:InsertFrame(chk_disableShowTooltip);
+		
+		-------------- Texture
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Texture parameters")));
+
+		-- Drawlayer
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Draw layer"));
+		local drawLayer = VFLUI.Dropdown:new(er, RDXUI.DrawLayerDropdownFunction);
+		drawLayer:SetWidth(150); drawLayer:Show();
+		if desc and desc.drawLayer then drawLayer:SetSelection(desc.drawLayer); else drawLayer:SetSelection("ARTWORK"); end
+		er:EmbedChild(drawLayer); er:Show();
+		ui:InsertFrame(er);
+		
+		-- SubLevel
+		local ed_sublevel = VFLUI.LabeledEdit:new(ui, 50); ed_sublevel:Show();
+		ed_sublevel:SetText(VFLI.i18n("TextureLevel offset"));
+		if desc and desc.sublevel then ed_sublevel.editBox:SetText(desc.sublevel); end
+		ui:InsertFrame(ed_sublevel);
 		
 		-------------- CooldownDisplay
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown parameters")));
@@ -857,6 +892,8 @@ end
 		le_names:SetHeight(183); le_names:Show();
 		ui:InsertFrame(le_names);
 		
+		ui:InsertFrame(VFLUI.EmptySeparator:new(ui, 30));
+		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown Icons")));
 		ui:InsertFrame(ftype_2);
 		
@@ -908,6 +945,41 @@ end
 		end);
 		le_namescd:SetHeight(183); le_namescd:Show();
 		ui:InsertFrame(le_namescd);
+		
+		ui:InsertFrame(VFLUI.EmptySeparator:new(ui, 30));
+		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Custom Icons")));
+		
+		ui:InsertFrame(ftype_3);
+		
+		local number = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Number"), state, "NumberVar_");
+		if desc and desc.number then number:SetSelection(desc.number); end
+		
+		-- Drawlayer
+		local er = VFLUI.EmbedRight(ui, "Draw layer");
+		local drawLayer = VFLUI.Dropdown:new(er, RDXUI.DrawLayerDropdownFunction);
+		drawLayer:SetWidth(100); drawLayer:Show();
+		if desc and desc.drawLayer then drawLayer:SetSelection(desc.drawLayer); else drawLayer:SetSelection("ARTWORK"); end
+		er:EmbedChild(drawLayer); er:Show();
+		ui:InsertFrame(er);
+		
+		-- Texture
+		local er = VFLUI.EmbedRight(ui, "Texture");
+		local tsel = VFLUI.MakeTextureSelectButton(er, desc.texture); tsel:Show();
+		er:EmbedChild(tsel); er:Show();
+		ui:InsertFrame(er);
+		
+		-- color
+		local color1 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 1 color"));
+		if desc and desc.color1 then color1:SetColor(VFL.explodeRGBA(desc.color1)); end
+		local color2 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 2 color"));
+		if desc and desc.color2 then color2:SetColor(VFL.explodeRGBA(desc.color2)); end
+		local color3 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 3 color"));
+		if desc and desc.color3 then color3:SetColor(VFL.explodeRGBA(desc.color3)); end
+		local color4 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 4 color"));
+		if desc and desc.color4 then color4:SetColor(VFL.explodeRGBA(desc.color4)); end
+		local color5 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 5 color"));
+		if desc and desc.color5 then color5:SetColor(VFL.explodeRGBA(desc.color5)); end
 		
 		function ui:GetDescriptor()
 			local filterName, filterNameList, filternl, ext, filterNamecd, filterNameListcd, filternlcd, extcd, unitfi, maxdurfil, mindurfil = nil, nil, {}, nil, nil, nil, {}, nil, "", "", "";
@@ -1004,14 +1076,14 @@ end
 				h = VFL.clamp(ed_height.editBox:GetNumber(), 1, 100);
 				-- display
 				driver = driver:GetValue();
-				externalButtonSkin = dd_buttonSkin:GetSelection();
-				ButtonSkinOffset = VFL.clamp(ed_bs.editBox:GetNumber(), 0, 50);
-				showgloss = chk_showgloss:GetChecked();
-				bsdefault = color_bsdefault:GetColor();
+				bs = dd_buttonskin:GetSelectedButtonSkin();
 				bkd = dd_backdrop:GetSelectedBackdrop();
 				-- interaction
 				disableClick = chk_disableClick:GetChecked();
 				disableShowTooltip = chk_disableShowTooltip:GetChecked();
+				-- texture
+				drawLayer = drawLayer:GetSelection();
+				sublevel = VFL.clamp(ed_sublevel.editBox:GetNumber(), 1, 20);
 				-- cooldown
 				cd = cd:GetSelectedCooldown();
 				-- other
@@ -1050,6 +1122,13 @@ end
 				externalNameFiltercd = extcd;
 				filterNameListcd = filternlcd;
 				--
+				number = number.editBox:GetText();
+				texture = tsel:GetSelectedTexture();
+				color1 = color1:GetColor();
+				color2 = color2:GetColor();
+				color3 = color3:GetColor();
+				color4 = color4:GetColor();
+				color5 = color5:GetColor();
 			};
 		end
 
@@ -1066,9 +1145,8 @@ end
 			nIcons = 12; rows = 1; orientation = "RIGHT"; iconspx = 5; iconspy = 0;
 			w = 30; h = 30;
 			driver = 1;
-			externalButtonSkin = "bs_default";
-			ButtonSkinOffset = 0;
 			bkd = VFL.copy(VFLUI.defaultBackdrop);
+			drawLayer = "ARTWORK"; sublevel = 1;
 			cd = VFL.copy(VFLUI.defaultCooldown);
 			fontst = font;
 			mindurationfilter = 0;
@@ -1080,4 +1158,39 @@ end
 	end;
 });
 
+RDX.RegisterFeature({
+	name = "aura_icons";
+	version = 31338;
+	invisible = true;
+	IsPossible = VFL.Nil;
+	VersionMismatch = function(desc)
+		desc.feature = "listicons";
+		desc.ftype = 1;
+		desc.h = desc.size;
+		desc.w = desc.size;
+	end;
+});
 
+RDX.RegisterFeature({
+	name = "cd_icons";
+	version = 31338;
+	invisible = true;
+	IsPossible = VFL.Nil;
+	VersionMismatch = function(desc)
+		desc.feature = "listicons";
+		desc.ftype = 2;
+		desc.h = desc.size;
+		desc.w = desc.size;
+	end;
+});
+
+RDX.RegisterFeature({
+	name = "custom_icons";
+	version = 31338;
+	invisible = true;
+	IsPossible = VFL.Nil;
+	VersionMismatch = function(desc)
+		desc.feature = "listicons";
+		desc.ftype = 3;
+	end;
+});
