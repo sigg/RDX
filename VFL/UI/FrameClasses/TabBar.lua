@@ -231,8 +231,8 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 	
 	local TabDragContext = VFLUI.DragContext:new();
 	
-	local function TabDragStart(btn)
-		local proxy = VFLUI.CreateGenericDragProxy(btn, "");
+	local function TabDragStart(btn, txt)
+		local proxy = VFLUI.CreateGenericDragProxy(btn, txt);
 		TabDragContext:Drag(btn, proxy);
 	end
 	
@@ -406,6 +406,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 				if not notSelectable then
 					self:SelectTab(self2);
 				end
+				TabDragStart(self2, self2.font:GetText());
 			else
 				VFL.empty(mnu);
 				if fnMenu then fnMenu(mnu, t); end
