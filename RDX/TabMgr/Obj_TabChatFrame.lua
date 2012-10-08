@@ -703,6 +703,8 @@ RDXDB.RegisterObjectType({
 
 --------------- Tab Manager
 
+--[[
+
 RDXPM.RegisterTabCategory(VFLI.i18n("ChatFrames"));
 
 ------------------------------------------
@@ -777,4 +779,4 @@ end
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	RegisterTabChatFrames();
-end);
+end);]]

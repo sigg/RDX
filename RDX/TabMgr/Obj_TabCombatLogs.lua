@@ -380,7 +380,7 @@ RDXDB.RegisterObjectType({
 });
 
 --------------- Tab Manager
-
+--[[
 RDXPM.RegisterTabCategory(VFLI.i18n("CombatLogs"));
 
 ------------------------------------------
@@ -456,3 +456,5 @@ end
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	RegisterTabCombatLogs();
 end);
+
+]]

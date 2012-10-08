@@ -107,7 +107,7 @@ function RDX.IsWindowTabSecured(path)
 end
 
 --------------- Tab Manager
-
+--[[
 RDXPM.RegisterTabCategory(VFLI.i18n("Windows"));
 
 ------------------------------------------
@@ -187,7 +187,7 @@ end);
 
 
 
-
+]]
 
 
 
@@ -242,7 +242,7 @@ RDXDB.RegisterObjectType({
 
 
 --------------- Tab Manager
-
+--[[
 RDXPM.RegisterTabCategory(VFLI.i18n("Maps"));
 
 ------------------------------------------
@@ -317,4 +317,4 @@ end
 
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	RegisterTabMap();
-end);
+end);]]
