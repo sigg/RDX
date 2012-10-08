@@ -217,7 +217,7 @@ local function NewTabButtonBottom(parent)
 	return btn;
 end
 
-local function NewTabBar(fp, parent, tabHeight, orientation)
+local function NewTabBar(fp, parent, tabHeight, orientation, OnTabMoved)
 	local self = VFLUI.AcquireFrame("Frame");
 	if parent then
 		self:SetParent(parent);
@@ -458,6 +458,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 			ReanchorTabs();
 			UpdateScrollable();
 		end
+		if OnTabMoved then OnTabMoved(); end
 	end
 	
 	--- Change look and feel
