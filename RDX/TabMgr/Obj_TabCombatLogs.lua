@@ -353,6 +353,7 @@ RDXDB.RegisterObjectType({
 		function(mnu, dlg) 
 			return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg)
 		end);
+		tab.font:SetText(md.data.title);
 		tab.f = f;
 		return tab;
 	end,

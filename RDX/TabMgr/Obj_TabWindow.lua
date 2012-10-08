@@ -38,6 +38,28 @@ RDXDB.RegisterObjectType({
 		instance:Destroy();
 		instance = nil;
 	end,
+	OpenTab = function(tabbox, path, md, objdesc, desc)
+		local tabtitle, tabwidth = "Tab", 80;
+		for k, v in pairs(md.data) do
+			if v.feature == "taboptions" then
+				tabtitle = v.tabtitle;
+				tabwidth = v.tabwidth;
+			end
+		end
+		local f = RDXDB.GetObjectInstance(path);
+		local tab = tabbox:GetTabBar():AddTab(tabwidth, function(self, arg1)
+			tabbox:SetClient(f);
+			VFLUI.SetBackdrop(f, desc.bkd);
+			--f.font = desc.font;
+		end,
+		function() end, 
+		function(mnu, dlg) 
+			return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg)
+		end);
+		tab.font:SetText(tabtitle);
+		tab.f = f;
+		return tab;
+	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),

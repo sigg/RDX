@@ -352,7 +352,6 @@ function RDX.TabManager:new(parent, path, data, desc)
 	self.tabbox = tabbox;
 	self.tabbar = tabbar;
 	self.count = 0;
-	self.title = "";
 	
 	function self:AddTab(tabpath, save)
 		local tab;
@@ -371,7 +370,6 @@ function RDX.TabManager:new(parent, path, data, desc)
 			tab = objdesc.OpenTab(tabbox, tabpath, md, objdesc, desc);
 		end
 		tab._path = tabpath;
-		tab.font:SetText(md.data.title);
 		-- store in data object.
 		if save then
 			table.insert(data, tabpath);
@@ -411,7 +409,6 @@ function RDX.TabManager:new(parent, path, data, desc)
 		s.tabbox = nil;
 		s.tabbar = nil;
 		s.count = nil;
-		s.title = nil;
 	end, self.Destroy);
 
 	return self;
@@ -427,9 +424,9 @@ RDXDB.RegisterObjectType({
 	New = function(path, md)
 		md.version = 1;
 	end;
-	Edit = function(path, md, parent)
-		EditTabManagerDialog(parent or VFLDIALOG, path, md);
-	end;
+	--Edit = function(path, md, parent)
+	--	EditTabManagerDialog(parent or VFLDIALOG, path, md);
+	--end;
 	Instantiate = function(path, md, desc)
 		local tm = RDX.TabManager:new(nil, path, md.data, desc);
 		return tm;
