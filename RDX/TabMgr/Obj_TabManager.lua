@@ -319,100 +319,100 @@ local function EditTabManagerDialog(parent, path, md)
 	end, dlg.Destroy);
 end
 
---the instance
+-- the instance
+-- data is object data (list of tabs)
+-- data[1] = "tabs:Chatframe1";
+-- data[2] = "tabs:Chatframe3";
+-- etc
+-- desc is customization option from IDE
+-- desc.height
+-- desc.orientation
 RDX.TabManager = {};
-function RDX.TabManager:new(parent, path, desc)
+function RDX.TabManager:new(parent, path, data, desc)
+	local self = {};
 	local tabbox = VFLUI.TabBox:new(nil, desc.height, desc.orientation);
 	VFLUI.SetBackdrop(tabbox, nil);
 	tabbox:Show();
-	tabbox.cfs = {};
 	
-	tabbox.count = 0;
-	tabbox.title = "";
-	
-	function tabbox:RemoveMessages()
-		
-	end
-	-- add TabChatframe
-	function tabbox:AddChatFrame(path, tabdata)
-		tabbox.count = tabbox.count + 1;
-		local flag = RDXDB.GetObjectInstance(path, true);
-		local f, tab;
-		if not tabdata.tabwidth then tabdata.tabwidth = 80; end
-		if flag then
-			f = VFLUI.SimpleText:new(nil, 5, 100);
-			f._path = nil;
-			f:SetText("Already acquired!");
-			tab = tabbox:GetTabBar():AddTab(tabdata.tabwidth, function(self, arg1) 
-				tabbox:SetClient(f);
-				VFLUI.SetBackdrop(f, desc.bkd);
-			end, function() end);
-		else
-			f = RDXDB.GetObjectInstance(path);
-			local _, _, _, _, objdesc = RDXDB.GetObjectData(path);
-			f._path = path;
-			tab = tabbox:GetTabBar():AddTab(tabdata.tabwidth, function(self, arg1)
-				tabbox:SetClient(f);
-				ChatEdit_SetLastActiveWindow(f.cf.editBox);
-				VFLUI.SetBackdrop(f.cfbg, desc.bkd);
-				VFLUI.SetBackdrop(f.ebbg, desc.bkd);
-				VFLUI.SetFont(f.cf, desc.font);
-			end,
-			function() end, 
-			function(mnu, dlg) 
-				return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg)
-			end);
-		end
-		tab.font:SetText(tabdata.title);
-		f.tab = tab;
-		tabbox.cfs["cf" .. tabbox.count] = f;
-	end
-	
-	function self:AddCombatLogs(path, tabdata)
-		tabbox.count = tabbox.count + 1;
-		local flag = RDXDB.GetObjectInstance(path, true);
-		local f, tab;
-		if not tabdata.tabwidth then tabdata.tabwidth = 80; end
-		if flag then
-			f = VFLUI.SimpleText:new(nil, 5, 100);
-			f._path = nil;
-			f:SetText("Already acquired !");
-			tab = tabbox:GetTabBar():AddTab(tabdata.tabwidth, function(self, arg1)
-				tabbox:SetClient(f);
-				VFLUI.SetBackdrop(f, desc.bkd);
-			end, function() end);
-		else
-			f = RDXDB.GetObjectInstance(path);
-			local _, _, _, _, objdesc = RDXDB.GetObjectData(path);
-			f._path = path;
-			tab = tabbox:GetTabBar():AddTab(tabdata.tabwidth, function(self, arg1)
-				tabbox:SetClient(f); 
-				VFLUI.SetBackdrop(f, desc.bkd);
-				f.font = desc.font;
-			end, function() end,
-			function(mnu, dlg) return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg) end);
-		end
-		tab.font:SetText(tabdata.title);
-		f.tab = tab;
-		tabbox.cfs["cf" .. tabbox.count] = f;	
-	end
-
-	tabbox.Destroy = VFL.hook(function(s)
-		for k,v in pairs(s.cfs) do
-			v.tab = nil;
+	local tabbar = tabbox:GetTabBar();
+	-- init callback in case of tab switching.
+	tabbar.OnTabMoved = function(self)
+		local tabs = self:_GetTabs();
+		-- je vide data
+		VFL.empty(data);
+		-- je réinsert
+		for k,v in pairs(tabs) do
 			if v._path then
-				v.font = nil;
-				RDXDB._RemoveInstance(v._path); v = nil;
-			else
-				v:Destroy(); v = nil;
+				table.insert(data, v._path);
 			end
 		end
-		s.SetTabOptions = nil;
-		s.AddMessages = nil;
-		s.RemoveMessages = nil;
+		
+	end);
+	
+	self.tabbox = tabbox;
+	self.tabbar = tabbar;
+	self.count = 0;
+	self.title = "";
+	
+	function self:AddTab(tabpath, save)
+		local tab;
+		local md, _, _, _, objdesc = RDXDB.GetObjectData(tabpath);
+		local flag = RDXDB.GetObjectInstance(tabpath, true);
+		if flag then
+			local f = VFLUI.SimpleText:new(nil, 5, 100);
+			f:SetText("Already acquired!");
+			tab = tabbox:GetTabBar():AddTab(md.data.tabwidth, function(self, arg1) 
+				tabbox:SetClient(f);
+				VFLUI.SetBackdrop(f, desc.bkd);
+			end, function() end);
+			tab.f = f;
+			tab.error = true;
+		else
+			tab = objdesc.OpenTab(tabbox, tabpath, md, objdesc, desc);
+		end
+		tab._path = tabpath;
+		tab.font:SetText(md.data.title);
+		-- store in data object.
+		if save then
+			table.insert(data, tabpath);
+		end
+		self.count = self.count + 1;
+	end
+	
+	function self:RemoveTab(tabpath, save)
+		local tabs = tabbar:_GetTabs();
+		for k,v in pairs(tabs) do
+			if v._path == tabpath then
+				RDXDB._RemoveInstance(tabpath);
+				tabbox:GetTabBar():RemoveTab(v);
+				self.count = self.count - 1;
+				-- remove from data object
+				if save then
+					VFL.vremove(data, tabpath);
+				end
+			end
+		end
+	end
+
+	self.Destroy = VFL.hook(function(s)
+		local tabs = tabbar:_GetTabs();
+		for k,v in pairs(tabs) do
+			if v.error then
+				v:Destroy();
+				tabbox:GetTabBar():RemoveTab(v);
+			else
+				RDXDB._RemoveInstance(v._path);
+				tabbox:GetTabBar():RemoveTab(v);
+			end
+		end
+		s.AddTab = nil;
+		s.RemoveTab = nil;
+		s.tabbox:Destroy();
+		s.tabbox = nil;
+		s.tabbar = nil;
 		s.count = nil;
 		s.title = nil;
-	end, tabbox.Destroy);
+	end, self.Destroy);
 
 	return self;
 end
@@ -432,8 +432,6 @@ RDXDB.RegisterObjectType({
 	end;
 	Instantiate = function(path, md, desc)
 		local tm = RDX.TabManager:new(nil, path, md.data, desc);
-		-- Attempt to setup the window; if it fails, just bail out.
-		-- if not SetupTabManager(path, tm, md.data) then tm:Destroy(); return nil; end
 		return tm;
 	end,
 	Deinstantiate = function(instance, path, md)

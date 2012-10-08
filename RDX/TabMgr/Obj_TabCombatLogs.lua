@@ -342,6 +342,20 @@ RDXDB.RegisterObjectType({
 		instance:Destroy();
 		instance = nil;
 	end,
+	OpenTab = function(tabbox, path, md, objdesc, desc)
+		local f = RDXDB.GetObjectInstance(path);
+		local tab = tabbox:GetTabBar():AddTab(md.data.tabwidth, function(self, arg1)
+			tabbox:SetClient(f);
+			VFLUI.SetBackdrop(f, desc.bkd);
+			f.font = desc.font;
+		end,
+		function() end, 
+		function(mnu, dlg) 
+			return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg)
+		end);
+		tab.f = f;
+		return tab;
+	end
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),

@@ -217,7 +217,7 @@ local function NewTabButtonBottom(parent)
 	return btn;
 end
 
-local function NewTabBar(fp, parent, tabHeight, orientation, OnTabMoved)
+local function NewTabBar(fp, parent, tabHeight, orientation)
 	local self = VFLUI.AcquireFrame("Frame");
 	if parent then
 		self:SetParent(parent);
@@ -381,6 +381,11 @@ local function NewTabBar(fp, parent, tabHeight, orientation, OnTabMoved)
 	function self:_GetCurrentTab()
 		return curTab;
 	end
+	
+	--- Return tabs list
+	function self:_GetTabs()
+		return tabs;
+	end
 
 	--- Adds a tab to the tab bar. The tab will have the given width.
 	function self:AddTab(width, fnSelect, fnDeselect, fnMenu, showOnMouseOver, notSelectable, heightclientoffset)
@@ -458,7 +463,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation, OnTabMoved)
 			ReanchorTabs();
 			UpdateScrollable();
 		end
-		if OnTabMoved then OnTabMoved(); end
+		if self.OnTabMoved then self:OnTabMoved(); end
 	end
 	
 	--- Change look and feel
@@ -492,7 +497,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation, OnTabMoved)
 		tabs = nil; tabWidth = nil;
 		self.SetBackdropTab = nil; self.SetFontTab = nil;
 		self.SelectTabName = nil; self.SelectTabId = nil; self.UnSelectTab = nil; self._GetCurrentTab = nil;
-		self.MoveTab = nil; self.RemoveTab = nil; self.AddTab = nil; self.SelectTab = nil;
+		self.MoveTab = nil; self.RemoveTab = nil; self.AddTab = nil; self.SelectTab = nil; self._GetTabs = nil;
 	end, self.Destroy);
 
 	return self;

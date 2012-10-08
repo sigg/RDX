@@ -6,7 +6,7 @@
 -- typically the client is populated with a different frame depend on which tab was clicked. Procedures
 -- to easily enable this are provided.
 
-local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety, OnTabMoved)
+local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 	local self = VFLUI.AcquireFrame("Frame");
 	if parent then
 		self:SetParent(parent); self:SetFrameStrata(parent:GetFrameStrata());
@@ -14,7 +14,7 @@ local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety, O
 	end
 	VFLUI.SetBackdrop(self, VFLUI.DefaultDialogBackdrop)
 	
-	local tabBar = VFLUI.TabBar:new(self, tabHeight, orientation, OnTabMoved);
+	local tabBar = VFLUI.TabBar:new(self, tabHeight, orientation);
 	if orientation == "TOP" then
 		tabBar:SetPoint("TOPLEFT", self, "TOPLEFT", 0, -2);
 	elseif orientation == "BOTTOM" then
