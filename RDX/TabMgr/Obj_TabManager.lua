@@ -347,7 +347,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 			end
 		end
 		
-	end);
+	end;
 	
 	self.tabbox = tabbox;
 	self.tabbar = tabbar;

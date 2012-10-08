@@ -355,7 +355,7 @@ RDXDB.RegisterObjectType({
 		end);
 		tab.f = f;
 		return tab;
-	end
+	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),
