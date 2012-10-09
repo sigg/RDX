@@ -653,7 +653,7 @@ RDXDB.RegisterObjectType({
 		instance:Destroy();
 		instance = nil;
 	end,
-	OpenTab = function(tabbox, path, md, objdesc, desc)
+	OpenTab = function(tabbox, path, md, objdesc, desc, tm)
 		local f = RDXDB.GetObjectInstance(path);
 		local tab = tabbox:GetTabBar():AddTab(md.data.tabwidth, function(self, arg1)
 			tabbox:SetClient(f);
@@ -664,13 +664,13 @@ RDXDB.RegisterObjectType({
 		end,
 		function() end, 
 		function(mnu, dlg) 
-			return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg)
+			return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg, tm)
 		end);
 		tab.font:SetText(md.data.title);
 		tab.f = f;
 		return tab;
 	end,
-	GenerateBrowserMenu = function(mnu, path, md, dlg)
+	GenerateBrowserMenu = function(mnu, path, md, dlg, tm)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),
 			OnClick = function() 
@@ -698,6 +698,15 @@ RDXDB.RegisterObjectType({
 				end
 			end;
 		});
+		if tm then 
+			table.insert(mnu, {
+				text = VFLI.i18n("Close Tab");
+				OnClick = function()
+					VFL.poptree:Release();
+					tm:RemoveTab(path, true);
+				end;
+			});
+		end
 	end;
 });
 

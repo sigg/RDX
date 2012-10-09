@@ -71,7 +71,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 				tab.error = true;
 				tab.font:SetText("error");
 			else
-				tab = objdesc.OpenTab(tabbox, tabpath, md, objdesc, desc);
+				tab = objdesc.OpenTab(tabbox, tabpath, md, objdesc, desc, self);
 			end
 			tab._path = tabpath;
 		end

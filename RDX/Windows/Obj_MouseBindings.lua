@@ -234,7 +234,7 @@ local function BindingCodePopup(parent, callback)
 
 	local btn = VFLUI.RadioGroup:new(gb_btn:GetClientArea());
 	btn:SetPoint("TOPLEFT", gb_btn:GetClientArea(), "TOPLEFT");
-	btn:SetLayout(10, 1);
+	btn:SetLayout(15, 1);
 	btn:SetWidth(100);
 	btn.buttons[1]:SetText("Left");
 	btn.buttons[2]:SetText("Right");
@@ -246,6 +246,11 @@ local function BindingCodePopup(parent, callback)
 	btn.buttons[8]:SetText("Button 8");
 	btn.buttons[9]:SetText("Button 9");
 	btn.buttons[10]:SetText("Button 10");
+	btn.buttons[11]:SetText("Button 11");
+	btn.buttons[12]:SetText("Button 12");
+	btn.buttons[13]:SetText("Button 13");
+	btn.buttons[14]:SetText("Button 14");
+	btn.buttons[15]:SetText("Button 15");
 	btn:Show();
 	btn:SetValue(1);
 
@@ -278,6 +283,16 @@ local function BindingCodePopup(parent, callback)
 			str = str .. "9";
 		elseif v == 10 then
 			str = str .. "10";
+		elseif v == 11 then
+			str = str .. "11";
+		elseif v == 12 then
+			str = str .. "12";
+		elseif v == 13 then
+			str = str .. "13";
+		elseif v == 14 then
+			str = str .. "14";
+		elseif v == 15 then
+			str = str .. "15";
 		else
 			str = nil;
 		end
