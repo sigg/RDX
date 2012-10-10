@@ -678,27 +678,27 @@ RDXDB.RegisterObjectType({
 				RDXDB.OpenObject(path, "Edit", dlg);
 			end
 		});
-		table.insert(mnu, {
-			text = VFLI.i18n("Open copy paste");
-			OnClick = function()
-				VFL.poptree:Release();
-				local inst = RDXDB.GetObjectInstance(path, true);
-				if inst then 
-					EditScriptDialog(dlg, inst.msgs);
-				end
-			end;
-		});
-		table.insert(mnu, {
-			text = VFLI.i18n("Clear Messages");
-			OnClick = function()
-				VFL.poptree:Release();
-				local inst = RDXDB.GetObjectInstance(path, true);
-				if inst then 
-					inst.cf:Clear();
-				end
-			end;
-		});
 		if tm then 
+			table.insert(mnu, {
+				text = VFLI.i18n("Open copy paste");
+				OnClick = function()
+					VFL.poptree:Release();
+					local inst = RDXDB.GetObjectInstance(path, true);
+					if inst then 
+						EditScriptDialog(dlg, inst.msgs);
+					end
+				end;
+			});
+			table.insert(mnu, {
+				text = VFLI.i18n("Clear Messages");
+				OnClick = function()
+					VFL.poptree:Release();
+					local inst = RDXDB.GetObjectInstance(path, true);
+					if inst then 
+						inst.cf:Clear();
+					end
+				end;
+			});
 			table.insert(mnu, {
 				text = VFLI.i18n("Close Tab");
 				OnClick = function()

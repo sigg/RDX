@@ -34,7 +34,6 @@ function RDX.TabManager:new(parent, path, data, desc)
 	
 	self.tabbox = tabbox;
 	self.tabbar = tabbar;
-	self.count = 0;
 	
 	function self:AddTab(tabpath, save)
 		local tab;
@@ -44,8 +43,55 @@ function RDX.TabManager:new(parent, path, data, desc)
 				end, 
 				function() end,
 				function(mnu, dlg)
+					local pkg = RDXData["Tabs"];
 					table.insert(mnu, {
-						text = VFLI.i18n("Add"),
+						text = VFLI.i18n("Available Chatframes :"),
+						OnClick = function() 
+							VFL.poptree:Release(); 
+						end
+					});
+					for objName,obj in pairs(pkg) do
+						if type(obj) == "table" and obj.ty == "TabChatFrame" then
+							local path = RDXDB.MakePath(pkgName, objName);
+							if not RDXDB.PathHasInstance(path) then
+								local data = obj.data;
+								local tit = "";
+								if data then tit = obj.data.title; end
+								table.insert(mnu, {
+									text = path .. " (" .. tit .. ")",
+									OnClick = function() 
+										VFL.poptree:Release(); 
+										self:AddTab(path, true);
+									end
+								});
+							end
+						end
+					end
+					table.insert(mnu, {
+						text = VFLI.i18n("Available CombatLogs :"),
+						OnClick = function() 
+							VFL.poptree:Release();
+						end
+					});
+					for objName,obj in pairs(pkg) do
+						if type(obj) == "table" and obj.ty == "TabCombatLogs" then
+							local path = RDXDB.MakePath(pkgName, objName);
+							if not RDXDB.PathHasInstance(path) then
+								local data = obj.data;
+								local tit = "";
+								if data then tit = obj.data.title; end
+								table.insert(mnu, {
+									text = path .. " (" .. tit .. ")",
+									OnClick = function() 
+										VFL.poptree:Release(); 
+										self:AddTab(path, true);
+									end
+								});
+							end
+						end
+					end
+					table.insert(mnu, {
+						text = VFLI.i18n("Theme Tabs :"),
 						OnClick = function() 
 							VFL.poptree:Release(); 
 							-- TODO
@@ -59,27 +105,28 @@ function RDX.TabManager:new(parent, path, data, desc)
 			tab.font:SetText("");
 		else
 			local md, _, _, _, objdesc = RDXDB.GetObjectData(tabpath);
-			local flag = RDXDB.GetObjectInstance(tabpath, true);
-			if flag then
-				local f = VFLUI.SimpleText:new(nil, 5, 100);
-				f:SetText("Already acquired!");
-				tab = tabbox:GetTabBar():AddTab(md.data.tabwidth, function(self, arg1) 
-					tabbox:SetClient(f);
-					VFLUI.SetBackdrop(f, desc.bkd);
-				end, function() end);
-				tab.f = f;
-				tab.error = true;
-				tab.font:SetText("error");
-			else
-				tab = objdesc.OpenTab(tabbox, tabpath, md, objdesc, desc, self);
+			if md then
+				local flag = RDXDB.GetObjectInstance(tabpath, true);
+				if flag then
+					local f = VFLUI.SimpleText:new(nil, 5, 100);
+					f:SetText("Already acquired!");
+					tab = tabbox:GetTabBar():AddTab(md.data.tabwidth, function(self, arg1) 
+						tabbox:SetClient(f);
+						VFLUI.SetBackdrop(f, desc.bkd);
+					end, function() end);
+					tab.f = f;
+					tab.error = true;
+					tab.font:SetText("error");
+				else
+					tab = objdesc.OpenTab(tabbox, tabpath, md, objdesc, desc, self);
+				end
+				tab._path = tabpath;
 			end
-			tab._path = tabpath;
 		end
 		-- store in data object.
 		if save then
 			table.insert(data, tabpath);
 		end
-		self.count = self.count + 1;
 	end
 	
 	function self:RemoveTab(tabpath, save)
@@ -92,7 +139,6 @@ function RDX.TabManager:new(parent, path, data, desc)
 					RDXDB._RemoveInstance(v._path); v.f = nil;
 				end
 				tabbox:GetTabBar():RemoveTab(v);
-				self.count = self.count - 1;
 				-- remove from data object
 				if save then
 					VFL.vremove(data, tabpath);
@@ -102,6 +148,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 	end
 
 	self.Destroy = VFL.hook(function(s)
+		s.tabbar.OnTabMoved = nil;
 		local tabs = tabbar:_GetTabs();
 		for k,v in pairs(tabs) do
 			if v._path == "root" or v.error then
@@ -116,7 +163,6 @@ function RDX.TabManager:new(parent, path, data, desc)
 		s.tabbox:Destroy();
 		s.tabbox = nil;
 		s.tabbar = nil;
-		s.count = nil;
 	end, self.Destroy);
 
 	return self;
@@ -235,10 +281,4 @@ RDXDB.RegisterObjectType({
 		});
 	end;
 });
-
-
-
-
-
-
 
