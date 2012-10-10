@@ -13,7 +13,7 @@
 RDX.TabManager = {};
 function RDX.TabManager:new(parent, path, data, desc)
 	local self = {};
-	local tabbox = VFLUI.TabBox:new(nil, desc.h, desc.orientation);
+	local tabbox = VFLUI.TabBox:new(nil, 22, desc.orientation);
 	VFLUI.SetBackdrop(tabbox, nil);
 	tabbox:Show();
 	
@@ -43,16 +43,14 @@ function RDX.TabManager:new(parent, path, data, desc)
 				end, 
 				function() end,
 				function(mnu, dlg)
-					local pkg = RDXData["Tabs"];
+					local pkg = RDXData["tabs"];
 					table.insert(mnu, {
 						text = VFLI.i18n("Available Chatframes :"),
-						OnClick = function() 
-							VFL.poptree:Release(); 
-						end
+						--isSubmenu = true,
 					});
 					for objName,obj in pairs(pkg) do
 						if type(obj) == "table" and obj.ty == "TabChatFrame" then
-							local path = RDXDB.MakePath(pkgName, objName);
+							local path = RDXDB.MakePath("tabs", objName);
 							if not RDXDB.PathHasInstance(path) then
 								local data = obj.data;
 								local tit = "";
@@ -69,13 +67,11 @@ function RDX.TabManager:new(parent, path, data, desc)
 					end
 					table.insert(mnu, {
 						text = VFLI.i18n("Available CombatLogs :"),
-						OnClick = function() 
-							VFL.poptree:Release();
-						end
+						--isSubmenu = true,
 					});
 					for objName,obj in pairs(pkg) do
 						if type(obj) == "table" and obj.ty == "TabCombatLogs" then
-							local path = RDXDB.MakePath(pkgName, objName);
+							local path = RDXDB.MakePath("tabs", objName);
 							if not RDXDB.PathHasInstance(path) then
 								local data = obj.data;
 								local tit = "";
@@ -92,10 +88,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 					end
 					table.insert(mnu, {
 						text = VFLI.i18n("Theme Tabs :"),
-						OnClick = function() 
-							VFL.poptree:Release(); 
-							-- TODO
-						end
+						isSubmenu = true,
 					});
 				end,
 				true,

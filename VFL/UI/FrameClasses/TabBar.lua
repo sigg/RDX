@@ -416,7 +416,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 				VFL.empty(mnu);
 				if fnMenu then fnMenu(mnu, t); end
 				if #mnu > 0 then
-					VFL.poptree:Begin(120, 12, t, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(t));
+					VFL.poptree:Begin(180, 12, t, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(t));
 					VFL.poptree:Expand(nil, mnu);
 				end
 			end;
