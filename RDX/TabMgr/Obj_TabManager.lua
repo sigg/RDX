@@ -128,6 +128,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 				true,
 				true
 			);
+			tab.f = f;
 			tab._path = tabpath;
 			tab.font:SetText("");
 		else
@@ -187,7 +188,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 			else
 				RDXDB._RemoveInstance(v._path); v.f = nil;
 			end
-			s.tabbox:GetTabBar():RemoveTab(v);
+			--s.tabbox:GetTabBar():RemoveTab(v);
 		end
 		s.AddTab = nil;
 		s.RemoveTab = nil;
