@@ -30,7 +30,9 @@ RDX.RegisterFeature({
 
 local mmap = nil;
 -- Carbonite fix
-if not NXInit then mmap= Minimap; end
+--if not NXInit then 
+	mmap= Minimap; 
+--end
 if mmap then
 	MinimapBackdrop:Hide();
 	GameTimeFrame:Hide();
