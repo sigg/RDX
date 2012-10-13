@@ -2,6 +2,8 @@
 -- OpenRDX 
 --
 
+local _submenu_color = {r=0.2, g=0.9, b=0.9};
+
 -- the instance
 -- data is object data (list of tabs)
 -- data[1] = "tabs:Chatframe1";
@@ -35,61 +37,93 @@ function RDX.TabManager:new(parent, path, data, desc)
 	self.tabbox = tabbox;
 	self.tabbar = tabbar;
 	
+	self.desc = desc;
+	
 	function self:AddTab(tabpath, save)
 		local tab;
 		if tabpath == "root" then
 			local f = VFLUI.AcquireFrame("Frame");
-			tab = tabbox:GetTabBar():AddTab(20, function(self, arg1) 
+			tab = self.tabbox:GetTabBar():AddTab(20, function(self, arg1) 
 				end, 
 				function() end,
 				function(mnu, dlg)
+					table.insert(mnu, {
+						text = VFLI.i18n("Builtins Tabs:"),
+						color = _submenu_color,
+					});
 					local pkg = RDXData["tabs"];
-					table.insert(mnu, {
-						text = VFLI.i18n("Available Chatframes :"),
-						--isSubmenu = true,
-					});
+					local tbl = {};
 					for objName,obj in pairs(pkg) do
-						if type(obj) == "table" and obj.ty == "TabChatFrame" then
+						if type(obj) == "table" and (obj.ty == "TabChatFrame" or obj.ty == "TabCombatLogs" or obj.ty == "TabWindow") then
 							local path = RDXDB.MakePath("tabs", objName);
 							if not RDXDB.PathHasInstance(path) then
 								local data = obj.data;
 								local tit = "";
 								if data then tit = obj.data.title; end
-								table.insert(mnu, {
-									text = path .. " (" .. tit .. ")",
-									OnClick = function() 
-										VFL.poptree:Release(); 
-										self:AddTab(path, true);
-									end
-								});
+								if tit then
+									table.insert(tbl, {
+										text = path .. " (" .. tit .. ")",
+										path = path,
+									});
+								else
+									table.insert(tbl, {
+										text = path,
+										path = path,
+									});
+								end
 							end
 						end
 					end
+					table.sort(tbl, function(x1,x2) return x1.path<x2.path; end);
+					for i,v in ipairs(tbl) do
+						table.insert(mnu, {
+							text = v.text,
+							OnClick = function() 
+								VFL.poptree:Release(); 
+								self:AddTab(v.path, true);
+							end
+						});
+					end
+					
 					table.insert(mnu, {
-						text = VFLI.i18n("Available CombatLogs :"),
-						--isSubmenu = true,
+						text = VFLI.i18n("Theme Tabs:"),
+						color = _submenu_color,
 					});
+					
+					local _, aui = RDXDB.ParsePath(RDXU.AUI);
+					local pkg = RDXData[aui];
+					local tbl = {};
 					for objName,obj in pairs(pkg) do
-						if type(obj) == "table" and obj.ty == "TabCombatLogs" then
-							local path = RDXDB.MakePath("tabs", objName);
+						if type(obj) == "table" and (obj.ty == "TabChatFrame" or obj.ty == "TabCombatLogs" or obj.ty == "TabWindow") then
+							local path = RDXDB.MakePath(aui, objName);
 							if not RDXDB.PathHasInstance(path) then
 								local data = obj.data;
 								local tit = "";
 								if data then tit = obj.data.title; end
-								table.insert(mnu, {
-									text = path .. " (" .. tit .. ")",
-									OnClick = function() 
-										VFL.poptree:Release(); 
-										self:AddTab(path, true);
-									end
-								});
+								if tit then
+									table.insert(tbl, {
+										text = path .. " (" .. tit .. ")",
+										path = path,
+									});
+								else
+									table.insert(tbl, {
+										text = path,
+										path = path,
+									});
+								end
 							end
 						end
 					end
-					table.insert(mnu, {
-						text = VFLI.i18n("Theme Tabs :"),
-						isSubmenu = true,
-					});
+					table.sort(tbl, function(x1,x2) return x1.path<x2.path; end);
+					for i,v in ipairs(tbl) do
+						table.insert(mnu, {
+							text = v.text,
+							OnClick = function() 
+								VFL.poptree:Release(); 
+								self:AddTab(v.path, true);
+							end
+						});
+					end
 				end,
 				true,
 				true
@@ -120,6 +154,9 @@ function RDX.TabManager:new(parent, path, data, desc)
 		if save then
 			table.insert(data, tabpath);
 		end
+		-- skin
+		VFLUI.SetBackdrop(tab, self.desc.bkd);
+		VFLUI.SetFont(tab.font, self.desc.font);
 	end
 	
 	function self:RemoveTab(tabpath, save)
@@ -138,6 +175,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 				end
 			end
 		end
+		tabbox:GetTabBar():SelectTabId(1);
 	end
 
 	self.Destroy = VFL.hook(function(s)

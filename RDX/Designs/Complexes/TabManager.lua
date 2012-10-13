@@ -46,8 +46,8 @@ if not RDXDB.PathHasInstance("]] .. desc.cfm .. [[") then
 		tm.tabbox:GetTabBar():SelectTabId(1);
 	end);
 	
-	tm.tabbox:GetTabBar():SetBackdropTab(]] .. Serialize(desc.bkd) .. [[);
-	tm.tabbox:GetTabBar():SetFontTab(]] .. Serialize(desc.font) .. [[);
+	--tm.tabbox:GetTabBar():SetBackdropTab(]] .. Serialize(desc.bkd) .. [[);
+	--tm.tabbox:GetTabBar():SetFontTab(]] .. Serialize(desc.font) .. [[);
 	frame.]] .. objname .. [[ = tm;
 end
 ]];

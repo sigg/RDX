@@ -441,6 +441,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 		table.insert(tabs, t);
 		-- If the newly added tab caused width to exceed proportion, make us scrollable
 		UpdateScrollable();
+		self:SelectTab(t);
 		return t;
 	end
 

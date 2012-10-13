@@ -38,7 +38,7 @@ RDXDB.RegisterObjectType({
 		instance:Destroy();
 		instance = nil;
 	end,
-	OpenTab = function(tabbox, path, md, objdesc, desc)
+	OpenTab = function(tabbox, path, md, objdesc, desc, tm)
 		local tabtitle, tabwidth = "Tab", 80;
 		for k, v in pairs(md.data) do
 			if v.feature == "taboptions" then
@@ -54,13 +54,13 @@ RDXDB.RegisterObjectType({
 		end,
 		function() end, 
 		function(mnu, dlg) 
-			return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg)
+			return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg, tm)
 		end);
 		tab.font:SetText(tabtitle);
 		tab.f = f;
 		return tab;
 	end,
-	GenerateBrowserMenu = function(mnu, path, md, dlg)
+	GenerateBrowserMenu = function(mnu, path, md, dlg, tm)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),
 			OnClick = function()
@@ -94,6 +94,15 @@ RDXDB.RegisterObjectType({
 					md.version = 2;
 					RDXDBEvents:Dispatch("OBJECT_MOVED", pkg, file, pkg, file, md);
 				end
+			});
+		end
+		if tm then 
+			table.insert(mnu, {
+				text = VFLI.i18n("Close Tab");
+				OnClick = function()
+					VFL.poptree:Release();
+					tm:RemoveTab(path, true);
+				end;
 			});
 		end
 	end,
