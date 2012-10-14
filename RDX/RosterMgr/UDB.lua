@@ -2107,9 +2107,8 @@ function VFL._ForceTalentSwitch(f, nosend)
 		end
 	end
 end
--- TODOMOP
---WoWEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() VFL._ForceTalentSwitch(GetActiveTalentGroup()); end);
---WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, function() VFL._ForceTalentSwitch(GetActiveTalentGroup(), true); end);
+WoWEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() VFL._ForceTalentSwitch(GetSpecialization()); end);
+WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, function() VFL._ForceTalentSwitch(GetSpecialization(), true); end);
 
 function VFL.GetPlayerTalent()
 	return talent;

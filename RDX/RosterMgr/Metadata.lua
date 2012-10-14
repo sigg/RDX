@@ -95,6 +95,7 @@ idToRoleColor[3] = _red;
 idToRoleColor[4] = _yellow;
 
 function RDXMD.GetRoleColor(cid) return idToRoleColor[cid] or _grey; end
+
 --
 -- Metadata about talent
 --
@@ -142,6 +143,9 @@ local idToSubClassColor = {
 };
 local localSubClassColorToID = VFL.invert(idToSubClassColor);
 local _unsbColor = { r=.5, g=.5, b=.5};
+
+
+
 
 local idToTexture = {};
 idToTexture[1] = "Interface\\Icons\\Spell_Holy_PowerInfusion";
@@ -204,62 +208,139 @@ end
 function RDXMD.GetTextureSubClassById(id)
 	return idToTexture[id] or _unsbTex;
 end
--- TODOMOP
+
 function RDXMD.GetSelfTextureTalent()
-	local myunit = RDXDAL.GetMyUnit();
-	local a = myunit:GetClassMnemonic();
-	local tabPSTmp, idtab = 0, 1;
-	--for i=1,GetNumTalentTabs() do
-	--	local _, _, _, _, tabPS = GetTalentTabInfo(i);
-	--	if tabPS > tabPSTmp then
-	--		tabPSTmp = tabPS;
-	--		idtab = i;
-	--	end;
-	--end;
-	local id = talentIndex[a] + idtab - 1;
-	return idToTexture[id];
+	local currentSpec = GetSpecialization();
+	local currentSpecTexture = currentSpec and select(4, GetSpecializationInfo(currentSpec)) or 0;
+	return currentSpecTexture;
 end
--- TODOMOP
-function RDXMD.GetSelfTalent()
-	local myunit = RDXDAL.GetMyUnit();
-	local a = myunit:GetClassMnemonic();
-	local tabPSTmp, idtab = 0, 1;
-	--for i=1,GetNumTalentTabs() do
-	--	local _, _, _, _, tabPS = GetTalentTabInfo(i);
-	--	if tabPS > tabPSTmp then
-	--		tabPSTmp = tabPS;
-	--		idtab = i;
-	--	end;
-	--end;
-	if talentIndex[a] then
-		local id = talentIndex[a] + idtab - 1;
-		return id;
-	else
-		return 1;
-	end
-end
--- TODOMOP
+
+local tblnoindex = {};
+tblnoindex[250] = 1;
+tblnoindex[251] = 2;
+tblnoindex[252] = 3;
+
+tblnoindex[102] = 1;
+tblnoindex[103] = 2;
+tblnoindex[104] = 3;
+tblnoindex[104] = 4;
+
+tblnoindex[253] = 1;
+tblnoindex[254] = 2;
+tblnoindex[255] = 3;
+
+tblnoindex[62] = 1;
+tblnoindex[63] = 2;
+tblnoindex[64] = 3;
+
+tblnoindex[268] = 1;
+tblnoindex[269] = 2;
+tblnoindex[270] = 3;
+
+tblnoindex[65] = 1;
+tblnoindex[66] = 2;
+tblnoindex[67] = 3;
+
+tblnoindex[256] = 1;
+tblnoindex[257] = 2;
+tblnoindex[258] = 3;
+
+tblnoindex[259] = 1;
+tblnoindex[260] = 2;
+tblnoindex[261] = 3;
+
+tblnoindex[262] = 1;
+tblnoindex[263] = 2;
+tblnoindex[264] = 3;
+
+tblnoindex[265] = 1;
+tblnoindex[266] = 2;
+tblnoindex[267] = 3;
+
+tblnoindex[71] = 1;
+tblnoindex[72] = 2;
+tblnoindex[73] = 3;
+
 function RDXMD.GetSelfTalentNoIndex()
-	local tabPSTmp, idtab = 0, 1;
-	--for i=1,GetNumTalentTabs() do
-	--	local _, _, _, _, tabPS = GetTalentTabInfo(i);
-	--	if tabPS > tabPSTmp then
-	--		tabPSTmp = tabPS;
-	--		idtab = i;
-	--	end;
-	--end;
-	return idtab;
+	local currentSpec = GetSpecialization();
+	local currentSpecid = currentSpec and select(1, GetSpecializationInfo(currentSpec)) or 0;
+	return tblnoindex[currentSpecid];
 end
 
-local function UpdateTalent()
-	local myunit = RDXDAL.GetMyUnit();
-	if not myunit then return; end
-	local t = myunit:GetNField("sync");
-	t.mt = RDXMD.GetSelfTalent();
-end;
+function RDXMD.GetSelfTalentIndex()
+	local currentSpec = GetSpecialization();
+	local currentSpecid = currentSpec and select(1, GetSpecializationInfo(currentSpec)) or 0;
+	return currentSpecid;
+end
+--[[
+Death Knight
+250 = Blood
+251 = Frost
+252 = Unholy
 
-RDXEvents:Bind("INIT_DEFERRED", nil, UpdateTalent);
-WoWEvents:Bind("PLAYER_TALENT_UPDATE", nil, UpdateTalent);
+Druid
+102 = Balance
+103 = Feral
+104 = Guardian
+105 = Restoration
+
+Hunter
+253 = Beast Mastery
+254 = Marksmanship
+255 = Survival
+
+Mage
+62 = Arcane
+63 = Fire
+64 = Frost
+
+Monk
+268 = Brewmaster
+270 = Mistweaver
+269 = Windwalker
+
+Paladin
+65 = Holy
+66 = Protection
+67 = Retribution
+
+Priest
+256 = Discipline
+257 = Holy
+258 = Shadow
+
+Rogue
+259 = Assassination
+260 = Combat
+261 = Subtlety
+
+Shaman
+262 = Elemental
+263 = Enhancement
+264 = Restoration
+
+Warlock
+265 = Affliction
+266 = Demonology
+267 = Destruction
+
+Warrior
+71 = Arms
+72 = Fury
+73 = Protection
+]]
+
+-- /script RDXMD.GetSelfTalentNoIndex()
+
+--local function UpdateTalent()
+--	local myunit = RDXDAL.GetMyUnit();
+--	if not myunit then return; end
+--	local t = myunit:GetNField("sync");
+--	t.mt = RDXMD.GetSelfTalent();
+--end;
+
+--RDXEvents:Bind("INIT_DEFERRED", nil, UpdateTalent);
+--WoWEvents:Bind("PLAYER_TALENT_UPDATE", nil, UpdateTalent);
 
 --
 -- Metadata about PVP
