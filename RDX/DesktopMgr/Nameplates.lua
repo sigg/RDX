@@ -75,7 +75,9 @@ local OnShow = function(self)
 	--	VFLUI.ResizeBackdropRDX(self.castBar, 2)
 	--end
 	VFLUI.SetBackdrop(self.healthBar, descn.bkd);
-	VFLUI.SetBackdrop(self.castBar, descn.bkd);
+	if self.castBar and self.castBar:GetWidth() > 10 and self.castBar:GetHeight() > 10 then
+		VFLUI.SetBackdrop(self.castBar, descn.bkd);
+	end
 end
 
 --
@@ -211,7 +213,10 @@ function RDXDK.SetNameplate(desc)
 		end
 		if descn.bkd then
 			VFLUI.SetBackdrop(v.healthBar, descn.bkd);
-			VFLUI.SetBackdrop(v.castBar, descn.bkd);
+			if self.castBar and self.castBar:GetWidth() > 10 and self.castBar:GetHeight() > 10 then
+				VFLUI.SetBackdrop(self.castBar, descn.bkd);
+			end
+			--VFLUI.SetBackdrop(v.castBar, descn.bkd);
 		end
 	end
 end
