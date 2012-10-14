@@ -83,6 +83,7 @@ RDX.RegisterFeature({
 		
 		if not desc.flo then desc.flo = 5; end
 		if not desc.driver then desc.driver = 1; end
+		if not desc.shader then desc.shader = 2; end
 		if not desc.bkd then desc.bkd = VFL.copy(VFLUI.defaultBackdrop); end
 		if not desc.bs then desc.bs = VFL.copy(VFLUI.defaultButtonSkin); end
 		if not desc.flyoutdirection then desc.flyoutdirection = "UP"; end
@@ -395,10 +396,28 @@ frame.]] .. objname .. [[ = nil;
 		--if desc and desc.hidebs then chk_hidebs:SetChecked(true); else chk_hidebs:SetChecked(); end
 		--ui:InsertFrame(chk_hidebs);
 		
-		local chk_useshaderkey = VFLUI.Checkbox:new(ui); chk_useshaderkey:Show();
-		chk_useshaderkey:SetText(VFLI.i18n("Use Shader Key"));
-		if desc and desc.useshaderkey then chk_useshaderkey:SetChecked(true); else chk_useshaderkey:SetChecked(); end
-		ui:InsertFrame(chk_useshaderkey);
+		-- Shader stuff
+		
+		local shader = VFLUI.DisjointRadioGroup:new();
+		
+		local shader_key = shader:CreateRadioButton(ui);
+		shader_key:SetText(VFLI.i18n("Use Key Shader"));
+		local shader_border = shader:CreateRadioButton(ui);
+		shader_border:SetText(VFLI.i18n("Use Border Shader"));
+		local shader_icon = shader:CreateRadioButton(ui);
+		shader_icon:SetText(VFLI.i18n("Use Icon Shader"));
+		shader:SetValue(desc.shader or 2);
+		
+		ui:InsertFrame(shader_key);
+		
+		ui:InsertFrame(shader_border);
+		
+		ui:InsertFrame(shader_icon);
+		
+		--local chk_useshaderkey = VFLUI.Checkbox:new(ui); chk_useshaderkey:Show();
+		--chk_useshaderkey:SetText(VFLI.i18n("Use Shader Key"));
+		--if desc and desc.useshaderkey then chk_useshaderkey:SetChecked(true); else chk_useshaderkey:SetChecked(); end
+		--ui:InsertFrame(chk_useshaderkey);
 		
 		-------------- COOLDOWN
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown parameters")));
@@ -542,6 +561,8 @@ frame.]] .. objname .. [[ = nil;
 				driver = driver:GetValue();
 				bs = dd_buttonskin:GetSelectedButtonSkin();
 				bkd = dd_backdrop:GetSelectedBackdrop();
+				-- shader
+				shader = shader:GetValue();
 				-- Cooldown
 				cd = cd:GetSelectedCooldown();
 				-- Display
@@ -550,8 +571,6 @@ frame.]] .. objname .. [[ = nil;
 				fontmacro = fontmacro:GetSelectedFont();
 				fontcount = fontcount:GetSelectedFont();
 				showtooltip = chk_showtooltip:GetChecked();
-				useshaderkey = chk_useshaderkey:GetChecked();
-				
 				ftype = ftype:GetValue();
 				barid = dd_bars:GetSelection();
 				selfcast = chk_selfcast:GetChecked();
@@ -563,7 +582,8 @@ frame.]] .. objname .. [[ = nil;
 		
 		ui.Destroy = VFL.hook(function(s) 
 			ftype:Destroy(); ftype = nil;
-			driver:Destroy(); driver = nil; 
+			driver:Destroy(); driver = nil;
+			shader:Destroy(); shader = nil;
 		end, ui.Destroy);
 
 		return ui;

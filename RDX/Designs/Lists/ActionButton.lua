@@ -214,6 +214,56 @@ local function KeyChange(self, elapsed)
 	end
 end
 
+local function IconVertexChange(self, elapsed)
+	self.elapsed = self.elapsed + elapsed;
+	if self.elapsed > 0.5 then
+		self.elapsed = 0;
+		-- IsSpellOverlayed
+		if self.ga then
+			if self.gacp then
+				self.gacp = nil;
+				--SetTextColor
+				--SetVertexColor
+				self.icon:SetVertexColor(1, 0.5, 0, 0.9);
+			else
+				self.gacp = true;
+				self.icon:SetVertexColor(1, 1, 0, 0.9);
+			end
+			self.txtHotkey:Show();
+		-- IsCurrentAction IsAutoRepeatAction yellow color
+		elseif self.ca then
+			if self.color ~= "ca" then
+				self.icon:SetVertexColor(1, 1, 0, 0.9);
+				self.color = "ca";
+			end
+		-- out of range red color
+		elseif IsActionInRange(self.action) == 0 then
+			if self.color ~= "aa" then
+				self.icon:SetVertexColor(1, 0, 0, 0.9);
+				self.color = "aa";
+			end
+		-- out of mana blue color
+		elseif self.ua then
+			if self.color ~= "ua" then
+				self.icon:SetVertexColor(0, 0, 1, 0.9);
+				self.color = "ua";
+			end
+		-- equipement item green color
+		elseif self.ea then
+			--if self.color ~= "ea" then
+			--	self.icon:SetVertexColor(0, 1, 0, 0.9);
+			--	self.color = "ea";
+			--end
+		-- default color
+		else
+			if self.color ~= "da" then
+				self.icon:SetVertexColor(1, 1, 1, 1);
+				self.color = "da";
+			end
+		end
+	end
+end
+
 -- gametooltip
 local function ABShowGameTooltip(self)
 	if self.action then
@@ -490,22 +540,30 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 				
 				-- Border and gloss indicator
 				self.elapsed = 0;
-				if desc.useshaderkey or desc.driver == 1 then
+				if desc.shader == 3 then
+					self:SetScript("OnUpdate", IconVertexChange);
+				elseif desc.shader ==  2 or desc.shader == nil then
+					if desc.driver == 2 then
+						self:SetScript("OnUpdate", BorderChangeBS);
+					elseif desc.driver == 3 then
+						self:SetScript("OnUpdate", BorderChangeBKD);
+					end
+				elseif desc.shader == 1 or desc.driver == 1 then
 					self:SetScript("OnUpdate", KeyChange);
-				elseif desc.driver == 2 then
-					self:SetScript("OnUpdate", BorderChangeBS);
-				elseif desc.driver == 3 then
-					self:SetScript("OnUpdate", BorderChangeBKD);
 				end
 			else
 				self:SetScript("OnUpdate", nil);
 				self.txtMacro:Hide();
-				if desc.useshaderkey or desc.driver == 1 then
+				if desc.shader == 3 then
+					self.icon:SetVertexColor(1, 1, 1, 1);
+				elseif desc.shader ==  2 or desc.shader == nil then
+					if desc.driver == 2 then
+						VFLUI.SetButtonSkinBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+					elseif desc.driver == 3 then
+						VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+					end
+				elseif desc.shader == 1 or desc.driver == 1 then
 					self.txtHotkey:SetTextColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
-				elseif desc.driver == 2 then
-					VFLUI.SetButtonSkinBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
-				elseif desc.driver == 3 then
-					VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
 				end
 			end
 		end
@@ -829,22 +887,30 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 				
 				-- Border and gloss indicator
 				self.elapsed = 0;
-				if desc.useshaderkey or desc.driver == 1 then
+				if desc.shader == 3 then
+					self:SetScript("OnUpdate", IconVertexChange);
+				elseif desc.shader ==  2 or desc.shader == nil then
+					if desc.driver == 2 then
+						self:SetScript("OnUpdate", BorderChangeBS);
+					elseif desc.driver == 3 then
+						self:SetScript("OnUpdate", BorderChangeBKD);
+					end
+				elseif desc.shader == 1 or desc.driver == 1 then
 					self:SetScript("OnUpdate", KeyChange);
-				elseif desc.driver == 2 then
-					self:SetScript("OnUpdate", BorderChangeBS);
-				elseif desc.driver == 3 then
-					self:SetScript("OnUpdate", BorderChangeBKD);
 				end
 			else
 				self:SetScript("OnUpdate", nil);
 				self.txtMacro:Hide();
-				if desc.useshaderkey or desc.driver == 1 then
+				if desc.shader == 3 then
+					self.icon:SetVertexColor(1, 1, 1, 1);
+				elseif desc.shader ==  2 or desc.shader == nil then
+					if desc.driver == 2 then
+						VFLUI.SetButtonSkinBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+					elseif desc.driver == 3 then
+						VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+					end
+				elseif desc.shader == 1 or desc.driver == 1 then
 					self.txtHotkey:SetTextColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
-				elseif desc.driver == 2 then
-					VFLUI.SetButtonSkinBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
-				elseif desc.driver == 3 then
-					VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
 				end
 			end
 		end
@@ -1207,21 +1273,29 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 		UpdateCooldown();
 		if name then
 			self.elapsed = 0;
-			if desc.useshaderkey or desc.driver == 1 then
+			if desc.shader == 3 then
+				self:SetScript("OnUpdate", IconVertexChange);
+			elseif desc.shader ==  2 or desc.shader == nil then
+				if desc.driver == 2 then
+					self:SetScript("OnUpdate", BorderChangeBS);
+				elseif desc.driver == 3 then
+					self:SetScript("OnUpdate", BorderChangeBKD);
+				end
+			elseif desc.shader == 1 or desc.driver == 1 then
 				self:SetScript("OnUpdate", KeyChange);
-			elseif desc.driver == 2 then
-				self:SetScript("OnUpdate", BorderChangeBS);
-			elseif desc.driver == 3 then
-				self:SetScript("OnUpdate", BorderChangeBKD);
 			end
 		else
 			self:SetScript("OnUpdate", nil);
-			if desc.useshaderkey or desc.driver == 1 then
+			if desc.shader == 3 then
+				self.icon:SetVertexColor(1, 1, 1, 1);
+			elseif desc.shader ==  2 or desc.shader == nil then
+				if desc.driver == 2 then
+					VFLUI.SetButtonSkinBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+				elseif desc.driver == 3 then
+					VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+				end
+			elseif desc.shader == 1 or desc.driver == 1 then
 				self.txtHotkey:SetTextColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
-			elseif desc.driver == 2 then
-				VFLUI.SetButtonSkinBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
-			elseif desc.driver == 3 then
-				VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
 			end
 		end
 		
@@ -1486,20 +1560,28 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 		--end
 		self.icon:SetTexture(texture);
 		if isActive then
-			if desc.useshaderkey or desc.driver == 1 then
+			if desc.shader == 3 then
+				self.icon:SetVertexColor(1, 1, 0, 0.9);
+			elseif desc.shader ==  2 or desc.shader == nil then
+				if desc.driver == 2 then
+					VFLUI.SetButtonSkinBorderColor(self, 1, 1, 0, 0.9);
+				elseif desc.driver == 3 then
+					VFLUI.SetBackdropBorderColor(self, 1, 1, 0, 0.9);
+				end
+			elseif desc.shader == 1 or desc.driver == 1 then
 				self.txtHotkey:SetTextColor(1, 1, 0, 0.9);
-			elseif desc.driver == 2 then
-				VFLUI.SetButtonSkinBorderColor(self, 1, 0, 0, 0.9);
-			elseif desc.driver == 3 then
-				VFLUI.SetBackdropBorderColor(self, 1, 1, 0, 0.9);
 			end
 		else
-			if desc.useshaderkey or desc.driver == 1 then
+			if desc.shader == 3 then
+				self.icon:SetVertexColor(1, 1, 1, 1);
+			elseif desc.shader ==  2 or desc.shader == nil then
+				if desc.driver == 2 then
+					VFLUI.SetButtonSkinBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+				elseif desc.driver == 3 then
+					VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+				end
+			elseif desc.shader == 1 or desc.driver == 1 then
 				self.txtHotkey:SetTextColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
-			elseif desc.driver == 2 then
-				VFLUI.SetButtonSkinBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
-			elseif desc.driver == 3 then
-				VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
 			end
 		end
 		if isCastable then
