@@ -2,7 +2,7 @@
 ## Title: |c007ffcffRDX|r - Combat Logs
 ## Notes: Combatlogs table
 ## Author: Sigg / Rashgarroth
-## Version: 1.0.0
+## Version: 9.0.7
 ## RequiredDeps: VFL
 ## SavedVariables: Omni_SavedTables
 RDX_combatlogs.lua

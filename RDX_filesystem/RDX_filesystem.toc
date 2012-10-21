@@ -2,7 +2,7 @@
 ## Title: |c007ffcffRDX|r - File System
 ## Notes: Filesystem database
 ## Author: Sigg / Rashgarroth
-## Version: 1.0.0
+## Version: 9.0.7
 ## RequiredDeps: VFL
 ## SavedVariables: RDXData
 RDX_filesystem.lua
