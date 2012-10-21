@@ -75,9 +75,9 @@ local OnShow = function(self)
 	--	VFLUI.ResizeBackdropRDX(self.castBar, 2)
 	--end
 	VFLUI.SetBackdrop(self.healthBar, descn.bkd);
-	if self.castBar and self.castBar:GetWidth() > 10 and self.castBar:GetHeight() > 10 then
-		VFLUI.SetBackdrop(self.castBar, descn.bkd);
-	end
+	--if self.castBar and self.castBar:GetWidth() > 10 and self.castBar:GetHeight() > 10 then
+		--VFLUI.SetBackdrop(self.castBar, descn.bkd);
+	--end
 end
 
 --
@@ -88,13 +88,14 @@ local FixCastbar = function(self)
 	self:ClearAllPoints();
 	self:SetPoint("TOP", self.healthBar, "BOTTOM", 0, -3);
 	self:SetHeight(10);
+	self:SetWidth(100);
 	self.spellIconRegion:ClearAllPoints()
 	self.spellIconRegion:SetPoint("RIGHT", self, "LEFT");
-	self.spellIconRegion:SetSize(15, 15)
+	self.spellIconRegion:SetSize(15, 15);
 end
 
 local OnSizeChangedCB = function(self, width, height)
-	if floor(height) ~= 10 then
+	if floor(height) ~= 10 or floor(width) ~= 100 then
 		self.needFix = true
 	end
 end
@@ -104,6 +105,7 @@ local OnShowCB = function(self)
 	if self.shieldedRegion:IsShown() then
 		self:SetStatusBarColor(0.8, 0.05, 0);
 	end
+	VFLUI.SetBackdrop(self, descn.bkd);
 end
 
 local OnValueChangedCB = function(self, curValue)
@@ -170,7 +172,7 @@ local CreateNameplate = function(frame)
 	
 	if descn.bkd then
 		VFLUI.SetBackdrop(healthBar, descn.bkd);
-		VFLUI.SetBackdrop(castBar, descn.bkd);
+		--VFLUI.SetBackdrop(castBar, descn.bkd);
 	end
 
 	castBar:HookScript("OnShow", OnShowCB)
