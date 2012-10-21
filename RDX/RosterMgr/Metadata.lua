@@ -266,13 +266,14 @@ tblnoindex[0] = 1;
 function RDXMD.GetSelfTalentNoIndex()
 	local currentSpec = GetSpecialization();
 	local currentSpecid = currentSpec and select(1, GetSpecializationInfo(currentSpec)) or 0;
-	return tblnoindex[currentSpecid];
+	if not tblnoindex[currentSpecid] then VFL.print(currentSpec); VFL.print(currentSpecid); end
+	return tblnoindex[currentSpecid] or 1;
 end
 
 function RDXMD.GetSelfTalentIndex()
 	local currentSpec = GetSpecialization();
 	local currentSpecid = currentSpec and select(1, GetSpecializationInfo(currentSpec)) or 0;
-	return currentSpecid;
+	return currentSpecid or 1;
 end
 --[[
 Death Knight
