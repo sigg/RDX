@@ -27,14 +27,14 @@ function VFLUI.CooldownCounter:new(parent, cooldown)
 	s.fs:Show();
 	VFLUI.SetFont(s.fs, cooldown.Font);
 	
-	function s:SetCooldown(start, duration)
+	function s:SetCooldown(start, duration, charges, maxCharges)
 		if start == 0 then
 			self.expiration = 0;
 			if self.cd then self.cd:Hide(); end
 			return;
 		end
 		self.expiration = start + duration;
-		if self.cd then self.cd:Show(); self.cd:SetCooldown(start, duration); end
+		if self.cd then self.cd:Show(); self.cd:SetCooldown(start, duration, charges, maxCharges); end
 	end
 
 	if cooldown.TimerType == "COOLDOWN&TEXT" or cooldown.TimerType == "TEXT" then

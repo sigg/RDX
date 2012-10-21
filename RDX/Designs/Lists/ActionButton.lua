@@ -366,11 +366,11 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
 	self.txtHotkey:Show();
 	
-	local start, duration, enable, spellid = 0, 0, nil, nil;
+	local start, duration, enable, charges, maxCharges, spellid = 0, 0, nil, 0, 0, nil;
 	local function UpdateCooldown()
-		start, duration, enable = GetActionCooldown(self.action);
+		start, duration, enable, charges, maxCharges = GetActionCooldown(self.action);
 		if ( start > 0 and enable > 0 ) then
-			self.cd:SetCooldown(start, duration);
+			self.cd:SetCooldown(start, duration, charges, maxCharges);
 			self.cd:Show();
 			-- store your real cooldown
 			-- it is not really nice, but I don't know how to improve that...
@@ -382,7 +382,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 				end
 			end
 		else
-			self.cd:SetCooldown(0, 0);
+			self.cd:SetCooldown(0, 0, charges, maxCharges);
 			self.cd:Hide();
 		end
 	end
@@ -399,16 +399,16 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 		else
 			self.icon:SetAlpha(0.3);
 		end
-		if (IsConsumableAction(self.action) or IsStackableAction(self.action)) then
-			count = GetActionCount(self.action);
-			if (count > (self.maxDisplayCount or 9999)) then
-				self.txtCount:SetText("*");
-			else
-				self.txtCount:SetText(count);
-			end
-		else
-			self.txtCount:SetText("");
-		end
+		--if (IsConsumableAction(self.action) or IsStackableAction(self.action)) then
+		--	count = GetActionCount(self.action);
+		--	if (count > (self.maxDisplayCount or 9999)) then
+		--		self.txtCount:SetText("*");
+		--	else
+		--		self.txtCount:SetText(count);
+		--	end
+		--else
+		--	self.txtCount:SetText("");
+		--end
 	end
 	
 	local function ShowGlow(arg1)
@@ -469,6 +469,24 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 		end
 	end
 	
+	local function UpdateCharge()
+		if ( IsConsumableAction(self.action) or IsStackableAction(self.action) or (not IsItemAction(self.action) and GetActionCount(self.action) > 0) ) then
+			count = GetActionCount(self.action);
+			if (count > (self.maxDisplayCount or 9999)) then
+				self.txtCount:SetText("*");
+			else
+				self.txtCount:SetText(count);
+			end
+		else
+			local charges, maxCharges, chargeStart, chargeDuration = GetActionCharges(self.action);
+			if (maxCharges > 1) then
+				self.txtCount:SetText(charges);
+			else
+				self.txtCount:SetText("");
+			end
+		end
+	end
+	
 	-- use when bar page changed, and the action is changed
 	local function UpdateNewAction()
 		self.action = self:GetAttribute("action");
@@ -481,6 +499,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 			WoWEvents:Bind("START_AUTOREPEAT_SPELL", nil, UpdateState, "actionButton" .. self.id);
 			WoWEvents:Bind("PLAYER_LEAVE_COMBAT", nil, UpdateState, "actionButton" .. self.id);
 			WoWEvents:Bind("PLAYER_ENTER_COMBAT", nil, UpdateState, "actionButton" .. self.id);
+			WoWEvents:Bind("SPELL_UPDATE_CHARGES", nil, UpdateCharge, "actionButton" .. self.id);
 			WoWEvents:Bind("ACTIONBAR_UPDATE_USABLE", nil, UpdateUsable, "actionButton" .. self.id);
 			WoWEvents:Bind("ACTIONBAR_UPDATE_COOLDOWN", nil, UpdateCooldown, "actionButton" .. self.id);
 			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW", nil, ShowGlow, "actionButton" .. self.id);
@@ -523,6 +542,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 			UpdateState();
 			UpdateUsable();
 			UpdateCooldown();
+			UpdateCharge();
 			if HasAction(self.action) then
 				if (not IsConsumableAction(self.action) and not IsStackableAction(self.action)) then
 					self.txtMacro:SetText(GetActionText(self.action));
@@ -795,14 +815,23 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
 	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
 	
-	local start, duration, enable = 0, 0, nil;
+	local start, duration, enable, charges, maxCharges, spellid = 0, 0, nil, 0, 0, nil;
 	local function UpdateCooldown()
-		start, duration, enable = GetActionCooldown(self.action);
+		start, duration, enable, charges, maxCharges = GetActionCooldown(self.action);
 		if ( start > 0 and enable > 0 ) then
-			self.cd:SetCooldown(start, duration);
+			self.cd:SetCooldown(start, duration, charges, maxCharges);
 			self.cd:Show();
+			-- store your real cooldown
+			-- it is not really nice, but I don't know how to improve that...
+			if duration >= 2 then
+				_, spellid  = GetActionInfo(self.action);
+				if spellid then
+					--RDXEvents:Dispatch("COOLDOWN_DURATION", spellid, duration);
+					RDXU.CooldownDB[spellid] = duration;
+				end
+			end
 		else
-			self.cd:SetCooldown(0, 0);
+			self.cd:SetCooldown(0, 0, charges, maxCharges);
 			self.cd:Hide();
 		end
 	end
@@ -849,6 +878,24 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 		end
 	end
 	
+	local function UpdateCharge()
+		if ( IsConsumableAction(self.action) or IsStackableAction(self.action) or (not IsItemAction(self.action) and GetActionCount(self.action) > 0) ) then
+			count = GetActionCount(self.action);
+			if (count > (self.maxDisplayCount or 9999)) then
+				self.txtCount:SetText("*");
+			else
+				self.txtCount:SetText(count);
+			end
+		else
+			local charges, maxCharges, chargeStart, chargeDuration = GetActionCharges(self.action);
+			if (maxCharges > 1) then
+				self.txtCount:SetText(charges);
+			else
+				self.txtCount:SetText("");
+			end
+		end
+	end
+	
 	-- use when bar page changed, and the action is changed
 	local function UpdateNewAction()
 		self.action = self:GetAttribute("action");
@@ -857,6 +904,7 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 		if not self.action then return; end
 		if HasAction(self.action) then
 			WoWEvents:Unbind("multicastButton" .. self.id);
+			WoWEvents:Bind("SPELL_UPDATE_CHARGES", nil, UpdateCharge, "multicastButton" .. self.id);
 			WoWEvents:Bind("ACTIONBAR_UPDATE_STATE", nil, UpdateState, "multicastButton" .. self.id);
 			WoWEvents:Bind("ACTIONBAR_UPDATE_USABLE", nil, UpdateUsable, "multicastButton" .. self.id);
 			WoWEvents:Bind("ACTIONBAR_UPDATE_COOLDOWN", nil, UpdateCooldown, "multicastButton" .. self.id);
@@ -870,6 +918,7 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 			UpdateState();
 			UpdateUsable();
 			UpdateCooldown();
+			UpdateCharge();
 			if HasAction(self.action) then
 				if (not IsConsumableAction(self.action) and not IsStackableAction(self.action)) then
 					self.txtMacro:SetText(GetActionText(self.action));
