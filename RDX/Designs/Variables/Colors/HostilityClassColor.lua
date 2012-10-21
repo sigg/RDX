@@ -21,6 +21,7 @@ RDX.RegisterFeature({
     end;
     ApplyFeature = function(desc, state)
     	if not desc.friendlyDeathKnightColor then desc.friendlyDeathKnightColor = {r=0.77, g=0.12, b=0.23,a=1}; end
+    	if not desc.friendlyMonkColor then desc.friendlyMonkColor = {r=0, g=1, b=0.59,a=1}; end
         state:Attach(state:Slot("EmitClosure"), true, function(code)
             code:AppendCode([[
 local hostileColor_class_cf = {};
@@ -37,6 +38,7 @@ hostileColor_class_cf[10] = ]] .. Serialize(desc.friendlyDruidColor) .. [[;
 hostileColor_class_cf[11] = ]] .. Serialize(desc.friendlyShamanColor) .. [[;
 hostileColor_class_cf[12] = ]] .. Serialize(desc.friendlyRogueColor) .. [[;
 hostileColor_class_cf[13] = ]] .. Serialize(desc.friendlyDeathKnightColor) .. [[;
+hostileColor_class_cf[14] = ]] .. Serialize(desc.friendlyMonkColor) .. [[;
 ]]);
         end);
         state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
@@ -64,6 +66,8 @@ if UnitIsFriend(uid, "player") and UnitIsPlayer(uid) then
         ]] .. desc.name .. [[  = hostileColor_class_cf[12];
     elseif _name == "DEATHKNIGHT" then
         ]] .. desc.name .. [[  = hostileColor_class_cf[13];
+    elseif _name == "MONK" then
+        ]] .. desc.name .. [[  = hostileColor_class_cf[14];
     else
         ]] .. desc.name .. [[  = hostileColor_class_cf[1];
     end
@@ -159,6 +163,13 @@ end
         if desc and desc.friendlyDeathKnightColor then swatch_friendlyDeathKnightColor:SetColor(VFL.explodeRGBA(desc.friendlyDeathKnightColor)); end
         er:EmbedChild(swatch_friendlyDeathKnightColor); er:Show();
         ui:InsertFrame(er);
+        
+        local er = VFLUI.EmbedRight(ui, VFLI.i18n("Friendly Monk color"));
+        local swatch_friendlyMonkColor = VFLUI.ColorSwatch:new(er);
+        swatch_friendlyMonkColor:Show();
+        if desc and desc.friendlyMonkColor then swatch_friendlyMonkColor:SetColor(VFL.explodeRGBA(desc.friendlyMonkColor)); end
+        er:EmbedChild(swatch_friendlyMonkColor); er:Show();
+        ui:InsertFrame(er);
        
         local er = VFLUI.EmbedRight(ui, VFLI.i18n("Neutral color"));
         local swatch_neutralColor = VFLUI.ColorSwatch:new(er);
@@ -189,6 +200,7 @@ end
                 friendlyShamanColor = swatch_friendlyShamanColor:GetColor();   
                 friendlyRogueColor = swatch_friendlyRogueColor:GetColor();   
 		friendlyDeathKnightColor = swatch_friendlyDeathKnightColor:GetColor();
+		friendlyMonkColor = swatch_friendlyMonkColor:GetColor();
                 neutralColor = swatch_neutralColor:GetColor();
                 hostileColor = swatch_hostileColor:GetColor();
             };
@@ -211,6 +223,7 @@ end
              friendlyShamanColor = {r=0.14, g=0.34, b=1.0,a=1};   
              friendlyRogueColor = {r=1.0, g=0.96, b=0.41,a=1};
 	     friendlyDeathKnightColor = {r=0.77, g=0.12, b=0.23,a=1};
+	     friendlyMonkColor = {r=0, g=1, b=0.59,a=1};
             neutralColor = {r=0.75,g=0.75,b=0,a=1};
             hostileColor = {r=0.75,g=0.15,b=0,a=1};
         };
