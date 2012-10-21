@@ -652,7 +652,7 @@ RDXDB.RegisterSymLinkClass({
 	title = "class&form";
 	GetTargetPath = function(data)
 		local class = select(2, UnitClass("PLAYER"));
-		local form = GetShapeshiftForm();
+		local form = GetShapeshiftFormID();
 		local spec = GetSpecialization();
 		if class == "DEATHKNIGHT" then
 			return data["DEATHKNIGHT"];
