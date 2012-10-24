@@ -955,14 +955,6 @@ end
 		local number = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Number"), state, "NumberVar_");
 		if desc and desc.number then number:SetSelection(desc.number); end
 		
-		-- Drawlayer
-		local er = VFLUI.EmbedRight(ui, "Draw layer");
-		local drawLayer = VFLUI.Dropdown:new(er, RDXUI.DrawLayerDropdownFunction);
-		drawLayer:SetWidth(100); drawLayer:Show();
-		if desc and desc.drawLayer then drawLayer:SetSelection(desc.drawLayer); else drawLayer:SetSelection("ARTWORK"); end
-		er:EmbedChild(drawLayer); er:Show();
-		ui:InsertFrame(er);
-		
 		-- Texture
 		local er = VFLUI.EmbedRight(ui, "Texture");
 		local tsel = VFLUI.MakeTextureSelectButton(er, desc.texture); tsel:Show();

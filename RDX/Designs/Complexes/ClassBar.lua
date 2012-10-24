@@ -1,3 +1,5 @@
+-- OpenRDX
+
 RDXUI.ClassBar = {};
 
 function RDXUI.ClassBar:new(parent, root, desc)
@@ -27,23 +29,112 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	
 	if class == "DEATHKNIGHT" then
 		
-	elseif class == "WARLOCK" and spec == SPEC_WARLOCK_AFFLICTION then --and IsPlayerSpell(WARLOCK_SOULBURN) then
+	elseif class == "WARLOCK" then
+	
+		for i = 1, 4 do
+			btn = VFLUI.AcquireFrame("Frame");
+			btn:SetWidth(desc.w /4); btn:SetHeight(desc.h);
+			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
+			btn:Hide(); -- hide by default
+			
+			if desc.driver == 2 then
+				VFLUI.SetButtonSkin(btn, desc.bs);
+			elseif desc.driver == 3 then
+				VFLUI.SetBackdrop(btn, desc.bkd);
+			end
+			
+			btn.tex = VFLUI.CreateTexture(btn);
+			btn.tex:SetAllPoints(btn);
+			btn.tex:SetDrawLayer("ARTWORK", 3);
+			VFLUI.SetTexture(btn.tex, desc.texture);
+			btn.tex:Show();
+				
+			if i == 1 then
+				btn:SetPoint(opri1, f, opri2);
+			else
+				btn:SetPoint(opri1, f.list[i-1], opri2, csx, csy);
+			end
+			
+			f.list[i] = btn;
+		end
+		-- create the bar demonology
+		btn = --todo
+		btn:SetWidth(desc.w); btn:SetHeight(desc.h);
+		btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
+		btn:Hide();
+		f.list[5] = btn;
 		
-	elseif class == "WARLOCK" and spec == SPEC_WARLOCK_DESTRUCTION then --and IsPlayerSpell(WARLOCK_BURNING_EMBERS) then
+		f.Update = function(self)
+			local numOrbs = UnitPower(root:GetAttribute("unit"), SPELL_POWER_SHADOW_ORBS);
+			for i = 1, PRIEST_BAR_NUM_ORBS do
+				local orb = self.list[i];
+				local shouldShow = i <= numOrbs;
+				if shouldShow then
+					self.list[i]:Show();
+				else
+					self.list[i]:Hide();
+				end
+			end
+		end
 		
-	elseif class == "WARLOCK" and spec == SPEC_WARLOCK_DEMONOLOGY then
+		f.CheckAndShow = function(self)
+			local spec = GetSpecialization();
+			if ( spec == SPEC_WARLOCK_AFFLICTION ) then
+				
+				--WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
+				--WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(self, arg1, arg2) 
+					--if (arg1 == root:GetAttribute("unit") and ( arg2 == "SHADOW_ORBS" ) then
+						--self:Update();
+					--end 
+				--end, self.id);
+				--if ( IsPlayerSpell(WARLOCK_SOULBURN) ) then
+					-- hide status bar demonology
+					--self.bar:Hide;
+					
+				--else
+					--for i = 1, 4 do
+						--self.list[i]:Hide();
+					--end
+					--self.list[5]:Hide();
+					
+				--end
+			elseif ( spec == SPEC_WARLOCK_DESTRUCTION ) then
+				
+				
+			elseif ( spec == SPEC_WARLOCK_DEMONOLOGY ) then
+			else
+				-- nospec
+				--WoWEvents:Unbind(self.id);
+			end
+			self.spec = spec;
+			
+			self:Update();
+		end
+		
+		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() 
+			f:CheckAndShow();
+		end, f.id);
+		
+		-- call
+		f:CheckAndShow();
+	
+	--and spec == SPEC_WARLOCK_AFFLICTION then --and IsPlayerSpell(WARLOCK_SOULBURN) then
+	--elseif class == "WARLOCK" and spec == SPEC_WARLOCK_DESTRUCTION then --and IsPlayerSpell(WARLOCK_BURNING_EMBERS) then
+	--elseif class == "WARLOCK" and spec == SPEC_WARLOCK_DEMONOLOGY then
 		
 	elseif class == "DRUID" and (form == MOONKIN_FORM or not form) and spec == 1 then
 		
 	--elseif class == "DRUID" and form == 3 then
 	--	return data["DRUIDCAT"];
 	elseif class == "PALADIN" then
+		local maxHolyPower = UnitPowerMax("player", SPELL_POWER_HOLY_POWER);
+		f.maxHolyPower = maxHolyPower;
 		for i = 1, 5 do
 			btn = VFLUI.AcquireFrame("Frame");
 			-- size will reset depend of additional rune
-			btn:SetWidth(desc.w /3); btn:SetHeight(desc.h);
+			btn:SetWidth(desc.w / maxHolyPower); btn:SetHeight(desc.h);
 			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
-			btn:Show();
+			btn:Hide(); -- hide by default
 			
 			if desc.driver == 2 then
 				VFLUI.SetButtonSkin(btn, desc.bs);
@@ -66,13 +157,47 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			f.list[i] = btn;
 		end
 		
+		f.Update = function(self)
+			local numHolyPower = UnitPower( root:GetAttribute("unit"), SPELL_POWER_HOLY_POWER );
+			local maxHolyPower = UnitPowerMax( root:GetAttribute("unit"), SPELL_POWER_HOLY_POWER );
+			for i = 1, maxHolyPower do
+				local shouldShow = i <= numHolyPower;
+				if shouldShow then
+					self.list[i]:Show();
+				else
+					self.list[i]:Hide();
+				end
+			end
+			-- in case number of rune change, resize width
+			if self.maxHolyPower ~= maxHolyPower then
+				for i = 1, 5 do
+					local btn = self.list[i];
+					btn:SetWidth(desc.w / maxHolyPower);
+				end				
+				self.maxHolyPower = maxHolyPower;
+			end			
+		end
+		
+		f.CheckAndShow = function(self)
+			WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
+			WoWEvents:Bind("UNIT_POWER", nil, function(self, arg1, arg2) 
+				if (arg1 == root:GetAttribute("unit") and ( arg2 == "HOLY_POWER" ) then
+					self:Update();
+				end 
+			end, self.id);
+			self:Update();
+		end
+		
+		-- call
+		f:CheckAndShow();
+		
 	elseif class == "MONK" then
 	
 		for i = 1, 4 do
 			btn = VFLUI.AcquireFrame("Frame");
 			btn:SetWidth(desc.w /4); btn:SetHeight(desc.h);
 			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
-			btn:Show();
+			btn:Hide(); -- hide by default
 			
 			if desc.driver == 2 then
 				VFLUI.SetButtonSkin(btn, desc.bs);
@@ -101,21 +226,21 @@ function RDXUI.ClassBar:new(parent, root, desc)
 				local orb = self.list[i];
 				local shouldShow = i <= numOrbs;
 				if shouldShow then
-					f.list[i]:Show();
+					self.list[i]:Show();
 				else
-					f.list[i]:Hide();
+					self.list[i]:Hide();
 				end
 			end
 		end
 		
 		f.CheckAndShow = function(self)
-			WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() f:Update(); end, f.id);
+			WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
 			WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(self, arg1, arg2) 
 				if (arg1 == root:GetAttribute("unit") and ( arg2 == "LIGHT_FORCE" or arg2 == "DARK_FORCE" ) then
-					f:Update();
+					self:Update();
 				end 
-			end, f.id);
-			f:Update();
+			end, self.id);
+			self:Update();
 		end
 		
 		-- call
@@ -128,7 +253,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			btn = VFLUI.AcquireFrame("Frame");
 			btn:SetWidth(desc.w /PRIEST_BAR_NUM_ORBS); btn:SetHeight(desc.h);
 			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
-			btn:Show();
+			btn:Hide(); -- hide by default
 			
 			if desc.driver == 2 then
 				VFLUI.SetButtonSkin(btn, desc.bs);
@@ -157,9 +282,9 @@ function RDXUI.ClassBar:new(parent, root, desc)
 				local orb = self.list[i];
 				local shouldShow = i <= numOrbs;
 				if shouldShow then
-					f.list[i]:Show();
+					self.list[i]:Show();
 				else
-					f.list[i]:Hide();
+					self.list[i]:Hide();
 				end
 			end
 		end
@@ -167,16 +292,16 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		f.CheckAndShow = function(self)
 			local spec = GetSpecialization();
 			if ( spec == SPEC_PRIEST_SHADOW ) then
-				WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() f:Update(); end, f.id);
+				WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
 				WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(self, arg1, arg2) 
 					if (arg1 == root:GetAttribute("unit") and ( arg2 == "SHADOW_ORBS" ) then
-						f:Update();
+						self:Update();
 					end 
-				end, f.id);
+				end, self.id);
 			else
-				WoWEvents:Unbind(f.id);
+				WoWEvents:Unbind(self.id);
 			end
-			f:Update();
+			self:Update();
 		end
 		
 		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() 
@@ -197,6 +322,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		s2.id = nil;
 		s2.Update = nil;
 		s2.CheckAndShow = nil;
+		s2.maxHolyPower = nil;
 		for i,v in pairs(s2.list) do
 			if v.tex then v.tex:Destroy(); v.tex = nil; end
 			v:Destroy(); v = nil;
@@ -204,3 +330,223 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	end, f.Destroy);
 	return f;
 end
+
+RDX.RegisterFeature({
+	name = "classbar";
+	version = 1;
+	title = VFLI.i18n("ClassBar");
+	test = true;
+	category = VFLI.i18n("Complexe");
+	multiple = true;
+	IsPossible = function(state)
+		if not state:Slot("DesignFrame") then return nil; end
+		if not state:Slot("Base") then return nil; end
+		return true;
+	end;
+	ExposeFeature = function(desc, state, errs)
+		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
+		local flg = true;
+		flg = flg and RDXUI.UFFrameCheck_Proto("Classbar_", desc, state, errs);
+		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
+		flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs);
+		if flg then state:AddSlot("Classbar_" .. desc.name); end
+		return flg;
+	end;
+	ApplyFeature = function(desc, state)
+		local objname = "Classbar_" .. desc.name;
+		
+		local driver = desc.driver or 1;
+		local bs = desc.bs or VFLUI.defaultButtonSkin;
+		local bkd = desc.bkd or VFLUI.defaultBackdrop;
+		
+		local os = 0;
+		if driver == 2 then
+			if desc.bs and desc.bs.insets then os = desc.bs.insets or 0; end
+		elseif driver == 3 then
+			if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
+		end
+		
+		local r, g, b, a = 1, 1, 1, 1;
+		if driver == 2 then
+			r, g, b, a = bs.br or 1, bs.bg or 1, bs.bb or 1, bs.ba or 1;
+		elseif driver == 3 then
+			r, g, b, a = bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1;
+		end
+		
+		if not desc.drawLayer then desc.drawLayer = "ARTWORK"; end
+		if not desc.sublevel then desc.sublevel = 3; end
+		--if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
+		desc.w = 180;
+		----------------- Creation
+		local createCode = [[
+local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+btn = RDXUI.ClassBar:new(btnOwner, frame, ]] .. Serialize(desc) .. [[)
+btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+btn:Show();
+frame.]] .. objname .. [[ = btn;
+]];
+		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
+
+		------------------- Destruction
+		local destroyCode = [[
+local btn = frame.]] .. objname .. [[;
+if btn then
+	btn:Destroy(); btn = nil;
+end
+frame.]] .. objname .. [[ = nil;
+]];
+		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);
+		return true;
+	end;
+	UIFromDescriptor = function(desc, parent, state)
+		local ui = VFLUI.CompoundFrame:new(parent);
+
+		------------- Core
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Core Parameters")));
+
+		local ed_name = VFLUI.LabeledEdit:new(ui, 100); ed_name:Show();
+		ed_name:SetText(VFLI.i18n("Name"));
+		ed_name.editBox:SetText(desc.name);
+		ui:InsertFrame(ed_name);
+
+		------------- Layout
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
+
+		local owner = RDXUI.MakeSlotSelectorDropdown(ui, VFLI.i18n("Owner"), state, {"Frame_", "Button_", "Cooldown_", });
+		if desc and desc.owner then owner:SetSelection(desc.owner); end
+
+		local anchor = RDXUI.UnitFrameAnchorSelector:new(ui); anchor:Show();
+		anchor:SetAFArray(RDXUI.ComposeAnchorList(state));
+		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
+		ui:InsertFrame(anchor);
+
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Orientation"));
+		local dd_orientation = VFLUI.Dropdown:new(er, RDXUI.OrientationDropdownFunction);
+		dd_orientation:SetWidth(75); dd_orientation:Show();
+		if desc and desc.orientation then 
+			dd_orientation:SetSelection(desc.orientation); 
+		else
+			dd_orientation:SetSelection("RIGHT");
+		end
+		er:EmbedChild(dd_orientation); er:Show();
+		ui:InsertFrame(er);
+		
+		local ed_iconspx = VFLUI.LabeledEdit:new(ui, 50); ed_iconspx:Show();
+		ed_iconspx:SetText(VFLI.i18n("Width spacing"));
+		if desc and desc.iconspx then ed_iconspx.editBox:SetText(desc.iconspx); else ed_iconspx.editBox:SetText("0"); end
+		ui:InsertFrame(ed_iconspx);
+		
+		local ed_iconspy = VFLUI.LabeledEdit:new(ui, 50); ed_iconspy:Show();
+		ed_iconspy:SetText(VFLI.i18n("Height spacing"));
+		if desc and desc.iconspy then ed_iconspy.editBox:SetText(desc.iconspy); else ed_iconspy.editBox:SetText("0"); end
+		ui:InsertFrame(ed_iconspy);
+		
+		local ed_width = VFLUI.LabeledEdit:new(ui, 50); ed_width:Show();
+		ed_width:SetText(VFLI.i18n("Width"));
+		if desc and desc.w then ed_width.editBox:SetText(desc.w); else ed_width.editBox:SetText("20"); end
+		ui:InsertFrame(ed_width);
+		
+		local ed_height = VFLUI.LabeledEdit:new(ui, 50); ed_height:Show();
+		ed_height:SetText(VFLI.i18n("Height"));
+		if desc and desc.h then ed_height.editBox:SetText(desc.h); else ed_height.editBox:SetText("20"); end
+		ui:InsertFrame(ed_height);
+		
+		-------------- Display
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Skin parameters")));
+		
+		local driver = VFLUI.DisjointRadioGroup:new();
+		
+		local driver_NS = driver:CreateRadioButton(ui);
+		driver_NS:SetText(VFLI.i18n("No Skin"));
+		local driver_BS = driver:CreateRadioButton(ui);
+		driver_BS:SetText(VFLI.i18n("Use Button Skin"));
+		local driver_BD = driver:CreateRadioButton(ui);
+		driver_BD:SetText(VFLI.i18n("Use Backdrop"));
+		driver:SetValue(desc.driver or 1);
+		
+		ui:InsertFrame(driver_NS);
+		
+		ui:InsertFrame(driver_BS);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("ButtonSkin"));
+		local dd_buttonskin = VFLUI.MakeButtonSkinSelectButton(er, desc.bs);
+		dd_buttonskin:Show();
+		er:EmbedChild(dd_buttonskin); er:Show();
+		ui:InsertFrame(er);
+		
+		ui:InsertFrame(driver_BD);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop"));
+		local dd_backdrop = VFLUI.MakeBackdropSelectButton(er, desc.bkd);
+		dd_backdrop:Show();
+		er:EmbedChild(dd_backdrop); er:Show();
+		ui:InsertFrame(er);
+			
+		-------------- Texture
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Texture parameters")));
+
+		-- Drawlayer
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Draw layer"));
+		local drawLayer = VFLUI.Dropdown:new(er, RDXUI.DrawLayerDropdownFunction);
+		drawLayer:SetWidth(150); drawLayer:Show();
+		if desc and desc.drawLayer then drawLayer:SetSelection(desc.drawLayer); else drawLayer:SetSelection("ARTWORK"); end
+		er:EmbedChild(drawLayer); er:Show();
+		ui:InsertFrame(er);
+		
+		-- SubLevel
+		local ed_sublevel = VFLUI.LabeledEdit:new(ui, 50); ed_sublevel:Show();
+		ed_sublevel:SetText(VFLI.i18n("TextureLevel offset"));
+		if desc and desc.sublevel then ed_sublevel.editBox:SetText(desc.sublevel); end
+		ui:InsertFrame(ed_sublevel);
+		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Font parameters")));
+		
+		local er_st = VFLUI.EmbedRight(ui, VFLI.i18n("Font stack"));
+		local fontsel2 = VFLUI.MakeFontSelectButton(er_st, desc.fontst); fontsel2:Show();
+		er_st:EmbedChild(fontsel2); er_st:Show();
+		ui:InsertFrame(er_st);
+		
+		function ui:GetDescriptor()
+			return { 
+				feature = "classbar"; version = 1;
+				name = ed_name.editBox:GetText();
+				-- layout
+				owner = owner:GetSelection();
+				anchor = anchor:GetAnchorInfo();
+				orientation = dd_orientation:GetSelection();
+				iconspx = VFL.clamp(ed_iconspx.editBox:GetNumber(), -200, 200);
+				iconspy = VFL.clamp(ed_iconspy.editBox:GetNumber(), -200, 200);
+				w = VFL.clamp(ed_width.editBox:GetNumber(), 1, 100);
+				h = VFL.clamp(ed_height.editBox:GetNumber(), 1, 100);
+				-- display
+				driver = driver:GetValue();
+				bs = dd_buttonskin:GetSelectedButtonSkin();
+				bkd = dd_backdrop:GetSelectedBackdrop();
+				-- texture
+				drawLayer = drawLayer:GetSelection();
+				sublevel = VFL.clamp(ed_sublevel.editBox:GetNumber(), 1, 20);
+				-- other
+				fontst = fontsel2:GetSelectedFont();
+			};
+		end
+
+		return ui;
+	end;
+	CreateDescriptor = function()
+		local font = VFL.copy(Fonts.Default); font.size = 8; font.justifyV = "CENTER"; font.justifyH = "CENTER";
+		return { 
+			feature = "classbar";
+			version = 1;
+			name = "cb";
+			owner = "Frame_decor";
+			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
+			orientation = "RIGHT"; iconspx = 5; iconspy = 0;
+			w = 180; h = 30;
+			driver = 1;
+			bkd = VFL.copy(VFLUI.defaultBackdrop);
+			drawLayer = "ARTWORK"; sublevel = 1;
+			fontst = font;
+		};
+	end;
+});
+
