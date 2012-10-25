@@ -28,6 +28,47 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	
 	
 	if class == "DEATHKNIGHT" then
+	
+		for i = 1, 6 do
+			btn = VFLUI.AcquireFrame("Frame");
+			btn:SetWidth(desc.w /6); btn:SetHeight(desc.h);
+			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
+			btn:Hide(); -- hide by default
+			
+			if desc.driver == 2 then
+				VFLUI.SetButtonSkin(btn, desc.bs);
+			elseif desc.driver == 3 then
+				VFLUI.SetBackdrop(btn, desc.bkd);
+			end
+			
+			btn.sb = VFLUI.StatusBarTexture:new(btn, nil, nil, "ARTWORK", 2);
+			btn.sb:SetParent(btn);
+			btn.sb:SetAllPoints(btn):
+			btn.sb:SetOrientation("HORIZONTAL");
+			btn.sb:SetPoint("LEFT", btn, "LEFT");
+			VFLUI.SetTexture(btn.sb, desc.texture);
+			btn.sb:Show();
+			
+			btn.timetxt = VFLUI.CreateFontString(btn);
+			btn.timetxt:SetAllPoints(btn);
+			VFLUI.SetFont(btn.timetxt, desc.font, nil, true);
+			btn.timetxt:Show();
+				
+			if i == 1 then
+				btn:SetPoint(opri1, f, opri2);
+			else
+				btn:SetPoint(opri1, f.list[i-1], opri2, csx, csy);
+			end
+			
+			f.list[i] = btn;
+		end
+		
+		local ftc = FreeTimer.CreateFreeTimerClass(true, true, nil, VFLUI.GetTextTimerTypesString("Seconds"), false, false, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, nil, nil);
+		btn.ftc = ftc(btn, btn.sb, btn.timetxt, nil, nil, nil, nil);
+		
+		btn.ftc:SetFormula(true, "simple");
+		btn.ftc:SetTimer(_start, _dur);
+		
 		
 	elseif class == "WARLOCK" then
 	
