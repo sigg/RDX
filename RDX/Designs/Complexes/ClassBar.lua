@@ -13,8 +13,9 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	f.list = {};
 	
 	f.id = "ClassBar_" .. math.random(10000000);;
-	
-	local class = select(2, UnitClass("PLAYER"));
+	VFL.print(root:GetAttribute("unit"));
+	local class = select(2, UnitClass(root:GetAttribute("unit")));
+	VFL.print(class);
 	local btn;
 	
 	local opri1, opri2, osec1, osec2, csx, csy, csxm, csym = "RIGHT", "LEFT", "TOP", "BOTTOM", -tonumber(desc.iconspx), 0, 0, -tonumber(desc.iconspy);
@@ -28,6 +29,8 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	
 	
 	if class == "DEATHKNIGHT" then
+	
+		local ftc = FreeTimer.CreateFreeTimerClass(true, true, nil, VFLUI.GetTextTimerTypesString("Seconds"), false, false, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, nil, nil);
 	
 		for i = 1, 6 do
 			btn = VFLUI.AcquireFrame("Frame");
@@ -60,14 +63,50 @@ function RDXUI.ClassBar:new(parent, root, desc)
 				btn:SetPoint(opri1, f.list[i-1], opri2, csx, csy);
 			end
 			
+			btn.ftc = ftc(btn, btn.sb, btn.timetxt, nil, nil, nil, nil);
+			btn.ftc:SetFormula(true, "simple");
+			
 			f.list[i] = btn;
 		end
 		
-		local ftc = FreeTimer.CreateFreeTimerClass(true, true, nil, VFLUI.GetTextTimerTypesString("Seconds"), false, false, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, FreeTimer.SB_Hide, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, nil, nil);
-		btn.ftc = ftc(btn, btn.sb, btn.timetxt, nil, nil, nil, nil);
+		f.CheckAndShow = function(self)
+			WoWEvents:Bind("RUNE_POWER_UPDATE", nil, function(self, runeIndex, isEnergize) 
+				if runeIndex and runeIndex >= 1 and runeIndex <= MAX_RUNES  then 
+					local btn = self.list[runeIndex];
+					local start, duration, runeReady = GetRuneCooldown(runeIndex);
+					
+					if not runeReady then
+						if start then
+							btn.ftc:SetTimer(start, duration);
+						end
+					--	runeButton.energize:Stop();
+					--else
+					--	cooldown:Hide();
+					--	runeButton.shine:SetVertexColor(1, 1, 1);
+					--	RuneButton_ShineFadeIn(runeButton.shine)
+					end
+					
+					--if isEnergize  then
+					--	runeButton.energize:Play();
+					--end
+				else 
+					--assert(false, "Bad rune index")
+				end
+			end, self.id);
+			WoWEvents:Bind("RUNE_TYPE_UPDATE", nil, function(self, runeIndex) 
+				if ( runeIndex and runeIndex >= 1 and runeIndex <= MAX_RUNES ) then
+					--RuneButton_Update(_G["RuneButtonIndividual"..runeIndex], runeIndex);
+					-- update color
+					--local btn = self.list[runeIndex];
+					--btn.sb:SetVertexColor(todo);
+					--self.bar:SetColorTable(sbcolorVar2);
+				end
+			end, self.id);
+			--self:Update();
+		end
 		
-		btn.ftc:SetFormula(true, "simple");
-		btn.ftc:SetTimer(_start, _dur);
+		-- call
+		f:CheckAndShow();
 		
 		
 	elseif class == "WARLOCK" then
@@ -168,7 +207,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	--elseif class == "DRUID" and form == 3 then
 	--	return data["DRUIDCAT"];
 	elseif class == "PALADIN" then
-		local maxHolyPower = UnitPowerMax("player", SPELL_POWER_HOLY_POWER);
+		local maxHolyPower = UnitPowerMax(root:GetAttribute("unit"), SPELL_POWER_HOLY_POWER);
 		f.maxHolyPower = maxHolyPower;
 		for i = 1, 5 do
 			btn = VFLUI.AcquireFrame("Frame");
@@ -427,7 +466,7 @@ btn:Show();
 frame.]] .. objname .. [[ = btn;
 ]];
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
-
+		
 		------------------- Destruction
 		local destroyCode = [[
 local btn = frame.]] .. objname .. [[;
