@@ -4,7 +4,7 @@ RDXUI.ClassBar = {};
 
 function RDXUI.ClassBar:new(parent, root, desc)
 	
-	local f = VFLUI.AcquireFrame(desc.btype);
+	local f = VFLUI.AcquireFrame("Frame");
 	f:SetParent(parent);
 	f:SetFrameLevel(parent:GetFrameLevel());
 	f:SetWidth(desc.w);
@@ -12,9 +12,9 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	f:Show();
 	f.list = {};
 	
-	f.id = "ClassBar_" .. math.random(10000000);;
+	f.id = "ClassBar_" .. math.random(10000000);
 	VFL.print(root:GetAttribute("unit"));
-	local class = select(2, UnitClass(root:GetAttribute("unit")));
+	local class = select(2, UnitClass(root:GetAttribute("unit") or "player"));
 	VFL.print(class);
 	local btn;
 	
@@ -46,7 +46,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			
 			btn.sb = VFLUI.StatusBarTexture:new(btn, nil, nil, "ARTWORK", 2);
 			btn.sb:SetParent(btn);
-			btn.sb:SetAllPoints(btn):
+			btn.sb:SetAllPoints(btn);
 			btn.sb:SetOrientation("HORIZONTAL");
 			btn.sb:SetPoint("LEFT", btn, "LEFT");
 			VFLUI.SetTexture(btn.sb, desc.texture);
@@ -261,7 +261,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		f.CheckAndShow = function(self)
 			WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
 			WoWEvents:Bind("UNIT_POWER", nil, function(self, arg1, arg2) 
-				if (arg1 == root:GetAttribute("unit") and ( arg2 == "HOLY_POWER" ) then
+				if (arg1 == root:GetAttribute("unit")) and ( arg2 == "HOLY_POWER" ) then
 					self:Update();
 				end 
 			end, self.id);
@@ -316,7 +316,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		f.CheckAndShow = function(self)
 			WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
 			WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(self, arg1, arg2) 
-				if (arg1 == root:GetAttribute("unit") and ( arg2 == "LIGHT_FORCE" or arg2 == "DARK_FORCE" ) then
+				if (arg1 == root:GetAttribute("unit")) and ( arg2 == "LIGHT_FORCE" or arg2 == "DARK_FORCE" ) then
 					self:Update();
 				end 
 			end, self.id);
@@ -348,7 +348,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			btn.tex:Show();
 				
 			if i == 1 then
-				btn:SetPoint(opri1, f, opri2);
+				btn:SetPoint("TOPLEFT", f, "TOPLEFT");
 			else
 				btn:SetPoint(opri1, f.list[i-1], opri2, csx, csy);
 			end
@@ -357,7 +357,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		end
 		
 		f.Update = function(self)
-			local numOrbs = UnitPower(root:GetAttribute("unit"), SPELL_POWER_SHADOW_ORBS);
+			local numOrbs = UnitPower(root:GetAttribute("unit") or "player", SPELL_POWER_SHADOW_ORBS);
 			for i = 1, PRIEST_BAR_NUM_ORBS do
 				local orb = self.list[i];
 				local shouldShow = i <= numOrbs;
@@ -374,7 +374,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			if ( spec == SPEC_PRIEST_SHADOW ) then
 				WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
 				WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(self, arg1, arg2) 
-					if (arg1 == root:GetAttribute("unit") and ( arg2 == "SHADOW_ORBS" ) then
+					if (arg1 == root:GetAttribute("unit") or "player") and ( arg2 == "SHADOW_ORBS" ) then
 						self:Update();
 					end 
 				end, self.id);
@@ -564,6 +564,11 @@ frame.]] .. objname .. [[ = nil;
 			
 		-------------- Texture
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Texture parameters")));
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Texture"));
+		local tsel = VFLUI.MakeTextureSelectButton(er, desc.texture); tsel:Show();
+		er:EmbedChild(tsel); er:Show();
+		ui:InsertFrame(er);
 
 		-- Drawlayer
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Draw layer"));
@@ -596,13 +601,14 @@ frame.]] .. objname .. [[ = nil;
 				orientation = dd_orientation:GetSelection();
 				iconspx = VFL.clamp(ed_iconspx.editBox:GetNumber(), -200, 200);
 				iconspy = VFL.clamp(ed_iconspy.editBox:GetNumber(), -200, 200);
-				w = VFL.clamp(ed_width.editBox:GetNumber(), 1, 100);
+				w = VFL.clamp(ed_width.editBox:GetNumber(), 1, 300);
 				h = VFL.clamp(ed_height.editBox:GetNumber(), 1, 100);
 				-- display
 				driver = driver:GetValue();
 				bs = dd_buttonskin:GetSelectedButtonSkin();
 				bkd = dd_backdrop:GetSelectedBackdrop();
 				-- texture
+				texture = tsel:GetSelectedTexture();
 				drawLayer = drawLayer:GetSelection();
 				sublevel = VFL.clamp(ed_sublevel.editBox:GetNumber(), 1, 20);
 				-- other
@@ -626,6 +632,7 @@ frame.]] .. objname .. [[ = nil;
 			bkd = VFL.copy(VFLUI.defaultBackdrop);
 			drawLayer = "ARTWORK"; sublevel = 1;
 			fontst = font;
+			texture = VFL.copy(VFLUI.defaultTexture);
 		};
 	end;
 });
