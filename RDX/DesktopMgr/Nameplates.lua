@@ -92,6 +92,8 @@ local FixCastbar = function(self)
 	self.spellIconRegion:ClearAllPoints()
 	self.spellIconRegion:SetPoint("RIGHT", self, "LEFT");
 	self.spellIconRegion:SetSize(15, 15);
+	
+	VFLUI.SetBackdrop(self, descn.bkd);
 end
 
 local OnSizeChangedCB = function(self, width, height)
@@ -105,11 +107,9 @@ local OnShowCB = function(self)
 	if self.shieldedRegion:IsShown() then
 		self:SetStatusBarColor(0.8, 0.05, 0);
 	end
-	VFLUI.SetBackdrop(self, descn.bkd);
 end
 
 local OnValueChangedCB = function(self, curValue)
-	--UpdateTime(self, curValue)
 	if self.needFix then FixCastbar(self); self.needFix = nil; end
 end
 
