@@ -506,7 +506,7 @@ frame.]] .. objname .. [[ = nil;
 		end
 		ui:InsertFrame(ed_custom);
 		
-		local stxt = VFLUI.SimpleText:new(ui, 2, 200); stxt:Show();
+		local stxt = VFLUI.SimpleText:new(ui, 4, 200); stxt:Show();
 		local str = "Current State\n";
 		if desc.headerstateType ~= "Custom" then
 			str = str .. __RDXGetStates(desc.headerstateType);
