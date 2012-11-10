@@ -143,7 +143,7 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 			function self.SetValue(self2, v, t)
 				if not v then return; end
 				if v < 0 then v = 0.001; end
-				if self2._value == v then return; end
+				--if self2._value == v then return; end
 				self2.v = v;
 				self2.t = t;
 				if self2.t then
@@ -165,7 +165,7 @@ function VFLUI.StatusBarTexture:new(parent, vertFix, horiFix, drawLayer, subleve
 			function self.SetValue(self2, v, t)
 				if not v then return; end
 				if v < 0 then v = 0.001; end
-				if self2._value == v then return; end
+				--if self2._value == v then return; end
 				self2.v = v;
 				self2.t = t;
 				if self2.t then

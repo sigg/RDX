@@ -26,9 +26,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	f.list = {};
 	
 	f.id = "ClassBar_" .. math.random(10000000);
-	VFL.print(root:GetAttribute("unit"));
 	local class = select(2, UnitClass(root:GetAttribute("unit") or "player"));
-	VFL.print(class);
 	local btn;
 	
 	local opri1, opri2, osec1, osec2, csx, csy, csxm, csym = "RIGHT", "LEFT", "TOP", "BOTTOM", -tonumber(desc.iconspx), 0, 0, -tonumber(desc.iconspy);
@@ -128,7 +126,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		
 		
 	elseif class == "WARLOCK" then
-	
+		-- affliction
 		for i = 1, 4 do
 			btn = VFLUI.AcquireFrame("Frame");
 			btn:SetWidth(desc.w /4); btn:SetHeight(desc.h);
@@ -145,76 +143,220 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			btn.tex:SetAllPoints(btn);
 			btn.tex:SetDrawLayer("ARTWORK", 3);
 			VFLUI.SetTexture(btn.tex, desc.texture);
+			btn.tex:SetVertexColor(0.5,0,1,1);
 			btn.tex:Show();
 				
 			if i == 1 then
-				btn:SetPoint(opri1, f, opri2);
+				btn:SetPoint(opri1, f, opri1);
 			else
 				btn:SetPoint(opri1, f.list[i-1], opri2, csx, csy);
 			end
 			
 			f.list[i] = btn;
 		end
-		-- create the bar demonology
-		--btn = --todo
-		--btn:SetWidth(desc.w); btn:SetHeight(desc.h);
-		--btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
-		--btn:Hide();
-		--f.list[5] = btn;
+		-- destruction
+		for i = 1, 4 do
+			btn = VFLUI.AcquireFrame("Frame");
+			btn:SetWidth(desc.w /4); btn:SetHeight(desc.h);
+			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
+			btn:Show(); -- hide by default
+			
+			if desc.driver == 2 then
+				VFLUI.SetButtonSkin(btn, desc.bs);
+			elseif desc.driver == 3 then
+				VFLUI.SetBackdrop(btn, desc.bkd);
+			end
+			
+			btn.sb = VFLUI.StatusBarTexture:new(btn, nil, nil, "ARTWORK", 2);
+			btn.sb:SetParent(btn);
+			btn.sb:SetOrientation("HORIZONTAL");
+			btn.sb:SetPoint("LEFT", btn, "LEFT");
+			btn.sb:SetWidth(desc.w /4); btn.sb:SetHeight(desc.h);
+			VFLUI.SetTexture(btn.sb, desc.texture);
+			btn.sb:SetVertexColor(1,0,0,1);
+			btn.sb:Show();
+			btn.sb:SetValue(0);
+			
+			--btn.tex = VFLUI.CreateTexture(btn);
+			--btn.tex:SetAllPoints(btn);
+			--btn.tex:SetDrawLayer("ARTWORK", 3);
+			--VFLUI.SetTexture(btn.tex, desc.texture);
+			--btn.tex:SetVertexColor(1,0,0,1);
+			--btn.tex:Show();
+				
+			if i == 1 then
+				btn:SetPoint(opri1, f, opri1);
+			else
+				btn:SetPoint(opri1, f.list[i-1 + 4], opri2, csx, csy);
+			end
+			
+			f.list[i + 4] = btn;
+		end
 		
-		f.Update = function(self)
-			local numOrbs = UnitPower(root:GetAttribute("unit"), SPELL_POWER_SHADOW_ORBS);
-			for i = 1, PRIEST_BAR_NUM_ORBS do
-				local orb = self.list[i];
-				local shouldShow = i <= numOrbs;
-				if shouldShow then
-					self.list[i]:Show();
-				else
-					self.list[i]:Hide();
+		-- create the bar demonology
+		btn = VFLUI.AcquireFrame("Frame");
+		btn:SetWidth(desc.w); btn:SetHeight(desc.h);
+		btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
+		btn:SetPoint("LEFT", f, "LEFT");
+		btn:Show();
+		
+		if desc.driver == 2 then
+			VFLUI.SetButtonSkin(btn, desc.bs);
+		elseif desc.driver == 3 then
+			VFLUI.SetBackdrop(btn, desc.bkd);
+		end
+		
+		btn.sb = VFLUI.StatusBarTexture:new(btn, nil, nil, "ARTWORK", 2);
+		btn.sb:SetParent(btn);
+		btn.sb:SetOrientation("HORIZONTAL");
+		btn.sb:SetPoint("LEFT", btn, "LEFT");
+		btn.sb:SetWidth(desc.w); btn.sb:SetHeight(desc.h);
+		VFLUI.SetTexture(btn.sb, desc.texture);
+		btn.sb:SetVertexColor(0.5,0,1,1);
+		btn.sb:Show();
+		btn.sb:SetValue(0);
+		f.list[9] = btn;
+		
+		f.Update = function(self, id)
+			if id == "SOUL_SHARDS" and self.spec == SPEC_WARLOCK_AFFLICTION then
+				local numShards = UnitPower( root:GetAttribute("unit") or "player", SPELL_POWER_SOUL_SHARDS );
+				local maxShards = UnitPowerMax( root:GetAttribute("unit") or "player", SPELL_POWER_SOUL_SHARDS );
+				
+				local numOrbs = UnitPower(root:GetAttribute("unit") or "player", SPELL_POWER_SHADOW_ORBS);
+				for i = 1, maxShards do
+					local shard = self.list[i];
+					local shouldShow = i <= numShards;
+					if shouldShow then
+						self.list[i]:Show();
+					else
+						self.list[i]:Hide();
+					end
 				end
+				
+				if ( self.shardCount ~= maxShards ) then
+					for i = 1, 4 do
+						local btn = self.list[i];
+						btn:SetWidth(desc.w / maxShards);
+					end
+					self.shardCount = maxShards;
+				end
+			elseif id == "BURNING_EMBERS" and self.spec == SPEC_WARLOCK_DESTRUCTION then
+				local power = UnitPower( root:GetAttribute("unit") or "player", SPELL_POWER_BURNING_EMBERS, true );
+				local maxPower = UnitPowerMax( root:GetAttribute("unit") or "player", SPELL_POWER_BURNING_EMBERS, true );
+				local numEmbers = floor(maxPower / MAX_POWER_PER_EMBER);
+				
+				if ( self.emberCount ~= numEmbers ) then
+					for i = 1, 4 do
+						local btn = self.list[i + 4];
+						btn:SetWidth(desc.w / numEmbers);
+						btn.sb:SetWidth(desc.w / numEmbers);
+						if i<= numEmbers then
+							btn:Show();
+						else
+							btn:Hide();
+						end
+					end
+					self.emberCount = numEmbers;
+				end
+				
+				--local numOrbs = UnitPower(root:GetAttribute("unit") or "player", SPELL_POWER_SHADOW_ORBS);
+				for i = 1, numEmbers do
+					local ember = self.list[i + 4];
+					if power <= 0 then
+						ember.sb:SetValue(0, 0.2);
+					elseif power >= MAX_POWER_PER_EMBER then
+						ember.sb:SetValue(1, 0.2);
+					else
+						ember.sb:SetValue(power/MAX_POWER_PER_EMBER, 0.2);
+					end
+					
+					power = power - MAX_POWER_PER_EMBER;
+					
+				end
+			--elseif id == "DEMONIC_FURY" and self.spec == SPEC_WARLOCK_DEMONOLOGY then
+				--local power = UnitPower( root:GetAttribute("unit") or "player", SPELL_POWER_DEMONIC_FURY );
+				--local maxPower = UnitPowerMax( root:GetAttribute("unit") or "player", SPELL_POWER_DEMONIC_FURY );
+				--local demonic = self.list[9];
+				--demonic.sb:SetValue(power/maxPower, 0.2);
 			end
 		end
 		
 		f.CheckAndShow = function(self)
 			local spec = GetSpecialization();
 			if ( spec == SPEC_WARLOCK_AFFLICTION ) then
-				
-				--WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
-				--WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(self, arg1, arg2) 
-					--if (arg1 == root:GetAttribute("unit") and ( arg2 == "SHADOW_ORBS" ) then
-						--self:Update();
-					--end 
-				--end, self.id);
-				--if ( IsPlayerSpell(WARLOCK_SOULBURN) ) then
-					-- hide status bar demonology
-					--self.bar:Hide;
-					
-				--else
+				if ( self.spec ~= spec ) then
+					self.spec = spec;
+					VFLT.AdaptiveUnschedule(self.id)
+					WoWEvents:Unbind(self.id);
 					--for i = 1, 4 do
-						--self.list[i]:Hide();
+						--self.list[i]:Show();
 					--end
-					--self.list[5]:Hide();
-					
-				--end
+					for i = 5, 8 do
+						self.list[i]:Hide();
+					end
+					self.list[9]:Hide();
+					WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update("SOUL_SHARDS"); end, self.id);
+					WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(arg1, arg2)
+						if (arg1 == root:GetAttribute("unit") or "player") then
+							self:Update(arg2);
+						end 
+					end, self.id);
+					self:Update("SOUL_SHARDS");
+				end
+				
 			elseif ( spec == SPEC_WARLOCK_DESTRUCTION ) then
-				
-				
+				if ( self.spec ~= spec ) then
+					self.spec = spec;
+					VFLT.AdaptiveUnschedule(self.id)
+					WoWEvents:Unbind(self.id);
+					-- hide destruction
+					for i = 1, 4 do
+						self.list[i]:Hide();
+					end
+					for i = 5, 8 do
+						self.list[i]:Show();
+					end
+					self.list[9]:Hide();
+					WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update("BURNING_EMBERS"); end, self.id);
+					WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(arg1, arg2)
+						if (arg1 == root:GetAttribute("unit") or "player") then
+							self:Update(arg2);
+						end 
+					end, self.id);
+					self:Update("BURNING_EMBERS");
+				end
 			elseif ( spec == SPEC_WARLOCK_DEMONOLOGY ) then
+				if ( self.spec ~= spec ) then
+					self.spec = spec;
+					WoWEvents:Unbind(self.id);
+					for i = 1, 4 do
+						self.list[i]:Hide();
+					end
+					for i = 5, 8 do
+						self.list[i]:Hide();
+					end
+					self.list[9]:Show();
+					local power, maxPower;
+					local demonic = self.list[9];
+					VFLT.AdaptiveSchedule(self.id, 0.2, function()
+						power = UnitPower( "player", SPELL_POWER_DEMONIC_FURY );
+						maxPower = UnitPowerMax( "player", SPELL_POWER_DEMONIC_FURY );
+						demonic.sb:SetValue(power/maxPower, 0.2);
+					end)
+				end
 			else
 				-- nospec
-				--WoWEvents:Unbind(self.id);
+				VFLT.AdaptiveUnschedule(self.id)
+				WoWEvents:Unbind(self.id);
 			end
-			self.spec = spec;
-			
-			self:Update();
 		end
 		
-		--VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() 
-			--f:CheckAndShow();
-		--end, f.id);
+		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() 
+			f:CheckAndShow();
+		end, f.id);
 		
 		-- call
-		--f:CheckAndShow();
+		f:CheckAndShow();
 	
 	--and spec == SPEC_WARLOCK_AFFLICTION then --and IsPlayerSpell(WARLOCK_SOULBURN) then
 	--elseif class == "WARLOCK" and spec == SPEC_WARLOCK_DESTRUCTION then --and IsPlayerSpell(WARLOCK_BURNING_EMBERS) then
@@ -561,6 +703,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	end
 	
 	f.Destroy = VFL.hook(function(s2)
+		VFLT.AdaptiveUnschedule(s2.id)
 		WoWEvents:Unbind(s2.id);
 		VFLEvents:Unbind(s2.id);
 		s2.id = nil;
@@ -576,6 +719,18 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	end, f.Destroy);
 	return f;
 end
+
+local w = {
+	{ text = "60" },
+	{ text = "120" },
+	{ text = "180" },
+	{ text = "240" },
+	{ text = "300" },
+	{ text = "360" },
+	{ text = "420" },
+};
+local function ddw() return w; end
+
 
 RDX.RegisterFeature({
 	name = "classbar";
@@ -622,7 +777,7 @@ RDX.RegisterFeature({
 		if not desc.drawLayer then desc.drawLayer = "ARTWORK"; end
 		if not desc.sublevel then desc.sublevel = 3; end
 		--if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
-		desc.w = 180;
+		
 		----------------- Creation
 		local createCode = [[
 local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
@@ -687,10 +842,17 @@ frame.]] .. objname .. [[ = nil;
 		if desc and desc.iconspy then ed_iconspy.editBox:SetText(desc.iconspy); else ed_iconspy.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspy);
 		
-		local ed_width = VFLUI.LabeledEdit:new(ui, 50); ed_width:Show();
-		ed_width:SetText(VFLI.i18n("Width"));
-		if desc and desc.w then ed_width.editBox:SetText(desc.w); else ed_width.editBox:SetText("20"); end
-		ui:InsertFrame(ed_width);
+		--local ed_width = VFLUI.LabeledEdit:new(ui, 50); ed_width:Show();
+		--ed_width:SetText(VFLI.i18n("Width"));
+		--if desc and desc.w then ed_width.editBox:SetText(desc.w); else ed_width.editBox:SetText("20"); end
+		--ui:InsertFrame(ed_width);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Width"));
+		local dd_width = VFLUI.Dropdown:new(er, ddw);
+		dd_width:SetWidth(150); dd_width:Show();
+		if desc and desc.w then dd_width:SetSelection(desc.w); else dd_width:SetSelection("180"); end
+		er:EmbedChild(dd_width); er:Show();
+		ui:InsertFrame(er);
 		
 		local ed_height = VFLUI.LabeledEdit:new(ui, 50); ed_height:Show();
 		ed_height:SetText(VFLI.i18n("Height"));
@@ -767,7 +929,7 @@ frame.]] .. objname .. [[ = nil;
 				orientation = dd_orientation:GetSelection();
 				iconspx = VFL.clamp(ed_iconspx.editBox:GetNumber(), -200, 200);
 				iconspy = VFL.clamp(ed_iconspy.editBox:GetNumber(), -200, 200);
-				w = VFL.clamp(ed_width.editBox:GetNumber(), 1, 300);
+				w = dd_width:GetSelection();
 				h = VFL.clamp(ed_height.editBox:GetNumber(), 1, 100);
 				-- display
 				driver = driver:GetValue();
