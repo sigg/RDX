@@ -215,8 +215,8 @@ for i=1, ]] .. desc.nIcons .. [[ do
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtHotkey", desc.fontkey, nil, true);
 		end
 		createCode = createCode .. [[
-	if btn.Init then btn:Init(); end
 	btn:Show();
+	if btn.Init then btn:Init(); end
 	frame.]] .. objname .. [[[i] = btn;
 	abid = abid + 1;
 end

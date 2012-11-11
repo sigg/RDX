@@ -1648,7 +1648,6 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 	-- use when bar page changed, and the action is changed
 	local function UpdateNewAction()
 		texture, name, isActive, isCastable = GetShapeshiftFormInfo(self.id);
-		self.icon:SetTexture(texture);
 		if name then
 			self:Show();
 			self.txtHotkey:Show();
@@ -1656,14 +1655,15 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 			WoWEvents:Bind("UPDATE_SHAPESHIFT_FORM", nil, UpdateState, "actionButtonStance" .. self.id);
 			WoWEvents:Bind("UPDATE_SHAPESHIFT_USABLE", nil, UpdateState, "actionButtonStance" .. self.id);
 			WoWEvents:Bind("UPDATE_SHAPESHIFT_COOLDOWN", nil, UpdateCooldown, "actionButtonStance" .. self.id);
+			self.icon:SetTexture(texture);
+			UpdateBinds();
+			UpdateState();
+			UpdateCooldown();
 		else
 			self:Hide();
 			self.txtHotkey:Hide();
 			WoWEvents:Unbind("actionButtonStance" .. self.id);
 		end
-		UpdateBinds();
-		UpdateState();
-		UpdateCooldown();
 	end
 
 	if desc.showtooltip then
