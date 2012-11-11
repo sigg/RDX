@@ -46,6 +46,7 @@ local BlizzButtons = {
 	{ text = "MinimapZoomOut" },
 	{ text = "MiniMapMailFrame" },
 	--{ text = "MiniMapBattlefieldFrame" },
+	{ text = "QueueStatusMinimapButton" },
 	{ text = "GameTimeFrame" },
 	{ text = "FeedbackUIButton" },
 	{ text = "MiniMapRecordingButton" },
