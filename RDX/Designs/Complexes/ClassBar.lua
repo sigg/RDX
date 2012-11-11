@@ -735,9 +735,9 @@ local function ddw() return w; end
 RDX.RegisterFeature({
 	name = "classbar";
 	version = 1;
-	title = VFLI.i18n("ClassBar");
+	title = VFLI.i18n("RDX ClassBar");
 	test = true;
-	category = VFLI.i18n("Complexe");
+	category = VFLI.i18n("Complexes");
 	multiple = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
