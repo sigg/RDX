@@ -337,6 +337,8 @@ Designs\Variables\UnitInSortVariables.lua
 Designs\Variables\XPVariables.lua
 Designs\Variables\ComboVariables.lua
 Designs\Variables\Currency.lua
+Designs\Variables\BurningEmbersVariables.lua
+
 Designs\Variables\Auras\DpVariables.lua
 Designs\Variables\Auras\LunarVariables.lua
 Designs\Variables\Auras\MaelstromVariables.lua
