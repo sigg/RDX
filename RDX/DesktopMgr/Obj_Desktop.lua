@@ -1453,3 +1453,18 @@ VFLEvents:Bind("PLAYER_COMBAT", nil, function(flag)
 	end
 end);
 
+-----------------------------------------
+-- Hide desktop RDX in case of entering pet combat
+-----------------------------------------
+
+WoWEvents:Bind("PET_BATTLE_OPENING_START", nil, function()
+	RDXDK.HideRDX();
+end);
+
+WoWEvents:Bind("PET_BATTLE_OVER", nil, function()
+	RDXDK.ShowRDX();
+end);
+
+
+
+

@@ -10,8 +10,10 @@
 -------------------------------------------------------
 -- Show/hide entire desktop
 -------------------------------------------------------
+local flag = nil;
+
 function RDXDK.IsRDXHidden()
-	if RDXU then return RDXU.hidden; else return nil; end
+	return flag;
 end
 
 function RDXDK.ShowRDX()
@@ -20,7 +22,7 @@ function RDXDK.ShowRDX()
 		return; 
 	end
 	if (not RDXDK.IsRDXHidden()) then return; end
-	RDXU.hidden = nil;
+	flag = nil;
 	RDXParent:Show();
 end
 
@@ -30,12 +32,12 @@ function RDXDK.HideRDX()
 		return; 
 	end
 	if RDXDK.IsRDXHidden() then return; end
-	RDXU.hidden = true;
+	flag = true;
 	RDXParent:Hide();
 end
 
 function RDXDK.ToggleRDX()
-	if RDXDK.IsRDXHidden() then
+	if flag then
 		RDXDK.ShowRDX();
 	else
 		RDXDK.HideRDX();
@@ -43,6 +45,6 @@ function RDXDK.ToggleRDX()
 end
 
 -- /rdx show and /rdx hide
---RDXPM.RegisterSlashCommand("show", RDXDK.ShowRDX);
---RDXPM.RegisterSlashCommand("hide", RDXDK.HideRDX);
+RDXPM.RegisterSlashCommand("show", RDXDK.ShowRDX);
+RDXPM.RegisterSlashCommand("hide", RDXDK.HideRDX);
 

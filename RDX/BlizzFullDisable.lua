@@ -208,6 +208,7 @@ local function DisableAll()
 		MainMenuBarArtFrame:SetScript("OnUpdate", nil);
 		MainMenuBarArtFrame:Hide();
 		MainMenuBar_ToPlayerArt = VFL.Noop;
+		MoveMicroButtons = VFL.Noop;
 		
 		TalentMicroButton:UnregisterEvent("PLAYER_TALENT_UPDATE");
 		
