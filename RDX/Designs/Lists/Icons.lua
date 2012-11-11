@@ -26,6 +26,10 @@ function __CooldownIconOnLeave()
 	GameTooltip:Hide();
 end
 
+function __TotemIconOnClick(self)
+	DestroyTotem(self.id);
+end
+
 -----------------------------
 -- AURA ICONS
 -----------------------------
@@ -62,6 +66,9 @@ RDX.RegisterFeature({
 			if (not desc.number) or (not state:Slot("NumberVar_" .. desc.number)) then
 				VFL.AddError(errs, VFLI.i18n("Invalid number object pointer")); return nil;
 			end
+		end
+		if desc.ftype == 4 then
+			desc.nIcons = 4;
 		end
 		
 		if flg then state:AddSlot("Icons_" .. desc.name); end
@@ -251,8 +258,13 @@ color]] .. objname .. [[[3] = ]] .. Serialize(desc.color3) .. [[;
 color]] .. objname .. [[[4] = ]] .. Serialize(desc.color4) .. [[;
 color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 ]];
-		state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
-		
+			state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
+		elseif desc.ftype == 4 then
+			mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
+			smask = mux:GetPaintMask("TOTEM_UPDATE");
+			umask = mux:GetPaintMask("ENTERING_WORLD");
+			mux:Event_UnitMask("UNIT_TOTEM_UPDATE", smask);
+			mux:Event_UnitMask("UNIT_ENTERING_WORLD", umask);
 		end
 		
 		----------------- Creation
@@ -276,6 +288,15 @@ VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
 		if desc.ftype == 1 and not desc.disableClick then createCode = createCode .. [[
 btn:RegisterForClicks("RightButtonUp");
 btn:SetScript("OnClick", __AuraIconOnClick);
+]];
+		end
+		if desc.ftype == 4 and not desc.disableClick then createCode = createCode .. [[
+btn:RegisterForClicks("RightButtonUp");
+btn:SetScript("OnClick", __TotemIconOnClick);
+]];
+		end
+		if desc.ftype == 4 then createCode = createCode .. [[
+btn.id = i;
 ]];
 		end
 		if desc.disableClick then createCode = createCode .. [[
@@ -518,7 +539,7 @@ end
 
 		local paintCodeCd = [[
 if band(paintmask, ]] .. mask .. [[) ~= 0 then
-	_i, _j, _avail, _bn, _meta, _tex, _dur, _tl = 1, 1, nil, nil, nil, nil, nil;
+	_i, _j, _avail, _bn, _meta, _tex, _dur, _start = 1, 1, nil, nil, nil, nil, nil;
 	_icons = frame.]] .. objname .. [[;
 	while true do
 		if (_j > ]] .. desc.nIcons .. [[) then break; end
@@ -561,6 +582,18 @@ else
 end
 
 ]];
+		local paintCodeTotem = [[
+for i=1, 4 do
+	_avail, _bn, _start, _dur, _tex = GetTotemInfo(i);
+	if _avail then
+		frame.]] .. objname .. [[[i].tex:SetTexture(_tex);
+		frame.]] .. objname .. [[[i].cd:SetCooldown(_start, _dur);
+		frame.]] .. objname .. [[[i]:Show();
+	else
+		frame.]] .. objname .. [[[i]:Hide();
+	end
+end
+]];
 		if desc.test then
 			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCodeTest); end);
 		elseif desc.ftype == 1 then
@@ -569,6 +602,8 @@ end
 			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCodeCd); end);
 		elseif desc.ftype == 3 then
 			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCodeCustom); end);
+		elseif desc.ftype == 4 then
+			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCodeTotem); end);
 		end
 		------------------- Cleanup
 		local cleanupCode = [[
@@ -788,6 +823,8 @@ end
 		ftype_2:SetText(VFLI.i18n("Use Coodown Icons"));
 		local ftype_3 = ftype:CreateRadioButton(ui);
 		ftype_3:SetText(VFLI.i18n("Use Custom Icons"));
+		local ftype_4 = ftype:CreateRadioButton(ui);
+		ftype_4:SetText(VFLI.i18n("Use Totems Icons"));
 		ftype:SetValue(desc.ftype or 1);
 		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Aura Icons")));
@@ -972,6 +1009,11 @@ end
 		if desc and desc.color4 then color4:SetColor(VFL.explodeRGBA(desc.color4)); end
 		local color5 = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Texture 5 color"));
 		if desc and desc.color5 then color5:SetColor(VFL.explodeRGBA(desc.color5)); end
+		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Totems Icons")));
+		
+		ui:InsertFrame(ftype_4);
+		
 		
 		function ui:GetDescriptor()
 			local filterName, filterNameList, filternl, ext, filterNamecd, filterNameListcd, filternlcd, extcd, unitfi, maxdurfil, mindurfil = nil, nil, {}, nil, nil, nil, {}, nil, "", "", "";
