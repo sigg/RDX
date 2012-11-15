@@ -92,7 +92,6 @@ local FixCastbar = function(self)
 	self.spellIconRegion:ClearAllPoints()
 	self.spellIconRegion:SetPoint("RIGHT", self, "LEFT");
 	self.spellIconRegion:SetSize(15, 15);
-	
 	VFLUI.SetBackdrop(self, descn.bkd);
 end
 
@@ -103,7 +102,7 @@ local OnSizeChangedCB = function(self, width, height)
 end
 
 local OnShowCB = function(self)
-	if self.needFix then FixCastbar(self); self.needFix = nil; end
+	--if self.needFix then FixCastbar(self); self.needFix = nil; end
 	if self.shieldedRegion:IsShown() then
 		self:SetStatusBarColor(0.8, 0.05, 0);
 	end
@@ -215,8 +214,8 @@ function RDXDK.SetNameplate(desc)
 		end
 		if descn.bkd then
 			VFLUI.SetBackdrop(v.healthBar, descn.bkd);
-			if self.castBar and self.castBar:GetWidth() > 10 and self.castBar:GetHeight() > 10 then
-				VFLUI.SetBackdrop(self.castBar, descn.bkd);
+			if v.castBar and v.castBar:GetWidth() > 10 and v.castBar:GetHeight() > 10 then
+				VFLUI.SetBackdrop(v.castBar, descn.bkd);
 			end
 			--VFLUI.SetBackdrop(v.castBar, descn.bkd);
 		end

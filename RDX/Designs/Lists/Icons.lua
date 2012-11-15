@@ -37,7 +37,7 @@ RDX.RegisterFeature({
 	name = "listicons";
 	version = 1;
 	title = VFLI.i18n("Icons");
-	test = true;
+	--test = true;
 	category = VFLI.i18n("Lists");
 	multiple = true;
 	IsPossible = function(state)
@@ -452,42 +452,40 @@ frame.]] .. objname .. [[ = nil;
 	while true do
 		if (_j > ]] .. desc.nIcons .. [[) then break; end
 		_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = nil, true, nil, nil, {}, nil, "Interface\\Addons\\RDX\\Skin\\whackaMole", 6, nil, 60, nil, 50, true, true;
-		if not _meta then break; end
-		--if (not _meta.isInvisible) and ]] .. aurasfilter .. [[ and ]] .. isstealablefilter .. [[ and ]] .. curefilter .. [[ and ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
-			btn = _icons[_j];
-			if not btn:IsShown() then btn:Show(smooth); end
-			btn.meta = _meta;
-			btn.tex:SetTexture(_tex);
-			if _dispelt and DebuffTypeColor[_dispelt] then
-				if ]] .. driver .. [[ == 2 then
-					VFLUI.SetButtonSkinBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
-				elseif ]] .. driver .. [[ == 3 then
-					VFLUI.SetBackdropBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
-				end
-			else
-				if ]] .. driver .. [[ == 2 then
-					VFLUI.SetButtonSkinBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
-				elseif ]] .. driver .. [[ == 3 then
-					VFLUI.SetBackdropBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
-				end
-			end
-			-- Cooldown
-			if _dur and _dur > 0 and btn.cd then
-				btn.cd:SetCooldown(GetTime() + _tl - _dur , _dur);
-			else
-				btn.cd:SetCooldown(0, 0);
-			end
-			if _apps and (_apps > 1) then btn.sttxt:SetText(_apps); else btn.sttxt:SetText(""); end
-			
-			_j = _j + 1;
-		--end
-		_i = _i + 1;
-	end
-	while _j <= ]] .. desc.nIcons .. [[ do
 		btn = _icons[_j];
-		if btn:IsShown() then btn:Hide(]] .. smooth .. [[); end
+		if not btn:IsShown() then btn:Show(smooth); end
+		btn.meta = _meta;
+		btn.tex:SetTexture(_tex);
+		if _dispelt and DebuffTypeColor[_dispelt] then
+			if ]] .. driver .. [[ == 2 then
+				VFLUI.SetButtonSkinBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
+			elseif ]] .. driver .. [[ == 3 then
+				VFLUI.SetBackdropBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
+			end
+		else
+			if ]] .. driver .. [[ == 2 then
+				VFLUI.SetButtonSkinBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+			elseif ]] .. driver .. [[ == 3 then
+				VFLUI.SetBackdropBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+			end
+		end
+		-- Cooldown
+		if _dur and _dur > 0 and btn.cd then
+			btn.cd:SetCooldown(GetTime() + _tl - _dur , _dur);
+		else
+			btn.cd:SetCooldown(0, 0);
+		end
+		if _apps and (_apps > 1) then btn.sttxt:SetText(_apps); else btn.sttxt:SetText(""); end
+		
 		_j = _j + 1;
+		
+		--_i = _i + 1;
 	end
+	--while _j <= ]] .. desc.nIcons .. [[ do
+		--btn = _icons[_j];
+		--if btn:IsShown() then btn:Hide(]] .. smooth .. [[); end
+		--_j = _j + 1;
+	--end
 ]];
 
 		local paintCodeAura = [[
