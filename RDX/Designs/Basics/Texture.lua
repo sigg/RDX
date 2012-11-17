@@ -33,7 +33,7 @@ else
 	if btn:IsShown() then btn:Hide(); end
 end
 ]];
-	set = {class = "file", file = "default:set_blue"};
+	set = {class = "file", file = "sets:set_blue"};
 });
 
 RDX.RegisterTextureIndicator({
@@ -56,7 +56,7 @@ else
 	if btn:IsShown() then btn:Hide(); end
 end
 ]];
-	set = {class = "file", file = "default:set_red"};
+	set = {class = "file", file = "sets:set_red"};
 });
 
 RDX.RegisterTextureIndicator({
@@ -79,7 +79,7 @@ else
 	if btn:IsShown() then btn:Hide(); end
 end
 ]];
-	set = {class = "file", file = "default:set_green"};
+	set = {class = "file", file = "sets:set_green"};
 });
 
 RDX.RegisterTextureIndicator({
@@ -102,7 +102,7 @@ else
 	if btn:IsShown() then btn:Hide(); end
 end
 ]];
-	set = {class = "file", file = "default:set_yellow"};
+	set = {class = "file", file = "sets:set_yellow"};
 });
 
 ---------------------------------------------------------------
