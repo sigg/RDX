@@ -85,21 +85,32 @@ end
 --
 
 local FixCastbar = function(self)
+	self.count = self.count + 1;
 	self:ClearAllPoints();
 	self:SetPoint("TOP", self.healthBar, "BOTTOM", 0, -3);
-	self:SetHeight(10);
-	self:SetWidth(100);
+	if self:GetWidth() ~= 100 and self.count < 2 then
+		self:SetHeight(10);
+		self:SetWidth(100);
+		VFLUI.SetBackdrop(self, descn.bkd);
+	end
 	self.spellIconRegion:ClearAllPoints()
 	self.spellIconRegion:SetPoint("RIGHT", self, "LEFT");
 	self.spellIconRegion:SetSize(15, 15);
-	VFLUI.SetBackdrop(self, descn.bkd);
+	self.count = self.count - 1;
 end
+
 
 local OnSizeChangedCB = function(self, width, height)
 	if floor(height) ~= 10 or floor(width) ~= 100 then
 		self.needFix = true
 	end
 end
+
+--local OnSizeChangedCB = VFLT.CreatePeriodicLatch(0.2, function(self, width, height)
+--	if floor(height) ~= 10 or floor(width) ~= 100 then
+--		self.needFix = true
+--	end
+--end);
 
 local OnShowCB = function(self)
 	if self.needFix then FixCastbar(self); self.needFix = nil; end
@@ -174,9 +185,11 @@ local CreateNameplate = function(frame)
 		--VFLUI.SetBackdrop(castBar, descn.bkd);
 	end
 
+	castBar.count = 0;
 	castBar:HookScript("OnShow", OnShowCB)
 	castBar:HookScript("OnSizeChanged", OnSizeChangedCB)
 	castBar:HookScript("OnValueChanged", OnValueChangedCB)
+	
 
 	--castBar.time = castBar:CreateFontString(nil, "ARTWORK")
 	--castBar.time:SetPoint("RIGHT", castBar, "LEFT", pixelScale(-2), 0)
