@@ -3008,7 +3008,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "none",
+				["class"] = "empty",
 			},
 		};
 	end
@@ -3019,7 +3019,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "none",
+				["class"] = "empty",
 			},
 		};
 	end
@@ -3030,7 +3030,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "none",
+				["class"] = "empty",
 			},
 		};
 	end
@@ -3048,7 +3048,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "none",
+				["class"] = "empty",
 			},
 		};
 	end
@@ -3059,7 +3059,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "none",
+				["class"] = "empty",
 			},
 		};
 	end
@@ -3070,7 +3070,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "none",
+				["class"] = "empty",
 			},
 		};
 	end
@@ -3088,7 +3088,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "none",
+				["class"] = "empty",
 			},
 		};
 	end
@@ -3099,7 +3099,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "none",
+				["class"] = "empty",
 			},
 		};
 	end
@@ -3110,7 +3110,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "none",
+				["class"] = "empty",
 			},
 		};
 	end
@@ -3128,7 +3128,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "none",
+				["class"] = "empty",
 			},
 		};
 	end
@@ -3139,7 +3139,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "none",
+				["class"] = "empty",
 			},
 		};
 	end
@@ -3150,7 +3150,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 		mbo.data = {
 			"set",
 			{
-				["class"] = "none",
+				["class"] = "empty",
 			},
 		};
 	end
