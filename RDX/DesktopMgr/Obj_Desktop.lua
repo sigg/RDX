@@ -863,6 +863,7 @@ function RDXDK.Desktop:new(parent)
 	
 	local function ChangeState(value)
 		if framepropsroot then
+			RDX.printI(VFLI.i18n("Leave mode: ") .. RDXU.currentstate);
 		
 			--local tbl = framepropsroot.states[RDXU.currentstate].OnUnselect;
 			-- close windows
@@ -901,6 +902,7 @@ function RDXDK.Desktop:new(parent)
 			end
 			
 			RDXU.currentstate = value;
+			RDX.printI(VFLI.i18n("Enter mode: ") .. RDXU.currentstate);
 		end
 	end
 	
