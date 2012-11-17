@@ -47,8 +47,8 @@ local OnShow = function(self)
 
 	self.castBar:ClearAllPoints()
 	self.castBar:SetPoint("TOP", self.healthBar, "BOTTOM", 0, -5)
-	self.castBar:SetHeight(10);
-	self.castBar:SetWidth(100);
+	--self.castBar:SetHeight(10);
+	--self.castBar:SetWidth(100);
 
 	self.highlightRegion:ClearAllPoints();
 	self.highlightRegion:SetAllPoints(self.healthBar);
@@ -102,7 +102,7 @@ local OnSizeChangedCB = function(self, width, height)
 end
 
 local OnShowCB = function(self)
-	--if self.needFix then FixCastbar(self); self.needFix = nil; end
+	if self.needFix then FixCastbar(self); self.needFix = nil; end
 	if self.shieldedRegion:IsShown() then
 		self:SetStatusBarColor(0.8, 0.05, 0);
 	end
