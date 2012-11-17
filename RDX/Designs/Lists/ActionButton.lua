@@ -585,6 +585,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 				elseif desc.shader == 1 or desc.driver == 1 then
 					self.txtHotkey:SetTextColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
 				end
+				self.txtCount:SetText("");
 			end
 		end
 		-- Button Skin Hide
