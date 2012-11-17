@@ -201,6 +201,10 @@ RDX.RegisterFeature({
 		-- This variable will hold the frame pool for all unit frames associated to
 		-- this window.
 		local fp = nil;
+		
+		-- store un the state path
+		state:SetSlotValue("windowpath", state.path);
+		state:SetSlotValue("designpath", desc.design);
 
 		-- Load the functions from the design object provided by the user.
 		local path = desc.design;

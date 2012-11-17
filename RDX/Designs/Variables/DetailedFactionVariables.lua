@@ -2,6 +2,45 @@
 ---------------------------------------------
 -- Multi faction variable by Taelnia
 ---------------------------------------------
+local factionList = {};
+
+local function buildlist()
+	local start, finish, done = 1, GetNumFactions(), false;
+	local name, isHeader, isCollapsed;
+	local collapsedHeaders = {};
+
+	repeat
+	for i = start, finish do
+		name, _, _, _, _, _, _, _, isHeader, isCollapsed, _, _, _ = GetFactionInfo(i);
+
+		table.insert(factionList, { text = name, value = i });
+
+		if(isHeader and isCollapsed) then
+			collapsedHeaders[i] = true;
+			ExpandFactionHeader(i);
+			start = i + 1;
+			finish = GetNumFactions();
+			break;
+		end
+
+		if(i == finish) then done = true; end
+	end
+	until done == true
+
+	local playerFactionCount = GetNumFactions();
+
+	for i = playerFactionCount, 1, -1 do
+		if(collapsedHeaders[i] == true) then
+			CollapseFactionHeader(i);
+			collapsedHeaders[i] = nil;
+		end
+	end
+
+	return factionList;
+end
+
+
+
 
 RDX.RegisterFeature({
 	name = "Variables: Detailed Faction Info";
@@ -27,6 +66,38 @@ RDX.RegisterFeature({
 	end;
       
 	ApplyFeature = function(desc, state)
+		
+		local winpath = state:GetContainingWindowState():GetSlotValue("windowpath");
+		local designpath = state:GetContainingWindowState():GetSlotValue("designpath");
+		
+		local factionMenu = RDXPM.Menu:new();
+		local list = buildlist();
+		for k,v in pairs(list) do
+			factionMenu:RegisterMenuFunction(function(ent)
+				ent.text = v.text;
+				ent.OnClick = function()
+					--v.value
+					local x = RDXDB.GetObjectData(designpath); 
+					if x then
+						local feat = RDXDB.HasFeature(x.data, "Variables: Detailed Faction Info", name, desc.name);
+						if feat then
+							feat.factionName = v.text;
+							feat.factionID = v.value;
+						end
+						RDXDK._AsyncRebuildWindowRDX(winpath);
+					end					
+					VFL.poptree:Release();
+				end;
+			end);
+		end
+		state:GetContainingWindowState():Attach("Menu", true, function(win, mnu)
+			table.insert(mnu, {
+				text = VFLI.i18n("Change faction");
+				isSubmenu = true;
+				OnClick = function(self) factionMenu:Open(nil, self, nil, nil, nil, VFL.poptree, 20); end
+			});
+		end);
+	
 		state:Attach(state:Slot("EmitClosure"), true, function(code) code:AppendCode([[
 local reputationColor_cf = {};
 reputationColor_cf[0] = ]] .. Serialize(desc.colorUnknown) .. [[;
@@ -58,40 +129,6 @@ end
 		mux:Event_MaskAll("UNIT_FACTION", 2);
 	end;
 	UIFromDescriptor = function(desc, parent, state)
-		local start, finish, done = 1, GetNumFactions(), false;
-		local name, isHeader, isCollapsed;
-		local collapsedHeaders = {};
-		
-		local factionList = {};
-		repeat
-		for i = start, finish do
-			name, _, _, _, _, _, _, _, isHeader, isCollapsed, _, _, _ = GetFactionInfo(i);
-		
-			table.insert(factionList, { text = name, id = i });
-		
-			if(isHeader and isCollapsed) then
-				collapsedHeaders[i] = true;
-				ExpandFactionHeader(i);
-				start = i + 1;
-				finish = GetNumFactions();
-				break;
-			end
-		
-			if(i == finish) then done = true; end
-		end
-		until done == true
-		
-		local playerFactionCount = GetNumFactions();
-		
-		for i = playerFactionCount, 1, -1 do
-			if(collapsedHeaders[i] == true) then
-				CollapseFactionHeader(i);
-				collapsedHeaders[i] = nil;
-			end
-		end
-		
-		start, finish, done, name, isHeader, isCollapsed, collapsedHeaders = nil, nil, nil, nil, nil, nil ,nil;
-		
 		local ui = VFLUI.CompoundFrame:new(parent);
 		
 		local iname = VFLUI.LabeledEdit:new(ui, 180);
@@ -101,12 +138,10 @@ end
 		ui:InsertFrame(iname);
 		
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Faction:"));
-		local dd_factionList = VFLUI.Dropdown:new(er, function() return factionList; end);
+		local dd_factionList = VFLUI.Dropdown:new(er, buildlist);
 		dd_factionList:SetWidth(180); dd_factionList:Show();
 		if desc and desc.factionName then
-			dd_factionList:SetSelection(desc.factionName);
-		else
-			dd_factionList:SetSelection("Other");
+			dd_factionList:SetSelection(desc.factionName, desc.factionID, true);
 		end
 		er:EmbedChild(dd_factionList); er:Show();
 		ui:InsertFrame(er);
@@ -175,16 +210,7 @@ end
 		ui:InsertFrame(er);
 		
 		function ui:GetDescriptor()
-			local facName = dd_factionList:GetSelection();
-			local facID = 0;
-		
-			for index, value in pairs(factionList) do
-				if value.text == facName then
-				facID = value.id;
-				break;
-				end
-			end
-		
+			local facName, facID = dd_factionList:GetSelection();
 			return {
 				feature = VFLI.i18n("Variables: Detailed Faction Info");
 				name = iname.editBox:GetText();
@@ -202,8 +228,6 @@ end
 			};
 		end
 		
-		ui.Destroy = VFL.hook(function(s) s.GetDescriptor = nil; for index, value in pairs(factionList) do value.text = nil; value.id = nil; factionList[index] = nil; end factionList = nil; end, ui.Destroy);
-	
 		return ui;
 	end;
 	CreateDescriptor = function()

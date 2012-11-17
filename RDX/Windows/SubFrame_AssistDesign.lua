@@ -43,6 +43,10 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		local path = desc.design;
+		-- store un the state path
+		state:SetSlotValue("windowpath", state.path);
+		state:SetSlotValue("designpath", desc.design);
+		
 		local desPkg, desFile = RDXDB.ParsePath(desc.design);
 		local showAssist, showTT = desc.showAssist, desc.showTT;
 		-- Load the functions from the design object provided by the user.
