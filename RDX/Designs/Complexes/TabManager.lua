@@ -49,6 +49,16 @@ if not RDXDB.PathHasInstance("]] .. desc.cfm .. [[") then
 	--tm.tabbox:GetTabBar():SetBackdropTab(]] .. Serialize(desc.bkd) .. [[);
 	--tm.tabbox:GetTabBar():SetFontTab(]] .. Serialize(desc.font) .. [[);
 	frame.]] .. objname .. [[ = tm;
+else
+	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+	btn = VFLUI.AcquireFrame("Frame");
+	btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
+	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
+	VFLUI.SetBackdrop(btn, ]] .. Serialize(desc.bkd) .. [[);
+	btn:Show();
+	btn.error = true;
+	frame.]] .. objname .. [[ = btn;
 end
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
@@ -57,7 +67,12 @@ end
 		local destroyCode = [[
 local tm = frame.]] .. objname .. [[;
 if tm then
-	RDXDB._RemoveInstance("]] .. desc.cfm .. [[");
+	if tm.error then
+		tm.error = nil;
+		tm:Destroy();
+	else
+		RDXDB._RemoveInstance("]] .. desc.cfm .. [[");
+	end
 	frame.]] .. objname .. [[ = nil;
 end
 ]];

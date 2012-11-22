@@ -35,7 +35,9 @@ local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 		if curClient then curClient:Hide(); end
 		curClient = cli;
 		if not cli then return; end
-		cli:SetParent(self);	cli:ClearAllPoints();
+		cli:SetParent(self);
+		cli:SetFrameLevel(self:GetFrameLevel() + 2);
+		cli:ClearAllPoints();
 		if orientation == "TOP" then
 			cli:SetPoint("TOPLEFT", self, "TOPLEFT", 0, -tabHeight-offsety);
 		elseif orientation == "BOTTOM" then
