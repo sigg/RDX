@@ -698,9 +698,11 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButton" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButton" .. self.id);
 	
-	VFLT.NextFrame(math.random(10000000), function()
-		UpdateKeyBinding();
-	end);
+	--VFLT.NextFrame(math.random(10000000), function()
+		--if UpdateKeyBinding then
+			--UpdateKeyBinding();
+		--end
+	--end);
 	
 	-------------------------- init
 	function self:Init()
@@ -728,7 +730,6 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 		UpdateCooldown = nil;
 		UpdateAction = nil;
 		UpdateNewAction = nil;
-		UpdateKeyBinding = nil;
 		VFLUI.ReleaseRegion(s.txtCount); s.txtCount = nil;
 		VFLUI.ReleaseRegion(s.txtMacro); s.txtMacro = nil;
 		VFLUI.ReleaseRegion(s.txtHotkey); s.txtHotkey = nil;
@@ -1055,9 +1056,9 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingmulticastButton" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingmulticastButton" .. self.id);
 	
-	VFLT.NextFrame(math.random(10000000), function()
-		UpdateKeyBinding();
-	end);
+	--VFLT.NextFrame(math.random(10000000), function()
+	--	UpdateKeyBinding();
+	--end);
 	
 	-------------------------- init
 	function self:Init()
@@ -1084,7 +1085,6 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 		UpdateCooldown = nil;
 		UpdateAction = nil;
 		UpdateNewAction = nil;
-		UpdateKeyBinding = nil;
 		VFLUI.ReleaseRegion(s.txtCount); s.txtCount = nil;
 		VFLUI.ReleaseRegion(s.txtMacro); s.txtMacro = nil;
 		VFLUI.ReleaseRegion(s.txtHotkey); s.txtHotkey = nil;
@@ -1439,9 +1439,9 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButtonPet" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButtonPet" .. self.id);
 	
-	VFLT.NextFrame(math.random(10000000), function()
-		UpdateKeyBinding();
-	end);
+	--VFLT.NextFrame(math.random(10000000), function()
+		--UpdateKeyBinding();
+	--end);
 	
 	-------------------------- init
 	function self:Init()
@@ -1719,9 +1719,9 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButtonStance" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButtonStance" .. self.id);
 	
-	VFLT.NextFrame(math.random(10000000), function()
-		UpdateKeyBinding();
-	end);
+	--VFLT.NextFrame(math.random(10000000), function()
+	--	UpdateKeyBinding();
+	--end);
 	
 	-------------------------- init
 	function self:Init()
@@ -1829,12 +1829,11 @@ function RDXUI.ActionButtonTest:new(parent, id, statesString, desc)
 	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
 	
 	function self:Init()
-		self.cd:SetCooldown(GetTime() + 60 - 120, 120);
+		self.cd:SetCooldown(0,0);
 		self.cd:Show();
 		self.txtHotkey:SetText("1");
 		self.icon:SetTexture("Interface\\Addons\\RDX\\Skin\\whackaMole");
 		self.txtHotkey:Show();
-		self:bsShow();
 	end
 	
 	self.Destroy = VFL.hook(function(s)
@@ -1973,7 +1972,6 @@ function RDXUI.VehicleButton:new(parent, id, statesString, desc)
 	
 	-- use when drag new action binding
 	local function UpdateAction(arg1)
-		VFL.print(arg1);
 		if arg1 == "player" then UpdateNewAction(); end
 	end
 	
@@ -2035,9 +2033,9 @@ function RDXUI.VehicleButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButtonVehicle" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButtonVehicle" .. self.id);
 	
-	VFLT.NextFrame(math.random(10000000), function()
-		UpdateKeyBinding();
-	end);
+	--VFLT.NextFrame(math.random(10000000), function()
+	--	UpdateKeyBinding();
+	--end);
 	
 	-------------------------- init
 	function self:Init()
