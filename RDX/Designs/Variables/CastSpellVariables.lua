@@ -100,46 +100,46 @@ local _fnames = ]];
 
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-local spell_channeled, spell_casting, spell_castingOrChanneled, spell_name_rank, vertical_spell_name_rank, spell_duration, spell_color = nil, nil, nil, "", "", 0, _alphafull;
-local spell_name, spell_rank, spell_fullname, spell_icon, spell_start, spell_end, spell_istradeskill, _, spell_notinterruptible = UnitCastingInfo(uid);
-if not spell_name then
-	spell_name, spell_rank, spell_fullname, spell_icon, spell_start, spell_end, spell_istradeskill, spell_notinterruptible = UnitChannelInfo(uid);
-	if spell_name and ]] .. namefilter .. [[ then
-		spell_channeled = true;
-		spell_castingOrChanneled = true;
-		spell_color = spColor_cf[2];
-	end
-else
-	if ]] .. namefilter .. [[ then
-		spell_casting = true;
-		spell_castingOrChanneled = true;
-		spell_color = spColor_cf[1];
-	end
-end
-if spell_castingOrChanneled then
-	spell_start = spell_start / 1000;
-	spell_end = spell_end / 1000;
-	spell_duration = spell_end - spell_start;
-	if spell_istradeskill then spell_color = spColor_cf[3];
-	elseif not spell_notinterruptible and UnitIsEnemy("player", uid) then spell_color = spColor_cf[4];
-	end
-else
-	spell_casting = nil; spell_casting = nil; spell_castingOrChanneled = nil;
-	spell_name = ""; spell_start = 0; spell_duration = 0; spell_color = _alphafull;
-end
-if spell_name and spell_name ~= "" then
-	spell_name_rank = spell_name;
-	vertical_spell_name_rank = spell_name;
-	vertical_spell_name_rank = string.gsub(vertical_spell_name_rank, "[^A-Z:0-9.]","")
-	if string.len(vertical_spell_name_rank) > 5 then
-		vertical_spell_name_rank = string.sub(vertical_spell_name_rank,1,5);
-	end
-	local vtext = "";
-	for i=1,string.len(vertical_spell_name_rank) do
-		vtext = vtext..string.sub(vertical_spell_name_rank,i,i).."\n";
-	end
-	vertical_spell_name_rank = vtext;
-end
+		local spell_channeled, spell_casting, spell_castingOrChanneled, spell_name_rank, vertical_spell_name_rank, spell_duration, spell_color = nil, nil, nil, "", "", 0, _alphafull;
+		local spell_name, spell_rank, spell_fullname, spell_icon, spell_start, spell_end, spell_istradeskill, _, spell_notinterruptible = UnitCastingInfo(uid);
+		if not spell_name then
+			spell_name, spell_rank, spell_fullname, spell_icon, spell_start, spell_end, spell_istradeskill, spell_notinterruptible = UnitChannelInfo(uid);
+			if spell_name and ]] .. namefilter .. [[ then
+				spell_channeled = true;
+				spell_castingOrChanneled = true;
+				spell_color = spColor_cf[2];
+			end
+		else
+			if ]] .. namefilter .. [[ then
+				spell_casting = true;
+				spell_castingOrChanneled = true;
+				spell_color = spColor_cf[1];
+			end
+		end
+		if spell_castingOrChanneled then
+			spell_start = spell_start / 1000;
+			spell_end = spell_end / 1000;
+			spell_duration = spell_end - spell_start;
+			if spell_istradeskill then spell_color = spColor_cf[3];
+			elseif not spell_notinterruptible and UnitIsEnemy("player", uid) then spell_color = spColor_cf[4];
+			end
+		else
+			spell_casting = nil; spell_casting = nil; spell_castingOrChanneled = nil;
+			spell_name = ""; spell_start = 0; spell_duration = 0; spell_color = _alphafull;
+		end
+		if spell_name and spell_name ~= "" then
+			spell_name_rank = spell_name;
+			vertical_spell_name_rank = spell_name;
+			vertical_spell_name_rank = string.gsub(vertical_spell_name_rank, "[^A-Z:0-9.]","")
+			if string.len(vertical_spell_name_rank) > 5 then
+				vertical_spell_name_rank = string.sub(vertical_spell_name_rank,1,5);
+			end
+			local vtext = "";
+			for i=1,string.len(vertical_spell_name_rank) do
+				vtext = vtext..string.sub(vertical_spell_name_rank,i,i).."\n";
+			end
+			vertical_spell_name_rank = vtext;
+		end
 ]]);
 		end);
 

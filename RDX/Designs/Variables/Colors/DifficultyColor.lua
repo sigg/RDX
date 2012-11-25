@@ -19,7 +19,9 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
-			code:AppendCode("local difficultyColor = GetQuestDifficultyColor(UnitLevel(uid));");
+			code:AppendCode([[
+		local difficultyColor = GetQuestDifficultyColor(UnitLevel(uid));
+]]);
 		end);
 	end;
 	UIFromDescriptor = VFL.Nil;

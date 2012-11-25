@@ -42,9 +42,9 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 		code:AppendCode([[
-local currentAmount,fractional = unit:FracCurrency(]] .. desc.currencyid .. [[,]] .. desc.currencytotalamount .. [[);
-local ]] .. desc.name .. [[ = fractional
-local ]] .. desc.name .. [[txt = string.format("%0.0f%% | %s / %s", (currentAmount/]] .. desc.currencytotalamount .. [[)*100, currentAmount, ]] .. desc.currencytotalamount .. [[);
+		local currentAmount,fractional = unit:FracCurrency(]] .. desc.currencyid .. [[,]] .. desc.currencytotalamount .. [[);
+		local ]] .. desc.name .. [[ = fractional
+		local ]] .. desc.name .. [[txt = string.format("%0.0f%% | %s / %s", (currentAmount/]] .. desc.currencytotalamount .. [[)*100, currentAmount, ]] .. desc.currencytotalamount .. [[);
 ]]);
 		end);
 		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");

@@ -39,20 +39,20 @@ raColor_cf[4] = ]] .. Serialize(desc.raColor4) .. [[;
 		-- On paint preamble, create flag and grade variables
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-local rangeColor, rangeFrac = raColor_cf[1], 1;
-if st1:IsMember(unit) then
-	rangeColor = raColor_cf[1];
-	rangeFrac = 1;
-elseif st2:IsMember(unit) then
-	rangeColor = raColor_cf[2];
-	rangeFrac = 0.66;
-elseif st3:IsMember(unit) then
-	rangeColor = raColor_cf[3];
-	rangeFrac = 0.33;
-elseif st4:IsMember(unit) then
-	rangeColor = raColor_cf[4];
-	rangeFrac = 0;
-end
+		local rangeColor, rangeFrac = raColor_cf[1], 1;
+		if st1:IsMember(unit) then
+			rangeColor = raColor_cf[1];
+			rangeFrac = 1;
+		elseif st2:IsMember(unit) then
+			rangeColor = raColor_cf[2];
+			rangeFrac = 0.66;
+		elseif st3:IsMember(unit) then
+			rangeColor = raColor_cf[3];
+			rangeFrac = 0.33;
+		elseif st4:IsMember(unit) then
+			rangeColor = raColor_cf[4];
+			rangeFrac = 0;
+		end
 ]]);
 		end);
 		-- Event hint: update on sort.

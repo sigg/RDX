@@ -142,86 +142,78 @@ RDX.RegisterFeature({
 		
 		------------------ On frame creation
 		local createCode = [[
--- variables
-local abid = ]] .. abid .. [[;
-local btnOwner = ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
--- Main variable frame.
-frame.]] .. objname .. [[ = {};
-
--- parent frame
-local h = nil;
+	local abid = ]] .. abid .. [[;
+	btnOwner = ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+	frame.]] .. objname .. [[ = {};
+	local h = nil;
 ]];
 		if desc.test then
 			createCode = createCode .. [[
-h = VFLUI.AcquireFrame("Frame");
+	h = VFLUI.AcquireFrame("Frame");
 ]];
 		elseif desc.ftype == 1 and useheader then
 			createCode = createCode .. [[
-h = __RDXCreateHeaderHandlerAttribute(]] .. headerstate .. [[, ]] .. headervis .. [[);
+	h = __RDXCreateHeaderHandlerAttribute(]] .. headerstate .. [[, ]] .. headervis .. [[);
 ]];
 		elseif desc.ftype == 2 and useheader then
 			createCode = createCode .. [[
-h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
+	h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
 ]];
 		elseif desc.ftype == 3 and useheader then
 			createCode = createCode .. [[
-h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
+	h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
 ]];
 		elseif desc.ftype == 4 and useheader then
 			createCode = createCode .. [[
-h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
+	h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
 ]];
 		else
 			createCode = createCode .. [[
-h = VFLUI.AcquireFrame("Frame");
+	h = VFLUI.AcquireFrame("Frame");
 ]];
 		end
 
 		createCode = createCode .. [[
-h:Show();
-VFLUI.StdSetParent(h, btnOwner);
-h:SetFrameLevel(btnOwner:GetFrameLevel() + ]] .. flo .. [[);
-
--- Create buttons
-for i=1, ]] .. desc.nIcons .. [[ do
+	h:Show();
+	VFLUI.StdSetParent(h, btnOwner);
+	h:SetFrameLevel(btnOwner:GetFrameLevel() + ]] .. flo .. [[);
+	for i=1, ]] .. desc.nIcons .. [[ do
 ]];
 		if desc.test then
 			createCode = createCode .. [[
-	btn = RDXUI.ActionButtonTest:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
+		btn = RDXUI.ActionButtonTest:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
 ]];
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtHotkey", desc.fontkey, nil, true);
 		elseif desc.ftype == 1 then
 			createCode = createCode .. [[
-	btn = RDXUI.ActionButton:new(h, abid, "]] .. headerstate .. [[", ]] .. Serialize(desc) .. [[);
+		btn = RDXUI.ActionButton:new(h, abid, "]] .. headerstate .. [[", ]] .. Serialize(desc) .. [[);
 ]];
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtCount", desc.fontcount, nil, true);
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtMacro", desc.fontmacro, nil, true);
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtHotkey", desc.fontkey, nil, true);
 		elseif desc.ftype == 2 then
 			createCode = createCode .. [[
-	btn = RDXUI.PetActionButton:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
+		btn = RDXUI.PetActionButton:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
 ]];
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtHotkey", desc.fontkey, nil, true);
 		elseif desc.ftype == 3 then
 			createCode = createCode .. [[
-	btn = RDXUI.StanceButton:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
+		btn = RDXUI.StanceButton:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
 ]];
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtHotkey", desc.fontkey, nil, true);
 		elseif desc.ftype == 4 then
 			createCode = createCode .. [[
-	btn = RDXUI.VehicleButton:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
+		btn = RDXUI.VehicleButton:new(h, abid, nil, ]] .. Serialize(desc) .. [[);
 ]];
 			createCode = createCode .. VFLUI.GenerateSetFontCode("btn.txtHotkey", desc.fontkey, nil, true);
 		end
 		createCode = createCode .. [[
-	btn:Show();
-	if btn.Init then btn:Init(); end
-	frame.]] .. objname .. [[[i] = btn;
-	abid = abid + 1;
-end
-
-frame.]] .. objname .. [[header = h;
-
+		btn:Show();
+		if btn.Init then btn:Init(); end
+		frame.]] .. objname .. [[[i] = btn;
+		abid = abid + 1;
+	end
+	frame.]] .. objname .. [[header = h;
 ]];
 		createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
@@ -230,13 +222,13 @@ frame.]] .. objname .. [[header = h;
 		
 		------------------ On frame destruction.
 		local destroyCode = [[
-for i=1, ]] .. desc.nIcons .. [[ do
-	btn = frame.]] .. objname .. [[[i];
-	if btn then btn:ClearAllPoints(); btn:Hide(); btn:Destroy(); btn = nil; end
-end
-frame.]] .. objname .. [[header:Destroy();
-frame.]] .. objname .. [[header = nil;
-frame.]] .. objname .. [[ = nil;
+		for i=1, ]] .. desc.nIcons .. [[ do
+			btn = frame.]] .. objname .. [[[i];
+			if btn then btn:ClearAllPoints(); btn:Hide(); btn:Destroy(); btn = nil; end
+		end
+		frame.]] .. objname .. [[header:Destroy();
+		frame.]] .. objname .. [[header = nil;
+		frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 

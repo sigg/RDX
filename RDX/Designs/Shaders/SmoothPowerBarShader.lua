@@ -95,21 +95,21 @@ local ftc_]] .. objname .. [[ = RDX.CreateSPBClass(]] .. sbPresent .. [[,]] .. t
 		--- Creation
 		-- The shader is just a frame with an OnUpdate routine that updates the linked objects.
 		local createCode = [[
-frame.]] .. objname .. [[ = ftc_]] .. objname .. [[(frame, ]] .. sb .. [[, ]] .. txt .. [[);
+	frame.]] .. objname .. [[ = ftc_]] .. objname .. [[(frame, ]] .. sb .. [[, ]] .. txt .. [[);
 ]];
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 
 		--- Paint
 		local paintCode = [[
-if not frame.]] .. objname .. [[:IsStart() then
-	frame.]] .. objname .. [[:Start(unit);
-end
+		if not frame.]] .. objname .. [[:IsStart() then
+			frame.]] .. objname .. [[:Start(unit);
+		end
 ]];
 		state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCode); end);
 
 		--- Destruction
 		local destroyCode = [[
-frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
+		frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);
 		

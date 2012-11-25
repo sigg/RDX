@@ -77,30 +77,30 @@ RDX.RegisterFeature({
 	
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-local ]] .. desc.name .. [[ = nil;
-_i = UnitThreatSituation(]] .. unit .. [[, ]] .. unitother .. [[);
-if ]] .. usecustomcolor .. [[ then
-	if _i == 0 then
-		]] .. desc.name .. [[ = ]] .. colorVar0 .. [[;
-	elseif _i == 1 then
-		]] .. desc.name .. [[ = ]] .. colorVar1 .. [[;
-	elseif _i == 2 then
-		]] .. desc.name .. [[ = ]] .. colorVar2 .. [[;
-	elseif _i == 3 then
-		]] .. desc.name .. [[ = ]] .. colorVar3 .. [[;
-	else
-		]] .. desc.name .. [[ = ]] .. colorVar0 .. [[;
-	end
-else 
-	if ]] .. usealpha .. [[ and (not _i or _i == 0) then
-		]] .. desc.name .. [[ = _alphafull;
-	elseif ]] .. useblack .. [[ and (not _i or _i == 0) then
-		]] .. desc.name .. [[ = _black;
-	else
-		tempcolor.r, tempcolor.g, tempcolor.b = GetThreatStatusColor(_i);
-		]] .. desc.name .. [[ = tempcolor;
-	end
-end
+		local ]] .. desc.name .. [[ = nil;
+		_i = UnitThreatSituation(]] .. unit .. [[, ]] .. unitother .. [[);
+		if ]] .. usecustomcolor .. [[ then
+			if _i == 0 then
+				]] .. desc.name .. [[ = ]] .. colorVar0 .. [[;
+			elseif _i == 1 then
+				]] .. desc.name .. [[ = ]] .. colorVar1 .. [[;
+			elseif _i == 2 then
+				]] .. desc.name .. [[ = ]] .. colorVar2 .. [[;
+			elseif _i == 3 then
+				]] .. desc.name .. [[ = ]] .. colorVar3 .. [[;
+			else
+				]] .. desc.name .. [[ = ]] .. colorVar0 .. [[;
+			end
+		else 
+			if ]] .. usealpha .. [[ and (not _i or _i == 0) then
+				]] .. desc.name .. [[ = _alphafull;
+			elseif ]] .. useblack .. [[ and (not _i or _i == 0) then
+				]] .. desc.name .. [[ = _black;
+			else
+				tempcolor.r, tempcolor.g, tempcolor.b = GetThreatStatusColor(_i);
+				]] .. desc.name .. [[ = tempcolor;
+			end
+		end
 ]]);
 		end);
 		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");

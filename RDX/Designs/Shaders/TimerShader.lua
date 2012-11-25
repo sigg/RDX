@@ -304,29 +304,29 @@ local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(]] .. sbPresent .
 		--- Creation
 		-- The free timer is just a frame with an OnUpdate routine that updates the linked objects.
 		local createCode = [[
-frame.]] .. objname .. [[ = ftc_]] .. objname .. [[(frame, ]] .. sb .. [[, ]] .. textTimer .. [[, ]] .. textInfo .. [[, ]] .. texIcon .. [[, ]] .. Serialize(desc.color1) .. [[, ]] .. Serialize(desc.color2) .. [[);
+	frame.]] .. objname .. [[ = ftc_]] .. objname .. [[(frame, ]] .. sb .. [[, ]] .. textTimer .. [[, ]] .. textInfo .. [[, ]] .. texIcon .. [[, ]] .. Serialize(desc.color1) .. [[, ]] .. Serialize(desc.color2) .. [[);
 ]];
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 
 		--- Paint
 		local paintCode = [[
-frame.]] .. objname .. [[:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
+		frame.]] .. objname .. [[:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
 ]];
 if desc.sbblendcolor then 
 		paintCode = paintCode .. [[
-frame.]] .. objname .. [[:SetSBBlendColor(]] .. desc.sbcolorVar1 .. [[, ]] .. desc.sbcolorVar2 .. [[);
+		frame.]] .. objname .. [[:SetSBBlendColor(]] .. desc.sbcolorVar1 .. [[, ]] .. desc.sbcolorVar2 .. [[);
 ]];
 end
 		paintCode = paintCode .. [[
-frame.]] .. objname .. [[:SetVariableColor(]] .. stackVar .. [[);
-frame.]] .. objname .. [[:SetData(]] .. textInfodata .. [[, ]] .. texIcondata .. [[);
-frame.]] .. objname .. [[:SetTimer(]] .. desc.timerVar .. [[_start, ]] .. desc.timerVar .. [[_duration);
+		frame.]] .. objname .. [[:SetVariableColor(]] .. stackVar .. [[);
+		frame.]] .. objname .. [[:SetData(]] .. textInfodata .. [[, ]] .. texIcondata .. [[);
+		frame.]] .. objname .. [[:SetTimer(]] .. desc.timerVar .. [[_start, ]] .. desc.timerVar .. [[_duration);
 ]];
 		state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCode); end);
 
 		--- Destruction
 		local destroyCode = [[
-frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
+		frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);
 

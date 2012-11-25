@@ -112,17 +112,17 @@ reputationColor_cf[8] = ]] .. Serialize(desc.colorExalted) .. [[;
 ]]);
 		end);
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code) code:AppendCode([[
-local ]] .. desc.name .. [[, ]] .. desc.name .. [[txt, ]] .. desc.name .. [[cv = 0, "", Serialize({r=0.5,g=0.5,b=0.5,a=1});
-if(]] .. desc.factionID .. [[ > 0) then
-	local name,_, repstanding, repmin, repmax, repvalue = GetFactionInfo(]] .. desc.factionID .. [[);
-	if name and repvalue then
-		local crep = repvalue - repmin;
-		local cmax = repmax - repmin;
-		]] .. desc.name .. [[ = crep / cmax;
-		]] .. desc.name .. [[txt = name .. ": ".. crep .. "/".. cmax .. " ".. floor((crep/cmax) *100) .."%";
-		]] .. desc.name .. [[cv = reputationColor_cf[repstanding];
-	end
-end
+		local ]] .. desc.name .. [[, ]] .. desc.name .. [[txt, ]] .. desc.name .. [[cv = 0, "", Serialize({r=0.5,g=0.5,b=0.5,a=1});
+		if(]] .. desc.factionID .. [[ > 0) then
+			local name,_, repstanding, repmin, repmax, repvalue = GetFactionInfo(]] .. desc.factionID .. [[);
+			if name and repvalue then
+				local crep = repvalue - repmin;
+				local cmax = repmax - repmin;
+				]] .. desc.name .. [[ = crep / cmax;
+				]] .. desc.name .. [[txt = name .. ": ".. crep .. "/".. cmax .. " ".. floor((crep/cmax) *100) .."%";
+				]] .. desc.name .. [[cv = reputationColor_cf[repstanding];
+			end
+		end
 ]]); 
 		end);
 		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");

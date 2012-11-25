@@ -39,16 +39,16 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local tname = RDXUI.ResolveTextureReference(desc.texture);
 		local paintCode = [[
-if ]] .. desc.flag .. [[ then
-	]] .. tname .. [[:Show();
-	]] .. tname .. [[:SetVertexColor(explodeRGBA(]] .. desc.color .. [[));
-end
+		if ]] .. desc.flag .. [[ then
+			]] .. tname .. [[:Show();
+			]] .. tname .. [[:SetVertexColor(explodeRGBA(]] .. desc.color .. [[));
+		end
 ]];
 		-- If there's not already a highlight preamble for this texture, add it.
 		if not state:Slot("__Hlt_Preamble_" .. desc.texture) then
 			state:AddSlot("__Hlt_Preamble_" .. desc.texture);
 			state:Attach("EmitPaintPreamble", true, function(code) code:AppendCode([[
-]] .. tname .. [[:Hide();
+		]] .. tname .. [[:Hide();
 ]]);
 			end);
 		end
@@ -109,7 +109,7 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local tname = RDXUI.ResolveTextureReference(desc.texture);
 		local paintCode = [[
-]] .. tname .. [[:SetVertexColor(explodeRGBA(]] .. desc.color .. [[));
+		]] .. tname .. [[:SetVertexColor(explodeRGBA(]] .. desc.color .. [[));
 ]];
 		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 	end;
@@ -164,7 +164,7 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local tname = RDXUI.ResolveTextureReference(desc.texture);
 		local paintCode = [[
-]] .. tname .. [[:SetTexture(]] .. desc.var .. [[);
+		]] .. tname .. [[:SetTexture(]] .. desc.var .. [[);
 ]];
 		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 	end;

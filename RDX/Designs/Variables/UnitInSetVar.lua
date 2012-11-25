@@ -46,11 +46,11 @@ if not ]] .. desc.name .. [[:IsOpen() then ]] .. desc.name .. [[:Open(); end
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 		if desc.test then
 			code:AppendCode([[
-local ]] .. desc.name .. [[_flag = true;
+		local ]] .. desc.name .. [[_flag = true;
 ]]);
 		else
 			code:AppendCode([[
-local ]] .. desc.name .. [[_flag = ]] .. desc.name .. [[:IsMember(unit);
+		local ]] .. desc.name .. [[_flag = ]] .. desc.name .. [[:IsMember(unit);
 ]]);
 		end
 		end);
@@ -139,11 +139,11 @@ if not ]] .. desc.name .. [[:IsOpen() then ]] .. desc.name .. [[:Open(); end
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 		if desc.test then
 			code:AppendCode([[
-local ]] .. desc.name .. [[_flag = true;
+		local ]] .. desc.name .. [[_flag = true;
 ]]);
 		else
 			code:AppendCode([[
-local ]] .. desc.name .. [[_flag = ]] .. desc.name .. [[:IsEmpty();
+		local ]] .. desc.name .. [[_flag = ]] .. desc.name .. [[:IsEmpty();
 ]]);
 		end
 		end);

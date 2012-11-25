@@ -23,12 +23,12 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code) code:AppendCode([[
-local b]] .. desc.name .. [[, ]] .. desc.name .. [[, ]] .. desc.name .. [[_max, ]] .. desc.name .. [[_total = unit:GetTableMeterInfo("]] .. desc.tablemeter .. [[");
-local ]] .. desc.name .. [[_text, f]] .. desc.name .. [[ = "", 0;
-if ]] .. desc.name .. [[ and (]] .. desc.name .. [[ > 0) then
-	]] .. desc.name .. [[_text = ]] .. desc.name .. [[ .. " / " .. strformat("%.1f", VFL.clamp(]] .. desc.name .. [[/]] .. desc.name .. [[_total, 0, 1) * 100) .. "%";
-	f]] .. desc.name .. [[ = VFL.clamp(]] .. desc.name .. [[/]] .. desc.name .. [[_max, 0, 1);
-end
+		local b]] .. desc.name .. [[, ]] .. desc.name .. [[, ]] .. desc.name .. [[_max, ]] .. desc.name .. [[_total = unit:GetTableMeterInfo("]] .. desc.tablemeter .. [[");
+		local ]] .. desc.name .. [[_text, f]] .. desc.name .. [[ = "", 0;
+		if ]] .. desc.name .. [[ and (]] .. desc.name .. [[ > 0) then
+			]] .. desc.name .. [[_text = ]] .. desc.name .. [[ .. " / " .. strformat("%.1f", VFL.clamp(]] .. desc.name .. [[/]] .. desc.name .. [[_total, 0, 1) * 100) .. "%";
+			f]] .. desc.name .. [[ = VFL.clamp(]] .. desc.name .. [[/]] .. desc.name .. [[_max, 0, 1);
+		end
 ]]); end);
 		-- Event hinting
 		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");

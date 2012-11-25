@@ -53,30 +53,29 @@ runeColors[]] .. i .. [[] = ]] .. Serialize(desc.colors[i]) .. [[;
 		local paintCode = "";
 		for i=1, 6 do 
 			paintCode = paintCode .. [[
-local rune]] .. i .. [[_name, rune]] .. i .. [[_icon, rune]] .. i .. [[_color = "", nil, nil;
-local rune]] .. i .. [[_start, rune]] .. i .. [[_duration, rune]] .. i .. [[_ready = 0, 0, false;
+		local rune]] .. i .. [[_name, rune]] .. i .. [[_icon, rune]] .. i .. [[_color = "", nil, nil;
+		local rune]] .. i .. [[_start, rune]] .. i .. [[_duration, rune]] .. i .. [[_ready = 0, 0, false;
 ]];
 		end
 
 		paintCode = paintCode .. [[
-local classMnemonic = unit:GetClassMnemonic();
-
-if ( classMnemonic == "DEATHKNIGHT" ) then
-	local runetype;
+		local classMnemonic = unit:GetClassMnemonic();
+		if ( classMnemonic == "DEATHKNIGHT" ) then
+			local runetype;
 ]];
 	for i=1,6 do
 		paintCode = paintCode .. [[
-		runeType = GetRuneType(]] .. i .. [[);
-		if (runeType) then
-			rune]] .. i .. [[_name = RDXMD.GetRuneMapping(runeType);
-			rune]] .. i .. [[_icon = RDXMD.GetRuneIconTextures]] .. desc.TextureType .. [[(runeType);
-			rune]] .. i .. [[_color = runeColors[runeType];
-			rune]] .. i .. [[_start, rune]] .. i .. [[_duration, rune]] .. i .. [[_ready = GetRuneCooldown(]] .. i .. [[);
-		end
+			runeType = GetRuneType(]] .. i .. [[);
+			if (runeType) then
+				rune]] .. i .. [[_name = RDXMD.GetRuneMapping(runeType);
+				rune]] .. i .. [[_icon = RDXMD.GetRuneIconTextures]] .. desc.TextureType .. [[(runeType);
+				rune]] .. i .. [[_color = runeColors[runeType];
+				rune]] .. i .. [[_start, rune]] .. i .. [[_duration, rune]] .. i .. [[_ready = GetRuneCooldown(]] .. i .. [[);
+			end
 ]];
 	end
 	paintCode = paintCode .. [[
-end
+		end
 ]];
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode(paintCode);

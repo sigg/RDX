@@ -30,18 +30,17 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		-- On closure, acquire the set locally
 		state:Attach(state:Slot("EmitClosure"), true, function(code)
-			code:AppendCode("local st1 = RDXDAL.FindSet(" .. Serialize(desc.set1) .. ");");
-			code:AppendCode("local st2 = RDXDAL.FindSet(" .. Serialize(desc.set2) .. ");");
-			code:AppendCode("local st3 = RDXDAL.FindSet(" .. Serialize(desc.set3) .. ");");
-			code:AppendCode("local st4 = RDXDAL.FindSet(" .. Serialize(desc.set4) .. ");");
 			code:AppendCode([[
+local st1 = RDXDAL.FindSet(]] .. Serialize(desc.set1) .. [[);
+local st2 = RDXDAL.FindSet(]] .. Serialize(desc.set2) .. [[);
+local st3 = RDXDAL.FindSet(]] .. Serialize(desc.set3) .. [[);
+local st4 = RDXDAL.FindSet(]] .. Serialize(desc.set4) .. [[);
 local deColor_cf = {};
 deColor_cf[1] = ]] .. Serialize(desc.raColor1) .. [[;
 deColor_cf[2] = ]] .. Serialize(desc.raColor2) .. [[;
 deColor_cf[3] = ]] .. Serialize(desc.raColor3) .. [[;
 deColor_cf[4] = ]] .. Serialize(desc.raColor4) .. [[;
 deColor_cf[5] = ]] .. Serialize(desc.raColor5) .. [[;
-
 local deTex_cf = {};
 deTex_cf[1] = ]] .. string.format("%q", desc.texture1.path) .. [[;
 deTex_cf[2] = ]] .. string.format("%q", desc.texture2.path) .. [[;
@@ -58,31 +57,31 @@ deTex_cf[4] = ]] .. string.format("%q", desc.texture4.path) .. [[;
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 		if desc.test then
 			code:AppendCode([[
-local decurseColor, decurseIcon, decurse_possible = deColor_cf[1], deTex_cf[1], true;
+		local decurseColor, decurseIcon, decurse_possible = deColor_cf[1], deTex_cf[1], true;
 ]]);
 		else
 			code:AppendCode([[
-local decurseColor, decurseIcon, decurse_possible = _alphafull, "", false;
-if st1:IsMember(unit) ]] .. cmagic .. [[ then
-	decurseColor = deColor_cf[1];
-	decurseIcon = deTex_cf[1];
-	decurse_possible = true;
-elseif st2:IsMember(unit) ]] .. cpoison .. [[ then
-	decurseColor = deColor_cf[2];
-	decurseIcon = deTex_cf[2];
-	decurse_possible = true;
-elseif st3:IsMember(unit) ]] .. cdisease .. [[ then
-	decurseColor = deColor_cf[3];
-	decurseIcon = deTex_cf[3];
-	decurse_possible = true;
-elseif st4:IsMember(unit) ]] .. ccurse .. [[ then
-	decurseColor = deColor_cf[4];
-	decurseIcon = deTex_cf[4];
-	decurse_possible = true;
-else
-	decurseColor = deColor_cf[5];
-	decurse_possible = false
-end
+		local decurseColor, decurseIcon, decurse_possible = _alphafull, "", false;
+		if st1:IsMember(unit) ]] .. cmagic .. [[ then
+			decurseColor = deColor_cf[1];
+			decurseIcon = deTex_cf[1];
+			decurse_possible = true;
+		elseif st2:IsMember(unit) ]] .. cpoison .. [[ then
+			decurseColor = deColor_cf[2];
+			decurseIcon = deTex_cf[2];
+			decurse_possible = true;
+		elseif st3:IsMember(unit) ]] .. cdisease .. [[ then
+			decurseColor = deColor_cf[3];
+			decurseIcon = deTex_cf[3];
+			decurse_possible = true;
+		elseif st4:IsMember(unit) ]] .. ccurse .. [[ then
+			decurseColor = deColor_cf[4];
+			decurseIcon = deTex_cf[4];
+			decurse_possible = true;
+		else
+			decurseColor = deColor_cf[5];
+			decurse_possible = false
+		end
 ]]);
 		end
 		end);

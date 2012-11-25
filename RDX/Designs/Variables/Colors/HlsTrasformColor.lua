@@ -44,11 +44,11 @@ RDX.RegisterFeature({
 		local condition = desc.condVar or "true";
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-if ]] .. condition .. [[ then
-	]] .. desc.name .. [[:HLSTransform(]] .. desc.colorVar .. "," .. valOrNil(desc.hx) .. "," .. valOrNil(desc.lx) .. "," .. valOrNil(desc.sx) .. [[);
-else
-	]] .. desc.name .. [[:set(]] .. desc.colorVar .. [[);
-end
+		if ]] .. condition .. [[ then
+			]] .. desc.name .. [[:HLSTransform(]] .. desc.colorVar .. "," .. valOrNil(desc.hx) .. "," .. valOrNil(desc.lx) .. "," .. valOrNil(desc.sx) .. [[);
+		else
+			]] .. desc.name .. [[:set(]] .. desc.colorVar .. [[);
+		end
 ]]);
 		end);
 	end;

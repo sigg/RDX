@@ -76,170 +76,170 @@ local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true, ]] .. showt
 
 		----------------- Creation
 		local createCode = [[
-local headerAura = RDX.SmartHeaderAura:new();
-headerAura:SetParent(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-headerAura:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-headerAura:SetAttribute("useparent-unit", true); 
-headerAura:SetAttribute("useparent-unitsuffix", true); 
-headerAura:SetAttribute("filter", "]] .. filter .. [[");
-headerAura:SetAttribute("template", "]] .. desc.template .. [[");
-if ]] .. showweapons .. [[ then
-	headerAura:SetAttribute("includeWeapons", 1);
-	headerAura:SetAttribute("weaponTemplate", "]] .. desc.template .. [[");
-end
-headerAura:SetAttribute("minWidth", 100);
-headerAura:SetAttribute("minHeight", 100);
-headerAura:SetOrientation("]] .. desc.template .. [[", "]] .. desc.orientation .. [[", ]] .. desc.wrapafter .. [[, ]] .. desc.maxwraps .. [[, ]] .. desc.xoffset .. [[, ]] .. desc.yoffset .. [[);
-headerAura:SetAttribute("sortMethod", "]] .. desc.sortmethod .. [[");
-headerAura:SetAttribute("sortDir", "]] .. sortdir .. [[");
-headerAura:SetAttribute("separateOwn", ]] .. separateown .. [[);
-headerAura:Show();
+	local headerAura = RDX.SmartHeaderAura:new();
+	headerAura:SetParent(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+	headerAura:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	headerAura:SetAttribute("useparent-unit", true); 
+	headerAura:SetAttribute("useparent-unitsuffix", true); 
+	headerAura:SetAttribute("filter", "]] .. filter .. [[");
+	headerAura:SetAttribute("template", "]] .. desc.template .. [[");
+	if ]] .. showweapons .. [[ then
+		headerAura:SetAttribute("includeWeapons", 1);
+		headerAura:SetAttribute("weaponTemplate", "]] .. desc.template .. [[");
+	end
+	headerAura:SetAttribute("minWidth", 100);
+	headerAura:SetAttribute("minHeight", 100);
+	headerAura:SetOrientation("]] .. desc.template .. [[", "]] .. desc.orientation .. [[", ]] .. desc.wrapafter .. [[, ]] .. desc.maxwraps .. [[, ]] .. desc.xoffset .. [[, ]] .. desc.yoffset .. [[);
+	headerAura:SetAttribute("sortMethod", "]] .. desc.sortmethod .. [[");
+	headerAura:SetAttribute("sortDir", "]] .. sortdir .. [[");
+	headerAura:SetAttribute("separateOwn", ]] .. separateown .. [[);
+	headerAura:Show();
 
-headerAura.updateFunc = function(self)
-	for _,frame in self:ActiveChildren() do
-		if not frame.btn then
-			local btn = VFLUI.SBTIB:new(frame, ]] .. Serialize(desc.sbtib) .. [[);
-			btn:SetPoint("TOPLEFT", frame, "TOPLEFT");
-			btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
-			frame.btn = btn;
-		end
-		_bn, _, _tex, _apps, _dispelt, _dur, _et = UnitAura("player", frame:GetID(), "]] .. filter .. [[");
-		if _bn then
-			if frame.btn.icon then frame.btn.icon:SetTexture(_tex); end
-			if frame.btn.nametxt then
-				if ]] .. auranameab .. [[ then
-					local word, anstr = nil, "";
-					for word in string.gmatch(_bn, "%a+")
-						do anstr = anstr .. word:sub(1, 1);
+	headerAura.updateFunc = function(self)
+		for _,frame in self:ActiveChildren() do
+			if not frame.btn then
+				local btn = VFLUI.SBTIB:new(frame, ]] .. Serialize(desc.sbtib) .. [[);
+				btn:SetPoint("TOPLEFT", frame, "TOPLEFT");
+				btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
+				frame.btn = btn;
+			end
+			_bn, _, _tex, _apps, _dispelt, _dur, _et = UnitAura("player", frame:GetID(), "]] .. filter .. [[");
+			if _bn then
+				if frame.btn.icon then frame.btn.icon:SetTexture(_tex); end
+				if frame.btn.nametxt then
+					if ]] .. auranameab .. [[ then
+						local word, anstr = nil, "";
+						for word in string.gmatch(_bn, "%a+")
+							do anstr = anstr .. word:sub(1, 1);
+						end
+						frame.btn.nametxt:SetText(anstr);
+					elseif ]] .. auranametrunc .. [[ then
+						frame.btn.nametxt:SetText(strsub(_bn, 1, ]] .. auranametrunc .. [[));
+					else
+						frame.btn.nametxt:SetText(_bn);
 					end
-					frame.btn.nametxt:SetText(anstr);
-				elseif ]] .. auranametrunc .. [[ then
-					frame.btn.nametxt:SetText(strsub(_bn, 1, ]] .. auranametrunc .. [[));
-				else
-					frame.btn.nametxt:SetText(_bn);
 				end
-			end
-			
-			if ]] .. desc.auraType .. [[ == "DEBUFFS" and ]] .. usedebuffcolor .. [[ then
-				if _dispelt then
-					btn.sb:SetColorTable(DebuffTypeColor[_dispelt]);
-				else
-					btn.sb:SetColorTable(_grey);
-				end
-			end
-			
-			frame.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
-			frame.btn.ftc:SetTimer(_et - _dur , _dur);
-			if _apps > 1 then frame.btn.stacktxt:SetText(_apps); else frame.btn.stacktxt:SetText("");end
-			
-			frame.btn:Show();
-		else
-			frame.btn:Hide();
-		end
-	end
-	local hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot;
-	local tempEnchant1 = self:GetAttribute("tempEnchant1");
-	local tempEnchant2 = self:GetAttribute("tempEnchant2");
-	if tempEnchant1 or tempEnchant2 then
-		hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot = RDXDAL.LoadWeaponsBuff();
-	end
-	if tempEnchant1 then
-		if not tempEnchant1.btn then
-			local btn = VFLUI.SBTIB:new(tempEnchant1, ]] .. Serialize(desc.sbtib) .. [[);
-			btn:SetPoint("TOPLEFT", frame, "TOPLEFT");
-			btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
-			tempEnchant1.btn = btn;
-		end
-		if hasMainHandEnchant then
-			tempEnchant1.btn.icon:SetTexture(mainHandTex);
-			if tempEnchant1.btn.nametxt then
-				if ]] .. auranameab .. [[ then
-					local word, anstr = nil, "";
-					for word in string.gmatch(mainHandBuffName, "%a+")
-						do anstr = anstr .. word:sub(1, 1);
+				
+				if ]] .. desc.auraType .. [[ == "DEBUFFS" and ]] .. usedebuffcolor .. [[ then
+					if _dispelt then
+						btn.sb:SetColorTable(DebuffTypeColor[_dispelt]);
+					else
+						btn.sb:SetColorTable(_grey);
 					end
-					tempEnchant1.btn.nametxt:SetText(anstr);
-				elseif ]] .. auranametrunc .. [[ then
-					tempEnchant1.btn.nametxt:SetText(strsub(mainHandBuffName, 1, ]] .. auranametrunc .. [[));
-				else
-					tempEnchant1.btn.nametxt:SetText(mainHandBuffName);
 				end
+				
+				frame.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
+				frame.btn.ftc:SetTimer(_et - _dur , _dur);
+				if _apps > 1 then frame.btn.stacktxt:SetText(_apps); else frame.btn.stacktxt:SetText("");end
+				
+				frame.btn:Show();
+			else
+				frame.btn:Hide();
 			end
-			tempEnchant1.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
-			tempEnchant1.btn.ftc:SetTimer(mainHandBuffStart, mainHandBuffDur);
-			if mainHandCharges > 1 then tempEnchant1.btn.stacktxt:SetText(mainHandCharges); else tempEnchant1.btn.stacktxt:SetText("");end
-			tempEnchant1.btn:Show();
-		else
-			tempEnchant1.btn:Hide();
 		end
-	end
-	if tempEnchant2 then
-		if not tempEnchant2.btn then
-			local btn = VFLUI.SBTIB:new(tempEnchant2, ]] .. Serialize(desc.sbtib) .. [[);
-			btn:SetPoint("TOPLEFT", frame, "TOPLEFT");
-			btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
-			tempEnchant2.btn = btn;
+		local hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot;
+		local tempEnchant1 = self:GetAttribute("tempEnchant1");
+		local tempEnchant2 = self:GetAttribute("tempEnchant2");
+		if tempEnchant1 or tempEnchant2 then
+			hasMainHandEnchant, mainHandBuffName, mainHandBuffRank, mainHandCharges, mainHandBuffStart, mainHandBuffDur, mainHandTex, mainHandBuffTex, mainHandSlot, hasOffHandEnchant, offHandBuffName, offHandBuffRank, offHandCharges, offHandBuffStart, offHandBuffDur, offHandTex, offHandBuffTex, offHandSlot = RDXDAL.LoadWeaponsBuff();
 		end
-		if hasOffHandEnchant then
-			tempEnchant2.btn.icon:SetTexture(offHandTex);
-			if tempEnchant2.btn.nametxt then
-				if ]] .. auranameab .. [[ then
-					local word, anstr = nil, "";
-					for word in string.gmatch(offHandBuffName, "%a+")
-						do anstr = anstr .. word:sub(1, 1);
+		if tempEnchant1 then
+			if not tempEnchant1.btn then
+				local btn = VFLUI.SBTIB:new(tempEnchant1, ]] .. Serialize(desc.sbtib) .. [[);
+				btn:SetPoint("TOPLEFT", frame, "TOPLEFT");
+				btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
+				tempEnchant1.btn = btn;
+			end
+			if hasMainHandEnchant then
+				tempEnchant1.btn.icon:SetTexture(mainHandTex);
+				if tempEnchant1.btn.nametxt then
+					if ]] .. auranameab .. [[ then
+						local word, anstr = nil, "";
+						for word in string.gmatch(mainHandBuffName, "%a+")
+							do anstr = anstr .. word:sub(1, 1);
+						end
+						tempEnchant1.btn.nametxt:SetText(anstr);
+					elseif ]] .. auranametrunc .. [[ then
+						tempEnchant1.btn.nametxt:SetText(strsub(mainHandBuffName, 1, ]] .. auranametrunc .. [[));
+					else
+						tempEnchant1.btn.nametxt:SetText(mainHandBuffName);
 					end
-					tempEnchant2.btn.nametxt:SetText(anstr);
-				elseif ]] .. auranametrunc .. [[ then
-					tempEnchant2.btn.nametxt:SetText(strsub(offHandBuffName, 1, ]] .. auranametrunc .. [[));
-				else
-					tempEnchant2.btn.nametxt:SetText(offHandBuffName);
 				end
+				tempEnchant1.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
+				tempEnchant1.btn.ftc:SetTimer(mainHandBuffStart, mainHandBuffDur);
+				if mainHandCharges > 1 then tempEnchant1.btn.stacktxt:SetText(mainHandCharges); else tempEnchant1.btn.stacktxt:SetText("");end
+				tempEnchant1.btn:Show();
+			else
+				tempEnchant1.btn:Hide();
 			end
-			tempEnchant2.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
-			tempEnchant2.btn.ftc:SetTimer(offHandBuffStart, offHandBuffDur);
-			if offHandCharges > 1 then tempEnchant2.btn.stacktxt:SetText(offHandCharges); else tempEnchant2.btn.stacktxt:SetText("");end
-			tempEnchant2.btn:Show();
-		else
-			tempEnchant2.btn:Hide();
+		end
+		if tempEnchant2 then
+			if not tempEnchant2.btn then
+				local btn = VFLUI.SBTIB:new(tempEnchant2, ]] .. Serialize(desc.sbtib) .. [[);
+				btn:SetPoint("TOPLEFT", frame, "TOPLEFT");
+				btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
+				tempEnchant2.btn = btn;
+			end
+			if hasOffHandEnchant then
+				tempEnchant2.btn.icon:SetTexture(offHandTex);
+				if tempEnchant2.btn.nametxt then
+					if ]] .. auranameab .. [[ then
+						local word, anstr = nil, "";
+						for word in string.gmatch(offHandBuffName, "%a+")
+							do anstr = anstr .. word:sub(1, 1);
+						end
+						tempEnchant2.btn.nametxt:SetText(anstr);
+					elseif ]] .. auranametrunc .. [[ then
+						tempEnchant2.btn.nametxt:SetText(strsub(offHandBuffName, 1, ]] .. auranametrunc .. [[));
+					else
+						tempEnchant2.btn.nametxt:SetText(offHandBuffName);
+					end
+				end
+				tempEnchant2.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
+				tempEnchant2.btn.ftc:SetTimer(offHandBuffStart, offHandBuffDur);
+				if offHandCharges > 1 then tempEnchant2.btn.stacktxt:SetText(offHandCharges); else tempEnchant2.btn.stacktxt:SetText("");end
+				tempEnchant2.btn:Show();
+			else
+				tempEnchant2.btn:Hide();
+			end
 		end
 	end
-end
 
-headerAura:updateFunc();
-frame.]] .. objname .. [[ = headerAura;
+	headerAura:updateFunc();
+	frame.]] .. objname .. [[ = headerAura;
 ]];
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 
 		------------------- Destruction
 		local destroyCode = [[
-for _,frame in frame.]] .. objname .. [[:ActiveChildren() do
-	local btn = frame.btn;
-	if btn then
-		btn.ftc:Destroy(); btn.ftc = nil;
-		btn:Destroy(); btn = nil;
-	end
-	frame.btn = nil;
-end
-local tempEnchant1 = frame.]] .. objname .. [[:GetAttribute("tempEnchant1");
-if tempEnchant1 then
-	local btn = tempEnchant1.btn;
-	if btn then
-		btn.ftc:Destroy(); btn.ftc = nil;
-		btn:Destroy(); btn = nil;
-	end
-	tempEnchant1.btn = nil;
-end
-local tempEnchant2 = frame.]] .. objname .. [[:GetAttribute("tempEnchant2");
-if tempEnchant2 then
-	local btn = tempEnchant2.btn;
-	if btn then
-		btn.ftc:Destroy(); btn.ftc = nil;
-		btn:Destroy(); btn = nil;
-	end
-	tempEnchant2.btn = nil;
-end
-frame.]] .. objname .. [[:Destroy();
-frame.]] .. objname .. [[ = nil;
+		for _,frame in frame.]] .. objname .. [[:ActiveChildren() do
+			local btn = frame.btn;
+			if btn then
+				btn.ftc:Destroy(); btn.ftc = nil;
+				btn:Destroy(); btn = nil;
+			end
+			frame.btn = nil;
+		end
+		local tempEnchant1 = frame.]] .. objname .. [[:GetAttribute("tempEnchant1");
+		if tempEnchant1 then
+			local btn = tempEnchant1.btn;
+			if btn then
+				btn.ftc:Destroy(); btn.ftc = nil;
+				btn:Destroy(); btn = nil;
+			end
+			tempEnchant1.btn = nil;
+		end
+		local tempEnchant2 = frame.]] .. objname .. [[:GetAttribute("tempEnchant2");
+		if tempEnchant2 then
+			local btn = tempEnchant2.btn;
+			if btn then
+				btn.ftc:Destroy(); btn.ftc = nil;
+				btn:Destroy(); btn = nil;
+			end
+			tempEnchant2.btn = nil;
+		end
+		frame.]] .. objname .. [[:Destroy();
+		frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);
 

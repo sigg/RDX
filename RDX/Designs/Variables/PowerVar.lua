@@ -27,11 +27,11 @@ RDX.RegisterFeature({
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 		if desc.test then
 			code:AppendCode([[
-local ]] .. desc.name .. [[, ]] .. desc.name .. [[_i = 0.5, 0.5;
+		local ]] .. desc.name .. [[, ]] .. desc.name .. [[_i = 0.5, 0.5;
 ]]);
 		else
 			code:AppendCode([[
-local ]] .. desc.name .. [[, ]] .. desc.name .. [[_i = unit:FracPower(]] .. desc.powertype .. [[);
+		local ]] .. desc.name .. [[, ]] .. desc.name .. [[_i = unit:FracPower(]] .. desc.powertype .. [[);
 ]]);
 		end
 		end);

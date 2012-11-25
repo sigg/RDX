@@ -33,11 +33,11 @@ local ]] .. desc.name .. [[ = RDXDB.GetObjectInstance("]] .. desc.sort .. [[");
 		-- On paint preamble, create flag and grade variables
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-local ]] .. desc.name .. [[_idx, ]] .. desc.name .. [[_flag, ]] .. desc.name .. [[_grade = ]] .. desc.name .. [[:IndexOfUID(uid), false, 0;
-if not  ]] .. desc.name .. [[_idx then
-	]] .. desc.name .. [[_idx = 0;
-elseif ]] .. desc.name .. [[_idx <= ]] .. desc.order .. [[ then
-	]] .. desc.name .. [[_flag = true;
+		local ]] .. desc.name .. [[_idx, ]] .. desc.name .. [[_flag, ]] .. desc.name .. [[_grade = ]] .. desc.name .. [[:IndexOfUID(uid), false, 0;
+		if not  ]] .. desc.name .. [[_idx then
+			]] .. desc.name .. [[_idx = 0;
+		elseif ]] .. desc.name .. [[_idx <= ]] .. desc.order .. [[ then
+			]] .. desc.name .. [[_flag = true;
 ]]);
 			if desc.order ~= 1000 then
 				-- Case 1: grade = pos / fixed number
@@ -48,7 +48,8 @@ elseif ]] .. desc.name .. [[_idx <= ]] .. desc.order .. [[ then
 				code:AppendCode(desc.name .. [[_grade = (]] .. desc.name .. [[_idx - 1) / (]] .. desc.name .. [[:GetSortSize());
 ]]);
 			end
-			code:AppendCode([[end
+			code:AppendCode([[
+		end
 ]]);
 		end);
 		-- Event hint: update on sort.

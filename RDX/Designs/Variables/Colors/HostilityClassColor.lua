@@ -43,39 +43,39 @@ hostileColor_class_cf[14] = ]] .. Serialize(desc.friendlyMonkColor) .. [[;
         end);
         state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
             code:AppendCode([[
-local ]]  .. desc.name .. [[ = hostileColor_class_cf[1];
-_name = unit:GetClassMnemonic();
-if UnitIsFriend(uid, "player") and UnitIsPlayer(uid) then
-    if _name == "PRIEST" then
-        ]] .. desc.name .. [[  = hostileColor_class_cf[4];
-    elseif _name == "WARLOCK" then
-        ]] .. desc.name .. [[  = hostileColor_class_cf[5];
-    elseif _name == "HUNTER" then
-        ]] .. desc.name .. [[  = hostileColor_class_cf[6];
-    elseif _name == "WARRIOR" then
-        ]] .. desc.name .. [[  = hostileColor_class_cf[7];
-    elseif _name == "PALADIN" then
-        ]] .. desc.name .. [[  = hostileColor_class_cf[8];
-    elseif _name == "MAGE" then
-        ]] .. desc.name .. [[  = hostileColor_class_cf[9];
-    elseif _name == "DRUID" then
-        ]] .. desc.name .. [[  = hostileColor_class_cf[10];
-    elseif _name == "SHAMAN" then
-        ]] .. desc.name .. [[  = hostileColor_class_cf[11];
-    elseif _name == "ROGUE" then
-        ]] .. desc.name .. [[  = hostileColor_class_cf[12];
-    elseif _name == "DEATHKNIGHT" then
-        ]] .. desc.name .. [[  = hostileColor_class_cf[13];
-    elseif _name == "MONK" then
-        ]] .. desc.name .. [[  = hostileColor_class_cf[14];
-    else
-        ]] .. desc.name .. [[  = hostileColor_class_cf[1];
-    end
-elseif UnitIsEnemy(uid, "player") then
-        ]] .. desc.name .. [[  = hostileColor_class_cf[3];
-else
-        ]] .. desc.name .. [[  = hostileColor_class_cf[2];
-end
+		local ]]  .. desc.name .. [[ = hostileColor_class_cf[1];
+		_name = unit:GetClassMnemonic();
+		if UnitIsFriend(uid, "player") and UnitIsPlayer(uid) then
+			if _name == "PRIEST" then
+				]] .. desc.name .. [[  = hostileColor_class_cf[4];
+			elseif _name == "WARLOCK" then
+				]] .. desc.name .. [[  = hostileColor_class_cf[5];
+			elseif _name == "HUNTER" then
+				]] .. desc.name .. [[  = hostileColor_class_cf[6];
+			elseif _name == "WARRIOR" then
+				]] .. desc.name .. [[  = hostileColor_class_cf[7];
+			elseif _name == "PALADIN" then
+				]] .. desc.name .. [[  = hostileColor_class_cf[8];
+			elseif _name == "MAGE" then
+				]] .. desc.name .. [[  = hostileColor_class_cf[9];
+			elseif _name == "DRUID" then
+				]] .. desc.name .. [[  = hostileColor_class_cf[10];
+			elseif _name == "SHAMAN" then
+				]] .. desc.name .. [[  = hostileColor_class_cf[11];
+			elseif _name == "ROGUE" then
+				]] .. desc.name .. [[  = hostileColor_class_cf[12];
+			elseif _name == "DEATHKNIGHT" then
+				]] .. desc.name .. [[  = hostileColor_class_cf[13];
+			elseif _name == "MONK" then
+				]] .. desc.name .. [[  = hostileColor_class_cf[14];
+			else
+				]] .. desc.name .. [[  = hostileColor_class_cf[1];
+			end
+		elseif UnitIsEnemy(uid, "player") then
+				]] .. desc.name .. [[  = hostileColor_class_cf[3];
+		else
+				]] .. desc.name .. [[  = hostileColor_class_cf[2];
+		end
 ]]);
         end);
     end;

@@ -269,103 +269,101 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 		
 		----------------- Creation
 		local createCode = [[
-frame.]] .. objname .. [[ = {};
-local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
-for i=1, ]] .. desc.nIcons .. [[ do
-	btn = VFLUI.AcquireFrame("Button");
-	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-	btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
+	frame.]] .. objname .. [[ = {};
+	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+	for i=1, ]] .. desc.nIcons .. [[ do
+		btn = VFLUI.AcquireFrame("Button");
+		btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
+		btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
 ]];
 		if driver == 2 then
 			createCode = createCode .. [[
-VFLUI.SetButtonSkin(btn, ]] .. Serialize(bs) .. [[);
+		VFLUI.SetButtonSkin(btn, ]] .. Serialize(bs) .. [[);
 ]];
 		elseif driver == 3 then
 			createCode = createCode .. [[
-VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
+		VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
 ]];
 		end
 		if desc.ftype == 1 and not desc.disableClick then createCode = createCode .. [[
-btn:RegisterForClicks("RightButtonUp");
-btn:SetScript("OnClick", __AuraIconOnClick);
+		btn:RegisterForClicks("RightButtonUp");
+		btn:SetScript("OnClick", __AuraIconOnClick);
 ]];
 		end
 		if desc.ftype == 4 and not desc.disableClick then createCode = createCode .. [[
-btn:RegisterForClicks("RightButtonUp");
-btn:SetScript("OnClick", __TotemIconOnClick);
+		btn:RegisterForClicks("RightButtonUp");
+		btn:SetScript("OnClick", __TotemIconOnClick);
 ]];
 		end
 		if desc.ftype == 4 then createCode = createCode .. [[
-btn.id = i;
+		btn.id = i;
 ]];
 		end
 		if desc.disableClick then createCode = createCode .. [[
-btn:Disable();
+		btn:Disable();
 ]];
 		end
 		if not desc.disableShowTooltip then 
 			if desc.ftype == 1 then
 				createCode = createCode .. [[
-btn:SetScript("OnEnter", __AuraIconOnEnter);
-btn:SetScript("OnLeave", __AuraIconOnLeave);
+		btn:SetScript("OnEnter", __AuraIconOnEnter);
+		btn:SetScript("OnLeave", __AuraIconOnLeave);
 ]];
 			elseif desc.ftype == 2 then
 				createCode = createCode .. [[
-btn:SetScript("OnEnter", __CooldownIconOnEnter);
-btn:SetScript("OnLeave", __CooldownIconOnLeave);
+		btn:SetScript("OnEnter", __CooldownIconOnEnter);
+		btn:SetScript("OnLeave", __CooldownIconOnLeave);
 ]];
 			end
 		end
 		createCode = createCode .. [[
-btn.tex = VFLUI.CreateTexture(btn);
-btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
-btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
-if not RDXG.usecleanicons then
-	btn.tex:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
-end
-btn.tex:SetDrawLayer("ARTWORK", 3);
-btn.tex:Show();
+		btn.tex = VFLUI.CreateTexture(btn);
+		btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
+		btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
+		if not RDXG.usecleanicons then
+			btn.tex:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
+		end
+		btn.tex:SetDrawLayer("ARTWORK", 3);
+		btn.tex:Show();
 ]];
 		if desc.ftype == 3 then
 			createCode = createCode .. VFLUI.GenerateSetTextureCode("btn.tex", desc.texture)
 		end
 		createCode = createCode .. [[
-btn.cd = VFLUI.CooldownCounter:new(btn, ]] .. Serialize(desc.cd) .. [[);
-btn.cd:SetAllPoints(btn.tex);
-btn.cd:Show();
+		btn.cd = VFLUI.CooldownCounter:new(btn, ]] .. Serialize(desc.cd) .. [[);
+		btn.cd:SetAllPoints(btn.tex);
+		btn.cd:Show();
 ]];
 		createCode = createCode .. [[
-btn.frtxt = VFLUI.AcquireFrame("Frame");
-btn.frtxt:SetParent(btn);
-btn.frtxt:SetFrameLevel(btn:GetFrameLevel() + 2);
-btn.frtxt:SetAllPoints(btn);
-btn.frtxt:Show();
-
-btn.sttxt = VFLUI.CreateFontString(btn.frtxt);
-btn.sttxt:SetAllPoints(btn.frtxt);
-btn.sttxt:Show();
+		btn.frtxt = VFLUI.AcquireFrame("Frame");
+		btn.frtxt:SetParent(btn);
+		btn.frtxt:SetFrameLevel(btn:GetFrameLevel() + 2);
+		btn.frtxt:SetAllPoints(btn);
+		btn.frtxt:Show();
+		btn.sttxt = VFLUI.CreateFontString(btn.frtxt);
+		btn.sttxt:SetAllPoints(btn.frtxt);
+		btn.sttxt:Show();
 ]];
 		createCode = createCode .. VFLUI.GenerateSetFontCode("btn.sttxt", desc.fontst, nil, true);
 		createCode = createCode .. [[
-	frame.]] .. objname .. [[[i] = btn;
-end
+		frame.]] .. objname .. [[[i] = btn;
+	end
 ]];
 		createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 
 		------------------- Destruction
 		local destroyCode = [[
-local btn = nil;
-for i=1,]] .. desc.nIcons .. [[ do
-	btn = frame.]] .. objname .. [[[i]
-	btn.meta = nil;
-	VFLUI.ReleaseRegion(btn.sttxt); btn.sttxt = nil;
-	btn.frtxt:Destroy(); btn.frtxt = nil;
-	btn.cd:Destroy(); btn.cd = nil;
-	VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
-	btn:Destroy(); btn = nil;
-end
-frame.]] .. objname .. [[ = nil;
+		for i=1,]] .. desc.nIcons .. [[ do
+			btn = frame.]] .. objname .. [[[i]
+			btn.meta = nil;
+			VFLUI.ReleaseRegion(btn.sttxt); btn.sttxt = nil;
+			btn.frtxt:Destroy(); btn.frtxt = nil;
+			btn.cd:Destroy(); btn.cd = nil;
+			VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
+			btn:Destroy(); btn = nil;
+		end
+		frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);
 
@@ -447,56 +445,11 @@ frame.]] .. objname .. [[ = nil;
 		--end
 		
 		local paintCodeTest = [[
-	_i, _j, _bn, _tex, _apps, _meta, _dur, _tl, _dispelt, _caster, _isStealable = 1,1,nil,nil,nil,nil,nil,nil,nil,nil;
-	_icons = frame.]] .. objname .. [[;
-	while true do
-		if (_j > ]] .. desc.nIcons .. [[) then break; end
-		_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = nil, true, nil, nil, {}, nil, "Interface\\InventoryItems\\WoWUnknownItem01.blp", 6, nil, 60, nil, 50, true, true;
-		btn = _icons[_j];
-		if not btn:IsShown() then btn:Show(smooth); end
-		btn.meta = _meta;
-		btn.tex:SetTexture(_tex);
-		if _dispelt and DebuffTypeColor[_dispelt] then
-			if ]] .. driver .. [[ == 2 then
-				VFLUI.SetButtonSkinBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
-			elseif ]] .. driver .. [[ == 3 then
-				VFLUI.SetBackdropBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
-			end
-		else
-			if ]] .. driver .. [[ == 2 then
-				VFLUI.SetButtonSkinBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
-			elseif ]] .. driver .. [[ == 3 then
-				VFLUI.SetBackdropBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
-			end
-		end
-		-- Cooldown
-		if _dur and _dur > 0 and btn.cd then
-			btn.cd:SetCooldown(GetTime() + _tl - _dur , _dur);
-		else
-			btn.cd:SetCooldown(0, 0);
-		end
-		if _apps and (_apps > 1) then btn.sttxt:SetText(_apps); else btn.sttxt:SetText(""); end
-		
-		_j = _j + 1;
-		
-		--_i = _i + 1;
-	end
-	--while _j <= ]] .. desc.nIcons .. [[ do
-		--btn = _icons[_j];
-		--if btn:IsShown() then btn:Hide(]] .. smooth .. [[); end
-		--_j = _j + 1;
-	--end
-]];
-
-		local paintCodeAura = [[
-if band(paintmask, ]] .. mask .. [[) ~= 0 then
-	_i, _j, _bn, _tex, _apps, _meta, _dur, _tl, _dispelt, _caster, _isStealable = 1,1,nil,nil,nil,nil,nil,nil,nil,nil;
-	_icons = frame.]] .. objname .. [[;
-	while true do
-		if (_j > ]] .. desc.nIcons .. [[) then break; end
-		_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = ]] .. loadCode .. [[(uid, _i, ]] .. raidfilter .. [[, ]] .. auracache .. [[);
-		if not _meta then break; end
-		if (not _meta.isInvisible) and ]] .. aurasfilter .. [[ and ]] .. isstealablefilter .. [[ and ]] .. curefilter .. [[ and ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
+		_i, _j, _bn, _tex, _apps, _meta, _dur, _tl, _dispelt, _caster, _isStealable = 1,1,nil,nil,nil,nil,nil,nil,nil,nil;
+		_icons = frame.]] .. objname .. [[;
+		while true do
+			if (_j > ]] .. desc.nIcons .. [[) then break; end
+			_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = nil, true, nil, nil, {}, nil, "Interface\\InventoryItems\\WoWUnknownItem01.blp", 6, nil, 60, nil, 50, true, true;
 			btn = _icons[_j];
 			if not btn:IsShown() then btn:Show(smooth); end
 			btn.meta = _meta;
@@ -514,7 +467,6 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 					VFLUI.SetBackdropBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
 				end
 			end
-
 			-- Cooldown
 			if _dur and _dur > 0 and btn.cd then
 				btn.cd:SetCooldown(GetTime() + _tl - _dur , _dur);
@@ -524,73 +476,118 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 			if _apps and (_apps > 1) then btn.sttxt:SetText(_apps); else btn.sttxt:SetText(""); end
 			
 			_j = _j + 1;
+			
+			--_i = _i + 1;
 		end
-		_i = _i + 1;
-	end
-	while _j <= ]] .. desc.nIcons .. [[ do
-		btn = _icons[_j];
-		if btn:IsShown() then btn:Hide(]] .. smooth .. [[); end
-		_j = _j + 1;
-	end
-end
+		--while _j <= ]] .. desc.nIcons .. [[ do
+			--btn = _icons[_j];
+			--if btn:IsShown() then btn:Hide(]] .. smooth .. [[); end
+			--_j = _j + 1;
+		--end
+]];
+
+		local paintCodeAura = [[
+		if band(paintmask, ]] .. mask .. [[) ~= 0 then
+			_i, _j, _bn, _tex, _apps, _meta, _dur, _tl, _dispelt, _caster, _isStealable = 1,1,nil,nil,nil,nil,nil,nil,nil,nil;
+			_icons = frame.]] .. objname .. [[;
+			while true do
+				if (_j > ]] .. desc.nIcons .. [[) then break; end
+				_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = ]] .. loadCode .. [[(uid, _i, ]] .. raidfilter .. [[, ]] .. auracache .. [[);
+				if not _meta then break; end
+				if (not _meta.isInvisible) and ]] .. aurasfilter .. [[ and ]] .. isstealablefilter .. [[ and ]] .. curefilter .. [[ and ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
+					btn = _icons[_j];
+					if not btn:IsShown() then btn:Show(smooth); end
+					btn.meta = _meta;
+					btn.tex:SetTexture(_tex);
+					if _dispelt and DebuffTypeColor[_dispelt] then
+						if ]] .. driver .. [[ == 2 then
+							VFLUI.SetButtonSkinBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
+						elseif ]] .. driver .. [[ == 3 then
+							VFLUI.SetBackdropBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
+						end
+					else
+						if ]] .. driver .. [[ == 2 then
+							VFLUI.SetButtonSkinBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+						elseif ]] .. driver .. [[ == 3 then
+							VFLUI.SetBackdropBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+						end
+					end
+
+					-- Cooldown
+					if _dur and _dur > 0 and btn.cd then
+						btn.cd:SetCooldown(GetTime() + _tl - _dur , _dur);
+					else
+						btn.cd:SetCooldown(0, 0);
+					end
+					if _apps and (_apps > 1) then btn.sttxt:SetText(_apps); else btn.sttxt:SetText(""); end
+					
+					_j = _j + 1;
+				end
+				_i = _i + 1;
+			end
+			while _j <= ]] .. desc.nIcons .. [[ do
+				btn = _icons[_j];
+				if btn:IsShown() then btn:Hide(]] .. smooth .. [[); end
+				_j = _j + 1;
+			end
+		end
 ]];
 
 		local paintCodeCd = [[
-if band(paintmask, ]] .. mask .. [[) ~= 0 then
-	_i, _j, _avail, _bn, _meta, _tex, _dur, _start = 1, 1, nil, nil, nil, nil, nil;
-	_icons = frame.]] .. objname .. [[;
-	while true do
-		if (_j > ]] .. desc.nIcons .. [[) then break; end
-		_avail, _bn, _meta, _tex, _dur, _start = ]] .. loadCode .. [[(_i);
-		if not _avail then break; end
-		if ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
-			btn = _icons[_j];
-			if not btn:IsShown() then btn:Show(0.2); end
-			btn.spellid = _meta;
-			btn.tex:SetTexture(_tex);
-			if _dur and _dur > 0 and btn.cd then
-				btn.cd:SetCooldown(_start, _dur);
+		if band(paintmask, ]] .. mask .. [[) ~= 0 then
+			_i, _j, _avail, _bn, _meta, _tex, _dur, _start = 1, 1, nil, nil, nil, nil, nil;
+			_icons = frame.]] .. objname .. [[;
+			while true do
+				if (_j > ]] .. desc.nIcons .. [[) then break; end
+				_avail, _bn, _meta, _tex, _dur, _start = ]] .. loadCode .. [[(_i);
+				if not _avail then break; end
+				if ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
+					btn = _icons[_j];
+					if not btn:IsShown() then btn:Show(0.2); end
+					btn.spellid = _meta;
+					btn.tex:SetTexture(_tex);
+					if _dur and _dur > 0 and btn.cd then
+						btn.cd:SetCooldown(_start, _dur);
+					end
+					_j = _j + 1;
+				end
+				_i = _i + 1;
 			end
-			_j = _j + 1;
+			while _j <= ]] .. desc.nIcons .. [[ do
+				if _icons[_j]:IsShown() then _icons[_j]:Hide(0.2); end
+				_j = _j + 1;
+			end
 		end
-		_i = _i + 1;
-	end
-	while _j <= ]] .. desc.nIcons .. [[ do
-		if _icons[_j]:IsShown() then _icons[_j]:Hide(0.2); end
-		_j = _j + 1;
-	end
-end
 ]];
 		local paintCodeCustom = [[
-_i = VFL.clamp(]] .. number .. [[, 0, ]] .. desc.nIcons .. [[);
-if _i and _i > 0 then
-	for i=1, _i do
-		frame.]] .. objname .. [[[i].tex:SetVertexColor(explodeRGBA(color]] .. objname .. [[[i]));
-		frame.]] .. objname .. [[[i]:Show();
-	end
-	if _i < ]] .. desc.nIcons .. [[ then
-		for i=(_i + 1), ]] .. desc.nIcons .. [[ do
-			frame.]] .. objname .. [[[i]:Hide();
+		_i = VFL.clamp(]] .. number .. [[, 0, ]] .. desc.nIcons .. [[);
+		if _i and _i > 0 then
+			for i=1, _i do
+				frame.]] .. objname .. [[[i].tex:SetVertexColor(explodeRGBA(color]] .. objname .. [[[i]));
+				frame.]] .. objname .. [[[i]:Show();
+			end
+			if _i < ]] .. desc.nIcons .. [[ then
+				for i=(_i + 1), ]] .. desc.nIcons .. [[ do
+					frame.]] .. objname .. [[[i]:Hide();
+				end
+			end
+		else
+			for i=1,]] .. desc.nIcons .. [[ do
+				frame.]] .. objname .. [[[i]:Hide();
+			end
 		end
-	end
-else
-	for i=1,]] .. desc.nIcons .. [[ do
-		frame.]] .. objname .. [[[i]:Hide();
-	end
-end
-
 ]];
 		local paintCodeTotem = [[
-for i=1, 4 do
-	_avail, _bn, _start, _dur, _tex = GetTotemInfo(i);
-	if _avail then
-		frame.]] .. objname .. [[[i].tex:SetTexture(_tex);
-		frame.]] .. objname .. [[[i].cd:SetCooldown(_start, _dur);
-		frame.]] .. objname .. [[[i]:Show();
-	else
-		frame.]] .. objname .. [[[i]:Hide();
-	end
-end
+		for i=1, 4 do
+			_avail, _bn, _start, _dur, _tex = GetTotemInfo(i);
+			if _avail then
+				frame.]] .. objname .. [[[i].tex:SetTexture(_tex);
+				frame.]] .. objname .. [[[i].cd:SetCooldown(_start, _dur);
+				frame.]] .. objname .. [[[i]:Show();
+			else
+				frame.]] .. objname .. [[[i]:Hide();
+			end
+		end
 ]];
 		if desc.test then
 			state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCodeTest); end);
@@ -605,11 +602,11 @@ end
 		end
 		------------------- Cleanup
 		local cleanupCode = [[
-local btn = nil;
-for i=1,]] .. desc.nIcons .. [[ do
-	btn = frame.]] .. objname .. [[[i];
-	btn:Hide(); btn.meta = nil;
-end
+	local btn = nil;
+	for i=1,]] .. desc.nIcons .. [[ do
+		btn = frame.]] .. objname .. [[[i];
+		btn:Hide(); btn.meta = nil;
+	end
 ]];
 		state:Attach("EmitCleanup", true, function(code) code:AppendCode(cleanupCode); end);
 

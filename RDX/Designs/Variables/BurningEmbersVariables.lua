@@ -42,41 +42,41 @@ embersColors[]] .. i .. [[] = ]] .. Serialize(desc.colors[i]) .. [[;
 		local paintCode = "";
 	
 			paintCode = paintCode .. [[
-	local MAX_POWER_PER_EMBER = 10
-	local maxPower = UnitPowerMax("player", SPELL_POWER_BURNING_EMBERS, true) -- 40
-	local power = UnitPower("player", SPELL_POWER_BURNING_EMBERS, true) -- xx
-	local numEmbers = floor(maxPower / MAX_POWER_PER_EMBER) -- 4
+		local MAX_POWER_PER_EMBER = 10
+		local maxPower = UnitPowerMax("player", SPELL_POWER_BURNING_EMBERS, true) -- 40
+		local power = UnitPower("player", SPELL_POWER_BURNING_EMBERS, true) -- xx
+		local numEmbers = floor(maxPower / MAX_POWER_PER_EMBER) -- 4
 ]];
 
 	for i=1, 4 do 
 		if i>1 then
 			paintCode = paintCode .. [[
-			local emb]] .. i .. [[ = power - (MAX_POWER_PER_EMBER * ]] .. i-1 ..[[);
-			if emb]] .. i .. [[ < 0 then emb]] .. i .. [[ = 0 end;
-			if emb]] .. i .. [[ > 10 then emb]] .. i .. [[ = 10 end;
-			burning_]] .. i .. [[_text = emb]] .. i .. [[;
-			burning_]] .. i .. [[_frac = emb]] .. i .. [[/10;
-			if emb]] .. i .. [[ >= 10 then 
-			burning_]] .. i .. [[_ready = true;
-			else 
-			burning_]] .. i .. [[_ready = false;
-			end;
-			burning_]] .. i .. [[_color = embersColors[]] .. i .. [[];
-			]];
+		local emb]] .. i .. [[ = power - (MAX_POWER_PER_EMBER * ]] .. i-1 ..[[);
+		if emb]] .. i .. [[ < 0 then emb]] .. i .. [[ = 0 end;
+		if emb]] .. i .. [[ > 10 then emb]] .. i .. [[ = 10 end;
+		burning_]] .. i .. [[_text = emb]] .. i .. [[;
+		burning_]] .. i .. [[_frac = emb]] .. i .. [[/10;
+		if emb]] .. i .. [[ >= 10 then 
+		burning_]] .. i .. [[_ready = true;
+		else 
+		burning_]] .. i .. [[_ready = false;
+		end;
+		burning_]] .. i .. [[_color = embersColors[]] .. i .. [[];
+]];
 		else
 			paintCode = paintCode .. [[
-			local emb1 = power;
-			if emb1 < 0 then emb1 = 0 end;
-			if emb1 > 10 then emb1 = 10 end;
-			burning_]] .. i .. [[_text = emb1;
-			burning_]] .. i .. [[_frac = emb1/10;
-			if emb1 >= 10 then
-			burning_]] .. i .. [[_ready = true;
-			else
-			burning_]] .. i .. [[_ready = false;
-			end
-			burning_]] .. i .. [[_color = embersColors[]] .. i .. [[];
-			]];
+		local emb1 = power;
+		if emb1 < 0 then emb1 = 0 end;
+		if emb1 > 10 then emb1 = 10 end;
+		burning_]] .. i .. [[_text = emb1;
+		burning_]] .. i .. [[_frac = emb1/10;
+		if emb1 >= 10 then
+		burning_]] .. i .. [[_ready = true;
+		else
+		burning_]] .. i .. [[_ready = false;
+		end
+		burning_]] .. i .. [[_color = embersColors[]] .. i .. [[];
+]];
 		end
 	end
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)

@@ -19,14 +19,14 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code) code:AppendCode([[
-local name, _, repmin, repmax, repvalue = GetWatchedFactionInfo();
-local frep, crep, cmax, freptxt = 0, 0, 0, "";
-if name then 
-	frep = (repvalue - repmin) / (repmax - repmin);
-	crep = repvalue - repmin;
-	cmax = repmax - repmin;
-	freptxt = name .. ": ".. crep .. "/".. cmax .. " ".. floor((crep/cmax) *100) .."%";
-end
+		local name, _, repmin, repmax, repvalue = GetWatchedFactionInfo();
+		local frep, crep, cmax, freptxt = 0, 0, 0, "";
+		if name then 
+			frep = (repvalue - repmin) / (repmax - repmin);
+			crep = repvalue - repmin;
+			cmax = repmax - repmin;
+			freptxt = name .. ": ".. crep .. "/".. cmax .. " ".. floor((crep/cmax) *100) .."%";
+		end
 ]]); end);
 		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
 		mux:Event_MaskAll("UNIT_FACTION", 2);

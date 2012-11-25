@@ -184,44 +184,42 @@ local ]] .. desc.name .. [[_av_color = {};
 		
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-local ]] .. desc.name .. [[_possible, ]] .. desc.name .. [[_stack, ]] .. desc.name .. [[_icon , ]] .. desc.name .. [[_aura_start, ]] .. desc.name .. [[_aura_duration, ]] .. desc.name .. [[_caster, ]] .. desc.name .. [[_timeleft = ]] .. loadCode .. [[(uid, ]] .. tcd .. [[, ]] .. auracache .. [[, ]] .. playerauras .. [[, ]] .. othersauras .. [[, ]] .. petauras .. [[, ]] .. targetauras .. [[, ]] .. focusauras .. [[);
-local ]] .. desc.name .. [[_aura_name = "";
-local ]] .. desc.name .. [[_aura_stack = 0;
-local ]] .. desc.name .. [[_aura_caster = "";
-local ]] .. desc.name .. [[_color = ]] .. desc.name .. [[_av_color[1];
-if not ]] .. reverse .. [[ then
-	]] .. desc.name .. [[_possible = not ]] .. desc.name .. [[_possible;
-end
-if ]] .. desc.name .. [[_possible then
-	]] .. desc.name .. [[_aura_name = "]] .. desc.name .. [[";
-end
-if not ]] .. desc.name .. [[_stack then ]] .. desc.name .. [[_stack = 0; end
-if ]] .. desc.name .. [[_stack > 0 then
-	]] .. desc.name .. [[_aura_stack = ]] .. desc.name .. [[_stack;
-end
---if ]] .. desc.name .. [[_caster and ]] .. desc.name .. [[_caster ~= "" then
---	local unitu = RDXDAL._ReallyFastProject(]] .. desc.name .. [[_caster);
---	if unitu then
---		]] .. desc.name .. [[_aura_caster = unitu:GetName();
---	else
---		]] .. desc.name .. [[_aura_caster = ]] .. desc.name .. [[_caster;
---	end
---end
-
-if ]] .. desc.name .. [[_timeleft then ]] .. desc.name .. [[_time = strformat("%0.f",]] .. desc.name .. [[_timeleft); end
-if not ]] .. desc.name .. [[_timeleft then ]] .. desc.name .. [[_timeleft = 0; end
-if ]] .. desc.name .. [[_timeleft < ]] .. desc.timer1 .. [[ and ]] .. desc.name .. [[_timeleft > 0 then
-	]] .. desc.name .. [[_color = ]] .. desc.name .. [[_av_color[2];
-elseif (]] .. desc.name .. [[_timeleft < ]] .. desc.timer2 .. [[ and ]] .. desc.name .. [[_timeleft >= ]] .. desc.timer1 .. [[) then
-	]] .. desc.name .. [[_color = ]] .. desc.name .. [[_av_color[3];
-elseif ]] .. desc.name .. [[_timeleft > ]] .. desc.timer2 .. [[ then
-	]] .. desc.name .. [[_color = ]] .. desc.name .. [[_av_color[4];
-elseif ]] .. desc.name .. [[_timeleft == 0 then
-	]] .. desc.name .. [[_color =  ]] .. desc.name .. [[_av_color[1];
-else
-	]] .. desc.name .. [[_color =  ]] .. desc.name .. [[_av_color[1];
-end
-
+		local ]] .. desc.name .. [[_possible, ]] .. desc.name .. [[_stack, ]] .. desc.name .. [[_icon , ]] .. desc.name .. [[_aura_start, ]] .. desc.name .. [[_aura_duration, ]] .. desc.name .. [[_caster, ]] .. desc.name .. [[_timeleft = ]] .. loadCode .. [[(uid, ]] .. tcd .. [[, ]] .. auracache .. [[, ]] .. playerauras .. [[, ]] .. othersauras .. [[, ]] .. petauras .. [[, ]] .. targetauras .. [[, ]] .. focusauras .. [[);
+		local ]] .. desc.name .. [[_aura_name = "";
+		local ]] .. desc.name .. [[_aura_stack = 0;
+		local ]] .. desc.name .. [[_aura_caster = "";
+		local ]] .. desc.name .. [[_color = ]] .. desc.name .. [[_av_color[1];
+		if not ]] .. reverse .. [[ then
+			]] .. desc.name .. [[_possible = not ]] .. desc.name .. [[_possible;
+		end
+		if ]] .. desc.name .. [[_possible then
+			]] .. desc.name .. [[_aura_name = "]] .. desc.name .. [[";
+		end
+		if not ]] .. desc.name .. [[_stack then ]] .. desc.name .. [[_stack = 0; end
+		if ]] .. desc.name .. [[_stack > 0 then
+			]] .. desc.name .. [[_aura_stack = ]] .. desc.name .. [[_stack;
+		end
+		--if ]] .. desc.name .. [[_caster and ]] .. desc.name .. [[_caster ~= "" then
+		--	local unitu = RDXDAL._ReallyFastProject(]] .. desc.name .. [[_caster);
+		--	if unitu then
+		--		]] .. desc.name .. [[_aura_caster = unitu:GetName();
+		--	else
+		--		]] .. desc.name .. [[_aura_caster = ]] .. desc.name .. [[_caster;
+		--	end
+		--end
+		if ]] .. desc.name .. [[_timeleft then ]] .. desc.name .. [[_time = strformat("%0.f",]] .. desc.name .. [[_timeleft); end
+		if not ]] .. desc.name .. [[_timeleft then ]] .. desc.name .. [[_timeleft = 0; end
+		if ]] .. desc.name .. [[_timeleft < ]] .. desc.timer1 .. [[ and ]] .. desc.name .. [[_timeleft > 0 then
+			]] .. desc.name .. [[_color = ]] .. desc.name .. [[_av_color[2];
+		elseif (]] .. desc.name .. [[_timeleft < ]] .. desc.timer2 .. [[ and ]] .. desc.name .. [[_timeleft >= ]] .. desc.timer1 .. [[) then
+			]] .. desc.name .. [[_color = ]] .. desc.name .. [[_av_color[3];
+		elseif ]] .. desc.name .. [[_timeleft > ]] .. desc.timer2 .. [[ then
+			]] .. desc.name .. [[_color = ]] .. desc.name .. [[_av_color[4];
+		elseif ]] .. desc.name .. [[_timeleft == 0 then
+			]] .. desc.name .. [[_color =  ]] .. desc.name .. [[_av_color[1];
+		else
+			]] .. desc.name .. [[_color =  ]] .. desc.name .. [[_av_color[1];
+		end
 ]]);
 		end);
 	end;

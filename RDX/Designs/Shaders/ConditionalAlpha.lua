@@ -24,11 +24,11 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local fname = RDXUI.ResolveObjectReference(desc.owner);
 		local paintCode = [[
-if ]] .. desc.flag .. [[ then
-	]] .. fname .. [[:SetAlpha(]] .. desc.trueAlpha .. [[);
-else
-	]] .. fname .. [[:SetAlpha(]] .. desc.falseAlpha .. [[);
-end
+		if ]] .. desc.flag .. [[ then
+			]] .. fname .. [[:SetAlpha(]] .. desc.trueAlpha .. [[);
+		else
+			]] .. fname .. [[:SetAlpha(]] .. desc.falseAlpha .. [[);
+		end
 ]];
 		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 	end;

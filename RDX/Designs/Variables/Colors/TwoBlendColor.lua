@@ -34,7 +34,7 @@ RDX.RegisterFeature({
 		end);
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-]] .. desc.name .. [[:blend(]] .. desc.colorVar1 .. "," .. desc.colorVar2 .. "," .. desc.bfVar .. [[);
+		]] .. desc.name .. [[:blend(]] .. desc.colorVar1 .. "," .. desc.colorVar2 .. "," .. desc.bfVar .. [[);
 ]]);
 		end);
 	end;

@@ -15,7 +15,7 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code) code:AppendCode([[
-local fh = unit:FracHealth();
+		local fh = unit:FracHealth();
 ]]); 
 		end);
 		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");

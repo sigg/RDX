@@ -40,11 +40,11 @@ RDX.RegisterFeature({
 		local umask = mux:GetPaintMask("ENTERING_WORLD");
 		
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code) code:AppendCode([[
-local fire_Totem, earth_Totem, water_Totem, air_Totem = 1, 2, 3, 4;
-local btotemfire, totemfire_name, totemfire_start, totemfire_duration, totemfire_icon = GetTotemInfo(1);
-local btotemearth, totemearth_name, totemearth_start, totemearth_duration, totemearth_icon = GetTotemInfo(2);
-local btotemwater, totemwater_name, totemwater_start, totemwater_duration, totemwater_icon = GetTotemInfo(3);
-local btotemair, totemair_name, totemair_start, totemair_duration, totemair_icon = GetTotemInfo(4);
+		local fire_Totem, earth_Totem, water_Totem, air_Totem = 1, 2, 3, 4;
+		local btotemfire, totemfire_name, totemfire_start, totemfire_duration, totemfire_icon = GetTotemInfo(1);
+		local btotemearth, totemearth_name, totemearth_start, totemearth_duration, totemearth_icon = GetTotemInfo(2);
+		local btotemwater, totemwater_name, totemwater_start, totemwater_duration, totemwater_icon = GetTotemInfo(3);
+		local btotemair, totemair_name, totemair_start, totemair_duration, totemair_icon = GetTotemInfo(4);
 ]]);
 		end);
 		

@@ -32,26 +32,26 @@ RDX.RegisterFeature({
 		local smask = mux:GetPaintMask("BUFFWEAPON_UPDATE");
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-local bMainHandEnchant, MainHandEnchant_name, MainHandEnchant_rank, MainHandEnchant_charge, MainHandEnchant_start, MainHandEnchant_duration, MainHand_icon, MainHandEnchant_icon, MainHandEnchant_InventoryItem, bOffHandEnchant, OffHandEnchant_name, OffHandEnchant_rank, OffHandEnchant_charge, OffHandEnchant_start, OffHandEnchant_duration, OffHand_icon, OffHandEnchant_icon, OffHandEnchant_InventoryItem = RDXDAL.LoadWeaponsBuff();
-local MandHandEnchant_name_rank, OffHandEnchant_name_rank = "", "";
-if MainHandEnchant_name and MainHandEnchant_name ~= "" then
-	MandHandEnchant_name_rank = MainHandEnchant_name;
-	if MainHandEnchant_rank and MainHandEnchant_rank ~= "" then
-		MandHandEnchant_name_rank = MandHandEnchant_name_rank .. " " .. MainHandEnchant_rank;
-	end
-	if MainHandEnchant_charge and MainHandEnchant_charge ~= "" then
-		MandHandEnchant_name_rank = MandHandEnchant_name_rank .. " (" .. MainHandEnchant_charge .. ")";
-	end
-end
-if OffHandEnchant_name and OffHandEnchant_name ~= "" then
-	OffHandEnchant_name_rank = OffHandEnchant_name;
-	if OffHandEnchant_rank and OffHandEnchant_rank ~= "" then
-		OffHandEnchant_name_rank = OffHandEnchant_name_rank .. " " .. OffHandEnchant_rank;
-	end
-	if OffHandEnchant_charge and OffHandEnchant_charge ~= "" then
-		OffHandEnchant_name_rank = OffHandEnchant_name_rank .. " (" .. OffHandEnchant_charge .. ")";
-	end
-end
+		local bMainHandEnchant, MainHandEnchant_name, MainHandEnchant_rank, MainHandEnchant_charge, MainHandEnchant_start, MainHandEnchant_duration, MainHand_icon, MainHandEnchant_icon, MainHandEnchant_InventoryItem, bOffHandEnchant, OffHandEnchant_name, OffHandEnchant_rank, OffHandEnchant_charge, OffHandEnchant_start, OffHandEnchant_duration, OffHand_icon, OffHandEnchant_icon, OffHandEnchant_InventoryItem = RDXDAL.LoadWeaponsBuff();
+		local MandHandEnchant_name_rank, OffHandEnchant_name_rank = "", "";
+		if MainHandEnchant_name and MainHandEnchant_name ~= "" then
+			MandHandEnchant_name_rank = MainHandEnchant_name;
+			if MainHandEnchant_rank and MainHandEnchant_rank ~= "" then
+				MandHandEnchant_name_rank = MandHandEnchant_name_rank .. " " .. MainHandEnchant_rank;
+			end
+			if MainHandEnchant_charge and MainHandEnchant_charge ~= "" then
+				MandHandEnchant_name_rank = MandHandEnchant_name_rank .. " (" .. MainHandEnchant_charge .. ")";
+			end
+		end
+		if OffHandEnchant_name and OffHandEnchant_name ~= "" then
+			OffHandEnchant_name_rank = OffHandEnchant_name;
+			if OffHandEnchant_rank and OffHandEnchant_rank ~= "" then
+				OffHandEnchant_name_rank = OffHandEnchant_name_rank .. " " .. OffHandEnchant_rank;
+			end
+			if OffHandEnchant_charge and OffHandEnchant_charge ~= "" then
+				OffHandEnchant_name_rank = OffHandEnchant_name_rank .. " (" .. OffHandEnchant_charge .. ")";
+			end
+		end
 ]]);
 		end);
 		

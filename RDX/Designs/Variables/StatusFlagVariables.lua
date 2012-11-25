@@ -27,11 +27,11 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code) code:AppendCode([[
-local feigned, dead, ld, incap = nil, nil, nil, nil;
-if unit then feigned = unit:IsFeigned(); end
-dead = UnitIsDeadOrGhost(uid) and (not feigned);
-ld = (not UnitIsConnected(uid));
-incap = (feigned or dead or ld);
+		local feigned, dead, ld, incap = nil, nil, nil, nil;
+		if unit then feigned = unit:IsFeigned(); end
+		dead = UnitIsDeadOrGhost(uid) and (not feigned);
+		ld = (not UnitIsConnected(uid));
+		incap = (feigned or dead or ld);
 ]]); 
 		end);
 		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");

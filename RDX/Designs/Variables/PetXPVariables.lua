@@ -18,9 +18,9 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code) code:AppendCode([[
-local currentXP, nextXP = GetPetExperience();
-local fpxp = currentXP/nextXP;
-local fpetxptxt = currentXP .. " / " .. nextXP;
+		local currentXP, nextXP = GetPetExperience();
+		local fpxp = currentXP/nextXP;
+		local fpetxptxt = currentXP .. " / " .. nextXP;
 ]]); end);
 		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
 		local mask = mux:GetPaintMask("XP_UPDATE");

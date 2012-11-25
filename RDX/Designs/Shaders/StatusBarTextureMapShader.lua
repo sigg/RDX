@@ -89,18 +89,18 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local objname = RDXUI.ResolveTextureReference(desc.texture);
 		local paintCode = [[
-if ]] .. desc.flag .. [[ then
-	]] .. objname .. [[:Show();
-	]] .. objname .. [[:SetWidth(VFL.lerp1(]] .. desc.frac .. "," .. desc.w1 .. "," .. desc.w2 .. [[));
-	]] .. objname .. [[:SetHeight(VFL.lerp1(]] .. desc.frac .. "," .. desc.h1 .. "," .. desc.h2 .. [[));
-	]] .. objname .. [[:SetTexCoord(VFL.lerp4(]] .. desc.frac .. "," .. desc.l1 .. "," .. desc.l2 .. "," .. desc.r1 .. "," .. desc.r2 .. "," .. desc.b1 .. "," .. desc.b2 .. "," .. desc.t1 .. "," .. desc.t2 .. [[));
-	]] .. objname .. [[:SetVertexColor(explodeRGBA(]] .. desc.color .. [[));
-else
-	]] .. objname .. [[:Hide();
-end
+		if ]] .. desc.flag .. [[ then
+			]] .. objname .. [[:Show();
+			]] .. objname .. [[:SetWidth(VFL.lerp1(]] .. desc.frac .. "," .. desc.w1 .. "," .. desc.w2 .. [[));
+			]] .. objname .. [[:SetHeight(VFL.lerp1(]] .. desc.frac .. "," .. desc.h1 .. "," .. desc.h2 .. [[));
+			]] .. objname .. [[:SetTexCoord(VFL.lerp4(]] .. desc.frac .. "," .. desc.l1 .. "," .. desc.l2 .. "," .. desc.r1 .. "," .. desc.r2 .. "," .. desc.b1 .. "," .. desc.b2 .. "," .. desc.t1 .. "," .. desc.t2 .. [[));
+			]] .. objname .. [[:SetVertexColor(explodeRGBA(]] .. desc.color .. [[));
+		else
+			]] .. objname .. [[:Hide();
+		end
 ]];
 		local cleanupCode = [[
-]] .. objname .. [[:Hide();
+	]] .. objname .. [[:Hide();
 ]];
 		state:Attach(state:Slot("EmitCleanup"), true, function(code) code:AppendCode(cleanupCode); end);
 		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
@@ -185,7 +185,7 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local objname = RDXUI.ResolveTextureReference(desc.texture);
 		local paintCode = [[
-]] .. objname .. [[:SetTexCoord(]] .. desc.l1 .. "," .. desc.b1 .. "," .. desc.r1 .. "," .. desc.t1 .. [[);
+		]] .. objname .. [[:SetTexCoord(]] .. desc.l1 .. "," .. desc.b1 .. "," .. desc.r1 .. "," .. desc.t1 .. [[);
 ]];
 		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 	end;

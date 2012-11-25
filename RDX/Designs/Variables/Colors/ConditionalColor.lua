@@ -28,12 +28,12 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-local ]] .. desc.name .. [[ = nil;
-if ]] .. desc.condVar .. [[ then 
-	]] .. desc.name .. [[ = ]] .. desc.colorVar1 .. [[;
-else
-	]] .. desc.name .. [[ = ]] .. desc.colorVar2 .. [[;
-end
+		local ]] .. desc.name .. [[ = nil;
+		if ]] .. desc.condVar .. [[ then 
+			]] .. desc.name .. [[ = ]] .. desc.colorVar1 .. [[;
+		else
+			]] .. desc.name .. [[ = ]] .. desc.colorVar2 .. [[;
+		end
 ]]);
 		end);
 	end;

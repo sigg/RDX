@@ -18,28 +18,28 @@ RDX.RegisterFeature({
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 		if desc.test then
 			code:AppendCode([[
-local combopoint = 5;
-local combopoints = 1;
+		local combopoint = 5;
+		local combopoints = 1;
 ]]);
 		elseif desc.useplayer then
 			code:AppendCode([[
-local combopoint = 0;
-if UnitExists("vehicle") then
-	combopoint = GetComboPoints("vehicle");
-else
-	combopoint = GetComboPoints("player");
-end
-local combopoints = 0;
-if UnitExists("vehicle") then
-	combopoints = GetComboPoints("vehicle") / 5;
-else
-	combopoints = GetComboPoints("player") / 5;
-end
+		local combopoint = 0;
+		if UnitExists("vehicle") then
+			combopoint = GetComboPoints("vehicle");
+		else
+			combopoint = GetComboPoints("player");
+		end
+		local combopoints = 0;
+		if UnitExists("vehicle") then
+			combopoints = GetComboPoints("vehicle") / 5;
+		else
+			combopoints = GetComboPoints("player") / 5;
+		end
 ]]); 
 		else
 			code:AppendCode([[
-local combopoint = GetComboPoints(uid);
-local combopoints = GetComboPoints(uid) / 5;
+		local combopoint = GetComboPoints(uid);
+		local combopoints = GetComboPoints(uid) / 5;
 ]]); 
 		end
 		end);

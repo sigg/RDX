@@ -19,8 +19,8 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-local myunit = RDXDAL.GetMyUnit();		
-local myColor = myunit:GetClassColor();
+		local myunit = RDXDAL.GetMyUnit();		
+		local myColor = myunit:GetClassColor();
 ]]);
 		end);
 	end;

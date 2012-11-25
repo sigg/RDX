@@ -36,7 +36,7 @@ RDX.RegisterFeature({
 		local inverse = "";
 		if desc.inverse then inverse = "not "; end
 		local paintCode = [[
-if ]] .. inverse .. desc.flag .. [[ then ]] .. fname .. [[:Show(); else ]] .. fname .. [[:Hide(); end
+		if ]] .. inverse .. desc.flag .. [[ then ]] .. fname .. [[:Show(); else ]] .. fname .. [[:Hide(); end
 ]];
 		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 	end;

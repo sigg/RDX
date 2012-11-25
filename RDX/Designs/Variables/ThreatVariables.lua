@@ -27,18 +27,18 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code) code:AppendCode([[
-local _, _, fthreatscale, fthreat, threat_value = unit:GetThreatInfo();
-local bthreat, bthreatscale = nil, nil;
-local threat_info = "";
-local threatscale_info = "";
-if fthreat and fthreat > 0 then
-	bthreat = true;
-	threat_info = strformat("%d%%",(fthreat * 100));
-end
-if fthreatscale and fthreatscale > 0 then
-	bthreatscale = true;
-	threatscale_info = strformat("%d%%",(fthreatscale * 100));
-end
+		local _, _, fthreatscale, fthreat, threat_value = unit:GetThreatInfo();
+		local bthreat, bthreatscale = nil, nil;
+		local threat_info = "";
+		local threatscale_info = "";
+		if fthreat and fthreat > 0 then
+			bthreat = true;
+			threat_info = strformat("%d%%",(fthreat * 100));
+		end
+		if fthreatscale and fthreatscale > 0 then
+			bthreatscale = true;
+			threatscale_info = strformat("%d%%",(fthreatscale * 100));
+		end
 ]]); end);
 		-- Event hinting
 		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");

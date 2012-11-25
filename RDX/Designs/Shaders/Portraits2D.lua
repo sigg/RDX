@@ -36,9 +36,9 @@ RDX.RegisterFeature({
 
 		-- Painting
 		local paintCode = [[
-if band(paintmask, ]] .. mask .. [[) ~= 0 then
-	SetPortraitTexture(frame.]] .. objname .. [[, uid);
-end
+		if band(paintmask, ]] .. mask .. [[) ~= 0 then
+			SetPortraitTexture(frame.]] .. objname .. [[, uid);
+		end
 ]];
 		state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCode); end);
 

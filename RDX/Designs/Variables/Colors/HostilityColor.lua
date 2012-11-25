@@ -30,23 +30,23 @@ hostileColor_cf[5] = ]] .. Serialize(desc.selfColor) .. [[;
 		end);
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-local hostileColor = hostileColor_cf[1];
-if not UnitIsFriend(uid, "player") then
-	if UnitIsEnemy(uid, "player") then
-		hostileColor = hostileColor_cf[3];
-	else
-		hostileColor = hostileColor_cf[2];
-	end
-end
-if UnitIsTapped(uid) and not UnitIsTappedByPlayer(uid) then
-	hostileColor = hostileColor_cf[4];
-end
-if UnitIsUnit(uid, "player") or UnitInGroup(uid) then
-	hostileColor = hostileColor_cf[5];
-end
-if not UnitExists(uid) then
-	hostileColor = Serialize({r=0,g=0,b=0,a=0});
-end
+		local hostileColor = hostileColor_cf[1];
+		if not UnitIsFriend(uid, "player") then
+			if UnitIsEnemy(uid, "player") then
+				hostileColor = hostileColor_cf[3];
+			else
+				hostileColor = hostileColor_cf[2];
+			end
+		end
+		if UnitIsTapped(uid) and not UnitIsTappedByPlayer(uid) then
+			hostileColor = hostileColor_cf[4];
+		end
+		if UnitIsUnit(uid, "player") or UnitInGroup(uid) then
+			hostileColor = hostileColor_cf[5];
+		end
+		if not UnitExists(uid) then
+			hostileColor = Serialize({r=0,g=0,b=0,a=0});
+		end
 ]]);
 		end);
 	end;

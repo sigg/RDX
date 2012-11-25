@@ -21,14 +21,14 @@ RDX.RegisterFeature({
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code) 
 		if desc.test then
 		code:AppendCode([[	
-local fxp = 0.5;
-local fpxptxt = "xp test"
+		local fxp = 0.5;
+		local fpxptxt = "xp test"
 ]]);
 		else
 		code:AppendCode([[
-local fxp = UnitXP("player")/UnitXPMax("player");
-local fpxptxt = floor((UnitXP("player")/UnitXPMax("player")) * 100) .. "% | " .. UnitXP("Player") .. " / " .. UnitXPMax("player");
-if GetXPExhaustion() then fpxptxt = fpxptxt .. " " .. (GetXPExhaustion()/2).. " R"; end
+		local fxp = UnitXP("player")/UnitXPMax("player");
+		local fpxptxt = floor((UnitXP("player")/UnitXPMax("player")) * 100) .. "% | " .. UnitXP("Player") .. " / " .. UnitXPMax("player");
+		if GetXPExhaustion() then fpxptxt = fpxptxt .. " " .. (GetXPExhaustion()/2).. " R"; end
 ]]); 
 		end
 		end);

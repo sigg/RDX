@@ -34,7 +34,9 @@ RDX.RegisterFeature({
 --]]);
 --		end);
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
-			code:AppendCode("local powerColor = PowerBarColor[unit:PowerType()] or PowerBarColor[0];");
+			code:AppendCode([[
+		local powerColor = PowerBarColor[unit:PowerType()] or PowerBarColor[0];
+]]);
 		end);
 	end;
 	UIFromDescriptor = function(desc, parent, state)

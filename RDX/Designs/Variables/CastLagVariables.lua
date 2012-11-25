@@ -16,9 +16,9 @@ RDX.RegisterFeature({
 		--local umask = mux:GetPaintMask("CAST_TIMER_UPDATE");
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-local spell_lag = RDX._GetLastSpellLag();
-local spell_fraclag = clamp(spell_lag / max(spell_duration,0.01), 0, 1);
-local spell_lag_number = strformat("%dms", spell_lag*1000);
+		local spell_lag = RDX._GetLastSpellLag();
+		local spell_fraclag = clamp(spell_lag / max(spell_duration,0.01), 0, 1);
+		local spell_lag_number = strformat("%dms", spell_lag*1000);
 ]]);
 		--mux:Event_UnitMask("UNIT_CAST_TIMER_UPDATE", umask);
 		end);

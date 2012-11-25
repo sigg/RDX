@@ -44,7 +44,7 @@ RDX.RegisterFeature({
 		-- On paint preamble, create flag and grade variables
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-local ]] .. desc.name .. [[_used, ]] .. desc.name .. [[_cd_name, _, ]] .. desc.name .. [[_icon , ]] .. desc.name .. [[_cd_duration, ]] .. desc.name .. [[_cd_start = ]] .. loadCode .. [[(]] .. desc.cd .. [[);
+	local ]] .. desc.name .. [[_used, ]] .. desc.name .. [[_cd_name, _, ]] .. desc.name .. [[_icon , ]] .. desc.name .. [[_cd_duration, ]] .. desc.name .. [[_cd_start = ]] .. loadCode .. [[(]] .. desc.cd .. [[);
 ]]);
 		end);
 	end;

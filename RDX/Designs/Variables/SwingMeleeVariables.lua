@@ -20,7 +20,7 @@ RDX.RegisterFeature({
 		
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
-local meleemh_start, meleeoh_start, meleemh_duration, meleeoh_duration = RDX.GetSwingMeleeInfo();
+		local meleemh_start, meleeoh_start, meleemh_duration, meleeoh_duration = RDX.GetSwingMeleeInfo();
 ]]);
 		end);
 
