@@ -704,6 +704,21 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline)
 		SetActiveFeature(activeFeat, true); 
 	end);
 	
+	local btnGetCode = VFLUI.Button:new(dlg);
+	btnGetCode:SetHeight(25); btnGetCode:SetWidth(65);
+	btnGetCode:SetPoint("RIGHT", btnRefresh, "LEFT");
+	btnGetCode:SetText(VFLI.i18n("GetCode")); btnGetCode:Show();
+	btnGetCode:SetScript("OnClick", function() 
+		local dstate = RDX.DesignState:new();
+		local winstate = RDX._exportedWindowState;
+		local _errs = VFL.Error:new();
+		dstate:SetContainingWindowState(winstate);
+		dstate:LoadDescriptor(state:GetDescriptor(), path);
+		dstate:ApplyAll(_errs)
+		local code = RDX.DesignGeneratingFunctor(dstate, path, "local", true);
+		VFL.Debug_ShowCode(code);
+	end);
+	
 	-- Save : Add all modifications
 	local function Save()
 		-- Save the active feature before exiting
@@ -748,6 +763,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline)
 		possibleFeatList:Destroy(); possibleFeatList = nil;
 		possibleFeatureBackdrop:Destroy(); possibleFeatureBackdrop = nil;
 		el:Destroy(); el = nil;
+		btnGetCode:Destroy(); btnGetCode = nil;
 		btnRefresh:Destroy(); btnRefresh = nil;
 		sf:Destroy(); sf = nil;
 	end, dlg.Destroy);

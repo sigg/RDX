@@ -51,7 +51,7 @@ end
 -- Code generation functor. Given a unitframe ObjectState, build the
 -- create, paint, cleanup, and destroy functions.
 ----------------------------------------------------------------------
-function RDX.DesignGeneratingFunctor(state, path, winpath)
+function RDX.DesignGeneratingFunctor(state, path, winpath, getcode)
 	if not state then return nil; end
 
 	--- Build the code from the features
@@ -120,6 +120,7 @@ local function _create(frame)
 	state:RunSlot("EmitCreatePreamble", code);
 	state:RunSlot("EmitCreate", code);
 	code:AppendCode([[
+
 	frame.Destroy = VFL.hook(function(frame)
 		frame.Cleanup = nil; frame.SetData = nil; 
 ]]);
@@ -142,14 +143,18 @@ return _create;
 	if path and RDXM_Debug.IsStoreCompilerActive() then
 		RDXM_Debug.StoreCompiledObject(path, code);
 	end
-
-	--- Execute the code
-	local f, err = loadstring(code);
-	if not f then
-		VFL.TripError("RDX", VFLI.i18n("Could not compile Design."), VFLI.i18n("Error") .. ":" .. err .. VFLI.i18n("\n\nCode:\n------------\n") .. code);
-		return nil;
+	
+	if getcode then
+		return code;
+	else
+		--- Execute the code
+		local f, err = loadstring(code);
+		if not f then
+			VFL.TripError("RDX", VFLI.i18n("Could not compile Design."), VFLI.i18n("Error") .. ":" .. err .. VFLI.i18n("\n\nCode:\n------------\n") .. code);
+			return nil;
+		end
+		return f();
 	end
-	return f();
 end
 
 local dstate = RDX.DesignState:new();

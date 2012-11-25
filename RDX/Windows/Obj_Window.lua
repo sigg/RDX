@@ -186,15 +186,15 @@ local function SetupWindow(path, win, desc)
 			end;
 		});
 	end);
-	if RDXM_Debug.IsStoreCompilerActive() then
-		state:Attach("Menu", true, function(win, mnu)
-			local x = tostring(RDXM_Debug.GetStoreCompiledObject(upath) or "");
-			table.insert(mnu, {
-				text = VFLI.i18n("View Design Code");
-				OnClick = function() VFL.poptree:Release(); VFL.Debug_ShowCode(x); end;
-			});
-		end);
-	end
+	--if RDXM_Debug.IsStoreCompilerActive() then
+	--	state:Attach("Menu", true, function(win, mnu)
+	--		local x = tostring(RDXM_Debug.GetStoreCompiledObject(upath) or "");
+	--		table.insert(mnu, {
+	--			text = VFLI.i18n("View Design Code");
+	--			OnClick = function() VFL.poptree:Release(); VFL.Debug_ShowCode(x); end;
+	--		});
+	--	end);
+	--end
 	
 	_errs = nil;
 
