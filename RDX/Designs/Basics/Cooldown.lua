@@ -45,92 +45,92 @@ RDX.RegisterFeature({
 		
 		----------------- Creation
 		local createCode = [[
-local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 ]];
 		if driver == 1 then 
 			createCode = createCode .. [[
-btn = VFLUI.AcquireFrame("Button");
+	btn = VFLUI.AcquireFrame("Button");
 ]];
 		elseif driver == 2 then
 			createCode = createCode .. [[
-btn = VFLUI.AcquireFrame("Button");
-VFLUI.SetButtonSkin(btn, ]] .. Serialize(bs) .. [[);
+	btn = VFLUI.AcquireFrame("Button");
+	VFLUI.SetButtonSkin(btn, ]] .. Serialize(bs) .. [[);
 ]];
 		elseif driver == 3 then
 			createCode = createCode .. [[
-btn = VFLUI.AcquireFrame("Button");
-VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
+	btn = VFLUI.AcquireFrame("Button");
+	VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
 ]];
 		end
 		createCode = createCode .. [[
-btn:SetParent(btnOwner);
-btn:SetFrameLevel(btnOwner:GetFrameLevel());
-btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-btn.tex = VFLUI.CreateTexture(btn);
-btn.tex:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "2") .. [[);
-btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
-btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
-if not RDXG.usecleanicons then
-	btn.tex:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
-end
-btn.tex:Show();
+	btn:SetParent(btnOwner);
+	btn:SetFrameLevel(btnOwner:GetFrameLevel());
+	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
+	btn.tex = VFLUI.CreateTexture(btn);
+	btn.tex:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "2") .. [[);
+	btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
+	btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
+	if not RDXG.usecleanicons then
+		btn.tex:SetTexCoord(0.05, 1-0.06, 0.05, 1-0.04);
+	end
+	btn.tex:Show();
 ]];
 		createCode = createCode .. VFLUI.GenerateSetTextureCode("btn.tex", desc.texture);
 		createCode = createCode .. [[
-btn.cd = VFLUI.CooldownCounter:new(btn, ]] .. Serialize(desc.cd) .. [[);
-btn.cd:SetAllPoints(btn.tex);
-btn.cd:Show();
+	btn.cd = VFLUI.CooldownCounter:new(btn, ]] .. Serialize(desc.cd) .. [[);
+	btn.cd:SetAllPoints(btn.tex);
+	btn.cd:Show();
 ]];
 		if desc.gt then
 			local gtType = __RDX_GetGameTooltipType(desc.gt);
 			createCode = createCode .. [[
-btn:SetScript("OnEnter", ]] .. gtType .. [[);
-btn:SetScript("OnLeave", __RDX_OnLeave);
+	btn:SetScript("OnEnter", ]] .. gtType .. [[);
+	btn:SetScript("OnLeave", __RDX_OnLeave);
 ]];
 		end
 		createCode = createCode .. [[
-frame.]] .. objname .. [[ = btn;
+	frame.]] .. objname .. [[ = btn;
 ]];
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 
 		------------------- Destruction
 		local destroyCode = [[
-local btn = frame.]] .. objname .. [[;
-btn.cd:Destroy(); btn.cd = nil;
-VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
-btn:Destroy(); btn = nil;
-frame.]] .. objname .. [[ = nil;
+		local btn = frame.]] .. objname .. [[;
+		btn.cd:Destroy(); btn.cd = nil;
+		VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
+		btn:Destroy(); btn = nil;
+		frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);
 
 		------------------- Paint
 		local paintCode = [[
-btn = frame.]] .. objname .. [[;
+		btn = frame.]] .. objname .. [[;
 ]];
 		if desc.dyntexture then
 		paintCode = paintCode .. [[
-btn.tex:SetTexture(]] .. texIcondata .. [[);
+		btn.tex:SetTexture(]] .. texIcondata .. [[);
 ]];
 		end
 		paintCode = paintCode .. [[
-if ]] .. desc.timerVar .. [[_start and ]] .. desc.timerVar .. [[_start > 0 then
-	btn.cd:SetCooldown(]] .. desc.timerVar .. [[_start, ]] .. desc.timerVar .. [[_duration);
-	if not btn:IsShown() then btn:Show(0.2); end
-else
-	if btn:IsShown() then btn:Hide(0.2); end
-end
+		if ]] .. desc.timerVar .. [[_start and ]] .. desc.timerVar .. [[_start > 0 then
+			btn.cd:SetCooldown(]] .. desc.timerVar .. [[_start, ]] .. desc.timerVar .. [[_duration);
+			if not btn:IsShown() then btn:Show(0.2); end
+		else
+			if btn:IsShown() then btn:Hide(0.2); end
+		end
 ]];
 		if desc.gt and desc.gt ~= "" then
 		paintCode = paintCode .. [[
-btn.gtid = ]] .. desc.gt .. [[;
+		btn.gtid = ]] .. desc.gt .. [[;
 ]];
 		end
 		state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCode); end);
 
 		------------------- Cleanup
 		local cleanupCode = [[
-frame.]] .. objname .. [[:Hide();
+	frame.]] .. objname .. [[:Hide();
 ]];
 		state:Attach("EmitCleanup", true, function(code) code:AppendCode(cleanupCode); end);
 

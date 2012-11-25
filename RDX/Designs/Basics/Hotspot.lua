@@ -52,45 +52,44 @@ RDX.RegisterFeature({
 		local flo = tonumber(desc.flo); if not flo then flo = 1; end flo = VFL.clamp(flo,1,10);
 		
 		local createCode = [[
-local hs = VFLUI.AcquireFrame("]] .. ty .. [[");
-hs:SetAttribute("useparent-unit", true); hs:SetAttribute("unit", nil);
-hs:SetAttribute("useparent-unitsuffix", true); hs:SetAttribute("unitsuffix", nil);
-hs:SetParent(frame); hs:SetFrameLevel(frame:GetFrameLevel() + (]] .. flo .. [[));
-hs:SetWidth(]] .. desc.w .. [[); hs:SetHeight(]] .. desc.h .. [[);
-hs:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-if frame:GetAttribute("toggleForVehicle") then
-	hs:SetAttribute("toggleForVehicle", true);
-end
+	local hs = VFLUI.AcquireFrame("]] .. ty .. [[");
+	hs:SetAttribute("useparent-unit", true); hs:SetAttribute("unit", nil);
+	hs:SetAttribute("useparent-unitsuffix", true); hs:SetAttribute("unitsuffix", nil);
+	hs:SetParent(frame); hs:SetFrameLevel(frame:GetFrameLevel() + (]] .. flo .. [[));
+	hs:SetWidth(]] .. desc.w .. [[); hs:SetHeight(]] .. desc.h .. [[);
+	hs:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	if frame:GetAttribute("toggleForVehicle") then
+		hs:SetAttribute("toggleForVehicle", true);
+	end
 ]];
 		if desc.mover and (not RDX.IsDesignEditorOpen()) then createCode = createCode .. [[
-hs:SetScript("OnEnter", function()
-	hs.unit = hs:GetParent():GetAttribute("unit");
-	UnitFrame_OnEnter(hs);
-end);
-hs:SetScript("OnLeave", function() UnitFrame_OnLeave(hs); end);
+	hs:SetScript("OnEnter", function()
+		hs.unit = hs:GetParent():GetAttribute("unit");
+		UnitFrame_OnEnter(hs);
+	end);
+	hs:SetScript("OnLeave", function() UnitFrame_OnLeave(hs); end);
 ]];
 		end
 		createCode = createCode .. [[
-hs:Show();
-frame:SetHotspot(]] .. n .. [[, hs);
-frame.]] .. objname .. [[ = hs;
+	hs:Show();
+	frame:SetHotspot(]] .. n .. [[, hs);
+	frame.]] .. objname .. [[ = hs;
 ]];
 		if (type(desc.hlt) == "table") then
 			createCode = createCode .. [[
-local _tex = VFLUI.CreateTexture(hs);
-_tex:SetAllPoints(hs);
-hs.hltTex = _tex;
-hs:SetHighlightTexture(_tex);
+	local _tex = VFLUI.CreateTexture(hs);
+	_tex:SetAllPoints(hs);
+	hs.hltTex = _tex;
+	hs:SetHighlightTexture(_tex);
 ]] .. VFLUI.GenerateSetTextureCode("_tex", desc.hlt);
       		end
 
 		local destroyCode = [[
-frame:SetHotspot(]] .. n .. [[, nil);
-if frame.]] .. objname .. [[.hltTex then
-	frame.]] .. objname .. [[.hltTex:Destroy(); frame.]] .. objname .. [[.hltTex = nil;
-end
-frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
-
+		frame:SetHotspot(]] .. n .. [[, nil);
+		if frame.]] .. objname .. [[.hltTex then
+			frame.]] .. objname .. [[.hltTex:Destroy(); frame.]] .. objname .. [[.hltTex = nil;
+		end
+		frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 ]];
 
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);

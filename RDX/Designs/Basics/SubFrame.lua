@@ -35,23 +35,23 @@ RDX.RegisterFeature({
 		local objname = "Frame_" .. desc.name;
 		
 		local createCode = [[
-local _f = VFLUI.AcquireFrame("Frame");
-_f:SetParent(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-_f:SetFrameLevel(frame:GetFrameLevel() + (]] .. desc.flOffset .. [[));
-_f:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-_f:SetWidth(]] .. desc.w .. [[); _f:SetHeight(]] .. desc.h .. [[);
-_f:Show();
+	local _f = VFLUI.AcquireFrame("Frame");
+	_f:SetParent(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+	_f:SetFrameLevel(frame:GetFrameLevel() + (]] .. desc.flOffset .. [[));
+	_f:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	_f:SetWidth(]] .. desc.w .. [[); _f:SetHeight(]] .. desc.h .. [[);
+	_f:Show();
 ]];
 		if desc.usebkd then
 			createCode = createCode .. [[
-VFLUI.SetBackdrop(_f, ]] .. Serialize(desc.bkd) .. [[);
+	VFLUI.SetBackdrop(_f, ]] .. Serialize(desc.bkd) .. [[);
 ]];
 		end
 		createCode = createCode .. [[
-frame.]] .. objname .. [[ = _f;
+	frame.]] .. objname .. [[ = _f;
 ]];
 		local destroyCode = [[
-frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
+		frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);

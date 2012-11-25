@@ -37,7 +37,7 @@ RDX.RegisterFeature({
 	name = "listicons";
 	version = 1;
 	title = VFLI.i18n("Icons");
-	--test = true;
+	test = true;
 	category = VFLI.i18n("Lists");
 	multiple = true;
 	IsPossible = function(state)
@@ -451,7 +451,7 @@ frame.]] .. objname .. [[ = nil;
 	_icons = frame.]] .. objname .. [[;
 	while true do
 		if (_j > ]] .. desc.nIcons .. [[) then break; end
-		_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = nil, true, nil, nil, {}, nil, "Interface\\Addons\\RDX\\Skin\\whackaMole", 6, nil, 60, nil, 50, true, true;
+		_, _bn, _, _, _meta, _, _tex, _apps, _dispelt, _dur, _, _tl, _caster, _isStealable = nil, true, nil, nil, {}, nil, "Interface\\InventoryItems\\WoWUnknownItem01.blp", 6, nil, 60, nil, 50, true, true;
 		btn = _icons[_j];
 		if not btn:IsShown() then btn:Show(smooth); end
 		btn.meta = _meta;

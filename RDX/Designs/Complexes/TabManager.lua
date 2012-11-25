@@ -33,48 +33,48 @@ RDX.RegisterFeature({
 		local objname = "Frame_" .. desc.name;
 		------------------ On frame creation
 		local createCode = [[
-if not RDXDB.PathHasInstance("]] .. desc.cfm .. [[") then
-	local tm = RDXDB.GetObjectInstance("]] .. desc.cfm .. [[", nil, ]] .. Serialize(desc) .. [[);
-	tm.tabbox:SetParent(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-	tm.tabbox:SetFrameLevel(frame:GetFrameLevel());
-	tm.tabbox:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-	tm.tabbox:SetWidth(]] .. desc.w .. [[); tm.tabbox:SetHeight(]] .. desc.h .. [[);
-	VFLUI.SetBackdrop(tm.tabbox, nil);
-	tm.tabbox:Show();
+	if not RDXDB.PathHasInstance("]] .. desc.cfm .. [[") then
+		local tm = RDXDB.GetObjectInstance("]] .. desc.cfm .. [[", nil, ]] .. Serialize(desc) .. [[);
+		tm.tabbox:SetParent(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+		tm.tabbox:SetFrameLevel(frame:GetFrameLevel());
+		tm.tabbox:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+		tm.tabbox:SetWidth(]] .. desc.w .. [[); tm.tabbox:SetHeight(]] .. desc.h .. [[);
+		VFLUI.SetBackdrop(tm.tabbox, nil);
+		tm.tabbox:Show();
 
-	VFLT.NextFrame(math.random(10000000), function()
-		tm.tabbox:GetTabBar():SelectTabId(1);
-	end);
-	
-	--tm.tabbox:GetTabBar():SetBackdropTab(]] .. Serialize(desc.bkd) .. [[);
-	--tm.tabbox:GetTabBar():SetFontTab(]] .. Serialize(desc.font) .. [[);
-	frame.]] .. objname .. [[ = tm;
-else
-	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
-	btn = VFLUI.AcquireFrame("Frame");
-	btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
-	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-	VFLUI.SetBackdrop(btn, ]] .. Serialize(desc.bkd) .. [[);
-	btn:Show();
-	btn.error = true;
-	frame.]] .. objname .. [[ = btn;
-end
+		VFLT.NextFrame(math.random(10000000), function()
+			tm.tabbox:GetTabBar():SelectTabId(1);
+		end);
+		
+		--tm.tabbox:GetTabBar():SetBackdropTab(]] .. Serialize(desc.bkd) .. [[);
+		--tm.tabbox:GetTabBar():SetFontTab(]] .. Serialize(desc.font) .. [[);
+		frame.]] .. objname .. [[ = tm;
+	else
+		local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+		btn = VFLUI.AcquireFrame("Frame");
+		btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
+		btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+		btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
+		VFLUI.SetBackdrop(btn, ]] .. Serialize(desc.bkd) .. [[);
+		btn:Show();
+		btn.error = true;
+		frame.]] .. objname .. [[ = btn;
+	end
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 
 		------------------ On frame destruction.
 		local destroyCode = [[
-local tm = frame.]] .. objname .. [[;
-if tm then
-	if tm.error then
-		tm.error = nil;
-		tm:Destroy();
-	else
-		RDXDB._RemoveInstance("]] .. desc.cfm .. [[");
-	end
-	frame.]] .. objname .. [[ = nil;
-end
+		local tm = frame.]] .. objname .. [[;
+		if tm then
+			if tm.error then
+				tm.error = nil;
+				tm:Destroy();
+			else
+				RDXDB._RemoveInstance("]] .. desc.cfm .. [[");
+			end
+			frame.]] .. objname .. [[ = nil;
+		end
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 

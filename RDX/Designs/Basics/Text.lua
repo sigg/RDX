@@ -44,18 +44,18 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = hpHint;
 	GeneratePaintCode = function(objname) return [[
-if unit:IsFeigned() then
-	]] .. objname .. [[:SetText(VFLI.i18n("Feign"));
-elseif unit:IsDead() then
-	]] .. objname .. [[:SetText(VFLI.i18n("|cFFFF0000Dead|r"));
-elseif not unit:IsOnline() then
-	]] .. objname .. [[:SetText(VFLI.i18n("|cFF777777LD|r"));
-else
-	]] .. objname .. [[:SetText("");
-end
+		if unit:IsFeigned() then
+			]] .. objname .. [[:SetText(VFLI.i18n("Feign"));
+		elseif unit:IsDead() then
+			]] .. objname .. [[:SetText(VFLI.i18n("|cFFFF0000Dead|r"));
+		elseif not unit:IsOnline() then
+			]] .. objname .. [[:SetText(VFLI.i18n("|cFF777777LD|r"));
+		else
+			]] .. objname .. [[:SetText("");
+		end
 ]]; end;
 	GeneratePaintCodeTest = function(objname) return [[
-]] .. objname .. [[:SetText(VFLI.i18n("|cFFFF0000Dead|r"));
+		]] .. objname .. [[:SetText(VFLI.i18n("|cFFFF0000Dead|r"));
 ]]; end;
 });
 
@@ -65,16 +65,16 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = hpHint;
 	GeneratePaintCode = function(objname) return [[
-if unit:IsFeigned() then
-	]] .. objname .. [[:SetText(VFLI.i18n("Feign"));
-elseif unit:IsDead() then
-	]] .. objname .. [[:SetText(VFLI.i18n("|cFFFF0000Dead|r"));
-else
-	]] .. objname .. [[:SetText("");
-end
+		if unit:IsFeigned() then
+			]] .. objname .. [[:SetText(VFLI.i18n("Feign"));
+		elseif unit:IsDead() then
+			]] .. objname .. [[:SetText(VFLI.i18n("|cFFFF0000Dead|r"));
+		else
+			]] .. objname .. [[:SetText("");
+		end
 ]]; end;
 	GeneratePaintCodeTest = function(objname) return [[
-]] .. objname .. [[:SetText(VFLI.i18n("|cFFFF0000Dead|r"));
+		]] .. objname .. [[:SetText(VFLI.i18n("|cFFFF0000Dead|r"));
 ]]; end;
 });
 
@@ -84,8 +84,8 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
-	]] .. objname .. [[:SetFormattedText("%d",  unit:GetGroup());
+		RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
+		]] .. objname .. [[:SetFormattedText("%d",  unit:GetGroup());
 ]]; end;
 });
 
@@ -95,14 +95,14 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	if UnitInRaid(uid) then
-		RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
-		]] .. objname .. [[:SetFormattedText("G:%d",  unit:GetGroup());
-	end
+		if UnitInRaid(uid) then
+			RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
+			]] .. objname .. [[:SetFormattedText("G:%d",  unit:GetGroup());
+		end
 ]]; end;
 	GeneratePaintCodeTest = function(objname) return [[
-RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
-]] .. objname .. [[:SetFormattedText("G:%d",  1);
+		RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
+		]] .. objname .. [[:SetFormattedText("G:%d",  1);
 ]]; end;
 });
 
@@ -112,18 +112,18 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	text = "";
-	if UnitIsPlayer(uid) then
-		text = unit:GetClass() or "";
-	else
-		if UnitCreatureType(uid) == "Beast" and UnitCreatureFamily(uid) then
-			text = UnitCreatureFamily(uid);
+		text = "";
+		if UnitIsPlayer(uid) then
+			text = unit:GetClass() or "";
 		else
-			text = UnitCreatureType(uid) or "";
+			if UnitCreatureType(uid) == "Beast" and UnitCreatureFamily(uid) then
+				text = UnitCreatureFamily(uid);
+			else
+				text = UnitCreatureType(uid) or "";
+			end
 		end
-	end
-	RDX.SetStatusText(]] .. objname .. [[, 1, unit:GetClassColor(), nil);
-	]] .. objname .. [[:SetText(text);
+		RDX.SetStatusText(]] .. objname .. [[, 1, unit:GetClassColor(), nil);
+		]] .. objname .. [[:SetText(text);
 ]]; end;
 });
 
@@ -133,19 +133,19 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	text = "";
-	if UnitIsPlayer(uid) then
-		text = unit:GetClass() or "";
-	else
-		if UnitCreatureType(uid) == "Beast" and UnitCreatureFamily(uid) then
-			text = UnitCreatureFamily(uid);
+		text = "";
+		if UnitIsPlayer(uid) then
+			text = unit:GetClass() or "";
 		else
-			text = UnitCreatureType(uid) or "";
+			if UnitCreatureType(uid) == "Beast" and UnitCreatureFamily(uid) then
+				text = UnitCreatureFamily(uid);
+			else
+				text = UnitCreatureType(uid) or "";
+			end
 		end
-	end
-	if string.len(text) > 4 then text = string.sub(text,1,4); end
-	RDX.SetStatusText(]] .. objname .. [[, 1, unit:GetClassColor(), nil);
-	]] .. objname .. [[:SetText(text);
+		if string.len(text) > 4 then text = string.sub(text,1,4); end
+		RDX.SetStatusText(]] .. objname .. [[, 1, unit:GetClassColor(), nil);
+		]] .. objname .. [[:SetText(text);
 ]]; end;
 });
 
@@ -155,18 +155,18 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	text = "";
-	if UnitIsPlayer(uid) then
-		text = (UnitRace(uid) or "");
-	else
-		if UnitCreatureType(uid) == "Beast" and UnitCreatureFamily(uid) then
-			text = UnitCreatureFamily(uid);
+		text = "";
+		if UnitIsPlayer(uid) then
+			text = (UnitRace(uid) or "");
 		else
-			text = UnitCreatureType(uid) or "";
+			if UnitCreatureType(uid) == "Beast" and UnitCreatureFamily(uid) then
+				text = UnitCreatureFamily(uid);
+			else
+				text = UnitCreatureType(uid) or "";
+			end
 		end
-	end
-	RDX.SetStatusText(]] .. objname .. [[, 1, unit:GetClassColor(), nil);
-	]] .. objname .. [[:SetText(text);
+		RDX.SetStatusText(]] .. objname .. [[, 1, unit:GetClassColor(), nil);
+		]] .. objname .. [[:SetText(text);
 ]]; end;
 });
 
@@ -176,26 +176,26 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	text = UnitLevel(uid);
-	if text then
-		if (text < 0) then
-			text = VFL.tcolorize("?? ", GetQuestDifficultyColor(text));
+		text = UnitLevel(uid);
+		if text then
+			if (text < 0) then
+				text = VFL.tcolorize("?? ", GetQuestDifficultyColor(text));
+			else
+				text = VFL.tcolorize(text, GetQuestDifficultyColor(text)) .. " ";
+			end
 		else
-			text = VFL.tcolorize(text, GetQuestDifficultyColor(text)) .. " ";
+			text = "";
 		end
-	else
-		text = "";
-	end
-	if UnitIsPlayer(uid) then
-		text = text .. (UnitRace(uid) or "");
-	else
-		if UnitCreatureType(uid) == "Beast" and UnitCreatureFamily(uid) then
-			text = text .. UnitCreatureFamily(uid);
+		if UnitIsPlayer(uid) then
+			text = text .. (UnitRace(uid) or "");
 		else
-			text = text .. UnitCreatureType(uid) or "";
+			if UnitCreatureType(uid) == "Beast" and UnitCreatureFamily(uid) then
+				text = text .. UnitCreatureFamily(uid);
+			else
+				text = text .. UnitCreatureType(uid) or "";
+			end
 		end
-	end
-	]] .. objname .. [[:SetText(text);
+		]] .. objname .. [[:SetText(text);
 ]]; end;
 });
 
@@ -205,24 +205,24 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	text = "";
-	textcolor = _grey;
-	if UnitIsPlayer(uid) then
-		_apps = GetGuildInfo(uid);
-		if _apps then
-			text = _apps;
-			_meta = GetGuildInfo("player")
-			if _apps == _meta then
-				if string.len(text) > 22 then text = string.sub(text,1,22); end
-				textcolor = _green;
-			else
-				if string.len(text) > 22 then text = string.sub(text,1,22); end
-				textcolor = _red;
+		text = "";
+		textcolor = _grey;
+		if UnitIsPlayer(uid) then
+			_apps = GetGuildInfo(uid);
+			if _apps then
+				text = _apps;
+				_meta = GetGuildInfo("player")
+				if _apps == _meta then
+					if string.len(text) > 22 then text = string.sub(text,1,22); end
+					textcolor = _green;
+				else
+					if string.len(text) > 22 then text = string.sub(text,1,22); end
+					textcolor = _red;
+				end
 			end
 		end
-	end
-	RDX.SetStatusText(]] .. objname .. [[, 1, textcolor, nil);
-	]] .. objname .. [[:SetText(text);
+		RDX.SetStatusText(]] .. objname .. [[, 1, textcolor, nil);
+		]] .. objname .. [[:SetText(text);
 ]]; end;
 });
 
@@ -232,30 +232,30 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	_meta = UnitClassification(uid);
-	text = "";
-	textcolor = _grey;
-	if (_meta ~= "normal") then
-		if (_meta == "worldboss") then
-			text = "Boss";
-			textcolor = _white;
-		elseif (_meta == "rareelite") then
-			text = "Rare Elite";
-			textcolor = _yellow;
-		elseif (_meta == "elite") then
-			text = "Elite Mob";
-			textcolor = _yellow;
-		elseif (_meta == "rare") then
-			text = "Rare Mob";
-			textcolor = _grey;
+		_meta = UnitClassification(uid);
+		text = "";
+		textcolor = _grey;
+		if (_meta ~= "normal") then
+			if (_meta == "worldboss") then
+				text = "Boss";
+				textcolor = _white;
+			elseif (_meta == "rareelite") then
+				text = "Rare Elite";
+				textcolor = _yellow;
+			elseif (_meta == "elite") then
+				text = "Elite Mob";
+				textcolor = _yellow;
+			elseif (_meta == "rare") then
+				text = "Rare Mob";
+				textcolor = _grey;
+			end
 		end
-	end
-	RDX.SetStatusText(]] .. objname .. [[, 1, textcolor, nil);
-	]] .. objname .. [[:SetText(text);
+		RDX.SetStatusText(]] .. objname .. [[, 1, textcolor, nil);
+		]] .. objname .. [[:SetText(text);
 ]]; end;
 	GeneratePaintCodeTest = function(objname) return [[
-RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
-]] .. objname .. [[:SetText("Boss");
+		RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
+		]] .. objname .. [[:SetText("Boss");
 ]]; end;
 });
 
@@ -265,19 +265,19 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	text = UnitLevel(uid);
-	if text then
-		if (text < 0) then
-			RDX.SetStatusText(]] .. objname .. [[, 1, GetQuestDifficultyColor(text), nil);
-			]] .. objname .. [[:SetText("??");
+		text = UnitLevel(uid);
+		if text then
+			if (text < 0) then
+				RDX.SetStatusText(]] .. objname .. [[, 1, GetQuestDifficultyColor(text), nil);
+				]] .. objname .. [[:SetText("??");
+			else
+				RDX.SetStatusText(]] .. objname .. [[, 1, GetQuestDifficultyColor(text), nil);
+				]] .. objname .. [[:SetText(text);
+			end
 		else
-			RDX.SetStatusText(]] .. objname .. [[, 1, GetQuestDifficultyColor(text), nil);
-			]] .. objname .. [[:SetText(text);
+			RDX.SetStatusText(]] .. objname .. [[, 1, GetQuestDifficultyColor(UnitLevel(uid)), nil, "");
+			]] .. objname .. [[:SetText("");
 		end
-	else
-		RDX.SetStatusText(]] .. objname .. [[, 1, GetQuestDifficultyColor(UnitLevel(uid)), nil, "");
-		]] .. objname .. [[:SetText("");
-	end
 ]]; end;
 });
 
@@ -287,9 +287,9 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	_, text = UnitName(uid);
-	RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
-	]] .. objname .. [[:SetText(text);
+		_, text = UnitName(uid);
+		RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
+		]] .. objname .. [[:SetText(text);
 ]]; end;
 });
 
@@ -301,18 +301,18 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	text = 0
-	if (uid == "target") then 
-		text = GetComboPoints("player");
-	else
-		text = GetComboPoints(uid);
-	end
-	if text == 0 then
-		]] .. objname .. [[:SetText("");
-	else
-		RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
-		]] .. objname .. [[:SetText(text);
-	end
+		text = 0
+		if (uid == "target") then 
+			text = GetComboPoints("player");
+		else
+			text = GetComboPoints(uid);
+		end
+		if text == 0 then
+			]] .. objname .. [[:SetText("");
+		else
+			RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
+			]] .. objname .. [[:SetText(text);
+		end
 ]]; end;
 });
 
@@ -322,12 +322,12 @@ RDX.RegisterStatusTextType({
 	OnExpose = hpPrereq;
 	OnApply = hpHint;
 	GeneratePaintCode = function(objname) return [[
-	if not unit:IsIncapacitated() then
-		RDX.SetStatusText(]] .. objname .. [[, unit:FracHealth(), _white, _red);
-		]] .. objname .. [[:SetFormattedText("%0.0f%%", unit:FracHealth()*100);
-	else
-		]] .. objname .. [[:SetText("");
-	end
+		if not unit:IsIncapacitated() then
+			RDX.SetStatusText(]] .. objname .. [[, unit:FracHealth(), _white, _red);
+			]] .. objname .. [[:SetFormattedText("%0.0f%%", unit:FracHealth()*100);
+		else
+			]] .. objname .. [[:SetText("");
+		end
 ]]; end;
 });
 
@@ -337,17 +337,17 @@ RDX.RegisterStatusTextType({
 	OnExpose = hpPrereq;
 	OnApply = hpHint;
 	GeneratePaintCode = function(objname) return [[
-	if not unit:IsIncapacitated() then
-		if UnitIsPlayer(uid) then 
-			RDX.SetStatusText(]] .. objname .. [[, unit:FracHealth(), _white, _red);
-			]] .. objname .. [[:SetText(unit:Health());
+		if not unit:IsIncapacitated() then
+			if UnitIsPlayer(uid) then 
+				RDX.SetStatusText(]] .. objname .. [[, unit:FracHealth(), _white, _red);
+				]] .. objname .. [[:SetText(unit:Health());
+			else
+				RDX.SetStatusText(]] .. objname .. [[, unit:FracHealth(), _white, _red);
+				]] .. objname .. [[:SetText(VFL.Kay(unit:Health()));
+			end
 		else
-			RDX.SetStatusText(]] .. objname .. [[, unit:FracHealth(), _white, _red);
-			]] .. objname .. [[:SetText(VFL.Kay(unit:Health()));
+			]] .. objname .. [[:SetText("");
 		end
-	else
-		]] .. objname .. [[:SetText("");
-	end
 ]]; end;
 });
 
@@ -357,12 +357,12 @@ RDX.RegisterStatusTextType({
 	OnExpose = hpPrereq;
 	OnApply = hpHint;
 	GeneratePaintCode = function(objname) return [[
-	if not unit:IsIncapacitated() then
-		RDX.SetStatusText(]] .. objname .. [[, unit:FracHealth(), _white, _red);
-		]] .. objname .. [[:SetFormattedText("-%d", unit:MissingHealth());
-	else
-		]] .. objname .. [[:SetText("");
-	end
+		if not unit:IsIncapacitated() then
+			RDX.SetStatusText(]] .. objname .. [[, unit:FracHealth(), _white, _red);
+			]] .. objname .. [[:SetFormattedText("-%d", unit:MissingHealth());
+		else
+			]] .. objname .. [[:SetText("");
+		end
 ]]; end;
 });
 
@@ -372,14 +372,13 @@ RDX.RegisterStatusTextType({
 	OnExpose = VFL.Noop;
 	OnApply = VFL.Noop;
 	GeneratePaintCode = function(objname) return [[
-	if (ih or 0) > 0 then
-		RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
-		]] .. objname .. [[:SetFormattedText("+%d", ih);
-	else
-		RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
-		]] .. objname .. [[:SetText("");
-	end
-	
+		if (ih or 0) > 0 then
+			RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
+			]] .. objname .. [[:SetFormattedText("+%d", ih);
+		else
+			RDX.SetStatusText(]] .. objname .. [[, 1, _white, nil);
+			]] .. objname .. [[:SetText("");
+		end
 ]]; end;
 });
 
@@ -389,21 +388,20 @@ RDX.RegisterStatusTextType({
 	OnExpose = hpPrereq;
 	OnApply = hpHint;
 	GeneratePaintCode = function(objname) return [[
-	RDX.SetStatusText(]] .. objname .. [[, unit:FracHealth(), _white, _red);
-	if unit:IsIncapacitated() then
-		]] .. objname .. [[:SetText("");
-	elseif UnitIsDead(uid) then
-		]] .. objname .. [[:SetText("Dead");
-	elseif UnitIsGhost(uid) then
-		]] .. objname .. [[:SetText("Ghost");
-	elseif not UnitIsConnected(uid) then
-		]] .. objname .. [[:SetText("LinkDead");
-	elseif UnitIsPlayer(uid) then
-		]] .. objname .. [[:SetFormattedText("%d / %d", unit:Health(), unit:MaxHealth());
-	else
-		]] .. objname .. [[:SetFormattedText("%s / %s", VFL.Kay(unit:Health()), VFL.Kay(unit:MaxHealth()));
-	end
-	
+		RDX.SetStatusText(]] .. objname .. [[, unit:FracHealth(), _white, _red);
+		if unit:IsIncapacitated() then
+			]] .. objname .. [[:SetText("");
+		elseif UnitIsDead(uid) then
+			]] .. objname .. [[:SetText("Dead");
+		elseif UnitIsGhost(uid) then
+			]] .. objname .. [[:SetText("Ghost");
+		elseif not UnitIsConnected(uid) then
+			]] .. objname .. [[:SetText("LinkDead");
+		elseif UnitIsPlayer(uid) then
+			]] .. objname .. [[:SetFormattedText("%d / %d", unit:Health(), unit:MaxHealth());
+		else
+			]] .. objname .. [[:SetFormattedText("%s / %s", VFL.Kay(unit:Health()), VFL.Kay(unit:MaxHealth()));
+		end
 ]]; end;
 });
 
@@ -413,22 +411,22 @@ RDX.RegisterStatusTextType({
 	OnExpose = hpPrereq;
 	OnApply = hpHint;
 	GeneratePaintCode = function(objname) return [[
-	RDX.SetStatusText(]] .. objname .. [[, unit:FracHealth(), _white, _red);
-	if not unit:IsIncapacitated() then
-		if UnitIsDead(uid) then
-			]] .. objname .. [[:SetText("Dead");
-		elseif UnitIsGhost(uid) then
-			]] .. objname .. [[:SetText("Ghost");
-		elseif not UnitIsConnected(uid) then
-			]] .. objname .. [[:SetText("LinkDead");
-		elseif UnitIsPlayer(uid) then
-			]] .. objname .. [[:SetFormattedText("%0.0f%% | %d / %d", unit:FracHealth()*100, unit:Health(), unit:MaxHealth());
+		RDX.SetStatusText(]] .. objname .. [[, unit:FracHealth(), _white, _red);
+		if not unit:IsIncapacitated() then
+			if UnitIsDead(uid) then
+				]] .. objname .. [[:SetText("Dead");
+			elseif UnitIsGhost(uid) then
+				]] .. objname .. [[:SetText("Ghost");
+			elseif not UnitIsConnected(uid) then
+				]] .. objname .. [[:SetText("LinkDead");
+			elseif UnitIsPlayer(uid) then
+				]] .. objname .. [[:SetFormattedText("%0.0f%% | %d / %d", unit:FracHealth()*100, unit:Health(), unit:MaxHealth());
+			else
+				]] .. objname .. [[:SetFormattedText("%0.0f%% | %s / %s", unit:FracHealth()*100, VFL.Kay(unit:Health()), VFL.Kay(unit:MaxHealth()));
+			end
 		else
-			]] .. objname .. [[:SetFormattedText("%0.0f%% | %s / %s", unit:FracHealth()*100, VFL.Kay(unit:Health()), VFL.Kay(unit:MaxHealth()));
+			]] .. objname .. [[:SetText("");
 		end
-	else
-		]] .. objname .. [[:SetText("");
-	end
 ]]; end;
 });
 
@@ -438,12 +436,12 @@ RDX.RegisterStatusTextType({
 	OnExpose = mpPrereq;
 	OnApply = mpHint;
 	GeneratePaintCode = function(objname) return [[
-	if not unit:IsIncapacitated() then
-		RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
-		]] .. objname .. [[:SetFormattedText("%0.0f%%", unit:FracPower()*100);
-	else
-		]] .. objname .. [[:SetText("");
-	end
+		if not unit:IsIncapacitated() then
+			RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
+			]] .. objname .. [[:SetFormattedText("%0.0f%%", unit:FracPower()*100);
+		else
+			]] .. objname .. [[:SetText("");
+		end
 ]]; end;
 });
 
@@ -474,17 +472,17 @@ RDX.RegisterStatusTextType({
 	OnExpose = mpPrereq;
 	OnApply = mpHint;
 	GeneratePaintCode = function(objname) return [[
-	if not unit:IsIncapacitated() then
-		if UnitIsPlayer(uid) then 
-			RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
-			]] .. objname .. [[:SetText(unit:Power());
+		if not unit:IsIncapacitated() then
+			if UnitIsPlayer(uid) then 
+				RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
+				]] .. objname .. [[:SetText(unit:Power());
+			else
+				RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
+				]] .. objname .. [[:SetText(VFL.Kay(unit:Power()));
+			end
 		else
-			RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
-			]] .. objname .. [[:SetText(VFL.Kay(unit:Power()));
+			]] .. objname .. [[:SetText("");
 		end
-	else
-		]] .. objname .. [[:SetText("");
-	end
 ]]; end;
 });
 
@@ -494,12 +492,12 @@ RDX.RegisterStatusTextType({
 	OnExpose = mpPrereq;
 	OnApply = mpHint;
 	GeneratePaintCode = function(objname) return [[
-	if not unit:IsIncapacitated() then
-		RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
-		]] .. objname .. [[:SetFormattedText("-%d", unit:MissingPower());
-	else
-		]] .. objname .. [[:SetText("");
-	end
+		if not unit:IsIncapacitated() then
+			RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
+			]] .. objname .. [[:SetFormattedText("-%d", unit:MissingPower());
+		else
+			]] .. objname .. [[:SetText("");
+		end
 ]]; end;
 });
 
@@ -509,17 +507,17 @@ RDX.RegisterStatusTextType({
 	OnExpose = mpPrereq;
 	OnApply = mpHint;
 	GeneratePaintCode = function(objname) return [[
-	if not unit:IsIncapacitated() then
-		if UnitIsPlayer(uid) then 
-			RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
-			]] .. objname .. [[:SetFormattedText("%d / %d", unit:Power(), unit:MaxPower());
+		if not unit:IsIncapacitated() then
+			if UnitIsPlayer(uid) then 
+				RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
+				]] .. objname .. [[:SetFormattedText("%d / %d", unit:Power(), unit:MaxPower());
+			else
+				RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
+				]] .. objname .. [[:SetFormattedText("%s / %s", VFL.Kay(unit:Power()), VFL.Kay(unit:MaxPower()));
+			end
 		else
-			RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
-			]] .. objname .. [[:SetFormattedText("%s / %s", VFL.Kay(unit:Power()), VFL.Kay(unit:MaxPower()));
+			]] .. objname .. [[:SetText("");
 		end
-	else
-		]] .. objname .. [[:SetText("");
-	end
 ]]; end;
 });
 
@@ -529,17 +527,17 @@ RDX.RegisterStatusTextType({
 	OnExpose = mpPrereq;
 	OnApply = mpHint;
 	GeneratePaintCode = function(objname) return [[
-	if not unit:IsIncapacitated() then
-		if UnitIsPlayer(uid) then 
-			RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
-			]] .. objname .. [[:SetFormattedText("%0.0f%% | %d / %d", unit:FracPower()*100, unit:Power(), unit:MaxPower());
+		if not unit:IsIncapacitated() then
+			if UnitIsPlayer(uid) then 
+				RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
+				]] .. objname .. [[:SetFormattedText("%0.0f%% | %d / %d", unit:FracPower()*100, unit:Power(), unit:MaxPower());
+			else
+				RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
+				]] .. objname .. [[:SetFormattedText("%0.0f%% | %s / %s", unit:FracPower()*100, VFL.Kay(unit:Power()), VFL.Kay(unit:MaxPower()));
+			end
 		else
-			RDX.SetStatusText(]] .. objname .. [[, unit:FracPower(), _white, _red);
-			]] .. objname .. [[:SetFormattedText("%0.0f%% | %s / %s", unit:FracPower()*100, VFL.Kay(unit:Power()), VFL.Kay(unit:MaxPower()));
+			]] .. objname .. [[:SetText("");
 		end
-	else
-		]] .. objname .. [[:SetText("");
-	end
 ]]; end;
 });
 
@@ -567,8 +565,8 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_, word = RDXDB.ParsePath(RDXU.AUI);
-text = "AUI: " .. (word or "Unknown");
+	_, word = RDXDB.ParsePath(RDXU.AUI);
+	text = "AUI: " .. (word or "Unknown");
 ]]; end;
 });
 
@@ -584,7 +582,7 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-text = "State: " .. (RDXU.AUIState or "Unknown");
+	text = "State: " .. (RDXU.AUIState or "Unknown");
 ]]; end;
 });
 
@@ -600,13 +598,13 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_i = GetAddOnMemoryUsage("RDX_filesystem");
-textcolor = _green;
-if _i > 10000 then textcolor = _yellow; end
-if _i > 20000 then textcolor = _orange; end
-if _i > 30000 then textcolor = _red; end
-_i = _i * 1000;
-text = "Repository: " .. VFL.KayMemory(_i, textcolor);
+	_i = GetAddOnMemoryUsage("RDX_filesystem");
+	textcolor = _green;
+	if _i > 10000 then textcolor = _yellow; end
+	if _i > 20000 then textcolor = _orange; end
+	if _i > 30000 then textcolor = _red; end
+	_i = _i * 1000;
+	text = "Repository: " .. VFL.KayMemory(_i, textcolor);
 ]]; end;
 });
 
@@ -622,7 +620,7 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-text = VFLP.GetTextPerf();
+	text = VFLP.GetTextPerf();
 ]]; end;
 });
 
@@ -638,7 +636,7 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_, text = VFLP.GetTextPerf();
+	_, text = VFLP.GetTextPerf();
 ]]; end;
 });
 
@@ -654,7 +652,7 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-text = date("%H:%M");
+	text = date("%H:%M");
 ]]; end;
 });
 
@@ -670,12 +668,12 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_i, _j = 0, 0;
-for i=1, 4 do 
-	_j = GetContainerNumFreeSlots(i);
-	_i = _i + _j;
-end
-text = _i;
+	_i, _j = 0, 0;
+	for i=1, 4 do 
+		_j = GetContainerNumFreeSlots(i);
+		_i = _i + _j;
+	end
+	text = _i;
 ]]; end;
 });
 
@@ -691,9 +689,9 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-CheckInbox();
-_i = GetInboxNumItems();
-if _i then text = _i; else text = "0"; end 
+	CheckInbox();
+	_i = GetInboxNumItems();
+	if _i then text = _i; else text = "0"; end 
 ]]; end;
 });
 
@@ -709,15 +707,15 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_bn = GetMinimapZoneText();
-_i, _j = GetPlayerMapPosition("player");
-_apps = "";
-if(_i == 0 and _j == 0) then
+	_bn = GetMinimapZoneText();
+	_i, _j = GetPlayerMapPosition("player");
 	_apps = "";
-else
-	_apps = " "..format("%.2d || %.2d",_i*100,_j*100);
-end
-text = (_bn.._apps);
+	if(_i == 0 and _j == 0) then
+		_apps = "";
+	else
+		_apps = " "..format("%.2d || %.2d",_i*100,_j*100);
+	end
+	text = (_bn.._apps);
 ]]; end;
 });
 
@@ -733,25 +731,25 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_apps = false;
-_i = date("%H");
-_j = date("%M");
---minute = floor(minute / 10) == 0 and "0" .. minute or minute
-text = "";
+	_apps = false;
+	_i = date("%H");
+	_j = date("%M");
+	--minute = floor(minute / 10) == 0 and "0" .. minute or minute
+	text = "";
 
-if _apps then
-	text = _i .. ":" .. _j;
-else
-	_meta = (floor(_i / 12) == 1) and  "pm" or "am";
-	_i = mod(_i, 12);
-	if _i == 0 then _i = 12 end
-	if _meta == "pm" then
-		_meta = VFL.strtcolor(_bluesky) .. _meta;
+	if _apps then
+		text = _i .. ":" .. _j;
 	else
-		_meta = VFL.strcolor(1,1,.5) .. _meta;
+		_meta = (floor(_i / 12) == 1) and  "pm" or "am";
+		_i = mod(_i, 12);
+		if _i == 0 then _i = 12 end
+		if _meta == "pm" then
+			_meta = VFL.strtcolor(_bluesky) .. _meta;
+		else
+			_meta = VFL.strcolor(1,1,.5) .. _meta;
+		end
+		text = _i .. ":" .. _j .. " " .. _meta;
 	end
-	text = _i .. ":" .. _j .. " " .. _meta;
-end
 ]]; end;
 });
 
@@ -767,22 +765,22 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_bn = GetMinimapZoneText();
-_apps = GetZonePVPInfo();
-if (_apps == "sanctuary") then 
-  color = VFL.strcolor(.408,.8,.937) .. _bn; 
-elseif (_apps == "arena") then 
-  color = VFL.strcolor(1,.098,.098) ..  _bn;
-elseif (_apps == "friendly") then 
-  color = VFL.strcolor(.098,1,.098) .. _bn;
-elseif (_apps == "hostile" or _apps == "combat") then 
-  color = VFL.strcolor(1,.098,.098) .. _bn;
-elseif (_apps == "contested") then 
-  color = VFL.strcolor(1,.635,0) .. _bn;
-elseif (_apps == nil) then 
-  color = VFL.strcolor(1,.98,.98) .. _bn;
-end;
-text = color
+	_bn = GetMinimapZoneText();
+	_apps = GetZonePVPInfo();
+	if (_apps == "sanctuary") then 
+	  color = VFL.strcolor(.408,.8,.937) .. _bn; 
+	elseif (_apps == "arena") then 
+	  color = VFL.strcolor(1,.098,.098) ..  _bn;
+	elseif (_apps == "friendly") then 
+	  color = VFL.strcolor(.098,1,.098) .. _bn;
+	elseif (_apps == "hostile" or _apps == "combat") then 
+	  color = VFL.strcolor(1,.098,.098) .. _bn;
+	elseif (_apps == "contested") then 
+	  color = VFL.strcolor(1,.635,0) .. _bn;
+	elseif (_apps == nil) then 
+	  color = VFL.strcolor(1,.98,.98) .. _bn;
+	end;
+	text = color
 ]]; end;
 });
 
@@ -798,17 +796,17 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_i = 0;
-_j = 0;
-for n=1, GetNumFriends() do
-  _,_,_,_, _apps = GetFriendInfo(n);
-  if _apps then _i = _i + 1; end
-end
-for bn=1, BNGetNumFriends() do
-  _,_,_,_, _apps = BNGetFriendInfo(bn);
-  if _apps then _j = _j + 1; end
-end
-text = VFL.strtcolor(_white) .. "F: " .. VFL.strcolor(1,1,.50) .. _i .. VFL.strtcolor(_white) .. "/" .. VFL.strcolor(1,1,.5) .. GetNumFriends() .. VFL.strtcolor(_white) .. " BN: " .. VFL.strtcolor(_bluesky) .. _j .. VFL.strtcolor(_white) ..  "/" .. VFL.strtcolor(_bluesky) .. BNGetNumFriends();
+	_i = 0;
+	_j = 0;
+	for n=1, GetNumFriends() do
+	  _,_,_,_, _apps = GetFriendInfo(n);
+	  if _apps then _i = _i + 1; end
+	end
+	for bn=1, BNGetNumFriends() do
+	  _,_,_,_, _apps = BNGetFriendInfo(bn);
+	  if _apps then _j = _j + 1; end
+	end
+	text = VFL.strtcolor(_white) .. "F: " .. VFL.strcolor(1,1,.50) .. _i .. VFL.strtcolor(_white) .. "/" .. VFL.strcolor(1,1,.5) .. GetNumFriends() .. VFL.strtcolor(_white) .. " BN: " .. VFL.strtcolor(_bluesky) .. _j .. VFL.strtcolor(_white) ..  "/" .. VFL.strtcolor(_bluesky) .. BNGetNumFriends();
 ]]; end;
 });
 
@@ -824,28 +822,28 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_apps = "";
-_i = floor(GetFramerate() or "");
-if _i >= 50 then
-  _apps = VFL.strtcolor(_green) .. _i ..VFL.strtcolor(_white) .."fps ";
-elseif _i <= 49 and _i >= 35 then
-  _apps = VFL.strtcolor(_yellow) .. _i ..VFL.strtcolor(_white) .."fps ";
-elseif _i <= 34 and _i >= 21 then
-  _apps = VFL.strtcolor(_orange) .. _i ..VFL.strtcolor(_white) .."fps ";
-elseif _i <= 20 then
-  _apps = VFL.strtcolor(_red) .. _i .. VFL.strtcolor(_white) .."fps ";
-end;
-_,_, _j = GetNetStats();
-if _j <= 125 then
-  _j = VFL.strtcolor(_green) .. _j .. VFL.strtcolor(_white) .. "ms";
-elseif _j >= 126 and _j <= 250 then
-  _j = VFL.strtcolor(_yellow) .. _j .. VFL.strtcolor(_white) .. "ms";
-elseif _j >= 251 and _j <= 375 then
-  _j = VFL.strtcolor(_orange) .. _j .. VFL.strtcolor(_white) .. "ms";
-elseif _j >= 376 then
-  _j = VFL.strtcolor(_red) .. _j .. VFL.strtcolor(_white) .. "ms";
-end;  
-text = _apps  .. _j;
+	_apps = "";
+	_i = floor(GetFramerate() or "");
+	if _i >= 50 then
+	  _apps = VFL.strtcolor(_green) .. _i ..VFL.strtcolor(_white) .."fps ";
+	elseif _i <= 49 and _i >= 35 then
+	  _apps = VFL.strtcolor(_yellow) .. _i ..VFL.strtcolor(_white) .."fps ";
+	elseif _i <= 34 and _i >= 21 then
+	  _apps = VFL.strtcolor(_orange) .. _i ..VFL.strtcolor(_white) .."fps ";
+	elseif _i <= 20 then
+	  _apps = VFL.strtcolor(_red) .. _i .. VFL.strtcolor(_white) .."fps ";
+	end;
+	_,_, _j = GetNetStats();
+	if _j <= 125 then
+	  _j = VFL.strtcolor(_green) .. _j .. VFL.strtcolor(_white) .. "ms";
+	elseif _j >= 126 and _j <= 250 then
+	  _j = VFL.strtcolor(_yellow) .. _j .. VFL.strtcolor(_white) .. "ms";
+	elseif _j >= 251 and _j <= 375 then
+	  _j = VFL.strtcolor(_orange) .. _j .. VFL.strtcolor(_white) .. "ms";
+	elseif _j >= 376 then
+	  _j = VFL.strtcolor(_red) .. _j .. VFL.strtcolor(_white) .. "ms";
+	end;  
+	text = _apps  .. _j;
 ]]; end;
 });
 
@@ -861,18 +859,18 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_i = GetNumGuildMembers(true);
-_j = 0;
---_bn = 0;
-for i = 1, _i do
-	_,_,_,_,_,_,_,_,_apps = GetGuildRosterInfo(i);
-	if _apps then
-		_j = _j + 1;
-	--else
-	--	_bn = _bn + 1;
+	_i = GetNumGuildMembers(true);
+	_j = 0;
+	--_bn = 0;
+	for i = 1, _i do
+		_,_,_,_,_,_,_,_,_apps = GetGuildRosterInfo(i);
+		if _apps then
+			_j = _j + 1;
+		--else
+		--	_bn = _bn + 1;
+		end
 	end
-end
-text =  "Guild: " .. VFL.strtcolor(_green) .. _j;
+	text =  "Guild: " .. VFL.strtcolor(_green) .. _j;
 ]]; end;
 });
 
@@ -888,19 +886,19 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_i, _j = Logistics.GetDurability();
-_apps = floor((_i/_j) *100);
-if _apps >=75 then
-	text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_green) .. _apps .. VFL.strtcolor(_white) .. "%";
-elseif _apps <=74 and _apps >=50 then
-	text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_yellow) .. _apps .. VFL.strtcolor(_white) .. "%";
-elseif _apps <=49 and _apps >=25 then
-	text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_orange)  .. _apps .. VFL.strtcolor(_white) .. "%";
-elseif _apps <= 24 then
-	text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_red).. _apps .. VFL.strtcolor(_white) .. "%";
-else
-	text = "";
-end;
+	_i, _j = Logistics.GetDurability();
+	_apps = floor((_i/_j) *100);
+	if _apps >=75 then
+		text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_green) .. _apps .. VFL.strtcolor(_white) .. "%";
+	elseif _apps <=74 and _apps >=50 then
+		text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_yellow) .. _apps .. VFL.strtcolor(_white) .. "%";
+	elseif _apps <=49 and _apps >=25 then
+		text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_orange)  .. _apps .. VFL.strtcolor(_white) .. "%";
+	elseif _apps <= 24 then
+		text = VFL.strtcolor(_white) .. "Durability: " .. VFL.strtcolor(_red).. _apps .. VFL.strtcolor(_white) .. "%";
+	else
+		text = "";
+	end;
 ]]; end;
 });
 
@@ -916,16 +914,16 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_i = GetMoney();
-if _i <= 99 then
-  text = VFL.strcolor(1,.450,.300) .. _i .. "c";
-elseif _i >= 100 and _i <= 9999 then
-  text = VFL.strcolor(.750,.900,1) .. strsub(_i,  -4, -3) .. "s " .. VFL.strcolor(1,.450,.300) .. strsub(_i,  -2) .. "c";
-elseif _i >= 10000 then
-  text = VFL.strtcolor(_yellow) .. strsub(_i, 0, -5) .. "g " .. VFL.strcolor(.750,.900,1) .. strsub(_i,  -4, -3) .. "s " .. VFL.strcolor(1,.450,.300) .. strsub(_i,  -2) .. "c";
-else
-  text = "";
-end
+	_i = GetMoney();
+	if _i <= 99 then
+	  text = VFL.strcolor(1,.450,.300) .. _i .. "c";
+	elseif _i >= 100 and _i <= 9999 then
+	  text = VFL.strcolor(.750,.900,1) .. strsub(_i,  -4, -3) .. "s " .. VFL.strcolor(1,.450,.300) .. strsub(_i,  -2) .. "c";
+	elseif _i >= 10000 then
+	  text = VFL.strtcolor(_yellow) .. strsub(_i, 0, -5) .. "g " .. VFL.strcolor(.750,.900,1) .. strsub(_i,  -4, -3) .. "s " .. VFL.strcolor(1,.450,.300) .. strsub(_i,  -2) .. "c";
+	else
+	  text = "";
+	end
 ]]; end;
 });
 
@@ -941,16 +939,16 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-_, _, _i, _, _ = UnitDetailedThreatSituation("player", "target");
-if _i > 90 then
-	text = VFL.strtcolor(_red) .. _i .. "%";
-elseif _i > 70 then
-	text = VFL.strtcolor(_orange) .. _i .. "%";
-elseif _i > 50 then
-	text = VFL.strtcolor(_yellow) .. _i .. "%";
-else
-	text = VFL.strtcolor(_green) .. _i .. "%";
-end
+	_, _, _i, _, _ = UnitDetailedThreatSituation("player", "target");
+	if _i > 90 then
+		text = VFL.strtcolor(_red) .. _i .. "%";
+	elseif _i > 70 then
+		text = VFL.strtcolor(_orange) .. _i .. "%";
+	elseif _i > 50 then
+		text = VFL.strtcolor(_yellow) .. _i .. "%";
+	else
+		text = VFL.strtcolor(_green) .. _i .. "%";
+	end
 ]]; end;
 });
 
@@ -1028,84 +1026,83 @@ RDX.RegisterFeature({
 			if desc.classColor then colorclassBoo = "true"; end
 
 			createCode = [[
-local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
-txt:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-]] .. VFLUI.GenerateSetFontCode("txt", desc.font, nil, true) .. [[
-txt:Show();
-]] .. tname .. [[ = txt;
+	local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+	txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
+	txt:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	]] .. VFLUI.GenerateSetFontCode("txt", desc.font, nil, true) .. [[
+	txt:Show();
+	]] .. tname .. [[ = txt;
 ]];
 
 			destroyCode = [[
-]] .. tname .. [[:Destroy();
-]] .. tname .. [[ = nil;
+		]] .. tname .. [[:Destroy();
+		]] .. tname .. [[ = nil;
 ]];
 
 			cleanupCode = [[
-]] .. tname .. [[:SetText("");
-]] .. tname .. [[:SetTextColor(1,1,1,1);
+	]] .. tname .. [[:SetText("");
+	]] .. tname .. [[:SetTextColor(1,1,1,1);
 ]];
 
 			paintCode = [[
-if UnitExists(uid) then
-	]] .. tname .. [[:SetText(]] .. textExpr .. [[);
-else
-	]] .. tname .. [[:SetText("");
-end
-if ]] .. colorclassBoo .. [[ then
-	]] .. tname .. [[:SetTextColor(explodeRGBA(unit:GetClassColor()));
-end
+		if UnitExists(uid) then
+			]] .. tname .. [[:SetText(]] .. textExpr .. [[);
+		else
+			]] .. tname .. [[:SetText("");
+		end
+		if ]] .. colorclassBoo .. [[ then
+			]] .. tname .. [[:SetTextColor(explodeRGBA(unit:GetClassColor()));
+		end
 
-if ]] .. colorBoo .. [[ then
-	]] .. tname .. [[:SetTextColor(explodeRGBA(]] .. colorVar .. [[));
-end
-
+		if ]] .. colorBoo .. [[ then
+			]] .. tname .. [[:SetTextColor(explodeRGBA(]] .. colorVar .. [[));
+		end
 ]];
 			paintCodeTest = paintCode;
 		elseif desc.ftype == 2 then
 			createCode = [[
-local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
-txt:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-]] .. VFLUI.GenerateSetFontCode("txt", desc.font, nil, true) .. [[
-txt:Show();
-]] .. tname .. [[ = txt;
+	local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+	txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
+	txt:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	]] .. VFLUI.GenerateSetFontCode("txt", desc.font, nil, true) .. [[
+	txt:Show();
+	]] .. tname .. [[ = txt;
 ]];
 			destroyCode = [[
-]] .. tname .. [[:Destroy(); 
-]] .. tname .. [[ = nil;
+		]] .. tname .. [[:Destroy(); 
+		]] .. tname .. [[ = nil;
 ]];
 			cleanupCode = [[
-]] .. tname .. [[:SetText("");
+	]] .. tname .. [[:SetText("");
 ]];
 			paintCode = [[
-]] .. tname .. [[:SetText("]] .. desc.txt .. [[");
-if ]] .. colorBoo .. [[ then
-	]] .. tname .. [[:SetTextColor(explodeRGBA(]] .. colorVar .. [[));
-end
+		]] .. tname .. [[:SetText("]] .. desc.txt .. [[");
+		if ]] .. colorBoo .. [[ then
+			]] .. tname .. [[:SetTextColor(explodeRGBA(]] .. colorVar .. [[));
+		end
 ]];
 			paintCodeTest = paintCode;
 		elseif desc.ftype == 3 then
 			createCode = [[
-local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
-txt:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-]] .. VFLUI.GenerateSetFontCode("txt", desc.font, nil, true) .. [[
-txt:Show();
-]] .. tname .. [[ = txt;
+	local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+	txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
+	txt:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	]] .. VFLUI.GenerateSetFontCode("txt", desc.font, nil, true) .. [[
+	txt:Show();
+	]] .. tname .. [[ = txt;
 ]];
 			destroyCode = [[
-]] .. tname .. [[:Destroy();
-]] .. tname .. [[ = nil;
+		]] .. tname .. [[:Destroy();
+		]] .. tname .. [[ = nil;
 ]];
 			cleanupCode = [[
-]] .. tname .. [[:SetText("");
+	]] .. tname .. [[:SetText("");
 ]];
 			paintCode = [[
-]] .. tname .. [[:SetText(]] .. desc.txtdata .. [[);
-if ]] .. colorBoo .. [[ then
-	]] .. tname .. [[:SetTextColor(explodeRGBA(]] .. colorVar .. [[));
-end
+		]] .. tname .. [[:SetText(]] .. desc.txtdata .. [[);
+		if ]] .. colorBoo .. [[ then
+			]] .. tname .. [[:SetTextColor(explodeRGBA(]] .. colorVar .. [[));
+		end
 ]];
 			paintCodeTest = paintCode;
 		elseif desc.ftype == 4 then
@@ -1114,12 +1111,12 @@ end
 			if desc.staticColor then
 				local sc = desc.staticColor;
 				colorExpr = [[
-]] .. tname .. [[:SetTextColor(]] .. sc.r .. "," .. sc.g .. "," .. sc.b .. "," .. sc.a .. [[);
+	]] .. tname .. [[:SetTextColor(]] .. sc.r .. "," .. sc.g .. "," .. sc.b .. "," .. sc.a .. [[);
 ]];
 			elseif desc.color then
 				local colorVar = strtrim(desc.color or "");
 				colorExpr = [[ 
-]] .. tname .. [[:SetTextColor(explodeRGBA(]] .. colorVar .. [[));
+	]] .. tname .. [[:SetTextColor(explodeRGBA(]] .. colorVar .. [[));
 ]];
 			else
 				colorExpr = [[ ]];
@@ -1127,52 +1124,52 @@ end
 
 			---- Generate the code.
 			createCode = [[
-local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
-txt:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-]] .. VFLUI.GenerateSetFontCode("txt", desc.font, nil, true) .. [[
-txt:Show();
-]] .. tname .. [[ = txt;
+	local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+	txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
+	txt:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	]] .. VFLUI.GenerateSetFontCode("txt", desc.font, nil, true) .. [[
+	txt:Show();
+	]] .. tname .. [[ = txt;
 ]];
 
 			destroyCode = [[
-]] .. tname .. [[:Destroy();
-]] .. tname .. [[ = nil;
+		]] .. tname .. [[:Destroy();
+		]] .. tname .. [[ = nil;
 ]];
 
 			cleanupCode = [[
-]] .. tname .. [[:SetText("");
-]] .. tname .. [[:SetTextColor(1,1,1,1);
+	]] .. tname .. [[:SetText("");
+	]] .. tname .. [[:SetTextColor(1,1,1,1);
 ]];
 			if desc.hidecombat and desc.hideresting then
 				paintCode = [[
-if UnitAffectingCombat(uid) or IsResting() then
-	]] .. tname .. [[:SetText("");
-else
+		if UnitAffectingCombat(uid) or IsResting() then
+			]] .. tname .. [[:SetText("");
+		else
 ]];
 				paintCode = paintCode .. statusText[desc.ty].GeneratePaintCode(tname) .. colorExpr;
 				paintCode = paintCode .. [[
-end
+		end
 ]];
 			elseif desc.hidecombat then
 				paintCode = [[
-if UnitAffectingCombat(uid) then
-	]] .. tname .. [[:SetText("");
-else
+		if UnitAffectingCombat(uid) then
+			]] .. tname .. [[:SetText("");
+		else
 ]];
 				paintCode = paintCode .. statusText[desc.ty].GeneratePaintCode(tname) .. colorExpr;
 				paintCode = paintCode .. [[
-end
+		end
 ]];
 			elseif desc.hideresting then
 				paintCode = [[
-if IsResting() then
-	]] .. tname .. [[:SetText("");
-else
+		if IsResting() then
+			]] .. tname .. [[:SetText("");
+		else
 ]];
 				paintCode = paintCode .. statusText[desc.ty].GeneratePaintCode(tname) .. colorExpr;
 				paintCode = paintCode .. [[
-end
+		end
 ]];
 			else
 				paintCode = statusText[desc.ty].GeneratePaintCode(tname) .. colorExpr;
@@ -1185,26 +1182,26 @@ end
 			end
 		elseif desc.ftype == 5 then
 			createCode = [[
-local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
-txt:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-]] .. VFLUI.GenerateSetFontCode("txt", desc.font, nil, true) .. [[
-txt:Show();
-]] .. tname .. [[ = txt;
-]] .. otherText[desc.tyo].GenerateCreateCodeVariable(tname) .. [[
-local function artf_]] .. desc.name .. [[()
-	]] .. otherText[desc.tyo].GenerateCreateCode(tname) .. [[
-	if text then ]] .. tname .. [[:SetText(text); end
-end
-artf_]] .. desc.name .. [[();
+	local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+	txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
+	txt:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	]] .. VFLUI.GenerateSetFontCode("txt", desc.font, nil, true) .. [[
+	txt:Show();
+	]] .. tname .. [[ = txt;
+	]] .. otherText[desc.tyo].GenerateCreateCodeVariable(tname) .. [[
+	local function artf_]] .. desc.name .. [[()
+		]] .. otherText[desc.tyo].GenerateCreateCode(tname) .. [[
+		if text then ]] .. tname .. [[:SetText(text); end
+	end
+	artf_]] .. desc.name .. [[();
 ]];
 			if otherText[desc.tyo].repaintType == "interval" then
 				createCode = createCode .. [[
-VFLT.AdaptiveSchedule2("artf_]] .. desc.name .. [[", ]] .. otherText[desc.tyo].interval .. [[, artf_]] .. desc.name .. [[);
+	VFLT.AdaptiveSchedule2("artf_]] .. desc.name .. [[", ]] .. otherText[desc.tyo].interval .. [[, artf_]] .. desc.name .. [[);
 ]];
 			else
 				createCode = createCode .. [[
-]] .. otherText[desc.tyo].eventType ..[[:Bind("]] .. otherText[desc.tyo].eventName .. [[", nil, artf_]] .. desc.name .. [[, "artf_]] .. desc.name .. [[");
+	]] .. otherText[desc.tyo].eventType ..[[:Bind("]] .. otherText[desc.tyo].eventName .. [[", nil, artf_]] .. desc.name .. [[, "artf_]] .. desc.name .. [[");
 ]];
 			end
 			
@@ -1212,42 +1209,40 @@ VFLT.AdaptiveSchedule2("artf_]] .. desc.name .. [[", ]] .. otherText[desc.tyo].i
 ]];
 			if otherText[desc.tyo].repaintType == "interval" then
 				destroyCode = destroyCode .. [[
-VFLT.AdaptiveUnschedule2("artf_]] .. desc.name .. [[");
+		VFLT.AdaptiveUnschedule2("artf_]] .. desc.name .. [[");
 ]]
 			else
 				destroyCode = destroyCode .. [[
-]] .. otherText[desc.tyo].eventType ..[[:Unbind("artf_]] .. desc.name .. [[");
+		]] .. otherText[desc.tyo].eventType ..[[:Unbind("artf_]] .. desc.name .. [[");
 ]];
 			end
 			destroyCode = destroyCode .. [[
-]] .. tname .. [[:Destroy(); ]] .. tname .. [[ = nil;
+		]] .. tname .. [[:Destroy(); ]] .. tname .. [[ = nil;
 ]];	
 		elseif desc.ftype == 6 then
 			createCode = [[
-local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
-txt:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-]] .. VFLUI.GenerateSetFontCode("txt", desc.font, nil, true) .. [[
-txt:Show();
-]] .. tname .. [[ = txt;
+	local txt = VFLUI.CreateFontString(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+	txt:SetWidth(]] .. desc.w .. [[); txt:SetHeight(]] .. desc.h .. [[);
+	txt:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	]] .. VFLUI.GenerateSetFontCode("txt", desc.font, nil, true) .. [[
+	txt:Show();
+	]] .. tname .. [[ = txt;
 ]];
 			destroyCode = [[
-]] .. tname .. [[:Destroy(); 
-]] .. tname .. [[ = nil;
+		]] .. tname .. [[:Destroy(); 
+		]] .. tname .. [[ = nil;
 ]];
 			cleanupCode = [[
-]] .. tname .. [[:SetText("");
+	]] .. tname .. [[:SetText("");
 ]];
 			local md,_,_,ty = RDXDB.GetObjectData(desc.script);
 			if (md) and (ty == "Script") and (md.data) and ( md.data.script) then
 				paintCode = [[
-text = ]] .. (desc.useNil and 'nil' or '""') .. [[;
-
-]] .. md.data.script .. [[
-
-if text then ]] .. tname .. [[:SetText(text); 
-	if ]] .. colorBoo .. [[ then ]] .. tname .. [[:SetTextColor(explodeRGBA(]] ..colorVar .. [[)); end 
-end
+		text = ]] .. (desc.useNil and 'nil' or '""') .. [[;
+		]] .. md.data.script .. [[
+		if text then ]] .. tname .. [[:SetText(text); 
+			if ]] .. colorBoo .. [[ then ]] .. tname .. [[:SetTextColor(explodeRGBA(]] ..colorVar .. [[)); end 
+		end
 ]];
 			end
 		end

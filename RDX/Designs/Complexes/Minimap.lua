@@ -26,52 +26,48 @@ RDX.RegisterFeature({
 
 		------------------ On frame creation
 		local createCode = [[
---local mmap = VFLUI.AcquireFrame("Minimap", "main");
-
-local mmap = nil;
--- Carbonite fix
---if not NXInit then 
-	mmap= Minimap; 
---end
-if mmap then
-	MinimapBackdrop:Hide();
-	GameTimeFrame:Hide();
-	mmap:ClearAllPoints();
-	VFLUI.StdSetParent(mmap, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-	mmap:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-	mmap:SetWidth(]] .. desc.w .. [[); mmap:SetHeight(]] .. desc.h .. [[);
-	mmap:SetBlipTexture(VFLUI.GetBlipTexture("]] .. desc.blipType .. [["));
-	mmap:SetMaskTexture(VFLUI.GetMaskTexture("]] .. desc.maskType .. [["));
-	
-	mmap:SetZoom(1);
-	
-	mmap:EnableMouseWheel(true);
-	mmap:SetScript('OnMouseWheel', function(_, dir)
-		if (dir > 0) then
-			Minimap_ZoomIn();
-		else
-			Minimap_ZoomOut();
-		end
-	end)
-	
-	mmap:Show();
-	frame.]] .. objname .. [[ = mmap;
-else
-	--RDX.printW("Minimap is not available or already acquired");
-end
+	--local mmap = VFLUI.AcquireFrame("Minimap", "main");
+	local mmap = nil;
+	-- Carbonite fix
+	--if not NXInit then 
+		mmap= Minimap; 
+	--end
+	if mmap then
+		MinimapBackdrop:Hide();
+		GameTimeFrame:Hide();
+		mmap:ClearAllPoints();
+		VFLUI.StdSetParent(mmap, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+		mmap:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+		mmap:SetWidth(]] .. desc.w .. [[); mmap:SetHeight(]] .. desc.h .. [[);
+		mmap:SetBlipTexture(VFLUI.GetBlipTexture("]] .. desc.blipType .. [["));
+		mmap:SetMaskTexture(VFLUI.GetMaskTexture("]] .. desc.maskType .. [["));
+		mmap:SetZoom(1);
+		mmap:EnableMouseWheel(true);
+		mmap:SetScript('OnMouseWheel', function(_, dir)
+			if (dir > 0) then
+				Minimap_ZoomIn();
+			else
+				Minimap_ZoomOut();
+			end
+		end)
+		mmap:Show();
+		frame.]] .. objname .. [[ = mmap;
+	else
+		--RDX.printW("Minimap is not available or already acquired");
+	end
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 
 		------------------ On frame destruction.
 		local destroyCode = [[
-local btn = frame.]] .. objname .. [[;
-if btn then
-	btn:SetZoom(0);
-	btn:SetBlipTexture("Interface\\Minimap\\ObjectIcons");
-	btn:SetMaskTexture("Textures\\MinimapMask");
-	VFLUI._CleanupLayoutFrame(btn);
-	btn = nil; 
-end
+		local btn = frame.]] .. objname .. [[;
+		if btn then
+			btn:SetZoom(0);
+			btn:SetBlipTexture("Interface\\Minimap\\ObjectIcons");
+			btn:SetMaskTexture("Textures\\MinimapMask");
+			VFLUI._CleanupLayoutFrame(btn);
+			btn = nil; 
+		end
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 

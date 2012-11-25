@@ -21,17 +21,17 @@ local rdxset_blue = RDXDAL.FindSet({class = "file", file = "sets:set_blue"});
 if not rdxset_blue:IsOpen() then rdxset_blue:Open(); end
 ]];
 	createCode = [[
-btn._t:SetTexture(0,0,1,1);
+	btn._t:SetTexture(0,0,1,1);
 ]];
 	paintCodeTest = [[
-if not btn:IsShown() then btn:Show(); end
+		if not btn:IsShown() then btn:Show(); end
 ]];
 	paintCode = [[
-if rdxset_blue:IsMember(unit) then
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		if rdxset_blue:IsMember(unit) then
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	set = {class = "file", file = "sets:set_blue"};
 });
@@ -44,17 +44,17 @@ local rdxset_red = RDXDAL.FindSet({class = "file", file = "sets:set_red"});
 if not rdxset_red:IsOpen() then rdxset_red:Open(); end
 ]];
 	createCode = [[
-btn._t:SetTexture(1,0,0,1);
+	btn._t:SetTexture(1,0,0,1);
 ]];
 	paintCodeTest = [[
-if not btn:IsShown() then btn:Show(); end
+		if not btn:IsShown() then btn:Show(); end
 ]];
 	paintCode = [[
-if rdxset_red:IsMember(unit) then
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		if rdxset_red:IsMember(unit) then
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	set = {class = "file", file = "sets:set_red"};
 });
@@ -67,17 +67,17 @@ local rdxset_green = RDXDAL.FindSet({class = "file", file = "sets:set_green"});
 if not rdxset_green:IsOpen() then rdxset_green:Open(); end
 ]];
 	createCode = [[
-btn._t:SetTexture(0,1,0,1);
+	btn._t:SetTexture(0,1,0,1);
 ]];
 	paintCodeTest = [[
-if not btn:IsShown() then btn:Show(); end
+		if not btn:IsShown() then btn:Show(); end
 ]];
 	paintCode = [[
-if rdxset_green:IsMember(unit) then
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		if rdxset_green:IsMember(unit) then
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	set = {class = "file", file = "sets:set_green"};
 });
@@ -90,17 +90,17 @@ local rdxset_yellow = RDXDAL.FindSet({class = "file", file = "sets:set_yellow"})
 if not rdxset_yellow:IsOpen() then rdxset_yellow:Open(); end
 ]];
 	createCode = [[
-btn._t:SetTexture(1,1,0,1);
+	btn._t:SetTexture(1,1,0,1);
 ]];
 	paintCodeTest = [[
-if not btn:IsShown() then btn:Show(); end
+		if not btn:IsShown() then btn:Show(); end
 ]];
 	paintCode = [[
-if rdxset_green:IsMember(unit) then
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		if rdxset_green:IsMember(unit) then
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	set = {class = "file", file = "sets:set_yellow"};
 });
@@ -121,22 +121,22 @@ RDX.RegisterTextureIcon({
 	name = "Player Status";
 	title = VFLI.i18n("Player Status");
 	createCode = [[
-btn._t:SetTexture("Interface\\CharacterFrame\\UI-StateIcon");
+	btn._t:SetTexture("Interface\\CharacterFrame\\UI-StateIcon");
 ]];
 	paintCodeTest = [[
-btn._t:SetTexCoord(0, 0.5, 0, 0.421875);
-btn:Show();
+		btn._t:SetTexCoord(0, 0.5, 0, 0.421875);
+		btn:Show();
 ]];
 	paintCode = [[
-_name = UnitName(uid);
-myunit = RDXDAL.GetMyUnit();
-if UnitAffectingCombat(uid) or ((myunit.rosterName == _name) and IsResting()) then
-	btn._t:SetTexCoord(0, 0.5, 0, 0.421875);
-	if UnitAffectingCombat(uid) then btn._t:SetTexCoord(0.5, 1, 0, 0.49); end
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		_name = UnitName(uid);
+		myunit = RDXDAL.GetMyUnit();
+		if UnitAffectingCombat(uid) or ((myunit.rosterName == _name) and IsResting()) then
+			btn._t:SetTexCoord(0, 0.5, 0, 0.421875);
+			if UnitAffectingCombat(uid) then btn._t:SetTexCoord(0.5, 1, 0, 0.49); end
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	event = "PLAYER_UPDATE_RESTING";
 });
@@ -155,25 +155,25 @@ RDX.RegisterTextureIcon({
 	name = "Class Round";
 	title = VFLI.i18n("Class Round");
 	createCode = [[
-btn._t:SetTexture("Interface\\AddOns\\RDX\\Skin\\icon_class");
+	btn._t:SetTexture("Interface\\AddOns\\RDX\\Skin\\icon_class");
 ]];
 	paintCodeTest = [[
-if UnitIsPlayer(uid) then
-	tempcolor = RDXMD.GetClassIcon(unit:GetClassMnemonic());
-	btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		if UnitIsPlayer(uid) then
+			tempcolor = RDXMD.GetClassIcon(unit:GetClassMnemonic());
+			btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	paintCode = [[
-if UnitIsPlayer(uid) then
-	tempcolor = RDXMD.GetClassIcon(unit:GetClassMnemonic());
-	btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		if UnitIsPlayer(uid) then
+			tempcolor = RDXMD.GetClassIcon(unit:GetClassMnemonic());
+			btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	event = "UNIT_FLAGS";
 });
@@ -182,25 +182,25 @@ RDX.RegisterTextureIcon({
 	name = "Class";
 	title = VFLI.i18n("Class");
 	createCode = [[
-btn._t:SetTexture("Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes");
+	btn._t:SetTexture("Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes");
 ]];
 	paintCodeTest = [[
-if UnitIsPlayer(uid) then
-	tempcolor = RDXMD.GetClassIcon(unit:GetClassMnemonic());
-	btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		if UnitIsPlayer(uid) then
+			tempcolor = RDXMD.GetClassIcon(unit:GetClassMnemonic());
+			btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	paintCode = [[
-if UnitIsPlayer(uid) then
-	tempcolor = RDXMD.GetClassIcon(unit:GetClassMnemonic());
-	btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		if UnitIsPlayer(uid) then
+			tempcolor = RDXMD.GetClassIcon(unit:GetClassMnemonic());
+			btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	event = "UNIT_FLAGS";
 });
@@ -220,39 +220,39 @@ RDX.RegisterTextureIcon({
 	name = "Master Looter";
 	title = VFLI.i18n("Master Looter");
 	createCode = [[
-btn._t:SetTexture("Interface\\GroupFrame\\UI-Group-MasterLooter");
+	btn._t:SetTexture("Interface\\GroupFrame\\UI-Group-MasterLooter");
 ]];
 	paintCodeTest = [[
-if not btn:IsShown() then btn:Show(); end
+		if not btn:IsShown() then btn:Show(); end
 ]];
 	paintCode = [[
-_name, _meta = nil, nil;
-_, _tl, _et = GetLootMethod();
-if _et then
-	if unit.rosterName then
-		_name = unit.rosterName;
-	else
-		_name = UnitName(uid);
-	end
-	if (_name == GetUnitByNumber(_et).rosterName) then
-		if not btn:IsShown() then btn:Show(); end
-	else
-		if btn:IsShown() then btn:Hide(); end
-	end
-elseif _tl then
-	_name = UnitName(uid);
-	_meta = UnitName("party" .. _tl);
-	myunit = RDXDAL.GetMyUnit();
-	if (_tl == 0) and (myunit.rosterName == _name) then
-		if not btn:IsShown() then btn:Show(); end
-	elseif (_name == _meta) then
-		if not btn:IsShown() then btn:Show(); end
-	else
-		if btn:IsShown() then btn:Hide(); end
-	end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		_name, _meta = nil, nil;
+		_, _tl, _et = GetLootMethod();
+		if _et then
+			if unit.rosterName then
+				_name = unit.rosterName;
+			else
+				_name = UnitName(uid);
+			end
+			if (_name == GetUnitByNumber(_et).rosterName) then
+				if not btn:IsShown() then btn:Show(); end
+			else
+				if btn:IsShown() then btn:Hide(); end
+			end
+		elseif _tl then
+			_name = UnitName(uid);
+			_meta = UnitName("party" .. _tl);
+			myunit = RDXDAL.GetMyUnit();
+			if (_tl == 0) and (myunit.rosterName == _name) then
+				if not btn:IsShown() then btn:Show(); end
+			elseif (_name == _meta) then
+				if not btn:IsShown() then btn:Show(); end
+			else
+				if btn:IsShown() then btn:Hide(); end
+			end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	event = "UNIT_FLAGS";
 });
@@ -270,26 +270,24 @@ RDX.RegisterFeature({
 RDX.RegisterTextureIcon({
 	name = "Faction";
 	title = VFLI.i18n("Faction");
-	createCode = [[
-]];
-	paintCodeTest = [[
-]];
+	createCode = [[]];
+	paintCodeTest = [[]];
 	paintCode = [[
-_apps, _meta = nil, nil;
-if UnitIsPVPFreeForAll(uid) then 
-	_apps = "FFA";
-else
-	_meta = UnitFactionGroup(uid);
-	if _meta then _apps = _meta; end
-end
-if _apps then
-	tempcolor = RDXMD.GetPVPIcon(_apps);
-	btn._t:SetTexture("Interface\\TargetingFrame\\UI-PVP-" .. _apps);
-	btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		_apps, _meta = nil, nil;
+		if UnitIsPVPFreeForAll(uid) then 
+			_apps = "FFA";
+		else
+			_meta = UnitFactionGroup(uid);
+			if _meta then _apps = _meta; end
+		end
+		if _apps then
+			tempcolor = RDXMD.GetPVPIcon(_apps);
+			btn._t:SetTexture("Interface\\TargetingFrame\\UI-PVP-" .. _apps);
+			btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	event = "UNIT_FACTION";
 });
@@ -307,26 +305,26 @@ RDX.RegisterTextureIcon({
 	name = "Role";
 	title = VFLI.i18n("Role");
 	createCode = [[
-btn._t:SetTexture("Interface\\LFGFrame\\UI-LFG-ICON-PORTRAITROLES");
+	btn._t:SetTexture("Interface\\LFGFrame\\UI-LFG-ICON-PORTRAITROLES");
 ]];
 	paintCodeTest = [[
-btn._t:SetTexCoord(20/64, 39/64, 1/64, 20/64);
-btn:Show();
+		btn._t:SetTexCoord(20/64, 39/64, 1/64, 20/64);
+		btn:Show();
 ]];
 	paintCode = [[
-_meta = UnitGroupRolesAssigned(uid);
-if _meta == "TANK" then
-	btn._t:SetTexCoord(0, 19/64, 22/64, 41/64);
-	if not btn:IsShown() then btn:Show(); end
-elseif _meta == "HEALER" then
-	btn._t:SetTexCoord(20/64, 39/64, 1/64, 20/64);
-	if not btn:IsShown() then btn:Show(); end
-elseif _meta == "DAMAGER" then
-	btn._t:SetTexCoord(20/64, 39/64, 22/64, 41/64);
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		_meta = UnitGroupRolesAssigned(uid);
+		if _meta == "TANK" then
+			btn._t:SetTexCoord(0, 19/64, 22/64, 41/64);
+			if not btn:IsShown() then btn:Show(); end
+		elseif _meta == "HEALER" then
+			btn._t:SetTexCoord(20/64, 39/64, 1/64, 20/64);
+			if not btn:IsShown() then btn:Show(); end
+		elseif _meta == "DAMAGER" then
+			btn._t:SetTexCoord(20/64, 39/64, 22/64, 41/64);
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	event = "PARTY_MEMBERS_CHANGED";
 });
@@ -348,31 +346,31 @@ RDX.RegisterTextureIcon({
 	name = "Ready Check";
 	title = VFLI.i18n("Ready Check");
 	createCode = [[
-btn._t:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-Waiting");
+	btn._t:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-Waiting");
 ]];
 	paintCodeTest = [[
-btn._t:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready");
-btn:Show();
+		btn._t:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready");
+		btn:Show();
 ]];
 	paintCode = [[
-_meta = nil;
-if IsRaidLeader() or IsRaidOfficer() or IsPartyLeader() then
-	_meta = GetReadyCheckStatus(uid);
-end
-if _meta then
-	if ( _meta == "ready" ) then
-		btn._t:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready");
-		if not btn:IsShown() then btn:Show(); end
-	elseif ( _meta == "notready" ) then
-		btn._t:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-NotReady");
-		if not btn:IsShown() then btn:Show(); end
-	elseif ( _meta == "waiting" ) then
-		btn._t:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-Waiting");
-		if not btn:IsShown() then btn:Show(); end
-	end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		_meta = nil;
+		if IsRaidLeader() or IsRaidOfficer() or IsPartyLeader() then
+			_meta = GetReadyCheckStatus(uid);
+		end
+		if _meta then
+			if ( _meta == "ready" ) then
+				btn._t:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready");
+				if not btn:IsShown() then btn:Show(); end
+			elseif ( _meta == "notready" ) then
+				btn._t:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-NotReady");
+				if not btn:IsShown() then btn:Show(); end
+			elseif ( _meta == "waiting" ) then
+				btn._t:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-Waiting");
+				if not btn:IsShown() then btn:Show(); end
+			end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	event = "UNIT_READY_CHECK_UPDATE";
 });
@@ -393,20 +391,20 @@ RDX.RegisterTextureIcon({
 	name = "Raid Target";
 	title = VFLI.i18n("Raid Target");
 	createCode = [[
-btn._t:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcons");
+	btn._t:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcons");
 ]];
 	paintCodeTest = [[
-SetRaidTargetIconTexture(btn._t, 1);
-btn:Show();
+		SetRaidTargetIconTexture(btn._t, 1);
+		btn:Show();
 ]];
 	paintCode = [[
-_i = GetRaidTargetIndex(uid);
-if _i then
-	SetRaidTargetIconTexture(btn._t, _i);
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		_i = GetRaidTargetIndex(uid);
+		if _i then
+			SetRaidTargetIconTexture(btn._t, _i);
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	event = "RAID_TARGET_UPDATE";
 });
@@ -427,17 +425,17 @@ RDX.RegisterTextureIcon({
 	name = "Raid Leader";
 	title = VFLI.i18n("Raid Leader");
 	createCode = [[
-btn._t:SetTexture("Interface\\GroupFrame\\UI-Group-LeaderIcon");
+	btn._t:SetTexture("Interface\\GroupFrame\\UI-Group-LeaderIcon");
 ]];
 	paintCodeTest = [[
-btn:Show();
+		btn:Show();
 ]];
 	paintCode = [[
-if UnitIsPartyLeader(uid) then
-	if not btn:IsShown() then btn:Show(); end
-else
-	if btn:IsShown() then btn:Hide(); end
-end
+		if UnitIsPartyLeader(uid) then
+			if not btn:IsShown() then btn:Show(); end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end
 ]];
 	event = "PARTY_LOOT_METHOD_CHANGED";
 });
@@ -458,29 +456,28 @@ RDX.RegisterFeature({
 RDX.RegisterTextureIcon({
 	name = "PVP";
 	title = VFLI.i18n("PVP");
-	createCode = [[
-]];
+	createCode = [[]];
 	paintCodeTest = [[
-tempcolor = RDXMD.GetPVPIcon("FFA");
-btn._t:SetTexture("Interface\\TargetingFrame\\UI-PVP-FFA");
-btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
-btn:Show();
+		tempcolor = RDXMD.GetPVPIcon("FFA");
+		btn._t:SetTexture("Interface\\TargetingFrame\\UI-PVP-FFA");
+		btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
+		btn:Show();
 ]];
 	paintCode = [[
-if UnitIsPVP(uid) then
-	_meta = UnitFactionGroup(uid);
-	if UnitIsPVPFreeForAll(uid) then _meta = "FFA"; end
-	if _meta then 
-		tempcolor = RDXMD.GetPVPIcon(_meta);
-		btn._t:SetTexture("Interface\\TargetingFrame\\UI-PVP-" .. _meta);
-		btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
-		if not btn:IsShown() then btn:Show(); end
-	else
-		if btn:IsShown() then btn:Hide(); end
-	end
-else
-	if btn:IsShown() then btn:Hide(); end
-end;
+		if UnitIsPVP(uid) then
+			_meta = UnitFactionGroup(uid);
+			if UnitIsPVPFreeForAll(uid) then _meta = "FFA"; end
+			if _meta then 
+				tempcolor = RDXMD.GetPVPIcon(_meta);
+				btn._t:SetTexture("Interface\\TargetingFrame\\UI-PVP-" .. _meta);
+				btn._t:SetTexCoord(tempcolor[1], tempcolor[2], tempcolor[3], tempcolor[4]);
+				if not btn:IsShown() then btn:Show(); end
+			else
+				if btn:IsShown() then btn:Hide(); end
+			end
+		else
+			if btn:IsShown() then btn:Hide(); end
+		end;
 ]];
 	event = "UNIT_FACTION";
 });
@@ -564,49 +561,49 @@ RDX.RegisterFeature({
 		local createCode = ""
 		if desc.ftype == 1 then
 			createCode = createCode .. [[
-local _t = VFLUI.CreateTexture(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-_t:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[);
-_t:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-_t:SetWidth(]] .. desc.w .. [[); _t:SetHeight(]] .. desc.h .. [[);
-_t:Show();
-]] .. objname .. [[ = _t;
+	local _t = VFLUI.CreateTexture(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+	_t:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[);
+	_t:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	_t:SetWidth(]] .. desc.w .. [[); _t:SetHeight(]] .. desc.h .. [[);
+	_t:Show();
+	]] .. objname .. [[ = _t;
 ]];
 			createCode = createCode .. VFLUI.GenerateSetTextureCode("_t", desc.texture);
 		elseif desc.ftype == 2 then
 			createCode = createCode .. [[
-local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 ]];
 			if driver == 1 then 
 				createCode = createCode .. [[
-btn = VFLUI.AcquireFrame("Button");
+	btn = VFLUI.AcquireFrame("Button");
 ]];
 			elseif driver == 2 then
 				createCode = createCode .. [[
-btn = VFLUI.AcquireFrame("Button");
-VFLUI.SetButtonSkin(btn, ]] .. Serialize(bs) .. [[);
+	btn = VFLUI.AcquireFrame("Button");
+	VFLUI.SetButtonSkin(btn, ]] .. Serialize(bs) .. [[);
 ]];
 			elseif driver == 3 then
 				createCode = createCode .. [[
-btn = VFLUI.AcquireFrame("Button");
-VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
+	btn = VFLUI.AcquireFrame("Button");
+	VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
 ]];
 			end
 			createCode = createCode .. [[
-btn:SetParent(btnOwner);
-btn:SetFrameLevel(btnOwner:GetFrameLevel());
-btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-btn._t = VFLUI.CreateTexture(btn);
-btn._t:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", 2);
-btn._t:SetPoint("CENTER", btn, "CENTER");
-btn._t:SetWidth(]] .. desc.w .. [[ - ]] .. os .. [[); btn._t:SetHeight(]] .. desc.h .. [[ - ]] .. os .. [[);
-btn._t:SetVertexColor(1,1,1,1);
-btn._t:Show();
-btn:Hide();
+	btn:SetParent(btnOwner);
+	btn:SetFrameLevel(btnOwner:GetFrameLevel());
+	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
+	btn._t = VFLUI.CreateTexture(btn);
+	btn._t:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", 2);
+	btn._t:SetPoint("CENTER", btn, "CENTER");
+	btn._t:SetWidth(]] .. desc.w .. [[ - ]] .. os .. [[); btn._t:SetHeight(]] .. desc.h .. [[ - ]] .. os .. [[);
+	btn._t:SetVertexColor(1,1,1,1);
+	btn._t:Show();
+	btn:Hide();
 ]];
 			createCode = createCode .. Icons[desc.ictype].createCode;
 			createCode = createCode .. [[
-]] .. objname .. [[ = btn;
+	]] .. objname .. [[ = btn;
 ]];
 		elseif desc.ftype == 3 then
 			local path = Indicators[desc.intype].set.file; 
@@ -620,23 +617,23 @@ btn:Hide();
 				});
 			end);
 			createCode = createCode .. [[
-local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
-btn = VFLUI.AcquireFrame("Frame");
-btn:SetParent(btnOwner);
-btn:SetFrameLevel(btnOwner:GetFrameLevel());
-btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-btn._t = VFLUI.CreateTexture(btn);
-btn._t:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "2") .. [[);
-btn._t:SetPoint("CENTER", btn, "CENTER");
-btn._t:SetWidth(]] .. desc.w .. [[); btn._t:SetHeight(]] .. desc.h .. [[);
-btn._t:SetVertexColor(1,1,1,1);
-btn._t:Show();
-btn:Hide();
+	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+	btn = VFLUI.AcquireFrame("Frame");
+	btn:SetParent(btnOwner);
+	btn:SetFrameLevel(btnOwner:GetFrameLevel());
+	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
+	btn._t = VFLUI.CreateTexture(btn);
+	btn._t:SetDrawLayer("]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "2") .. [[);
+	btn._t:SetPoint("CENTER", btn, "CENTER");
+	btn._t:SetWidth(]] .. desc.w .. [[); btn._t:SetHeight(]] .. desc.h .. [[);
+	btn._t:SetVertexColor(1,1,1,1);
+	btn._t:Show();
+	btn:Hide();
 ]];
 			createCode = createCode .. Indicators[desc.intype].createCode;
 			createCode = createCode .. [[
-]] .. objname .. [[ = btn;
+	]] .. objname .. [[ = btn;
 ]];
 		end
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
@@ -645,15 +642,15 @@ btn:Hide();
 		local destroyCode = ""
 		if desc.ftype == 1 then
 			destroyCode = destroyCode .. [[
-]] .. objname .. [[:Destroy();
-]] .. objname .. [[ = nil;
+		]] .. objname .. [[:Destroy();
+		]] .. objname .. [[ = nil;
 ]];
 		elseif desc.ftype == 2 or desc.ftype == 3 then
 			destroyCode = destroyCode .. [[
-VFLUI.ReleaseRegion(]] .. objname .. [[._t); 
-]] .. objname .. [[._t = nil;
-]] .. objname .. [[:Destroy(); 
-]] .. objname .. [[ = nil;
+		VFLUI.ReleaseRegion(]] .. objname .. [[._t); 
+		]] .. objname .. [[._t = nil;
+		]] .. objname .. [[:Destroy(); 
+		]] .. objname .. [[ = nil;
 ]];		
 		end
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
@@ -661,27 +658,27 @@ VFLUI.ReleaseRegion(]] .. objname .. [[._t);
 		if desc.ftype == 1 then
 			if (desc.cleanupPolicy == 2) then
 			state:Attach(state:Slot("EmitCleanup"), true, function(code) code:AppendCode([[
-]] .. objname .. [[:Hide();
+	]] .. objname .. [[:Hide();
 ]]); end);
 			elseif (desc.cleanupPolicy == 3) then
 			state:Attach(state:Slot("EmitCleanup"), true, function(code) code:AppendCode([[
-]] .. objname .. [[:Show();
+	]] .. objname .. [[:Show();
 ]]); end);
 			end
 		
 		elseif desc.ftype == 2 or desc.ftype == 3 then
 			state:Attach(state:Slot("EmitCleanup"), true, function(code) code:AppendCode([[
-]] .. objname .. [[:Hide();
+	]] .. objname .. [[:Hide();
 ]]); end);
 		end
 		
 		if desc.ftype == 2 then
 			local paintCode = [[
-btn = ]] .. objname .. [[;
+		btn = ]] .. objname .. [[;
 ]];
 			paintCode = paintCode .. Icons[desc.ictype].paintCode;
 			local paintCodeTest = [[
-btn = ]] .. objname .. [[;
+		btn = ]] .. objname .. [[;
 ]];
 			paintCodeTest = paintCodeTest .. Icons[desc.ictype].paintCodeTest;
 			
@@ -695,11 +692,11 @@ btn = ]] .. objname .. [[;
 			mux:Event_MaskAll(Icons[desc.ictype].event, 2);
 		elseif desc.ftype == 3 then
 			local paintCode = [[
-btn = ]] .. objname .. [[;
+		btn = ]] .. objname .. [[;
 ]];
 			paintCode = paintCode .. Indicators[desc.intype].paintCode;
 			local paintCodeTest = [[
-btn = ]] .. objname .. [[;
+		btn = ]] .. objname .. [[;
 ]];
 			paintCodeTest = paintCodeTest .. Indicators[desc.intype].paintCodeTest;
 			

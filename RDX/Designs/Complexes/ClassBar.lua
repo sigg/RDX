@@ -780,21 +780,21 @@ RDX.RegisterFeature({
 		
 		----------------- Creation
 		local createCode = [[
-local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
-btn = RDXUI.ClassBar:new(btnOwner, frame, ]] .. Serialize(desc) .. [[)
-btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-btn:Show();
-frame.]] .. objname .. [[ = btn;
+	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+	btn = RDXUI.ClassBar:new(btnOwner, frame, ]] .. Serialize(desc) .. [[)
+	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	btn:Show();
+	frame.]] .. objname .. [[ = btn;
 ]];
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 		
 		------------------- Destruction
 		local destroyCode = [[
-local btn = frame.]] .. objname .. [[;
-if btn then
-	btn:Destroy(); btn = nil;
-end
-frame.]] .. objname .. [[ = nil;
+		local btn = frame.]] .. objname .. [[;
+		if btn then
+			btn:Destroy(); btn = nil;
+		end
+		frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);
 		return true;

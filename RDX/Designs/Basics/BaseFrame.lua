@@ -40,33 +40,33 @@ RDX.RegisterFeature({
 		local dx,dy = desc.w, desc.h;
 		local hlt = desc.hlt or "false";
 		local createCode = [[
-local BaseWidth = ]] .. dx .. [[;
-local BaseHeight = ]] .. dy .. [[;
-frame:SetWidth(]] .. dx .. [[); frame:SetHeight(]] .. dy .. [[);
-frame:SetAlpha(]] .. alpha .. [[);
+	local BaseWidth = ]] .. dx .. [[;
+	local BaseHeight = ]] .. dy .. [[;
+	frame:SetWidth(]] .. dx .. [[); frame:SetHeight(]] .. dy .. [[);
+	frame:SetAlpha(]] .. alpha .. [[);
 ]];
 		if desc.usebkd then
 			createCode = createCode .. [[
-VFLUI.SetBackdrop(frame.Frame_decor, ]] .. Serialize(desc.bkd) .. [[);
+	VFLUI.SetBackdrop(frame.Frame_decor, ]] .. Serialize(desc.bkd) .. [[);
 ]];
 		end
 		if desc.ph then
 			createCode = createCode .. [[
-local btn = VFLUI.AcquireFrame("SecureUnitButton");
-VFLUI.StdSetParent(btn, frame, 4);
-btn:SetAttribute("useparent-unit", true); btn:SetAttribute("unit", nil);
-btn:SetAttribute("useparent-unitsuffix", true); btn:SetAttribute("unitsuffix", nil);
-btn:SetAllPoints(frame); btn:Show();
-if frame:GetAttribute("toggleForVehicle") then
-	btn:SetAttribute("toggleForVehicle", true);
-end
-if not ]] .. hlt .. [[ then
-	btn:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight");
-end
-frame._phs = btn; frame:SetHotspot(nil, btn);
+	local btn = VFLUI.AcquireFrame("SecureUnitButton");
+	VFLUI.StdSetParent(btn, frame, 4);
+	btn:SetAttribute("useparent-unit", true); btn:SetAttribute("unit", nil);
+	btn:SetAttribute("useparent-unitsuffix", true); btn:SetAttribute("unitsuffix", nil);
+	btn:SetAllPoints(frame); btn:Show();
+	if frame:GetAttribute("toggleForVehicle") then
+		btn:SetAttribute("toggleForVehicle", true);
+	end
+	if not ]] .. hlt .. [[ then
+		btn:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight");
+	end
+	frame._phs = btn; frame:SetHotspot(nil, btn);
 ]];
 			state:Attach("EmitDestroy", nil, function(code) code:AppendCode([[
-frame._phs:Destroy(); frame._phs = nil;
+		frame._phs:Destroy(); frame._phs = nil;
 ]]); end);
 		end -- if desc.ph
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);

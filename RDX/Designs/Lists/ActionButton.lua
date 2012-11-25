@@ -1229,6 +1229,7 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
 	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
+	VFLUI.SetFont(self.txtHotkey, Fonts.Default, 10);
 	self.txtHotkey:Show();
 	
 	local cos = os + 2;
@@ -1451,9 +1452,6 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	end
 	
 	self.Destroy = VFL.hook(function(s)
-		AutoCastShine_AutoCastStop(s.autocastshine);
-		s.autocastshine:Destroy(); s.autocastshine = nil;
-		VFLUI.ReleaseRegion(s.autocastable); s.autocastable = nil;
 		s:SetScript("OnUpdate", nil);
 		DesktopEvents:Unbind("bindingactionButtonPet" .. s.id);
 		WoWEvents:Unbind("actionButtonPet" .. s.id);
@@ -1461,16 +1459,19 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 		VFLEvents:Unbind("mainactionButtonPet" .. s.id);
 		s.btnbind.id = nil;
 		s.btnbind.btype = nil;
-		s.btnbind:Destroy(); s.btnbind = nil;
 		ShowBindingEdit = nil;
 		HideBindingEdit = nil;
 		UpdateKeyBinding = nil;
+		s.btnbind:Destroy(); s.btnbind = nil;
 		s.Init = nil;
 		UpdateState = nil;
 		UpdateUsable = nil;
 		UpdateCooldown = nil;
 		UpdateAction = nil;
 		UpdateNewAction = nil;
+		AutoCastShine_AutoCastStop(s.autocastshine);
+		s.autocastshine:Destroy(); s.autocastshine = nil;
+		VFLUI.ReleaseRegion(s.autocastable); s.autocastable = nil;
 		VFLUI.ReleaseRegion(s.txtHotkey); s.txtHotkey = nil;
 		s.frtxt:Destroy(); s.frtxt = nil;
 		s.cd:Destroy(); s.cd = nil;
@@ -1827,13 +1828,16 @@ function RDXUI.ActionButtonTest:new(parent, id, statesString, desc)
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
 	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
+	VFLUI.SetFont(self.txtHotkey, Fonts.Default, 10);
+	self.txtHotkey:Show();
 	
 	function self:Init()
-		self.cd:SetCooldown(0,0);
-		self.cd:Show();
+		--self.cd:SetCooldown(0,0);
+		--self.cd:Show();
+		-- unknow reason block !!!!!!!
+		--self.icon:SetTexture("Interface\\Addons\\RDX\\Skin\\whackaMole");
+		self.icon:SetTexture("Interface\\InventoryItems\\WoWUnknownItem01.blp");
 		self.txtHotkey:SetText("1");
-		self.icon:SetTexture("Interface\\Addons\\RDX\\Skin\\whackaMole");
-		self.txtHotkey:Show();
 	end
 	
 	self.Destroy = VFL.hook(function(s)

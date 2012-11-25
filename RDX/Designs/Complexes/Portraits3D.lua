@@ -50,19 +50,19 @@ RDX.RegisterFeature({
 
 		-- Creation/destruction
 		local createCode = [[
-local _f = VFLUI.AcquireFrame("PlayerModel");
-VFLUI.StdSetParent(_f, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[, ]] .. desc.flOffset .. [[);
-_f:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-_f:SetWidth(]] .. desc.w .. [[); _f:SetHeight(]] .. desc.h .. [[);
-_f:Show();
-_f:SetScript("OnShow", ]].. camera ..[[);
---RDXEvents:Bind("INIT_DEFERRED", nil, function() _f.guid = nil; end, "frame.]] .. objname .. [[");
-frame.]] .. objname .. [[ = _f;
+	local _f = VFLUI.AcquireFrame("PlayerModel");
+	VFLUI.StdSetParent(_f, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[, ]] .. desc.flOffset .. [[);
+	_f:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	_f:SetWidth(]] .. desc.w .. [[); _f:SetHeight(]] .. desc.h .. [[);
+	_f:Show();
+	_f:SetScript("OnShow", ]].. camera ..[[);
+	--RDXEvents:Bind("INIT_DEFERRED", nil, function() _f.guid = nil; end, "frame.]] .. objname .. [[");
+	frame.]] .. objname .. [[ = _f;
 ]];
 		local destroyCode = [[
---RDXEvents:Unbind("frame.]] .. objname .. [[");
-frame.]] .. objname .. [[.guid = nil;
-frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
+		--RDXEvents:Unbind("frame.]] .. objname .. [[");
+		frame.]] .. objname .. [[.guid = nil;
+		frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
@@ -75,19 +75,19 @@ frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[=nil;
 
 		-- Painting
 		local paintCode = [[
-if band(paintmask, ]] .. mask .. [[) ~= 0 and UnitExists(uid) then
-	local guid = UnitGUID(uid);
-	--if frame.]] .. objname .. [[.guid ~= guid then
-		frame.]] .. objname .. [[:SetUnit(uid);
-		]].. camera ..[[(frame.]] .. objname .. [[);
-		--frame.]] .. objname .. [[.guid = guid;
-	--end
-end
-if UnitIsVisible(uid) then 
-	frame.]] .. objname .. [[:Show();
-else
-	frame.]] .. objname .. [[:Hide();
-end
+		if band(paintmask, ]] .. mask .. [[) ~= 0 and UnitExists(uid) then
+			local guid = UnitGUID(uid);
+			--if frame.]] .. objname .. [[.guid ~= guid then
+				frame.]] .. objname .. [[:SetUnit(uid);
+				]].. camera ..[[(frame.]] .. objname .. [[);
+				--frame.]] .. objname .. [[.guid = guid;
+			--end
+		end
+		if UnitIsVisible(uid) then 
+			frame.]] .. objname .. [[:Show();
+		else
+			frame.]] .. objname .. [[:Hide();
+		end
 ]];
 		state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCode); end);
 
@@ -187,35 +187,34 @@ RDX.RegisterFeature({
 
 		-- Creation/destruction
 		local createCode = [[
-local _f = VFLUI.AcquireFrame("PlayerModel");
-VFLUI.StdSetParent(_f, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[, ]] .. desc.flOffset .. [[);
-_f:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-_f:SetWidth(]] .. desc.w .. [[); _f:SetHeight(]] .. desc.h .. [[);
-_f:Show();
-_f.rdxupdate =  function()
-	_f:SetUnit("]] .. unit .. [[");
-	]].. camera ..[[(_f);
-	if UnitIsVisible("]] .. unit .. [[") then 
-		_f:Show();
-	else
-		_f:Hide();
+	local _f = VFLUI.AcquireFrame("PlayerModel");
+	VFLUI.StdSetParent(_f, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[, ]] .. desc.flOffset .. [[);
+	_f:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	_f:SetWidth(]] .. desc.w .. [[); _f:SetHeight(]] .. desc.h .. [[);
+	_f:Show();
+	_f.rdxupdate =  function()
+		_f:SetUnit("]] .. unit .. [[");
+		]].. camera ..[[(_f);
+		if UnitIsVisible("]] .. unit .. [[") then 
+			_f:Show();
+		else
+			_f:Hide();
+		end
 	end
-end
-
-WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "]] .. unit .. [[" then _f.rdxupdate(); end; end, "]] .. id .. [[");
-if "]] .. unit .. [[" == "target" then
-	WoWEvents:Bind("PLAYER_TARGET_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
-end
-if "]] .. unit .. [[" == "focus" then
-	WoWEvents:Bind("PLAYER_FOCUS_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
-end
-VFLT.schedule(1, _f.rdxupdate);
-frame.]] .. objname .. [[ = _f;
+	WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "]] .. unit .. [[" then _f.rdxupdate(); end; end, "]] .. id .. [[");
+	if "]] .. unit .. [[" == "target" then
+		WoWEvents:Bind("PLAYER_TARGET_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
+	end
+	if "]] .. unit .. [[" == "focus" then
+		WoWEvents:Bind("PLAYER_FOCUS_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
+	end
+	VFLT.schedule(1, _f.rdxupdate);
+	frame.]] .. objname .. [[ = _f;
 ]];
 		local destroyCode = [[
-WoWEvents:Unbind("]] .. id .. [[");
-frame.]] .. objname .. [[.rdxupdate = nil;
-frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
+		WoWEvents:Unbind("]] .. id .. [[");
+		frame.]] .. objname .. [[.rdxupdate = nil;
+		frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);

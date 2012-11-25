@@ -7,28 +7,28 @@ local function _EmitCreateCode(objname, desc)
 	desc.rows = 1;
 	local onebag = "nil"; if desc.onebag then onebag = "true"; end
 	local createCode = [[
-frame.]] .. objname .. [[ = {};
-local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
-local error;
-for i=1, ]] .. desc.nIcons .. [[ do
-	btn = VFLUI.AcquireFrame("BlizzardElement", RDX.BlizzardBagsButtons[i]);
-	if btn then
-		btn:SetParent(btnOwner);
-		btn:SetFrameLevel(btnOwner:GetFrameLevel());
-		--btn:SetHeight(36); btn:SetWidth(19);
-		btn:Show();
-	else
-		error = true;
+	frame.]] .. objname .. [[ = {};
+	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+	local error;
+	for i=1, ]] .. desc.nIcons .. [[ do
+		btn = VFLUI.AcquireFrame("BlizzardElement", RDX.BlizzardBagsButtons[i]);
+		if btn then
+			btn:SetParent(btnOwner);
+			btn:SetFrameLevel(btnOwner:GetFrameLevel());
+			--btn:SetHeight(36); btn:SetWidth(19);
+			btn:Show();
+		else
+			error = true;
+		end
+		frame.]] .. objname .. [[[i] = btn;
 	end
-	frame.]] .. objname .. [[[i] = btn;
-end
-if error then
-	RDX.printE("BlizzardMicroButtons already used");
-else
-]];
-	createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
-	createCode = createCode .. [[
-end
+	if error then
+		RDX.printE("BlizzardMicroButtons already used");
+	else
+	]];
+		createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
+		createCode = createCode .. [[
+	end
 ]];
 	return createCode;
 end
@@ -73,12 +73,12 @@ RDX.RegisterFeature({
 		
 		------------------ On frame destruction.
 		local destroyCode = [[
-local btn = nil;
-for i=1, ]] .. desc.nIcons .. [[ do
-	btn = frame.]] .. objname .. [[[i];
-	if btn then btn:Destroy(); btn = nil; end
-end
-frame.]] .. objname .. [[ = nil;
+		local btn = nil;
+		for i=1, ]] .. desc.nIcons .. [[ do
+			btn = frame.]] .. objname .. [[[i];
+			if btn then btn:Destroy(); btn = nil; end
+		end
+		frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 

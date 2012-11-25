@@ -59,28 +59,28 @@ local c2_]] .. objname .. " = " .. Serialize(desc.color2) .. [[
 		local reducey = desc.reducey or "false";
 		local reducex = desc.reducex or "false";
 		local createCode = [[
-local _t = VFLUI.StatusBarTexture:new(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[, ]] ..reducey..[[, ]] ..reducex..[[, "]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[);
-frame.]] .. objname .. [[ = _t;
-_t:SetOrientation("]] .. orientation .. [[");
-_t:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-_t:SetWidth(]] .. desc.w .. [[); _t:SetHeight(]] .. desc.h .. [[);
-_t:Show();
+	local _t = VFLUI.StatusBarTexture:new(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[, ]] ..reducey..[[, ]] ..reducex..[[, "]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[);
+	frame.]] .. objname .. [[ = _t;
+	_t:SetOrientation("]] .. orientation .. [[");
+	_t:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	_t:SetWidth(]] .. desc.w .. [[); _t:SetHeight(]] .. desc.h .. [[);
+	_t:Show();
 ]];
 		if desc.usebkd then
 			createCode = createCode .. [[
-VFLUI.SetBackdrop(_f, ]] .. Serialize(desc.bkd) .. [[);
+	VFLUI.SetBackdrop(_f, ]] .. Serialize(desc.bkd) .. [[);
 ]];
 		end
 		createCode = createCode .. VFLUI.GenerateSetTextureCode("_t", desc.texture);
 		if desc.color1 then createCode = createCode .. [[
-_t:SetColors(c1_]] .. objname .. [[, c2_]] .. objname .. [[);
+	_t:SetColors(c1_]] .. objname .. [[, c2_]] .. objname .. [[);
 ]];
 		end
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 
 		-- Cleanup
 		local cleanupCode = [[
-frame.]] .. objname .. [[:SetValue(0);
+	frame.]] .. objname .. [[:SetValue(0);
 ]];
 		state:Attach(state:Slot("EmitCleanup"), true, function(code) code:AppendCode(cleanupCode); end);
 
@@ -90,39 +90,39 @@ frame.]] .. objname .. [[:SetValue(0);
 		local paintCode;
 		if frac ~= "" then
 			paintCode = [[
-_i = 0.2;
-if ]] .. desc.frac .. [[ == 1 or ]] .. desc.frac .. [[ == 0 then _i = nil; else _i = 0.2; end
+		_i = 0.2;
+		if ]] .. desc.frac .. [[ == 1 or ]] .. desc.frac .. [[ == 0 then _i = nil; else _i = 0.2; end
 ]];
 			if desc.interpolate then
 				if colorVar ~= "" then paintCode = paintCode .. [[
-frame.]] .. objname .. [[:SetValueAndColorTable(]] .. desc.frac .. [[, ]] .. desc.colorVar .. [[,_i);
+		frame.]] .. objname .. [[:SetValueAndColorTable(]] .. desc.frac .. [[, ]] .. desc.colorVar .. [[,_i);
 ]];
                 		else paintCode = paintCode .. [[
-frame.]] .. objname .. [[:SetValue(]] .. desc.frac .. [[,_i);
+		frame.]] .. objname .. [[:SetValue(]] .. desc.frac .. [[,_i);
 ]];
                 		end
 			else
 				if colorVar ~= "" then paintCode = [[
-frame.]] .. objname .. [[:SetValueAndColorTable(]] .. desc.frac .. [[, ]] .. desc.colorVar .. [[);
+		frame.]] .. objname .. [[:SetValueAndColorTable(]] .. desc.frac .. [[, ]] .. desc.colorVar .. [[);
 ]];
                 		else paintCode = [[
-frame.]] .. objname .. [[:SetValue(]] .. desc.frac .. [[);
+		frame.]] .. objname .. [[:SetValue(]] .. desc.frac .. [[);
 ]];
                 		end
 			end
 		elseif colorVar ~= "" then
 			paintCode = [[
-frame.]] .. objname .. [[:SetValueAndColorTable(1, ]] .. desc.colorVar .. [[);
+		frame.]] .. objname .. [[:SetValueAndColorTable(1, ]] .. desc.colorVar .. [[);
 ]];
 		else
 			paintCode = [[
-frame.]] .. objname .. [[:SetValue(1);
+		frame.]] .. objname .. [[:SetValue(1);
 ]];
 		end
 		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 		-- Destroy
 		local destroyCode = [[
-frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
+		frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 	end;

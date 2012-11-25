@@ -128,10 +128,10 @@ RDX.RegisterFeature({
 		end
 		
 		local abid = "1";
-		desc.nIcons = 12;
 		
 		if desc.ftype == 1 then
 			abid = GetBarNumber(desc.barid);
+			desc.nIcons = 12;
 		elseif  desc.ftype == 2 then
 			desc.nIcons = 10;
 		elseif  desc.ftype == 3 then
@@ -153,8 +153,7 @@ local h = nil;
 ]];
 		if desc.test then
 			createCode = createCode .. [[
-local h = VFLUI.AcquireFrame("Frame");
-h:Show();
+h = VFLUI.AcquireFrame("Frame");
 ]];
 		elseif desc.ftype == 1 and useheader then
 			createCode = createCode .. [[

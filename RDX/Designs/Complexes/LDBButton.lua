@@ -226,37 +226,33 @@ RDX.RegisterFeature({
 		local hidelabel = "false"; if desc.hidelabel then hidelabel = "true"; end
 		------------------ On frame creation
 		local createCode = [[
-local btn = VFLUI.AcquireFrame("LDBObjects", "]] .. desc.ldbo .. [[");
-if btn then
-	VFLUI.StdSetParent(btn, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-	
+	local btn = VFLUI.AcquireFrame("LDBObjects", "]] .. desc.ldbo .. [[");
+	if btn then
+		VFLUI.StdSetParent(btn, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+		btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+		btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
 	]];
 		createCode = createCode .. VFLUI.GenerateSetFontCode("btn.text", desc.font, nil, true);
 		createCode = createCode .. [[
-	
-	btn.tex:SetHeight(]] .. desc.h .. [[);
-	btn.tex:SetWidth(]] .. desc.h .. [[);
-	btn.text:SetHeight(]] .. desc.h .. [[);
-	btn.text:SetWidth(]] .. desc.w .. [[ - ]] .. desc.h .. [[);
-	
-	for key, func in pairs(RDXUI.LDBUpdaters) do
-		func(btn, btn.obj, "]] .. desc.ldbo .. [[", hidelabel);
+		btn.tex:SetHeight(]] .. desc.h .. [[);
+		btn.tex:SetWidth(]] .. desc.h .. [[);
+		btn.text:SetHeight(]] .. desc.h .. [[);
+		btn.text:SetWidth(]] .. desc.w .. [[ - ]] .. desc.h .. [[);
+		for key, func in pairs(RDXUI.LDBUpdaters) do
+			func(btn, btn.obj, "]] .. desc.ldbo .. [[", hidelabel);
+		end
+	else
+		--RDX.printW("]] .. desc.ldbo .. [[ is not available or already acquired in an other LDBObject");
 	end
-else
-	--RDX.printW("]] .. desc.ldbo .. [[ is not available or already acquired in an other LDBObject");
-end
-
-frame.]] .. objname .. [[ = btn;
+	frame.]] .. objname .. [[ = btn;
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 
 		------------------ On frame destruction.
 		local destroyCode = [[
-local btn = frame.]] .. objname .. [[;
-if btn then btn:Destroy(); end
-frame.]] .. objname .. [[ = nil;
+		local btn = frame.]] .. objname .. [[;
+		if btn then btn:Destroy(); end
+		frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 

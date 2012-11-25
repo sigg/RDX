@@ -41,34 +41,34 @@ RDX.RegisterFeature({
 		
 		-- common code
 		local createCode = [[
-local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
-btn = VFLUI.AcquireFrame("Button");
-btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
-btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-btn:Show();
-btn:RegisterForClicks("AnyUp");
+	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+	btn = VFLUI.AcquireFrame("Button");
+	btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
+	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
+	btn:Show();
+	btn:RegisterForClicks("AnyUp");
 ]];
 		if (type(desc.hlt) == "table") then
 			createCode = createCode .. [[
-local _tex = VFLUI.CreateTexture(btn);
-_tex:SetAllPoints(btn);
-btn.hltTex = _tex;
-btn:SetHighlightTexture(_tex);
+	local _tex = VFLUI.CreateTexture(btn);
+	_tex:SetAllPoints(btn);
+	btn.hltTex = _tex;
+	btn:SetHighlightTexture(_tex);
 ]] .. VFLUI.GenerateSetTextureCode("_tex", desc.hlt);
       		end
       		
       		if (type(desc.nt) == "table") then
 			createCode = createCode .. [[
-local _tex = VFLUI.CreateTexture(btn);
-_tex:SetAllPoints(btn);
-btn.ntTex = _tex;
-btn:SetNormalTexture(_tex);
+	local _tex = VFLUI.CreateTexture(btn);
+	_tex:SetAllPoints(btn);
+	btn.ntTex = _tex;
+	btn:SetNormalTexture(_tex);
 ]] .. VFLUI.GenerateSetTextureCode("_tex", desc.nt);
       		end
       		
      		createCode = createCode .. [[
-frame.]] .. objname .. [[ = btn;
+	frame.]] .. objname .. [[ = btn;
 ]];		
 
 		local destroyCode = "";
@@ -79,48 +79,48 @@ frame.]] .. objname .. [[ = btn;
 		
 		------------------ On frame creation
 			createCode = createCode .. [[
-btn:SetScript("OnClick", function() ]] .. desc.editor .. [[ end);
+	btn:SetScript("OnClick", function() ]] .. desc.editor .. [[ end);
 ]];
 			if desc.gt then
 				local gtType = __RDX_GetGameTooltipType(desc.gt);
 				createCode = createCode .. [[
-btn:SetScript("OnEnter", ]] .. gtType .. [[);
-btn:SetScript("OnLeave", __RDX_OnLeave);
+	btn:SetScript("OnEnter", ]] .. gtType .. [[);
+	btn:SetScript("OnLeave", __RDX_OnLeave);
 ]];
 			end
 
 			if desc.gt and desc.gt ~= "" then
 		------------------- Paint
 			paintCode = [[
-frame.]] .. objname .. [[.gtid = ]] .. desc.gt .. [[;
+	frame.]] .. objname .. [[.gtid = ]] .. desc.gt .. [[;
 ]];
 			end
 		elseif desc.ftype == 2 then
 			createCode = createCode .. [[
-btn:SetScript("OnClick", function(self) 
-	]] .. rdxmenu .. [[:Open();
-end);
+	btn:SetScript("OnClick", function(self) 
+		]] .. rdxmenu .. [[:Open();
+	end);
 ]];
 		elseif desc.ftype == 3 then
 			createCode = createCode .. [[
-btn:SetScript("OnClick", function(self) 
-	RDXDK.FrameProperties(RDXDK.GetCurrentDesktop():_GetFrame(windowpath));
-end);
+	btn:SetScript("OnClick", function(self) 
+		RDXDK.FrameProperties(RDXDK.GetCurrentDesktop():_GetFrame(windowpath));
+	end);
 ]];
 		end
 		
 		------------------ On frame destruction.
 		destroyCode = [[
-if frame.]] .. objname .. [[.hltTex then
-	frame.]] .. objname .. [[.hltTex:Destroy();
-	frame.]] .. objname .. [[.hltTex = nil;
-end
-if frame.]] .. objname .. [[.ntTex then
-	frame.]] .. objname .. [[.ntTex:Destroy();
-	frame.]] .. objname .. [[.ntTex = nil;
-end
-frame.]] .. objname .. [[.gtid = nil;
-frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
+		if frame.]] .. objname .. [[.hltTex then
+			frame.]] .. objname .. [[.hltTex:Destroy();
+			frame.]] .. objname .. [[.hltTex = nil;
+		end
+		if frame.]] .. objname .. [[.ntTex then
+			frame.]] .. objname .. [[.ntTex:Destroy();
+			frame.]] .. objname .. [[.ntTex = nil;
+		end
+		frame.]] .. objname .. [[.gtid = nil;
+		frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 		state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);

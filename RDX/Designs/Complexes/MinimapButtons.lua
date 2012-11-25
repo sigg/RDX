@@ -89,29 +89,29 @@ RDX.RegisterFeature({
 ]];
 		if desc.test then
 			createCode = createCode .. [[
-local btn = VFLUI.TexturedButton:new(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[, 32, "Interface\\Addons\\RDX\\Skin\\whackaMole");
-btn:Show();
+	local btn = VFLUI.TexturedButton:new(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[, 32, "Interface\\InventoryItems\\WoWUnknownItem01.blp");
+	btn:Show();
 ]];
 		else
 			createCode = createCode .. [[
-local btn = VFLUI.AcquireFrame("BlizzButton", ]] .. desc.mbuttontype .. [[);
+	local btn = VFLUI.AcquireFrame("BlizzButton", ]] .. desc.mbuttontype .. [[);
 ]];
 		end
 		createCode = createCode .. [[
-if btn then
-	VFLUI.StdSetParent(btn, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-	btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-	btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-	frame.]] .. objname .. [[ = btn;
-else
-	--RDX.printW("Minimap button ]] .. desc.mbuttontype .. [[ is not available or already acquired");
-end
+	if btn then
+		VFLUI.StdSetParent(btn, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+		btn:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+		btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
+		frame.]] .. objname .. [[ = btn;
+	else
+		--RDX.printW("Minimap button ]] .. desc.mbuttontype .. [[ is not available or already acquired");
+	end
 ]];
 		state:Attach(state:Slot("EmitCreate"), true, function(code) code:AppendCode(createCode); end);
 
 		------------------ On frame destruction.
 		local destroyCode = [[
-if frame.]] .. objname .. [[ then frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil; end
+		if frame.]] .. objname .. [[ then frame.]] .. objname .. [[:Destroy(); frame.]] .. objname .. [[ = nil; end
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 

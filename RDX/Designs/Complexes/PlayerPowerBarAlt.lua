@@ -27,28 +27,25 @@ RDX.RegisterFeature({
 		local flo = tonumber(desc.flo); if not flo then flo = 5; end; flo = VFL.clamp(flo,1,10);
 		------------------ On frame creation
 		local createCode = [[
-local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
-
-local h = VFLUI.AcquireFrame("BlizzardElement", "PlayerPowerBarAlt");
-if h then
-	h.ignoreFramePositionManager = true;
-	VFLUI.StdSetParent(h, btnOwner);
-	h:SetFrameLevel(btnOwner:GetFrameLevel() + ]] .. flo .. [[);
-	h:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-end
-
-frame.]] .. objname .. [[ = h;
+	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+	local h = VFLUI.AcquireFrame("BlizzardElement", "PlayerPowerBarAlt");
+	if h then
+		h.ignoreFramePositionManager = true;
+		VFLUI.StdSetParent(h, btnOwner);
+		h:SetFrameLevel(btnOwner:GetFrameLevel() + ]] .. flo .. [[);
+		h:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	end
+	frame.]] .. objname .. [[ = h;
 ]];
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 		
 		------------------ On frame destruction.
 		local destroyCode = [[
-if frame.]] .. objname .. [[ then 
-	frame.]] .. objname .. [[.ignoreFramePositionManager = true;
-	frame.]] .. objname .. [[:Destroy();
-	frame.]] .. objname .. [[ = nil;
-end
-
+		if frame.]] .. objname .. [[ then 
+			frame.]] .. objname .. [[.ignoreFramePositionManager = true;
+			frame.]] .. objname .. [[:Destroy();
+			frame.]] .. objname .. [[ = nil;
+		end
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 
