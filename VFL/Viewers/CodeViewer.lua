@@ -3,11 +3,11 @@
 ---------------------------------------------
 function VFL.Debug_ShowCode(code)
 	-- Add line numbers to the passed code
-	local ln = 1;
-	code = "|cFF00FF00001|r " .. string.gsub(code, "\n", function() 
-		ln = ln + 1; 
-		return string.format("\n|cFF00FF00%03d|r ", ln);
-	end);
+	--local ln = 1;
+	--code = "|cFF00FF00001|r " .. string.gsub(code, "\n", function() 
+	--	ln = ln + 1; 
+	--	return string.format("\n|cFF00FF00%03d|r ", ln);
+	--end);
 
 	-- Create a simple display window for the code.
 	local win = VFLUI.Window:new(VFLFULLSCREEN_DIALOG);
