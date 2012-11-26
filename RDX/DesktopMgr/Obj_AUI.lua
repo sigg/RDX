@@ -272,6 +272,10 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 	if RDXG.RDXopt and RDXG.RDXopt.upp then
 		SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"));
 	end
+	
+	
+	
+	
 end);
 
 local function ManageAutoDesk()
