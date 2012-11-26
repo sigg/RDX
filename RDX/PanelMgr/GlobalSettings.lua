@@ -22,7 +22,7 @@ function RDXPM.RDXManage(parent)
 	sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	
 	local chk_upp = VFLUI.Checkbox:new(ui); chk_upp:Show();
-	chk_upp:SetText(VFLI.i18n("Use Perfect Pixel"));
+	chk_upp:SetText(VFLI.i18n("Use Perfect Pixel (UI Scale will be set)"));
 	if opt and opt.upp then chk_upp:SetChecked(true); else chk_upp:SetChecked(); end
 	ui:InsertFrame(chk_upp);
 	
@@ -46,6 +46,28 @@ function RDXPM.RDXManage(parent)
 	if opt and opt.pwm then chk_pwm:SetChecked(true); else chk_pwm:SetChecked(); end
 	ui:InsertFrame(chk_pwm);
 	
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Global Viewport")));
+	
+	local offsettop = VFLUI.LabeledEdit:new(ui, 200); offsettop:Show();
+	offsettop:SetText(VFLI.i18n("Viewport Top"));
+	if opt and opt.offsettop then offsettop.editBox:SetText(opt.offsettop); else offsettop.editBox:SetText("0"); end
+	ui:InsertFrame(offsettop);
+	
+	local offsetleft = VFLUI.LabeledEdit:new(ui, 200); offsetleft:Show();
+	offsetleft:SetText(VFLI.i18n("Viewport Left"));
+	if opt and opt.offsetleft then offsetleft.editBox:SetText(opt.offsetleft); else offsetleft.editBox:SetText("0"); end
+	ui:InsertFrame(offsetleft);
+	
+	local offsetbottom = VFLUI.LabeledEdit:new(ui, 200); offsetbottom:Show();
+	offsetbottom:SetText(VFLI.i18n("Viewport Bottom"));
+	if opt and opt.offsetbottom then offsetbottom.editBox:SetText(opt.offsetbottom); else offsetbottom.editBox:SetText("0"); end
+	ui:InsertFrame(offsetbottom);
+	
+	local offsetright = VFLUI.LabeledEdit:new(ui, 200); offsetright:Show();
+	offsetright:SetText(VFLI.i18n("Viewport Right"));
+	if opt and opt.offsetright then offsetright.editBox:SetText(opt.offsetright); else offsetright.editBox:SetText("0"); end
+	ui:InsertFrame(offsetright);
+
 	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Enable Blizzard")));
 	
 	local chk_ec = VFLUI.Checkbox:new(ui); chk_ec:Show();
@@ -87,6 +109,11 @@ function RDXPM.RDXManage(parent)
 		if opt.upp then
 			SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"));
 		end
+		opt.offsettop = offsettop.editBox:GetText();
+		opt.offsetleft = offsetleft.editBox:GetText();
+		opt.offsetbottom = offsetbottom.editBox:GetText();
+		opt.offsetright = offsetright.editBox:GetText();
+		
 		ReloadUI();
 		VFL.EscapeTo(esch);
 	end
