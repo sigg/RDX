@@ -131,13 +131,22 @@ local CreateNameplate = function(frame)
 
 	if frame._rdxnp then return; end
 	frame._rdxnp = true;
+	
+	
 
-	local healthBar, castBar = frame:GetChildren();
+	local barFrame, nameFrame = frame:GetChildren();
+	--f.barFrame.threat, f.barFrame.border, f.barFrame.highlight, f.barFrame.level, f.barFrame.boss, f.barFrame.raid, f.barFrame.dragon = f.barFrame:GetRegions()
+	--f.nameFrame.name = f.nameFrame:GetRegions()
+	--f.barFrame.healthbar, f.barFrame.castbar = f.barFrame:GetChildren()
+	--f.barFrame.healthbar.texture =  f.barFrame.healthbar:GetRegions()
+	--f.barFrame.castbar.texture, f.barFrame.castbar.border, f.barFrame.castbar.shield, f.barFrame.castbar.icon =  f.barFrame.castbar:GetRegions()
+	
+	local healthBar, castBar = barFrame:GetChildren();
 	frame.healthBar = healthBar;
 	frame.castBar = castBar;
 	castBar.healthBar = healthBar; -- fix castbar
 	
-	local glowRegion, overlayRegion, highlightRegion, nameTextRegion, levelTextRegion, bossIconRegion, raidIconRegion, stateIconRegion = frame:GetRegions();
+	local glowRegion, overlayRegion, highlightRegion, levelTextRegion, bossIconRegion, raidIconRegion, stateIconRegion = barFrame:GetRegions();
 	glowRegion:SetTexture(nil);
 	overlayRegion:SetTexture(nil);
 	bossIconRegion:SetTexture(nil);
@@ -145,11 +154,12 @@ local CreateNameplate = function(frame)
 	frame.glowRegion = glowRegion;
 	frame.overlayRegion = overlayRegion;
 	frame.highlightRegion = highlightRegion;
-	frame.nameTextRegion = nameTextRegion;
 	frame.levelTextRegion = levelTextRegion;
 	frame.bossIconRegion = bossIconRegion;
 	frame.raidIconRegion = raidIconRegion;
 	frame.stateIconRegion = stateIconRegion;
+	
+	frame.nameTextRegion = nameFrame:GetRegions();
 	
 	local _, castbarOverlay, shieldedRegion, spellIconRegion = castBar:GetRegions();
 	castbarOverlay:SetTexture(nil);
@@ -169,7 +179,7 @@ local CreateNameplate = function(frame)
 	--frame.name = newNameRegion
 	
 	if descn.font then
-		VFLUI.SetFont(nameTextRegion, descn.font, nil, true);
+		VFLUI.SetFont(frame.nameTextRegion, descn.font, nil, true);
 		VFLUI.SetFont(levelTextRegion, descn.font, nil, true);
 	end
 	
