@@ -16,7 +16,7 @@ VFLUI.CreateFramePool("SecureActionButtonBar",
 		--VFLUI._CleanupButton(x);
 		--VFLUI._CleanupLayoutFrame(x);
 		x:SetBackdrop(nil);
-		x:Hide(); x:SetParent(VFLParent); x:ClearAllPoints();
+		x:Hide(); x:SetParent(RDXParent); x:ClearAllPoints();
 	end,
 	function(_, key)
 		local f = nil;
@@ -44,7 +44,7 @@ VFLUI.CreateFramePool("SecureActionButtonBarTmp",
 		--VFLUI._CleanupButton(x);
 		--VFLUI._CleanupLayoutFrame(x);
 		x:SetBackdrop(nil);
-		x:Hide(); x:SetParent(VFLParent); x:ClearAllPoints();
+		x:Hide(); x:SetParent(RDXParent); x:ClearAllPoints();
 	end,
 	function(_, key)
 		local f = CreateFrame("CheckButton", "VFLButton" .. GetTmpId(), nil, "SecureActionButtonTemplate");
@@ -1127,7 +1127,7 @@ VFLUI.CreateFramePool("SecureActionButtonPet",
 		--VFLUI._CleanupButton(x);
 		--VFLUI._CleanupLayoutFrame(x);
 		x:SetBackdrop(nil);
-		x:Hide(); x:SetParent(VFLParent); x:ClearAllPoints();
+		x:Hide(); x:SetParent(RDXParent); x:ClearAllPoints();
 		end,
 	function(_, key)
 		local f = nil;
@@ -1149,7 +1149,7 @@ VFLUI.CreateFramePool("AutoCastShine",
 	if (not x) then return; end
 		--VFLUI._CleanupButton(x);
 		--VFLUI._CleanupLayoutFrame(x);
-		x:Hide(); x:SetParent(VFLParent); x:ClearAllPoints();
+		x:Hide(); x:SetParent(RDXParent); x:ClearAllPoints();
 		end,
 	function()
 		local f = CreateFrame("Frame", "ACS" .. VFL.GetNextID(), nil, "AutoCastShineTemplate");
@@ -1513,7 +1513,7 @@ VFLUI.CreateFramePool("SecureActionButtonStance", function(pool, x)
 	--VFLUI._CleanupButton(x);
 	--VFLUI._CleanupLayoutFrame(x);
 	x:SetBackdrop(nil);
-	x:Hide(); x:SetParent(VFLParent); x:ClearAllPoints();
+	x:Hide(); x:SetParent(RDXParent); x:ClearAllPoints();
 end, function(_, key)
 	local f = nil;
 	if key > 0 and key < 11 then
@@ -1866,7 +1866,7 @@ VFLUI.CreateFramePool("ButtonVehicle",
 		--VFLUI._CleanupButton(x);
 		--VFLUI._CleanupLayoutFrame(x);
 		x:SetBackdrop(nil);
-		x:Hide(); x:SetParent(VFLParent); x:ClearAllPoints();
+		x:Hide(); x:SetParent(RDXParent); x:ClearAllPoints();
 		end, 
 	function(_, key)
 		local f = nil;

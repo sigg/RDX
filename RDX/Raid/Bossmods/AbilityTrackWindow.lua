@@ -299,7 +299,7 @@ local function OpenTrackerWindow()
 	track_window:SetTitleColor(1,.1,.2);
 	track_window:SetText("Abilities Tracking");
 	track_window:SetWidth(325); track_window:SetHeight(150);
-	track_window:SetPoint("CENTER", VFLParent, "CENTER");
+	track_window:SetPoint("CENTER", RDXParent, "CENTER");
 	track_window:Show();
 	if RDXPM.Ismanaged("AbilityTracker") then RDXPM.RestoreLayout(track_window, "AbilityTracker"); end
 	VFLUI.Window.StdMove(track_window, track_window:GetTitleBar());

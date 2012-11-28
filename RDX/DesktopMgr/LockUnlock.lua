@@ -19,7 +19,7 @@ local function OpenDockDialog(frameprops, point)
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(230); dlg:SetHeight(125);
 	dlg:SetText("Dock Options");
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
@@ -145,7 +145,7 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 	local tf, tfIdent;
 	if not frameprops.root then
 		tf = VFLUI.AcquireFrame("Button");
-		tf:SetParent(VFLParent);
+		tf:SetParent(RDXParent);
 		--tf:SetFrameStrata(VFLUI.GetRelativeStata(frame:GetFrameStrata(), 1));
 		tf:SetFrameStrata(frame:GetFrameStrata());
 		tf:SetFrameLevel(100);
@@ -160,8 +160,8 @@ function RDXDK.AddUnlockOverlay(frame, frameprops)
 		tfIdent:Show();
 	else
 		tf = VFLUI.AcquireFrame("Frame");
-		tf:SetParent(VFLParent);
-		tf:SetAllPoints(VFLParent);
+		tf:SetParent(RDXParent);
+		tf:SetAllPoints(RDXParent);
 		tf:Show();
 	end
 	frame.tf = tf;

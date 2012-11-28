@@ -102,7 +102,7 @@ local function DoOmniSearch(parent)
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(360); dlg:SetHeight(390);
 	dlg:SetText("Search Logs");
 	

@@ -35,7 +35,7 @@ function RDXUI.Wizard:Open(parent, num)
 		win:SetBackdrop(VFLUI.WhiteBackdrop);
 		win:SetBackdropColor(.8,.8,1,0.6);
 		win:SetTitleColor(0,0,.6); win:SetText(self.title);
-		win:SetPoint("TOPLEFT", VFLParent, "TOPLEFT", 100, -200);
+		win:SetPoint("TOPLEFT", RDXParent, "TOPLEFT", 100, -200);
 		win:SetMovable(true); 
 		VFLUI.Window.StdMove(win, win:GetTitleBar());
 		win:SetClampedToScreen(true);

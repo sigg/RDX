@@ -55,7 +55,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline)
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetText(VFLI.i18n("Feature Editor: ") .. path);
 	dlg:SetWidth(700); dlg:SetHeight(500);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetClampedToScreen(true);
 	
 	-- OpenRDX 7.1 RDXPM

@@ -273,7 +273,7 @@ local function EditChatFrameDialog(parent, path, md)
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(490); dlg:SetHeight(383);
 	dlg:SetText(VFLI.i18n("Edit ChatFrame: ") .. path);
 	if RDXPM.Ismanaged("ChatFrame") then RDXPM.RestoreLayout(dlg, "ChatFrame"); end
@@ -479,7 +479,7 @@ local function EditScriptDialog(parent, data)
 	VFLUI.Window.SetDefaultFraming(dlg2, 22);
 	dlg2:SetTitleColor(0,0,.6);
 	dlg2:SetBackdrop(VFLUI.BlackDialogBackdrop);
-	dlg2:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg2:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg2:SetWidth(500); dlg2:SetHeight(500);
 	dlg2:SetText(VFLI.i18n("Text Editor"));
 	dlg2:Show();

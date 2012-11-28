@@ -44,7 +44,7 @@ local function CreateMainPane()
 	local s = VFLUI.AcquireFrame("Button");
 	s:SetParent(VFLFULLSCREEN_DIALOG);
 	s:Hide();
-	s:SetPoint("TOP", VFLParent, "TOP", -200, 2);
+	s:SetPoint("TOP", RDXParent, "TOP", -200, 2);
 	s:SetHeight(size);
 	s:SetWidth(5*size);
 	s:SetBackdrop(VFLUI.MainMenuBarBackdrop);
@@ -61,7 +61,7 @@ local function CreateMainPane()
 	
 	function s:MainPanelLayout(show)
 		s:ClearAllPoints();
-		s:SetPoint("TOP", VFLParent, "TOP", -200, 2);
+		s:SetPoint("TOP", RDXParent, "TOP", -200, 2);
 		s:Show();
 	end
 	

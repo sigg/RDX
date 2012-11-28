@@ -103,7 +103,7 @@ function RDX.CreateLogisticsWindow(id, title, periodicRepaint, totalWidth, t1wid
 	--win.RepaintAll = state:GetSlotFunction("RepaintAll");
 	state = nil;
 	win._dataList = dataList;
-	win:GetClientArea():SetPoint("LEFT", VFLParent, "LEFT", 50, 0);
+	win:GetClientArea():SetPoint("LEFT", RDXParent, "LEFT", 50, 0);
 	VFLUI.Window.StdMoveICW(win, win:GetTitleBar());
 
 	local closebtn = VFLUI.CloseButton:new();
@@ -162,7 +162,7 @@ function Logistics.MakeDetailWindow(fnAD)
 	local rwin = VFLUI.Window:new();
 	rwin:SetFraming(VFLUI.Framing.Default, 22);
 	rwin:SetTitleColor(0,0,0.6);
-	rwin:SetPoint("CENTER", VFLParent, "CENTER");
+	rwin:SetPoint("CENTER", RDXParent, "CENTER");
 	rwin:Accomodate(250, 240);
 	VFLUI.Window.StdMove(rwin, rwin:GetTitleBar());
 	rwin:Show();

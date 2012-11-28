@@ -97,7 +97,7 @@ function RDX.Integrate(parent, data, author, callback)
 	VFLUI.Window.SetDefaultFraming(dlg, 24);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetText(VFLI.i18n("Integration: ") .. tostring(author));
-	dlg:SetPoint("LEFT", VFLParent, "LEFT", 25, 0);
+	dlg:SetPoint("LEFT", RDXParent, "LEFT", 25, 0);
 	dlg:SetHeight(500); dlg:SetWidth(250);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar()); --raider
 	dlg:Show();
@@ -333,7 +333,7 @@ local function _IntegrateSendUI(parent, data)
 	VFLUI.Window.SetDefaultFraming(dlg, 24);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetText(VFLI.i18n("Send Files"));
-	dlg:SetPoint("CENTER", VFLParent, "CENTER", 250, 0);
+	dlg:SetPoint("CENTER", RDXParent, "CENTER", 250, 0);
 	dlg:SetHeight(260); dlg:SetWidth(250);
 	
 	if RDXPM.Ismanaged("integratesend") then RDXPM.RestoreLayout(dlg, "integratesend"); end

@@ -27,7 +27,7 @@ local function OpenDesktopTools(parent, froot)
 	VFLUI.Window.SetDefaultFraming(dlg, 20);
 	dlg:SetTitleColor(0,.5,0);
 	dlg:SetText(VFLI.i18n("Desktop Manager"));
-	dlg:SetPoint("CENTER", VFLParent, "CENTER", -200, 0);
+	dlg:SetPoint("CENTER", RDXParent, "CENTER", -200, 0);
 	dlg:Accomodate(232, 530);
 	dlg:SetClampedToScreen(true);
 	

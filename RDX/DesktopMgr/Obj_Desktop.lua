@@ -96,7 +96,7 @@ end
 RDXDK.Desktop = {};
 function RDXDK.Desktop:new(parent)
 	local self = VFLUI.AcquireFrame("Frame");
-	self:SetParent(VFLparent);
+	self:SetParent(RDXParent);
 	
 	-------------------------------------------------
 	-- frameList contain all windows of the desktop.
@@ -213,9 +213,16 @@ function RDXDK.Desktop:new(parent)
 	local function UpdateViewport(viewport, left, top, right, bottom)
 		RDXDK:Debug(6, "UpdateViewport");
 		if viewport then
+			local gtop, gleft, gbottom, gright = 0, 0, 0, 0;
+			if RDXG.RDXopt then
+				if RDXG.RDXopt.offsettop then gtop = tonumber(RDXG.RDXopt.offsettop); end
+				if RDXG.RDXopt.offsetleft then gleft = tonumber(RDXG.RDXopt.offsetleft); end
+				if RDXG.RDXopt.offsetbottom then gbottom = tonumber(RDXG.RDXopt.offsetbottom); end
+				if RDXG.RDXopt.offsetright then gright = tonumber(RDXG.RDXopt.offsetright); end
+			end
 			WorldFrame:ClearAllPoints();
-			WorldFrame:SetPoint("TOPLEFT", left, 0 - top);
-			WorldFrame:SetPoint("BOTTOMRIGHT", 0 - right, bottom);
+			WorldFrame:SetPoint("TOPLEFT", left + gleft, 0 - top - gtop);
+			WorldFrame:SetPoint("BOTTOMRIGHT", 0 - right - gright, bottom - gbottom);
 		else
 			WorldFrame:SetAllPoints(RDXParent);
 		end

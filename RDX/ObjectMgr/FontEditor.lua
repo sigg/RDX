@@ -15,7 +15,7 @@ local function loadfonts(path)
     dlg:SetWidth(420); dlg:SetHeight(260);
     dlg:SetTitleColor(0, 0, .6);
     dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-    dlg:SetPoint("center", VFLParent, "center");
+    dlg:SetPoint("center", RDXParent, "center");
     dlg:SetText("Font Editor: "..path);
     dlg:Show();
     VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
@@ -86,7 +86,7 @@ local function findfont()
     dlg:SetWidth(350); dlg:SetHeight(80);
     dlg:SetTitleColor(0, 0, .6);
     dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-    dlg:SetPoint("center", VFLParent, "center");
+    dlg:SetPoint("center", RDXParent, "center");
     dlg:SetText("Font Editor");
     dlg:Show();
     VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());

@@ -25,7 +25,7 @@ RDXDB.RegisterObjectType({
 		VFLUI.Window.SetDefaultFraming(dlg, 22);
 		dlg:SetTitleColor(0,0,.6);
 		dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-		dlg:SetPoint("CENTER", VFLParent, "CENTER");
+		dlg:SetPoint("CENTER", RDXParent, "CENTER");
 		dlg:SetWidth(320); dlg:SetHeight(85);
 		dlg:SetText(VFLI.i18n("Edit AuraName: ") .. path);
 		dlg:SetClampedToScreen(true);

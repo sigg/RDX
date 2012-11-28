@@ -324,7 +324,7 @@ function RDX.CloneWindow(path, upath, parent)
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(330); dlg:SetHeight(125);
 	dlg:SetText("Clone Window");
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());

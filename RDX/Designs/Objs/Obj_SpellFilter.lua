@@ -47,7 +47,7 @@ RDXDB.RegisterObjectType({
 		VFLUI.Window.SetDefaultFraming(dlg, 22);
 		dlg:SetTitleColor(0,0,.6);
 		dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-		dlg:SetPoint("CENTER", VFLParent, "CENTER");
+		dlg:SetPoint("CENTER", RDXParent, "CENTER");
 		dlg:SetWidth(310); dlg:SetHeight(270);
 		dlg:SetText(VFLI.i18n("Edit SpellFilter: ") .. path);
 		dlg:SetClampedToScreen(true);

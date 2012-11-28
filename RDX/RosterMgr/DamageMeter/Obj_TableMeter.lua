@@ -250,7 +250,7 @@ local function EditTableMeterDialog(parent, path, md, callback)
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(370); dlg:SetHeight(480);
 	dlg:SetText("Meter object: " .. path);
 	dlg:Show();

@@ -32,7 +32,7 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(270); dlg:SetHeight(350);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetText("List of layout in the theme " .. file);
@@ -273,7 +273,18 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 		SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"));
 	end
 	
-	
+	if RDXG.RDXopt then
+		local top, left, bottom, right = 0, 0, 0, 0;
+		if RDXG.RDXopt.offsettop then top = tonumber(RDXG.RDXopt.offsettop); end
+		if RDXG.RDXopt.offsetleft then left = tonumber(RDXG.RDXopt.offsetleft); end
+		if RDXG.RDXopt.offsetbottom then bottom = tonumber(RDXG.RDXopt.offsetbottom); end
+		if RDXG.RDXopt.offsetright then right = tonumber(RDXG.RDXopt.offsetright); end
+		if top > 0 or left > 0 or bottom > 0 or right > 0 then
+			RDXParent:ClearAllPoints();
+			RDXParent:SetPoint("TOPLEFT", left, 0 - top);
+			RDXParent:SetPoint("BOTTOMRIGHT", 0 - right, bottom);
+		end
+	end
 	
 	
 end);
@@ -411,7 +422,7 @@ function RDXDK.DuplicateAUI()
 	VFLUI.Window.SetDefaultFraming(dlg2, 22);
 	dlg2:SetTitleColor(0,.6,0);
 	dlg2:SetBackdrop(VFLUI.DefaultDialogBackdrop);
-	dlg2:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg2:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg2:SetWidth(230); dlg2:SetHeight(125);
 	dlg2:SetText("Duplicate a theme");
 	VFLUI.Window.StdMove(dlg2, dlg2:GetTitleBar());

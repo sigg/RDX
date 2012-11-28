@@ -125,7 +125,7 @@ VFLUI.Window.SetDefaultFraming(dlg, 24);
 dlg:SetText(VFLI.i18n("RDX Packages Updater"));
 dlg:SetTitleColor(0,0,.6);
 dlg:SetWidth(660); dlg:SetHeight(390);
-dlg:SetPoint("CENTER", VFLParent, "CENTER");
+dlg:SetPoint("CENTER", RDXParent, "CENTER");
 dlg:SetMovable(true); dlg:SetToplevel(nil);
 VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 dlg:Hide();

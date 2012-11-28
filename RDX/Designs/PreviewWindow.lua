@@ -13,7 +13,7 @@ local function OpenPreviewWindow(parent)
 	
 	preview_window = VFLUI.AcquireFrame("Frame");
 	preview_window:SetParent(parent);
-	preview_window:SetPoint("LEFT", parent or VFLParent, "RIGHT", 5, -2);
+	preview_window:SetPoint("LEFT", parent or RDXParent, "RIGHT", 5, -2);
 	preview_window:SetWidth(304); 
 	preview_window:SetHeight(452);
 	preview_window:SetBackdrop(VFLUI.DefaultDialogBorder);

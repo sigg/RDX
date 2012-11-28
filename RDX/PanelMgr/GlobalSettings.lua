@@ -11,7 +11,7 @@ function RDXPM.RDXManage(parent)
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(330); dlg:SetHeight(300);
 	dlg:SetText("Show/Hide Blizzard UI Element");
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
@@ -109,10 +109,10 @@ function RDXPM.RDXManage(parent)
 		if opt.upp then
 			SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"));
 		end
-		opt.offsettop = offsettop.editBox:GetText();
-		opt.offsetleft = offsetleft.editBox:GetText();
-		opt.offsetbottom = offsetbottom.editBox:GetText();
-		opt.offsetright = offsetright.editBox:GetText();
+		opt.offsettop = VFL.clamp(offsettop.editBox:GetNumber(), 0, 200);
+		opt.offsetleft = VFL.clamp(offsetleft.editBox:GetNumber(), 0, 200);
+		opt.offsetbottom = VFL.clamp(offsetbottom.editBox:GetNumber(), 0, 200);
+		opt.offsetright = VFL.clamp(offsetright.editBox:GetNumber(), 0, 200);
 		
 		ReloadUI();
 		VFL.EscapeTo(esch);

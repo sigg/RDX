@@ -126,7 +126,7 @@ function Omni.TimeQueryDialog(who, when, window)
 	VFLUI.Window.SetDefaultFraming(dlg, 24);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetText("Time Query: " .. who);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetHeight(150); dlg:SetWidth(300);
 	dlg:Show();
 	local ca = dlg:GetClientArea();
@@ -174,7 +174,7 @@ function Omni.PredefinedQuery(who)
 	VFLUI.Window.SetDefaultFraming(dlg, 24);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetText("Omniscience Query: " .. who);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetHeight(200); dlg:SetWidth(200);
 	dlg:Show();
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());

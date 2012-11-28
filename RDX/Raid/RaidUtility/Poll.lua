@@ -143,7 +143,7 @@ local function OpenPoll(sender, data, onAnswer)
 	win:SetFraming(VFLUI.Framing.Default, 22);
 	win:SetText(VFLI.i18n("Question from") .. " " .. VFL.capitalize(sender));
 	win:SetTitleColor(0,0,0.6);
-	win:SetPoint("CENTER", VFLParent, "CENTER");
+	win:SetPoint("CENTER", RDXParent, "CENTER");
 	win:Accomodate(300, 80 + table.getn(answers) * 25);
 	win:Show();
 	local ca = win:GetClientArea();
@@ -241,7 +241,7 @@ local function CustomPollDlg()
 	dlg:SetFraming(VFLUI.Framing.Default, 22);
 	dlg:SetText("Custom Poll");
 	dlg:SetTitleColor(0,0,0.6);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:Accomodate(250, 270);
 	dlg:Show();
 	local ca = dlg:GetClientArea();

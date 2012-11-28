@@ -14,7 +14,7 @@ function RDXDB.NewObjectDialog(parent, pkgName)
 	VFLUI.Window.SetDefaultFraming(nod, 20);
 	nod:SetTitleColor(0,.6,0);
 	nod:SetText(VFLI.i18n("New object in package ") .. pkgName);
-	nod:SetPoint("CENTER", VFLParent, "CENTER");
+	nod:SetPoint("CENTER", RDXParent, "CENTER");
 	nod:SetHeight(350); nod:SetWidth(260);
 	nod:Show();
 	VFLUI.Window.StdMove(nod, nod:GetTitleBar());

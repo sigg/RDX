@@ -108,7 +108,7 @@ function RDXDK.LayoutPropsDialog(frameprops)
 	
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 20);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(250); dlg:SetHeight(300); 
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetText(VFLI.i18n("Layout Properties: ") .. dd.name);

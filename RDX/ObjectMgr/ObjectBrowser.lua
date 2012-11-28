@@ -571,7 +571,7 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	VFLUI.Window.SetDefaultFraming(dlg, 24);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetText(VFLI.i18n("Repository Objects Browser"));
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetClampedToScreen(true);
 	
 	if RDXPM.Ismanaged("ObjectBrowser") then RDXPM.RestoreLayout(dlg, "ObjectBrowser"); end

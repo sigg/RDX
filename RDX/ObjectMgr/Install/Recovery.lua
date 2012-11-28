@@ -27,7 +27,7 @@ local function ShowPackageListWindow(title, text, src, callback)
 	dlg = VFLUI.Window:new();
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(250); dlg:SetHeight(250);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetText(title);

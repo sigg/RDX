@@ -11,7 +11,7 @@ function RDXM_Debug.SetDebugger()
 	local dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(.6,.6,0);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(400); dlg:SetHeight(432);
 	dlg:SetText("Set Debugger");
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());

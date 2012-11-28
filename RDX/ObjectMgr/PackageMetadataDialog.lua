@@ -15,7 +15,7 @@ function RDXDB.PackageMetadataDialog(parent, pkgname, pkgdata, callback)
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	--dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(260); dlg:SetHeight(300);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetText("Package" .. " " .. pkgname .. " " .. "Metadata");

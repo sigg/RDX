@@ -214,7 +214,7 @@ local function BindingCodePopup(parent, callback)
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(200); dlg:SetHeight(80);
 	dlg:SetText(VFLI.i18n("Enter a name for your action"));
 	dlg:Show();
@@ -269,7 +269,7 @@ function RDXDK.EditStateActionDialog(parent, desc, callback)
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,0,.6);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:Accomodate(390, 350);
 	dlg:SetText(VFLI.i18n("Edit State Action"));
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());

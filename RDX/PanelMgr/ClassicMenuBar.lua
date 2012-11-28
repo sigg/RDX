@@ -152,7 +152,7 @@ local function CreateMiniPane()
 	mini:SetParent(VFLDIALOG); 
 	--mini:SetScale(Minimap:GetEffectiveScale() / RDXParent:GetEffectiveScale());
 	mini:SetMovable(true);
-	mini:SetPoint("CENTER", VFLParent, "CENTER");
+	mini:SetPoint("CENTER", RDXParent, "CENTER");
 	mini:SetClampedToScreen(true);
 	mini:Show();
 	

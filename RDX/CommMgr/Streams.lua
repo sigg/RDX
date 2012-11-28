@@ -825,7 +825,7 @@ local function _CreateLongRPCWindow(parent)
 	_lrpc_window = RDX.Window:new(parent);
 	_lrpc_window:LoadState(state);
 	_lrpc_window.RepaintAll = state:GetSlotFunction("RepaintAll");
-	_lrpc_window:WMGetPositionalFrame():SetPoint("CENTER", VFLParent, "CENTER");
+	_lrpc_window:WMGetPositionalFrame():SetPoint("CENTER", RDXParent, "CENTER");
 	VFLUI.Window.StdMove(_lrpc_window:WMGetPositionalFrame(), _lrpc_window:GetTitleBar());
 	if RDXPM.Ismanaged("RPC_window") then RDXPM.RestoreLayout(_lrpc_window:WMGetPositionalFrame(), "RPC_window"); end
 	state = nil;

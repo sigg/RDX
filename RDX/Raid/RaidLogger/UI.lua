@@ -33,7 +33,7 @@ local function Analyze()
 	VFLUI.Window.SetDefaultFraming(fdlg, 22);
 	fdlg:SetTitleColor(0,0,.6);
 	fdlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-	fdlg:SetPoint("CENTER", VFLParent, "CENTER");
+	fdlg:SetPoint("CENTER", RDXParent, "CENTER");
 	fdlg:SetWidth(200); fdlg:SetHeight(150);
 	fdlg:SetText("Totals for Table: " .. tbl.name);
 	fdlg:Show();
@@ -93,7 +93,7 @@ local function Filter(parent)
 	VFLUI.Window.SetDefaultFraming(fdlg, 22);
 	fdlg:SetTitleColor(0,0,.6);
 	fdlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-	fdlg:SetPoint("CENTER", VFLParent, "CENTER");
+	fdlg:SetPoint("CENTER", RDXParent, "CENTER");
 	fdlg:SetWidth(360); fdlg:SetHeight(390);
 	fdlg:SetText("Filter Table: " .. tbl.name);
 	fdlg:Show();
@@ -187,7 +187,7 @@ function Omni.Open(path)
 	VFLUI.Window.SetDefaultFraming(dlg, 24);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetText("Omniscience");
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetHeight(550); dlg:SetWidth(842);
 
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());

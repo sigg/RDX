@@ -25,7 +25,7 @@ local function OpenRaidWindow(parent)
 	VFLUI.Window.SetDefaultFraming(dlg, 24);
 	dlg:SetMovable(true);
 	dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(100*2 + 10); dlg:SetHeight(12*24 + 50 + 10);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetText(VFLI.i18n("Roster"));

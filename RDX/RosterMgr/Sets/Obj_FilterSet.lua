@@ -24,7 +24,7 @@ local function EditFilterSetDialog(parent, path, md)
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(510); dlg:SetHeight(370);
 	dlg:SetText(VFLI.i18n("Edit FilterSet: ") .. path);
 	-- OpenRDX 7.1 RDXPM

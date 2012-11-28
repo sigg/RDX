@@ -160,7 +160,7 @@ function RDXDB.PackageListWindow(parent, title, text, filter, callback)
 	
 	local dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(250); dlg:SetHeight(250);
 	dlg:SetTitleColor(0,0,0.6); dlg:SetText(title); 
 	dlg:Show();

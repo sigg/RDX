@@ -13,7 +13,7 @@ local function EditScriptDialog(parent, path, md)
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
-	dlg:SetPoint("CENTER", VFLParent, "CENTER");
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(500); dlg:SetHeight(500);
 	dlg:SetText(VFLI.i18n("Text Editor: ") .. path);
 	dlg:Show();
