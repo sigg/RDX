@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_inInstance";
 	title = VFLI.i18n("Var IsInInstance?");

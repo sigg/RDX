@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_isMaxPower";
 	title = VFLI.i18n("Var IsMaxPower?");

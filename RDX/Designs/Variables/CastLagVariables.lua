@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_castlag";
 	title = VFLI.i18n("Vars Player Cast Lag"); category = VFLI.i18n("Variables");

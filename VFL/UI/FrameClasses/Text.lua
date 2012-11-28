@@ -1,4 +1,4 @@
---- class VFLUI.SimpleText
+﻿--- class VFLUI.SimpleText
 -- An text frame
 VFLUI.SimpleText = {};
 function VFLUI.SimpleText:new(parent, nblines, width)

@@ -1,4 +1,4 @@
--- Shaders.lua
+﻿-- Shaders.lua
 -- RDX - Raid Data Exchange
 -- (C)2006 Bill Johnson
 --

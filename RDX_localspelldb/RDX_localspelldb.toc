@@ -1,8 +1,8 @@
-## Interface: 50001
+﻿## Interface: 50100
 ## Title: |c007ffcffRDX|r - Local Spell DB
 ## Notes: store local spell name with id for localization
 ## Author: Sigg / Rashgarroth
-## Version: 9.0.9
+## Version: 9.0.10
 ## RequiredDeps: VFL
 ## SavedVariables: RDXLocalSpellDB, RDXSpellDB
 RDX_localspelldb.lua

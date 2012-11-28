@@ -1,4 +1,4 @@
-local EMBER1 = 1;
+﻿local EMBER1 = 1;
 local EMBER2 = 2;
 local EMBER3 = 3;
 local EMBER4 = 4;

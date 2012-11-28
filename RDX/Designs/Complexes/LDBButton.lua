@@ -1,4 +1,4 @@
--- LDBObject.lua
+﻿-- LDBObject.lua
 -- OpenRDX
 -- Sigg Rashgarroth EU
 

@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_ininn";
 	title = VFLI.i18n("Var IsInn?");

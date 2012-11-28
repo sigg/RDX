@@ -1,4 +1,4 @@
-------------------------------------
+﻿------------------------------------
 -- Smooth power bar shader
 -- working like the freetimer
 -- by Sigg

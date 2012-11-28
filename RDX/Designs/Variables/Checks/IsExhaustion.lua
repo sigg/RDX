@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_isExhaustion";
 	title = VFLI.i18n("Var IsExhaustion?");

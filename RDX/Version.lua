@@ -1,4 +1,4 @@
--- Version.lua
+﻿-- Version.lua
 -- RDX - Raid Data Exchange
 -- (C)2006 Raid Informatics
 --

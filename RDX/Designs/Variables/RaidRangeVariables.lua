@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "Variables range";
 	title = VFLI.i18n("Vars Range (frac, color)");

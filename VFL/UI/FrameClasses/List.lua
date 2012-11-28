@@ -1,4 +1,4 @@
--- List.lua
+﻿-- List.lua
 -- VFL
 -- (C)2006 Bill Johnson
 -- 

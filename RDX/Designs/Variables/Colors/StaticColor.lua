@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "ColorVariable: Static Color";
 	title = VFLI.i18n("Color Static");

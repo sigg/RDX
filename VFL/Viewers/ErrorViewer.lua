@@ -1,4 +1,4 @@
--- ErrorViewer.lua
+﻿-- ErrorViewer.lua
 -- @author (C)2006 Bill Johnson and The VFL Project
 --
 -- A frame for collecting error information with full stack traces.

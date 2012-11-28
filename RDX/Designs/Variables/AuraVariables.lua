@@ -1,4 +1,4 @@
--- AuraInfo.lua
+﻿-- AuraInfo.lua
 -- OpenRDX
 -- Sigg
 

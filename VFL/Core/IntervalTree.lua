@@ -1,4 +1,4 @@
---- IntervalTree.lua
+﻿--- IntervalTree.lua
 -- @author (C)2006 Bill Johnson and The VFL Project
 -- @class file
 -- @name VFL.IntervalTree

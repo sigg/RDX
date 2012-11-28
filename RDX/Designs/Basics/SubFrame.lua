@@ -1,4 +1,4 @@
-
+﻿
 
 ----------------------------------------------------------
 -- A sub-frame for layering and aligning texture objects.

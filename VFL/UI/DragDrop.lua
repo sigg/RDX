@@ -1,4 +1,4 @@
--- DragDrop.lua
+﻿-- DragDrop.lua
 -- VFL
 -- (C)2006 Bill Johnson
 -- 

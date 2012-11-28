@@ -1,4 +1,4 @@
---- Literator.lua
+﻿--- Literator.lua
 -- @author (C)2006 Bill Johnson and The VFL Project
 --
 -- @description A literator is a linear iterator - a slightly enhanced variant of a Lua iterator

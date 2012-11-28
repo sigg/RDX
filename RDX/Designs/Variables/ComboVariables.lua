@@ -1,4 +1,4 @@
-RDX.RegisterFeature({
+﻿RDX.RegisterFeature({
 	name = "Variable combo";
 	title = "Vars Combo";
 	category = VFLI.i18n("Variables");

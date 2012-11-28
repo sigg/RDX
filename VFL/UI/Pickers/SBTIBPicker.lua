@@ -1,4 +1,4 @@
--- StatusBarPicker.lua
+﻿-- StatusBarPicker.lua
 -- VFL
 -- OpenRDX Sigg
 --

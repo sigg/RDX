@@ -1,4 +1,4 @@
--- Root.lua
+﻿-- Root.lua
 -- RDX - Raid Data Exchange
 -- (C)2005 Bill Johnson
 --

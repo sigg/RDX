@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_tapped"; 
 	title = VFLI.i18n("Var IsTapped?");

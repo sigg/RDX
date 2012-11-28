@@ -1,4 +1,4 @@
--- Frame_Selectable.lua
+﻿-- Frame_Selectable.lua
 -- VFL - Venificus' Function Library
 -- (C)2006 Bill Johnson (Venificus of Eredar server)
 --

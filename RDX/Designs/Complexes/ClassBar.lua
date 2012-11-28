@@ -1,4 +1,4 @@
--- OpenRDX
+﻿-- OpenRDX
 
 local runeColors = {
 	[1] = {1, 0, 0},
@@ -606,7 +606,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		end
 		
 		f.Update = function(self)
-			local numOrbs = UnitPower(root:GetAttribute("unit") or "player", SPELL_POWER_LIGHT_FORCE);
+			local numOrbs = UnitPower(root:GetAttribute("unit") or "player", SPELL_POWER_CHI);
 			for i = 1, 4 do
 				local orb = self.list[i];
 				local shouldShow = i <= numOrbs;
@@ -621,7 +621,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		f.CheckAndShow = function(self)
 			WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
 			WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(arg1, arg2) 
-				if (arg1 == root:GetAttribute("unit") or "player") and ( arg2 == "LIGHT_FORCE" or arg2 == "DARK_FORCE" ) then
+				if (arg1 == root:GetAttribute("unit") or "player") and ( arg2 == "CHI" ) then
 					self:Update();
 				end 
 			end, self.id);

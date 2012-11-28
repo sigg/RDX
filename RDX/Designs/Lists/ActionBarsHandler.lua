@@ -1,4 +1,4 @@
--- ActionBarsHandler.lua
+﻿-- ActionBarsHandler.lua
 -- OpenRDX
 -- Sigg Rashgarroth EU
 

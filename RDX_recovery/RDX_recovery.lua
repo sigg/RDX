@@ -1,4 +1,4 @@
--- RDX_Recovery.lua
+﻿-- RDX_Recovery.lua
 -- OpenRDX
 --
 -- This addon is just used to store recovery database

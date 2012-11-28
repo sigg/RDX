@@ -1,4 +1,4 @@
-------------- Register some common Lua routines to see how they're doing
+﻿------------- Register some common Lua routines to see how they're doing
 VFLP.RegisterCategory("Lua Core");
 VFLP.RegisterFunc("Lua Core", "string.find", string.find, nil);
 VFLP.RegisterFunc("Lua Core", "string.match", string.match, nil);

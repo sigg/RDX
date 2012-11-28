@@ -1,4 +1,4 @@
--- RDX_localspelldb.lua
+﻿-- RDX_localspelldb.lua
 -- OpenRDX
 --
 -- This addon is just used to store local spell db

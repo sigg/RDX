@@ -1,4 +1,4 @@
---- ModuleViewer.lua
+﻿--- ModuleViewer.lua
 -- @author Sigg Rashgarroth EU
 --
 -- A window to show module and set the debugger.

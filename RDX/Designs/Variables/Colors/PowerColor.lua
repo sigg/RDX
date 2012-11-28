@@ -1,4 +1,4 @@
-
+﻿
 
 RDX.RegisterFeature({
 	name = "ColorVariable: Unit PowerType Color";

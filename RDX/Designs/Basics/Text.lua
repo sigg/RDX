@@ -1,4 +1,4 @@
--- Text.lua
+﻿-- Text.lua
 -- OpenRDX
 
 -- Set the colors of status text appropriately.

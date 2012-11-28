@@ -1,4 +1,4 @@
--- MenuBar.lua
+﻿-- MenuBar.lua
 -- OpenRDX
 -- Sigg Rashgarroth EU
 

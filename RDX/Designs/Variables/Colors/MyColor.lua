@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "ColorVariable_Mycolor";
 	title = VFLI.i18n("Color My Color");

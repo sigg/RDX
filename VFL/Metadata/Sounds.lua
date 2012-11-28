@@ -1,4 +1,4 @@
-VFLUI.RegisterSound("", "None");
+﻿VFLUI.RegisterSound("", "None");
 VFLUI.RegisterSound("Sound\\Doodad\\BellTollAlliance.wav", "Ding (Alliance)");
 VFLUI.RegisterSound("Sound\\Doodad\\BellTollNightElf.wav", "Ding (Night Elf)");
 VFLUI.RegisterSound("Sound\\Doodad\\Sizzle.wav", "Sizzle");

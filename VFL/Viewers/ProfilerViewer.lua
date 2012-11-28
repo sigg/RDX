@@ -1,4 +1,4 @@
--- Window.lua
+﻿-- Window.lua
 -- VFL_Profiler
 -- (C)2007 Bill Johnson and The VFL Project
 --

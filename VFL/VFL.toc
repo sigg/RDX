@@ -1,8 +1,8 @@
-## Interface: 50001
+﻿## Interface: 50100
 ## Title: |c007ffcffVFL|r
 ## Notes: VFL (Venificus Function Library) is a set of reusable UI elements, objects, and functions designed to accelerate UI mod development.
 ## Author: Venificus
-## Version: 9.0.9
+## Version: 9.0.10
 ## SavedVariables: VFLModuleData, VFLConfig, VFL_Profiler_Data
 VFL.xml
 

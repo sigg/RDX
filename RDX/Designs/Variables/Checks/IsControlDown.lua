@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_isControlDown";
 	title = VFLI.i18n("Var IsControlHeldDown?");

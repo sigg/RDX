@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_isShiftDown";
 	title = VFLI.i18n("Var IsShiftHeldDown?");

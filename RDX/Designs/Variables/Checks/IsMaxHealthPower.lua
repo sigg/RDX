@@ -1,4 +1,4 @@
-
+﻿
 -- By unlimit
 RDX.RegisterFeature({
 	name = "var_IsMaxHealthPower";

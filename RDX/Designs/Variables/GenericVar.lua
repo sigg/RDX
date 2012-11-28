@@ -1,4 +1,4 @@
--- VariablesGeneric.lua
+﻿-- VariablesGeneric.lua
 -- OpenRDX
 
 --------------------------

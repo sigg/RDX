@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_spellinfo";
 	title = VFLI.i18n("Vars Spell");

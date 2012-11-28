@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "colorvar_hostility"; 
 	title = VFLI.i18n("Color Hostility");

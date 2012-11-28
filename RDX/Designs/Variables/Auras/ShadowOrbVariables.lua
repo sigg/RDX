@@ -1,4 +1,4 @@
-RDX.RegisterFeature({
+﻿RDX.RegisterFeature({
 	name = "Variable shadow";
 	title = "Vars Shadow Orb";
 	category = VFLI.i18n("Variables Aura");

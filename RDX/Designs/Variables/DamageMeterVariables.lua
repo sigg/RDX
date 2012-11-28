@@ -1,4 +1,4 @@
--- DamageMeterVariable.lua
+﻿-- DamageMeterVariable.lua
 -- Sigg / OpenRDX
 -- Rasgharroth
 

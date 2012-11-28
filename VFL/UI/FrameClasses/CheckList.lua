@@ -1,4 +1,4 @@
--- CheckList.lua
+﻿-- CheckList.lua
 -- VFL
 -- (C)2006 Bill Johnson
 --

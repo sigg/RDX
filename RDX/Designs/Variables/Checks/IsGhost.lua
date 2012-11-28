@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_isGhost";
 	title = VFLI.i18n("Var IsGhost?");

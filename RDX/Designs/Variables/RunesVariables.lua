@@ -1,4 +1,4 @@
--------------------------------------
+﻿-------------------------------------
 -- Vars: Rune Info - Deathknight rune variables
 -- 
 -- UnitFrameFeature to create custom Deathknight RuneElements

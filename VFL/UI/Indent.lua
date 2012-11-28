@@ -1,4 +1,4 @@
--- For All Indents And Purposes
+﻿-- For All Indents And Purposes
 local revision = 17
 -- Maintainer: kristofer.karlsson@gmail.com
 

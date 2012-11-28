@@ -1,4 +1,4 @@
--- ColorPicker.lua
+﻿-- ColorPicker.lua
 -- VFL
 -- (C)2006 Bill Johnson and The VFL Project
 --

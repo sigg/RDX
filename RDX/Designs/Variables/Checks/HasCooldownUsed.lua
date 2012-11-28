@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_hascdused";
 	title = VFLI.i18n("Var HasCDUsed?");

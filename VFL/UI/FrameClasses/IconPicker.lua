@@ -1,4 +1,4 @@
--- IconPicker.lua
+﻿-- IconPicker.lua
 -- VFL
 -- (C)2006 Bill Johnson
 --

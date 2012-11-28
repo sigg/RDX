@@ -1,4 +1,4 @@
--- UI\Core.lua
+﻿-- UI\Core.lua
 -- VFL 
 -- (C)2006 Bill Johnson and the VFL Project.
 --

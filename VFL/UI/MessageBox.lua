@@ -1,4 +1,4 @@
--- MessageBox.lua
+﻿-- MessageBox.lua
 -- VFL
 -- (C)2006 Bill Johnson and The VFL Project
 --

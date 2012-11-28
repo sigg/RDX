@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_isAggro";
 	title = VFLI.i18n("Var IsAggro?");

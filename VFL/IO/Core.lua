@@ -1,4 +1,4 @@
-
+﻿
 VFLIO = RegisterVFLModule({
 	name = "VFLIO";
 	description = "Common IO components for VFL";

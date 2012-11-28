@@ -1,4 +1,4 @@
--- PopupMenu.lua
+﻿-- PopupMenu.lua
 -- VFL - Venificus' Function Library
 -- (C)2005-2006 Bill Johnson (Venificus of Eredar server)
 --

@@ -1,4 +1,4 @@
--- Math.lua
+﻿-- Math.lua
 -- VFL
 -- (C)2007 Bill Johnson and The VFL Project
 --

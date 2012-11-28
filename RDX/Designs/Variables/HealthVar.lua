@@ -1,4 +1,4 @@
---------------------------------------- fh/fm
+﻿--------------------------------------- fh/fm
 RDX.RegisterFeature({
 	name = "Variable: Fractional health (fh)";
 	title = "Vars Frac health (fh)";

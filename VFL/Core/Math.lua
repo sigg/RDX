@@ -1,4 +1,4 @@
--- Math.lua
+﻿-- Math.lua
 -- @author (C) 2005-2006 Bill Johnson and The VFL Project
 --
 -- Contains various useful primitive operations on functions, strings, and tables.

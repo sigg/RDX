@@ -1,4 +1,4 @@
--- Obj_Design.lua
+﻿-- Obj_Design.lua
 -- RDX - Raid Data Exchange
 -- (C)2006 Bill Johnson
 --

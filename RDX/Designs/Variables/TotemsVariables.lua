@@ -1,4 +1,4 @@
--- TotemsVariables.lua
+﻿-- TotemsVariables.lua
 -- OpenRDX
 -- (C)2007 Sigg / Rashgarroth eu
 

@@ -1,4 +1,4 @@
--- Resolutions.lua
+﻿-- Resolutions.lua
 -- OpenRDX
 -- Sigg / Rashgarroth EU
 

@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "Variable: Static Value";
 	title = VFLI.i18n("Vars Static Value");

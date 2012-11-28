@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "ColorVariable: Two-Color Blend";
 	title = VFLI.i18n("Color Two-Color Blend");

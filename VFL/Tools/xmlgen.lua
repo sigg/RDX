@@ -1,4 +1,4 @@
-frame_n = 100;
+﻿frame_n = 100;
 frame_type = "EditBox";
 frame_prefix = "VFLEd";
 frame_inherit = "VFLEditT";

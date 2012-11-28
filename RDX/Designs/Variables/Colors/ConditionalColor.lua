@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "ColorVariable: Conditional Color";
 	title = VFLI.i18n("Color Conditional");

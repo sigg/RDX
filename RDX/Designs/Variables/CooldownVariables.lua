@@ -1,4 +1,4 @@
--- CooldownInfo.lua
+﻿-- CooldownInfo.lua
 -- OpenRDX
 -- Sigg
 

@@ -1,4 +1,4 @@
--- CID: Currency ID
+﻿-- CID: Currency ID
 --- Available here: wowhead.com/currencies
 
 -- CTA: Currency, Total Amount

@@ -1,4 +1,4 @@
-VFLT.CountUpTimer = {};
+﻿VFLT.CountUpTimer = {};
 
 --- Create a new countup timer object
 -- @description A simple counter up object

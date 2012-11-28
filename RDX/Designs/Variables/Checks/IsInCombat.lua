@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_incombat";
 	title = VFLI.i18n("Var IsInCombat?");

@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "ColorVariable: Unit Class Color";
 	title = VFLI.i18n("Color Unit Class");

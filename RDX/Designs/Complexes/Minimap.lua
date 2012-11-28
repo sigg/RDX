@@ -1,4 +1,4 @@
--- Minimap.lua
+﻿-- Minimap.lua
 -- OpenRDX
 -- Sigg Rashgarroth EU
 

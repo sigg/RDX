@@ -1,4 +1,4 @@
-
+﻿
 local mathdotfloor = math.floor;
 local strformat = string.format;
 

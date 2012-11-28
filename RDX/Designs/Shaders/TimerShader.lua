@@ -1,4 +1,4 @@
--- FreeTimer.lua
+﻿-- FreeTimer.lua
 -- RDX - Raid Data Exchange
 -- (C)2007 Bill Johnson
 --

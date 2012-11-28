@@ -1,4 +1,4 @@
--- PowerVar.lua
+﻿-- PowerVar.lua
 -- Sigg OpenRDX
 
 RDX.RegisterFeature({

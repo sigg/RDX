@@ -1,4 +1,4 @@
--- Textures.lua
+﻿-- Textures.lua
 -- OpenRDX
 --
 -- Textures for application on unitframes.

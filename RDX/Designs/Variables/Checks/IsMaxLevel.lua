@@ -1,4 +1,4 @@
-
+﻿
 -- Brainn
 RDX.RegisterFeature({
 	name = "var_isMaxLevel";

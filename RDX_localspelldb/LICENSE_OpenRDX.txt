@@ -1,4 +1,4 @@
-    Open RAID DATA EXCHANGE (OpenRDX)
+﻿    Open RAID DATA EXCHANGE (OpenRDX)
     Copyright (c) 2006-2009, OpenRDX
 
     This program is free software: you can redistribute it and/or modify

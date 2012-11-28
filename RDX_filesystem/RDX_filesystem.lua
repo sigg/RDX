@@ -1,4 +1,4 @@
--- RDX_filesystem.lua
+﻿-- RDX_filesystem.lua
 -- OpenRDX
 --
 -- This addon is just used to store filesystem database

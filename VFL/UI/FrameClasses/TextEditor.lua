@@ -1,4 +1,4 @@
--- TextEditor.lua
+﻿-- TextEditor.lua
 -- VFL
 -- (C)2006 Bill Johnson
 --

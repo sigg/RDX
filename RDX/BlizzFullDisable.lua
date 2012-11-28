@@ -1,4 +1,4 @@
--- OpenRDX
+﻿-- OpenRDX
 -- Sigg Rashgarroth
 
 local opt = nil;

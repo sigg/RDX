@@ -1,4 +1,4 @@
--- StatusBarTexture.lua
+﻿-- StatusBarTexture.lua
 -- VFL
 -- (C)2006 The VFL Project
 --

@@ -1,4 +1,4 @@
--- BagsBar.lua
+﻿-- BagsBar.lua
 -- OpenRDX
 -- Sigg Rashgarroth EU
 

@@ -1,4 +1,4 @@
--- PlayerPowerBarAlt.lua
+﻿-- PlayerPowerBarAlt.lua
 -- OpenRDX
 -- Sigg Rashgarroth EU
 

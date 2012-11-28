@@ -1,4 +1,4 @@
-
+﻿
 
 function VFLUI.CheckEmbedRight(parent, label)
 	local frame = VFLUI.Checkbox:new(parent);

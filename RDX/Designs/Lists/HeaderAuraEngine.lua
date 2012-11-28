@@ -1,4 +1,4 @@
--- HeaderAuraEngine.lua
+﻿-- HeaderAuraEngine.lua
 -- OpenRDX / Sigg / Rashgarroth FR
 --
 

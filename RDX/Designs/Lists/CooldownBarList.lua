@@ -1,4 +1,4 @@
--- CooldownBarList.lua
+﻿-- CooldownBarList.lua
 -- OpenRDX
 -- Sigg Rashgarroth EU
 --

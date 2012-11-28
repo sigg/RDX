@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_isMouseOver";
 	title = VFLI.i18n("Var IsMouseOver?");

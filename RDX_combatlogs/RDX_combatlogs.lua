@@ -1,4 +1,4 @@
--- RDX_combatlogs.lua
+﻿-- RDX_combatlogs.lua
 -- OpenRDX
 --
 --

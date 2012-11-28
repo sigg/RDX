@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_isAltDown"; 
 	title = VFLI.i18n("Var IsAltHeldDown?"); 

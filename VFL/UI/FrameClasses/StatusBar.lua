@@ -1,4 +1,4 @@
--- StatusBar.lua
+﻿-- StatusBar.lua
 -- VFL
 -- (C)2008 The VFL Project
 --

@@ -1,4 +1,4 @@
---- Color.lua
+﻿--- Color.lua
 -- @author (C)2006 Bill Johnson and The VFL Project
 -- @description Data structures for dealing with color tables and color vectors.
 

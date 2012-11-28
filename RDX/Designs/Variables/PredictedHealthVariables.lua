@@ -1,4 +1,4 @@
---- Unit frame variables for predicted health valuation.
+﻿--- Unit frame variables for predicted health valuation.
 RDX.RegisterFeature({
 	name = "var_pred_health";
 	title = VFLI.i18n("Vars Frac Predicted Health (ph, pfh, ih)");

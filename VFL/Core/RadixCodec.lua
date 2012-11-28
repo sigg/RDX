@@ -1,4 +1,4 @@
---- RadixCodec.lua
+﻿--- RadixCodec.lua
 -- @author (C)2006 Bill Johnson and The VFL Project
 --
 -- @description Tools for compressing and decompressing integers into strings.

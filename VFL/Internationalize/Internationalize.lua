@@ -1,4 +1,4 @@
--- VFL.Internationalize.lua
+﻿-- VFL.Internationalize.lua
 -- @author OpenRDX
 -- @description internationalize package
 

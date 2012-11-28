@@ -1,4 +1,4 @@
--- Assets.lua
+﻿-- Assets.lua
 -- VFL
 -- (C)2007 Bill Johnson and the VFL Project.
 --

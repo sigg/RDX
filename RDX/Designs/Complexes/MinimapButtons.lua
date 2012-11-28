@@ -1,4 +1,4 @@
--- MinimapButtons.lua
+﻿-- MinimapButtons.lua
 -- OpenRDX
 -- Sigg Rashgarroth EU
 

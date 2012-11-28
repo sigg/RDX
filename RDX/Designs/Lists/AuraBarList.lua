@@ -1,4 +1,4 @@
--- AuraBars.lua
+﻿-- AuraBars.lua
 -- OpenRDX
 -- Code for aura bars attached to unitframes.
 -- Sigg Rashgarroth EU

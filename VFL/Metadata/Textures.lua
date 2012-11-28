@@ -1,4 +1,4 @@
----------- Icons
+﻿---------- Icons
 local function ricon(title, path, dx, dy)
 	VFLUI.RegisterTexture({
 		name = "vfli_" .. string.gsub(title, "[^%w_]", "_");

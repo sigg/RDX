@@ -1,4 +1,4 @@
-
+﻿
 -- Cidan
 RDX.RegisterFeature({
 	name = "var_israidpartyleader";

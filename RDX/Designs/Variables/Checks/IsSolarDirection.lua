@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_issolar"; 
 	title = VFLI.i18n("Var EclipseDirection?");

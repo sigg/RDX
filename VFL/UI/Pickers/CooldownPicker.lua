@@ -1,4 +1,4 @@
--- CooldownPicker.lua
+﻿-- CooldownPicker.lua
 -- VFL
 -- OpenRDX Sigg
 --

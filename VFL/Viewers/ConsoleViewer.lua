@@ -1,4 +1,4 @@
--- ConsoleViewer.lua
+﻿-- ConsoleViewer.lua
 --
 
 local dlg = nil;

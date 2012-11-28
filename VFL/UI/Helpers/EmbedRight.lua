@@ -1,4 +1,4 @@
-
+﻿
 --- Helper function: embed a fixed-width control on the right side of a variable-width
 -- frame with a label.
 function VFLUI.EmbedRight(parent, label)

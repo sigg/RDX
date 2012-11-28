@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_targetexisted";
 	title = VFLI.i18n("Var IsTargetExisted?");

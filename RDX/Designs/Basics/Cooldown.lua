@@ -1,4 +1,4 @@
--- OpenRDX
+﻿-- OpenRDX
 
 RDX.RegisterFeature({
 	name = "texture_cooldown";

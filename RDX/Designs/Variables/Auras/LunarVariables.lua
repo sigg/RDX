@@ -1,4 +1,4 @@
-RDX.RegisterFeature({
+﻿RDX.RegisterFeature({
 	name = "Variable lunar";
 	title = "Vars Lunar";
 	category = VFLI.i18n("Variables Aura");

@@ -1,4 +1,4 @@
-
+﻿
 -- Xenios
 RDX.RegisterFeature({
 	name = "var_isEven";

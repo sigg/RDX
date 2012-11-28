@@ -1,4 +1,4 @@
-
+﻿
 VFLUI.TimerWidget = {};
 function VFLUI.TimerWidget:new(parent)
 	local self = VFLUI.AcquireFrame("Frame");

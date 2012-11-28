@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_isMaxHealth";
 	title = VFLI.i18n("Var IsMaxHealth?");

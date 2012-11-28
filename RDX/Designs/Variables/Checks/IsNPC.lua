@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_isnpc";
 	title = VFLI.i18n("Var IsNPC?");

@@ -1,4 +1,4 @@
--- Button.lua
+﻿-- Button.lua
 -- VFL
 -- (C)2006 Bill Johnson
 --

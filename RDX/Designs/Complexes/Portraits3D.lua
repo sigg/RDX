@@ -1,4 +1,4 @@
--- Portraits.lua
+﻿-- Portraits.lua
 -- RDX - Raid Data Exchange
 -- (C)2007 Raid Informatics
 --

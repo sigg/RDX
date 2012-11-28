@@ -1,4 +1,4 @@
---- Kernel.lua
+﻿--- Kernel.lua
 -- @author (C) 2005-2006 Bill Johnson and The VFL Project
 --
 -- Main code for the VFL kernel and module system.

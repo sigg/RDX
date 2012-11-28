@@ -1,4 +1,4 @@
--- ColorVariables.lua
+﻿-- ColorVariables.lua
 -- RDX - Raid Data Exchange
 -- (C)2006 Bill Johnson
 --

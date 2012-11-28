@@ -1,4 +1,4 @@
--- HeaderAuraIconList.lua
+﻿-- HeaderAuraIconList.lua
 -- OpenRDX - Sigg - Rashgarroth FR
 --
 

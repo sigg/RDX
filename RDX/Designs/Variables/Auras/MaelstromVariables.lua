@@ -1,4 +1,4 @@
-RDX.RegisterFeature({
+﻿RDX.RegisterFeature({
 	name = "Variable maelstrom";
 	title = "Vars Maelstrom";
 	category = VFLI.i18n("Variables Aura");

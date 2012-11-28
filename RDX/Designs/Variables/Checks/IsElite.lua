@@ -1,4 +1,4 @@
-
+﻿
 RDX.RegisterFeature({
 	name = "var_isElite";
 	title = VFLI.i18n("Var IsElite?");
