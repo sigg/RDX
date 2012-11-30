@@ -383,6 +383,7 @@ Designs\Variables\Colors\StaticColor.lua
 Designs\Variables\Colors\ThreatColor.lua
 Designs\Variables\Colors\TwoBlendColor.lua
 Designs\Variables\Colors\MyColor.lua
+Designs\Variables\Colors\RoleColor.lua
 
 # Class
 Metadata\Metadata_Warlock.lua
