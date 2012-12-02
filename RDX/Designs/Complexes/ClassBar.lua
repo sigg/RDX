@@ -133,14 +133,18 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
 			btn:Hide(); -- hide by default
 			
+			local os = 0;
 			if desc.driver == 2 then
 				VFLUI.SetButtonSkin(btn, desc.bs);
+				if desc.bs and desc.bs.insets then os = desc.bs.insets or 0; end
 			elseif desc.driver == 3 then
 				VFLUI.SetBackdrop(btn, desc.bkd);
+				if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 			end
 			
 			btn.tex = VFLUI.CreateTexture(btn);
-			btn.tex:SetAllPoints(btn);
+			btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", os, -os);
+			btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -os, os);
 			btn.tex:SetDrawLayer("ARTWORK", 3);
 			VFLUI.SetTexture(btn.tex, desc.texture);
 			btn.tex:SetVertexColor(0.5,0,1,1);
@@ -640,14 +644,18 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
 			btn:Hide(); -- hide by default
 			
+			local os = 0;
 			if desc.driver == 2 then
 				VFLUI.SetButtonSkin(btn, desc.bs);
+				if desc.bs and desc.bs.insets then os = desc.bs.insets or 0; end
 			elseif desc.driver == 3 then
 				VFLUI.SetBackdrop(btn, desc.bkd);
+				if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 			end
-			
+
 			btn.tex = VFLUI.CreateTexture(btn);
-			btn.tex:SetAllPoints(btn);
+			btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", os, -os);
+			btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -os, os);
 			btn.tex:SetDrawLayer("ARTWORK", 3);
 			VFLUI.SetTexture(btn.tex, desc.texture);
 			btn.tex:SetVertexColor(0.5,0,1,1);
