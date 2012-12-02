@@ -211,10 +211,10 @@ deTex_cf[4] = ]] .. string.format("%q", desc.texture4.path) .. [[;
 	end;
 	CreateDescriptor = function()
 		return { feature = "Variables decurse";
-			set1 = { file = "default:set_debuff_magic", class = "file"};
-			set2 = { file = "default:set_debuff_poison", class = "file"};
-			set3 = { file = "default:set_debuff_disease", class = "file"}; 
-			set4 = { file = "default:set_debuff_curse", class = "file"};
+			set1 = { file = "sets:set_debuff_magic", class = "file"};
+			set2 = { file = "sets:set_debuff_poison", class = "file"};
+			set3 = { file = "sets:set_debuff_disease", class = "file"}; 
+			set4 = { file = "sets:set_debuff_curse", class = "file"};
 			texture1 = { blendMode = "BLEND", path = "Interface\\Icons\\Spell_Holy_DispelMagic"};
 			texture2 = { blendMode = "BLEND", path = "Interface\\Icons\\Spell_Nature_NullifyPoison_02"};
 			texture3 = { blendMode = "BLEND", path = "Interface\\Icons\\Spell_Nature_RemoveDisease"};
