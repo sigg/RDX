@@ -31,11 +31,12 @@ RDX.RegisterFeature({
 	IsPossible = VFL.Nil;
 	VersionMismatch = function(desc)
 		desc.feature = "portrait_3d2";
-		desc.unit = "player";
+		desc.unit = "default";
 	end;
 });
 
 local units = {
+    { text = "default" },
 	{ text = "player" },
 	{ text = "target" },
 	{ text = "focus" },
@@ -78,22 +79,48 @@ RDX.RegisterFeature({
 	_f:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 	_f:SetWidth(]] .. desc.w .. [[); _f:SetHeight(]] .. desc.h .. [[);
 	_f:Show();
+	
+	local uu = "player";
+	
 	_f.rdxupdate =  function()
-		_f:SetUnit("]] .. unit .. [[");
+		_f:SetUnit(uu);
 		]].. camera ..[[(_f);
-		if UnitIsVisible("]] .. unit .. [[") then 
+		if UnitIsVisible(uu) then 
 			_f:Show();
 		else
 			_f:Hide();
 		end
 	end
-	WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "]] .. unit .. [[" then _f.rdxupdate(); end; end, "]] .. id .. [[");
-	if "]] .. unit .. [[" == "target" then
-		WoWEvents:Bind("PLAYER_TARGET_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
+]];
+	if unit == "default" then
+		createCode = createCode .. [[
+	uu = frame:GetAttribute("unit") or "player";
+	WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "uu" then _f.rdxupdate(); end; end, "]] .. id .. [[");
+	WoWEvents:Bind("PLAYER_TARGET_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
+	WoWEvents:Bind("PLAYER_FOCUS_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
+]];
+	elseif unit == "player" then
+		createCode = createCode .. [[
+	uu = "player";
+	WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "player" or uid == "vehicle" then _f.rdxupdate(); end; end, "]] .. id .. [[");
+]];
+	elseif unit == "pet" then
+		createCode = createCode .. [[
+	uu = "pet";
+	WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "pet" or uid == "vehicle" then _f.rdxupdate(); end; end, "]] .. id .. [[");
+]];
+	elseif unit == "target" then
+		createCode = createCode .. [[
+	uu = "target";
+	WoWEvents:Bind("PLAYER_TARGET_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
+]];
+	elseif unit == "focus" then
+		createCode = createCode .. [[
+	uu = "focus";
+	WoWEvents:Bind("PLAYER_FOCUS_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
+]];
 	end
-	if "]] .. unit .. [[" == "focus" then
-		WoWEvents:Bind("PLAYER_FOCUS_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
-	end
+		createCode = createCode .. [[
 	VFLT.schedule(1, _f.rdxupdate);
 	frame.]] .. objname .. [[ = _f;
 ]];
@@ -166,7 +193,7 @@ RDX.RegisterFeature({
 			name = "portrait3d"; owner = "Frame_decor";
 			w = 30; h = 30; 
 			anchor = {lp = "RIGHT", af = "Frame_decor", rp = "LEFT", dx = 0, dy = 0};
-			unit = "player";
+			unit = "default";
 			flOffset = 1;
 		};
 	end;
