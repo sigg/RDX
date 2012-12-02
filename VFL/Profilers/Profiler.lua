@@ -693,17 +693,18 @@ WoWEvents:Bind("VARIABLES_LOADED", nil, function()
 		if RDX then RDX.printW(VFLI.i18n("Profiler Activated !!!")); end
 		suf:SetScript("OnUpdate", SummaryUpdate);
 		--euf:SetScript("OnUpdate", EventUpdate);
-		local last_as = 0;
-		muf:SetScript("OnUpdate", function(self, elapsed)
-			last_as = last_as + elapsed;
-			if last_as > 1 then
-				updateTextPerf();
-				last_as = 0;
-			end
-		end);
 		ouf:SetScript("OnUpdate", ObjectUpdate);
 		puf:SetScript("OnUpdate", PoolUpdate);
 	end
+	
+	local last_as = 0;
+	muf:SetScript("OnUpdate", function(self, elapsed)
+		last_as = last_as + elapsed;
+		if last_as > 1 then
+			updateTextPerf();
+			last_as = 0;
+		end
+	end);
 end);
 
 function VFLP.ResetCPU()
