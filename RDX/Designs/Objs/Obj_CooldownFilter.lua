@@ -73,6 +73,10 @@ RDXDB.RegisterObjectType({
 					cell.text:SetText(data);
 				end
 			end
+		end, function()
+			local db = RDXDAL._GetBuffCache();
+			VFL.copyInto(db, RDXDAL._GetDebuffCache());
+			return db;
 		end);
 		le_names:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 		le_names:SetWidth(300);	le_names:SetHeight(183); le_names:Show();

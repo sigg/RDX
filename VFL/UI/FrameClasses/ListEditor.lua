@@ -62,19 +62,19 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 	local btnlist = VFLUI.Button:new(le);
 	btnlist:SetHeight(25); btnlist:SetWidth(25); btnlist:SetText("...");
 	btnlist:SetPoint("TOPLEFT", le, "TOPLEFT");
-	btnlist:disable();
+	btnlist:Disable();
 	btnlist:Show();
 	if fnBuildDropdown then
-		btnlist:enable();
+		btnlist:Enable();
 		btnlist:SetScript("OnClick", function()
 			buildPopupDropdown(fnBuildDropdown(), function(x) 
-				OnEntry("EDIT", x, x.text);
+				OnEntry("EDIT", nil, x.text);
 			end, btnlist, "CENTER");
 		end);
 	end
 		
 	local edit = VFLUI.Edit:new(le);
-	edit:SetPoint("RIGHT", btnlist, "LEFT"); edit:SetHeight(25);
+	edit:SetPoint("LEFT", btnlist, "RIGHT"); edit:SetHeight(25);
 	edit:Show();
 	edit:SetScript("OnEnterPressed", function(self)
 		OnEntry("EDIT", self, self:GetText());
@@ -84,7 +84,9 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 		fnAcceptEntry = function(list, ty, ctl, txt)
 			if txt and txt ~= "" then 
 				table.insert(list, txt);
-				ctl:SetText("");
+				if ctl then
+					ctl:SetText("");
+				end
 			else
 				VFLUI.MessageBox("Error", "Enter something please.");
 			end
@@ -94,7 +96,7 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 	local decor = VFLUI.AcquireFrame("Frame");
 	decor:SetParent(le);
 	decor:SetBackdrop(VFLUI.DefaultDialogBorder);
-	decor:SetPoint("TOPLEFT", edit, "BOTTOMLEFT");
+	decor:SetPoint("TOPLEFT", btnlist, "BOTTOMLEFT");
 	decor:Show();
 	
 	listCtl = VFLUI.List:new(le, 12, VFLUI.Selectable.AcquireCell);
@@ -151,7 +153,7 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 	--------------- LAYOUT
 	local function Layout()
 		VFL:Debug(1, "ListEditor:Layout() to " .. le:GetWidth() .. "x" .. le:GetHeight());
-		edit:SetWidth(le:GetWidth());
+		edit:SetWidth(le:GetWidth() - 25);
 		decor:SetWidth(le:GetWidth()); 
 		decor:SetHeight(VFL.clamp(le:GetHeight() - 25, 0, 2000));
 		listCtl:SetWidth(VFL.clamp(le:GetWidth() - 10, 0, 2000));
