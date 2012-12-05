@@ -274,14 +274,14 @@ if band(paintmask, ]] .. mask .. [[) ~= 0 then
 			if btn.nametxt then
 				if ]] .. auranameab .. [[ then
 					word, text = nil, "";
-					for word in string.gmatch(_meta.properName, "%a+")
+					for word in string.gmatch(_meta.text, "%a+")
 						do text = text .. word:sub(1, 1);
 					end
 					btn.nametxt:SetText(text);
 				elseif ]] .. auranametrunc .. [[ then
-					btn.nametxt:SetText(strsub(_meta.properName, 1, ]] .. auranametrunc .. [[));
+					btn.nametxt:SetText(strsub(_meta.text, 1, ]] .. auranametrunc .. [[));
 				else
-					btn.nametxt:SetText(_meta.properName);
+					btn.nametxt:SetText(_meta.text);
 				end
 			end
 			

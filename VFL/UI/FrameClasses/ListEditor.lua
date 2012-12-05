@@ -4,6 +4,26 @@
 --
 -- A ListEditor allows the editing and rearrangement of linear lists of objects.
 
+-- Helper
+
+local function buildPopupDropdown(db, callback, frame, point, dx, dy)
+	local qq = {};
+	for _,v in pairs(db) do
+		local dbEntry = v;
+		table.insert(qq, {
+			text = v.text;
+			texture = v.texture or "Interface\\InventoryItems\\WoWUnknownItem01.blp";
+			OnClick = function()
+				VFL.poptree:Release();
+				callback(dbEntry);
+			end
+		});
+	end
+	table.sort(qq, function(x1,x2) return tostring(x1.text) < tostring(x2.text); end);
+	VFL.poptree:Begin(150, 12, frame, point, dx, dy);
+	VFL.poptree:Expand(nil, qq, 20);
+end
+
 VFLUI.ListEditor = {};
 
 --- Create a new list editor.
@@ -39,28 +59,37 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 	function le:GetList() return list; end
 	
 	------------------ CONTROLS
-	local edit;
+	local btnlist = VFLUI.Button:new(le);
+	btnlist:SetHeight(25); btnlist:SetWidth(25); btnlist:SetText("...");
+	btnlist:SetPoint("TOPLEFT", le, "TOPLEFT");
+	btnlist:disable();
+	btnlist:Show();
 	if fnBuildDropdown then
-		-- TODO: support dropdowns
-	else
-		edit = VFLUI.Edit:new(le);
-		edit:SetPoint("TOPLEFT", le, "TOPLEFT"); edit:SetHeight(25);
-		edit:Show();
-		edit:SetScript("OnEnterPressed", function(self)
-			OnEntry("EDIT", self, self:GetText());
+		btnlist:enable();
+		btnlist:SetScript("OnClick", function()
+			buildPopupDropdown(fnBuildDropdown(), function(x) 
+				OnEntry("EDIT", x, x.text);
+			end, btnlist, "CENTER");
 		end);
-		-- Apply default AcceptEntry function for edit boxes
-		if not fnAcceptEntry then
-			fnAcceptEntry = function(list, ty, ctl, txt)
-				if txt and txt ~= "" then 
-					table.insert(list, txt);
-					ctl:SetText("");
-				else
-					VFLUI.MessageBox("Error", "Enter something please.");
-				end
+	end
+		
+	local edit = VFLUI.Edit:new(le);
+	edit:SetPoint("RIGHT", btnlist, "LEFT"); edit:SetHeight(25);
+	edit:Show();
+	edit:SetScript("OnEnterPressed", function(self)
+		OnEntry("EDIT", self, self:GetText());
+	end);
+	-- Apply default AcceptEntry function for edit boxes
+	if not fnAcceptEntry then
+		fnAcceptEntry = function(list, ty, ctl, txt)
+			if txt and txt ~= "" then 
+				table.insert(list, txt);
+				ctl:SetText("");
+			else
+				VFLUI.MessageBox("Error", "Enter something please.");
 			end
 		end
-	end	
+	end
 	
 	local decor = VFLUI.AcquireFrame("Frame");
 	decor:SetParent(le);
@@ -137,6 +166,7 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 		listCtl:Destroy(); listCtl = nil;
 		decor:Destroy(); decor = nil;
 		edit:Destroy(); edit = nil;
+		btnlist:Destroy(); btnlist = nil;
 		btnRemove:Destroy(); btnRemove = nil; btnDn:Destroy(); btnDn = nil;
 		btnUp:Destroy(); btnUp = nil;
 		s.DialogOnLayout = nil; s.GetList = nil;

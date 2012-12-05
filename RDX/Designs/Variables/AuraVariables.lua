@@ -263,13 +263,13 @@ local ]] .. desc.name .. [[_av_color = {};
 		if dd_auraType:GetSelection() == "BUFFS" then 
 			btn:SetScript("OnClick", function()
 				RDXDAL.AuraCachePopup(RDXDAL._GetBuffCache(), function(x) 
-					if x then cd.editBox:SetText(x.properName); end
+					if x then cd.editBox:SetText(x.text); end
 				end, btn, "CENTER");
 			end);
 		else
 			btn:SetScript("OnClick", function()
 				RDXDAL.AuraCachePopup(RDXDAL._GetDebuffCache(), function(x) 
-					if x then cd.editBox:SetText(x.properName); end
+					if x then cd.editBox:SetText(x.text); end
 				end, btn, "CENTER");
 			end);
 		end

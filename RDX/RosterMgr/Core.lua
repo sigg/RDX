@@ -22,9 +22,9 @@ local debuffCategoryOverride = {};
 
 -- The aura metadata caches.
 local function GenMetadataCacheFuncs(ncache)
-	local Set = function(texture, name, category, properName, properCategory, descr)
+	local Set = function(texture, name, category, text, properCategory, descr)
 		if not name then return; end
-		local x = { name = name, texture = texture, properName = properName, category = category, properCategory = properCategory, descr = descr };
+		local x = { name = name, texture = texture, text = text, category = category, properCategory = properCategory, descr = descr };
 		ncache[name] = x;
 		return x;
 	end
@@ -147,7 +147,7 @@ RDXEvents:Bind("INIT_PRELOAD", nil, function()
 	debuffCacheN["@curse"] = {	
 		name = "@curse",
 		texture = "Interface\\InventoryItems\\WoWUnknownItem01.blp",
-		properName = VFLI.i18n("@curse"),
+		text = VFLI.i18n("@curse"),
 		descr = VFLI.i18n("Matches any curse."),
 		set = RDXDAL.GetDebuffSet("@curse"), isInvisible = true,
 	};
@@ -155,7 +155,7 @@ RDXEvents:Bind("INIT_PRELOAD", nil, function()
 	debuffCacheN["@magic"] = {
 		name = "@magic",
 		texture = "Interface\\InventoryItems\\WoWUnknownItem01.blp",
-		properName = VFLI.i18n("@magic"),
+		text = VFLI.i18n("@magic"),
 		descr = VFLI.i18n("Matches any magic debuff."),
 		set = RDXDAL.GetDebuffSet("@magic"), isInvisible = true,
 	};
@@ -163,7 +163,7 @@ RDXEvents:Bind("INIT_PRELOAD", nil, function()
 	debuffCacheN["@poison"] = {
 		name = "@poison",
 		texture = "Interface\\InventoryItems\\WoWUnknownItem01.blp",
-		properName = VFLI.i18n("@poison"),
+		text = VFLI.i18n("@poison"),
 		descr = VFLI.i18n("Matches any poison debuff."),
 		set = RDXDAL.GetDebuffSet("@poison"), isInvisible = true,
 	};
@@ -171,7 +171,7 @@ RDXEvents:Bind("INIT_PRELOAD", nil, function()
 	debuffCacheN["@disease"] = {
 		name = "@disease",
 		texture = "Interface\\InventoryItems\\WoWUnknownItem01.blp",
-		properName = VFLI.i18n("@disease"),
+		text = VFLI.i18n("@disease"),
 		descr = VFLI.i18n("Matches any disease debuff."),
 		set = RDXDAL.GetDebuffSet("@disease"), isInvisible = true,
 	};
@@ -179,7 +179,7 @@ RDXEvents:Bind("INIT_PRELOAD", nil, function()
 	debuffCacheN["@other"] = {
 		name = "@other",
 		texture = "Interface\\InventoryItems\\WoWUnknownItem01.blp",
-		properName = VFLI.i18n("@other"),
+		text = VFLI.i18n("@other"),
 		descr = VFLI.i18n("Matches any debuff that is not disease, poison, magic, or curse."),
 		set = RDXDAL.GetDebuffSet("@other"), isInvisible = true,
 	};
@@ -190,7 +190,7 @@ function RDXDAL.ShowAuraTooltip(meta, frame, anchor)
 	GameTooltip:SetOwner(frame, "ANCHOR_NONE");
 	GameTooltip:SetPoint("TOPLEFT", frame, anchor);
 	GameTooltip:ClearLines();
-	GameTooltip:AddDoubleLine(meta.properName, meta.properCategory);
+	GameTooltip:AddDoubleLine(meta.text, meta.properCategory);
 	GameTooltip:AddLine(meta.descr, 1, 1, 1, 1, true);
 	GameTooltip:Show();
 end

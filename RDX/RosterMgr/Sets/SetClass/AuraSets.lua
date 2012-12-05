@@ -132,7 +132,7 @@ function RDXDAL.AuraCachePopup(db, callback, frame, point, dx, dy)
 	for _,v in pairs(db) do
 		local dbEntry = v;
 		table.insert(qq, {
-			text = v.properName;
+			text = v.text;
 			texture = v.texture or "Interface\\InventoryItems\\WoWUnknownItem01.blp";
 			OnClick = function()
 				VFL.poptree:Release();
@@ -166,7 +166,7 @@ RDXDAL.RegisterSetClass({
 		btn:SetPoint("RIGHT", ui.editBox, "LEFT"); btn:Show();
 		btn:SetScript("OnClick", function()
 			RDXDAL.AuraCachePopup(RDXDAL._GetBuffCache(), function(x) 
-				if x then ui.editBox:SetText(x.properName); end
+				if x then ui.editBox:SetText(x.text); end
 			end, btn, "CENTER");
 		end);
 
@@ -208,7 +208,7 @@ RDXDAL.RegisterSetClass({
 		btn:SetPoint("RIGHT", ui.editBox, "LEFT"); btn:Show();
 		btn:SetScript("OnClick", function()
 			RDXDAL.AuraCachePopup(RDXDAL._GetDebuffCache(), function(x) 
-				if x then ui.editBox:SetText(x.properName); end
+				if x then ui.editBox:SetText(x.text); end
 			end, btn, "CENTER");
 		end);
 
@@ -254,7 +254,7 @@ RDXDAL.RegisterSetClass({
 		btn:SetPoint("RIGHT", ui.editBox, "LEFT"); btn:Show();
 		btn:SetScript("OnClick", function()
 			RDXDAL.AuraCachePopup(RDXDAL._GetBuffCache(), function(x) 
-				if x then ui.editBox:SetText(x.properName); end
+				if x then ui.editBox:SetText(x.text); end
 			end, btn, "CENTER");
 		end);
 
