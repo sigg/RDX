@@ -49,19 +49,30 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.menuList = RDXPM.subMenus;
 end);
 
---RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
---	ent.text = VFLI.i18n("Packages");
---	ent.hasArrow = true;
---	ent.notCheckable = true;
---	ent.keepShownOnClick = false;
---	ent.menuList = {
---		{ text = VFLI.i18n("Package Explorer"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleObjectBrowser },
+local dfkey
+local function ToggleKeyBindings()
+	if not InCombatLockdown() then 
+		if dfkey then
+			DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
+			dfkey = nil;
+		else
+			DesktopEvents:Dispatch("DESKTOP_UNLOCK_BINDINGS");
+			dfkey = true;
+		end
+	end
+end
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Key Bindings");
+	ent.hasArrow = true;
+	ent.notCheckable = true;
+	ent.keepShownOnClick = false;
+	ent.menuList = {
+		{ text = VFLI.i18n("Configure keys"), checked = function() return dfkey; end, func = ToggleKeyBindings },
 		--{ text = VFLI.i18n("Package Updater"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleRAU },
 		--{ text = VFLI.i18n("OOBE Manager"), notCheckable = true, keepShownOnClick = false, func = RDXDB.DropOOBE },
-		
-		
---	};
---end);
+	};
+end);
 
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)

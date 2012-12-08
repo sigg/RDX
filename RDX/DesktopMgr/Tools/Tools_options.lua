@@ -62,24 +62,24 @@ separator4:SetPoint("TOPLEFT", leright, "BOTTOMLEFT", 0, -5);
 separator4:SetText("ActionBars"); separator4:Show();
 
 -- button configure keys
-local dfkey = nil;
-local btndefinekey = VFLUI.OKButton:new(framed);
-btndefinekey:SetHeight(25); btndefinekey:SetWidth(216);
-btndefinekey:SetPoint("TOPLEFT", separator4, "BOTTOMLEFT", 0, -5);
-btndefinekey:SetText(VFLI.i18n("Click to setup your keys")); btndefinekey:Show();
-btndefinekey:SetScript("OnClick", function()
-	if not InCombatLockdown() then 
-		if dfkey then
-			btndefinekey:SetText(VFLI.i18n("Click to setup your keys"));
-			DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
-			dfkey = nil;
-		else
-			btndefinekey:SetText(VFLI.i18n("Lock keys setup"));
-			DesktopEvents:Dispatch("DESKTOP_UNLOCK_BINDINGS");
-			dfkey = true;
-		end
-	end
-end);
+--local dfkey = nil;
+--local btndefinekey = VFLUI.OKButton:new(framed);
+--btndefinekey:SetHeight(25); btndefinekey:SetWidth(216);
+--btndefinekey:SetPoint("TOPLEFT", separator4, "BOTTOMLEFT", 0, -5);
+--btndefinekey:SetText(VFLI.i18n("Click to setup your keys")); btndefinekey:Show();
+--btndefinekey:SetScript("OnClick", function()
+	--if not InCombatLockdown() then 
+		--if dfkey then
+			--btndefinekey:SetText(VFLI.i18n("Click to setup your keys"));
+			--DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
+			--dfkey = nil;
+		--else
+			--btndefinekey:SetText(VFLI.i18n("Lock keys setup"));
+			--DesktopEvents:Dispatch("DESKTOP_UNLOCK_BINDINGS");
+			--dfkey = true;
+		--end
+	--end
+--end);
 
 --local chk_lockaction = VFLUI.Checkbox:new(ca); chk_lockaction:SetHeight(16); chk_lockaction:SetWidth(200);
 --chk_lockaction:SetPoint("TOPLEFT", btndefinekey, "BOTTOMLEFT");
@@ -102,10 +102,10 @@ local function SetFramed(froot)
 end
 
 local function UnsetFramed()
-	if dfkey then
-		DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
-		dfkey = nil;
-	end
+	--if dfkey then
+		--DesktopEvents:Dispatch("DESKTOP_LOCK_BINDINGS");
+		--dfkey = nil;
+	--end
 end
 
 framed:Hide();
