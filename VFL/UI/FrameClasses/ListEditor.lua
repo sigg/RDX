@@ -59,6 +59,8 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 	function le:GetList() return list; end
 	
 	------------------ CONTROLS
+	local edit;
+	
 	local btnlist = VFLUI.Button:new(le);
 	btnlist:SetHeight(25); btnlist:SetWidth(25); btnlist:SetText("...");
 	btnlist:SetPoint("TOPLEFT", le, "TOPLEFT");
@@ -67,13 +69,13 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 	if fnBuildDropdown then
 		btnlist:Enable();
 		btnlist:SetScript("OnClick", function()
-			buildPopupDropdown(fnBuildDropdown(), function(x) 
-				OnEntry("EDIT", nil, x.text);
+			buildPopupDropdown(fnBuildDropdown(), function(x)
+				edit:SetText(x.text);
 			end, btnlist, "CENTER");
 		end);
 	end
 		
-	local edit = VFLUI.Edit:new(le);
+	edit = VFLUI.Edit:new(le);
 	edit:SetPoint("LEFT", btnlist, "RIGHT"); edit:SetHeight(25);
 	edit:Show();
 	edit:SetScript("OnEnterPressed", function(self)
