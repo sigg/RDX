@@ -173,7 +173,6 @@ function RDXUI.Wizard:SavePage()
 		if self.pageNum and self.child.GetDescriptor then
 			local pgdef = self.page[self.pageNum];
 			desc = self.child:GetDescriptor();
-			VFL.tprint(desc);
 			vflErrors:Clear();
 			if pgdef.Verify(desc, self, vflErrors) then
 				self.desc[self.pageNum] = desc;
