@@ -697,6 +697,7 @@ WoWEvents:Bind("VARIABLES_LOADED", nil, function()
 		puf:SetScript("OnUpdate", PoolUpdate);
 	end
 	
+	--[[
 	local last_as = 0;
 	muf:SetScript("OnUpdate", function(self, elapsed)
 		last_as = last_as + elapsed;
@@ -704,7 +705,7 @@ WoWEvents:Bind("VARIABLES_LOADED", nil, function()
 			updateTextPerf();
 			last_as = 0;
 		end
-	end);
+	end);]]
 end);
 
 function VFLP.ResetCPU()
