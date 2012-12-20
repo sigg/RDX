@@ -61,10 +61,22 @@ local function SetLocation()
 		WatchFrame:_SetPoint("TOPLEFT", watchframebtn, "TOPLEFT");
 		WatchFrame:SetHeight(descb.quest.h or 400);
 		watchframebtn:SetHeight(descb.quest.h or 400);
+	else
+		watchframebtn:ClearAllPoints();
+		watchframebtn:SetPoint("CENTER", RDXParent, "CENTER", 200, 0);
+		WatchFrame:_ClearAllPoints();
+		WatchFrame:_SetPoint("TOPLEFT", watchframebtn, "TOPLEFT");
+		WatchFrame:SetHeight(400);
+		watchframebtn:SetHeight(400);
 	end
 	if descb.vehicle and descb.vehicle.anchorx and descb.vehicle.anchory then
 		vehicleseatbtn:ClearAllPoints();
 		vehicleseatbtn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.vehicle.anchorx, descb.vehicle.anchory);
+		VehicleSeatIndicator:_ClearAllPoints();
+		VehicleSeatIndicator:_SetPoint("TOPLEFT", vehicleseatbtn, "TOPLEFT");
+	else
+		vehicleseatbtn:ClearAllPoints();
+		vehicleseatbtn:SetPoint("CENTER", RDXParent, "CENTER", 200, 50);
 		VehicleSeatIndicator:_ClearAllPoints();
 		VehicleSeatIndicator:_SetPoint("TOPLEFT", vehicleseatbtn, "TOPLEFT");
 	end
@@ -73,10 +85,20 @@ local function SetLocation()
 		durabilitybtn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.dura.anchorx, descb.dura.anchory);
 		DurabilityFrame:_ClearAllPoints();
 		DurabilityFrame:_SetPoint("TOPLEFT", durabilitybtn, "TOPLEFT");
+	else
+		durabilitybtn:ClearAllPoints();
+		durabilitybtn:SetPoint("CENTER", RDXParent, "CENTER", 200, 50);
+		DurabilityFrame:_ClearAllPoints();
+		DurabilityFrame:_SetPoint("TOPLEFT", durabilitybtn, "TOPLEFT");
 	end
 	if descb.extra and descb.extra.anchorx and descb.extra.anchory then
 		extrabtn:ClearAllPoints();
 		extrabtn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.extra.anchorx, descb.extra.anchory);
+		ExtraActionBarFrame:_ClearAllPoints();
+		ExtraActionBarFrame:_SetPoint("TOPLEFT", extrabtn, "TOPLEFT");
+	else
+		extrabtn:ClearAllPoints();
+		extrabtn:SetPoint("CENTER", RDXParent, "CENTER");
 		ExtraActionBarFrame:_ClearAllPoints();
 		ExtraActionBarFrame:_SetPoint("TOPLEFT", extrabtn, "TOPLEFT");
 	end
