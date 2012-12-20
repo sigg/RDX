@@ -14,7 +14,7 @@
 RDX.IsDesignEditorOpen = RDXIE.IsFeatureEditorOpen;
 
 function RDX.DesignEditor(state, callback, augText, parent, offline)
-	local dlg = RDXIE.FeatureEditor(state, callback, augText, parent, offline);
+	local dlg = RDXIE.FeatureEditor(state, callback, augText, parent, offline, true);
 	if not dlg then return nil; end
 	
 	if not offline then

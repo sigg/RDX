@@ -42,7 +42,7 @@ local function MoveFeatureDragStart(btn)
 	end
 end
 
-function RDXIE.FeatureEditor(state, callback, path, parent, offline)
+function RDXIE.FeatureEditor(state, callback, path, parent, offline, allowcode)
 	if (dlg) or (not state) then return nil; end
 	RDXIEEvents:Dispatch("OPEN");
 	
@@ -718,6 +718,12 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline)
 		local code = RDX.DesignGeneratingFunctor(dstate, path, "local", true);
 		VFL.Debug_ShowCode(code);
 	end);
+	
+	if not allowcode then
+		btnGetCode:Disable();
+	else
+		btnGetCode:Enable();
+	end
 	
 	-- Save : Add all modifications
 	local function Save()
