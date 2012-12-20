@@ -18,9 +18,9 @@ local wtype = {
 	{ text = "Player_Alternate_Bar" },
 	{ text = "Player_Buff_Secured_Icon" },
 	{ text = "Player_Debuff_Icon" },
-	{ text = "Player_Cooline" },
 	{ text = "Player_Cooldowns_Used" },
-	--{ text = "ClassBar" },
+	{ text = "Cooline" },
+	{ text = "ClassBar" },
 	
 	{ text = "Target_Main" },
 	{ text = "Target_CastBar" },
