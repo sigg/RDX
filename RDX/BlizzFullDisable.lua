@@ -54,7 +54,7 @@ local function DisableAll()
 	if not opt.ea then
 		local frames = {
 			-- ActionbarController.xml
-			"ActionBarController",
+			--"ActionBarController",
 			-- ActionBarFrame.xml
 			"ActionBarButtonEventsFrame",
 			"ActionBarActionEventsFrame",
@@ -193,6 +193,19 @@ local function DisableAll()
 				VFL.print("BD:This object do not exist " .. v);
 			end
 		end
+		
+		-- ActionBarController
+		ActionBarController:UnregisterEvent("PLAYER_ENTERING_WORLD");
+		ActionBarController:UnregisterEvent("ACTIONBAR_PAGE_CHANGED");
+		ActionBarController:UnregisterEvent("UPDATE_BONUS_ACTIONBAR");
+		ActionBarController:UnregisterEvent("UNIT_DISPLAYPOWER");
+		ActionBarController:UnregisterEvent("UPDATE_VEHICLE_ACTIONBAR");
+		ActionBarController:UnregisterEvent("UPDATE_OVERRIDE_ACTIONBAR");
+		ActionBarController:UnregisterEvent("UPDATE_SHAPESHIFT_FORM");
+		ActionBarController:UnregisterEvent("UPDATE_SHAPESHIFT_FORMS");
+		ActionBarController:UnregisterEvent("UPDATE_SHAPESHIFT_USABLE");
+		ActionBarController:UnregisterEvent("UPDATE_INVENTORY_ALERTS");
+		ActionBarController:UnregisterEvent("UPDATE_POSSESS_BAR");
 		
 		-- MainMenuBarArtFrame some events must be active
 		MainMenuBarArtFrame:UnregisterEvent("PLAYER_ENTERING_WORLD");
