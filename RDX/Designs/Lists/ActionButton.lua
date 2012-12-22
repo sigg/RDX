@@ -608,7 +608,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	self:SetScript("OnEnter", ABShowGameTooltip);
 	
 	self:SetAttribute("type", "action");
-	self:SetAttribute("action", __RDXGetCurrentButtonId(statesString, desc.nIcons, id));
+	self:SetAttribute("action", __RDXGetCurrentButtonId(statesString, desc.nIcons, self.id));
 	
 	if desc.anydown then
 		self:RegisterForClicks("AnyDown");
@@ -628,7 +628,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	
 	-- Add state action for bar change
 	if statesString then
-		__RDXModifyActionButtonState(self, statesString, desc.nIcons, id);
+		__RDXModifyActionButtonState(self, statesString, desc.nIcons, self.id);
 	end
 	
 	-- when the state bar change, attribute action is changing
@@ -698,6 +698,10 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButton" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButton" .. self.id);
 	
+	RDXEvents:Bind("INIT_1", nil, function() 
+		self:SetAttribute("action", __RDXGetCurrentButtonId(statesString, desc.nIcons, self.id));
+	end, "actionButton" .. self.id);
+	
 	--VFLT.NextFrame(math.random(10000000), function()
 		--if UpdateKeyBinding then
 			--UpdateKeyBinding();
@@ -714,6 +718,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	self.Destroy = VFL.hook(function(s)
 		s:SetScript("OnUpdate", nil);
 		DesktopEvents:Unbind("bindingactionButton" .. s.id);
+		RDXEvents:Unbind("actionButton" .. s.id);
 		WoWEvents:Unbind("actionButton" .. s.id);
 		WoWEvents:Unbind("mainactionButton" .. s.id);
 		VFLEvents:Unbind("mainactionButton" .. s.id);

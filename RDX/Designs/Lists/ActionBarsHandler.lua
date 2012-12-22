@@ -159,20 +159,47 @@ function __RDXModifyActionButtonState(btn, statesString, nbuttons, id)
 end
 
 -- find the current active page in case of closing/openning window
+-- "[bar:2] 1; [bar:3] 2; [bar:4] 3; [bar:5] 4; [bar:6] 5; [bonusbar:5] 10; [vehicleui] %d; [possessbar] %d; [overridebar] %d;", GetVehicleBarIndex() - 1, GetVehicleBarIndex() - 1, GetOverrideBarIndex() - 1
 function __RDXGetCurrentButtonId(statesString, nbuttons, id)
 	local statesTable = convertStatesTable(statesString);
 	local currentPage, barPage, offsetPage = 0, GetActionBarPage(), GetBonusBarOffset();
 	for _,v in ipairs(statesTable) do
 		if v.condition == "[bar:" .. barPage .. "]" then currentPage = v.page; end
-		if currentPage == "possess" then currentPage = 10; end
+		--if currentPage == "possess" then currentPage = 10; end
 	end
 	if (offsetPage > 0) and (barPage == 1) then
 		for _,v in ipairs(statesTable) do
 			if v.condition == "[bonusbar:" .. offsetPage .. "]" then currentPage = v.page; end
-			if currentPage == "possess" then currentPage = 10; end
+			--if currentPage == "possess" then currentPage = 10; end
 		end
 	end
+	if HasVehicleActionBar() then
+		for _,v in ipairs(statesTable) do
+			if v.condition == "[vehicleui]" then currentPage = v.page; end
+		end
+	elseif (HasOverrideActionBar()) then
+		for _,v in ipairs(statesTable) do
+			if v.condition == "[overridebar]" then currentPage = v.page; end
+		end
+	end
+	
 	return id + (nbuttons * currentPage);
+	
+	--[[if HasVehicleActionBar() then
+		return id + (nbuttons * GetVehicleBarIndex() - 1);
+	elseif (HasOverrideActionBar()) then
+		return id + (nbuttons * GetOverrideBarIndex() - 1);
+	elseif (HasTempShapeshiftActionBar()) then
+		return id + (nbuttons * GetTempShapeshiftBarIndex() - 1);
+	elseif (HasBonusActionBar() and GetActionBarPage() == 1) then
+		return id + (nbuttons * GetBonusBarIndex() - 1);
+	else
+		--return id + (nbuttons * GetActionBarPage());
+		return id + (nbuttons * currentPage);
+	end]]
+	
+	
+	--return id + (nbuttons * currentPage);
 end
 
 -- pet/other handler
@@ -183,3 +210,22 @@ function __RDXCreateHeaderHandlerBase(visString)
 	return h;
 end
 
+function __RDXdebugstate()
+	if HasVehicleActionBar() then
+		VFL.print("vehicle");
+		VFL.print(GetVehicleBarIndex());
+	elseif (HasOverrideActionBar()) then
+		VFL.print("override");
+		VFL.print(GetOverrideBarIndex());
+	elseif (HasTempShapeshiftActionBar()) then
+		VFL.print("Shapes");
+		VFL.print(GetTempShapeshiftBarIndex());
+	elseif (HasBonusActionBar() and GetActionBarPage() == 1) then
+		VFL.print("bonus");
+		VFL.print(GetBonusBarIndex());
+	else
+		VFL.print("normal");
+	end
+end
+
+-- /script __RDXdebugstate();
