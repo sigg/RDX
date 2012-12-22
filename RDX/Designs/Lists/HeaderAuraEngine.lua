@@ -154,7 +154,7 @@ function RDX.SmartHeaderAura:new()
 	obj.updateFunc = VFL.Noop;
 	obj.listener = VFLUI.AcquireFrame("Frame");
 	obj.listener:RegisterEvent("UNIT_AURA");
-	obj.listener:SetScript("OnEvent", function(self, event, arg1) if (arg1 == "player") then obj:updateFunc(); end; end);
+	obj.listener:SetScript("OnEvent", function(self, event, arg1) if (arg1 == "player") or (arg1 == "vehicle") then obj:updateFunc(); end; end);
 	obj.Destroy = VFL.hook(function(s)
 		if InCombatLockdown() then
 			error(VFLI.i18n("Attempt to destroy secure aura header while in combat."));
