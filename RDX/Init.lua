@@ -84,6 +84,12 @@ local function VariablesLoaded()
 			RDXEvents:Dispatch("INIT_POST");
 			RDXEvents:DeleteKey("INIT_POST");
 		end);
+		
+		VFLT.ZMSchedule(1, function()
+			RDX:Debug(3, "DISPATCH INIT_1");
+			RDXEvents:Dispatch("INIT_1");
+			RDXEvents:DeleteKey("INIT_1");
+		end);
 	
 		VFLT.ZMSchedule(4, function()
 			RDX:Debug(3, "DISPATCH INIT_DEFERRED");
