@@ -82,7 +82,12 @@ RDX.RegisterFeature({
 	
 	local uu = "player";
 	
-	_f.rdxupdate =  function()
+	_f.rdxupdate =  function(flag)
+		if not flag then
+			uu = SecureButton_GetModifiedUnit(frame);
+		else
+			uu = flag;
+		end
 		_f:SetUnit(uu);
 		]].. camera ..[[(_f);
 		if UnitIsVisible(uu) then 
@@ -94,30 +99,31 @@ RDX.RegisterFeature({
 ]];
 	if unit == "default" then
 		createCode = createCode .. [[
-	uu = frame:GetAttribute("unit") or "player";
-	WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "uu" then _f.rdxupdate(); end; end, "]] .. id .. [[");
+	WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "player" or uid == "vehicle" then _f.rdxupdate(); end; end, "]] .. id .. [[");
 	WoWEvents:Bind("PLAYER_TARGET_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
 	WoWEvents:Bind("PLAYER_FOCUS_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
+	WoWEvents:Bind("UNIT_ENTERED_VEHICLE", nil, _f.rdxupdate, "]] .. id .. [[");
+	WoWEvents:Bind("UNIT_EXITED_VEHICLE", nil, _f.rdxupdate, "]] .. id .. [[");
 ]];
 	elseif unit == "player" then
 		createCode = createCode .. [[
 	uu = "player";
-	WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "player" or uid == "vehicle" then _f.rdxupdate(); end; end, "]] .. id .. [[");
+	WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "player" or uid == "vehicle" then _f.rdxupdate("player"); end; end, "]] .. id .. [[");
 ]];
 	elseif unit == "pet" then
 		createCode = createCode .. [[
 	uu = "pet";
-	WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "pet" or uid == "vehicle" then _f.rdxupdate(); end; end, "]] .. id .. [[");
+	WoWEvents:Bind("UNIT_PORTRAIT_UPDATE", nil, function(uid) if uid == "pet" or uid == "vehicle" then _f.rdxupdate("pet"); end; end, "]] .. id .. [[");
 ]];
 	elseif unit == "target" then
 		createCode = createCode .. [[
 	uu = "target";
-	WoWEvents:Bind("PLAYER_TARGET_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
+	WoWEvents:Bind("PLAYER_TARGET_CHANGED", nil, function() _f.rdxupdate("target"); end, "]] .. id .. [[");
 ]];
 	elseif unit == "focus" then
 		createCode = createCode .. [[
 	uu = "focus";
-	WoWEvents:Bind("PLAYER_FOCUS_CHANGED", nil, _f.rdxupdate, "]] .. id .. [[");
+	WoWEvents:Bind("PLAYER_FOCUS_CHANGED", nil, function() _f.rdxupdate("focus"); end, "]] .. id .. [[");
 ]];
 	end
 		createCode = createCode .. [[
