@@ -34,7 +34,7 @@ local function newonupdateH(self, elapsed)
 			self:SetTexCoord(0, self._value, 0, 1);
 		end
 	end
-	if self.color1 then self2:SetVertexColor(VFL.CVFromCTLerp(self.color1, self.color2, self._value)); end
+	if self.color1 then self:SetVertexColor(VFL.CVFromCTLerp(self.color1, self.color2, self._value)); end
 end
 
 local function newonupdateV(self, elapsed)
@@ -58,7 +58,7 @@ local function newonupdateV(self, elapsed)
 			self:SetTexCoord(0, 1, 0, self._value);
 		end
 	end
-	if self.color1 then self2:SetVertexColor(VFL.CVFromCTLerp(self.color1, self.color2, self._value)); end
+	if self.color1 then self:SetVertexColor(VFL.CVFromCTLerp(self.color1, self.color2, self._value)); end
 end
 
 
