@@ -253,12 +253,39 @@ function RDX.CombatLogs:new(path, desc)
 		self2:Rebuild();
 		local ft = obj.font;
 		if not ft then ft = Fonts.Default; end
-		Omni._ApplyColSpecToList(self2, { 
-			{ title = "Time", width = 60, font = ft },
-			{ title = "Amt", width = 50, font = ft },
-			{ title = "Ability", width = 195, font = ft },
-			{ title = "Misc", width = 87, font = ft }
-		});
+		
+		if self2:GetWidth() >= 400 then
+			Omni._ApplyColSpecToList(self2, { 
+				{ title = "Time", width = 60, font = ft },
+				{ title = "Amt", width = 50, font = ft },
+				{ title = "Ability", width = 195, font = ft },
+				{ title = "Misc", width = 87, font = ft }
+			});
+		elseif self2:GetWidth() >= 300 then
+			Omni._ApplyColSpecToList(self2, { 
+				{ title = "Time", width = 60, font = ft },
+				{ title = "Amt", width = 50, font = ft },
+				{ title = "Ability", width = 120, font = ft },
+				{ title = "Misc", width = 70, font = ft }
+			});
+		elseif self2:GetWidth() >= 250 then
+			Omni._ApplyColSpecToList(self2, { 
+				{ title = "Amt", width = 50, font = ft },
+				{ title = "Ability", width = 140, font = ft },
+				{ title = "Misc", width = 60, font = ft }
+			});
+		elseif self2:GetWidth() >= 200 then
+			Omni._ApplyColSpecToList(self2, { 
+				{ title = "Amt", width = 50, font = ft },
+				{ title = "Ability", width = 90, font = ft },
+				{ title = "Misc", width = 60, font = ft }
+			});
+		else --100
+			Omni._ApplyColSpecToList(self2, { 
+				{ title = "Amt", width = 50, font = ft },
+				{ title = "Ability", width = 50, font = ft },
+			});
+		end
 		self2:Update();
 	end);
 	list:Show();
