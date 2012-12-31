@@ -645,7 +645,8 @@ end;
 local function ProcessRequestInvite(arg1)
 	if arg1 == "RDXPS" then
 		-- if still available place then
-		if IsRaidLeader() or IsRaidOfficer() then
+		local myunit = RDXDAL.GetMyUnit();
+		if UnitIsGroupLeader(myunit.uid) or UnitIsRaidOfficer(myunit.uid) then
 			InviteUnit(arg4);
 		end;
 	end;

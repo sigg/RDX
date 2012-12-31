@@ -354,7 +354,8 @@ RDX.RegisterTextureIcon({
 ]];
 	paintCode = [[
 		_meta = nil;
-		if IsRaidLeader() or IsRaidOfficer() or IsPartyLeader() then
+		myunit = RDXDAL.GetMyUnit();
+		if UnitIsGroupLeader(myunit.uid) or UnitIsRaidOfficer(myunit.uid) then
 			_meta = GetReadyCheckStatus(uid);
 		end
 		if _meta then
