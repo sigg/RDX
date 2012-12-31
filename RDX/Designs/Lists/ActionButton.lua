@@ -698,8 +698,10 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	DesktopEvents:Bind("DESKTOP_LOCK_BINDINGS", nil, HideBindingEdit, "bindingactionButton" .. self.id);
 	DesktopEvents:Bind("DESKTOP_UPDATE_BINDINGS", nil, UpdateKeyBinding, "bindingactionButton" .. self.id);
 	
-	RDXEvents:Bind("INIT_1", nil, function() 
-		self:SetAttribute("action", __RDXGetCurrentButtonId(statesString, desc.nIcons, self.id));
+	RDXEvents:Bind("INIT_1", nil, function()
+		if not InCombatLockdown() then
+			self:SetAttribute("action", __RDXGetCurrentButtonId(statesString, desc.nIcons, self.id));
+		end
 	end, "actionButton" .. self.id);
 	
 	--VFLT.NextFrame(math.random(10000000), function()
