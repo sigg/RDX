@@ -199,13 +199,13 @@ ww:RegisterPage(GetNextPageId(), "chkwin", {
 	OpenPage = function(parent, wizard, desc)
 		-- Formulate our page first.
 		local txt = "";
-		local p1d = wizard:GetPageDescriptor(nil, "wtype");
-		if not RDXDB.GetPackage(p1d.pkg) then
-			txt = txt .. "The package '" .. p1d.pkg .. "' does not exist and will be created.\n";
+		local pld = wizard:GetPageDescriptor(nil, "wtype");
+		if not RDXDB.GetPackage(pld.pkg) then
+			txt = txt .. "The package '" .. pld.pkg .. "' does not exist and will be created.\n";
 		end
 
-		local chk = p1d.pkg .. ":" .. p1d.wtype;
-		if p1d.suffix then chk = chk .. p1d.suffix; end
+		local chk = pld.pkg .. ":" .. pld.wtype;
+		if pld.suffix then chk = chk .. pld.suffix; end
 		if RDXDB.GetObjectData(chk) then
 			txt = txt .. "The data files for this window already exist. If you proceed, they will be overwritten and the window will be rebuilt from scratch.\n";
 		end
@@ -219,9 +219,9 @@ ww:RegisterPage(GetNextPageId(), "chkwin", {
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		lbl:SetWidth(250); lbl:SetHeight(80); lbl:SetJustifyV("TOP");
+		lbl:SetWidth(250); lbl:SetHeight(100); lbl:SetJustifyV("TOP");
 		lbl:SetText(txt);
-		page:SetHeight(80);
+		page:SetHeight(120);
 
 		wizard:OnNext(function(wiz) wiz:SetPage(nil, "framing"); end);
 		return page;
@@ -335,7 +335,7 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Design");
 		
-		local p1d = wizard:GetPageDescriptor(nil, "wtype");
+		local pld = wizard:GetPageDescriptor(nil, "wtype");
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "Select the type of design you want to use.");
 		lbl:SetWidth(250); lbl:SetHeight(30);
@@ -373,9 +373,8 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		btn4:SetWidth(25); btn4:SetHeight(25); btn4:Show(); btn4:SetText(">");
 		blbl = VFLUI.MakeLabel(nil, page, "Create a new empty or predefined design. Predefined Design are only available for simple windows like actionbar, buff icons, etc ... PlayerFrame will be empty.");
 		blbl:SetWidth(200); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn4, "RIGHT");
-		
 		wizard:MakeNextButton(btn4, function(w, dsc)
-			dsc.windowType = 4; 
+			dsc.designType = 4; 
 			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
 				w:SetPage(nil, "singleheader");
 			else
@@ -984,7 +983,7 @@ function ww:OnOK()
 			set = { class = "file"; file = RDXDB.MakePath(pkg, prefix .. "set"); } 
 		};
 	end]]
-
+	
 	---------------------------- GENERATE DESIGN
 	if self:GetPageDescriptor(nil, "designtype").designType == 1 or self:GetPageDescriptor(nil, "designtype").designType == 2 then
 		-- Copy the unitframe object
@@ -997,14 +996,23 @@ function ww:OnOK()
 	elseif self:GetPageDescriptor(nil, "designtype").designType == 4 then
 		-- Create a default empty object
 		local dState = RDX.DesignState:new();
-		dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
 		
 		-- simple object has default design
 		if wtype == "ActionBar1" then
-		
-		
+			dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
+		elseif wtype == "XpBar" then
+			dState:AddFeature({feature = "Variable: Frac XP (fxp)", });
+			dState:AddFeature({feature = "var_isExhaustion", });
+			dState:AddFeature({feature = "ColorVariable: Static Color", name = "blue", color = {a = 1, b = 1, g = 0, r = 0}, });
+			dState:AddFeature({feature = "ColorVariable: Static Color", name = "green", color = {a = 1, b = 0, g = 1, r = 0}, });
+			dState:AddFeature({feature = "ColorVariable: Conditional Color", name = "xpcolor", colorVar1 = "blue", colorVar2 = "green", condVar = "isExhaustion", });
+			dState:AddFeature({feature = "base_default", version = 1, h = 15, w = 400, alpha = 1, });
+			dState:AddFeature({feature = "Subframe", owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "subframe", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, usebkd = 1, bkd = {bors = 1, _bkdtype = 3, kb = 0, kg = 0, br = 0, dl = "ARTWORK", kr = 0, bb = 0, ba = 1, _backdrop = "none", _border = "none", borl = 2, ka = 0.35, bg = 0, boff = 0,}, flOffset = 1, });
+			dState:AddFeature({feature = "statusbar_horiz", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "statusBar", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, bkd = {_bkdtype = 1, _backdrop = "none", _border = "none",}, drawLayer = "ARTWORK", sublevel = 1, orientation = "HORIZONTAL", texture = { blendMode = "BLEND", path = "Interface\\Addons\\RDX\\Skin\\bar_smooth",}, frac = "fxp", colorVar = "xpcolor", });
+			dState:AddFeature({feature = "txt2", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "infoText", anchor = {dx = 0, dy = 0, lp = "CENTER", rp = "CENTER", af = "Frame_decor",}, ftype = 3, txtdata = "fpxptxt", tyo = "gold", font = { size = 10, face = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf", justifyV = "CENTER", justifyH = "CENTER", sa = 1, sg = 0, name = "Default", sb = 0, title = "Default", sy = -1, sx = 1, sr = 0, },});
+		else
+			dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
 		end
-		
 		
 		obj = RDXDB._DirectCreateObject(pkg, wtype .. suffix .. "_ds");
 		obj.ty = "Design"; obj.version = 1;
