@@ -86,9 +86,7 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 			local currentlayout = nil;
 			-- search for old layout dropped
 			for i, v in ipairs(tmpdata) do
-				VFL.print(v);
 				if not VFL.vfind(lst, v) then
-					VFL.print(path .. "_" .. v);
 					RDXDB.DeleteObject(path .. "_" .. v);
 					-- check if we are deleting the current theme layout
 					if v == RDXU.AUIState then currentlayout = true; end
