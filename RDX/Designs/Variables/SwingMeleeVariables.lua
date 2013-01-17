@@ -15,16 +15,17 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ApplyFeature = function(desc, state)
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("SWING_MELEE_UPDATE");
-		
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
 		local meleemh_start, meleeoh_start, meleemh_duration, meleeoh_duration = RDX.GetSwingMeleeInfo();
 ]]);
 		end);
-
-		mux:Event_UnitMask("UNIT_SWING_MELEE_UPDATE", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("SWING_MELEE_UPDATE");
+			mux:Event_UnitMask("UNIT_SWING_MELEE_UPDATE", mask);
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "var_swingmelee" }; end

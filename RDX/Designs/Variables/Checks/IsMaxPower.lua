@@ -25,9 +25,12 @@ if unit:Power() == unit:MaxPower() then ismaxpower = true end;
 ]]);
 		end
 		end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("POWER");
-		mux:Event_UnitMask("UNIT_POWER", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("POWER");
+			mux:Event_UnitMask("UNIT_POWER", mask);
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "var_isMaxPower" }; end

@@ -689,8 +689,11 @@ RDX.RegisterFeature({
 				state:Attach(state:Slot("EmitPaint"), true, function(code) code:AppendCode(paintCode); end);
 			end
 			
-			local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-			mux:Event_MaskAll(Icons[desc.ictype].event, 2);
+			local wstate = state:GetContainingWindowState();
+			if wstate then
+				local mux = wstate:GetSlotValue("Multiplexer");
+				mux:Event_MaskAll(Icons[desc.ictype].event, 2);
+			end
 		elseif desc.ftype == 3 then
 			local paintCode = [[
 		btn = ]] .. objname .. [[;
@@ -709,8 +712,11 @@ RDX.RegisterFeature({
 			
 			-- Event hint: update on sort.
 			local set = RDXDAL.FindSet(Indicators[desc.intype].set);
-			local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-			mux:Event_SetDeltaMask(set, 2); -- mask 2 = generic repaint
+			local wstate = state:GetContainingWindowState();
+			if wstate then
+				local mux = wstate:GetSlotValue("Multiplexer");
+				mux:Event_SetDeltaMask(set, 2); -- mask 2 = generic repaint
+			end
 		end	
 
 		return true;

@@ -41,8 +41,11 @@ RDX.RegisterFeature({
 		end
 ]]); end);
 		-- Event hinting
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		mux:Event_UnitMask("UNIT_THREAT", mux:GetPaintMask("THREAT"));
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			mux:Event_UnitMask("UNIT_THREAT", mux:GetPaintMask("THREAT"));
+		end
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);

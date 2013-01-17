@@ -125,8 +125,11 @@ reputationColor_cf[8] = ]] .. Serialize(desc.colorExalted) .. [[;
 		end
 ]]); 
 		end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		mux:Event_MaskAll("UNIT_FACTION", 2);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			mux:Event_MaskAll("UNIT_FACTION", 2);
+		end
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);

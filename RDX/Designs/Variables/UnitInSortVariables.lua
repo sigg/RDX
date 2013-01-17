@@ -54,8 +54,11 @@ local ]] .. desc.name .. [[ = RDXDB.GetObjectInstance("]] .. desc.sort .. [[");
 		end);
 		-- Event hint: update on sort.
 		local sort = RDXDB.GetObjectInstance(desc.sort);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		mux:Event_SigUpdateMaskAll(sort, 2); -- mask 2 = generic repaint
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			mux:Event_SigUpdateMaskAll(sort, 2); -- mask 2 = generic repaint
+		end
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);

@@ -26,9 +26,12 @@ local inRange = UnitInRange(uid);
 ]]);
 		end
 		end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("RANGED");
-		mux:Event_UnitMask("UNIT_RANGED", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("RANGED");
+			mux:Event_UnitMask("UNIT_RANGED", mask);
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "var_inrange" }; end

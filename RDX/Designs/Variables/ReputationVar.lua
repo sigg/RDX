@@ -28,8 +28,11 @@ RDX.RegisterFeature({
 			freptxt = name .. ": ".. crep .. "/".. cmax .. " ".. floor((crep/cmax) *100) .."%";
 		end
 ]]); end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		mux:Event_MaskAll("UNIT_FACTION", 2);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			mux:Event_MaskAll("UNIT_FACTION", 2);
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "Variable: Frac Reputation (frep)" }; end

@@ -24,9 +24,12 @@ local isShiftDown = IsShiftKeyDown();
 ]]);
 		end
 		end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("HARDWARE");
-		mux:Event_UnitMask("MODIFIER_STATE_CHANGED", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("HARDWARE");
+			mux:Event_UnitMask("MODIFIER_STATE_CHANGED", mask);
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "var_isShiftDown" }; end

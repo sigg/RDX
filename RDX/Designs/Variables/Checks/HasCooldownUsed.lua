@@ -28,9 +28,12 @@ end
 ]]);
 		end
 		end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("COOLDOWN");
-		mux:Event_UnitMask("UNIT_COOLDOWN", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("COOLDOWN");
+			mux:Event_UnitMask("UNIT_COOLDOWN", mask);
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "var_hascdused" }; end

@@ -37,9 +37,14 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ApplyFeature = function(desc, state)
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local umask = mux:GetPaintMask("CAST_TIMER_UPDATE");
-		local smask = mux:GetPaintMask("CAST_TIMER_STOP");
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local umask = mux:GetPaintMask("CAST_TIMER_UPDATE");
+			local smask = mux:GetPaintMask("CAST_TIMER_STOP");
+			mux:Event_UnitMask("UNIT_CAST_TIMER_UPDATE", umask);
+			mux:Event_UnitMask("UNIT_CAST_TIMER_STOP", smask);
+		end
 		
 		local closureCode = "";
 		closureCode = closureCode ..[[
@@ -142,9 +147,6 @@ local _fnames = ]];
 		end
 ]]);
 		end);
-
-		mux:Event_UnitMask("UNIT_CAST_TIMER_UPDATE", umask);
-		mux:Event_UnitMask("UNIT_CAST_TIMER_STOP", smask);
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);

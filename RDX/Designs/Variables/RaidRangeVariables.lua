@@ -60,11 +60,14 @@ raColor_cf[4] = ]] .. Serialize(desc.raColor4) .. [[;
 		local set2 = RDXDAL.FindSet(desc.set2);
 		local set3 = RDXDAL.FindSet(desc.set3);
 		local set4 = RDXDAL.FindSet(desc.set4);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		mux:Event_SetDeltaMask(set1, 2); -- mask 2 = generic repaint
-		mux:Event_SetDeltaMask(set2, 2); -- mask 2 = generic repaint
-		mux:Event_SetDeltaMask(set3, 2); -- mask 2 = generic repaint
-		mux:Event_SetDeltaMask(set4, 2); -- mask 2 = generic repaint
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			mux:Event_SetDeltaMask(set1, 2); -- mask 2 = generic repaint
+			mux:Event_SetDeltaMask(set2, 2); -- mask 2 = generic repaint
+			mux:Event_SetDeltaMask(set3, 2); -- mask 2 = generic repaint
+			mux:Event_SetDeltaMask(set4, 2); -- mask 2 = generic repaint
+		end
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);

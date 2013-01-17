@@ -32,8 +32,11 @@ RDX.RegisterFeature({
 		end
 		end);
 		-- Event hinting
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		mux:Event_UnitMask("UNIT_HEAL_PREDICTION", mux:GetPaintMask("HEAL_PREDICTION"));
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			mux:Event_UnitMask("UNIT_HEAL_PREDICTION", mux:GetPaintMask("HEAL_PREDICTION"));
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "var_pred_health" }; end

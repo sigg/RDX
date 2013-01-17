@@ -25,9 +25,12 @@ if targetexisted then targetexisted = true; else targetexisted = false; end
 ]]);
 		end
 		end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("TARGET");
-		mux:Event_UnitMask("UNIT_TARGET", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("TARGET");
+			mux:Event_UnitMask("UNIT_TARGET", mask);
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "var_targetexisted" }; end

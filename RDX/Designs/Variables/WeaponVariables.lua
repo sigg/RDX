@@ -28,8 +28,6 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ApplyFeature = function(desc, state)
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local smask = mux:GetPaintMask("BUFFWEAPON_UPDATE");
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode([[
 		local bMainHandEnchant, MainHandEnchant_name, MainHandEnchant_rank, MainHandEnchant_charge, MainHandEnchant_start, MainHandEnchant_duration, MainHand_icon, MainHandEnchant_icon, MainHandEnchant_InventoryItem, bOffHandEnchant, OffHandEnchant_name, OffHandEnchant_rank, OffHandEnchant_charge, OffHandEnchant_start, OffHandEnchant_duration, OffHand_icon, OffHandEnchant_icon, OffHandEnchant_InventoryItem = RDXDAL.LoadWeaponsBuff();
@@ -54,8 +52,12 @@ RDX.RegisterFeature({
 		end
 ]]);
 		end);
-		
-		mux:Event_UnitMask("UNIT_BUFFWEAPON_UPDATE", smask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local smask = mux:GetPaintMask("BUFFWEAPON_UPDATE");
+			mux:Event_UnitMask("UNIT_BUFFWEAPON_UPDATE", smask);
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "Variables: Weapons Buff Info" }; end;

@@ -113,9 +113,12 @@ local ftc_]] .. objname .. [[ = RDX.CreateSPBClass(]] .. sbPresent .. [[,]] .. t
 ]];
 		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);
 		
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("POWER");
-		mux:Event_UnitMask("UNIT_POWER", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("POWER");
+			mux:Event_UnitMask("UNIT_POWER", mask);
+		end
 
 		return true;
 	end;

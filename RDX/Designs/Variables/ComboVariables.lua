@@ -43,9 +43,12 @@
 ]]); 
 		end
 		end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("COMBO_POINTS");
-		mux:Event_UnitMask("UNIT_COMBO_POINTS", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("COMBO_POINTS");
+			mux:Event_UnitMask("UNIT_COMBO_POINTS", mask);
+		end
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);

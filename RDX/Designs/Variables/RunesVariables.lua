@@ -34,9 +34,14 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		if not desc.TextureType then desc.TextureType = "Normal"; end
 		-- Event hinting.
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local smask = mux:GetPaintMask("RUNE_POWER_UPDATE");
-		local umask = mux:GetPaintMask("RUNE_TYPE_UPDATE");
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local smask = mux:GetPaintMask("RUNE_POWER_UPDATE");
+			local umask = mux:GetPaintMask("RUNE_TYPE_UPDATE");
+			mux:Event_UnitMask("UNIT_RUNE_POWER_UPDATE", smask);
+			mux:Event_UnitMask("UNIT_RUNE_TYPE_UPDATE", umask);
+		end
 		
 		local closureCode = [[ 
 local runeColors = {};
@@ -80,9 +85,6 @@ runeColors[]] .. i .. [[] = ]] .. Serialize(desc.colors[i]) .. [[;
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 			code:AppendCode(paintCode);
 		end);
-		
-		mux:Event_UnitMask("UNIT_RUNE_POWER_UPDATE", smask);
-		mux:Event_UnitMask("UNIT_RUNE_TYPE_UPDATE", umask);
 		return true;
 	end;
 

@@ -56,8 +56,11 @@ if not ]] .. desc.name .. [[:IsOpen() then ]] .. desc.name .. [[:Open(); end
 		end);
 		-- Event hint: update on sort.
 		local set = RDXDAL.FindSet(desc.set);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		mux:Event_SetDeltaMask(set, 2); -- mask 2 = generic repaint
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			mux:Event_SetDeltaMask(set, 2); -- mask 2 = generic repaint
+		end
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
@@ -149,8 +152,11 @@ if not ]] .. desc.name .. [[:IsOpen() then ]] .. desc.name .. [[:Open(); end
 		end);
 		-- Event hint: update on sort.
 		local set = RDXDAL.FindSet(desc.set);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		mux:Event_SetDeltaMask(set, 2); -- mask 2 = generic repaint
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			mux:Event_SetDeltaMask(set, 2); -- mask 2 = generic repaint
+		end
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);

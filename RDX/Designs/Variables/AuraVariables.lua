@@ -146,19 +146,22 @@ RDX.RegisterFeature({
 		local reverse = "true" if desc.reverse then reverse = "false"; end
 		
 		-- Event hinting.
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = 0; 
-		if desc.auraType == "DEBUFFS" then
-			mask = mux:GetPaintMask("DEBUFFS");
-			mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
-			loadCode = "__rdxloaddebuff";
-		elseif desc.auraType == "INV_DEBUFFS" then
-			mask = mux:GetPaintMask("DEBUFFS");
-			mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
-			loadCode = "__rdxloadInverseDebuff";
-		else
-			mask = mux:GetPaintMask("BUFFS");
-			mux:Event_UnitMask("UNIT_BUFF_*", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = 0; 
+			if desc.auraType == "DEBUFFS" then
+				mask = mux:GetPaintMask("DEBUFFS");
+				mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
+				loadCode = "__rdxloaddebuff";
+			elseif desc.auraType == "INV_DEBUFFS" then
+				mask = mux:GetPaintMask("DEBUFFS");
+				mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
+				loadCode = "__rdxloadInverseDebuff";
+			else
+				mask = mux:GetPaintMask("BUFFS");
+				mux:Event_UnitMask("UNIT_BUFF_*", mask);
+			end
 		end
 		
 		local tcd = nil;

@@ -47,8 +47,11 @@ RDX.RegisterFeature({
 		local ]] .. desc.name .. [[txt = string.format("%0.0f%% | %s / %s", (currentAmount/]] .. desc.currencytotalamount .. [[)*100, currentAmount, ]] .. desc.currencytotalamount .. [[);
 ]]);
 		end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		mux:Event_MaskAll("CURRENCY_DISPLAY_UPDATE", 2);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			mux:Event_MaskAll("CURRENCY_DISPLAY_UPDATE", 2);
+		end
 	end;
 
 	UIFromDescriptor = function(desc, parent, state)

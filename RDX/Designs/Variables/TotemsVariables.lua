@@ -35,10 +35,6 @@ RDX.RegisterFeature({
 		return true;
 	end;
 	ApplyFeature = function(desc, state)
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local smask = mux:GetPaintMask("TOTEM_UPDATE");
-		local umask = mux:GetPaintMask("ENTERING_WORLD");
-		
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code) code:AppendCode([[
 		local fire_Totem, earth_Totem, water_Totem, air_Totem = 1, 2, 3, 4;
 		local btotemfire, totemfire_name, totemfire_start, totemfire_duration, totemfire_icon = GetTotemInfo(1);
@@ -47,9 +43,14 @@ RDX.RegisterFeature({
 		local btotemair, totemair_name, totemair_start, totemair_duration, totemair_icon = GetTotemInfo(4);
 ]]);
 		end);
-		
-		mux:Event_UnitMask("UNIT_TOTEM_UPDATE", smask);
-		mux:Event_UnitMask("UNIT_ENTERING_WORLD", umask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local smask = mux:GetPaintMask("TOTEM_UPDATE");
+			local umask = mux:GetPaintMask("ENTERING_WORLD");
+			mux:Event_UnitMask("UNIT_TOTEM_UPDATE", smask);
+			mux:Event_UnitMask("UNIT_ENTERING_WORLD", umask);
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "Variables: Totem Info" }; end;

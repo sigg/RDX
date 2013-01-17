@@ -28,9 +28,12 @@ end
 ]]);
 		end
 		end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("THREAT_SITUATION");
-		mux:Event_UnitMask("UNIT_THREAT_SITUATION_UPDATE", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("THREAT_SITUATION");
+			mux:Event_UnitMask("UNIT_THREAT_SITUATION_UPDATE", mask);
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "var_isAggro" }; end

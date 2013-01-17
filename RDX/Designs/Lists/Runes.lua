@@ -115,9 +115,14 @@ RDX.RegisterFeature({
 		local objname = "Frame_" .. desc.name;
 		
 		-- Event hinting.
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local smask = mux:GetPaintMask("RUNE_POWER_UPDATE");
-		local umask = mux:GetPaintMask("RUNE_TYPE_UPDATE");
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local smask = mux:GetPaintMask("RUNE_POWER_UPDATE");
+			local umask = mux:GetPaintMask("RUNE_TYPE_UPDATE");
+			mux:Event_UnitMask("UNIT_RUNE_POWER_UPDATE", smask);
+			mux:Event_UnitMask("UNIT_RUNE_TYPE_UPDATE", umask);
+		end
 		
 		------------ Closure
 		local closureCode = [[
@@ -176,9 +181,6 @@ for i=1,6 do
 end
 ]];
 		--state:Attach("EmitCleanup", true, function(code) code:AppendCode(cleanupCode); end);
-		
-		mux:Event_UnitMask("UNIT_RUNE_POWER_UPDATE", smask);
-		mux:Event_UnitMask("UNIT_RUNE_TYPE_UPDATE", umask);
 		return true;
 	end;
 	UIFromDescriptor = function(desc, parent, state)
@@ -370,9 +372,14 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local objname = "Frame_" .. desc.name;
 		-- Event hinting.
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("RUNE_POWER_UPDATE");
-		local mask = mux:GetPaintMask("RUNE_TYPE_UPDATE");
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("RUNE_POWER_UPDATE");
+			local mask = mux:GetPaintMask("RUNE_TYPE_UPDATE");
+			mux:Event_UnitMask("UNIT_RUNE_POWER_UPDATE", mask);
+			mux:Event_UnitMask("UNIT_RUNE_TYPE_UPDATE", mask);
+		end
 		
 		------------ Closure
 		local closureCode = [[
@@ -436,9 +443,6 @@ for i=1,6 do
 end
 ]];
 		state:Attach("EmitPaint", true, function(code) code:AppendCode(paintCode); end);
-		
-		mux:Event_UnitMask("UNIT_RUNE_POWER_UPDATE", mask);
-		mux:Event_UnitMask("UNIT_RUNE_TYPE_UPDATE", mask);
 		return true;
 	end;
 	

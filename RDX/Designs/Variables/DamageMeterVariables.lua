@@ -31,8 +31,11 @@ RDX.RegisterFeature({
 		end
 ]]); end);
 		-- Event hinting
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		mux:Event_MaskAll(desc.tablemeter .."UNIT_METER_UPDATE", mux:GetPaintMask(desc.tablemeter .."METER_UPDATE"));
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			mux:Event_MaskAll(desc.tablemeter .."UNIT_METER_UPDATE", mux:GetPaintMask(desc.tablemeter .."METER_UPDATE"));
+		end
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);

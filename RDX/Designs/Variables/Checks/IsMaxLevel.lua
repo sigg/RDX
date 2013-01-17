@@ -26,9 +26,12 @@ if UnitLevel(uid) == 85 then ismaxlevel = true; end;
 ]]);
 		end
 		end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("XP_UPDATE");
-		mux:Event_UnitMask("UNIT_XP_UPDATE", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("XP_UPDATE");
+			mux:Event_UnitMask("UNIT_XP_UPDATE", mask);
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "var_isMaxLevel" }; end

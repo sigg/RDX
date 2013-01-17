@@ -34,9 +34,12 @@ RDX.RegisterFeature({
 		incap = (feigned or dead or ld);
 ]]); 
 		end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("HEALTH");
-		mux:Event_UnitMask("UNIT_HEALTH", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("HEALTH");
+			mux:Event_UnitMask("UNIT_HEALTH", mask);
+		end
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "Variables: Status Flags (dead, ld, feigned)" }; end

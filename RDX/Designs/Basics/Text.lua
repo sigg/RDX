@@ -25,17 +25,23 @@ local function hpPrereq(desc, state, errs)
 	return true; -- Fractional health no longer required.
 end
 local function hpHint(desc, state)
-	local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-	local mask = mux:GetPaintMask("HEALTH");
-	mux:Event_UnitMask("UNIT_HEALTH", mask);
+	local wstate = state:GetContainingWindowState();
+		if wstate then
+		local mux = wstate:GetSlotValue("Multiplexer");
+		local mask = mux:GetPaintMask("HEALTH");
+		mux:Event_UnitMask("UNIT_HEALTH", mask);
+	end
 end
 local function mpPrereq(desc, state, errs)
 	return true;
 end
 local function mpHint(desc, state)
-	local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-	local mask = mux:GetPaintMask("POWER");
-	mux:Event_UnitMask("UNIT_POWER", mask);
+	local wstate = state:GetContainingWindowState();
+		if wstate then
+		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
+		local mask = mux:GetPaintMask("POWER");
+		mux:Event_UnitMask("UNIT_POWER", mask);
+	end
 end
 
 RDX.RegisterStatusTextType({

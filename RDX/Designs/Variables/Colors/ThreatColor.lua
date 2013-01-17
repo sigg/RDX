@@ -103,9 +103,12 @@ RDX.RegisterFeature({
 		end
 ]]);
 		end);
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("THREAT_SITUATION");
-		mux:Event_UnitMask("UNIT_THREAT_SITUATION_UPDATE", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("THREAT_SITUATION");
+			mux:Event_UnitMask("UNIT_THREAT_SITUATION_UPDATE", mask);
+		end
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);

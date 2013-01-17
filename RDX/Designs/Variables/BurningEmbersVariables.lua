@@ -83,11 +83,13 @@ embersColors[]] .. i .. [[] = ]] .. Serialize(desc.colors[i]) .. [[;
 			code:AppendCode(paintCode);
 		end);
 		
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		local mask = mux:GetPaintMask("POWER");
-		mux:Event_UnitMask("UNIT_POWER", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("POWER");
+			mux:Event_UnitMask("UNIT_POWER", mask);
+		end
 	end;
-
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
