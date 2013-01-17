@@ -41,44 +41,46 @@ RDX.RegisterFeature({
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code, state)
 			code:AppendCode(desc.editor);
 		end);
-		local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-		if desc.flags then
-			mask = mux:GetPaintMask("FLAGS");
-			mux:Event_UnitMask("UNIT_FLAGS", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux, mask = wstate:GetSlotValue("Multiplexer"), 0;
+			if desc.flags then
+				mask = mux:GetPaintMask("FLAGS");
+				mux:Event_UnitMask("UNIT_FLAGS", mask);
+			end
+			if desc.target then
+				mask = mux:GetPaintMask("TARGET");
+				mux:Event_UnitMask("UNIT_TARGET", mask);
+			end
+			if desc.ranged then
+				mask = mux:GetPaintMask("RANGED");
+				mux:Event_UnitMask("UNIT_RANGED", mask);
+			end
+			if desc.xp then
+				mask = mux:GetPaintMask("XP_UPDATE");
+				mux:Event_UnitMask("UNIT_XP_UPDATE", mask);
+			end
+			if desc.health then
+				mask = mux:GetPaintMask("HEALTH");
+				mux:Event_UnitMask("UNIT_HEALTH", mask);
+			end
+			if desc.power then
+				mask = mux:GetPaintMask("POWER");
+				mux:Event_UnitMask("UNIT_POWER", mask);
+			end
+			if desc.hardware then
+				mask = mux:GetPaintMask("HARDWARE");
+				mux:Event_UnitMask("MODIFIER_STATE_CHANGED", mask);
+			end
+			if desc.debuff then
+				mask = mux:GetPaintMask("DEBUFFS");
+				mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
+			end
+			if desc.buff then
+				mask = mux:GetPaintMask("BUFFS");
+				mux:Event_UnitMask("UNIT_BUFF_*", mask);
+			end
 		end
-		if desc.target then
-			mask = mux:GetPaintMask("TARGET");
-			mux:Event_UnitMask("UNIT_TARGET", mask);
-		end
-		if desc.ranged then
-			mask = mux:GetPaintMask("RANGED");
-			mux:Event_UnitMask("UNIT_RANGED", mask);
-		end
-		if desc.xp then
-			mask = mux:GetPaintMask("XP_UPDATE");
-			mux:Event_UnitMask("UNIT_XP_UPDATE", mask);
-		end
-		if desc.health then
-			mask = mux:GetPaintMask("HEALTH");
-			mux:Event_UnitMask("UNIT_HEALTH", mask);
-		end
-		if desc.power then
-			mask = mux:GetPaintMask("POWER");
-			mux:Event_UnitMask("UNIT_POWER", mask);
-		end
-		if desc.hardware then
-			mask = mux:GetPaintMask("HARDWARE");
-			mux:Event_UnitMask("MODIFIER_STATE_CHANGED", mask);
-		end
-		if desc.debuff then
-			mask = mux:GetPaintMask("DEBUFFS");
-			mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
-		end
-		if desc.buff then
-			mask = mux:GetPaintMask("BUFFS");
-			mux:Event_UnitMask("UNIT_BUFF_*", mask);
-		end
-		
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);

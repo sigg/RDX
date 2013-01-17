@@ -52,10 +52,14 @@ RDX.RegisterFeature({
 		local objname = "Bars_" .. desc.name;
 		local loadCode = "unit:GetUsedCooldownsById";
 		-- Event hinting.
-		local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
-		mask = mux:GetPaintMask("COOLDOWN");
-		mux:Event_UnitMask("UNIT_COOLDOWN", mask);
-		mask = bit.bor(mask, 1);
+		local mask = 0;
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			mask = mux:GetPaintMask("COOLDOWN");
+			mux:Event_UnitMask("UNIT_COOLDOWN", mask);
+			mask = bit.bor(mask, 1);
+		end
 		
 		local smooth = "nil"; if desc.smooth then smooth = "RDX.smooth"; end
 		
@@ -107,15 +111,18 @@ RDX.RegisterFeature({
 		-- If there's an external filter, add a quick menu to the window to edit it.
 		if desc.externalNameFilter then
 			local path = desc.externalNameFilter; local afname = desc.name;
-			state:GetContainingWindowState():Attach("Menu", true, function(win, mnu)
-				table.insert(mnu, {
-					text = VFLI.i18n("Edit CooldownFilter: ") .. afname;
-					OnClick = function()
-						VFL.poptree:Release();
-						RDXDB.OpenObject(path, "Edit", VFLDIALOG);
-					end;
-				});
-			end);
+			local wstate = state:GetContainingWindowState();
+			if wstate then
+				wstate:Attach("Menu", true, function(win, mnu)
+					table.insert(mnu, {
+						text = VFLI.i18n("Edit CooldownFilter: ") .. afname;
+						OnClick = function()
+							VFL.poptree:Release();
+							RDXDB.OpenObject(path, "Edit", VFLDIALOG);
+						end;
+					});
+				end);
+			end
 		end
 
 		------------ Closure

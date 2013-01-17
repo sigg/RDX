@@ -25,15 +25,18 @@ RDX.RegisterFeature({
 		-- Add edit to menu
 		if desc.set and desc.set.class == "file" and desc.showlink and not string.find(desc.set.file, "Builtin") then
 			local path = desc.set.file; local afname = desc.name;
-			state:GetContainingWindowState():Attach("Menu", true, function(win, mnu)
-				table.insert(mnu, {
-					text = VFLI.i18n("Edit File Set: ") .. afname;
-					OnClick = function()
-						VFL.poptree:Release();
-						RDXDB.OpenObject(path, "Edit", VFLDIALOG);
-					end;
-				});
-			end);
+			local wstate = state:GetContainingWindowState();
+			if wstate then
+				wstate:Attach("Menu", true, function(win, mnu)
+					table.insert(mnu, {
+						text = VFLI.i18n("Edit File Set: ") .. afname;
+						OnClick = function()
+							VFL.poptree:Release();
+							RDXDB.OpenObject(path, "Edit", VFLDIALOG);
+						end;
+					});
+				end);
+			end
 		end
 		-- On closure, acquire the set locally
 		state:Attach(state:Slot("EmitClosure"), true, function(code)
@@ -121,15 +124,18 @@ RDX.RegisterFeature({
 		-- Add edit to menu
 		if desc.set and desc.set.class == "file" and desc.showlink and not string.find(desc.set.file, "Builtin") then
 			local path = desc.set.file; local afname = desc.name;
-			state:GetContainingWindowState():Attach("Menu", true, function(win, mnu)
-				table.insert(mnu, {
-					text = VFLI.i18n("Edit File Set: ") .. afname;
-					OnClick = function()
-						VFL.poptree:Release();
-						RDXDB.OpenObject(path, "Edit", VFLDIALOG);
-					end;
-				});
-			end);
+			local wstate = state:GetContainingWindowState();
+			if wstate then
+				wstate:Attach("Menu", true, function(win, mnu)
+					table.insert(mnu, {
+						text = VFLI.i18n("Edit File Set: ") .. afname;
+						OnClick = function()
+							VFL.poptree:Release();
+							RDXDB.OpenObject(path, "Edit", VFLDIALOG);
+						end;
+					});
+				end);
+			end
 		end
 		-- On closure, acquire the set locally
 		state:Attach(state:Slot("EmitClosure"), true, function(code)

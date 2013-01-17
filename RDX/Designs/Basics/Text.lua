@@ -38,7 +38,7 @@ end
 local function mpHint(desc, state)
 	local wstate = state:GetContainingWindowState();
 		if wstate then
-		local mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
+		local mux = wstate:GetSlotValue("Multiplexer");
 		local mask = mux:GetPaintMask("POWER");
 		mux:Event_UnitMask("UNIT_POWER", mask);
 	end

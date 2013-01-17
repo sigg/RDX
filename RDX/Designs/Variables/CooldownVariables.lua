@@ -31,9 +31,12 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		-- Event hinting.
-		local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
-		mask = mux:GetPaintMask("COOLDOWN");
-		mux:Event_UnitMask("UNIT_COOLDOWN", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local mask = mux:GetPaintMask("COOLDOWN");
+			mux:Event_UnitMask("UNIT_COOLDOWN", mask);
+		end
 		
 		local loadCode = "unit:GetUsedCooldownBySpellid";
 		-- Event hinting.

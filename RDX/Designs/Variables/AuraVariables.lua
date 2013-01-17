@@ -171,9 +171,9 @@ RDX.RegisterFeature({
 			tcd = [["]] .. desc.cd .. [["]];
 		end
 		
-		local winpath = state:GetContainingWindowState():GetSlotValue("Path");
-		local md = RDXDB.GetObjectData(winpath);
-		local auracache = "false"; if md and RDXDB.HasFeature(md.data, "AuraCache") then auracache = "true"; end
+		--local winpath = state:GetContainingWindowState():GetSlotValue("Path");
+		--local md = RDXDB.GetObjectData(winpath);
+		local auracache = "false"; --if md and RDXDB.HasFeature(md.data, "AuraCache") then auracache = "true"; end
 		
 		state:Attach(state:Slot("EmitClosure"), true, function(code)
 			code:AppendCode([[

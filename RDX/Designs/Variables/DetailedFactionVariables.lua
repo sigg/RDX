@@ -67,36 +67,42 @@ RDX.RegisterFeature({
       
 	ApplyFeature = function(desc, state)
 		
-		local winpath = state:GetContainingWindowState():GetSlotValue("windowpath");
-		local designpath = state:GetContainingWindowState():GetSlotValue("designpath");
-		
-		local factionMenu = RDXPM.Menu:new();
-		local list = buildlist();
-		for k,v in pairs(list) do
-			factionMenu:RegisterMenuFunction(function(ent)
-				ent.text = v.text;
-				ent.OnClick = function()
-					--v.value
-					local x = RDXDB.GetObjectData(designpath); 
-					if x then
-						local feat = RDXDB.HasFeature(x.data, "Variables: Detailed Faction Info", name, desc.name);
-						if feat then
-							feat.factionName = v.text;
-							feat.factionID = v.value;
-						end
-						RDXDK._AsyncRebuildWindowRDX(winpath);
-					end					
-					VFL.poptree:Release();
-				end;
-			end);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local winpath = wstate:GetSlotValue("windowpath");
+			local designpath = wstate:GetSlotValue("designpath");
+			
+			local factionMenu = RDXPM.Menu:new();
+			local list = buildlist();
+			for k,v in pairs(list) do
+				factionMenu:RegisterMenuFunction(function(ent)
+					ent.text = v.text;
+					ent.OnClick = function()
+						--v.value
+						local x = RDXDB.GetObjectData(designpath); 
+						if x then
+							local feat = RDXDB.HasFeature(x.data, "Variables: Detailed Faction Info", name, desc.name);
+							if feat then
+								feat.factionName = v.text;
+								feat.factionID = v.value;
+							end
+							RDXDK._AsyncRebuildWindowRDX(winpath);
+						end					
+						VFL.poptree:Release();
+					end;
+				end);
+			end
+			local wstate = state:GetContainingWindowState();
+			if wstate then
+				wstate:Attach("Menu", true, function(win, mnu)
+					table.insert(mnu, {
+						text = VFLI.i18n("Change faction");
+						isSubmenu = true;
+						OnClick = function(self) factionMenu:Open(nil, self, nil, nil, nil, VFL.poptree, 20); end
+					});
+				end);
+			end
 		end
-		state:GetContainingWindowState():Attach("Menu", true, function(win, mnu)
-			table.insert(mnu, {
-				text = VFLI.i18n("Change faction");
-				isSubmenu = true;
-				OnClick = function(self) factionMenu:Open(nil, self, nil, nil, nil, VFL.poptree, 20); end
-			});
-		end);
 	
 		state:Attach(state:Slot("EmitClosure"), true, function(code) code:AppendCode([[
 local reputationColor_cf = {};
@@ -215,7 +221,7 @@ reputationColor_cf[8] = ]] .. Serialize(desc.colorExalted) .. [[;
 		function ui:GetDescriptor()
 			local facName, facID = dd_factionList:GetSelection();
 			return {
-				feature = VFLI.i18n("Variables: Detailed Faction Info");
+				feature = "Variables: Detailed Faction Info";
 				name = iname.editBox:GetText();
 				factionName = facName;
 				factionID = facID;
@@ -235,10 +241,10 @@ reputationColor_cf[8] = ]] .. Serialize(desc.colorExalted) .. [[;
 	end;
 	CreateDescriptor = function()
 		return {
-			feature         = VFLI.i18n("Variables: Detailed Faction Info");
+			feature         = "Variables: Detailed Faction Info";
 			name            = "faction1";
-			factionName     = "";
-			factionID       = 0;
+			factionName     = "Mists of Pandaria";
+			factionID       = 3;
 			colorUnknown    = {r = 0.5,  g = 0.5,  b = 0.5,  a = 1};
 			colorHated      = {r = 0.8,  g = 0.13, b = 0.13, a = 1};
 			colorHostile    = {r = 1,    g = 0,    b = 0,    a = 1};

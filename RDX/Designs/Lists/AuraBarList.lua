@@ -59,20 +59,24 @@ RDX.RegisterFeature({
 		local objname = "Bars_" .. desc.name;
 		local loadCode = "LoadBuffFromUnit";
 		-- Event hinting.
-		local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
-		if desc.auraType == "DEBUFFS" then
-			mask = mux:GetPaintMask("DEBUFFS");
-			mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
-			loadCode = "LoadDebuffFromUnit";
-		else
-			mask = mux:GetPaintMask("BUFFS");
-			mux:Event_UnitMask("UNIT_BUFF_*", mask);
+		local mask = 0;
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			if desc.auraType == "DEBUFFS" then
+				mask = mux:GetPaintMask("DEBUFFS");
+				mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
+				loadCode = "LoadDebuffFromUnit";
+			else
+				mask = mux:GetPaintMask("BUFFS");
+				mux:Event_UnitMask("UNIT_BUFF_*", mask);
+			end
+			mask = bit.bor(mask, 1);
 		end
-		mask = bit.bor(mask, 1);
 		
-		local winpath = state:GetContainingWindowState():GetSlotValue("Path");
-		local md = RDXDB.GetObjectData(winpath);
-		local auracache = "false"; if md and RDXDB.HasFeature(md.data, "AuraCache") then auracache = "true"; end
+		--local winpath = state:GetContainingWindowState():GetSlotValue("Path");
+		--local md = RDXDB.GetObjectData(winpath);
+		local auracache = "false"; --if md and RDXDB.HasFeature(md.data, "AuraCache") then auracache = "true"; end
 		local smooth = "nil"; if desc.smooth then smooth = "RDX.smooth"; end
 		local raidfilter = "nil"; if desc.raidfilter then raidfilter = "true"; end
 		
@@ -159,15 +163,18 @@ RDX.RegisterFeature({
 		-- If there's an external filter, add a quick menu to the window to edit it.
 		if desc.externalNameFilter then
 			local path = desc.externalNameFilter; local afname = desc.name;
-			state:GetContainingWindowState():Attach("Menu", true, function(win, mnu)
-				table.insert(mnu, {
-					text = VFLI.i18n("Edit AuraFilter: ") .. afname;
-					OnClick = function()
-						VFL.poptree:Release();
-						RDXDB.OpenObject(path, "Edit", VFLDIALOG);
-					end;
-				});
-			end);
+			local wstate = state:GetContainingWindowState();
+			if wstate then
+				wstate:Attach("Menu", true, function(win, mnu)
+					table.insert(mnu, {
+						text = VFLI.i18n("Edit AuraFilter: ") .. afname;
+						OnClick = function()
+							VFL.poptree:Release();
+							RDXDB.OpenObject(path, "Edit", VFLDIALOG);
+						end;
+					});
+				end);
+			end
 		end
 
 		------------ Closure

@@ -73,6 +73,7 @@ local wtype = {
 	--{ text = "TabThread" },
 	
 };
+table.sort(wtype, function(x1,x2) return x1.text<x2.text; end);
 local function GetWindowsType() return wtype; end
 
 -- page 1 type de fenêtre
@@ -122,7 +123,7 @@ ww:RegisterPage(GetNextPageId(), "intro", {
 ww:RegisterPage(GetNextPageId(), "wtype", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Window type/Suffix");
-		parent:SetBackdropColor(1,1,1,0.4);
+		--parent:SetBackdropColor(1,1,1,0.4);
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "Select the type of window you want to create:");
 		lbl:SetWidth(250); lbl:SetHeight(30);
@@ -258,7 +259,7 @@ RDX.RegisterFeature({
 ww:RegisterPage(GetNextPageId(), "framing", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Framing");
-		parent:SetBackdropColor(1,1,1,0.4);
+		--parent:SetBackdropColor(1,1,1,0.4);
 		local lbl = VFLUI.MakeLabel(nil, page, "Select a frame for the window:");
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 
@@ -999,6 +1000,9 @@ function ww:OnOK()
 		
 		-- simple object has default design
 		if wtype == "ActionBar1" then
+			dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
+		elseif wtype == "FactionBar" then
+			dState:AddFeature(RDXDB.GetFeatureByName("Variables: Detailed Faction Info").CreateDescriptor());
 			dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
 		elseif wtype == "XpBar" then
 			dState:AddFeature({feature = "Variable: Frac XP (fxp)", });

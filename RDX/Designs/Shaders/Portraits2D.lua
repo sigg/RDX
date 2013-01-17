@@ -29,11 +29,14 @@ RDX.RegisterFeature({
 		local objname = RDXUI.ResolveTextureReference(desc.texture);
 
 		-- Event hinting.
-		local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
-		mask = mux:GetPaintMask("PORTRAIT");
-		mux:Event_UnitMask("UNIT_PORTRAIT_UPDATE", mask);
-		mask = bit.bor(mask, 1);
-
+		local mask = 0;
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			mask = mux:GetPaintMask("PORTRAIT");
+			mux:Event_UnitMask("UNIT_PORTRAIT_UPDATE", mask);
+			mask = bit.bor(mask, 1);
+		end
 		-- Painting
 		local paintCode = [[
 		if band(paintmask, ]] .. mask .. [[) ~= 0 then

@@ -607,16 +607,19 @@ RDX.RegisterFeature({
 	]] .. objname .. [[ = btn;
 ]];
 		elseif desc.ftype == 3 then
-			local path = Indicators[desc.intype].set.file; 
-			state:GetContainingWindowState():Attach("Menu", true, function(win, mnu)
-				table.insert(mnu, {
-					text = VFLI.i18n("Edit Indicator: ") .. desc.name;
-					OnClick = function()
-						VFL.poptree:Release();
-						RDXDB.OpenObject(path, "Edit", VFLDIALOG);
-					end;
-				});
-			end);
+			local path = Indicators[desc.intype].set.file;
+			local wstate = state:GetContainingWindowState();
+			if wstate then
+				wstate:Attach("Menu", true, function(win, mnu)
+					table.insert(mnu, {
+						text = VFLI.i18n("Edit Indicator: ") .. desc.name;
+						OnClick = function()
+							VFL.poptree:Release();
+							RDXDB.OpenObject(path, "Edit", VFLDIALOG);
+						end;
+					});
+				end);
+			end
 			createCode = createCode .. [[
 	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 	btn = VFLUI.AcquireFrame("Frame");

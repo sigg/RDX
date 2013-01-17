@@ -51,8 +51,7 @@ RDX.RegisterFeature({
 		--	if dy > dx then borientation = "VERTICAL"; isize = dx; barx = dx; bary = dy; end
 		--end
 		
-		-- Event hinting.
-		--local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
+		
 		local filter;
 		if desc.auraType == "DEBUFFS" then
 		--	mask = mux:GetPaintMask("DEBUFFS");

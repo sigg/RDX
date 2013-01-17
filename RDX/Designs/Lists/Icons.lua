@@ -106,29 +106,35 @@ RDX.RegisterFeature({
 		if desc.ftype == 1 then
 			loadCode = "LoadBuffFromUnit";
 			-- Event hinting.
-			mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
-			if desc.auraType == "DEBUFFS" then
-				mask = mux:GetPaintMask("DEBUFFS");
-				mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
-				loadCode = "LoadDebuffFromUnit";
-			else
-				mask = mux:GetPaintMask("BUFFS");
-				mux:Event_UnitMask("UNIT_BUFF_*", mask);
+			local wstate = state:GetContainingWindowState();
+			if wstate then
+				mux, mask = wstate:GetSlotValue("Multiplexer"), 0;
+				if desc.auraType == "DEBUFFS" then
+					mask = mux:GetPaintMask("DEBUFFS");
+					mux:Event_UnitMask("UNIT_DEBUFF_*", mask);
+					loadCode = "LoadDebuffFromUnit";
+				else
+					mask = mux:GetPaintMask("BUFFS");
+					mux:Event_UnitMask("UNIT_BUFF_*", mask);
+				end
+				mask = bit.bor(mask, 1);
 			end
-			mask = bit.bor(mask, 1);
 
 			-- If there's an external filter, add a quick menu to the window to edit it.
 			if desc.externalNameFilter then
 				local path = desc.externalNameFilter; local afname = desc.name;
-				state:GetContainingWindowState():Attach("Menu", true, function(win, mnu)
-					table.insert(mnu, {
-						text = VFLI.i18n("Edit AuraFilter: ") .. afname;
-						OnClick = function()
-							VFL.poptree:Release();
-							RDXDB.OpenObject(path, "Edit", VFLDIALOG);
-						end;
-					});
-				end);
+				local wstate = state:GetContainingWindowState();
+				if wstate then
+					wstate:Attach("Menu", true, function(win, mnu)
+						table.insert(mnu, {
+							text = VFLI.i18n("Edit AuraFilter: ") .. afname;
+							OnClick = function()
+								VFL.poptree:Release();
+								RDXDB.OpenObject(path, "Edit", VFLDIALOG);
+							end;
+						});
+					end);
+				end
 			end
 
 			------------ Closure
@@ -178,10 +184,13 @@ RDXDB.GetObjectInstance(]] .. string.format("%q", desc.externalNameFilter) .. [[
 			state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
 		elseif desc.ftype == 2 then
 			-- Event hinting.
-			mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
-			mask = mux:GetPaintMask("COOLDOWN");
-			mux:Event_UnitMask("UNIT_COOLDOWN", mask);
-			mask = bit.bor(mask, 1);
+			local wstate = state:GetContainingWindowState();
+			if wstate then
+				mux, mask = wstate:GetSlotValue("Multiplexer"), 0;
+				mask = mux:GetPaintMask("COOLDOWN");
+				mux:Event_UnitMask("UNIT_COOLDOWN", mask);
+				mask = bit.bor(mask, 1);
+			end
 			
 			loadCode = "unit:GetUsedCooldownsById";
 			-- Event hinting.
@@ -192,15 +201,18 @@ RDXDB.GetObjectInstance(]] .. string.format("%q", desc.externalNameFilter) .. [[
 			-- If there's an external filter, add a quick menu to the window to edit it.
 			if desc.externalNameFiltercd then
 				local path = desc.externalNameFiltercd; local afname = desc.name;
-				state:GetContainingWindowState():Attach("Menu", true, function(win, mnu)
-					table.insert(mnu, {
-						text = VFLI.i18n("Edit CooldownFilter: ") .. afname;
-						OnClick = function()
-							VFL.poptree:Release();
-							RDXDB.OpenObject(path, "Edit", VFLDIALOG);
-						end;
-					});
-				end);
+				local wstate = state:GetContainingWindowState();
+				if wstate then
+					wstate:Attach("Menu", true, function(win, mnu)
+						table.insert(mnu, {
+							text = VFLI.i18n("Edit CooldownFilter: ") .. afname;
+							OnClick = function()
+								VFL.poptree:Release();
+								RDXDB.OpenObject(path, "Edit", VFLDIALOG);
+							end;
+						});
+					end);
+				end
 			end
 
 		------------ Closure
@@ -260,11 +272,14 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 ]];
 			state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
 		elseif desc.ftype == 4 then
-			mux = state:GetContainingWindowState():GetSlotValue("Multiplexer");
-			smask = mux:GetPaintMask("TOTEM_UPDATE");
-			umask = mux:GetPaintMask("ENTERING_WORLD");
-			mux:Event_UnitMask("UNIT_TOTEM_UPDATE", smask);
-			mux:Event_UnitMask("UNIT_ENTERING_WORLD", umask);
+			local wstate = state:GetContainingWindowState();
+			if wstate then
+				mux = wstate:GetSlotValue("Multiplexer");
+				smask = mux:GetPaintMask("TOTEM_UPDATE");
+				umask = mux:GetPaintMask("ENTERING_WORLD");
+				mux:Event_UnitMask("UNIT_TOTEM_UPDATE", smask);
+				mux:Event_UnitMask("UNIT_ENTERING_WORLD", umask);
+			end
 		end
 		
 		----------------- Creation
@@ -368,9 +383,9 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);
 
 		------------------- Paint
-		local winpath = state:GetContainingWindowState():GetSlotValue("Path");
-		local md = RDXDB.GetObjectData(winpath);
-		local auracache = "false"; if md and RDXDB.HasFeature(md.data, "AuraCache") then auracache = "true"; end
+		--local winpath = state:GetContainingWindowState():GetSlotValue("Path");
+		--local md = RDXDB.GetObjectData(winpath);
+		local auracache = "false"; --if md and RDXDB.HasFeature(md.data, "AuraCache") then auracache = "true"; end
 		local smooth = "nil"; if desc.smooth then smooth = "RDX.smooth"; end
 		local raidfilter = "nil"; if desc.raidfilter then raidfilter = "true"; end
 		

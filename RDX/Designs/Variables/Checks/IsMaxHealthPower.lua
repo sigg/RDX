@@ -33,11 +33,14 @@ end
 ]]);
 		end
 		end);
-		local mux, mask = state:GetContainingWindowState():GetSlotValue("Multiplexer"), 0;
-		mask = mux:GetPaintMask("POWER");
-		mux:Event_UnitMask("UNIT_POWER", mask);
-		mask = mux:GetPaintMask("HEALTH");
-		mux:Event_UnitMask("UNIT_HEALTH", mask);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux, mask = wstate:GetSlotValue("Multiplexer"), 0;
+			mask = mux:GetPaintMask("POWER");
+			mux:Event_UnitMask("UNIT_POWER", mask);
+			mask = mux:GetPaintMask("HEALTH");
+			mux:Event_UnitMask("UNIT_HEALTH", mask);
+		end
 	end;
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
