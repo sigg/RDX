@@ -259,7 +259,7 @@ RDX.RegisterFeature({
 ww:RegisterPage(GetNextPageId(), "framing", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Framing");
-		--parent:SetBackdropColor(1,1,1,0.4);
+		parent:SetBackdropColor(1,1,1,0.4);
 		local lbl = VFLUI.MakeLabel(nil, page, "Select a frame for the window:");
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 
@@ -1003,7 +1003,10 @@ function ww:OnOK()
 			dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
 		elseif wtype == "FactionBar" then
 			dState:AddFeature(RDXDB.GetFeatureByName("Variables: Detailed Faction Info").CreateDescriptor());
-			dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
+			dState:AddFeature({feature = "base_default", version = 1, h = 15, w = 400, alpha = 1, });
+			dState:AddFeature({feature = "Subframe", owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "subframe", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, usebkd = 1, bkd = {bors = 1, _bkdtype = 3, kb = 0, kg = 0, br = 0, dl = "ARTWORK", kr = 0, bb = 0, ba = 1, _backdrop = "none", _border = "none", borl = 2, ka = 0.35, bg = 0, boff = 0,}, flOffset = 1, });
+			dState:AddFeature({feature = "statusbar_horiz", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "statusBar", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, bkd = {_bkdtype = 1, _backdrop = "none", _border = "none",}, drawLayer = "ARTWORK", sublevel = 1, orientation = "HORIZONTAL", texture = { blendMode = "BLEND", path = "Interface\\Addons\\RDX\\Skin\\bar_smooth",}, frac = "faction1", colorVar = "faction1cv", });
+			dState:AddFeature({feature = "txt2", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "infoText", anchor = {dx = 0, dy = 0, lp = "CENTER", rp = "CENTER", af = "Frame_decor",}, ftype = 3, txtdata = "faction1txt", tyo = "gold", font = { size = 10, face = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf", justifyV = "CENTER", justifyH = "CENTER", sa = 1, sg = 0, name = "Default", sb = 0, title = "Default", sy = -1, sx = 1, sr = 0, },});
 		elseif wtype == "XpBar" then
 			dState:AddFeature({feature = "Variable: Frac XP (fxp)", });
 			dState:AddFeature({feature = "var_isExhaustion", });
