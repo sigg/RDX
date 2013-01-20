@@ -2103,7 +2103,9 @@ function VFL._ForceTalentSwitch(f, nosend)
 		talent = f;
 		if not nosend then
 			VFL:Debug(1, "********** Talent_changed *************");
-			VFLT.schedule(0.5, function() VFLEvents:Dispatch("PLAYER_TALENT_UPDATE", f); end)
+			if not InCombatLockdown() then
+				VFLT.schedule(0.5, function() VFLEvents:Dispatch("PLAYER_TALENT_UPDATE", f); end)
+			end
 		end
 	end
 end
