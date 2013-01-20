@@ -56,8 +56,8 @@ local function DisableAll()
 			-- ActionbarController.xml
 			--"ActionBarController",
 			-- ActionBarFrame.xml
-			"ActionBarButtonEventsFrame",
-			"ActionBarActionEventsFrame",
+			---"ActionBarButtonEventsFrame",  -- TODO TES
+			---"ActionBarActionEventsFrame",
 			"ActionButton1",
 			"ActionButton2",
 			"ActionButton3",
@@ -93,7 +93,7 @@ local function DisableAll()
 			"MainMenuExpBar",
 			"ExhaustionTick",
 			"MainMenuBarMaxLevelBar",
-			"MainMenuBar",
+			---"MainMenuBar", --bug extrabar
 			
 			"MultiBarBottomLeftButton1",
 			"MultiBarBottomLeftButton2",
@@ -195,6 +195,7 @@ local function DisableAll()
 		end
 		
 		-- ActionBarController
+		--[[
 		ActionBarController:UnregisterEvent("PLAYER_ENTERING_WORLD");
 		ActionBarController:UnregisterEvent("ACTIONBAR_PAGE_CHANGED");
 		ActionBarController:UnregisterEvent("UPDATE_BONUS_ACTIONBAR");
@@ -205,7 +206,7 @@ local function DisableAll()
 		ActionBarController:UnregisterEvent("UPDATE_SHAPESHIFT_FORMS");
 		ActionBarController:UnregisterEvent("UPDATE_SHAPESHIFT_USABLE");
 		ActionBarController:UnregisterEvent("UPDATE_INVENTORY_ALERTS");
-		ActionBarController:UnregisterEvent("UPDATE_POSSESS_BAR");
+		ActionBarController:UnregisterEvent("UPDATE_POSSESS_BAR");]]
 		
 		-- MainMenuBarArtFrame some events must be active
 		MainMenuBarArtFrame:UnregisterEvent("PLAYER_ENTERING_WORLD");
@@ -223,6 +224,16 @@ local function DisableAll()
 		MainMenuBar_ToPlayerArt = VFL.Noop;
 		MoveMicroButtons = VFL.Noop;
 		
+		MainMenuBar:UnregisterEvent("BAG_UPDATE");
+		MainMenuBar:UnregisterEvent("ACTIONBAR_PAGE_CHANGED");
+		--MainMenuBar:UnregisterEvent("CURRENCY_DISPLAY_UPDATE");
+		MainMenuBar:UnregisterEvent("ADDON_LOADED");
+		--MainMenuBar:UnregisterEvent("UNIT_LEVEL");
+		ActionBarController_UpdateAll = VFL.Noop;
+		UpdateMicroButtonsParent = VFL.Noop;
+		MoveMicroButtons = VFL.Noop;
+		StanceBar_Update = VFL.Noop;
+		
 		TalentMicroButton:UnregisterEvent("PLAYER_TALENT_UPDATE");
 		
 		MainMenuBarBackpackButton_UpdateFreeSlots = VFL.Noop;
@@ -233,6 +244,8 @@ local function DisableAll()
 		StanceBarFrame.ignoreFramePositionManager = true;
 		PossessBarFrame.ignoreFramePositionManager = true;
 		MultiCastActionBarFrame.ignoreFramePositionManager = true;
+		ExtraActionBarFrame.ignoreFramePositionManager = true;
+		PlayerPowerBarAlt.ignoreFramePositionManager = true;
 		
 		--SHOW_MULTI_ACTIONBAR_1 = nil;
 		--SHOW_MULTI_ACTIONBAR_2 = nil;
@@ -700,7 +713,6 @@ local function DisableAll()
 	
 	CastingBarFrame.ignoreFramePositionManager = true;    
 	PlayerPowerBarAlt.ignoreFramePositionManager = true;
-	ExtraActionBarFrame.ignoreFramePositionManager = true;
 	
 	ReputationWatchBar.ignoreFramePositionManager = true;
 	

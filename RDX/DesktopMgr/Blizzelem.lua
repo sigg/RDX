@@ -47,11 +47,39 @@ extrabtn:SetClampedToScreen(true);
 extrabtn:SetFrameStrata("FULLSCREEN_DIALOG");
 extrabtn:Hide();
 
-ExtraActionBarFrame._ClearAllPoints = WatchFrame.ClearAllPoints;
+ExtraActionBarFrame._ClearAllPoints = ExtraActionBarFrame.ClearAllPoints;
 ExtraActionBarFrame.ClearAllPoints = VFL.Noop;
-ExtraActionBarFrame._SetPoint = WatchFrame.SetPoint;
+ExtraActionBarFrame._SetPoint = ExtraActionBarFrame.SetPoint;
 ExtraActionBarFrame.SetPoint = VFL.Noop;
 
+-- /script ExtraActionBarFrame:Show();
+-- /script ExtraActionButton1:Show();
+-- /script ExtraActionBarFrame:SetAlpha(1);
+-- /script ExtraActionBarFrame:SetParent(UIParent);
+-- /script ExtraActionBarFrame:SetClampedToScreen(true);
+-- /script ExtraActionBarFrame:_ClearAllPoints();
+-- /script ExtraActionBarFrame:_SetPoint("CENTER", UIParent, "CENTER");
+
+function __RDXADEBUG()
+	ExtraActionBarFrame:Show();
+	ExtraActionButton1:Show();
+	ExtraActionBarFrame:SetAlpha(1);
+end
+
+-- /script __RDXADEBUG()
+
+local playerpowerbaraltbtn = VFLUI.Button:new();
+playerpowerbaraltbtn:SetHeight(30); 
+playerpowerbaraltbtn:SetWidth(100);
+playerpowerbaraltbtn:SetText(VFLI.i18n("PlayerPowerBarAlt"));
+playerpowerbaraltbtn:SetClampedToScreen(true);
+playerpowerbaraltbtn:SetFrameStrata("FULLSCREEN_DIALOG");
+playerpowerbaraltbtn:Hide();
+
+PlayerPowerBarAlt._ClearAllPoints = PlayerPowerBarAlt.ClearAllPoints;
+PlayerPowerBarAlt.ClearAllPoints = VFL.Noop;
+PlayerPowerBarAlt._SetPoint = PlayerPowerBarAlt.SetPoint;
+PlayerPowerBarAlt.SetPoint = VFL.Noop;
 
 local function SetLocation()
 	if descb.quest and descb.quest.anchorx and descb.quest.anchory then
@@ -102,6 +130,17 @@ local function SetLocation()
 		ExtraActionBarFrame:_ClearAllPoints();
 		ExtraActionBarFrame:_SetPoint("TOPLEFT", extrabtn, "TOPLEFT");
 	end
+	if descb.playerpower and descb.playerpower.anchorx and descb.playerpower.anchory then
+		playerpowerbaraltbtn:ClearAllPoints();
+		playerpowerbaraltbtn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.playerpower.anchorx, descb.playerpower.anchory);
+		PlayerPowerBarAlt:_ClearAllPoints();
+		PlayerPowerBarAlt:_SetPoint("CENTER", playerpowerbaraltbtn, "CENTER");
+	else
+		playerpowerbaraltbtn:ClearAllPoints();
+		playerpowerbaraltbtn:SetPoint("CENTER", RDXParent, "CENTER");
+		PlayerPowerBarAlt:_ClearAllPoints();
+		PlayerPowerBarAlt:_SetPoint("CENTER", playerpowerbaraltbtn, "CENTER");
+	end
 end
 
 -- on desktop update
@@ -112,6 +151,7 @@ function RDXDK.SetBlizzard(desc)
 	if not descb.vehicle then descb.vehicle = {}; end
 	if not descb.dura then descb.dura = {}; end
 	if not descb.extra then descb.extra = {}; end
+	if not descb.playerpower then descb.playerpower = {}; end
 	SetLocation();
 end
 
@@ -162,6 +202,21 @@ function RDXDK.SetUnlockBlizzard()
 		ExtraActionBarFrame:_ClearAllPoints();
 		ExtraActionBarFrame:_SetPoint("TOPLEFT", th, "TOPLEFT");
 	end);
+	
+	if not descb.playerpower then descb.playerpower = {}; end
+	if not descb.playerpower.anchorx then descb.playerpower.anchorx = 300; end
+	if not descb.playerpower.anchory then descb.playerpower.anchory = 300; end
+	
+	playerpowerbaraltbtn:ClearAllPoints();
+	playerpowerbaraltbtn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.playerpower.anchorx, descb.playerpower.anchory);
+	playerpowerbaraltbtn:Show();
+	playerpowerbaraltbtn:SetMovable(true);
+	playerpowerbaraltbtn:SetScript("OnMouseDown", function(th) th:StartMoving(); end);
+	playerpowerbaraltbtn:SetScript("OnMouseUp", function(th) th:StopMovingOrSizing();
+		descb.playerpower.anchorx,_,_,descb.playerpower.anchory = VFLUI.GetUniversalBoundary(playerpowerbaraltbtn);
+		PlayerPowerBarAlt:_ClearAllPoints();
+		PlayerPowerBarAlt:_SetPoint("CENTER", th, "CENTER");
+	end);
 end
 
 -- on desktop lock
@@ -187,6 +242,11 @@ function RDXDK.GetLockBlizzard()
 	extrabtn:SetScript("OnMouseDown", nil);
 	extrabtn:SetScript("OnMouseUp", nil);
 	extrabtn:Hide();
+	
+	playerpowerbaraltbtn:SetMovable(nil);
+	playerpowerbaraltbtn:SetScript("OnMouseDown", nil);
+	playerpowerbaraltbtn:SetScript("OnMouseUp", nil);
+	playerpowerbaraltbtn:Hide();
 	return descb;
 end
 
