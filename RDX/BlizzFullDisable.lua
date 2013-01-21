@@ -653,6 +653,7 @@ local function DisableAll()
 		end
 	end
 	
+	RaidOptionsFrame_UpdatePartyFrames = VFL.Noop;
 	
 	local ignorebuttons = {
 		"MiniMapMailFrame",
