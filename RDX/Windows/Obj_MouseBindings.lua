@@ -208,7 +208,7 @@ local function BindingCodePopup(parent, callback)
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
-	dlg:SetWidth(200); dlg:SetHeight(260);
+	dlg:SetWidth(200); dlg:SetHeight(360);
 	dlg:SetText(VFLI.i18n("Select Button Combination"));
 	dlg:Show();
 
@@ -229,7 +229,7 @@ local function BindingCodePopup(parent, callback)
 
 	local gb_btn = VFLUI.GroupBox:new(dlg);
 	gb_btn:SetPoint("TOPLEFT", gb_mods, "TOPRIGHT");
-	gb_btn:SetHeight(190); gb_btn:SetWidth(110); gb_btn:Show();
+	gb_btn:SetHeight(290); gb_btn:SetWidth(110); gb_btn:Show();
 	VFLUI.GroupBox.MakeTextCaption(gb_btn, "Button");
 
 	local btn = VFLUI.RadioGroup:new(gb_btn:GetClientArea());
