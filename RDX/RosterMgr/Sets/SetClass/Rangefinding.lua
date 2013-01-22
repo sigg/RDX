@@ -130,7 +130,7 @@ uirs.name = "Unit in Range<>";
 local function UpdateUIRS()
 	for i=1,40 do
 		unit = GetUnitByNumber(i); uid = unit.uid;
-		if unit:IsCacheValid() and UnitInRange(uid) then
+		if unit:IsCacheValid() and (UnitInRange(uid) or unit:IsPlayer() )then
 			uirs:_Set(i, true);
 		else
 			uirs:_Set(i, false);
