@@ -101,7 +101,7 @@ end
 ww:RegisterPage(GetNextPageId(), "intro", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Wizard Tool");
-		
+		page:SetWidth(336); page:SetHeight(378);
 		local plb = VFLUI.MakeLabel(nil, page, "Welcome to the Window Wizard. This tool will help you to build some windows for your theme.\n");
 		plb:SetWidth(250); plb:SetHeight(30);
 		plb:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
@@ -124,6 +124,7 @@ ww:RegisterPage(GetNextPageId(), "wtype", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Window type/Suffix");
 		--parent:SetBackdropColor(1,1,1,0.4);
+		page:SetWidth(336); page:SetHeight(378);
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "Select the type of window you want to create:");
 		lbl:SetWidth(250); lbl:SetHeight(30);
@@ -216,7 +217,8 @@ ww:RegisterPage(GetNextPageId(), "chkwin", {
 		txt = txt .. "\nClick Prev to add a suffix to the name of your window.";
 
 		local page = RDXUI.GenerateStdWizardPage(parent, "Confirm");
-		parent:SetBackdropColor(1,1,1,0.4);
+		--parent:SetBackdropColor(1,1,1,0.4);
+		page:SetWidth(336); page:SetHeight(378);
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
@@ -259,7 +261,8 @@ RDX.RegisterFeature({
 ww:RegisterPage(GetNextPageId(), "framing", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Framing");
-		parent:SetBackdropColor(1,1,1,0.4);
+		--parent:SetBackdropColor(1,1,1,0.4);
+		page:SetWidth(336); page:SetHeight(378);
 		local lbl = VFLUI.MakeLabel(nil, page, "Select a frame for the window:");
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 
@@ -335,7 +338,7 @@ ww:RegisterPage(GetNextPageId(), "framing", {
 ww:RegisterPage(GetNextPageId(), "designtype", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Design");
-		
+		page:SetWidth(336); page:SetHeight(378);
 		local pld = wizard:GetPageDescriptor(nil, "wtype");
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "Select the type of design you want to use.");
@@ -403,7 +406,7 @@ ww:RegisterPage(GetNextPageId(), "design", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Design");
 		--parent:SetBackdropColor(1,1,1,0.4);
-		page:SetWidth(300); page:SetHeight(220);
+		page:SetWidth(336); page:SetHeight(378);
 		local lbl = VFLUI.MakeLabel(nil, page, "Choose a design for your window. A preview will be shown below.");
 		lbl:SetWidth(300); lbl:SetHeight(20);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
@@ -484,6 +487,226 @@ ww:RegisterPage(GetNextPageId(), "design", {
 				VFL.AddError(errs, "Could not load Design at <" .. tostring(desc.design) .. ">.");
 			end
 		end
+		return not errs:HasError();
+	end
+});
+
+-- base_default feature
+ww:RegisterPage(GetNextPageId(), "d_base_default", {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, "Height/Width");
+		page:SetWidth(336); page:SetHeight(378);
+		
+		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
+		lbl:SetWidth(300); lbl:SetHeight(60);
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+		lbl:SetText("You may enter the height and the width of your window");
+
+		local pld = wizard:GetPageDescriptor(nil, "wtype");
+		
+		local ui, sf = VFLUI.CreateScrollingCompoundFrame(page);
+		sf:SetWidth(320); sf:SetHeight(300);
+		sf:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
+
+		local ed_width = VFLUI.LabeledEdit:new(ui, 100); ed_width:Show();
+		ed_width:SetText(VFLI.i18n("Width"));
+		if desc and desc.w then ed_width.editBox:SetText(desc.w); end
+		ui:InsertFrame(ed_width);
+		
+		local ed_height = VFLUI.LabeledEdit:new(ui, 100); ed_height:Show();
+		ed_height:SetText(VFLI.i18n("Height"));
+		if desc and desc.h then ed_height.editBox:SetText(desc.h); end
+		ui:InsertFrame(ed_height);
+
+		VFLUI.ActivateScrollingCompoundFrame(ui, sf);
+
+		function page:GetDescriptor()
+			return {
+				w = ed_width.editBox:GetNumber();
+				h = ed_height.editBox:GetNumber();
+			};
+		end
+
+		page.Destroy = VFL.hook(function(s)
+			VFLUI.DestroyScrollingCompoundFrame(ui, sf);
+		end, page.Destroy);
+		
+		wizard:OnNext(function(wiz)
+			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
+				wiz:SetPage(nil, "singleheader");
+			else
+				wiz:SetPage(nil, "done");
+			end
+		end);
+		
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		if not desc then errs:AddError("Invalid descriptor."); end
+		return not errs:HasError();
+	end
+});
+
+-- backdrop feature
+ww:RegisterPage(GetNextPageId(), "d_backdrop", {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, "Backdrop");
+		page:SetWidth(336); page:SetHeight(378);
+		
+		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
+		lbl:SetWidth(300); lbl:SetHeight(60);
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+		lbl:SetText("You may select the backdrop for your window");
+
+		local pld = wizard:GetPageDescriptor(nil, "wtype");
+		
+		local ui, sf = VFLUI.CreateScrollingCompoundFrame(page);
+		sf:SetWidth(320); sf:SetHeight(300);
+		sf:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop"));
+		local bkd = VFLUI.MakeBackdropSelectButton(er, desc.bkd); bkd:Show();
+		er:EmbedChild(tsel); er:Show();
+		ui:InsertFrame(chk_er);
+
+		VFLUI.ActivateScrollingCompoundFrame(ui, sf);
+
+		function page:GetDescriptor()
+			return {
+				bkd = bkd:GetSelectedBackdrop();
+			};
+		end
+
+		page.Destroy = VFL.hook(function(s)
+			VFLUI.DestroyScrollingCompoundFrame(ui, sf);
+		end, page.Destroy);
+		
+		wizard:OnNext(function(wiz)
+			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
+				wiz:SetPage(nil, "singleheader");
+			else
+				wiz:SetPage(nil, "done");
+			end
+		end);
+		
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		if not desc then errs:AddError("Invalid descriptor."); end
+		return not errs:HasError();
+	end
+});
+
+-- Texture feature
+ww:RegisterPage(GetNextPageId(), "d_texture", {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, "Texture");
+		page:SetWidth(336); page:SetHeight(378);
+		
+		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
+		lbl:SetWidth(300); lbl:SetHeight(60);
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+		lbl:SetText("You may select a texture for your window");
+
+		local pld = wizard:GetPageDescriptor(nil, "wtype");
+		
+		local ui, sf = VFLUI.CreateScrollingCompoundFrame(page);
+		sf:SetWidth(320); sf:SetHeight(300);
+		sf:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
+
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Draw layer"));
+		local drawLayer = VFLUI.Dropdown:new(er, RDXUI.DrawLayerDropdownFunction);
+		drawLayer:SetWidth(150); drawLayer:Show();
+		if desc and desc.drawLayer then drawLayer:SetSelection(desc.drawLayer); else drawLayer:SetSelection("ARTWORK"); end
+		er:EmbedChild(drawLayer); er:Show();
+		ui:InsertFrame(er);
+		
+		local ed_sublevel = VFLUI.LabeledEdit:new(ui, 50); ed_sublevel:Show();
+		ed_sublevel:SetText(VFLI.i18n("TextureLevel offset"));
+		if desc and desc.sublevel then ed_sublevel.editBox:SetText(desc.sublevel); end
+		ui:InsertFrame(ed_sublevel);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Texture"));
+		local tsel = VFLUI.MakeTextureSelectButton(er, desc.texture); tsel:Show();
+		er:EmbedChild(tsel); er:Show();
+		ui:InsertFrame(er);
+
+		VFLUI.ActivateScrollingCompoundFrame(ui, sf);
+
+		function page:GetDescriptor()
+			return {
+				drawLayer = drawLayer:GetSelection();
+				sublevel = VFL.clamp(ed_sublevel.editBox:GetNumber(), 1, 20);
+				texture = tsel:GetSelectedTexture();
+			};
+		end
+
+		page.Destroy = VFL.hook(function(s)
+			VFLUI.DestroyScrollingCompoundFrame(ui, sf);
+		end, page.Destroy);
+		
+		wizard:OnNext(function(wiz)
+			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
+				wiz:SetPage(nil, "singleheader");
+			else
+				wiz:SetPage(nil, "done");
+			end
+		end);
+		
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		if not desc then errs:AddError("Invalid descriptor."); end
+		return not errs:HasError();
+	end
+});
+
+-- Font feature
+ww:RegisterPage(GetNextPageId(), "d_font", {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, "Font");
+		page:SetWidth(336); page:SetHeight(378);
+		
+		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
+		lbl:SetWidth(300); lbl:SetHeight(60);
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+		lbl:SetText("You may select a font for your window");
+
+		local pld = wizard:GetPageDescriptor(nil, "wtype");
+		
+		local ui, sf = VFLUI.CreateScrollingCompoundFrame(page);
+		sf:SetWidth(320); sf:SetHeight(300);
+		sf:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
+
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Font"));
+		local fontsel = VFLUI.MakeFontSelectButton(er, desc.font); fontsel:Show();
+		er:EmbedChild(fontsel); er:Show();
+		ui:InsertFrame(er);
+
+		VFLUI.ActivateScrollingCompoundFrame(ui, sf);
+
+		function page:GetDescriptor()
+			return {
+				font = fontsel:GetSelectedFont();
+			};
+		end
+
+		page.Destroy = VFL.hook(function(s)
+			VFLUI.DestroyScrollingCompoundFrame(ui, sf);
+		end, page.Destroy);
+		
+		wizard:OnNext(function(wiz)
+			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
+				wiz:SetPage(nil, "singleheader");
+			else
+				wiz:SetPage(nil, "done");
+			end
+		end);
+		
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		if not desc then errs:AddError("Invalid descriptor."); end
 		return not errs:HasError();
 	end
 });
