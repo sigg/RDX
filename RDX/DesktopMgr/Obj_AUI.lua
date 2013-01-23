@@ -186,7 +186,7 @@ local function ChangeAUI(path, state, force)
 			local _, auiname = RDXDB.ParsePath(RDXU.AUI);
 			RDXDK.SecuredChangeState(state);
 		end
-		RDXEvents:Dispatch("AUI", auiname);
+		--RDXEvents:Dispatch("AUI", auiname);
 	end
 end
 

@@ -21,7 +21,7 @@ RDX.RegisterFeature({
 	end,
 	ApplyFeature = function(desc, state)
 		state.Code:AppendCode([[
-DesktopEvents:Dispatch("WINDOW_OPEN", "]] .. desc.name .. [[", "desktop_statuswindow");
+DesktopEvents:Dispatch("WINDOW_OPEN", "]] .. desc.name .. [[");
 		]]);
 		return true;
 	end,
@@ -41,9 +41,9 @@ DesktopEvents:Dispatch("WINDOW_OPEN", "]] .. desc.name .. [[", "desktop_statuswi
 -- direct function access
 
 function RDXDK._AddStatusWindowRDX(path)
-	DesktopEvents:Dispatch("WINDOW_OPEN", path, "desktop_statuswindow");
+	DesktopEvents:Dispatch("WINDOW_OPEN", path, true);
 end
 
 function RDXDK._DelStatusWindowRDX(path)
-	DesktopEvents:Dispatch("WINDOW_CLOSE", path, "desktop_statuswindow");
+	DesktopEvents:Dispatch("WINDOW_CLOSE", path, true);
 end

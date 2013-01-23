@@ -702,7 +702,13 @@ local function ShowUpdate(self, elapsed)
 end
 
 local function TimerShow2(f, t, z, fshow)
-	if not t then f:Show(); return; end
+	if not t then 
+		f:Show(); 
+		if type(fshow) == "function" then
+			fshow();
+		end
+		return;
+	end
 	f._originalAlpha = f:GetAlpha();
 	f._originalScale = f:GetScale();
 	f.totalElapsed = 0;

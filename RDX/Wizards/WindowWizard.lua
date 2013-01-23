@@ -1499,7 +1499,7 @@ function ww:OnOK()
 	--obj.data = self:GetDescriptor();
 
 	-- Open the window!
-	DesktopEvents:Dispatch("WINDOW_OPEN", RDXDB.MakePath(pkg, wtype .. suffix));
+	DesktopEvents:Dispatch("WINDOW_OPEN", RDXDB.MakePath(pkg, wtype .. suffix), true);
 end
 
 ww.title = "Window Wizard";

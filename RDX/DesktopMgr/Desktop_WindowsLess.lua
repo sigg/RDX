@@ -44,7 +44,7 @@ RDX.RegisterFeature({
 	end,
 	ApplyFeature = function(desc, state)
 		state.Code:AppendCode([[
-DesktopEvents:Dispatch("WINDOW_OPEN", "]] .. desc.name .. [[", "desktop_windowless");
+DesktopEvents:Dispatch("WINDOW_OPEN", "]] .. desc.name .. [[");
 		]]);
 		
 		return true;
@@ -65,11 +65,11 @@ DesktopEvents:Dispatch("WINDOW_OPEN", "]] .. desc.name .. [[", "desktop_windowle
 -- direct function access
 
 function RDXDK._AddRegisteredWindowRDX(path)
-	DesktopEvents:Dispatch("WINDOW_OPEN", path, "desktop_windowless");
+	DesktopEvents:Dispatch("WINDOW_OPEN", path, true);
 end
 
 function RDXDK._DelRegisteredWindowRDX(path)
-	DesktopEvents:Dispatch("WINDOW_CLOSE", path, "desktop_windowless");
+	DesktopEvents:Dispatch("WINDOW_CLOSE", path, true);
 end
 
 RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()

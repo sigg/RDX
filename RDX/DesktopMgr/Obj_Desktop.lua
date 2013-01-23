@@ -30,8 +30,8 @@ DesktopEvents:Dispatch("DESKTOP_UNLOCK");
 DesktopEvents:Dispatch("DESKTOP_VIEWPORT", useviewport, offsetleft, offsettop, offsetright, offsetbottom);
 
 WINDOW events
-DesktopEvents:Dispatch("WINDOW_OPEN", name, wtype);
-DesktopEvents:Dispatch("WINDOW_CLOSE", name, wtype);
+DesktopEvents:Dispatch("WINDOW_OPEN", name, forceshow);
+DesktopEvents:Dispatch("WINDOW_CLOSE", name, forcehide);
 DesktopEvents:Dispatch("WINDOW_REBUILD", name);
 DesktopEvents:Dispatch("WINDOW_REBUILD_ALL);
 DesktopEvents:Dispatch("WINDOW_UPDATE", name, key, value);
@@ -398,7 +398,7 @@ function RDXDK.Desktop:new(parent)
 		--	frame:Show();
 		--elseif not frame:IsShown() then
 			--frame:_Show(RDX.smooth);
-			frame:Show();
+			--frame:Show();
 		--end
 		--RDX:Debug(5, "Show WindowObject<", frame._dk_name, ">");
 		frame:UpdateUnlockOverlay(frameprops);
@@ -448,6 +448,18 @@ function RDXDK.Desktop:new(parent)
 	function self:LayoutDesktop()
 		RDXDK:Debug(7, "LayoutDesktop");
 		LayoutAll();
+	end
+	
+	function self:ShowAll()
+		for name,frame in pairs(frameList) do
+			frame:_Show(RDX.smooth);
+		end
+	end
+	
+	function self:HideAll()
+		for name,frame in pairs(frameList) do
+			frame:_Hide(RDX.smooth);
+		end
 	end
 	
 	local function UnlayoutFrame(name, noanim)
@@ -604,7 +616,7 @@ function RDXDK.Desktop:new(parent)
 		end
 	end
 	
-	local function windowOpen(name)
+	local function windowOpen(name, forceshow)
 		local wtype = "";
 		if name == "root" then
 			wtype = "Desktop main";
@@ -661,13 +673,14 @@ function RDXDK.Desktop:new(parent)
 				framePropsList[name] = frameprops;
 				if dolayout then LayoutFrame(name); end
 				if not lockstate then frame:Unlock(frameprops); end
+				if forceshow then frame:_Show(RDX.smooth); end
 			end
 		else
 			--RDX.printE("Window " .. name .. " already add");
 		end
 	end
 	
-	local function windowClose(name)
+	local function windowClose(name, forcehide)
 		local wtype = "";
 		if name == "root" then
 			wtype = "Desktop main";
@@ -692,8 +705,23 @@ function RDXDK.Desktop:new(parent)
 			if not lockstate then frame:Lock(); end
 			RDXDK.CompletelyUndock(framePropsList[name]);
 			RDXDK.RemoveUnlockOverlay(frame);
-			frame:Hide();
-			--frame:_Hide(.2, nil, function() 
+			if forcehide then
+				frame:_Hide(RDX.smooth, nil, function() 
+					UnlayoutFrame(name);
+					RDXDK.UnimbueManagedFrame(frame);
+					if wtype == "desktop_window" or wtype == "desktop_statuswindow" then
+						RDXDB._RemoveInstance(name);
+					elseif wtype == "desktop_windowless" then 
+						local wless = RDXDK.GetWindowLess(name);
+						wless.Close(frame, name);
+					end
+					framePropsList[name] = nil;
+					frameList[name] = nil;
+					RDXDB.DelFeatureData(self._path, wtype, "name", name);
+					windowUpdateAll("OVERLAY");
+				end);
+			else
+				frame:Hide();
 				UnlayoutFrame(name);
 				RDXDK.UnimbueManagedFrame(frame);
 				if wtype == "desktop_window" or wtype == "desktop_statuswindow" then
@@ -706,7 +734,7 @@ function RDXDK.Desktop:new(parent)
 				frameList[name] = nil;
 				RDXDB.DelFeatureData(self._path, wtype, "name", name);
 				windowUpdateAll("OVERLAY");
-			--end);
+			end
 		else
 			--RDX.printE("Window " .. name .. " is not in the desktop");
 		end
@@ -1053,6 +1081,7 @@ function RDXDK.Desktop:new(parent)
 		framepropsroot = nil;
 		VFL.empty(frameList); framelist = nil;
 		VFL.empty(framePropsList); framePropsList = nil;
+		s.ShowAll = nil; s.HideAll = nil;
 		s.LayoutDesktop = nil; s.UnlayoutDesktop = nil;
 		s._IsLocked = nil;
 		s._GetFrame = nil; s._GetFrameList = nil; 
@@ -1233,10 +1262,10 @@ RDXDB.RegisterObjectType({
 		-- Attempt to setup the desktop; if it fails, just bail out.
 		if not SetupDesktop(path, dk, obj.data) then dk:Destroy(); return nil; end
 		dk:LayoutDesktop();
-		VFLT.NextFrame(math.random(10000000), function()
-			local state = RDXDAL.GetCurrentState();
-			DesktopEvents:Dispatch("DESKTOP_STATE", state);
-		end);
+		--VFLT.NextFrame(math.random(10000000), function()
+		--	local state = RDXDAL.GetCurrentState();
+		--	DesktopEvents:Dispatch("DESKTOP_STATE", state);
+		--end);
 		return dk;
 	end,
 	Deinstantiate = function(instance, path, obj, nosave)
@@ -1399,13 +1428,26 @@ end);
 
 local function ChangeDesktop(path, nosave)
 	if RDX.IsDesktopEditorOpen() then RDXIE.CloseFeatureEditor(); end
+	if RDXDK.IsDesktopToolsOpen() then RDXDK.ToggleDesktopTools(); end
 	if currentpath == path then return; end
 	RDXDK:Debug(4, "ChangeDesktop(".. path ..")");
 	RDX.printI("Change desktop " .. path);
 	-- close
 	if currentDesktop then
-		if RDXDK.IsDesktopToolsOpen() then RDXDK.ToggleDesktopTools(); end
-		RDXDB._RemoveInstance(currentDesktop._path, nosave);
+		currentDesktop:HideAll()
+		local a = RDX.smooth;
+		if not a then a = 0; end
+		VFLT.schedule(a + 0.1, function() 
+			RDXDB._RemoveInstance(currentDesktop._path, nosave);
+			currentDesktop = nil;
+			currentpath = path;
+			currentDesktop = RDXDB.GetObjectInstance(path);
+			currentDesktop:ShowAll();
+		end);
+	else
+		currentpath = path;
+		currentDesktop = RDXDB.GetObjectInstance(path);
+		currentDesktop:ShowAll();
 	end
 	
 	--RDXPM.RemoveAllButtonsWB();
@@ -1413,9 +1455,9 @@ local function ChangeDesktop(path, nosave)
 	--if RDX.smooth then
 	--	VFLT.schedule(RDX.smooth + 0.1, function() 
 			--RDXPM.GetMainPane():SetDesktopName("|cFFFF0000" .. path .. "|r", path);
-			currentpath = path;
+			--currentpath = path;
 			-- open
-			currentDesktop = RDXDB.GetObjectInstance(path);
+			--currentDesktop = RDXDB.GetObjectInstance(path);
 			
 			--if currentDesktop then 
 			--	if not RDXDK.IsDesktopLocked() then RDXDK.LockDesktop(); RDXDK.CloseMiniWindowList(); end
