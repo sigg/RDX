@@ -56,15 +56,16 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 	le_names:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	le_names:SetWidth(260);	le_names:SetHeight(263); le_names:Show();
 	
-	dlg:Show();
-	--dlg:Show(.2, true);
+	--dlg:Show();
+	dlg:_Show(.2, true);
 	
 	local esch = function()
-		--dlg:Hide(.2, true);
-		--VFLT.ZMSchedule(.25, function()
+		dlg:_Hide(.2, true, function()
 			RDXPM.StoreLayout(dlg, "AUI_editor");
 			dlg:Destroy(); dlg = nil;
-		--end);
+		end);
+		--RDXPM.StoreLayout(dlg, "AUI_editor");
+		--dlg:Destroy(); dlg = nil;
 	end
 	VFL.AddEscapeHandler(esch);
 	
