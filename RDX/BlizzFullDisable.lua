@@ -233,6 +233,7 @@ local function DisableAll()
 		UpdateMicroButtonsParent = VFL.Noop;
 		MoveMicroButtons = VFL.Noop;
 		StanceBar_Update = VFL.Noop;
+		MainMenuBarVehicleLeaveButton_OnEvent = VFL.Noop;
 		
 		TalentMicroButton:UnregisterEvent("PLAYER_TALENT_UPDATE");
 		
