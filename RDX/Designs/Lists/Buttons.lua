@@ -216,6 +216,7 @@ RDX.RegisterFeature({
 	frame.]] .. objname .. [[header = h;
 ]];
 		createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
+		createCode = createCode .. RDXUI.LayoutHeaderCodeMultiRows(objname, desc);
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 		
 		
