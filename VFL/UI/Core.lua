@@ -628,9 +628,9 @@ local function HideUpdate(self, elapsed)
 		self:SetScript("OnUpdate", nil);
 		self.totalElapsed = 0;
 		self:Hide();
-		self:SetAlpha(self._originalAlpha or 1);
+		self:SetAlpha(self._originalAlpha or 0);
 		if self.z then
-			self:SetScale(self._originalScale or 1);
+			self:SetScale(self._originalScale or 0.01);
 		end
 		if self.fhide then self.fhide(); end
 		self._originalAlpha = nil;
@@ -717,9 +717,9 @@ local function TimerShow2(f, t, z, fshow)
 	if type(fshow) == "function" then
 		f.fshow = fshow;
 	end
+	f:Show();
 	f:SetAlpha(0);
 	if f.z then f:SetScale(0.01); end
-	f:Show();
 	f:SetScript("OnUpdate", ShowUpdate);
 end
 

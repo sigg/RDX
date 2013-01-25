@@ -271,7 +271,11 @@ RDXDB.RegisterObjectType({
 		return w;
 	end,
 	Deinstantiate = function(instance, path, md)
-		--instance:_Hide(RDX.smooth, nil, function() instance:Destroy(); instance._path = nil; instance = nil; end);
+		--instance:_Hide(RDX.smooth, nil, function() 
+			--instance:Destroy();
+			--instance._path = nil;
+			--instance = nil;
+		--end);
 		instance:Destroy();
 		instance._path = nil;
 		instance = nil;

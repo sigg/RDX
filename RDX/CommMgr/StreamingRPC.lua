@@ -213,7 +213,7 @@ local function _RPC_Checkraid()
 	elseif RDXDAL.GetNumUnits() == 1 then
 		--RDX.printI(VFLI.i18n("Switching to |cFF00FF00SOLO|r channel"));
 		RDX:Debug(2, "|cFF0000FFSwitch channel SOLO|r");
-		RDX.ImbueLoopbackChannel(RPC_Group, "RDX");
+		RDX.ImbueLoopbackChannel(RPC_Group, "RDX", "GUILD");
 	else
 		--RDX.printI(VFLI.i18n("Switching to |cFF00FF00PARTY|r channel"));
 		RDX:Debug(2, "|cFF0000FFSwitch channel PARTY|r");

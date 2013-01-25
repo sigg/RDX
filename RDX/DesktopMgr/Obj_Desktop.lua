@@ -327,7 +327,7 @@ function RDXDK.Desktop:new(parent)
 		-- Apply scale, alpha, stratum, level
 		if name ~= "root" then
 			frame:SetScale(frameprops.scale);
-			frame:SetAlpha(frameprops.alpha);
+			--frame:SetAlpha(frameprops.alpha);
 			frame:WMGetPositionalFrame():SetFrameStrata(frameprops.strata);
 			if frame.SetLayoutRaid then
 				frame:SetLayoutRaid(frameprops.raidlayout);
@@ -393,13 +393,7 @@ function RDXDK.Desktop:new(parent)
 			frame._dk_layout = true; 
 		end
 		
-		-- Now show the window !!!
-		--if noanim and not frame:IsShown() then
-		--	frame:Show();
-		--elseif not frame:IsShown() then
-			--frame:_Show(RDX.smooth);
-			--frame:Show();
-		--end
+		frame:Show();
 		--RDX:Debug(5, "Show WindowObject<", frame._dk_name, ">");
 		frame:UpdateUnlockOverlay(frameprops);
 		
@@ -450,29 +444,11 @@ function RDXDK.Desktop:new(parent)
 		LayoutAll();
 	end
 	
-	function self:ShowAll()
-		for name,frame in pairs(frameList) do
-			frame:_Show(RDX.smooth);
-		end
-	end
-	
-	function self:HideAll()
-		for name,frame in pairs(frameList) do
-			frame:_Hide(RDX.smooth);
-		end
-	end
-	
 	local function UnlayoutFrame(name, noanim)
 		RDXDK:Debug(9, "UnlayoutFrame(".. name ..")");
 		local frame, frameprops = frameList[name], framePropsList[name];
 		if frame then
 			if frame._dk_drag then frame:WMStopDrag(true); end
-			--if noanim then
-			--	frame:Hide();
-			--else
-			--	frame:_Hide(.5);
-			--end
-			--if name ~= "root" and frame:WMGetPositionalFrame() then frame:WMGetPositionalFrame():ClearAllPoints(); end
 			local posFrame = frame:WMGetPositionalFrame();
 			if posFrame then
 				posFrame:ClearAllPoints();
@@ -546,7 +522,7 @@ function RDXDK.Desktop:new(parent)
 				frame:SetScale(value);
 				frameProps["scale"] = value;
 			elseif key == "ALPHA" then
-				frame:SetAlpha(value);
+				--frame:SetAlpha(value);
 				frameProps["alpha"] = value;
 			elseif key == "CTS" then
 				--frame:SetAlpha(value);
@@ -599,7 +575,7 @@ function RDXDK.Desktop:new(parent)
 					frame:SetScale(value);
 					frameProps["scale"] = value;
 				elseif key == "ALPHA" then
-					frame:SetAlpha(value);
+					--frame:SetAlpha(value);
 					frameProps["alpha"] = value;
 				elseif key == "POSITION" then
 					local rgn = frame:WMGetPositionalFrame();
@@ -616,7 +592,7 @@ function RDXDK.Desktop:new(parent)
 		end
 	end
 	
-	local function windowOpen(name, forceshow)
+	local function windowOpen(name)
 		local wtype = "";
 		if name == "root" then
 			wtype = "Desktop main";
@@ -673,14 +649,13 @@ function RDXDK.Desktop:new(parent)
 				framePropsList[name] = frameprops;
 				if dolayout then LayoutFrame(name); end
 				if not lockstate then frame:Unlock(frameprops); end
-				if forceshow then frame:_Show(RDX.smooth); end
 			end
 		else
 			--RDX.printE("Window " .. name .. " already add");
 		end
 	end
 	
-	local function windowClose(name, forcehide)
+	local function windowClose(name)
 		local wtype = "";
 		if name == "root" then
 			wtype = "Desktop main";
@@ -705,36 +680,19 @@ function RDXDK.Desktop:new(parent)
 			if not lockstate then frame:Lock(); end
 			RDXDK.CompletelyUndock(framePropsList[name]);
 			RDXDK.RemoveUnlockOverlay(frame);
-			if forcehide then
-				frame:_Hide(RDX.smooth, nil, function() 
-					UnlayoutFrame(name);
-					RDXDK.UnimbueManagedFrame(frame);
-					if wtype == "desktop_window" or wtype == "desktop_statuswindow" then
-						RDXDB._RemoveInstance(name);
-					elseif wtype == "desktop_windowless" then 
-						local wless = RDXDK.GetWindowLess(name);
-						wless.Close(frame, name);
-					end
-					framePropsList[name] = nil;
-					frameList[name] = nil;
-					RDXDB.DelFeatureData(self._path, wtype, "name", name);
-					windowUpdateAll("OVERLAY");
-				end);
-			else
-				frame:Hide();
-				UnlayoutFrame(name);
-				RDXDK.UnimbueManagedFrame(frame);
-				if wtype == "desktop_window" or wtype == "desktop_statuswindow" then
-					RDXDB._RemoveInstance(name);
-				elseif wtype == "desktop_windowless" then 
-					local wless = RDXDK.GetWindowLess(name);
-					wless.Close(frame, name);
-				end
-				framePropsList[name] = nil;
-				frameList[name] = nil;
-				RDXDB.DelFeatureData(self._path, wtype, "name", name);
-				windowUpdateAll("OVERLAY");
+			--frame:Hide();
+			UnlayoutFrame(name);
+			RDXDK.UnimbueManagedFrame(frame);
+			if wtype == "desktop_window" or wtype == "desktop_statuswindow" then
+				RDXDB._RemoveInstance(name);
+			elseif wtype == "desktop_windowless" then 
+				local wless = RDXDK.GetWindowLess(name);
+				wless.Close(frame, name);
 			end
+			framePropsList[name] = nil;
+			frameList[name] = nil;
+			RDXDB.DelFeatureData(self._path, wtype, "name", name);
+			windowUpdateAll("OVERLAY");
 		else
 			--RDX.printE("Window " .. name .. " is not in the desktop");
 		end
@@ -1081,7 +1039,6 @@ function RDXDK.Desktop:new(parent)
 		framepropsroot = nil;
 		VFL.empty(frameList); framelist = nil;
 		VFL.empty(framePropsList); framePropsList = nil;
-		s.ShowAll = nil; s.HideAll = nil;
 		s.LayoutDesktop = nil; s.UnlayoutDesktop = nil;
 		s._IsLocked = nil;
 		s._GetFrame = nil; s._GetFrameList = nil; 
@@ -1434,20 +1391,19 @@ local function ChangeDesktop(path, nosave)
 	RDX.printI("Change desktop " .. path);
 	-- close
 	if currentDesktop then
-		currentDesktop:HideAll()
+		RDXDB._RemoveInstance(currentDesktop._path, nosave);
 		local a = RDX.smooth;
 		if not a then a = 0; end
-		VFLT.schedule(a + 0.1, function() 
-			RDXDB._RemoveInstance(currentDesktop._path, nosave);
-			currentDesktop = nil;
+		VFLT.schedule(a + 0.2, function()
+			--currentDesktop = nil;
 			currentpath = path;
 			currentDesktop = RDXDB.GetObjectInstance(path);
-			currentDesktop:ShowAll();
+			--currentDesktop:ShowAll();
 		end);
 	else
 		currentpath = path;
 		currentDesktop = RDXDB.GetObjectInstance(path);
-		currentDesktop:ShowAll();
+		--currentDesktop:ShowAll();
 	end
 	
 	--RDXPM.RemoveAllButtonsWB();
@@ -1515,7 +1471,4 @@ end);
 WoWEvents:Bind("PET_BATTLE_OVER", nil, function()
 	RDXDK.ShowRDX();
 end);
-
-
-
 

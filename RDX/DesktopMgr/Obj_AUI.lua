@@ -57,10 +57,10 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 	le_names:SetWidth(260);	le_names:SetHeight(263); le_names:Show();
 	
 	--dlg:Show();
-	dlg:_Show(.2, true);
+	dlg:_Show(.2);
 	
 	local esch = function()
-		dlg:_Hide(.2, true, function()
+		dlg:_Hide(.2, nil, function()
 			RDXPM.StoreLayout(dlg, "AUI_editor");
 			dlg:Destroy(); dlg = nil;
 		end);

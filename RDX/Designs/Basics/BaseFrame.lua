@@ -43,7 +43,7 @@ RDX.RegisterFeature({
 	local BaseWidth = ]] .. dx .. [[;
 	local BaseHeight = ]] .. dy .. [[;
 	frame:SetWidth(]] .. dx .. [[); frame:SetHeight(]] .. dy .. [[);
-	frame:SetAlpha(]] .. alpha .. [[);
+	--frame:SetAlpha(]] .. alpha .. [[);
 ]];
 		if desc.usebkd then
 			createCode = createCode .. [[

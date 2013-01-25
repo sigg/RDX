@@ -81,7 +81,6 @@ local function _paint(frame, icv, uid, unit, a1, a2, a3, a4, a5, a6, a7)
 	if not uid then uid = unit.uid; end
 	local paintmask = frame._paintmask or 0;
 	if paintmask ~= 0 then
-		if not frame.Frame_decor:IsShown() then frame.Frame_decor:Show(); end
 ]]);
 	state:RunSlot("EmitPaintPreamble", code);
 	state:RunSlot("EmitPaint", code);
@@ -89,7 +88,6 @@ local function _paint(frame, icv, uid, unit, a1, a2, a3, a4, a5, a6, a7)
 	end
 end
 local function _cleanup(frame)
-	frame.Frame_decor:Hide();
 ]]);
 	state:RunSlot("EmitCleanupPreamble", code);
 	state:RunSlot("EmitCleanup", code);
