@@ -30,17 +30,22 @@ local function EditFilterSetDialog(parent, path, md)
 	-- OpenRDX 7.1 RDXPM
 	if RDXPM.Ismanaged("FilterSet") then RDXPM.RestoreLayout(dlg, "FilterSet"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
-	dlg:Show();
 
 	local fe = RDXDAL.FilterEditor:new(dlg);
 	fe:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	fe:Show();
 	fe:LoadDescriptor(md.data);
 
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+
 	local esch = function()
-		RDXPM.StoreLayout(dlg, "FilterSet");
-		dlg:Destroy(); dlg = nil;
+		dlg:_Hide(RDX.smooth, nil, function()
+			RDXPM.StoreLayout(dlg, "FilterSet");
+			dlg:Destroy(); dlg = nil;
+		end);
 	end
+
 	VFL.AddEscapeHandler(esch);
 
 	local function Save()

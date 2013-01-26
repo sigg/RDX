@@ -349,15 +349,14 @@ function RDX.CloneWindow(path, upath, parent)
 	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 	
-	dlg:Show();
-	--dlg:Show(.2, true);
-	
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+
 	local esch = function()
-		--dlg:Hide(.2, true);
-		--VFLT.ZMSchedule(.25, function()
+		dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "rdx_clonewindows");
 			dlg:Destroy(); dlg = nil;
-		--end);
+		end);
 	end
 	
 	VFL.AddEscapeHandler(esch);

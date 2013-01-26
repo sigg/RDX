@@ -389,16 +389,16 @@ local function _IntegrateSendUI(parent, data)
 		return ret;
 	end
 
-	dlg:Show();
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
 
-	-- Teardown
-	local esch = function() 
-		--dlg:Hide(.2, true);
-		--VFLT.ZMSchedule(.25, function()
+	local esch = function()
+		dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "integratesend");
 			dlg:Destroy(); dlg = nil;
-		--end);
+		end);
 	end
+
 	VFL.AddEscapeHandler(esch);
 
 	local btnCancel = VFLUI.CancelButton:new(dlg);

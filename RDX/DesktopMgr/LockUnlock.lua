@@ -22,6 +22,8 @@ local function OpenDockDialog(frameprops, point)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(230); dlg:SetHeight(125);
 	dlg:SetText("Dock Options");
+	
+	if RDXPM.Ismanaged("lockunlock") then RDXPM.RestoreLayout(dlg, "lockunlock"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	
 	local ui, sf = VFLUI.CreateScrollingCompoundFrame(dlg);
@@ -40,14 +42,14 @@ local function OpenDockDialog(frameprops, point)
 	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 	
-	dlg:Show();
-	--dlg:Show(.2, true);
-	
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+
 	local esch = function()
-		--dlg:Hide(.2, true);
-		--VFLT.ZMSchedule(.25, function()
+		dlg:_Hide(RDX.smooth, nil, function()
+			RDXPM.StoreLayout(dlg, "lockunlock");
 			dlg:Destroy(); dlg = nil;
-		--end);
+		end);
 	end
 	
 	VFL.AddEscapeHandler(esch);

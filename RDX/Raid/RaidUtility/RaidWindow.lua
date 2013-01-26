@@ -176,18 +176,20 @@ local function OpenRaidWindow(parent)
 		end
 	end
 	
-	dlg:Show();
-	--dlg:Show(.2, true);
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
 
-	local closebtn = VFLUI.CloseButton:new()
-	closebtn:SetScript("OnClick", function() 
-		--dlg:Hide(.2, true);
-		--VFLT.ZMSchedule(.25, function()
+	local esch = function()
+		dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "roster");
 			dlg:Destroy(); dlg = nil;
-		--end);
-	end);
-	dlg:AddButton(closebtn);
+		end);
+	end
+	VFL.AddEscapeHandler(esch);
+
+	local btnClose = VFLUI.CloseButton:new(dlg);
+	btnClose:SetScript("OnClick", function() esch(); end);
+	dlg:AddButton(btnClose);
 
 	dlg.Destroy = VFL.hook(function(s)
 		-- Cleanup the temp vars we stored on the cells.

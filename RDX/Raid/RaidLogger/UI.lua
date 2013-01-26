@@ -347,16 +347,16 @@ function Omni.Open(path)
 		if (tbl == tblCur) then RefreshActiveTable(); end
 	end, "oui");
 	
-	dlg:Show();
-	--dlg:Show(.2, true);
-	
-	local esch = function() 
-		--dlg:Hide(.2, true);
-		--VFLT.ZMSchedule(.25, function()
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+
+	local esch = function()
+		dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "browser_omniscience");
 			dlg:Destroy(); dlg = nil;
-		--end);
+		end);
 	end
+	VFL.AddEscapeHandler(esch);
 	
 	function dlg:_esch()
 		esch();

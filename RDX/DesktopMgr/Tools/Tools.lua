@@ -48,10 +48,11 @@ local function OpenDesktopTools(parent, froot)
 	tabbox:Show();
 	
 	dlg.tabbox = tabbox;
-	
+	tabbox:GetTabBar():SelectTabId(1);
 	dlg:Show();
+	
 	--dlg:_Show(RDX.smooth, nil, function()
-		tabbox:GetTabBar():SelectTabId(1);
+	--	tabbox:GetTabBar():SelectTabId(1);
 	--end);
 	
 	local esch = function()

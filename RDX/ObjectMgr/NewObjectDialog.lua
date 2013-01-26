@@ -5,46 +5,46 @@
 ------------------------------------------------
 -- The new object dialog
 ------------------------------------------------
-local nod = nil;
+local dlg = nil;
 local otypes = {};
 function RDXDB.NewObjectDialog(parent, pkgName)
-	if nod or (not pkgName) then return; end
+	if dlg or (not pkgName) then return; end
 
-	nod = VFLUI.Window:new(parent);
-	VFLUI.Window.SetDefaultFraming(nod, 20);
-	nod:SetTitleColor(0,.6,0);
-	nod:SetText(VFLI.i18n("New object in package ") .. pkgName);
-	nod:SetPoint("CENTER", RDXParent, "CENTER");
-	nod:SetHeight(350); nod:SetWidth(260);
-	nod:Show();
-	VFLUI.Window.StdMove(nod, nod:GetTitleBar());
+	dlg = VFLUI.Window:new(parent);
+	VFLUI.Window.SetDefaultFraming(dlg, 20);
+	dlg:SetTitleColor(0,.6,0);
+	dlg:SetText(VFLI.i18n("New object in package ") .. pkgName);
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
+	dlg:SetHeight(350); dlg:SetWidth(260);
+	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
+	if RDXPM.Ismanaged("nod") then RDXPM.RestoreLayout(dlg, "nod"); end
 
-	local ca = nod:GetClientArea();
+	local ca = dlg:GetClientArea();
 
 	--------------------- Predeclarations
 	local activeType = nil; 
 	local UpdateTypeList, SetActiveType;
 
 	--------------------- Name editor
-	local nameEd = VFLUI.Edit:new(nod);
+	local nameEd = VFLUI.Edit:new(dlg);
 	nameEd:SetHeight(25); nameEd:SetWidth(250);
 	nameEd:SetPoint("TOPLEFT", ca, "TOPLEFT", 0, -10);
 	nameEd:Show();
 	
-	local lbl1 = VFLUI.MakeLabel(nil, nod, VFLI.i18n("Enter name of new object:"));
+	local lbl1 = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Enter name of new object:"));
 	lbl1:SetPoint("BOTTOMLEFT", nameEd, "TOPLEFT", 3, 0);
 
 	------------------- Objtypes list
 	local decor1 = VFLUI.AcquireFrame("Frame");
-	decor1:SetParent(nod);
+	decor1:SetParent(dlg);
 	decor1:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	decor1:SetPoint("TOPLEFT", nameEd, "BOTTOMLEFT", 0, -10);
 	decor1:SetWidth(250); decor1:SetHeight(238); decor1:Show();
 
-	local lbl1 = VFLUI.MakeLabel(nil, nod, VFLI.i18n("Select type of new object:"));
+	local lbl1 = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Select type of new object:"));
 	lbl1:SetPoint("TOPLEFT", decor1, "TOPLEFT", 3, 10);
 
-	local otList = VFLUI.List:new(nod, 12, VFLUI.Selectable.AcquireCell)
+	local otList = VFLUI.List:new(dlg, 12, VFLUI.Selectable.AcquireCell)
 	otList:SetPoint("TOPLEFT", decor1, "TOPLEFT", 5, -5);
 	otList:SetWidth(240); otList:SetHeight(228);
 	otList:Rebuild(); otList:Show();
@@ -86,33 +86,39 @@ function RDXDB.NewObjectDialog(parent, pkgName)
 	end
 	
 	----------------- Feedback
-	local feedback = VFLUI.MakeLabel(nil, nod, "");
+	local feedback = VFLUI.MakeLabel(nil, dlg, "");
 	feedback:SetPoint("TOPLEFT", decor1, "BOTTOMLEFT", 3, 0);
 	feedback:SetWidth(250);
 
 	---------------- OK button
-	local btnOK = VFLUI.OKButton:new(nod);
+	local btnOK = VFLUI.OKButton:new(dlg);
 	btnOK:SetText("OK");
 	btnOK:SetHeight(25); btnOK:SetWidth(60);
 	btnOK:SetPoint("BOTTOMRIGHT", ca, "BOTTOMRIGHT");
 	btnOK:Show();
 
 	----------------- Close functionality
-	nod.Destroy = VFL.hook(function()
+	dlg.Destroy = VFL.hook(function()
 		nameEd:Destroy(); nameEd = nil;
 		otList:Destroy(); otList = nil;
 		decor1:Destroy(); decor1 = nil;
 		btnOK:Destroy(); btnOK = nil;
-	end, nod.Destroy);
+	end, dlg.Destroy);
 	
-	-- Escapement
-	local esch = function() 
-		nod:Destroy(); nod = nil;
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+
+	local esch = function()
+		dlg:_Hide(RDX.smooth, nil, function()
+			RDXPM.StoreLayout(dlg, "nod");
+			dlg:Destroy(); dlg = nil;
+		end);
 	end
+
 	VFL.AddEscapeHandler(esch);
 	local closebtn = VFLUI.CloseButton:new();
 	closebtn:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
-	nod:AddButton(closebtn);
+	dlg:AddButton(closebtn);
 
 	-- OK handler
 	local function OnOK()

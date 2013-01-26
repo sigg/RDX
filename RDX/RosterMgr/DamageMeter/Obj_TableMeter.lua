@@ -253,9 +253,9 @@ local function EditTableMeterDialog(parent, path, md, callback)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(370); dlg:SetHeight(480);
 	dlg:SetText("Meter object: " .. path);
-	dlg:Show();
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
+	if RDXPM.Ismanaged("TableMeter") then RDXPM.RestoreLayout(dlg, "TableMeter"); end
 	
 	local ui, sf = VFLUI.CreateScrollingCompoundFrame(dlg);
 	sf:SetWidth(346); sf:SetHeight(430);
@@ -269,7 +269,16 @@ local function EditTableMeterDialog(parent, path, md, callback)
 	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 
-	local esch = function() dlg:Destroy(); dlg = nil; end
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+
+	local esch = function()
+		dlg:_Hide(RDX.smooth, nil, function()
+			RDXPM.StoreLayout(dlg, "TableMeter");
+			dlg:Destroy(); dlg = nil;
+		end);
+	end
+	
 	VFL.AddEscapeHandler(esch);
 
 	local function Save()

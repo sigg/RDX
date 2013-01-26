@@ -57,15 +57,13 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 	le_names:SetWidth(260);	le_names:SetHeight(263); le_names:Show();
 	
 	--dlg:Show();
-	dlg:_Show(.2);
+	dlg:_Show(RDX.smooth);
 	
 	local esch = function()
-		dlg:_Hide(.2, nil, function()
+		dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "AUI_editor");
 			dlg:Destroy(); dlg = nil;
 		end);
-		--RDXPM.StoreLayout(dlg, "AUI_editor");
-		--dlg:Destroy(); dlg = nil;
 	end
 	VFL.AddEscapeHandler(esch);
 	
@@ -425,6 +423,7 @@ function RDXDK.DuplicateAUI()
 	dlg2:SetWidth(230); dlg2:SetHeight(125);
 	dlg2:SetText("Duplicate a theme");
 	VFLUI.Window.StdMove(dlg2, dlg2:GetTitleBar());
+	if RDXPM.Ismanaged("rdx_duplicate_window") then RDXPM.RestoreLayout(dlg, "rdx_duplicate_window"); end
 	
 	local ui, sf = VFLUI.CreateScrollingCompoundFrame(dlg2);
 	sf:SetWidth(200); sf:SetHeight(70);
@@ -444,15 +443,13 @@ function RDXDK.DuplicateAUI()
 	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 	
-	dlg2:Show();
-	--dlg2:Show(.2, true);
-	
+	dlg2:_Show(RDX.smooth);
+
 	local esch = function()
-		--dlg2:Hide(.2, true);
-		--VFLT.ZMSchedule(.25, function()
-			RDXPM.StoreLayout(dlg2, "rdx_duplicate window");
+		dlg2:_Hide(RDX.smooth, nil, function()
+			RDXPM.StoreLayout(dlg2, "rdx_duplicate_window");
 			dlg2:Destroy(); dlg2 = nil;
-		--end);
+		end);
 	end
 	
 	VFL.AddEscapeHandler(esch);

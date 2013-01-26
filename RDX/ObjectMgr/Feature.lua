@@ -200,8 +200,8 @@ local function MiniFeatureEditor(parent, featData, callback, extraInfo)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(500); dlg:SetHeight(500);
 	dlg:SetText(VFLI.i18n("FeatureData Editor: ") .. extraInfo .. "(" .. feat.title .. ")");
-	dlg:Show();
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
+	if RDXPM.Ismanaged("MiniFeatureEditor") then RDXPM.RestoreLayout(dlg, "MiniFeatureEditor"); end
 
 	------ The feature config ui.
 	local ui = nil;
@@ -219,7 +219,15 @@ local function MiniFeatureEditor(parent, featData, callback, extraInfo)
 		ui:Show();
 	end
 
-	local esch = function() dlg:Destroy(); end
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+
+	local esch = function()
+		dlg:_Hide(RDX.smooth, nil, function()
+			RDXPM.StoreLayout(dlg, "MiniFeatureEditor");
+			dlg:Destroy(); dlg = nil;
+		end);
+	end
 	VFL.AddEscapeHandler(esch);
 
 	local btnClose = VFLUI.CloseButton:new(dlg);

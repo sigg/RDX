@@ -558,7 +558,7 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 				if not _avail then break; end
 				if ]] .. timefilter .. [[ and ]] .. namefilter .. [[ then
 					btn = _icons[_j];
-					if not btn:IsShown() then btn:Show(0.2); end
+					if not btn:IsShown() then btn:Show(); end
 					btn.spellid = _meta;
 					btn.tex:SetTexture(_tex);
 					if _dur and _dur > 0 and btn.cd then
@@ -569,7 +569,7 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 				_i = _i + 1;
 			end
 			while _j <= ]] .. desc.nIcons .. [[ do
-				if _icons[_j]:IsShown() then _icons[_j]:Hide(0.2); end
+				if _icons[_j]:IsShown() then _icons[_j]:Hide(); end
 				_j = _j + 1;
 			end
 		end

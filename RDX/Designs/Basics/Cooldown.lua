@@ -116,9 +116,9 @@ RDX.RegisterFeature({
 		paintCode = paintCode .. [[
 		if ]] .. desc.timerVar .. [[_start and ]] .. desc.timerVar .. [[_start > 0 then
 			btn.cd:SetCooldown(]] .. desc.timerVar .. [[_start, ]] .. desc.timerVar .. [[_duration);
-			if not btn:IsShown() then btn:Show(0.2); end
+			if not btn:IsShown() then btn:Show(); end
 		else
-			if btn:IsShown() then btn:Hide(0.2); end
+			if btn:IsShown() then btn:Hide(); end
 		end
 ]];
 		if desc.gt and desc.gt ~= "" then

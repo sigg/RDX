@@ -27,7 +27,6 @@ function RDXDAL.EditSortDialog(parent, path, md)
 	-- OpenRDX 7.1 RDXPM
 	if RDXPM.Ismanaged("Sort") then RDXPM.RestoreLayout(dlg, "Sort"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
-	dlg:Show();
 
 	-- Editor
 	local ed = RDXDAL.SortEditor:new(dlg);
@@ -41,9 +40,13 @@ function RDXDAL.EditSortDialog(parent, path, md)
 	end
 
 	-- OK/cancel
-	local esch = function() 
-		RDXPM.StoreLayout(dlg, "Sort");
-		dlg:Destroy(); dlg = nil;
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+	local esch = function()
+		dlg:_Hide(RDX.smooth, nil, function()
+			RDXPM.StoreLayout(dlg, "Sort");
+			dlg:Destroy(); dlg = nil;
+		end);
 	end
 	VFL.AddEscapeHandler(esch);
 

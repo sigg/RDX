@@ -48,7 +48,7 @@ local function EditIndirectSetDialog(parent, path, md)
 	dlg:SetWidth(316); dlg:SetHeight(357);
 	dlg:SetText(VFLI.i18n("Edit IndirectSet: ") .. path);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
-	dlg:Show();
+	if RDXPM.Ismanaged("IndirectSet") then RDXPM.RestoreLayout(dlg, "IndirectSet"); end
 
 	local sf = VFLUI.VScrollFrame:new(dlg);
 	sf:SetWidth(290); sf:SetHeight(300);
@@ -63,7 +63,14 @@ local function EditIndirectSetDialog(parent, path, md)
 	ui:SetWidth(sf:GetWidth()); ui:Show(); VFLUI.UpdateDialogLayout(ui);
 
 	------------------- DESTRUCTORS
-	local esch = function() dlg:Destroy(); dlg = nil; end
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+	local esch = function()
+		dlg:_Hide(RDX.smooth, nil, function()
+			RDXPM.StoreLayout(dlg, "IndirectSet");
+			dlg:Destroy(); dlg = nil;
+		end);
+	end
 	VFL.AddEscapeHandler(esch);
 
 	local function Save()

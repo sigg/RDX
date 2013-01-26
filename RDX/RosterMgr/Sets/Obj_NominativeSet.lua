@@ -28,7 +28,6 @@ local function EditNominativeSetDialog(parent, path, md)
 	-- OpenRDX 7.1 RDXPM
 	if RDXPM.Ismanaged("NominativeSet") then RDXPM.RestoreLayout(dlg, "NominativeSet"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
-	dlg:Show();
 	
 	--------------- PREDECLARATIONS
 	local list = md.data or {};
@@ -56,10 +55,13 @@ local function EditNominativeSetDialog(parent, path, md)
 		dlg = nil;
 	end, dlg.Destroy);
 	
-	-- Escapement
-	local esch = function() 
-		RDXPM.StoreLayout(dlg, "NominativeSet");
-		dlg:Destroy();
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+	local esch = function()
+		dlg:_Hide(RDX.smooth, nil, function()
+			RDXPM.StoreLayout(dlg, "NominativeSet");
+			dlg:Destroy(); dlg = nil;
+		end);
 	end
 	VFL.AddEscapeHandler(esch);
 	local closebtn = VFLUI.CloseButton:new();

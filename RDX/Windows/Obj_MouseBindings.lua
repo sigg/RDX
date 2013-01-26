@@ -210,7 +210,6 @@ local function BindingCodePopup(parent, callback)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(200); dlg:SetHeight(360);
 	dlg:SetText(VFLI.i18n("Select Button Combination"));
-	dlg:Show();
 
 	local gb_mods = VFLUI.GroupBox:new(dlg);
 	gb_mods:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
@@ -255,7 +254,15 @@ local function BindingCodePopup(parent, callback)
 	btn:SetValue(1);
 
 	----------------- INTERACT
-	local esch = function() dlg:Destroy(); dlg = nil; end
+	
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+	
+	local esch = function() 
+		dlg:_Hide(RDX.smooth, nil, function() 
+			dlg:Destroy(); dlg = nil;
+		end);
+	end
 	VFL.AddEscapeHandler(esch);
 
 	local function Save()
@@ -344,7 +351,6 @@ local function EditMouseBindingsDialog(parent, path, md, callback)
 	dlg:SetText(VFLI.i18n("Edit MouseBindings") .. " " .. path);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("mbDialog") then RDXPM.RestoreLayout(dlg, "mbDialog"); end
-	dlg:Show();
 
 	local ui, sf = VFLUI.CreateScrollingCompoundFrame(dlg);
 	sf:SetWidth(390 - 16); sf:SetHeight(350 - 25);
@@ -367,7 +373,16 @@ local function EditMouseBindingsDialog(parent, path, md, callback)
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 
 	----------------- INTERACT
-	local esch = function() RDXPM.StoreLayout(dlg, "mbDialog"); dlg:Destroy(); dlg = nil; end
+	
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+
+	local esch = function()
+		dlg:_Hide(RDX.smooth, nil, function()
+			RDXPM.StoreLayout(dlg, "mbDialog");
+			dlg:Destroy(); dlg = nil;
+		end);
+	end
 	VFL.AddEscapeHandler(esch);
 
 	-- On add, check if the binding already exists; if not, add it.

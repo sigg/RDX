@@ -9,29 +9,40 @@
 -- package.
 
 -- Edit dialog for scripts
+local dlg = nil;
+
 local function EditScriptDialog(parent, path, md)
+	if dlg then
+		RDX.printI(VFLI.i18n("A script editor is already open. Please close it first.")); return;
+	end
 	-- Sanity checks
 	if (not path) or (not md) or (not md.data) then return nil; end
 	local ctype, font = "LuaEditBox", nil;
 
-	local dlg = VFLUI.Window:new(parent);
+	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(500); dlg:SetHeight(500);
 	dlg:SetText(VFLI.i18n("Text Editor: ") .. path);
-	dlg:Show();
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
+	if RDXPM.Ismanaged("script_editor") then RDXPM.RestoreLayout(dlg, "script_editor"); end
 
 	local editor = VFLUI.TextEditor:new(dlg, ctype, font);
 	editor:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	editor:SetWidth(490); editor:SetHeight(430); editor:Show();
 	editor:SetText(md.data.script or "");
 	editor:GetEditWidget():SetFocus();
+	
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
 
-	local esch = function() 
-		dlg:Destroy(); dlg = nil;
+	local esch = function()
+		dlg:_Hide(RDX.smooth, nil, function()
+			RDXPM.StoreLayout(dlg, "script_editor");
+			dlg:Destroy(); dlg = nil;
+		end);
 	end
 	VFL.AddEscapeHandler(esch);
 	

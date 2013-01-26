@@ -3,8 +3,8 @@
 
 art_fe_win = nil;
 
-local function loadfonts(path)
-    if (not RDXDB.CheckObject(path, "UnitFrameType")) then
+local function loadfonts(path, parent)
+    if (not RDXDB.CheckObject(path, "Design")) then
         RDX.printI("Invalid object/type at path: \""..path.."\"");
         art_fe_win = nil;
         return;
@@ -146,7 +146,7 @@ RDXEvents:Bind("INIT_DEFERRED", nil, function()
 		--art_fe_win = findfont(); -- global variable to determine if a window is open
 	end
 	
-	local etc = RDXDB.GetObjectType("UnitFrameType");
+	local etc = RDXDB.GetObjectType("Designaa");
 	if (not etc) then return; end
 	--art_fe_oldgbm = etc.GenerateBrowserMenu;
 	etc.GenerateBrowserMenu = VFL.hook(function(mnu, path)
@@ -154,7 +154,7 @@ RDXEvents:Bind("INIT_DEFERRED", nil, function()
 	    text = VFLI.i18n("Font Editor"),
 	    OnClick = function()
 		VFL.poptree:Release();
-		RDXDB.loadfonts(path);
+		RDXDB.loadfonts(path, mnu);
 	    end
 	});
 	end, etc.GenerateBrowserMenu);
