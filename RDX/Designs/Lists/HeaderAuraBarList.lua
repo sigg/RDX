@@ -129,8 +129,9 @@ local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true, ]] .. showt
 				
 				frame.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
 				frame.btn.ftc:SetTimer(_et - _dur , _dur);
-				if _apps > 1 then frame.btn.stacktxt:SetText(_apps); else frame.btn.stacktxt:SetText("");end
-				
+				if frame.btn.stacktxt then
+					if _apps > 1 then frame.btn.stacktxt:SetText(_apps); else frame.btn.stacktxt:SetText("");end
+				end
 				frame.btn:Show();
 			else
 				frame.btn:Hide();
@@ -166,7 +167,9 @@ local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true, ]] .. showt
 				end
 				tempEnchant1.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
 				tempEnchant1.btn.ftc:SetTimer(mainHandBuffStart, mainHandBuffDur);
-				if mainHandCharges > 1 then tempEnchant1.btn.stacktxt:SetText(mainHandCharges); else tempEnchant1.btn.stacktxt:SetText("");end
+				if frame.btn.stacktxt then
+					if mainHandCharges > 1 then tempEnchant1.btn.stacktxt:SetText(mainHandCharges); else tempEnchant1.btn.stacktxt:SetText("");end
+				end
 				tempEnchant1.btn:Show();
 			else
 				tempEnchant1.btn:Hide();
@@ -196,7 +199,9 @@ local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true, ]] .. showt
 				end
 				tempEnchant2.btn.ftc:SetFormula(]] .. countTypeFlag .. [[,']] .. desc.formulaType .. [[');
 				tempEnchant2.btn.ftc:SetTimer(offHandBuffStart, offHandBuffDur);
-				if offHandCharges > 1 then tempEnchant2.btn.stacktxt:SetText(offHandCharges); else tempEnchant2.btn.stacktxt:SetText("");end
+				if frame.btn.stacktxt then
+					if offHandCharges > 1 then tempEnchant2.btn.stacktxt:SetText(offHandCharges); else tempEnchant2.btn.stacktxt:SetText("");end
+				end
 				tempEnchant2.btn:Show();
 			else
 				tempEnchant2.btn:Hide();
