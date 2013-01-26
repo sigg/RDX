@@ -156,6 +156,13 @@ local function DisableAll()
 			"MultiCastSlotButton4",
 			"MultiCastActionBarFrame",
 			
+			"OverrideActionBarButton1",
+			"OverrideActionBarButton2",
+			"OverrideActionBarButton3",
+			"OverrideActionBarButton4",
+			"OverrideActionBarButton5",
+			"OverrideActionBarButton6",
+			
 			"PetActionButton1",
 			"PetActionButton2",
 			"PetActionButton3",
