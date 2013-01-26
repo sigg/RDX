@@ -2,7 +2,7 @@
 ## Title: |c007ffcffRDX|r - Recovery
 ## Notes: Backup and restore your RDX file system.
 ## Author: Bill Johnson
-## Version: 9.0.11
+## Version: 9.0.12
 ## RequiredDeps: VFL
 ## SavedVariables: RDXBackup
 RDX_recovery.lua
