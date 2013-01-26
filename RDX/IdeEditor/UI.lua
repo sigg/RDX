@@ -1,4 +1,4 @@
--- UI.lua
+﻿-- UI.lua
 -- RDX - Raid Data Exchange
 -- (C)2006 Bill Johnson
 --
@@ -233,7 +233,7 @@ function RDXUI.LayoutHeaderCodeMultiRows(objname, desc)
 	elseif desc.orientation == "DOWN" then
 		if desc.rows == 1 then
 			createCode = createCode .. [[
-	h:SetPoint("UP", frame.]] .. objname .. [[[1],"UP");
+	h:SetPoint("TOP", frame.]] .. objname .. [[[1],"TOP");
 	h:SetWidth(]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[);
 	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * ]] .. desc.nIcons .. [[);
 ]]	
@@ -242,7 +242,7 @@ function RDXUI.LayoutHeaderCodeMultiRows(objname, desc)
 	elseif desc.orientation == "UP" then
 		if desc.rows == 1 then
 			createCode = createCode .. [[
-	h:SetPoint("DOWN", frame.]] .. objname .. [[[1],"DOWN");
+	h:SetPoint("BOTTOM", frame.]] .. objname .. [[[1],"BOTTOM");
 	h:SetWidth(]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[);
 	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * ]] .. desc.nIcons .. [[);
 ]]	
