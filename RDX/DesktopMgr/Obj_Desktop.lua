@@ -953,7 +953,7 @@ function RDXDK.Desktop:new(parent)
 		framepropsroot.states.PARTY.OnSelect.raid.action = "WINDOW_CLOSE";
 		framepropsroot.states.PARTY.OnSelect.boss = {};
 		framepropsroot.states.PARTY.OnSelect.boss.name = auiname .. ":Boss_Main";
-		framepropsroot.states.PARTY.OnSelect.boss.action = "WINDOW_CLOSE";
+		framepropsroot.states.PARTY.OnSelect.boss.action = "WINDOW_OPEN";
 		framepropsroot.states.RAID = {};
 		framepropsroot.states.RAID.OnSelect = {};
 		framepropsroot.states.RAID.OnSelect.arena = {};
