@@ -214,30 +214,44 @@ function RDXUI.LayoutHeaderCodeMultiRows(objname, desc)
 	if desc.orientation == "LEFT" then
 		if desc.rows == 1 then
 			createCode = createCode .. [[
-	h:SetPoint("RIGHT", frame.]] .. objname .. [[[1],"RIGHT");
+	h:SetPoint("TOPRIGHT", frame.]] .. objname .. [[[1],"TOPRIGHT");
 	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.nIcons .. [[);
 	h:SetHeight(]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[);
 ]]
 		else
-		
+			createCode = createCode .. [[
+	h:SetPoint("TOPRIGHT", frame.]] .. objname .. [[[1],"TOPRIGHT");
+	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
+	h:SetHeight(]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[ * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[));
+]]
 		end
 	elseif desc.orientation == "RIGHT" then
 		if desc.rows == 1 then
 			createCode = createCode .. [[
-	h:SetPoint("LEFT", frame.]] .. objname .. [[[1],"LEFT");
+	h:SetPoint("TOPLEFT", frame.]] .. objname .. [[[1],"TOPLEFT");
 	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.nIcons .. [[);
 	h:SetHeight(]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[);
 ]]
 		else
+			createCode = createCode .. [[
+	h:SetPoint("TOPLEFT", frame.]] .. objname .. [[[1],"TOPLEFT");
+	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
+	h:SetHeight(]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[ * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[));
+]]
 		end
 	elseif desc.orientation == "DOWN" then
 		if desc.rows == 1 then
 			createCode = createCode .. [[
-	h:SetPoint("TOP", frame.]] .. objname .. [[[1],"TOP");
+	h:SetPoint("TOPLEFT", frame.]] .. objname .. [[[1],"TOPLEFT");
 	h:SetWidth(]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[);
 	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * ]] .. desc.nIcons .. [[);
 ]]	
 		else
+			createCode = createCode .. [[
+	h:SetPoint("TOPLEFT", frame.]] .. objname .. [[[1],"TOPLEFT");
+	h:SetWidth(]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[ * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[));
+	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
+]]
 		end
 	elseif desc.orientation == "UP" then
 		if desc.rows == 1 then
@@ -247,6 +261,11 @@ function RDXUI.LayoutHeaderCodeMultiRows(objname, desc)
 	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * ]] .. desc.nIcons .. [[);
 ]]	
 		else
+			createCode = createCode .. [[
+	h:SetPoint("BOTTOMLEFT", frame.]] .. objname .. [[[1],"BOTTOMLEFT");
+	h:SetWidth(]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[ * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[));
+	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
+]]
 		end
 	end
 	return createCode;
