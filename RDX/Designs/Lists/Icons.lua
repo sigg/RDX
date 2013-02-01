@@ -286,10 +286,15 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 		local createCode = [[
 	frame.]] .. objname .. [[ = {};
 	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+	local h = VFLUI.AcquireFrame("Frame");
+	VFLUI.StdSetParent(h, btnOwner);
+	h:SetFrameLevel(btnOwner:GetFrameLevel() + 1);
+	h:Show();
+	frame.]] .. objname .. [[header = h;
 	for i=1, ]] .. desc.nIcons .. [[ do
 		btn = VFLUI.AcquireFrame("Button");
 		btn:SetWidth(]] .. desc.w .. [[); btn:SetHeight(]] .. desc.h .. [[);
-		btn:SetParent(btnOwner); btn:SetFrameLevel(btnOwner:GetFrameLevel());
+		btn:SetParent(h); btn:SetFrameLevel(h:GetFrameLevel());
 ]];
 		if driver == 2 then
 			createCode = createCode .. [[
@@ -365,6 +370,7 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 	end
 ]];
 		createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
+		createCode = createCode .. RDXUI.LayoutHeaderCodeMultiRows(objname, desc);
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 
 		------------------- Destruction
@@ -378,6 +384,8 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 			VFLUI.ReleaseRegion(btn.tex); btn.tex = nil;
 			btn:Destroy(); btn = nil;
 		end
+		frame.]] .. objname .. [[header:Destroy();
+		frame.]] .. objname .. [[header = nil;
 		frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach("EmitDestroy", true, function(code) code:AppendCode(destroyCode); end);

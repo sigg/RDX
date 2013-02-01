@@ -314,7 +314,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	local self = VFLUI.AcquireFrame("SecureActionButtonBar", id);
 	if not self then self = VFLUI.AcquireFrame("SecureActionButtonBarTmp") self.error = true; id = 200; end
 	self:SetParent(parent);
-	self:SetWidth(desc.size); self:SetHeight(desc.size);
+	self:SetWidth(desc.w); self:SetHeight(desc.h);
 	local os = 0;
 	if desc.driver == 2 then
 		VFLUI.SetButtonSkin(self, desc.bs);
@@ -363,7 +363,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	-- text hotkey
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
-	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
+	self.txtHotkey:SetWidth(desc.w + 6); self.txtHotkey:SetHeight(desc.h);
 	self.txtHotkey:Show();
 	
 	local start, duration, enable, charges, maxCharges, spellid = 0, 0, nil, 0, 0, nil;
@@ -777,7 +777,7 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	local self = VFLUI.AcquireFrame("SecureActionButtonBar", id);
 	if not self then self = VFLUI.AcquireFrame("SecureActionButtonBarTmp") self.error = true; id = 250; end
 	self:SetParent(parent);
-	self:SetWidth(desc.size); self:SetHeight(desc.size);
+	self:SetWidth(desc.w); self:SetHeight(desc.h);
 	local os = 0;
 	if desc.driver == 2 then
 		VFLUI.SetButtonSkin(self, desc.bs);
@@ -822,7 +822,7 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	-- text hotkey
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
-	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
+	self.txtHotkey:SetWidth(desc.w + 6); self.txtHotkey:SetHeight(desc.h);
 	
 	local start, duration, enable, charges, maxCharges, spellid = 0, 0, nil, 0, 0, nil;
 	local function UpdateCooldown()
@@ -1194,7 +1194,7 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	local self = VFLUI.AcquireFrame("SecureActionButtonPet", id);
 	if not self then self = VFLUI.AcquireFrame("SecureActionButtonBarTmp") self.error = true; id = 400; end
 	self:SetParent(parent);
-	self:SetWidth(desc.size); self:SetHeight(desc.size);
+	self:SetWidth(desc.w); self:SetHeight(desc.h);
 	local os = 0;
 	if desc.driver == 2 then
 		VFLUI.SetButtonSkin(self, desc.bs);
@@ -1235,7 +1235,7 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	self.frtxt:Show();
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
-	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
+	self.txtHotkey:SetWidth(desc.w + 6); self.txtHotkey:SetHeight(desc.h);
 	VFLUI.SetFont(self.txtHotkey, Fonts.Default, 10);
 	self.txtHotkey:Show();
 	
@@ -1556,7 +1556,7 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 	local self = VFLUI.AcquireFrame("SecureActionButtonStance", id);
 	if not self then self = VFLUI.AcquireFrame("SecureActionButtonBarTmp") self.error = true; id = 300; end
 	self:SetParent(parent);
-	self:SetWidth(desc.size); self:SetHeight(desc.size);
+	self:SetWidth(desc.w); self:SetHeight(desc.h);
 	local os = 0;
 	if desc.driver == 2 then
 		VFLUI.SetButtonSkin(self, desc.bs);
@@ -1594,7 +1594,7 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 	self.frtxt:Show();
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
-	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
+	self.txtHotkey:SetWidth(desc.w + 6); self.txtHotkey:SetHeight(desc.h);
 	
 	local start, duration, enable = 0, 0, nil;
 	local function UpdateCooldown()
@@ -1796,7 +1796,7 @@ function RDXUI.ActionButtonTest:new(parent, id, statesString, desc)
 	local self = VFLUI.AcquireFrame("SecureActionButtonBarTmp"); id = 500;
 	if not self then self = VFLUI.AcquireFrame("SecureActionButtonBarTmp") self.error = true; id = 200; end
 	self:SetParent(parent);
-	self:SetWidth(desc.size); self:SetHeight(desc.size);
+	self:SetWidth(desc.w); self:SetHeight(desc.h);
 	local os = 0;
 	if desc.driver == 2 then
 		VFLUI.SetButtonSkin(self, desc.bs);
@@ -1834,7 +1834,7 @@ function RDXUI.ActionButtonTest:new(parent, id, statesString, desc)
 	self.frtxt:Show();
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
-	self.txtHotkey:SetWidth(desc.size + 6); self.txtHotkey:SetHeight(desc.size);
+	self.txtHotkey:SetWidth(desc.w + 6); self.txtHotkey:SetHeight(desc.h);
 	VFLUI.SetFont(self.txtHotkey, Fonts.Default, 10);
 	self.txtHotkey:Show();
 	
@@ -1911,7 +1911,7 @@ function RDXUI.VehicleButton:new(parent, id, statesString, desc)
 	local self = VFLUI.AcquireFrame("ButtonVehicle", id);
 	if not self then self = VFLUI.AcquireFrame("SecureActionButtonBarTmp") self.error = true; id = 600; end
 	self:SetParent(parent);
-	self:SetWidth(desc.size); self:SetHeight(desc.size);
+	self:SetWidth(desc.w); self:SetHeight(desc.h);
 	local os = 0;
 	if desc.driver == 2 then
 		VFLUI.SetButtonSkin(self, desc.bs);

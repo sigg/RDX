@@ -90,6 +90,9 @@ RDX.RegisterFeature({
 		if not desc.cd then desc.cd = VFL.copy(VFLUI.defaultCooldown); end
 		if not desc.headerstateType then desc.headerstateType = "None"; end
 		if not desc.headervisType then desc.headervisType = "None"; end
+		if not desc.h then desc.h = desc.size or 36; end
+		if not desc.w then desc.w = desc.size or 36; end
+		desc.size = nil;
 		
 		if desc.headerstateType == "Custom" then
 			local test = __RDXconvertStatesTable(desc.headerstateCustom);
@@ -334,10 +337,20 @@ RDX.RegisterFeature({
 		if desc and desc.iconspy then ed_iconspy.editBox:SetText(desc.iconspy); else ed_iconspy.editBox:SetText("0"); end
 		ui:InsertFrame(ed_iconspy);
 		
-		local ed_size = VFLUI.LabeledEdit:new(ui, 50); ed_size:Show();
-		ed_size:SetText(VFLI.i18n("Buttons Size"));
-		if desc and desc.size then ed_size.editBox:SetText(desc.size); end
-		ui:InsertFrame(ed_size);
+		--local ed_size = VFLUI.LabeledEdit:new(ui, 50); ed_size:Show();
+		--ed_size:SetText(VFLI.i18n("Buttons Size"));
+		--if desc and desc.size then ed_size.editBox:SetText(desc.size); end
+		--ui:InsertFrame(ed_size);
+		
+		local ed_width = VFLUI.LabeledEdit:new(ui, 50); ed_width:Show();
+		ed_width:SetText(VFLI.i18n("Width"));
+		if desc and desc.w then ed_width.editBox:SetText(desc.w); else ed_width.editBox:SetText("20"); end
+		ui:InsertFrame(ed_width);
+		
+		local ed_height = VFLUI.LabeledEdit:new(ui, 50); ed_height:Show();
+		ed_height:SetText(VFLI.i18n("Height"));
+		if desc and desc.h then ed_height.editBox:SetText(desc.h); else ed_height.editBox:SetText("20"); end
+		ui:InsertFrame(ed_height);
 		
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Flyout"));
 		local dd_flyoutdirection = VFLUI.Dropdown:new(er, RDXUI.OrientationDropdownFunction);
@@ -547,7 +560,9 @@ RDX.RegisterFeature({
 				orientation = dd_orientation:GetSelection();
 				iconspx = VFL.clamp(ed_iconspx.editBox:GetNumber(), -20, 200);
 				iconspy = VFL.clamp(ed_iconspy.editBox:GetNumber(), -20, 200);
-				size = VFL.clamp(ed_size.editBox:GetNumber(), 20, 100);
+				--size = VFL.clamp(ed_size.editBox:GetNumber(), 20, 100);
+				w = VFL.clamp(ed_width.editBox:GetNumber(), 1, 100);
+				h = VFL.clamp(ed_height.editBox:GetNumber(), 1, 100);
 				flyoutdirection = dd_flyoutdirection:GetSelection();
 				-- display
 				driver = driver:GetValue();
@@ -598,7 +613,7 @@ RDX.RegisterFeature({
 			flyoutdirection = "UP";
 			flo = 5;
 			anchor = { lp = "TOPLEFT", af = "Frame_decor", rp = "TOPLEFT", dx = 0, dy = 0};
-			nIcons = 12; size = 36; rows = 1; orientation = "RIGHT"; iconspx = 5; iconspy = 0;
+			nIcons = 12; h = 36; w = 36; rows = 1; orientation = "RIGHT"; iconspx = 0; iconspy = 0;
 			driver = 1;
 			drawLayer = "ARTWORK";
 			fontkey = fontk;

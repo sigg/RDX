@@ -215,56 +215,56 @@ function RDXUI.LayoutHeaderCodeMultiRows(objname, desc)
 		if desc.rows == 1 then
 			createCode = createCode .. [[
 	h:SetPoint("TOPRIGHT", frame.]] .. objname .. [[[1],"TOPRIGHT");
-	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.nIcons .. [[);
-	h:SetHeight(]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[);
+	h:SetWidth((]] .. desc.w .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.nIcons .. [[);
+	h:SetHeight(]] .. desc.h .. [[ + ]] .. desc.iconspy .. [[);
 ]]
 		else
 			createCode = createCode .. [[
 	h:SetPoint("TOPRIGHT", frame.]] .. objname .. [[[1],"TOPRIGHT");
-	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
-	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[)));
+	h:SetWidth((]] .. desc.w .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
+	h:SetHeight((]] .. desc.h .. [[ + ]] .. desc.iconspy .. [[) * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[)));
 ]]
 		end
 	elseif desc.orientation == "RIGHT" then
 		if desc.rows == 1 then
 			createCode = createCode .. [[
 	h:SetPoint("TOPLEFT", frame.]] .. objname .. [[[1],"TOPLEFT");
-	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.nIcons .. [[);
-	h:SetHeight(]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[);
+	h:SetWidth((]] .. desc.w .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.nIcons .. [[);
+	h:SetHeight(]] .. desc.h .. [[ + ]] .. desc.iconspy .. [[);
 ]]
 		else
 			createCode = createCode .. [[
 	h:SetPoint("TOPLEFT", frame.]] .. objname .. [[[1],"TOPLEFT");
-	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
-	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[)));
+	h:SetWidth((]] .. desc.w .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
+	h:SetHeight((]] .. desc.h .. [[ + ]] .. desc.iconspy .. [[) * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[)));
 ]]
 		end
 	elseif desc.orientation == "DOWN" then
 		if desc.rows == 1 then
 			createCode = createCode .. [[
 	h:SetPoint("TOPLEFT", frame.]] .. objname .. [[[1],"TOPLEFT");
-	h:SetWidth(]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[);
-	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * ]] .. desc.nIcons .. [[);
+	h:SetWidth(]] .. desc.w .. [[ + ]] .. desc.iconspx .. [[);
+	h:SetHeight((]] .. desc.h .. [[ + ]] .. desc.iconspy .. [[) * ]] .. desc.nIcons .. [[);
 ]]	
 		else
 			createCode = createCode .. [[
 	h:SetPoint("TOPLEFT", frame.]] .. objname .. [[[1],"TOPLEFT");
-	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[)));
-	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
+	h:SetWidth((]] .. desc.w .. [[ + ]] .. desc.iconspy .. [[) * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[)));
+	h:SetHeight((]] .. desc.h .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
 ]]
 		end
 	elseif desc.orientation == "UP" then
 		if desc.rows == 1 then
 			createCode = createCode .. [[
 	h:SetPoint("BOTTOM", frame.]] .. objname .. [[[1],"BOTTOM");
-	h:SetWidth(]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[);
-	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * ]] .. desc.nIcons .. [[);
+	h:SetWidth(]] .. desc.w .. [[ + ]] .. desc.iconspx .. [[);
+	h:SetHeight((]] .. desc.h .. [[ + ]] .. desc.iconspy .. [[) * ]] .. desc.nIcons .. [[);
 ]]	
 		else
 			createCode = createCode .. [[
 	h:SetPoint("BOTTOMLEFT", frame.]] .. objname .. [[[1],"BOTTOMLEFT");
-	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[)));
-	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
+	h:SetWidth((]] .. desc.w .. [[ + ]] .. desc.iconspy .. [[) * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[)));
+	h:SetHeight((]] .. desc.h .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
 ]]
 		end
 	end
