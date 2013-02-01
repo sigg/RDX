@@ -102,6 +102,9 @@ local function VariablesLoaded()
 		
 			-- Now init smooth features.
 			RDX.smooth = 0.5;
+			
+			-- flag
+			RDX.deferreddone = true;
 		end);
 		loaded = true;
 	end
