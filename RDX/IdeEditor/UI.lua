@@ -222,7 +222,7 @@ function RDXUI.LayoutHeaderCodeMultiRows(objname, desc)
 			createCode = createCode .. [[
 	h:SetPoint("TOPRIGHT", frame.]] .. objname .. [[[1],"TOPRIGHT");
 	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
-	h:SetHeight(]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[ * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[));
+	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[)));
 ]]
 		end
 	elseif desc.orientation == "RIGHT" then
@@ -236,7 +236,7 @@ function RDXUI.LayoutHeaderCodeMultiRows(objname, desc)
 			createCode = createCode .. [[
 	h:SetPoint("TOPLEFT", frame.]] .. objname .. [[[1],"TOPLEFT");
 	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
-	h:SetHeight(]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[ * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[));
+	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[)));
 ]]
 		end
 	elseif desc.orientation == "DOWN" then
@@ -249,7 +249,7 @@ function RDXUI.LayoutHeaderCodeMultiRows(objname, desc)
 		else
 			createCode = createCode .. [[
 	h:SetPoint("TOPLEFT", frame.]] .. objname .. [[[1],"TOPLEFT");
-	h:SetWidth(]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[ * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[));
+	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[)));
 	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
 ]]
 		end
@@ -263,7 +263,7 @@ function RDXUI.LayoutHeaderCodeMultiRows(objname, desc)
 		else
 			createCode = createCode .. [[
 	h:SetPoint("BOTTOMLEFT", frame.]] .. objname .. [[[1],"BOTTOMLEFT");
-	h:SetWidth(]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[ * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[));
+	h:SetWidth((]] .. desc.size .. [[ + ]] .. desc.iconspy .. [[) * (math.ceil(]] .. desc.nIcons .. [[ / ]] .. desc.rows .. [[)));
 	h:SetHeight((]] .. desc.size .. [[ + ]] .. desc.iconspx .. [[) * ]] .. desc.rows .. [[);
 ]]
 		end
