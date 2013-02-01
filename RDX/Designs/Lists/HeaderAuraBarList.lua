@@ -102,7 +102,7 @@ local ftc_]] .. objname .. [[ = FreeTimer.CreateFreeTimerClass(true, ]] .. showt
 				btn.ftc = ftc_]] .. objname .. [[(btn, btn.sb, btn.timetxt);
 				frame.btn = btn;
 			end
-			_bn, _, _tex, _apps, _dispelt, _dur, _et = UnitAura("player", frame:GetID(), "]] .. filter .. [[");
+			_bn, _, _tex, _apps, _dispelt, _dur, _et = UnitAura(SecureButton_GetModifiedUnit(frame) or "player", frame:GetID(), "]] .. filter .. [[");
 			if _bn then
 				if frame.btn.icon then frame.btn.icon:SetTexture(_tex); end
 				if frame.btn.nametxt then

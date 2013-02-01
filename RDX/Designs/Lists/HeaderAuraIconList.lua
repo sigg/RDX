@@ -149,7 +149,7 @@ local ]] .. objname .. [[_bs = ]] .. Serialize(bsdefault) .. [[;
 				btn.filter = "]] .. filter .. [[";
 				child.btn = btn;
 			end
-			_bn, _, _tex, _apps, _dispelt, _dur, _et = UnitAura(SecureButton_GetModifiedUnit(frame),child:GetID(), "]] .. filter .. [[");
+			_bn, _, _tex, _apps, _dispelt, _dur, _et = UnitAura(SecureButton_GetModifiedUnit(frame) or "player",child:GetID(), "]] .. filter .. [[");
 			if _bn then
 				child.btn.tex:SetTexture(_tex);
 				if _dispelt and DebuffTypeColor[_dispelt] then
