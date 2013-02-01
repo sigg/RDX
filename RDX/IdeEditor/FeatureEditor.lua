@@ -178,6 +178,8 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline, allowcode)
 				RDXIEEvents:Dispatch("SELECT", "Hotspot_" .. fd.name);
 			elseif fd.feature == "listbuttons" then
 				RDXIEEvents:Dispatch("SELECT", "Buttons_" .. fd.name .. "header");
+			elseif fd.feature == "listicons" then
+				RDXIEEvents:Dispatch("SELECT", "Icons_" .. fd.name .. "header");
 			else
 				RDXIEEvents:Dispatch("SELECT");
 			end
