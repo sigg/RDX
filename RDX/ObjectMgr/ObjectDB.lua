@@ -375,15 +375,6 @@ local function InitObjectDB()
 				RDXDB.OpenObject(pkg .. ":autodel", "Open", "local pkg = '" .. pkg .. "';");
 			end
 		--end
-		local adesk = d["autodesk"];
-		if adesk and adesk.ty == "Desktop" then
-			RDXDB.DeleteObject("desktops:".. pkg);
-			RDXDB.DeleteObject("desktops:".. pkg .. "_solo_dsk");
-			RDXDB.DeleteObject("desktops:".. pkg .. "_party_dsk");
-			RDXDB.DeleteObject("desktops:".. pkg .. "_raid_dsk");
-			RDXDB.DeleteObject("desktops:".. pkg .. "_pvp_dsk");
-			RDXDB.DeleteObject("desktops:".. pkg .. "_arena_dsk");
-		end
 		RDXData[pkg] = nil;
 		RDXDBEvents:Dispatch("PACKAGE_DELETED", pkg);
 		return true;

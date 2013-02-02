@@ -11,6 +11,17 @@ function RDXDK.RegisterThirdPartyMenu(id, menu)
 	thirdpartymenu[id] = menu;
 end
 
+-- helper
+
+local function PkgDeleteHandler(pkg)
+	local result,err = RDXDB.DeletePackage(pkg);
+	if result then return; end
+	if err == VFLI.i18n("Cannot delete non-empty package.") then
+		VFLUI.MessageBox(VFLI.i18n("Delete Theme: ") .. pkg, VFLI.i18n("The theme ") .. pkg .. VFLI.i18n(" is not empty. Are you sure you want to delete it?"), nil, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function() RDXDK.SecuredChangeAUI("desktops:default", "default"); _DisplayError(RDXDB.DeletePackage(pkg, true)); end);
+	else
+		_DisplayError(result, err);
+	end
+end
 
 -----------------------------------------
 -- DUI change
@@ -103,7 +114,7 @@ local function AUIList()
 	end
 	
 	table.insert(subMenus, {
-		text = "*******************",
+		text = "*****************",
 		isTitle = true,
 		notCheckable = true,
 		func = VFL.Noop,
@@ -129,15 +140,34 @@ local function AUIList()
 	);
 	if RDXU.AUI then
 		local pkg, file = RDXDB.ParsePath(RDXU.AUI);
-		table.insert(subMenus, { 
-			text = VFLI.i18n("Manage layouts " .. file),
-			notCheckable = true, 
-			func = function()
-				local md = RDXDB.GetObjectData(RDXU.AUI);
-				if md then RDXDK.ToggleAUIEditor(RDXU.AUI, md); end
-			end
-			}
-		);
+		if file then
+			table.insert(subMenus, {
+				text = "*****************",
+				isTitle = true,
+				notCheckable = true,
+				func = VFL.Noop,
+				}
+			);
+			table.insert(subMenus, { 
+				text = VFLI.i18n("Manage layouts " .. file),
+				notCheckable = true, 
+				func = function()
+					local md = RDXDB.GetObjectData(RDXU.AUI);
+					if md then RDXDK.ToggleAUIEditor(RDXU.AUI, md); end
+				end
+				}
+			);
+			table.insert(subMenus, { 
+				text = VFLI.i18n("Drop the theme " .. file),
+				notCheckable = true, 
+				func = function()
+					PkgDeleteHandler(file);
+					--local md = RDXDB.GetObjectData(RDXU.AUI);
+					--if md then RDXDK.ToggleAUIEditor(RDXU.AUI, md); end
+				end
+				}
+			);
+		end
 	end
 
 	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)

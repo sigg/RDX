@@ -241,20 +241,16 @@ end);
 -- Update hooks - make sure when a desktop changes we reload it.
 -----------------------------------------------------------------
 
---RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)
---	local path = RDXDB.MakePath(pkg,file);
---	if md and md.ty == "AUI" and path ~= RDXU.AUI then
-		--RDXDK.SecuredChangeDUI("desktops:");
---	end
---end);
-
---RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(pkg, file) 
---	local path = RDXDB.MakePath(pkg,file);
---	local _,_,_,ty = RDXDB.GetObjectData(path)
---	if ty == "DUI" and path == RDXU.DUI then 
-		--RDXDK.SecuredChangeDUI(path);
---	end
---end);
+RDXDBEvents:Bind("PACKAGE_DELETED", nil, function(pkg)
+	local objdata = RDXDB._AccessPathRaw("desktops", pkg);
+	
+	if objdata and objdata.data then
+		for i, v in ipairs(objdata.data) do
+			RDXDB.DeleteObject("desktops:" .. pkg .. "_".. v);
+		end
+		RDXDB.DeleteObject("desktops:".. pkg);
+	end
+end);
 
 ----------------------------
 -- INIT
