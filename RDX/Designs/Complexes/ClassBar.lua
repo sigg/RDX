@@ -357,7 +357,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		
 		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() 
 			f:CheckAndShow();
-		end, f.id);
+		end, f.id .. "h");
 		
 		-- call
 		f:CheckAndShow();
@@ -481,14 +481,11 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			local spec = GetSpecialization();
 			local form  = GetShapeshiftFormID();
 			if ( form == MOONKIN_FORM ) then
+				VFL.print("MOONKIN_FORM");
 				if GetSpecialization() == 1 then
+					WoWEvents:Unbind(self.id);
 					WoWEvents:Bind("UNIT_POWER", nil, function() self:Update(); end, self.id);
 					WoWEvents:Bind("ECLIPSE_DIRECTION_CHANGE", nil, function() self:Update(); end, self.id);
-					--WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(arg1, arg2) 
-						--if (arg1 == root:GetAttribute("unit") or "player") and ( arg2 == "SHADOW_ORBS" ) then
-						--	self:Update();
-						--end 
-					--end, self.id);
 					self:Show();
 				else
 					WoWEvents:Unbind(self.id);
@@ -501,13 +498,13 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			self:Update();
 		end
 		
-		VFLEvents:Bind("PLAYER_FORM_UPDATE", nil, function()
+		WoWEvents:Bind("UPDATE_SHAPESHIFT_FORM", nil, function()
 			f:CheckAndShow();
-		end, f.id);
+		end, f.id .. "h");
 		
 		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function()
 			f:CheckAndShow();
-		end, f.id);
+		end, f.id .. "h");
 		
 		-- call
 		f:CheckAndShow();
@@ -701,7 +698,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() 
 			--PLAYER_FORM_UPDATE
 			f:CheckAndShow();
-		end, f.id);
+		end, f.id .. "h");
 		
 		-- call
 		f:CheckAndShow();
@@ -714,6 +711,8 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		VFLT.AdaptiveUnschedule(s2.id)
 		WoWEvents:Unbind(s2.id);
 		VFLEvents:Unbind(s2.id);
+		WoWEvents:Unbind(s2.id .. "h");
+		VFLEvents:Unbind(s2.id .. "h");
 		s2.id = nil;
 		s2.Update = nil;
 		s2.CheckAndShow = nil;
