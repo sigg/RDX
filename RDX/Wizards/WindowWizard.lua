@@ -102,8 +102,9 @@ ww:RegisterPage(GetNextPageId(), "intro", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Wizard Tool");
 		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
 		local plb = VFLUI.MakeLabel(nil, page, "Welcome to the Window Wizard. This tool will help you to build some windows for your theme.\n");
-		plb:SetWidth(250); plb:SetHeight(30);
+		plb:SetWidth(300); plb:SetHeight(30);
 		plb:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
 		wizard:OnNext(function(wiz) wiz:SetPage(nil, "wtype"); end);
@@ -123,45 +124,45 @@ ww:RegisterPage(GetNextPageId(), "intro", {
 ww:RegisterPage(GetNextPageId(), "wtype", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Window type/Suffix");
-		--parent:SetBackdropColor(1,1,1,0.4);
 		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "Select the type of window you want to create:");
-		lbl:SetWidth(250); lbl:SetHeight(30);
+		lbl:SetWidth(300); lbl:SetHeight(30);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
 		local dd_wtype = VFLUI.Dropdown:new(page, GetWindowsType);
 		if desc and desc.wtype then 
 			dd_wtype:SetSelection(desc.wtype); 
 		end
-		dd_wtype:SetWidth(250); 
+		dd_wtype:SetWidth(300); 
 		dd_wtype:SetPoint("TOPRIGHT", lbl, "BOTTOMRIGHT");
 		dd_wtype:Show();
 		
 		--[[local page = RDXUI.GenerateStdWizardPage(parent, "Package/Prefix");
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "Select a package to create your new window in. You may select a preexisting package or enter a name for a new package.\n\nPackage names must contain only alphanumeric characters and underscores.");
-		lbl:SetWidth(250); lbl:SetHeight(60);
+		lbl:SetWidth(300); lbl:SetHeight(60);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		local edPkg = RDXDB.PackageSelector:new(page);
 		edPkg:SetPoint("TOPRIGHT", lbl, "BOTTOMRIGHT"); edPkg:SetWidth(225); edPkg:Show();
 		if desc and desc.pkg then edPkg:SetPackage(desc.pkg); end]]
 
 		local lbl = VFLUI.MakeLabel(nil, page, "Enter a suffix for this window. The suffix will be added to each of this window's objects. By using different suffix, you can create multiple windows in a single theme.");
-		lbl:SetWidth(250); lbl:SetHeight(40);
+		lbl:SetWidth(300); lbl:SetHeight(40);
 		lbl:SetPoint("TOPRIGHT", dd_wtype, "BOTTOMRIGHT", 0, -10);
 		local edSfx = VFLUI.Edit:new(page);
 		edSfx:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
-		edSfx:SetHeight(25); edSfx:SetWidth(250); edSfx:Show();
+		edSfx:SetHeight(25); edSfx:SetWidth(300); edSfx:Show();
 		if desc and desc.suffix then edSfx:SetText(desc.suffix); end
 		
 
 		local lbl = VFLUI.MakeLabel(nil, page, "Enter a window title for this window. (optional)");
-		lbl:SetWidth(250); lbl:SetHeight(10);
+		lbl:SetWidth(300); lbl:SetHeight(10);
 		lbl:SetPoint("TOPRIGHT", edSfx, "BOTTOMRIGHT", 0, -10);
 		local edTtl = VFLUI.Edit:new(page);
 		edTtl:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
-		edTtl:SetHeight(25); edTtl:SetWidth(250); edTtl:Show();
+		edTtl:SetHeight(25); edTtl:SetWidth(300); edTtl:Show();
 		if desc and desc.title then edTtl:SetText(desc.title); end
 
 		function page:GetDescriptor()
@@ -217,14 +218,13 @@ ww:RegisterPage(GetNextPageId(), "chkwin", {
 		txt = txt .. "\nClick Prev to add a suffix to the name of your window.";
 
 		local page = RDXUI.GenerateStdWizardPage(parent, "Confirm");
-		--parent:SetBackdropColor(1,1,1,0.4);
 		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		lbl:SetWidth(250); lbl:SetHeight(100); lbl:SetJustifyV("TOP");
+		lbl:SetWidth(300); lbl:SetHeight(100); lbl:SetJustifyV("TOP");
 		lbl:SetText(txt);
-		page:SetHeight(120);
 
 		wizard:OnNext(function(wiz) wiz:SetPage(nil, "framing"); end);
 		return page;
@@ -261,8 +261,8 @@ RDX.RegisterFeature({
 ww:RegisterPage(GetNextPageId(), "framing", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Framing");
-		--parent:SetBackdropColor(1,1,1,0.4);
 		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
 		local lbl = VFLUI.MakeLabel(nil, page, "Select a frame for the window:");
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 
@@ -339,10 +339,11 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Design");
 		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
 		local pld = wizard:GetPageDescriptor(nil, "wtype");
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "Select the type of design you want to use.");
-		lbl:SetWidth(250); lbl:SetHeight(30);
+		lbl:SetWidth(300); lbl:SetHeight(30);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 
 		local btn1 = VFLUI.Button:new(page);
@@ -405,10 +406,10 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 ww:RegisterPage(GetNextPageId(), "design", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Design");
-		--parent:SetBackdropColor(1,1,1,0.4);
 		page:SetWidth(336); page:SetHeight(378);
-		local lbl = VFLUI.MakeLabel(nil, page, "Choose a design for your window. A preview will be shown below.");
-		lbl:SetWidth(300); lbl:SetHeight(20);
+		parent:SetBackdropColor(1,1,1,0.4);
+		local lbl = VFLUI.MakeLabel(nil, page, "Choose a design for your window. A preview will be shown below. (classbar/buff : if you have no charge or no aura, the window may be empty) ");
+		lbl:SetWidth(300); lbl:SetHeight(40);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		
 		local pld = wizard:GetPageDescriptor(nil, "wtype");
@@ -496,6 +497,7 @@ ww:RegisterPage(GetNextPageId(), "d_base_default", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Height/Width");
 		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
 		lbl:SetWidth(300); lbl:SetHeight(60);
@@ -552,6 +554,7 @@ ww:RegisterPage(GetNextPageId(), "d_backdrop", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Backdrop");
 		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
 		lbl:SetWidth(300); lbl:SetHeight(60);
@@ -602,6 +605,7 @@ ww:RegisterPage(GetNextPageId(), "d_texture", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Texture");
 		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
 		lbl:SetWidth(300); lbl:SetHeight(60);
@@ -666,6 +670,7 @@ ww:RegisterPage(GetNextPageId(), "d_font", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Font");
 		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
 		
 		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
 		lbl:SetWidth(300); lbl:SetHeight(60);
@@ -788,7 +793,7 @@ ww:RegisterPage(GetNextPageId(), "d_font", {
 --[[ww:RegisterPage(GetNextPageId(), "designalpha",{
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Alpha Fade");
-		page:SetWidth(300); page:SetHeight(250);
+		page:SetWidth(300); page:SetHeight(300);
 		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
 		lbl:SetWidth(300); lbl:SetHeight(30);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
@@ -841,6 +846,7 @@ ww:RegisterPage(GetNextPageId(), "singleheader", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Header Definition");
 		page:SetWidth(315); page:SetHeight(350);
+		parent:SetBackdropColor(1,1,1,0.4);
 
 		local lbl = VFLUI.MakeLabel(nil, page, "Choose which groups and classes you want to display and how you would like to sort them.");
 		lbl:SetWidth(325); lbl:SetHeight(20);
@@ -927,7 +933,7 @@ ww:RegisterPage(GetNextPageId(), "singleheader", {
 			rg_sort.buttons[5]:SetText("HP");
 			rg_sort.buttons[6]:SetText("Mana");
 		end
-		rg_sort:SetWidth(250); rg_sort:SetHeight(16*math.ceil(nSorts/2));
+		rg_sort:SetWidth(300); rg_sort:SetHeight(16*math.ceil(nSorts/2));
 		if desc and desc.sort then rg_sort:SetValue(desc.sort); else rg_sort:SetValue(1); end
 
 		local chk_reverse = VFLUI.Checkbox:new(page); chk_reverse:Show();
@@ -1013,22 +1019,23 @@ ww:RegisterPage(GetNextPageId(), "mousebindings", {
 		end
 
 		local page = RDXUI.GenerateStdWizardPage(parent, "Mouse Bindings");
+		parent:SetBackdropColor(1,1,1,0.4);
 		page:SetWidth(300); page:SetHeight(150);
 		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		lbl:SetWidth(250); lbl:SetHeight(20); lbl:SetJustifyV("TOP");
+		lbl:SetWidth(300); lbl:SetHeight(20); lbl:SetJustifyV("TOP");
 		lbl:SetText("Select mouse bindings for this window. Mouse bindings determine what happens when you click on this window.");
 
 		local btype = VFLUI.DisjointRadioGroup:new();
 
 		local btype_none = btype:CreateRadioButton(page);
 		btype_none:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
-		btype_none:SetWidth(250); btype_none:Show();
+		btype_none:SetWidth(300); btype_none:Show();
 		btype_none:SetText("No mouse bindings");
 
 		local btype_intl = btype:CreateRadioButton(page);
 		btype_intl:SetPoint("TOPLEFT", btype_none, "BOTTOMLEFT");
-		btype_intl:SetWidth(250); btype_intl:Show();
+		btype_intl:SetWidth(300); btype_intl:Show();
 		btype_intl:SetText("Use RDX mouse bindings");
 
 		local ofMB = RDXDB.ObjectFinder:new(page, function(p,f,md) return (md and type(md) == "table" and md.ty=="MouseBindings"); end);
@@ -1040,7 +1047,7 @@ ww:RegisterPage(GetNextPageId(), "mousebindings", {
 		--if wizard:GetPageDescriptor(4).windowType ~= 4 then
 	  	--btype_extl = btype:CreateRadioButton(page);
 		--	btype_extl:SetPoint("TOPLEFT", ofMB, "BOTTOMLEFT");
-		--	btype_extl:SetWidth(250); btype_extl:Show();
+		--	btype_extl:SetWidth(300); btype_extl:Show();
 		--	btype_extl:SetText("Use external program (Clique etc.)");
 		--end
 
@@ -1074,10 +1081,11 @@ ww:RegisterPage(GetNextPageId(), "mousebindings", {
 ww:RegisterPage(GetNextPageId(), "done", {
 	OpenPage = function(parent, wizard, desc)
 		local page = RDXUI.GenerateStdWizardPage(parent, "Done!");
+		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
 		local lbl = VFLUI.MakeLabel(nil, page, "You have now entered all information necessary to create your window.\n\nIf you click OK, your window will be created and moved to the center of the screen.\n\nIf you choose Cancel, this process will be aborted and no changes will be made.");
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
-		lbl:SetWidth(250); lbl:SetHeight(110); lbl:SetJustifyV("TOP");
-		page:SetHeight(130);
+		lbl:SetWidth(300); lbl:SetHeight(110); lbl:SetJustifyV("TOP");
 
 		wizard:Final();
 		return page;
