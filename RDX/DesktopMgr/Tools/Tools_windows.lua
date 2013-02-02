@@ -115,6 +115,26 @@ local function WindowListRightClick(self, path)
 		});
 	end
 	
+	table.insert(mnu, {
+		text = VFLI.i18n("Delete Window"),
+		OnClick = function()
+			VFL.poptree:Release();
+			if InCombatLockdown() then return; end
+			VFLUI.MessageBox(VFLI.i18n("Delete window: ") .. path, VFLI.i18n("Are you sure you want to delete the window ") .. path .. VFLI.i18n("?"), nil, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), 
+				function()
+					local inst = RDXDB.GetObjectInstance(path, true);
+					if inst then
+						RDXDB.OpenObject(path, "Close");
+					end
+					RDXDB.DeleteObject(path .. "_ds");
+					RDXDB.DeleteObject(path);
+					VFLT.NextFrame(math.random(10000000), function()
+						RDXDK.ToolsWindowUpdate();
+					end);
+				end);
+		end
+	});
+	
 	VFL.poptree:Begin(150, 12, self, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(self));
 	VFL.poptree:Expand(nil, mnu);
 end
@@ -158,10 +178,16 @@ list:SetDataSource(function(cell, data, pos)
 		if arg1 == "LeftButton" then
 			WindowListClick(p); list:Update();
 		elseif arg1 == "RightButton" then
-			WindowListRightClick(self, p);
+			WindowListRightClick(self, p); 
 		end
 	end);
 end, VFL.ArrayLiterator(wl));
+
+function RDXDK.ToolsWindowUpdate()
+	local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+	BuildWindowList(auiname);
+	list:Update();
+end;
 
 -- Windows less
 local separator_winless = VFLUI.SeparatorText:new(framew, 1, 216);
