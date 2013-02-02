@@ -416,25 +416,25 @@ function RDXDK.DuplicateAUI()
 	dlg2:SetTitleColor(0,.6,0);
 	dlg2:SetBackdrop(VFLUI.DefaultDialogBackdrop);
 	dlg2:SetPoint("CENTER", RDXParent, "CENTER");
-	dlg2:SetWidth(230); dlg2:SetHeight(125);
+	dlg2:SetWidth(250); dlg2:SetHeight(125);
 	dlg2:SetText("Duplicate a theme");
 	VFLUI.Window.StdMove(dlg2, dlg2:GetTitleBar());
-	if RDXPM.Ismanaged("rdx_duplicate_window") then RDXPM.RestoreLayout(dlg, "rdx_duplicate_window"); end
+	if RDXPM.Ismanaged("rdx_duplicate_window") then RDXPM.RestoreLayout(dlg2, "rdx_duplicate_window"); end
 	
 	local ui, sf = VFLUI.CreateScrollingCompoundFrame(dlg2);
-	sf:SetWidth(200); sf:SetHeight(70);
+	sf:SetWidth(230); sf:SetHeight(70);
 	sf:SetPoint("TOPLEFT", dlg2:GetClientArea(), "TOPLEFT");
 	
 	BuildPackageList();
 	
-	local er = VFLUI.EmbedRight(ui, VFLI.i18n("Themes"));
+	local er = VFLUI.EmbedRight(ui, VFLI.i18n("Select a theme"));
 	local dd_pkg = VFLUI.Dropdown:new(er, BuildPackageList);
-	dd_pkg:SetWidth(100); dd_pkg:Show();
+	dd_pkg:SetWidth(150); dd_pkg:Show();
 	er:EmbedChild(dd_pkg); er:Show();
 	ui:InsertFrame(er);
 	
-	local ed_newname = VFLUI.LabeledEdit:new(ui, 200); ed_newname:Show();
-	ed_newname:SetText(VFLI.i18n("Enter a new name"));
+	local ed_newname = VFLUI.LabeledEdit:new(ui, 150); ed_newname:Show();
+	ed_newname:SetText(VFLI.i18n("Enter a name"));
 	ui:InsertFrame(ed_newname);
 	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
