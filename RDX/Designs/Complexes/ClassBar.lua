@@ -480,8 +480,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		f.CheckAndShow = function(self)
 			local spec = GetSpecialization();
 			local form  = GetShapeshiftFormID();
-			if ( form == MOONKIN_FORM ) then
-				VFL.print("MOONKIN_FORM");
+			--if ( form == MOONKIN_FORM ) then
 				if GetSpecialization() == 1 then
 					WoWEvents:Unbind(self.id);
 					WoWEvents:Bind("UNIT_POWER", nil, function() self:Update(); end, self.id);
@@ -491,10 +490,10 @@ function RDXUI.ClassBar:new(parent, root, desc)
 					WoWEvents:Unbind(self.id);
 					self:Hide();
 				end
-			else
-				WoWEvents:Unbind(self.id);
-				self:Hide();
-			end
+			--else
+			--	WoWEvents:Unbind(self.id);
+			--	self:Hide();
+			--end
 			self:Update();
 		end
 		
