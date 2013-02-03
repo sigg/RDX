@@ -57,9 +57,9 @@ updateViewport = function()
 end
 
 -- action bar
-local separator4 = VFLUI.SeparatorText:new(framed, 1, 216);
-separator4:SetPoint("TOPLEFT", leright, "BOTTOMLEFT", 0, -5);
-separator4:SetText("ActionBars"); separator4:Show();
+-- local separator4 = VFLUI.SeparatorText:new(framed, 1, 216);
+-- separator4:SetPoint("TOPLEFT", leright, "BOTTOMLEFT", 0, -5);
+-- separator4:SetText("ActionBars"); separator4:Show();
 
 -- button configure keys
 --local dfkey = nil;
