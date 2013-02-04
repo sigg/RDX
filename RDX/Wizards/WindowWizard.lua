@@ -350,7 +350,7 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		btn1:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT", 5, -15);
 		btn1:SetWidth(25); btn1:SetHeight(25); btn1:Show(); btn1:SetText(">");
 		local blbl = VFLUI.MakeLabel(nil, page, "Copy the design of the same window type from another theme.");
-		blbl:SetWidth(200); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn1, "RIGHT");
+		blbl:SetWidth(300); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn1, "RIGHT");
 		wizard:MakeNextButton(btn1, function(w, dsc)
 			dsc.designType = 1; w:SetPage(nil, "design");
 		end);
@@ -359,7 +359,7 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		btn2:SetPoint("TOP", btn1, "BOTTOM", 0, -20);
 		btn2:SetWidth(25); btn2:SetHeight(25); btn2:Show(); btn2:SetText(">");
 		blbl = VFLUI.MakeLabel(nil, page, "Copy an existing design in the current theme");
-		blbl:SetWidth(200); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn2, "RIGHT");
+		blbl:SetWidth(300); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn2, "RIGHT");
 		wizard:MakeNextButton(btn2, function(w, dsc)
 			dsc.designType = 2; w:SetPage(nil, "design");
 		end);
@@ -368,7 +368,7 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		btn3:SetPoint("TOP", btn2, "BOTTOM", 0, -20);
 		btn3:SetWidth(25); btn3:SetHeight(25); btn3:Show(); btn3:SetText(">");
 		blbl = VFLUI.MakeLabel(nil, page, "Use an existing design in the current theme (windows will share the same design, any modification in the design will impact all windows)");
-		blbl:SetWidth(200); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn3, "RIGHT");
+		blbl:SetWidth(300); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn3, "RIGHT");
 		wizard:MakeNextButton(btn3, function(w, dsc)
 			dsc.designType = 3; w:SetPage(nil, "design");
 		end);
@@ -377,7 +377,7 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		btn4:SetPoint("TOP", btn3, "BOTTOM", 0, -20);
 		btn4:SetWidth(25); btn4:SetHeight(25); btn4:Show(); btn4:SetText(">");
 		blbl = VFLUI.MakeLabel(nil, page, "Create a new empty or predefined design. Predefined Design are only available for simple windows like actionbar, buff icons, etc ... PlayerFrame will be empty.");
-		blbl:SetWidth(200); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn4, "RIGHT");
+		blbl:SetWidth(300); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn4, "RIGHT");
 		wizard:MakeNextButton(btn4, function(w, dsc)
 			dsc.designType = 4; 
 			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
@@ -472,6 +472,8 @@ ww:RegisterPage(GetNextPageId(), "design", {
 		wizard:OnNext(function(wiz) 
 			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
 				wiz:SetPage(nil, "singleheader");
+			elseif pld.wtype == "TabManager" then
+				wiz:SetPage(nil, "d_base_default");
 			else
 				wiz:SetPage(nil, "done");
 			end
@@ -534,8 +536,8 @@ ww:RegisterPage(GetNextPageId(), "d_base_default", {
 		end, page.Destroy);
 		
 		wizard:OnNext(function(wiz)
-			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
-				wiz:SetPage(nil, "singleheader");
+			if pld.wtype == "TabManager" then
+				wiz:SetPage(nil, "d_backdrop");
 			else
 				wiz:SetPage(nil, "done");
 			end
@@ -545,6 +547,8 @@ ww:RegisterPage(GetNextPageId(), "d_base_default", {
 	end;
 	Verify = function(desc, wizard, errs)
 		if not desc then errs:AddError("Invalid descriptor."); end
+		if not desc.w then errs:AddError(VFLI.i18n("Missing width")); end
+		if not desc.h then errs:AddError(VFLI.i18n("Missing height")); end
 		return not errs:HasError();
 	end
 });
@@ -585,8 +589,8 @@ ww:RegisterPage(GetNextPageId(), "d_backdrop", {
 		end, page.Destroy);
 		
 		wizard:OnNext(function(wiz)
-			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
-				wiz:SetPage(nil, "singleheader");
+			if pld.wtype == "TabManager" then
+				wiz:SetPage(nil, "d_font");
 			else
 				wiz:SetPage(nil, "done");
 			end
@@ -701,11 +705,11 @@ ww:RegisterPage(GetNextPageId(), "d_font", {
 		end, page.Destroy);
 		
 		wizard:OnNext(function(wiz)
-			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
-				wiz:SetPage(nil, "singleheader");
-			else
+			--if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
+				--wiz:SetPage(nil, "singleheader");
+			--else
 				wiz:SetPage(nil, "done");
-			end
+			--end
 		end);
 		
 		return page;
@@ -1083,6 +1087,7 @@ ww:RegisterPage(GetNextPageId(), "done", {
 		local page = RDXUI.GenerateStdWizardPage(parent, "Done!");
 		page:SetWidth(336); page:SetHeight(378);
 		parent:SetBackdropColor(1,1,1,0.4);
+		
 		local lbl = VFLUI.MakeLabel(nil, page, "You have now entered all information necessary to create your window.\n\nIf you click OK, your window will be created and moved to the center of the screen.\n\nIf you choose Cancel, this process will be aborted and no changes will be made.");
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		lbl:SetWidth(300); lbl:SetHeight(110); lbl:SetJustifyV("TOP");
@@ -1176,10 +1181,19 @@ function ww:OnOK()
 	-- Delete all preexisting files in that package, destroying instances as well.
 	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_set"));
 	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_sort"));
+	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_tm"));
 	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_ds"));
 	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix));
 	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_wz")); -- wizard
-
+	
+	-------------------------- GENERATE TABMANAGER IF NECESSARY
+	if wtype == "TabManager" then
+		obj = RDXDB._DirectCreateObject(pkg, wtype .. suffix .. "_tm");
+		obj.ty = "TabManager"; obj.version = 2;
+		obj.data = {
+			"root",
+		}
+	end
 	-------------------------- GENERATE SET AND SORT IF NECESSARY
 	--[[if wtype ~= 2 then
 		-- Create the FilterSet
@@ -1232,6 +1246,9 @@ function ww:OnOK()
 		-- simple object has default design
 		if wtype == "ActionBar1" then
 			dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
+		elseif wtype == "TabManager" then
+			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_base_default").h, w = self:GetPageDescriptor(nil, "d_base_default").w, alpha = 1, });
+			dState:AddFeature({feature = "tabmanager", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "tm1", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, font = self:GetPageDescriptor(nil, "d_font").font, bkd = self:GetPageDescriptor(nil, "d_backdrop").bkd, orientation = "TOP", cfm = pkg .. ":" .. wtype .. suffix .. "_tm", });
 		elseif wtype == "FactionBar" then
 			dState:AddFeature(RDXDB.GetFeatureByName("Variables: Detailed Faction Info").CreateDescriptor());
 			dState:AddFeature({feature = "base_default", version = 1, h = 15, w = 400, alpha = 1, });
