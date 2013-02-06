@@ -16,8 +16,10 @@ local wtype = {
 	{ text = "Player_CastBar" },
 	--{ text = "Player_PowerBarAlt" },
 	{ text = "Player_Alternate_Bar" },
+	{ text = "Player_Buff_Icon" },
 	{ text = "Player_Buff_Secured_Icon" },
 	{ text = "Player_Debuff_Icon" },
+	{ text = "Player_Debuff_Secured_Icon" },
 	{ text = "Player_Cooldowns_Used" },
 	{ text = "Cooline" },
 	{ text = "ClassBar" },
@@ -40,7 +42,10 @@ local wtype = {
 	{ text = "MainPanel" },
 	{ text = "MainMenu" },
 	{ text = "Bags" },
-	{ text = "TabManager" },
+	{ text = "TabManager1" },
+	{ text = "TabManager2" },
+	{ text = "TabManager3" },
+	{ text = "TabManager4" },
 	{ text = "FactionBar" },
 	{ text = "XpBar" },
 	
@@ -379,9 +384,13 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		blbl = VFLUI.MakeLabel(nil, page, "Create a new empty or predefined design. Predefined Design are only available for simple windows like actionbar, buff icons, etc ... PlayerFrame will be empty.");
 		blbl:SetWidth(300); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn4, "RIGHT");
 		wizard:MakeNextButton(btn4, function(w, dsc)
-			dsc.designType = 4; 
-			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
+			dsc.designType = 4;
+			if pld.wtype == "ActionBar1" or pld.wtype == "ActionBar3" or pld.wtype == "ActionBar4" or pld.wtype == "ActionBar5" or pld.wtype == "ActionBar6" or pld.wtype == "ActionBarStance" or pld.wtype == "ActionBarPet" or pld.wtype == "ActionBarVehicle" then
+				w:SetPage(nil, "d_size_spacing");
+			elseif pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
 				w:SetPage(nil, "singleheader");
+			elseif pld.wtype == "TabManager" then
+				w:SetPage(nil, "d_base_default");
 			else
 				--if pld.wtype == "ActionBar1" then
 				--	w:SetPage(nil, "ActionBar1");
@@ -401,7 +410,7 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 });
 
 --------------------------------------------------------
--- Page: The Infamous Unitframe Page
+-- Page: The Infamous Design Page
 --------------------------------------------------------
 ww:RegisterPage(GetNextPageId(), "design", {
 	OpenPage = function(parent, wizard, desc)
@@ -472,8 +481,6 @@ ww:RegisterPage(GetNextPageId(), "design", {
 		wizard:OnNext(function(wiz) 
 			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
 				wiz:SetPage(nil, "singleheader");
-			elseif pld.wtype == "TabManager" then
-				wiz:SetPage(nil, "d_base_default");
 			else
 				wiz:SetPage(nil, "done");
 			end
@@ -549,6 +556,150 @@ ww:RegisterPage(GetNextPageId(), "d_base_default", {
 		if not desc then errs:AddError("Invalid descriptor."); end
 		if not desc.w then errs:AddError(VFLI.i18n("Missing width")); end
 		if not desc.h then errs:AddError(VFLI.i18n("Missing height")); end
+		return not errs:HasError();
+	end
+});
+
+-- size spacing feature
+ww:RegisterPage(GetNextPageId(), "d_size_spacing", {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, "Size/Spacing");
+		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
+		
+		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
+		lbl:SetWidth(300); lbl:SetHeight(60);
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+		lbl:SetText("You may enter the size and the spacing of each button");
+
+		local pld = wizard:GetPageDescriptor(nil, "wtype");
+		
+		local ui, sf = VFLUI.CreateScrollingCompoundFrame(page);
+		sf:SetWidth(320); sf:SetHeight(300);
+		sf:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
+
+		local ed_size = VFLUI.LabeledEdit:new(ui, 200); ed_size:Show();
+		ed_size:SetText(VFLI.i18n("Size"));
+		if desc and desc.size then ed_size.editBox:SetText(desc.size); end
+		ui:InsertFrame(ed_size);
+		
+		local ed_spacing = VFLUI.LabeledEdit:new(ui, 200); ed_spacing:Show();
+		ed_spacing:SetText(VFLI.i18n("Height"));
+		if desc and desc.spacing then ed_spacing.editBox:SetText(desc.spacing); end
+		ui:InsertFrame(ed_spacing);
+
+		VFLUI.ActivateScrollingCompoundFrame(ui, sf);
+
+		function page:GetDescriptor()
+			return {
+				size = ed_size.editBox:GetNumber();
+				spacing = ed_spacing.editBox:GetNumber();
+			};
+		end
+
+		page.Destroy = VFL.hook(function(s)
+			VFLUI.DestroyScrollingCompoundFrame(ui, sf);
+		end, page.Destroy);
+		
+		wizard:OnNext(function(wiz)
+			if pld.wtype == "ActionBar1" or pld.wtype == "ActionBar3" or pld.wtype == "ActionBar4" or pld.wtype == "ActionBar5" or pld.wtype == "ActionBar6" or pld.wtype == "ActionBarStance" or pld.wtype == "ActionBarPet" or pld.wtype == "ActionBarVehicle" then
+				wiz:SetPage(nil, "d_skin_cd");
+			else
+				wiz:SetPage(nil, "done");
+			end
+		end);
+		
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		if not desc then errs:AddError("Invalid descriptor."); end
+		if not desc.size then errs:AddError(VFLI.i18n("Missing size")); end
+		if not desc.spacing then errs:AddError(VFLI.i18n("Missing spacing")); end
+		return not errs:HasError();
+	end
+});
+
+-- size spacing feature
+ww:RegisterPage(GetNextPageId(), "d_skin_cd", {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, "Skin / cd");
+		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
+		
+		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
+		lbl:SetWidth(300); lbl:SetHeight(60);
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+		lbl:SetText("Select the skin of your button/icon and the type of cooldown");
+		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Skin parameters")));
+
+		local pld = wizard:GetPageDescriptor(nil, "wtype");
+		
+		local ui, sf = VFLUI.CreateScrollingCompoundFrame(page);
+		sf:SetWidth(320); sf:SetHeight(300);
+		sf:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
+
+		local driver = VFLUI.DisjointRadioGroup:new();
+		
+		local driver_NS = driver:CreateRadioButton(ui);
+		driver_NS:SetText(VFLI.i18n("No Skin"));
+		local driver_BS = driver:CreateRadioButton(ui);
+		driver_BS:SetText(VFLI.i18n("Use Button Skin"));
+		local driver_BD = driver:CreateRadioButton(ui);
+		driver_BD:SetText(VFLI.i18n("Use Backdrop"));
+		driver:SetValue(desc.driver or 1);
+		
+		ui:InsertFrame(driver_NS);
+		
+		ui:InsertFrame(driver_BS);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("ButtonSkin"));
+		local dd_buttonskin = VFLUI.MakeButtonSkinSelectButton(er, desc.bs);
+		dd_buttonskin:Show();
+		er:EmbedChild(dd_buttonskin); er:Show();
+		ui:InsertFrame(er);
+		
+		ui:InsertFrame(driver_BD);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop"));
+		local dd_backdrop = VFLUI.MakeBackdropSelectButton(er, desc.bkd);
+		dd_backdrop:Show();
+		er:EmbedChild(dd_backdrop); er:Show();
+		ui:InsertFrame(er);
+		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown parameters")));
+		local ercd = VFLUI.EmbedRight(ui, VFLI.i18n("Cooldown"));
+		local cd = VFLUI.MakeCooldownSelectButton(ercd, desc.cd); cd:Show();
+		ercd:EmbedChild(cd); ercd:Show();
+		ui:InsertFrame(ercd);
+
+		VFLUI.ActivateScrollingCompoundFrame(ui, sf);
+
+		function page:GetDescriptor()
+			return {
+				driver = driver:GetValue();
+				bs = dd_buttonskin:GetSelectedButtonSkin();
+				bkd = dd_backdrop:GetSelectedBackdrop();
+				cd = cd:GetSelectedCooldown();
+			};
+		end
+
+		page.Destroy = VFL.hook(function(s)
+			VFLUI.DestroyScrollingCompoundFrame(ui, sf);
+		end, page.Destroy);
+		
+		wizard:OnNext(function(wiz)
+			if pld.wtype == "ActionBar1" or pld.wtype == "ActionBar3" or pld.wtype == "ActionBar4" or pld.wtype == "ActionBar5" or pld.wtype == "ActionBar6" or pld.wtype == "ActionBarStance" or pld.wtype == "ActionBarPet" or pld.wtype == "ActionBarVehicle" then
+				wiz:SetPage(nil, "d_backdrop");
+			else
+				wiz:SetPage(nil, "done");
+			end
+		end);
+		
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		if not desc then errs:AddError("Invalid descriptor."); end
 		return not errs:HasError();
 	end
 });
@@ -697,6 +848,68 @@ ww:RegisterPage(GetNextPageId(), "d_font", {
 		function page:GetDescriptor()
 			return {
 				font = fontsel:GetSelectedFont();
+			};
+		end
+
+		page.Destroy = VFL.hook(function(s)
+			VFLUI.DestroyScrollingCompoundFrame(ui, sf);
+		end, page.Destroy);
+		
+		wizard:OnNext(function(wiz)
+			--if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
+				--wiz:SetPage(nil, "singleheader");
+			--else
+				wiz:SetPage(nil, "done");
+			--end
+		end);
+		
+		return page;
+	end;
+	Verify = function(desc, wizard, errs)
+		if not desc then errs:AddError("Invalid descriptor."); end
+		return not errs:HasError();
+	end
+});
+
+ww:RegisterPage(GetNextPageId(), "d_font_multi", {
+	OpenPage = function(parent, wizard, desc)
+		local page = RDXUI.GenerateStdWizardPage(parent, "Fonts");
+		page:SetWidth(336); page:SetHeight(378);
+		parent:SetBackdropColor(1,1,1,0.4);
+		
+		local lbl = VFLUI.MakeLabel(nil, page, "TEXT");
+		lbl:SetWidth(300); lbl:SetHeight(60);
+		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
+		lbl:SetText("You may select a font for your window");
+
+		local pld = wizard:GetPageDescriptor(nil, "wtype");
+		
+		local ui, sf = VFLUI.CreateScrollingCompoundFrame(page);
+		sf:SetWidth(320); sf:SetHeight(300);
+		sf:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
+
+		local er_st = VFLUI.EmbedRight(ui, VFLI.i18n("Font Key"));
+		local fontkey = VFLUI.MakeFontSelectButton(er_st, desc.fontkey); fontkey:Show();
+		er_st:EmbedChild(fontkey); er_st:Show();
+		ui:InsertFrame(er_st);
+		
+		local er_st = VFLUI.EmbedRight(ui, VFLI.i18n("Font Macro"));
+		local fontmacro = VFLUI.MakeFontSelectButton(er_st, desc.fontmacro); fontmacro:Show();
+		er_st:EmbedChild(fontmacro); er_st:Show();
+		ui:InsertFrame(er_st);
+		
+		local er_st = VFLUI.EmbedRight(ui, VFLI.i18n("Font Count"));
+		local fontcount = VFLUI.MakeFontSelectButton(er_st, desc.fontcount); fontcount:Show();
+		er_st:EmbedChild(fontcount); er_st:Show();
+		ui:InsertFrame(er_st);
+
+		VFLUI.ActivateScrollingCompoundFrame(ui, sf);
+
+		function page:GetDescriptor()
+			return {
+				fontkey = fontkey:GetSelectedFont();
+				fontmacro = fontmacro:GetSelectedFont();
+				fontcount = fontcount:GetSelectedFont();
 			};
 		end
 
@@ -1245,7 +1458,29 @@ function ww:OnOK()
 		
 		-- simple object has default design
 		if wtype == "ActionBar1" then
-			dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
+			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_size_spacing").size , w = (self:GetPageDescriptor(nil, "d_size_spacing").size + self:GetPageDescriptor(nil, "d_size_spacing").spacing) * 12, alpha = 1, });
+			dState:AddFeature({feature = "listbuttons", version = 1, name = "ab1", headervisiType = "None", headervisiCustom = "", nIcons = 12, owner = "Base", flo = 2, anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, rows = 1, orientation = "RIGHT", iconspx = self:GetPageDescriptor(nil, "d_size_spacing").spacing, iconspy = 0, w = self:GetPageDescriptor(nil, "d_size_spacing").size, h = self:GetPageDescriptor(nil, "d_size_spacing").size, flyoutdirection = "UP", driver = self:GetPageDescriptor(nil, "d_skin_cd").driver, bs = self:GetPageDescriptor(nil, "d_skin_cd").bs, bkd = self:GetPageDescriptor(nil, "d_skin_cd").bkd, shader = 1, cd = self:GetPageDescriptor(nil, "d_skin_cd").cd, fontkey = self:GetPageDescriptor(nil, "d_font_multi").fontkey, fontmacro = self:GetPageDescriptor(nil, "d_font_multi").fontmacro, fontcount = self:GetPageDescriptor(nil, "d_font_multi").fontcount, showtooltip = 1, ftype = 1, barid = "mainbar1", selfcast = 1, headerstateType = "Defaultui", headerstateCustom = "", });
+		elseif wtype == "ActionBar3" then
+			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_size_spacing").size , w = (self:GetPageDescriptor(nil, "d_size_spacing").size + self:GetPageDescriptor(nil, "d_size_spacing").spacing) * 12, alpha = 1, });
+			dState:AddFeature({feature = "listbuttons", version = 1, name = "ab3", headervisiType = "None", headervisiCustom = "", nIcons = 12, owner = "Base", flo = 2, anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, rows = 1, orientation = "RIGHT", iconspx = self:GetPageDescriptor(nil, "d_size_spacing").spacing, iconspy = 0, w = self:GetPageDescriptor(nil, "d_size_spacing").size, h = self:GetPageDescriptor(nil, "d_size_spacing").size, flyoutdirection = "UP", driver = self:GetPageDescriptor(nil, "d_skin_cd").driver, bs = self:GetPageDescriptor(nil, "d_skin_cd").bs, bkd = self:GetPageDescriptor(nil, "d_skin_cd").bkd, shader = 1, cd = self:GetPageDescriptor(nil, "d_skin_cd").cd, fontkey = self:GetPageDescriptor(nil, "d_font_multi").fontkey, fontmacro = self:GetPageDescriptor(nil, "d_font_multi").fontmacro, fontcount = self:GetPageDescriptor(nil, "d_font_multi").fontcount, showtooltip = 1, ftype = 1, barid = "bar3", selfcast = 1, headerstateType = "None", headerstateCustom = "", });
+		elseif wtype == "ActionBar4" then
+			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_size_spacing").size , w = (self:GetPageDescriptor(nil, "d_size_spacing").size + self:GetPageDescriptor(nil, "d_size_spacing").spacing) * 12, alpha = 1, });
+			dState:AddFeature({feature = "listbuttons", version = 1, name = "ab4", headervisiType = "None", headervisiCustom = "", nIcons = 12, owner = "Base", flo = 2, anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, rows = 1, orientation = "RIGHT", iconspx = self:GetPageDescriptor(nil, "d_size_spacing").spacing, iconspy = 0, w = self:GetPageDescriptor(nil, "d_size_spacing").size, h = self:GetPageDescriptor(nil, "d_size_spacing").size, flyoutdirection = "UP", driver = self:GetPageDescriptor(nil, "d_skin_cd").driver, bs = self:GetPageDescriptor(nil, "d_skin_cd").bs, bkd = self:GetPageDescriptor(nil, "d_skin_cd").bkd, shader = 1, cd = self:GetPageDescriptor(nil, "d_skin_cd").cd, fontkey = self:GetPageDescriptor(nil, "d_font_multi").fontkey, fontmacro = self:GetPageDescriptor(nil, "d_font_multi").fontmacro, fontcount = self:GetPageDescriptor(nil, "d_font_multi").fontcount, showtooltip = 1, ftype = 1, barid = "bar4", selfcast = 1, headerstateType = "None", headerstateCustom = "", });
+		elseif wtype == "ActionBar5" then
+			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_size_spacing").size , w = (self:GetPageDescriptor(nil, "d_size_spacing").size + self:GetPageDescriptor(nil, "d_size_spacing").spacing) * 12, alpha = 1, });
+			dState:AddFeature({feature = "listbuttons", version = 1, name = "ab5", headervisiType = "None", headervisiCustom = "", nIcons = 12, owner = "Base", flo = 2, anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, rows = 1, orientation = "RIGHT", iconspx = self:GetPageDescriptor(nil, "d_size_spacing").spacing, iconspy = 0, w = self:GetPageDescriptor(nil, "d_size_spacing").size, h = self:GetPageDescriptor(nil, "d_size_spacing").size, flyoutdirection = "UP", driver = self:GetPageDescriptor(nil, "d_skin_cd").driver, bs = self:GetPageDescriptor(nil, "d_skin_cd").bs, bkd = self:GetPageDescriptor(nil, "d_skin_cd").bkd, shader = 1, cd = self:GetPageDescriptor(nil, "d_skin_cd").cd, fontkey = self:GetPageDescriptor(nil, "d_font_multi").fontkey, fontmacro = self:GetPageDescriptor(nil, "d_font_multi").fontmacro, fontcount = self:GetPageDescriptor(nil, "d_font_multi").fontcount, showtooltip = 1, ftype = 1, barid = "bar5", selfcast = 1, headerstateType = "None", headerstateCustom = "", });
+		elseif wtype == "ActionBar6" then
+			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_size_spacing").size , w = (self:GetPageDescriptor(nil, "d_size_spacing").size + self:GetPageDescriptor(nil, "d_size_spacing").spacing) * 12, alpha = 1, });
+			dState:AddFeature({feature = "listbuttons", version = 1, name = "ab6", headervisiType = "None", headervisiCustom = "", nIcons = 12, owner = "Base", flo = 2, anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, rows = 1, orientation = "RIGHT", iconspx = self:GetPageDescriptor(nil, "d_size_spacing").spacing, iconspy = 0, w = self:GetPageDescriptor(nil, "d_size_spacing").size, h = self:GetPageDescriptor(nil, "d_size_spacing").size, flyoutdirection = "UP", driver = self:GetPageDescriptor(nil, "d_skin_cd").driver, bs = self:GetPageDescriptor(nil, "d_skin_cd").bs, bkd = self:GetPageDescriptor(nil, "d_skin_cd").bkd, shader = 1, cd = self:GetPageDescriptor(nil, "d_skin_cd").cd, fontkey = self:GetPageDescriptor(nil, "d_font_multi").fontkey, fontmacro = self:GetPageDescriptor(nil, "d_font_multi").fontmacro, fontcount = self:GetPageDescriptor(nil, "d_font_multi").fontcount, showtooltip = 1, ftype = 1, barid = "bar6_druid_stealth", selfcast = 1, headerstateType = "None", headerstateCustom = "", });
+		elseif wtype == "ActionBarStance" then
+			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_size_spacing").size , w = (self:GetPageDescriptor(nil, "d_size_spacing").size + self:GetPageDescriptor(nil, "d_size_spacing").spacing) * 8, alpha = 1, });
+			dState:AddFeature({feature = "listbuttons", version = 1, name = "sb", headervisiType = "None", headervisiCustom = "", nIcons = 8, owner = "Base", flo = 2, anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, rows = 1, orientation = "RIGHT", iconspx = self:GetPageDescriptor(nil, "d_size_spacing").spacing, iconspy = 0, w = self:GetPageDescriptor(nil, "d_size_spacing").size, h = self:GetPageDescriptor(nil, "d_size_spacing").size, flyoutdirection = "UP", driver = self:GetPageDescriptor(nil, "d_skin_cd").driver, bs = self:GetPageDescriptor(nil, "d_skin_cd").bs, bkd = self:GetPageDescriptor(nil, "d_skin_cd").bkd, shader = 1, cd = self:GetPageDescriptor(nil, "d_skin_cd").cd, fontkey = self:GetPageDescriptor(nil, "d_font_multi").fontkey, fontmacro = self:GetPageDescriptor(nil, "d_font_multi").fontmacro, fontcount = self:GetPageDescriptor(nil, "d_font_multi").fontcount, showtooltip = 1, ftype = 3, barid = "bar3", selfcast = 1, headerstateType = "None", headerstateCustom = "", });
+		elseif wtype == "ActionBarPet" then
+			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_size_spacing").size , w = (self:GetPageDescriptor(nil, "d_size_spacing").size + self:GetPageDescriptor(nil, "d_size_spacing").spacing) * 10, alpha = 1, });
+			dState:AddFeature({feature = "listbuttons", version = 1, name = "abp", headervisiType = "Pet", headervisiCustom = "", nIcons = 10, owner = "Base", flo = 2, anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, rows = 1, orientation = "RIGHT", iconspx = self:GetPageDescriptor(nil, "d_size_spacing").spacing, iconspy = 0, w = self:GetPageDescriptor(nil, "d_size_spacing").size, h = self:GetPageDescriptor(nil, "d_size_spacing").size, flyoutdirection = "UP", driver = self:GetPageDescriptor(nil, "d_skin_cd").driver, bs = self:GetPageDescriptor(nil, "d_skin_cd").bs, bkd = self:GetPageDescriptor(nil, "d_skin_cd").bkd, shader = 1, cd = self:GetPageDescriptor(nil, "d_skin_cd").cd, fontkey = self:GetPageDescriptor(nil, "d_font_multi").fontkey, fontmacro = self:GetPageDescriptor(nil, "d_font_multi").fontmacro, fontcount = self:GetPageDescriptor(nil, "d_font_multi").fontcount, showtooltip = 1, ftype = 2, barid = "bar3", selfcast = 1, headerstateType = "None", headerstateCustom = "", });
+		elseif wtype == "ActionBarVehicle" then
+			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_size_spacing").size , w = (self:GetPageDescriptor(nil, "d_size_spacing").size + self:GetPageDescriptor(nil, "d_size_spacing").spacing) * 3, alpha = 1, });
+			dState:AddFeature({feature = "listbuttons", version = 1, name = "abp", headervisiType = "Vehicle", headervisiCustom = "", nIcons = 3, owner = "Base", flo = 2, anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, rows = 1, orientation = "RIGHT", iconspx = self:GetPageDescriptor(nil, "d_size_spacing").spacing, iconspy = 0, w = self:GetPageDescriptor(nil, "d_size_spacing").size, h = self:GetPageDescriptor(nil, "d_size_spacing").size, flyoutdirection = "UP", driver = self:GetPageDescriptor(nil, "d_skin_cd").driver, bs = self:GetPageDescriptor(nil, "d_skin_cd").bs, bkd = self:GetPageDescriptor(nil, "d_skin_cd").bkd, shader = 1, cd = self:GetPageDescriptor(nil, "d_skin_cd").cd, fontkey = self:GetPageDescriptor(nil, "d_font_multi").fontkey, fontmacro = self:GetPageDescriptor(nil, "d_font_multi").fontmacro, fontcount = self:GetPageDescriptor(nil, "d_font_multi").fontcount, showtooltip = 1, ftype = 4, barid = "bar3", selfcast = 1, headerstateType = "None", headerstateCustom = "", });
 		elseif wtype == "TabManager" then
 			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_base_default").h, w = self:GetPageDescriptor(nil, "d_base_default").w, alpha = 1, });
 			dState:AddFeature({feature = "tabmanager", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "tm1", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, font = self:GetPageDescriptor(nil, "d_font").font, bkd = self:GetPageDescriptor(nil, "d_backdrop").bkd, orientation = "TOP", cfm = pkg .. ":" .. wtype .. suffix .. "_tm", });
