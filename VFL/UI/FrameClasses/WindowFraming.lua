@@ -186,7 +186,7 @@ function VFLUI.Framing.Default(self, titleHeight, bkdp)
 			local ca = self:GetClientArea();
 			ca:SetWidth(tw - 10); ca:SetHeight(self:GetHeight() - titleHeight - 7);
 		end
-		if self.bkdp then VFLUI.SetBackdrop(self, self.bkdp); end
+		--if self.bkdp then VFLUI.SetBackdrop(self, self.bkdp); end -- TEST SIGG
 	end
 
 	function self:_FrameDestroy()
