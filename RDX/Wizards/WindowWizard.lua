@@ -389,7 +389,7 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 				w:SetPage(nil, "d_size_spacing");
 			elseif pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
 				w:SetPage(nil, "singleheader");
-			elseif pld.wtype == "TabManager" then
+			elseif pld.wtype == "TabManager1" or pld.wtype == "TabManager2" or pld.wtype == "TabManager3" or pld.wtype == "TabManager4" then
 				w:SetPage(nil, "d_base_default");
 			else
 				--if pld.wtype == "ActionBar1" then
@@ -543,7 +543,7 @@ ww:RegisterPage(GetNextPageId(), "d_base_default", {
 		end, page.Destroy);
 		
 		wizard:OnNext(function(wiz)
-			if pld.wtype == "TabManager" then
+			if pld.wtype == "TabManager1" or pld.wtype == "TabManager2" or pld.wtype == "TabManager3" or pld.wtype == "TabManager4" then
 				wiz:SetPage(nil, "d_backdrop");
 			else
 				wiz:SetPage(nil, "done");
@@ -563,6 +563,7 @@ ww:RegisterPage(GetNextPageId(), "d_base_default", {
 -- size spacing feature
 ww:RegisterPage(GetNextPageId(), "d_size_spacing", {
 	OpenPage = function(parent, wizard, desc)
+		if not desc then desc = {}; end
 		local page = RDXUI.GenerateStdWizardPage(parent, "Size/Spacing");
 		page:SetWidth(336); page:SetHeight(378);
 		parent:SetBackdropColor(1,1,1,0.4);
@@ -622,6 +623,7 @@ ww:RegisterPage(GetNextPageId(), "d_size_spacing", {
 -- size spacing feature
 ww:RegisterPage(GetNextPageId(), "d_skin_cd", {
 	OpenPage = function(parent, wizard, desc)
+		if not desc then desc = {}; end
 		local page = RDXUI.GenerateStdWizardPage(parent, "Skin / cd");
 		page:SetWidth(336); page:SetHeight(378);
 		parent:SetBackdropColor(1,1,1,0.4);
@@ -630,14 +632,14 @@ ww:RegisterPage(GetNextPageId(), "d_skin_cd", {
 		lbl:SetWidth(300); lbl:SetHeight(60);
 		lbl:SetPoint("TOPLEFT", page, "TOPLEFT", 0, -20);
 		lbl:SetText("Select the skin of your button/icon and the type of cooldown");
-		
-		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Skin parameters")));
 
 		local pld = wizard:GetPageDescriptor(nil, "wtype");
 		
 		local ui, sf = VFLUI.CreateScrollingCompoundFrame(page);
 		sf:SetWidth(320); sf:SetHeight(300);
 		sf:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT");
+		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Skin parameters")));
 
 		local driver = VFLUI.DisjointRadioGroup:new();
 		
@@ -690,7 +692,7 @@ ww:RegisterPage(GetNextPageId(), "d_skin_cd", {
 		
 		wizard:OnNext(function(wiz)
 			if pld.wtype == "ActionBar1" or pld.wtype == "ActionBar3" or pld.wtype == "ActionBar4" or pld.wtype == "ActionBar5" or pld.wtype == "ActionBar6" or pld.wtype == "ActionBarStance" or pld.wtype == "ActionBarPet" or pld.wtype == "ActionBarVehicle" then
-				wiz:SetPage(nil, "d_backdrop");
+				wiz:SetPage(nil, "d_font_multi");
 			else
 				wiz:SetPage(nil, "done");
 			end
@@ -707,6 +709,7 @@ ww:RegisterPage(GetNextPageId(), "d_skin_cd", {
 -- backdrop feature
 ww:RegisterPage(GetNextPageId(), "d_backdrop", {
 	OpenPage = function(parent, wizard, desc)
+		if not desc then desc = {}; end
 		local page = RDXUI.GenerateStdWizardPage(parent, "Backdrop");
 		page:SetWidth(336); page:SetHeight(378);
 		parent:SetBackdropColor(1,1,1,0.4);
@@ -724,8 +727,8 @@ ww:RegisterPage(GetNextPageId(), "d_backdrop", {
 		
 		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Backdrop"));
 		local bkd = VFLUI.MakeBackdropSelectButton(er, desc.bkd); bkd:Show();
-		er:EmbedChild(tsel); er:Show();
-		ui:InsertFrame(chk_er);
+		er:EmbedChild(bkd); er:Show();
+		ui:InsertFrame(er);
 
 		VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 
@@ -740,7 +743,7 @@ ww:RegisterPage(GetNextPageId(), "d_backdrop", {
 		end, page.Destroy);
 		
 		wizard:OnNext(function(wiz)
-			if pld.wtype == "TabManager" then
+			if pld.wtype == "TabManager1" or pld.wtype == "TabManager2" or pld.wtype == "TabManager3" or pld.wtype == "TabManager4" then
 				wiz:SetPage(nil, "d_font");
 			else
 				wiz:SetPage(nil, "done");
@@ -758,6 +761,7 @@ ww:RegisterPage(GetNextPageId(), "d_backdrop", {
 -- Texture feature
 ww:RegisterPage(GetNextPageId(), "d_texture", {
 	OpenPage = function(parent, wizard, desc)
+		if not desc then desc = {}; end
 		local page = RDXUI.GenerateStdWizardPage(parent, "Texture");
 		page:SetWidth(336); page:SetHeight(378);
 		parent:SetBackdropColor(1,1,1,0.4);
@@ -823,6 +827,7 @@ ww:RegisterPage(GetNextPageId(), "d_texture", {
 -- Font feature
 ww:RegisterPage(GetNextPageId(), "d_font", {
 	OpenPage = function(parent, wizard, desc)
+		if not desc then desc = {}; end
 		local page = RDXUI.GenerateStdWizardPage(parent, "Font");
 		page:SetWidth(336); page:SetHeight(378);
 		parent:SetBackdropColor(1,1,1,0.4);
@@ -856,11 +861,11 @@ ww:RegisterPage(GetNextPageId(), "d_font", {
 		end, page.Destroy);
 		
 		wizard:OnNext(function(wiz)
-			--if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
-				--wiz:SetPage(nil, "singleheader");
-			--else
+			if pld.wtype == "TabManager1" or pld.wtype == "TabManager2" or pld.wtype == "TabManager3" or pld.wtype == "TabManager4" then
 				wiz:SetPage(nil, "done");
-			--end
+			else
+				wiz:SetPage(nil, "done");
+			end
 		end);
 		
 		return page;
@@ -873,6 +878,7 @@ ww:RegisterPage(GetNextPageId(), "d_font", {
 
 ww:RegisterPage(GetNextPageId(), "d_font_multi", {
 	OpenPage = function(parent, wizard, desc)
+		if not desc then desc = {}; end
 		local page = RDXUI.GenerateStdWizardPage(parent, "Fonts");
 		page:SetWidth(336); page:SetHeight(378);
 		parent:SetBackdropColor(1,1,1,0.4);
@@ -918,11 +924,11 @@ ww:RegisterPage(GetNextPageId(), "d_font_multi", {
 		end, page.Destroy);
 		
 		wizard:OnNext(function(wiz)
-			--if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
-				--wiz:SetPage(nil, "singleheader");
-			--else
+			if pld.wtype == "ActionBar1" or pld.wtype == "ActionBar3" or pld.wtype == "ActionBar4" or pld.wtype == "ActionBar5" or pld.wtype == "ActionBar6" or pld.wtype == "ActionBarStance" or pld.wtype == "ActionBarPet" or pld.wtype == "ActionBarVehicle" then
 				wiz:SetPage(nil, "done");
-			--end
+			else
+				wiz:SetPage(nil, "done");
+			end
 		end);
 		
 		return page;
@@ -1400,7 +1406,7 @@ function ww:OnOK()
 	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_wz")); -- wizard
 	
 	-------------------------- GENERATE TABMANAGER IF NECESSARY
-	if wtype == "TabManager" then
+	if wtype == "TabManager1" or wtype == "TabManager2" or wtype == "TabManager3" then
 		obj = RDXDB._DirectCreateObject(pkg, wtype .. suffix .. "_tm");
 		obj.ty = "TabManager"; obj.version = 2;
 		obj.data = {
@@ -1481,7 +1487,7 @@ function ww:OnOK()
 		elseif wtype == "ActionBarVehicle" then
 			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_size_spacing").size , w = (self:GetPageDescriptor(nil, "d_size_spacing").size + self:GetPageDescriptor(nil, "d_size_spacing").spacing) * 3, alpha = 1, });
 			dState:AddFeature({feature = "listbuttons", version = 1, name = "abp", headervisiType = "Vehicle", headervisiCustom = "", nIcons = 3, owner = "Base", flo = 2, anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, rows = 1, orientation = "RIGHT", iconspx = self:GetPageDescriptor(nil, "d_size_spacing").spacing, iconspy = 0, w = self:GetPageDescriptor(nil, "d_size_spacing").size, h = self:GetPageDescriptor(nil, "d_size_spacing").size, flyoutdirection = "UP", driver = self:GetPageDescriptor(nil, "d_skin_cd").driver, bs = self:GetPageDescriptor(nil, "d_skin_cd").bs, bkd = self:GetPageDescriptor(nil, "d_skin_cd").bkd, shader = 1, cd = self:GetPageDescriptor(nil, "d_skin_cd").cd, fontkey = self:GetPageDescriptor(nil, "d_font_multi").fontkey, fontmacro = self:GetPageDescriptor(nil, "d_font_multi").fontmacro, fontcount = self:GetPageDescriptor(nil, "d_font_multi").fontcount, showtooltip = 1, ftype = 4, barid = "bar3", selfcast = 1, headerstateType = "None", headerstateCustom = "", });
-		elseif wtype == "TabManager" then
+		elseif wtype == "TabManager1" or wtype == "TabManager2" or wtype == "TabManager3" or wtype == "TabManager4" then
 			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_base_default").h, w = self:GetPageDescriptor(nil, "d_base_default").w, alpha = 1, });
 			dState:AddFeature({feature = "tabmanager", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "tm1", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, font = self:GetPageDescriptor(nil, "d_font").font, bkd = self:GetPageDescriptor(nil, "d_backdrop").bkd, orientation = "TOP", cfm = pkg .. ":" .. wtype .. suffix .. "_tm", });
 		elseif wtype == "FactionBar" then
@@ -1560,7 +1566,7 @@ function ww:OnOK()
 		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "focus", clickable = true, });
 	elseif wtype == "Focustarget_Main" then
 		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "focustarget", clickable = true, });
-	elseif wtype == "MiniMap" or wtype == "MiniMapButtons" or wtype == "MainPanel" or wtype == "MainMenu" or wtype == "Bags" or wtype == "TabManager" or wtype == "FactionBar" or wtype == "XpBar" then
+	elseif wtype == "MiniMap" or wtype == "MiniMapButtons" or wtype == "MainPanel" or wtype == "MainMenu" or wtype == "Bags" or wtype == "TabManager1" or wtype == "TabManager2" or wtype == "TabManager3" or wtype == "TabManager4" or wtype == "FactionBar" or wtype == "XpBar" then
 		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "player", });
 	elseif wtype == "Party_Main" then
 		state:AddFeature({
