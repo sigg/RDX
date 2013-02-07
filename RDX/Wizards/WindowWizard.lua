@@ -391,6 +391,8 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 				w:SetPage(nil, "singleheader");
 			elseif pld.wtype == "TabManager1" or pld.wtype == "TabManager2" or pld.wtype == "TabManager3" or pld.wtype == "TabManager4" then
 				w:SetPage(nil, "d_base_default");
+			elseif pld.wtype == "FactionBar" or pld.wtype == "XpBar" then
+				w:SetPage(nil, "d_base_default");
 			else
 				--if pld.wtype == "ActionBar1" then
 				--	w:SetPage(nil, "ActionBar1");
@@ -545,6 +547,8 @@ ww:RegisterPage(GetNextPageId(), "d_base_default", {
 		wizard:OnNext(function(wiz)
 			if pld.wtype == "TabManager1" or pld.wtype == "TabManager2" or pld.wtype == "TabManager3" or pld.wtype == "TabManager4" then
 				wiz:SetPage(nil, "d_backdrop");
+			elseif pld.wtype == "FactionBar" or pld.wtype == "XpBar" then
+				w:SetPage(nil, "d_backdrop");
 			else
 				wiz:SetPage(nil, "done");
 			end
@@ -745,6 +749,8 @@ ww:RegisterPage(GetNextPageId(), "d_backdrop", {
 		wizard:OnNext(function(wiz)
 			if pld.wtype == "TabManager1" or pld.wtype == "TabManager2" or pld.wtype == "TabManager3" or pld.wtype == "TabManager4" then
 				wiz:SetPage(nil, "d_font");
+			elseif pld.wtype == "FactionBar" or pld.wtype == "XpBar" then
+				w:SetPage(nil, "d_texture");
 			else
 				wiz:SetPage(nil, "done");
 			end
@@ -811,6 +817,8 @@ ww:RegisterPage(GetNextPageId(), "d_texture", {
 		wizard:OnNext(function(wiz)
 			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
 				wiz:SetPage(nil, "singleheader");
+			elseif pld.wtype == "FactionBar" or pld.wtype == "XpBar" then
+				w:SetPage(nil, "d_font");
 			else
 				wiz:SetPage(nil, "done");
 			end
@@ -863,6 +871,8 @@ ww:RegisterPage(GetNextPageId(), "d_font", {
 		wizard:OnNext(function(wiz)
 			if pld.wtype == "TabManager1" or pld.wtype == "TabManager2" or pld.wtype == "TabManager3" or pld.wtype == "TabManager4" then
 				wiz:SetPage(nil, "done");
+			elseif pld.wtype == "FactionBar" or pld.wtype == "XpBar" then
+				w:SetPage(nil, "done");
 			else
 				wiz:SetPage(nil, "done");
 			end
@@ -1492,20 +1502,20 @@ function ww:OnOK()
 			dState:AddFeature({feature = "tabmanager", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "tm1", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, font = self:GetPageDescriptor(nil, "d_font").font, bkd = self:GetPageDescriptor(nil, "d_backdrop").bkd, orientation = "TOP", cfm = pkg .. ":" .. wtype .. suffix .. "_tm", });
 		elseif wtype == "FactionBar" then
 			dState:AddFeature(RDXDB.GetFeatureByName("Variables: Detailed Faction Info").CreateDescriptor());
-			dState:AddFeature({feature = "base_default", version = 1, h = 15, w = 400, alpha = 1, });
-			dState:AddFeature({feature = "Subframe", owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "subframe", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, usebkd = 1, bkd = {bors = 1, _bkdtype = 3, kb = 0, kg = 0, br = 0, dl = "ARTWORK", kr = 0, bb = 0, ba = 1, _backdrop = "none", _border = "none", borl = 2, ka = 0.35, bg = 0, boff = 0,}, flOffset = 1, });
-			dState:AddFeature({feature = "statusbar_horiz", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "statusBar", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, bkd = {_bkdtype = 1, _backdrop = "none", _border = "none",}, drawLayer = "ARTWORK", sublevel = 1, orientation = "HORIZONTAL", texture = { blendMode = "BLEND", path = "Interface\\Addons\\RDX\\Skin\\bar_smooth",}, frac = "faction1", colorVar = "faction1cv", });
-			dState:AddFeature({feature = "txt2", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "infoText", anchor = {dx = 0, dy = 0, lp = "CENTER", rp = "CENTER", af = "Frame_decor",}, ftype = 3, txtdata = "faction1txt", tyo = "gold", font = { size = 10, face = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf", justifyV = "CENTER", justifyH = "CENTER", sa = 1, sg = 0, name = "Default", sb = 0, title = "Default", sy = -1, sx = 1, sr = 0, },});
+			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_base_default").h, w = self:GetPageDescriptor(nil, "d_base_default").w, alpha = 1, });
+			dState:AddFeature({feature = "Subframe", owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "subframe", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, usebkd = 1, bkd = self:GetPageDescriptor(nil, "d_backdrop").bkd, flOffset = 1, });
+			dState:AddFeature({feature = "statusbar_horiz", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "statusBar", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, bkd = {_bkdtype = 1, _backdrop = "none", _border = "none",}, drawLayer = self:GetPageDescriptor(nil, "d_texture").drawLayer, sublevel = self:GetPageDescriptor(nil, "d_texture").sublevel, orientation = "HORIZONTAL", texture = self:GetPageDescriptor(nil, "d_texture").texture, frac = "faction1", colorVar = "faction1cv", });
+			dState:AddFeature({feature = "txt2", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "infoText", anchor = {dx = 0, dy = 0, lp = "CENTER", rp = "CENTER", af = "Frame_decor",}, ftype = 3, txtdata = "faction1txt", tyo = "gold", font = self:GetPageDescriptor(nil, "d_font").font,});
 		elseif wtype == "XpBar" then
 			dState:AddFeature({feature = "Variable: Frac XP (fxp)", });
 			dState:AddFeature({feature = "var_isExhaustion", });
 			dState:AddFeature({feature = "ColorVariable: Static Color", name = "blue", color = {a = 1, b = 1, g = 0, r = 0}, });
 			dState:AddFeature({feature = "ColorVariable: Static Color", name = "green", color = {a = 1, b = 0, g = 1, r = 0}, });
 			dState:AddFeature({feature = "ColorVariable: Conditional Color", name = "xpcolor", colorVar1 = "blue", colorVar2 = "green", condVar = "isExhaustion", });
-			dState:AddFeature({feature = "base_default", version = 1, h = 15, w = 400, alpha = 1, });
-			dState:AddFeature({feature = "Subframe", owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "subframe", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, usebkd = 1, bkd = {bors = 1, _bkdtype = 3, kb = 0, kg = 0, br = 0, dl = "ARTWORK", kr = 0, bb = 0, ba = 1, _backdrop = "none", _border = "none", borl = 2, ka = 0.35, bg = 0, boff = 0,}, flOffset = 1, });
-			dState:AddFeature({feature = "statusbar_horiz", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "statusBar", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, bkd = {_bkdtype = 1, _backdrop = "none", _border = "none",}, drawLayer = "ARTWORK", sublevel = 1, orientation = "HORIZONTAL", texture = { blendMode = "BLEND", path = "Interface\\Addons\\RDX\\Skin\\bar_smooth",}, frac = "fxp", colorVar = "xpcolor", });
-			dState:AddFeature({feature = "txt2", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "infoText", anchor = {dx = 0, dy = 0, lp = "CENTER", rp = "CENTER", af = "Frame_decor",}, ftype = 3, txtdata = "fpxptxt", tyo = "gold", font = { size = 10, face = "Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf", justifyV = "CENTER", justifyH = "CENTER", sa = 1, sg = 0, name = "Default", sb = 0, title = "Default", sy = -1, sx = 1, sr = 0, },});
+			dState:AddFeature({feature = "base_default", version = 1, h = self:GetPageDescriptor(nil, "d_base_default").h, w = self:GetPageDescriptor(nil, "d_base_default").w, alpha = 1, });
+			dState:AddFeature({feature = "Subframe", owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "subframe", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, usebkd = 1, bkd = self:GetPageDescriptor(nil, "d_backdrop").bkd, flOffset = 1, });
+			dState:AddFeature({feature = "statusbar_horiz", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "statusBar", anchor = {dx = 0, dy = 0, lp = "TOPLEFT", rp = "TOPLEFT", af = "Frame_decor",}, bkd = {_bkdtype = 1, _backdrop = "none", _border = "none",}, drawLayer = self:GetPageDescriptor(nil, "d_texture").drawLayer, sublevel = self:GetPageDescriptor(nil, "d_texture").sublevel, orientation = "HORIZONTAL", texture = self:GetPageDescriptor(nil, "d_texture").texture, frac = "fxp", colorVar = "xpcolor", });
+			dState:AddFeature({feature = "txt2", version = 1, owner = "Frame_decor", h = "BaseHeight", w = "BaseWidth", name = "infoText", anchor = {dx = 0, dy = 0, lp = "CENTER", rp = "CENTER", af = "Frame_decor",}, ftype = 3, txtdata = "fpxptxt", tyo = "gold", font = self:GetPageDescriptor(nil, "d_font").font,});
 		else
 			dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
 		end
