@@ -356,8 +356,8 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		btn1:SetWidth(25); btn1:SetHeight(25); btn1:Show(); btn1:SetText(">");
 		local blbl = VFLUI.MakeLabel(nil, page, "Copy the design of the same window type from another theme.");
 		blbl:SetWidth(300); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn1, "RIGHT");
-		wizard:MakeNextButton(btn1, function(w, dsc)
-			dsc.designType = 1; w:SetPage(nil, "design");
+		wizard:MakeNextButton(btn1, function(wiz, dsc)
+			dsc.designType = 1; wiz:SetPage(nil, "design");
 		end);
 		
 		local btn2 = VFLUI.Button:new(page);
@@ -365,8 +365,8 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		btn2:SetWidth(25); btn2:SetHeight(25); btn2:Show(); btn2:SetText(">");
 		blbl = VFLUI.MakeLabel(nil, page, "Copy an existing design in the current theme");
 		blbl:SetWidth(300); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn2, "RIGHT");
-		wizard:MakeNextButton(btn2, function(w, dsc)
-			dsc.designType = 2; w:SetPage(nil, "design");
+		wizard:MakeNextButton(btn2, function(wiz, dsc)
+			dsc.designType = 2; wiz:SetPage(nil, "design");
 		end);
 
 		local btn3 = VFLUI.Button:new(page);
@@ -374,8 +374,8 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		btn3:SetWidth(25); btn3:SetHeight(25); btn3:Show(); btn3:SetText(">");
 		blbl = VFLUI.MakeLabel(nil, page, "Use an existing design in the current theme (windows will share the same design, any modification in the design will impact all windows)");
 		blbl:SetWidth(300); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn3, "RIGHT");
-		wizard:MakeNextButton(btn3, function(w, dsc)
-			dsc.designType = 3; w:SetPage(nil, "design");
+		wizard:MakeNextButton(btn3, function(wiz, dsc)
+			dsc.designType = 3; wiz:SetPage(nil, "design");
 		end);
 		
 		local btn4 = VFLUI.Button:new(page);
@@ -383,21 +383,21 @@ ww:RegisterPage(GetNextPageId(), "designtype", {
 		btn4:SetWidth(25); btn4:SetHeight(25); btn4:Show(); btn4:SetText(">");
 		blbl = VFLUI.MakeLabel(nil, page, "Create a new empty or predefined design. Predefined Design are only available for simple windows like actionbar, buff icons, etc ... PlayerFrame will be empty.");
 		blbl:SetWidth(300); blbl:SetHeight(40); blbl:SetPoint("LEFT", btn4, "RIGHT");
-		wizard:MakeNextButton(btn4, function(w, dsc)
+		wizard:MakeNextButton(btn4, function(wiz, dsc)
 			dsc.designType = 4;
 			if pld.wtype == "ActionBar1" or pld.wtype == "ActionBar3" or pld.wtype == "ActionBar4" or pld.wtype == "ActionBar5" or pld.wtype == "ActionBar6" or pld.wtype == "ActionBarStance" or pld.wtype == "ActionBarPet" or pld.wtype == "ActionBarVehicle" then
-				w:SetPage(nil, "d_size_spacing");
+				wiz:SetPage(nil, "d_size_spacing");
 			elseif pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
-				w:SetPage(nil, "singleheader");
+				wiz:SetPage(nil, "singleheader");
 			elseif pld.wtype == "TabManager1" or pld.wtype == "TabManager2" or pld.wtype == "TabManager3" or pld.wtype == "TabManager4" then
-				w:SetPage(nil, "d_base_default");
+				wiz:SetPage(nil, "d_base_default");
 			elseif pld.wtype == "FactionBar" or pld.wtype == "XpBar" then
-				w:SetPage(nil, "d_base_default");
+				wiz:SetPage(nil, "d_base_default");
 			else
 				--if pld.wtype == "ActionBar1" then
-				--	w:SetPage(nil, "ActionBar1");
+				--	wiz:SetPage(nil, "ActionBar1");
 				--else
-					w:SetPage(nil, "done");
+					wiz:SetPage(nil, "done");
 				--end
 			end
 		end);
@@ -548,7 +548,7 @@ ww:RegisterPage(GetNextPageId(), "d_base_default", {
 			if pld.wtype == "TabManager1" or pld.wtype == "TabManager2" or pld.wtype == "TabManager3" or pld.wtype == "TabManager4" then
 				wiz:SetPage(nil, "d_backdrop");
 			elseif pld.wtype == "FactionBar" or pld.wtype == "XpBar" then
-				w:SetPage(nil, "d_backdrop");
+				wiz:SetPage(nil, "d_backdrop");
 			else
 				wiz:SetPage(nil, "done");
 			end
@@ -750,7 +750,7 @@ ww:RegisterPage(GetNextPageId(), "d_backdrop", {
 			if pld.wtype == "TabManager1" or pld.wtype == "TabManager2" or pld.wtype == "TabManager3" or pld.wtype == "TabManager4" then
 				wiz:SetPage(nil, "d_font");
 			elseif pld.wtype == "FactionBar" or pld.wtype == "XpBar" then
-				w:SetPage(nil, "d_texture");
+				wiz:SetPage(nil, "d_texture");
 			else
 				wiz:SetPage(nil, "done");
 			end
@@ -818,7 +818,7 @@ ww:RegisterPage(GetNextPageId(), "d_texture", {
 			if pld.wtype == "Raid_Main" or pld.wtype == "Raidpet_Main" then
 				wiz:SetPage(nil, "singleheader");
 			elseif pld.wtype == "FactionBar" or pld.wtype == "XpBar" then
-				w:SetPage(nil, "d_font");
+				wiz:SetPage(nil, "d_font");
 			else
 				wiz:SetPage(nil, "done");
 			end
@@ -872,7 +872,7 @@ ww:RegisterPage(GetNextPageId(), "d_font", {
 			if pld.wtype == "TabManager1" or pld.wtype == "TabManager2" or pld.wtype == "TabManager3" or pld.wtype == "TabManager4" then
 				wiz:SetPage(nil, "done");
 			elseif pld.wtype == "FactionBar" or pld.wtype == "XpBar" then
-				w:SetPage(nil, "done");
+				wiz:SetPage(nil, "done");
 			else
 				wiz:SetPage(nil, "done");
 			end
