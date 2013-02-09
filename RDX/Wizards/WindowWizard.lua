@@ -1562,7 +1562,7 @@ function ww:OnOK()
 		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "player", });
 	elseif wtype == "Player_Main" then
 		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "player", switchvehicle = true, clickable = true, });
-	elseif wtype == "Player_CastBar" or wtype == "Player_Alternate_Bar" or wtype == "Player_Buff_Secured_Icon" or wtype == "Player_Debuff_Icon" or wtype == "Player_Cooline" or wtype == "Player_Cooldowns_Used" then
+	elseif wtype == "Player_CastBar" or wtype == "Player_Alternate_Bar" or wtype == "Player_Buff_Secured_Icon" or wtype == "Player_Debuff_Icon" or wtype == "Cooline" or wtype == "ClassBar" or wtype == "Player_Cooldowns_Used" then
 		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "player", switchvehicle = true, });
 	elseif wtype == "Target_Main" or wtype == "Target_CastBar" or wtype == "Target_Alternate_Bar" or wtype == "Target_Debuff" then
 		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "target", clickable = true, });
