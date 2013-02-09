@@ -13,9 +13,6 @@ RDXUI = RegisterVFLModule({
 	parent = RDX;
 });
 
-
-
-
 -- Helpful tools and objects for the UnitFrames UIs.
 
 ---------------------------------------------------
@@ -408,13 +405,13 @@ function RDXUI.DescriptorCheck(desc, state, errs)
 		desc.anchor.af = "Frame_decor";
 	end
 	
-	--if desc.owner then
-	--	if string.find(desc.owner, "^Frame_") or string.find(desc.owner, "^Button_") or string.find(desc.owner, "^Cooldown_") or string.find(desc.owner, "^StatusBar_") then
-	--	
-	--	else
-	--		desc.owner = "Frame_" .. desc.owner;
-	--	end
-	--end	
+	if desc.owner then
+		if string.find(desc.owner, "^Frame_") or string.find(desc.owner, "^Button_") or string.find(desc.owner, "^Cooldown_") or string.find(desc.owner, "^StatusBar_") or string.find(desc.owner, "^Texture_") then
+		
+		else
+			desc.owner = "Frame_" .. desc.owner;
+		end
+	end	
 	return true;
 end
 
