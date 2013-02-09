@@ -84,7 +84,7 @@ RDX.RegisterFeature({
 	
 	_f.rdxupdate =  function(flag)
 		if not flag then
-			uu = SecureButton_GetModifiedUnit(frame);
+			uu = SecureButton_GetModifiedUnit(frame) or "player";
 		else
 			uu = flag;
 		end
