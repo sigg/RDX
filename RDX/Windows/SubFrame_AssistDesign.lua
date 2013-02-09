@@ -139,7 +139,7 @@ RDX.RegisterFeature({
 		state:Attach("Menu", true, function(win, mnu)
 			--if RDXU.devflag then
 				table.insert(mnu, {
-					text = VFLI.i18n("Edit UnitFrame");
+					text = VFLI.i18n("Edit Design");
 					OnClick = function()
 						VFL.poptree:Release();
 						RDXDB.OpenObject(path, "Edit", VFLDIALOG);
