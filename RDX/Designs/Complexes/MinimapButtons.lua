@@ -94,7 +94,11 @@ RDX.RegisterFeature({
 ]];
 		else
 			createCode = createCode .. [[
-	local btn = VFLUI.AcquireFrame("BlizzButton", ]] .. desc.mbuttontype .. [[);
+	local btn;
+	local opt = RDXG.RDXopt;
+	if opt and not opt.eb then 
+		btn = VFLUI.AcquireFrame("BlizzButton", ]] .. desc.mbuttontype .. [[);
+	end
 ]];
 		end
 		createCode = createCode .. [[

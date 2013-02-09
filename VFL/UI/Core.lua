@@ -596,6 +596,7 @@ end, function() return CreateFrame("MessageFrame", "MessageFrame_" .. VFL.GetNex
 
 -- Class: Minimap
 -- working so badly
+--[[
 VFLUI.CreateFramePool("Minimap",
 	function(pool, x)
 		x:SetZoom(2);
@@ -619,7 +620,7 @@ VFLUI.CreateFramePool("Minimap",
 		end)
 	end
 );
-
+]]
 -- New Hide/Show functions for frames.
 
 local function HideUpdate(self, elapsed)

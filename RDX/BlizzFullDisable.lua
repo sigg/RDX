@@ -49,7 +49,6 @@ local function DisableAll()
 		SetCVar("chatStyle", "im");
 	end
 	
-	
 	-- enable actionbars
 	if not opt.ea then
 		local frames = {
@@ -380,6 +379,43 @@ local function DisableAll()
 		
 	end
 	
+	if not opt.eb then
+	
+		local disabledminimaps = {
+			"MinimapCluster",
+		};
+		for i,v in ipairs(disabledminimaps) do
+			f = _G[v];
+			if f then
+				f:UnregisterAllEvents();
+				f:SetScript("OnUpdate", nil);
+				f:SetScript("OnHide", nil);
+				f:SetScript("OnShow", f.Hide);
+				f:Hide();
+			end
+		end
+	
+		local ignorebuttons = {
+			"MiniMapMailFrame",
+			"MiniMapBattlefieldFrame",
+			"MinimapPing",
+			"MiniMapVoiceChatFrame",
+		};
+
+		local flagfoundbutton = nil
+		local function findButtons()
+			for i, child in ipairs({Minimap:GetChildren()}) do
+				flagfoundbutton = nil;
+				for k,v in ipairs(ignorebuttons) do
+					if child:GetName() == v then flagfoundbutton = true; end
+				end
+				if not flagfoundbutton then child:Hide(); end
+			end
+		end
+		WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, findButtons);
+		RDXEvents:Bind("INIT_DEFERRED", nil, findButtons);
+		findButtons();
+	end
 	
 	local disabledframes = {
 		-- AlternatePowerBar.xml
@@ -429,8 +465,6 @@ local function DisableAll()
 		--"TargetofFocusHealthBar",
 		--"TargetofFocusTextureFrame",
 		--"TargetofFocusFrame",
-		
-		"MinimapCluster",
 		
 		"PaladinPowerBar",
 		"PartyMemberFrame1Debuff1",
@@ -663,27 +697,6 @@ local function DisableAll()
 	end
 	
 	RaidOptionsFrame_UpdatePartyFrames = VFL.Noop;
-	
-	local ignorebuttons = {
-		"MiniMapMailFrame",
-		"MiniMapBattlefieldFrame",
-		"MinimapPing",
-		"MiniMapVoiceChatFrame",
-	};
-
-	local flagfoundbutton = nil
-	local function findButtons()
-		for i, child in ipairs({Minimap:GetChildren()}) do
-			flagfoundbutton = nil;
-			for k,v in ipairs(ignorebuttons) do
-				if child:GetName() == v then flagfoundbutton = true; end
-			end
-			if not flagfoundbutton then child:Hide(); end
-		end
-	end
-	WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, findButtons);
-	RDXEvents:Bind("INIT_DEFERRED", nil, findButtons);
-	findButtons();
 	
 	-- disable focus function
 	for _, menu in pairs(UnitPopupMenus) do

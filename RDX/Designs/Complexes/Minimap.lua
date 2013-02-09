@@ -28,10 +28,10 @@ RDX.RegisterFeature({
 		local createCode = [[
 	--local mmap = VFLUI.AcquireFrame("Minimap", "main");
 	local mmap = nil;
-	-- Carbonite fix
-	--if not NXInit then 
-		mmap= Minimap; 
-	--end
+	local opt = RDXG.RDXopt;
+	if opt and not opt.eb then 
+		mmap = Minimap; 
+	end
 	if mmap then
 		MinimapBackdrop:Hide();
 		GameTimeFrame:Hide();

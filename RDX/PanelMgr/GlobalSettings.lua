@@ -80,6 +80,11 @@ function RDXPM.RDXManage(parent)
 	if opt and opt.ea then chk_ea:SetChecked(true); else chk_ea:SetChecked(); end
 	ui:InsertFrame(chk_ea);
 	
+	local chk_eb = VFLUI.Checkbox:new(ui); chk_eb:Show();
+	chk_eb:SetText(VFLI.i18n("Enable Blizzard Minimap"));
+	if opt and opt.eb then chk_eb:SetChecked(true); else chk_eb:SetChecked(); end
+	ui:InsertFrame(chk_eb);
+	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 	
 	--dlg:Show();
@@ -106,6 +111,7 @@ function RDXPM.RDXManage(parent)
 		opt.pwm = chk_pwm:GetChecked();
 		opt.ec = chk_ec:GetChecked();
 		opt.ea = chk_ea:GetChecked();
+		opt.eb = chk_eb:GetChecked();
 		if opt.upp then
 			SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"));
 		end
