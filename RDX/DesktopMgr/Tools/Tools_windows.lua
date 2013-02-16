@@ -116,6 +116,11 @@ local function WindowListRightClick(self, path)
 	end
 	
 	table.insert(mnu, {
+		text = "********************";
+		OnClick = VFL.Noop;
+	});
+	
+	table.insert(mnu, {
 		text = VFLI.i18n("Delete Window"),
 		OnClick = function()
 			VFL.poptree:Release();
