@@ -553,23 +553,23 @@ function RDX.ChatFrame:new(parent)
 		if not RDX.deferreddone then
 			RDXEvents:Bind("INIT_DEFERRED", nil, function()
 				local cn = RDX.CreateChatChannelList(GetChannelList());
-				for k,v in pairs(desc.channels) do
+				--for k,v in pairs(desc.channels) do
 					for k2,v2 in ipairs(cn) do
-						if v2.type == k then
+					--	if v2.type == k then
 							ChatFrame_AddChannel(self.cf, v2.channelName);
-						end
+					--	end
 					end
-				end
+				--end
 			end);
 		else
 			local cn = RDX.CreateChatChannelList(GetChannelList());
-			for k,v in pairs(desc.channels) do
+			--for k,v in pairs(desc.channels) do
 				for k2,v2 in ipairs(cn) do
-					if v2.type == k then
+					--if v2.type == k then
 						ChatFrame_AddChannel(self.cf, v2.channelName);
-					end
+					--end
 				end
-			end
+			--end
 		end
 	end
 	
