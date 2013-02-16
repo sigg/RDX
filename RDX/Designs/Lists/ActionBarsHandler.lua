@@ -101,9 +101,9 @@ function __RDXGetOtherVisi(visitype)
 	elseif visitype == "PetInCombat" then
 		str = "[combat] show; hide; [@pet,exists,nopossessbar] show; hide;";
 	elseif visitype == "Vehicle" then
-		str = "[target=vehicle,exists] show; hide;";
+		str = "[possessbar,@vehicle,exists] show; hide;"; --[target=vehicle,exists]
 	elseif visitype == "VehicleInCombat" then
-		str = "[combat] show; hide; [target=vehicle,exists] show; hide;";
+		str = "[combat] show; hide; [possessbar,@vehicle,exists] show; hide;"; --[target=vehicle,exists]
 	elseif visitype == "InCombat" then
 		str = "[combat] show; hide;";
 	elseif visitype == "InStealth" then
