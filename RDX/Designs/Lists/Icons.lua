@@ -71,6 +71,8 @@ RDX.RegisterFeature({
 			desc.nIcons = 4;
 		end
 		
+		if not desc.shader then desc.shader = 2; end
+		
 		if flg then state:AddSlot("Icons_" .. desc.name); end
 		return flg;
 	end;
@@ -478,17 +480,32 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 			btn.meta = _meta;
 			btn.tex:SetTexture(_tex);
 			if _dispelt and DebuffTypeColor[_dispelt] then
-				if ]] .. driver .. [[ == 2 then
-					VFLUI.SetButtonSkinBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
-				elseif ]] .. driver .. [[ == 3 then
-					VFLUI.SetBackdropBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
-				end
-			else
-				if ]] .. driver .. [[ == 2 then
-					VFLUI.SetButtonSkinBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
-				elseif ]] .. driver .. [[ == 3 then
-					VFLUI.SetBackdropBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
-				end
+]];
+		if desc.shader == 1 then
+			paintCodeTest = paintCodeTest .. [[
+]];
+		elseif desc.shader == 2 then
+			if desc.driver == 2 then
+				paintCodeTest = paintCodeTest .. [[
+						VFLUI.SetButtonSkinBorderColor(btn, explodeRGBA(DebuffTypeColor[_dispelt]));
+					else
+						VFLUI.SetButtonSkinBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+]];
+			elseif desc.driver == 3 then
+				paintCodeTest = paintCodeTest .. [[
+						VFLUI.SetBackdropBorderColor(btn, explodeRGBA(DebuffTypeColor[_dispelt]));
+					else
+						VFLUI.SetBackdropBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+]];
+			end
+		elseif desc.shader == 3 then
+			paintCodeTest = paintCodeTest .. [[
+						btn.tex:SetVertexColor(explodeRGBA(DebuffTypeColor[_dispelt]));
+					else
+						btn.tex:SetVertexColor(1, 1, 1, 1);
+]];
+		end
+		paintCodeTest = paintCodeTest .. [[				
 			end
 			-- Cooldown
 			if _dur and _dur > 0 and btn.cd then
@@ -523,17 +540,32 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 					btn.meta = _meta;
 					btn.tex:SetTexture(_tex);
 					if _dispelt and DebuffTypeColor[_dispelt] then
-						if ]] .. driver .. [[ == 2 then
-							VFLUI.SetButtonSkinBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
-						elseif ]] .. driver .. [[ == 3 then
-							VFLUI.SetBackdropBorderColor(btn, VFL.explodeRGBA(DebuffTypeColor[_dispelt]));
-						end
+]];
+		if desc.shader == 1 then
+			paintCodeAura = paintCodeAura .. [[
+]];
+		elseif desc.shader == 2 then
+			if desc.driver == 2 then
+				paintCodeAura = paintCodeAura .. [[
+						VFLUI.SetButtonSkinBorderColor(btn, explodeRGBA(DebuffTypeColor[_dispelt]));
 					else
-						if ]] .. driver .. [[ == 2 then
-							VFLUI.SetButtonSkinBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
-						elseif ]] .. driver .. [[ == 3 then
-							VFLUI.SetBackdropBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
-						end
+						VFLUI.SetButtonSkinBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+]];
+			elseif desc.driver == 3 then
+				paintCodeAura = paintCodeAura .. [[
+						VFLUI.SetBackdropBorderColor(btn, explodeRGBA(DebuffTypeColor[_dispelt]));
+					else
+						VFLUI.SetBackdropBorderColor(btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+]];
+			end
+		elseif desc.shader == 3 then
+			paintCodeAura = paintCodeAura .. [[
+						btn.tex:SetVertexColor(explodeRGBA(DebuffTypeColor[_dispelt]));
+					else
+						btn.tex:SetVertexColor(1, 1, 1, 1);
+]];
+		end
+		paintCodeAura = paintCodeAura .. [[
 					end
 
 					-- Cooldown
@@ -731,6 +763,31 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 		dd_backdrop:Show();
 		er:EmbedChild(dd_backdrop); er:Show();
 		ui:InsertFrame(er);
+		
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Shader parameters")));
+		
+		--local chk_hidebs = VFLUI.Checkbox:new(ui); chk_hidebs:Show();
+		--chk_hidebs:SetText(VFLI.i18n("Hide empty button"));
+		--if desc and desc.hidebs then chk_hidebs:SetChecked(true); else chk_hidebs:SetChecked(); end
+		--ui:InsertFrame(chk_hidebs);
+		
+		-- Shader stuff
+		
+		local shader = VFLUI.DisjointRadioGroup:new();
+		
+		local shader_key = shader:CreateRadioButton(ui);
+		shader_key:SetText(VFLI.i18n("No Shader (dispell)"));
+		local shader_border = shader:CreateRadioButton(ui);
+		shader_border:SetText(VFLI.i18n("Use Border Shader"));
+		local shader_icon = shader:CreateRadioButton(ui);
+		shader_icon:SetText(VFLI.i18n("Use Icon Shader"));
+		shader:SetValue(desc.shader or 2);
+		
+		ui:InsertFrame(shader_key);
+		
+		ui:InsertFrame(shader_border);
+		
+		ui:InsertFrame(shader_icon);
 		
 		-------------- Interraction
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Interaction parameters")));
@@ -1130,6 +1187,8 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 				driver = driver:GetValue();
 				bs = dd_buttonskin:GetSelectedButtonSkin();
 				bkd = dd_backdrop:GetSelectedBackdrop();
+				-- shader
+				shader = shader:GetValue();
 				-- interaction
 				disableClick = chk_disableClick:GetChecked();
 				disableShowTooltip = chk_disableShowTooltip:GetChecked();

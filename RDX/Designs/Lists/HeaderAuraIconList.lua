@@ -20,31 +20,33 @@ RDX.RegisterFeature({
 		if not desc.xoffset then desc.xoffset = "0"; end
 		if not desc.yoffset then desc.yoffset = "0"; end
 		local flg = true;
-		flg = flg and RDXUI.UFFrameCheck_Proto("Icons_", desc, state, errs);
+		flg = flg and RDXUI.UFFrameCheck_Proto("SIcons_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		--flg = flg and RDXUI.UFOwnerCheck(desc.owner, state, errs, true);
-		if flg then state:AddSlot("Icons_" .. desc.name); end
+		if not desc.shader then desc.shader = 2; end
+		if flg then state:AddSlot("SIcons_" .. desc.name); end
 		return flg;
 	end;
 	ApplyFeature = function(desc, state)
-		local objname = "Icons_" .. desc.name;
+		local objname = "SIcons_" .. desc.name;
 		
-		local driver = desc.driver or 2;
-		local ebs = desc.externalButtonSkin or "bs_default";
-		local showgloss = "nil"; if desc.showgloss then showgloss = "true"; end
-		local bsdefault = desc.bsdefault or _white;
+		local driver = desc.driver or 1;
+		local bs = desc.bs or VFLUI.defaultButtonSkin;
 		local bkd = desc.bkd or VFLUI.defaultBackdrop;
-		local bordersize = desc.bordersize or 1;
-		local os = 0; 
-		if driver == 1 then 
-			os = desc.ButtonSkinOffset or 0;
-		elseif driver == 2 then
-			if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
+		
+		local os = 0;
+		if driver == 2 then
+			if desc.bs and desc.bs.insets then os = desc.bs.insets or 0; end
 		elseif driver == 3 then
-			os = desc.bordersize or 1;
+			if desc.bkd and desc.bkd.insets and desc.bkd.insets.left then os = desc.bkd.insets.left or 0; end
 		end
 		
-		local r, g, b, a = bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1;
+		local r, g, b, a = 1, 1, 1, 1;
+		if driver == 2 then
+			r, g, b, a = bs.br or 1, bs.bg or 1, bs.bb or 1, bs.ba or 1;
+		elseif driver == 3 then
+			r, g, b, a = bkd.br or 1, bkd.bg or 1, bkd.bb or 1, bkd.ba or 1;
+		end
 		
 		local showweapons = "false";
 		if desc.showweapons then showweapons = "true"; end
@@ -71,56 +73,48 @@ RDX.RegisterFeature({
 		--mux:Event_UnitMask("UNIT_BUFFWEAPON_UPDATE", smask);
 		
 		--mask = bit.bor(mask, 1);
-		
-		local closureCode = "";
-		closureCode = closureCode ..[[
-local ]] .. objname .. [[_bs = ]] .. Serialize(bsdefault) .. [[;
-]];
-		state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
 
 		----------------- Creation
 		local createCode = [[
-	local headerAura = RDX.SmartHeaderAura:new();
-	headerAura:SetParent(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
-	headerAura:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
-	headerAura:SetAttribute("useparent-unit", true); 
-	headerAura:SetAttribute("useparent-unitsuffix", true); 
-	headerAura:SetAttribute("filter", "]] .. filter .. [[");
-	headerAura:SetAttribute("template", "]] .. desc.template .. [[");
+	local h = RDX.SmartHeaderAura:new();
+	h:SetParent(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
+	h:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
+	h:SetAttribute("useparent-unit", true); 
+	h:SetAttribute("useparent-unitsuffix", true); 
+	h:SetAttribute("filter", "]] .. filter .. [[");
+	h:SetAttribute("template", "]] .. desc.template .. [[");
 	if ]] .. showweapons .. [[ then
-		headerAura:SetAttribute("includeWeapons", 1);
-		headerAura:SetAttribute("weaponTemplate", "]] .. desc.template .. [[");
+		h:SetAttribute("includeWeapons", 1);
+		h:SetAttribute("weaponTemplate", "]] .. desc.template .. [[");
 	end
-	headerAura:SetAttribute("minWidth", 1);
-	headerAura:SetAttribute("minHeight", 1);
-	headerAura:SetAttribute("point", "]] .. desc.point .. [[");
-	headerAura:SetOrientation("]] .. desc.template .. [[", "]] .. desc.orientation .. [[", ]] .. desc.wrapafter .. [[, ]] .. desc.maxwraps .. [[, ]] .. desc.xoffset .. [[, ]] .. desc.yoffset .. [[);
-	headerAura:SetAttribute("sortMethod", "]] .. desc.sortmethod .. [[");
-	headerAura:SetAttribute("sortDir", "]] .. sortdir .. [[");
-	headerAura:SetAttribute("separateOwn", ]] .. separateown .. [[);
-	headerAura:Show();
+	h:SetAttribute("minWidth", 1);
+	h:SetAttribute("minHeight", 1);
+	h:SetAttribute("point", "]] .. desc.point .. [[");
+	h:SetOrientation("]] .. desc.template .. [[", "]] .. desc.orientation .. [[", ]] .. desc.wrapafter .. [[, ]] .. desc.maxwraps .. [[, ]] .. desc.xoffset .. [[, ]] .. desc.yoffset .. [[);
+	h:SetAttribute("sortMethod", "]] .. desc.sortmethod .. [[");
+	h:SetAttribute("sortDir", "]] .. sortdir .. [[");
+	h:SetAttribute("separateOwn", ]] .. separateown .. [[);
+	h:Show();
 
-	headerAura.updateFunc = function(self)
+	h.updateFunc = function(self)
 		for _,child in self:ActiveChildren() do
 			if not child.btn then
-				local btn;
-				if ]] .. driver .. [[ == 1 then 
-					btn = VFLUI.SkinButton:new();
-					btn:SetAllPoints(child);
-					btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
-				elseif ]] .. driver .. [[ == 2 then
-					btn = VFLUI.AcquireFrame("Frame");
-					btn:SetAllPoints(child);
-					VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
-				elseif ]] .. driver .. [[ == 3 then
-					btn = VFLUI.AcquireFrame("Frame");
-					btn:SetAllPoints(child);
-					VFLUI.SetBackdropBorderRDX(btn, _black, "ARTWORK", 7, ]] .. bordersize .. [[);
-					btn:SetScript("OnSizeChanged", function(self)
-						VFLUI.ResizeBackdropBorderRDX(self, ]] .. bordersize .. [[);
-					end);
-				end
+				local btn = VFLUI.AcquireFrame("Frame");
 				btn:SetParent(child); btn:SetFrameLevel(child:GetFrameLevel());
+				btn:SetAllPoints(child);
+				btn:Show();
+]];
+		if driver == 2 then
+			createCode = createCode .. [[
+				VFLUI.SetButtonSkin(btn, ]] .. Serialize(bs) .. [[);
+]];
+		elseif driver == 3 then
+			createCode = createCode .. [[
+				VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
+]];
+		end
+
+		createCode = createCode .. [[
 				btn.tex = VFLUI.CreateTexture(btn);
 				btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
 				btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
@@ -153,21 +147,32 @@ local ]] .. objname .. [[_bs = ]] .. Serialize(bsdefault) .. [[;
 			if _bn then
 				child.btn.tex:SetTexture(_tex);
 				if _dispelt and DebuffTypeColor[_dispelt] then
-					if ]] .. driver .. [[ == 1 then
-						child.btn._texBorder:SetVertexColor(explodeRGBA(DebuffTypeColor[_dispelt]));
-					elseif ]] .. driver .. [[ == 2 then
-						child.btn:SetBackdropBorderColor(explodeRGBA(DebuffTypeColor[_dispelt]));
-					elseif ]] .. driver .. [[ == 3 then
-						VFLUI.ApplyColorBackdropBorderRDX(child.btn, DebuffTypeColor[_dispelt]);
-					end
-				else
-					if ]] .. driver .. [[ == 1 then
-						child.btn._texBorder:SetVertexColor(explodeRGBA(]] .. objname .. [[_bs));
-					elseif ]] .. driver .. [[ == 2 then
-						child.btn:SetBackdropBorderColor(]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
-					elseif ]] .. driver .. [[ == 3 then
-						VFLUI.ApplyColorBackdropBorderRDX(child.btn, ]] .. objname .. [[_bs);
-					end
+]];
+		if desc.shader == 1 then
+			createCode = createCode .. [[
+]];
+		elseif desc.shader == 2 then
+			if desc.driver == 2 then
+				createCode = createCode .. [[
+						VFLUI.SetButtonSkinBorderColor(child.btn, explodeRGBA(DebuffTypeColor[_dispelt]));
+					else
+						VFLUI.SetButtonSkinBorderColor(child.btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+]];
+			elseif desc.driver == 3 then
+				createCode = createCode .. [[
+						VFLUI.SetBackdropBorderColor(child.btn, explodeRGBA(DebuffTypeColor[_dispelt]));
+					else
+						VFLUI.SetBackdropBorderColor(child.btn, ]] .. r .. [[, ]] .. g .. [[, ]] .. b .. [[, ]] .. a .. [[);
+]];
+			end
+		elseif desc.shader == 3 then
+			createCode = createCode .. [[
+						child.btn.tex:SetVertexColor(explodeRGBA(DebuffTypeColor[_dispelt]));
+					else
+						child.btn.tex:SetVertexColor(1, 1, 1, 1);
+]];
+		end
+		createCode = createCode .. [[
 				end
 				child.btn.cd:SetCooldown(_et - _dur, _dur);
 				if _apps > 1 then child.btn.sttxt:SetText(_apps); else child.btn.sttxt:SetText("");end
@@ -184,24 +189,22 @@ local ]] .. objname .. [[_bs = ]] .. Serialize(bsdefault) .. [[;
 		end
 		if tempEnchant1 then
 			if not tempEnchant1.btn then
-				local btn;
-				if ]] .. driver .. [[ == 1 then 
-					btn = VFLUI.SkinButton:new();
-					btn:SetAllPoints(tempEnchant1);
-					btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
-				elseif ]] .. driver .. [[ == 2 then
-					btn = VFLUI.AcquireFrame("Frame");
-					btn:SetAllPoints(tempEnchant1);
-					VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
-				elseif ]] .. driver .. [[ == 3 then
-					btn = VFLUI.AcquireFrame("Frame");
-					btn:SetAllPoints(tempEnchant1);
-					VFLUI.SetBackdropBorderRDX(btn, _black, "ARTWORK", 7, ]] .. bordersize .. [[);
-					btn:SetScript("OnSizeChanged", function(self)
-						VFLUI.ResizeBackdropBorderRDX(self, ]] .. bordersize .. [[);
-					end);
-				end
+				local btn = VFLUI.AcquireFrame("Frame");
 				btn:SetParent(tempEnchant1); btn:SetFrameLevel(tempEnchant1:GetFrameLevel());
+				btn:SetAllPoints(tempEnchant1);
+				btn:Show();
+]];
+		if driver == 2 then
+			createCode = createCode .. [[
+				VFLUI.SetButtonSkin(btn, ]] .. Serialize(bs) .. [[);
+]];
+		elseif driver == 3 then
+			createCode = createCode .. [[
+				VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
+]];
+		end
+
+		createCode = createCode .. [[
 				btn.tex = VFLUI.CreateTexture(btn);
 				btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
 				btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
@@ -241,24 +244,22 @@ local ]] .. objname .. [[_bs = ]] .. Serialize(bsdefault) .. [[;
 		local tempEnchant2 = self:GetAttribute("tempEnchant2");
 		if tempEnchant2 then
 			if not tempEnchant2.btn then
-				local btn;
-				if ]] .. driver .. [[ == 1 then 
-					btn = VFLUI.SkinButton:new();
-					btn:SetAllPoints(tempEnchant2);
-					btn:SetButtonSkin("]] .. ebs ..[[", true, true, false, true, true, true, false, true, true, ]] .. showgloss ..[[);
-				elseif ]] .. driver .. [[ == 2 then
-					btn = VFLUI.AcquireFrame("Frame");
-					btn:SetAllPoints(tempEnchant2);
-					VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
-				elseif ]] .. driver .. [[ == 3 then
-					btn = VFLUI.AcquireFrame("Frame");
-					btn:SetAllPoints(tempEnchant2);
-					VFLUI.SetBackdropBorderRDX(btn, _black, "ARTWORK", 7, ]] .. bordersize .. [[);
-					btn:SetScript("OnSizeChanged", function(self)
-						VFLUI.ResizeBackdropBorderRDX(self, ]] .. bordersize .. [[);
-					end);
-				end
+				local btn = VFLUI.AcquireFrame("Frame");
 				btn:SetParent(tempEnchant2); btn:SetFrameLevel(tempEnchant2:GetFrameLevel());
+				btn:SetAllPoints(tempEnchant2);
+				btn:Show();
+]];
+		if driver == 2 then
+			createCode = createCode .. [[
+				VFLUI.SetButtonSkin(btn, ]] .. Serialize(bs) .. [[);
+]];
+		elseif driver == 3 then
+			createCode = createCode .. [[
+				VFLUI.SetBackdrop(btn, ]] .. Serialize(bkd) .. [[);
+]];
+		end
+
+		createCode = createCode .. [[
 				btn.tex = VFLUI.CreateTexture(btn);
 				btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", ]] .. os .. [[, -]] .. os .. [[);
 				btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -]] .. os .. [[, ]] .. os .. [[);
@@ -296,8 +297,8 @@ local ]] .. objname .. [[_bs = ]] .. Serialize(bsdefault) .. [[;
 			end
 		end
 	end
-	headerAura:updateFunc();
-	frame.]] .. objname .. [[ = headerAura;
+	h:updateFunc();
+	frame.]] .. objname .. [[ = h;
 ]];
 		state:Attach("EmitCreate", true, function(code) code:AppendCode(createCode); end);
 
@@ -453,35 +454,23 @@ local ]] .. objname .. [[_bs = ]] .. Serialize(bsdefault) .. [[;
 		
 		local driver = VFLUI.DisjointRadioGroup:new();
 		
+		local driver_NS = driver:CreateRadioButton(ui);
+		driver_NS:SetText(VFLI.i18n("No Skin"));
 		local driver_BS = driver:CreateRadioButton(ui);
 		driver_BS:SetText(VFLI.i18n("Use Button Skin"));
 		local driver_BD = driver:CreateRadioButton(ui);
 		driver_BD:SetText(VFLI.i18n("Use Backdrop"));
-		local driver_RB = driver:CreateRadioButton(ui);
-		driver_RB:SetText(VFLI.i18n("Use RDX Border"));
-		driver:SetValue(desc.driver or 2);
+		driver:SetValue(desc.driver or 1);
+		
+		ui:InsertFrame(driver_NS);
 		
 		ui:InsertFrame(driver_BS);
 		
-		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Button Skin"));
-		local dd_buttonSkin = VFLUI.Dropdown:new(er, VFLUI.GetButtonSkinList);
-		dd_buttonSkin:SetWidth(150); dd_buttonSkin:Show();
-		dd_buttonSkin:SetSelection(desc.externalButtonSkin); 
-		er:EmbedChild(dd_buttonSkin); er:Show();
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("ButtonSkin"));
+		local dd_buttonskin = VFLUI.MakeButtonSkinSelectButton(er, desc.bs);
+		dd_buttonskin:Show();
+		er:EmbedChild(dd_buttonskin); er:Show();
 		ui:InsertFrame(er);
-		
-		local ed_bs = VFLUI.LabeledEdit:new(ui, 50); ed_bs:Show();
-		ed_bs:SetText(VFLI.i18n("Button Skin Size Offset"));
-		if desc and desc.ButtonSkinOffset then ed_bs.editBox:SetText(desc.ButtonSkinOffset); end
-		ui:InsertFrame(ed_bs);
-		
-		local chk_showgloss = VFLUI.Checkbox:new(ui); chk_showgloss:Show();
-		chk_showgloss:SetText(VFLI.i18n("Button Skin Show Gloss"));
-		if desc and desc.showgloss then chk_showgloss:SetChecked(true); else chk_showgloss:SetChecked(); end
-		ui:InsertFrame(chk_showgloss);
-		
-		local color_bsdefault = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Button Skin default color"));
-		if desc and desc.bsdefault then color_bsdefault:SetColor(VFL.explodeRGBA(desc.bsdefault)); end
 		
 		ui:InsertFrame(driver_BD);
 		
@@ -491,12 +480,30 @@ local ]] .. objname .. [[_bs = ]] .. Serialize(bsdefault) .. [[;
 		er:EmbedChild(dd_backdrop); er:Show();
 		ui:InsertFrame(er);
 		
-		ui:InsertFrame(driver_RB);
+		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Shader parameters")));
 		
-		local ed_borsize = VFLUI.LabeledEdit:new(ui, 50); ed_borsize:Show();
-		ed_borsize:SetText(VFLI.i18n("Border size"));
-		if desc and desc.bordersize then ed_borsize.editBox:SetText(desc.bordersize); end
-		ui:InsertFrame(ed_borsize);
+		--local chk_hidebs = VFLUI.Checkbox:new(ui); chk_hidebs:Show();
+		--chk_hidebs:SetText(VFLI.i18n("Hide empty button"));
+		--if desc and desc.hidebs then chk_hidebs:SetChecked(true); else chk_hidebs:SetChecked(); end
+		--ui:InsertFrame(chk_hidebs);
+		
+		-- Shader stuff
+		
+		local shader = VFLUI.DisjointRadioGroup:new();
+		
+		local shader_key = shader:CreateRadioButton(ui);
+		shader_key:SetText(VFLI.i18n("Use Key Shader"));
+		local shader_border = shader:CreateRadioButton(ui);
+		shader_border:SetText(VFLI.i18n("Use Border Shader"));
+		local shader_icon = shader:CreateRadioButton(ui);
+		shader_icon:SetText(VFLI.i18n("Use Icon Shader"));
+		shader:SetValue(desc.shader or 2);
+		
+		ui:InsertFrame(shader_key);
+		
+		ui:InsertFrame(shader_border);
+		
+		ui:InsertFrame(shader_icon);
 		
 		-------------- CooldownDisplay
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Cooldown parameters")));
@@ -566,12 +573,10 @@ local ]] .. objname .. [[_bs = ]] .. Serialize(bsdefault) .. [[;
 				yoffset = VFL.clamp(ed_yoffset.editBox:GetNumber(), -10, 10);
 				-- display
 				driver = driver:GetValue();
-				externalButtonSkin = dd_buttonSkin:GetSelection();
-				ButtonSkinOffset = VFL.clamp(ed_bs.editBox:GetNumber(), 0, 50);
-				showgloss = chk_showgloss:GetChecked();
-				bsdefault = color_bsdefault:GetColor();
+				bs = dd_buttonskin:GetSelectedButtonSkin();
 				bkd = dd_backdrop:GetSelectedBackdrop();
-				bordersize = VFL.clamp(ed_borsize.editBox:GetNumber(), 0, 50);
+				-- shader
+				shader = shader:GetValue();
 				-- cooldown
 				cd = cd:GetSelectedCooldown();
 				fontst = fontsel2:GetSelectedFont();
