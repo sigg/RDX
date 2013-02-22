@@ -26,6 +26,8 @@ RDX.RegisterFeature({
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
 		if not desc.sbtib then desc.sbtib = VFL.copy(VFLUI.defaultSBTIB); end
 		if not desc.formulaType then desc.formulaType = "simple"; end
+		if not desc.auraType then desc.auraType = "BUFFS"; end
+		if not desc.cooldownType then desc.cooldownType = "USED"; end
 		local flg = true;
 		flg = flg and RDXUI.UFFrameCheck_Proto("Bars_", desc, state, errs);
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
@@ -648,7 +650,7 @@ end
 		--ftype_3:SetText(VFLI.i18n("Use Custom Icons"));
 		--local ftype_4 = ftype:CreateRadioButton(ui);
 		--ftype_4:SetText(VFLI.i18n("Use Totems Icons"));
-		--ftype:SetValue(desc.ftype or 1);
+		ftype:SetValue(desc.ftype or 1);
 		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Aura Bars")));
 		ui:InsertFrame(ftype_1);
@@ -966,6 +968,10 @@ end
 				filterNameListcd = filternlcd;
 			};
 		end
+		
+		ui.Destroy = VFL.hook(function(s) 
+			ftype:Destroy(); ftype = nil;
+		end, ui.Destroy);
 
 		return ui;
 	end;
@@ -987,3 +993,26 @@ end
 	end;
 });
 
+RDX.RegisterFeature({
+	name = "aura_bars2";
+	version = 31338;
+	invisible = true;
+	IsPossible = VFL.Nil;
+	VersionMismatch = function(desc)
+		desc.feature = "listbars";
+		desc.ftype = 1;
+		cooldownType = "USED";
+	end;
+});
+
+RDX.RegisterFeature({
+	name = "cooldown_bars";
+	version = 31338;
+	invisible = true;
+	IsPossible = VFL.Nil;
+	VersionMismatch = function(desc)
+		desc.feature = "listbars";
+		desc.ftype = 2;
+		auraType = "BUFFS";
+	end;
+});

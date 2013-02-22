@@ -158,6 +158,11 @@ end
 -- on desktop unlock
 -- Show the moving box
 function RDXDK.SetUnlockBlizzard()
+
+	if not descb.quest then descb.quest = {}; end
+	if not descb.quest.anchorx then descb.quest.anchorx = 400; end
+	if not descb.quest.anchory then descb.quest.anchory = 400; end
+	
 	watchframebtn:ClearAllPoints();
 	watchframebtn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.quest.anchorx, descb.quest.anchory);
 	watchframebtn:Show();
