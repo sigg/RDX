@@ -691,6 +691,7 @@ ww:RegisterPage(GetNextPageId(), "d_skin_cd", {
 		end
 
 		page.Destroy = VFL.hook(function(s)
+			driver:Destroy(); driver = nil;
 			VFLUI.DestroyScrollingCompoundFrame(ui, sf);
 		end, page.Destroy);
 		

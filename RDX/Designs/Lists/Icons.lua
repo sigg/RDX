@@ -1206,9 +1206,6 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 				timefilter = chk_timefilter:GetChecked();
 				maxdurationfilter = maxdurfil;
 				mindurationfilter = mindurfil;
-				filterName = chk_filterName:GetChecked();
-				externalNameFilter = ext;
-				filterNameList = filternl;
 				-- sort
 				--sort = chk_sort:GetChecked();
 				--sortstack = chk_sortstack:GetChecked();
@@ -1227,6 +1224,9 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 				unitfilter = unitfi;
 				isstealablefilter = chk_isStealable:GetChecked();
 				curefilter = chk_curefilter:GetChecked();
+				filterName = chk_filterName:GetChecked();
+				externalNameFilter = ext;
+				filterNameList = filternl;
 				--
 				cooldownType = dd_cooldownType:GetSelection();
 				filterNamecd = chk_filterNamecd:GetChecked();
@@ -1242,6 +1242,12 @@ color]] .. objname .. [[[5] = ]] .. Serialize(desc.color5) .. [[;
 				color5 = color5:GetColor();
 			};
 		end
+		
+		ui.Destroy = VFL.hook(function(s) 
+			ftype:Destroy(); ftype = nil;
+			driver:Destroy(); driver = nil;
+			shader:Destroy(); shader = nil;
+		end, ui.Destroy);
 
 		return ui;
 	end;

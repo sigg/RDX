@@ -587,6 +587,11 @@ RDX.RegisterFeature({
 				separateown = dd_separateOwn:GetSelection();
 			};
 		end
+		
+		ui.Destroy = VFL.hook(function(s) 
+			driver:Destroy(); driver = nil;
+			shader:Destroy(); shader = nil;
+		end, ui.Destroy);
 
 		return ui;
 	end;

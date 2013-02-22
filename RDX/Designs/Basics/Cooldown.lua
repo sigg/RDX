@@ -237,6 +237,10 @@ RDX.RegisterFeature({
 				gt = gt:GetSelection();
 			};
 		end
+		
+		ui.Destroy = VFL.hook(function(s) 
+			driver:Destroy(); driver = nil;
+		end, ui.Destroy);
 
 		return ui;
 	end;
