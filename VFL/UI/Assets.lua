@@ -670,7 +670,7 @@ function VFLUI.SetBackdrop(frame, bkdp)
 			local bkdp_bd = VFL.copy(bkdp);
 			bkdp_bd.edgeFile = nil;
 			bkdp_bd.edgeSize = nil;
-			bkdp_bd.insets = nil;
+			--bkdp_bd.insets = nil;
 			frame._fbd:SetBackdrop(bkdp_bd);
 			
 			local bkdp_bb = VFL.copy(bkdp);
