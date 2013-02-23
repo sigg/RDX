@@ -20,6 +20,7 @@ RDX.RegisterFeature({
 	name = "ColorVariable: Threat Color";
 	title = VFLI.i18n("Color Threat");
 	category = VFLI.i18n("Variables Colors");
+	test = true;
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
 		if not state:Slot("EmitPaintPreamble") then return nil; end
@@ -84,7 +85,12 @@ local _tcdefault = ]] .. Serialize(desc.color) .. [[;
 		end);
 	
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
-			code:AppendCode([[
+			if desc.test then
+				code:AppendCode([[
+		local ]] .. desc.name .. [[ = _red;			
+]]);			
+			else 
+				code:AppendCode([[
 		local ]] .. desc.name .. [[ = nil;
 		_i = UnitThreatSituation(]] .. unit .. [[, ]] .. unitother .. [[);
 		if ]] .. usecustomcolor .. [[ then
@@ -108,6 +114,7 @@ local _tcdefault = ]] .. Serialize(desc.color) .. [[;
 			end
 		end
 ]]);
+			end
 		end);
 		local wstate = state:GetContainingWindowState();
 		if wstate then
