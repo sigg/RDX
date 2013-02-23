@@ -147,7 +147,7 @@ local function BorderChangeBKD(self, elapsed)
 		-- default color
 		else
 			if self.color ~= "da" then
-				VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+				VFLUI.SetBackdropBorderColor(self, self.bkd.br or 1, self.bkd.bg or 1, self.bkd.bb or 1, self.bkd.ba or 1);
 				self.color = "da";
 			end
 		end
@@ -580,7 +580,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 					if desc.driver == 2 then
 						VFLUI.SetButtonSkinBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
 					elseif desc.driver == 3 then
-						VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+						VFLUI.SetBackdropBorderColor(self, self.bkd.br or 1, self.bkd.bg or 1, self.bkd.bb or 1, self.bkd.ba or 1);
 					end
 				elseif desc.shader == 1 or desc.driver == 1 then
 					self.txtHotkey:SetTextColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
@@ -965,7 +965,7 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 					if desc.driver == 2 then
 						VFLUI.SetButtonSkinBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
 					elseif desc.driver == 3 then
-						VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+						VFLUI.SetBackdropBorderColor(self, self.bkd.br or 1, self.bkd.bg or 1, self.bkd.bb or 1, self.bkd.ba or 1);
 					end
 				elseif desc.shader == 1 or desc.driver == 1 then
 					self.txtHotkey:SetTextColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
@@ -1350,7 +1350,7 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 				if desc.driver == 2 then
 					VFLUI.SetButtonSkinBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
 				elseif desc.driver == 3 then
-					VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+					VFLUI.SetBackdropBorderColor(self, self.bkd.br or 1, self.bkd.bg or 1, self.bkd.bb or 1, self.bkd.ba or 1);
 				end
 			elseif desc.shader == 1 or desc.driver == 1 then
 				self.txtHotkey:SetTextColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
@@ -1636,7 +1636,7 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 				if desc.driver == 2 then
 					VFLUI.SetButtonSkinBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
 				elseif desc.driver == 3 then
-					VFLUI.SetBackdropBorderColor(self, self.bs.br or 1, self.bs.bg or 1, self.bs.bb or 1, self.bs.ba or 1);
+					VFLUI.SetBackdropBorderColor(self, self.bkd.br or 1, self.bkd.bg or 1, self.bkd.bb or 1, self.bkd.ba or 1);
 				end
 			elseif desc.shader == 1 or desc.driver == 1 then
 				self.txtHotkey:SetTextColor(self.fontkey.cr or 1, self.fontkey.cg or 1, self.fontkey.cb or 1, self.fontkey.ca or 1);
