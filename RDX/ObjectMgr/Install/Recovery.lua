@@ -120,6 +120,30 @@ local function ShowPackageListWindow(title, text, src, callback)
 end
 
 ----------------------------------------------------
+-- DELETE themes
+----------------------------------------------------
+local function DoDeleteThemes(ary)
+	if not ary then return; end
+	for pkgName,_ in pairs(ary) do
+		if RDXData[pkgName] then
+			RDXDB.DeletePackage(pkgName, true);
+		end
+	end
+	ReloadUI();
+end
+
+function RDXDB.DeleteThemes()
+	VFL.poptree:Release();
+	local tbl = {};
+	for pkgName,pkg in pairs(RDXData) do
+		if pkg["autodesk"] then
+			tbl[pkgName] = true;
+		end
+	end
+	ShowPackageListWindow("Uninstall Themes", "Select themes to uninstall.\nThe UI will be reloaded.|r", tbl, DoDeleteThemes)
+end
+
+----------------------------------------------------
 -- BACKUP
 ----------------------------------------------------
 local function DoBackup(ary)

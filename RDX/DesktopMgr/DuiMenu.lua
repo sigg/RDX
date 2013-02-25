@@ -157,16 +157,14 @@ local function AUIList()
 				end
 				}
 			);
-			table.insert(subMenus, { 
-				text = VFLI.i18n("Drop the theme " .. file),
-				notCheckable = true, 
-				func = function()
-					PkgDeleteHandler(file);
-					--local md = RDXDB.GetObjectData(RDXU.AUI);
-					--if md then RDXDK.ToggleAUIEditor(RDXU.AUI, md); end
-				end
-				}
-			);
+			--table.insert(subMenus, { 
+			--	text = VFLI.i18n("Drop the theme " .. file),
+			--	notCheckable = true, 
+			--	func = function()
+			--		PkgDeleteHandler(file);
+			--	end
+			--	}
+			--);
 		end
 	end
 

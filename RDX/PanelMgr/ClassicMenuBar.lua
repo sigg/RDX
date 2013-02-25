@@ -92,7 +92,8 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 		{ text = VFLI.i18n("Mini Panel Powered"), checked = function() if RDX.GetRDXIconType() == "poweredbyrdx" then return true; else return nil; end end, func = function() RDX.ToggleRDXIcon("poweredbyrdx"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "poweredbyrdx", true); end},
 		{ text = VFLI.i18n("Activate Clean Icons (Addon Required)"), checked = RDX.UseCleanIcons, func = RDX.ToggleCleanIcons },
 		{ text = VFLI.i18n("***********"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
-		{ text = VFLI.i18n("Launch Installer"), notCheckable = true, keepShownOnClick = false, func = function() RDX.StartInstaller(true); end},
+		{ text = VFLI.i18n("Launch Themes Installer"), notCheckable = true, keepShownOnClick = false, func = function() RDX.StartInstaller(true); end},
+		{ text = VFLI.i18n("Uninstall Themes"), notCheckable = true, keepShownOnClick = false, func = function() RDXDB.DeleteThemes() end},
 	};
 end);
 
