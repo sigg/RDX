@@ -76,6 +76,8 @@ local wtype = {
 	--{ text = "TabDamageMeter" },
 	--{ text = "TabHealMeter" },
 	--{ text = "TabThread" },
+	{ text = "Meter" },
+	{ text = "Thread" },
 	
 };
 table.sort(wtype, function(x1,x2) return x1.text<x2.text; end);
@@ -1464,7 +1466,7 @@ function ww:OnOK()
 	if self:GetPageDescriptor(nil, "designtype").designType == 1 or self:GetPageDescriptor(nil, "designtype").designType == 2 then
 		-- Copy the unitframe object
 		local design = RDXDB.ResolvePath(self:GetPageDescriptor(nil, "design").design);
-		RDXDB.Copy(design, RDXDB.MakePath(pkg, wtype .. suffix .. "_ds"));
+		RDXDB.Copy(design, RDXDB.MakePath(pkg, wtype .. suffix .. "_ds"), nil, true);
 		local ufd = RDXDB.GetObjectData(RDXDB.MakePath(pkg, wtype .. suffix .. "_ds"));
 		if not ufd then error("Missing design in wizard"); end
 	elseif self:GetPageDescriptor(nil, "designtype").designType == 3 then

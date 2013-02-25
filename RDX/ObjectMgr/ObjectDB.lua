@@ -584,7 +584,7 @@ local function InitObjectDB()
 	end
 
 	--- Copies a preexisting object.
-	function RDXDB.Copy(srcPath, dstPath, eh)
+	function RDXDB.Copy(srcPath, dstPath, eh, rn)
 		if not eh then eh = "OVERWRITE"; end
 		---- Source validation
 		local spkg, sfile = ParsePath(srcPath);
@@ -608,7 +608,11 @@ local function InitObjectDB()
 				if (dfd.ty ~= sfd.ty) or (dfd.version ~= sfd.version) then return nil, VFLI.i18n("Type mismatch."); end
 			end
 		end
-		dpd[dfile] = VFL.copy(sfd);
+		if not rn then
+			dpd[dfile] = VFL.copy(sfd);
+		else
+			dpd[dfile] = RDXDB.copyfd(sfd, spkg, dpkg); -- rename pkg
+		end
 		VFLT.NextFrame(math.random(100000000), function()
 			RDXDBEvents:Dispatch("OBJECT_CREATED", dpkg, dfile, dpd[dfile]);
 		end);
