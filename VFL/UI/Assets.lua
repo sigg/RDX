@@ -797,7 +797,7 @@ function VFLUI.SetBackdropColor(frame, r, g, b, a)
 	if frame._fbd then
 		frame._fbd:SetBackdropColor(r or 1, g or 1, b or 1, a or 1);
 	elseif frame._rdxbf then
-		frame._rdxbf._bg:SetTexture(r or 1, g or 1, b or 1, a or 1);
+		frame._bg:SetTexture(r or 1, g or 1, b or 1, a or 1);
 	else
 		frame:SetBackdropColor(r or 1, g or 1, b or 1, a or 1);
 	end
