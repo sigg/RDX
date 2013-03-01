@@ -39,9 +39,9 @@ local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 		cli:SetFrameLevel(self:GetFrameLevel() + 2);
 		cli:ClearAllPoints();
 		if orientation == "TOP" then
-			cli:SetPoint("TOPLEFT", self, "TOPLEFT", 0, -tabHeight-offsety);
+			cli:SetPoint("TOPLEFT", self, "TOPLEFT", 0, -tabHeight-offsety - 1);
 		elseif orientation == "BOTTOM" then
-			cli:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, tabHeight+offsety);
+			cli:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, tabHeight+offsety + 1);
 		end
 		local tab = tabBar:_GetCurrentTab();
 		cli:SetWidth(self:GetWidth() - 2*offsetx);
