@@ -107,7 +107,7 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 			StaticPopup_Show("DEATH");
 			end 
 		},
-		{ text = VFLI.i18n("Reset Blizzard Chatframes"), notCheckable = true, keepShownOnClick = false, func = function() FCF_ResetChatWindows(); ReloadUI(); end },
+		{ text = VFLI.i18n("Reset Blizzard Chatframes"), notCheckable = true, keepShownOnClick = false, func = function() DEFAULT_CHAT_FRAME = ChatFrame1; FCF_ResetChatWindows(); ReloadUI(); end },
 		{ text = VFLI.i18n("**** RDX ****"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
 		{ text = VFLI.i18n("Open Set Debugger"), notCheckable = true, keepShownOnClick = false, func = RDXM_Debug.SetDebugger },
 		{ text = VFLI.i18n("Open Profiler"), notCheckable = true, keepShownOnClick = false, func = VFLP.ToggleProfiler },
