@@ -258,3 +258,14 @@ local c2_]] .. objname .. " = " .. Serialize(desc.color2) .. [[
 		};
 	end;
 });
+
+-- specific function to update the texture path of a feature.
+function RDXDB.SetSBTextureData(path, key, value, newtexpath )
+	local x = RDXDB.GetObjectData(path); if not x then return; end
+	local feat = RDXDB.HasFeature(x.data, "statusbar_horiz", key, value);
+	if feat and feat.texture then
+		feat.texture.path = newtexpath;
+		return true;
+	end
+	return nil;
+end
