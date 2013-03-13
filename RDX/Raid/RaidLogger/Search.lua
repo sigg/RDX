@@ -105,6 +105,7 @@ local function DoOmniSearch(parent)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(360); dlg:SetHeight(390);
 	dlg:SetText("Search Logs");
+	dlg:SetClampedToScreen(true);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("search_omniscience") then RDXPM.RestoreLayout(dlg, "search_omniscience"); end

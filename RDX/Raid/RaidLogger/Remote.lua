@@ -128,6 +128,7 @@ function Omni.TimeQueryDialog(who, when, window)
 	dlg:SetText("Time Query: " .. who);
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetHeight(150); dlg:SetWidth(300);
+	dlg:SetClampedToScreen(true);
 	dlg:Show();
 	local ca = dlg:GetClientArea();
 
@@ -176,6 +177,7 @@ function Omni.PredefinedQuery(who)
 	dlg:SetText("Omniscience Query: " .. who);
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetHeight(200); dlg:SetWidth(200);
+	dlg:SetClampedToScreen(true);
 	dlg:Show();
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	local ca = dlg:GetClientArea();

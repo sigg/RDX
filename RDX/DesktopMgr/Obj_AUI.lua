@@ -36,6 +36,7 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 	dlg:SetWidth(270); dlg:SetHeight(350);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetText("List of layout in the theme " .. file);
+	dlg:SetClampedToScreen(true);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("AUI_editor") then RDXPM.RestoreLayout(dlg, "AUI_editor"); end

@@ -36,6 +36,7 @@ local function Analyze()
 	fdlg:SetPoint("CENTER", RDXParent, "CENTER");
 	fdlg:SetWidth(200); fdlg:SetHeight(150);
 	fdlg:SetText("Totals for Table: " .. tbl.name);
+	fdlg:SetClampedToScreen(true);
 	fdlg:Show();
 
 	local lbl = VFLUI.MakeLabel(nil, fdlg, "Group By:");
@@ -96,6 +97,7 @@ local function Filter(parent)
 	fdlg:SetPoint("CENTER", RDXParent, "CENTER");
 	fdlg:SetWidth(360); fdlg:SetHeight(390);
 	fdlg:SetText("Filter Table: " .. tbl.name);
+	fdlg:SetClampedToScreen(true);
 	fdlg:Show();
 
 	local fe = Omni.FilterEditor:new(fdlg);
@@ -189,6 +191,7 @@ function Omni.Open(path)
 	dlg:SetText("Omniscience");
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetHeight(550); dlg:SetWidth(842);
+	dlg:SetClampedToScreen(true);
 
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("browser_omniscience") then RDXPM.RestoreLayout(dlg, "browser_omniscience"); end

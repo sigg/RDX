@@ -14,6 +14,7 @@ local function EditTableLogDialog(parent, path, md, callback)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(370); dlg:SetHeight(480);
 	dlg:SetText(VFLI.i18n("Filter object: ") .. path);
+	dlg:SetClampedToScreen(true);
 	dlg:Show();
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());

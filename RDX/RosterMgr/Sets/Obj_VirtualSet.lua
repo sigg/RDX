@@ -47,6 +47,7 @@ local function EditIndirectSetDialog(parent, path, md)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(316); dlg:SetHeight(357);
 	dlg:SetText(VFLI.i18n("Edit IndirectSet: ") .. path);
+	dlg:SetClampedToScreen(true);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("IndirectSet") then RDXPM.RestoreLayout(dlg, "IndirectSet"); end
 

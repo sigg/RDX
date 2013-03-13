@@ -14,6 +14,7 @@ function RDXM_Debug.SetDebugger()
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(400); dlg:SetHeight(432);
 	dlg:SetText("Set Debugger");
+	dlg:SetClampedToScreen(true);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("setDebugger") then RDXPM.RestoreLayout(dlg, "setDebugger"); end
 	--dlg:Show();

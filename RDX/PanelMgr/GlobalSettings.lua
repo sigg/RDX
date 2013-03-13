@@ -14,6 +14,7 @@ function RDXPM.RDXManage(parent)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(330); dlg:SetHeight(300);
 	dlg:SetText("Show/Hide Blizzard UI Element");
+	dlg:SetClampedToScreen(true);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("blizzard_desktop") then RDXPM.RestoreLayout(dlg, "blizzard_desktop"); end
 	

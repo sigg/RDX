@@ -29,6 +29,7 @@ local function OpenRaidWindow(parent)
 	dlg:SetWidth(100*2 + 10); dlg:SetHeight(12*24 + 50 + 10);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetText(VFLI.i18n("Roster"));
+	dlg:SetClampedToScreen(true);
 	
 	--dlg:Show();
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());

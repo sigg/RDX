@@ -276,7 +276,9 @@ local function EditChatFrameDialog(parent, path, md)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(490); dlg:SetHeight(383);
 	dlg:SetText(VFLI.i18n("Edit ChatFrame: ") .. path);
+	dlg:SetClampedToScreen(true);
 	if RDXPM.Ismanaged("ChatFrame") then RDXPM.RestoreLayout(dlg, "ChatFrame"); end
+	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	dlg:Show();
 	local ca = dlg:GetClientArea();

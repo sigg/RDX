@@ -129,6 +129,7 @@ function RDXRS.StatisticEditor(parent, path, md)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(316); dlg:SetHeight(357);
 	dlg:SetText( VFLI.i18n("Edit Statistic: ") .. path);
+	dlg:SetClampedToScreen(true);
 	dlg:Show();
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 

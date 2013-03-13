@@ -27,6 +27,7 @@ local function EditFilterSetDialog(parent, path, md)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(510); dlg:SetHeight(370);
 	dlg:SetText(VFLI.i18n("Edit FilterSet: ") .. path);
+	dlg:SetClampedToScreen(true);
 	-- OpenRDX 7.1 RDXPM
 	if RDXPM.Ismanaged("FilterSet") then RDXPM.RestoreLayout(dlg, "FilterSet"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());

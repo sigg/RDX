@@ -16,6 +16,7 @@ local function EditScriptDialog(parent, path, md)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(500); dlg:SetHeight(500);
 	dlg:SetText(VFLI.i18n("Text Editor: ") .. path);
+	dlg:SetClampedToScreen(true);
 	dlg:Show();
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 

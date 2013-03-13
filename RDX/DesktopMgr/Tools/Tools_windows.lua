@@ -128,6 +128,7 @@ local function WindowListRightClick(self, path)
 			dlg:SetPoint("CENTER", RDXParent, "CENTER");
 			dlg:SetWidth(330); dlg:SetHeight(125);
 			dlg:SetText("Clone Window");
+			dlg:SetClampedToScreen(true);
 			VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 			if RDXPM.Ismanaged("rdx_clonewindows") then RDXPM.RestoreLayout(dlg, "rdx_clonewindows"); end
 			

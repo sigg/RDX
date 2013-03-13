@@ -253,6 +253,7 @@ local function EditTableMeterDialog(parent, path, md, callback)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(370); dlg:SetHeight(480);
 	dlg:SetText("Meter object: " .. path);
+	dlg:SetClampedToScreen(true);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("TableMeter") then RDXPM.RestoreLayout(dlg, "TableMeter"); end

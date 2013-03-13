@@ -150,6 +150,7 @@ local function EditSavedFeature(parent, path, md)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(500); dlg:SetHeight(500);
 	dlg:SetText("FeatureData Editor: " .. path);
+	dlg:SetClampedToScreen(true);
 	dlg:Show();
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 
@@ -200,6 +201,7 @@ local function MiniFeatureEditor(parent, featData, callback, extraInfo)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(500); dlg:SetHeight(500);
 	dlg:SetText(VFLI.i18n("FeatureData Editor: ") .. extraInfo .. "(" .. feat.title .. ")");
+	dlg:SetClampedToScreen(true);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("MiniFeatureEditor") then RDXPM.RestoreLayout(dlg, "MiniFeatureEditor"); end
 

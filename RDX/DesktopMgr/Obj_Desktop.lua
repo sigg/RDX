@@ -327,7 +327,7 @@ function RDXDK.Desktop:new(parent)
 		-- Apply scale, alpha, stratum, level
 		if name ~= "root" then
 			frame:SetScale(frameprops.scale);
-			--frame:SetAlpha(frameprops.alpha);
+			frame:SetAlpha(frameprops.alpha);
 			frame:WMGetPositionalFrame():SetFrameStrata(frameprops.strata);
 			if frame.SetLayoutRaid then
 				frame:SetLayoutRaid(frameprops.raidlayout);
@@ -522,7 +522,7 @@ function RDXDK.Desktop:new(parent)
 				frame:SetScale(value);
 				frameProps["scale"] = value;
 			elseif key == "ALPHA" then
-				--frame:SetAlpha(value);
+				frame:SetAlpha(value);
 				frameProps["alpha"] = value;
 			elseif key == "CTS" then
 				--frame:SetAlpha(value);

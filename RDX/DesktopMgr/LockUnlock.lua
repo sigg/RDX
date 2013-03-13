@@ -22,6 +22,7 @@ local function OpenDockDialog(frameprops, point)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(230); dlg:SetHeight(125);
 	dlg:SetText("Dock Options");
+	dlg:SetClampedToScreen(true);
 	
 	if RDXPM.Ismanaged("lockunlock") then RDXPM.RestoreLayout(dlg, "lockunlock"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());

@@ -24,6 +24,7 @@ function RDXDAL.EditSortDialog(parent, path, md)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(435); dlg:SetHeight(350);
 	dlg:SetText("Edit Sort: " .. path);
+	dlg:SetClampedToScreen(true);
 	-- OpenRDX 7.1 RDXPM
 	if RDXPM.Ismanaged("Sort") then RDXPM.RestoreLayout(dlg, "Sort"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());

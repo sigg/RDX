@@ -17,6 +17,7 @@ local function loadfonts(path, parent)
     dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
     dlg:SetPoint("center", RDXParent, "center");
     dlg:SetText("Font Editor: "..path);
+	dlg:SetClampedToScreen(true);
     dlg:Show();
     VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
     
@@ -88,6 +89,7 @@ local function findfont()
     dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
     dlg:SetPoint("center", RDXParent, "center");
     dlg:SetText("Font Editor");
+	dlg:SetClampedToScreen(true);
     dlg:Show();
     VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
     

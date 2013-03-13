@@ -217,6 +217,7 @@ local function BindingCodePopup(parent, callback)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(200); dlg:SetHeight(80);
 	dlg:SetText(VFLI.i18n("Enter a name for your action"));
+	dlg:SetClampedToScreen(true);
 	dlg:Show();
 
 	local name = VFLUI.LabeledEdit:new(dlg, 140); name:SetHeight(25); name:SetWidth(190);
@@ -272,6 +273,7 @@ function RDXDK.EditStateActionDialog(parent, desc, callback)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:Accomodate(390, 350);
 	dlg:SetText(VFLI.i18n("Edit State Action"));
+	dlg:SetClampedToScreen(true);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("stDialog") then RDXPM.RestoreLayout(dlg, "stDialog"); end
 	dlg:Show();

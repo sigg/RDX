@@ -175,7 +175,11 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline, allowcode)
 			elseif fd.feature == "texture_cooldown" then
 				RDXIEEvents:Dispatch("SELECT", "Button_" .. fd.name);
 			elseif fd.feature == "hotspot" then
-				RDXIEEvents:Dispatch("SELECT", "Hotspot_" .. fd.name);
+				if not fd.name or fd.name == "" then
+					RDXIEEvents:Dispatch("SELECT", "_phs");
+				else
+					RDXIEEvents:Dispatch("SELECT", "Hotspot_" .. fd.name);
+				end
 			elseif fd.feature == "listbuttons" then
 				RDXIEEvents:Dispatch("SELECT", "Buttons_" .. fd.name .. "header");
 			elseif fd.feature == "listicons" then

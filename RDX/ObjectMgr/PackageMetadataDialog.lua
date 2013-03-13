@@ -19,6 +19,7 @@ function RDXDB.PackageMetadataDialog(parent, pkgname, pkgdata, callback)
 	dlg:SetWidth(260); dlg:SetHeight(300);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetText("Package" .. " " .. pkgname .. " " .. "Metadata");
+	dlg:SetClampedToScreen(true);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("PackageMetadata") then RDXPM.RestoreLayout(dlg, "PackageMetadata"); end

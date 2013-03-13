@@ -243,6 +243,7 @@ local function CustomPollDlg()
 	dlg:SetTitleColor(0,0,0.6);
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:Accomodate(250, 270);
+	dlg:SetClampedToScreen(true);
 	dlg:Show();
 	local ca = dlg:GetClientArea();
 

@@ -16,6 +16,7 @@ function RDXDB.NewObjectDialog(parent, pkgName)
 	dlg:SetText(VFLI.i18n("New object in package ") .. pkgName);
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetHeight(350); dlg:SetWidth(260);
+	dlg:SetClampedToScreen(true);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("nod") then RDXPM.RestoreLayout(dlg, "nod"); end
 

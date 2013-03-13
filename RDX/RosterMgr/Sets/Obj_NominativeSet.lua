@@ -25,6 +25,7 @@ local function EditNominativeSetDialog(parent, path, md)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(270); dlg:SetHeight(350);
 	dlg:SetText(VFLI.i18n("Edit NominativeSet: ") .. path);
+	dlg:SetClampedToScreen(true);
 	-- OpenRDX 7.1 RDXPM
 	if RDXPM.Ismanaged("NominativeSet") then RDXPM.RestoreLayout(dlg, "NominativeSet"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());

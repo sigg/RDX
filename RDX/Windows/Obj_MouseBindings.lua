@@ -210,6 +210,7 @@ local function BindingCodePopup(parent, callback)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(200); dlg:SetHeight(360);
 	dlg:SetText(VFLI.i18n("Select Button Combination"));
+	dlg:SetClampedToScreen(true);
 
 	local gb_mods = VFLUI.GroupBox:new(dlg);
 	gb_mods:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
@@ -349,6 +350,7 @@ local function EditMouseBindingsDialog(parent, path, md, callback)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:Accomodate(390, 350);
 	dlg:SetText(VFLI.i18n("Edit MouseBindings") .. " " .. path);
+	dlg:SetClampedToScreen(true);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("mbDialog") then RDXPM.RestoreLayout(dlg, "mbDialog"); end
 

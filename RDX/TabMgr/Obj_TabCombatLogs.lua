@@ -120,6 +120,7 @@ local function EditCombatLogsDialog(parent, path, md)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(370); dlg:SetHeight(520);
 	dlg:SetText(VFLI.i18n("Edit CombatLogs: ") .. path);
+	dlg:SetClampedToScreen(true);
 	if RDXPM.Ismanaged("CombatLogs") then RDXPM.RestoreLayout(dlg, "CombatLogs"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	dlg:Show();

@@ -115,6 +115,7 @@ local function ShowInstallerDialog(title, text, onOK, onCancel, onDecline)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(260); dlg:SetHeight(285);
 	dlg:SetTitleColor(0,0,0.6); dlg:SetText(VFLI.i18n("RDX Installer")); 
+	dlg:SetClampedToScreen(true);
 	dlg:Show();
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 

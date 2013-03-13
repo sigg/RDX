@@ -31,6 +31,7 @@ local function ShowPackageListWindow(title, text, src, callback)
 	dlg:SetWidth(250); dlg:SetHeight(250);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetText(title);
+	dlg:SetClampedToScreen(true);
 	
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("recovery_manager") then RDXPM.RestoreLayout(dlg, "recovery_manager"); end

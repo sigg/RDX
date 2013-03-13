@@ -100,6 +100,7 @@ function RDX.Integrate(parent, data, author, callback)
 	dlg:SetPoint("LEFT", RDXParent, "LEFT", 25, 0);
 	dlg:SetHeight(500); dlg:SetWidth(250);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar()); --raider
+	dlg:SetClampedToScreen(true);
 	dlg:Show();
 	local ca = dlg:GetClientArea();
 
@@ -338,6 +339,7 @@ local function _IntegrateSendUI(parent, data)
 	
 	if RDXPM.Ismanaged("integratesend") then RDXPM.RestoreLayout(dlg, "integratesend"); end
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
+	dlg:SetClampedToScreen(true);
 	--dlg:Show();
 	local ca = dlg:GetClientArea();
 

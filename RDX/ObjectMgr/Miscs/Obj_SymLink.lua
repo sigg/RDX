@@ -39,6 +39,7 @@ local function EditSymlink(parent, path, md)
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(335); dlg:SetHeight(350);
 	dlg:SetText(VFLI.i18n("Edit Symlink: ") .. path);
+	dlg:SetClampedToScreen(true);
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
 	if RDXPM.Ismanaged("symlink_editor") then RDXPM.RestoreLayout(dlg, "symlink_editor"); end
 
