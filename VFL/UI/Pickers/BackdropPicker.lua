@@ -229,7 +229,6 @@ function BackdropColorUpdate()
 		local r,g,b,a = cs_kcolor:GetColorValues();
 		curBackdrop.kr = r; curBackdrop.kg = g; curBackdrop.kb = b; curBackdrop.ka = a;
 	else
-		VFL.print("toto");
 		curBackdrop.kr = nil; curBackdrop.kg = nil; curBackdrop.kb = nil; curBackdrop.ka = nil;
 	end
 	UpdateBackdropPicker();
