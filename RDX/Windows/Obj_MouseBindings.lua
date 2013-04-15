@@ -8,7 +8,7 @@
 -- Glue code and interface code for customizable MouseBindings.
 
 -- Helper functions/metadata
-local btnNumberToName = { "LeftButton", "RightButton", "MiddleButton", "Button4", "Button5", "Button6", "Button7", "Button8", "Button9", "Button10"};
+local btnNumberToName = { "LeftButton", "RightButton", "MiddleButton", "Button4", "Button5", "Button6", "Button7", "Button8", "Button9", "Button10", "Button11", "Button12", "Button13", "Button14", "Button15"};
 local btnNameToNumber = VFL.invert(btnNumberToName);
 
 ---------------------------------------------
@@ -20,7 +20,7 @@ local function DecodeClickSymbol(cs)
 	if string.find(cs, "S", 1, true) then ret = ret .. "Shift+"; end
 	if string.find(cs, "C", 1, true) then ret = ret .. "Ctrl+"; end
 	if string.find(cs, "A", 1, true) then ret = ret .. "Alt+"; end
-	local _,_,qq = string.find(cs, "(%d)$");
+	local _,_,qq = string.find(cs, "(%d+)$");
 	if qq then
 		ret = ret .. btnNumberToName[tonumber(qq)];
 		return ret;
@@ -271,36 +271,8 @@ local function BindingCodePopup(parent, callback)
 		if mods.checkBox[1]:GetChecked() then str = str .. "S"; end
 		if mods.checkBox[2]:GetChecked() then str = str .. "C"; end
 		if mods.checkBox[3]:GetChecked() then str = str .. "A"; end
-		if v == 1 then
-			str = str .. "1";
-		elseif v == 2 then
-			str = str .. "2";
-		elseif v == 3 then
-			str = str .. "3";
-		elseif v == 4 then
-			str = str .. "4";
-		elseif v == 5 then
-			str = str .. "5";
-		elseif v == 6 then
-			str = str .. "6";
-		elseif v == 7 then
-			str = str .. "7";
-		elseif v == 8 then
-			str = str .. "8";
-		elseif v == 9 then
-			str = str .. "9";
-		elseif v == 10 then
-			str = str .. "10";
-		elseif v == 11 then
-			str = str .. "11";
-		elseif v == 12 then
-			str = str .. "12";
-		elseif v == 13 then
-			str = str .. "13";
-		elseif v == 14 then
-			str = str .. "14";
-		elseif v == 15 then
-			str = str .. "15";
+		if v then
+			str = str .. v;
 		else
 			str = nil;
 		end

@@ -18,7 +18,7 @@ local function SecureDecodeClickSymbol(cs)
 	if string.find(cs, "A", 1, true) then ret = ret .. "alt-"; end
 	if string.find(cs, "C", 1, true) then ret = ret .. "ctrl-"; end
 	if string.find(cs, "S", 1, true) then ret = ret .. "shift-"; end
-	local _,_,qq = string.find(cs, "(%d)$");
+	local _,_,qq = string.find(cs, "(%d+)$");
 	if qq then
 		return ret, qq;
 	else
@@ -62,7 +62,7 @@ end
 --- Clear secure bindings that might have been "left over" from previous RDX usage.
 function RDX.ClearSecureClickAttributes(uf)
 	uf:SetAttribute("unitsuffix", nil);
-	for i=1,5 do ClearModifierKeys(uf, i); end
+	for i=1,15 do ClearModifierKeys(uf, i); end
 end
 
 ------------------
