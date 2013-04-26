@@ -65,7 +65,7 @@ function __RDXGetStates(statestype)
 		if class == "PRIEST" then str = str .. " [bonusbar:1] 6;";
 		elseif class == "ROGUE" then str = str .. " [bonusbar:1] 6; [form:3] 6;";
 		elseif class == "DRUID" then str = str .. " [bonusbar:1,stealth] 5; [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8; [bonusbar:4] 9;";
-		elseif class == "WARRIOR" then str = str .. " [form:1] 6; [form:2] 7; [form:3] 8;";
+		elseif class == "WARRIOR" then str = str .. " [form:1] 0; [form:2] 7; [form:3] 8;";
 		elseif class == "WARLOCK" then str = str .. " [form:1] 6;";
 		elseif class == "MONK" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8;";
 		end
@@ -74,7 +74,7 @@ function __RDXGetStates(statestype)
 		if class == "PRIEST" then str = str .. " [bonusbar:1] 6;";
 		elseif class == "ROGUE" then str = str .. " [bonusbar:1] 6; [form:3] 6;";
 		elseif class == "DRUID" then str = str .. " [bonusbar:1,stealth] 5; [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8; [bonusbar:4] 9;";
-		elseif class == "WARRIOR" then str = str .. " [form:1] 6; [form:2] 7; [form:3] 8;";
+		elseif class == "WARRIOR" then str = str .. " [form:1] 0; [form:2] 7; [form:3] 8;";
 		elseif class == "WARLOCK" then str = str .. " [form:1] 6;";
 		elseif class == "MONK" then str = str .. " [bonusbar:1] 6; [bonusbar:2] 7; [bonusbar:3] 8;";
 		end
