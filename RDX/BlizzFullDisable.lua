@@ -240,6 +240,7 @@ local function DisableAll()
 		MoveMicroButtons = VFL.Noop;
 		StanceBar_Update = VFL.Noop;
 		MainMenuBarVehicleLeaveButton_OnEvent = VFL.Noop;
+		MainMenuBarVehicleLeaveButton:SetScript("OnShow", MainMenuBarVehicleLeaveButton.Hide);
 		MainMenuBar:EnableMouse(false);
 		
 		TalentMicroButton:UnregisterEvent("PLAYER_TALENT_UPDATE");
