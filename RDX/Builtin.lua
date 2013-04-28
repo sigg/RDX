@@ -1280,17 +1280,14 @@ end);
 --------------------------------------------
 
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
-	--
-	-- Create player-talent-specific bindings if they don't exist
-	-- default:bindings_player
-	-- type talent&name&realm
+
 	local tabs = RDXDB.GetOrCreatePackage("tabs");
 	
-	if not tabs["ChatFrame1"] then
-		tabs["ChatFrame1"] = {
-			["ty"] = "TabChatFrame",
-			["version"] = 1,
-			["data"] = {
+	local mbo = RDXDB.TouchObject("tabs:ChatFrame1_" .. RDX.pspace);
+	if not mbo.data then
+		mbo.ty = "TabChatFrame"; 
+		mbo.version = 1;
+		mbo.data = {
 				["title"] = "General",
 				["tabwidth"] = 80,
 				["discussion"] = {
@@ -1343,16 +1340,20 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 					["CHANNEL1"] = true,
 					["CHANNEL2"] = true,
 					["CHANNEL3"] = true,
-				},
-			},
-		};
+				}
+			};
 	end
 	
-	if not tabs["ChatFrame2"] then
-		tabs["ChatFrame2"] = {
-			["ty"] = "TabChatFrame",
-			["version"] = 1,
-			["data"] = {
+	local mbsl = RDXDB.TouchObject("tabs:ChatFrame1");
+	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "tabs", prefixfile = "ChatFrame1_", ty = "TabChatFrame"};
+	end
+	
+	local mbo = RDXDB.TouchObject("tabs:ChatFrame2_" .. RDX.pspace);
+	if not mbo.data then
+		mbo.ty = "TabChatFrame"; 
+		mbo.version = 1;
+		mbo.data = {
 				["title"] = "Guild",
 				["tabwidth"] = 80,
 				["discussion"] = {
@@ -1379,15 +1380,19 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 				},
 				["channels"] = {
 				},
-			},
-		};
+			};
 	end
 	
-	if not tabs["ChatFrame3"] then
-		tabs["ChatFrame3"] = {
-			["ty"] = "TabChatFrame",
-			["version"] = 1,
-			["data"] = {
+	local mbsl = RDXDB.TouchObject("tabs:ChatFrame2");
+	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "tabs", prefixfile = "ChatFrame2_", ty = "TabChatFrame"};
+	end
+	
+	local mbo = RDXDB.TouchObject("tabs:ChatFrame3_" .. RDX.pspace);
+	if not mbo.data then
+		mbo.ty = "TabChatFrame"; 
+		mbo.version = 1;
+		mbo.data = {
 				["title"] = "Loot",
 				["tabwidth"] = 80,
 				["discussion"] = {
@@ -1403,15 +1408,19 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 				},
 				["channels"] = {
 				},
-			},
-		};
+			};
 	end
 	
-	if not tabs["ChatFrame4"] then
-		tabs["ChatFrame4"] = {
-			["ty"] = "TabChatFrame",
-			["version"] = 1,
-			["data"] = {
+	local mbsl = RDXDB.TouchObject("tabs:ChatFrame3");
+	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "tabs", prefixfile = "ChatFrame3_", ty = "TabChatFrame"};
+	end
+	
+	local mbo = RDXDB.TouchObject("tabs:ChatFrame4_" .. RDX.pspace);
+	if not mbo.data then
+		mbo.ty = "TabChatFrame"; 
+		mbo.version = 1;
+		mbo.data = {
 				["title"] = "Pvp",
 				["tabwidth"] = 80,
 				["discussion"] = {
@@ -1436,15 +1445,19 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 				},
 				["channels"] = {
 				},
-			},
-		};
+			};
 	end
 	
-	if not tabs["ChatFrame5"] then
-		tabs["ChatFrame5"] = {
-			["ty"] = "TabChatFrame",
-			["version"] = 1,
-			["data"] = {
+	local mbsl = RDXDB.TouchObject("tabs:ChatFrame4");
+	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "tabs", prefixfile = "ChatFrame4_", ty = "TabChatFrame"};
+	end
+	
+	local mbo = RDXDB.TouchObject("tabs:ChatFrame5_" .. RDX.pspace);
+	if not mbo.data then
+		mbo.ty = "TabChatFrame"; 
+		mbo.version = 1;
+		mbo.data = {
 				["title"] = "Creature",
 				["tabwidth"] = 80,
 				["discussion"] = {
@@ -1465,15 +1478,19 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 				},
 				["channels"] = {
 				},
-			},
-		};
+			};
 	end
 	
-	if not tabs["ChatFrame6"] then
-		tabs["ChatFrame6"] = {
-			["ty"] = "TabChatFrame",
-			["version"] = 1,
-			["data"] = {
+	local mbsl = RDXDB.TouchObject("tabs:ChatFrame5");
+	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", pkg = "tabs", prefixfile = "ChatFrame5_", ty = "TabChatFrame"};
+	end
+	
+	local mbo = RDXDB.TouchObject("tabs:ChatFrame6_" .. RDX.pspace);
+	if not mbo.data then
+		mbo.ty = "TabChatFrame"; 
+		mbo.version = 1;
+		mbo.data = {
 				["title"] = "System",
 				["tabwidth"] = 80,
 				["discussion"] = {
@@ -1493,8 +1510,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 				},
 				["channels"] = {
 				},
-			},
-		};
+			};
 	end
 	
 	if not tabs["ChatFrame7"] then

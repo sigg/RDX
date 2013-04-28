@@ -407,14 +407,18 @@ local function EditChatFrameDialog(parent, path, md)
 		end, function(n) 
 			return channelList[n];
 		end);
+		--if not RDXU.channels then RDXU.channels = {}; end
 		for k,v in ipairs(channelList) do
 			v.enabled = md.data.channels[v.type];
+			--v.enabled = RDXU.channels[v.type];
 		end
 		fdata:Rebuild();
 		fdata:Update();
 	end, function()
+		--if not RDXU.channels then RDXU.channels = {}; end
 		for k,v in ipairs(channelList) do
 			md.data.channels[v.type] = v.enabled;
+			--RDXU.channels[v.type] = v.enabled;
 			v.enabled = nil;
 		end
 	end);
@@ -516,7 +520,7 @@ end
 -- framing.
 --------------------------------------------------
 RDX.ChatFrame = {};
-function RDX.ChatFrame:new(parent)
+function RDX.ChatFrame:new(path, parent)
 	local self = VFLUI.AcquireFrame("ChatFrame2");
 	
 	self.msgmax = 100;
@@ -535,10 +539,22 @@ function RDX.ChatFrame:new(parent)
 		ChatFrame_RemoveAllMessageGroups(self.cf);
 		ChatFrame_RemoveAllChannels(self.cf);
 	end
+	
+	local function Flash()
+		if self.tab and not self.tab.selected then
+			self.tab:StartFlash(); 
+		end
+	end
 
 	function self:AddMessages(desc)
 		for k,v in pairs(desc.discussion) do
 			ChatFrame_AddMessageGroup(self.cf, k);
+			if k == "WHISPER" then
+				WoWEvents:Bind("CHAT_MSG_WHISPER", nil, Flash, "whisp_" .. path);
+				WoWEvents:Bind("CHAT_MSG_WHISPER_INFORM", nil, Flash, "whisp_" .. path);
+				WoWEvents:Bind("CHAT_MSG_AFK", nil, Flash, "whisp_" .. path);
+				WoWEvents:Bind("CHAT_MSG_DND", nil, Flash, "whisp_" .. path);
+			end
 		end
 		for k,v in pairs(desc.creature) do
 			ChatFrame_AddMessageGroup(self.cf, k);
@@ -555,23 +571,25 @@ function RDX.ChatFrame:new(parent)
 		if not RDX.deferreddone then
 			RDXEvents:Bind("INIT_DEFERRED", nil, function()
 				local cn = RDX.CreateChatChannelList(GetChannelList());
-				--for k,v in pairs(desc.channels) do
+				--if not RDXU.channels then RDXU.channels = {}; end
+				--for k,v in pairs(RDXU.channels) do
+				for k,v in pairs(desc.channels) do
 					for k2,v2 in ipairs(cn) do
-					--	if v2.type == k then
+						if v2.type == k then
 							ChatFrame_AddChannel(self.cf, v2.channelName);
-					--	end
+						end
 					end
-				--end
+				end
 			end);
 		else
 			local cn = RDX.CreateChatChannelList(GetChannelList());
-			--for k,v in pairs(desc.channels) do
+			for k,v in pairs(desc.channels) do
 				for k2,v2 in ipairs(cn) do
-					--if v2.type == k then
+					if v2.type == k then
 						ChatFrame_AddChannel(self.cf, v2.channelName);
-					--end
+					end
 				end
-			--end
+			end
 		end
 	end
 	
@@ -585,9 +603,11 @@ function RDX.ChatFrame:new(parent)
 	
 
 	self.Destroy = VFL.hook(function(s)
+		WoWEvents:Unbind("whisp_" .. path);
 		s.cf.AddMessage = s.cf._AddMessage;
 		s.SetTabOptions = nil;
 		s.AddMessages = nil; s.RemoveMessages = nil;
+		s.tab = nil;
 	end, self.Destroy);
 
 	return self;
@@ -661,7 +681,7 @@ RDXDB.RegisterObjectType({
 		EditChatFrameDialog(parent or VFLDIALOG, path, md);
 	end;
 	Instantiate = function(path, md)
-		local cf = RDX.ChatFrame:new();
+		local cf = RDX.ChatFrame:new(path);
 		-- Attempt to setup the window; if it fails, just bail out.
 		if not SetupChatFrame(path, cf, md.data) then cf:Destroy(); return nil; end
 		return cf;
@@ -685,6 +705,7 @@ RDXDB.RegisterObjectType({
 		end);
 		tab.font:SetText(md.data.title);
 		tab.f = f;
+		f.tab = tab;
 		return tab;
 	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg, tm)
