@@ -346,10 +346,12 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 	function self:SelectTab(tab, a, b, c)
 		if curTab == tab then return; end
 		if curTab then
+			curTab.selected = nil;
 			if curTab._tbOnDeselect then curTab:_tbOnDeselect(); end
 			curTab:UnlockHighlight();
 		end
 		curTab = tab;
+		curTab.selected = true;
 		if not tab then return; end
 		if tab._tbOnSelect then tab:_tbOnSelect(a, b, c); end
 		tab:StopFlash();
@@ -492,7 +494,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 
 	-- Destructor
 	self.Destroy = VFL.hook(function(s)
-		for k,tab in pairs(tabs) do tab.OnDrop = nil; TabDragContext:UnregisterDragTarget(x); tab:Destroy(); tabs[k] = nil; end
+		for k,tab in pairs(tabs) do tab.selected = nil; tab.OnDrop = nil; TabDragContext:UnregisterDragTarget(x); tab:Destroy(); tabs[k] = nil; end
 		TabDragContext = nil;
 		UnsetScrollable();
 		tabs = nil; tabWidth = nil;
