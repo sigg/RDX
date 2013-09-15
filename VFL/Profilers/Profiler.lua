@@ -97,7 +97,7 @@ if VFLP.IsEnabled() then
 	end
 
 	--- Register a function in the given category.
-	function VFLP.RegisterFunc(category, title, f, includeSubs)
+	function VFLP.RegisterFunc(category, title, f, includeSubs, kill)
 		if (type(f) ~= "function") then return; end
 		if (type(category) ~= "string") or (not fcats[category]) then category = "Uncategorized"; end
 		local idx,u = 0, nil;
@@ -108,7 +108,7 @@ if VFLP.IsEnabled() then
 		if idx > 0 then
 			table.insert(flist, idx + 1, {
 				type = "function"; category = category; title = title;
-				object = f; includeSubObjects = includeSubs; 
+				object = f; includeSubObjects = includeSubs; kill = kill;
 				calls = 0; lastCalls = 0; raCalls = 0;
 				CPU = 0; lastCPU = 0; raCPU = 0;
 			});
@@ -245,7 +245,7 @@ local mem, memusage, memtot, memratot, memx, memaindex, cgm, title = 0, 0, 0, 0,
 local UpdateMemorySummary = VFL.Noop;
 if VFLP.IsEnabled() then
 	function UpdateMemorySummary()
-		--UpdateAddOnMemoryUsage();
+		UpdateAddOnMemoryUsage();
 		-- /script UpdateAddOnMemoryUsage();
 		mem, memusage, memtot, memratot, memx, memaindex = 0, 0, 0, 0, nil, 1;
 		

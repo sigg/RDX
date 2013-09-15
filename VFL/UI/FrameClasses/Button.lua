@@ -10,8 +10,8 @@ function VFLUI.Button:new(parent)
 	local btn = VFLUI.AcquireFrame("Button");
 	if parent then
 		btn:SetParent(parent);
-		--btn:SetFrameStrata(parent:GetFrameStrata());
-		--btn:SetFrameLevel(parent:GetFrameLevel() + 1);
+		btn:SetFrameStrata(parent:GetFrameStrata());
+		btn:SetFrameLevel(parent:GetFrameLevel() + 1);
 	end
 	
 	-- Background
@@ -163,8 +163,8 @@ function VFLUI.Checkbox:new(parent)
 
 	if parent then
 		self:SetParent(parent);
-		--self:SetFrameStrata(parent:GetFrameStrata());
-		--self:SetFrameLevel(parent:GetFrameLevel() + 1);
+		self:SetFrameStrata(parent:GetFrameStrata());
+		self:SetFrameLevel(parent:GetFrameLevel() + 1);
 	end
 	
 	local chk = VFLUI.AcquireFrame("CheckButton");
@@ -215,8 +215,8 @@ function VFLUI.RadioButton:new(parent)
 	local self = VFLUI.AcquireFrame("Frame");
 	if parent then
 		self:SetParent(parent);
-		--self:SetFrameStrata(parent:GetFrameStrata());
-		--self:SetFrameLevel(parent:GetFrameLevel() + 1);
+		self:SetFrameStrata(parent:GetFrameStrata());
+		self:SetFrameLevel(parent:GetFrameLevel() + 1);
 	end
 	self:SetHeight(16); self:SetWidth(16);
 	
@@ -609,3 +609,75 @@ function VFLUI.BRButton:new(parent, btype, id)
 	return obj;
 end
 
+
+-- VFL-themed Radio Button with text control
+VFLUI.ColoredButton = {};
+function VFLUI.ColoredButton:new(parent, c1, c2)
+	local self = VFLUI.AcquireFrame("Frame");
+	
+	if not c1 then c1 = _grey; end
+	if not c2 then c2 = _grey; end
+	
+	self.c1 = c1;
+	self.c2 = c2;
+
+	if parent then
+		self:SetParent(parent);
+		self:SetFrameStrata(parent:GetFrameStrata());
+		self:SetFrameLevel(parent:GetFrameLevel() + 1);
+	end
+	
+	local chk = VFLUI.AcquireFrame("CheckButton");
+	
+	local tex = chk:CreateTexture();
+	if not tex:SetTexture("Interface\\Addons\\Carbonite\\Gfx\\Buttons\\DotOn") then error("texture"); end
+	tex:SetAllPoints();
+	tex:Show();
+	chk:SetNormalTexture(tex);
+	self.tex = tex;
+
+	chk:SetParent(self); chk:SetFrameStrata(self:GetFrameStrata()); chk:SetFrameLevel(self:GetFrameLevel() + 1);
+	chk:SetPoint("LEFT", self, "LEFT", 2, -1);
+	chk:SetHeight(12); chk:SetWidth(12); chk:Show();
+
+	self.button = chk; 
+	
+	self:SetHeight(12); self:SetWidth(0);
+
+	local txt = VFLUI.CreateFontString(self);
+	txt:SetPoint("LEFT", chk, "RIGHT"); txt:SetHeight(16);
+	txt:SetJustifyH("LEFT");
+	VFLUI.SetFont(txt, Fonts.Default, 10);
+	self.text = txt;
+
+	self.SetText = function(self, t) self.text:SetText(t); end;
+	self.GetChecked = function(self) return self.button:GetChecked(); end;
+	self.SetChecked = function(self, x) self.button:SetChecked(x); end;
+
+	local function layout()
+		local w = self:GetWidth();
+		if(w < 25) then self.text:SetWidth(0); self.text:Hide(); else self.text:SetWidth(w - 19); self.text:Show(); end
+	end
+	self:SetScript("OnShow", layout);
+	self:SetScript("OnSizeChanged", layout);
+	self.DialogOnLayout = layout;
+	
+	chk:SetScript("PostClick", function(self2, button)
+		if self.button:GetChecked() then
+			tex:SetVertexColor(VFL.explodeColor(self.c2));
+		else
+			tex:SetVertexColor(VFL.explodeColor(self.c1));
+		end
+	end)
+	tex:SetVertexColor(VFL.explodeColor(c1));
+
+	self.Destroy = VFL.hook(function(s)
+		s.button:Destroy(); s.button = nil;
+		VFLUI.ReleaseRegion(s.text); s.text = nil; 
+		s.tex = nil;
+		s.c1 = nil; s.c2 = nil;
+		s.SetText = nil; s.GetChecked = nil; s.SetChecked = nil;
+	end, self.Destroy);
+
+	return self;
+end

@@ -259,11 +259,19 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 		VFLT.AdaptiveSchedule2("GameTooltipUpdate", 0.5, setTargetText);
 		
 		--GameTooltip:HookScript("OnShow", fix);
+		GameTooltip:HookScript("OnShow", function(self)
+			if descg.hideInCombat and InCombatLockdown() then
+				return self:Hide();
+			end
+		end);
 		GameTooltip:HookScript("OnHide", function(self)
 			self:_SetBackdropBorderColor(1,1,1,1);
 		end);
 		GameTooltip:HookScript("OnTooltipSetItem", function(self)
 			--fix();
+			--if descg.hideInCombat and InCombatLockdown() then
+			--	return self:Hide();
+			--end
 			_,item = self:GetItem();
 			if item then
 				_,_,quality = GetItemInfo(item);
@@ -278,9 +286,9 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 		GameTooltip:HookScript("OnTooltipSetUnit", function(self)
 			--fix();
 			
-			if descg.hideInCombat and InCombatLockdown() then
-				return self:Hide();
-			end
+			--if descg.hideInCombat and InCombatLockdown() then
+			--	return self:Hide();
+			--end
 			
 			_, unit = self:GetUnit();
 			if unit then

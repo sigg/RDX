@@ -140,6 +140,16 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.func = RDXDB.ToggleObjectBrowser;
 end);
 
+if Nx and Nx.RDX then
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Quests Explorer");
+	ent.notCheckable = true;
+	ent.func = RDXMAP.ToggleQuestsPanel;
+end);
+
+end
+
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Window Wizard");
 	ent.notCheckable = true;

@@ -4,6 +4,18 @@
 
 local _submenu_color = {r=0.2, g=0.9, b=0.9};
 
+local cffilter = {};
+cffilter["ChatFrame1"] = true;
+cffilter["ChatFrame2"] = true;
+cffilter["ChatFrame3"] = true;
+cffilter["ChatFrame4"] = true;
+cffilter["ChatFrame5"] = true;
+cffilter["ChatFrame6"] = true;
+cffilter["ChatFrame7"] = true;
+cffilter["ChatFrame8"] = true;
+cffilter["ChatFrame9"] = true;
+cffilter["ChatFrame10"] = true;
+
 -- the instance
 -- data is object data (list of tabs)
 -- data[1] = "tabs:Chatframe1";
@@ -54,22 +66,24 @@ function RDX.TabManager:new(parent, path, data, desc)
 					local pkg = RDXData["tabs"];
 					local tbl = {};
 					for objName,obj in pairs(pkg) do
-						if type(obj) == "table" and (obj.ty == "TabChatFrame" or obj.ty == "TabCombatLogs" or obj.ty == "TabWindow") then
-							local path = RDXDB.MakePath("tabs", objName);
-							if not RDXDB.PathHasInstance(path) then
-								local data = obj.data;
-								local tit = "";
-								if data then tit = obj.data.title; end
-								if tit then
-									table.insert(tbl, {
-										text = path .. " (" .. tit .. ")",
-										path = path,
-									});
-								else
-									table.insert(tbl, {
-										text = path,
-										path = path,
-									});
+						if type(obj) == "table" then
+							if (obj.ty == "SymLink" and cffilter[objName]) or (obj.ty == "TabChatFrame" and cffilter[objName]) or obj.ty == "TabCombatLogs" or obj.ty == "TabWindow" or obj.ty == "TabMap" or obj.ty == "TabQuest" then 
+								local path = RDXDB.MakePath("tabs", objName);
+								if not RDXDB.PathHasInstance(path) then
+									local data = obj.data;
+									local tit = "";
+									if data then tit = obj.data.title; end
+									if tit then
+										table.insert(tbl, {
+											text = path .. " (" .. tit .. ")",
+											path = path,
+										});
+									else
+										table.insert(tbl, {
+											text = path,
+											path = path,
+										});
+									end
 								end
 							end
 						end
@@ -94,7 +108,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 					local pkg = RDXData[aui];
 					local tbl = {};
 					for objName,obj in pairs(pkg) do
-						if type(obj) == "table" and (obj.ty == "TabChatFrame" or obj.ty == "TabCombatLogs" or obj.ty == "TabWindow") then
+						if type(obj) == "table" and (obj.ty == "TabChatFrame" or obj.ty == "TabCombatLogs" or obj.ty == "TabWindow" or obj.ty == "TabMap" or obj.ty == "TabQuest") then
 							local path = RDXDB.MakePath(aui, objName);
 							if not RDXDB.PathHasInstance(path) then
 								local data = obj.data;

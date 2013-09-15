@@ -28,6 +28,7 @@ local function SingleUnitMuxEventTranslator_MaskUnit(ev, mask, mux, rd)
 		WoWEvents:Bind("UNIT_MAXHEALTH", nil, filter, mux);
 	elseif(ev == "UNIT_HEAL_PREDICTION") then
 		WoWEvents:Bind("UNIT_HEAL_PREDICTION", nil, filter, mux);
+		WoWEvents:Bind("UNIT_HEAL_ABSORB_AMOUNT_CHANGED", nil, filter, mux);
 	elseif(ev == "UNIT_POWER") then
 		WoWEvents:Bind("UNIT_POWER", nil, filter, mux);
 		WoWEvents:Bind("UNIT_MAXPOWER", nil, filter, mux);
@@ -352,16 +353,17 @@ RDX.RegisterFeature({
 			if w._path and VFLP.IsEnabled() then
 				--VFLP.RegisterCategory("Win: " .. w._path);
 				--VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", paintData, true);
-				VFLP.RegisterFunc("Windows", w._path, paintData, true);
+				VFLP.RegisterFunc("Windows", w._path, paintData, true, function() DesktopEvents:Dispatch("WINDOW_CLOSE", w._path); end);
 			end
 		end
 
 		-- DESTROY FUNCTION
 		-- Tear down all this
 		local function destroy(w)
-			-- Adaptive schedule
-			if VFLP.IsEnabled() then
-				VFLT.AdaptiveUnschedule2("Perf" .. win._path);
+			if win._path and VFLP.IsEnabled() then 
+				--	VFLT.AdaptiveUnschedule2("Perf" .. win._path);
+				--VFLP.UnregisterCategory("Win: " .. win._path); 
+				VFLP.UnregisterObject(paintData); 
 			end
 			-- Unbind us from all events we bound to in Create()
 			WoWEvents:Unbind(w); RDXEvents:Unbind(w);
@@ -371,7 +373,6 @@ RDX.RegisterFeature({
 				UnregisterUnitWatch(frame);
 				frame:Destroy(); frame = nil; 
 			end
-			if win._path then VFLP.UnregisterCategory("Win: " .. win._path); end
 			win.LookupUnit = nil;
 			win = nil;
 		end

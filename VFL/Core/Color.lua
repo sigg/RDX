@@ -124,6 +124,36 @@ function VFL.explodeRGBA(rgb)
 	return rgb.r, rgb.g, rgb.b, rgb.a or 1;
 end
 
+--- Convert hex color string to R G B floats (0-1)
+function VFL.explodeHexStringColor(colors)
+	local r = tonumber (strsub (colors, 1, 2), 16) / 255
+	local g = tonumber (strsub (colors, 3, 4), 16) / 255
+	local b = tonumber (strsub (colors, 5, 6), 16) / 255
+	return r, g, b
+end
+
+--- Convert hex color string to R G B A floats (0-1)
+function VFL.explodeHexStringRGBA(colors)
+	local r = tonumber (strsub (colors, 1, 2), 16) / 255
+	local g = tonumber (strsub (colors, 3, 4), 16) / 255
+	local b = tonumber (strsub (colors, 5, 6), 16) / 255
+	local a = tonumber (strsub (colors, 7, 8), 16) / 255
+	return r, g, b, a
+end
+
+-- Convert hex color number to R G B A floats (0-1) (RRGGBBAA number)
+function VFL.explodeHexNumberRGBA(colors)
+
+	local rshift = bit.rshift
+	local band = bit.band
+
+	local r = rshift (colors, 24) / 255
+	local g = band (rshift (colors, 16), 0xff) / 255
+	local b = band (rshift (colors, 8), 0xff) / 255
+	local a = band (colors, 0xff) / 255
+	return r, g, b, a
+end
+
 -- COLOR OBJECT
 -- Object oriented color manipulations.
 

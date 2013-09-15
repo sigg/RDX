@@ -262,6 +262,41 @@ function VFL.isArray(T)
 	if ti == tn then return true; else return nil; end
 end
 
+--- Move a indexed table index lower or higher (table, index, not nil to move to lower index)
+function VFL.TMoveI(t, i, low)
+	if low then
+		if i > 1 then
+			t[i-1], t[i] = t[i], t[i-1]
+			return i - 1
+		end
+	else
+		if i < #t then
+			t[i+1], t[i] = t[i], t[i+1]
+			return i + 1
+		end
+	end
+end
+
+--- Move a indexed table item lower or higher (table, match item, not nil to move to lower index)
+function VFL.TMoveItem(t, item, low)
+	for i, v in ipairs (t) do
+		if v == item then
+			if low then
+				if i > 1 then
+					t[i-1], t[i] = t[i], t[i-1]
+					return i - 1
+				end
+			else
+				if i < #t then
+					t[i+1], t[i] = t[i], t[i+1]
+					return i + 1
+				end
+			end
+			return
+		end
+	end
+end
+
 --- GENERALIZED SUM
 -- Collapses a table along its rows, by identifying certain rows
 -- as being in certain equivalence classes, then accumulating over those

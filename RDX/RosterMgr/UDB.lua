@@ -1704,6 +1704,7 @@ end
 -- Raw bindings
 WoWEvents:Bind("UNIT_HEALTH", nil, UnitHealthPropagator);
 WoWEvents:Bind("UNIT_MAXHEALTH", nil, UnitHealthPropagator);
+WoWEvents:Bind("UNIT_HEAL_ABSORB_AMOUNT_CHANGED", nil, UnitHealPredictionPropagator);
 WoWEvents:Bind("UNIT_HEAL_PREDICTION", nil, UnitHealPredictionPropagator);
 WoWEvents:Bind("UNIT_POWER", nil, UnitPowerPropagator);
 WoWEvents:Bind("UNIT_MAXPOWER", nil, UnitPowerPropagator);

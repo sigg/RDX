@@ -641,6 +641,7 @@ function RDXUI.HeaderEditor:new(parent)
 	end
 
 	ui.Destroy = VFL.hook(function(s)
+		driver:Destroy(); driver = nil;
 		s.GetDescriptor = nil;
 		s.SetDescriptor = nil;
 	end, ui.Destroy);

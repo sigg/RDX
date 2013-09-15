@@ -1,4 +1,5 @@
 ﻿------------- Register some common Lua routines to see how they're doing
+--[[
 VFLP.RegisterCategory("Lua Core");
 VFLP.RegisterFunc("Lua Core", "string.find", string.find, nil);
 VFLP.RegisterFunc("Lua Core", "string.match", string.match, nil);
@@ -8,6 +9,7 @@ VFLP.RegisterFunc("Lua Core", "string.lower", string.lower, nil);
 VFLP.RegisterFunc("Lua Core", "table.sort", table.sort, nil);
 VFLP.RegisterFunc("Lua Core", "table.insert", table.insert, nil);
 VFLP.RegisterFunc("Lua Core", "table.remove", table.remove, nil);
+]]
 
 --VFLP.RegisterEventCategory("WoWEvents");
 --VFLP.RegisterEvent("WoWEvents", "UNIT_AURA", "UNIT_AURA");

@@ -346,7 +346,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 					self.list[9]:Show();
 					local power, maxPower;
 					local demonic = self.list[9];
-					VFLT.AdaptiveSchedule(self.id, 0.2, function()
+					VFLT.AdaptiveSchedule2(self.id, 0.2, function()
 						power = UnitPower( "player", SPELL_POWER_DEMONIC_FURY );
 						maxPower = UnitPowerMax( "player", SPELL_POWER_DEMONIC_FURY );
 						demonic.sb:SetValue(power/maxPower, 0.2);
@@ -354,7 +354,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 				end
 			else
 				-- nospec
-				VFLT.AdaptiveUnschedule(self.id)
+				VFLT.AdaptiveUnschedule2(self.id)
 				WoWEvents:Unbind(self.id);
 			end
 		end

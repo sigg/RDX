@@ -234,7 +234,7 @@ RDX.RegisterFeature({
 			gridT:SetAttribute("toto", "ok");
 
 			-- Profiling hooks
-			if w._path then
+			if w._path and VFLP.IsEnabled() then
 				--VFLP.RegisterCategory("Win: " .. w._path);
 				--VFLP.RegisterFunc("Win: " .. w._path, "RepaintLayout", paintAll, true);
 				--VFLP.RegisterFunc("Win: " .. w._path, "RepaintSecure", paintSecure, true);
@@ -252,6 +252,12 @@ RDX.RegisterFeature({
 			sh:Destroy();
 		end
 		local function destroy()
+			-- Undo profiling
+			if win._path and VFLP.IsEnabled() then 
+				--	VFLT.AdaptiveUnschedule2("Perf" .. win._path);
+				--VFLP.UnregisterCategory("Win: " .. win._path); 
+				VFLP.UnregisterObject(paintData); 
+			end
 			gridT:SetAttribute("toto", nil);
 			gridT:SetAttribute("_ignore", "RDXIgnore");
 			if gridAssist then
@@ -270,8 +276,6 @@ RDX.RegisterFeature({
 			destroySubHdr(gridT); gridT = nil;
 			destroySubHdr(gridTT); gridTT = nil;
 			faux:Destroy(); faux = nil;
-			-- Undo profiling
-			if win._path then	VFLP.UnregisterCategory("Win: " .. win._path); end
 			VFL.empty(umap);
 			win.LookupUnit = nil;
 			win = nil;

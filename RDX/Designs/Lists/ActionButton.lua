@@ -264,8 +264,20 @@ local function IconVertexChange(self, elapsed)
 	end
 end
 
+--local hideInCombat = nil;
+
+--local function LockGameTooltip()
+--	local descg = RDXDK.GetLockGameTooltip()
+--	hideInCombat = descg.hideInCombat;
+--end
+
+--DesktopEvents:Bind("DESKTOP_GAMETOOLTIP_LOCK", nil, LockGameTooltip, "actionbuttontooltip");
+
 -- gametooltip
 local function ABShowGameTooltip(self)
+	--if hideInCombat and InCombatLockdown() then
+	--	return;
+	--end
 	if self.action then
 		if HasAction(self.action) then
 			if self.showtooltip then
@@ -1169,6 +1181,9 @@ VFLUI.CreateFramePool("AutoCastShine",
 );
 
 function ABPShowGameTooltip(self)
+	--if hideInCombat and InCombatLockdown() then
+		--return;
+	--end
 	if ( not self.tooltipName ) then
 		return;
 	end
@@ -1531,6 +1546,9 @@ end, function(_, key)
 end, VFL.Noop, "key");
 
 function ABSShowGameTooltip(self)
+	--if hideInCombat and InCombatLockdown() then
+	--	return;
+	--end
 	--if ( not self.tooltipName ) then
 	--	return;
 	--end
@@ -1886,6 +1904,9 @@ VFLUI.CreateFramePool("ButtonVehicle",
 VFL.Noop, "key");
 
 function ABVShowGameTooltip(self)
+	--if hideInCombat and InCombatLockdown() then
+	--	return;
+	--end
 	if ( not self.tooltipName ) then
 		return;
 	end

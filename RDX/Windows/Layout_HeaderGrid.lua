@@ -275,7 +275,7 @@ RDX.RegisterFeature({
 			end 
 
 			-- Profiling hooks
-			if w._path then
+			if w._path and VFLP.IsEnabled() then
 				--VFLP.RegisterCategory("Win: " .. w._path);
 				--VFLP.RegisterFunc("Win: " .. w._path, "RepaintLayout", paintAll, true);
 				--VFLP.RegisterFunc("Win: " .. w._path, "RepaintSecure", paintSecure, true);
@@ -288,14 +288,15 @@ RDX.RegisterFeature({
 		-- DESTROY FUNCTION
 		-- Tear down all this
 		local function destroy(w)
-			if VFLP.IsEnabled() then
-				VFLT.AdaptiveUnschedule2("Perf" .. win._path);
+			if win._path and VFLP.IsEnabled() then 
+				--	VFLT.AdaptiveUnschedule2("Perf" .. win._path);
+				--VFLP.UnregisterCategory("Win: " .. win._path); 
+				VFLP.UnregisterObject(paintData); 
 			end
 			if switchvehicle then WoWEvents:Unbind(win); end
 			win:SetClient(nil); -- BUGFIX: remember to remove client refs before destroying client..
 			if grid then grid:Destroy(); grid = nil; end
 			if faux then faux:Destroy(); faux = nil; end
-			if win._path then VFLP.UnregisterCategory("Win: " .. win._path); end
 			VFL.empty(umap);
 			win.LookupUnit = nil;
 			win = nil;
@@ -499,6 +500,10 @@ RDX.RegisterFeature({
 				switchvehicle = chk_switchvehicle:GetChecked();
 			};
 		end
+		
+		ui.Destroy = VFL.hook(function(s) 
+			bkt:Destroy(); bkt = nil;
+		end, ui.Destroy);
 
 		return ui;
 	end;

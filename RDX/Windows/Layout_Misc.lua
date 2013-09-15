@@ -275,14 +275,14 @@ RDX.RegisterFeature({
 					if not x then return; end
 					RDXDB.MiniFeatureEditor(nil, x, function(newfd)	VFL.copyOver(x, newfd); RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, w._path); end);
 				end);
-				--if VFLP.IsEnabled() then
+				if w._path and VFLP.IsEnabled() then
 					-- Profiling hooks.
 					--VFLP.RegisterCategory("Win: " .. w._path);
 					--VFLP.RegisterFunc("Win: " .. w._path, "RepaintSecure", paintSecure, true);
 					--VFLP.RegisterFunc("Win: " .. w._path, "RepaintData", paintData, true);
 					--VFLP.RegisterFunc("Win: " .. w._path, "LookupUnit", lookupUnit, true);
 					VFLP.RegisterFunc("Windows", w._path, paintData, true);
-				--end
+				end
 			end
 		end
 
@@ -290,8 +290,10 @@ RDX.RegisterFeature({
 		-- Tear down all this
 		local function destroy()
 			grid:SetAttribute("toto", nil);
-			if VFLP.IsEnabled() then
-				VFLT.AdaptiveUnschedule2("Perf" .. win._path);
+			if win._path and VFLP.IsEnabled() then 
+				--	VFLT.AdaptiveUnschedule2("Perf" .. win._path);
+				--VFLP.UnregisterCategory("Win: " .. win._path); 
+				VFLP.UnregisterObject(paintData); 
 			end
 			win:SetClient(nil); -- BUGFIX: remember to remove client refs before destroying client..
 			-- Unbind events
@@ -302,7 +304,6 @@ RDX.RegisterFeature({
 			-- Deacclimatize all frames
 			for _,frame in grid:AllChildren() do Deacclimatize(grid, frame); end
 			grid:Destroy(); grid = nil;
-			if win._path then VFLP.UnregisterCategory("Win: " .. win._path); end
 			VFL.empty(umap);
 			win.SetLayoutRaid = nil;
 			win.LookupUnit = nil;

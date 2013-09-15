@@ -85,7 +85,7 @@ local function TimeFixUpdate()
 		local kernelTime, localTime = GetTime(), time();
 		sysEpoch = VFLT.Epoch:new();
 		sysEpoch:Synchronize(kernelTime, localTime, h, m);
-		VFL.print("|cFFFFFFFF[VFL]|r System epoch established!");
+		VFL.print("System epoch established!");
 		sysEpoch:Dump();
 		kernelToServer = sysEpoch:GetKernelTimeCorrection();
 		VFLEvents:Dispatch("SYSTEM_EPOCH_ESTABLISHED", sysEpoch);

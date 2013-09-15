@@ -79,6 +79,7 @@ local function OpenPreviewWindow(parent)
 	
 	local curUF, unit = nil, nil;
 	local aa = VFLUI.AcquireFrame("Frame");
+	local flagflash = nil;
 	
 	local function UpdateUnitFrameDesign(state, path)
 		if not InCombatLockdown() then
@@ -147,12 +148,24 @@ local function OpenPreviewWindow(parent)
 		br = .5; bg = .75; bb = 1; ba = 1;
 	};
 	
+	
+	
 	RDXIEEvents:Bind("SELECT", nil, function(name)
 		if curUF and curUF[name] then
 			aa:SetAllPoints(curUF[name]);
 			VFLUI.SetBackdrop(aa, bkd);
-			aa:Show();
+			VFLT.AdaptiveUnschedule2("previews");
+			VFLT.AdaptiveSchedule2("previews", 0.5, function()
+				if flagflash then
+					aa:Show();
+					flagflash = nil;
+				else
+					aa:Hide();
+					flagflash = true;
+				end
+			end)
 		else
+			VFLT.AdaptiveUnschedule2("previews");
 			aa:Hide();
 		end
 	end, "IESELECT");
@@ -174,6 +187,7 @@ local function OpenPreviewWindow(parent)
 	
 	preview_window.Destroy = VFL.hook(function(s)
 		if curUF then curUF:Destroy(); end
+		VFLT.AdaptiveUnschedule2("previews");
 		VFLT.AdaptiveUnschedule2("__uf_preview");
 		RDXIEEvents:Unbind("IESELECT");
 		RDXIEEvents:Unbind("IEREBUILD");

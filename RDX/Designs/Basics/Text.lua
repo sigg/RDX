@@ -593,60 +593,6 @@ RDX.RegisterOtherTextType({
 });
 
 RDX.RegisterOtherTextType({
-	name = "Repository";
-	title = VFLI.i18n("Repository size");
-	OnExpose = VFL.Noop;
-	OnApply = VFL.Noop;
-	repaintType = "interval"; -- "event" or "interval"
-	eventType = ""; -- "WoWEvents" or "RDXEvents"
-	eventName = "";
-	interval = 1;
-	GenerateCreateCodeVariable = function(objname) return [[
-]]; end;
-	GenerateCreateCode = function(objname) return [[
-	_i = GetAddOnMemoryUsage("RDX_filesystem");
-	textcolor = _green;
-	if _i > 10000 then textcolor = _yellow; end
-	if _i > 20000 then textcolor = _orange; end
-	if _i > 30000 then textcolor = _red; end
-	_i = _i * 1000;
-	text = "Repository: " .. VFL.KayMemory(_i, textcolor);
-]]; end;
-});
-
-RDX.RegisterOtherTextType({
-	name = "Usage";
-	title = VFLI.i18n("Mem/Fps/Ms");
-	OnExpose = VFL.Noop;
-	OnApply = VFL.Noop;
-	repaintType = "interval"; -- "event" or "interval"
-	eventType = ""; -- "WoWEvents" or "RDXEvents"
-	eventName = "";
-	interval = 1;
-	GenerateCreateCodeVariable = function(objname) return [[
-]]; end;
-	GenerateCreateCode = function(objname) return [[
-	text = VFLP.GetTextPerf();
-]]; end;
-});
-
-RDX.RegisterOtherTextType({
-	name = "Memory Debit";
-	title = VFLI.i18n("Memory Debit");
-	OnExpose = VFL.Noop;
-	OnApply = VFL.Noop;
-	repaintType = "interval"; -- "event" or "interval"
-	eventType = ""; -- "WoWEvents" or "RDXEvents"
-	eventName = "";
-	interval = 1;
-	GenerateCreateCodeVariable = function(objname) return [[
-]]; end;
-	GenerateCreateCode = function(objname) return [[
-	_, text = VFLP.GetTextPerf();
-]]; end;
-});
-
-RDX.RegisterOtherTextType({
 	name = "Time";
 	title = VFLI.i18n("Time");
 	OnExpose = VFL.Noop;
@@ -817,43 +763,6 @@ RDX.RegisterOtherTextType({
 });
 
 RDX.RegisterOtherTextType({
-	name = "Usage 2";
-	title = VFLI.i18n("Fps/Ms");
-	OnExpose = VFL.Noop;
-	OnApply = VFL.Noop;
-	repaintType = "interval"; -- "event" or "interval"
-	eventType = "RDXEvents"; -- "WoWEvents" or "RDXEvents"
-	eventName = "AUI";
-	interval = 1;
-	GenerateCreateCodeVariable = function(objname) return [[
-]]; end;
-	GenerateCreateCode = function(objname) return [[
-	_apps = "";
-	_i = floor(GetFramerate() or "");
-	if _i >= 50 then
-	  _apps = VFL.strtcolor(_green) .. _i ..VFL.strtcolor(_white) .."fps ";
-	elseif _i <= 49 and _i >= 35 then
-	  _apps = VFL.strtcolor(_yellow) .. _i ..VFL.strtcolor(_white) .."fps ";
-	elseif _i <= 34 and _i >= 21 then
-	  _apps = VFL.strtcolor(_orange) .. _i ..VFL.strtcolor(_white) .."fps ";
-	elseif _i <= 20 then
-	  _apps = VFL.strtcolor(_red) .. _i .. VFL.strtcolor(_white) .."fps ";
-	end;
-	_,_, _j = GetNetStats();
-	if _j <= 125 then
-	  _j = VFL.strtcolor(_green) .. _j .. VFL.strtcolor(_white) .. "ms";
-	elseif _j >= 126 and _j <= 250 then
-	  _j = VFL.strtcolor(_yellow) .. _j .. VFL.strtcolor(_white) .. "ms";
-	elseif _j >= 251 and _j <= 375 then
-	  _j = VFL.strtcolor(_orange) .. _j .. VFL.strtcolor(_white) .. "ms";
-	elseif _j >= 376 then
-	  _j = VFL.strtcolor(_red) .. _j .. VFL.strtcolor(_white) .. "ms";
-	end;  
-	text = _apps  .. _j;
-]]; end;
-});
-
-RDX.RegisterOtherTextType({
 	name = "guild";
 	title = VFLI.i18n("Guild");
 	OnExpose = VFL.Noop;
@@ -974,7 +883,7 @@ RDX.RegisterFeature({
 	end;
 	ExposeFeature = function(desc, state, errs)
 		if not RDXUI.DescriptorCheck(desc, state, errs) then return nil; end
-		if not desc.tyo then desc.tyo = "gold"; end
+		if not desc.tyo or not otherText[desc.tyo] then desc.tyo = "gold"; end
 		local flg = true;
 		flg = flg and RDXUI.UFAnchorCheck(desc.anchor, state, errs);
 		flg = flg and RDXUI.UFFrameCheck_Proto("Text_", desc, state, errs);
@@ -994,7 +903,7 @@ RDX.RegisterFeature({
 			statusText[desc.ty].OnExpose(desc, state, errs);
 			if VFL.HasError(errs) then flg = nil; end
 		elseif desc.ftype == 5 then
-		
+			if (not desc.tyo) or (not otherText[desc.tyo]) then VFL.AddError(errs,VFLI.i18n("Invalid other text type")); flg = nil; end
 		elseif desc.ftype == 6 then
 			if flg then 
 				state:AddSlot("TextCustom_" .. desc.name);
@@ -1370,6 +1279,7 @@ RDX.RegisterFeature({
 		local display2 = VFLUI.Dropdown:new(er, getotherIndex);
 		display2:SetWidth(250); display2:Show();
 		display2:SetSelection(otherText[desc.tyo].title, desc.tyo);
+		
 		er:EmbedChild(display2); er:Show(); ui:InsertFrame(er);
 		
 		ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Text Type Custom")));

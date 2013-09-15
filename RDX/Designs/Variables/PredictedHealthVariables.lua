@@ -18,12 +18,12 @@ RDX.RegisterFeature({
 		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
 		if desc.test then
 			code:AppendCode([[
-		local ph, pfh, ih = 300, 0.5, 100;
+		local ph, pfh, ih, ah = 300, 0.5, 100, 0;
 		local pheal = VFL.strcolor(1,1,1) .. "+" .. 300 .. " " .. VFL.strcolor(0.75,0,0) .. "-" .. 100;
 ]]);
 		else
 			code:AppendCode([[
-		local ph, _, pfh, ih = unit:AllSmartHealth();
+		local ph, _, pfh, ih, ah = unit:AllSmartHealth();
 		local umh = unit:MissingHealth();
 		local pheal = "";
 		if umh and umh > 0 then pheal = VFL.strcolor(0.75,0,0) .. "-" .. umh; end

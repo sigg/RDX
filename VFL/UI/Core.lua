@@ -171,22 +171,6 @@ function VFLUI.TransformCoords4(from, to, x, y, z, w)
 	return x*v, y*v, z*v, w*v;
 end
 
---- Get the mouse position in the local coordinates of the given frame.
-function VFLUI.GetLocalMousePosition(frame)
-	return VFLUI.GetLocalCoords(frame, GetCursorPosition());
-end
-
---- Get the mouse position in the local coordinates of the given frame RELATIVE TO THE TOPLEFT OF THAT FRAME.
-function VFLUI.GetRelativeLocalMousePosition(frame)
-	l, t, mx, my = frame:GetLeft(), frame:GetTop(), VFLUI.GetLocalCoords(frame, GetCursorPosition());
-	return (mx - l), (my - t);
-end
-
-function VFLUI.GetRelativeLocalMousePositionBL(frame)
-	l, b, mx, my = frame:GetLeft(), frame:GetBottom(), VFLUI.GetLocalCoords(frame, GetCursorPosition());
-	return (mx - l), (my - b);
-end
-
 --- Get the left, top, right, and bottom points of a frame in universal coordinates.
 function VFLUI.GetUniversalBoundary(frame)
 	return VFLUI.GetUniversalCoords4(frame, frame:GetLeft(), frame:GetTop(), frame:GetRight(), frame:GetBottom());
@@ -777,7 +761,6 @@ function VFLUI.AcquireFrame(frameType, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10)
 	pool = objp[frameType];
 	if not pool then return nil; end
 	frame = pool:Acquire(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-	--if not frame then return RDX.printE("no object in the pool " .. frameType); end
 	if not frame then return nil; end
 	frame._VFL = true;
 	frame._sourcePool = pool;

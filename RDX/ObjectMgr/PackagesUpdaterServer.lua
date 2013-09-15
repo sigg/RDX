@@ -21,7 +21,7 @@
 -- Helper
 --------------------------------------------------------------------------------
 local function GetPkgInfo(pkgName, flagall)
-	if not RDXDB.IsProtectedPkg(pkgName) and (flagall or RDXDB.GetPackageMetadata(pkgName, "infoIsShare")) then
+	--if not RDXDB.IsProtectedPkg(pkgName) and (flagall or RDXDB.GetPackageMetadata(pkgName, "infoIsShare")) then
 		local isA = "no"; if RDXDB.GetPackageMetadata(pkgName, "infoRunAutoexec") then isA = "yes"; end
 		local isS = "no"; if RDXDB.GetPackageMetadata(pkgName, "infoIsShare") then isS = "yes"; end
 		local pkgInfo = {
@@ -37,8 +37,8 @@ local function GetPkgInfo(pkgName, flagall)
 			isShare = isS;
 		};
 		return pkgInfo;
-	end
-	return nil;
+	--end
+	--return nil;
 end
 
 local newlist = {};

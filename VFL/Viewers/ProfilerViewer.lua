@@ -48,10 +48,58 @@ reset:SetScript("OnClick", function() VFLP.ResetCPU(); end);
 ---------------------------------------------------------------
 -- DATA LIST
 ---------------------------------------------------------------
+
+-- The onclick function for omni table cells.
+local function CellOnClick(self, arg1)
+	--local curtbl = self._srcTbl; if not curtbl then return; end
+	--local pos = self._pos;
+	if(arg1 == "LeftButton") then
+		----- LMB clicks
+		if IsShiftKeyDown() then
+			-- Crop
+			--if not curtbl.mark then return; end
+			--local nt = curtbl:Crop(curtbl.mark, pos);
+			--curtbl.session:AddTable(nt);
+		else
+			-- Mark
+			--curtbl.mark = pos; Omni._RefreshActiveTable();
+		end
+		return;
+	else
+		----- RMB clicks
+	end
+	local mnu = {
+		{ text = VFL.strcolor(.5, .5, .5) .. "(Row )|r" };
+	};
+	--if (not curtbl:IsImmutable()) then 
+		table.insert(mnu, { 
+			text = "Kill", 
+			OnClick = function() 
+				--curtbl:Timeshift(-t); 
+				--Omni._RefreshActiveTable();
+				self.kill();
+				VFL.poptree:Release(); 
+			end
+		});
+	--end
+	VFL.poptree:Begin(120, 12, self, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(self));
+	VFL.poptree:Expand(nil, mnu);
+end
+
 -- Create a cell in the data table
 local function CreateCell(parent)
-	local self = VFLUI.AcquireFrame("Frame");
+	local self = VFLUI.AcquireFrame("Button");
 	VFLUI.StdSetParent(self, parent); self:SetHeight(10);
+	
+	self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+	
+	-- Create the button highlight texture
+	local hltTexture = VFLUI.CreateTexture(self);
+	hltTexture:SetAllPoints(self); hltTexture:Show();
+	hltTexture:SetTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight");
+	hltTexture:SetBlendMode("ADD");
+	self:SetHighlightTexture(hltTexture);
+	self.hltTexture = hltTexture;
 
 	-- Create the columns.
 	local w, af, ap = 0, self, "TOPLEFT";
@@ -87,6 +135,7 @@ local function CreateCell(parent)
 		for _,column in pairs(s.col) do column:Destroy();	end
 		s.col = nil;
 		-- Destroy textures
+		if s.hltTexture then s.hltTexture:Destroy(); s.hltTexture = nil; end
 		if s.selTexture then s.selTexture:Destroy(); s.selTexture = nil; end
 	end, self.Destroy);
 	self.OnDeparent = self.Destroy;
@@ -178,6 +227,8 @@ local function SetSummaryMode()
 			PaintTitle(colspec_summ, col);
 		else
 			cell.selTexture:Hide();
+			cell:SetScript("OnClick", nil);
+			cell.kill = nil;
 			PaintData(colspec_summ, col, data);
 		end
 	end, function() return #alist + 1; end, function(n) if n == 1 then return true; else return alist[n-1]; end end);
@@ -223,6 +274,15 @@ local function SetObjectMode()
 				cell.selTexture:Show(); cell.selTexture:SetTexture(0,0.6,0.6,1);
 			else
 				cell.selTexture:Hide();
+				
+				if data.kill then
+					cell:SetScript("OnClick", CellOnClick);
+					cell.kill = data.kill;
+				else
+					cell:SetScript("OnClick", nil);
+					cell.kill = nil;
+				end			
+				
 			end
 			PaintData(colspec_obj, col, data);
 		end
@@ -269,6 +329,8 @@ local function SetEventMode()
 				cell.selTexture:Show(); cell.selTexture:SetTexture(0,0.6,0.6,1);
 			else
 				cell.selTexture:Hide();
+				cell:SetScript("OnClick", nil);
+				cell.kill = nil;
 			end
 			PaintData(colspec_event, col, data);
 		end
@@ -307,6 +369,8 @@ local function SetPoolMode()
 				cell.selTexture:Show(); cell.selTexture:SetTexture(0,0.6,0.6,1);
 			else
 				cell.selTexture:Hide();
+				cell:SetScript("OnClick", nil);
+				cell.kill = nil;
 			end
 			PaintData(colspec_pool, col, data);
 		end

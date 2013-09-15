@@ -1,8 +1,8 @@
-﻿## Interface: 50200
+﻿## Interface: 50400
 ## Title: |c007ffcffRDX|r
 ## Notes: RDX is Raid Data Exchange - UI and raid mods.
 ## Author: Raid Informatics / OpenRDX Project
-## Version: 9.0.15
+## Version: 9.1.0
 ## RequiredDeps: VFL, RDX_mediapack
 ## OptionalDeps: RDX_filesystem, RDX_localspelldb, RDX_combatlogs, RDX_recovery, RDX_languagepack_frFR, RDX_languagepack_deDE, RDX_languagepack_ruRU
 ## SavedVariables: RDXSession
@@ -254,11 +254,22 @@ Raid\Bossmods\AbilityTracker.lua
 Raid\Bossmods\AbilityTrackWindow.lua
 Raid\Bossmods\BossmodMenu.lua
 
+# Map (Carbonite)
+MapMgr\Core.lua
+#Metadata\Maps.lua
+#MapMgr\MapEngine.lua
+MapMgr\Quests\QuestsPanel.lua
+MapMgr\Quests\QuestsPanel_current.lua
+MapMgr\Quests\QuestsPanel_history.lua
+MapMgr\Quests\QuestsPanel_database.lua
+MapMgr\Quests\QuestsPanel_player.lua
+
 # Tab Manager
 TabMgr\Obj_TabManager.lua
 TabMgr\Obj_TabChatFrame.lua
 TabMgr\Obj_TabCombatLogs.lua
 TabMgr\Obj_TabWindow.lua
+TabMgr\Obj_TabMap.lua
 
 # Design Library
 Designs\Obj_Design.lua
