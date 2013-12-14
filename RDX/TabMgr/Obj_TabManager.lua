@@ -56,6 +56,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 		if tabpath == "root" then
 			local f = VFLUI.AcquireFrame("Frame");
 			tab = self.tabbox:GetTabBar():AddTab(20, function(self, arg1) 
+				tabbox:SetClient(f);
 				end, 
 				function() end,
 				function(mnu, dlg)
@@ -140,7 +141,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 					end
 				end,
 				true,
-				true
+				nil
 			);
 			tab.f = f;
 			tab._path = tabpath;

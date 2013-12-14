@@ -6,13 +6,13 @@
 -- taille petit  : 36 19 15 11  4, 4
 
 local function _EmitCreateCode(objname, desc)
-	desc.nIcons = #RDX.BlizzardMicroButtons;
+	desc.nIcons = #MICRO_BUTTONS;
 	local createCode = [[
 	frame.]] .. objname .. [[ = {};
 	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
 	local error;
 	for i=1, ]] .. desc.nIcons .. [[ do
-		btn = VFLUI.AcquireFrame("BlizzardElement", RDX.BlizzardMicroButtons[i]);
+		btn = VFLUI.AcquireFrame("BlizzardElement", MICRO_BUTTONS[i]);
 		if btn then
 			btn:SetParent(btnOwner);
 			btn:SetFrameLevel(btnOwner:GetFrameLevel());

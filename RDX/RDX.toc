@@ -270,6 +270,7 @@ TabMgr\Obj_TabChatFrame.lua
 TabMgr\Obj_TabCombatLogs.lua
 TabMgr\Obj_TabWindow.lua
 TabMgr\Obj_TabMap.lua
+TabMgr\Obj_TabQuest.lua
 
 # Design Library
 Designs\Obj_Design.lua

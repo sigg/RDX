@@ -520,6 +520,16 @@ end, function()
 	return f;
 end);
 
+-- Class: ItemWatchbutton
+VFLUI.CreateFramePool("WatchFrameItemButton", function(pool, x)
+	CleanupButton(x);
+end, function()
+	local f = CreateFrame("Button", "Button_" .. GetNextID(), nil, "WatchFrameItemButtonTemplate");
+	FixFontObjectNonsense(f);
+	return f;
+end);
+
+
 -- Class: EditBox
 VFLUI.CreateFramePool("EditBox", function(pool, x) 
 	x:SetScript("OnEditFocusGained", nil); x:SetScript("OnEditFocusLost", nil);

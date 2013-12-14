@@ -262,6 +262,13 @@ function RDX.CombatLogs:new(path, desc)
 				{ title = "Ability", width = 195, font = ft },
 				{ title = "Misc", width = 87, font = ft }
 			});
+		elseif self2:GetWidth() >= 350 then
+			Omni._ApplyColSpecToList(self2, { 
+				{ title = "Time", width = 60, font = ft },
+				{ title = "Amt", width = 50, font = ft },
+				{ title = "Ability", width = 170, font = ft },
+				{ title = "Misc", width = 70, font = ft }
+			});
 		elseif self2:GetWidth() >= 300 then
 			Omni._ApplyColSpecToList(self2, { 
 				{ title = "Time", width = 60, font = ft },

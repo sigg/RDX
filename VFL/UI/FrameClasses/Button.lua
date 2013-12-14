@@ -630,7 +630,7 @@ function VFLUI.ColoredButton:new(parent, c1, c2)
 	local chk = VFLUI.AcquireFrame("CheckButton");
 	
 	local tex = chk:CreateTexture();
-	if not tex:SetTexture("Interface\\Addons\\Carbonite\\Gfx\\Buttons\\DotOn") then error("texture"); end
+	if not tex:SetTexture("Interface\\Addons\\VFL\\Skin\\DotOn") then error("texture"); end
 	tex:SetAllPoints();
 	tex:Show();
 	chk:SetNormalTexture(tex);
@@ -656,7 +656,13 @@ function VFLUI.ColoredButton:new(parent, c1, c2)
 
 	local function layout()
 		local w = self:GetWidth();
-		if(w < 25) then self.text:SetWidth(0); self.text:Hide(); else self.text:SetWidth(w - 19); self.text:Show(); end
+		if(w < 25) then 
+			self.text:SetWidth(0); self.text:Hide();
+		else
+			self.text:SetWidth(w - 19); self.text:Show(); 
+		end
+		local h = self:GetHeight();
+		self.button:SetHeight(h); self.button:SetWidth(h);
 	end
 	self:SetScript("OnShow", layout);
 	self:SetScript("OnSizeChanged", layout);

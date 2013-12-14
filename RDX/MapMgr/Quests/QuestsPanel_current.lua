@@ -7,7 +7,6 @@
 local cur
 local qId
 local quest
-local qId
 local title
 local level
 local tag

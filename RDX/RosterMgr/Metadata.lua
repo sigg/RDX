@@ -259,14 +259,14 @@ tblnoindex[267] = 3;
 
 tblnoindex[71] = 1;
 tblnoindex[72] = 2;
-tblnoindex[73] = 3;
+tblnoindex[70] = 3;
 
 tblnoindex[0] = 1;
 
 function RDXMD.GetSelfTalentNoIndex()
 	local currentSpec = GetSpecialization();
 	local currentSpecid = currentSpec and select(1, GetSpecializationInfo(currentSpec)) or 0;
-	if not tblnoindex[currentSpecid] then VFL.print(currentSpec); VFL.print(currentSpecid); end
+	if not tblnoindex[currentSpecid] then VFL.print("RDXMD.GetSelfTalentNoIndex"); VFL.print(currentSpec); VFL.print(currentSpecid); end
 	return tblnoindex[currentSpecid] or 1;
 end
 

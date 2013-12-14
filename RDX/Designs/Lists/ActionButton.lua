@@ -378,6 +378,8 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	self.txtHotkey:SetWidth(desc.w + 6); self.txtHotkey:SetHeight(desc.h);
 	self.txtHotkey:Show();
 	
+	self:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress");
+	
 	local start, duration, enable, charges, maxCharges, spellid = 0, 0, nil, 0, 0, nil;
 	local function UpdateCooldown()
 		start, duration, enable, charges, maxCharges = GetActionCooldown(self.action);
@@ -836,6 +838,8 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
 	self.txtHotkey:SetWidth(desc.w + 6); self.txtHotkey:SetHeight(desc.h);
 	
+	self:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress");
+	
 	local start, duration, enable, charges, maxCharges, spellid = 0, 0, nil, 0, 0, nil;
 	local function UpdateCooldown()
 		start, duration, enable, charges, maxCharges = GetActionCooldown(self.action);
@@ -1270,6 +1274,8 @@ function RDXUI.PetActionButton:new(parent, id, statesString, desc)
 	self.autocastable:SetDrawLayer("ARTWORK", 3);
 	self.autocastable:Show();
 	
+	self:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress");
+	
 	local start, duration, enable = 0, 0, nil;
 	local function UpdateCooldown()
 		start, duration, enable = GetPetActionCooldown(self.id);
@@ -1614,6 +1620,8 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 	self.txtHotkey:SetPoint("CENTER", self.frtxt, "CENTER");
 	self.txtHotkey:SetWidth(desc.w + 6); self.txtHotkey:SetHeight(desc.h);
 	
+	self:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress");
+	
 	local start, duration, enable = 0, 0, nil;
 	local function UpdateCooldown()
 		start, duration, enable = GetShapeshiftFormCooldown(self.id);
@@ -1856,6 +1864,8 @@ function RDXUI.ActionButtonTest:new(parent, id, statesString, desc)
 	VFLUI.SetFont(self.txtHotkey, Fonts.Default, 10);
 	self.txtHotkey:Show();
 	
+	self:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress");
+	
 	function self:Init()
 		--self.cd:SetCooldown(0,0);
 		--self.cd:Show();
@@ -1896,7 +1906,7 @@ VFLUI.CreateFramePool("ButtonVehicle",
 	function(_, key)
 		local f = nil;
 		if key > 0 and key < 11 then
-			f = CreateFrame("Button", "VFLVehicleButton" .. key, nil, "SecureUnitButtonTemplate");
+			f = CreateFrame("CheckButton", "VFLVehicleButton" .. key, nil, "SecureUnitButtonTemplate");
 			VFLUI._FixFontObjectNonsense(f);
 		end
 		return f;
@@ -1966,6 +1976,8 @@ function RDXUI.VehicleButton:new(parent, id, statesString, desc)
 	self.frtxt:Show();
 	self.txtHotkey = VFLUI.CreateFontString(self.frtxt);
 	self.txtHotkey:SetAllPoints(self.frtxt);
+	
+	self:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress");
 	
 	local function UpdateNewAction()
 		if self.id == 1 then

@@ -125,13 +125,13 @@ function VFLT.InitTime()
 	-- Convert back to hours.
 	tz = VFL.round(tz/60);
 	-- Print info
-	VFL.print("|cFFFFFFFF[VFL]|r Local time is |cFF00FF00" .. today.hour .. ":" .. today.min .. "|r, server time is |cFF00FF00" .. sh .. ":" .. sm .. "|r");
-	VFL.print("|cFFFFFFFF[VFL]|r Autodetected time difference: Server = Local + |cFF00FF00" .. tz .. " hours|r");
+	VFL.print("Local time is |cFF00FF00" .. today.hour .. ":" .. today.min .. "|r, server time is |cFF00FF00" .. sh .. ":" .. sm .. "|r");
+	VFL.print("Autodetected time difference: Server = Local + |cFF00FF00" .. tz .. " hours|r");
 	-- Allow the timezone to be directly overridden.
 	if not VFLConfig then VFLConfig = {}; end
 	if VFLConfig.overrideTZ then
 		tz = VFLConfig.overrideTZ;
-		VFL.print("|cFFFFFFFF[VFL]|r Override timezone: |cFF00FF00" .. tz .. " hours|r");
+		VFL.print("Override timezone: |cFF00FF00" .. tz .. " hours|r");
 	end
 
 	-- Figure out the projected server time based on the server time offset.

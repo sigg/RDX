@@ -195,7 +195,7 @@ RDXCD.RegisterCooldown(nil, nil, "PALADIN", nil, 114158, 60, nil, "SPELL_CAST_SU
 --RDXCD.RegisterCooldown(nil, nil, "PALADIN", "Retribution", 85696, 2*60, nil, "SPELL_CAST_SUCCESS"); -- Fanatisme
 
 RDXCD.RegisterCooldown(nil, nil, "ROGUE", nil, 1784, 6, nil, "SPELL_AURA_REMOVED"); -- Camouflage
-RDXCD.RegisterCooldown(nil, nil, "ROGUE", nil, 5277, 3*60, nil, "SPELL_CAST_SUCCESS"); -- Evasion
+RDXCD.RegisterCooldown(nil, nil, "ROGUE", nil, 5277, 2*60, nil, "SPELL_CAST_SUCCESS"); -- Evasion
 RDXCD.RegisterCooldown(nil, nil, "ROGUE", nil, 1766, 15, nil, "SPELL_CAST_SUCCESS"); -- Coup de pied -- INTERRUPT
 RDXCD.RegisterCooldown(nil, nil, "ROGUE", nil, 1776, 10, nil, "SPELL_CAST_SUCCESS"); -- Suriner
 RDXCD.RegisterCooldown(nil, nil, "ROGUE", nil, 2983, 60, nil, "SPELL_CAST_SUCCESS"); -- sprint
