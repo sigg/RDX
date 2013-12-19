@@ -2079,44 +2079,20 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	-- type talent&name&realm
 	local bindings = RDXDB.GetOrCreatePackage("bindings");
 	
-	local mbo = RDXDB.TouchObject("bindings:bindings_player_" .. RDX.pspace .. "1");
-	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-			    ["action"] = "target",
-			},
-			["2"] = {
-			    ["action"] = "menu",
-			},
-	     };
-	     mbo.ty = "MouseBindings"; 
-	     mbo.version = 1;
-	end
-	local mbo = RDXDB.TouchObject("bindings:bindings_player_" .. RDX.pspace .. "2");
-	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-			    ["action"] = "target",
-			},
-			["2"] = {
-			    ["action"] = "menu",
-			},
-	     };
-	     mbo.ty = "MouseBindings"; 
-	     mbo.version = 1;
-	end
-	local mbo = RDXDB.TouchObject("bindings:bindings_player_" .. RDX.pspace .. "3");
-	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-			    ["action"] = "target",
-			},
-			["2"] = {
-			    ["action"] = "menu",
-			},
-	     };
-	     mbo.ty = "MouseBindings"; 
-	     mbo.version = 1;
+	for i=1,GetNumSpecializations() do
+		local mbo = RDXDB.TouchObject("bindings:bindings_player_" .. RDX.pspace .. i);
+		if not mbo.data then
+			mbo.data = {
+				["1"] = {
+					["action"] = "target",
+				},
+				["2"] = {
+					["action"] = "menu",
+				},
+			 };
+			 mbo.ty = "MouseBindings"; 
+			 mbo.version = 1;
+		end
 	end
 	local mbsl = RDXDB.TouchObject("bindings:bindings_player");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
@@ -2128,53 +2104,23 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	-- default:bindings_target
 	-- type talent&name&realm
 	
-	local mbo = RDXDB.TouchObject("bindings:bindings_target_" .. RDX.pspace .. "1");
-	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-			    ["action"] = "target",
-			},
-			["2"] = {
-			    ["action"] = "menu",
-			},
-			["S1"] = {
-			    ["action"] = "focus",
-			},
-	     };
-	     mbo.ty = "MouseBindings"; 
-	     mbo.version = 1;
-	end
-	local mbo = RDXDB.TouchObject("bindings:bindings_target_" .. RDX.pspace .. "2");
-	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-			    ["action"] = "target",
-			},
-			["2"] = {
-			    ["action"] = "menu",
-			},
-			["S1"] = {
-			    ["action"] = "focus",
-			},
-	     };
-	     mbo.ty = "MouseBindings"; 
-	     mbo.version = 1;
-	end
-	local mbo = RDXDB.TouchObject("bindings:bindings_target_" .. RDX.pspace .. "3");
-	if not mbo.data then
-		mbo.data = {
-			["1"] = {
-			    ["action"] = "target",
-			},
-			["2"] = {
-			    ["action"] = "menu",
-			},
-			["S1"] = {
-			    ["action"] = "focus",
-			},
-	     };
-	     mbo.ty = "MouseBindings"; 
-	     mbo.version = 1;
+	for i=1,GetNumSpecializations() do
+		local mbo = RDXDB.TouchObject("bindings:bindings_target_" .. RDX.pspace .. i);
+		if not mbo.data then
+			mbo.data = {
+				["1"] = {
+					["action"] = "target",
+				},
+				["2"] = {
+					["action"] = "menu",
+				},
+				["S1"] = {
+					["action"] = "focus",
+				},
+			 };
+			 mbo.ty = "MouseBindings"; 
+			 mbo.version = 1;
+		end
 	end
 	local mbsl = RDXDB.TouchObject("bindings:bindings_target");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
@@ -2183,23 +2129,13 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	
 	-- heal bindings
 	
-	local mbo = RDXDB.TouchObject("bindings:bindings_heal_" .. RDX.pspace .. "1");
-	if not mbo.data then
-		mbo.data = heal_default();
-		mbo.ty = "MouseBindings"; 
-		mbo.version = 1;
-	end
-	local mbo = RDXDB.TouchObject("bindings:bindings_heal_" .. RDX.pspace .. "2");
-	if not mbo.data then
-		mbo.data = heal_default();
-		mbo.ty = "MouseBindings"; 
-		mbo.version = 1;
-	end
-	local mbo = RDXDB.TouchObject("bindings:bindings_heal_" .. RDX.pspace .. "3");
-	if not mbo.data then
-		mbo.data = heal_default();
-		mbo.ty = "MouseBindings"; 
-		mbo.version = 1;
+	for i=1,GetNumSpecializations() do
+		local mbo = RDXDB.TouchObject("bindings:bindings_heal_" .. RDX.pspace .. i);
+		if not mbo.data then
+			mbo.data = heal_default();
+			mbo.ty = "MouseBindings"; 
+			mbo.version = 1;
+		end
 	end
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("bindings:bindings_heal");
@@ -2208,23 +2144,14 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	end
 	
 	-- damage
-	local mbo = RDXDB.TouchObject("bindings:bindings_dmg_" .. RDX.pspace .. "1");
-	if not mbo.data then
-		mbo.data = dmg_default();
-		mbo.ty = "MouseBindings"; 
-		mbo.version = 1;
-	end
-	local mbo = RDXDB.TouchObject("bindings:bindings_dmg_" .. RDX.pspace .. "2");
-	if not mbo.data then
-		mbo.data = dmg_default();
-		mbo.ty = "MouseBindings"; 
-		mbo.version = 1;
-	end
-	local mbo = RDXDB.TouchObject("bindings:bindings_dmg_" .. RDX.pspace .. "3");
-	if not mbo.data then
-		mbo.data = dmg_default();
-		mbo.ty = "MouseBindings"; 
-		mbo.version = 1;
+
+	for i=1,GetNumSpecializations() do
+		local mbo = RDXDB.TouchObject("bindings:bindings_dmg_" .. RDX.pspace .. i);
+		if not mbo.data then
+			mbo.data = dmg_default();
+			mbo.ty = "MouseBindings"; 
+			mbo.version = 1;
+		end
 	end
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("bindings:bindings_dmg");
@@ -3017,38 +2944,18 @@ end);
 --------------------------------------
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	-- Create player-specific set yellow if they don't exist
-	local mbo = RDXDB.TouchObject("sets:set_yellow_" .. RDX.pspace .. "1");
-	if not mbo.data then 
-		mbo.ty = "FilterSet"; 
-		mbo.version = 1;
-		mbo.data = {
-			"set",
-			{
-				["class"] = "empty",
-			},
-		};
-	end
-	local mbo = RDXDB.TouchObject("sets:set_yellow_" .. RDX.pspace .. "2");
-	if not mbo.data then 
-		mbo.ty = "FilterSet"; 
-		mbo.version = 1;
-		mbo.data = {
-			"set",
-			{
-				["class"] = "empty",
-			},
-		};
-	end
-	local mbo = RDXDB.TouchObject("sets:set_yellow_" .. RDX.pspace .. "3");
-	if not mbo.data then 
-		mbo.ty = "FilterSet"; 
-		mbo.version = 1;
-		mbo.data = {
-			"set",
-			{
-				["class"] = "empty",
-			},
-		};
+	for i=1,GetNumSpecializations() do
+		local mbo = RDXDB.TouchObject("sets:set_yellow_" .. RDX.pspace .. i);
+		if not mbo.data then 
+			mbo.ty = "FilterSet"; 
+			mbo.version = 1;
+			mbo.data = {
+				"set",
+				{
+					["class"] = "empty",
+				},
+			};
+		end
 	end
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("sets:set_yellow");
@@ -3057,38 +2964,18 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	end
 	
 	-- Create player-specific set red if they don't exist
-	local mbo = RDXDB.TouchObject("sets:set_red_" .. RDX.pspace .. "1");
-	if not mbo.data then
-		mbo.ty = "FilterSet";
-		mbo.version = 1;
-		mbo.data = {
-			"set",
-			{
-				["class"] = "empty",
-			},
-		};
-	end
-	local mbo = RDXDB.TouchObject("sets:set_red_" .. RDX.pspace .. "2");
-	if not mbo.data then
-		mbo.ty = "FilterSet";
-		mbo.version = 1;
-		mbo.data = {
-			"set",
-			{
-				["class"] = "empty",
-			},
-		};
-	end
-	local mbo = RDXDB.TouchObject("sets:set_red_" .. RDX.pspace .. "3");
-	if not mbo.data then
-		mbo.ty = "FilterSet";
-		mbo.version = 1;
-		mbo.data = {
-			"set",
-			{
-				["class"] = "empty",
-			},
-		};
+	for i=1,GetNumSpecializations() do
+		local mbo = RDXDB.TouchObject("sets:set_red_" .. RDX.pspace .. i);
+		if not mbo.data then
+			mbo.ty = "FilterSet";
+			mbo.version = 1;
+			mbo.data = {
+				"set",
+				{
+					["class"] = "empty",
+				},
+			};
+		end
 	end
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("sets:set_red");
@@ -3097,38 +2984,18 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	end
 	
 	-- Create player-specific set green if they don't exist
-	local mbo = RDXDB.TouchObject("sets:set_green_" .. RDX.pspace .. "1");
-	if not mbo.data then
-		mbo.ty = "FilterSet"; 
-		mbo.version = 1;
-		mbo.data = {
-			"set",
-			{
-				["class"] = "empty",
-			},
-		};
-	end
-	local mbo = RDXDB.TouchObject("sets:set_green_" .. RDX.pspace .. "2");
-	if not mbo.data then
-		mbo.ty = "FilterSet"; 
-		mbo.version = 1;
-		mbo.data = {
-			"set",
-			{
-				["class"] = "empty",
-			},
-		};
-	end
-	local mbo = RDXDB.TouchObject("sets:set_green_" .. RDX.pspace .. "3");
-	if not mbo.data then
-		mbo.ty = "FilterSet"; 
-		mbo.version = 1;
-		mbo.data = {
-			"set",
-			{
-				["class"] = "empty",
-			},
-		};
+	for i=1,GetNumSpecializations() do
+		local mbo = RDXDB.TouchObject("sets:set_green_" .. RDX.pspace .. i);
+		if not mbo.data then
+			mbo.ty = "FilterSet"; 
+			mbo.version = 1;
+			mbo.data = {
+				"set",
+				{
+					["class"] = "empty",
+				},
+			};
+		end
 	end
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("sets:set_green");
@@ -3137,38 +3004,18 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	end
 	
 	-- Create player-specific set blue if they don't exist
-	local mbo = RDXDB.TouchObject("sets:set_blue_" .. RDX.pspace .. "1");
-	if not mbo.data then
-		mbo.ty = "FilterSet"; 
-		mbo.version = 1;
-		mbo.data = {
-			"set",
-			{
-				["class"] = "empty",
-			},
-		};
-	end
-	local mbo = RDXDB.TouchObject("sets:set_blue_" .. RDX.pspace .. "2");
-	if not mbo.data then
-		mbo.ty = "FilterSet"; 
-		mbo.version = 1;
-		mbo.data = {
-			"set",
-			{
-				["class"] = "empty",
-			},
-		};
-	end
-	local mbo = RDXDB.TouchObject("sets:set_blue_" .. RDX.pspace .. "3");
-	if not mbo.data then
-		mbo.ty = "FilterSet"; 
-		mbo.version = 1;
-		mbo.data = {
-			"set",
-			{
-				["class"] = "empty",
-			},
-		};
+	for i=1,GetNumSpecializations() do
+		local mbo = RDXDB.TouchObject("sets:set_blue_" .. RDX.pspace .. i);
+		if not mbo.data then
+			mbo.ty = "FilterSet"; 
+			mbo.version = 1;
+			mbo.data = {
+				"set",
+				{
+					["class"] = "empty",
+				},
+			};
+		end
 	end
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("sets:set_blue");

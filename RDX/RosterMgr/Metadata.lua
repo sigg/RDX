@@ -44,6 +44,7 @@ local classIcons = {
 	["WARLOCK"] = {0.75, 1, 0.25, 0.5},
 	["PALADIN"] = {0, 0.25, 0.5, 0.75},
 	["DEATHKNIGHT"]	= {0.25, .5, 0.5, .75},
+	["MONK"]	= {0.5, .75, 0.5, .75},
 	["PETS"] = {0, 1, 0, 1},
 	["MAINTANK"] = {0, 1, 0, 1},
 	["MAINASSIST"] = {0, 1, 0, 1}
@@ -102,7 +103,7 @@ function RDXMD.GetRoleColor(cid) return idToRoleColor[cid] or _grey; end
 
 local idToLocalsubclass = { 
 	"Discipline", "Holy", "Shadow",
-	"Balance", "Feral Combat", "Restoration",
+	"Balance", "Feral", "Guardian", "Restoration",
 	"Holy", "Protection", "Retribution",
 	"Elemental", "Enhancement", "Restoration",
 	"Arms", "Fury", "Protection",
@@ -118,19 +119,19 @@ local _unsubclass = "Unknown";
 local talentIndex = {};
 talentIndex["PRIEST"] = 1;
 talentIndex["DRUID"] = 4;
-talentIndex["PALADIN"] = 7;
-talentIndex["SHAMAN"] = 10;
-talentIndex["WARRIOR"] = 13;
-talentIndex["WARLOCK"] = 16;
-talentIndex["MAGE"] = 19;
-talentIndex["ROGUE"] = 22;
-talentIndex["HUNTER"] = 25;
-talentIndex["DEATHKNIGHT"] = 28;
-talentIndex["MONK"] = 31;
+talentIndex["PALADIN"] = 8;
+talentIndex["SHAMAN"] = 11;
+talentIndex["WARRIOR"] = 14;
+talentIndex["WARLOCK"] = 17;
+talentIndex["MAGE"] = 20;
+talentIndex["ROGUE"] = 23;
+talentIndex["HUNTER"] = 26;
+talentIndex["DEATHKNIGHT"] = 29;
+talentIndex["MONK"] = 32;
 
 local idToSubClassColor = { 
 	RAID_CLASS_COLORS["PRIEST"], RAID_CLASS_COLORS["PRIEST"], RAID_CLASS_COLORS["PRIEST"],
-	RAID_CLASS_COLORS["DRUID"], RAID_CLASS_COLORS["DRUID"], RAID_CLASS_COLORS["DRUID"],
+	RAID_CLASS_COLORS["DRUID"], RAID_CLASS_COLORS["DRUID"], RAID_CLASS_COLORS["DRUID"], RAID_CLASS_COLORS["DRUID"],
 	RAID_CLASS_COLORS["PALADIN"], RAID_CLASS_COLORS["PALADIN"], RAID_CLASS_COLORS["PALADIN"],
 	RAID_CLASS_COLORS["SHAMAN"], RAID_CLASS_COLORS["SHAMAN"], RAID_CLASS_COLORS["SHAMAN"],
 	RAID_CLASS_COLORS["WARRIOR"], RAID_CLASS_COLORS["WARRIOR"], RAID_CLASS_COLORS["WARRIOR"],
@@ -152,32 +153,36 @@ idToTexture[1] = "Interface\\Icons\\Spell_Holy_PowerInfusion";
 idToTexture[2] = "Interface\\Icons\\Spell_Holy_HolyBolt";
 idToTexture[3] = "Interface\\Icons\\Spell_Shadow_ShadowWordPain";
 idToTexture[4] = "Interface\\Icons\\Spell_Nature_Preservation";
-idToTexture[5] = "Interface\\Icons\\Ability_Racial_BearForm";
-idToTexture[6] = "Interface\\Icons\\Spell_Nature_HealingTouch";
-idToTexture[7] = "Interface\\Icons\\Spell_Holy_HolyGuidance";
-idToTexture[8] = "Interface\\Icons\\SPELL_HOLY_DEVOTIONAURA";
-idToTexture[9] = "Interface\\Icons\\Spell_Holy_AuraOfLight";
-idToTexture[10] = "Interface\\Icons\\Spell_Nature_Lightning";
-idToTexture[11] = "Interface\\Icons\\Spell_Nature_LightningShield";
-idToTexture[12] = "Interface\\Icons\\Spell_Nature_MagicImmunity";
-idToTexture[13] = "Interface\\Icons\\Ability_MeleeDamage";
-idToTexture[14] = "Interface\\Icons\\Ability_Warrior_InnerRage";
-idToTexture[15] = "Interface\\Icons\\Ability_Warrior_DefensiveStance";
-idToTexture[16] = "Interface\\Icons\\Spell_Shadow_DeathCoil";
-idToTexture[17] = "Interface\\Icons\\Spell_Shadow_Metamorphosis";
-idToTexture[18] = "Interface\\Icons\\Spell_Shadow_RainOfFire";
-idToTexture[19] = "Interface\\Icons\\Spell_Arcane_Blast";
-idToTexture[20] = "Interface\\Icons\\Spell_Fire_FlameBolt";
-idToTexture[21] = "Interface\\Icons\\Spell_Frost_FrostBolt02";
-idToTexture[22] = "Interface\\Icons\\Ability_Rogue_Eviscerate";
-idToTexture[23] = "Interface\\Icons\\Ability_BackStab";
-idToTexture[24] = "Interface\\Icons\\Ability_Rogue_MasterOfSubtlety";
-idToTexture[25] = "Interface\\Icons\\Ability_Hunter_BeastTaming";
-idToTexture[26] = "Interface\\Icons\\Ability_Marksmanship";
-idToTexture[27] = "Interface\\Icons\\Ability_Hunter_SwiftStrike";
-idToTexture[28] = "Interface\\Icons\\Spell_Deathknight_BloodPresence";
-idToTexture[29] = "Interface\\Icons\\Spell_Deathknight_FrostPresence";
-idToTexture[30] = "Interface\\Icons\\Spell_Deathknight_UnholyPresence";
+idToTexture[5] = "Interface\\Icons\\Ability_Druid_CatForm";
+idToTexture[6] = "Interface\\Icons\\Ability_Racial_BearForm";
+idToTexture[7] = "Interface\\Icons\\Spell_Nature_HealingTouch";
+idToTexture[8] = "Interface\\Icons\\Spell_Holy_HolyGuidance";
+idToTexture[9] = "Interface\\Icons\\SPELL_HOLY_DEVOTIONAURA";
+idToTexture[10] = "Interface\\Icons\\Spell_Holy_AuraOfLight";
+idToTexture[11] = "Interface\\Icons\\Spell_Nature_Lightning";
+idToTexture[12] = "Interface\\Icons\\Spell_Nature_LightningShield";
+idToTexture[13] = "Interface\\Icons\\Spell_Nature_MagicImmunity";
+idToTexture[14] = "Interface\\Icons\\Ability_MeleeDamage";
+idToTexture[15] = "Interface\\Icons\\Ability_Warrior_InnerRage";
+idToTexture[16] = "Interface\\Icons\\Ability_Warrior_DefensiveStance";
+idToTexture[17] = "Interface\\Icons\\Spell_Shadow_DeathCoil";
+idToTexture[18] = "Interface\\Icons\\Spell_Shadow_Metamorphosis";
+idToTexture[19] = "Interface\\Icons\\Spell_Shadow_RainOfFire";
+idToTexture[20] = "Interface\\Icons\\Spell_Arcane_Blast";
+idToTexture[21] = "Interface\\Icons\\Spell_Fire_FlameBolt";
+idToTexture[22] = "Interface\\Icons\\Spell_Frost_FrostBolt02";
+idToTexture[23] = "Interface\\Icons\\Ability_Rogue_Eviscerate";
+idToTexture[24] = "Interface\\Icons\\Ability_BackStab";
+idToTexture[25] = "Interface\\Icons\\Ability_Rogue_MasterOfSubtlety";
+idToTexture[26] = "Interface\\Icons\\Ability_Hunter_BeastTaming";
+idToTexture[27] = "Interface\\Icons\\Ability_Marksmanship";
+idToTexture[28] = "Interface\\Icons\\Ability_Hunter_SwiftStrike";
+idToTexture[29] = "Interface\\Icons\\Spell_Deathknight_BloodPresence";
+idToTexture[30] = "Interface\\Icons\\Spell_Deathknight_FrostPresence";
+idToTexture[31] = "Interface\\Icons\\Spell_Deathknight_UnholyPresence";
+idToTexture[32] = "Interface\\Icons\\Spell_Monk_Brewmaster_Spec";
+idToTexture[33] = "Interface\\Icons\\Spell_Monk_MistWeaver_Spec";
+idToTexture[34] = "Interface\\Icons\\Spell_Monk_WindWalker_Spec";
 
 local _unsbTex = "Interface\\InventoryItems\\WoWUnknownItem01.blp";
 
@@ -223,7 +228,7 @@ tblnoindex[252] = 3;
 tblnoindex[102] = 1;
 tblnoindex[103] = 2;
 tblnoindex[104] = 3;
-tblnoindex[104] = 4;
+tblnoindex[105] = 4;
 
 tblnoindex[253] = 1;
 tblnoindex[254] = 2;
