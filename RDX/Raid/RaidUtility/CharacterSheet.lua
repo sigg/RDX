@@ -14,32 +14,23 @@ local function MakeCharSheet()
 	local z1={};
 	local z2={};
 	local x1, x2, x3, x4, x5;
-	for i=1,GetNumTalentTabs() do
-		local tabName, _, tabPS = GetTalentTabInfo(i);
-		table.insert(z1, tabPS);
-		table.insert(z2, tabName);
-		if i ~= 1 then
-			x1 = x1.."/"..z1[i];
-			if i == 3 then
-				x1 = x1 .."|r"
-			end
-		elseif i==1 then
-			x1 = "|cFFAAAAAA"..z1[i];
-		end
-	end
-	table.insert(ret, "|cFFFFFFFF " ..x1.. "|r");
+
+	local _, specName1 = GetSpecializationInfo(GetSpecialization(false, false, 1));
+	local _, specName2 = GetSpecializationInfo(GetSpecialization(false, false, 2));
+	
+	table.insert(ret, "|cFFAAAAAA " ..specName1.. "/" ..specName2.. "|r");
 	z1, z2 = nil;
 	-- Per tree talent info
-	for tab = 1,GetNumTalentTabs() do
-		local tabName, _, tabPS = GetTalentTabInfo(tab);
-		table.insert(ret, "|cFFFFFF00" .. tabName .. "|r |cFFAAAAAA(" .. tabPS .. ")|r");
-		for tal = 1,GetNumTalents(tab) do
-			local talName, _, _, _, n, maxn = GetTalentInfo(tab, tal);
-			if n and (n>0) then
-				table.insert(ret, "    " .. talName .. " |cFFAAAAAA(" .. n .. "/" .. maxn .. ")|r");
-			end
-		end
-	end
+	--for tab = 1,GetNumSpecializations(false, true) do
+	--	local tabName, _, tabPS = GetTalentTabInfo(tab);
+	--	table.insert(ret, "|cFFFFFF00" .. tabName .. "|r |cFFAAAAAA(" .. tabPS .. ")|r");
+	--	for tal = 1,GetNumTalents(tab) do
+	--		local talName, _, _, _, n, maxn = GetTalentInfo(tab, tal);
+	--		if n and (n>0) then
+	--			table.insert(ret, "    " .. talName .. " |cFFAAAAAA(" .. n .. "/" .. maxn .. ")|r");
+	--		end
+	--	end
+	--end
 
 	-- Melee defensive info
 	table.insert(ret, "|cFF888844Defenses|r");

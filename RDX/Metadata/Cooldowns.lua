@@ -352,7 +352,7 @@ RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 845, 1.5, nil, "SPELL_CAST_SUCC
 RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 871, 5*60, nil, "SPELL_CAST_SUCCESS"); -- Mur protecteur
 RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 5246, 60, nil, "SPELL_CAST_SUCCESS"); -- Cri d'intimidation
 RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 18499, 30, nil, "SPELL_CAST_SUCCESS"); -- Rage Berseker
-RDXCD.RegisterCooldown(nil, nil, "WARRIOR", "Arms", 85730, 60, nil, "SPELL_CAST_SUCCESS"); -- calme mortel
+--RDXCD.RegisterCooldown(nil, nil, "WARRIOR", "Arms", 85730, 60, nil, "SPELL_CAST_SUCCESS"); -- calme mortel
 RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 1719, 5*60, nil, "SPELL_CAST_SUCCESS"); -- Témérité
 RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 23920, 25, nil, "SPELL_CAST_SUCCESS"); -- Renvoi de sort
 RDXCD.RegisterCooldown(nil, nil, "WARRIOR", nil, 469, 60, nil, "SPELL_CAST_SUCCESS"); -- Cri de commandement
@@ -495,7 +495,7 @@ RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 13809, 30, nil, "SPELL_CAST_SUCC
 RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 77769, 1.5, nil, "SPELL_CAST_SUCCESS"); -- Trap launcher
 RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 20736, 8, nil, "SPELL_CAST_SUCCESS"); -- Trait provocateur
 RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 3045, 3*60, nil, "SPELL_CAST_SUCCESS"); -- Tir rapide
-RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 23989, 5*60, nil, "SPELL_CAST_SUCCESS"); -- Readiness (MOPTODO wipe cooldowns)
+--RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 23989, 5*60, nil, "SPELL_CAST_SUCCESS"); -- Readiness (MOPTODO wipe cooldowns)
 RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 34600, 30, nil, "SPELL_CAST_SUCCESS"); -- Piège à serpent
 RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 53271, 45, nil, "SPELL_CAST_SUCCESS"); -- Appel du maitre
 RDXCD.RegisterCooldown(nil, nil, "HUNTER", nil, 34477, 30, nil, "SPELL_CAST_SUCCESS"); -- Détournement
@@ -623,7 +623,7 @@ RDXCD.RegisterCooldown(nil, nil, "WARLOCK", nil, 108482, 60, nil, "SPELL_CAST_SU
 RDXCD.RegisterCooldown(nil, nil, "WARLOCK", nil, 108503, 2*60, nil, "SPELL_CAST_SUCCESS"); -- Grimoire of Sacrifice
 RDXCD.RegisterCooldown(nil, nil, "WARLOCK", nil, 108501, 2*60, nil, "SPELL_CAST_SUCCESS"); -- Grimoire of Service
 RDXCD.RegisterCooldown(nil, nil, "WARLOCK", nil, 108505, 2*60, nil, "SPELL_CAST_SUCCESS"); -- Archimondd's Vengeance
-RDXCD.RegisterCooldown(nil, nil, "WARLOCK", nil, 119049, 60, nil, "SPELL_CAST_SUCCESS"); -- Kil'jaeden's Cunning
+--RDXCD.RegisterCooldown(nil, nil, "WARLOCK", nil, 119049, 60, nil, "SPELL_CAST_SUCCESS"); -- Kil'jaeden's Cunning
 
 
 --RDXCD.RegisterCooldown(nil, nil, "WARLOCK", nil, 74434, 45, nil, "SPELL_CAST_SUCCESS"); -- Brulure d'ame
