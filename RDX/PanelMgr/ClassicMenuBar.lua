@@ -19,6 +19,7 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = "RDX";
 	ent.notCheckable = true;
 	ent.isTitle = true;
+	ent.color = _yellow;
 	ent.justifyH = "CENTER";
 end);
 
@@ -41,14 +42,20 @@ end);
 --	};
 --end);
 
-RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Themes");
-	ent.notCheckable = true;
-	ent.hasArrow = true;
-	ent.keepShownOnClick = false;
-	ent.menuList = RDXPM.subMenus;
-end);
+RDXPM.AUIMenu = RDXPM.Menu:new();
+RDXPM.CompactMenu:RegisterMenuEntry(VFLI.i18n("Themes"), true, function(tree, frame) RDXPM.AUIMenu:Open(tree, frame); end)
 
+--RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+--	ent.text = VFLI.i18n("Themes");
+--	ent.notCheckable = true;
+--	ent.hasArrow = true;
+--	ent.keepShownOnClick = false;
+--	ent.menuList = RDXPM.subMenus;
+--end);
+
+------------------------------------------------------------------------------
+-- KEY BINDINGS
+------------------------------------------------------------------------------
 local dfkey
 local function ToggleKeyBindings()
 	if not InCombatLockdown() then 
@@ -62,103 +69,210 @@ local function ToggleKeyBindings()
 	end
 end
 
-RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Key Bindings");
-	ent.hasArrow = true;
+RDXPM.KeyBindingsMenu = RDXPM.Menu:new();
+RDXPM.KeyBindingsMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Configure keys");
+	ent.checked = function() return dfkey; end;
+	ent.func = function() VFL.poptree:Release(); ToggleKeyBindings(); end 
+end);
+RDXPM.CompactMenu:RegisterMenuEntry(VFLI.i18n("Key Bindings"), true, function(tree, frame) RDXPM.KeyBindingsMenu:Open(tree, frame); end)
+
+------------------------------------------------------------------------------
+-- SETTINGS
+------------------------------------------------------------------------------
+
+RDXPM.SettingsMenu = RDXPM.Menu:new();
+--RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+--	ent.text = VFLI.i18n("Main Panel");
+--	ent.checked = function() return not RDXPM.IsPanelHidden(); end;
+--	ent.func = function() VFL.poptree:Release(); RDXPM.ToggleHidePanel(); end 
+--end);
+RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("RDX Settings");
 	ent.notCheckable = true;
-	ent.keepShownOnClick = false;
-	ent.menuList = {
-		{ text = VFLI.i18n("Configure keys"), checked = function() return dfkey; end, func = ToggleKeyBindings },
-		--{ text = VFLI.i18n("Package Updater"), notCheckable = true, keepShownOnClick = false, func = RDXDB.ToggleRAU },
-		--{ text = VFLI.i18n("OOBE Manager"), notCheckable = true, keepShownOnClick = false, func = RDXDB.DropOOBE },
-	};
+	ent.func = function() VFL.poptree:Release(); RDXPM.ToggleRDXManage(); end 
+end);
+RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Chatframe Settings");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); CURRENT_CHAT_FRAME_ID = 1; ShowUIPanel(ChatConfigFrame); end 
+end);
+RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Show/Hide RDX UI");
+	ent.checked = RDXDK.IsRDXHidden;
+	ent.func = function() VFL.poptree:Release(); RDXDK.ToggleRDX(); end 
+end);
+RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Mini Panel Default");
+	ent.checked = function() if RDX.GetRDXIconType() == "default" then return true; else return nil; end end;
+	ent.func = function() VFL.poptree:Release(); RDX.ToggleRDXIcon("default"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "default", true); end 
+end);
+RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Mini Panel Powered");
+	ent.checked = function() if RDX.GetRDXIconType() == "poweredbyrdx" then return true; else return nil; end end;
+	ent.func = function() VFL.poptree:Release(); RDX.ToggleRDXIcon("poweredbyrdx"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "poweredbyrdx", true); end 
+end);
+RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Clean Icons (Addon Required)");
+	ent.checked = RDX.UseCleanIcons;
+	ent.func = function() VFL.poptree:Release(); RDX.ToggleCleanIcons(); end 
+end);
+RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+	ent.text = "*************";
+	ent.isTitle = true;
+	ent.color = _yellow;
+	ent.notCheckable = true;
+	ent.func = VFL.Noop;
+end);
+RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Launch Themes Installer");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); RDX.StartInstaller(true); end 
+end);
+RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Uninstall Themes");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); RDXDB.DeleteThemes(); end 
 end);
 
+RDXPM.CompactMenu:RegisterMenuEntry(VFLI.i18n("Settings"), true, function(tree, frame) RDXPM.SettingsMenu:Open(tree, frame); end)
 
-RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Settings");
-	ent.notCheckable = true;
-	ent.hasArrow = true;
-	ent.menuList = {
-	--	{ text = VFLI.i18n("Main Panel"), checked = function() return not RDXPM.IsPanelHidden(); end, func = RDXPM.ToggleHidePanel },
-		{ text = VFLI.i18n("RDX Settings"), notCheckable = true, func = RDXPM.ToggleRDXManage },
-		{ text = VFLI.i18n("Chatframe Settings"), notCheckable = true, func = function()
-			CURRENT_CHAT_FRAME_ID = 1;
-			ShowUIPanel(ChatConfigFrame);
-			end 
-		},
-		{ text = VFLI.i18n("Show/Hide RDX UI"), checked = RDXDK.IsRDXHidden, func = RDXDK.ToggleRDX},
-		{ text = VFLI.i18n("Mini Panel Default"), checked = function() if RDX.GetRDXIconType() == "default" then return true; else return nil; end end, func = function() RDX.ToggleRDXIcon("default"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "default", true); end},
-		{ text = VFLI.i18n("Mini Panel Powered"), checked = function() if RDX.GetRDXIconType() == "poweredbyrdx" then return true; else return nil; end end, func = function() RDX.ToggleRDXIcon("poweredbyrdx"); DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", "poweredbyrdx", true); end},
-		{ text = VFLI.i18n("Activate Clean Icons (Addon Required)"), checked = RDX.UseCleanIcons, func = RDX.ToggleCleanIcons },
-		{ text = VFLI.i18n("***********"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
-		{ text = VFLI.i18n("Launch Themes Installer"), notCheckable = true, keepShownOnClick = false, func = function() RDX.StartInstaller(true); end},
-		{ text = VFLI.i18n("Uninstall Themes"), notCheckable = true, keepShownOnClick = false, func = function() RDXDB.DeleteThemes() end},
-	};
-end);
+------------------------------------------------------------------------------
+-- DEBUG
+------------------------------------------------------------------------------
 
-RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Debugging");
-	ent.hasArrow = true;
+RDXPM.DebugMenu = RDXPM.Menu:new();
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = "**** Blizzard ****";
+	ent.isTitle = true;
+	ent.color = _yellow;
 	ent.notCheckable = true;
-	ent.menuList = {
-		{ text = VFLI.i18n("**** Blizzard ****"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
-		{ text = VFLI.i18n("Show Release Corps Button"), notCheckable = true, func = function()
-			StaticPopup_Show("DEATH");
-			end 
-		},
-		{ text = VFLI.i18n("Reset Blizzard Chatframes"), notCheckable = true, keepShownOnClick = false, func = function() DEFAULT_CHAT_FRAME = ChatFrame1; FCF_ResetChatWindows(); ReloadUI(); end },
-		{ text = VFLI.i18n("**** RDX ****"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop },
-		{ text = VFLI.i18n("Open Set Debugger"), notCheckable = true, keepShownOnClick = false, func = RDXM_Debug.SetDebugger },
-		{ text = VFLI.i18n("Open Profiler"), notCheckable = true, keepShownOnClick = false, func = VFLP.ToggleProfiler },
-		{ text = VFLI.i18n("Open ErrorDialog"), notCheckable = true, keepShownOnClick = false, func = VFL.ToggleErrorDialog },
-		{ text = VFLI.i18n("Open Console"), notCheckable = true, keepShownOnClick = false, func = VFL.ToggleConsoleDialog },
-		{ text = VFLI.i18n("Fire Disrupt Signal"), notCheckable = true, keepShownOnClick = false, func = RDX._Disrupt },
-		{ text = VFLI.i18n("Fire Roster Update Signal"), notCheckable = true, keepShownOnClick = false, func = RDX._Roster },
-		{ text = VFLI.i18n("Reset Editor Layout"), notCheckable = true, keepShownOnClick = false, func = RDXPM.ResetLayouts },
-		{ text = VFLI.i18n("Garbage Collect"), notCheckable = true, keepShownOnClick = false, func = VFLGC },
-		--{ text = VFLI.i18n("Fake Roster Units"), checked = RDXDAL.IsDummy, func = function() RDXEvents:Dispatch("ROSTER_DUMMY"); end },
-		--{ text = VFLI.i18n("Store Compiled Code"), checked = RDXM_Debug.IsStoreCompilerActive, keepShownOnClick = false, func = RDXM_Debug.ToggleStoreCompiler },
-		--{ text = VFLI.i18n("Party with me"), checked = RDXM_Debug.IsPartyIncludeMe, keepShownOnClick = false, func = RDXM_Debug.TogglePartyIncludeMe },
-		{ text = VFLI.i18n("Wipe CooldownDB"), notCheckable = true, keepShownOnClick = false, func = RDXCD.WipeCooldownDB },
-		{ text = VFLI.i18n("Print CooldownDB"), notCheckable = true, keepShownOnClick = false, func = RDXCD.DebugCooldownDB },
-		{ text = VFLI.i18n("Backup Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.BackupPackages },
-		{ text = VFLI.i18n("Restore Packages"), notCheckable = true, keepShownOnClick = false, func = RDXDB.RestorePackages },
-	};
+	ent.func = VFL.Noop;
 end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Show Release Corps Button");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); StaticPopup_Show("DEATH"); end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Reset Blizzard Chatframes");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); DEFAULT_CHAT_FRAME = ChatFrame1; FCF_ResetChatWindows(); ReloadUI(); end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = "**** RDX ****";
+	ent.isTitle = true;
+	ent.color = _yellow;
+	ent.notCheckable = true;
+	ent.func = VFL.Noop;
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Open Set Debugger");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); RDXM_Debug.SetDebugger(); end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Open Profiler");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); VFLP.ToggleProfiler(); end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Open ErrorDialog");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); VFL.ToggleErrorDialog(); end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Open Console");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); VFL.ToggleConsoleDialog(); end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Fire Disrupt Signal");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); RDX._Disrupt(); end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Fire Roster Update Signal");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); RDX._Roster(); end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Reset Editor Layout");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); RDXPM.ResetLayouts(); end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Garbage Collect");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); VFLGC(); end 
+end);
+--RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+--	ent.text = VFLI.i18n("Fake Roster Units");
+--	ent.checked = RDXDAL.IsDummy;
+--	ent.func = function() VFL.poptree:Release(); RDXEvents:Dispatch("ROSTER_DUMMY"); end 
+--end);
+--RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+--	ent.text = VFLI.i18n("Store Compiled Code");
+--	ent.checked = RDXM_Debug.IsStoreCompilerActive;
+--	ent.func = function() VFL.poptree:Release(); RDXM_Debug.ToggleStoreCompiler(); end 
+--end);
+--RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+--	ent.text = VFLI.i18n("Party with me");
+--	ent.checked = RDXM_Debug.IsPartyIncludeMe;
+--	ent.func = function() VFL.poptree:Release(); RDXM_Debug.TogglePartyIncludeMe(); end 
+--end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Wipe CooldownDB");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); RDXCD.WipeCooldownDB(); end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Print CooldownDB");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); RDXCD.DebugCooldownDB(); end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Backup Packages");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); RDXDB.BackupPackages(); end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Restore Packages");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); RDXDB.RestorePackages(); end 
+end);
+RDXPM.CompactMenu:RegisterMenuEntry(VFLI.i18n("Debugging"), true, function(tree, frame) RDXPM.DebugMenu:Open(tree, frame); end)
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = "**************";
 	ent.isTitle = true;
+	ent.color = _yellow;
 	ent.notCheckable = true;
 	ent.func = VFL.Noop;
-	end);
+end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Package Explorer");
 	ent.notCheckable = true;
-	ent.func = RDXDB.ToggleObjectBrowser;
+	ent.func = function() VFL.poptree:Release(); RDXDB.ToggleObjectBrowser(); end;
 end);
-
-if Nx and Nx.RDX then
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Quests Explorer");
 	ent.notCheckable = true;
-	ent.func = RDXMAP.ToggleQuestsPanel;
+	ent.func = function() VFL.poptree:Release(); RDXMAP.ToggleQuestsPanel(); end;
 end);
-
-end
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Window Wizard");
 	ent.notCheckable = true;
-	ent.func = RDX.NewWindowWizard;
+	ent.func = function() VFL.poptree:Release(); RDX.NewWindowWizard(); end;
 end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = "**************";
 	ent.isTitle = true;
+	ent.color = _yellow;
 	ent.notCheckable = true;
 	ent.func = VFL.Noop;
 	end);
@@ -200,12 +314,12 @@ local function CreateMiniPane()
 	
 	local txtrdx = VFLUI.CreateFontString(mini);
 	txtrdx:SetPoint('LEFT',mini,'LEFT', 80, -4);
-	txtrdx:SetWidth(60); txtrdx:SetHeight(20);
+	txtrdx:SetWidth(70); txtrdx:SetHeight(20);
 	txtrdx:SetFont("Interface\\Addons\\RDX_mediapack\\sharedmedia\\fonts\\Adventure.ttf", 20);
 	txtrdx:SetShadowOffset(1,-1);
 	txtrdx:SetShadowColor(0,0,0,1);
 	txtrdx:SetJustifyH("LEFT"); txtrdx:SetJustifyV("BOTTOM");
-	txtrdx:SetText("RDX9");
+	txtrdx:SetText("RDX10");
 	txtrdx:Show();
 	
 	local mtxtsave = nil;
@@ -290,7 +404,8 @@ local function CreateMiniPane()
 			return;
 		end
 		if(arg1 == "LeftButton") then
-			RDXPM.CompactMenu:Open();
+			VFL.poptree:Begin(150, 12, mini, relpoint, VFLUI.GetRelativeLocalMousePosition(mini));
+			RDXPM.CompactMenu:Open(VFL.poptree, nil, nil, "TOPLEFT", 0, 0, nil);
 		end
 	end);
 	

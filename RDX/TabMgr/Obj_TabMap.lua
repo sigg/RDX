@@ -11,6 +11,35 @@ RDXDB.RegisterObjectType({
 	invisible = true;
 	New = function(path, md)
 		md.version = 1;
+		md.data = {};
+		md.data.NXAutoScaleOn = true;
+		md.data.NXKillShow = false;
+		md.data.NXMMFull = false;
+		md.data.NXMMAlpha = .1;
+		md.data.NXMMDockScale = .4;
+		md.data.NXMMDockScaleBG = .4;
+		md.data.NXMMDockAlpha = 1;
+		md.data.NXMMDockOnAtScale = .6;
+		md.data.NXBackgndAlphaFade = .4;
+		md.data.NXBackgndAlphaFull = 1;
+		md.data.NXArchAlpha = .3;
+		md.data.NXQuestAlpha = .3;
+		md.data.NXAutoScaleMin = .01;
+		md.data.NXAutoScaleMax = 4;
+		md.data.NXDotZoneScale = 1;
+		md.data.NXDotPalScale = 1;
+		md.data.NXDotPartyScale = 1;
+		md.data.NXDotRaidScale = 1;
+		md.data.NXIconNavScale = 1;
+		md.data.NXIconScale = 1;
+		md.data.NXDetailScale = 2;
+		md.data.NXDetailAlpha = 1;
+		md.data.NXPOIAtScale = 1;
+		md.data.NXShowUnexplored = false;
+		md.data.NXUnexploredAlpha = .35;
+		md.data[0] = {};
+		md.data[0].NXPlyrFollow = true;
+		md.data[0].NXWorldShow = true;
 	end,
 	Edit = function(path, md, parent)
 		RDX.EditWindow(parent, path, md);
@@ -18,7 +47,7 @@ RDXDB.RegisterObjectType({
 	Instantiate = function(path, md)
 		local mf = VFLUI.AcquireFrame("Frame");
 		if Nx then
-			local m = Nx.Map:Open();
+			local m = RDXMAP.Map:Open(1, md.data);
 			m.Frm:SetParent(mf);
 			--m.Frm:SetAllPoints(mf);
 			mf.m = m;
@@ -49,10 +78,10 @@ RDXDB.RegisterObjectType({
 	OpenTab = function(tabbox, path, md, objdesc, desc, tm)
 		local tabtitle, tabwidth = "Tab", 80;
 		for k, v in pairs(md.data) do
-			if v.feature == "taboptions" then
-				tabtitle = v.tabtitle;
-				tabwidth = v.tabwidth;
-			end
+			--if v.feature == "taboptions" then
+			--	tabtitle = v.tabtitle;
+			--	tabwidth = v.tabwidth;
+			--end
 		end
 		local f = RDXDB.GetObjectInstance(path);
 		local tab = tabbox:GetTabBar():AddTab(tabwidth, function(self, arg1)
@@ -106,5 +135,6 @@ RDXDB.RegisterObjectType({
 		end
 	end,
 });
+
 
 

@@ -13,7 +13,7 @@ local showOnlyDailies = nil
 local wl = {};
 local function BuildQuestsList(filter)
 	VFL.empty(wl);
-	local mapId = Nx.Map:GetCurrentMapId()
+	local mapId = RDXMAP.Map:GetCurrentMapId()
 	local minLevel = UnitLevel ("player") - GetQuestGreenRange()
 	local maxLevel = showHighLevel and MAX_PLAYER_LEVEL or UnitLevel ("player") + 6
 	--local dbTitleIndex = list:ItemGetNum()
@@ -43,7 +43,7 @@ local function BuildQuestsList(filter)
 				lvl = 0
 			end
 
---				Nx.prt ("%s [%s] %s", qname, qId, quest.CNum or "")
+--				VFL.vprint ("%s [%s] %s", qname, qId, quest.CNum or "")
 
 			local lvlStr = format ("|cffd0d0d0%2d", lvl)
 			local title = qname

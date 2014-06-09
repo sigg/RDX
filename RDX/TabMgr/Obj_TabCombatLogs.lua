@@ -406,7 +406,7 @@ RDXDB.RegisterObjectType({
 				VFL.poptree:Release();
 				local inst = RDXDB.GetObjectInstance(path, true);
 				if inst then
-					Omni.Open();
+					Omni.Open(path, RDXParent);
 					Omni.SetActiveTable(inst.table);
 				end
 			end;

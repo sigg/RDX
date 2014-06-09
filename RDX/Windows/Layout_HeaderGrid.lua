@@ -402,7 +402,7 @@ RDX.RegisterFeature({
 		--state:Attach("Menu", true, function(win, mnu)
 		--	table.insert(mnu, {
 		--		text = "Raid Preset Layout";
-		--		isSubmenu = true;
+		--		hasArrow = true;
 		--		OnClick = function(tree, frame)
 		--			smenu:Open(tree, frame);
 		--		end

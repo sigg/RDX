@@ -684,6 +684,12 @@ local function InitObjectDB()
 	RDXDB.SetPackageMetadata("scripts", "infoIsIndelible", true);
 	RDXDB.GetOrCreatePackage("desktops", "1.0.0", "WoWRDX", "", "sigg@wowrdx.com", "http://www.wowrdx.com", "RDX package");
 	RDXDB.SetPackageMetadata("desktops", "infoIsIndelible", true);
+	RDXDB.GetOrCreatePackage("quests", "1.0.0", "WoWRDX", "", "sigg@wowrdx.com", "http://www.wowrdx.com", "RDX package");
+	RDXDB.SetPackageMetadata("quests", "infoIsIndelible", true);
+	RDXDB.GetOrCreatePackage("maps", "1.0.0", "WoWRDX", "", "sigg@wowrdx.com", "http://www.wowrdx.com", "RDX package");
+	RDXDB.SetPackageMetadata("maps", "infoIsIndelible", true);
+	RDXDB.GetOrCreatePackage("pois", "1.0.0", "WoWRDX", "", "sigg@wowrdx.com", "http://www.wowrdx.com", "RDX package");
+	RDXDB.SetPackageMetadata("pois", "infoIsIndelible", true);
 	-- Two-phase init
 	RDXDB:Debug(1, "**************** INIT_DATABASE_LOADED ****************");
 	RDXEvents:Dispatch("INIT_DATABASE_LOADED");

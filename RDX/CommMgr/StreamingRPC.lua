@@ -149,6 +149,17 @@ function RPC.StreamingRPCMixin(ch, noglobal)
 		return stid;
 	end
 	ch.Flash = ch.Invoke; -- Flashing IS invoking in stream RPC.
+	
+	function ch:Test(routine, ...)	
+		local strm = RPC.GetOutputStream();
+		strm:Open(self);
+		strm:AppendObject("Q" .. routine);
+		--strm:AppendVector(...);
+		local stid = RPC.GenerateCleanBytes(6);
+		strm:Send(stid);
+		outStids[stid] = true;
+		return stid;
+	end
 
 	function ch:SendResponse(id, ...)
 		local os = RPC.GetOutputStream();
@@ -196,6 +207,11 @@ RPC_Group = RDX.ImbueAddonChannel(nil, "RDX", "RAID");
 RPC.StreamingRPCMixin(RPC_Group);
 RPC.RegisterConference(RPC_Group, "GROUP");
 
+--RPC_Channel = RDX.GetChatChannel("TOTO")
+--RPC.StreamingRPCMixin(RPC_Channel);
+--RPC.RegisterConference(RPC_Channel, "TOTO");
+--RPC_Channel:Open()
+
 -- Update our RPC channel pointer when our status changes...
 local function _RPC_Checkraid()
 	if VFL.InArena() then
@@ -226,6 +242,14 @@ VFLEvents:Bind("PLAYER_IN_BATTLEGROUND", nil, _RPC_Checkraid);
 VFLEvents:Bind("PLAYER_IN_ARENA", nil, _RPC_Checkraid);
 
 ---- Tests
+--RPC_Channel:Bind("test0", function(ci, x1) 
+--	VFL.print("|cFF00FF00SUCCESSFUL TEST SEND from <" .. tostring(ci.sender) .. ">: no args");
+--end);
+--function pingTest()
+--	pingtime = GetTime();
+--	RPC_Channel:Test("test0", "titi", "toto", "tata");
+--end
+-- /script pingTest()
 --[[
 RPC_Group:Bind("test0", function(ci, x1) 
 	VFL.print("|cFF00FF00SUCCESSFUL TEST SEND from <" .. tostring(ci.sender) .. ">: no args");

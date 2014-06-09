@@ -182,7 +182,7 @@ end);
 
 --- Open the Omniscience interface.
 Omni._RefreshActiveTable = VFL.Noop;
-function Omni.Open(path)
+function Omni.Open(path, parent)
 	if dlg then return; end
 
 	dlg = VFLUI.Window:new(parent);
@@ -290,7 +290,7 @@ function Omni.Open(path)
 	-- Update the viewer in response to a change of table.
 	local function TableChanged()
 		-- Clear out all dangling VFL windows
-		VFL.Escape();
+		--VFL.Escape();
 		-- Destroy the existing table viewer, marks, etc
 		mark = nil;
 		-- If our new table is nothing, we're done.
@@ -350,14 +350,14 @@ function Omni.Open(path)
 		if (tbl == tblCur) then RefreshActiveTable(); end
 	end, "oui");
 	
-	--dlg:Show();
-	dlg:_Show(RDX.smooth);
+	dlg:Show();
+	--dlg:_Show(RDX.smooth);
 
 	local esch = function()
-		dlg:_Hide(RDX.smooth, nil, function()
+		--dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "browser_omniscience");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 	
@@ -371,7 +371,7 @@ function Omni.Open(path)
 
 	dlg.Destroy = VFL.hook(function(s)
 		OmniEvents:Unbind("oui");
-		VFL.Escape();
+		--VFL.Escape();
 		-- Destroy subtables
 		if ctlTbl then ctlTbl:Destroy(); ctlTbl = nil; end
 		if ctlTblList then ctlTblList:Destroy(); ctlTblList = nil; end

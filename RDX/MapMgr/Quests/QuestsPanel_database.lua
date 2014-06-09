@@ -5,7 +5,7 @@
 -------------------
 local function CheckShow (mapId, index)
 
-	local NxzoneToMapId = Nx.Map.NxzoneToMapId
+	local NxzoneToMapId = RDXMAP.Zone2MapId
 	local Quest = Nx.Quest
 
 	while true do
@@ -36,7 +36,7 @@ local showOnlyDailies = nil
 local wl = {};
 local function BuildQuestsList(filter)
 	VFL.empty(wl);
-	local mapId = Nx.Map:GetCurrentMapId()
+	local mapId = RDXMAP.Map:GetCurrentMapId()
 	local minLevel = UnitLevel ("player") - GetQuestGreenRange()
 	local maxLevel = showHighLevel and MAX_PLAYER_LEVEL or UnitLevel ("player") + 6
 	
@@ -114,7 +114,7 @@ local function BuildQuestsList(filter)
 	end
 	--table.sort(wl, function(x1,x2) return x1.T>x2.T; end);
 	
-	local str = (showAllZones and "Full" or Nx.Map:IdToName (mapId)) .. " Database"
+	local str = (showAllZones and "Full" or RDXMAP.Map:IdToName (mapId)) .. " Database"
 	local t = {};
 	t.title = true;
 	t.text = format("|cffc0c0c0--- %s (%d) ---", str, dbTitleNum)

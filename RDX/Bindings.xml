@@ -20,4 +20,7 @@
 	<Binding name="RDXROSTER" runOnUp="false">
 		RDX.OpenRosterWindow();
 	</Binding>
+	<Binding name="RDXMAP" runOnUp="false">
+		RDXMAP.ToggleCentralMap();
+	</Binding>
 </Bindings>	

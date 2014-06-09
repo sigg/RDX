@@ -116,6 +116,28 @@ function VFL.lerpCosine(t, x0, x1)
 	return td*x0 + t*x1;
 end
 
+--------
+-- Step a value to the target value by a step
+-- ret new value
+
+function VFL.Util_StepValue (value, target, step)
+
+	if value < target then
+		value = value + step
+		if value > target then
+			value = target
+		end
+
+	elseif value > target then
+		value = value - step
+		if value < target then
+			value = target
+		end
+	end
+
+	return value
+end
+
 --- Convert a number to a string formatted as k(ilo) or m(ega)
 function VFL.Kay(n)
 	tn = abs(n);

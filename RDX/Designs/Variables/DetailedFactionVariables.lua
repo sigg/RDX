@@ -97,7 +97,7 @@ RDX.RegisterFeature({
 				wstate:Attach("Menu", true, function(win, mnu)
 					table.insert(mnu, {
 						text = VFLI.i18n("Change faction");
-						isSubmenu = true;
+						hasArrow = true;
 						OnClick = function(self) factionMenu:Open(nil, self, nil, nil, nil, VFL.poptree, 20); end
 					});
 				end);

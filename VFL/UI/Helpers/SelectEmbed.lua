@@ -28,6 +28,7 @@ function VFLUI.SelectEmbed:new(parent, ddWidth, ddgen, load)
 
 	-- Subcontrols
 	local child = nil;
+	local tdesc = nil;
 	local lbl = VFLUI.MakeLabel(nil, self, "");
 	lbl:SetPoint("TOPLEFT", self, "TOPLEFT", 0, -6);
 
@@ -46,7 +47,7 @@ function VFLUI.SelectEmbed:new(parent, ddWidth, ddgen, load)
 		end
 	end
 	local function SetClass(qq)
-		DestroyChild(); SetChild(qq.GetUI(self));
+		DestroyChild(); SetChild(qq.GetUI(self, tdesc));
 	end
 	-- Layout core.
 	self.DialogOnLayout = function(s)
@@ -77,12 +78,14 @@ function VFLUI.SelectEmbed:new(parent, ddWidth, ddgen, load)
 	-- Set the descriptor object
 	self.SetDescriptor = function(s, desc)
 		DestroyChild();
+		tdesc = desc;
 		local ui, ddText, ddVal = load(s, desc);
 		dd:RawSetSelection(ddText, ddVal);
 		if ui then SetChild(ui); end
 	end
 
 	self.Destroy = VFL.hook(function(s)
+		tdesc = nil;
 		s.GetDescriptor = nil; s.SetDescriptor = nil; s.SetText = nil;
 		dd:Destroy(); dd = nil;
 		if child then child:Destroy(); child = nil; end

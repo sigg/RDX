@@ -14,9 +14,9 @@ local function MakeCharSheet()
 	local z1={};
 	local z2={};
 	local x1, x2, x3, x4, x5;
-
-	local _, specName1 = GetSpecializationInfo(GetSpecialization(false, false, 1));
-	local _, specName2 = GetSpecializationInfo(GetSpecialization(false, false, 2));
+	-- GetNumSpecializations
+	local _, specName1 = GetSpecializationInfo(GetSpecialization(false, false));
+	local _, specName2 = GetSpecializationInfo(GetSpecialization(false, false));
 	
 	table.insert(ret, "|cFFAAAAAA " ..specName1.. "/" ..specName2.. "|r");
 	z1, z2 = nil;
@@ -147,6 +147,7 @@ end
 local function CSIncRPC(ci, who)
 	-- Sanity check sender
 	if (not ci) or (type(who) ~= "string") then return; end
+	VFL.print("SHEET " .. ci.sender)
 	local sunit = RPC.GetSenderUnit(ci); if not sunit then return; end
 	local id = ci.id; if not id then return; end
 	-- Only leaders can send polls.
@@ -154,6 +155,7 @@ local function CSIncRPC(ci, who)
 	--	RPC:Debug(1, "Got Charsheet check from non-leader " .. sunit.name);
 	--	return; 
 	--end
+
 	local myunit = RDXDAL.GetMyUnit();
 	if string.lower(who) == myunit.name then
 		return MakeCharSheet();

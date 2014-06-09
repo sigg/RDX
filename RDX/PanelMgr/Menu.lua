@@ -34,25 +34,25 @@ function RDXPM.Menu:RegisterMenuFunction(func)
 	return true;
 end
 
-function RDXPM.Menu:RegisterMenuEntry(title, isSubmenu, fn)
+function RDXPM.Menu:RegisterMenuEntry(title, hasArrow, fn)
 	if (not title) or (not fn) then return nil; end
-	if isSubmenu then
+	if hasArrow then
 		self:RegisterMenuFunction(function(entry)
 			entry.text = title;
 			entry.color = _submenu_color;
-			entry.isSubmenu = true;
-			entry.func = fn;
+			entry.hasArrow = true;
+			entry.func = function(self) fn(VFL.poptree, self); end;
 		end);
 	else
 		self:RegisterMenuFunction(function(entry)
 			entry.text = title;
-			entry.func = fn;
+			entry.func = function(self) fn(VFL.poptree, self); end;
 		end);
 	end
 	return true;
 end
 
-function RDXPM.Menu:Open(point, parent, relpoint, x, y, tree, limit)
+function RDXPM.Menu:Open(tree, parent, point, relpoint, x, y, limit)
 	local i = 0;
 	local mm, entries = self.mm, self.entries;
 	for _,func in ipairs(mm) do
@@ -62,11 +62,7 @@ function RDXPM.Menu:Open(point, parent, relpoint, x, y, tree, limit)
 		func(entries[i]);
 	end
 	for j,_ in ipairs(entries) do if j > i then entries[j] = nil; end end
-	if tree then
-		tree:Expand(parent, entries, limit);
-	else
-		VFLUI.PopUpMenu(entries, point, parent, relpoint, x, y);
-	end
+	tree:Expand(parent, entries, limit);
 end
 
 function RDXPM.Menu:Close()
@@ -94,10 +90,10 @@ end
 -- invoke the given function, passing in the menu and the attach frame
 -- as parameters for the purpose of spawning a submenu.
 --
--- If isSubmenu is true, the menu entry will be decorated like a submenu
--- entry. isSubmenu causes no functional change.
-function RDXPM.RegisterMainMenuEntry(title, isSubmenu, fn)
-	return RDXPM.mainMenu:RegisterMenuEntry(title, isSubmenu, fn);
+-- If hasArrow is true, the menu entry will be decorated like a submenu
+-- entry. hasArrow causes no functional change.
+function RDXPM.RegisterMainMenuEntry(title, hasArrow, fn)
+	return RDXPM.mainMenu:RegisterMenuEntry(title, hasArrow, fn);
 end
 
 --- Show the RDX main menu at the current mouse position.
@@ -116,11 +112,13 @@ function RDXPM.RegisterThirdPartyMenuFunction(func)
 	return RDXPM.ThirdPartyMenu:RegisterMenuFunction(func);
 end
 
-function RDXPM.RegisterThirdPartyMenuEntry(title, isSubmenu, fn)
-	return RDXPM.ThirdPartyMenu:RegisterMenuEntry(title, isSubmenu, fn);
+function RDXPM.RegisterThirdPartyMenuEntry(title, hasArrow, fn)
+	return RDXPM.ThirdPartyMenu:RegisterMenuEntry(title, hasArrow, fn);
 end
 
 function RDXPM.ShowThirdPartyMenu()
 	VFL.poptree:Begin(160, 14, VFLFULLSCREEN_DIALOG, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(VFLFULLSCREEN_DIALOG));
 	RDXPM.ThirdPartyMenu:Open(VFL.poptree, nil);
 end
+
+

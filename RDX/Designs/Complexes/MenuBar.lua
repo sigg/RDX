@@ -5,6 +5,8 @@
 -- taille normal : 58 28 25 18  6, 6
 -- taille petit  : 36 19 15 11  4, 4
 
+--table.insert(MICRO_BUTTONS, "FriendsMicroButton");
+
 local function _EmitCreateCode(objname, desc)
 	desc.nIcons = #MICRO_BUTTONS;
 	local createCode = [[
@@ -28,6 +30,12 @@ local function _EmitCreateCode(objname, desc)
 ]];
 	createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
 	createCode = createCode .. [[
+	-- PATCH Micromenu button anwful
+	MainMenuMicroButton._SetPoint = MainMenuMicroButton.SetPoint;
+	MainMenuMicroButton.SetPoint = VFL.noop;
+	HelpMicroButton._Hide = HelpMicroButton.Hide;
+	HelpMicroButton.Hide = VFL.noop;
+	--
 end
 ]];
 	return createCode;
@@ -69,6 +77,12 @@ RDX.RegisterFeature({
 		
 		------------------ On frame destruction.
 		local destroyCode = [[
+		-- PATCH
+		HelpMicroButton.Hide = HelpMicroButton._Hide;
+		HelpMicroButton._Hide = nil;
+		MainMenuMicroButton.SetPoint = MainMenuMicroButton._SetPoint
+		MainMenuMicroButton._SetPoint = nil;
+		--
 		local btn = nil;
 		for i=1, ]] .. desc.nIcons .. [[ do
 			btn = frame.]] .. objname .. [[[i];

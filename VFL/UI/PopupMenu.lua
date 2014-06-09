@@ -42,7 +42,10 @@ end
 -- Rendering functions
 local function UnivMenuApplyData(cell, data)
 	-- Set pictorials
-	if(data.isSubmenu) then 
+	if(data.hasArrow) then 
+		cell.icon:Show();
+	elseif data.checked and data.checked() then
+		cell.icon:SetTexture("Interface\\AddOns\\VFL\\Skin\\DotOn");
 		cell.icon:Show();
 	elseif(data.texture) then
 		cell.icon:SetTexture(data.texture);
@@ -59,7 +62,7 @@ local function UnivMenuApplyData(cell, data)
 	-- Set text
   cell:Enable();
 	cell.text:SetText(data.text);
-	cell:SetScript("OnClick", data.OnClick);
+	cell:SetScript("OnClick", data.func);
 	cell:SetScript("OnMouseDown", data.OnMouseDown);
 	cell:SetScript("OnMouseUp", data.OnMouseUp);
 	-- Show highlight
@@ -184,7 +187,7 @@ function VFLUI.PopMenu:Expand(aFrame, data, limit)
 	end
 	-- Determine menu depth
 	local menu_level = nil;
-	if aFrame then
+	if aFrame and aFrame._menu_level then
 		menu_level = aFrame._menu_level + 1;
 	else
 		menu_level = 1;

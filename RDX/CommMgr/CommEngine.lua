@@ -30,13 +30,13 @@ function RDX.CleanupChannels()
 	end
 end
 
+
 -- Create a chat channel.
 function RDX.GetChatChannel(name)
 	RDX:Debug(3, "RDX.GetChatChannel(" .. tostring(name) .. ")");
 	name = string.lower(name);
 	-- Get existing channel
 	local ch = channels[name]; if ch then return ch; end
-	
 	-- Create a new channel
 	ch = {};
 
@@ -48,7 +48,8 @@ function RDX.GetChatChannel(name)
 
 	local Joiner = VFLT.CreatePeriodicLatch(5, function()
 		RDX:Debug(9, "RDX.ChatChannel(): trying to join channel <" .. tostring(name) .. ">");
-		JoinChannelByName(name, nil, DEFAULT_CHAT_FRAME:GetID());
+		--JoinChannelByName(name, nil, DEFAULT_CHAT_FRAME:GetID());
+		JoinChannelByName(name);
 	end);
 
 	-- Leave this channel, if we were in it, clearing out all queues, etc.
@@ -94,7 +95,7 @@ function RDX.GetChatChannel(name)
 		return (ch.refCount > 0);
 	end
 	-- Increment the reference count for this channel.
-	function ch:Open() 
+	function ch:Open()
 		self.refCount = self.refCount + 1; 
 		if self.refCount > 0 then self:Check(); end
 	end

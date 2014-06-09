@@ -40,7 +40,7 @@ local function OpenQuestsPanel(parent)
 	if dailysDone > 0 then
 		dailyStr = "Daily Quests Completed: |cffffffff" .. dailysDone
 	end
-	dailyStr = dailyStr .. "|r  Daily reset: |cffffffff" .. Nx.Util_GetTimeElapsedStr (GetQuestResetTime())
+	dailyStr = dailyStr .. "|r  Daily reset: |cffffffff" .. VFLT.FormatSmartMinSec (GetQuestResetTime())
 
 	dlg:SetText(format ("Quests Explorer: |cffffffff%d/%d|r  %s", i, MAX_QUESTS, dailyStr));
 	

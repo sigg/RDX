@@ -31,6 +31,12 @@ local function Preload()
 	RDX.pn = pn;
 	--rn = string.gsub(rn, "[ ]", "_");
 	RDX.pspace = RDX.pn .. "_" .. rn;
+	
+	local fact = UnitFactionGroup ("player")
+	RDX.PlFactionNum = strsub (fact, 1, 1) == "A" and 0 or 1
+	RDX.PlFactionShort = RDX.PlFactionNum == 0 and "Ally" or "Horde"
+	RDX.AirshipType = RDX.PlFactionNum == 0 and "Airship Alliance" or "Airship Horde"
+	
 	RDX.Initialized()
 
 	-- Raise preload event, then destroy all bindings (preload never happens again)

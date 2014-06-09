@@ -474,6 +474,17 @@ end, function(_, x)
 	x:EnableMouse(nil);
 end);
 
+-- Class: Frame
+VFLUI.CreateFramePool("ArchaeologyDigSiteFrame", function(pool, x)
+	CleanupFrame(x);
+end, function()
+	--if id == 130 then error(); end
+	return CreateFrame("ArchaeologyDigSiteFrame", "ArchaeologyDigSiteFrame_" .. GetNextID());
+end, function(_, x)
+	--if x:
+	--x:EnableMouse(nil);
+end);
+
 -- Class: SecureFrame
 VFLUI.CreateFramePool("SecureFrame", function(pool, x)
 	x:SetAttribute("toggleForVehicle", nil);

@@ -42,7 +42,7 @@ function VFL.tprint(table)
 		if type(v) == "boolean" then v = "boolean";
 		elseif type(v) == "table" then v = "table"; 
 		elseif type(v) == "function" then v = "function";
-		else v = "other";
+		--else v = "other";
 		end
 		VFL.print("KEY " .. k .. ",VALUE " .. v);
 	end

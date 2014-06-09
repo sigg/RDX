@@ -41,7 +41,6 @@ end
 --- Get the unit entity for the sender if it exists
 function RPC.GetSenderUnit(ci)
 	if(not ci) or (not ci.sender) then return nil; end
-	--VFL.print(ci.sender);
 	return RDXDAL.GetUnitByNameIfInGroup(ci.sender);
 end
 

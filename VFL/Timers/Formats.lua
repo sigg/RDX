@@ -5,7 +5,7 @@ local strformat = string.format;
 ----------------------------------------------------------------
 -- PARSING, FORMATTING
 ----------------------------------------------------------------
-local thr, tmin, tsec;
+local tday, thr, tmin, tsec;
 
 --- Convert elapsed seconds to elapsed {hour, min, sec}
 function VFLT.GetHMS(sec)
@@ -37,7 +37,10 @@ function VFLT.FormatSmartMinSec(sec)
 	if sec < 0 then return "*"; end
 	tmin = mathdotfloor(sec/60); sec = VFL.mmod(sec, 60);
 	thr = mathdotfloor(tmin/60); tmin = VFL.mmod(tmin, 60);
-	if thr > 0 then
+	tday = mathdotfloor(thr/24); thr = VFL.mmod(tmin, 24);
+	if tday > 0 then
+		return strformat("%dd%dh", tday, thr);
+	elseif thr > 0 then
 		return strformat("%dh%02dm", thr, tmin);
 	elseif tmin > 0 then
 		return strformat("%dm%02ds", tmin, sec);

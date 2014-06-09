@@ -339,7 +339,7 @@ end
 
 --RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 --	table.insert(mnu, {
---		text = VFLI.i18n("Wizard"), isSubmenu = true, OnClick = function(self) RDXDB.pkgname = pkg; RDXDB.wizardMenu:Open(nil, self, nil, nil, nil, VFL.poptree); end
+--		text = VFLI.i18n("Wizard"), hasArrow = true, OnClick = function(self) RDXDB.pkgname = pkg; RDXDB.wizardMenu:Open(nil, self, nil, nil, nil, VFL.poptree); end
 --	});
 --end);
 

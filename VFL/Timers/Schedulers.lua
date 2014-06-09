@@ -150,7 +150,7 @@ end
 -----------------------------------------------------------------
 -- ZERO-MEMORY SCHEDULER
 -----------------------------------------------------------------
-local zmt, zfunq = {}, {};
+local zmt, zid, zfunq = {}, {}, {};
 
 --- Schedule func to be executed dt seconds from now.
 -- @description The zero-memory scheduler is an alternative scheduling implementation
@@ -164,10 +164,13 @@ local zmt, zfunq = {}, {};
 -- @param dt The period of time
 -- @param func The Function to be executed
 -- @return a handle for later descheduling.
-function VFLT.ZMSchedule(dt, func)
+function VFLT.ZMSchedule(dt, func, id)
 	local tt, i = mathdotfloor((GetTime() + dt) * 1000), 0;
 	while zmt[tt+i] do i=i+1; end
 	zmt[tt+i] = func;
+	if id then
+		zid[id] = tt+i;
+	end
 	return tt+i;
 end
 
@@ -175,6 +178,16 @@ end
 -- @param handle the return value from ZMSchedule as the handle.
 function VFLT.ZMUnschedule(handle)
 	zmt[handle] = nil;
+end
+
+--- Unschedule a function scheduled by ZMSchedule. 
+-- @param id
+function VFLT.ZMUnscheduleId(id)
+	local a = zid[id]
+	if a then
+		zid[id] = nil;
+		zmt[a] = nil;
+	end
 end
 
 -- The internals of the ZM scheduler.

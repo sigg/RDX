@@ -31,7 +31,7 @@ local function MakeCatHierarchy(cat)
 		if not pcat then pcat = ""; thiscat = cat; end
 		if not ecats[pcat] then MakeCatHierarchy(pcat); end 
 		table.insert(ecats[pcat], 1, {
-			text = thiscat; color = _submenu_color; isSubmenu = true;
+			text = thiscat; color = _submenu_color; hasArrow = true;
 			sort = -1;
 			OnClick = function(self) EncounterCatMenu(VFL.poptree, self, cat); end;
 		});

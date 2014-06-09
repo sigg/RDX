@@ -27,24 +27,7 @@ end
 -- DUI change
 -----------------------------------------
 local function AUIList()
-	VFL.empty(subMenus);
-	RDXPM.DuiMenu:ResetMenu();
-	
-	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text = "UI";
-		ent.isTitle = true;
-		ent.notCheckable = true;
-		ent.justifyH = "CENTER";
-	end);
-	
-	-----------------------------------
-	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-	--	ent.text = VFLI.i18n("Blizzard Frames Manager");
-	--	ent.func = RDXDK.ToggleBlizzardManage;
-	--	ent.notCheckable = true;
-	--end);
-	
-	-----------------------------------
+	RDXPM.AUIMenu:ResetMenu();
 	
 	local sortDUI = {};
 	for pkgName, pkg in pairs(RDXData) do
@@ -60,11 +43,12 @@ local function AUIList()
 						table.insert(submenu,{ text = VFLI.i18n("**** Layout ****"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop });
 						for i, v in ipairs(data)do
 							table.insert(submenu, { 
-									text = v, 
+									text = v,
 									checked = function()
 										if path == RDXU.AUI and v == RDXU.AUIState then return true; else return nil; end
 									end,
 									func = function()
+										VFL.poptree:Release();
 										RDXDK.SecuredChangeAUI(path, v);
 										AUIList();
 									end,
@@ -85,6 +69,7 @@ local function AUIList()
 								if path == RDXU.AUI then return true; else return nil; end
 							end,
 							func = function()
+								VFL.poptree:Release();
 								RDXDK.SecuredChangeAUI(path, "default");
 								AUIList();
 							end,
@@ -98,6 +83,7 @@ local function AUIList()
 								if path == RDXU.AUI then return true; else return nil; end
 							end,
 							func = function()
+								VFL.poptree:Release();
 								RDXDK.SecuredChangeAUI(path, "default");
 								AUIList();
 							end
@@ -110,181 +96,72 @@ local function AUIList()
 	end
 	table.sort(sortDUI, function(x1,x2) return x1.text < x2.text; end);
 	for i, v in pairs(sortDUI) do
-		table.insert(subMenus, v);
+		if v.menuList then
+			local menu = RDXPM.Menu:new();
+			for j, w in ipairs(v.menuList) do
+				menu:RegisterMenuFunction(function(ent)
+					ent.text = w.text;
+					ent.checked = w.checked;
+					ent.func = w.func;
+				end);
+			end
+			RDXPM.AUIMenu:RegisterMenuEntry(v.text, true, function(tree, frame) menu:Open(tree, frame); end)
+		else
+			RDXPM.AUIMenu:RegisterMenuFunction(function(ent)
+				ent.text = v.text;
+				--ent.hasArrow = true;
+				ent.checked = v.checked;
+				ent.func = v.func;
+			end);
+		end
 	end
 	
-	table.insert(subMenus, {
-		text = "*****************",
-		isTitle = true,
-		notCheckable = true,
-		func = VFL.Noop,
-		}
-	);
+	RDXPM.AUIMenu:RegisterMenuFunction(function(ent)
+		ent.text = "*****************";
+		ent.isTitle = true;
+		ent.color = _yellow;
+		ent.notCheckable = true;
+		--ent.hasArrow = true;
+		ent.func = VFL.Noop;
+	end);
+	RDXPM.AUIMenu:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Create a new theme");
+		ent.notCheckable = true;
+		--ent.hasArrow = true;
+		ent.func = function() VFL.poptree:Release(); RDXDK.NewAUI(); end;
+	end);
+	RDXPM.AUIMenu:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Duplicate a theme");
+		ent.notCheckable = true;
+		--ent.hasArrow = true;
+		ent.func = function() VFL.poptree:Release(); DXDK.DuplicateAUI(); end;
+	end);
 	
-	table.insert(subMenus, { 
-		text = VFLI.i18n("Create a new theme"),
-		notCheckable = true, 
-		func = function()
-			RDXDK.NewAUI();
-		end
-		}
-	);
-	
-	table.insert(subMenus, { 
-		text = VFLI.i18n("Duplicate a theme"),
-		notCheckable = true, 
-		func = function()
-			RDXDK.DuplicateAUI();
-		end
-		}
-	);
 	if RDXU.AUI then
 		local pkg, file = RDXDB.ParsePath(RDXU.AUI);
 		if file then
-			table.insert(subMenus, {
-				text = "*****************",
-				isTitle = true,
-				notCheckable = true,
-				func = VFL.Noop,
-				}
-			);
-			table.insert(subMenus, { 
-				text = VFLI.i18n("Manage layouts " .. file),
-				notCheckable = true, 
-				func = function()
-					local md = RDXDB.GetObjectData(RDXU.AUI);
-					if md then RDXDK.ToggleAUIEditor(RDXU.AUI, md); end
-				end
-				}
-			);
-			--table.insert(subMenus, { 
-			--	text = VFLI.i18n("Drop the theme " .. file),
-			--	notCheckable = true, 
-			--	func = function()
-			--		PkgDeleteHandler(file);
-			--	end
-			--	}
-			--);
+			RDXPM.AUIMenu:RegisterMenuFunction(function(ent)
+				ent.text = "*****************";
+				ent.isTitle = true;
+				ent.color = _yellow;
+				ent.notCheckable = true;
+				--ent.hasArrow = true;
+				ent.func = VFL.Noop;
+			end);
+			RDXPM.AUIMenu:RegisterMenuFunction(function(ent)
+				ent.text = VFLI.i18n("Manage layouts ") .. file;
+				ent.notCheckable = true;
+				--ent.hasArrow = true;
+				ent.func = function() VFL.poptree:Release(); local md = RDXDB.GetObjectData(RDXU.AUI); if md then RDXDK.ToggleAUIEditor(RDXU.AUI, md); end end
+			end);
+			--RDXPM.AUIMenu:RegisterMenuFunction(function(ent)
+			--	ent.text = VFLI.i18n("Drop the theme ") .. file;
+			--	ent.notCheckable = true;
+				--ent.hasArrow = true;
+			--	ent.func = function() VFL.poptree:Release(); PkgDeleteHandler(file); end
+			--end);
 		end
 	end
-
-	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text = VFLI.i18n("Themes");
-		ent.hasArrow = true;
-		ent.notCheckable = true;
-		ent.menuList = subMenus;
-	end);
-	
-	-----------------------------------
-	VFL.empty(stateTypeMenus);
-
-	--local autoMenu = {
-	--	text = VFLI.i18n("Auto"),
-	--	notCheckable = true,
-	--	func = function()
-	--		if not RDXU.autoSwitchState then
-	--			RDXDK.SwitchState_Enable();
-	--		end
-	--	end;
-	--};
-
-	--table.insert(stateTypeMenus, autoMenu);
-
-	--for _,v in ipairs(state) do
-	--	local thisMenu = {
-	--		text = v,
-	--		checked = function()
-	--			if strlower(v) == RDXU.AUIState then return true; else return nil; end
-	--		end,
-	--		func = function()
-	--			RDXDK.SwitchState_Disable(strlower(v));
-	--		end;
-	--	};
-	--	table.insert(stateTypeMenus, thisMenu);
-	--end
-
-	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-	--	ent.text = VFLI.i18n("Theme state");
-	--	ent.hasArrow = true;
-	--	ent.notCheckable = true;
-	--	ent.menuList = stateTypeMenus;
-	--end);
-	
-	-----------------------------------
-	--local editListMenu = {		
-	--	{ text = VFLI.i18n("Edit Current Desktop"), notCheckable = true, func = function()
-	--		local md = RDXDB.GetObjectData(RDXDK.GetCurrentDesktopPath());
-	---		if md then RDXDK.ToggleDesktopEditor(VFLDIALOG, RDXDK.GetCurrentDesktopPath(), md); end
-	--	end },
-	--	{ text = VFLI.i18n("Clear Desktop"), notCheckable = true, func = RDXDK.DeskClear },
-	--	{ text = VFLI.i18n("Reset Desktop"), notCheckable = true, func = RDXDK.DeskReset }
-	--}
-
-	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-	--	ent.text = VFLI.i18n("Manage Desktop");
-	--	ent.notCheckable = true;
-	--	ent.hasArrow = true;
-	--	ent.menuList = editListMenu;
-	--end);
-	
-	-----------------------------------
-	--local windowListMenu = {
-	--	{ text = "Windows List", notCheckable = true, func = RDXDK.ToggleWindowList},
-	--	{ text = "Register List", notCheckable = true, func = RDXDK.ToggleWindowLessList},
-	--}
-	
-	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-	--	ent.text = VFLI.i18n("Windows");
-	--	ent.notCheckable = true;
-	--	ent.hasArrow = true;
-	--	ent.menuList = windowListMenu;
-	--end);
-
-	-----------------------------------
-	--local lockListMenu = {
-		--{ text = "Desktop", checked = RDXDK.IsDesktopLocked, func = RDXDK.ToggleDesktopLock },
-	--	{ text = "Key Bindings", checked = RDXDK.IsKeyBindingsLocked, func = RDXDK.ToggleKeyBindingsLock },
-	--	{ text = "Action Bindings", checked = RDXDK.IsActionBindingsLocked, func = RDXDK.ToggleActionBindingsLock }
-	--}
-	
-	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-	--	ent.text = "Locking";
-	--	ent.notCheckable = true;
-	--	ent.hasArrow = true;
-	--	ent.menuList = lockListMenu;
-	--end);
-	
-	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-	--	ent.text = "*******************";
-	--	ent.notCheckable = true;
-	--	ent.func = VFL.Noop;
-	--end);
-	
-	--RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-	--	ent.text = VFLI.i18n("Wizards");
-	--	ent.hasArrow = true;
-	--	ent.notCheckable = true;
-	--	ent.menuList = {
-	--		{ text = "     " .. VFLI.i18n("Windows Wizard"), notCheckable = true, func = function() RDX.NewWindowWizard(); end; },
-	--
-	--	};
-	--end);
-	
-	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text = "*******************";
-		ent.notCheckable = true;
-		ent.func = VFL.Noop;
-	end);
-	
-	-----------------------------------
-	RDXPM.DuiMenu:RegisterMenuFunction(function(ent)
-		ent.text = VFLI.i18n("Reload UI");
-		ent.notCheckable = true;
-		ent.func = VFLReloadUI;
-	end);
-	
-	RDXPM.subMenus = subMenus;
-	RDXPM.stateTypeMenus = stateTypeMenus;
 end
 
 RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)

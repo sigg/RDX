@@ -4,5 +4,5 @@
 ## Author: Sigg / Rashgarroth
 ## Version: 9.1.0
 ## RequiredDeps: VFL
-## SavedVariables: RDXLocalSpellDB, RDXSpellDB
+## SavedVariables: RDXLocalSpellDB, RDXSpellDB, RDXLocalMapDB
 RDX_localspelldb.lua

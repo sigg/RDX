@@ -155,6 +155,7 @@ RDXEvents:Bind("INIT_DEFERRED", nil, function()
 		-- Detect when a rez is first cast.
 		WoWEvents:Bind("UNIT_SPELLCAST_SENT", nil, function(arg1, arg2, arg3, arg4)
 			if (arg1 ~= "player") or (arg2 ~= rezSpell) then return; end
+			VFL.print("REZ MONITOR " .. arg4);
 			local target = RDXDAL.GetUnitByNameIfInGroup(string.lower(arg4));
 			if target then
 				rezTarget = target;

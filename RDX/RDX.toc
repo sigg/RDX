@@ -2,7 +2,7 @@
 ## Title: |c007ffcffRDX|r
 ## Notes: RDX is Raid Data Exchange - UI and raid mods.
 ## Author: Raid Informatics / OpenRDX Project
-## Version: 9.1.0
+## Version: 10.0.0
 ## RequiredDeps: VFL, RDX_mediapack
 ## OptionalDeps: RDX_filesystem, RDX_localspelldb, RDX_combatlogs, RDX_recovery, RDX_languagepack_frFR, RDX_languagepack_deDE, RDX_languagepack_ruRU
 ## SavedVariables: RDXSession
@@ -71,6 +71,8 @@ Metadata\Cooldowns.lua
 RosterMgr\UDB.lua
 RosterMgr\Guid.lua
 RosterMgr\GDB.lua
+
+RosterMgr\MyUnit.lua
 
 # Logger engine
 RosterMgr\Logger\Log.lua
@@ -256,6 +258,10 @@ Raid\Bossmods\BossmodMenu.lua
 
 # Map (Carbonite)
 MapMgr\Core.lua
+MapMgr\Utils.lua
+MapMgr\MapData.lua
+MapMgr\MapInit.lua
+MapMgr\Obj_MapInfo.lua
 #Metadata\Maps.lua
 #MapMgr\MapEngine.lua
 MapMgr\Quests\QuestsPanel.lua
@@ -263,6 +269,28 @@ MapMgr\Quests\QuestsPanel_current.lua
 MapMgr\Quests\QuestsPanel_history.lua
 MapMgr\Quests\QuestsPanel_database.lua
 MapMgr\Quests\QuestsPanel_player.lua
+
+MapMgr\Maps\NxMapData.lua
+MapMgr\Maps\NxMapMenu.lua
+MapMgr\Maps\NxAPIMapData.lua
+MapMgr\Maps\NxAPIMap.lua
+MapMgr\Maps\NxAPIMapZone.lua
+MapMgr\Maps\NxAPIMapOverlay.lua
+MapMgr\Maps\NxAPIMapHotspot.lua
+MapMgr\Maps\NxAPIMapDraw.lua
+MapMgr\Maps\NxAPIMapIcon.lua
+MapMgr\Maps\NxAPIMapPlayer.lua
+MapMgr\Maps\NxAPIMapTarget.lua
+MapMgr\Maps\NxAPIMapRoute.lua
+MapMgr\Maps\NxAPIMapView.lua
+MapMgr\Maps\NxMapFrame.lua
+MapMgr\Maps\Zones.lua
+#MapMgr\Maps\NxMapInit.lua
+MapMgr\Maps\NxMap.lua
+MapMgr\Maps\ZoneConnections.lua
+MapMgr\Maps\MapWorldHotspots.lua
+#Maps\NxMapMinimap.lua
+#Maps\NxMapIntegration.lua
 
 # Tab Manager
 TabMgr\Obj_TabManager.lua

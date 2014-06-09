@@ -964,6 +964,8 @@ local function ProcessRoster()
 			name = strlower(UnitName(uid));
 			if UnitIsUnit(uid, "player") then 
 				iunit.me = true;
+				local aa, vv = UnitFullName("player");
+				iunit.rosterName = aa .. "-" .. vv
 			else
 				iunit.me = false;
 			end
@@ -993,6 +995,18 @@ local function ProcessRoster()
 				-- init the myunit
 				if nunit.me then
 					myunit = nunit;
+					myunit.mapId = 14;
+					myunit.PlyrRZX = 0;
+					myunit.PlyrRZY = 0;
+					myunit.PlyrX = 0;
+					myunit.PlyrY = 0;
+					myunit.SaveLastX = 0;
+					myunit.SaveLastY = 0;
+					myunit.PlyrSpeedCalcTime = 0;
+					myunit.PlyrSpeed = 0;
+					myunit.PlyrSpeedX = 0;
+					myunit.PlyrSpeedY = 0;
+					myunit.PlyrDir = 0;
 				end
 			end
 			nunit.rosterName = iunit.rosterName;
@@ -1391,11 +1405,11 @@ function RDXDAL.GetMyUnit()
 	return myunit;
 end
 
---function RDX.TESTPrint()
---	for i,_ in pairs(ubi) do
---		if ubi[i].guid then VFL.print(ubi[i].guid); end
---	end
---end
+function RDX.TESTPrint()
+	for i,_ in pairs(ubi) do
+		if ubi[i].guid then VFL.print(ubi[i].rosterName); end
+	end
+end
 
 -----------------------------------------------------
 -- ITERATORS
@@ -2073,127 +2087,6 @@ function RDX._Roster()
 	ProcessArenaRoster();
 	ProcessArenaPets();
 	ProcessBoss();
-end
-
-
-------------------------------------------------
--- Combat and Battleground Detection
-------------------------------------------------
---local inCombat = nil;
-function VFL._ForceCombatFlag(f)
-	if f then
-		--inCombat = true;
-		VFL:Debug(1, "********** VFL combat flag TRUE *************");
-		VFLEvents:Dispatch("PLAYER_COMBAT", true);
-	else
-		--inCombat = nil;
-		VFL:Debug(1, "********** VFL combat flag FALSE *************");
-		VFLEvents:Dispatch("PLAYER_COMBAT", nil);
-	end
-end
-
-WoWEvents:Bind("PLAYER_REGEN_DISABLED", nil, function() VFL._ForceCombatFlag(true); end);
-WoWEvents:Bind("PLAYER_REGEN_ENABLED", nil, function() VFL._ForceCombatFlag(nil); end);
-
-function VFL.PlayerInCombat() return InCombatLockdown(); end
-
--- talent detection
-local talent = nil;
-function VFL._ForceTalentSwitch(f, nosend)
-	if f ~= talent then
-		talent = f;
-		if not nosend then
-			VFL:Debug(1, "********** Talent_changed *************");
-			if not InCombatLockdown() then
-				VFLT.schedule(0.5, function() VFLEvents:Dispatch("PLAYER_TALENT_UPDATE", f); end)
-			end
-		end
-	end
-end
-WoWEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() VFL._ForceTalentSwitch(GetSpecialization()); end);
-WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, function() VFL._ForceTalentSwitch(GetSpecialization(), true); end);
-
-function VFL.GetPlayerTalent()
-	return talent;
-end
-
--- UPDATE_SHAPESHIFT_FORM
--- UPDATE_SHAPESHIFT_FORMS
-local ssform = 0;
-function VFL._ForceFormSwitch(nosend)
-	local index = GetShapeshiftForm();
-	--VFL.print(index);
-	if index and index > 0 then
-		local _, name = GetShapeshiftFormInfo(index); 
-		--VFL.print(name);
-		if ssform ~= index then
-			ssform = index;
-			if not nosend then
-				VFL:Debug(1, "********** Form_changed *************");
-				VFLEvents:Dispatch("PLAYER_FORM_UPDATE", ssform);
-				--VFL.print("event " .. name);
-			end
-		end
-	end
-end
-WoWEvents:Bind("UPDATE_SHAPESHIFT_FORM", nil, function() VFL._ForceFormSwitch(); end);
-
-function VFL.GetPlayerForm()
-	return ssform;
-end
-
--- Bg detection
-local inBG = nil;
-local function SetBGFlag(f)
-	if f and (not inBG) then
-		inBG = true;
-		VFLEvents:Dispatch("PLAYER_IN_BATTLEGROUND", true);
-	elseif (not f) and inBG then
-		inBG = nil;
-		VFLEvents:Dispatch("PLAYER_IN_BATTLEGROUND", nil);
-	end
-end
-
--- Arena detection
-local inA = nil;
-local function SetAFlag(f)
-	if f and (not inA) then
-		inA = true;
-		VFLEvents:Dispatch("PLAYER_IN_ARENA", true);
-	elseif (not f) and inA then
-		inA = nil;
-		VFLEvents:Dispatch("PLAYER_IN_ARENA", nil);
-	end
-end
-
-function VFL.InBattleground()
-	--return (MiniMapBattlefieldFrame.status == "active") and select(2,IsInInstance()) == "pvp";
-	return select(2,IsInInstance()) == "pvp";
-end
-
-function VFL.InArena()
-	--return (MiniMapBattlefieldFrame.status == "active") and select(2, IsInInstance()) == "arena";
-	return select(2, IsInInstance()) == "arena";
-end
-
-WoWEvents:Bind("UPDATE_BATTLEFIELD_STATUS", nil, function()
-	if VFL.InBattleground() then
-		SetBGFlag(true);
-	else
-		SetBGFlag(nil);
-	end
-	if VFL.InArena() then
-		SetAFlag(true);
-	else
-		SetAFlag(nil);
-	end
-end);
-
-function VFL.GetBGName(name)
-	-- remove any dash
-	local _, _, bg_name = string.find(name, "^(.*)-(.*)$");
-	-- Record the target
-	if bg_name then return bg_name; else return name; end
 end
 
 -------------------------------------------------------
