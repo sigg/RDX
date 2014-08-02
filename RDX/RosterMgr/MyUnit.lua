@@ -86,6 +86,7 @@ local function ProcessMyUnit(self, elapsed)
 	end
 	
 	--VFL.print("carb " .. myunit.PlyrX .. " " .. myunit.PlyrY);
+	--VFL.print("bliz " .. myunit.PlyrX .. " " .. myunit.PlyrY);
 	
 	if mapIdsave ~= mapId then
 		--myunit.SaveLastX = myunit.PlyrX

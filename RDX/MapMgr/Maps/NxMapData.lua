@@ -7373,7 +7373,7 @@ function NxMap.GetMiniInfo (mapId)
 
 	if not t then		-- "Isle of Quel'Danas"??
 
---		if NxData.DebugMap then
+--		if RDXG.DebugMap then
 --			VFL.vprint ("GetMiniInfo: missing %s", id)
 --		end
 		VFL.print("NxMap.MiniMapBlks error id " .. id);

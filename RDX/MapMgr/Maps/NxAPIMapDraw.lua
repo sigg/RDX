@@ -674,7 +674,7 @@ end
 
 function RDXMAP.APIMap.CalcTracking()
 
-	local Travel = Nx.Travel
+	local Travel = RDXMAP.Travel
 	local myunit = RDXDAL.GetMyUnit();
 
 	local tr = {}

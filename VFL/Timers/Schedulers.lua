@@ -251,7 +251,7 @@ function VFLT.NextFrame(id, func)
 end
 
 --- Get the number of task to be executed in the next frame.
-function VFL.GetFrameCounter() return frameCounter; end
+function VFLT.GetFrameCounter() return frameCounter; end
 
 -----------------------------------------------------------------
 -- STANDARD SCHEDULER

@@ -147,7 +147,7 @@ local function BuildQuestsList(filter)
 					local obj = quest and quest[ln + 3]
 
 					if obj then
-						desc, zone, loc = Nx.Quest:UnpackObjective (obj)
+						desc, zone, loc = RDXMAP.UnpackObjective (obj)
 					end							
 					if ln <= num then
 						desc, typ, done = GetQuestLogLeaderBoard (ln, qn)

@@ -165,7 +165,7 @@ function RDXMAP.APIMap.CheckWorldHotspotsType (map, wx, wy, quad)
 
 					local tippos = "ANCHOR_TOPLEFT"
 
-					Nx.TooltipOwner = owner
+					Nx.TooltipOwner = owner ---
 					map.TooltipType = 1
 
 					tt:SetOwner (owner, tippos, 0, 0)

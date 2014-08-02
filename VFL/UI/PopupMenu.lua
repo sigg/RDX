@@ -60,7 +60,7 @@ local function UnivMenuApplyData(cell, data)
 		cell.text:SetTextColor(1,1,1);
 	end
 	-- Set text
-  cell:Enable();
+    cell:Enable();
 	cell.text:SetText(data.text);
 	cell:SetScript("OnClick", data.func);
 	cell:SetScript("OnMouseDown", data.OnMouseDown);

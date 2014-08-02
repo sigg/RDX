@@ -10,6 +10,7 @@ RDXMAP = RegisterVFLModule({
 });
 
 RDXMAP.Map = {};
+RDXMAP.Travel = {};
 RDXMAP.ContCnt = 6;
 Nx = {};
 
@@ -156,11 +157,10 @@ local function CreateMap(parent)
 		RDXG.GMap[0].NXWorldShow = true;
 	end
 	
-	local m = RDXMAP.Map:Open(2, RDXG.GMap);
-	m.Frm:SetParent(ca);
-	m.Frm:SetFrameLevel(ca:GetFrameLevel() + 2);
-	--m.Frm:SetAllPoints(ca);
-	ca.m = m;
+	--local m = RDXMAP.Map:Open(2, RDXG.GMap);
+	--m.Frm:SetParent(ca);
+	--m.Frm:SetFrameLevel(ca:GetFrameLevel() + 2);
+	--ca.m = m;
 	
 	local function layout()
 		local w = ca:GetWidth();
@@ -170,8 +170,8 @@ local function CreateMap(parent)
 		m.Frm:SetWidth(w - 2);
 		m.Frm:SetHeight(h - 2);
 	end
-	ca:SetScript("OnShow", layout);
-	ca:SetScript("OnSizeChanged", layout);
+	--ca:SetScript("OnShow", layout);
+	--ca:SetScript("OnSizeChanged", layout);
 	
 	local savebtn = VFLUI.SaveButton:new()
 	savebtn:SetScript("OnClick", Save);
@@ -217,7 +217,18 @@ function RDXMAP.IsCentralMapOpen()
 end
 
 
+RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 
+	RDXMAP.Map:Init();
+	RDXMAP.Travel:Init();
+	WoWEvents:Bind("TAXIMAP_OPENED", nil, RDXMAP.Travel.OnTaximap_opened);
+	
+	if not RDXU.E then RDXU.E = {}; end
+	if not RDXU.Q then RDXU.Q = {}; end
+	if not RDXU.Opts then RDXU.Opts = {}; end
+	if not RDXU.L then RDXU.L = {}; end
+	
+end);
 
 
 

@@ -51,135 +51,297 @@ end
 
 --------------------------------------
 
+
 function RDXMAP.Map:BuildMenu(f, gopts, opts)
 	local menu = Nx.Menu:Create (f)
 	self.Menu = menu
+	
+	self.Menu2 = RDXPM.Menu:new();
+	self.Menu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Goto");
+		ent.func = function() VFL.poptree:Release(); RDXMAP.APIMap.SetTargetAtClick(self); end 
+	end);
+	self.Menu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Clear Goto");
+		ent.func = function() VFL.poptree:Release(); RDXMAP.APIMap.ClearTargets(); RDXMapEvents:Dispatch("Guide:ClearAll"); end 
+	end);
+	self.Menu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Add Note");
+		ent.func = function() VFL.poptree:Release(); self:Menu_OnAddNote(); end 
+	end);
+	self.Menu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Save Map Scale");
+		ent.func = function() VFL.poptree:Release(); self.CurOpts.NXScaleSave = self.Scale; end 
+	end);
+	self.Menu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Restore Map Scale");
+		ent.func = function() 
+			VFL.poptree:Release(); 
+			local s = self.CurOpts.NXScaleSave
+			if s then
+				self.Scale = s
+				self.RealScale = s
+				self.StepTime = 10
+			else
+				VFL.vprint ("Scale not set")
+			end
+		end 
+	end);
+	self.Menu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Follow You");
+		ent.checked = function() return self.CurOpts.NXPlyrFollow; end;
+		ent.func = function() VFL.poptree:Release(); self.CurOpts.NXPlyrFollow = not self.CurOpts.NXPlyrFollow end 
+	end);
+	-- was disable ...
+	--self.Menu2:RegisterMenuFunction(function(ent)
+	--	ent.text = VFLI.i18n("Select Cities Last");
+	--	ent.checked = function() return self.NXCitiesUnder; end;
+	--	ent.func = function() VFL.poptree:Release(); RDXMAP.APIMap.SetLevelWorldHotspots(self) end 
+	--end);
+	self.Menu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Monitor Zone");
+		ent.checked = function() return Nx.Com:IsZoneMonitored(self.MenuMapId) end;
+		ent.func = function() VFL.poptree:Release(); Nx.Com:MonitorZone (self.MenuMapId, not Nx.Com:IsZoneMonitored(self.MenuMapId)) end 
+	end);
+	
+	--menu:AddItem (0, "Goto", self.Menu_OnGoto, self)
+	--menu:AddItem (0, "Clear Goto", self.Menu_OnClearGoto, self)
 
-	menu:AddItem (0, "Goto", self.Menu_OnGoto, self)
-	menu:AddItem (0, "Clear Goto", self.Menu_OnClearGoto, self)
+	--menu:AddItem (0, "Add Note", self.Menu_OnAddNote, self)
 
-	menu:AddItem (0, "Add Note", self.Menu_OnAddNote, self)
+	--menu:AddItem (0, "Save Map Scale", self.Menu_OnScaleSave, self)
+	--menu:AddItem (0, "Restore Map Scale", self.Menu_OnScaleRestore, self)
 
-	menu:AddItem (0, "Save Map Scale", self.Menu_OnScaleSave, self)
-	menu:AddItem (0, "Restore Map Scale", self.Menu_OnScaleRestore, self)
+	--self.MenuIPlyrFollow = menu:AddItem (0, "Follow You", self.Menu_OnPlyrFollow, self)
 
-	self.MenuIPlyrFollow = menu:AddItem (0, "Follow You", self.Menu_OnPlyrFollow, self)
+	--local item = menu:AddItem (0, "Select Cities Last", RDXMAP.APIMap.SetLevelWorldHotspots, self)
+	--item:SetChecked (self, "NXCitiesUnder")
 
-	local item = menu:AddItem (0, "Select Cities Last", RDXMAP.APIMap.SetLevelWorldHotspots, self)
-	item:SetChecked (self, "NXCitiesUnder")
+	--self.MenuIMonitorZone = menu:AddItem (0, "Monitor Zone", self.Menu_OnMonitorZone, self)
 
-	self.MenuIMonitorZone = menu:AddItem (0, "Monitor Zone", self.Menu_OnMonitorZone, self)
-
-	menu:AddItem (0, "", nil, self)
+	--menu:AddItem (0, "", nil, self)
+	self.Menu2:RegisterMenuFunction(function(ent)
+		ent.text = "*************";
+		ent.isTitle = true;
+		ent.color = _yellow;
+		ent.notCheckable = true;
+		ent.func = VFL.Noop;
+	end);
 	
 	-- Create route sub menu
-	
+	self.MenuRoute = RDXPM.Menu:new();
+	self.MenuRoute:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Current Gather Locations");
+		ent.func = function() VFL.poptree:Release(); RDXMAP.APIMap.RouteGathers(self); end 
+	end);
+	self.MenuRoute:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Current Goto Targets");
+		ent.func = function() VFL.poptree:Release(); RDXMAP.APIMap.RouteTargets(self); end 
+	end);
+	self.MenuRoute:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Unexplored Locations");
+		ent.func = function() 
+			VFL.poptree:Release();
+			self.LOpts.NXShowUnexplored = false
+			RDXMAP.APIMap.UpdateOverlayUnexplored(self)
+			RDXMAP.APIMap.TargetOverlayUnexplored(self)
+			RDXMAP.APIMap.RouteTargets(self)
+		end 
+	end);
+	self.MenuRoute:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Reverse Targets");
+		ent.func = function() VFL.poptree:Release(); RDXMAP.APIMap.ReverseTargets(); end 
+	end);
+	self.MenuRoute:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Recycle Reached Targets");
+		ent.checked = function() return gopts.RouteRecycle; end;
+		ent.func = function() VFL.poptree:Release(); gopts.RouteRecycle = not gopts.RouteRecycle end 
+	end);
+	self.Menu2:RegisterMenuEntry(VFLI.i18n("Route..."), true, function(tree, frame) self.MenuRoute:Open(tree, frame); end)
+
 	local routeMenu = Nx.Menu:Create (f)
 	menu:AddSubMenu (routeMenu, "Route...")
 
-	local function func (self2)
-		RDXMAP.APIMap.RouteGathers(self2)
-	end
-	local item = routeMenu:AddItem (0, "Current Gather Locations", func, self)
+	--local function func (self2)
+	--	RDXMAP.APIMap.RouteGathers(self2)
+	--end
+	--local item = routeMenu:AddItem (0, "Current Gather Locations", func, self)
 
-	local function func (self2)
-		RDXMAP.APIMap.RouteTargets(self2)
-	end
-	local item = routeMenu:AddItem (0, "Current Goto Targets", func, self)
+	--local function func (self2)
+	--	RDXMAP.APIMap.RouteTargets(self2)
+	--end
+	--local item = routeMenu:AddItem (0, "Current Goto Targets", func, self)
 
-	local function func (self2)
-		self2.LOpts.NXShowUnexplored = false
-		RDXMAP.APIMap.UpdateOverlayUnexplored(self2)
-		RDXMAP.APIMap.TargetOverlayUnexplored(self2)
-		RDXMAP.APIMap.RouteTargets(self2)
-	end
+	--local function func (self2)
+	--	self2.LOpts.NXShowUnexplored = false
+	--	RDXMAP.APIMap.UpdateOverlayUnexplored(self2)
+	--	RDXMAP.APIMap.TargetOverlayUnexplored(self2)
+	--	RDXMAP.APIMap.RouteTargets(self2)
+	--end
 
-	routeMenu:AddItem (0, "Unexplored Locations", func, self)
+	--routeMenu:AddItem (0, "Unexplored Locations", func, self)
 
-	local function func (self2)
-		RDXMAP.APIMap.ReverseTargets()
-	end
-	routeMenu:AddItem (0, "Reverse Targets", func, self)
+	--local function func (self2)
+	--	RDXMAP.APIMap.ReverseTargets()
+	--end
+	--routeMenu:AddItem (0, "Reverse Targets", func, self)
 
-	local item = routeMenu:AddItem (0, "Recycle Reached Targets")
-	item:SetChecked (gopts, "RouteRecycle")
-
+	--local item = routeMenu:AddItem (0, "Recycle Reached Targets")
+	--item:SetChecked (gopts, "RouteRecycle")
+	-- TODO
 	local item = routeMenu:AddItem (0, "Gather Target Radius")
 	item:SetSlider (gopts, 7, 300, nil, "RouteGatherRadius")
 
 	local item = routeMenu:AddItem (0, "Gather Merge Radius")
 	item:SetSlider (gopts, 0, 100, nil, "RouteMergeRadius")
 	
+	self.MenuShow = RDXPM.Menu:new();
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Player Zone");
+		ent.func = function() VFL.poptree:Release(); RDXMAP.APIMap.GotoCurrentZone(self); end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Herb Locations");
+		ent.checked = function() return RDXU.Opts.MapShowGatherH; end;
+		ent.func = function() VFL.poptree:Release(); RDXU.Opts.MapShowGatherH = not RDXU.Opts.MapShowGatherH; RDXMapEvents:Dispatch("Guide:UpdateGatherFolders"); end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Mining Locations");
+		ent.checked = function() return RDXU.Opts.MapShowGatherM; end;
+		ent.func = function() VFL.poptree:Release(); RDXU.Opts.MapShowGatherM = not RDXU.Opts.MapShowGatherM; RDXMapEvents:Dispatch("Guide:UpdateGatherFolders"); end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Artifact Locations");
+		ent.checked = function() return RDXU.Opts.MapShowGatherA; end;
+		ent.func = function() VFL.poptree:Release(); RDXU.Opts.MapShowGatherA = not RDXU.Opts.MapShowGatherA; RDXMapEvents:Dispatch("Guide:UpdateGatherFolders"); end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Mailboxes");
+		ent.checked = function() return gopts.MapShowMailboxes; end;
+		ent.func = function() VFL.poptree:Release(); gopts.MapShowMailboxes = not gopts.MapShowMailboxes; self.POIDraw = nil; end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Notes");
+		ent.checked = function() return gopts.MapShowNotes; end;
+		ent.func = function() VFL.poptree:Release(); gopts.MapShowNotes = not gopts.MapShowNotes; end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Punks");
+		ent.checked = function() return gopts.MapShowPunks; end;
+		ent.func = function() VFL.poptree:Release(); gopts.MapShowPunks = not gopts.MapShowPunks; end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Archaeology Blobs");
+		ent.checked = function() return RDXU.Opts.MapShowArchBlobs; end;
+		ent.func = function() VFL.poptree:Release(); RDXU.Opts.MapShowArchBlobs = not RDXU.Opts.MapShowArchBlobs; self.POIDraw = nil; end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Quest Blobs");
+		ent.checked = function() return RDXU.Opts.MapShowQuestBlobs; end;
+		ent.func = function() VFL.poptree:Release(); RDXU.Opts.MapShowQuestBlobs = not RDXU.Opts.MapShowQuestBlobs; self.POIDraw = nil; end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Unexplored Areas");
+		ent.checked = function() return opts.NXShowUnexplored; end;
+		ent.func = function() VFL.poptree:Release(); opts.NXShowUnexplored = not opts.NXShowUnexplored; end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show World");
+		ent.checked = function() return self.CurOpts.NXWorldShow; end;
+		ent.func = function() VFL.poptree:Release(); self.CurOpts.NXWorldShow = not self.CurOpts.NXWorldShow; end 
+	end);
+	
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Cities");
+		ent.checked = function() return gopts.MapShowCCity; end;
+		ent.func = function() VFL.poptree:Release(); gopts.MapShowCCity = not gopts.MapShowCCity; self.ScanContinentsMod = 10; end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Towns");
+		ent.checked = function() return gopts.MapShowCTown; end;
+		ent.func = function() VFL.poptree:Release(); gopts.MapShowCTown = not gopts.MapShowCTown; self.ScanContinentsMod = 10; end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Extras");
+		ent.checked = function() return gopts.MapShowCExtra; end;
+		ent.func = function() VFL.poptree:Release(); gopts.MapShowCExtra = not gopts.MapShowCExtra; self.ScanContinentsMod = 10; end 
+	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Kill Icons");
+		ent.checked = function() return opts.NXKillShow; end;
+		ent.func = function() VFL.poptree:Release(); opts.NXKillShow = not opts.NXKillShow; end 
+	end);
+	self.Menu2:RegisterMenuEntry(VFLI.i18n("Show..."), true, function(tree, frame) self.MenuShow:Open(tree, frame); end)
+
 	-- Create show sub menu
 
-	local showMenu = Nx.Menu:Create (f)
-	menu:AddSubMenu (showMenu, "Show...")
+	--local showMenu = Nx.Menu:Create (f)
+	--menu:AddSubMenu (showMenu, "Show...")
 
-	showMenu:AddItem (0, "Show Player Zone", self.Menu_OnShowPlayerZone, self)
+	--showMenu:AddItem (0, "Show Player Zone", self.Menu_OnShowPlayerZone, self)
 
-	local function func (self2)
-		RDXMapEvents:Dispatch("Guide:UpdateGatherFolders")
-	end
+	--local function func (self2)
+	--	RDXMapEvents:Dispatch("Guide:UpdateGatherFolders")
+	--end
 
-	local item = showMenu:AddItem (0, "Show Herb Locations", func, self)
-	self.MenuIShowHerb = item
-	item:SetChecked (Nx.CharOpts, "MapShowGatherH")
+	--local item = showMenu:AddItem (0, "Show Herb Locations", func, self)
+	--self.MenuIShowHerb = item
+	--item:SetChecked (RDXU.Opts, "MapShowGatherH")
 
-	local item = showMenu:AddItem (0, "Show Mining Locations", func, self)
-	self.MenuIShowMine = item
-	item:SetChecked (Nx.CharOpts, "MapShowGatherM")
+	--local item = showMenu:AddItem (0, "Show Mining Locations", func, self)
+	--self.MenuIShowMine = item
+	--item:SetChecked (RDXU.Opts, "MapShowGatherM")
 
-	local item = showMenu:AddItem (0, "Show Artifact Locations", func, self)
+	--local item = showMenu:AddItem (0, "Show Artifact Locations", func, self)
 --	self.MenuIShowArt = item
-	item:SetChecked (Nx.CharOpts, "MapShowGatherA")
+	--item:SetChecked (RDXU.Opts, "MapShowGatherA")
 
 
-	local function func (self2)
-		self.POIDraw = nil
-	end
+	--local function func (self2)
+	--	self.POIDraw = nil
+	--end
 
-	local item = showMenu:AddItem (0, "Show Mailboxes", func, self)
-	item:SetChecked (gopts, "MapShowMailboxes")
+	--local item = showMenu:AddItem (0, "Show Mailboxes", func, self)
+	--item:SetChecked (gopts, "MapShowMailboxes")
 
+	--local item = showMenu:AddItem (0, "Show Notes")
+	--item:SetChecked (gopts, "MapShowNotes")
 
-	local item = showMenu:AddItem (0, "Show Notes")
-	item:SetChecked (gopts, "MapShowNotes")
+	--local item = showMenu:AddItem (0, "Show Punks")
+	--item:SetChecked (gopts, "MapShowPunks")
 
-	local item = showMenu:AddItem (0, "Show Punks")
-	item:SetChecked (gopts, "MapShowPunks")
+	--local item = showMenu:AddItem(0, "Show Archaeology Blobs", func, self)
+	--item:SetChecked (RDXU.Opts, "MapShowArchBlobs")
 
-	local item = showMenu:AddItem(0, "Show Archaeology Blobs", func, self)
-	item:SetChecked (Nx.CharOpts, "MapShowArchBlobs")
-
-	local item = showMenu:AddItem(0, "Show Quest Blobs", func, self)
-	item:SetChecked (Nx.CharOpts, "MapShowQuestBlobs")
+	--local item = showMenu:AddItem(0, "Show Quest Blobs", func, self)
+	--item:SetChecked (RDXU.Opts, "MapShowQuestBlobs")
 	
-	local function func (self2, item)
-		self2.LOpts.NXShowUnexplored = item:GetChecked()
-	end
+	--local function func (self2, item)
+	--	self2.LOpts.NXShowUnexplored = item:GetChecked()
+	--end
 
-	local item = showMenu:AddItem (0, "Show Unexplored Areas", func, self)
-	item:SetChecked (self.LOpts.NXShowUnexplored)
-
-
-	self.MenuIShowWorld = showMenu:AddItem (0, "Show World", self.Menu_OnShowWorld, self)
+	--local item = showMenu:AddItem (0, "Show Unexplored Areas", func, self)
+	--item:SetChecked (self.LOpts.NXShowUnexplored)
 
 
-	local function forceShowCont (self2)
-		self2.ScanContinentsMod = 10
-	end
+	--self.MenuIShowWorld = showMenu:AddItem (0, "Show World", self.Menu_OnShowWorld, self)
 
-	local item = showMenu:AddItem (0, "Show Cities", forceShowCont, Map)
-	item:SetChecked (gopts, "MapShowCCity")
 
-	local item = showMenu:AddItem (0, "Show Towns", forceShowCont, Map)
-	item:SetChecked (gopts, "MapShowCTown")
+	--local function forceShowCont (self2)
+	--	self2.ScanContinentsMod = 10
+	--end
 
-	local item = showMenu:AddItem (0, "Show Extras", forceShowCont, Map)
-	item:SetChecked (gopts, "MapShowCExtra")
+	--local item = showMenu:AddItem (0, "Show Cities", forceShowCont, Map)
+	--item:SetChecked (gopts, "MapShowCCity")
 
-	local item = showMenu:AddItem (0, "Show Kill Icons", self.Menu_OnShowKills, self)
-	item:SetChecked (self.LOpts.NXKillShow)
+	--local item = showMenu:AddItem (0, "Show Towns", forceShowCont, Map)
+	--item:SetChecked (gopts, "MapShowCTown")
+
+	--local item = showMenu:AddItem (0, "Show Extras", forceShowCont, Map)
+	--item:SetChecked (gopts, "MapShowCExtra")
+
+	--local item = showMenu:AddItem (0, "Show Kill Icons", self.Menu_OnShowKills, self)
+	--item:SetChecked (self.LOpts.NXKillShow)
 	
 	-- Create scale sub menu
 	
@@ -264,48 +426,85 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 	item:SetSlider (self.QuestAlpha,0,1)
 	
 	-- Options menu
-
-	local item = menu:AddItem (0, "Options...", self.Menu_OnOptions, self)
+	
+	self.Menu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Options...");
+		ent.func = function() VFL.poptree:Release(); self.Menu_OnOptions(self) end 
+	end);
+	--local item = menu:AddItem (0, "Options...", self.Menu_OnOptions, self)
 
 	-- Debug menu
 
-	if NxData.DebugMap then
+	if RDXG.DebugMap then
 
-		self.DebugMap = true
+		--self.DebugMap = true
 
 		local dbmenu = Nx.Menu:Create (f)
 
 		menu:AddItem (0, "", nil, self)
 		menu:AddSubMenu (dbmenu, "Debug...")
+		
+		self.MenuDebug = RDXPM.Menu:new();
+		self.MenuDebug:RegisterMenuFunction(function(ent)
+			ent.text = VFLI.i18n("Map Debug");
+			ent.checked = function() return self.Debug end;
+			ent.func = function() VFL.poptree:Release(); self.Debug = not self.Debug; end 
+		end);
+		self.MenuDebug:RegisterMenuFunction(function(ent)
+			ent.text = VFLI.i18n("Hotspots");
+			ent.checked = function() return self.DebugHotspots end;
+			ent.func = function() VFL.poptree:Release(); self.DebugHotspots = not self.DebugHotspots; self.Debug = self.DebugHotspots; end 
+		end);
+		self.MenuDebug:RegisterMenuFunction(function(ent)
+			ent.text = VFLI.i18n("Hotspots pack");
+			ent.func = function() VFL.poptree:Release(); self.PackHotspotsDebug(self); end 
+		end);
+		self.MenuDebug:RegisterMenuFunction(function(ent)
+			ent.text = VFLI.i18n("Map Debug Time");
+			ent.checked = function() return self.DebugTime end;
+			ent.func = function() VFL.poptree:Release(); self.DebugTime = not self.DebugTime; end 
+		end);
+		self.MenuDebug:RegisterMenuFunction(function(ent)
+			ent.text = VFLI.i18n("Map Full Coords");
+			ent.checked = function() return self.DebugFullCoords end;
+			ent.func = function() VFL.poptree:Release(); self.DebugFullCoords = not self.DebugFullCoords; end 
+		end);
+		self.MenuDebug:RegisterMenuFunction(function(ent)
+			ent.text = VFLI.i18n("Quest Debug");
+			ent.checked = function() return Nx.Quest.Debug end;
+			ent.func = function() VFL.poptree:Release(); Nx.Quest.Debug = not Nx.Quest.Debug; end 
+		end);
+		self.Menu2:RegisterMenuEntry(VFLI.i18n("Debug..."), true, function(tree, frame) self.MenuDebug:Open(tree, frame); end)
 
-		local function func (self2, item)
-			self2.Debug = item:GetChecked()
-		end
 
-		local item = dbmenu:AddItem (0, "Map Debug", func, self)
-		item:SetChecked (false)
+		--local function func (self2, item)
+		--	self2.Debug = item:GetChecked()
+		--end
+
+		--local item = dbmenu:AddItem (0, "Map Debug", func, self)
+		--item:SetChecked (false)
 
 
 		--VFL.vprint ("*** DebugHotspots is ON")
 		--self["DebugHotspots"] = true
 
-		local item = dbmenu:AddItem (0, "Hotspots", func, self)
-		item:SetChecked (self, "DebugHotspots")
+		--local item = dbmenu:AddItem (0, "Hotspots", func, self)
+		--item:SetChecked (self, "DebugHotspots")
 
-		dbmenu:AddItem (0, "Hotspots pack", self.PackHotspotsDebug, self)
+		--dbmenu:AddItem (0, "Hotspots pack", self.PackHotspotsDebug, self)
 
-		local function func (self2, item)
-			self2.DebugTime = item:GetChecked()
-		end
+		--local function func (self2, item)
+		--	self2.DebugTime = item:GetChecked()
+		--end
 
-		local item = dbmenu:AddItem (0, "Map Debug Time", func, self)
-		item:SetChecked (false)
+		--local item = dbmenu:AddItem (0, "Map Debug Time", func, self)
+		--item:SetChecked (false)
 
-		local item = dbmenu:AddItem (0, "Map Full Coords", self.Menu_OnMapDebugFullCoords, self)
-		item:SetChecked (self.DebugFullCoords)
+		--local item = dbmenu:AddItem (0, "Map Full Coords", self.Menu_OnMapDebugFullCoords, self)
+		--item:SetChecked (self.DebugFullCoords)
 
-		local item = dbmenu:AddItem (0, "Quest Debug", self.Menu_OnQuestDebug, self)
-		item:SetChecked (Nx.Quest.Debug)
+		--local item = dbmenu:AddItem (0, "Quest Debug", self.Menu_OnQuestDebug, self)
+		--item:SetChecked (Nx.Quest.Debug)
 
 		local function func (self2, item)
 			self2.DebugScale = item:GetSlider()
@@ -375,14 +574,14 @@ end
 
 
 --------------------------------------
-function RDXMAP.Map:Menu_OnGoto (item)
-	RDXMAP.APIMap.SetTargetAtClick(self)
-end
+--function RDXMAP.Map:Menu_OnGoto (item)
+--	RDXMAP.APIMap.SetTargetAtClick(self)
+--end
 
-function RDXMAP.Map:Menu_OnClearGoto (item)
-	RDXMAP.APIMap.ClearTargets()
-	RDXMapEvents:Dispatch("Guide:ClearAll")
-end
+--function RDXMAP.Map:Menu_OnClearGoto (item)
+--	RDXMAP.APIMap.ClearTargets()
+--	RDXMapEvents:Dispatch("Guide:ClearAll")
+--end
 
 function RDXMAP.Map:Menu_OnAddNote()
 	local wx, wy = RDXMAP.APIMap.FramePosToWorldPos (self, self.ClickFrmX, self.ClickFrmY)
@@ -398,24 +597,24 @@ function RDXMAP.Map:Menu_OnMonitorZone (item)
 	--Nx.Com:MonitorZone (self.MenuMapId, item:GetChecked())
 end
 
-function RDXMAP.Map:Menu_OnScaleSave()
-	--self.CurOpts.NXScaleSave = self.Scale
-end
+--function RDXMAP.Map:Menu_OnScaleSave()
+--	self.CurOpts.NXScaleSave = self.Scale
+--end
 
-function RDXMAP.Map:Menu_OnScaleRestore()
-	--local s = self.CurOpts.NXScaleSave
-	if s then
-		self.Scale = s
-		self.RealScale = s
-		self.StepTime = 10
-	else
-		VFL.vprint ("Scale not set")
-	end
-end
+--function RDXMAP.Map:Menu_OnScaleRestore()
+--	local s = self.CurOpts.NXScaleSave
+--	if s then
+--		self.Scale = s
+--		self.RealScale = s
+--		self.StepTime = 10
+--	else
+--		VFL.vprint ("Scale not set")
+--	end
+--end
 
-function RDXMAP.Map:Menu_OnPlyrFollow (item)
+--function RDXMAP.Map:Menu_OnPlyrFollow (item)
 	--self.CurOpts.NXPlyrFollow = item:GetChecked()
-end
+--end
 
 function RDXMAP.Map:Menu_OnShowWorld (item)
 	--self.CurOpts.NXWorldShow = item:GetChecked()
@@ -425,9 +624,9 @@ function RDXMAP.Map:Menu_OnShowPlayerZone()
 	RDXMAP.APIMap.GotoCurrentZone(self)
 end
 
-function RDXMAP.Map:Menu_OnShowKills (item)
-	self.LOpts.NXKillShow = item:GetChecked()
-end
+--function RDXMAP.Map:Menu_OnShowKills (item)
+--	self.LOpts.NXKillShow = item:GetChecked()
+--end
 
 function RDXMAP.Map:Menu_OnDetailAlpha (item)
 	self.LOpts.NXDetailAlpha = item:GetSlider()
@@ -479,13 +678,13 @@ end
 
 -- Debug sub menu
 
-function RDXMAP.Map:Menu_OnMapDebugFullCoords (item)
-	self.DebugFullCoords = item:GetChecked()
-end
+--function RDXMAP.Map:Menu_OnMapDebugFullCoords (item)
+--	self.DebugFullCoords = item:GetChecked()
+--end
 
-function RDXMAP.Map:Menu_OnQuestDebug (item)
-	Nx.Quest.Debug = item:GetChecked()
-end
+--function RDXMAP.Map:Menu_OnQuestDebug (item)
+--	Nx.Quest.Debug = item:GetChecked()
+--end
 
 -- Plyr icon menu
 

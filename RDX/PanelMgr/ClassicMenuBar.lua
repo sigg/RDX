@@ -232,6 +232,18 @@ RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
 	ent.func = function() VFL.poptree:Release(); RDXCD.DebugCooldownDB(); end 
 end);
 RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Enable Debug Map Menu");
+	ent.checked = RDXG.DebugMap;
+	ent.func = function() VFL.poptree:Release(); RDXG.DebugMap = not RDXG.DebugMap; end 
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = "**** Packages ****";
+	ent.isTitle = true;
+	ent.color = _yellow;
+	ent.notCheckable = true;
+	ent.func = VFL.Noop;
+end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Backup Packages");
 	ent.notCheckable = true;
 	ent.func = function() VFL.poptree:Release(); RDXDB.BackupPackages(); end 
@@ -241,6 +253,7 @@ RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
 	ent.notCheckable = true;
 	ent.func = function() VFL.poptree:Release(); RDXDB.RestorePackages(); end 
 end);
+
 RDXPM.CompactMenu:RegisterMenuEntry(VFLI.i18n("Debugging"), true, function(tree, frame) RDXPM.DebugMenu:Open(tree, frame); end)
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)

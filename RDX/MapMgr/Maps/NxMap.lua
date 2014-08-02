@@ -76,10 +76,6 @@ function RDXMAP.Map:Init()
 	}
 end
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	RDXMAP.Map:Init();
-end);
-
 --------
 -- Open and init
 
@@ -319,7 +315,7 @@ function RDXMAP.Map:Create (index, data)
 	end
 
 	-- Create tool bar
-	m:CreateToolBar()
+	--m:CreateToolBar()
 
 	-- Create menu
 	
@@ -590,52 +586,7 @@ function RDXMAP.Map:GetWinName()
 	return "NxMap" .. self.MapIndex
 end
 
---------
--- Create map tool bar
 
-function RDXMAP.Map:CreateToolBar()
-
-	local bar = Nx.ToolBar:Create (self:GetWinName().."TB", self.Frm, 22, true, true)
-	self.ToolBar = bar
-
-	bar:SetUser (self)
-
---	bar.Frm:SetFrameLevel (self.Frm:GetFrameLevel() + 30)
-
-	local data = {
-		{ "MapZIn", "Zoom In", self.OnButZoomIn, false },
-		{ "MapZOut", "Zoom Out", self.OnButZoomOut, false },
-		{ "MapFav", "-Favorites-", self.OnButToggleFav, false },
-		{ "MapGuide", "-Guide-", self.OnButToggleGuide, false },
---		{ "MapQGivers", "-Quest Givers-", self.OnButToggleQuestGivers, false },
-		{ "MapWarehouse", "-Warehouse-", self.OnButToggleWarehouse, false },
-		{ "MapCombat", "-Combat-", self.OnButToggleCombat, false },
-		{ "MapEvents", "-Events-", self.OnButToggleEvent, false },
---		{ "Scroll", "Debug Scroll", self.OnButScrollDebug, false },
---		{ "Scroll", "Debug Scroll2", self.OnButScrollDebug2, false },
-	}
-
-	for i, b in ipairs (data) do
-
-		bar:AddButton (b[1], b[2], nil, b[3], b[4])
-	end
-
-	bar:Update()
-
-	self:UpdateToolBar()
-end
-
-function RDXMAP.Map:UpdateToolBar()
-
-	local frm = self.ToolBar.Frm
-
-	local opts = Nx:GetGlobalOpts()
-	if opts["MapShowToolBar"] then
-		frm:Show()
-	else
-		frm:Hide()
-	end
-end
 
 function RDXMAP.Map:SetLocationTip (tipStr)
 
@@ -731,7 +682,7 @@ function RDXMAP.Map:UpdateWorldMap()
 	end
 	if not InCombatLockdown() then	
 		self.Arch:DrawNone();
-		if Nx.CharOpts["MapShowArchBlobs"] then
+		if RDXU.Opts["MapShowArchBlobs"] then
 			for i = 1, ArchaeologyMapUpdateAll() do
 				self.Arch:DrawBlob(ArcheologyGetVisibleBlobID(i), true)	  
 			end
@@ -825,35 +776,6 @@ function RDXMAP.Map:OnButZoomOut()
 	self:SetScaleOverTime (-2)
 end
 
-function RDXMAP.Map:OnButToggleFav (but)
-	Nx.Fav:ToggleShow()
-end
-
-function RDXMAP.Map:OnButToggleGuide (but)
-	RDXMapEvents:Dispatch("Guide:ToggleShow")
-end
-
-function RDXMAP.Map:OnButToggleWarehouse (but)
-	Nx.Warehouse:ToggleShow()
-end
-
---[[
-function RDXMAP.Map:OnButToggleQuestGivers (but)
-	local guide = self.Guide ---
-	local folder = guide:FindFolder ("Quest Givers")
-	guide:AddShowFolders (folder, guide:IsShowFolders (folder))
-	guide:Update()
-end
---]]
-
-function RDXMAP.Map:OnButToggleCombat (but)
-	Nx.Combat:Open()
-end
-
-function RDXMAP.Map:OnButToggleEvent (but)
-	Nx.UEvents.List:Open()
-end
-
 
 function RDXMAP.Map:BGIncSendTimer()
 
@@ -888,12 +810,12 @@ function RDXMAP.Map:MouseEnable (max)
 
 		self.MouseEnabled = on
 
-
-		if on then
-			self:UpdateToolBar()		-- Will show or hide
-		else
-			self.ToolBar.Frm:Hide()
-		end
+		-- deprecated toolbar
+		--if on then
+		--	self:UpdateToolBar()		-- Will show or hide
+		--else
+		--	self.ToolBar.Frm:Hide()
+		--end
 
 		self.Frm:EnableMouse (on)
 		self.Frm:EnableMouseWheel (on)
@@ -934,14 +856,19 @@ function RDXMAP.Map:OpenMenu()
 	--local opts = self:GetOptionsT (self.MapIndex)
 
 	-- TODO
-	self.MenuIPlyrFollow:SetChecked (self.CurOpts.NXPlyrFollow)
-	self.MenuIShowWorld:SetChecked (self.CurOpts.NXWorldShow)
+	--self.MenuIPlyrFollow:SetChecked (self.CurOpts.NXPlyrFollow)
+	--self.MenuIShowWorld:SetChecked (self.CurOpts.NXWorldShow)
 
-	self.MenuIMonitorZone:SetChecked (Nx.Com:IsZoneMonitored (self.MapId))
+	--self.MenuIMonitorZone:SetChecked (Nx.Com:IsZoneMonitored (self.MapId))
 
 	self.MenuMapId = self.MapId
 
-	self.Menu:Open()
+	--self.Menu:Open()
+	
+	-- new menu
+	VFL.poptree:Begin(150, 12, self.Frm, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(self.Frm));
+	self.Menu2:Open(VFL.poptree, nil, nil, "TOPLEFT", 0, 0, nil);
+	
 end
 
 
@@ -1083,7 +1010,7 @@ end
 
 function RDXMAP.Map:WinUpdateFade (fade)
 
-	self.ToolBar:SetFade (fade)
+	--self.ToolBar:SetFade (fade)
 	--self.ButAutoScaleOn.Frm:SetAlpha (fade)
 end
 
@@ -1262,13 +1189,13 @@ function RDXMAP.Map:Update (elapsed)
 		if RDX.InA then
 			self.LOpts.NXMMFull = false
 		end
-		--Nx.InArena = nil
+		--Nx.InArena = nil ---
 	end
 ]]
 	--if inBG and RDX.InBG ~= rid then
 	--	RDX.InBG = rid
 
-	--	local cb = Nx.Combat
+	--	local cb = Nx.Combat ---
 	--	cb.BGEnterTime = GetTime()
 	--	local _, honor = GetCurrencyInfo (392)		--V4
 	--	cb.BGEnterHonor = honor
@@ -1276,7 +1203,7 @@ function RDXMAP.Map:Update (elapsed)
 		
 	--	local winfo = NxMap.GetZoneInfo(rid)
 	--	if winfo and winfo.Arena then
-	--		Nx.InArena = rid
+	--		Nx.InArena = rid ---
 	--		self.LOpts.NXMMFull = true
 	--	end
 
@@ -1292,7 +1219,7 @@ function RDXMAP.Map:Update (elapsed)
 		if not RDXMAP.TaxiOn then	-- New taxi ride?
 			RDXMAP.TaxiStartTime = GetTime()
 			RDXMAP.TaxiOn = true
-			if NxData.DebugMap then
+			if RDXG.DebugMap then
 				VFL.vprint ("Taxi start")
 			end
 		end
@@ -1303,9 +1230,9 @@ function RDXMAP.Map:Update (elapsed)
 
 		local tm = GetTime() - RDXMAP.TaxiStartTime
 
-		Nx.Travel:TaxiSaveTime (tm)
+		RDXMAP.Travel:TaxiSaveTime (tm)
 
-		if NxData.DebugMap then
+		if RDXG.DebugMap then
 			VFL.vprint ("Taxi time %.1f seconds", tm)
 		end
 	end
@@ -1762,7 +1689,7 @@ function RDXMAP.Map:Update (elapsed)
 	self.TextScFrm:SetFrameLevel (self.Level)
 	self.PlyrFrm:SetFrameLevel (self.Level + 1)
 
-	self.ToolBar:SetLevels (self.Level + 2)
+	--self.ToolBar:SetLevels (self.Level + 2)
 
 	self.Level = self.Level + 3
 
@@ -1777,7 +1704,7 @@ function RDXMAP.Map:Update (elapsed)
 	-- Scan. Switch maps if needed. Do at end so we dont glitch
 
 	-- DEPRECATED
-	--if Nx.Tick % self.ScanContinentsMod == 3 then
+	--if VFLT.GetFrameCounter() % self.ScanContinentsMod == 3 then
 	--	RDXMAP.APIMap.ScanContinents(self)
 	--end
 

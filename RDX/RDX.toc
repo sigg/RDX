@@ -264,6 +264,8 @@ MapMgr\MapInit.lua
 MapMgr\Obj_MapInfo.lua
 #Metadata\Maps.lua
 #MapMgr\MapEngine.lua
+MapMgr\Travels\Travel.lua
+MapMgr\Travels\Taxi.lua
 MapMgr\Quests\QuestsPanel.lua
 MapMgr\Quests\QuestsPanel_current.lua
 MapMgr\Quests\QuestsPanel_history.lua

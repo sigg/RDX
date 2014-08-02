@@ -281,6 +281,9 @@ function VFLUI.HScrollBar:new(parent, noButtons, onSelChanged)
 		self:_SetValue(value);
 		self.flag = nil;
 	end
+	self.SetOnSelChanged = function(self, func)
+		onSelChanged = func;
+	end
 
 	-- Gutter texture
 	self:SetBackdrop(hsb_backdrop);
@@ -335,6 +338,7 @@ function VFLUI.HScrollBar:new(parent, noButtons, onSelChanged)
 		s.flag = nil;
 		s._SetValue = nil;
 		s.SetValue = nil;
+		s.SetOnSelChanged = nil;
 	end, self.Destroy);
 
 	-- Done

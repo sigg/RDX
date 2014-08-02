@@ -152,7 +152,6 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 
 	local map = self.NxMap
 	local gopts = map.GOpts
-	local Quest = Nx.Quest
 	local myunit = RDXDAL.GetMyUnit();
 
 	map.Tick = map.Tick + 1
@@ -386,7 +385,7 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 
 	-- TEST X, Y
 
-	if Nx.Tick % 3 == 0 then	-- Do less often, since tip makes garbage
+	if VFLT.GetFrameCounter() % 3 == 0 then	-- Do less often, since tip makes garbage
 
 		local tip = format (" %s", cursorLocStr)
 		if map.Debug and winx then
@@ -396,7 +395,7 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 			map.DebugWY = y
 		end
 
-		local over = winx and not VFLUI.IsMouseOver (map.ToolBar.Frm)
+		local over = winx --and not VFLUI.IsMouseOver (map.ToolBar.Frm)
 		map:SetLocationTip (over and not menuOpened and map.WorldHotspotTipStr and (map.WorldHotspotTipStr .. tip))
 	end
 

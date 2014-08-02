@@ -61,6 +61,30 @@ function RDXMAP.GetObjectiveRect (str, loc)
 end
 
 --------
+-- Unpack objective or start/end
+-- Format: name length (byte), name string, zone (byte), location data (may start with space)
+-- Example: 3,the,1, xxyy
+-- Example: 3,end,1,xywh
+
+function RDXMAP.UnpackObjective (obj)
+
+	if not obj then
+		return
+	end
+
+	local i = strbyte (obj) - 35 + 1
+	local desc = strsub (obj, 2, i)
+
+	if #obj == i then
+		return desc
+	end
+
+	local zone = strbyte (obj, i + 1) - 35
+
+	return desc, zone, i + 2
+end
+
+--------
 -- Get centered position from location string
 
 function RDXMAP.GetPosLoc (str, loc)
