@@ -333,7 +333,7 @@ RDX.RegisterFeature({
 		state:Attach("Menu", true, function(win, mnu)
 			table.insert(mnu, {
 				text = VFLI.i18n("Edit Header");
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					local x = RDXDB.GetObjectData(win._path);
 					if (type(x) ~= "table") or (type(x.data) ~= "table") then return; end

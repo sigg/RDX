@@ -167,7 +167,7 @@ local function WindowListRightClick(self, path)
 	local mnu = {};
 	table.insert(mnu, {
 		text = VFLI.i18n("Edit Window"),
-		OnClick = function()
+		func = function()
 			VFL.poptree:Release();
 			RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 		end

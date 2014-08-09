@@ -447,7 +447,7 @@ end
 -- Package send
 RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 	table.insert(mnu, {
-		text = VFLI.i18n("Send"), OnClick = function() 
+		text = VFLI.i18n("Send"), func = function() 
 			VFL.poptree:Release();
 			local data = {};
 			if pkg then data[pkg] = RDXData[pkg]; end
@@ -458,7 +458,7 @@ end);
 -- Single object send
 RDXDB.RegisterObjectMenuHandler(function(mnu, opath, md, dialog)
 	table.insert(mnu, {
-		text = VFLI.i18n("Send"), OnClick = function()
+		text = VFLI.i18n("Send"), func = function()
 			VFL.poptree:Release();
 			local pkg,file = RDXDB.ParsePath(opath);
 			local data = {};

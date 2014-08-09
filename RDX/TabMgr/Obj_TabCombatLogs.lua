@@ -395,14 +395,14 @@ RDXDB.RegisterObjectType({
 	GenerateBrowserMenu = function(mnu, path, md, dlg, tm)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),
-			OnClick = function() 
+			func = function() 
 				VFL.poptree:Release(); 
 				RDXDB.OpenObject(path, "Edit", dlg);
 			end
 		});
 		table.insert(mnu, {
 			text = VFLI.i18n("Analyse");
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				local inst = RDXDB.GetObjectInstance(path, true);
 				if inst then
@@ -414,7 +414,7 @@ RDXDB.RegisterObjectType({
 		if tm then 
 			table.insert(mnu, {
 				text = VFLI.i18n("Close Tab");
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					tm:RemoveTab(path, true);
 				end;

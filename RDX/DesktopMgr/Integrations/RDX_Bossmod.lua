@@ -23,7 +23,7 @@ RDXDK.RegisterWindowLess({
 	Props = function(mnu, id, frame)
 		--[[table.insert(mnu, {
 			text = VFLI.i18n("Edit Window"),
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				local md = RDXDB.GetObjectData(id);
 				if md then EditWindow(id, md); end
@@ -31,7 +31,7 @@ RDXDK.RegisterWindowLess({
 		});]]
 		table.insert(mnu, {
 			text = VFLI.i18n("Rebuild"),
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				local cls = RDXDK.GetWindowLess(frame._dk_name);
 				if cls then
@@ -67,7 +67,7 @@ RDXDK.RegisterWindowLess({
 --	Props = function(mnu, id, frame)
 		--[[table.insert(mnu, {
 			text = VFLI.i18n("Edit Window"),
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				local md = RDXDB.GetObjectData(id);
 				if md then EditWindow(id, md); end
@@ -75,7 +75,7 @@ RDXDK.RegisterWindowLess({
 		});]]
 --		table.insert(mnu, {
 --			text = VFLI.i18n("Rebuild"),
---			OnClick = function()
+--			func = function()
 --				VFL.poptree:Release();
 --				local cls = RDXDK.GetWindowLess(frame._dk_name);
 --				if cls then

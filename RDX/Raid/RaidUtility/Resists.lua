@@ -73,7 +73,7 @@ end
 
 local function ResistMenuEntry(self, mnu, resist)
 	table.insert(mnu, {
-		text = "Sort by resist: " .. resist, OnClick = function() VFL.poptree:Release(); Logistics.StdSortGT(self, resist); end
+		text = "Sort by resist: " .. resist, func = function() VFL.poptree:Release(); Logistics.StdSortGT(self, resist); end
 	});
 end
 
@@ -104,10 +104,10 @@ function Logistics.ResistCheck_Start()
 	-- Window popup menu
 	function pw:_WindowMenu(mnu)
 		table.insert(mnu, {
-			text = "Sort by Name", OnClick = function() VFL.poptree:Release(); Logistics.StdSort(self, "name"); end
+			text = "Sort by Name", func = function() VFL.poptree:Release(); Logistics.StdSort(self, "name"); end
 		});
 		table.insert(mnu, {
-			text = "Sort by Class", OnClick = function() VFL.poptree:Release(); Logistics.StdSort(self, "class"); end
+			text = "Sort by Class", func = function() VFL.poptree:Release(); Logistics.StdSort(self, "class"); end
 		});
 		ResistMenuEntry(self, mnu, "fire");
 		ResistMenuEntry(self, mnu, "nature");

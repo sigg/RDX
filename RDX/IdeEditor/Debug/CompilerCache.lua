@@ -27,7 +27,7 @@ RDXDB.RegisterObjectMenuHandler(function(mnu, opath, dialog)
 		local x = tostring(ccCache[opath]);
 		table.insert(mnu, {
 			text = "View Compiled Code...";
-			OnClick = function() VFL.poptree:Release(); VFL.Debug_ShowCode(x);	end;
+			func = function() VFL.poptree:Release(); VFL.Debug_ShowCode(x);	end;
 		});
 	end
 end);

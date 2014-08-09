@@ -94,7 +94,7 @@ RDX.RegisterFeature({
 					wstate:Attach("Menu", true, function(win, mnu)
 						table.insert(mnu, {
 							text = VFLI.i18n("Edit AuraFilter: ") .. afname;
-							OnClick = function()
+							func = function()
 								VFL.poptree:Release();
 								RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 							end;
@@ -171,7 +171,7 @@ RDX.RegisterFeature({
 					wstate:Attach("Menu", true, function(win, mnu)
 						table.insert(mnu, {
 							text = VFLI.i18n("Edit CooldownFilter: ") .. afname;
-							OnClick = function()
+							func = function()
 								VFL.poptree:Release();
 								RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 							end;

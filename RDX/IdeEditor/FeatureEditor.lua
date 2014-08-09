@@ -460,7 +460,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline, allowcode)
 		if IsFeatureDisabled(btn.idx) then
 			table.insert(mnu, { 
 				text = VFLI.i18n("Enable"); 
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					EnableFeature(btn.idx);
 				end;
@@ -468,7 +468,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline, allowcode)
 		else
 			table.insert(mnu, { 
 				text = VFLI.i18n("Disable"); 
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					DisableFeature(btn.idx)
 				end;
@@ -479,7 +479,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline, allowcode)
 			if testenable then
 				table.insert(mnu, { 
 					text = VFLI.i18n("Desactivate Test"); 
-					OnClick = function()
+					func = function()
 						VFL.poptree:Release();
 						DesactivateTestFeature(btn.idx);
 					end;
@@ -487,7 +487,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline, allowcode)
 			else
 				table.insert(mnu, { 
 					text = VFLI.i18n("Activate Test"); 
-					OnClick = function()
+					func = function()
 						VFL.poptree:Release();
 						ActivateTestFeature(btn.idx);
 					end;
@@ -496,28 +496,28 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline, allowcode)
 		end
 		table.insert(mnu, { 
 			text = VFLI.i18n("Duplicate"); 
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				DuplicateFeature(btn.idx);
 			end;
 		});
 		table.insert(mnu, { 
 			text = VFLI.i18n("Import"); 
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				ImportFeature(btn);
 			end;
 		});
 		table.insert(mnu, { 
 			text = VFLI.i18n("Export"); 
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				ExportFeature(btn);
 			end;
 		});
 		table.insert(mnu, { 
 			text = VFLI.i18n("Drop"); 
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				if btn.idx then
 					SetActiveFeature(nil); RemoveFeatureAt(btn.idx);

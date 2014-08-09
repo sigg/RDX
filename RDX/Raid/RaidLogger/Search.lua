@@ -56,7 +56,7 @@ local function Search_ApplyData(win, frame, icv, data)
 		for _,t in ipairs(matches) do
 			table.insert(mnu, {
 				text = date("%H:%M:%S", t);
-				OnClick = function() VFL.poptree:Release(); Omni.TimeQueryDialog(string.lower(name), t, 120); end;
+				func = function() VFL.poptree:Release(); Omni.TimeQueryDialog(string.lower(name), t, 120); end;
 			});
 		end
 		VFL.poptree:Begin(120, 12, self, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(self));
@@ -73,13 +73,13 @@ local function Search_Start(filterDef)
 	-- Window popup menu
 	function pw:_WindowMenu(mnu)
 		table.insert(mnu, {
-			text = "Sort by Name", OnClick = function() VFL.poptree:Release(); self:Sort("name"); end
+			text = "Sort by Name", func = function() VFL.poptree:Release(); self:Sort("name"); end
 		});
 		table.insert(mnu, {
-			text = "Sort by Class", OnClick = function() VFL.poptree:Release(); self:Sort("class"); end
+			text = "Sort by Class", func = function() VFL.poptree:Release(); self:Sort("class"); end
 		});
 		table.insert(mnu, {
-			text = "Sort by Matches", OnClick = function() VFL.poptree:Release(); self:SortGT("n"); end
+			text = "Sort by Matches", func = function() VFL.poptree:Release(); self:SortGT("n"); end
 		});
 	end
 

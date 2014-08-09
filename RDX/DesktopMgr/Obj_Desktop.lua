@@ -1236,7 +1236,7 @@ RDXDB.RegisterObjectType({
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				RDXDB.OpenObject(path, "Edit", dlg);
 			end
@@ -1244,7 +1244,7 @@ RDXDB.RegisterObjectType({
 		--if RDXDK.GetCurrentDesktopPath() ~= path then 
 		--	table.insert(mnu, {
 		--		text = VFLI.i18n("Open"),
-		--		OnClick = function()
+		--		func = function()
 		--			VFL.poptree:Release();
 		--			RDXDK.SecuredChangeDesktop(path);
 		--		end
@@ -1252,7 +1252,7 @@ RDXDB.RegisterObjectType({
 		--else
 		--	table.insert(mnu, {
 		--		text = VFLI.i18n("Rebuild Desktop"),
-		--		OnClick = function()
+		--		func = function()
 		--			VFL.poptree:Release();
 		--			RDXDK.SecuredChangeDesktop(path);
 		--		end
@@ -1262,14 +1262,14 @@ RDXDB.RegisterObjectType({
 			local pkg, file = RDXDB.ParsePath(path);
 			table.insert(mnu, {
 				text = VFLI.i18n("Copy from default"),
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					RDXDB.Copy("desktops:" .. pkg .. "_default", path, "FORCE")
 				end
 			});
 			table.insert(mnu, {
 				text = VFLI.i18n("Reset States"),
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					for k,v in pairs (md.data) do
 						if v.feature == "Desktop main" then

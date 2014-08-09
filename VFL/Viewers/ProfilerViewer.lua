@@ -74,7 +74,7 @@ local function CellOnClick(self, arg1)
 	--if (not curtbl:IsImmutable()) then 
 		table.insert(mnu, { 
 			text = "Kill", 
-			OnClick = function() 
+			func = function() 
 				--curtbl:Timeshift(-t); 
 				--Omni._RefreshActiveTable();
 				self.kill();

@@ -27,7 +27,7 @@ RDXDB.RegisterObjectMenuHandler(function(mnu, opath, dialog)
 	if RDXM_Debug.IsStoreCompilerActive() then
 		table.insert(mnu, {
 			text = "Serialized form"; 
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				VFL.print("-------------------------------");
 				local tbl = Breakdown(Serialize(RDXDB.GetObjectData(opath)), 50);

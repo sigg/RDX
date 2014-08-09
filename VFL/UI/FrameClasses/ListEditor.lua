@@ -13,7 +13,7 @@ local function buildPopupDropdown(db, callback, frame, point, dx, dy)
 		table.insert(qq, {
 			text = v.text;
 			texture = v.texture or "Interface\\InventoryItems\\WoWUnknownItem01.blp";
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				callback(dbEntry);
 			end

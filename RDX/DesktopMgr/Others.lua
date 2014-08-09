@@ -27,7 +27,6 @@ local function ClearCurrentDesktop()
 end
 
 function RDXDK.DeskClear()
-	VFL.poptree:Release();
 	VFLUI.MessageBox("Clear", "Do you want to clear your current desktop? All windows will be closed and your desktop will be reset to the default state. Your UI will be reload.", nil, "No", nil, "Yes", ClearCurrentDesktop);
 end
 
@@ -73,7 +72,6 @@ end
 
 
 function RDXDK.DeskReset()
-	VFL.poptree:Release();
 	VFLUI.MessageBox("Reset", "Do you want to reset your current desktop? All windows will be undocked and moved to the center of the screen.", nil, "No", nil, "Yes", ResetCurrentDesktop);
 end
 

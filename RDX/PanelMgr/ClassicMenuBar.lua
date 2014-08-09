@@ -271,9 +271,39 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Favoris");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); Nx.Fav:ToggleShow(); end;
+end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Quests Explorer");
 	ent.notCheckable = true;
 	ent.func = function() VFL.poptree:Release(); RDXMAP.ToggleQuestsPanel(); end;
+end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Guide Explorer");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); RDXMapEvents:Dispatch("Guide:ToggleShow"); end;
+end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Warehouse");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); Nx.Warehouse:ToggleShow(); end;
+end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Combat");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); Nx.Combat:Open(); end;
+end);
+
+RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("UEvents");
+	ent.notCheckable = true;
+	ent.func = function() VFL.poptree:Release(); Nx.UEvents.List:Open(); end;
 end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)

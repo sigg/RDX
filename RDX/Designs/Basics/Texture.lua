@@ -613,7 +613,7 @@ RDX.RegisterFeature({
 				wstate:Attach("Menu", true, function(win, mnu)
 					table.insert(mnu, {
 						text = VFLI.i18n("Edit Indicator: ") .. desc.name;
-						OnClick = function()
+						func = function()
 							VFL.poptree:Release();
 							RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 						end;

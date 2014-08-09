@@ -111,7 +111,7 @@ RDX.RegisterFeature({
 		state:Attach("Menu", true, function(win, mnu)
 			table.insert(mnu, {
 				text = txttmp;
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 				end;

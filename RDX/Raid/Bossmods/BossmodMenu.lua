@@ -12,6 +12,6 @@ RDXPM.RegisterMainButton({
 	texture = "Interface\\Addons\\RDX\\Skin\\boomy\\burn";
 	toggletexture = "Interface\\Addons\\RDX\\Skin\\boomy\\burn";
 	IsToggle = RDX.IsEncounterPaneShow;
-	OnClick = RDX.ToggleEncounterPane;
+	func = RDX.ToggleEncounterPane;
 });
 ]]

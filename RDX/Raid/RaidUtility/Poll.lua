@@ -99,13 +99,13 @@ local function SendPoll(data)
 	-- Window popup menu
 	function pw:_WindowMenu(mnu)
 		table.insert(mnu, {
-			text = "Sort by Name", OnClick = function() VFL.poptree:Release(); Logistics.StdSort(self, "name"); end
+			text = "Sort by Name", func = function() VFL.poptree:Release(); Logistics.StdSort(self, "name"); end
 		});
 		table.insert(mnu, {
-			text = "Sort by Class", OnClick = function() VFL.poptree:Release(); Logistics.StdSort(self, "class"); end
+			text = "Sort by Class", func = function() VFL.poptree:Release(); Logistics.StdSort(self, "class"); end
 		});
 		table.insert(mnu, {
-			text = "Sort by Answer", OnClick = function() VFL.poptree:Release(); Logistics.StdSort(self, "answer"); end
+			text = "Sort by Answer", func = function() VFL.poptree:Release(); Logistics.StdSort(self, "answer"); end
 		});
 	end
 

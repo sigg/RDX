@@ -134,7 +134,7 @@ function RDXDAL.AuraCachePopup(db, callback, frame, point, dx, dy)
 		table.insert(qq, {
 			text = v.text;
 			texture = v.texture or "Interface\\InventoryItems\\WoWUnknownItem01.blp";
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				callback(dbEntry);
 			end

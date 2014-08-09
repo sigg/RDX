@@ -441,7 +441,7 @@ RDXDB.RegisterObjectType({
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				RDXDB.OpenObject(path, "Edit", dlg);
 			end
@@ -449,7 +449,7 @@ RDXDB.RegisterObjectType({
 		if not RDXDB.PathHasInstance(path) then
 			table.insert(mnu, {
 				text = VFLI.i18n("Open"),
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					RDXDB.OpenObject(path, "Open");
 				end
@@ -457,7 +457,7 @@ RDXDB.RegisterObjectType({
 		else
 			table.insert(mnu, {
 				text = VFLI.i18n("Close"),
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					RDXDB.OpenObject(path, "Close");
 				end

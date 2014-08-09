@@ -158,7 +158,7 @@ RDX.RegisterFeature({
 		--state:Attach("Menu", true, function(w, mnu)
 		--	table.insert(mnu, {
 		--		text = VFLI.i18n("Toggle Titlebar");
-		--		OnClick = function()
+		--		func = function()
 		--			if st then
 		--				w:HideTitleBar();
 		--				st = nil;
@@ -250,7 +250,7 @@ RDX.RegisterFeature({
 		--state:Attach("Menu", true, function(w, mnu)
 		--	table.insert(mnu, {
 		--		text = VFLI.i18n("Toggle Titlebar");
-		--		OnClick = function()
+		--		func = function()
 		--			if not w:IsHiddenClientArea() then
 		--				VFL.print("hide");
 		--				w:HideClientArea();
@@ -390,7 +390,7 @@ RDX.RegisterFeature({
 		--state:Attach("Menu", true, function(w, mnu)
 		--	table.insert(mnu, {
 		--		text = VFLI.i18n("Toggle Titlebar");
-		--		OnClick = function()
+		--		func = function()
 		--			if st then
 		--				w:HideTitleBar();
 		--				st = nil;
@@ -510,7 +510,7 @@ RDX.RegisterFeature({
 		--state:Attach("Menu", true, function(w, mnu)
 		--	table.insert(mnu, {
 		--		text = VFLI.i18n("Toggle Titlebar");
-		--		OnClick = function()
+		--		func = function()
 		--			if st then
 		--				w:HideTitleBar();
 		--				st = nil;
@@ -632,7 +632,7 @@ RDX.RegisterFeature({
 		--state:Attach("Menu", true, function(w, mnu)
 		--	table.insert(mnu, {
 		--		text = VFLI.i18n("Toggle Titlebar");
-		--		OnClick = function()
+		--		func = function()
 		--			if st then
 		--				w:HideTitleBar();
 		--				st = nil;

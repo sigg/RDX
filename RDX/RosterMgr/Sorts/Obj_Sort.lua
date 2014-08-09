@@ -119,7 +119,7 @@ RDXDB.RegisterObjectType({
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),
-			OnClick = function() 
+			func = function() 
 				VFL.poptree:Release(); 
 				RDXDAL.EditSortDialog(dlg, path, md); 
 			end
@@ -127,7 +127,7 @@ RDXDB.RegisterObjectType({
 		--if RDXU.devflag then
 			--table.insert(mnu, {
 			--	text = VFLI.i18n("Transform Secure"),
-			--	OnClick = function() 
+			--	func = function() 
 			--		VFL.poptree:Release();
 			--		local pkg, file = RDXDB.ParsePath(path);
 			--		md.ty = "SecureSort";

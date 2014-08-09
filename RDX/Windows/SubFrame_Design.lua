@@ -241,7 +241,7 @@ RDX.RegisterFeature({
 		--state:Attach("Menu", true, function(win, mnu)
 		--		table.insert(mnu, {
 		--			text = VFLI.i18n("Edit Design");
-		--			OnClick = function()
+		--			func = function()
 		--				VFL.poptree:Release();
 		--				RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 		--			end;
@@ -253,7 +253,7 @@ RDX.RegisterFeature({
 		--		local x = tostring(RDXM_Debug.GetStoreCompiledObject(path) or "");
 		--		table.insert(mnu, {
 		--			text = VFLI.i18n("View Design Code");
-		--			OnClick = function() VFL.poptree:Release(); VFL.Debug_ShowCode(x); end;
+		--			func = function() VFL.poptree:Release(); VFL.Debug_ShowCode(x); end;
 		--		});
 		--	end);
 		--end

@@ -241,7 +241,7 @@ RDXDB.RegisterObjectType({
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text =  VFLI.i18n("Edit"),
-			OnClick = function() 
+			func = function() 
 				VFL.poptree:Release();
 				RDXRS.StatisticEditor(dlg, path, md)
 			end

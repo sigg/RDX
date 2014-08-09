@@ -482,7 +482,7 @@ function RDXSS.SpellSelector:new(parent)
 			local retVal = spell;
 			table.insert(qq, { 
 				text = retVal, 
-				OnClick = function() 
+				func = function() 
 					VFL.poptree:Release();
 					spellEdit.editBox:SetText(retVal);
 				end

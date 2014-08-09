@@ -154,7 +154,7 @@ RDXEvents:Bind("INIT_DEFERRED", nil, function()
 	etc.GenerateBrowserMenu = VFL.hook(function(mnu, path)
 	table.insert(mnu, {
 	    text = VFLI.i18n("Font Editor"),
-	    OnClick = function()
+	    func = function()
 		VFL.poptree:Release();
 		RDXDB.loadfonts(path, mnu);
 	    end

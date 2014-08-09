@@ -270,14 +270,14 @@ RDXDB.RegisterObjectType({
 	GenerateBrowserMenu = function(mnu, path, md, parent)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				EditSavedFeature2(parent, path, md);
 			end
 		});
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit Raw Data"),
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				EditSavedFeature(parent, path, md);
 			end

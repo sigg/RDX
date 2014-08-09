@@ -15,7 +15,7 @@ local function dd_popup(btn)
 	local mnu = self.onBuild();
 	for _,mentry in ipairs(mnu) do
 		local x,y = mentry.text, mentry.value;
-		mentry.OnClick = function() self:SetSelection(x,y); VFL.poptree:Release(); end
+		mentry.func = function() self:SetSelection(x,y); VFL.poptree:Release(); end
 	end
 	VFL.poptree:Expand(nil, mnu, self.limit);
 end
@@ -102,7 +102,7 @@ local function cb_popup(btn)
 	local mnu = self.onBuild();
 	for _,mentry in ipairs(mnu) do
 		local x = mentry.value or mentry.text;
-		mentry.OnClick = function() self:SetText(x); VFL.poptree:Release(); end
+		mentry.func = function() self:SetText(x); VFL.poptree:Release(); end
 	end
 	VFL.poptree:Expand(nil, mnu, self.limit);
 end

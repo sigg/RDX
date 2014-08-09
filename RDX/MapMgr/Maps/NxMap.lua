@@ -530,7 +530,7 @@ function RDXMAP.Map:Create (index, data)
 	RDXMapEvents:Bind("Guide:UpdateMapIcons", nil, function()
 		if Nx.Guideobj then
 			--VFL.print("OKOKOK");
-			Nx.IconGuide.UpdateMapIcons(m, Nx.Guideobj)
+			RDXMAP.IconGuide.UpdateMapIcons(m, Nx.Guideobj)
 		end
 	end, "RDXMap" .. m.MapIndex);
 	
@@ -1113,14 +1113,14 @@ function RDXMAP.Map:Update (elapsed)
 			self.Icon3Frms[n]:Destroy(); self.Icon3Frms[n] = nil;
 		end
 		-- add general
-		for k, name in ipairs (Nx.GuidePOI) do
+		for k, name in ipairs (RDXMAP.GuidePOI) do
 			local showType, tx = strsplit ("~", name)
 			if showType == "Mailbox" then
 				showType = self.GOpts["MapShowMailboxes"] and showType
 			end
 			if showType then
 				tx = "Interface\\Icons\\" .. tx
-				Nx.IconGuide.UpdateMapGeneralIcons2 (self, self.Cont, showType, RDX.PlFactionNum, tx, showType, "!POI", mapId)
+				RDXMAP.IconGuide.UpdateMapGeneralIcons2 (self, self.Cont, showType, RDX.PlFactionNum, tx, showType, "!POI", mapId)
 				
 			end
 		end
@@ -1539,7 +1539,7 @@ function RDXMAP.Map:Update (elapsed)
 		
 		
 		
-		--Nx.IconGuide.UpdateMapIcons(self, self.Guide)
+		--RDXMAP.IconGuide.UpdateMapIcons(self, self.Guide)
 		
 		
 		-- Note icons

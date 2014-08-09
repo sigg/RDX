@@ -116,7 +116,7 @@ function RDXDB.PackageSelector:new(parent)
 			local retVal = pkg;
 			table.insert(qq, { 
 				text = retVal, 
-				OnClick = function() 
+				func = function() 
 					VFL.poptree:Release();
 					pkgEdit:SetText(retVal);
 				end

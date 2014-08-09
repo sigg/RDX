@@ -19,7 +19,7 @@ function RDXDK.FrameProperties(frame)
 		return; 
 	end
 	local mnu = {};
-	--table.insert(mnu, { text = VFLI.i18n("Layout..."), OnClick = function() RDXDK.LayoutPropsDialog(frameprops); VFL.poptree:Release(); end });
+	--table.insert(mnu, { text = VFLI.i18n("Layout..."), func = function() RDXDK.LayoutPropsDialog(frameprops); VFL.poptree:Release(); end });
 	--table.insert(mnu, { text = VFLI.i18n("Drag to move"), 
 	--	OnMouseDown = function() frame:WMDrag(); end, 
 	--	OnMouseUp = function() VFL.poptree:Release(); frame:WMStopDrag(); end 
@@ -28,14 +28,14 @@ function RDXDK.FrameProperties(frame)
 	if frameprops.feature == "desktop_window" or frameprops.feature == "desktop_statuswindow" then
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit Window"),
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				RDXDB.OpenObject(frameprops.name, "Edit", VFLDIALOG);
 			end
 		});
 		table.insert(mnu, {
 			text = VFLI.i18n("Rebuild Window"),
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, frameprops.name);
 			end
@@ -44,7 +44,7 @@ function RDXDK.FrameProperties(frame)
 	
 	local feat = RDXDB.GetFeatureData(frameprops.name, "Design");
 	local upath = feat["design"];
-	--table.insert(mnu, {text = VFLI.i18n("Clone Window"), OnClick = function() 
+	--table.insert(mnu, {text = VFLI.i18n("Clone Window"), func = function() 
 	--	VFL.poptree:Release();
 	--	RDX.CloneWindow(frameprops.name, upath, VFLDIALOG); 
 	--	end;
@@ -54,7 +54,7 @@ function RDXDK.FrameProperties(frame)
 		if not RDXDK.IsDGP(frameprops) then
 			local rootfrp = RDXDK.Findroot(frameprops);
 			if not rootfrp then
-				table.insert(mnu, {text = VFLI.i18n("Make Dock Parent"), OnClick = function()
+				table.insert(mnu, {text = VFLI.i18n("Make Dock Parent"), func = function()
 					DesktopEvents:Dispatch("WINDOW_PARENTDOCK", frameprops);
 					VFL.poptree:Release();
 				end });
@@ -67,7 +67,7 @@ function RDXDK.FrameProperties(frame)
 		frame:_WindowMenu(mnu, frameprops.name, frame);
 	end
 	
-	--table.insert(mnu, { text = VFLI.i18n("Close"), OnClick = function() 
+	--table.insert(mnu, { text = VFLI.i18n("Close"), func = function() 
 	--	VFL.poptree:Release();
 	--	RDXDK.QueueLockdownAction(RDXDK._CloseWindowRDX, frame._dk_name);
 	--end });

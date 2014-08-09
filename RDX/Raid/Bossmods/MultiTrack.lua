@@ -75,7 +75,7 @@ local function _CreateMultiTracker()
 	function _multi_track_window:_WindowMenu(mnu)
 		table.insert(mnu, { 
 			text = "Close";
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				MultiTrack._Disable();
 			end;
@@ -150,13 +150,13 @@ end
 --RDXBossmods.menu:RegisterMenuFunction(function(ent)
 --	if RDXU.disable_multitrack then
 --		ent.text = VFLI.i18n("MultiTrack |cFFFF0000[OFF]|r"); 
---		ent.OnClick = function() 
+--		ent.func = function() 
 --			RDXU.disable_multitrack = nil; enabled = true;
 --			VFL.poptree:Release(); 
 --		end;
 --	else
 --		ent.text = VFLI.i18n("MultiTrack |cFF00FF00[ON]|r"); 
---		ent.OnClick = function() 
+--		ent.func = function() 
 --			MultiTrack._Disable();
 --			VFL.poptree:Release();
 --		end;

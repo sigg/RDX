@@ -331,7 +331,7 @@ end
 
 --RDXDB.wizardMenu:RegisterMenuFunction(function(ent)
 --	ent.text = "Hello";
---	ent.OnClick = function()
+--	ent.func = function()
 --		VFL.poptree:Release();
 --		VFL.print("test " .. RDXDB.pkgname);
 --	end;
@@ -339,7 +339,8 @@ end
 
 --RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 --	table.insert(mnu, {
---		text = VFLI.i18n("Wizard"), hasArrow = true, OnClick = function(self) RDXDB.pkgname = pkg; RDXDB.wizardMenu:Open(nil, self, nil, nil, nil, VFL.poptree); end
+--		VFL.poptree:Release();
+--		text = VFLI.i18n("Wizard"), hasArrow = true, func = function(self) RDXDB.pkgname = pkg; RDXDB.wizardMenu:Open(nil, self, nil, nil, nil, VFL.poptree); end
 --	});
 --end);
 

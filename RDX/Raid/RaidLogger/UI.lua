@@ -79,7 +79,7 @@ end
 
 local function AnalyzeMenu(tree, ...)
 	local mnu = {
-		{text = "Totals", OnClick = function() Analyze(); tree:Release(); end},
+		{text = "Totals", func = function() Analyze(); tree:Release(); end},
 	};
 	tree:Begin(120, 12, ...);
 	tree:Expand(nil, mnu);
@@ -134,8 +134,8 @@ local function TimeMenu(tree, ...)
 	if not tblCur then return; end
 	local mnu = {};
 	if (not tblCur:IsImmutable()) then
-		table.insert(mnu,{text = "Absolute", OnClick = function() tree:Release(); tblCur.displayTime = "ABSOLUTE"; OmniEvents:Dispatch("TABLE_DATA_CHANGED", tblCur);  end});
-		table.insert(mnu,		{text = "Relative", OnClick = function() tree:Release(); tblCur.displayTime = "RELATIVE"; OmniEvents:Dispatch("TABLE_DATA_CHANGED", tblCur); end});
+		table.insert(mnu,{text = "Absolute", func = function() tree:Release(); tblCur.displayTime = "ABSOLUTE"; OmniEvents:Dispatch("TABLE_DATA_CHANGED", tblCur);  end});
+		table.insert(mnu,		{text = "Relative", func = function() tree:Release(); tblCur.displayTime = "RELATIVE"; OmniEvents:Dispatch("TABLE_DATA_CHANGED", tblCur); end});
 	end
 	tree:Begin(120, 12, ...);
 	tree:Expand(nil, mnu);
@@ -160,18 +160,18 @@ end
 
 Omni.RegisterTableMenuHandler(function(mnu, tbl, dialog)
 	if (not tbl:IsImmutable()) then
-		table.insert(mnu, {text="Remove", OnClick = function() 
+		table.insert(mnu, {text="Remove", func = function() 
 			VFL.poptree:Release();
 			local x = tbl.session:RemoveTable(tbl);
 			if (x == tblCur) then Omni.SetActiveTable(nil); end
 		end});
-		table.insert(mnu, {text="Rename", OnClick = function()
+		table.insert(mnu, {text="Rename", func = function()
 			VFL.poptree:Release();
 			VFLUI.MessageBox("Rename " .. tbl.name, "Enter new name for table '" .. tbl.name .. "'", "", "Cancel", VFL.Noop, "OK", function(newName) Omni.RenameTable(tbl, newName); end);
 		end});
 	end
 	if(tbl.session and tbl.session.name ~= "Saved Tables") then
-		table.insert(mnu, {text="Save", OnClick = function()
+		table.insert(mnu, {text="Save", func = function()
 			VFL.poptree:Release();
 			local sts = Omni.GetSessionByName("Saved Tables"); if not sts then return; end
 			sts:AddTable(tbl:MakeCopy());
@@ -217,11 +217,11 @@ function Omni.Open(path, parent)
 		return {
 			text = VFL.strcolor(0,0,1) .. sess.name .. "|r", 
 			hlt = {r=0,g=0.5,b=1, a=.75},
-			OnClick = function(self, arg1)
+			func = function(self, arg1)
 				if(arg1 == "RightButton") then
 					local mnu = {};
 					--------------------------------------- BEGIN SESSION RIGHTCLICK MENU -----------------------------------------
-					table.insert(mnu, { text = "Clear", OnClick = function() sess:Clear(); Omni.SetActiveTable(nil); VFL.poptree:Release(); end });
+					table.insert(mnu, { text = "Clear", func = function() sess:Clear(); Omni.SetActiveTable(nil); VFL.poptree:Release(); end });
 					--------------------------------------- END SESSION RIGHTCLICK MENU ----------------------------------------
 					VFL.poptree:Begin(120, 12, self, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(self)); VFL.poptree:Expand(nil, mnu);
 				end
@@ -233,7 +233,7 @@ function Omni.Open(path, parent)
 		local str = VFL.strcolor(0,1,0);
 		str = str .. tbl.name .. "|r"
 		local tinfo = { text = str, 
-			OnClick = function(self, arg1)
+			func = function(self, arg1)
 				if(arg1 == "LeftButton") then
 					Omni.SetActiveTable(tbl); 
 				elseif(arg1 == "RightButton") then

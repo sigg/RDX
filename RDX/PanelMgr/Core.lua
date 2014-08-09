@@ -48,7 +48,6 @@ local function ResetLayouts()
 end
 
 function RDXPM.ResetLayouts()
-	VFL.poptree:Release();
 	VFLUI.MessageBox("Reset", "Do you want to reset all RDX editors layout? All editors will be moved to the center of the screen.", nil, "No", nil, "Yes", ResetLayouts);
 end
 

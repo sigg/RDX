@@ -127,7 +127,7 @@ RDXDB.RegisterObjectType({
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit");
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				EditSymlink(dlg, path, md);
 			end;

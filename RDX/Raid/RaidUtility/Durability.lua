@@ -96,13 +96,13 @@ function Logistics.DuraCheck_Start()
 	-- Window popup menu
 	function pw:_WindowMenu(mnu)
 		table.insert(mnu, {
-			text = "Sort by Name", OnClick = function() VFL.poptree:Release(); Logistics.StdSort(self, "name"); end
+			text = "Sort by Name", func = function() VFL.poptree:Release(); Logistics.StdSort(self, "name"); end
 		});
 		table.insert(mnu, {
-			text = "Sort by Class", OnClick = function() VFL.poptree:Release(); Logistics.StdSort(self, "class"); end
+			text = "Sort by Class", func = function() VFL.poptree:Release(); Logistics.StdSort(self, "class"); end
 		});
 		table.insert(mnu, {
-			text = "Sort by Durability", OnClick = function() VFL.poptree:Release(); Logistics.StdSort(self, "pct"); end
+			text = "Sort by Durability", func = function() VFL.poptree:Release(); Logistics.StdSort(self, "pct"); end
 		});
 	end
 

@@ -90,7 +90,7 @@ local function WindowListRightClick(self, path)
 	local mnu = {};
 	table.insert(mnu, {
 		text = VFLI.i18n("Edit Window"),
-		OnClick = function()
+		func = function()
 			VFL.poptree:Release();
 			RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 		end
@@ -102,7 +102,7 @@ local function WindowListRightClick(self, path)
 	if upath then
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit Design");
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				RDXDB.OpenObject(upath, "Edit", VFLDIALOG);
 			end;
@@ -111,13 +111,13 @@ local function WindowListRightClick(self, path)
 	
 	table.insert(mnu, {
 		text = "********************";
-		OnClick = VFL.Noop;
+		func = VFL.Noop;
 	});
 	
 	local dlg = nil;
 	table.insert(mnu, {
 		text = VFLI.i18n("Clone Window"),
-		OnClick = function() 
+		func = function() 
 			VFL.poptree:Release();
 			if dlg then return; end
 			
@@ -200,7 +200,7 @@ local function WindowListRightClick(self, path)
 	
 	table.insert(mnu, {
 		text = VFLI.i18n("Delete Window"),
-		OnClick = function()
+		func = function()
 			VFL.poptree:Release();
 			if InCombatLockdown() then return; end
 			VFLUI.MessageBox(VFLI.i18n("Delete window: ") .. path, VFLI.i18n("Are you sure you want to delete the window ") .. path .. VFLI.i18n("?"), nil, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), 

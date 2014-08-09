@@ -33,7 +33,7 @@ local function MakeCatHierarchy(cat)
 		table.insert(ecats[pcat], 1, {
 			text = thiscat; color = _submenu_color; hasArrow = true;
 			sort = -1;
-			OnClick = function(self) EncounterCatMenu(VFL.poptree, self, cat); end;
+			func = function(self) EncounterCatMenu(VFL.poptree, self, cat); end;
 		});
 		ecats[cat] = {};
 	end
@@ -85,7 +85,7 @@ function RDX.RegisterEncounter(tbl)
 			text = tbl.title;
 			name = name;
 			sort = tonumber(tbl.sort) or 0;
-			OnClick = function() VFL.poptree:Release(); RDX.SetActiveEncounter(name); end
+			func = function() VFL.poptree:Release(); RDX.SetActiveEncounter(name); end
 		});
 		table.sort(ecats[cat], function(x1,x2) return x1.sort < x2.sort; end);
 	end

@@ -30,7 +30,7 @@ RDX.RegisterFeature({
 				wstate:Attach("Menu", true, function(win, mnu)
 					table.insert(mnu, {
 						text = VFLI.i18n("Edit File Set: ") .. afname;
-						OnClick = function()
+						func = function()
 							VFL.poptree:Release();
 							RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 						end;
@@ -129,7 +129,7 @@ RDX.RegisterFeature({
 				wstate:Attach("Menu", true, function(win, mnu)
 					table.insert(mnu, {
 						text = VFLI.i18n("Edit File Set: ") .. afname;
-						OnClick = function()
+						func = function()
 							VFL.poptree:Release();
 							RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 						end;

@@ -176,7 +176,7 @@ local function SetupWindow(path, win, desc)
 	state:Attach("Menu", true, function(win, mnu)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit Design");
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				if IsShiftKeyDown() then
 					RDXDB.OpenObject(upath, "Edit", VFLDIALOG, true);
@@ -191,7 +191,7 @@ local function SetupWindow(path, win, desc)
 	--		local x = tostring(RDXM_Debug.GetStoreCompiledObject(upath) or "");
 	--		table.insert(mnu, {
 	--			text = VFLI.i18n("View Design Code");
-	--			OnClick = function() VFL.poptree:Release(); VFL.Debug_ShowCode(x); end;
+	--			func = function() VFL.poptree:Release(); VFL.Debug_ShowCode(x); end;
 	--		});
 	--	end);
 	--end
@@ -283,7 +283,7 @@ RDXDB.RegisterObjectType({
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = VFLI.i18n("Edit"),
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				RDXDB.OpenObject(path, "Edit", dlg);
 			end
@@ -291,7 +291,7 @@ RDXDB.RegisterObjectType({
 		if not RDXDB.PathHasInstance(path) then
 			table.insert(mnu, {
 				text = VFLI.i18n("Open"),
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					RDXDB.OpenObject(path, "Open");
 				end
@@ -299,7 +299,7 @@ RDXDB.RegisterObjectType({
 		else
 			table.insert(mnu, {
 				text = VFLI.i18n("Close"),
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					RDXDB.OpenObject(path, "Close");
 				end
@@ -308,7 +308,7 @@ RDXDB.RegisterObjectType({
 		if IsShiftKeyDown() then
 			table.insert(mnu, {
 				text = VFLI.i18n("Transform Tab Window"),
-				OnClick = function() 
+				func = function() 
 					VFL.poptree:Release();
 					local pkg, file = RDXDB.ParsePath(path);
 					md.ty = "TabWindow";

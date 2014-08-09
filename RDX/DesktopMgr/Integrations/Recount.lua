@@ -34,7 +34,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 			Props = function(mnu, id, frame)
 				table.insert(mnu, {
 					text = VFLI.i18n("Rebuild"),
-					OnClick = function()
+					func = function()
 						VFL.poptree:Release();
 						local cls = RDXDK.GetWindowLess(frame._dk_name);
 						if cls then

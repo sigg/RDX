@@ -465,24 +465,24 @@ end
 
 RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 	table.insert(mnu, {
-		text = VFLI.i18n("Copy"), OnClick = function() VFL.poptree:Release(); CopyPackage(pkg); end
+		text = VFLI.i18n("Copy"), func = function() VFL.poptree:Release(); CopyPackage(pkg); end
 	});
 end);
 
 RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 	if string.find(pkg, "^template") then
 		table.insert(mnu, {
-			text = VFLI.i18n("Copy into"), OnClick = function() VFL.poptree:Release(); CopyIntoPackage(pkg); end
+			text = VFLI.i18n("Copy into"), func = function() VFL.poptree:Release(); CopyIntoPackage(pkg); end
 		});
 		table.insert(mnu, {
-			text = VFLI.i18n("Copy into all packages"), OnClick = function() VFL.poptree:Release(); CopyIntoAllPackages(pkg); end
+			text = VFLI.i18n("Copy into all packages"), func = function() VFL.poptree:Release(); CopyIntoAllPackages(pkg); end
 		});
 	end
 end);
 
 RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 	table.insert(mnu, {
-		text = VFLI.i18n("Delete"), OnClick = function() VFL.poptree:Release(); PkgDeleteHandler(pkg); end
+		text = VFLI.i18n("Delete"), func = function() VFL.poptree:Release(); PkgDeleteHandler(pkg); end
 	});
 end);
 
@@ -510,7 +510,7 @@ local function ObjectRightClick(cell, opath, dialog)
 	if rpath ~= opath then
 		table.insert(mnu, { 
 			text = VFLI.i18n("Edit link");
-			OnClick = function() 
+			func = function() 
 				VFL.poptree:Release();
 				RDXDB.EditSymLink(opath, dialog); 
 			end;
@@ -541,10 +541,10 @@ end
 RDXDB.RegisterObjectMenuHandler(function(mnu, opath, md, dialog)
 	--if RDXU.devflag then
 		table.insert(mnu, {
-			text = VFLI.i18n("Delete"), OnClick = function() VFL.poptree:Release(); ConfirmDelete(opath); end
+			text = VFLI.i18n("Delete"), func = function() VFL.poptree:Release(); ConfirmDelete(opath); end
 		});
 		table.insert(mnu, {
-			text = VFLI.i18n("Rename"), OnClick = function() VFL.poptree:Release(); Rename(opath); end
+			text = VFLI.i18n("Rename"), func = function() VFL.poptree:Release(); Rename(opath); end
 		});
 	--end
 end);

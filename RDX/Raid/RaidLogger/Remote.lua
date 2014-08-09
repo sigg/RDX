@@ -262,7 +262,7 @@ hooksecurefunc("UnitPopup_OnClick", _menuhook)
 ---------------------------------------------
 Omni.RegisterTableMenuHandler(function(mnu, tbl, dialog)
 	if (tbl ~= Omni.localLog) then
-		table.insert(mnu, {text="Push", OnClick = function() 
+		table.insert(mnu, {text="Push", func = function() 
 			VFL.poptree:Release();
 			-- First timeshift the table
 			local r1 = tbl:GetRow(1);

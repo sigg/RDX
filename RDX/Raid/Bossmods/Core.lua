@@ -20,40 +20,40 @@ RDXBossmods.menu = RDXPM.Menu:new();
 RDXBossmods.menu:RegisterMenuFunction(function(ent)
 	if RDXU.atracker then
 		ent.text = VFLI.i18n("Ability Tracker |cFF00FF00[ON]|r"); 
-		ent.OnClick = function() RDXBM.StopAbilityTracker(); VFL.poptree:Release(); end;
+		ent.func = function() RDXBM.StopAbilityTracker(); VFL.poptree:Release(); end;
 	else
 		ent.text = VFLI.i18n("Ability Tracker |cFFFF0000[OFF]|r"); 
-		ent.OnClick = function() RDXBM.StartAbilityTracker(); VFL.poptree:Release(); end;
+		ent.func = function() RDXBM.StartAbilityTracker(); VFL.poptree:Release(); end;
 	end
 end);
 
 RDXBossmods.menu:RegisterMenuFunction(function(ent)
 	if RDXBM.isMoveAlerts() then
 		ent.text = "Lock Alerts"; 
-		ent.OnClick = function() RDXBM.StopMovingAlerts(); VFL.poptree:Release(); end;
+		ent.func = function() RDXBM.StopMovingAlerts(); VFL.poptree:Release(); end;
 	else
 		ent.text = "Move Alerts"; 
-		ent.OnClick = function() RDXBM.MoveAlerts(); VFL.poptree:Release(); end;
+		ent.func = function() RDXBM.MoveAlerts(); VFL.poptree:Release(); end;
 	end
 end);
 
 RDXBossmods.menu:RegisterMenuFunction(function(ent)
 	if RDXU.nosound then
 		ent.text = VFLI.i18n("Sound |cFFFF0000[OFF]|r"); 
-		ent.OnClick = function() RDXU.nosound = nil; VFL.poptree:Release(); end;
+		ent.func = function() RDXU.nosound = nil; VFL.poptree:Release(); end;
 	else
 		ent.text = VFLI.i18n("Sound |cFF00FF00[ON]|r");
-		ent.OnClick = function() RDXU.nosound = true; VFL.poptree:Release(); end;
+		ent.func = function() RDXU.nosound = true; VFL.poptree:Release(); end;
 	end
 end);
 
 RDXBossmods.menu:RegisterMenuFunction(function(ent)
 	if RDXU.spam then
 		ent.text = VFLI.i18n("Announce |cFF00FF00[ON]|r"); 
-		ent.OnClick = function() RDX.AnnounceOff(); VFL.poptree:Release(); end;
+		ent.func = function() RDX.AnnounceOff(); VFL.poptree:Release(); end;
 	else
 		ent.text = VFLI.i18n("Announce |cFFFF0000[OFF]|r"); 
-		ent.OnClick = function() RDX.AnnounceOn(); VFL.poptree:Release(); end;
+		ent.func = function() RDX.AnnounceOn(); VFL.poptree:Release(); end;
 	end
 end);
 

@@ -371,31 +371,31 @@ RDX.RegisterFeature({
 		
 		smenu:RegisterMenuFunction(function(ent)
 			ent.text = VFLI.i18n("Horizontal");
-			ent.OnClick = function() VFL.poptree:Release(); change("Horizontal"); end;
+			ent.func = function() VFL.poptree:Release(); change("Horizontal"); end;
 		end);
 		smenu:RegisterMenuFunction(function(ent)
 			ent.text = VFLI.i18n("Horizontal*5");
-			ent.OnClick = function() VFL.poptree:Release(); change("Horizontal*5"); end;
+			ent.func = function() VFL.poptree:Release(); change("Horizontal*5"); end;
 		end);
 		smenu:RegisterMenuFunction(function(ent)
 			ent.text = VFLI.i18n("Horizontal*10");
-			ent.OnClick = function() VFL.poptree:Release(); change("Horizontal*10"); end;
+			ent.func = function() VFL.poptree:Release(); change("Horizontal*10"); end;
 		end);
 		smenu:RegisterMenuFunction(function(ent)
 			ent.text = VFLI.i18n("Vertical");
-			ent.OnClick = function() VFL.poptree:Release(); change("Vertical"); end;
+			ent.func = function() VFL.poptree:Release(); change("Vertical"); end;
 		end);
 		smenu:RegisterMenuFunction(function(ent)
 			ent.text = VFLI.i18n("Vertical*5");
-			ent.OnClick = function() VFL.poptree:Release(); change("Vertical*5"); end;
+			ent.func = function() VFL.poptree:Release(); change("Vertical*5"); end;
 		end);
 		smenu:RegisterMenuFunction(function(ent)
 			ent.text = VFLI.i18n("Vertical*10");
-			ent.OnClick = function() VFL.poptree:Release(); change("Vertical*10"); end;
+			ent.func = function() VFL.poptree:Release(); change("Vertical*10"); end;
 		end);
 		smenu:RegisterMenuFunction(function(ent)
 			ent.text = VFLI.i18n("Custom");
-			ent.OnClick = function() VFL.poptree:Release(); RDXDB.OpenObject(win._path, "Edit", VFLDIALOG); end;
+			ent.func = function() VFL.poptree:Release(); RDXDB.OpenObject(win._path, "Edit", VFLDIALOG); end;
 		end);
 
 		-- Add a menu to the window to edit the mouse bindings
@@ -403,7 +403,7 @@ RDX.RegisterFeature({
 		--	table.insert(mnu, {
 		--		text = "Raid Preset Layout";
 		--		hasArrow = true;
-		--		OnClick = function(tree, frame)
+		--		func = function(tree, frame)
 		--			smenu:Open(tree, frame);
 		--		end
 		--	});

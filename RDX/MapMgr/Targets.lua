@@ -75,7 +75,7 @@ function RDXMAP.AddTarget (typ, x1, y1, x2, y2, tex, id, name, mapId)
 	--local typ = keep and "Target" or "TargetS"
 	--local zx, zy = RDXMAP.APIMap.GetZonePos (mapId, tar.TargetMX, tar.TargetMY)
 
-	--Nx.Fav:Record (typ, name, mapId, zx, zy)
+	Nx.Fav:Record (typ, name, mapId, zx, zy)
 	TargetEvents:Dispatch("Update");
 	return tar
 end

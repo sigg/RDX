@@ -143,7 +143,7 @@ RDX.RegisterFeature({
 		state:Attach("Menu", true, function(win, mnu)
 			table.insert(mnu, {
 				text = VFLI.i18n("Edit Sort");
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 				end;
@@ -199,7 +199,7 @@ RDX.RegisterFeature({
 		state:Attach("Menu", true, function(win, mnu)
 			table.insert(mnu, {
 				text = VFLI.i18n("Edit FilterSet");
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 				end;
@@ -257,7 +257,7 @@ RDX.RegisterFeature({
 		state:Attach("Menu", true, function(win, mnu)
 			table.insert(mnu, {
 				text = VFLI.i18n("Edit TableMeter");
-				OnClick = function()
+				func = function()
 					VFL.poptree:Release();
 					RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 				end;

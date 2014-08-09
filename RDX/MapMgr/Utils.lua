@@ -1,6 +1,19 @@
 
 
 --------
+-- Get centered position of objective
+
+function RDXMAP.GetObjectivePos (str)
+
+	local name, zone, loc = RDXMAP.UnpackObjective (str)
+
+	if zone then
+		return name, zone, RDXMAP.GetPosLoc (str, loc)		-- x, y
+	end
+end
+
+
+--------
 -- Get size of objective or start/end
 
 function RDXMAP.GetObjectiveRect (str, loc)

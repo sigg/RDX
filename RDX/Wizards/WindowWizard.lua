@@ -1798,7 +1798,7 @@ RDXDB.RegisterObjectType({
 	GenerateBrowserMenu = function(mnu, path, md, dlg)
 		table.insert(mnu, {
 			text = "Open",
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				if md.version ~= 2 then
 					VFL.TripError("RDX", "Old WindowWizard data version. Cannot open.", "");

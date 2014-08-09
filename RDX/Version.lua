@@ -76,10 +76,10 @@ function RDX.VersionCheck_Start()
 	-- Window popup menu
 	function pw:_WindowMenu(mnu)
 		table.insert(mnu, {
-			text = VFLI.i18n("Sort by Name"), OnClick = function() VFL.poptree:Release(); pw:Sort("name"); end
+			text = VFLI.i18n("Sort by Name"), func = function() VFL.poptree:Release(); pw:Sort("name"); end
 		});
 		table.insert(mnu, {
-			text = VFLI.i18n("Sort by Class"), OnClick = function() VFL.poptree:Release(); pw:Sort("class"); end
+			text = VFLI.i18n("Sort by Class"), func = function() VFL.poptree:Release(); pw:Sort("class"); end
 		});
 	end
 

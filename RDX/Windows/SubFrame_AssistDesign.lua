@@ -140,7 +140,7 @@ RDX.RegisterFeature({
 			--if RDXU.devflag then
 				table.insert(mnu, {
 					text = VFLI.i18n("Edit Design");
-					OnClick = function()
+					func = function()
 						VFL.poptree:Release();
 						RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 					end;

@@ -14,7 +14,7 @@ local function __RDXParser()
 			TaxiNameStart = locName
 
 			if NxData.DebugMap then
-				local name = Nx.MGuide:FindTaxis (locName)
+				local name = RDXMAP.APIGuide.FindTaxis(locName)
 				VFL.vprint ("Taxi current %s (%s)", name or "nil", locName)
 			end
 		end

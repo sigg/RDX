@@ -14,6 +14,9 @@ RDXMAP.Travel = {};
 RDXMAP.ContCnt = 6;
 Nx = {};
 
+RDXMAP.Guide = {}
+RDXMAP.Guide.PlayerTargets = {}
+
 ----------------------------------
 -- Map Database local
 ----------------------------------
@@ -228,6 +231,15 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	if not RDXU.Opts then RDXU.Opts = {}; end
 	if not RDXU.L then RDXU.L = {}; end
 	
+	
+	--WoWEvents:Bind("PLAYER_TARGET_CHANGED", nil, Nx.MGuide.OnPlayer_target_changed);
+	WoWEvents:Bind("MERCHANT_SHOW", nil, RDXMAP.APIGuide.OnMerchant_show);
+	WoWEvents:Bind("MERCHANT_UPDATE", nil, RDXMAP.APIGuide.OnMerchant_update);
+	WoWEvents:Bind("GOSSIP_SHOW", nil, RDXMAP.APIGuide.OnGossip_show);
+	WoWEvents:Bind("TRAINER_SHOW", nil, RDXMAP.APIGuide.OnTrainer_show);
+--		"PET_STABLE_SHOW", Guide.OnPet_stable_show,
+	
+	--Nx.Guideobj = Nx.MGuide:Create (nil, nil, 1)
 end);
 
 

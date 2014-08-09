@@ -144,7 +144,7 @@ local function CellOnClick(self, arg1)
 			};
 			table.insert(mnu, { 
 				text = VFLI.i18n("Info"), 
-				OnClick = function()
+				func = function()
 					local data = {};
 					data["infoVersion"] = self.col[2]:GetText(); --version
 					data["infoAuthor"] = self.col[3]:GetText(); --author
@@ -155,7 +155,7 @@ local function CellOnClick(self, arg1)
 			});
 			table.insert(mnu, { 
 				text = VFLI.i18n("Download"), 
-				OnClick = function() 
+				func = function() 
 					-- who, packagename, version
 					RDXDB.RAU_RequestPkg("GUILD", self.col[7]:GetText(), self.col[1]:GetText(), self.col[2]:GetText());
 					VFL.poptree:Release(); 
@@ -172,7 +172,7 @@ local function CellOnClick(self, arg1)
 			};
 			table.insert(mnu, { 
 				text = VFLI.i18n("Info Package"), 
-				OnClick = function() 
+				func = function() 
 					-- who, packagename, version
 					RDXDB.PackageMetadataDialog(self, self.col[1]:GetText(), RDXDB.GetAllPackageMetadata(self.col[1]:GetText()), function(pkgname, pkgdata) RDXDB.SetAllPackageMetadata(pkgname, pkgdata); RDXDB.UpdateRAUMode(3); end);
 					VFL.poptree:Release();

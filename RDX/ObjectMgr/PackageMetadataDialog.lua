@@ -155,6 +155,6 @@ end
 --
 RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 	table.insert(mnu, {
-		text = VFLI.i18n("Info Package"), OnClick = function() VFL.poptree:Release(); RDXDB.PackageMetadataDialog(dialog, pkg, RDXDB.GetAllPackageMetadata(pkg), function(pkgname, pkgdata) RDXDB.SetAllPackageMetadata(pkgname, pkgdata) end); end
+		text = VFLI.i18n("Info Package"), func = function() VFL.poptree:Release(); RDXDB.PackageMetadataDialog(dialog, pkg, RDXDB.GetAllPackageMetadata(pkg), function(pkgname, pkgdata) RDXDB.SetAllPackageMetadata(pkgname, pkgdata) end); end
 	});
 end);

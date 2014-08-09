@@ -65,12 +65,12 @@ function RDXMAP.Travel:Add (typ, cont)
 
 	if 1 then
 
-		local dataStr = Nx.GuideData[typ][cont] or ""
+		local dataStr = RDXMAP.GuideData[typ][cont] or ""
 
 		for n = 1, #dataStr, 2 do
 
 			local npcI = (strbyte (dataStr, n) - 35) * 221 + (strbyte (dataStr, n + 1) - 35)
-			local npcStr = Nx.NPCData[npcI]
+			local npcStr = RDXMAP.NPCData[npcI]
 
 			local fac = strbyte (npcStr, 1) - 35
 			if fac ~= hideFac then
@@ -136,7 +136,7 @@ function RDXMAP.Travel:CaptureTaxi()
 			self.TaxiNameStart = locName
 
 			if NxData.DebugMap then
-				local name = Nx.MGuide:FindTaxis (locName)
+				local name = RDXMAP.APIGuide.FindTaxis (locName)
 				VFL.vprint ("Taxi current %s (%s)", name or "nil", locName)
 			end
 		end
@@ -153,7 +153,7 @@ function RDXMAP.Travel.TakeTaxiNode (node)
 --	RDXMAP.TaxiName = strsplit (",", TaxiNodeName (node))
 	RDXMAP.TaxiName = TaxiNodeName (node)
 
-	local name, x, y = Nx.MGuide:FindTaxis (RDXMAP.TaxiName)
+	local name, x, y = RDXMAP.APIGuide.FindTaxis (RDXMAP.TaxiName)
 	if name then
 		VFL.print("TAXI Node OK");
 	else
@@ -304,20 +304,20 @@ end
 
 function RDXMAP.Travel:TaxiFindConnectionTime (srcName, destName)
 
-	local srcNPCName, x, y = Nx.MGuide:FindTaxis (srcName)
-	local destNPCName, x, y = Nx.MGuide:FindTaxis (destName)
+	local srcNPCName, x, y = RDXMAP.APIGuide.FindTaxis (srcName)
+	local destNPCName, x, y = RDXMAP.APIGuide.FindTaxis (destName)
 
 --	VFL.vprint ("NPC src %s %s", srcName, srcNPCName or "nil")
 --	VFL.vprint ("NPC dest %s %s", destName, destNPCName or "nil")
 
 	-- single string comprising multiple 6 byte entries
 	-- aabbcc
-	-- aa = index of start npc (Nx.NPCData table)
-	-- bb = index of end npc (Nx.NPCData table)
+	-- aa = index of start npc (RDXMAP.NPCData table)
+	-- bb = index of end npc (RDXMAP.NPCData table)
 	-- cc = flight time in 10ths of a second
 	-- all are base 221 encoded (indicies start at 1)
 
-	local conn = Nx.FlightConnection
+	local conn = RDXMAP.FlightConnection
 
 	for n = 1, #conn, 6 do
 
@@ -325,7 +325,7 @@ function RDXMAP.Travel:TaxiFindConnectionTime (srcName, destName)
 
 		local i = (a1 - 35) * 221 + a2 - 35
 
-		local npc = Nx.NPCData[i]
+		local npc = RDXMAP.NPCData[i]
 		if npc then
 
 			local oStr = strsub (npc, 2)
@@ -337,7 +337,7 @@ function RDXMAP.Travel:TaxiFindConnectionTime (srcName, destName)
 --				VFL.vprint ("SNPC %s", desc)
 
 				local i = (b1 - 35) * 221 + b2 - 35
-				local npc = Nx.NPCData[i]
+				local npc = RDXMAP.NPCData[i]
 				if npc then
 
 					local oStr = strsub (npc, 2)

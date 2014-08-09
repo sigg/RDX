@@ -9,7 +9,7 @@ local function ElementCachePopup(db, callback, frame, point, dx, dy)
 		local dbEntry = v;
 		table.insert(qq, {
 			text = v;
-			OnClick = function()
+			func = function()
 				VFL.poptree:Release();
 				callback(dbEntry);
 			end

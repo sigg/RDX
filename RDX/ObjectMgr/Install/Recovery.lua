@@ -134,7 +134,6 @@ local function DoDeleteThemes(ary)
 end
 
 function RDXDB.DeleteThemes()
-	VFL.poptree:Release();
 	local tbl = {};
 	for pkgName,pkg in pairs(RDXData) do
 		if pkg["autodesk"] then
@@ -159,7 +158,6 @@ local function DoBackup(ary)
 end
 
 function RDXDB.BackupPackages()
-	VFL.poptree:Release();
 	ShowPackageListWindow("Backup", "Select packages to back up.\n|cFFFF0000WARNING: Existing backups will be overwritten.\nThe UI will be reloaded.|r", RDXData, DoBackup)
 end
 
@@ -177,7 +175,6 @@ local function DoRestore(ary)
 end
 
 function RDXDB.RestorePackages()
-	VFL.poptree:Release();
 	ShowPackageListWindow("Restore", "Select packages to restore.\n|cFFFF0000WARNING: Existing RDX database will be overwritten.\nThe UI will be reloaded.|r", RDXBackup, DoRestore)
 end
 
@@ -189,7 +186,6 @@ local function DoMasterReset()
 end
 
 function RDXDB.MasterReset()
-	VFL.poptree:Release();
 	VFLUI.MessageBox("Master Reset", "Do you want to master reset? This will clear the RDX database, and restore all RDX settings to their defaults.", nil, "No", nil, "Yes", DoMasterReset);
 end
 RDXPM.RegisterSlashCommand("masterreset", RDXDB.MasterReset);
@@ -200,7 +196,6 @@ local function DoReinstall()
 end
 
 local function Reinstall()
-	VFL.poptree:Release();
 	VFLUI.MessageBox(VFLI.i18n("Reinstall"), VFLI.i18n("Are you sure you want to re-run all installers? (The UI will be reloaded.)"), nil, VFLI.i18n("No"), VFL.Noop, VFLI.i18n("Yes"), DoReinstall);
 end;
 
