@@ -76,7 +76,7 @@ local function OpenDesktopTools(parent, froot)
 	--		--BuildWindowList();
 	--		RDXG.dktoolnofilter = true;
 	--	else
-	--		--local auipkg, auiname = RDXDB.ParsePath(RDXU.AUI);
+	--		--local _, auipkg, auiname = RDXDB.ParsePath(RDXU.AUI);
 	--		--BuildWindowList(auiname);
 	--		RDXG.dktoolnofilter = nil;
 	--	end

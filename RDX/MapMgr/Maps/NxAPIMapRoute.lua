@@ -30,15 +30,17 @@ function RDXMAP.APIMap.RouteTargets(map)
 
 	local points = {}
 
-	for n, tar in ipairs (RDXMAP.Targets) do
+	for n, tar in ipairs (RDXU.MapTargets) do
 
-		local wx = tar.TargetMX
-		local wy = tar.TargetMY
+		--local wx = tar.TargetMX
+		--local wy = tar.TargetMY
+		local wx = tar.x
+		local wy = tar.y
 		local x, y = RDXMAP.APIMap.GetZonePos (map.MapId, wx, wy)
 
 		local pt = {}
 		tinsert (points, pt)
-		pt.Name = tar.TargetName
+		pt.Name = tar.n
 		pt.X = x
 		pt.Y = y
 	end
@@ -274,7 +276,7 @@ function RDXMAP.APIMap.RouteToTargets (map, route, targetIcon)
 
 		local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, r.X, r.Y * 1.5)
 		local s = format ("Route%s (%s) %s", n, #route - n + 1, r.Name or "")
-		local tar = RDXMAP.APIMap.SetTarget ("Route", wx, wy, wx, wy, targetIcon, nil, s, n ~= 1, mapId)
+		local tar = RDXMAP.APIMap.SetTarget ("Route", wx, wy, nil, s, n ~= 1, mapId)
 
 		tar.Radius = map.GOpts["RouteGatherRadius"]
 

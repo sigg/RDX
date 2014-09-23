@@ -7,13 +7,13 @@
 ------------------------------------------------
 local dlg = nil;
 local otypes = {};
-function RDXDB.NewObjectDialog(parent, pkgName)
-	if dlg or (not pkgName) then return; end
+function RDXDB.NewObjectDialog(parent, dkName, pkgName)
+	if dlg or (not dkName) or (not pkgName) then return; end
 
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 20);
 	dlg:SetTitleColor(0,.6,0);
-	dlg:SetText(VFLI.i18n("New object in package ") .. pkgName);
+	dlg:SetText(VFLI.i18n("New object in ") .. dkName .. ":" .. pkgName);
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetHeight(350); dlg:SetWidth(260);
 	dlg:SetClampedToScreen(true);
@@ -124,7 +124,7 @@ function RDXDB.NewObjectDialog(parent, pkgName)
 	-- OK handler
 	local function OnOK()
 		if activeType then
-			local x1, x2 = RDXDB.CreateObject(pkgName, nameEd:GetText(), activeType);
+			local x1, x2 = RDXDB.CreateObject(dkName, pkgName, nameEd:GetText(), activeType);
 			if x1 then -- all OK
 				VFL.EscapeTo(esch);
 			else -- error :\

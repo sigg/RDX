@@ -192,14 +192,14 @@ local function InstallData(data)
 		for objName, objData in pairs(pkgData) do
 			RDXDB.GetOrCreatePackage(pkgName);
 			if type(objData) == "table" then
-				local lf = RDXDB.TouchObject(pkgName .. ":" .. objName);
+				local lf = RDXDB.TouchObject("RDXDiskSystem:" .. pkgName .. ":" .. objName);
 				if lf then
 					lf.ty = objData.ty;
 					lf.version = objData.version;
 					lf.data = objData.data;
 				end
 			else
-				RDXDB.SetPackageMetadata(pkgName, objName, objData);
+				RDXDB.SetPackageMetadata("RDXDiskSystem:", pkgName, objName, objData);
 			end
 		end
 	end
@@ -414,7 +414,7 @@ local function StartInstaller(force)
 --RDX.SelectDesktop("default:desktop_]] .. RDX.pspace .. [[");
 ]];
 		-- Save to our autoexec script
-		local so = RDXDB.TouchObject("Scripts:auto_e_default_u_" .. RDX.pspace);
+		local so = RDXDB.TouchObject("RDXDiskSystem:scripts:auto_e_default_u_" .. RDX.pspace);
 		so.ty = "Script"; so.version = 1; so.data = { script = script };
 		rlui_flag = true; -- We need to reload ui after setting a default desktop.
 	end;

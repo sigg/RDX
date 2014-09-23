@@ -226,13 +226,17 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	RDXMAP.Travel:Init();
 	WoWEvents:Bind("TAXIMAP_OPENED", nil, RDXMAP.Travel.OnTaximap_opened);
 	
+	if not RDXU.MapTargets then RDXU.MapTargets = {}; end
+	
 	if not RDXU.E then RDXU.E = {}; end
 	if not RDXU.Q then RDXU.Q = {}; end
 	if not RDXU.Opts then RDXU.Opts = {}; end
 	if not RDXU.L then RDXU.L = {}; end
+	if not RDXU.W then RDXU.W = {}; end
+	if not RDXU.TBar then RDXU.TBar = {}; end
+	if not RDXU.Profs then RDXU.Profs = {}; end
+	if not RDXU.TBar then RDXU.TBar = {}; end
 	
-	
-	--WoWEvents:Bind("PLAYER_TARGET_CHANGED", nil, Nx.MGuide.OnPlayer_target_changed);
 	WoWEvents:Bind("MERCHANT_SHOW", nil, RDXMAP.APIGuide.OnMerchant_show);
 	WoWEvents:Bind("MERCHANT_UPDATE", nil, RDXMAP.APIGuide.OnMerchant_update);
 	WoWEvents:Bind("GOSSIP_SHOW", nil, RDXMAP.APIGuide.OnGossip_show);

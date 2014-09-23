@@ -1,4 +1,6 @@
 
+
+
 local i, j, k
 --local frms, frm
 local scale
@@ -24,7 +26,6 @@ local si
 -- XY is center. Width and height are not scaled
 
 function RDXMAP.APIMap.ClipFrameZ (map, frm, x, y, w, h, dir)
-
 	x, y = RDXMAP.APIMap.GetWorldPos (map.MapId, x, y)
 	return RDXMAP.APIMap.ClipFrameW (map, frm, x, y, w, h, dir)
 end
@@ -495,9 +496,9 @@ end
 --------
 -- Clip full zone frame to map
 
-function RDXMAP.APIMap.ClipZoneFrm (map, cont, zone, frm, alpha)
+function RDXMAP.APIMap.ClipZoneFrm (map, mapId, frm, alpha)
 
-	zname, zx, zy, zw, zh = RDXMAP.APIMap.GetWorldZoneInfo (cont, zone)
+	zname, zx, zy, zw, zh = RDXMAP.APIMap.GetWorldZoneInfo (mapId)
 	if not zx then
 		return
 	end
@@ -568,7 +569,7 @@ end
 --------
 -- Draw a tracking cursor and lines
 
-function RDXMAP.APIMap.DrawTracking (map, srcX, srcY, dstX, dstY, tex, mode, name)
+function RDXMAP.APIMap.DrawTracking (map, srcX, srcY, dstX, dstY, tex, name)
 
 	local x = dstX - srcX
 	local y = dstY - srcY
@@ -576,7 +577,7 @@ function RDXMAP.APIMap.DrawTracking (map, srcX, srcY, dstX, dstY, tex, mode, nam
 	local dist = (x * x + y * y) ^ .5
 	map.TrackDistYd = dist * 4.575
 
-	if tex ~= false then
+	if RDXMAP.icontex[tex] then
 
 		local f = RDXMAP.APIMap.GetIcon (map, 1)
 
@@ -587,7 +588,11 @@ function RDXMAP.APIMap.DrawTracking (map, srcX, srcY, dstX, dstY, tex, mode, nam
 
 		f.NxTip = format ("%s\n%d yds", s, dist * 4.575)
 
-		f.texture:SetTexture (tex or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconWayTarget")
+		f.texture:SetTexture (RDXMAP.icontex[tex] or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconWayTarget")
+		if RDXMAP.icontexCoord[tex] then
+			local tbl = RDXMAP.icontexCoord[tex];
+			f.texture:SetTexCoord (tbl[1], tbl[2], tbl[3], tbl[4])
+		end
 	end
 
 	map.TrackDir = false
@@ -654,11 +659,11 @@ function RDXMAP.APIMap.DrawTracking (map, srcX, srcY, dstX, dstY, tex, mode, nam
 --					local a = n == pulse and .8 or .2
 --					f.texture:SetVertexColor (1, 1, 1, a)
 
-					if mode == "B" then
+					if tex == "B" then -- BG manual tracking
 						f.texture:SetVertexColor (.7, .7, 1, .5)
-					elseif mode == "F" then
+					elseif tex == "FLM" then -- Flight
 						f.texture:SetVertexColor (1, 1, 0, .9)
-					elseif mode == "D" then
+					elseif tex == "D" then  -- Corpse dead manuel
 						f.texture:SetVertexColor (1, 0, 0, 1)
 					end
 
@@ -672,71 +677,5 @@ function RDXMAP.APIMap.DrawTracking (map, srcX, srcY, dstX, dstY, tex, mode, nam
 	end
 end
 
-function RDXMAP.APIMap.CalcTracking()
 
-	local Travel = RDXMAP.Travel
-	local myunit = RDXDAL.GetMyUnit();
-
-	local tr = {}
-	RDXMAP.Tracking = tr
-
-	local srcX = myunit.PlyrX
-	local srcY = myunit.PlyrY
-	local srcMapId = myunit.mapId
-
-	for n, tar in ipairs (RDXMAP.Targets) do
-
-		Travel:MakePath (tr, srcMapId, srcX, srcY, tar.MapId, tar.TargetMX, tar.TargetMY, tar.TargetType)
-
-		tinsert (tr, tar)
-
-		srcX = tar.TargetMX
-		srcY = tar.TargetMY
-		srcMapId = tar.MapId
-	end
-
-end
-
-function RDXMAP.APIMap.UpdateTracking(map)
-
-	local delay = map.UpdateTrackingDelay - 1
-
-	if delay <= 0 then
-
-		RDXMAP.APIMap.CalcTracking()
-		delay = 45
-	end
-
-	map.UpdateTrackingDelay = delay
-
-	--
-
-	map.Level = map.Level + 2
-
-	local dist1
-	local dir1
-
-	local myunit = RDXDAL.GetMyUnit();
-	local srcX = myunit.PlyrX
-	local srcY = myunit.PlyrY
-
-	for n = 1, #RDXMAP.Tracking do
-
-		local tr = RDXMAP.Tracking[n]
-
-		RDXMAP.APIMap.DrawTracking (map, srcX, srcY, tr.TargetMX, tr.TargetMY, tr.TargetTex, tr.Mode, tr.TargetName)
-
-		if n == 1 then
-			map.TrackName = tr.TargetName
-			dist1 = map.TrackDistYd
-			dir1 = map.TrackDir
-		end
-
-		srcX = tr.TargetMX
-		srcY = tr.TargetMY
-	end
-
-	map.TrackDistYd = dist1
-	map.TrackDir = dir1
-end
 

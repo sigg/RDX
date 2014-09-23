@@ -291,11 +291,11 @@ RDXDB.RegisterObjectType({
 -- with out-of-date descriptors, and run their VersionMismatch()
 -- methods to correct the issue.
 ------------------------------------------------------------------
-local function CheckVers(featDesc, pkg, file)
+local function CheckVers(featDesc, dk, pkg, file)
 	local feature = RDXDB.GetFeatureByDescriptor(featDesc);
 	if feature and (feature.version ~= featDesc.version) and feature.VersionMismatch then
 		if feature.VersionMismatch(featDesc) then 
-			RDX.printI(VFLI.i18n("|cFF00FFFFFeature Updater|r: Updating feature ") .. feature.name .. VFLI.i18n(" on object ") .. RDXDB.MakePath(pkg,file));
+			RDX.printI(VFLI.i18n("|cFF00FFFFFeature Updater|r: Updating feature ") .. feature.name .. VFLI.i18n(" on object ") .. RDXDB.MakePath(dk,pkg,file));
 			return true;
 		end
 	end
@@ -303,19 +303,19 @@ end
 
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	-- Iterate over the entire FS...
-	RDXDB.Foreach(function(pkg, file, md)
+	RDXDB.Foreach(function(dk, pkg, file, md)
 		local ty = RDXDB.GetObjectType(md.ty);
 		if not ty then return; end
 		-- Iterate over features on feature driven objects
 		if ty.isFeatureDriven and (type(md.data) == "table") then
 			for _,featDesc in ipairs(md.data) do
-				if CheckVers(featDesc, pkg, file) then RDXDB.objupdate = true; end
+				if CheckVers(featDesc, dk, pkg, file) then RDXDB.objupdate = true; end
 			end
 		end
 
 		-- For actual Feature objects, update them directly.
 		if ty.name == "FeatureData" then
-			if CheckVers(md.data, pkg, file) then RDXDB.objupdate = true; end
+			if CheckVers(md.data, dk, pkg, file) then RDXDB.objupdate = true; end
 		end
 	end);
 end);

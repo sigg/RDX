@@ -1,4 +1,4 @@
-
+﻿
 --------
 -- Init hotspots
 
@@ -11,9 +11,9 @@ function RDXMAP.APIMap.InitHotspots(map)
 	local quadCity = {}
 	map.WorldHotspotsCity = quadCity
 	
-	for mapId, winfo in pairs (RDXMAP.MapWorldInfo) do
-		if winfo.tp == 2 or winfo.tp == 3 then
-			cname = RDXMAP.APIMap.GetWorldContinentInfo(winfo.Cont)
+	for mapId, winfo in pairs (RDXMAP.APIMap.MapWorldInfo()) do
+		if winfo.class == "z" or winfo.class == "ci" then
+			cname = RDXMAP.APIMap.GetWorldZoneInfo(winfo.c) --get data continent name
 			zname = winfo.localname or winfo.Name
 			color, infoStr = RDXMAP.APIMap.GetMapNameDesc (mapId)
 			tipStr = format ("%s, %s%s (%s)", cname, color, zname, infoStr)
@@ -82,7 +82,7 @@ end
 -- Check world zone hotspots
 
 function RDXMAP.APIMap.CheckWorldHotspots (map, wx, wy)
-	
+
 	if map.InstMapId then
 		if wx >= map.InstMapWX1 and wx <= map.InstMapWX2 and wy >= map.InstMapWY1 and wy <= map.InstMapWY2 then
 			
@@ -137,8 +137,8 @@ function RDXMAP.APIMap.CheckWorldHotspotsType (map, wx, wy, quad)
 	for n, spot in ipairs (quad) do
 		if wx >= spot.WX1 and wx <= spot.WX2 and wy >= spot.WY1 and wy <= spot.WY2 then
 
-			local curId = RDXMAP.APIMap.GetCurrentMapId(map)
-			local winfo = NxMap.GetZoneInfo(curId)
+			local curId = RDXMAP.APIMap.GetCurrentMapId()
+			local winfo = RDXMAP.APIMap.GetWorldZone(curId)
 			if winfo then
 				curId = winfo.Level1Id or curId
 			end

@@ -290,6 +290,7 @@ function bigcomptest()
 		str = str .. rblocks[math.random(10)];
 	end
 ]]--
-	str = Serialize(RDXData["default"]);
+	local disk = RDXDB.GetDisk("RDXDiskSystem")
+	str = Serialize(disk["default"]);
 	comp_test(str);
 end

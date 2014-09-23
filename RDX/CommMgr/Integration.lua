@@ -20,14 +20,14 @@ end
 
 local function _IntegrateSingleObject(data, path)
 	if (not data) or (not path) then return nil; end
-	local pkg, file = RDXDB.ParsePath(path);
+	local dk, pkg, file = RDXDB.ParsePath(path);
 	local new = false;
 	if data[pkg] and data[pkg][file] then
 		local src = data[pkg][file];
 		-- Is the info package exist ?
 		local infop = _infopkg[pkg];
 		if infop then
-			RDXDB.GetOrCreatePackage(pkg, infop["infoversion"], infop["infoname"], infop["inforealm"], infop["infoemail"], infop["infowebsite"], infop["infocomment"]);
+			RDXDB.GetOrCreatePackage(dk, pkg, infop["infoversion"], infop["infoname"], infop["inforealm"], infop["infoemail"], infop["infowebsite"], infop["infocomment"]);
 		end
 		
 		-- Is this a new file?
@@ -148,7 +148,7 @@ function RDX.Integrate(parent, data, author, callback)
 	viewBox:SetWidth(400); viewBox:SetHeight(480); viewBox:Hide();
 
 	function SelectFile(path)
-		local pkg,file = RDXDB.ParsePath(path); if(not pkg) or (not file) then return; end
+		local dk,pkg,file = RDXDB.ParsePath(path); if(not dk) or (not pkg) or (not file) then return; end
 		local x = integData[pkg]; if not x then return; end
 		x = x[file]; if not x then return; end
 		viewBox:Show();
@@ -437,8 +437,9 @@ function RDX.MassIntegrate(parent)
 	RDXDB.PackageListWindow(parent, VFLI.i18n("Bulk Package Send"), VFLI.i18n("Select packages to send."), VFL.True, function(pkgs)
 		if not pkgs then return; end
 		local idata = {};
+		local disk = RDXDB.GetDisk("RDXData")
 		for pName,_ in pairs(pkgs) do
-			idata[pName] = RDXData[pName];
+			idata[pName] = disk[pName];
 		end
 		_IntegrateSendUI(parent, idata);
 	end);
@@ -450,7 +451,8 @@ RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
 		text = VFLI.i18n("Send"), func = function() 
 			VFL.poptree:Release();
 			local data = {};
-			if pkg then data[pkg] = RDXData[pkg]; end
+			local disk = RDXDB.GetDisk("RDXData")
+			if pkg then data[pkg] = disk[pkg]; end
 			_IntegrateSendUI(dialog, data); 
 		end
 	});
@@ -460,10 +462,11 @@ RDXDB.RegisterObjectMenuHandler(function(mnu, opath, md, dialog)
 	table.insert(mnu, {
 		text = VFLI.i18n("Send"), func = function()
 			VFL.poptree:Release();
-			local pkg,file = RDXDB.ParsePath(opath);
+			local dk, pkg,file = RDXDB.ParsePath(opath);
 			local data = {};
 			if pkg then data[pkg] = {};
-			data[pkg][file] = RDXData[pkg][file]; end
+			local disk = RDXDB.GetDisk(dk)
+			data[pkg][file] = disk[pkg][file]; end
 			_IntegrateSendUI(dialog, data);
 		end
 	});

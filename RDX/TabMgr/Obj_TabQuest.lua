@@ -1,4 +1,4 @@
--- Obj_WindowTab.lua
+﻿-- Obj_WindowTab.lua
 -- OpenRDX
 --
 
@@ -32,7 +32,6 @@ local lbNum
 --------------------------------------------------
 RDX.QuestFrame = {};
 function RDX.QuestFrame:new(path, desc)
-	--if desc then VFL.tprint(desc); end
 	local obj = VFLUI.AcquireFrame("Frame");
 	obj:Show();
 	local header = VFLUI.AcquireFrame("Frame");
@@ -607,20 +606,20 @@ RDXPM.RegisterTabCategory(VFLI.i18n("Maps"));
 ------------------------------------------
 -- Update hooks
 ------------------------------------------
-RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)
+RDXDBEvents:Bind("OBJECT_DELETED", nil, function(dk, pkg, file, md)
 	if md and md.ty == "TabMap" then
-		local path = RDXDB.MakePath(pkg,file);
+		local path = RDXDB.MakePath(dk,pkg,file);
 		RDXPM.UnregisterTab(path, "Maps")
 	end
 end);
-RDXDBEvents:Bind("OBJECT_MOVED", nil, function(pkg, file, newpkg, newfile, md)
+RDXDBEvents:Bind("OBJECT_MOVED", nil, function(dk, pkg, file, newdk, newpkg, newfile, md)
 	if md and md.ty == "TabMap" then
-		local path = RDXDB.MakePath(pkg,file);
+		local path = RDXDB.MakePath(dk,pkg,file);
 		RDXPM.UnregisterTab(path, "Maps")
 	end
 end);
-RDXDBEvents:Bind("OBJECT_CREATED", nil, function(pkg, file) 
-	local path = RDXDB.MakePath(pkg,file);
+RDXDBEvents:Bind("OBJECT_CREATED", nil, function(dk,pkg, file) 
+	local path = RDXDB.MakePath(dk,pkg,file);
 	local obj,_,_,ty = RDXDB.GetObjectData(path)
 	if ty == "TabMap" then
 		local data = obj.data;
@@ -635,8 +634,8 @@ RDXDBEvents:Bind("OBJECT_CREATED", nil, function(pkg, file)
 		});
 	end
 end);
-RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(pkg, file) 
-	local path = RDXDB.MakePath(pkg,file);
+RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(dk,pkg, file) 
+	local path = RDXDB.MakePath(dk,pkg,file);
 	local obj,_,_,ty = RDXDB.GetObjectData(path)
 	if ty == "TabMap" then
 		RDXPM.UnregisterTab(path, "Maps");
@@ -655,7 +654,7 @@ end);
 
 -- run on UI load 
 local function RegisterTabMap()
-	for pkgName,pkg in pairs(RDXData) do
+	for pkgName,pkg in pairs(RDXDB.GetDisk("RDXData")) do
 		for objName,obj in pairs(pkg) do
 			if type(obj) == "table" and obj.ty == "TabMap" then 
 				local path = RDXDB.MakePath(pkgName, objName);

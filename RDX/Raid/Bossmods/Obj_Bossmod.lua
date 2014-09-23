@@ -188,7 +188,7 @@ local function SetupBossmod(path, desc)
 	bmState:LoadDescriptor(desc, path);
 	bmState:ResetSlots();
 		
-	local pkg, obj = RDXDB.ParsePath(path);
+	local dk, pkg, file = RDXDB.ParsePath(path);
 	
 	local errObj = VFL.Error:new();
 	errObj:Clear();
@@ -200,7 +200,7 @@ local function SetupBossmod(path, desc)
 			if errObj then errObj:SetContext(feat.name); end
 			if feat.IsPossible(bmState) then
 				if feat.ExposeFeature(featDesc, bmState, errObj) then
-					feat.ApplyFeature(featDesc, bmState, pkg, obj);
+					feat.ApplyFeature(featDesc, bmState, pkg, file);
 				else
 					VFL.AddError(errObj, VFLI.i18n("Feature options contain errors. Check the Bossmod Editor."));
 				end
@@ -213,7 +213,7 @@ local function SetupBossmod(path, desc)
 	end
 	
 	local code = bmState.Code:GetCode();
-	local encid = "bm_"..pkg..obj;
+	local encid = "bm_"..pkg..file;
 	local setback = false;
 	
 	local f,err = loadstring(code);
@@ -263,23 +263,23 @@ RDXDB.RegisterDangerousObjectFilter({
 ------------------------------------------
 -- Update hooks - make sure when a bossmod changes we reload it.
 ------------------------------------------
-RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)
+RDXDBEvents:Bind("OBJECT_DELETED", nil, function(dk, pkg, file, md)
 	if md and md.ty == "Bossmod" then
 		RDX.UnregisterEncounter("bm_"..pkg..file);
 	end
 end);
-RDXDBEvents:Bind("OBJECT_MOVED", nil, function(pkg, file, newpkg, newfile, md)
+RDXDBEvents:Bind("OBJECT_MOVED", nil, function(dk, pkg, file, newdk, newpkg, newfile, md)
 	if md and md.ty == "Bossmod" then
 		RDX.UnregisterEncounter("bm_"..pkg..file);
 	end
 end);
-RDXDBEvents:Bind("OBJECT_CREATED", nil, function(pkg, file) 
-	local path = RDXDB.MakePath(pkg,file);
+RDXDBEvents:Bind("OBJECT_CREATED", nil, function(dk, pkg, file) 
+	local path = RDXDB.MakePath(dk,pkg,file);
 	local obj,_,_,ty = RDXDB.GetObjectData(path)
 	if ty == "Bossmod" then	SetupBossmod(path, obj.data) end
 end);
-RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(pkg, file) 
-	local path = RDXDB.MakePath(pkg,file);
+RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(dk, pkg, file) 
+	local path = RDXDB.MakePath(dk,pkg,file);
 	local obj,_,_,ty = RDXDB.GetObjectData(path)
 	if ty == "Bossmod" then	SetupBossmod(path, obj.data) end
 end);
@@ -289,7 +289,7 @@ end);
 -----------------------------------------
 -- run on UI load 
 local function ApplyBossmods()
-	for pkgName,pkg in pairs(RDXData) do
+	for pkgName,pkg in pairs(RDXDB.GetDisk("RDXData")) do
 		for objName,obj in pairs(pkg) do
 			if type(obj) == "table" and obj.ty == "Bossmod" then 
 				local path = RDXDB.MakePath(pkgName, objName);

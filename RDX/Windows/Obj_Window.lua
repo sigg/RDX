@@ -159,11 +159,11 @@ local function SetupWindow(path, win, desc)
 		state:ResetSlots();
 		CreateErrWindow(state);
 		
-		local desPkg, desFile = RDXDB.ParsePath(upath);
+		local dk, pkg, file = RDXDB.ParsePath(upath);
 		state:_Attach(state:Slot("Create"), true, function(w)
 			-- When the window's underlying unitframe is updated, rebuild it.
-			RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(up, uf)
-				if(up == desPkg) and (uf == desFile) then RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, w._path); end
+			RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(ud, up, uf)
+				if (ud == dk) and (up == pkg) and (uf == file) then RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, w._path); end
 			end, w._path .. upath);
 		end);
 		state:_Attach(state:Slot("Destroy"), true, function(w)
@@ -310,10 +310,10 @@ RDXDB.RegisterObjectType({
 				text = VFLI.i18n("Transform Tab Window"),
 				func = function() 
 					VFL.poptree:Release();
-					local pkg, file = RDXDB.ParsePath(path);
+					local dk, pkg, file = RDXDB.ParsePath(path);
 					md.ty = "TabWindow";
 					md.version = 2;
-					RDXDBEvents:Dispatch("OBJECT_MOVED", pkg, file, pkg, file, md);
+					RDXDBEvents:Dispatch("OBJECT_MOVED", dk, pkg, file, dk, pkg, file, md);
 				end
 			});
 		end

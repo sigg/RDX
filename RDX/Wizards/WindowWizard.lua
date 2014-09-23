@@ -175,10 +175,10 @@ ww:RegisterPage(GetNextPageId(), "wtype", {
 		function page:GetDescriptor()
 			local st = VFL.trim(edSfx:GetText());
 			if (st ~= "") and (not string.find(st, "_$")) then st = "_" .. st; end
-			local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+			local dk, pkg, file = RDXDB.ParsePath(RDXU.AUI);
 			return {
 				wtype = dd_wtype:GetSelection();
-				pkg = auiname;
+				pkg = file;
 				suffix = st;
 				title = edTtl:GetText();
 			};
@@ -1420,7 +1420,7 @@ function ww:OnOK()
 	
 	-------------------------- GENERATE TABMANAGER IF NECESSARY
 	if wtype == "TabManager1" or wtype == "TabManager2" or wtype == "TabManager3" then
-		obj = RDXDB._DirectCreateObject(pkg, wtype .. suffix .. "_tm");
+		obj = RDXDB._DirectCreateObject("RDXDiskTheme", pkg, wtype .. suffix .. "_tm");
 		obj.ty = "TabManager"; obj.version = 2;
 		obj.data = {
 			"root",
@@ -1429,7 +1429,7 @@ function ww:OnOK()
 	-------------------------- GENERATE SET AND SORT IF NECESSARY
 	--[[if wtype ~= 2 then
 		-- Create the FilterSet
-		obj = RDXDB._DirectCreateObject(pkg, prefix .. "set");
+		obj = RDXDB._DirectCreateObject("RDXDiskTheme", pkg, prefix .. "set");
 		obj.ty = "FilterSet"; obj.version = 1;
 		obj.data = self:GetPageDescriptor(6).filter; -- pull filter def from filter page
 
@@ -1453,7 +1453,7 @@ function ww:OnOK()
 		end
 
 		-- Create the sort object
-		obj = RDXDB._DirectCreateObject(pkg, prefix .. "sort");
+		obj = RDXDB._DirectCreateObject("RDXDiskTheme", pkg, prefix .. "sort");
 		if wtype == 4 then obj.ty = "SecureSort"; else obj.ty = "Sort"; end
 		obj.version = 2;
 		obj.data = {
@@ -1523,7 +1523,7 @@ function ww:OnOK()
 			dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
 		end
 		
-		obj = RDXDB._DirectCreateObject(pkg, wtype .. suffix .. "_ds");
+		obj = RDXDB._DirectCreateObject("RDXDiskTheme", pkg, wtype .. suffix .. "_ds");
 		obj.ty = "Design"; obj.version = 1;
 		obj.data = dState:GetDescriptor();
 		dState = nil;
@@ -1767,13 +1767,13 @@ function ww:OnOK()
 	end
 
 	-- Create the subobjects
-	obj = RDXDB._DirectCreateObject(pkg, wtype .. suffix);
+	obj = RDXDB._DirectCreateObject("RDXDiskTheme", pkg, wtype .. suffix);
 	obj.ty = "Window"; obj.version = 1;
 	obj.data = state:GetDescriptor();
 	state = nil;
 
 	-- Create the wizard object
-	--obj = RDXDB._DirectCreateObject(pkg, prefix .. "wz");
+	--obj = RDXDB._DirectCreateObject("RDXDiskTheme", pkg, prefix .. "wz");
 	--obj.ty = "WindowWizard"; obj.version = 2;
 	--obj.data = self:GetDescriptor();
 

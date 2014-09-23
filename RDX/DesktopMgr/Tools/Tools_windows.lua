@@ -9,13 +9,13 @@ local wl = {};
 local function BuildWindowList(pkgfilter)
 	VFL.empty(wl);
 	local desc = nil;
-	for pkg,data in pairs(RDXData) do
-		if not pkgfilter or pkg == pkgfilter or RDXDB.IsCommonPackage(pkg) then
+	for pkg,data in pairs(RDXDB.GetDisk("RDXDiskTheme")) do
+		if not pkgfilter or pkg == pkgfilter or RDXDB.IsCommonPackage("RDXDiskTheme", pkg) then
 			for file,md in pairs(data) do
 				if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "^Window$") then
 					local hide = RDXDB.HasFeature(md.data, "WindowListHide");
 					if not hide then
-						table.insert(wl, {path = RDXDB.MakePath(pkg, file), data = md.data});
+						table.insert(wl, {path = RDXDB.MakePath("RDXDiskTheme", pkg, file), data = md.data});
 					end
 				end
 			end
@@ -267,7 +267,7 @@ list:SetDataSource(function(cell, data, pos)
 end, VFL.ArrayLiterator(wl));
 
 function RDXDK.ToolsWindowUpdate()
-	local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+	local _, _, auiname = RDXDB.ParsePath(RDXU.AUI);
 	BuildWindowList(auiname);
 	list:Update();
 end;
@@ -385,7 +385,7 @@ ddLayout:SetSelection("10", true);
 ddLayout:Hide();
 
 local function SetFramew(froot)
-	local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+	local _, _, auiname = RDXDB.ParsePath(RDXU.AUI);
 	
 	if not RDXU.GlobalScale then RDXU.GlobalScale = {}; end
 	local scale = RDXU.GlobalScale[auiname];
@@ -400,7 +400,7 @@ local function SetFramew(froot)
 end
 
 local function UnsetFramew()
-	local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+	local _, _, auiname = RDXDB.ParsePath(RDXU.AUI);
 	RDXU.GlobalScale[auiname] = slGScale:GetValue();
 	winframeprops = nil;
 	RDXDK.SetFramew_window(nil);

@@ -25,42 +25,22 @@ local zname
 local zx, zy, zw, zh
 
 --------
--- Move continent frames
+-- Update continent frames
 
-function RDXMAP.APIMap.MoveContinents(map)
+function RDXMAP.APIMap.UpdateContinents(map)
 
 	if map.CurOpts.NXWorldShow then
-	--if true then
 		
-		for contN = 1, RDXMAP.ContCnt do
+		for contN = 1, #map.ContFrms do
 			i = contN <= 2 and map.Level or map.Level + 1
-			RDXMAP.APIMap.MoveZoneTiles (map, contN, 0, map.ContFrms[contN], map.WorldAlpha, i)
+			RDXMAP.APIMap.MoveZoneTiles (map, map.ContFrms[contN].mapid, map.ContFrms[contN], map.WorldAlpha, i)
 		end
 
-		--frm = map.ContFillFrm
-		--if frm then
-		--		RDXMAP.APIMap.ClipFrameTL (map, frm, 1600, -1900, 1500, 4650, 0)
-		--	frm:SetFrameLevel (map.Level + 1)
-		--	frm:SetAlpha (map.WorldAlpha)
-		--end
-
---[[	-- Map cap
-		local frms, frm
-
-		frms = map.ContFrms[map.Cont or 1]
-
-		for i = 1, 12 do
-			frm = frms[i]
-			if frm then
-				frm.texture:SetVertexColor (0, 0, 0, 1)
-			end
-		end
---]]
 		map.Level = map.Level + 2
 
 	else
 		
-		for contN = 1, RDXMAP.ContCnt do
+		for contN = 1, #Nmap.ContFrms do
 			frms = map.ContFrms[contN]
 
 			for i = 1, 12 do
@@ -87,13 +67,13 @@ function RDXMAP.APIMap.MoveCurZoneTiles (map, clear)
 	local myunit = RDXDAL.GetMyUnit();
 
 	--if not clear and (not wzone or wzone.City or (wzone.StartZone and myunit.mapId == mapId) or RDXMAP.APIMap.IsBattleGroundMap (mapId)) or RDXMAP.APIMap.IsMicroDungeon(mapId) then
-	if not clear and (not wzone or wzone.City or wzone.StartZone or RDXMAP.APIMap.IsBattleGroundMap (mapId)) or RDXMAP.APIMap.IsMicroDungeon(mapId) then
+	if not clear and (not wzone or wzone.City or wzone.StartZone or RDXMAP.APIMap.IsBattleGroundMap (mapId)) then
 --		VFL.vprint ("MoveCurZoneTiles %d", mapId)
 		--VFL.print("RDXMAP.APIMap.MoveCurZoneTiles " .. mapId);
 
 		alpha = map.BackgndAlpha * (wzone.Alpha or 1)
 
-		RDXMAP.APIMap.MoveZoneTiles (map, map.Cont, map.Zone, map.TileFrms, alpha, map.Level)
+		RDXMAP.APIMap.MoveZoneTiles (map, mapId, map.TileFrms, alpha, map.Level)
 		map.Level = map.Level + 1
 
 	else
@@ -115,7 +95,6 @@ end
 -- Hide extra (Dalaran) map zone tiles
 
 function RDXMAP.APIMap.HideExtraZoneTiles(map)
-
 	frms = map.TileFrms
 	frms[4]:Hide()
 	frms[8]:Hide()
@@ -127,11 +106,11 @@ end
 --------
 -- Update map zone tiles (4x3 blocks)
 
-function RDXMAP.APIMap.MoveZoneTiles (map, cont, zone, frms, alpha, level)
-
-	zname, zx, zy, zw, zh = RDXMAP.APIMap.GetWorldZoneInfo (cont, zone)
+function RDXMAP.APIMap.MoveZoneTiles (map, mapid, frms, alpha, level)
+	
+	zname, zx, zy, zw, zh = RDXMAP.APIMap.GetWorldZoneInfo (mapid)
 	if not zx then
-		VFL.print("no ZX");
+		VFL.print("function RDXMAP.APIMap.MoveZoneTiles no ZX");
 		return
 	end
 
@@ -254,20 +233,20 @@ function RDXMAP.APIMap.AddOldMap (map, newMapId)
 		map.MapsDrawnFade[map.MapId] = -1
 		tinsert (map.MapsDrawnOrder, map.MapId)		-- Newest at end
 
---		VFL.vprint ("Cur map %s", RDXMAP.APIMap.GetCurrentMapId(map))
+--		VFL.vprint ("Cur map %s", RDXMAP.APIMap.GetCurrentMapId())
 --		VFL.vprintVar ("order", map.MapsDrawnOrder)
 	end
 end
 
 --------
--- Update the zones
+-- Update the zones or city or micro
 
 function RDXMAP.APIMap.UpdateZones(map)
 
 	mapId = map.MapId
 	--VFL.print("MapId " .. map.MapId);
 	--VFL.print("myunit.mapId  " ..myunit.mapId);
-	winfo = NxMap.GetZoneInfo(mapId)
+	winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 	if not winfo then
 		if map.MapId then
 			VFL.print("UpdateZones MapId unknown " .. map.MapId);
@@ -389,7 +368,7 @@ function RDXMAP.APIMap.UpdateMiniFrames(map)
 --]]
 	
 	mapId = map.MapId
-	winfo = NxMap.GetZoneInfo(mapId)
+	winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 
 	opts = map.LOpts
 
@@ -400,7 +379,7 @@ function RDXMAP.APIMap.UpdateMiniFrames(map)
 
 --	or winfo.City
 
-	if map.ScaleDraw <= i or opts.NXDetailAlpha <= 0 or RDXMAP.APIMap.IsBattleGroundMap (mapId) or RDXMAP.APIMap.IsMicroDungeon(mapId) then
+	if map.ScaleDraw <= i or opts.NXDetailAlpha <= 0 or RDXMAP.APIMap.IsBattleGroundMap (mapId) then
 		RDXMAP.APIMap.HideMiniFrames(map)
 		return
 	end
@@ -408,10 +387,9 @@ function RDXMAP.APIMap.UpdateMiniFrames(map)
 	alphaPer = min ((map.ScaleDraw - i) / alphaRange, 1)
 --	VFL.vprint ("alpha %s", alphaPer)
 
---	local cont = map.Cont
 --	local zname, zx, zy
 
-	flag, bx, by = NxMap.GetMiniInfo (mapId)
+	flag, bx, by = RDXMAP.APIMap.GetMiniInfo (mapId)
 	if not flag then
 		RDXMAP.APIMap.HideMiniFrames(map)
 		return
@@ -445,7 +423,7 @@ function RDXMAP.APIMap.UpdateMiniFrames(map)
 		for x = mx, mx + map.MiniBlks - 1 do
 
 			frm = map.MiniFrms[j]
-			s = NxMap.GetMiniBlkName (flag, x, y)
+			s = RDXMAP.APIMap.GetMiniBlkName (flag, x, y)
 
 			if s then
 			

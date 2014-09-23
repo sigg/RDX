@@ -11,27 +11,39 @@ RDXDB.ExplorerInstance = {};
 function RDXDB.ExplorerInstance:new(parent)
 	local dlg = VFLUI.AcquireFrame("Frame");
 	VFLUI.StdSetParent(dlg, parent, 2);
-	dlg:SetHeight(325); dlg:SetWidth(490);
+	dlg:SetHeight(325); dlg:SetWidth(600);
 
 	---------------- PREDECLARATIONS
-	local pkgs, dir = {}, {}; -- Temp storage tables
-	local UpdatePackageList, UpdateFileList, SetActivePackage, SelectFile;
+	local dks, pkgs, dir = {}, {}, {}; -- Temp storage tables
+	local UpdateDiskList, UpdatePackageList, UpdateFileList, SetActiveDisk, SetActivePackage, SelectFile;
 	local fileFilter, FindFilterFile = VFL.True, VFL.True; -- Filter ops
-	local PackageRightClick, ObjectRightClick = VFL.Noop, VFL.Noop; -- Click Funcs
-	local pkgList, fileList = nil, nil;
-	local activePkg, activeFile, selPkg, selFile = nil, nil, nil, nil;
+	local DiskRightClick, PackageRightClick, ObjectRightClick = VFL.Noop, VFL.Noop; -- Click Funcs
+	local dkList, pkgList, fileList = nil, nil, nil;
+	local activeDk, activePkg, activeFile, selDk, selPkg, selFile = nil, nil, nil, nil, nil, nil;
 
-	local function FilterFile(pkg, file, data)
-		return FindFilterFile(pkg, file, data) and fileFilter(pkg, file, data);
+	local function FilterFile(dk, pkg, file, data)
+		return FindFilterFile(dk, pkg, file, data) and fileFilter(dk, pkg, file, data);
 	end
 
-	local function FilterPackage(pkg)
-		local pd = RDXDB.GetPackage(pkg);
+	local function FilterPackage(dk, pkg)
+		local pd = RDXDB.GetPackage(dk, pkg);
 		if not pd then return nil; end
 		local i=0;
 		for file,data in pairs(pd) do
 			i=i+1;
-			if FilterFile(pkg, file, data) then return true; end 
+			if FilterFile(dk, pkg, file, data) then return true; end 
+		end
+		if(i == 0) and (FindFilterFile == VFL.True) then return true; end
+		return nil;
+	end
+	
+	local function Filterdisk(dk)
+		local pd = RDXDB.GetDisk(dk);
+		if not pd then return nil; end
+		local i=0;
+		for file,data in pairs(pd) do
+			i=i+1;
+			if FilterPackage(dk, pkg) then return true; end 
 		end
 		if(i == 0) and (FindFilterFile == VFL.True) then return true; end
 		return nil;
@@ -39,7 +51,7 @@ function RDXDB.ExplorerInstance:new(parent)
 
 	---------------- Top side (current selection, finder)
 	local selEd = VFLUI.Edit:new(dlg);
-	selEd:SetHeight(25); selEd:SetWidth(300); selEd:SetPoint("TOPLEFT", dlg, "TOPLEFT");
+	selEd:SetHeight(25); selEd:SetWidth(400); selEd:SetPoint("TOPLEFT", dlg, "TOPLEFT");
 	selEd:Show();
 
 	local find = VFLUI.Edit:new(dlg);
@@ -53,21 +65,26 @@ function RDXDB.ExplorerInstance:new(parent)
 	magGlass:Show();
 
 	local selFeedback = VFLUI.MakeLabel(nil, dlg, "");
-	selFeedback:SetWidth(300);
+	selFeedback:SetWidth(400);
 	selFeedback:SetPoint("TOPLEFT", selEd, "BOTTOMLEFT", 5, 0);
+	
+	local selLink = VFLUI.MakeLabel(nil, dlg, "");
+	selLink:SetWidth(400);
+	selLink:SetPoint("TOPLEFT", selEd, "BOTTOMLEFT", 5, 0);
 
 	----------------- Finder implementation
-	find:SetScript("OnTextChanged", function()
+	-- SIGG TODO
+	--[[find:SetScript("OnTextChanged", function()
 		local txt = find:GetText();
 		if(not txt) or (txt == "") then
 			FindFilterFile = VFL.True;
 		else
 			txt = string.lower(txt);
-			function FindFilterFile(pkg, file, data)
+			function FindFilterFile(dk, pkg, file, data)
 				if (not data) then return nil; end
 				if type(data) ~= "table" then return nil; end
 				if data.ty == "SymLink" then 
-					local v = RDXDB.AccessPath(pkg, file); 
+					local v = RDXDB.AccessPath(dk, pkg, file); 
 					if v then 
 						if string.find(string.lower(v.ty), txt, 1, true) then return true; end
 					end
@@ -78,43 +95,105 @@ function RDXDB.ExplorerInstance:new(parent)
 				end
 			end;
 		end
-		if not FilterPackage(activePkg) then activePkg = nil; end
+		if not FilterPackage(activeDk, activePkg) then activePkg = nil; end
 		UpdatePackageList();
 		UpdateFileList();
-	end);
+	end);]]
 
 	----------------- Pathbar implementation
 	selEd:SetScript("OnTextChanged", function()
 		local txt = selEd:GetText();
 		if(not txt) or (txt == "") then return; end
-		local a,b = RDXDB.ParsePath(txt);
-		if not a then selFeedback:SetText(VFLI.i18n("|cFFFF0000Invalid path.|r")); return; end
-		if not RDXDB.GetPackage(a) then
-			selFeedback:SetText(VFLI.i18n("|cFFFF0000Invalid package.|r")); SetActivePackage(nil);
+		local a,b,c = RDXDB.ParsePath(txt);
+		if not RDXDB.GetDisk(a) then 
+			selFeedback:SetText(VFLI.i18n("|cFFFF0000Invalid disk.|r"));
 			return;
 		end
-		SetActivePackage(a); selPackage = a;
-		if (not b) or (not RDXDB.IsValidFileName(b)) then 
+		if not RDXDB.GetPackage(a, b) then
+			selFeedback:SetText(VFLI.i18n("|cFFFF0000Invalid package.|r")); 
+			return;
+		end
+		if (not c) then
 			selFeedback:SetText(VFLI.i18n("|cFFFF0000No filename specified.|r"));
-			selFile = nil; fileList:Update();
+			return; 
+		elseif (not RDXDB.IsValidFileName(c)) then 
+			selFeedback:SetText(VFLI.i18n("|cFFFF0000Invalid filename.|r"));
 			return; 
 		end
-		local qq = RDXDB.AccessPath(a,b);
-		if (not FilterFile(a,b,qq)) then
+		local qq = RDXDB.AccessPath(a,b,c);
+		if (not FilterFile(a,b,c,qq)) then
 			selFeedback:SetText(VFLI.i18n("|cFFFF0000File does not match filter.|r"));
-			selFile = nil;
 		else
 			selFeedback:SetText("");
-			selFile = b;
 		end
-		fileList:Update();
 	end);
-
+	----------------- Left side (disk list)
+	local decor0 = VFLUI.AcquireFrame("Frame");
+	decor0:SetParent(dlg);
+	decor0:SetBackdrop(VFLUI.BlackDialogBackdrop);
+	decor0:SetPoint("TOPLEFT", selEd, "BOTTOMLEFT", 0, -25);
+	decor0:SetWidth(150); decor0:SetHeight(250); decor0:Show();
+	
+	local lbl0 = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Disks:"));
+	lbl0:SetPoint("TOPLEFT", decor0, "TOPLEFT", 3, 10);
+	
+	dkList = VFLUI.List:new(dlg, 12, VFLUI.Selectable.AcquireCell)
+	dkList:SetPoint("TOPLEFT", decor0, "TOPLEFT", 5, -5);
+	dkList:SetWidth(140); dkList:SetHeight(240); 
+	dkList:Rebuild(); dkList:Show();
+	
+	dkList:SetDataSource(function(cell, data, pos)
+		cell.text:SetText(data);
+		if(data == activeDk) then
+			cell.selTexture:SetVertexColor(0,0,1); cell.selTexture:Show();
+		else
+			cell.selTexture:Hide();
+		end
+		cell:SetScript("OnClick", function(self, arg1)
+			if arg1 == "LeftButton" then
+				SetActiveDisk(data); 
+			elseif arg1 == "RightButton" then
+				DiskRightClick(cell, data, dlg);
+			end
+		end);
+	end, VFL.ArrayLiterator(dks));
+	
+	function UpdateDiskList()
+		VFL.empty(dks); local i = 0;
+		for k,_ in pairs(RDXDB.GetDisks()) do 
+			--if Filterdisk(k) then
+				i=i+1; dks[i] = k;
+			--end
+		end
+		table.sort(dks, function(a,b) return a<b; end);
+		dkList:Update();
+	end
+	
+	function SetActiveDisk(dk)
+		if dk ~= activeDk then
+			VFL.poptree:Release(); -- release any dangling menus
+			--if Filterdisk(dk) then 
+				activeDk = dk;
+				if activeDk then
+					selEd:SetText(activeDk .. ":");
+				end
+				activePkg = nil;
+				activeFile = nil;
+			--else 
+			--	activeDk = nil; 
+			--end
+			dkList:Update();
+			UpdatePackageList()
+			pkgList:Update();
+			UpdateFileList();
+		end
+	end
+	
 	----------------- Left side (package list)
 	local decor1 = VFLUI.AcquireFrame("Frame");
 	decor1:SetParent(dlg);
 	decor1:SetBackdrop(VFLUI.BlackDialogBackdrop);
-	decor1:SetPoint("TOPLEFT", selEd, "BOTTOMLEFT", 0, -25);
+	decor1:SetPoint("TOPLEFT", decor0, "TOPRIGHT", 5, 0);
 	decor1:SetWidth(150); decor1:SetHeight(250); decor1:Show();
 
 	local lbl1 = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Packages:"));
@@ -136,16 +215,18 @@ function RDXDB.ExplorerInstance:new(parent)
 			if arg1 == "LeftButton" then
 				SetActivePackage(data); 
 			elseif arg1 == "RightButton" then
-				PackageRightClick(cell, data, dlg);
+				PackageRightClick(cell, activeDk,data, dlg);
 			end
 		end);
 	end, VFL.ArrayLiterator(pkgs));
 
 	function UpdatePackageList()
 		VFL.empty(pkgs); local i = 0;
-		for k,_ in pairs(RDXDB.GetPackages()) do 
-			if FilterPackage(k) then
-				i=i+1; pkgs[i] = k;
+		if activeDk then
+			for k,_ in pairs(RDXDB.GetDisk(activeDk)) do 
+				--if FilterPackage(k) then
+					i=i+1; pkgs[i] = k;
+				--end
 			end
 		end
 		table.sort(pkgs, function(a,b) return a<b; end);
@@ -155,12 +236,16 @@ function RDXDB.ExplorerInstance:new(parent)
 	function SetActivePackage(pkg)
 		if pkg ~= activePkg then
 			VFL.poptree:Release(); -- release any dangling menus
-			if FilterPackage(pkg) then 
+			--if FilterPackage(pkg) then 
 				activePkg = pkg;
-				selEd:SetText(activePkg .. ":");
-			else 
-				activePkg = nil; 
-			end
+				if activeDk and activePkg then
+					selEd:SetText(activeDk .. ":" .. activePkg .. ":");
+				elseif activeDk then
+					selEd:SetText(activeDk .. ":");
+				end
+			--else 
+			--	activePkg = nil; 
+			--end
 			pkgList:Update();
 			UpdateFileList();
 		end
@@ -183,7 +268,7 @@ function RDXDB.ExplorerInstance:new(parent)
 	
 	fileList:SetDataSource(function(cell, data, pos)
 		cell.text:SetText(data.text);
-		if(activePkg == selPkg) and (data.name == selFile) then
+		if (activeDk == selDk) and (activePkg == selPkg) and (data.name == selFile) then
 			cell.selTexture:SetVertexColor(0,0,1); cell.selTexture:Show();
 		else
 			cell.selTexture:Hide();
@@ -191,7 +276,7 @@ function RDXDB.ExplorerInstance:new(parent)
 		local fn = data.name;
 		cell:SetScript("OnClick", function(self, arg1) 
 			if(arg1 == "LeftButton") then
-				SelectFile(activePkg, fn); 
+				SelectFile(activeDk, activePkg, fn); 
 			elseif(arg1 == "RightButton") then
 				ObjectRightClick(cell, data.path, dlg);
 			end
@@ -199,7 +284,7 @@ function RDXDB.ExplorerInstance:new(parent)
 	end, VFL.ArrayLiterator(dir));
 
 	function UpdateFileList()
-		local pkg = RDXDB.GetPackage(activePkg);
+		local pkg = RDXDB.GetPackage(activeDk, activePkg);
 		VFL.empty(dir);
 		-- If the package is empty, early out
 		if not pkg then fileList:Update(); return; end
@@ -207,7 +292,7 @@ function RDXDB.ExplorerInstance:new(parent)
 		local i,u,tbl = 0,nil;
 		for k,v in pairs(pkg) do
 			if (type(v) == "table") then
-				tbl = {name = k, path = RDXDB.MakePath(activePkg, k)};
+				tbl = {name = k, path = RDXDB.MakePath(activeDk, activePkg, k)};
 				-- Handle symlinks
 				if v.ty == "SymLink" then
 					if type(v.data) ~= "table" then 
@@ -216,15 +301,16 @@ function RDXDB.ExplorerInstance:new(parent)
 						tbl.link = RDXDB.GetSymLinkTarget(v.data);
 					end
 					if not tbl.link then tbl.link = "error"; end
-					v = RDXDB.AccessPath(activePkg, k); -- resolve the link
+					v = RDXDB.AccessPath(activeDk, activePkg, k); -- resolve the link
 					if not v then
-						tbl.version = 0; tbl.ty = "SymLink"; tbl.text = k .. " |cFFAAAAAA->|r |cFF00FFFF" .. tbl.link .. VFLI.i18n("|r |cFFFF0000(Broken link)|r");
+						tbl.version = 0; tbl.ty = "SymLink"; 
+						tbl.text = k .. " |cFFAAAAAA->|r |cFF00FFFF" .. tbl.link .. VFLI.i18n("|r |cFFFF0000(Broken link)|r");
 						table.insert(dir, tbl);
 					end
 				end
 				if v and FilterFile(activePkg, k, v) then
 					tbl.ty = v.ty; tbl.version = v.version;
-					if RDXDB.PathHasInstance(RDXDB.MakePath(activePkg, k)) then
+					if RDXDB.PathHasInstance(RDXDB.MakePath(activeDk, activePkg, k)) then
 						k = "|cFF00FF00" .. k .. "|r";
 					end
 					if tbl.link then
@@ -240,37 +326,58 @@ function RDXDB.ExplorerInstance:new(parent)
 		fileList:Update();
 	end
 
-	function SelectFile(a,b)
-		if(a == selPkg) and (b == selFile) then return; end
-		selPkg = a; selFile = b;
-		selEd:SetText(RDXDB.MakePath(a,b));
+	function SelectFile(a,b,c)
+		if (a == selDk) and (b == selPkg) and (c == selFile) then return; end
+		local path = RDXDB.MakePath(a,b,c)
+		selDk = a; selPkg = b; selFile = c;
+		selEd:SetText(path);
+		-- symlink
+		local obj = RDXDB._AccessPathRaw(a,b,c);
+		if obj.ty == "SymLink" then
+			local link
+			if type(obj.data) ~= "table" then 
+				link = "error";
+			else
+				link = RDXDB.GetSymLinkTarget(obj.data);
+			end
+			if not link then link = "error"; end
+			local objl = RDXDB.AccessPath(a,b,c); -- resolve the link
+			if not objl then
+				selLink:SetText("|cFFAAAAAA|r |cFF00FFFF" .. link .. VFLI.i18n("|r |cFFFF0000(Broken link)|r"));
+			else
+				selLink:SetText(" |cFFAAAAAA|r |cFF00FFFF" .. link .. "|r|cFFAAAAAA (" .. objl.ty .. " v" .. objl.version .. ")|r");
+			end
+		else
+			selLink:SetText("");
+		end
+		fileList:Update();
 	end
 
 	----------------- Event handling
 	RDXDBEvents:Bind("PACKAGE_CREATED", nil, UpdatePackageList, dlg);
-	RDXDBEvents:Bind("PACKAGE_DELETED", nil, function(pkg)
-		if(pkg == activePkg) then
+	RDXDBEvents:Bind("PACKAGE_DELETED", nil, function(dk, pkg)
+		if (dk == activeDk) and (pkg == activePkg) then
 			SetActivePackage(nil);
 		end
 		UpdatePackageList();
 	end, dlg);
-	RDXDBEvents:Bind("OBJECT_CREATED", nil, function(pkg)
-		if pkg == activePkg then UpdateFileList(); end
+	RDXDBEvents:Bind("OBJECT_CREATED", nil, function(dk, pkg)
+		if (dk == activeDk) and (pkg == activePkg) then UpdateFileList(); end
 	end, dlg);
-	RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg)
-		if pkg == activePkg then UpdateFileList(); end
+	RDXDBEvents:Bind("OBJECT_DELETED", nil, function(dk, pkg)
+		if (dk == activeDk) and (pkg == activePkg) then UpdateFileList(); end
 	end, dlg);
-	RDXDBEvents:Bind("OBJECT_MOVED", nil, function(srcPkg, _, dstPkg)
-		if (srcPkg == activePkg) or (dstPkg == activePkg) then UpdateFileList(); end
+	RDXDBEvents:Bind("OBJECT_MOVED", nil, function(srcDk, srcPkg, _, dstDk, dstPkg)
+		if (srcDk == activeDk) and ((srcPkg == activePkg) or (dstPkg == activePkg)) then UpdateFileList(); end
 	end, dlg);
-	RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(pkg)
-		if pkg == activePkg then UpdateFileList(); end
+	RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(dk, pkg)
+		if (dk == activeDk) and (pkg == activePkg) then UpdateFileList(); end
 	end, dlg);
-	RDXDBEvents:Bind("OBJECT_INSTANCIATED", nil, function(pkg)
-		if pkg == activePkg then UpdateFileList(); end
+	RDXDBEvents:Bind("OBJECT_INSTANCIATED", nil, function(dk, pkg)
+		if (dk == activeDk) and (pkg == activePkg) then UpdateFileList(); end
 	end, dlg);
-	RDXDBEvents:Bind("OBJECT_DEINSTANCIATED", nil, function(pkg)
-		if pkg == activePkg then UpdateFileList(); end
+	RDXDBEvents:Bind("OBJECT_DEINSTANCIATED", nil, function(dk, pkg)
+		if (dk == activeDk) and (pkg == activePkg) then UpdateFileList(); end
 	end, dlg);
 
 	----------------- API
@@ -278,22 +385,28 @@ function RDXDB.ExplorerInstance:new(parent)
 		if type(func) ~= "function" then return; end
 		fileFilter = func;
 	end
-	function dlg:SetRightClickFunctions(pkgClick, fileClick)
-		if (type(pkgClick) ~= "function") or (type(fileClick) ~= "function") then return; end
-		PackageRightClick = pkgClick; ObjectRightClick = fileClick;
+	function dlg:SetRightClickFunctions(dkClick, pkgClick, fileClick)
+		if (type(dkClick) ~= "function") or (type(pkgClick) ~= "function") or (type(fileClick) ~= "function") then return; end
+		DiskRightClick = dkClick;
+		PackageRightClick = pkgClick;
+		ObjectRightClick = fileClick;
 	end
-	function dlg:Rebuild() UpdatePackageList(); UpdateFileList(); end
+	function dlg:Rebuild() UpdateDiskList(); UpdatePackageList(); UpdateFileList(); end
 	function dlg:SetPath(initPath)
 		if type(initPath) ~= "string" then return; end
-		local a,b = RDXDB.ParsePath(initPath);
-		if a and b then
+		local a,b,c = RDXDB.ParsePath(initPath);
+		if c then
+			SetActiveDisk(a):
+			SetActivePackage(b);
+			SelectFile(a,b,c);
+		elseif b then
 			SetActivePackage(a);
-			SelectFile(a,b);
+			SelectFile("RDXData", a, b);
 		end
 	end
 	function dlg:GetPath()
-		if selPkg and selFile then
-			return RDXDB.MakePath(selPackage, selFile);
+		if selDk and selPkg and selFile then
+			return RDXDB.MakePath(selDk, selPkg, selFile);
 		else
 			return nil;
 		end
@@ -302,7 +415,7 @@ function RDXDB.ExplorerInstance:new(parent)
 		return selEd:GetText();
 	end
 	function dlg:_GetSelection()
-		return selPkg, selFile, activePkg, activeFile;
+		return selDk, selPkg, selFile, activeDk, activePkg, activeFile;
 	end
 
 	-- Embeddable feedback
@@ -352,8 +465,8 @@ function RDXDB.ExplorerInstance:new(parent)
 		if cancelBtn then cancelBtn:Destroy(); cancelBtn = nil; end
 		VFLUI.ReleaseRegion(magGlass); magGlass = nil;
 		selEd:Destroy(); selEd = nil; find:Destroy(); find = nil;
-		decor1:Destroy(); decor2:Destroy();
-		pkgList:Destroy(); fileList:Destroy(); pkgList = nil; fileList = nil;
+		decor0:Destroy(); decor1:Destroy(); decor2:Destroy();
+		dkList:Destroy(); pkgList:Destroy(); fileList:Destroy(); dkList = nil; pkgList = nil; fileList = nil;
 	end, dlg.Destroy);
 
 	return dlg;
@@ -393,26 +506,27 @@ local function _DisplayError(x1,x2)
 end
 
 local function _sub2dots(name)
-	local a = string.find(name, ":");
-        return string.sub(name, a + 1);
+	local dk, pkg, file = RDXDB.ParsePath(name);
+	return file;
 end
 
-local function NewPackage_OnOK(x)
-	_DisplayError(RDXDB.CreatePackage(x));
+local function NewPackage(dk)
+	VFLUI.MessageBox(VFLI.i18n("Create Package"), VFLI.i18n("Enter package name:"), "", VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function(newname) _DisplayError(RDXDB.CreatePackage(dk, newname)); end);
 end
-local function NewPackage()
-	VFLUI.MessageBox(VFLI.i18n("Create Package"), VFLI.i18n("Enter package name:"), "", VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), NewPackage_OnOK);
-end
-local function CopyPackage(ppath)
-	VFLUI.MessageBox(VFLI.i18n("Copy Package") .. ppath, VFLI.i18n("Enter new filename for the package at ") .. ppath, ppath, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function(newname) _DisplayError(RDXDB.CopyPackage(ppath, newname)); end);
+local function CopyPackage(dk, ppath)
+	VFLUI.MessageBox(VFLI.i18n("Copy Package") .. ppath, VFLI.i18n("Enter new filename for the package at ") .. ppath, ppath, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function(newname) _DisplayError(RDXDB.CopyPackage(dk, ppath, newname)); end);
 end
 
-local function CopyIntoPackage(ppath)
-	VFLUI.MessageBox(VFLI.i18n("Copy Into Package: ") .. ppath, VFLI.i18n("Enter filename of the existing package ") .. ppath, ppath, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function(newname) _DisplayError(RDXDB.CopyIntoPackage(ppath, newname)); end);
+local function MigratePackage(dk, pkg)
+	VFLUI.MessageBox(VFLI.i18n("MigratePackage") .. pkg, VFLI.i18n("Enter new disk"), "RDXDiskTheme", VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function(newname) _DisplayError(RDXDB.MigratePackage(dk, pkg, newname, pkg)); end);
 end
 
-local function CopyIntoAllPackages(ppath)
-	VFLUI.MessageBox(VFLI.i18n("Copy Into All Packages: ") .. ppath, VFLI.i18n("Are you sure you want to copy all ?"), nil, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function() _DisplayError(RDXDB.CopyIntoAllPackages(ppath)); end);
+local function CopyIntoPackage(dk, pkg)
+	VFLUI.MessageBox(VFLI.i18n("Copy Into Package: ") .. pkg, VFLI.i18n("Enter filename of the existing package ") .. pkg, pkg, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function(newname) _DisplayError(RDXDB.CopyIntoPackage(dk, pkg, newname)); end);
+end
+
+local function CopyIntoAllPackages(dk, pkg)
+	VFLUI.MessageBox(VFLI.i18n("Copy Into All Packages"), VFLI.i18n("Are you sure you want to copy all ?"), nil, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function() _DisplayError(RDXDB.CopyIntoAllPackages(dk, pkg)); end);
 end
 
 local function DeleteConfirmed(opath)
@@ -432,6 +546,35 @@ end
 -- Menu array
 local mnu = {};
 
+-------------------------- The disk rightclick menu
+local _dk_mhdlrs = {};
+
+--- Extend the menu that appears when you right click on a package.
+-- The function you supply will be called with the following parameters:
+--   F(menuTable, packageName, parentDialog)
+-- and it should table.insert() any desired entries into the menuTable.
+function RDXDB.RegisterDiskMenuHandler(func)
+	if not func then error(VFLI.i18n("Expected function, got nil")); end
+	table.insert(_dk_mhdlrs, func);
+end
+
+local function DiskRightClick(cell, dk, dialog)
+	VFL.empty(mnu);
+	for _,hdlr in ipairs(_dk_mhdlrs) do
+		hdlr(mnu, dk, dialog);
+	end
+	VFL.poptree:Begin(120, 12, cell, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(cell));
+	VFL.poptree:Expand(nil, mnu);
+end
+
+RDXDB.RegisterDiskMenuHandler(function(mnu, dk, dialog)
+	if dk == "RDXData" then
+		table.insert(mnu, {
+			text = VFLI.i18n("Upgrade10"), func = function() VFL.poptree:Release(); RDXDB.Upgrade10() end
+		});
+	end
+end);
+
 -------------------------- The package rightclick menu
 local _pkg_mhdlrs = {};
 
@@ -444,45 +587,53 @@ function RDXDB.RegisterPackageMenuHandler(func)
 	table.insert(_pkg_mhdlrs, func);
 end
 
-local function PackageRightClick(cell, pkg, dialog)
+local function PackageRightClick(cell, dk, pkg, dialog)
 	VFL.empty(mnu);
 	for _,hdlr in ipairs(_pkg_mhdlrs) do
-		hdlr(mnu, pkg, dialog);
+		hdlr(mnu, dk, pkg, dialog);
 	end
 	VFL.poptree:Begin(120, 12, cell, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(cell));
 	VFL.poptree:Expand(nil, mnu);
 end
 
-local function PkgDeleteHandler(pkg)
-	local result,err = RDXDB.DeletePackage(pkg);
+local function PkgDeleteHandler(dk, pkg)
+	local result,err = RDXDB.DeletePackage(dk, pkg);
 	if result then return; end
 	if err == VFLI.i18n("Cannot delete non-empty package.") then
-		VFLUI.MessageBox(VFLI.i18n("Delete Package: ") .. pkg, VFLI.i18n("The package ") .. pkg .. VFLI.i18n(" is not empty. Are you sure you want to delete it? WARNING: Deleting a package with objects that are in use can cause undefined behavior."), nil, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function() _DisplayError(RDXDB.DeletePackage(pkg, true)); end);
+		VFLUI.MessageBox(VFLI.i18n("Delete Package: ") .. pkg, VFLI.i18n("The package ") .. pkg .. VFLI.i18n(" is not empty. Are you sure you want to delete it? WARNING: Deleting a package with objects that are in use can cause undefined behavior."), nil, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function() _DisplayError(RDXDB.DeletePackage(dk, pkg, true)); end);
 	else
 		_DisplayError(result, err);
 	end
 end
 
-RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
+RDXDB.RegisterPackageMenuHandler(function(mnu, dk, pkg, dialog)
 	table.insert(mnu, {
-		text = VFLI.i18n("Copy"), func = function() VFL.poptree:Release(); CopyPackage(pkg); end
+		text = VFLI.i18n("Copy"), func = function() VFL.poptree:Release(); CopyPackage(dk, pkg); end
 	});
 end);
 
-RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
-	if string.find(pkg, "^template") then
+RDXDB.RegisterPackageMenuHandler(function(mnu, dk, pkg, dialog)
+	if dk == "RDXData" then
 		table.insert(mnu, {
-			text = VFLI.i18n("Copy into"), func = function() VFL.poptree:Release(); CopyIntoPackage(pkg); end
-		});
-		table.insert(mnu, {
-			text = VFLI.i18n("Copy into all packages"), func = function() VFL.poptree:Release(); CopyIntoAllPackages(pkg); end
+			text = VFLI.i18n("Migrate disk"), func = function() VFL.poptree:Release(); MigratePackage(dk, pkg); end
 		});
 	end
 end);
 
-RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
+RDXDB.RegisterPackageMenuHandler(function(mnu, dk, pkg, dialog)
+	if string.find(pkg, "^template") then
+		table.insert(mnu, {
+			text = VFLI.i18n("Copy into"), func = function() VFL.poptree:Release(); CopyIntoPackage(dk, pkg); end
+		});
+		table.insert(mnu, {
+			text = VFLI.i18n("Copy into all packages"), func = function() VFL.poptree:Release(); CopyIntoAllPackages(dk, pkg); end
+		});
+	end
+end);
+
+RDXDB.RegisterPackageMenuHandler(function(mnu, dk, pkg, dialog)
 	table.insert(mnu, {
-		text = VFLI.i18n("Delete"), func = function() VFL.poptree:Release(); PkgDeleteHandler(pkg); end
+		text = VFLI.i18n("Delete"), func = function() VFL.poptree:Release(); PkgDeleteHandler(dk, pkg); end
 	});
 end);
 
@@ -539,14 +690,12 @@ end
 
 -- Basic file ops.
 RDXDB.RegisterObjectMenuHandler(function(mnu, opath, md, dialog)
-	--if RDXU.devflag then
-		table.insert(mnu, {
-			text = VFLI.i18n("Delete"), func = function() VFL.poptree:Release(); ConfirmDelete(opath); end
-		});
-		table.insert(mnu, {
-			text = VFLI.i18n("Rename"), func = function() VFL.poptree:Release(); Rename(opath); end
-		});
-	--end
+	table.insert(mnu, {
+		text = VFLI.i18n("Delete"), func = function() VFL.poptree:Release(); ConfirmDelete(opath); end
+	});
+	table.insert(mnu, {
+		text = VFLI.i18n("Rename"), func = function() VFL.poptree:Release(); Rename(opath); end
+	});
 end);
 
 ------------------------------------------------
@@ -567,7 +716,7 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	if dlg then return; end
 
 	dlg = VFLUI.Window:new(parent);
-	dlg:SetHeight(400); dlg:SetWidth(500);
+	dlg:SetHeight(400); dlg:SetWidth(660);
 	VFLUI.Window.SetDefaultFraming(dlg, 24);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetText(VFLI.i18n("Repository Objects Browser"));
@@ -581,25 +730,25 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	local expl = RDXDB.ExplorerInstance:new(dlg);
 	expl:SetPoint("TOPLEFT", ca, "TOPLEFT"); expl:Show();
 	expl:SetFileFilter(fileFilter);
-	expl:SetRightClickFunctions(PackageRightClick, ObjectRightClick);
+	expl:SetRightClickFunctions(DiskRightClick, PackageRightClick, ObjectRightClick);
 	expl:Rebuild();
 	
 	---------------- Clipboard handling
 	local clipboardPath, clipboardOp, btnPaste = nil, nil, nil;
 
 	local function ClipboardCopy()
-		local selPkg, selFile = expl:_GetSelection();
+		local selDk, selPkg, selFile = expl:_GetSelection();
 		if(not selPkg) or (not selFile) then return; end
-		clipboardPath = RDXDB.MakePath(selPkg, selFile);
+		clipboardPath = RDXDB.MakePath(selDk, selPkg, selFile);
 		clipboardOp = "COPY";
 		btnPaste:Enable();
 	end
 
 	local function ClipboardPaste()
-		local _, _, activePkg = expl:_GetSelection();
+		local _, _, _, activeDk, activePkg = expl:_GetSelection();
 		if(not activePkg) then return; end
 		if(clipboardOp == "COPY") then
-			_DisplayError(RDXDB.CopyObject(clipboardPath, activePkg));
+			_DisplayError(RDXDB.CopyObject(clipboardPath, activeDk, activePkg));
 		elseif(clipboardOp == "CUT") then
 		end
 		clipboardOp = nil; clipboardPath = nil; btnPaste:Disable();
@@ -609,26 +758,35 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	local cbtn = nil ;
 	
 	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("New Package"), 100);
-	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 0, 25);
-	cbtn:SetScript("OnClick", NewPackage);
+	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 155, 25);
+	cbtn:SetScript("OnClick", function()
+		local selDk, selPkg, selFile, activeDk = expl:_GetSelection();
+		if not activeDk then
+			VFLUI.MessageBox(VFLI.i18n("Error"), VFLI.i18n("Select a disk to store the new package"));
+		else
+			NewPackage(activeDk);
+		end
+	end);
 	
 	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Mass Send"), 100);
-	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 0, 0);
+	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 155, 0);
 	cbtn:SetScript("OnClick", function() RDX.MassIntegrate(dlg); end);
 	
 	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("New Object"), 100);
-	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 160, 25);
+	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 310, 25);
 	cbtn:SetScript("OnClick", function()
-		local _, _, activePkg = expl:_GetSelection();
-		if not activePkg then
+		local _, _, _, activeDk, activePkg = expl:_GetSelection();
+		if not activeDk then
+			VFLUI.MessageBox(VFLI.i18n("Error"), VFLI.i18n("Select a disk to store the new object in."));
+		elseif not activePkg then
 			VFLUI.MessageBox(VFLI.i18n("Error"), VFLI.i18n("Select a package to store the new object in."));
 		else
-			RDXDB.NewObjectDialog(dlg, activePkg);
+			RDXDB.NewObjectDialog(dlg, activeDk, activePkg);
 		end
 	end);
 
 	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Copy"), 100);
-	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 260, 25);
+	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 410, 25);
 	cbtn:SetScript("OnClick", ClipboardCopy);
 
 	btnPaste = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Paste"), 100);

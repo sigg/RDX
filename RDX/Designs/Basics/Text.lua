@@ -571,7 +571,7 @@ RDX.RegisterOtherTextType({
 	GenerateCreateCodeVariable = function(objname) return [[
 ]]; end;
 	GenerateCreateCode = function(objname) return [[
-	_, word = RDXDB.ParsePath(RDXU.AUI);
+	_, _, word = RDXDB.ParsePath(RDXU.AUI);
 	text = "AUI: " .. (word or "Unknown");
 ]]; end;
 });

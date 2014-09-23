@@ -90,7 +90,7 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		local path, friendly, hostile = desc.mbFriendly, nil, nil;
-		local pkg,file = RDXDB.ParsePath(path);
+		local dk, pkg, file = RDXDB.ParsePath(path);
 		if (not pkg) or (not file) then return; end
 
 		friendly = RDXDB.GetObjectData(path);
@@ -120,8 +120,8 @@ RDX.RegisterFeature({
 
 		-- When our parent object changes we want to rebuild the window.
 		state:Attach("Create", true, function(w)
-			RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(up, uf)
-				if(up == pkg) and (uf == file) then RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, w._path); end
+			RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(ud, up, uf)
+				if (ud == dk) and (up == pkg) and (uf == file) then RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, w._path); end
 			end, w._path .. path);
 		end);
 		state:Attach("Destroy", true, function(w)

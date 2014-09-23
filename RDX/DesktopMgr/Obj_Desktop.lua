@@ -918,7 +918,7 @@ function RDXDK.Desktop:new(parent)
 	DesktopEvents:Bind("DESKTOP_STATE", nil, ChangeState, "desktop");
 	
 	DesktopEvents:Bind("DESKTOP_RESETSTATE", nil, function()
-		local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+		local _, _, auiname = RDXDB.ParsePath(RDXU.AUI);
 		VFL.empty(framepropsroot.states);
 		framepropsroot.states.SOLO = {};
 		framepropsroot.states.SOLO.OnSelect = {};
@@ -1207,7 +1207,7 @@ RDXDB.RegisterObjectType({
 	end,
 	Edit = function(path, md, parent)
 		EditDesktop(parent, path, md);
-	end;
+	end,
 	Instantiate = function(path, obj)
 		RDXDK:Debug(5, "instantiate(".. path ..")");
 		if currentDesktop then RDX.printE("Instantiate Desktop: already instantiated"); return nil; end
@@ -1259,12 +1259,12 @@ RDXDB.RegisterObjectType({
 		--	});
 		--end
 		if IsShiftKeyDown() then
-			local pkg, file = RDXDB.ParsePath(path);
+			local dk, pkg, file = RDXDB.ParsePath(path);
 			table.insert(mnu, {
 				text = VFLI.i18n("Copy from default"),
 				func = function()
 					VFL.poptree:Release();
-					RDXDB.Copy("desktops:" .. pkg .. "_default", path, "FORCE")
+					RDXDB.Copy("RDXDiskSystem:desktops:" .. pkg .. "_default", path, "FORCE")
 				end
 			});
 			table.insert(mnu, {
@@ -1339,15 +1339,15 @@ end
 -- Update hooks - make sure when a desktop changes we reload it.
 -----------------------------------------------------------------
 
---RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)
---	local path = RDXDB.MakePath(pkg,file);
+--RDXDBEvents:Bind("OBJECT_DELETED", nil, function(dk, pkg, file, md)
+--	local path = RDXDB.MakePath(dk, pkg,file);
 --	if md and md.ty == "Desktop" and path == RDXDK.GetCurrentDesktopPath() then
 --		RDXDK.SecuredChangeDesktop("desktops:default");
 --	end
 --end);
 
---RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(pkg, file) 
---	local path = RDXDB.MakePath(pkg,file);
+--RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(dk, pkg, file) 
+--	local path = RDXDB.MakePath(dk,pkg,file);
 --	local _,_,_,ty = RDXDB.GetObjectData(path)
 --	if ty == "Desktop" and path == RDXDK.GetCurrentDesktopPath() then RDXDK.SecuredChangeDesktop(path); end
 --end);

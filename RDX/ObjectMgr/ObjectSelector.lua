@@ -41,8 +41,9 @@ function RDXDB.ObjectFinder:new(parent, fileFilter)
 	---------------------------- Gluecode
 	local textFilter = VFL.True;
 	local function CheckValid()
-		local d,p,f = RDXDB.GetObjectData(editBox:GetText());
-		return (d and fileFilter(p,f,d));
+		local dk, pkg, file = RDXDB.ParsePath(editBox:GetText());
+		local d = RDXDB.GetObjectData(editBox:GetText());
+		return (d and fileFilter(pkg,file,d));
 	end
 	editBox:SetScript("OnTextChanged", function(self)
 		if CheckValid() then
@@ -112,7 +113,7 @@ function RDXDB.PackageSelector:new(parent)
 	btn:SetText("...");
 	btn:SetScript("OnClick", function()
 		local qq = { };
-		for pkg,_ in pairs(RDXDB.GetPackages()) do
+		for pkg,_ in pairs(RDXDB.GetDisk("RDXData")) do
 			local retVal = pkg;
 			table.insert(qq, { 
 				text = retVal, 
@@ -151,7 +152,7 @@ function RDXDB.PackageListWindow(parent, title, text, filter, callback)
 
 	-- From the source array, build a local array of packages
 	local pkgs = {};
-	for k,pkg in pairs(RDXData) do
+	for k,pkg in pairs(RDXDB.GetDisk("RDXData")) do
 		if filter(k) then
 			table.insert(pkgs, {pkg = k});
 		end

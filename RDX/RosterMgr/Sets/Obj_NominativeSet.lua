@@ -10,7 +10,7 @@
 local dlg = nil;
 local function EditNominativeSetDialog(parent, path, md)
 	if dlg then
-		RDX.printI(VFLI.i18n("A set editor is already open. Please close it first."));
+		RDX.printI(VFLI.i18n("A set editor is already opened. Please close it first."));
 		return;
 	end
 

@@ -1,6 +1,14 @@
-local a, myunit, plZX, plZY, x, y, zName, isIndoor, IndoorFlag, indoorMapFileName, mapId, cmaId, gcmd, tmDif, lvl, ang, moveDist
+﻿local a, myunit, plZX, plZY, x, y, zName, isIndoor, IndoorFlag, indoorMapFileName, mapId, cmaId, gcmd, tmDif, lvl, ang, moveDist
 
-local mapIdsave;
+local mapIdsave; -- when entering mini dungeon
+
+local RidingSpells = {
+	[75] = GetSpellInfo (33389) or "",
+	[150] = GetSpellInfo (33392) or "",
+	[225] = GetSpellInfo (34092) or "",		-- Expert
+	[300] = GetSpellInfo (34093) or "",		-- Artisan
+	[375] = GetSpellInfo (90265) or "",		-- Master
+}
 
 local function ProcessMyUnit(self, elapsed)
 	-- Player real mapid
@@ -45,9 +53,10 @@ local function ProcessMyUnit(self, elapsed)
 		myunit.PlyrSpeed = 0
 	elseif isIndoor then -- micro dungeon
 		myunit.InstanceId = nil;
-	--	lvl = max (GetCurrentMapDungeonLevel(), 1)	
+		lvl = max (GetCurrentMapDungeonLevel(), 1)	
 		myunit.PlyrX = myunit.SaveLastX + myunit.PlyrRZX * 1002 / 25600
 		myunit.PlyrY = myunit.SaveLastY + myunit.PlyrRZY * 668 / 25600
+		
 	--	myunit.PlyrSpeed = 0
 	else -- external
 		myunit.InstanceId = nil;
@@ -118,19 +127,35 @@ RDXEvents:Bind("INIT_POST", nil, function()
 	local myunitFrame = CreateFrame("Frame");
 	myunitFrame:SetScript("OnUpdate", ProcessMyUnit);
 	VFLP.RegisterFunc("RDXDAL: UnitDB", "ProcessMyUnit", ProcessMyUnit, true);
+	
+	for skill, name in pairs (RidingSpells) do
+		if GetSpellInfo (name) then
+			myunit.SkillRiding = skill
+			break
+		end
+	end
+	
+	myunit.speed = 2 / 4.5
+	if myunit.SkillRiding < 75 then
+		myunit.speed = 1 / 4.5
+	elseif myunit.SkillRiding < 150 then
+		myunit.speed = 1.6 / 4.5
+	elseif myunit.SkillRiding >= 225 then
+		myunit.speed = 2.5 / 4.5
+	end
+	
 end);
 
 ------------------------------------------------
 -- Combat and Battleground Detection
 ------------------------------------------------
---local inCombat = nil;
 function VFL._ForceCombatFlag(f)
 	if f then
-		--inCombat = true;
+		RDX.InCombat = true;
 		VFL:Debug(1, "********** VFL combat flag TRUE *************");
 		VFLEvents:Dispatch("PLAYER_COMBAT", true);
 	else
-		--inCombat = nil;
+		RDX.InCombat = nil;
 		VFL:Debug(1, "********** VFL combat flag FALSE *************");
 		VFLEvents:Dispatch("PLAYER_COMBAT", nil);
 	end
@@ -242,22 +267,25 @@ end
 
 
 
-WoWEvents:Bind("ZONE_CHANGED", nil, function() 
-	VFL.print("ZONE_CHANGED");
-	SetMapToCurrentZone()
-end);
 
-WoWEvents:Bind("ZONE_CHANGED_INDOORS", nil, function() 
-	VFL.print("ZONE_CHANGED_INDOORS");
-	SetMapToCurrentZone()
-end);
 
-WoWEvents:Bind("ZONE_CHANGED_NEW_AREA", nil, function() 
-	VFL.print("ZONE_CHANGED_NEW_AREA");
-	SetMapToCurrentZone()
-end);
 
-function RDX.PPZ()
-	VFL.print(GetCurrentMapAreaID())
-end
+--WoWEvents:Bind("ZONE_CHANGED", nil, function() 
+--	VFL.print("ZONE_CHANGED");
+--	SetMapToCurrentZone()
+--end);
+
+--WoWEvents:Bind("ZONE_CHANGED_INDOORS", nil, function() 
+--	VFL.print("ZONE_CHANGED_INDOORS");
+--	SetMapToCurrentZone()
+--end);
+
+--WoWEvents:Bind("ZONE_CHANGED_NEW_AREA", nil, function() 
+--	VFL.print("ZONE_CHANGED_NEW_AREA");
+--	SetMapToCurrentZone()
+--end);
+
+--function RDX.PPZ()
+--	VFL.print(GetCurrentMapAreaID())
+--end
 -- /script RDX.PPZ();

@@ -26,9 +26,19 @@ function RDXMAP.InitTables()
 	RDXMAP.MapInfo = {}
 	
 	for mapid, winfo in pairs (worldInfo) do
-		if winfo.class == "w" and winfo.id and not RDXMAP.MapInfo[winfo.id] then
+		if winfo.class == "c" and winfo.id and not RDXMAP.MapInfo[winfo.id] then
 			winfo.mapid = mapid;
 			RDXMAP.MapInfo[winfo.id] = winfo;
+		end
+	end
+	
+	for id, area in pairs (RDXMAP.MapGenAreas2) do
+		local winfo = worldInfo[id]
+		if winfo then
+			winfo.x = area.x;
+			winfo.y = area.y;
+			winfo.s = area.s;
+			winfo.o = area.o;
 		end
 	end
 	
@@ -102,31 +112,9 @@ function RDXMAP.InitTables()
 		--end
 		
 		-- Overlay
-		local ov = winfo.Overlay
+		local ov = winfo.o
 		if ov then
 			RDXMAP.MapOverlayToMapId[ov] = mapid;
-		end
-		
-		-- World coord for zone
-		if winfo.Cont then --zone
-			info = RDXMAP.MapInfo[winfo.Cont]
-			cx = info.X
-			cy = info.Y
-			if winfo[2] then winfo[4] = cx + winfo[2] else VFL.print("error 2 " .. mapid); end
-			if winfo[3] then winfo[5] = cy + winfo[3] else VFL.print("error 3 " .. mapid); end
-			
-		--elseif winfo.entryMid then --instance
-		--	info = worldInfo[winfo.entryMid]
-		--	if info then
-		--		scale = info[1]
-		--		winfo[1] = 1002 / 25600 
-		--		winfo[4] = info[4] + winfo[2] * scale
-		--		winfo[5] = info[5] + winfo[3] * scale / 1.5
-		--	else
-		--		VFL.print("InitTables instance " .. winfo.entryMid);
-		--	end
-		--elseif winfo.tp == 1 then
-			
 		end
 	end
 	-- World coord for instance
@@ -134,10 +122,10 @@ function RDXMAP.InitTables()
 		if winfo.EntryMId then --instance
 			info = worldInfo[winfo.EntryMId]
 			if info then
-				scale = info[1]
+				scale = info.s
 				winfo[1] = 1002 / 25600 
-				winfo[4] = info[4] + winfo[2] * scale
-				winfo[5] = info[5] + winfo[3] * scale / 1.5
+				winfo[4] = info.x + winfo[2] * scale
+				winfo[5] = info.y + winfo[3] * scale / 1.5
 			else
 				VFL.print("InitTables instance " .. winfo.EntryMId);
 			end
@@ -165,8 +153,8 @@ function RDXMAP.InitTables()
 					--VFL.print("error zone connection init " .. mapId2); 
 					break;
 				end
-				local scale1 = winfo1[1]
-				local scale2 = winfo2[1]
+				local scale1 = winfo1.s
+				local scale2 = winfo2.s
 				local conTime = tonumber(conTime)
 				local x1 = tonumber(x1)
 				local y1 = tonumber(y1)
@@ -199,8 +187,8 @@ function RDXMAP.InitTables()
 							local con = {}
 							tinsert (zcons, con)
 
-							x1, y1 = winfo1[4] + x1 * scale1, winfo1[5] + y1 * scale1 / 1.5
-							x2, y2 = winfo2[4] + x2 * scale2, winfo2[5] + y2 * scale2 / 1.5
+							x1, y1 = winfo1.x + x1 * scale1, winfo1.y + y1 * scale1 / 1.5
+							x2, y2 = winfo2.x + x2 * scale2, winfo2.y + y2 * scale2 / 1.5
 
 							con.StartMapId = mapId1
 							con.StartX = x1
@@ -227,3 +215,17 @@ end
 	RDX.mapsw = true;
 --end);
 
+function dumpgenmap()
+	if not RDXG.genmap then RDXG.genmap = {}; end
+	for mapid, winfo in pairs (RDXMAP.MapWorldInfo) do
+		--if winfo.Cont then --zone
+		--	RDXG.genmap[mapid] = {};
+		--	RDXG.genmap[mapid].x = winfo[4];
+		--	RDXG.genmap[mapid].y = winfo[5];
+		--	RDXG.genmap[mapid].s = winfo[1];
+		--	RDXG.genmap[mapid].o = winfo.Overlay;
+		--end
+	end
+end
+
+-- /script dumpgenmap()

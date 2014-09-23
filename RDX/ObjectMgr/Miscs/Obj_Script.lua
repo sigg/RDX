@@ -147,7 +147,7 @@ end);
 RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	RDXDB.OpenObject("scripts:auto_u_" .. RDX.pspace);
 	local aex, adesk, isexist = nil, nil, nil;
-	for pkg,dir in pairs(RDXDB.GetPackages()) do
+	for pkg,dir in pairs(RDXDB.GetDisk("RDXData")) do
 		aex = dir["autoexec"];
 		if aex and aex.ty == "Script" and RDXDB.GetPackageMetadata(pkg, "infoRunAutoexec") then
 			RDXDB.OpenObject(pkg .. ":autoexec", "Open", "local pkg = '" .. pkg .. "';");

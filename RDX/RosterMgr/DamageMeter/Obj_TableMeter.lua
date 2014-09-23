@@ -359,7 +359,7 @@ local wl = {};
 local function BuildTabMeterList()
 	VFL.empty(wl);
 	local desc = nil;
-	for pkg,data in pairs(RDXData) do
+	for pkg,data in pairs(RDXDB.GetDisk("RDXData")) do
 		for file,md in pairs(data) do
 			if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "TableMeter") then
 				table.insert(wl, {text = RDXDB.MakePath(pkg, file)});

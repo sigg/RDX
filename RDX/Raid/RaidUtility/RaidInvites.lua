@@ -405,8 +405,8 @@ end;
 
 RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	local dd;
-	if not RDXDB.CheckObject("default:promotes", "NominativeSet") then
-		dd = RDXDB._DirectCreateObject("default", "promotes");
+	if not RDXDB.CheckObject("RDXDiskSystem:default:promotes", "NominativeSet") then
+		dd = RDXDB._DirectCreateObject("RDXDiskSystem", "default", "promotes");
 		dd.ty = "NominativeSet"; dd.version = 1;
 	end
 end);

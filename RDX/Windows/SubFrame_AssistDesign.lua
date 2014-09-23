@@ -47,7 +47,7 @@ RDX.RegisterFeature({
 		state:SetSlotValue("windowpath", state.path);
 		state:SetSlotValue("designpath", desc.design);
 		
-		local desPkg, desFile = RDXDB.ParsePath(desc.design);
+		local dk, pkg, file = RDXDB.ParsePath(desc.design);
 		local showAssist, showTT = desc.showAssist, desc.showTT;
 		-- Load the functions from the design object provided by the user.
 		local ufstate = RDX.LoadDesign(desc.design, nil, state);
@@ -65,8 +65,8 @@ RDX.RegisterFeature({
 		
 		state:_Attach(state:Slot("Create"), true, function(w)
 			-- When the window's underlying unitframe is updated, rebuild it.
-			RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(up, uf)
-				if(up == desPkg) and (uf == desFile) then RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, w._path); end
+			RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(ud, up, uf)
+				if (ud == dk) and (up == pkg) and (uf == file) then RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, w._path); end
 			end, w._path .. path);
 		end);
 

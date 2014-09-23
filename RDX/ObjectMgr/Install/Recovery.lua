@@ -125,8 +125,9 @@ end
 ----------------------------------------------------
 local function DoDeleteThemes(ary)
 	if not ary then return; end
+	local disk = RDXDB.GetDisk("RDXData")
 	for pkgName,_ in pairs(ary) do
-		if RDXData[pkgName] then
+		if disk[pkgName] then
 			RDXDB.DeletePackage(pkgName, true);
 		end
 	end
@@ -135,7 +136,7 @@ end
 
 function RDXDB.DeleteThemes()
 	local tbl = {};
-	for pkgName,pkg in pairs(RDXData) do
+	for pkgName,pkg in pairs(RDXDB.GetDisk("RDXData")) do
 		if pkg["autodesk"] then
 			tbl[pkgName] = true;
 		end
@@ -149,16 +150,17 @@ end
 local function DoBackup(ary)
 	if not ary then return; end
 	RDXBackup = {};
+	local disk = RDXDB.GetDisk("RDXData")
 	for pkgName,_ in pairs(ary) do
-		if RDXData[pkgName] then
-			RDXBackup[pkgName] = VFL.copy(RDXData[pkgName]);
+		if disk[pkgName] then
+			RDXBackup[pkgName] = VFL.copy(disk[pkgName]);
 		end
 	end
 	ReloadUI();
 end
 
 function RDXDB.BackupPackages()
-	ShowPackageListWindow("Backup", "Select packages to back up.\n|cFFFF0000WARNING: Existing backups will be overwritten.\nThe UI will be reloaded.|r", RDXData, DoBackup)
+	ShowPackageListWindow("Backup", "Select packages to back up.\n|cFFFF0000WARNING: Existing backups will be overwritten.\nThe UI will be reloaded.|r", RDXDB.GetDisk("RDXData"), DoBackup)
 end
 
 ----------------------------------------------------
@@ -166,9 +168,10 @@ end
 ----------------------------------------------------
 local function DoRestore(ary)
 	if not ary then return; end
+	local disk = RDXDB.GetDisk("RDXData")
 	for pkgName,_ in pairs(ary) do
 		if RDXBackup[pkgName] then
-			RDXData[pkgName] = VFL.copy(RDXBackup[pkgName]);
+			disk[pkgName] = VFL.copy(RDXBackup[pkgName]);
 		end
 	end
 	ReloadUI();
@@ -182,7 +185,9 @@ end
 -- MASTER RESET
 ---------------------------------------------------
 local function DoMasterReset()
-	RDXData = {}; RDXSession = {}; ReloadUI();
+	local disk = RDXDB.GetDisk("RDXData")
+	disk = {};
+	RDXSession = {}; ReloadUI();
 end
 
 function RDXDB.MasterReset()

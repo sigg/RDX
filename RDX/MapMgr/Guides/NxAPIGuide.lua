@@ -1,29 +1,5 @@
 RDXMAP.APIGuide = {};
 
-function RDXMAP.APIGuide.FindTaxis (campName)
-	local hideFac = UnitFactionGroup ("player") == "Horde" and 1 or 2
-	for cont = 1, RDXMAP.ContCnt do
-		local dataStr = RDXMAP.GuideData["Flight Master"][cont] or ""
-		for n = 1, #dataStr, 2 do
-			local npcI = (strbyte (dataStr, n) - 35) * 221 + (strbyte (dataStr, n + 1) - 35)
-			local npcStr = RDXMAP.NPCData[npcI]
-			local fac = strbyte (npcStr, 1) - 35
-			if fac ~= hideFac then
-				local oStr = strsub (npcStr, 2)
-				local desc, zone, loc = RDXMAP.UnpackObjective (oStr)
-				local name, camp = strsplit ("!", desc)
-				
-				if camp == campName then
-					local mapId = RDXMAP.Zone2MapId[zone]
-					local x, y = RDXMAP.UnpackLoc (oStr, loc)
-					local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, x, y)
-					return name, wx, wy
-				end
-			end
-		end
-	end
-end
-
 function RDXMAP.APIGuide.GetProfessionTrainer (profName)
 	return " Trainer"
 end
@@ -58,7 +34,7 @@ function RDXMAP.APIGuide.CaptureItems()
 			if not link then
 				link = " :" .. name	
 			end
-			local priceStr = Nx.Util_GetMoneyStr (price)
+			local priceStr = VFL.GetMoneyStr (price)
 			if exCost then
 				local iCnt = GetMerchantItemCostInfo (n)	
 				if price <= 0 then

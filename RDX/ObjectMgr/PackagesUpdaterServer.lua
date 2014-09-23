@@ -45,7 +45,7 @@ local newlist = {};
 local function GetFilterListPkgInfo(str)
 	VFL.empty(newlist);
 	local i = 1;
-	for pkgName, pkgData in pairs(RDXData) do
+	for pkgName, pkgData in pairs(RDXDB.GetDisk("RDXData")) do
 		if not RDXDB.IsProtectedPkg(pkgName) and string.find(pkgName, str) then
 			local pkg = GetPkgInfo(pkgName);
 			if pkg then
@@ -90,7 +90,10 @@ local function AsyncSendPck()
 		local tbl = GetNextRequest("GROUP");
 		if tbl then
 			local data = {};
-			if tbl.pkg then data[tbl.pkg] = RDXData[tbl.pkg]; end
+			if tbl.pkg then
+				local disk = RDXDB.GetDisk("RDXData")
+				data[tbl.pkg] = disk[tbl.pkg]; 
+			end
 			if VFL.tsize(data) > 0 then
 				stid_group = RPC_Group:Invoke("rau_sendpkg", data, targets);
 			end
@@ -100,7 +103,10 @@ local function AsyncSendPck()
 		local tbl = GetNextRequest("GUILD");
 		if tbl then
 			local data = {};
-			if tbl.pkg then data[tbl.pkg] = RDXData[tbl.pkg]; end
+			if tbl.pkg then 
+				local disk = RDXDB.GetDisk("RDXData")
+				data[tbl.pkg] = disk[tbl.pkg]; 
+			end
 			if VFL.tsize(data) > 0 then
 				stid_guild = RPC_Guild:Invoke("rau_sendpkg", data, targets);
 			end

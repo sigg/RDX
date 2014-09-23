@@ -5,9 +5,9 @@
 
 function RDXMAP.APIMap.SetTargetName (name)
 
-	local tar = RDXMAP.Targets[1]
+	local tar = RDXU.MapTargets[1]
 	if tar then
-		tar.TargetName = name
+		tar.n = name
 	end
 end
 
@@ -20,7 +20,7 @@ function RDXMAP.APIMap.SetTargetXY (mid, zx, zy, name, keep)
 	Nx.Quest.Watch:ClearAutoTarget()
 
 	local wx, wy = RDXMAP.APIMap.GetWorldPos (mid, zx, zy)
-	return RDXMAP.APIMap.SetTarget ("Goto", wx, wy, wx, wy, nil, nil, name or "", keep, mid)
+	return RDXMAP.APIMap.SetTarget ("Goto", wx, wy, nil, name or "", keep, mid)
 end
 
 --------
@@ -34,7 +34,7 @@ function RDXMAP.APIMap.SetTargetAtClick(map)
 	local zx, zy = RDXMAP.APIMap.GetZonePos (map.MapId, wx, wy)
 	local str = format ("Goto %.0f, %.0f", zx, zy)
 
-	RDXMAP.APIMap.SetTarget ("Goto", wx, wy, wx, wy, nil, nil, str, IsShiftKeyDown(), map.MapId)
+	RDXMAP.APIMap.SetTarget ("Goto", wx, wy, nil, str, IsShiftKeyDown(), map.MapId)
 end
 
 function RDXMAP.APIMap.SetTargetAtStr (str, keep)
@@ -43,7 +43,7 @@ function RDXMAP.APIMap.SetTargetAtStr (str, keep)
 	if mId then
 		local wx, wy = RDXMAP.APIMap.GetWorldPos (mId, zx, zy)
 		local str = format ("%.0f, %.0f", zx, zy)
-		RDXMAP.APIMap.SetTarget ("Goto", wx, wy, wx, wy, nil, nil, str, keep, mId)
+		RDXMAP.APIMap.SetTarget ("Goto", wx, wy, nil, str, keep, mId)
 	end
 end
 
@@ -76,7 +76,6 @@ function RDXMAP.APIMap.ParseTargetStr (str)
 			end
 		end
 	end
-
 	local myunit = RDXDAL.GetMyUnit();
 	local mid = myunit.mapId
 
@@ -110,40 +109,36 @@ end
 -- Set map target
 -- (type string, x, y, x2, y2, texture (nil for default, false for none), user id, name)
 
-function RDXMAP.APIMap.SetTarget (typ, x1, y1, x2, y2, tex, id, name, keep, mapId)
+function RDXMAP.APIMap.SetTarget (typ, x1, y1, id, name, keep, mapId)
 
 	RDXMapEvents:Dispatch("SetTarget2", keep);
 
 	local tar = {}
-	tinsert (RDXMAP.Targets, tar)
+	tinsert (RDXU.MapTargets, tar)
 
 	assert (x1)
 
-	tar.TargetType = typ
-	tar.TargetX1 = x1
-	tar.TargetY1 = y1
-	tar.TargetX2 = x2
-	tar.TargetY2 = y2
-	tar.TargetMX = (x1 + x2) * .5		-- Mid point
-	tar.TargetMY = (y1 + y2) * .5
-	tar.TargetTex = tex
-	tar.TargetId = id
-	tar.TargetName = name
+	tar.t = typ
+	tar.id = id
 --	tar.ArrowPulse = 1
 
-	--mapId = mapId or map.MapId
-	tar.MapId = mapId
+	tar.x = x1
+	tar.y = y1
+	tar.n = name
 
-	--local i = map.TargetNextUniqueId
-	--tar.UniqueId = i
-	--map.TargetNextUniqueId = i + 1
+	tar.m = mapId
 
 	local typ = keep and "Target" or "TargetS"
-	local zx, zy = RDXMAP.APIMap.GetZonePos (mapId, tar.TargetMX, tar.TargetMY)
+	local zx, zy = RDXMAP.APIMap.GetZonePos (mapId, tar.x, tar.y)
 
 	Nx.Fav:Record (typ, name, mapId, zx, zy)
 
 	return tar
+end
+
+function RDXMAP.APIMap.SetNodeTarget (node, keep)
+	RDXMapEvents:Dispatch("SetTarget2", keep);
+	tinsert(RDXU.MapTargets, node)
 end
 
 --------
@@ -153,15 +148,15 @@ end
 function RDXMAP.APIMap.ClearTargets (matchType)
 
 	if matchType then
-		local tar = RDXMAP.Targets[1]
+		local tar = RDXU.MapTargets[1]
 		if tar then
-			if tar.TargetType ~= matchType then
+			if tar.t ~= matchType then
 				return
 			end
 		end
 	end
 
-	RDXMAP.Targets = {}
+	RDXU.MapTargets = {}
 	RDXMAP.Tracking = {}
 	
 	RDXMapEvents:Dispatch("ClearTargets");	
@@ -173,9 +168,9 @@ end
 
 function RDXMAP.APIMap.GetTargetInfo()
 
-	local tar = RDXMAP.Targets[1]
+	local tar = RDXU.MapTargets[1]
 	if tar then
-		return tar.TargetType, tar.TargetId
+		return tar.t, tar.id
 	end
 end
 
@@ -184,9 +179,9 @@ end
 
 function RDXMAP.APIMap.GetTargetPos()
 
-	local tar = RDXMAP.Targets[1]
+	local tar = RDXU.MapTargets[1]
 	if tar then
-		return tar.TargetX1, tar.TargetY1, tar.TargetX2, tar.TargetY2
+		return tar.x, tar.y
 	end
 end
 
@@ -195,10 +190,10 @@ end
 
 function RDXMAP.APIMap.ChangeTargetOrder (srcI, dstI)
 
-	srcI = srcI >= 0 and srcI or #RDXMAP.Targets	-- -1 for last target
+	srcI = srcI >= 0 and srcI or #RDXU.MapTargets	-- -1 for last target
 
-	local t = tremove (RDXMAP.Targets, srcI)
-	tinsert (RDXMAP.Targets, dstI, t)
+	local t = tremove (RDXU.MapTargets, srcI)
+	tinsert (RDXU.MapTargets, dstI, t)
 
 	RDXMAP.Tracking = {}
 end
@@ -208,7 +203,7 @@ end
 
 function RDXMAP.APIMap.ReverseTargets()
 
-	local tar = RDXMAP.Targets
+	local tar = RDXU.MapTargets
 	local n2 = #tar
 
 	for n = 1, n2 / 2 do
@@ -232,33 +227,32 @@ function RDXMAP.APIMap.UpdateTargets(map)
 		return
 	end
 
-	local tar = RDXMAP.Targets[1]
-	local myunit = RDXDAL.GetMyUnit();
-
-	local x = tar.TargetMX - myunit.PlyrX
-	local y = tar.TargetMY - myunit.PlyrY
+	local tar = RDXU.MapTargets[1]
+	local x = tar.x - map.myunit.PlyrX
+	local y = tar.y - map.myunit.PlyrY
 	local distYd = (x * x + y * y) ^ .5 * 4.575
 
 	if distYd < (tar.Radius or 7) * map.BaseScale then
 
-		if tar.TargetType ~= "Q" then	-- Not for quest, so clear
+		if tar.t ~= "Q" then	-- Not for quest, so clear
 
 			map.UpdateTargetDelay = 20
 			map.UpdateTrackingDelay = 0
 
---			VFL.vprintVar ("", RDXMAP.Targets[1])
+--			VFL.vprintVar ("", RDXU.MapTargets[1])
 
-			tremove (RDXMAP.Targets, 1)
+			tremove (RDXU.MapTargets, 1)
 
 			if #RDXMAP.Targets > 0 and map.GOpts["RouteRecycle"] then
-				tinsert (RDXMAP.Targets, tar)
+				tinsert (RDXU.MapTargets, tar)
 			end
 
 			if map.GOpts["HUDTSoundOn"] then
 				Nx:PlaySoundFile ("sound\\interface\\magicclick.wav")
 			end
 
-			UIErrorsFrame:AddMessage ("Target " .. tar.TargetName .. " reached", 1, 1, 1, 1)
+			--UIErrorsFrame:AddMessage ("Target " .. tar.TargetName .. " reached", 1, 1, 1, 1)
+			UIErrorsFrame:AddMessage ("Target " .. tar.n .. " reached", 1, 1, 1, 1)
 
 			RDXMapEvents:Dispatch("Guide:ClearAll")
 
@@ -272,3 +266,142 @@ function RDXMAP.APIMap.UpdateTargets(map)
 	end
 end
 
+--local myunit;
+--RDXEvents:Bind("INIT_POST", nil, function() myunit = RDXDAL.GetMyUnit(); end);	
+
+function RDXMAP.APIMap.CalcTracking()
+
+	local tr = {}
+	RDXMAP.Tracking = tr
+	local myunit = RDXDAL.GetMyUnit();
+	local srcX = myunit.PlyrX
+	local srcY = myunit.PlyrY
+	local srcMapId = myunit.mapId
+
+	for n, tar in ipairs (RDXU.MapTargets) do
+
+		RDXMAP.Travel:MakePath (tr, srcMapId, srcX, srcY, tar.m, tar.x, tar.y, tar.t)
+		tinsert (tr, tar)
+
+		srcX = tar.x
+		srcY = tar.y
+		srcMapId = tar.m
+	end
+
+end
+
+function RDXMAP.APIMap.UpdateTracking(map)
+
+	map.UpdateTrackingDelay = map.UpdateTrackingDelay - 1
+
+	if map.UpdateTrackingDelay <= 0 then
+		RDXMAP.APIMap.CalcTracking()
+		map.UpdateTrackingDelay = 45
+	end
+
+	map.Level = map.Level + 2
+
+	local dist1
+	local dir1
+	local srcX = map.myunit.PlyrX
+	local srcY = map.myunit.PlyrY
+
+	for n = 1, #RDXMAP.Tracking do
+
+		local tr = RDXMAP.Tracking[n]
+
+		RDXMAP.APIMap.DrawTracking (map, srcX, srcY, tr.x, tr.y, tr.t, tr.n)
+
+		if n == 1 then
+			map.TrackName = tr.n
+			dist1 = map.TrackDistYd
+			dir1 = map.TrackDir
+		end
+
+		srcX = tr.x
+		srcY = tr.y
+	end
+
+	map.TrackDistYd = dist1
+	map.TrackDir = dir1
+end
+
+
+
+
+-- new edition
+function RDXMAP.APIMap.UpdateTargets2(map)
+
+	local tar = RDXU.MapTargets[1]
+	local srcX = map.myunit.PlyrX
+	local srcY = map.myunit.PlyrY
+	local x = tar.x - srcX
+	local y = tar.y - srcY
+	local distYd = (x * x + y * y) ^ .5 * 4.575
+	local dist1
+	local dir1
+
+	if distYd < (tar.Radius or 7) * map.BaseScale then
+		if tar.t ~= "Q" then	-- Not for quest, so clear
+			tremove (RDXU.MapTargets, 1)
+			if #RDXU.MapTargets > 0 and map.GOpts["RouteRecycle"] then
+				tinsert (RDXU.MapTargets, tar)
+			end
+			if map.GOpts["HUDTSoundOn"] then
+				Nx:PlaySoundFile ("sound\\interface\\magicclick.wav")
+			end
+			UIErrorsFrame:AddMessage ("Target " .. tar.n .. " reached", 1, 1, 1, 1)
+		end
+	end
+
+	map.Level = map.Level + 2
+
+	for n = 1, #RDXU.MapTargets do
+		local tr = RDXU.MapTargets[n]
+		
+		if n == 1 then
+			map.TrackName = tr.n
+			dist1 = map.TrackDistYd
+			dir1 = map.TrackDir
+		end
+
+		if tr.r then -- sub road
+			for m = 1, #tr.r do
+				local tr2 = tr.r[m]
+				if m == 1 then
+					map.TrackName = tr2.n
+				end
+				RDXMAP.APIMap.DrawTracking (map, srcX, srcY, tr2.x, tr2.y, tr2.t, tr2.n)
+				
+				srcX = tr2.x
+				srcY = tr2.y
+				
+			end
+		else
+			RDXMAP.APIMap.DrawTracking (map, srcX, srcY, tr.x, tr.y, tr.t, tr.n)
+			srcX = tr.x
+			srcY = tr.y
+		end
+	end
+
+	map.TrackDistYd = dist1
+	map.TrackDir = dir1
+end
+
+function RDXMAP.APIMap.CalcTracking2()
+	local myunit = RDXDAL.GetMyUnit();
+	local srcX = myunit.PlyrX
+	local srcY = myunit.PlyrY
+	local srcMapId = myunit.mapId
+
+	for n, tar in ipairs (RDXU.MapTargets) do
+		tar.r = RDXMAP.APITravel.MakePath (srcMapId, srcX, srcY, tar.m, tar.x, tar.y, tar.t)
+		srcX = tar.x
+		srcY = tar.y
+		srcMapId = tar.m
+	end
+end
+
+RDXEvents:Bind("INIT_DESKTOP", nil, function()
+	--VFLT.AdaptiveSchedule2("CalcTracking2", 5, RDXMAP.APIMap.CalcTracking2);
+end);

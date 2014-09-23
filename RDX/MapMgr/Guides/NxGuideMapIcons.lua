@@ -1,6 +1,7 @@
 
 RDXMAP.IconGuide = {}
 
+-- deprecated
 function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 	local Nx = Nx
 	local Quest = Nx.Quest
@@ -19,15 +20,9 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 	RDXMAP.APIMap.SetIconTypeLevel (map, "!GQ", 1)
 	RDXMAP.APIMap.InitIconType (map, "!GQC", "WP", "", 10, 10)
 	RDXMAP.APIMap.SetIconTypeChop (map, "!GQC", true)
-	local cont1 = 1
-	local cont2 = RDXMAP.ContCnt
-	local mapId = RDXMAP.APIMap.GetCurrentMapId(map)
+	local mapId = RDXMAP.APIMap.GetCurrentMapId()
 	if not mapId then return end
     if RDXMAP.APIMap.IsMicroDungeon(mapId) then return end 
-	if not RDXG.MapGuide.ShowAllCont then
-		cont1 = RDXMAP.APIMap.IdToContZone (mapId)
-		cont2 = cont1
-	end
 	for showType, folder in pairs (guide.ShowFolders) do		
 		local mode = strbyte (showType)		
 		local tx = "Interface\\Icons\\" .. (folder.Tx or "")
@@ -57,7 +52,7 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 		elseif mode == 35 then		
 		elseif mode == 37 then		
 			local mapId = folder.InstMapId
-			local winfo = NxMap.GetZoneInfo(mapId)
+			local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 			if winfo then
 				local wx = winfo[2]
 				local wy = winfo[3]
@@ -67,15 +62,15 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 			end
 		elseif mode == 38 then		
 			if Quest and Quest.QGivers then	
-				local mapId = RDXMAP.APIMap.GetCurrentMapId(map)
+				local mapId = RDXMAP.APIMap.GetCurrentMapId()
 				mapId=RDXMAP.APIMap.GCMI_OVERRIDE(mapId) 
 				local zone = RDXMAP.MapId2Zone[mapId]
 				local stzone = Quest.QGivers[zone]
 				if stzone then
 					local opts = Nx:GetGlobalOpts()
-					if not Nx.CurCharacter["Level"] then return end 
-					local minLvl = Nx.CurCharacter["Level"] - opts["QMapQuestGiversLowLevel"]
-					local maxLvl = Nx.CurCharacter["Level"] + opts["QMapQuestGiversHighLevel"]
+					if not RDXU["Level"] then return end 
+					local minLvl = RDXU["Level"] - opts["QMapQuestGiversLowLevel"]
+					local maxLvl = RDXU["Level"] + opts["QMapQuestGiversHighLevel"]
 					local state = RDXU.Opts[folder.Persist]
 					local debugMap = NxData.DebugMap
 					local showComplete = RDXG.MapGuide.ShowQuestGiverCompleted
@@ -90,7 +85,7 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 							local quest = Quest.IdToQuest[qId]
 							local qname, _, lvl, minlvl = Quest:Unpack (quest[1])
 							if lvl < 1 then	
-								lvl = Nx.CurCharacter["Level"]
+								lvl = RDXU["Level"]
 							end
 							if lvl >= minLvl and lvl <= maxLvl then
 								local col = "|r"
@@ -190,6 +185,12 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 			local icon = RDXMAP.APIMap.AddIconPt (map, "!G", wx, wy, nil, tx)
 			RDXMAP.APIMap.SetIconTip (icon, format ("%s\n%s %.1f %.1f", name1, RDXMAP.APIMap.IdToName(mapId1), x1, y1))
 		else
+			local cont1 = 1
+			local cont2 = RDXMAP.ContCnt
+			if not RDXG.MapGuide.ShowAllCont then
+				cont1 = RDXMAP.APIMap.IdToContZone (mapId)
+				cont2 = cont1
+			end
 			for cont = cont1, cont2 do
 				RDXMAP.IconGuide.UpdateMapGeneralIcons (map, cont, showType, hideFac, tx, folder.Name, "!G")
 			end
@@ -198,7 +199,7 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 end
 
 
-
+-- deprecated
 function RDXMAP.IconGuide.UpdateZonePOIIcons(map, guide)
 	local mapId = map.MapId
     mapId = RDXMAP.APIMap.GCMI_OVERRIDE(mapId) 
@@ -438,6 +439,113 @@ function RDXMAP.IconGuide.UpdateMapGeneralIcons2 (map, cont, showType, hideFac, 
 	end
 end
 
+-- Ajoute les icônes uniquement
+function RDXMAP.IconGuide.UpdateMapGeneralIcons3 (map, cont, showType, hideFac, tx, name, iconType, showMapId)
+
+	if not RDXMAP.GuideData[showType] then
+		VFL.vprint ("guide showType %s", showType)
+		return
+	end
+    
+	local dataStr = RDXMAP.GuideData[showType][cont]
+	if not dataStr or dataStr == "" then			
+		return
+	end	
+	local mode = strbyte (dataStr)
+	if mode == 32 then		
+		for n = 2, #dataStr, 6 do
+			local fac = strbyte (dataStr, n) - 35
+			if fac ~= hideFac then  
+				local zone = strbyte (dataStr, n + 1) - 35						
+				local mapId = RDXMAP.Zone2MapId[zone]
+				if mapId == nil then
+				else
+					if not showMapId or mapId == showMapId then
+						local x, y = RDXMAP.UnpackLocPtOff (dataStr, n + 2)						
+						local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, x, y)
+						--local icon = RDXMAP.APIMap.AddIconPt (map, iconType, wx, wy, nil, tx)
+						
+						local f = VFLUI.POIIcon:new(map, 4)
+						f.texture:SetTexture(tx)
+						f.X = x
+						f.Y = y
+						f.NXType = 3000
+						if (RDXMAP.APIMap.IdToName(mapId) == nil) then
+							VFL.vprint("ERROR: No Map Name For " .. mapId)
+						else
+							local str = format ("%s\n%s %.1f %.1f", name, RDXMAP.APIMap.IdToName(mapId), x, y)
+							--RDXMAP.APIMap.SetIconTip (icon, str)
+							f.NxTip = str
+						end
+						
+						table.insert(map.Icon3Frms, f);
+						
+					end
+				end
+			end
+		end
+	elseif mode == 33 then		
+	else	
+		for n = 1, #dataStr, 2 do
+			local npcI = (strbyte (dataStr, n) - 35) * 221 + (strbyte (dataStr, n + 1) - 35)
+			local npcStr = RDXMAP.NPCData[npcI]
+			if not npcStr then
+				VFL.vprint ("%s", name)
+			end
+			local fac = strbyte (npcStr, 1) - 35
+			if fac ~= hideFac then
+				local oStr = strsub (npcStr, 2)
+				local desc, zone, loc = RDXMAP.UnpackObjective (oStr)
+				desc = gsub (desc, "!", ", ")
+				local mapId = RDXMAP.Zone2MapId[zone]
+				if not mapId then
+					local name, minLvl, maxLvl, faction, cont = strsplit ("!", NxMap.Zones[zone])
+					if tonumber (faction) ~= 3 then
+						VFL.vprint ("Guide icon err %s %d", desc, zone)
+					end
+				elseif not showMapId or mapId == showMapId then
+					local mapName = RDXMAP.APIMap.IdToName(mapId)
+					if strbyte (oStr, loc) == 32 then  
+						loc = loc + 1
+						local cnt = floor ((#oStr - loc + 1) / 4)
+						for locN = loc, loc + cnt * 4 - 1, 4 do
+							local x, y = RDXMAP.UnpackLocPtOff (oStr, locN)
+							--local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, x, y)
+							--local icon = RDXMAP.APIMap.AddIconPt (map, iconType, wx, wy, nil, tx)
+							
+							local f = VFLUI.POIIcon:new(map, 4)
+							f.texture:SetTexture(tx)
+							f.X = x
+							f.Y = y
+							f.NXType = 3000
+							local str = format ("%s\n%s\n%s %.1f %.1f", name, desc:gsub("\239\188\140.*$",""), mapName, x, y)  
+							--RDXMAP.APIMap.SetIconTip (icon, str)
+							f.NxTip = str
+							
+							table.insert(map.Icon3Frms, f);
+						end
+					else
+						local _, zone, x, y = RDXMAP.GetObjectivePos (oStr)
+						--local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, x, y)
+						--local icon = RDXMAP.APIMap.AddIconPt (map, iconType, wx, wy, nil, tx)
+						
+						local f = VFLUI.POIIcon:new(map, 4)
+							f.texture:SetTexture(tx)
+							f.X = x
+							f.Y = y
+							f.NXType = 3000
+						local str = format ("%s\n%s\n%s %.1f %.1f", name, desc:gsub("\239\188\140.*$",""), mapName, x, y)
+						--RDXMAP.APIMap.SetIconTip (icon, str)
+						f.NxTip = str
+							
+						table.insert(map.Icon3Frms, f);
+					end
+				end
+			end
+		end
+	end
+end
+
 function RDXMAP.IconGuide.UpdateInstanceIcons (map, cont, folder)
 	local inst = folder[cont]
 	if not inst then	
@@ -445,7 +553,7 @@ function RDXMAP.IconGuide.UpdateInstanceIcons (map, cont, folder)
 	end
 	for showType, folder in ipairs (inst) do
 		local mapId = folder.InstMapId
-		local winfo = NxMap.GetZoneInfo(mapId)
+		local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 		if winfo and winfo.EntryMId == map.MapId then
 			local wx = winfo[2]
 			local wy = winfo[3]
@@ -469,7 +577,7 @@ function RDXMAP.IconGuide.UpdateTravelIcons (map, hideFac, folder)
 			RDXMAP.APIMap.SetIconTip (icon, format ("%s\n%s %.1f %.1f", name1, RDXMAP.APIMap.IdToName(mapId1), x1, y1))
 		end
 	end
-	local winfo = NxMap.GetZoneInfo(mapId)
+	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 	if winfo then
 		if winfo.Connections then
 			for id, zcon in pairs (winfo.Connections) do

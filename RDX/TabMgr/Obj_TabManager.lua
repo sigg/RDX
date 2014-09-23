@@ -64,12 +64,13 @@ function RDX.TabManager:new(parent, path, data, desc)
 						text = VFLI.i18n("Builtins Tabs:"),
 						color = _submenu_color,
 					});
-					local pkg = RDXData["tabs"];
+					local disk = RDXDB.GetDisk("RDXDiskSystem")
+					local pkg = disk["tabs"];
 					local tbl = {};
 					for objName,obj in pairs(pkg) do
 						if type(obj) == "table" then
 							if (obj.ty == "SymLink" and cffilter[objName]) or (obj.ty == "TabChatFrame" and cffilter[objName]) or obj.ty == "TabCombatLogs" or obj.ty == "TabWindow" or obj.ty == "TabMap" or obj.ty == "TabQuest" then 
-								local path = RDXDB.MakePath("tabs", objName);
+								local path = RDXDB.MakePath("RDXDiskSystem","tabs", objName);
 								if not RDXDB.PathHasInstance(path) then
 									local data = obj.data;
 									local tit = "";
@@ -105,39 +106,42 @@ function RDX.TabManager:new(parent, path, data, desc)
 						color = _submenu_color,
 					});
 					
-					local _, aui = RDXDB.ParsePath(RDXU.AUI);
-					local pkg = RDXData[aui];
+					local _, _, aui = RDXDB.ParsePath(RDXU.AUI);
+					local disk = RDXDB.GetDisk("RDXDiskTheme")
+					local pkg = disk[aui];
 					local tbl = {};
-					for objName,obj in pairs(pkg) do
-						if type(obj) == "table" and (obj.ty == "TabChatFrame" or obj.ty == "TabCombatLogs" or obj.ty == "TabWindow" or obj.ty == "TabMap" or obj.ty == "TabQuest") then
-							local path = RDXDB.MakePath(aui, objName);
-							if not RDXDB.PathHasInstance(path) then
-								local data = obj.data;
-								local tit = "";
-								if data then tit = obj.data.title; end
-								if tit then
-									table.insert(tbl, {
-										text = path .. " (" .. tit .. ")",
-										path = path,
-									});
-								else
-									table.insert(tbl, {
-										text = path,
-										path = path,
-									});
+					if pkg then
+						for objName,obj in pairs(pkg) do
+							if type(obj) == "table" and (obj.ty == "TabChatFrame" or obj.ty == "TabCombatLogs" or obj.ty == "TabWindow" or obj.ty == "TabMap" or obj.ty == "TabQuest") then
+								local path = RDXDB.MakePath("RDXDiskTheme", aui, objName);
+								if not RDXDB.PathHasInstance(path) then
+									local data = obj.data;
+									local tit = "";
+									if data then tit = obj.data.title; end
+									if tit then
+										table.insert(tbl, {
+											text = path .. " (" .. tit .. ")",
+											path = path,
+										});
+									else
+										table.insert(tbl, {
+											text = path,
+											path = path,
+										});
+									end
 								end
 							end
 						end
-					end
-					table.sort(tbl, function(x1,x2) return x1.path<x2.path; end);
-					for i,v in ipairs(tbl) do
-						table.insert(mnu, {
-							text = v.text,
-							func = function() 
-								VFL.poptree:Release(); 
-								self:AddTab(v.path, true);
-							end
-						});
+						table.sort(tbl, function(x1,x2) return x1.path<x2.path; end);
+						for i,v in ipairs(tbl) do
+							table.insert(mnu, {
+								text = v.text,
+								func = function() 
+									VFL.poptree:Release(); 
+									self:AddTab(v.path, true);
+								end
+							});
+						end
 					end
 				end,
 				true,

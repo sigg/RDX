@@ -27,8 +27,6 @@
 -------------------------------------------------------------------------------
 
 
-
-
 --------
 
 function RDXMAP.Travel:Init()
@@ -136,7 +134,7 @@ function RDXMAP.Travel:CaptureTaxi()
 			self.TaxiNameStart = locName
 
 			if NxData.DebugMap then
-				local name = RDXMAP.APIGuide.FindTaxis (locName)
+				local name = RDXMAP.APITravel.FindTaxis2(n)
 				VFL.vprint ("Taxi current %s (%s)", name or "nil", locName)
 			end
 		end
@@ -150,29 +148,49 @@ function RDXMAP.Travel.TakeTaxiNode (node)
 
 	local self = RDXMAP.Travel
 
---	RDXMAP.TaxiName = strsplit (",", TaxiNodeName (node))
-	RDXMAP.TaxiName = TaxiNodeName (node)
-
-	local name, x, y = RDXMAP.APIGuide.FindTaxis (RDXMAP.TaxiName)
-	if name then
-		VFL.print("TAXI Node OK");
-	else
-		VFL.print("TAXI Node NOK");
-	end
+	RDXMAP.TaxiName = TaxiNodeName (node) -- Localize name
 	local x1,y1 = TaxiNodePosition(node);
-	VFL.print("TNP" .. x1);
-	VFL.print("TNP" .. y1);
-	local x2, y2 = RDXMAP.Travel.GetData(node);
-	--if x then
-	--	VFL.print(x);
-	--	VFL.print(y);
-	--end
-	--VFL.print(x2);
-	--VFL.print(y2);
-	--local plZX, plZY = GetPlayerMapPosition ("player");
+	x1 = format("%0.6f",x1);
+	y1 = format("%0.6f",y1);
 	
+	-- Get Data from old system by default
+	local name, x, y = RDXMAP.APITravel.FindTaxis (RDXMAP.TaxiName)
+	local ff;
+	-- try to get global data from RDX FS
+	local mapId = RDXMAP.APIMap.GetRealMapId()
+	local info = RDXMAP.APIMap.GetWorldZone(mapId)
+	if info and info.c then
+		local mbo = RDXDB.TouchObject("RDXData:poisT:F_" .. info.c);
+		for k,v in ipairs (mbo.data) do
+			if x1 == v.fx and y1 == v.fy then
+				ff = true;
+				x, y = v.x, v.y
+			end
+		end
+		if ff then
+			VFL.print("TakeTaxiNode : get data from RDX FS");
+		end
+	end
 	
---	RDXMAP.TaxiNPCName = name
+	-- store into RDX FS
+	if not ff then
+		local mapId = RDXMAP.APIMap.GetRealMapId()
+		local info = RDXMAP.APIMap.GetWorldZone(mapId)
+		if info and info.c then
+			local mbo = RDXDB.TouchObject("RDXData:poisT:F_" .. info.c);
+			for k,v in ipairs (mbo.data) do
+				if v.n == RDXMAP.TaxiName then
+					ff = true;
+					v.fx = x1
+					v.fy = y1
+				end
+			end
+			if not ff2 then
+				VFL.print("TakeTaxiNode : Insert Not found, English only " .. RDXMAP.TaxiName);
+			end
+		end
+	end
+	
 	RDXMAP.TaxiX = x
 	RDXMAP.TaxiY = y
 
@@ -185,26 +203,11 @@ function RDXMAP.Travel.TakeTaxiNode (node)
 		Nx.Timer:Start ("TaxiTime", 1, self, self.TaxiTimer)
 	end
 
-	--if NxData.DebugMap then
-		VFL.vprint ("Taxi %s (%s) %.2f secs, node %d, %s %s", name or "nil", RDXMAP.TaxiName, tm, node, x or "?", y or "?")
+	--if RDXG.DebugMap then
+	--	VFL.vprint ("Taxi %s (%s) %.2f secs, node %d, %s %s", name or "nil", RDXMAP.TaxiName, tm, node, x or "?", y or "?")
 	--end
 
 	RDXMAP.Travel.OrigTakeTaxiNode (node)
-end
-
-function RDXMAP.Travel.GetData(node)
-	local locname = TaxiNodeName(node);
-	local zone;
-	--VFL.print(locname);
-	_,_,zone = strfind(locname,", (.+)$");
-	local mapid = RDXMAP.APIMap.NameToId(zone)
-	if mapid then
-		local x1,y1 = TaxiNodePosition(node);
-		if x1 then
-			local x, y = RDXMAP.APIMap.GetWorldPos(mapid, x1*100, y1*100);
-			return x,y;
-		end
-	end
 end
 
 --------
@@ -241,7 +244,7 @@ function RDXMAP.Travel:TaxiCalcTime (dest)
 				local srcName = TaxiNodeName (srcNode)
 				local destName = TaxiNodeName (destNode)
 
-				local t = self:TaxiFindConnectionTime (srcName, destName)
+				local t = self:TaxiFindConnectionTime (srcNode, destNode)
 				--local t = 0;
 				local routeName = srcName .. "#" .. destName
 
@@ -302,10 +305,10 @@ end
 --------
 -- 
 
-function RDXMAP.Travel:TaxiFindConnectionTime (srcName, destName)
+function RDXMAP.Travel:TaxiFindConnectionTime (srcNode, destNode)
 
-	local srcNPCName, x, y = RDXMAP.APIGuide.FindTaxis (srcName)
-	local destNPCName, x, y = RDXMAP.APIGuide.FindTaxis (destName)
+	local srcNPCName, x, y = RDXMAP.APITravel.FindTaxis2 (srcNode)
+	local destNPCName, x, y = RDXMAP.APITravel.FindTaxis2 (destNode)
 
 --	VFL.vprint ("NPC src %s %s", srcName, srcNPCName or "nil")
 --	VFL.vprint ("NPC dest %s %s", destName, destNPCName or "nil")
@@ -351,11 +354,11 @@ function RDXMAP.Travel:TaxiFindConnectionTime (srcName, destName)
 						return ((c1 - 35) * 221 + c2 - 35) / 10
 					end
 				else
-					VFL.vprint ("Travel: missing dnpc %s %s", destName, i)
+					VFL.vprint ("Travel: missing dnpc %s %s", destNPCName, i)
 				end
 			end
 		else
-			VFL.vprint ("Travel: missing snpc %s %s", srcName, i)
+			VFL.vprint ("Travel: missing snpc %s %s", srcNPCName, i)
 		end
 	end
 
@@ -383,6 +386,39 @@ function RDXMAP.Travel:TaxiSaveTime (tm)
 		self.TaxiSaveName = false
 	end
 end
+
+local function ProcessTaxi(self, elapsed)
+
+	RDXMAP.ontaxi = UnitOnTaxi ("player")
+
+	if RDXMAP.ontaxi then
+		if not RDXMAP.TaxiOn then	-- New taxi ride?
+			RDXMAP.TaxiStartTime = GetTime()
+			RDXMAP.TaxiOn = true
+			if RDXG.DebugMap then
+				VFL.vprint ("Taxi start")
+			end
+		end
+
+	elseif RDXMAP.TaxiOn then	-- Done with taxi
+		RDXMAP.TaxiOn = false
+		RDXMAP.TaxiX = nil		-- Clear so if we pop on a taxi by a unhooked method we don't track old
+
+		local tm = GetTime() - RDXMAP.TaxiStartTime
+
+		RDXMAP.Travel:TaxiSaveTime (tm)
+
+		if RDXG.DebugMap then
+			VFL.vprint ("Taxi time %.1f seconds", tm)
+		end
+	end
+end
+
+RDXEvents:Bind("INIT_POST", nil, function() 
+	local taxiFrame = CreateFrame("Frame");
+	taxiFrame:SetScript("OnUpdate", ProcessTaxi);
+	VFLP.RegisterFunc("RDXMAP", "ProcessTaxi", ProcessTaxi, true);
+end);
 
 -------------------------------------------------------------------------------
 
@@ -424,13 +460,15 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 		return
 	end
 
-	local srcInfo = NxMap.GetZoneInfo(srcMapId)
-	if srcInfo then
-		srcMapId = srcInfo.EntryMId or srcMapId
+	local srcInfo = RDXMAP.APIMap.GetWorldZone(srcMapId)
+	if srcInfo.EntryMId then
+		srcMapId = srcInfo.EntryMId
+		srcInfo = RDXMAP.APIMap.GetWorldZone(srcInfo.EntryMId)
 	end
-	local dstInfo = NxMap.GetZoneInfo(dstMapId)
-	if dstInfo then
-		dstMapId = dstInfo.EntryMId or dstMapId
+	local dstInfo = RDXMAP.APIMap.GetWorldZone(dstMapId)
+	if dstInfo.EntryMId then
+		dstMapId = dstInfo.EntryMId
+		dstInfo = RDXMAP.APIMap.GetWorldZone(dstInfo.EntryMId)
 	end
 
 	local x = dstX - srcX
@@ -448,29 +486,23 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 		riding = 0
 	end
 
-	local cont1 = RDXMAP.APIMap.IdToContZone (srcMapId)
-	local cont2 = RDXMAP.APIMap.IdToContZone (dstMapId)
+	local cont1 = srcInfo.c
+	local cont2 = dstInfo.c
 	local lvl = UnitLevel ("player")
 
 	self.FlyingMount = false
 
 	if riding >= 225 then
-
-		if cont1 == 1 or cont1 == 2 or cont1 == 5 then
+		if cont1 == 13 or cont1 == 14 or cont1 == 751 then
 			self.FlyingMount = GetSpellInfo (self.AzerothFlyName)
-
-		elseif cont1 == 3 then
+		elseif cont1 == 466 then
 			self.FlyingMount = true
-
-		elseif cont1 == 4 then
+		elseif cont1 == 485 then
 			self.FlyingMount = GetSpellInfo (self.ColdFlyName)
-        elseif cont1 == 6 then
+        elseif cont1 == 862 then
             self.FlyingMount = IsSpellKnown(self.FlySkillPandaria)            
-			
 		end
 	end
-
---	self.FlyingMount = riding >= 225 and (cont1 == 3 or cont1 == 4 and coldFly)		-- Don't use connections
 
 	local speed = 2 / 4.5
 	if riding < 75 then
@@ -528,8 +560,13 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 
 					if node1.MapId ~= node2.MapId then
 
-						local conDist, con = self:FindConnection (node1.MapId, node1.X, node1.Y, node2.MapId, node2.X, node2.Y)
-						local flyDist, fpath = self:FindFlight (node1.MapId, node1.X, node1.Y, node2.MapId, node2.X, node2.Y)
+						local conDist, conS, conD, con
+						if self.FlyingMount then		-- Can fly?
+							conDist = ((node1.X -  node2.X) ^ 2 + (node1.Y - node2.Y) ^ 2) ^ .5	-- Use straight line distance
+						else
+							conDist, conS, conD = RDXMAP.APITravel.FindZoneConnection (node1.MapId, node1.X, node1.Y, node2.MapId, node2.X, node2.Y)
+						end
+						local flyDist, fpath = RDXMAP.APITravel.FindFlight (node1.MapId, node1.X, node1.Y, node2.MapId, node2.X, node2.Y)
 
 --						fpath = nil		-- Test
 
@@ -539,41 +576,41 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 
 --							VFL.vprint (" con %s to %s", RDXMAP.APIMap.IdToName(node1.MapId), RDXMAP.APIMap.IdToName(node2.MapId))
 
-							if con then
+							if conS then
 --								VFL.vprint (" make con")
 
-								local ang1 = math.deg (math.atan2 (srcX - con.StartX, srcY - con.StartY))
-								local ang2 = math.deg (math.atan2 (srcX - con.EndX, srcY - con.EndY))
+								local ang1 = math.deg (math.atan2 (srcX - conS.x, srcY - conS.y))
+								local ang2 = math.deg (math.atan2 (srcX - conD.x, srcY - conD.y))
 								local ang = abs (ang1 - ang2)
 								ang = ang > 180 and 360 - ang or ang
 
 --								VFL.vprint ("Ang %s %s = %s", ang1, ang2, ang)
 
-								if con.StartMapId ~= node1.MapId then	-- Open connection caused us to switch zones? No split
+								if conD.zcr ~= node1.MapId then	-- Open connection caused us to switch zones? No split
 									node1.NoSplit = true
 								end
 
-								local name = format ("Connection: %s to %s", RDXMAP.APIMap.IdToName(con.StartMapId), RDXMAP.APIMap.IdToName(con.EndMapId))
+								local name = format ("Connection: %s to %s", RDXMAP.APIMap.IdToName(conD.zcr), RDXMAP.APIMap.IdToName(conS.zcr))
 
 								local node = {}
 								node.NoSplit = true
-								node.MapId = con.StartMapId
-								node.X = con.StartX
-								node.Y = con.StartY
+								node.MapId = conD.zcr
+								node.X = conS.x
+								node.Y = conS.y
 								node.Name = name
 								node.Tex = "Interface\\Icons\\Spell_Nature_FarSight"
 								tinsert (path, n + 1, node)
 
-								self.VisitedMapIds[con.StartMapId] = true
+								self.VisitedMapIds[conD.zcr] = true
 
 								if ang > 90 then
 									node.Die = true
 								end
 
 								local node = {}
-								node.MapId = con.EndMapId
-								node.X = con.EndX
-								node.Y = con.EndY
+								node.MapId = conS.zcr
+								node.X = conD.x
+								node.Y = conD.y
 								node.Name = name
 								node.Tex = "Interface\\Icons\\Spell_Nature_FarSight"
 								tinsert (path, n + 2, node)
@@ -591,7 +628,7 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 					else
 
 						local directDist = ((node1.X - node2.X) ^ 2 + (node1.Y - node2.Y) ^ 2) ^ .5		-- Straight line distance
-						local flyDist, fpath = self:FindFlight (node1.MapId, node1.X, node1.Y, node2.MapId, node2.X, node2.Y)
+						local flyDist, fpath = RDXMAP.APITravel.FindFlight (node1.MapId, node1.X, node1.Y, node2.MapId, node2.X, node2.Y)
 
 --						VFL.vprint ("%d: direct %s, fly %s", n, directDist, flyDist or "nil")
 
@@ -627,15 +664,10 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 				local x, y = node1.X, node1.Y
 
 				local t1 = {}
-				t1.TargetType = targetType
-				t1.TargetX1 = x
-				t1.TargetY1 = y
-				t1.TargetX2 = x
-				t1.TargetY2 = y
-				t1.TargetMX = x
-				t1.TargetMY = y
-				t1.TargetTex = node1.Tex
-				t1.TargetName = node1.Name
+				t1.t = targetType				
+				t1.x = x
+				t1.y = y
+				t1.n = node1.Name
 
 				if node1.Flight then
 					t1.Mode = "F"
@@ -647,9 +679,11 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 	end
 end
 
+
+
 function RDXMAP.Travel:FindFlight (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 
-	local t1Dist, t1Node, t1tex = self:FindClosest (srcMapId, srcX, srcY)
+	local t1Dist, t1Node, t1tex = RDXMAP.APITravel.FindClosestFlight (srcMapId, srcX, srcY)
 
 	if t1Node then
 
@@ -670,7 +704,7 @@ function RDXMAP.Travel:FindFlight (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 			local dx = dstX - distX * per		-- Push in towards middle
 			local dy = dstY - distY * per
 
-			local t2Dist, t2Node, t2tex = self:FindClosest (dstMapId, dx, dy)
+			local t2Dist, t2Node, t2tex = RDXMAP.APITravel.FindClosestFlight (dstMapId, dx, dy)
 
 			if t2Node then
 
@@ -756,7 +790,7 @@ function RDXMAP.Travel:FindClosest (mapId, posX, posY)
 				dist = (node.WX - posX) ^ 2 + (node.WY - posY) ^ 2
 
 			else
-				dist = self:FindConnection (mapId, posX, posY, node.MapId, node.WX, node.WY)
+				dist = self:FindConnection (mapId, posX, posY, node.MapId, node.WX, node.WY) ---
 				if not dist then
 					dist = 9900111222333444
 				else
@@ -787,7 +821,7 @@ function RDXMAP.Travel:FindConnection (srcMapId, srcX, srcY, dstMapId, dstX, dst
 		return ((srcX - dstX) ^ 2 + (srcY - dstY) ^ 2) ^ .5	-- Use straight line distance
 	end
 
-	local srcT = NxMap.GetZoneInfo(srcMapId)
+	local srcT = RDXMAP.APIMap.GetWorldZone(srcMapId)
 	if not srcT or not srcT.Connections then
 		return
 	end
@@ -832,7 +866,7 @@ function RDXMAP.Travel:FindConnection (srcMapId, srcX, srcY, dstMapId, dstX, dst
 
 				if #zcon == 0 then
 
-					local d, con = self:FindConnection (mapId, srcX, srcY, dstMapId, dstX, dstY, true)
+					local d, con = self:FindConnection (mapId, srcX, srcY, dstMapId, dstX, dstY, true) ---
 					if d and d < closeDist then
 						closeDist = d
 						closeCon = con
@@ -843,7 +877,7 @@ function RDXMAP.Travel:FindConnection (srcMapId, srcX, srcY, dstMapId, dstX, dst
 
 						local dist1 = ((con.StartX - srcX) ^ 2 + (con.StartY - srcY) ^ 2) ^ .5
 						local dist2 = ((con.EndX - dstX) ^ 2 + (con.EndY - dstY) ^ 2) ^ .5
-						local winfo = NxMap.GetZoneInfo(mapId)
+						local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 						local penalty
 						if winfo then
 							penalty = winfo.Connections[dstMapId] and 1 or 2
@@ -862,7 +896,7 @@ function RDXMAP.Travel:FindConnection (srcMapId, srcX, srcY, dstMapId, dstX, dst
 
 		if closeCon then
 
-			local d, con = self:FindConnection (closeCon.EndMapId, closeCon.EndX, closeCon.EndY, dstMapId, dstX, dstY, true)	-- Find next connection
+			local d, con = self:FindConnection (closeCon.EndMapId, closeCon.EndX, closeCon.EndY, dstMapId, dstX, dstY, true)	--- Find next connection
 			if con then
 
 --				VFL.vprint ("C+ %s %d (%s to %s)", RDXMAP.APIMap.IdToName(srcMapId), d, RDXMAP.APIMap.IdToName(con.StartMapId), RDXMAP.APIMap.IdToName(con.EndMapId))
@@ -933,6 +967,11 @@ function RDXMAP.Travel:DebugCaptureTaxi()
 --]]
 	end
 end
+
+
+
+
+
 
 -------------------------------------------------------------------------------
 -- EOF

@@ -1,96 +1,102 @@
 
 RDXMAP.APIMap = {};
 
---------
--- Get world info for a continent
--- (cont #)
+local myunit;
+RDXEvents:Bind("INIT_POST", nil, function() myunit = RDXDAL.GetMyUnit(); end);	
 
-function RDXMAP.APIMap.GetWorldContinentInfo (cont)
-	local info
-		info = RDXMAP.MapInfo[cont]
-	if not info then
-		return
-	end
+-- Get world zone from mapId
+function RDXMAP.APIMap.MapWorldInfo()
+	return RDXMAP.MapWorldInfo
+end
 
-	return info.Name, info.X, info.Y
+-- Get world zone from mapId
+function RDXMAP.APIMap.GetWorldZone (mapId)
+	return RDXMAP.MapWorldInfo[mapId]
 end
 
 --------
--- Get world info for a continent and zone
+-- Get world info for a continent or zone
 -- (cont #, zone #)
-function RDXMAP.APIMap.GetWorldZoneInfo (cont, zone)
-
-	if zone == 0 then
-		local info = RDXMAP.MapInfo[cont];
-		if info then
-			local winfo = RDXMAP.MapWorldInfo[info.mapid]
-			if not winfo then
-				return "unknown", 0, 0, 1, 1.5
-			end
-			local x = info.X + winfo[2]
-			local y = info.Y + winfo[3]
-			local scale = winfo[1] * 100
-			local name = winfo.localname or winfo.Name
-
-			return name, x, y, scale, scale / 1.5	
-		else
-			return "unknown", 0, 0, 1, 1.5
-		end
-	end
-	local winfo = RDXMAP.MapWorldInfo[zone]
-	if not winfo or not winfo[1] then
+function RDXMAP.APIMap.GetWorldZoneInfo (mapId)
+	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
+	if not winfo or not winfo.x then 
 		return "unknown", 0, 0, 1, 1.5
 	end
-	local x = winfo[4]
-	local y = winfo[5]
-	local scale = winfo[1] * 100
-	local name = winfo.localname or winfo.Name
-
-	return name, x, y, scale, scale / 1.5
+	local scale = winfo.s * 100
+	return winfo.localname or winfo.Name, winfo.x, winfo.y, scale, scale / 1.5
 end
+
+--------
+-- Get map short name (only BGs have)
+function RDXMAP.APIMap.GetShortName (mapId)
+	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
+	if winfo then return winfo.Short end 
+end
+
+--------
+-- Get description (color) that goes with a map nane
+
+function RDXMAP.APIMap.GetMapNameDesc (mapId)
+
+--	VFL.vprint ("MapId %s", mapId)
+	local minLvl, maxLvl, faction
+	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
+	if winfo then
+		minLvl = winfo.minLvl or 0;
+		maxLvl = winfo.maxLvl or 0;
+		faction = winfo.faction;
+	else
+		minLvl = 0;
+		maxLvl = 0;
+		faction = 1;
+	end
+
+	local infoStr = format ("%d-%d", minLvl, maxLvl)
+
+	local color = "|cffffffff"
+	if RDX.PlFactionNum == faction then
+		color = "|cff20ff20"
+	elseif faction == 2 then
+		color = "|cffffff00"
+	elseif faction < 2 then
+		color = "|cffff6060"
+	end
+
+	if minLvl == 0 then
+		infoStr = "Any"
+	end
+	
+	if winfo and winfo.City then
+		infoStr = "City"
+		minLvl = -1
+	end
+
+	return color, infoStr .. " " .. mapId , minLvl
+end
+
+function RDXMAP.APIMap.GCMI_OVERRIDE(mapId)
+    return mapId and RDXMAP.APIMap.GetWorldZone(mapId) and RDXMAP.APIMap.GetWorldZone(mapId).overrideMapWorldId or mapId
+end
+
+--------
+-- Update all map data
+
+function RDXMAP.APIMap.NewGetMapInfo()
+    local mapName, textureWidth, textureHeight, isMicroDungeon, microDungeonName = GetMapInfo()
+    if isMicroDungeon and microDungeonName then
+        return microDungeonName, textureWidth, textureHeight, isMicroDungeon, microDungeonName
+    end
+    return mapName, textureWidth, textureHeight, isMicroDungeon
+end	
 
 
 function RDXMAP.APIMap.GetWorldPos (mapId, mapX, mapY)
-
 --	self.GetWorldPosCnt = (self.GetWorldPosCnt or 0) + 1
-
---[[
-	local info = NxMap.MapInfo[floor (mapId / 1000)]
-	if not info then
-
-		if IsControlKeyDown() then
-			VFL.vprint ("GetWorldPos inst %s %s %s", mapId, mapX, mapY)
---			VFL.vprint (" %s", debugstack (2, 3, 0))
-		end
-
---		info = NxMap.MapInfo[0]
-		mapX = 0
-		mapY = 0
+	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
+	if winfo and winfo.x then
+		local scale = winfo.s
+		return	winfo.x + mapX * scale, winfo.y + mapY * scale / 1.5
 	end
---]]
-	local winfo = NxMap.GetZoneInfo(mapId)
-	if winfo and winfo[4] then
-
-		local scale = winfo[1]
-		
-		--if not scale then VFL.print("RDXMAP.APIMap.GetWorldPos scale " .. mapId); end
-		--if not mapX then VFL.print("RDXMAP.APIMap.GetWorldPos mapX " .. mapId); end
-		--if not mapY then VFL.print("RDXMAP.APIMap.GetWorldPos mapY " .. mapId); end
-		if not winfo[4] then 
-			--VFL.print("RDXMAP.APIMap.GetWorldPos winfo[4] " .. mapId); 
-			return 0, 0 end
-		--if not winfo[5] then VFL.print("RDXMAP.APIMap.GetWorldPos winfo[5] " .. mapId); end
-		
-		return	winfo[4] + mapX * scale, winfo[5] + mapY * scale / 1.5
-
---		if mapId == 11050 then
---			VFL.vprint ("%s %s %s %s", info.Y, winfo[3], mapY, scale)
---		end
-
---		return	info.X + winfo[2] + mapX * scale,
---					info.Y + winfo[3] + mapY / 1.5 * scale
-	end
-
 	return 0, 0
 end
 
@@ -99,10 +105,8 @@ end
 -- (id, x, y)
 
 function RDXMAP.APIMap.GetWorldRect (mapId, mapX, mapY, mapX2, mapY2)
-
 	local x, y = RDXMAP.APIMap.GetWorldPos (mapId, mapX, mapY)
 	local x2, y2 = RDXMAP.APIMap.GetWorldPos (mapId, mapX2, mapY2)
-
 	return x, y, x2, y2
 end
 
@@ -111,26 +115,12 @@ end
 -- (id, x, y)
 
 function RDXMAP.APIMap.GetZonePos (mapId, worldX, worldY)
-
 --	self.GetZonePosCnt = (self.GetZonePosCnt or 0) + 1
-
---	VFL.vprint ("WXY %f %f", worldX, worldY)
-
-	local winfo = NxMap.GetZoneInfo(mapId)
-	if winfo and winfo[4] then
-
-		local scale = winfo[1]		
-		return	(worldX - winfo[4]) / scale,
-					(worldY - winfo[5]) / scale * 1.5
-
---		local x = (worldX - info.X - winfo[2]) / scale
---		local y = (worldY - info.Y - winfo[3]) / scale * 1.5
-
---		VFL.vprint ("XY %f %f %f", x, y, scale)
-
---		return x, y
+	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
+	if winfo and winfo.x then
+		local scale = winfo.s		
+		return	(worldX - winfo.x) / scale, (worldY - winfo.y) / scale * 1.5
 	end
-
 	return 0, 0
 end
 
@@ -138,28 +128,31 @@ end
 -- Get the real player location map id
 -- asdf
 function RDXMAP.APIMap.GetInstanceID(id)
-		return id;
+	return id;
 end
 
 -- cette fonction récupère le mapid ou se trouve le joueur
 -- ne remonte plus le subzone dans la version RDX
-function RDXMAP.APIMap.GetRealMapId() 
-	local myunit = RDXDAL.GetMyUnit();
+function RDXMAP.APIMap.GetRealMapId()
 	return myunit.mapId
-	
 end
 
 --------
 -- Get the current selected map id
 -- Do not call SetMapToCurrentZone() here or crash
 function RDXMAP.APIMap.GetCurrentMapId()
-	local aid = GetCurrentMapAreaID()
-	return aid;
+	return GetCurrentMapAreaID()
 end
 
+function RDXMAP.APIMap.GetContinent(mapId)
+	local info = RDXMAP.APIMap.GetWorldZone(mapId) --
+	if info then
+		return info.c
+	end
+end
 
-function RDXMAP.APIMap.IdToContZone (mapId)
-	local info = RDXMAP.MapWorldInfo[mapId] --
+function RDXMAP.APIMap.IdToContZone(mapId)
+	local info = RDXMAP.APIMap.GetWorldZone(mapId) --
 	if info then
 		return info.Cont or 9, mapId
 	else
@@ -167,15 +160,6 @@ function RDXMAP.APIMap.IdToContZone (mapId)
 		return 0, mapId
 	end
 end
-
---------
--- Convert raw cont and zone to mapid
--- self: not used
-
-function RDXMAP.APIMap.CZ2MapId (cont, zone)
-		return zone;
-end
-
 
 function RDXMAP.APIMap.GetInstanceMapTextures(mapId)
 	local areaId
@@ -211,102 +195,20 @@ end
 function RDXMAP.APIMap.GetWorldZoneScale (mapId)
 
 --	self.GetWorldZoneScaleCnt = (self.GetWorldZoneScaleCnt or 0) + 1
---	local winfo = NxMap.GetZoneInfo(mapId)
+--	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 --	if not winfo then --
 --		VFL.vprint ("GetWorldZoneScale %s %s %s", mapId)
 --	end
 
 --	return (not winfo and 10.02) or winfo[1] --
-	local winfo = NxMap.GetZoneInfo(mapId)
+	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 	if winfo then
-		return winfo[1]
+		return winfo.s
 	end 
 end
-
--- Get world zone from map id
--- (id)
-
-function RDXMAP.APIMap.GetWorldZone (mapId)
-	return NxMap.GetZoneInfo(mapId)
-end
-
---------
--- Get map short name (only BGs have)
-function RDXMAP.APIMap.GetShortName (mapId)
-	local winfo = NxMap.GetZoneInfo(mapId)
-	if winfo then
-		return winfo.Short
-	end 
-end
-
---------
--- Get description (color) that goes with a map nane
-
-function RDXMAP.APIMap.GetMapNameDesc (mapId)
-
---	VFL.vprint ("MapId %s", mapId)
-	local minLvl, maxLvl, faction
-	if RDX.mapsw then
-		local winfo = NxMap.GetZoneInfo(mapId)
-		if winfo then
-			minLvl = winfo.minLvl or 0;
-			maxLvl = winfo.maxLvl or 0;
-			faction = winfo.faction;
-		else
-			minLvl = 0;
-			maxLvl = 0;
-			faction = 1;
-		end
-	else
-		local nxz = RDXMAP.MapId2Zone[mapId] or 0
-		_, minLvl, maxLvl, faction = strsplit ("!", NxMap.Zones[nxz]) --
-		minLvl = tonumber (minLvl)
-		faction = tonumber (faction)
-	end
-
-	local infoStr = format ("%d-%d", minLvl, maxLvl)
-
-	local color = "|cffffffff"
-	if RDX.PlFactionNum == faction then
-		color = "|cff20ff20"
-	elseif faction == 2 then
-		color = "|cffffff00"
-	elseif faction < 2 then
-		color = "|cffff6060"
-	end
-
-	if minLvl == 0 then
-		infoStr = "Any"
-	end
-
-	local a = RDXMAP.APIMap.GetWorldZone(mapId)
-	
-	if a and a.City then
-		infoStr = "City"
-		minLvl = -1
-	end
-
-	return color, infoStr .. " " .. mapId , minLvl
-end
-
-function RDXMAP.APIMap.GCMI_OVERRIDE(mapId)
-    return mapId and RDXMAP.APIMap.GetWorldZone(mapId) and RDXMAP.APIMap.GetWorldZone(mapId).overrideMapWorldId or mapId
-end
-
---------
--- Update all map data
-
-function RDXMAP.APIMap.NewGetMapInfo()
-    local mapName, textureWidth, textureHeight, isMicroDungeon, microDungeonName = GetMapInfo()
-    if isMicroDungeon and microDungeonName then
-        return microDungeonName, textureWidth, textureHeight, isMicroDungeon, microDungeonName
-    end
-    return mapName, textureWidth, textureHeight, isMicroDungeon
-end	
 
 --------
 -- Get map name from id
-
 function RDXMAP.APIMap.IdToName (mapId)
 	return RDXMAP.MapIdToName[mapId] or "?";
 end
@@ -322,27 +224,31 @@ end
 -- Check
 -----------------------------------------------------------
 
-
-function RDXMAP.APIMap.IsNormalMap (mapId)
-	local a = RDXMAP.MapWorldInfo[mapId]
+function RDXMAP.APIMap.IsContinentMap (mapId)
+	local a = RDXMAP.APIMap.GetWorldZone(mapId)
 	if a then
-		return a.tp == 2
+		return a.class == "c"
 	end
 end
 
---------
+function RDXMAP.APIMap.IsZoneMap (mapId)
+	local a = RDXMAP.APIMap.GetWorldZone(mapId)
+	if a then
+		return a.class == "z"
+	end
+end
 --
 function RDXMAP.APIMap.IsOutlandMap (mapId)
-	local a = RDXMAP.MapWorldInfo[mapId]
+	local a = RDXMAP.APIMap.GetWorldZone(mapId)
 	if a then
-		return a.tp == 2 and a.Cont == 3
+		return a.class == "z" and a.c == 466
 	end
 end
 
 --------
 --
 function RDXMAP.APIMap.IsInstanceMap (mapId)
-	local a = RDXMAP.MapWorldInfo[mapId]
+	local a = RDXMAP.APIMap.GetWorldZone(mapId)
 	if a then
 		return a.tp == 4
 	end
@@ -351,28 +257,96 @@ end
 --------
 --
 function RDXMAP.APIMap.IsBattleGroundMap (mapId)
-	local a = RDXMAP.MapWorldInfo[mapId]
+	local a = RDXMAP.APIMap.GetWorldZone(mapId)
 	if a then
 		return a.tp == 5
 	end
 end
 
 function RDXMAP.APIMap.IsMicroDungeon(mapId)
-	-- Sigg not good
-	local a = RDXMAP.MapWorldInfo[mapId]
-	if a then
-		return a.tp == 4
-	end
+	return myunit.isIndoor
 end
 
 function RDXMAP.APIMap.IsScenario(mapId)
-	local a = RDXMAP.MapWorldInfo[mapId]
+	local a = RDXMAP.APIMap.GetWorldZone(mapId)
 	if a then
 		return a.tp == 6
 	end
 end
 
 --------------------------------------
+
+--------
+-- Get minimap info for map
+-- (map id)
+-- ret: table, x, y
+
+function RDXMAP.APIMap.GetMiniInfo (mapId)
+
+	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
+	if not winfo then VFL.print(mapId); return; end
+	local id = winfo.MId
+
+	if not id then id = winfo.c; end
+	if not id then return; end
+
+	local t = RDXMAP.MiniMapBlks[id]
+
+	if not t then		-- "Isle of Quel'Danas"??
+
+--		if RDXG.DebugMap then
+--			VFL.vprint ("GetMiniInfo: missing %s", id)
+--		end
+		VFL.print("NxMap.MiniMapBlks error mapId " .. mapId);
+		return
+	end
+
+	return t, t[5], t[6]
+end
+
+--------
+-- Get minimap block file name (256x256 texture)
+
+function RDXMAP.APIMap.GetMiniBlkName (miniT, x, y)
+
+	local off = x * 100 + y
+
+--	VFL.vprintCtrl ("%s, %s, %s = %s", x, y, off, off + miniT[2])
+
+	--V4
+
+	local v = miniT[1][off + miniT[2]]
+
+	if v then
+
+		if #v > 0 then
+			return format ("%s\\noLiquid_map%02d_%02d", miniT[7], x + miniT[3], y + miniT[4])
+		end		
+		if (strfind(miniT[7],"HawaiiMainLand")) then			
+			local hasFac = false
+			for factionIndex = 1, GetNumFactions() do
+				local name, description, standingId, bottomValue, topValue, earnedValue, atWarWith,canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfo(factionIndex)				
+				if (name == "Operation: Shieldwall") or (name == "Dominance Offensive") then --localized name
+					hasFac = true
+				end
+			end
+			if (hasFac) then
+				if ((x + miniT[3] == 33) or (x + miniT[3] == 34)) and ((y + miniT[4] == 33) or (y + miniT[4] == 34)) then
+					return format("World\\Minimaps\\AllianceBeachDailyArea\\map%02d_%02d", x + miniT[3], y + miniT[4])
+				end
+				if ((x + miniT[3] == 27) or (x + miniT[3] == 28)) and ((y + miniT[4] == 35) or (y + miniT[4] == 36) or (y + miniT[4] == 37) or (y + miniT[4] == 38)) then
+					return format("World\\Minimaps\\HordeBeachDailyArea\\map%02d_%02d", x + miniT[3], y + miniT[4])
+				end
+			elseif (x + miniT[3] >= 18) and (x + miniT[3] <= 25) and (y + miniT[4] >= 17) and (y + miniT[4] <= 24) then
+				return format("World\\Minimaps\\MoguIslandDailyArea\\map%02d_%02d",x+miniT[3], y + miniT[4]-2)
+			else
+				return format ("%s\\map%02d_%02d", miniT[7], x + miniT[3], y + miniT[4])
+			end
+		else
+			return format ("%s\\map%02d_%02d", miniT[7], x + miniT[3], y + miniT[4])
+		end
+	end
+end
 
 --------
 -- Convert raw cont and zone to mapid
@@ -404,9 +378,6 @@ function RDXMAP.APIMap.ConnectionUnpack (str)
 	local conTime = (ta - 35) * 221 + tb - 35
 	local mapId1 = RDXMAP.Zone2MapId[z1 - 35]
 	local mapId2 = RDXMAP.Zone2MapId[z2 - 35]
-
---	local cont1 = RDXMAP.APIMap.IdToContZone (mapId1)
---	local cont2 = RDXMAP.APIMap.IdToContZone (mapId2)
 
 	name1len = name1len - 35
 	local name1 = name1len == 0 and "" or strsub (str, 15, 14 + name1len)

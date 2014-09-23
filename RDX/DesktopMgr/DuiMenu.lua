@@ -30,68 +30,65 @@ local function AUIList()
 	RDXPM.AUIMenu:ResetMenu();
 	
 	local sortDUI = {};
-	for pkgName, pkg in pairs(RDXData) do
-		if pkgName == "desktops" then
-			for objName, obj in pairs(pkg) do
-				if type(obj) == "table" and obj.ty == "AUI" then 
-					local path = RDXDB.MakePath(pkgName, objName);
-					local newMenu;
-					local submenu = {};
-					local flag = nil;
-					local data = obj.data;
-					if #data > 1 then
-						table.insert(submenu,{ text = VFLI.i18n("**** Layout ****"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop });
-						for i, v in ipairs(data)do
-							table.insert(submenu, { 
-									text = v,
-									checked = function()
-										if path == RDXU.AUI and v == RDXU.AUIState then return true; else return nil; end
-									end,
-									func = function()
-										VFL.poptree:Release();
-										RDXDK.SecuredChangeAUI(path, v);
-										AUIList();
-									end,
-								}
-							);
-						end
-						flag = true;
-					end
-					local tbl = thirdpartymenu[objName];
-					if tbl then
-						VFL.copyInto(submenu, tbl);
-						flag = true;
-					end
-					if flag then
-						newMenu = {
-							text = objName,
+	local pkg = RDXDB.GetPackage("RDXDiskSystem", "desktops")
+	for objName, obj in pairs(pkg) do
+		if type(obj) == "table" and obj.ty == "AUI" then 
+			local path = RDXDB.MakePath("RDXDiskSystem", "desktops", objName);
+			local newMenu;
+			local submenu = {};
+			local flag = nil;
+			local data = obj.data;
+			if #data > 1 then
+				table.insert(submenu,{ text = VFLI.i18n("**** Layout ****"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop });
+				for i, v in ipairs(data)do
+					table.insert(submenu, { 
+							text = v,
 							checked = function()
-								if path == RDXU.AUI then return true; else return nil; end
+								if path == RDXU.AUI and v == RDXU.AUIState then return true; else return nil; end
 							end,
 							func = function()
 								VFL.poptree:Release();
-								RDXDK.SecuredChangeAUI(path, "default");
+								RDXDK.SecuredChangeAUI(path, v);
 								AUIList();
 							end,
-							hasArrow = true;
-							menuList = submenu;
-						};
-					else
-						newMenu = {
-							text = objName,
-							checked = function()
-								if path == RDXU.AUI then return true; else return nil; end
-							end,
-							func = function()
-								VFL.poptree:Release();
-								RDXDK.SecuredChangeAUI(path, "default");
-								AUIList();
-							end
-						};
-					end
-					table.insert(sortDUI, newMenu);
+						}
+					);
 				end
+				flag = true;
 			end
+			local tbl = thirdpartymenu[objName];
+			if tbl then
+				VFL.copyInto(submenu, tbl);
+				flag = true;
+			end
+			if flag then
+				newMenu = {
+					text = objName,
+					checked = function()
+						if path == RDXU.AUI then return true; else return nil; end
+					end,
+					func = function()
+						VFL.poptree:Release();
+						RDXDK.SecuredChangeAUI(path, "default");
+						AUIList();
+					end,
+					hasArrow = true;
+					menuList = submenu;
+				};
+			else
+				newMenu = {
+					text = objName,
+					checked = function()
+						if path == RDXU.AUI then return true; else return nil; end
+					end,
+					func = function()
+						VFL.poptree:Release();
+						RDXDK.SecuredChangeAUI(path, "default");
+						AUIList();
+					end
+				};
+			end
+			table.insert(sortDUI, newMenu);
 		end
 	end
 	table.sort(sortDUI, function(x1,x2) return x1.text < x2.text; end);
@@ -138,7 +135,7 @@ local function AUIList()
 	end);
 	
 	if RDXU.AUI then
-		local pkg, file = RDXDB.ParsePath(RDXU.AUI);
+		local dk, pkg, file = RDXDB.ParsePath(RDXU.AUI);
 		if file then
 			RDXPM.AUIMenu:RegisterMenuFunction(function(ent)
 				ent.text = "*****************";
@@ -164,22 +161,22 @@ local function AUIList()
 	end
 end
 
-RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)
-	local path = RDXDB.MakePath(pkg,file);
+RDXDBEvents:Bind("OBJECT_DELETED", nil, function(dk, pkg, file, md)
+	local path = RDXDB.MakePath(dk, pkg,file);
 	if md and md.ty == "AUI" and path ~= RDXU.AUI then
 		AUIList();
 	end
 end);
 
-RDXDBEvents:Bind("OBJECT_CREATED", nil, function(pkg, file, md)
-	local path = RDXDB.MakePath(pkg,file);
+RDXDBEvents:Bind("OBJECT_CREATED", nil, function(dk, pkg, file, md)
+	local path = RDXDB.MakePath(dk, pkg,file);
 	if md and md.ty == "AUI" and path ~= RDXU.AUI then
 		AUIList();
 	end
 end);
 
-RDXDBEvents:Bind("OBJECT_MOVED", nil, function(pkg, file, npkg, nfile, md)
-	local path = RDXDB.MakePath(npkg,nfile);
+RDXDBEvents:Bind("OBJECT_MOVED", nil, function(dk, pkg, file, ndk, npkg, nfile, md)
+	local path = RDXDB.MakePath(ndk,npkg,nfile);
 	if md and md.ty == "AUI" and path ~= RDXU.AUI then
 		AUIList();
 	end

@@ -42,15 +42,6 @@ function VFLUI.Selectable:new(_, font)
 	icon:SetDrawLayer("OVERLAY"); icon:Hide();
 	icon:SetWidth(12); icon:SetHeight(12);
 	self.icon2 = icon;
-	-- Carbonite : create the slider
-	local ed = VFLUI.Edit:new(self, true); 
-	ed:SetHeight(12); ed:SetWidth(50);
-	self.ed = ed;
-	local sl = VFLUI.HScrollBar:new(self);
-	sl:SetWidth(100);
-	self.sl = sl;
-	sl:SetMinMaxValues(.1, 1);
-	VFLUI.BindSliderToEdit(sl, ed);
 	-- Repurposing: functions
 	local pfuncs = {};
 	pfuncs[1] = function(self)
@@ -58,9 +49,6 @@ function VFLUI.Selectable:new(_, font)
 		self.text:SetPoint("TOPLEFT", self, "TOPLEFT");
 		self.text:SetWidth(dx-1); self.text:SetHeight(dy); self.text:SetJustifyH("LEFT");
 		self.icon:Hide(); self.icon2:Hide();
-		self.ed:SetPoint("LEFT", self.text, "RIGHT");
-		self.sl:SetPoint("LEFT", self.ed, "RIGHT");
-		self.ed:Hide(); self.sl:Hide();
 	end
 	pfuncs[2] = function(self)
 		local dx,dy = self:GetWidth(), self:GetHeight();
@@ -68,9 +56,6 @@ function VFLUI.Selectable:new(_, font)
 		self.text:SetWidth(dx-1); self.text:SetHeight(dy); self.text:SetJustifyH("LEFT");
 		self.icon:ClearAllPoints(); self.icon:SetPoint("RIGHT", self, "RIGHT");
 		self.icon2:Hide();
-		self.ed:SetPoint("LEFT", self.text, "RIGHT");
-		self.sl:SetPoint("LEFT", self.ed, "RIGHT");
-		self.ed:Hide(); self.sl:Hide();
 	end
 	pfuncs[3] = function(self)
 		local dx,dy = self:GetWidth(), self:GetHeight();
@@ -78,9 +63,6 @@ function VFLUI.Selectable:new(_, font)
 		self.text:SetWidth(dx-1); self.text:SetHeight(dy); self.text:SetJustifyH("RIGHT");
 		self.icon:ClearAllPoints(); self.icon:SetPoint("LEFT", self, "LEFT");
 		self.icon2:Hide();
-		self.ed:SetPoint("LEFT", self.text, "RIGHT");
-		self.sl:SetPoint("LEFT", self.ed, "RIGHT");
-		self.ed:Hide(); self.sl:Hide();
 	end
 	pfuncs[4] = function(self)
 		local dx,dy = self:GetWidth(), self:GetHeight();
@@ -89,9 +71,6 @@ function VFLUI.Selectable:new(_, font)
 		self.text:SetPoint("LEFT", self.icon, "RIGHT");
 		self.text:SetWidth(dx-(self.icon:GetWidth())); self.text:SetHeight(dy); self.text:SetJustifyH("LEFT");
 		self.icon2:Hide();
-		self.ed:SetPoint("LEFT", self.text, "RIGHT");
-		self.sl:SetPoint("LEFT", self.ed, "RIGHT");
-		self.ed:Hide(); self.sl:Hide();
 	end
 	-- Repurposing functor
 	self.pfunc = pfuncs[1];
@@ -120,8 +99,6 @@ function VFLUI.Selectable:new(_, font)
 		s.pfunc = nil;
 		s.SetPurpose = nil;
 		s.Select = nil; s.Unselect = nil;
-		
-		s.sl:Destroy(); s.sl = nil; s.ed:Destroy(); s.ed = nil;
 		-- Destroy allocated regions
 		VFLUI.ReleaseRegion(hltTexture); hltTexture = nil;
 		VFLUI.ReleaseRegion(s.selTexture);

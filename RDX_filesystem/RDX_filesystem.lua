@@ -9,5 +9,6 @@
 ---------------------------------------------------
 WoWEvents:Bind("VARIABLES_LOADED", nil, function()
 	if not RDXData then RDXData = {}; end
+	RDXDB.RegisterDisk("RDXData", RDXData);
 end);
 

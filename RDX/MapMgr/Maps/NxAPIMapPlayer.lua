@@ -155,12 +155,10 @@ function RDXMAP.APIMap.UpdateGroup (map, plX, plY)
 
 					local sc = map.ScaleDraw
 					RDXMAP.APIMap.ClipFrameTL (map, f, wx - 9 / sc, wy - 10 / sc, 16 * per / sc, 1 / sc)
---					RDXMAP.APIMap.ClipFrameZTLO (map, f, pX, pY, 12 * per / map.ScaleDraw, .9 / map.ScaleDraw, -7, -7)
 					f.texture:SetTexture (1, 1, 1, 1)
 
 				else
 					RDXMAP.APIMap.ClipFrameW (map, f, wx, wy, 7, 7, 0)
---					RDXMAP.APIMap.ClipFrameZ (map, f, pX, pY, 7, 7, 0)
 
 					if per > 0 then
 						f.texture:SetTexture (1, .1, .1, 1 - per * 2)
@@ -267,7 +265,7 @@ function RDXMAP.APIMap.UpdateGroup (map, plX, plY)
 
 	if combatName then
 
-		if not map.InCombat or combatDist > 35 then
+		if not RDX.InCombat or combatDist > 35 then
 			map.TrackPlayer = combatName
 			return format ("Combat, %s %d%%", combatName, combatHealth * 100), combatX, combatY
 		end

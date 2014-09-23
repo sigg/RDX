@@ -254,7 +254,7 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 
 		local speed = myunit.PlyrSpeed
 		local sa
-		local winfo = NxMap.GetZoneInfo(map.MapId)
+		local winfo = RDXMAP.APIMap.GetWorldZone(map.MapId)
 		if winfo then
 			sa = winfo.ScaleAdjust
 		end 
@@ -323,10 +323,10 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 			local rid = RDXMAP.APIMap.GetRealMapId()			
 			if rid ~= 9000 and not WorldMapFrame:IsShown() then
 
-				local mapId = RDXMAP.APIMap.GetCurrentMapId(map)
+				local mapId = RDXMAP.APIMap.GetCurrentMapId()
 				if RDXMAP.APIMap.IsInstanceMap (rid) then					
 					if not RDXMAP.Map.InstanceInfo[rid] then		-- Don't convert WotLK/Cata instances
-						local winfo = NxMap.GetZoneInfo(rid)
+						local winfo = RDXMAP.APIMap.GetWorldZone(rid)
 						if winfo then
 							rid = winfo.EntryMId
 						end

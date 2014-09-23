@@ -26,7 +26,7 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 	if dlg then return; end
 	if (not path) or (not md) or (not md.data) then return nil; end
 	local inst = RDXDB.GetObjectInstance(path, true);
-	local pkg, file = RDXDB.ParsePath(path);
+	local dk, pkg, file = RDXDB.ParsePath(path);
 	local tmpdata = VFL.copy(md.data);
 	
 	dlg = VFLUI.Window:new(parent);
@@ -182,7 +182,7 @@ local function ChangeAUI(path, state, force)
 		RDXU.AUI = path;
 		currentAUI = RDXDB.GetObjectInstance(RDXU.AUI);
 		if currentAUI then
-			local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+			local _, _, auiname = RDXDB.ParsePath(RDXU.AUI);
 			RDXDK.SecuredChangeState(state);
 		end
 		--RDXEvents:Dispatch("AUI", auiname);
@@ -242,7 +242,7 @@ end);
 -- Update hooks - make sure when a desktop changes we reload it.
 -----------------------------------------------------------------
 
-RDXDBEvents:Bind("PACKAGE_DELETED", nil, function(pkg)
+RDXDBEvents:Bind("PACKAGE_DELETED", nil, function(dk, pkg)
 	local objdata = RDXDB._AccessPathRaw("desktops", pkg);
 	
 	if objdata and objdata.data then
@@ -258,7 +258,7 @@ end);
 ----------------------------
 
 RDXEvents:Bind("INIT_DESKTOP", nil, function()
-	if not RDXU.AUI and not RDXDB.ResolvePath(RDXU.AUI) then RDXU.AUI = "desktops:default"; end
+	if not RDXU.AUI and not RDXDB.ResolvePath(RDXU.AUI) then RDXU.AUI = "RDXDiskSystem:desktops:default"; end
 	if not RDXU.AUIState then RDXU.AUIState = "default"; end
 	
 	ChangeAUI(RDXU.AUI, RDXU.AUIState, true);
@@ -284,26 +284,26 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 end);
 
 local function ManageAutoDesk()
-	for pkg,dir in pairs(RDXDB.GetPackages()) do
+	for pkg,dir in pairs(RDXDB.GetDisk("RDXDiskTheme")) do
 		local aex, adesk, isexist = nil, nil, nil;
 		adesk = dir["autodesk"];
 		if adesk and adesk.ty == "Desktop" then
-			isexist = RDXDB.CheckObject("desktops:".. pkg, "AUI");
+			isexist = RDXDB.CheckObject("RDXDiskSystem:desktops:".. pkg, "AUI");
 			if not isexist then 
-				local mbo = RDXDB.TouchObject("desktops:".. pkg);
+				local mbo = RDXDB.TouchObject("RDXDiskSystem:desktops:".. pkg);
 				mbo.data = {};
 				mbo.ty = "AUI"; 
 				mbo.version = 2;
 				table.insert(mbo.data, "default");
 			else
-				local mbo = RDXDB.TouchObject("desktops:".. pkg);
+				local mbo = RDXDB.TouchObject("RDXDiskSystem:desktops:".. pkg);
 				if not VFL.vfind(mbo.data, "default") then
 					table.insert(mbo.data, "default");
 				end
 			end
-			local isexist2 = RDXDB.CheckObject("desktops:".. pkg .. "_default", "Desktop");
+			local isexist2 = RDXDB.CheckObject("RDXDiskSystem:desktops:".. pkg .. "_default", "Desktop");
 			if not isexist2 then 
-				RDXDB.Copy(pkg .. ":autodesk", "desktops:".. pkg .. "_default");
+				RDXDB.Copy("RDXDiskTheme:".. pkg .. ":autodesk", "RDXDiskSystem:desktops:".. pkg .. "_default");
 			end
 		end
 	end
@@ -316,8 +316,8 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 end);
 
 local function NewPackage_OnOK(x)
-	if RDXDB.CreatePackage(x) then
-		local default = RDXDB.GetOrCreatePackage(x);
+	if RDXDB.CreatePackage("RDXDiskTheme", x) then
+		local default = RDXDB.GetOrCreatePackage("RDXDiskTheme", x);
 		if not default["autodesk"] then
 			default["autodesk"] = {
 				["ty"] = "Desktop",
@@ -397,7 +397,7 @@ end
 local wl = {};
 local function BuildPackageList()
 	VFL.empty(wl);
-	for pkg,dir in pairs(RDXDB.GetPackages()) do
+	for pkg,dir in pairs(RDXDB.GetDisk("RDXDiskTheme")) do
 		local adesk = dir["autodesk"];
 		if adesk and adesk.ty == "Desktop" then
 			table.insert(wl, {text = pkg});

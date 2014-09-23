@@ -262,6 +262,7 @@ MapMgr\Utils.lua
 MapMgr\MapData.lua
 MapMgr\MapInit.lua
 MapMgr\Obj_MapInfo.lua
+MapMgr\Obj_Poi.lua
 #Metadata\Maps.lua
 #MapMgr\MapEngine.lua
 
@@ -301,7 +302,9 @@ MapMgr\Maps\MapWorldHotspots.lua
 MapMgr\Guides\NxGuide.lua
 MapMgr\Guides\NxAPIGuide.lua
 MapMgr\Guides\NxGuideMapIcons.lua
+MapMgr\Guides\IconsType.lua
 
+MapMgr\Travels\APITravel.lua
 MapMgr\Travels\Travel.lua
 MapMgr\Travels\Taxi.lua
 

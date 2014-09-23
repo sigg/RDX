@@ -89,10 +89,10 @@ RDXDB.RegisterObjectType({
 				text = VFLI.i18n("Transform Window"),
 				func = function() 
 					VFL.poptree:Release();
-					local pkg, file = RDXDB.ParsePath(path);
+					local dk, pkg, file = RDXDB.ParsePath(path);
 					md.ty = "Window";
 					md.version = 2;
-					RDXDBEvents:Dispatch("OBJECT_MOVED", pkg, file, pkg, file, md);
+					RDXDBEvents:Dispatch("OBJECT_MOVED", dk, pkg, file, dk, pkg, file, md);
 				end
 			});
 		end
@@ -122,20 +122,20 @@ RDXPM.RegisterTabCategory(VFLI.i18n("Windows"));
 ------------------------------------------
 -- Update hooks
 ------------------------------------------
-RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)
+RDXDBEvents:Bind("OBJECT_DELETED", nil, function(dk, pkg, file, md)
 	if md and md.ty == "TabWindow" then
-		local path = RDXDB.MakePath(pkg,file);
+		local path = RDXDB.MakePath(dk,pkg,file);
 		RDXPM.UnregisterTab(path, "Windows")
 	end
 end);
-RDXDBEvents:Bind("OBJECT_MOVED", nil, function(pkg, file, newpkg, newfile, md)
+RDXDBEvents:Bind("OBJECT_MOVED", nil, function(dk, pkg, file, newdk, newpkg, newfile, md)
 	if md and md.ty == "TabWindow" then
-		local path = RDXDB.MakePath(pkg,file);
+		local path = RDXDB.MakePath(dk,pkg,file);
 		RDXPM.UnregisterTab(path, "Windows")
 	end
 end);
-RDXDBEvents:Bind("OBJECT_CREATED", nil, function(pkg, file) 
-	local path = RDXDB.MakePath(pkg,file);
+RDXDBEvents:Bind("OBJECT_CREATED", nil, function(dk, pkg, file) 
+	local path = RDXDB.MakePath(dk,pkg,file);
 	local obj,_,_,ty = RDXDB.GetObjectData(path)
 	if ty == "TabWindow" then
 		local data = obj.data;
@@ -150,8 +150,8 @@ RDXDBEvents:Bind("OBJECT_CREATED", nil, function(pkg, file)
 		});
 	end
 end);
-RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(pkg, file) 
-	local path = RDXDB.MakePath(pkg,file);
+RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(dk, pkg, file) 
+	local path = RDXDB.MakePath(dk,pkg,file);
 	local obj,_,_,ty = RDXDB.GetObjectData(path)
 	if ty == "TabWindow" then
 		RDXPM.UnregisterTab(path, "Windows");
@@ -170,7 +170,7 @@ end);
 
 -- run on UI load 
 local function RegisterTabWindows()
-	for pkgName,pkg in pairs(RDXData) do
+	for pkgName,pkg in pairs(RDXDB.GetDisk("RDXData")) do
 		for objName,obj in pairs(pkg) do
 			if type(obj) == "table" and obj.ty == "TabWindow" then 
 				local path = RDXDB.MakePath(pkgName, objName);

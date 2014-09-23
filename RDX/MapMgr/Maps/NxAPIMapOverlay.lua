@@ -30,7 +30,7 @@ end
 
 function RDXMAP.APIMap.TargetOverlayUnexplored(map)
 
-	mapId = RDXMAP.APIMap.GetCurrentMapId(map)
+	mapId = RDXMAP.APIMap.GetCurrentMapId()
 
 	RDXMAP.APIMap.ClearTargets()		-- Will change current mapid
 
@@ -79,14 +79,14 @@ function RDXMAP.APIMap.UpdateOverlayUnexplored(map)
 	map.CurOverlays = false
 	s = nil
 
-	mapId = RDXMAP.APIMap.GetCurrentMapId(map)
+	mapId = RDXMAP.APIMap.GetCurrentMapId()
 
 	wzone = RDXMAP.APIMap.GetWorldZone (mapId)
 	if wzone then
 		if wzone.City then
 			return
 		end
-		s = wzone.Overlay
+		s = wzone.o
 	end
 
 	t = nil
@@ -152,11 +152,11 @@ function RDXMAP.APIMap.UpdateOverlay (map, mapId, bright, noUnexplored, main)
 	wzone = RDXMAP.APIMap.GetWorldZone (mapId)
 	-- sigg startzone isssu pandaria
 	--if wzone and (wzone.City or wzone.StartZone or RDXMAP.APIMap.IsMicroDungeon(mapId)) then
-	if wzone and (wzone.City or RDXMAP.APIMap.IsMicroDungeon(mapId)) then
+	if wzone and wzone.City then
 		return
 	end
 
-	s = wzone and wzone.Overlay or ""
+	s = wzone and wzone.o or ""
 	t = NxMap.ZoneOverlays[s]
 	flag = nil;
 	local myunit = RDXDAL.GetMyUnit();

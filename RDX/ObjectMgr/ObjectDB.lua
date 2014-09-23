@@ -19,35 +19,80 @@ RDXDBEvents = DispatchTable:new();
 -----------------------------------------------------------
 -- CORE ROUTINES
 -----------------------------------------------------------
+local disks = {};
+local function RegisterDisk(name, tbl)
+	--if disks[name] then ; end
+	disks[name] = tbl;	
+end
+RDXDB.RegisterDisk = RegisterDisk;
+
+local function GetDisk(name)
+	return disks[name]
+end
+RDXDB.GetDisk = GetDisk;
+--RDXDB.GetDisk("RDXData");
+
+local function GetDisks()
+	return disks;
+end
+RDXDB.GetDisks = GetDisks;
+
 -- Parse a path (a:b --> a, b)
 local function ParsePath(path)
 	if not path or type(path) ~= "string" then return nil; end
-	local _, _, a, b = string.find(path, "^(.*):(.*)$");
-	return a,b;
+	local _, _, a, b, c = string.find(path, "^(.*):(.*):(.*)$");
+	if c then
+		return a,b,c;
+	else
+		local _, _, a, b = string.find(path, "^(.*):(.*)$");
+		return a,b;
+	end
 end
 RDXDB.ParsePath = ParsePath;
 
 -- Generate a path from components (a, b --> a:b)
-local function MakePath(pkg, obj)
-	return pkg .. ":" .. obj;
+local function MakePath(dk, pkg, obj)
+	if obj then
+		return dk .. ":" .. pkg .. ":" .. obj;
+	else
+		if dk and pkg then
+			return dk .. ":" .. pkg;
+		end
+	end
 end
 RDXDB.MakePath = MakePath;
 
 -- Access the data stored at a given path, possibly resolving symlinks
--- RDX 7.1 table are objects, string are metadata package
-local function AccessPathRaw(pkg, obj)
-	if not pkg then return nil; end
-	local qq = RDXData[pkg];
-	if not qq or (type(qq[obj]) ~= "table") then return nil; end
-	return qq[obj];
+local function AccessPathRaw(dk, pkg, obj)
+	if not dk then return nil; end
+	if obj then
+		local disk = RDXDB.GetDisk(dk);
+		local qq = disk[pkg];
+		if not qq or (type(qq[obj]) ~= "table") then return nil; end
+		return qq[obj];
+	else
+		local disk = RDXDB.GetDisk("RDXData");
+		local qq = disk[dk];
+		if not qq or (type(qq[pkg]) ~= "table") then return nil; end
+		return qq[pkg];
+	end
 end
-local function AccessPath(pkg, obj)
-	local d1 = AccessPathRaw(pkg, obj);
-	if not d1 then return nil; end
-	if d1.ty ~= "SymLink" then return d1; end
-	local sl = AccessPathRaw(ParsePath(RDXDB.GetSymLinkTarget(d1.data)));
-	if not sl or sl == "" then sl = dl; end
-	return sl;
+local function AccessPath(dk, pkg, obj)
+	if obj then
+		local d1 = AccessPathRaw(dk, pkg, obj);
+		if not d1 then return nil; end
+		if d1.ty ~= "SymLink" then return d1; end
+		local sl = AccessPathRaw(ParsePath(RDXDB.GetSymLinkTarget(d1.data)));
+		if not sl or sl == "" then sl = dl; end
+		return sl;
+	else
+		local d1 = AccessPathRaw(dk, pkg);
+		if not d1 then return nil; end
+		if d1.ty ~= "SymLink" then return d1; end
+		local sl = AccessPathRaw(ParsePath(RDXDB.GetSymLinkTarget(d1.data)));
+		if not sl or sl == "" then sl = dl; end
+		return sl;
+	end
 end
 RDXDB._AccessPathRaw = AccessPathRaw;
 RDXDB.AccessPath = AccessPath;
@@ -100,37 +145,74 @@ end
 --- Notify downstream processes that a file has been updated.
 function RDXDB.NotifyUpdate(path)
 	--VFL.print("notify update " .. path);
-	local pkg,obj = ParsePath(path); if (not pkg) or (not obj) then return; end
-	RDXDBEvents:Dispatch("OBJECT_UPDATED", pkg, obj);
+	local dk,pkg,obj = ParsePath(path); if (not pkg) or (not obj) then return; end
+	RDXDBEvents:Dispatch("OBJECT_UPDATED", dk, pkg, obj);
 	-- All symlinks into this file are considered to be updated as well.
 	--RDXDB.Foreach(nu_iter, path);
 end
 
 --- Completely clear the RDX database and restart RDX. WARNING: data loss.
 function RDXDB.ClearRDXDatabase()
-	RDXData = {};
+	local disk = RDXDB.GetDisk("RDXData");
+	disk = {};
 	ReloadUI();
 end
 
--- copy with replace string
-function RDXDB.copyfd(T, srcPkg, dstPkg)
+-- copy with replace Filesystem
+function RDXDB.copyfd(T, srcDk, srcPkg, dstDk, dstPkg)
 	if(T == nil) then return nil; end
 	local out = {};
 	local k,v;
-	local a, b;
+	local a, b, c;
 	for k,v in pairs(T) do
 		if type(v) == "table" then
-			out[k] = RDXDB.copyfd(v, srcPkg, dstPkg); -- deepcopy subtable
+			out[k] = RDXDB.copyfd(v, srcDk, srcPkg, dstDk, dstPkg); -- deepcopy subtable
 		else
 			if type(v) == "string" then
-			 	local a, b = ParsePath(v);
-				if a and a == srcPkg then v = dstPkg .. ":" .. b; end
+			 	local a, b, c = ParsePath(v);
+				if a and a == srcDk and b and b == srcPkg then v = dstDk .. ":" .. dstPkg .. ":" .. c; end
 			end
 			out[k] = v; -- softcopy primitives
 		end
 	end
 	return out;
 end
+
+
+function RDXDB.copy10(T)
+	if(T == nil) then return nil; end
+	local out = {};
+	local k,v;
+	local a, b;
+	for k,v in pairs(T) do
+		if type(v) == "table" then
+			out[k] = RDXDB.copy10(v); -- deepcopy subtable
+		else
+			if type(v) == "string" and k ~= "feature" and k ~= "infoAuthorWebSite" then
+			 	local a, b, c = ParsePath(v);
+				if not c then
+					local a, b = ParsePath(v);
+					if a and b then
+						if a == "default" or a == "tabs" or a == "bindings" or a == "scripts" or a == "desktops" or a == "aurafilters" or a == "sets" then
+							v = "RDXDiskSystem:" .. a .. ":" .. b;
+						else
+							v = "RDXData:" .. a .. ":" .. b;
+						end
+					end
+				end
+			end
+			out[k] = v; -- softcopy primitives
+		end
+	end
+	return out;
+end
+
+function RDXDB.Upgrade10()
+	RDXData = RDXDB.copy10(RDXData);
+	ReloadUI();
+end
+
+--/script RDXDB.Upgrade10()
 
 ----------------------------------------------------------------------
 -- OBJECT TYPES
@@ -204,8 +286,8 @@ function RDXDB._RemoveInstance(path, a1, a2, a3)
 		end
 	end
 	rinstdb[i] = nil; instdb[path] = nil;
-	local tpkg, tobj = ParsePath(path)
-	RDXDBEvents:Dispatch("OBJECT_DEINSTANCIATED", tpkg, tobj);
+	local tdk, tpkg, tobj = ParsePath(path)
+	RDXDBEvents:Dispatch("OBJECT_DEINSTANCIATED", tdk, tpkg, tobj);
 end
 
 -- Create an instance, given predefined path and type info. This should only be called after
@@ -224,8 +306,8 @@ local function _CreateInstance(opath, obj, a1, a2, a3)
 	-- If successful, store in all relevant databases.
 	instdb[opath] = inst;
 	if not rinstdb[inst] then rinstdb[inst] = opath; end
-	local tpkg, tobj = ParsePath(opath)
-	RDXDBEvents:Dispatch("OBJECT_INSTANCIATED", tpkg, tobj);
+	local tdk, tpkg, tobj = ParsePath(opath)
+	RDXDBEvents:Dispatch("OBJECT_INSTANCIATED", tdk, tpkg, tobj);
 	return inst;
 end
 
@@ -234,37 +316,59 @@ end
 -- PACKAGE METADATA
 --------------------------------------------------
 -- Set metadata package
-function RDXDB.SetPackageMetadata(pkg, field, val)
-	if not RDXDB.GetPackage(pkg) then return nil; end
-	if (type(val) == "table") or (type(val) == "function") then return nil; end
-	if not RDXData[pkg] then RDXData[pkg] = {}; end
-	RDXData[pkg][field] = val;
-	RDXDBEvents:Dispatch("PACKAGE_METADATA_UPDATE", pkg);
-	return true;
+function RDXDB.SetPackageMetadata(dk, pkg, field, val)
+	if val then
+		if not RDXDB.GetPackage(dk, pkg) then return nil; end
+		if (type(val) == "table") or (type(val) == "function") then return nil; end
+		local disk = RDXDB.GetDisk(dk);
+		if not disk[pkg] then disk[pkg] = {}; end
+		disk[pkg][field] = val;
+		RDXDBEvents:Dispatch("PACKAGE_METADATA_UPDATE", dk, pkg);
+		return true;
+	else
+		if not RDXDB.GetPackage(dk) then return nil; end
+		if (type(field) == "table") or (type(field) == "function") then return nil; end
+		local disk = RDXDB.GetDisk("RDXData");
+		if not disk[dk] then disk[dk] = {}; end
+		disk[dk][pkg] = field;
+		RDXDBEvents:Dispatch("PACKAGE_METADATA_UPDATE", dk);
+		return true;
+	end
 end
 
-function RDXDB.SetAllPackageMetadata(pkg, pkgdata)
-	if not RDXDB.GetPackage(pkg) then return nil; end
+function RDXDB.SetAllPackageMetadata(dk, pkg, pkgdata)
+	if not RDXDB.GetPackage(dk, pkg) then return nil; end
 	if (type(pkgdata) ~= "table") then return nil; end
-	local qq = RDXData[pkg];
+	local disk = RDXDB.GetDisk(dk);
+	local qq = disk[pkg];
 	if not qq then return nil; end
 	VFL.copyInto(qq, pkgdata);
-	RDXDBEvents:Dispatch("PACKAGE_METADATA_UPDATE", pkg);
+	RDXDBEvents:Dispatch("PACKAGE_METADATA_UPDATE", dk, pkg);
 	return true;
 end
 
 -- Get metadata package
-function RDXDB.GetPackageMetadata(pkg, field)
-	if not pkg then return nil; end
-	local qq = RDXData[pkg];
-	if not qq or (type(qq[field]) == "table") then return nil; end
-	return qq[field];
+function RDXDB.GetPackageMetadata(dk, pkg, field)
+	if field then
+		if not pkg then return nil; end
+		local disk = RDXDB.GetDisk(dk);
+		local qq = disk[pkg];
+		if not qq or (type(qq[field]) == "table") then return nil; end
+		return qq[field];
+	else
+		if not dk then return nil; end
+		local disk = RDXDB.GetDisk("RDXData");
+		local qq = disk[dk];
+		if not qq or (type(qq[pkg]) == "table") then return nil; end
+		return qq[pkg];
+	end
 end
 
 -- Get all metadata package
-function RDXDB.GetAllPackageMetadata(pkg)
+function RDXDB.GetAllPackageMetadata(dk, pkg)
 	if not pkg then return nil; end
-	local qq = RDXData[pkg];
+	local disk = RDXDB.GetDisk(dk);
+	local qq = disk[pkg];
 	if not qq then return nil; end
 	local ret = {};
 	for k, v in pairs(qq) do
@@ -299,36 +403,40 @@ local function InitObjectDB()
 	end
 	
 	-- Initialize the RDX data saved variable.
-	if not RDXData then RDXData = {}; end
+	--if not RDXData then RDXData = {}; end
 
 	--- Get a package's contents if it exists; return NIL if it doesn't
-	function RDXDB.GetPackage(pkg)
-		if not pkg then return nil; end
-		return RDXData[pkg];
-	end
-
-	--- Get the root directory.
-	function RDXDB.GetPackages()
-		return RDXData;
+	function RDXDB.GetPackage(dk, pkg)
+		if not dk then return nil; end
+		if pkg then
+			local disk = RDXDB.GetDisk(dk);
+			return disk[pkg];
+		else
+			local disk = RDXDB.GetDisk("RDXData");
+			return disk[dk];
+		end
 	end
 
 	--- Iterate a function over all files
 	function RDXDB.Foreach(f, ...)
-		for pkg,pd in pairs(RDXData) do
-			for file,fd in pairs(pd) do
-				if type(fd) == "table" then
-					f(pkg, file, fd, ...);
+		for name,disk in pairs (RDXDB.GetDisks()) do
+			for pkg,pd in pairs(disk) do
+				for file,fd in pairs(pd) do
+					if type(fd) == "table" then
+						f(name, pkg, file, fd, ...);
+					end
 				end
 			end
 		end
 	end
 
 	--- Get a package's contents, creating it if it doesn't exist.
-	function RDXDB.GetOrCreatePackage(pkg, infoversion, infoname, inforealm, infoemail, infowebsite, infocomment)
-		local d = RDXData[pkg];
+	function RDXDB.GetOrCreatePackage(dk, pkg, infoversion, infoname, inforealm, infoemail, infowebsite, infocomment)
+		local disk = RDXDB.GetDisk(dk);
+		local d = disk[pkg];
 		if not d then
-			if RDXDB.CreatePackage(pkg, infoversion, infoname, inforealm, infoemail, infowebsite, infocomment) then
-				return RDXData[pkg];
+			if RDXDB.CreatePackage(dk, pkg, infoversion, infoname, inforealm, infoemail, infowebsite, infocomment) then
+				return disk[pkg];
 			else
 				return nil;
 			end
@@ -337,77 +445,107 @@ local function InitObjectDB()
 	end
 
 	--- Create a package. Returns (NIL, error code) on failure.
-	function RDXDB.CreatePackage(pkg, infoversion, infoname, inforealm, infoemail, infowebsite, infocomment)
+	function RDXDB.CreatePackage(dk, pkg, infoversion, infoname, inforealm, infoemail, infowebsite, infocomment)
 		if not RDXDB.IsValidFileName(pkg) then return nil, VFLI.i18n("Invalid filename. Filenames must be alphanumeric."); end
-		if RDXData[pkg] then return nil, VFLI.i18n("Package already exists."); end
+		local disk = RDXDB.GetDisk(dk);
+		if disk[pkg] then return nil, VFLI.i18n("Package already exists."); end
 		local d = {};
-		RDXData[pkg] = d;
+		disk[pkg] = d;
 		if not infoversion then infoversion = "1.0.0"; end
 		if not infoname then infoname = UnitName("player"); end
 		if not inforealm then inforealm = GetRealmName(); end
 		if not infocomment then infocomment = ""; end
-		RDXDB.SetPackageMetadata(pkg, "infoVersion", infoversion);
-		RDXDB.SetPackageMetadata(pkg, "infoAuthor", infoname);
-		RDXDB.SetPackageMetadata(pkg, "infoAuthorRealm", inforealm);
-		RDXDB.SetPackageMetadata(pkg, "infoAuthorWebSite", infowebsite);
-		RDXDB.SetPackageMetadata(pkg, "infoComment", infocomment);
-		RDXDBEvents:Dispatch("PACKAGE_CREATED", pkg, d);
+		RDXDB.SetPackageMetadata(dk, pkg, "infoVersion", infoversion);
+		RDXDB.SetPackageMetadata(dk, pkg, "infoAuthor", infoname);
+		RDXDB.SetPackageMetadata(dk, pkg, "infoAuthorRealm", inforealm);
+		RDXDB.SetPackageMetadata(dk, pkg, "infoAuthorEmail", infoemail);
+		RDXDB.SetPackageMetadata(dk, pkg, "infoAuthorWebSite", infowebsite);
+		RDXDB.SetPackageMetadata(dk, pkg, "infoComment", infocomment);
+		RDXDBEvents:Dispatch("PACKAGE_CREATED", dk, pkg, d);
 		return true;
 	end
 	
-	function RDXDB.IsCommonPackage(pkg)
-		local d = RDXData[pkg];
+	function RDXDB.IsCommonPackage(dk, pkg)
+		local disk = RDXDB.GetDisk(dk);
+		local d = disk[pkg];
 		if not d then return nil; end
-		if RDXDB.GetPackageMetadata(pkg, "infoIsCommon") then return true; else return nil; end
+		if RDXDB.GetPackageMetadata(dk, pkg, "infoIsCommon") then return true; else return nil; end
 	end
 
 	--- Delete a package. Fails, returning NIL, if the package is not empty.
-	function RDXDB.DeletePackage(pkg, force)
-		local d = RDXData[pkg];
+	function RDXDB.DeletePackage(dk, pkg, force)
+		local disk = RDXDB.GetDisk(dk);
+		local d = disk[pkg];
 		if not d then return true; end
-		if RDXDB.GetPackageMetadata(pkg, "infoIsImmutable") or RDXDB.GetPackageMetadata(pkg, "infoIsIndelible") then
+		if RDXDB.GetPackageMetadata(dk, pkg, "infoIsImmutable") or RDXDB.GetPackageMetadata(dk, pkg, "infoIsIndelible") then
 			return nil, VFLI.i18n("Cannot delete indelible package.");
 		end
 		if (not force) and (VFL.tsize(d) > 0) then return nil, VFLI.i18n("Cannot delete non-empty package."); end
 		--if RDXDB.GetPackageMetadata(pkg, "infoRunAutoDelete") then
 			local adel = d["autodel"];
 			if adel and adel.ty == "Script" then
-				RDXDB.OpenObject(pkg .. ":autodel", "Open", "local pkg = '" .. pkg .. "';");
+				RDXDB.OpenObject(dk, pkg .. ":autodel", "Open", "local pkg = '" .. pkg .. "';");
 			end
 		--end
-		RDXData[pkg] = nil;
-		RDXDBEvents:Dispatch("PACKAGE_DELETED", pkg);
+		disk[pkg] = nil;
+		RDXDBEvents:Dispatch("PACKAGE_DELETED", dk, pkg);
 		return true;
 	end
 	
-	function RDXDB.CopyPackage(srcPkg, dstPkg)
+	function RDXDB.CopyPackage(srcDk, srcPkg, dstPkg)
 		if not srcPkg or not dstPkg then return nil; end
-		local d = RDXData[srcPkg];
+		local disk = RDXDB.GetDisk(srcDk);
+		local d = disk[srcPkg];
 		if not d then return nil, VFLI.i18n("Source package does not exist."); end
-		local e = RDXData[dstPkg];
+		local e = disk[dstPkg];
 		if e then return nil, VFLI.i18n("Destination package exists."); end
 		local e = {};
 		for file,fd in pairs(d) do
 			if type(fd) == "table" then
-				local newfd = RDXDB.copyfd(fd, srcPkg, dstPkg)
+				local newfd = RDXDB.copyfd(fd, srcDk, srcPkg, srcDk, dstPkg)
 				e[file] = newfd;
 			else
 				e[file] = fd;
 			end
 		end
-		RDXData[dstPkg] = e;
-		RDXDBEvents:Dispatch("PACKAGE_CREATED", dstPkg, e);
+		disk[dstPkg] = e;
+		RDXDBEvents:Dispatch("PACKAGE_CREATED", dk, dstPkg, e);
 		return true;
 	end
 	
-	function RDXDB.CopyIntoPackage(srcPkg, dstPkg)
-		local d = RDXData[srcPkg];
+	function RDXDB.MigratePackage(srcDk, srcPkg, dstDk, dstPkg)
+		if not srcDk or not srcPkg or not dstDk then return nil; end
+		local sd = RDXDB.GetDisk(srcDk);
+		local dd = RDXDB.GetDisk(dstDk);
+		if not sd then return nil, VFLI.i18n("source disk does not exist."); end
+		if not dd then return nil, VFLI.i18n("destination disk does not exist."); end
+		local d = sd[srcPkg];
 		if not d then return nil, VFLI.i18n("Source package does not exist."); end
-		local e = RDXData[dstPkg];
+		local e = dd[dstPkg];
+		if e then return nil, VFLI.i18n("Destination package exists."); end
+		local e = {};
+		for file,fd in pairs(d) do
+			if type(fd) == "table" then
+				local newfd = RDXDB.copyfd(fd, srcDk, srcPkg, dstDk, dstPkg)
+				e[file] = newfd;
+			else
+				e[file] = fd;
+			end
+		end
+		dd[dstPkg] = e;
+		RDXDBEvents:Dispatch("PACKAGE_CREATED", dstDk, dstPkg, e);
+		return true;
+	end
+	
+	function RDXDB.CopyIntoPackage(dk, srcPkg, dstPkg)
+		local disk = RDXDB.GetDisk(dk);
+		local d = disk[srcPkg];
+		if not d then return nil, VFLI.i18n("Source package does not exist."); end
+		local e = disk[dstPkg];
 		if not e then return nil, VFLI.i18n("Destination package does not exists."); end
 		for file,fd in pairs(d) do
 			if type(fd) == "table" then
-				local newfd = RDXDB.copyfd(fd, srcPkg, dstPkg)
+				local newfd = RDXDB.copyfd(fd, dk, srcPkg, dk, dstPkg)
 				e[file] = newfd;
 			else
 				e[file] = fd;
@@ -416,14 +554,15 @@ local function InitObjectDB()
 		return true;
 	end
 	
-	function RDXDB.CopyIntoAllPackages(srcPkg)
-		local d = RDXData[srcPkg];
+	function RDXDB.CopyIntoAllPackages(dk, srcPkg)
+		local disk = RDXDB.GetDisk(dk);
+		local d = disk[srcPkg];
 		if not d then return nil, VFLI.i18n("Source package does not exist."); end
-		for k,v in pairs(RDXData) do
+		for k,v in pairs(disk) do
 			if v["autodesk"] and k ~= "default" then
 				for file,fd in pairs(d) do
 					if type(fd) == "table" then
-						local newfd = RDXDB.copyfd(fd, srcPkg, k)
+						local newfd = RDXDB.copyfd(fd, dk, srcPkg, dk, k)
 						v[file] = newfd;
 					else
 						v[file] = fd;
@@ -435,16 +574,19 @@ local function InitObjectDB()
 	end
 
 	--- Empty a package.
-	function RDXDB._EmptyPackage(pkg)
-		local d = RDXData[pkg];
+	function RDXDB._EmptyPackage(dk, pkg)
+		local disk = RDXDB.GetDisk(dk);
+		local d = disk[pkg];
 		if type(d) ~= "table" then return; end
 		VFL.empty(d);
-		RDXDBEvents:Dispatch("PACKAGE_MASS_CHANGE", pkg);
+		RDXDBEvents:Dispatch("PACKAGE_MASS_CHANGE", dk, pkg);
 	end
 	
 	-- Return number of objects in this package
-	function RDXDB.GetNumberObjects(pkg)
-		local d, cp = RDXData[pkg], 0;
+	function RDXDB.GetNumberObjects(dk, pkg)
+		if not dk or not pkg then return 0; end
+		local disk = RDXDB.GetDisk(dk);
+		local d, cp = disk[pkg], 0;
 		if type(d) ~= "table" then return 0; end
 		for file,fd in pairs(d) do
 			if type(fd) == "table" then
@@ -463,8 +605,8 @@ local function InitObjectDB()
 
 	--- Get the object metadata at the given path, or NIL if it doesn't exist
 	function RDXDB.GetObjectData(path)
-		local pkg,file = ParsePath(path);
-		local fd = AccessPath(pkg, file); if not fd then return nil; end
+		local dk, pkg, file = ParsePath(path);
+		local fd = AccessPath(dk, pkg, file); if not fd then return nil; end
 		return fd, pkg, file, fd.ty, RDXDB.GetObjectType(fd.ty); 
 	end
 
@@ -479,48 +621,48 @@ local function InitObjectDB()
 	end
 
 	--- Create a new object at a node where no object is.
-	function RDXDB.CreateObject(pkg, file, ty, forcename)
-		if (not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
+	function RDXDB.CreateObject(dk, pkg, file, ty, forcename)
+		if (not dk) or (not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
 		local t = RDXDB.GetObjectType(ty);
 		if (not t) or (not t.New) then return nil, VFLI.i18n("Invalid object type."); end
 		if (not RDXDB.IsValidFileName(file)) and (not forcename) then return nil, VFLI.i18n("Invalid filename. Filenames must be alphanumeric."); end
 		if (RDXDB.IsReserveWord(file)) then return nil, VFLI.i18n("Invalid filename. Filename protected."); end
-		local p = RDXDB.GetPackage(pkg);
+		local p = RDXDB.GetPackage(dk, pkg);
 		if not p then return nil, VFLI.i18n("Package does not exist."); end
-		if RDXDB.GetPackageMetadata(pkg, "infoIsImmutable") then
+		if RDXDB.GetPackageMetadata(dk, pkg, "infoIsImmutable") then
 			return nil, VFLI.i18n("Cannot create object in immutable package.");
 		end
 		if p[file] then return nil, VFLI.i18n("File already exists in package."); end
 		-- Create the object
 		local fmd = { ty = ty, version = 0, data = {} };
 		p[file] = fmd;
-		t.New(RDXDB.MakePath(pkg, file), fmd);
+		t.New(RDXDB.MakePath(dk, pkg, file), fmd);
 		VFLT.NextFrame(math.random(100000000), function()
-			RDXDBEvents:Dispatch("OBJECT_CREATED", pkg, file, fmd);
+			RDXDBEvents:Dispatch("OBJECT_CREATED", dk, pkg, file, fmd);
 		end);
 		return true;
 	end
 
 	--- Create an object, overriding most restrictions and bypassing initialization schemes.
-	function RDXDB._DirectCreateObject(pkg, file)
-		if (not pkg) or (not file) then return nil; end
-		local p = RDXDB.GetPackage(pkg);
+	function RDXDB._DirectCreateObject(dk, pkg, file)
+		if (not dk) or (not pkg) or (not file) then return nil; end
+		local p = RDXDB.GetPackage(dk, pkg);
 		if not p then return nil; end
 		local fmd = { ty = "Typeless", version = 0, data = {} };
 		p[file] = fmd;
 		VFLT.NextFrame(math.random(100000000), function()
-			RDXDBEvents:Dispatch("OBJECT_CREATED", pkg, file, fmd);
+			RDXDBEvents:Dispatch("OBJECT_CREATED", dk, pkg, file, fmd);
 		end);
 		return fmd;
 	end
 
 	--- Delete an object.
 	function RDXDB.DeleteObject(path)
-		local pkg, file = ParsePath(path);
-		if (not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
-		local p = RDXDB.GetPackage(pkg);
+		local dk, pkg, file = ParsePath(path);
+		if (not dk) or (not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
+		local p = RDXDB.GetPackage(dk, pkg);
 		if not p then return nil, VFLI.i18n("Package does not exist."); end
-		if RDXDB.GetPackageMetadata(pkg, "infoIsImmutable") then
+		if RDXDB.GetPackageMetadata(dk, pkg, "infoIsImmutable") then
 			return nil, VFLI.i18n("Cannot delete object in immutable package."); 
 		end
 		local qq = p[file];
@@ -529,19 +671,19 @@ local function InitObjectDB()
 		-- Perform the deletion
 		RDXDB._RemoveInstance(path, qq); -- Remove any instances that are out there...
 		p[file] = nil;
-		RDXDBEvents:Dispatch("OBJECT_DELETED", pkg, file, qq);
+		RDXDBEvents:Dispatch("OBJECT_DELETED", dk, pkg, file, qq);
 		return true;
 	end
 
 	--- Rename an object.
 	function RDXDB.RenameObject(path, newFileName)
-		local pkg, file = ParsePath(path);
-		if (not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
+		local dk, pkg, file = ParsePath(path);
+		if (not dk) or (not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
 		if not RDXDB.IsValidFileName(newFileName) then return nil, VFLI.i18n("New filename is invalid."); end
 		if RDXDB.IsReserveWord(newFileName) then return nil, VFLI.i18n("New filename is invalid. (protected)"); end
-		local p = RDXDB.GetPackage(pkg);
+		local p = RDXDB.GetPackage(dk, pkg);
 		if not p then return nil, VFLI.i18n("Package does not exist."); end
-		if RDXDB.GetPackageMetadata(pkg, "infoIsImmutable") then
+		if RDXDB.GetPackageMetadata(dk, pkg, "infoIsImmutable") then
 			return nil, VFLI.i18n("Cannot rename object in immutable package."); 
 		end
 		if p[newFileName] then
@@ -553,17 +695,17 @@ local function InitObjectDB()
 		-- Do the rename
 		RDXDB._RemoveInstance(path);
 		p[file] = nil; p[newFileName] = qq;
-		RDXDBEvents:Dispatch("OBJECT_MOVED", pkg, file, pkg, newFileName, qq);
+		RDXDBEvents:Dispatch("OBJECT_MOVED", dk, pkg, file, dk, pkg, newFileName, qq);
 		return true;
 	end
 
-	--- Move an object.
-	function RDXDB.MoveObject(path, newPkg)
-		local pkg, file = ParsePath(path);
-		if (not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
-		local pSrc = RDXDB.GetPackage(pkg); if not pSrc then return nil, VFLI.i18n("Source package does not exist."); end
-		local pDst = RDXDB.GetPackage(newPkg); if not pDst then return nil, VFLI.i18n("Destination package does not exist."); end
-		if RDXDB.GetPackageMetadata(pkg, "infoIsImmutable") or RDXDB.GetPackageMetadata(pDst, "infoIsImmutable") then
+	--- Move an object
+	function RDXDB.MoveObject(path, newDk, newPkg)
+		local dk, pkg, file = ParsePath(path);
+		if (not dk) or (not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
+		local pSrc = RDXDB.GetPackage(dk, pkg); if not pSrc then return nil, VFLI.i18n("Source package does not exist."); end
+		local pDst = RDXDB.GetPackage(newDk, newPkg); if not pDst then return nil, VFLI.i18n("Destination package does not exist."); end
+		if RDXDB.GetPackageMetadata(dk, pkg, "infoIsImmutable") or RDXDB.GetPackageMetadata(newDk, newPkg, "infoIsImmutable") then
 			return nil, VFLI.i18n("Cannot modify an immutable package.");
 		end
 		if pDst[file] then return nil, VFLI.i18n("Destination file already exists."); end
@@ -572,30 +714,30 @@ local function InitObjectDB()
 		-- Do the move
 		RDXDB._RemoveInstance(path);
 		pSrc[file] = nil; pDst[file] = qq;
-		RDXDBEvents:Dispatch("OBJECT_MOVED", pkg, file, newPkg, file, qq);
+		RDXDBEvents:Dispatch("OBJECT_MOVED", dk, pkg, file, newDk, newPkg, file, qq);
 		return true;
 	end
 
 	--- Copy an object.
-	function RDXDB.CopyObject(path, newPkg)
-		local pkg,file = ParsePath(path);
-		if not pkg or not file then return nil, VFLI.i18n("Invalid path."); end
-		return RDXDB.Copy(path, MakePath(newPkg, file), "RENAME");
+	function RDXDB.CopyObject(path, newDk, newPkg)
+		local dk, pkg, file = ParsePath(path);
+		if not dk or not pkg or not file then return nil, VFLI.i18n("Invalid path."); end
+		return RDXDB.Copy(path, MakePath(newDk, newPkg, file), "RENAME");
 	end
 
 	--- Copies a preexisting object.
 	function RDXDB.Copy(srcPath, dstPath, eh, rn)
 		if not eh then eh = "OVERWRITE"; end
 		---- Source validation
-		local spkg, sfile = ParsePath(srcPath);
-		if(not spkg) or (not sfile) then return nil, VFLI.i18n("Invalid source path."); end
-		local spd = RDXDB.GetPackage(spkg); if not spd then return nil, VFLI.i18n("Source package does not exist."); end
+		local sdk, spkg, sfile = ParsePath(srcPath);
+		if (not sdk) or (not spkg) or (not sfile) then return nil, VFLI.i18n("Invalid source path."); end
+		local spd = RDXDB.GetPackage(sdk, spkg); if not spd then return nil, VFLI.i18n("Source package does not exist."); end
 		local sfd = spd[sfile]; if not sfd then return nil, VFLI.i18n("Source file does not exist."); end
 		---- Destination validation
-		local dpkg, dfile = ParsePath(dstPath);
-		if(not dpkg) or (not dfile) then return nil, VFLI.i18n("Invalid destination path."); end
-		if RDXDB.GetPackageMetadata(dpkg, "infoIsImmutable") then return nil, VFLI.i18n("Destination package is immutable."); end
-		local dpd = RDXDB.GetOrCreatePackage(dpkg); if not dpd then return nil, VFLI.i18n("Could not get destination package."); end
+		local ddk, dpkg, dfile = ParsePath(dstPath);
+		if (not ddk) or (not dpkg) or (not dfile) then return nil, VFLI.i18n("Invalid destination path."); end
+		if RDXDB.GetPackageMetadata(ddk, dpkg, "infoIsImmutable") then return nil, VFLI.i18n("Destination package is immutable."); end
+		local dpd = RDXDB.GetOrCreatePackage(ddk, dpkg); if not dpd then return nil, VFLI.i18n("Could not get destination package."); end
 		local dfd = dpd[dfile];
 		-- If the destination exists, typecheck vs the source
 		if dfd then
@@ -611,10 +753,10 @@ local function InitObjectDB()
 		if not rn then
 			dpd[dfile] = VFL.copy(sfd);
 		else
-			dpd[dfile] = RDXDB.copyfd(sfd, spkg, dpkg); -- rename pkg
+			dpd[dfile] = RDXDB.copyfd(sfd, sdk, spkg, ddk, dpkg); -- rename pkg
 		end
 		VFLT.NextFrame(math.random(100000000), function()
-			RDXDBEvents:Dispatch("OBJECT_CREATED", dpkg, dfile, dpd[dfile]);
+			RDXDBEvents:Dispatch("OBJECT_CREATED", ddk, dpkg, dfile, dpd[dfile]);
 		end);
 		return true;
 	end
@@ -622,22 +764,22 @@ local function InitObjectDB()
 	--- "Touch" an object, returning a direct reference to its contents if we have the ability to
 	-- update it. Automatically creates it as a typeless object if it doesn't exist.
 	function RDXDB.TouchObject(path)
-		local pkg, file = ParsePath(path);
-		if(not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
-		local pkgData = RDXDB.GetOrCreatePackage(pkg); if not pkgData then return nil, VFLI.i18n("Invalid package."); end
+		local dk, pkg, file = ParsePath(path);
+		if (not dk) or (not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
+		local pkgData = RDXDB.GetOrCreatePackage(dk, pkg); if not pkgData then return nil, VFLI.i18n("Invalid package."); end
 		-- If the file already exists, we're golden.
 		local od = pkgData[file];
 		if od then
 			return od;
 		else
-			if RDXDB.GetPackageMetadata(pkg, "infoIsImmutable") then
+			if RDXDB.GetPackageMetadata(dk, pkg, "infoIsImmutable") then
 				return nil, VFLI.i18n("Cannot create object in immutable package.");
 			end
 			-- Create the object
 			local fmd = { ty = "Typeless", version = 0 };
 			pkgData[file] = fmd;
 			VFLT.NextFrame(math.random(100000000), function()
-				RDXDBEvents:Dispatch("OBJECT_CREATED", pkg, file, fmd);
+				RDXDBEvents:Dispatch("OBJECT_CREATED", dk, pkg, file, fmd);
 			end);
 			return fmd;
 		end
@@ -677,19 +819,6 @@ local function InitObjectDB()
 		return ty[op](path, data, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 	end
 
-	-- Make sure the default packages exist
-	RDXDB.GetOrCreatePackage("default", "1.0.0", "WoWRDX", "", "sigg@wowrdx.com", "http://www.wowrdx.com", "RDX package");
-	RDXDB.SetPackageMetadata("default", "infoIsIndelible", true);
-	RDXDB.GetOrCreatePackage("scripts", "1.0.0", "WoWRDX", "", "sigg@wowrdx.com", "http://www.wowrdx.com", "RDX package");
-	RDXDB.SetPackageMetadata("scripts", "infoIsIndelible", true);
-	RDXDB.GetOrCreatePackage("desktops", "1.0.0", "WoWRDX", "", "sigg@wowrdx.com", "http://www.wowrdx.com", "RDX package");
-	RDXDB.SetPackageMetadata("desktops", "infoIsIndelible", true);
-	RDXDB.GetOrCreatePackage("quests", "1.0.0", "WoWRDX", "", "sigg@wowrdx.com", "http://www.wowrdx.com", "RDX package");
-	RDXDB.SetPackageMetadata("quests", "infoIsIndelible", true);
-	RDXDB.GetOrCreatePackage("maps", "1.0.0", "WoWRDX", "", "sigg@wowrdx.com", "http://www.wowrdx.com", "RDX package");
-	RDXDB.SetPackageMetadata("maps", "infoIsIndelible", true);
-	RDXDB.GetOrCreatePackage("pois", "1.0.0", "WoWRDX", "", "sigg@wowrdx.com", "http://www.wowrdx.com", "RDX package");
-	RDXDB.SetPackageMetadata("pois", "infoIsIndelible", true);
 	-- Two-phase init
 	RDXDB:Debug(1, "**************** INIT_DATABASE_LOADED ****************");
 	RDXEvents:Dispatch("INIT_DATABASE_LOADED");
@@ -707,10 +836,10 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, InitObjectDB);
 -- and run their VersionMismatch()
 -- methods to correct the issue.
 ------------------------------------------------------------------
-local function CheckVers(pkg, file, ty, md)
+local function CheckVers(dk, pkg, file, ty, md)
 	if (ty.version ~= md.version) and ty.VersionMismatch then
 		if ty.VersionMismatch(md) then 
-			RDX.printI(VFLI.i18n("|cFF00FFFFObject Updater|r: Updating object ") .. RDXDB.MakePath(pkg,file));
+			RDX.printI(VFLI.i18n("|cFF00FFFFObject Updater|r: Updating object ") .. RDXDB.MakePath(dk,pkg,file));
 			return true;
 		end
 	end
@@ -718,10 +847,10 @@ end
 
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	-- Iterate over the entire FS...
-	RDXDB.Foreach(function(pkg, file, md)
+	RDXDB.Foreach(function(dk, pkg, file, md)
 		local ty = RDXDB.GetObjectType(md.ty);
 		if not ty then return; end
-		if CheckVers(pkg, file, ty, md) then RDXDB.objupdate = true; end
+		if CheckVers(dk, pkg, file, ty, md) then RDXDB.objupdate = true; end
 	end);
 end);
 

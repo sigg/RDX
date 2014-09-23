@@ -8,21 +8,6 @@
 -- any data.
 ---------------------------------------------------
 local function ClearCurrentDesktop()
-	-- Destroy all scripts
-	--RDXData["Scripts"] = {};
-	-- Destroy the default desktop
-	--local cdesk = RDXDK.GetCurrentDesktopPath();
-	--local pkg, desk = RDXDB.ParsePath(cdesk);
-	
-	--if type(RDXData[pkg]) == "table" then
-	--	RDXData[pkg][desk] = nil;
-	--end
-	-- Force RDX to "shown" and "maximized" settings.
-	--RDXU.hidden = nil;
-	--RDXU.minimized = nil;
-	--RDXU.iconL = nil; RDXU.iconT = nil;
-
-	--ReloadUI();
 	VFL.print("TODO");
 end
 

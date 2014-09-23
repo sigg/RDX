@@ -241,7 +241,7 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		--local set = state:RunSlot("SetDataSource");
 		local path = desc.path;
-		local pkg,file = RDXDB.ParsePath(path);
+		local dk, pkg, file = RDXDB.ParsePath(path);
 		local btn;
 
 		-- Upon window creation, generate the framepool's fallback function.
@@ -266,7 +266,7 @@ RDX.RegisterFeature({
 		
 		state:Attach("Create", true, function(w)
 			RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(up, uf)
-				if(up == pkg) and (uf == file) then RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, w._path); end
+				if (ud == dk) and (up == pkg) and (uf == file) then RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, w._path); end
 			end, w._path .. path);
 		end);
 		state:Attach("Destroy", true, function(w)

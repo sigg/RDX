@@ -116,7 +116,7 @@ end
 local function PatchResponse(ci, resp)
 	RDX.printI("PATCH downloaded");
 	RDX.printI("Installing PATCH");
-	local tbl = RDXDB.TouchObject("default:RDX" .. RDX.version[1] .. RDX.version[2] .. RDX.version[3]);
+	local tbl = RDXDB.TouchObject("RDXDiskSystem:default:RDX" .. RDX.version[1] .. RDX.version[2] .. RDX.version[3]);
 	RDX.printI("PATCH installed");
 	RDX.printI("Request reloadui");
 end

@@ -160,8 +160,8 @@ RDXDB.RegisterSymLinkClass({
 	Register = function(path, data)
 		--VFL.print("REGISTER " .. path);
 		local link = RDXDB.GetSymLinkTarget(data);
-		RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(up, uf)
-				local cpath = (up .. ":" .. uf);
+		RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(ud, up, uf)
+				local cpath = (ud .. ":" .. up .. ":" .. uf);
 				if cpath == link then RDXDB.NotifyUpdate(path); end
 		end, "symlink_" .. path);
 	end;
@@ -534,17 +534,22 @@ RDXDB.RegisterSymLinkClass({
 	name = "name&realm";
 	title = "name&realm";
 	GetTargetPath = function(data)
-		if not data.pkg or not data.prefixfile or not data.ty then return nil; end
+		if not data.dk or not data.pkg or not data.prefixfile or not data.ty then return nil; end
 		if data.pkg ~= "default" then
-			RDXDB.CreateObject(data.pkg, data.prefixfile .. RDX.pspace, data.ty);
+			RDXDB.CreateObject(data.dk, data.pkg, data.prefixfile .. RDX.pspace, data.ty);
 		end
-		return data.pkg .. ":" .. data.prefixfile .. RDX.pspace;
+		return data.dk .. ":" .. data.pkg .. ":" .. data.prefixfile .. RDX.pspace;
 	end;
 	Unregister = function(path)
 		VFLEvents:Unbind("symlink_" .. path);
 	end;
 	GetUI = function(parent, desc)
 		local ui = VFLUI.CompoundFrame:new(parent);
+		
+		local ed_dk = VFLUI.LabeledEdit:new(ui, 150); ed_dk:Show();
+		ed_dk:SetText(VFLI.i18n("Disk"));
+		if desc and desc.dk then ed_dk.editBox:SetText(desc.dk); end
+		ui:InsertFrame(ed_dk);
 		
 		local ed_pkg = VFLUI.LabeledEdit:new(ui, 150); ed_pkg:Show();
 		ed_pkg:SetText(VFLI.i18n("Package"));
@@ -570,6 +575,7 @@ RDXDB.RegisterSymLinkClass({
 		ui.GetDescriptor = function(x)
 			return {
 				class = "name&realm", 
+				dk = ed_dk.editBox:GetText(),
 				pkg = ed_pkg.editBox:GetText(),
 				prefixfile = ed_prefixfile.editBox:GetText(),
 				ty = dd_objectType:GetSelection();
@@ -586,14 +592,14 @@ RDXDB.RegisterSymLinkClass({
 	name = "talent&name&realm";
 	title = "talent&name&realm";
 	GetTargetPath = function(data)
-		if not data.pkg or not data.prefixfile or not data.ty then return nil; end
+		if not data.dk or not data.pkg or not data.prefixfile or not data.ty then return nil; end
 		if data.pkg ~= "default" then
-			RDXDB.CreateObject(data.pkg, data.prefixfile .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex(), data.ty);
+			RDXDB.CreateObject(data.dk, data.pkg, data.prefixfile .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex(), data.ty);
 		end
-		if not RDXDB.AccessPath(data.pkg, data.prefixfile .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex()) then
-			RDXDB.CreateObject(data.pkg, data.prefixfile .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex(), data.ty);
+		if not RDXDB.AccessPath(data.dk, data.pkg, data.prefixfile .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex()) then
+			RDXDB.CreateObject(data.dk, data.pkg, data.prefixfile .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex(), data.ty);
 		end
-		return data.pkg .. ":" .. data.prefixfile .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex();
+		return data.dk .. ":" .. data.pkg .. ":" .. data.prefixfile .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex();
 	end;
 	Register = function(path)
 		--VFL.print("REGISTER " .. path);
@@ -610,6 +616,11 @@ RDXDB.RegisterSymLinkClass({
 	end;
 	GetUI = function(parent, desc)
 		local ui = VFLUI.CompoundFrame:new(parent);
+		
+		local ed_dk = VFLUI.LabeledEdit:new(ui, 150); ed_dk:Show();
+		ed_dk:SetText(VFLI.i18n("Disk"));
+		if desc and desc.dk then ed_dk.editBox:SetText(desc.dk); end
+		ui:InsertFrame(ed_dk);
 		
 		local ed_pkg = VFLUI.LabeledEdit:new(ui, 150); ed_pkg:Show();
 		ed_pkg:SetText(VFLI.i18n("Package"));
@@ -634,7 +645,8 @@ RDXDB.RegisterSymLinkClass({
 		
 		ui.GetDescriptor = function(x)
 			return {
-				class = "talent&name&realm", 
+				class = "talent&name&realm",
+				dk = ed_dk.editBox:GetText(),
 				pkg = ed_pkg.editBox:GetText(),
 				prefixfile = ed_prefixfile.editBox:GetText(),
 				ty = dd_objectType:GetSelection();
@@ -821,10 +833,10 @@ RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)
 		end
 	end
 end);
-RDXDBEvents:Bind("OBJECT_MOVED", nil, function(pkg, file, newpkg, newfile, md)
+RDXDBEvents:Bind("OBJECT_MOVED", nil, function(dk, pkg, file, newdk, newpkg, newfile, md)
 	if md and md.ty == "SymLink" then
-		local path = RDXDB.MakePath(pkg,file);
-		local path2 =  RDXDB.MakePath(newpkg,newfile);
+		local path = RDXDB.MakePath(dk,pkg,file);
+		local path2 =  RDXDB.MakePath(newdk,newpkg,newfile);
 		if md.data and type(md.data) == "table" then
 			local sl = tysl[md.data.class];
 			if not sl then return; end
@@ -836,7 +848,7 @@ end);
 
 -- run on UI load 
 local function ApplyEvents()
-	for pkgName,pkg in pairs(RDXData) do
+	for pkgName,pkg in pairs(RDXDB.GetDisk("RDXData")) do
 		for objName,md in pairs(pkg) do
 			if type(md) == "table" and md.ty == "SymLink" then
 				if md.data and type(md.data) == "table" then

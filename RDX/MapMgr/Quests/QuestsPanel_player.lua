@@ -146,7 +146,7 @@ end);
 
 
 --function RDXDK.ToolsWindowUpdate()
---	local _, auiname = RDXDB.ParsePath(RDXU.AUI);
+--	local _, _, auiname = RDXDB.ParsePath(RDXU.AUI);
 --	BuildWindowList(auiname);
 --	list:Update();
 --end;

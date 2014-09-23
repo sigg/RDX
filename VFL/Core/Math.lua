@@ -179,3 +179,37 @@ end
 function VFL.NumberFloor(t)
 	return floor(t);
 end
+
+function VFL.GetMoneyStr (money)
+
+	if not money then
+		return "|cffff4040?"
+	end
+
+	if money == 0 then
+		return "0"
+	end
+
+	local pre = money > 0 and "" or "-"
+
+	money = abs (money)
+
+	local str = ""
+
+	local g = floor (money / 10000)
+	if g > 0 then
+		str = format ("|cffffff00%dg", g)
+	end
+
+	local s = mod (floor (money / 100), 100) 
+	if s > 0 then
+		str = format ("%s |cffbfbfbf%ds", str, s)
+	end
+
+	local c = mod (money, 100) 
+	if c > 0 then
+		str = format ("%s |cff7f7f00%dc", str, c)
+	end
+
+	return pre .. strtrim (str)
+end

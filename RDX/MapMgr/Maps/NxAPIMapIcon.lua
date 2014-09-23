@@ -530,7 +530,6 @@ function RDXMAP.APIMap.IconOnMouseDown (self, button)
 					map.BGIconMenu:Open()
 
 				elseif i == 3 then
-
 					map:GMenuOpen (self.NXData, typ)
 
 				elseif i == 9 then				-- Quest
@@ -857,6 +856,7 @@ function RDXMAP.APIMap.UpdateIconsBattlefieldVehicle(map)
 	end
 end
 
+-- deprecated not finish (bg part)
 function RDXMAP.APIMap.UpdateIconsPOI(map)
 	local name, description, txIndex, pX, pY
 	local txX1, txX2, txY1, txY2

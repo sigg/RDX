@@ -124,18 +124,16 @@ RDXDB.RegisterObjectType({
 				RDXDAL.EditSortDialog(dlg, path, md); 
 			end
 		});
-		--if RDXU.devflag then
-			--table.insert(mnu, {
-			--	text = VFLI.i18n("Transform Secure"),
-			--	func = function() 
-			--		VFL.poptree:Release();
-			--		local pkg, file = RDXDB.ParsePath(path);
-			--		md.ty = "SecureSort";
-			--		md.version = 1;
-			--		RDXDBEvents:Dispatch("OBJECT_MOVED", pkg, file, pkg, file, md);
-			--	end
-			--});
-		--end
+		--table.insert(mnu, {
+		--	text = VFLI.i18n("Transform Secure"),
+		--	func = function() 
+		--		VFL.poptree:Release();
+		--		local dk, pkg, file = RDXDB.ParsePath(path);
+		--		md.ty = "SecureSort";
+		--		md.version = 1;
+		--		RDXDBEvents:Dispatch("OBJECT_MOVED", dk, pkg, file, dk, pkg, file, md);
+		--	end
+		--});
 	end
 });
 

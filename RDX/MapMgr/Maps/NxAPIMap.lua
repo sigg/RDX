@@ -24,7 +24,7 @@ function RDXMAP.APIMap.CenterMap(map, mapId, scale)
 		return
 	end
 --]]
-	local winfo = RDXMAP.APIMap.GetWorldZone (mapId)
+	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 	if winfo then
 		if winfo.City then
 			scale = 1
@@ -110,7 +110,7 @@ function RDXMAP.APIMap.SetInstanceMap (map, mapId)
 		RDXMAP.APIMap.SetCurrentMap (map, mapId)		
 		map.InstMapId = mapId
 		map.InstMapInfo = iinfo
-		winfo = NxMap.GetZoneInfo(mapId)
+		winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 		wx = winfo[4]
 		wy = winfo[5]
 		map.InstMapWX1 = wx
@@ -129,7 +129,7 @@ function RDXMAP.APIMap.UpdateInstanceMap(map)
 	if not mapId then
 		return
 	end
-	winfo = NxMap.GetZoneInfo(mapId)
+	winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 	iinfo = map.InstMapInfo				-- Valid if Id not nil
 
 --	VFL.vprint ("Inst id %s", mapId)
@@ -226,7 +226,7 @@ function RDXMAP.APIMap.GotoCurrentZone(map)
 	else
 
 		--RDXMAP.APIMap.SetToCurrentZone()
-		--mapId = RDXMAP.APIMap.GetCurrentMapId(map)
+		--mapId = RDXMAP.APIMap.GetCurrentMapId()
 		RDXMAP.APIMap.CenterMap (map, myunit.mapId)
 	end
 end
@@ -252,7 +252,7 @@ function RDXMAP.APIMap.GotoPlayer(map)
 
 --	VFL.vprint ("GotoPlayer")
 
-	RDXMAP.APIMap.CalcTracking()
+	--RDXMAP.APIMap.CalcTracking()
 
 	--RDXMAP.APIMap.SetToCurrentZone()
 

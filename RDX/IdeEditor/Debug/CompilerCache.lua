@@ -61,7 +61,7 @@ end
 
 local function EnablePartyIncludeMe()
 	--RDXG.pdebug = true;
-	local mbo = RDXDB.TouchObject("default:Party_fset");
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:default:Party_fset");
 	if mbo.ty == "SymLink" then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;
@@ -87,7 +87,7 @@ end
 
 local function DisablePartyIncludeMe()
 	--RDXG.pdebug = nil;
-	local mbo = RDXDB.TouchObject("default:Party_fset");
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:default:Party_fset");
 	if mbo.ty == "SymLink" then
 		mbo.ty = "FilterSet";
 		mbo.version = 1;

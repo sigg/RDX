@@ -353,31 +353,28 @@ function RDXMAP.Map:Create (index, data)
 		tf.texture = t
 	end
 	
+	-- Create continent frames
 	m.ContFrms = {}
 
-	for n = 1, RDXMAP.ContCnt do
+	local n = 1;
+	for k, v in pairs(RDXMAP.APIMap.MapWorldInfo()) do
+		if v.class == "c" then
+			m.ContFrms[n] = {}
+			m.ContFrms[n].mapid = k;
+			local mapFileName = v.FileName
+			for i = 1, 12 do
+				if RDXMAP.ContBlks[k][i] ~= 0 then
+					local cf = VFLUI.AcquireFrame("Frame");
+					cf:SetParent(f);
+					m.ContFrms[n][i] = cf
 
-		m.ContFrms[n] = {}
-		
-		local mapFileName
-		
-			mapFileName = RDXMAP.MapInfo[n].FileName
-
-		for i = 1, 12 do
-
-			if RDXMAP.ContBlks[n][i] ~= 0 then
-
-				local cf = VFLUI.AcquireFrame("Frame");
-				cf:SetParent(f);
-				m.ContFrms[n][i] = cf
-
-				local t = VFLUI.CreateTexture(cf)
-				t:SetAllPoints (cf)
-				cf.texture = t
-
-				t:SetTexture ("Interface\\WorldMap\\"..mapFileName.."\\"..mapFileName..i)
-
+					local t = VFLUI.CreateTexture(cf)
+					t:SetAllPoints (cf)
+					cf.texture = t
+					t:SetTexture ("Interface\\WorldMap\\"..mapFileName.."\\"..mapFileName..i)
+				end
 			end
+			n = n + 1;
 		end
 	end
 	
@@ -482,7 +479,7 @@ function RDXMAP.Map:Create (index, data)
 		if not keep then
 			RDXMAP.APIMap.ClearTargets()
 		end
-		m.ScaleBeforeTarget = sbt or not next (RDXMAP.Targets) and m.GOpts["MapRestoreScaleAfterTrack"] and m.Scale
+		m.ScaleBeforeTarget = sbt or not next (RDXU.MapTargets) and m.GOpts["MapRestoreScaleAfterTrack"] and m.Scale
 		
 	end, 
 	"RDXMap" .. m.MapIndex);
@@ -526,14 +523,6 @@ function RDXMAP.Map:Create (index, data)
 		end
 	end, "RDXMap" .. m.MapIndex);
 	
-	-- deprecated
-	RDXMapEvents:Bind("Guide:UpdateMapIcons", nil, function()
-		if Nx.Guideobj then
-			--VFL.print("OKOKOK");
-			RDXMAP.IconGuide.UpdateMapIcons(m, Nx.Guideobj)
-		end
-	end, "RDXMap" .. m.MapIndex);
-	
 	----
 	
 	m.Destroy = VFL.hook(function(s)
@@ -548,7 +537,7 @@ function RDXMAP.Map:Create (index, data)
 			s.MiniFrms[n]:Destroy(); s.MiniFrms[n] = nil;
 		end
 		s.MiniFrms = nil;
-		for n = 1, RDXMAP.ContCnt do
+		for n = 1, #s.ContFrms do
 			for i = 1, 12 do
 				if RDXMAP.ContBlks[n][i] ~= 0 then
 					VFLUI.ReleaseRegion(s.ContFrms[n][i].texture); s.ContFrms[n][i].texture = nil;
@@ -640,7 +629,7 @@ function RDXMAP.Map:UpdateWorldMap()
 	for factionIndex = 1, GetNumFactions() do
 		local name, description, standingId, bottomValue, topValue, earnedValue, atWarWith,canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfo(factionIndex)				
 		if (name == "Operation: Shieldwall") or (name == "Dominance Offensive") then
-			RDXMAP.MapWorldInfo[857].Overlay = "krasarang_terrain1"
+			RDXMAP.MapWorldInfo[857].o = "krasarang_terrain1"
 		end
 	end
 	
@@ -662,7 +651,7 @@ function RDXMAP.Map:UpdateWorldMap()
 
 			f:Show()
 
-			RDXMAP.APIMap.ClipZoneFrm (self, self.Cont, self.Zone, f, 1)
+			RDXMAP.APIMap.ClipZoneFrm (self, self.MapId, f, 1)
 			f:SetFrameLevel (self.Level)
 			if self.WorldMapFrmMapId ~= self.MapId then
 
@@ -686,7 +675,7 @@ function RDXMAP.Map:UpdateWorldMap()
 			for i = 1, ArchaeologyMapUpdateAll() do
 				self.Arch:DrawBlob(ArcheologyGetVisibleBlobID(i), true)	  
 			end
-			RDXMAP.APIMap.ClipZoneFrm( self, self.Cont, self.Zone, self.Arch, 1 )
+			RDXMAP.APIMap.ClipZoneFrm( self, self.MapId, self.Arch, 1 )
 			self.Arch:SetFrameLevel(self.Level)		
 			self.Arch:SetFillAlpha(255 * self.LOpts.NXArchAlpha)
 			self.Arch:SetBorderAlpha( 255 * self.LOpts.NXArchAlpha )		
@@ -944,21 +933,21 @@ function RDXMAP.Map:UpdateAll()
 
 	self.NeedWorldUpdate = true
 
---	VFL.vprint ("%d Map UpdateAll %d (%d)", self.Tick, RDXMAP.APIMap.GetCurrentMapId(self), self.MapId)
+--	VFL.vprint ("%d Map UpdateAll %d (%d)", self.Tick, RDXMAP.APIMap.GetCurrentMapId(), self.MapId)
 end
 
 
 function RDXMAP.Map:UpdateWorld()
 
 	if self.Debug then
-		VFL.vprint ("%d Map UpdateWorld1 %d L%d", self.Tick, RDXMAP.APIMap.GetCurrentMapId(self), GetCurrentMapDungeonLevel())
+		VFL.vprint ("%d Map UpdateWorld1 %d L%d", self.Tick, RDXMAP.APIMap.GetCurrentMapId(), GetCurrentMapDungeonLevel())
 	end
 
 	self.NeedWorldUpdate = false
 
-	local mapId = RDXMAP.APIMap.GetCurrentMapId(self)
+	local mapId = RDXMAP.APIMap.GetCurrentMapId()
 	
-	local winfo = NxMap.GetZoneInfo(mapId)
+	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 	
 	if winfo and winfo.MapLevel then
 		if GetCurrentMapDungeonLevel() ~= winfo.MapLevel then	-- Wrong level?
@@ -990,7 +979,7 @@ function RDXMAP.Map:UpdateWorld()
 	RDXMAP.APIMap.UpdateOverlayUnexplored(self)
 
 	if self.Debug then
-		VFL.vprint ("%d Map UpdateWorld %d", self.Tick, RDXMAP.APIMap.GetCurrentMapId(self))
+		VFL.vprint ("%d Map UpdateWorld %d", self.Tick, RDXMAP.APIMap.GetCurrentMapId())
 		VFL.vprint (" File %s", mapFileName)
 	end
 
@@ -1022,7 +1011,6 @@ function RDXMAP.Map:Update (elapsed)
 	local Nx = Nx
 	
 	-- self.MapId = mouse
-	-- self.Cont, self.Zone = mouse
 	-- self.CurMapBG = BG mouse
 	
 	-- self.RMapId = player
@@ -1031,10 +1019,6 @@ function RDXMAP.Map:Update (elapsed)
 	
 	-- self.PlyrX = player X world
 	-- self.PlyrY = player Y world
-	
-	--if not self.myunit then
-	--	self.myunit = RDXDAL.GetMyUnit();
-	--end
 
 	--self:MouseEnable (self.Win:IsSizeMax())
 	self:MouseEnable (true)
@@ -1047,13 +1031,9 @@ function RDXMAP.Map:Update (elapsed)
 	self.MapH = self.Frm:GetHeight() - self.TitleH
 	self.Level = self.Frm:GetFrameLevel() + 1
 
-	local mapId = RDXMAP.APIMap.GetCurrentMapId(self)
-	self.Cont, self.Zone = RDXMAP.APIMap.IdToContZone (mapId)
+	local mapId = RDXMAP.APIMap.GetCurrentMapId()
 
 	Nx.InSanctuary = GetZonePVPInfo() == "sanctuary"
-
-	local doSetCurZone
-	local mapChange
 
 	if self.MapId ~= mapId then
 		
@@ -1071,7 +1051,6 @@ function RDXMAP.Map:Update (elapsed)
 		end
 
 		self.MapId = mapId
-		mapChange = true
 
 		Nx.Com.PlyrChange = GetTime()
 		
@@ -1100,11 +1079,12 @@ function RDXMAP.Map:Update (elapsed)
 				txX1, txX2, txY1, txY2 = GetPOITextureCoords (txIndex)
 				f.texture:SetTexCoord (txX1 + .003, txX2 - .003, txY1 + .003, txY2 - .003)
 				f.texture:SetVertexColor (1, 1, 1, 1)
-				f.X = pX * 100
-				f.Y = pY * 100
-				--f.txIndex = txIndex
+				local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, pX * 100, pY * 100)
+				f.x = wx
+				f.y = wy
+				f.MapId = mapId
+				f.n = f.NxTip
 				table.insert(self.Icon2Frms, f);
-				--RDXMAP.APIMap.ClipFrameZ (self, f, pX, pY, 16, 16, 0)
 			end
 		end
 		
@@ -1113,19 +1093,39 @@ function RDXMAP.Map:Update (elapsed)
 			self.Icon3Frms[n]:Destroy(); self.Icon3Frms[n] = nil;
 		end
 		-- add general
-		for k, name in ipairs (RDXMAP.GuidePOI) do
-			local showType, tx = strsplit ("~", name)
-			if showType == "Mailbox" then
-				showType = self.GOpts["MapShowMailboxes"] and showType
-			end
-			if showType then
-				tx = "Interface\\Icons\\" .. tx
-				RDXMAP.IconGuide.UpdateMapGeneralIcons2 (self, self.Cont, showType, RDX.PlFactionNum, tx, showType, "!POI", mapId)
+		--for k, name in ipairs (RDXMAP.GuidePOI) do
+		--	local showType, tx = strsplit ("~", name)
+		--	if showType == "Mailbox" then
+		--		showType = self.GOpts["MapShowMailboxes"] and showType
+		--	end
+		--	if showType then
+		--		tx = "Interface\\Icons\\" .. tx
+		--		RDXMAP.IconGuide.UpdateMapGeneralIcons2 (self, self.Cont, showType, RDX.PlFactionNum, tx, showType, "!POI", mapId)
 				
+		--	end
+		--end
+		local inst = RDXDB.GetObjectInstance("poisG:" .. mapId)
+		if inst then
+			for i,v in ipairs(inst) do
+				local id,fac,x,y = strsplit(",",v)		
+				if y and (tonumber(fac) == RDX.PlFactionNum or fac == "2") then
+					local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, x, y)
+					local f = VFLUI.POIIcon:new(self, 4)
+					f.texture:SetTexture(RDXMAP.icontex[id])
+					f.NxTip = format ("%s\n%s %.1f %.1f", RDXMAP.iconIdToName[id], RDXMAP.APIMap.IdToName(mapId), x, y) 
+					f.x = wx
+					f.y = wy
+					f.NXType = 3000
+					f.MapId = mapId
+					f.n = f.NxTip
+					f.NXData = f
+					table.insert(self.Icon3Frms, f);
+				end
 			end
 		end
+		
 		-- add instances
-		for mapid, info in pairs (RDXMAP.MapWorldInfo) do
+		for mapid, info in pairs (RDXMAP.APIMap.MapWorldInfo()) do
 			if info.tp == 4 and info.EntryMId == self.MapId then
 				local f = VFLUI.POIIcon:new(self, 4)
 				f.NxTip = info.localname
@@ -1133,8 +1133,10 @@ function RDXMAP.Map:Update (elapsed)
 				f.UData = mapid;
 				f.NXData = f
 				f.texture:SetTexture ("Interface\\Icons\\INV_Misc_ShadowEgg")
-				f.X = info[2] --* 100
-				f.Y = info[3] --* 100
+				f.x = info[4] --* 100
+				f.y = info[5] --* 100
+				f.MapId = mapId
+				f.n = f.NxTip
 				table.insert(self.Icon3Frms, f); 
 			end
 		end
@@ -1144,7 +1146,8 @@ function RDXMAP.Map:Update (elapsed)
 		end
 		self:UpdateAll()
 		
-		
+		self.MoveLastX = self.myunit.PlyrX
+		self.MoveLastY = self.myunit.PlyrY
 	end
 	
 	-- TODO To be checked later
@@ -1172,7 +1175,7 @@ function RDXMAP.Map:Update (elapsed)
 				local tm = GetTime() - cb.BGEnterTime
 				local _, honor = GetCurrencyInfo (392)		--V4
 				local hGain = honor - cb.BGEnterHonor
-				Nx.UEvents:AddInfo (format (" %s +%d honor, +%d hour", Nx.Util_GetTimeElapsedMinSecStr (tm), hGain, hGain / tm * 3600))
+				Nx.UEvents:AddInfo (format (" %s +%d honor, +%d hour", VFLT.FormatMinSec (tm), hGain, hGain / tm * 3600))
 
 				local xpGain = UnitXP ("player") - cb.BGEnterXP
 				if xpGain > 0 then
@@ -1201,7 +1204,7 @@ function RDXMAP.Map:Update (elapsed)
 	--	cb.BGEnterHonor = honor
 	--	cb.BGEnterXP = UnitXP ("player")
 		
-	--	local winfo = NxMap.GetZoneInfo(rid)
+	--	local winfo = RDXMAP.APIMap.GetWorldZone(rid)
 	--	if winfo and winfo.Arena then
 	--		Nx.InArena = rid ---
 	--		self.LOpts.NXMMFull = true
@@ -1210,32 +1213,6 @@ function RDXMAP.Map:Update (elapsed)
 --		VFL.vprint ("Entering BG %s", rid)
 	--	doSetCurZone = true
 	--end
-
-	-- Taxi update
-
-	local ontaxi = UnitOnTaxi ("player")
-
-	if ontaxi then
-		if not RDXMAP.TaxiOn then	-- New taxi ride?
-			RDXMAP.TaxiStartTime = GetTime()
-			RDXMAP.TaxiOn = true
-			if RDXG.DebugMap then
-				VFL.vprint ("Taxi start")
-			end
-		end
-
-	elseif RDXMAP.TaxiOn then	-- Done with taxi
-		RDXMAP.TaxiOn = false
-		RDXMAP.TaxiX = nil		-- Clear so if we pop on a taxi by a unhooked method we don't track old
-
-		local tm = GetTime() - RDXMAP.TaxiStartTime
-
-		RDXMAP.Travel:TaxiSaveTime (tm)
-
-		if RDXG.DebugMap then
-			VFL.vprint ("Taxi time %.1f seconds", tm)
-		end
-	end
 
 	--if self.RMapId ~= rid then
 	--	if rid ~= 9000 then
@@ -1255,11 +1232,6 @@ function RDXMAP.Map:Update (elapsed)
 	--	self.Scale = self.RealScale
 	--end
 	
-	if mapChange then
-		self.MoveLastX = self.myunit.PlyrX
-		self.MoveLastY = self.myunit.PlyrY
-	end
-
 	local plX = self.myunit.PlyrX
 	local plY = self.myunit.PlyrY
 
@@ -1289,9 +1261,7 @@ function RDXMAP.Map:Update (elapsed)
 		self.PlyrLastDir = self.myunit.PlyrDir
 
 		if not self.Scrolling and not self.MouseIsOver and not WorldMapFrame:IsVisible() then
-			
-			--TODO
-			--if true then
+
 			if self.CurOpts.NXPlyrFollow then
 
 				local scOn = self.LOpts.NXAutoScaleOn		--self.GOpts["MapFollowChangeScale"]
@@ -1321,10 +1291,14 @@ function RDXMAP.Map:Update (elapsed)
 					elseif #RDXMAP.Tracking > 0 then
 
 						local tr = RDXMAP.Tracking[1]
-						midX = tr.TargetMX
-						midY = tr.TargetMY
-						dtx = abs (tr.TargetX1 - tr.TargetX2)
-						dty = abs (tr.TargetY1 - tr.TargetY2)
+						--midX = tr.TargetMX
+						--midY = tr.TargetMY
+						--dtx = abs (tr.TargetX1 - tr.TargetX2)
+						--dty = abs (tr.TargetY1 - tr.TargetY2)
+						midX = tr.x
+						midY = tr.y
+						dtx = 1
+						dty = 1
 
 					elseif RDXMAP.TaxiX then
 
@@ -1356,10 +1330,6 @@ function RDXMAP.Map:Update (elapsed)
 						scale = max (min (scale, scmax), self.LOpts.NXAutoScaleMin)
 						RDXMAP.APIMap.Move (self, mX, mY, scale, 60)
 					end
-				end
-
-				if rid ~= mapId then
-					doSetCurZone = true
 				end
 			end
 		end
@@ -1400,13 +1370,10 @@ function RDXMAP.Map:Update (elapsed)
 		self.StepTime = self.StepTime + 1
 	end
 
-	local _, zx, zy, zw = RDXMAP.APIMap.GetWorldZoneInfo (self.Cont, self.Zone)
+	local _, zx, zy, zw = RDXMAP.APIMap.GetWorldZoneInfo (self.MapId)
 	if zx then
 		self.MapScale = self.Scale / 10.02
 	end
-	
---	local str = format ("%s %d %d", UnitName ("player"), UnitHealth ("player"), UnitMana ("player"))
---	self.PlyrFrm.NxTip = str
 
 	-- SIGG TO DISCUSS DISABLE
 	--self.BackgndAlpha = VFL.Util_StepValue (self.BackgndAlpha, self.BackgndAlphaTarget, .05)
@@ -1422,15 +1389,10 @@ function RDXMAP.Map:Update (elapsed)
 	RDXMAP.APIMap.ResetIcons(self)
 	
 	-------------- START MAIN Update zone instance 
-	RDXMAP.APIMap.MoveContinents(self)
---	self:MoveWorldHotspots()
-
+	RDXMAP.APIMap.UpdateContinents(self)
 	RDXMAP.APIMap.UpdateZones(self)
 	RDXMAP.APIMap.UpdateInstanceMap(self)
-
-	-- minimap no more
-	--self:MinimapUpdate()
-	self:UpdateWorldMap()
+	self:UpdateWorldMap() -- archeology
 	
 	-------------- END MAIN Update zone instance 
 	
@@ -1442,21 +1404,19 @@ function RDXMAP.Map:Update (elapsed)
 		plSize = 5 
 	end
 
-	RDXMAP.APIMap.ClipFrameW (self, self.PlyrFrm, self.myunit.PlyrX, self.myunit.PlyrY, plSize, plSize, self.myunit.PlyrDir)
-
-	self.InCombat = UnitAffectingCombat ("player")
-
 	local g = 1
 	local b = 1
 	local al = 1
-	if self.InCombat then
+	if RDX.InCombat then
 		g = 0
 		b = 0
 		al = abs (GetTime() % 1 - .5) / .5 * .5 + .4
 	end
-
 	self.PlyrFrm.texture:SetVertexColor (1, g, b, al)
-	
+	--local str = format ("%s %d %d", UnitName ("player"), UnitHealth ("player"), UnitMana ("player"))
+	--self.PlyrFrm.NxTip = str
+	RDXMAP.APIMap.ClipFrameW (self, self.PlyrFrm, self.myunit.PlyrX, self.myunit.PlyrY, plSize, plSize, self.myunit.PlyrDir)
+
 	-- SHOW PLAYER RED history
 	if self.GOpts["MapShowTrail"] then
 		RDXMAP.APIMap.UpdatePlyrHistory(self)
@@ -1480,15 +1440,6 @@ function RDXMAP.Map:Update (elapsed)
 
 	-- Battlefield Vehicles ICONS
 	RDXMAP.APIMap.UpdateIconsBattlefieldVehicle(self)
-
-	
-	--local oldLev = self.Level
-
-	--if IsShiftKeyDown() then
-
-	--	oldLev = oldLev - 4
-	--	self.Level = self.Level + 16
-	--end
 	
 	-- alpha management
 	local atScale = self.LOpts.NXPOIAtScale
@@ -1502,20 +1453,22 @@ function RDXMAP.Map:Update (elapsed)
 	if not self.CurMapBG then -- static POI
 		for n = 1, #self.Icon2Frms do
 			self.Icon2Frms[n]:SetFrameLevel(self.Level + 3);
-			RDXMAP.APIMap.ClipFrameZ (self, self.Icon2Frms[n], self.Icon2Frms[n].X, self.Icon2Frms[n].Y, 16, 16, -1)
+			RDXMAP.APIMap.ClipFrameW (self, self.Icon2Frms[n], self.Icon2Frms[n].x, self.Icon2Frms[n].y, 16, 16, -1)
 		end
 		if draw then
 			for n = 1, #self.Icon3Frms do
 				self.Icon3Frms[n]:SetFrameLevel(self.Level + 4);
 				self.Icon3Frms[n].texture:SetVertexColor (1, 1, 1, alpha)
-				RDXMAP.APIMap.ClipFrameZ (self, self.Icon3Frms[n], self.Icon3Frms[n].X, self.Icon3Frms[n].Y, 16, 16, -1)
+				RDXMAP.APIMap.ClipFrameW (self, self.Icon3Frms[n], self.Icon3Frms[n].x, self.Icon3Frms[n].y, 16, 16, -1)
+			end
+		else
+			for n = 1, #self.Icon3Frms do
+				self.Icon3Frms[n]:Hide();
 			end
 		end
 	else -- BG dynamic POI
 		-- to see later
 	end
-	
-	--self.Level = oldLev + 4
 
 	-- Update misc icons (herbs, ore, ...)
 	-- Levels:
@@ -1537,10 +1490,7 @@ function RDXMAP.Map:Update (elapsed)
 		
 		]]
 		
-		
-		
 		--RDXMAP.IconGuide.UpdateMapIcons(self, self.Guide)
-		
 		
 		-- Note icons
 		Nx.Fav:UpdateIcons(self)
@@ -1549,30 +1499,16 @@ function RDXMAP.Map:Update (elapsed)
 		self.Level = self.Level - 2
 	--end
 	
-	
-	
-	
 	-- QUEST
 	if Nx.Quest.Enabled then
 		Nx.Quest:UpdateIcons (self)
 	end
 
-	
-	
-
 	self.Level = self.Level + 7
-
-	-- Test
-
---	for n = 0, 100 do
---		local f = RDXMAP.APIMap.GetIcon(self)
---		f.texture:SetTexture (1, 1, .5, 1)
---		RDXMAP.APIMap.ClipFrameZ (self, f, n, 50, 2, 2)
---	end
 
 	-- Battlefield flags
 
-	local fX, fY, fToken
+	local fX, fY, fToken, wX, wY
 	local flagNum = GetNumBattlefieldFlagPositions()
 
 	for i = 1, flagNum do
@@ -1580,24 +1516,20 @@ function RDXMAP.Map:Update (elapsed)
 		fX, fY, fToken = GetBattlefieldFlagPosition (i)
 
 		if fX ~= 0 or fY ~= 0 then
-
-			local f = RDXMAP.APIMap.GetIconNI(self)
+			local f = VFLUI.POIIcon:new(self)
 			f.texture:SetTexture ("Interface\\WorldStateFrame\\"..fToken)
-			RDXMAP.APIMap.ClipFrameZ (self, f, fX * 100, fY * 100, 36, 36, 0)
+			wX, wY = RDXMAP.APIMap.GetWorldPos (self.MapId, fX * 100, fY * 100)
+			RDXMAP.APIMap.ClipFrameW (self, f, wX, wY, 36, 36, 0)
 		end
 	end
 
 	self.Level = self.Level + 1
 
 	-- Raid or party icons (AKA group)
-
 	local palName, palX, palY = RDXMAP.APIMap.UpdateGroup (self, plX, plY)
 
 	-- Tracking animation
-	
-	local myunit = RDXDAL.GetMyUnit();
-
-	if myunit.PlyrSpeed == 0 then
+	if self.myunit.PlyrSpeed == 0 then
 
 --		self.ArrowPulse = self.ArrowPulse + .05
 --		if self.ArrowPulse > cnt then
@@ -1616,10 +1548,8 @@ function RDXMAP.Map:Update (elapsed)
 
 	RDXMapEvents:Dispatch("Guide:OnMapUpdate")	-- For closest target
 	
-	if #RDXMAP.Targets > 0 then
-
-		RDXMAP.APIMap.UpdateTargets(self)
-		RDXMAP.APIMap.UpdateTracking(self)
+	if #RDXU.MapTargets > 0 then
+		RDXMAP.APIMap.UpdateTargets2(self)
 		self.Level = self.Level + 2
 	end
 
@@ -1634,19 +1564,13 @@ function RDXMAP.Map:Update (elapsed)
 			self.TrackName = "Corpse"
 
 			local x, y = RDXMAP.APIMap.GetWorldPos (mapId, cX * 100, cY * 100)
-			RDXMAP.APIMap.DrawTracking (self, plX, plY, x, y, false, "D")
+			RDXMAP.APIMap.DrawTracking (self, plX, plY, x, y, "D", "Your corpse")
 
-			local f = RDXMAP.APIMap.GetIcon (self, 1)
-
-			f.NxTip = "Your corpse"
-			f.texture:SetTexture ("Interface\\Minimap\\POIIcons")
-			f.texture:SetTexCoord (.571, .635, 0, .039)
-			RDXMAP.APIMap.ClipFrameZ (self, f, cX * 100, cY * 100, 16, 16, -1)
-			
-			self.Level = self.Level + 2
+			--f.texture:SetTexCoord (.571, .635, 0, .039)
+			--self.Level = s   elf.Level + 2
 		end
 
-	elseif ontaxi and RDXMAP.TaxiX then
+	elseif RDXMAP.ontaxi and RDXMAP.TaxiX then
 
 		if self.GOpts["HUDATTaxi"] then
 
@@ -1654,7 +1578,7 @@ function RDXMAP.Map:Update (elapsed)
 			self.TrackETA = RDXMAP.TaxiETA
 
 			local x, y = RDXMAP.TaxiX, RDXMAP.TaxiY
-			RDXMAP.APIMap.DrawTracking (self, plX, plY, x, y, false, "F")
+			RDXMAP.APIMap.DrawTracking (self, plX, plY, x, y, "F")
 
 --			VFL.vprint ("taxi %s %s", x, y)
 
@@ -1675,10 +1599,10 @@ function RDXMAP.Map:Update (elapsed)
 		if palX then
 
 			self.TrackName = palName
-			RDXMAP.APIMap.DrawTracking (self, plX, plY, palX, palY, false, "B")
+			RDXMAP.APIMap.DrawTracking (self, plX, plY, palX, palY, "B")
 		else
 			self.TrackName = comTrackName
-			RDXMAP.APIMap.DrawTracking (self, plX, plY, comTrackX, comTrackY, false)
+			RDXMAP.APIMap.DrawTracking (self, plX, plY, comTrackX, comTrackY)
 		end
 
 		self.Level = self.Level + 2
@@ -1689,16 +1613,11 @@ function RDXMAP.Map:Update (elapsed)
 	self.TextScFrm:SetFrameLevel (self.Level)
 	self.PlyrFrm:SetFrameLevel (self.Level + 1)
 
-	--self.ToolBar:SetLevels (self.Level + 2)
-
 	self.Level = self.Level + 3
-
-	--self:MinimapUpdateEnd()		-- Uses 2 levels
 
 	self.LocTipFrm:SetFrameLevel (self.Level + 2)
 
 	-- Hide leftovers
-
 	RDXMAP.APIMap.HideExtraIcons(self)
 
 	-- Scan. Switch maps if needed. Do at end so we dont glitch
@@ -1708,10 +1627,6 @@ function RDXMAP.Map:Update (elapsed)
 	--	RDXMAP.APIMap.ScanContinents(self)
 	--end
 
-	--if doSetCurZone then
-	--	RDXMAP.APIMap.SetToCurrentZone()
-	--end
-
 	-- Debug
 --[[
 	VFL.vprint ("Map WPos %s ZPos %s WScale %s", self.GetWorldPosCnt or 0, self.GetZonePosCnt or 0, RDXMAP.APIMap.GetWorldZoneScaleCnt or 0)
@@ -1719,7 +1634,6 @@ function RDXMAP.Map:Update (elapsed)
 	self.GetZonePosCnt = 0
 	RDXMAP.APIMap.GetWorldZoneScaleCnt = 0
 --]]
-	if self.IconTick == 2 then self.IconTick = 0; end
 end
 
 
@@ -1755,36 +1669,6 @@ function RDXMAP.Map:VehicleDumpPos()
 end
 
 --[[
-
---------
--- Get zone position of world location
--- (id, x, y)
-
-function RDXMAP.Map:OLD_GetZonePos (mapId, worldX, worldY)
-
---	VFL.vprint ("WXY %f %f", worldX, worldY)
-
-	local cont = floor (mapId / 1000)
-
-	local info = NxMap.MapInfo[cont]
-	if info then
-
-		local winfo = NxMap.MapWorldInfo[mapId] --
-		if winfo then
-
-			local scale = winfo[1]
-
-			local x = (worldX - info.X - winfo[2]) / scale
-			local y = (worldY - info.Y - winfo[3]) / scale * 1.5
-
---			VFL.vprint ("XY %f %f %f", x, y, scale)
-
-			return x, y
-		end
-	end
-
-	return 0, 0
-end
 
 --------
 -- Test empty function
