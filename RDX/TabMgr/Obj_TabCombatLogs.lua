@@ -481,7 +481,7 @@ local function RegisterTabCombatLogs()
 	for pkgName,pkg in pairs(RDXDB.GetDisk("RDXData")) do
 		for objName,obj in pairs(pkg) do
 			if type(obj) == "table" and obj.ty == "TabCombatLogs" then 
-				local path = RDXDB.MakePath(pkgName, objName);
+				local path = RDXDB.MakePath("RDXData", pkgName, objName);
 				local data = obj.data;
 				local tit = "";
 				if data then tit = obj.data.title; end

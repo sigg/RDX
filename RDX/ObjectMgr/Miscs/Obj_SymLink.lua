@@ -823,9 +823,9 @@ RDXDB.RegisterSymLinkClass({
 -- Register event for symlink
 -----------------------------------------
 
-RDXDBEvents:Bind("OBJECT_DELETED", nil, function(pkg, file, md)
+RDXDBEvents:Bind("OBJECT_DELETED", nil, function(dk, pkg, file, md)
 	if md and md.ty == "SymLink" then
-		local path = RDXDB.MakePath(pkg,file);
+		local path = RDXDB.MakePath(dk,pkg,file);
 		if md.data and type(md.data) == "table" then
 			local sl = tysl[md.data.class];
 			if not sl then return; end
@@ -848,19 +848,19 @@ end);
 
 -- run on UI load 
 local function ApplyEvents()
-	for pkgName,pkg in pairs(RDXDB.GetDisk("RDXData")) do
-		for objName,md in pairs(pkg) do
-			if type(md) == "table" and md.ty == "SymLink" then
-				if md.data and type(md.data) == "table" then
-					local sl = tysl[md.data.class];
-					if not sl then return; end
-					if sl.Register then sl.Register(pkgName .. ":" ..objName, md.data); end
-					-- store the path
-					savelink[pkgName .. ":" ..objName] = RDXDB.ResolvePath(pkgName .. ":" ..objName);
-				end
+	RDXDB.Foreach(function(dk, pkg, file, md)
+		local ty = RDXDB.GetObjectType(md.ty);
+		if not ty then return; end
+		if ty == "SymLink" then 
+			if md.data and type(md.data) == "table" then
+				local sl = tysl[md.data.class];
+				if not sl then return; end
+				if sl.Register then sl.Register(RDXDB.MakePath(dk,pkg,file), md.data); end
+				-- store the path
+				savelink[RDXDB.MakePath(dk,pkg,file)] = RDXDB.ResolvePath(RDXDB.MakePath(dk,pkg,file));
 			end
 		end
-	end
+	end);
 end
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	ApplyEvents();

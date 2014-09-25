@@ -359,13 +359,13 @@ local wl = {};
 local function BuildTabMeterList()
 	VFL.empty(wl);
 	local desc = nil;
-	for pkg,data in pairs(RDXDB.GetDisk("RDXData")) do
-		for file,md in pairs(data) do
-			if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "TableMeter") then
-				table.insert(wl, {text = RDXDB.MakePath(pkg, file)});
-			end
+	RDXDB.Foreach(function(dk, pkg, file, md)
+		local ty = RDXDB.GetObjectType(md.ty);
+		if ty == "TableMeter" then 
+			SetupBossmod(RDXDB.MakePath(dk,pkg,file), md.data)
+			table.insert(wl, {text = RDXDB.MakePath(dk,pkg,file)});
 		end
-	end
+	end);
 	table.sort(wl, function(x1,x2) return x1.text<x2.text; end);
 end
 

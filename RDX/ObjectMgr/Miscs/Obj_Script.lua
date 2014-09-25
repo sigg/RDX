@@ -145,13 +145,14 @@ end);
 -- When we login (post DB load) run our auto_USER script.
 -- Also run all autoexec scripts in sub-packages.
 RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
-	RDXDB.OpenObject("scripts:auto_u_" .. RDX.pspace);
-	local aex, adesk, isexist = nil, nil, nil;
-	for pkg,dir in pairs(RDXDB.GetDisk("RDXData")) do
-		aex = dir["autoexec"];
-		if aex and aex.ty == "Script" and RDXDB.GetPackageMetadata(pkg, "infoRunAutoexec") then
-			RDXDB.OpenObject(pkg .. ":autoexec", "Open", "local pkg = '" .. pkg .. "';");
+	RDXDB.OpenObject("RDXDiskSystem:scripts:auto_u_" .. RDX.pspace);
+	
+	RDXDB.Foreach(function(dk, pkg, file, md)
+		local ty = RDXDB.GetObjectType(md.ty);
+		if not ty then return; end
+		if file == "autoexec" and ty == "Script" and RDXDB.GetPackageMetadata(dk, pkg, "infoRunAutoexec") then 
+			RDXDB.OpenObject(RDXDB.MakePath(dk,pkg,file), "Open", "local dk, pkg = '" .. dk .. "','" .. pkg .. "';");
 		end
-	end
+	end);
 end);
 

@@ -243,13 +243,13 @@ end);
 -----------------------------------------------------------------
 
 RDXDBEvents:Bind("PACKAGE_DELETED", nil, function(dk, pkg)
-	local objdata = RDXDB._AccessPathRaw("desktops", pkg);
+	local objdata = RDXDB._AccessPathRaw(dk, "desktops", pkg);
 	
 	if objdata and objdata.data then
 		for i, v in ipairs(objdata.data) do
-			RDXDB.DeleteObject("desktops:" .. pkg .. "_".. v);
+			RDXDB.DeleteObject(dk, "desktops:" .. pkg .. "_".. v);
 		end
-		RDXDB.DeleteObject("desktops:".. pkg);
+		RDXDB.DeleteObject(dk, "desktops:".. pkg);
 	end
 end);
 

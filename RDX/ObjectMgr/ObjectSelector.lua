@@ -112,17 +112,17 @@ function RDXDB.PackageSelector:new(parent)
 	btn:SetPoint("RIGHT", pkgEdit, "LEFT"); btn:Show(); 
 	btn:SetText("...");
 	btn:SetScript("OnClick", function()
-		local qq = { };
-		for pkg,_ in pairs(RDXDB.GetDisk("RDXData")) do
-			local retVal = pkg;
+		local qq = {};
+		RDXDB.Foreach(function(dk, pkg, file, md)
 			table.insert(qq, { 
-				text = retVal, 
+				text = dk .. ":" .. pkg, 
 				func = function() 
 					VFL.poptree:Release();
-					pkgEdit:SetText(retVal);
+					pkgEdit:SetText(dk .. ":" .. pkg);
 				end
 			});
-		end
+			
+		end);
 		table.sort(qq, function(x1,x2) return tostring(x1.text) < tostring(x2.text); end);
 		VFL.poptree:Begin(150, 12, btn, "CENTER");
 		VFL.poptree:Expand(nil, qq, 20);
@@ -147,12 +147,12 @@ end
 --------------------------------------------------
 -- MASS PACKAGE SELECTOR
 --------------------------------------------------
-function RDXDB.PackageListWindow(parent, title, text, filter, callback)
+function RDXDB.PackageListWindow(parent, title, text, filter, callback, dk)
 	if not callback then callback = VFL.Noop; end
 
 	-- From the source array, build a local array of packages
 	local pkgs = {};
-	for k,pkg in pairs(RDXDB.GetDisk("RDXData")) do
+	for k,pkg in pairs(RDXDB.GetDisk(dk)) do
 		if filter(k) then
 			table.insert(pkgs, {pkg = k});
 		end

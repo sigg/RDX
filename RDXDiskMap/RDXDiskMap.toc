@@ -5,4 +5,4 @@
 ## Version: 10.0.0
 ## RequiredDeps: RDX
 ## SavedVariables: RDXDiskMap
-RDX_disk_map.lua
+RDXDiskMap.lua

@@ -33,7 +33,7 @@ local function __RDXParser()
 	end
 end
 
-VFLP.RegisterFunc("RDXSS: Spell System", "Parser", __RDXParser, true);
+--VFLP.RegisterFunc("RDXSS: Spell System", "Parser", __RDXParser, true);
 
 local function EnableStoreLocalMapDB()
 	--if not RDXG.localSpellDBVersion or RDXG.localSpellDBVersion ~= RDX.GetVersion() or not RDXG.localSpellDBClient or RDXG.localSpellDBClient ~= GetLocale() then

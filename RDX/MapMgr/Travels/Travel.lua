@@ -160,7 +160,7 @@ function RDXMAP.Travel.TakeTaxiNode (node)
 	local mapId = RDXMAP.APIMap.GetRealMapId()
 	local info = RDXMAP.APIMap.GetWorldZone(mapId)
 	if info and info.c then
-		local mbo = RDXDB.TouchObject("RDXData:poisT:F_" .. info.c);
+		local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. info.c);
 		for k,v in ipairs (mbo.data) do
 			if x1 == v.fx and y1 == v.fy then
 				ff = true;
@@ -177,7 +177,7 @@ function RDXMAP.Travel.TakeTaxiNode (node)
 		local mapId = RDXMAP.APIMap.GetRealMapId()
 		local info = RDXMAP.APIMap.GetWorldZone(mapId)
 		if info and info.c then
-			local mbo = RDXDB.TouchObject("RDXData:poisT:F_" .. info.c);
+			local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. info.c);
 			for k,v in ipairs (mbo.data) do
 				if v.n == RDXMAP.TaxiName then
 					ff = true;

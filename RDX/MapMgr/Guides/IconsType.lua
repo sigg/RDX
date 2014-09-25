@@ -121,7 +121,7 @@ function DATAPUSHOLD()
 		end
 		local info = RDXMAP.APIMap.GetWorldZone (tonumber(zon))
 		if info and info.c then
-			local mbo = RDXDB.TouchObject("RDXData:poisG:Flight_" .. info.c);
+			local mbo = RDXDB.TouchObject("RDXDiskMap:poisG:Flight_" .. info.c);
 			if not mbo.data then
 				mbo.data = {};
 				mbo.ty = "POISet"; 
@@ -175,7 +175,7 @@ function DATAPUSHOLD2()
 		tbl1.icr = id2
 		tbl2.icr = id1
 		
-		local mbo = RDXDB.TouchObject("RDXData:poisT:ZC_" .. z1);
+		local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:ZC_" .. z1);
 		if not mbo.data then
 			mbo.data = {};
 			mbo.ty = "POIZoneConnectionSet"; 
@@ -184,7 +184,7 @@ function DATAPUSHOLD2()
 		
 		mbo.data[id1] = tbl1;
 		
-		local mbo = RDXDB.TouchObject("RDXData:poisT:ZC_" .. z2);
+		local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:ZC_" .. z2);
 		if not mbo.data then
 			mbo.data = {};
 			mbo.ty = "POIZoneConnectionSet"; 
@@ -206,7 +206,7 @@ table.insert(tbt,862);
 
 function DATAPUSH()
 	for g,w in ipairs (tbt) do
-		local mbo = RDXDB.TouchObject("RDXData:poisG:Flight_" .. w);
+		local mbo = RDXDB.TouchObject("RDXDiskMap:poisG:Flight_" .. w);
 		
 		for k,v in pairs (mbo.data) do
 			local side,name,z1,x1,y1,fx1,fy1 = strsplit(";", v)
@@ -228,7 +228,7 @@ function DATAPUSH()
 			tbl1.fx = fx1;
 			tbl1.fy = fy1;
 			
-			local mbo2 = RDXDB.TouchObject("RDXData:poisT:F_" .. w);
+			local mbo2 = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. w);
 			if not mbo2.data then
 				mbo2.data = {};
 				mbo2.ty = "POIFlightSet"; 
@@ -239,7 +239,6 @@ function DATAPUSH()
 
 		end
 	end
-	VFL.print("OK");
 end
 
 --[[

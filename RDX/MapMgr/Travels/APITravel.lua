@@ -40,7 +40,7 @@ function RDXMAP.APITravel.FindTaxis2(node)
 	local mapId = RDXMAP.APIMap.GetRealMapId()
 	local cont = RDXMAP.APIMap.GetContinent(mapId)
 	if cont then
-		local mbo = RDXDB.TouchObject("RDXData:poisT:F_" .. cont);
+		local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. cont);
 		for k,v in ipairs (mbo.data) do
 			if x1 == v.fx and y1 == v.fy then
 				wx, wy = v.x, v.y
@@ -358,7 +358,7 @@ function RDXMAP.APITravel.FindClosestFlight (mapId, posX, posY)
 
 	local cont = RDXMAP.APIMap.GetContinent(mapId)
 	if cont then
-		local mbo = RDXDB.TouchObject("RDXData:poisT:F_" .. cont);
+		local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. cont);
 		for k,v in ipairs (mbo.data) do
 			if v.s == 2 or v.s == RDX.PlFactionNum then
 				local dist
@@ -391,11 +391,11 @@ function RDXMAP.APITravel.FindZoneConnection (srcMapId, srcX, srcY, dstMapId, ds
 	local found, closeConS, closeConD;
 	local closeDist = 9000111222333444;
 	
-	local mbo = RDXDB.TouchObject("RDXData:poisT:ZC_" .. srcMapId);
+	local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:ZC_" .. srcMapId);
 	for k,v in pairs(mbo.data) do
 		if v.zcr == dstMapId then
 			found = true;
-			local mbo2 = RDXDB.TouchObject("RDXData:poisT:ZC_" .. dstMapId);
+			local mbo2 = RDXDB.TouchObject("RDXDiskMap:poisT:ZC_" .. dstMapId);
 			local v2 = mbo2.data[v.icr];
 			local dist1 = ((v.x - srcX) ^ 2 + (v.y - srcY) ^ 2) ^ .5
 			local dist2 = ((v2.x - dstX) ^ 2 + (v2.y - dstY) ^ 2) ^ .5

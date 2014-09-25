@@ -161,10 +161,10 @@ local wl = {};
 local function BuildWindowList(class)
 	VFL.empty(wl);
 	local desc = nil;
-	for pkg,data in pairs(RDXDB.GetDisk("RDXData")) do
+	for pkg,data in pairs(RDXDB.GetDisk("RDXDiskTheme")) do
 		for file,md in pairs(data) do
 			if (type(md) == "table") and md.data and md.ty and string.find(md.ty, class) then
-				table.insert(wl, {text = RDXDB.MakePath("RDXData", pkg, file)});
+				table.insert(wl, {text = RDXDB.MakePath("RDXDiskTheme", pkg, file)});
 			end
 		end
 	end

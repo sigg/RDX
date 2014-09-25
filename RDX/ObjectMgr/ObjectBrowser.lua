@@ -67,10 +67,6 @@ function RDXDB.ExplorerInstance:new(parent)
 	local selFeedback = VFLUI.MakeLabel(nil, dlg, "");
 	selFeedback:SetWidth(400);
 	selFeedback:SetPoint("TOPLEFT", selEd, "BOTTOMLEFT", 5, 0);
-	
-	local selLink = VFLUI.MakeLabel(nil, dlg, "");
-	selLink:SetWidth(400);
-	selLink:SetPoint("TOPLEFT", selEd, "BOTTOMLEFT", 5, 0);
 
 	----------------- Finder implementation
 	-- SIGG TODO
@@ -123,8 +119,27 @@ function RDXDB.ExplorerInstance:new(parent)
 		local qq = RDXDB.AccessPath(a,b,c);
 		if (not FilterFile(a,b,c,qq)) then
 			selFeedback:SetText(VFLI.i18n("|cFFFF0000File does not match filter.|r"));
+			selLink:SetText("");
 		else
-			selFeedback:SetText("");
+			-- symlink
+			local obj = RDXDB._AccessPathRaw(a,b,c);
+			if obj.ty == "SymLink" then
+				local link
+				if type(obj.data) ~= "table" then 
+					link = "error";
+				else
+					link = RDXDB.GetSymLinkTarget(obj.data);
+				end
+				if not link then link = "error"; end
+				local objl = RDXDB.AccessPath(a,b,c); -- resolve the link
+				if not objl then
+					selFeedback:SetText("|cFFAAAAAA|r |cFF00FFFF" .. link .. VFLI.i18n("|r |cFFFF0000(Broken link)|r"));
+				else
+					selFeedback:SetText(" |cFFAAAAAA|r |cFF00FFFF" .. link .. "|r|cFFAAAAAA (" .. objl.ty .. " v" .. objl.version .. ")|r");
+				end
+			else
+				selFeedback:SetText("");
+			end
 		end
 	end);
 	----------------- Left side (disk list)
@@ -143,6 +158,14 @@ function RDXDB.ExplorerInstance:new(parent)
 	dkList:Rebuild(); dkList:Show();
 	
 	dkList:SetDataSource(function(cell, data, pos)
+		--local mem;
+		--if data == "RDXDiskSystem" then
+		--	mem = GetAddOnMemoryUsage("RDX_disk_system");
+		--elseif data == "RDXDiskTheme" then
+		--	mem = GetAddOnMemoryUsage("RDX_disk_theme");
+		--end
+		--if not mem then mem = 0; end
+		--cell.text:SetText(data .. " (" .. mem .. ")");
 		cell.text:SetText(data);
 		if(data == activeDk) then
 			cell.selTexture:SetVertexColor(0,0,1); cell.selTexture:Show();
@@ -166,6 +189,7 @@ function RDXDB.ExplorerInstance:new(parent)
 			--end
 		end
 		table.sort(dks, function(a,b) return a<b; end);
+		--UpdateAddOnMemoryUsage();
 		dkList:Update();
 	end
 	
@@ -331,25 +355,6 @@ function RDXDB.ExplorerInstance:new(parent)
 		local path = RDXDB.MakePath(a,b,c)
 		selDk = a; selPkg = b; selFile = c;
 		selEd:SetText(path);
-		-- symlink
-		local obj = RDXDB._AccessPathRaw(a,b,c);
-		if obj.ty == "SymLink" then
-			local link
-			if type(obj.data) ~= "table" then 
-				link = "error";
-			else
-				link = RDXDB.GetSymLinkTarget(obj.data);
-			end
-			if not link then link = "error"; end
-			local objl = RDXDB.AccessPath(a,b,c); -- resolve the link
-			if not objl then
-				selLink:SetText("|cFFAAAAAA|r |cFF00FFFF" .. link .. VFLI.i18n("|r |cFFFF0000(Broken link)|r"));
-			else
-				selLink:SetText(" |cFFAAAAAA|r |cFF00FFFF" .. link .. "|r|cFFAAAAAA (" .. objl.ty .. " v" .. objl.version .. ")|r");
-			end
-		else
-			selLink:SetText("");
-		end
 		fileList:Update();
 	end
 
@@ -399,9 +404,6 @@ function RDXDB.ExplorerInstance:new(parent)
 			SetActiveDisk(a):
 			SetActivePackage(b);
 			SelectFile(a,b,c);
-		elseif b then
-			SetActivePackage(a);
-			SelectFile("RDXData", a, b);
 		end
 	end
 	function dlg:GetPath()
@@ -770,7 +772,17 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	
 	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Mass Send"), 100);
 	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 155, 0);
-	cbtn:SetScript("OnClick", function() RDX.MassIntegrate(dlg); end);
+	cbtn:SetScript("OnClick", function()
+		local _, _, _, activeDk, activePkg = expl:_GetSelection();
+		if not activeDk then
+			VFLUI.MessageBox(VFLI.i18n("Error"), VFLI.i18n("Select a disk."));
+		--elseif not activePkg then
+		--	VFLUI.MessageBox(VFLI.i18n("Error"), VFLI.i18n("Select a package to store the new object in."));
+		else
+			--RDXDB.NewObjectDialog(dlg, activeDk, activePkg);
+			RDX.MassIntegrate(dlg, dk);
+		end
+	end);
 	
 	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("New Object"), 100);
 	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 310, 25);

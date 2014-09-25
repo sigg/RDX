@@ -5,4 +5,4 @@
 ## Version: 10.0.0
 ## RequiredDeps: RDX
 ## SavedVariables: RDXDiskLog
-RDX_disk_log.lua
+RDXDiskLog.lua

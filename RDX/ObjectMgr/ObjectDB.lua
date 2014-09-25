@@ -30,7 +30,6 @@ local function GetDisk(name)
 	return disks[name]
 end
 RDXDB.GetDisk = GetDisk;
---RDXDB.GetDisk("RDXData");
 
 local function GetDisks()
 	return disks;
@@ -43,9 +42,6 @@ local function ParsePath(path)
 	local _, _, a, b, c = string.find(path, "^(.*):(.*):(.*)$");
 	if c then
 		return a,b,c;
-	else
-		local _, _, a, b = string.find(path, "^(.*):(.*)$");
-		return a,b;
 	end
 end
 RDXDB.ParsePath = ParsePath;
@@ -54,10 +50,6 @@ RDXDB.ParsePath = ParsePath;
 local function MakePath(dk, pkg, obj)
 	if obj then
 		return dk .. ":" .. pkg .. ":" .. obj;
-	else
-		if dk and pkg then
-			return dk .. ":" .. pkg;
-		end
 	end
 end
 RDXDB.MakePath = MakePath;
@@ -70,23 +62,11 @@ local function AccessPathRaw(dk, pkg, obj)
 		local qq = disk[pkg];
 		if not qq or (type(qq[obj]) ~= "table") then return nil; end
 		return qq[obj];
-	else
-		local disk = RDXDB.GetDisk("RDXData");
-		local qq = disk[dk];
-		if not qq or (type(qq[pkg]) ~= "table") then return nil; end
-		return qq[pkg];
 	end
 end
 local function AccessPath(dk, pkg, obj)
 	if obj then
 		local d1 = AccessPathRaw(dk, pkg, obj);
-		if not d1 then return nil; end
-		if d1.ty ~= "SymLink" then return d1; end
-		local sl = AccessPathRaw(ParsePath(RDXDB.GetSymLinkTarget(d1.data)));
-		if not sl or sl == "" then sl = dl; end
-		return sl;
-	else
-		local d1 = AccessPathRaw(dk, pkg);
 		if not d1 then return nil; end
 		if d1.ty ~= "SymLink" then return d1; end
 		local sl = AccessPathRaw(ParsePath(RDXDB.GetSymLinkTarget(d1.data)));
@@ -325,14 +305,6 @@ function RDXDB.SetPackageMetadata(dk, pkg, field, val)
 		disk[pkg][field] = val;
 		RDXDBEvents:Dispatch("PACKAGE_METADATA_UPDATE", dk, pkg);
 		return true;
-	else
-		if not RDXDB.GetPackage(dk) then return nil; end
-		if (type(field) == "table") or (type(field) == "function") then return nil; end
-		local disk = RDXDB.GetDisk("RDXData");
-		if not disk[dk] then disk[dk] = {}; end
-		disk[dk][pkg] = field;
-		RDXDBEvents:Dispatch("PACKAGE_METADATA_UPDATE", dk);
-		return true;
 	end
 end
 
@@ -355,12 +327,6 @@ function RDXDB.GetPackageMetadata(dk, pkg, field)
 		local qq = disk[pkg];
 		if not qq or (type(qq[field]) == "table") then return nil; end
 		return qq[field];
-	else
-		if not dk then return nil; end
-		local disk = RDXDB.GetDisk("RDXData");
-		local qq = disk[dk];
-		if not qq or (type(qq[pkg]) == "table") then return nil; end
-		return qq[pkg];
 	end
 end
 
@@ -401,9 +367,6 @@ local function InitObjectDB()
 			if string.find(x, "^[%w_]+$") then return true; else return nil; end
 		end
 	end
-	
-	-- Initialize the RDX data saved variable.
-	--if not RDXData then RDXData = {}; end
 
 	--- Get a package's contents if it exists; return NIL if it doesn't
 	function RDXDB.GetPackage(dk, pkg)
@@ -411,9 +374,6 @@ local function InitObjectDB()
 		if pkg then
 			local disk = RDXDB.GetDisk(dk);
 			return disk[pkg];
-		else
-			local disk = RDXDB.GetDisk("RDXData");
-			return disk[dk];
 		end
 	end
 

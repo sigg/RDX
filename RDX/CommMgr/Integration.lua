@@ -31,7 +31,7 @@ local function _IntegrateSingleObject(data, path)
 		end
 		
 		-- Is this a new file?
-		if RDXDB._AccessPathRaw(pkg, file) then new=false; else new=true; end
+		if RDXDB._AccessPathRaw(dk, pkg, file) then new=false; else new=true; end
 		-- Update the contents
 		local lf = RDXDB.TouchObject(path);
 		if lf then
@@ -40,9 +40,9 @@ local function _IntegrateSingleObject(data, path)
 			lf.data = VFL.copy(src.data);
 			-- OK, we updated the contents; if it's a new file send OBJECT_CREATED, else send OBJECT_UPDATED.
 			if new then
-				RDXDBEvents:Dispatch("OBJECT_CREATED", pkg, file);
+				RDXDBEvents:Dispatch("OBJECT_CREATED", dk, pkg, file);
 			else
-				RDXDBEvents:Dispatch("OBJECT_UPDATED", pkg, file);
+				RDXDBEvents:Dispatch("OBJECT_UPDATED", dk, pkg, file);
 			end
 		end
 	end
@@ -61,16 +61,16 @@ end
 ---------------------------------
 
 local _ilist = {};
-local function BuildIntegrationList(data)
+local function BuildIntegrationList(dk, data)
 	VFL.empty(_ilist); local i = 0;
 	if not data then return; end
 	for pkgName,pkgData in pairs(data) do
 		for file,md in pairs(pkgData) do
 			if type(md) == "table" then
 				local dangerous = RDXDB.IsDangerousObject(md);
-				local exists = RDXDB.AccessPath(pkgName, file);
+				local exists = RDXDB.AccessPath(dk, pkgName, file);
 				table.insert(_ilist, { 
-					name = RDXDB.MakePath(pkgName, file), 
+					name = RDXDB.MakePath(dk, pkgName, file), 
 					exists = exists,
 					dangerous = dangerous,
 					sel = not (exists or dangerous),
@@ -86,12 +86,12 @@ local function BuildIntegrationList(data)
 end
 
 local dlg, integList, integData = nil, nil, nil;
-function RDX.Integrate(parent, data, author, callback)
+function RDX.Integrate(parent, dk, data, author, callback)
 	if dlg then return nil; end
 
 	callback = callback or VFL.Noop;
 	integData = data;
-	integList = BuildIntegrationList(data);
+	integList = BuildIntegrationList(dk, data);
 	
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 24);
@@ -208,10 +208,10 @@ end
 
 --- Try to integrate a data set. Tries for 1 minute until the dialog is successfully displayed.
 -- This can be used to defer a later integration while an earlier one is still in progress.
-function RDX.TryIntegrate(parent, data, author, callback)
+function RDX.TryIntegrate(parent, dk, data, author, callback)
 	local tries = 12;
 	local function _doit()
-		if (not RDX.Integrate(parent, data, author, callback)) and (tries > 0) then
+		if (not RDX.Integrate(parent, dk, data, author, callback)) and (tries > 0) then
 			tries = tries - 1;
 			VFLT.ZMSchedule(10, _doit);
 		end
@@ -226,7 +226,7 @@ end
 
 local remoteIntegrationEnabled = true;
 
-local function GeneralIntegrate(si, data, targets)
+local function GeneralIntegrate(si, dk, data, targets)
 	if not remoteIntegrationEnabled then return; end
 	if (not si) or (type(data) ~= "table") then
 		RPC:Debug(1, "Received integrate with invalid parameters");
@@ -237,11 +237,11 @@ local function GeneralIntegrate(si, data, targets)
 	-- Don't integrate my own stuff.
 	if(name == myunit.name) then RPC:Debug(2, "Ignoring integrate from self."); end
 	-- Check against allowedSenders and deniedSenders.
-	local d = RDXDB.GetObjectData("default:allowedSenders");
+	local d = RDXDB.GetObjectData("RDXDiskSystem:default:allowedSenders");
 	if d and d.data then
 		if not VFL.vfind(d.data, name) then RPC:Debug(1, "Ignoring integrate from unallowed sender " .. name); return; end
 	end
-	d = RDXDB.GetObjectData("default:deniedSenders");
+	d = RDXDB.GetObjectData("RDXDiskSystem:default:deniedSenders");
 	if d and d.data then
 		if VFL.vfind(d.data, name) then RPC:Debug(1, "Ignoring integrate from denied sender " .. name); return; end
 	end
@@ -260,7 +260,7 @@ local function GeneralIntegrate(si, data, targets)
 	end
 	-- Do it
 	RPC:Debug(2, "Integrating from user " .. name);
-	RDX.TryIntegrate(VFLDIALOG, data, name);
+	RDX.TryIntegrate(VFLDIALOG, dk, data, name);
 end
 
 -- Receive a package for integration
@@ -275,7 +275,7 @@ RPC.Bind("integrate", function(si, pn, pd)
 
 	local data = {};
 	data[pn] = pd;
-	GeneralIntegrate(si, data);
+	GeneralIntegrate(si, dk, data);
 end);
 
 -- Receive a mass integration
@@ -318,14 +318,14 @@ end);
 -- OUTGOING REMOTE INTEGRATION
 ----------------------------------------------
 --- Send the given package to the given conference.
-function RPC.RemoteIntegrate(data, conf, targets)
+function RPC.RemoteIntegrate(dk, data, conf, targets)
 	if(not conf) then return nil; end
 	-- Verify the package contains data.
 	if (not data) or (VFL.tsize(data) == 0) then return nil; end
-	return conf:Invoke("mintegrate", data, targets);
+	return conf:Invoke("mintegrate", dk, data, targets);
 end
 
-local function _IntegrateSendUI(parent, data)
+local function _IntegrateSendUI(parent, dk, data)
 	if not data then return; end
 
 	RDX.OpenRosterWindow(parent);
@@ -416,7 +416,7 @@ local function _IntegrateSendUI(parent, data)
 	btnOK:SetPoint("RIGHT", btnCancel, "LEFT");
 	btnOK:Show();
 	btnOK:SetScript("OnClick", function()
-		RPC.RemoteIntegrate(data, cf:GetConference(), CompileTargetArray());
+		RPC.RemoteIntegrate(dk, data, cf:GetConference(), CompileTargetArray());
 		VFL.EscapeTo(esch);
 	end);
 
@@ -433,27 +433,27 @@ local function _IntegrateSendUI(parent, data)
 	end, dlg.Destroy);
 end
 
-function RDX.MassIntegrate(parent)
+function RDX.MassIntegrate(parent, dk)
 	RDXDB.PackageListWindow(parent, VFLI.i18n("Bulk Package Send"), VFLI.i18n("Select packages to send."), VFL.True, function(pkgs)
 		if not pkgs then return; end
 		local idata = {};
-		local disk = RDXDB.GetDisk("RDXData")
+		local disk = RDXDB.GetDisk(dk)
 		for pName,_ in pairs(pkgs) do
 			idata[pName] = disk[pName];
 		end
-		_IntegrateSendUI(parent, idata);
-	end);
+		_IntegrateSendUI(parent, dk, idata);
+	end, dk);
 end
 
 -- Package send
-RDXDB.RegisterPackageMenuHandler(function(mnu, pkg, dialog)
+RDXDB.RegisterPackageMenuHandler(function(mnu, dk, pkg, dialog)
 	table.insert(mnu, {
 		text = VFLI.i18n("Send"), func = function() 
 			VFL.poptree:Release();
 			local data = {};
-			local disk = RDXDB.GetDisk("RDXData")
+			local disk = RDXDB.GetDisk(dk)
 			if pkg then data[pkg] = disk[pkg]; end
-			_IntegrateSendUI(dialog, data); 
+			_IntegrateSendUI(dialog, dk, data); 
 		end
 	});
 end);
@@ -467,7 +467,7 @@ RDXDB.RegisterObjectMenuHandler(function(mnu, opath, md, dialog)
 			if pkg then data[pkg] = {};
 			local disk = RDXDB.GetDisk(dk)
 			data[pkg][file] = disk[pkg][file]; end
-			_IntegrateSendUI(dialog, data);
+			_IntegrateSendUI(dialog, dk, data);
 		end
 	});
 end);

@@ -289,14 +289,13 @@ end);
 -----------------------------------------
 -- run on UI load 
 local function ApplyBossmods()
-	for pkgName,pkg in pairs(RDXDB.GetDisk("RDXData")) do
-		for objName,obj in pairs(pkg) do
-			if type(obj) == "table" and obj.ty == "Bossmod" then 
-				local path = RDXDB.MakePath(pkgName, objName);
-				SetupBossmod(path, obj.data)
-			end
+	RDXDB.Foreach(function(dk, pkg, file, md)
+		local ty = RDXDB.GetObjectType(md.ty);
+		if not ty then return; end
+		if ty == "Bossmod" then 
+			SetupBossmod(RDXDB.MakePath(dk,pkg,file), md.data)
 		end
-	end
+	end);
 end
 RDX.ApplyBossmods = ApplyBossmods;
 RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
