@@ -106,7 +106,7 @@ function RDXDB.ExplorerInstance:new(parent)
 			return;
 		end
 		if not RDXDB.GetPackage(a, b) then
-			selFeedback:SetText(VFLI.i18n("|cFFFF0000Invalid package.|r")); 
+			selFeedback:SetText(VFLI.i18n("|cFFFF0000Invalid folder.|r")); 
 			return;
 		end
 		if (not c) then
@@ -220,7 +220,7 @@ function RDXDB.ExplorerInstance:new(parent)
 	decor1:SetPoint("TOPLEFT", decor0, "TOPRIGHT", 5, 0);
 	decor1:SetWidth(150); decor1:SetHeight(250); decor1:Show();
 
-	local lbl1 = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Packages:"));
+	local lbl1 = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Folders:"));
 	lbl1:SetPoint("TOPLEFT", decor1, "TOPLEFT", 3, 10);
 
 	pkgList = VFLUI.List:new(dlg, 12, VFLUI.Selectable.AcquireCell)
@@ -282,7 +282,7 @@ function RDXDB.ExplorerInstance:new(parent)
 	decor2:SetPoint("TOPLEFT", decor1, "TOPRIGHT", 5, 0);
 	decor2:SetWidth(335); decor2:SetHeight(250); decor2:Show();
 
-	local lbl2 = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Package Contents:"));
+	local lbl2 = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Files:"));
 	lbl2:SetPoint("TOPLEFT", decor2, "TOPLEFT", 3, 10);
 
 	fileList = VFLUI.List:new(dlg, 12, VFLUI.Selectable.AcquireCell);
@@ -721,7 +721,7 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	dlg:SetHeight(400); dlg:SetWidth(660);
 	VFLUI.Window.SetDefaultFraming(dlg, 24);
 	dlg:SetTitleColor(0,.6,0);
-	dlg:SetText(VFLI.i18n("Repository Objects Browser"));
+	dlg:SetText(VFLI.i18n("Explorer"));
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetClampedToScreen(true);
 	
@@ -759,12 +759,12 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 	----------------- Control buttons
 	local cbtn = nil ;
 	
-	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("New Package"), 100);
+	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("New Folder"), 100);
 	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 155, 25);
 	cbtn:SetScript("OnClick", function()
 		local selDk, selPkg, selFile, activeDk = expl:_GetSelection();
 		if not activeDk then
-			VFLUI.MessageBox(VFLI.i18n("Error"), VFLI.i18n("Select a disk to store the new package"));
+			VFLUI.MessageBox(VFLI.i18n("Error"), VFLI.i18n("Select a disk to create the folder"));
 		else
 			NewPackage(activeDk);
 		end
@@ -784,14 +784,14 @@ function RDXDB.ObjectBrowser(parent, initPath, fileFilter)
 		end
 	end);
 	
-	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("New Object"), 100);
+	cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("New File"), 100);
 	cbtn:SetPoint("TOPLEFT", expl, "BOTTOMLEFT", 310, 25);
 	cbtn:SetScript("OnClick", function()
 		local _, _, _, activeDk, activePkg = expl:_GetSelection();
 		if not activeDk then
-			VFLUI.MessageBox(VFLI.i18n("Error"), VFLI.i18n("Select a disk to store the new object in."));
+			VFLUI.MessageBox(VFLI.i18n("Error"), VFLI.i18n("Select a disk to store the new file in."));
 		elseif not activePkg then
-			VFLUI.MessageBox(VFLI.i18n("Error"), VFLI.i18n("Select a package to store the new object in."));
+			VFLUI.MessageBox(VFLI.i18n("Error"), VFLI.i18n("Select a package to store the new file in."));
 		else
 			RDXDB.NewObjectDialog(dlg, activeDk, activePkg);
 		end

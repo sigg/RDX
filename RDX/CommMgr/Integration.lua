@@ -310,7 +310,7 @@ function RDX.IsRcvDisable()
 	return RDXU.rcvDisabled;
 end
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	if RDXU.rcvDisabled then DisableRcvPackage(); else EnableRcvPackage(); end
 end);
 

@@ -74,7 +74,7 @@ RDXEvents:Bind("INIT_SPELL", nil, function()
 end);
 ]]
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	if not RDXU.CooldownDB then RDXU.CooldownDB = {}; end
 end);
 

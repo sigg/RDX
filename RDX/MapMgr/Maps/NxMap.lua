@@ -1033,8 +1033,6 @@ function RDXMAP.Map:Update (elapsed)
 
 	local mapId = RDXMAP.APIMap.GetCurrentMapId()
 
-	Nx.InSanctuary = GetZonePVPInfo() == "sanctuary"
-
 	if self.MapId ~= mapId then
 		
 		--self.MapEvents:Dispatch("MAP_CHANGED", mapId);
@@ -1104,7 +1102,7 @@ function RDXMAP.Map:Update (elapsed)
 				
 		--	end
 		--end
-		local inst = RDXDB.GetObjectInstance("poisG:" .. mapId)
+		local inst = RDXDB.GetObjectInstance("RDXDiskMap:poisG:" .. mapId)
 		if inst then
 			for i,v in ipairs(inst) do
 				local id,fac,x,y = strsplit(",",v)		

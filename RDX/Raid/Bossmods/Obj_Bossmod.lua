@@ -298,7 +298,7 @@ local function ApplyBossmods()
 	end);
 end
 RDX.ApplyBossmods = ApplyBossmods;
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	RDX.ApplyBossmods();
 end);
 

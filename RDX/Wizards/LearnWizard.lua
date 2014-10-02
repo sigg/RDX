@@ -175,7 +175,7 @@ The RDX Team.
 
 local page_defaultI = page_default;
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	page_defaultI = VFL.GetLanguagePackId("learnWizard");
 	if not page_defaultI then page_defaultI = page_default; end
 	

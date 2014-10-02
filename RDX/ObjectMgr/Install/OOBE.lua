@@ -450,7 +450,7 @@ local function StartInstaller(force)
 end
 
 -- Everything is triggered by the VARIABLES_LOADED event.
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	-- Clear out variables set by legacy versions.
 	RDXG.bundles = nil; RDXG.OOBE_Installed = nil;
 	-- Create our new data files if they don't exist

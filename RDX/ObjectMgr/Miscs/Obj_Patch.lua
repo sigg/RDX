@@ -86,7 +86,7 @@ RDXDB.RegisterObjectType({
 
 -- When we login (post DB load) run our auto_USER script.
 -- Also run all autoexec scripts in sub-packages.
-RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	--RDXDB.OpenObject("scripts:auto_u_" .. RDX.pspace);
 	--local aex, adesk, isexist = nil, nil, nil;
 	--for pkg,dir in pairs(RDXDB.GetDisk("RDXData")) do

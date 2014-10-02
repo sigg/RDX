@@ -51,7 +51,7 @@ function RDXPM.ResetLayouts()
 	VFLUI.MessageBox("Reset", "Do you want to reset all RDX editors layout? All editors will be moved to the center of the screen.", nil, "No", nil, "Yes", ResetLayouts);
 end
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	if not RDXG.MainPanel then RDXG.MainPanel = {}; end
 	if not RDXG.EditorsPanel then RDXG.EditorsPanel = {}; end
 end);

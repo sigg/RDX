@@ -64,17 +64,17 @@ function RDX.TabManager:new(parent, path, data, desc)
 						text = VFLI.i18n("Builtins Tabs:"),
 						color = _submenu_color,
 					});
-					local disk = RDXDB.GetDisk("RDXDiskSystem")
-					local pkg = disk["tabs"];
 					local tbl = {};
-					for objName,obj in pairs(pkg) do
-						if type(obj) == "table" then
-							if (obj.ty == "SymLink" and cffilter[objName]) or (obj.ty == "TabChatFrame" and cffilter[objName]) or obj.ty == "TabCombatLogs" or obj.ty == "TabWindow" or obj.ty == "TabMap" or obj.ty == "TabQuest" then 
-								local path = RDXDB.MakePath("RDXDiskSystem","tabs", objName);
+					RDXDB.Foreach(function(dk, pkg, file, md)
+						local ty = RDXDB.GetObjectType(md.ty);
+						if not ty then return; end
+						if dk ~= "RDXData" and pkg == "tabs" then
+							if (md.ty == "SymLink" and cffilter[file]) or (md.ty == "TabChatFrame" and cffilter[file]) or md.ty == "TabCombatLogs" or md.ty == "TabWindow" or md.ty == "TabMap" or md.ty == "TabQuest" then 
+								local path = RDXDB.MakePath(dk, pkg, file);
 								if not RDXDB.PathHasInstance(path) then
-									local data = obj.data;
+									local data = md.data;
 									local tit = "";
-									if data then tit = obj.data.title; end
+									if data then tit = md.data.title; end
 									if tit then
 										table.insert(tbl, {
 											text = path .. " (" .. tit .. ")",
@@ -89,7 +89,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 								end
 							end
 						end
-					end
+					end);
 					table.sort(tbl, function(x1,x2) return x1.path<x2.path; end);
 					for i,v in ipairs(tbl) do
 						table.insert(mnu, {
@@ -170,13 +170,15 @@ function RDX.TabManager:new(parent, path, data, desc)
 				tab._path = tabpath;
 			end
 		end
-		-- store in data object.
-		if save then
-			table.insert(data, tabpath);
+		if tab then
+			-- store in data object.
+			if save then
+				table.insert(data, tabpath);
+			end
+			-- skin
+			VFLUI.SetBackdrop(tab, self.desc.bkd);
+			VFLUI.SetFont(tab.font, self.desc.font);
 		end
-		-- skin
-		VFLUI.SetBackdrop(tab, self.desc.bkd);
-		VFLUI.SetFont(tab.font, self.desc.font);
 	end
 	
 	function self:RemoveTab(tabpath, save)

@@ -35,6 +35,8 @@ ObjectMgr\Feature.lua
 ObjectMgr\Security.lua
 ObjectMgr\FontEditor.lua
 ObjectMgr\PackageMetadataDialog.lua
+ObjectMgr\Miscs\Obj_Global.lua
+ObjectMgr\Miscs\Obj_User.lua
 ObjectMgr\Miscs\Obj_SymLink.lua
 ObjectMgr\Miscs\Obj_Script.lua
 ObjectMgr\Miscs\Feat_Proxy.lua

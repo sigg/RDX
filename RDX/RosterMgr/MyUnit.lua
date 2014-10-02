@@ -245,6 +245,11 @@ function VFL.InArena()
 	return select(2, IsInInstance()) == "arena";
 end
 
+function VFL.InSanctuary()
+	--return (MiniMapBattlefieldFrame.status == "active") and select(2, IsInInstance()) == "arena";
+	return GetZonePVPInfo() == "sanctuary";
+end
+
 WoWEvents:Bind("UPDATE_BATTLEFIELD_STATUS", nil, function()
 	if VFL.InBattleground() then
 		SetBGFlag(myunit.mapId);

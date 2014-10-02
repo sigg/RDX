@@ -116,7 +116,7 @@ RDX.RegisterClickAction({
 });
 
 -- Initial load
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	local function asupdate()
 		for unit,mark in pairs(RDXAM.UnitMarks) do
 			if UnitExists(unit.."-target") then

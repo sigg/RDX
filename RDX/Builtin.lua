@@ -22,5 +22,5 @@
 
 
 --RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
---	RDXDB.GetObjectInstance("default:Logs_Me_tl");
+--	RDXDB.GetObjectInstance("RDXDiskSystem:default:Logs_Me_tl");
 --end);

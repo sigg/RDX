@@ -283,7 +283,7 @@ end;
 -- Scan through the nominative set for auto-promotion. If the person is on the list and not
 -- already promoted, promote them. 
 local function ScanPromote()
-	local promote_set = RDXDB.GetObjectData("default:promotes");
+	local promote_set = RDXDB.GetObjectData("RDXDiskSystem:default:promotes");
 	if promote_set then
 		local numRaidMembers = GetNumRaidMembers();
 		for x = 1, numRaidMembers, 1 do
@@ -332,9 +332,9 @@ function Logistics.AddPromote(name)
 	local match = false;
 	name = string.lower(name);
 	if name then
-		local win_set = RDXDB.GetObjectInstance("default:promotes");
+		local win_set = RDXDB.GetObjectInstance("RDXDiskSystem:default:promotes");
 		win_set:AddName(name);
-		local promote_set = RDXDB.GetObjectData("default:promotes");
+		local promote_set = RDXDB.GetObjectData("RDXDiskSystem:default:promotes");
 		for k, v in pairs(promote_set.data, k) do
 			if v == name then
 				match = true;
@@ -357,9 +357,9 @@ function Logistics.DropPromote(name)
 	if (not name) then name = UnitName("target"); end
 	name = string.lower(name);
 	if name then
-		local win_set = RDXDB.GetObjectInstance("default:promotes");
+		local win_set = RDXDB.GetObjectInstance("RDXDiskSystem:default:promotes");
 		win_set:RemoveName(name);
-		local promote_set = RDXDB.GetObjectData("default:promotes");
+		local promote_set = RDXDB.GetObjectData("RDXDiskSystem:default:promotes");
 		for k, v in pairs(promote_set.data) do
 			if v == name then table.remove(promote_set.data, k); end
 		end
@@ -369,7 +369,7 @@ function Logistics.DropPromote(name)
 	end
 end
 
---RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+--RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 --	if IsRaidLeader() or IsRaidOfficer() then
 --		hooksecurefunc("UnitPopup_ShowMenu", _promote_UnitPopup_ShowMenu);
 --	end;
@@ -403,7 +403,7 @@ end;
 -- if it doesn't exist
 -------------------------------------------------------------------------
 
-RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	local dd;
 	if not RDXDB.CheckObject("RDXDiskSystem:default:promotes", "NominativeSet") then
 		dd = RDXDB._DirectCreateObject("RDXDiskSystem", "default", "promotes");

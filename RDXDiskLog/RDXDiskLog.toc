@@ -6,3 +6,4 @@
 ## RequiredDeps: RDX
 ## SavedVariables: RDXDiskLog
 RDXDiskLog.lua
+tabs.lua

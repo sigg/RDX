@@ -834,7 +834,7 @@ local function RemoveUnit()
 	end
 end
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	VFLT.AdaptiveSchedule2("UDB:RemoveUnit", timeGC_default, RemoveUnit);
 	VFLP.RegisterFunc("RDX", "UDB:RemoveUnit", RemoveUnit, true);
 end);
@@ -876,7 +876,7 @@ for i=1, NUM_UNITS do
 	edata[i] = NewEData(i);
 	VFL.mixin(ubi[i], edata[i], true);
 end
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	-- Create all NData that doesn't exist
 	for n,unit in pairs(ubn) do VFL.mixin(unit, GetNData(n), true); end
 end);
@@ -1192,7 +1192,7 @@ WoWEvents:Bind("GROUP_ROSTER_UPDATE", nil, OnGroupRosterUpdate);
 --end);
 
 -- After everything loads, let's double check our party/raid status. 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function() 
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function() 
 	if IsInRaid() then
 		SetRaid();
 	elseif IsInGroup() then
@@ -1202,7 +1202,7 @@ RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
 	end 
 end);
 
--- bug GUID not available at INIT_VARIABLES_LOADED, and unitraid
+-- bug GUID not available at INIT_POST_VARIABLES_LOADED, and unitraid
 -- this event is only fire when you log in the game, not on reloadUI
 --WoWEvents:Bind("KNOWLEDGE_BASE_SYSTEM_MOTD_UPDATED", nil, function()
 --	VFLT.NextFrame(math.random(10000000), function() RDX._Roster(); RDXEvents:Dispatch("ROSTER_NIDS_CHANGED"); end);
@@ -1795,7 +1795,7 @@ end);
 --------------------------------------------
 
 -- there is no event to track enchant weapons...
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	local timemh, timeoh = 0, 0;
 	local hasMainHandEnchant, mainHandExpiration, hasOffHandEnchant, offHandExpiration;
 	local function weaponsupdate()

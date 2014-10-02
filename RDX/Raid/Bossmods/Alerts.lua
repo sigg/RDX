@@ -575,7 +575,7 @@ end
 anbtn:SetScript("OnClick", RDX.AnnounceToggle);
 
 -- Load prefs into locals
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	RDXU.alert_top_x = nil; RDXU.alert_top_y = nil; RDXU.alert_bottom_x = nil; RDXU.alert_bottom_y = nil;
 	
 	--deprecated manage by Obj_Desktop now

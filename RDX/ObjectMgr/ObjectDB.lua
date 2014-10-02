@@ -21,7 +21,8 @@ RDXDBEvents = DispatchTable:new();
 -----------------------------------------------------------
 local disks = {};
 local function RegisterDisk(name, tbl)
-	--if disks[name] then ; end
+	if not name or not tbl then VFL.print("RegisterDisk error"); return; end
+	if disks[name] then VFL.print("already register disk"); return; end
 	disks[name] = tbl;	
 end
 RDXDB.RegisterDisk = RegisterDisk;
@@ -117,18 +118,11 @@ function RDXDB.IsProtectedPkg(name)
 	return protectedPkg[name];
 end
 
---local function nu_iter(pkg, file, data, matchPath)
---	if (data.ty == "SymLink") and (data.data == matchPath) then
---		RDXDBEvents:Dispatch("OBJECT_UPDATED", pkg, file);
---	end
---end
 --- Notify downstream processes that a file has been updated.
 function RDXDB.NotifyUpdate(path)
 	--VFL.print("notify update " .. path);
 	local dk,pkg,obj = ParsePath(path); if (not pkg) or (not obj) then return; end
 	RDXDBEvents:Dispatch("OBJECT_UPDATED", dk, pkg, obj);
-	-- All symlinks into this file are considered to be updated as well.
-	--RDXDB.Foreach(nu_iter, path);
 end
 
 --- Completely clear the RDX database and restart RDX. WARNING: data loss.
@@ -571,8 +565,8 @@ local function InitObjectDB()
 	end
 
 	--- Find an available temporary file name in the given package.
-	function RDXDB.tmpnam(pkg)
-		local p = RDXDB.GetPackage(pkg); if not p then return nil; end
+	function RDXDB.tmpnam(dk, pkg)
+		local p = RDXDB.GetPackage(dk, pkg); if not p then return nil; end
 		local i, str = 0, "unnamed";
 		while p[str] do
 			i=i+1; str = "unnamed" .. i;

@@ -349,7 +349,7 @@ end
 
 local mainPane;
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	--if not RDXG.RDXopt then RDXG.RDXopt = {}; RDXG.RDXopt.hmp = true; end
 	local opt = RDXG.RDXopt;
 	

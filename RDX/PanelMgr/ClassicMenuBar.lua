@@ -233,10 +233,10 @@ RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
 end);
 RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Enable Debug Map Menu");
-	ent.checked = RDXG.DebugMap;
+	ent.checked = function() return RDXG.DebugMap; end;
 	ent.func = function() VFL.poptree:Release(); RDXG.DebugMap = not RDXG.DebugMap; end 
 end);
-RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+--[[RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
 	ent.text = "**** Packages ****";
 	ent.isTitle = true;
 	ent.color = _yellow;
@@ -253,6 +253,7 @@ RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
 	ent.notCheckable = true;
 	ent.func = function() VFL.poptree:Release(); RDXDB.RestorePackages(); end 
 end);
+]]
 
 RDXPM.CompactMenu:RegisterMenuEntry(VFLI.i18n("Debugging"), true, function(tree, frame) RDXPM.DebugMenu:Open(tree, frame); end)
 
@@ -486,7 +487,7 @@ end
 -- INIT
 -- Create the menu pane and show all buttons
 ----------------------------------------------
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()	
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()	
 	-- Mini Panel
 	miniPane = CreateMiniPane();
 	miniPane:Layout();

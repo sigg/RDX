@@ -108,7 +108,7 @@ local function PatchListener(ci, who)
 	-- Sanity check sender
 	if (not ci) or (type(who) ~= "string") then return; end
 	-- get latest patch.
-	local tbl = RDXDB.GetObjectData("default:RDX" .. RDX.version[1] .. RDX.version[2] .. RDX.version[3]);
+	local tbl = RDXDB.GetObjectData("RDXDiskSystem:default:RDX" .. RDX.version[1] .. RDX.version[2] .. RDX.version[3]);
 	return tbl;
 end
 --RPC_Guild:Bind("request_patch", PatchListener);

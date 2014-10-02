@@ -47,11 +47,11 @@ local function ClientSendPkg(si, data, targets)
 	-- Don't integrate my own stuff.
 	if(name == myunit.name) then RPC:Debug(2, "Ignoring integrate from self."); end
 	-- Check against allowedSenders and deniedSenders.
-	local d = RDXDB.GetObjectData("default:allowedSenders");
+	local d = RDXDB.GetObjectData("RDXDiskSystem:default:allowedSenders");
 	if d and d.data then
 		if not VFL.vfind(d.data, name) then RPC:Debug(1, "Ignoring integrate from unallowed sender " .. name); return; end
 	end
-	d = RDXDB.GetObjectData("default:deniedSenders");
+	d = RDXDB.GetObjectData("RDXDiskSystem:default:deniedSenders");
 	if d and d.data then
 		if VFL.vfind(d.data, name) then RPC:Debug(1, "Ignoring integrate from denied sender " .. name); return; end
 	end
@@ -445,7 +445,7 @@ local function UpdatePList()
 	plist = VFL.copy(GetListPkgInfo(true));
 	sig_PackageUpdated:Raise();
 end
-RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, UpdatePList);
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, UpdatePList);
 RDXDBEvents:Bind("PACKAGE_METADATA_UPDATE", nil, UpdatePList);
 RDXDBEvents:Bind("PACKAGE_CREATED", nil, UpdatePList);
 RDXDBEvents:Bind("PACKAGE_DELETED", nil, UpdatePList);

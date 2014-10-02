@@ -62,17 +62,23 @@ local function VariablesLoaded()
 		RDX:Debug(2, "Init: VariablesLoaded()");
 	
 		-- Session variables
-		if not RDXSession then RDXSession = {}; end
+		-- deprecated
+		--if not RDXSession then RDXSession = {}; end
 		-- RDXG (Global session variables)
-		if not RDXSession.global then RDXSession.global = {}; end
-		RDXG = RDXSession.global;
+		--if not RDXSession.global then RDXSession.global = {}; end
+		--RDXG = RDXSession.global;
 		-- RDXU (User session variables)
-		if not RDXSession[RDX.pspace] then RDXSession[RDX.pspace] = {}; end
-		RDXU = RDXSession[RDX.pspace];
+		--if not RDXSession[RDX.pspace] then RDXSession[RDX.pspace] = {}; end
+		--RDXU = RDXSession[RDX.pspace];
 		
 		RDX:Debug(3, "DISPATCH INIT_VARIABLES_LOADED");
 		RDXEvents:Dispatch("INIT_VARIABLES_LOADED");
 		RDXEvents:DeleteKey("INIT_VARIABLES_LOADED");
+		
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:rdx");
+		RDXG = mbo.data;
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:users:" .. RDX.pspace);
+		RDXU = mbo.data;
 		
 		RDX:Debug(3, "DISPATCH INIT_POST_VARIABLES_LOADED");
 		RDXEvents:Dispatch("INIT_POST_VARIABLES_LOADED");

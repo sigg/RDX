@@ -526,7 +526,8 @@ RDXDB.RegisterSymLinkClass({
 local _objectsadd = {
 	{ text = "AuraFilter" },
 	{ text = "MouseBindings" },
-	{ text = "UnitFrameType" },
+	{ text = "Design" },
+	{ text = "Local" },
 };
 local function ObjectsTypesDropdownFunction() return _objectsadd; end
 
@@ -819,6 +820,66 @@ RDXDB.RegisterSymLinkClass({
 	end;
 });
 
+
+RDXDB.RegisterSymLinkClass({
+	name = "Local";
+	title = "Local";
+	GetTargetPath = function(data)
+		if not data.dk or not data.pkg or not data.prefixfile or not data.ty then return nil; end
+		local lc = GetLocale();
+		if data.pkg ~= "default" then
+			RDXDB.CreateObject(data.dk, data.pkg, data.prefixfile .. lc, data.ty);
+		end
+		return data.dk .. ":" .. data.pkg .. ":" .. data.prefixfile .. lc;
+	end;
+	Unregister = function(path)
+		VFLEvents:Unbind("symlink_" .. path);
+	end;
+	GetUI = function(parent, desc)
+		local ui = VFLUI.CompoundFrame:new(parent);
+		
+		local ed_dk = VFLUI.LabeledEdit:new(ui, 150); ed_dk:Show();
+		ed_dk:SetText(VFLI.i18n("Disk"));
+		if desc and desc.dk then ed_dk.editBox:SetText(desc.dk); end
+		ui:InsertFrame(ed_dk);
+		
+		local ed_pkg = VFLUI.LabeledEdit:new(ui, 150); ed_pkg:Show();
+		ed_pkg:SetText(VFLI.i18n("Package"));
+		if desc and desc.pkg then ed_pkg.editBox:SetText(desc.pkg); end
+		ui:InsertFrame(ed_pkg);
+		
+		local ed_prefixfile = VFLUI.LabeledEdit:new(ui, 150); ed_prefixfile:Show();
+		ed_prefixfile:SetText(VFLI.i18n("Prefix"));
+		if desc and desc.prefixfile then ed_prefixfile.editBox:SetText(desc.prefixfile); end
+		ui:InsertFrame(ed_prefixfile);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Object Type:"));
+		local dd_objectType = VFLUI.Dropdown:new(er, ObjectsTypesDropdownFunction);
+		dd_objectType:SetWidth(150); dd_objectType:Show();
+		if desc and desc.ty then 
+			dd_objectType:SetSelection(desc.ty); 
+		else
+			dd_objectType:SetSelection("AuraFilter");
+		end
+		er:EmbedChild(dd_objectType); er:Show();
+		ui:InsertFrame(er);
+		
+		ui.GetDescriptor = function(x)
+			return {
+				class = "Local", 
+				dk = ed_dk.editBox:GetText(),
+				pkg = ed_pkg.editBox:GetText(),
+				prefixfile = ed_prefixfile.editBox:GetText(),
+				ty = dd_objectType:GetSelection();
+			};
+		end;
+
+		ui.Destroy = VFL.hook(function(s) s.GetDescriptor = nil; end, ui.Destroy);
+
+		return ui;
+	end;
+});
+
 -----------------------------------------
 -- Register event for symlink
 -----------------------------------------
@@ -862,7 +923,7 @@ local function ApplyEvents()
 		end
 	end);
 end
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	ApplyEvents();
 end);
 

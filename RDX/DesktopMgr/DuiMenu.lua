@@ -182,6 +182,6 @@ RDXDBEvents:Bind("OBJECT_MOVED", nil, function(dk, pkg, file, ndk, npkg, nfile, 
 	end
 end);
 
-RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function() AUIList(); end);
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function() AUIList(); end);
 
 RDXDK.AUIList = AUIList;

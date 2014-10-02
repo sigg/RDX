@@ -523,7 +523,7 @@ RDX.ChatFrame = {};
 function RDX.ChatFrame:new(path, parent)
 	local self = VFLUI.AcquireFrame("ChatFrame2");
 	
-	self.msgmax = 100;
+	self.msgmax = 1000;
 	self.msgs = {};
 	
 	-- hack
@@ -547,6 +547,9 @@ function RDX.ChatFrame:new(path, parent)
 	end
 
 	function self:AddMessages(desc)
+		if not desc.logs then desc.logs = {}; end
+		self.msgs = desc.logs;
+		
 		for k,v in pairs(desc.discussion) do
 			ChatFrame_AddMessageGroup(self.cf, k);
 			if k == "WHISPER" then
@@ -824,6 +827,6 @@ local function RegisterTabChatFrames()
 	end
 end
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	RegisterTabChatFrames();
 end);]]

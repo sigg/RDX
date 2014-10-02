@@ -311,7 +311,7 @@ end
 RDXDK.ManageAutoDesk = ManageAutoDesk;
 
 -- Run all autodesk
-RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	ManageAutoDesk();
 end);
 

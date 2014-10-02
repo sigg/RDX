@@ -12,9 +12,9 @@ function Logistics.AddAssist(name)
 	end
 	if(name) then
 	    name = string.lower(name);
-		local win_set = RDXDB.GetObjectInstance("default:assists");
+		local win_set = RDXDB.GetObjectInstance("RDXDiskSystem:default:assists");
 		win_set:AddName(name);
-		local assist_set = RDXDB.GetObjectData("default:assists");
+		local assist_set = RDXDB.GetObjectData("RDXDiskSystem:default:assists");
 		table.insert(assist_set.data, name);
 		local myunit = RDXDAL.GetMyUnit();
 		if myunit:IsLeader() then
@@ -30,9 +30,9 @@ function Logistics.DropAssist(name)
 	if name == nil then name = UnitName("target"); end
 	if(name) then
 	    name = string.lower(name);
-	    local win_set = RDXDB.GetObjectInstance("default:assists");
+	    local win_set = RDXDB.GetObjectInstance("RDXDiskSystem:default:assists");
 	    win_set:RemoveName(name);
-		local assist_set = RDXDB.GetObjectData("default:assists");
+		local assist_set = RDXDB.GetObjectData("RDXDiskSystem:default:assists");
 		for k, v in pairs(assist_set.data) do
 		    if v == name then
 		        table.remove(assist_set.data, k);
@@ -50,7 +50,7 @@ end
 function Logistics.SyncAssists()
 	local myunit = RDXDAL.GetMyUnit();
 	if not myunit:IsLeader() then return; end
-	local assist_set = RDXDB.GetObjectData("default:assists");
+	local assist_set = RDXDB.GetObjectData("RDXDiskSystem:default:assists");
 	if assist_set then
 		RPC_Group:Flash("sync_assist", assist_set.data);
  	end
@@ -58,9 +58,9 @@ end
 
 function Logistics.ClearAssists()
 	
-	local assist_set = RDXDB.GetObjectData("default:assists");
+	local assist_set = RDXDB.GetObjectData("RDXDiskSystem:default:assists");
 	assist_set.data = {};
-	local win_set = RDXDB.GetObjectInstance("default:assists");
+	local win_set = RDXDB.GetObjectInstance("RDXDiskSystem:default:assists");
 	win_set:ClearNames();
 	local myunit = RDXDAL.GetMyUnit();
 	if myunit:IsLeader() then
@@ -72,8 +72,8 @@ local function RPCSyncAssists(commInfo, names)
 	local unit = RPC.GetSenderUnit(commInfo);
 	if not unit then return; end
 
-	win_set = RDXDB.GetObjectInstance("default:assists");
-	assist_set = RDXDB.GetObjectData("default:assists");
+	win_set = RDXDB.GetObjectInstance("RDXDiskSystem:default:assists");
+	assist_set = RDXDB.GetObjectData("RDXDiskSystem:default:assists");
 	if not assist_set then VFL.print("assist set not found"); return; end
 	assist_set.data = names;
 	win_set:ClearNames();

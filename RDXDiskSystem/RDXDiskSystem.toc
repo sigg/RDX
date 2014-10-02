@@ -6,3 +6,11 @@
 ## RequiredDeps: RDX
 ## SavedVariables: RDXDiskSystem
 RDXDiskSystem.lua
+aurafilters.lua
+bindings.lua
+default.lua
+globals.lua
+locales.lua
+sets.lua
+tabs.lua
+users.lua

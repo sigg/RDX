@@ -351,8 +351,8 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 			curTab:UnlockHighlight();
 		end
 		curTab = tab;
-		curTab.selected = true;
 		if not tab then return; end
+		curTab.selected = true;
 		if tab._tbOnSelect then tab:_tbOnSelect(a, b, c); end
 		tab:StopFlash();
 		tab:LockHighlight();
@@ -418,7 +418,7 @@ local function NewTabBar(fp, parent, tabHeight, orientation)
 				VFL.empty(mnu);
 				if fnMenu then fnMenu(mnu, t); end
 				if #mnu > 0 then
-					VFL.poptree:Begin(180, 12, t, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(t));
+					VFL.poptree:Begin(240, 12, t, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(t));
 					VFL.poptree:Expand(nil, mnu);
 				end
 			end;

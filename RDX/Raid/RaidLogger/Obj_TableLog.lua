@@ -97,9 +97,10 @@ local function AddRow(x, log)
 	end
 end
 
--- Registration and controls for the FilterSet object type.
+-- Registration and controls for the FilterSet object type.  -- deprecated
 RDXDB.RegisterObjectType({
 	name = "TableLog";
+	invisible = true;
 	New = function(path, md)
 		md.version = 1;
 		md.data = {};

@@ -90,7 +90,10 @@ end
 -- Given a spellid by name
 function RDXSS.GetSpellIdByLocalName(name)
 	if not name then return nil; end
-	return RDXLocalSpellDB[name];
+	local obj = RDXDB.GetObjectData("RDXDiskSystem:locales:spells")
+	if obj and obj.data then
+		return obj.data[name];
+	end
 end
 
 -- Given a spellinfo by spellid
@@ -188,26 +191,6 @@ local function BuildCoreSpellDB()
 	end
 	IFullspFN = VFL.invert(FullspFN);
 end
-
---RDXSpellDB
--- RDXSpellDB is stored in RDX_localspelldb.lua
---[[
-spellname = {
- spellid
- spellrank
- bookid
- casttime
- duration
- maxAmount 
- averageAmount
-}
-heal utilise spellname + rank pour récupérer casttime et averageamount
-cd utilise spellid pour récupérer la durée réelle
-action bouton utilise bookid
-
-if not RDXSession[RDX.pspace] then RDXSession[RDX.pspace] = {}; end
-	RDXU = RDXSession[RDX.pspace];
-]]
 
 -----------------------------------------------
 -- Companion spell 3.0.3
@@ -585,26 +568,25 @@ local function __RDXParser(timestamp, event, hideCaster, sourceGUID, sourceName,
 	end
 	
 	if norank and spellName and spellId then
-		RDXLocalSpellDB[spellName] = spellId;
+		local obj = RDXDB.GetObjectData("RDXDiskSystem:locales:spells")
+		if obj and obj.data then
+			obj.data[spellName] = spellId;
+		end
 	end
 	
 	if spellName and spellId then
 		_, rank = GetSpellInfo(spellId);
 		if rank then spellName = spellName .. "(" .. rank ..")"; end
-		RDXLocalSpellDB[spellName] = spellId;
+		local obj = RDXDB.GetObjectData("RDXDiskSystem:locales:spells")
+		if obj and obj.data then
+			obj.data[spellName] = spellId;
+		end
 	end
 end
 
 VFLP.RegisterFunc("RDXSS: Spell System", "Parser", __RDXParser, true);
 
 local function EnableStoreLocalSpellDB()
-	--if not RDXG.localSpellDBVersion or RDXG.localSpellDBVersion ~= RDX.GetVersion() or not RDXG.localSpellDBClient or RDXG.localSpellDBClient ~= GetLocale() then
-	--	RDX.printI("RESET Local spell DB");
-	--	VFL.empty(RDXLocalSpellDB);
-	--	RDXLocalSpellDB = {};
-	--	RDXG.localSpellDBVersion = RDX.GetVersion();
-	--	RDXG.localSpellDBClient = GetLocale();
-	--end
 	RDXG.localSpellDB = true;
 	WoWEvents:Unbind("LocalSpellDB");
 	WoWEvents:Bind("COMBAT_LOG_EVENT_UNFILTERED", nil, __RDXParser, "LocalSpellDB");
@@ -629,7 +611,6 @@ function RDXSS.IsStoreLocalSpellDB()
 	return RDXG.localSpellDB;
 end
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
-	if not RDXLocalSpellDB then RDXLocalSpellDB = {}; end
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	EnableStoreLocalSpellDB();
 end);

@@ -27,7 +27,7 @@ Omni = RegisterVFLModule({
 OmniEvents = DispatchTable:new();
 
 --------- Load saved tables
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	-- Verify saved variables
 	if not Omni_SavedTables then Omni_SavedTables = {}; end
 	-- Create the saved session

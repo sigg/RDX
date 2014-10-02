@@ -218,12 +218,14 @@ function RDX.CombatLogs:new(path, desc)
 	local obj = VFLUI.AcquireFrame("Frame");
 	obj.path = path;
 	
+	if not desc.logs then desc.logs = {}; end
+	
 	-- create the table omni
 	local x = Omni.Table:new(path);
 	x.immutable = true;
 	x.displayTime = "ABSOLUTE";
 	x.source = UnitName("player");
-	x.data = RDXGetTableLogs(path);
+	x.data = desc.logs;
 	x.timeOffset = 0;
 	local sysEpoch = VFLT.GetSystemEpoch();
 	if sysEpoch then
@@ -362,7 +364,8 @@ RDXDB.RegisterObjectType({
 		md.data = {};
 		md.data.title = "Combat";
 		md.data.tabwidth = 80;
-		md.data.size = 1000;		
+		md.data.size = 1000;
+		md.data.logs = {};
 	end;
 	Edit = function(path, md, parent)
 		EditCombatLogsDialog(parent or VFLDIALOG, path, md);
@@ -497,7 +500,7 @@ local function RegisterTabCombatLogs()
 	end
 end
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	RegisterTabCombatLogs();
 end);
 

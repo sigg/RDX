@@ -17,63 +17,6 @@ Nx = {};
 RDXMAP.Guide = {}
 RDXMAP.Guide.PlayerTargets = {}
 
-----------------------------------
--- Map Database local
-----------------------------------
-
-local mapid, mapName;
-
-local function __RDXParser()
-	SetMapToCurrentZone();
-	mapid = GetCurrentMapAreaID();
-	--VFL.print(mapid);
-	if mapid then
-		mapName = GetMapNameByID(mapid);
-		RDXLocalMapDB[mapid] = mapName;
-	end
-end
-
---VFLP.RegisterFunc("RDXSS: Spell System", "Parser", __RDXParser, true);
-
-local function EnableStoreLocalMapDB()
-	--if not RDXG.localSpellDBVersion or RDXG.localSpellDBVersion ~= RDX.GetVersion() or not RDXG.localSpellDBClient or RDXG.localSpellDBClient ~= GetLocale() then
-	--	RDX.printI("RESET Local spell DB");
-	--	VFL.empty(RDXLocalSpellDB);
-	--	RDXLocalSpellDB = {};
-	--	RDXG.localSpellDBVersion = RDX.GetVersion();
-	--	RDXG.localSpellDBClient = GetLocale();
-	--end
-	--VFL.print("EnableStoreLocalMapDB");
-	RDXG.localMapDB = true;
-	WoWEvents:Unbind("localMapDB");
-	WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, __RDXParser, "localMapDB");
-	WoWEvents:Bind("ZONE_CHANGED_NEW_AREA", nil, __RDXParser, "localMapDB");
-	--VFLT.AdaptiveSchedule2("vcc", 1, __RDXParser);
-end
-
-local function DisableStoreLocalMapDB()
-	RDXG.localMapDB = nil;
-	WoWEvents:Unbind("localMapDB");
-end
-
-function RDXMAP.ToggleStoreLocalMapDB()
-	if RDXG.localMapDB then
-		DisableStoreLocalMapDB();
-		RDX.printI(VFLI.i18n("Disable Store Local Map DB"));
-	else
-		EnableStoreLocalMapDB();
-		RDX.printI(VFLI.i18n("Enable Store Local Map DB"));
-	end
-end
-
-function RDXMAP.IsStoreLocalMapDB()
-	return RDXG.localMapDB;
-end
-
---RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
---	if not RDXLocalMapDB then RDXLocalMapDB = {}; end
---	EnableStoreLocalMapDB();
---end);
 
 TargetEvents = DispatchTable:new();
 
@@ -220,7 +163,7 @@ function RDXMAP.IsCentralMapOpen()
 end
 
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 
 	RDXMAP.Map:Init();
 	RDXMAP.Travel:Init();

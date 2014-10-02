@@ -13,7 +13,7 @@ function RDXDB.NewObjectDialog(parent, dkName, pkgName)
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 20);
 	dlg:SetTitleColor(0,.6,0);
-	dlg:SetText(VFLI.i18n("New object in ") .. dkName .. ":" .. pkgName);
+	dlg:SetText(VFLI.i18n("New file in ") .. dkName .. ":" .. pkgName);
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetHeight(350); dlg:SetWidth(260);
 	dlg:SetClampedToScreen(true);
@@ -32,7 +32,7 @@ function RDXDB.NewObjectDialog(parent, dkName, pkgName)
 	nameEd:SetPoint("TOPLEFT", ca, "TOPLEFT", 0, -10);
 	nameEd:Show();
 	
-	local lbl1 = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Enter name of new object:"));
+	local lbl1 = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Enter name of new file:"));
 	lbl1:SetPoint("BOTTOMLEFT", nameEd, "TOPLEFT", 3, 0);
 
 	------------------- Objtypes list
@@ -42,7 +42,7 @@ function RDXDB.NewObjectDialog(parent, dkName, pkgName)
 	decor1:SetPoint("TOPLEFT", nameEd, "BOTTOMLEFT", 0, -10);
 	decor1:SetWidth(250); decor1:SetHeight(238); decor1:Show();
 
-	local lbl1 = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Select type of new object:"));
+	local lbl1 = VFLUI.MakeLabel(nil, dlg, VFLI.i18n("Select type of new file:"));
 	lbl1:SetPoint("TOPLEFT", decor1, "TOPLEFT", 3, 10);
 
 	local otList = VFLUI.List:new(dlg, 12, VFLUI.Selectable.AcquireCell)
@@ -132,7 +132,7 @@ function RDXDB.NewObjectDialog(parent, dkName, pkgName)
 				return;
 			end
 		else
-			feedback:SetText(VFLI.i18n("|cFFFF0000Select an object type.|r"));
+			feedback:SetText(VFLI.i18n("|cFFFF0000Select an file type.|r"));
 			return;
 		end
 	end

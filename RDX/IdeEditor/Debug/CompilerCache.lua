@@ -81,7 +81,7 @@ local function EnablePartyIncludeMe()
 	VFL.empty(mbo.data);
 	table.insert(mbo.data, "and");
 	table.insert(mbo.data, {"mygroup"});
-	local inst = RDXDB.GetObjectInstance("default:Party_fset", true);
+	local inst = RDXDB.GetObjectInstance("RDXDiskSystem:default:Party_fset", true);
 	if inst then inst:SetFilter(mbo.data); end
 end
 
@@ -108,7 +108,7 @@ local function DisablePartyIncludeMe()
 	table.insert(mbo.data, "and");
 	table.insert(mbo.data, {"mygroup"});
 	table.insert(mbo.data, {"not", {"me"}});
-	local inst = RDXDB.GetObjectInstance("default:Party_fset", true);
+	local inst = RDXDB.GetObjectInstance("RDXDiskSystem:default:Party_fset", true);
 	if inst then inst:SetFilter(mbo.data); end
 end
 
@@ -131,7 +131,7 @@ end
 -- init
 -----------------------------------
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	if RDXM_Debug.IsStoreCompilerActive() then 
 		RDX.printW("Store Compiler code Activated !!!");
 	end

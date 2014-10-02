@@ -1,8 +1,0 @@
-﻿## Interface: 50400
-## Title: |c007ffcffRDX|r - Combat Logs
-## Notes: Combatlogs table
-## Author: Sigg / Rashgarroth
-## Version: 9.1.0
-## RequiredDeps: VFL
-## SavedVariables: Omni_SavedTables
-RDX_combatlogs.lua

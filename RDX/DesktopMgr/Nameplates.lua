@@ -266,7 +266,7 @@ local function search()
 end
 VFLP.RegisterFunc("RDX", "Nameplates", search, true);
 
-RDXEvents:Bind("INIT_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	local opt =  RDXG.RDXopt;
 	if not opt.dnp then
 		WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, function() 
