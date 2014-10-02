@@ -320,11 +320,14 @@ local newlist = {};
 local function GetListPkgInfo(flagall)
 	VFL.empty(newlist);
 	local i = 1;
-	for pkgName, pkgData in pairs(RDXDB.GetDisk("RDXData")) do
-		if not RDXDB.IsProtectedPkg(pkgName) then
-			local pkg = GetPkgInfo(pkgName, flagall);
-			if pkg then
-				newlist[i] = pkg; i = i + 1;
+	local dk = RDXDB.GetDisk("RDXData")
+	if dk then
+		for pkgName, pkgData in pairs(dk) do
+			if not RDXDB.IsProtectedPkg(pkgName) then
+				local pkg = GetPkgInfo(pkgName, flagall);
+				if pkg then
+					newlist[i] = pkg; i = i + 1;
+				end
 			end
 		end
 	end
