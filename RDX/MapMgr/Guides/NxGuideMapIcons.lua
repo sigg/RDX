@@ -4,7 +4,7 @@ RDXMAP.IconGuide = {}
 -- deprecated
 function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 	local Nx = Nx
-	local Quest = Nx.Quest
+	local Quest = Nx.Quest ---
 	local hideFac = RDXMAP.IconGuide.GetHideFaction()
 	RDXMAP.APIMap.InitIconType (map, "!G", "WP", "", 16, 16)
 	RDXMAP.APIMap.SetIconTypeChop (map, "!G", true)
@@ -67,7 +67,7 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 				local zone = RDXMAP.MapId2Zone[mapId]
 				local stzone = Quest.QGivers[zone]
 				if stzone then
-					local opts = Nx:GetGlobalOpts()
+					local opts = Nx:GetGlobalOpts() ---
 					if not RDXU["Level"] then return end 
 					local minLvl = RDXU["Level"] - opts["QMapQuestGiversLowLevel"]
 					local maxLvl = RDXU["Level"] + opts["QMapQuestGiversHighLevel"]
@@ -105,7 +105,7 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 								end
 								local qcati = Quest:UnpackCategory (quest[1])
 								if qcati > 0 then
-									qname = qname .. " <" .. Nx.QuestCategory[qcati] .. ">"
+									qname = qname .. " <" .. Nx.QuestCategory[qcati] .. ">" ---
 								end
 								s = format ("%s\n|cffbfbfbf%d%s %s", s, lvl, col, qname)
 								if quest.CNum then
@@ -252,7 +252,6 @@ function RDXMAP.IconGuide.UpdateMapGeneralIcons (map, cont, showType, hideFac, t
 	if cont >= 9 then
 		return
 	end
-	local Quest = Nx.Quest
 	if not RDXMAP.GuideData[showType] then
 		VFL.vprint ("guide showType %s", showType)
 		return
@@ -334,7 +333,6 @@ function RDXMAP.IconGuide.UpdateMapGeneralIcons2 (map, cont, showType, hideFac, 
 	if cont >= 9 then
 		return
 	end
-	local Quest = Nx.Quest
 	if not RDXMAP.GuideData[showType] then
 		VFL.vprint ("guide showType %s", showType)
 		return

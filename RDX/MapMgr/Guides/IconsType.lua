@@ -205,38 +205,34 @@ table.insert(tbt,485);
 table.insert(tbt,862);
 
 function DATAPUSH()
-	for g,w in ipairs (tbt) do
-		local mbo = RDXDB.TouchObject("RDXDiskMap:poisG:Flight_" .. w);
-		
-		for k,v in pairs (mbo.data) do
-			local side,name,z1,x1,y1,fx1,fy1 = strsplit(";", v)
-			
-			side = tonumber(side)
-			z1 = tonumber(z1)
-			x1 = tonumber(x1)
-			y1 = tonumber(y1)
-			x1, y1 = RDXMAP.APIMap.GetWorldPos (z1, x1, y1)
-			
-			
-			local tbl1 = {};
-			tbl1.n = name;
-			tbl1.t = "FLM"
-			tbl1.z = z1;
-			tbl1.x = x1;
-			tbl1.y = y1;
-			tbl1.s = side;
-			tbl1.fx = fx1;
-			tbl1.fy = fy1;
-			
-			local mbo2 = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. w);
-			if not mbo2.data then
-				mbo2.data = {};
-				mbo2.ty = "POIFlightSet"; 
-				mbo2.version = 1;
+	for g,w in pairs (RDXDB.GetPackage("RDXDiskMap", "poisG")) do
+		local aa = {};
+		if type(w) == "table" and w.data then
+			for k,v in pairs (w.data) do
+				local id,side,x1,y1 = strsplit(",",v)
+				
+				side = tonumber(side)
+				z1 = tonumber(g)
+				x1 = tonumber(x1)
+				y1 = tonumber(y1)
+				if not x1 then VFL.print(g); end
+				x1, y1 = RDXMAP.APIMap.GetWorldPos (z1, x1, y1)
+				
+				
+				local tbl1 = {};
+				tbl1.t = id
+				tbl1.z = z1;
+				tbl1.x = x1;
+				tbl1.y = y1;
+				tbl1.s = side;
+				
+				table.insert(aa, tbl1);
 			end
-			
-			table.insert(mbo2.data, tbl1);
 
+			local mbo = RDXDB.TouchObject("RDXDiskMap:poisG2:" .. g);
+			mbo.ty = "POISet";
+			mbo.version = 1;
+			mbo.data = aa;
 		end
 	end
 end

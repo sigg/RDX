@@ -95,7 +95,7 @@ function RDXMAP.APIGuide.CaptureItems()
 			end
 			vv[oName] = nil	
 		end
-		if nobefore or Nx.LootOn then
+		if nobefore or RDXG.LootOn then
 			VFL.vprint ("Captured %s (%d)", npc, #links)
 		end
 		return true
@@ -144,12 +144,15 @@ function RDXMAP.APIGuide.CaptureNPC (data)
 end
 
 function RDXMAP.APIGuide.CapTimer()
+	if not Nx then return; end
 	local g = Nx.Guideobj
 	local ok = RDXMAP.APIGuide.CaptureItems()  
-	g:UpdateVisitedVendors()
-	g:Update()
+	if g then
+		g:UpdateVisitedVendors()
+		g:Update()
+	end
 	if not ok and MerchantFrame:IsVisible() then
-		if Nx.LootOn then
+		if RDXG.LootOn then
 			VFL.vprint ("CapTimer retry")
 		end
 		return .5
@@ -186,7 +189,7 @@ function RDXMAP.APIGuide.OnTrade_skill_show()	-- Your own trade window
 
 	VFL.vprint ("OnTRADE_SKILL_SHOW")
 
-	Nx.prtStrHex ("Trade", GetTradeSkillListLink())
+	Nax.prtStrHex ("Trade", GetTradeSkillListLink())
 	local link = GetTradeSkillListLink()
 
 --	RDXMAP.APIGuide.SavePlayerNPCTarget()

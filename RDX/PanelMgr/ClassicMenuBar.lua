@@ -236,6 +236,11 @@ RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
 	ent.checked = function() return RDXG.DebugMap; end;
 	ent.func = function() VFL.poptree:Release(); RDXG.DebugMap = not RDXG.DebugMap; end 
 end);
+RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Enable LootOn");
+	ent.checked = function() return RDXG.LootOn; end;
+	ent.func = function() VFL.poptree:Release(); RDXG.LootOn = not RDXG.LootOn; end 
+end);
 --[[RDXPM.DebugMenu:RegisterMenuFunction(function(ent)
 	ent.text = "**** Packages ****";
 	ent.isTitle = true;
@@ -274,7 +279,7 @@ end);
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Favoris");
 	ent.notCheckable = true;
-	ent.func = function() VFL.poptree:Release(); Nx.Fav:ToggleShow(); end;
+	ent.func = function() VFL.poptree:Release(); if Nx and Nx.Fav then Nx.Fav:ToggleShow(); end end;
 end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
@@ -292,19 +297,19 @@ end);
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Warehouse");
 	ent.notCheckable = true;
-	ent.func = function() VFL.poptree:Release(); Nx.Warehouse:ToggleShow(); end;
+	ent.func = function() VFL.poptree:Release(); if Nx and Nx.Warehouse then Nx.Warehouse:ToggleShow(); end end;
 end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Combat");
 	ent.notCheckable = true;
-	ent.func = function() VFL.poptree:Release(); Nx.Combat:Open(); end;
+	ent.func = function() VFL.poptree:Release(); if Nx and Nx.Combat then Nx.Combat:Open(); end end;
 end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("UEvents");
 	ent.notCheckable = true;
-	ent.func = function() VFL.poptree:Release(); Nx.UEvents.List:Open(); end;
+	ent.func = function() VFL.poptree:Release(); if Nx and Nx.UEvents then Nx.UEvents.List:Open(); end end;
 end);
 
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)

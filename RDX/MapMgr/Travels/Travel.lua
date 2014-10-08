@@ -31,7 +31,7 @@
 
 function RDXMAP.Travel:Init()
 
-	local gopts = Nx.GetGlobalOpts()
+	local gopts = Nx:GetGlobalOpts()
 	self.GOpts = gopts
 
 	self.OrigTakeTaxiNode = TakeTaxiNode
@@ -200,7 +200,7 @@ function RDXMAP.Travel.TakeTaxiNode (node)
 	if tm > 0 and self.TaxiNameStart then
 
 		self.TaxiTimeEnd = GetTime() + tm
-		Nx.Timer:Start ("TaxiTime", 1, self, self.TaxiTimer)
+		VFLT.AdaptiveSchedule2("TaxiTime", 1, self.TaxiTimer);
 	end
 
 	--if RDXG.DebugMap then
@@ -371,7 +371,8 @@ function RDXMAP.Travel:TaxiTimer()
 
 		RDXMAP.TaxiETA = max (0, self.TaxiTimeEnd - GetTime())
 
-		return .5
+	else
+		VFLT.AdaptiveUnschedule2("TaxiTime");
 	end
 end
 
@@ -479,7 +480,7 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 		return
 	end
 
-	local riding = Nx.Warehouse.SkillRiding
+	local riding = Nx.Warehouse.SkillRiding ---
 
 	if IsAltKeyDown() then
 --		VFL.vprint ("Riding %s", riding)
@@ -532,15 +533,15 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 		local path = {}
 
 		local node1 = {}
-		node1.MapId = srcMapId
-		node1.X = srcX
-		node1.Y = srcY
+		node1.m = srcMapId
+		node1.x = srcX
+		node1.y = srcY
 		tinsert (path, node1)
 
 		local node2 = {}
-		node2.MapId = dstMapId
-		node2.X = dstX
-		node2.Y = dstY
+		node2.m = dstMapId
+		node2.x = dstX
+		node2.y = dstY
 		tinsert (path, node2)
 
 --		VFL.vprint ("** path nodes start %s to %s", srcMapId, dstMapId)
@@ -558,15 +559,15 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 
 				if not node1.NoSplit then
 
-					if node1.MapId ~= node2.MapId then
+					if node1.m ~= node2.m then
 
 						local conDist, conS, conD, con
 						if self.FlyingMount then		-- Can fly?
-							conDist = ((node1.X -  node2.X) ^ 2 + (node1.Y - node2.Y) ^ 2) ^ .5	-- Use straight line distance
+							conDist = ((node1.x -  node2.x) ^ 2 + (node1.y - node2.y) ^ 2) ^ .5	-- Use straight line distance
 						else
-							conDist, conS, conD = RDXMAP.APITravel.FindZoneConnection (node1.MapId, node1.X, node1.Y, node2.MapId, node2.X, node2.Y)
+							conDist, conS, conD = RDXMAP.APITravel.FindZoneConnection (node1.m, node1.x, node1.y, node2.m, node2.x, node2.y)
 						end
-						local flyDist, fpath = RDXMAP.APITravel.FindFlight (node1.MapId, node1.X, node1.Y, node2.MapId, node2.X, node2.Y)
+						local flyDist, fpath = RDXMAP.APITravel.FindFlight (node1.m, node1.x, node1.y, node2.m, node2.x, node2.y)
 
 --						fpath = nil		-- Test
 
@@ -574,7 +575,7 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 
 						if conDist and (not fpath or conDist < flyDist) then
 
---							VFL.vprint (" con %s to %s", RDXMAP.APIMap.IdToName(node1.MapId), RDXMAP.APIMap.IdToName(node2.MapId))
+--							VFL.vprint (" con %s to %s", RDXMAP.APIMap.IdToName(node1.m), RDXMAP.APIMap.IdToName(node2.m))
 
 							if conS then
 --								VFL.vprint (" make con")
@@ -586,7 +587,7 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 
 --								VFL.vprint ("Ang %s %s = %s", ang1, ang2, ang)
 
-								if conD.zcr ~= node1.MapId then	-- Open connection caused us to switch zones? No split
+								if conD.zcr ~= node1.m then	-- Open connection caused us to switch zones? No split
 									node1.NoSplit = true
 								end
 
@@ -594,9 +595,9 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 
 								local node = {}
 								node.NoSplit = true
-								node.MapId = conD.zcr
-								node.X = conS.x
-								node.Y = conS.y
+								node.m = conD.zcr
+								node.x = conS.x
+								node.y = conS.y
 								node.Name = name
 								node.Tex = "Interface\\Icons\\Spell_Nature_FarSight"
 								tinsert (path, n + 1, node)
@@ -608,9 +609,9 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 								end
 
 								local node = {}
-								node.MapId = conS.zcr
-								node.X = conD.x
-								node.Y = conD.y
+								node.m = conS.zcr
+								node.x = conD.x
+								node.y = conD.y
 								node.Name = name
 								node.Tex = "Interface\\Icons\\Spell_Nature_FarSight"
 								tinsert (path, n + 2, node)
@@ -627,8 +628,8 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 
 					else
 
-						local directDist = ((node1.X - node2.X) ^ 2 + (node1.Y - node2.Y) ^ 2) ^ .5		-- Straight line distance
-						local flyDist, fpath = RDXMAP.APITravel.FindFlight (node1.MapId, node1.X, node1.Y, node2.MapId, node2.X, node2.Y)
+						local directDist = ((node1.x - node2.x) ^ 2 + (node1.y - node2.y) ^ 2) ^ .5		-- Straight line distance
+						local flyDist, fpath = RDXMAP.APITravel.FindFlight (node1.m, node1.x, node1.y, node2.m, node2.x, node2.y)
 
 --						VFL.vprint ("%d: direct %s, fly %s", n, directDist, flyDist or "nil")
 
@@ -661,7 +662,7 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 			local node1 = path[n]
 			if not node1.Die then
 
-				local x, y = node1.X, node1.Y
+				local x, y = node1.x, node1.y
 
 				local t1 = {}
 				t1.t = targetType				
@@ -680,7 +681,7 @@ function RDXMAP.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX,
 end
 
 
-
+-- deprecated
 function RDXMAP.Travel:FindFlight (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 
 	local t1Dist, t1Node, t1tex = RDXMAP.APITravel.FindClosestFlight (srcMapId, srcX, srcY)
@@ -764,7 +765,7 @@ end
 --------
 -- Find closest
 -- (mapid, world x, world y)
-
+-- deprecated
 function RDXMAP.Travel:FindClosest (mapId, posX, posY)
 
 	local cont = RDXMAP.APIMap.IdToContZone (mapId)
@@ -814,7 +815,7 @@ end
 
 --------
 -- Find best connection
-
+-- deprecated
 function RDXMAP.Travel:FindConnection (srcMapId, srcX, srcY, dstMapId, dstX, dstY, skipIndirect)
 
 	if self.FlyingMount then		-- Can fly?

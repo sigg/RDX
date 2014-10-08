@@ -185,8 +185,6 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	WoWEvents:Bind("GOSSIP_SHOW", nil, RDXMAP.APIGuide.OnGossip_show);
 	WoWEvents:Bind("TRAINER_SHOW", nil, RDXMAP.APIGuide.OnTrainer_show);
 --		"PET_STABLE_SHOW", Guide.OnPet_stable_show,
-	
-	--Nx.Guideobj = Nx.MGuide:Create (nil, nil, 1)
 end);
 
 

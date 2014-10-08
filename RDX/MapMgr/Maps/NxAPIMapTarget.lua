@@ -17,7 +17,9 @@ end
 
 function RDXMAP.APIMap.SetTargetXY (mid, zx, zy, name, keep)           
 
-	Nx.Quest.Watch:ClearAutoTarget()
+	if Nx and Nx.Quest then
+		Nx.Quest.Watch:ClearAutoTarget()
+	end
 
 	local wx, wy = RDXMAP.APIMap.GetWorldPos (mid, zx, zy)
 	return RDXMAP.APIMap.SetTarget ("Goto", wx, wy, nil, name or "", keep, mid)
@@ -28,7 +30,9 @@ end
 
 function RDXMAP.APIMap.SetTargetAtClick(map)
 
-	Nx.Quest.Watch:ClearAutoTarget()
+	if Nx and Nx.Quest then
+		Nx.Quest.Watch:ClearAutoTarget()
+	end
 
 	local wx, wy = RDXMAP.APIMap.FramePosToWorldPos (map, map.ClickFrmX, map.ClickFrmY)
 	local zx, zy = RDXMAP.APIMap.GetZonePos (map.MapId, wx, wy)
@@ -127,11 +131,6 @@ function RDXMAP.APIMap.SetTarget (typ, x1, y1, id, name, keep, mapId)
 	tar.n = name
 
 	tar.m = mapId
-
-	local typ = keep and "Target" or "TargetS"
-	local zx, zy = RDXMAP.APIMap.GetZonePos (mapId, tar.x, tar.y)
-
-	Nx.Fav:Record (typ, name, mapId, zx, zy)
 
 	return tar
 end
@@ -243,7 +242,7 @@ function RDXMAP.APIMap.UpdateTargets(map)
 
 			tremove (RDXU.MapTargets, 1)
 
-			if #RDXMAP.Targets > 0 and map.GOpts["RouteRecycle"] then
+			if #RDXU.MapTargets > 0 and map.GOpts["RouteRecycle"] then
 				tinsert (RDXU.MapTargets, tar)
 			end
 
@@ -280,7 +279,7 @@ function RDXMAP.APIMap.CalcTracking()
 
 	for n, tar in ipairs (RDXU.MapTargets) do
 
-		RDXMAP.Travel:MakePath (tr, srcMapId, srcX, srcY, tar.m, tar.x, tar.y, tar.t)
+		--RDXMAP.Travel:MakePath (tr, srcMapId, srcX, srcY, tar.m, tar.x, tar.y, tar.t)
 		tinsert (tr, tar)
 
 		srcX = tar.x

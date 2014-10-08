@@ -533,7 +533,7 @@ function RDXMAP.APIMap.IconOnMouseDown (self, button)
 					map:GMenuOpen (self.NXData, typ)
 
 				elseif i == 9 then				-- Quest
-					if Nx.Quest then
+					if Nx and Nx.Quest then
 						Nx.Quest:IconOnMouseDown (self)
 					end
 				end
@@ -582,9 +582,6 @@ function RDXMAP.APIMap.IconOnEnter (self, motion)
 
 		owner.NXIconFrm = self
 
---		Nx.TooltipOwner = owner ---
---		map.TooltipType = 2
-
 		tt:SetOwner (owner, tippos, 0, 0)
 
 		Nx:SetTooltipText (str .. RDXMAP.PlyrNamesTipStr)
@@ -595,7 +592,7 @@ function RDXMAP.APIMap.IconOnEnter (self, motion)
 	local t = self.NXType or -1
 
 	if t >= 9000 then	-- Quest
-		if Nx.Quest then
+		if Nx and Nx.Quest then
 			Nx.Quest:IconOnEnter (self)
 		end
 	end
@@ -609,7 +606,7 @@ function RDXMAP.APIMap.IconOnLeave (self, motion)
 	local t = self.NXType or -1
 
 	if t >= 9000 then -- Quest
-		if Nx.Quest then
+		if Nx and Nx.Quest then
 			Nx.Quest:IconOnLeave (self)
 		end
 	end
@@ -647,7 +644,7 @@ function RDXMAP.APIMap.IconOnUpdateTooltip(self)
 		local str = strsplit ("~", f.NxTip)
 		Nx:SetTooltipText (str .. RDXMAP.PlyrNamesTipStr)
 
-		if Nx.Quest and Nx.Quest.Enabled then
+		if Nx and Nx.Quest and Nx.Quest.Enabled then
 			Nx.Quest:TooltipProcess()
 		end
 

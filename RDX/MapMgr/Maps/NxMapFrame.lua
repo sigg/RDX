@@ -114,7 +114,7 @@ function RDXMAP.APIMap.OnEvent (self, event, ...)
 
 	if event == "WORLD_MAP_UPDATE" then
 		--VFL.print("CALL WORLD_MAP_UPDATE");
-		if Nx.Quest then
+		if Nx and Nx.Quest then
 			Nx.Quest:MapChanged()
 		end
 
@@ -275,7 +275,7 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 	local cursorLocStr = ""
 	local cursorLocXY = ""
 
-	local menuOpened = Nx.Menu:IsAnyOpened()
+
 
 	if winx then
 
@@ -287,11 +287,11 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 
 			local wx, wy = RDXMAP.APIMap.FramePosToWorldPos (map, winx, winy)
 
-			if not menuOpened then
+			--if not menuOpened then
 --				local tm = GetTime()
 				RDXMAP.APIMap.CheckWorldHotspots (map, wx, wy)
 --				VFL.vprint ("CheckWorldHotspots Time %s", GetTime() - tm)
-			end
+			--end
 
 			local x, y = RDXMAP.APIMap.GetZonePos (map.MapId, wx, wy)
 
@@ -398,25 +398,6 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 		local over = winx --and not VFLUI.IsMouseOver (map.ToolBar.Frm)
 		map:SetLocationTip (over and not menuOpened and map.WorldHotspotTipStr and (map.WorldHotspotTipStr .. tip))
 	end
-
-	--if map.Win:IsSizeMax() then
-	--	local s = Nx.Quest:GetZoneAchievement (true)
-	--	if s then
-	--		title = title .. "  " .. s
-	--	end
-	--end
-
-	--map.Win:SetTitle (title, 1)
-
-	--if map.GOpts["MapShowTitle2"] then
-
-	--	local s = GetSubZoneText()
-	--	local pvpType = GetZonePVPInfo()
-	--	if pvpType then
-	--		s = s .. " (" .. pvpType .. ")"
-	--	end
-	--	map.Win:SetTitle (format ("%s %s", s, cursorLocXY), 2)
-	--end
 
 end
 

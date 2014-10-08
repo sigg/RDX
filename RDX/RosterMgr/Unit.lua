@@ -456,6 +456,10 @@ function RDXDAL.Unit:GetTableMeterValue(path)
 	end
 end
 
+function RDXDAL.Unit:GetMapPosition()
+	return GetPlayerMapPosition (self.uid)
+end
+
 ------------------------------------------------
 -- INVALID UNIT API
 ------------------------------------------------
@@ -470,7 +474,7 @@ end;
 RDXDAL.InvalidUnit.GetUnitID = VFL.Nil;
 RDXDAL.InvalidUnit.GetNumber = VFL.One;
 function RDXDAL.InvalidUnit:GetName() return "unknown"; end
-function RDXDAL.InvalidUnit.GetProperName() return "Unknown"; end
+function RDXDAL.InvalidUnit:GetProperName() return "Unknown"; end
 RDXDAL.InvalidUnit.GetGuid = VFL.Nil;
 RDXDAL.InvalidUnit.GetProperGuid = VFL.Nil;
 RDXDAL.InvalidUnit.GetClass = VFL.Nil;
@@ -514,6 +518,7 @@ RDXDAL.InvalidUnit.GetCooldownDuration = VFL.Zero;
 RDXDAL.InvalidUnit.SetCooldownDuration = VFL.Zero;
 RDXDAL.InvalidUnit.GetTableMeterInfo = VFL.Zero;
 RDXDAL.InvalidUnit.GetTableMeterValue = VFL.Zero;
+function RDXDAL.InvalidUnit:GetMapPosition() return 0,0; end
 
 ------------------------------------------------
 -- TEMPORARY UNIT

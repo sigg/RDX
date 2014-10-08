@@ -81,7 +81,7 @@ function RDXMAP.APITravel.MakePath (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 	local cont2 = dstInfo.c
 
 --[[
-	local riding = Nx.Warehouse.SkillRiding
+	local riding = Nx.Warehouse.SkillRiding ---
 
 	if IsAltKeyDown() then
 --		VFL.vprint ("Riding %s", riding)

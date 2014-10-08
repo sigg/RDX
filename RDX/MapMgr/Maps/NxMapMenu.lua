@@ -845,13 +845,13 @@ function RDXMAP.Map:GMenu_OnGoto()
 		Nx.Social:GotoPunk (self.ClickIcon)
 
 	else
-		--local icon = self.ClickIcon
-		--local x = icon.x
-		--local y = icon.y
-		--local name = icon.Tip and strsplit ("\n", icon.Tip) or ""
-		--RDXMAP.APIMap.SetTarget ("Goto2", x, y, 0, name, nil, self.MapId)
+		local icon = self.ClickIcon
+		local x = icon.x
+		local y = icon.y
+		local name = icon.Tip and strsplit ("\n", icon.Tip) or ""
+		RDXMAP.APIMap.SetTarget ("Goto2", x, y, 0, name, nil, self.MapId)
 		self.ClickIcon.m = self.MapId
-		RDXMAP.APIMap.SetNodeTarget (self.ClickIcon, keep)
+		--RDXMAP.APIMap.SetNodeTarget (self.ClickIcon, keep)
 	end
 end
 

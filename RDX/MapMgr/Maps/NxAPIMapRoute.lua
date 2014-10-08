@@ -268,7 +268,9 @@ end
 
 function RDXMAP.APIMap.RouteToTargets (map, route, targetIcon)
 
-	Nx.Quest.Watch:ClearAutoTarget()
+	if Nx and Nx.Quest then
+		Nx.Quest.Watch:ClearAutoTarget()
+	end
 
 	local mapId = map.MapId
 
@@ -279,8 +281,6 @@ function RDXMAP.APIMap.RouteToTargets (map, route, targetIcon)
 		local tar = RDXMAP.APIMap.SetTarget ("Route", wx, wy, nil, s, n ~= 1, mapId)
 
 		tar.Radius = map.GOpts["RouteGatherRadius"]
-
---		RDXMAP.APIMap.SetTargetXY (mapId, r.X, r.Y * 1.5, "r" .. n, true)
 	end
 end
 

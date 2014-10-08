@@ -75,6 +75,7 @@ RosterMgr\Guid.lua
 RosterMgr\GDB.lua
 
 RosterMgr\MyUnit.lua
+RosterMgr\GuildsFriends.lua
 
 # Logger engine
 RosterMgr\Logger\Log.lua

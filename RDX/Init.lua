@@ -28,9 +28,9 @@ local function Preload()
 	--	pn = string.gsub(pn, "[^%w_]", "");
 	--	rn = string.gsub(rn, "[^%w_]", "");
 	--end
-	RDX.pn = pn;
+
 	--rn = string.gsub(rn, "[ ]", "_");
-	RDX.pspace = RDX.pn .. "_" .. rn;
+	RDX.pspace = rn .. "_" .. pn;
 	
 	local fact = UnitFactionGroup ("player")
 	RDX.PlFactionNum = strsub (fact, 1, 1) == "A" and 0 or 1
@@ -60,16 +60,6 @@ local loaded = nil;
 local function VariablesLoaded()
 	if not loaded then
 		RDX:Debug(2, "Init: VariablesLoaded()");
-	
-		-- Session variables
-		-- deprecated
-		--if not RDXSession then RDXSession = {}; end
-		-- RDXG (Global session variables)
-		--if not RDXSession.global then RDXSession.global = {}; end
-		--RDXG = RDXSession.global;
-		-- RDXU (User session variables)
-		--if not RDXSession[RDX.pspace] then RDXSession[RDX.pspace] = {}; end
-		--RDXU = RDXSession[RDX.pspace];
 		
 		RDX:Debug(3, "DISPATCH INIT_VARIABLES_LOADED");
 		RDXEvents:Dispatch("INIT_VARIABLES_LOADED");

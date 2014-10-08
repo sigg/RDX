@@ -63,7 +63,7 @@ NxMapOpts = {
 
 function RDXMAP.Map:Init()
 
-	local gopts = Nx.GetGlobalOpts()
+	local gopts = Nx:GetGlobalOpts()
 	self.GOpts = gopts
 
 	self.Maps = {}
@@ -151,7 +151,7 @@ function RDXMAP.Map:Create (index, data)
 	m.MapEvents = DispatchTable:new();
 	m.DragContext = VFLUI.DragContext:new();
 
-	local gopts = Nx.GetGlobalOpts()
+	local gopts = Nx:GetGlobalOpts()
 	m.GOpts = gopts
 	
 	local opts = data
@@ -589,7 +589,6 @@ function RDXMAP.Map:SetLocationTip (tipStr)
 		f:ClearAllPoints()
 		f:SetPoint (a, self.Frm, ar)
 
-		local h = Nx.Font:GetH ("FontMapLoc")
 		local fstrs = self.LocTipFStrs
 		local i = 1
 		local textW = 0
@@ -597,7 +596,7 @@ function RDXMAP.Map:SetLocationTip (tipStr)
 		for s in gmatch (tipStr, "(%C+)") do		-- gmatch makes garbage!
 --			VFL.vprint (s)
 			local fstr = fstrs[i]
-			fstr:SetPoint ("TOPLEFT", 2, 0 - (i - 1) * h)
+			fstr:SetPoint ("TOPLEFT", 2, 0 - (i - 1) * 10)
 			fstr:SetText (s)
 			textW = max (textW, fstr:GetStringWidth())
 			i = i + 1
@@ -611,7 +610,7 @@ function RDXMAP.Map:SetLocationTip (tipStr)
 
 --		f:SetFrameStrata ("DIALOG")
 		f:SetWidth (4 + textW)
-		f:SetHeight (2 + (i - 1) * h)
+		f:SetHeight (2 + (i - 1) * 10)
 		f:Show()
 
 	else
@@ -848,8 +847,6 @@ function RDXMAP.Map:OpenMenu()
 	--self.MenuIPlyrFollow:SetChecked (self.CurOpts.NXPlyrFollow)
 	--self.MenuIShowWorld:SetChecked (self.CurOpts.NXWorldShow)
 
-	--self.MenuIMonitorZone:SetChecked (Nx.Com:IsZoneMonitored (self.MapId))
-
 	self.MenuMapId = self.MapId
 
 	--self.Menu:Open()
@@ -983,7 +980,10 @@ function RDXMAP.Map:UpdateWorld()
 		VFL.vprint (" File %s", mapFileName)
 	end
 
-	Nx.UEvents:UpdateMap (self, true)
+	if Nx and Nx.UEvents then
+		Nx.UEvents:UpdateMap (self, true)
+	end
+	
     local dungeonLevel = GetCurrentMapDungeonLevel();
     if (DungeonUsesTerrainMap()) then
         dungeonLevel = dungeonLevel - 1;
@@ -1050,7 +1050,7 @@ function RDXMAP.Map:Update (elapsed)
 
 		self.MapId = mapId
 
-		Nx.Com.PlyrChange = GetTime()
+		-- Nx.Com.PlyrChange = GetTime() ---
 		
 		-- Global icons data
 		-- wipe
@@ -1102,21 +1102,19 @@ function RDXMAP.Map:Update (elapsed)
 				
 		--	end
 		--end
-		local inst = RDXDB.GetObjectInstance("RDXDiskMap:poisG:" .. mapId)
-		if inst then
-			for i,v in ipairs(inst) do
-				local id,fac,x,y = strsplit(",",v)		
-				if y and (tonumber(fac) == RDX.PlFactionNum or fac == "2") then
-					local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, x, y)
+		local mbo = RDXDB.TouchObject("RDXDiskMap:poisG:" .. mapId)
+		if mbo then
+			for i,v in ipairs(mbo.data) do
+				if v.s == RDX.PlFactionNum or v.s == 2 then
 					local f = VFLUI.POIIcon:new(self, 4)
-					f.texture:SetTexture(RDXMAP.icontex[id])
-					f.NxTip = format ("%s\n%s %.1f %.1f", RDXMAP.iconIdToName[id], RDXMAP.APIMap.IdToName(mapId), x, y) 
-					f.x = wx
-					f.y = wy
+					f.texture:SetTexture(RDXMAP.icontex[v.t])
+					f.NxTip = format ("%s\n%s %.1f %.1f", RDXMAP.iconIdToName[v.t], RDXMAP.APIMap.IdToName(mapId), v.x, v.y) 
+					f.x = v.x
+					f.y = v.y
 					f.NXType = 3000
 					f.MapId = mapId
 					f.n = f.NxTip
-					f.NXData = f
+					f.NXData = v
 					table.insert(self.Icon3Frms, f);
 				end
 			end
@@ -1139,7 +1137,7 @@ function RDXMAP.Map:Update (elapsed)
 			end
 		end
 
-		if Nx.Quest then
+		if Nx and Nx.Quest then
 			Nx.Quest:MapChanged()
 		end
 		self:UpdateAll()
@@ -1158,26 +1156,26 @@ function RDXMAP.Map:Update (elapsed)
 
 --		VFL.vprint ("Left BG %s", RDX.InBG)
 
-		local cb = Nx.Combat
+		local cb = Nx.Combat ---
 
 		if RDX.InA then
 			local s = RDXMAP.APIMap.GetShortName (RDX.InA)
-			Nx.UEvents:AddInfo (format ("Left %s %d %d %dD %dH", s, cb.KBs, cb.Deaths, cb.DamDone, cb.HealDone))
+			Nx.UEvents:AddInfo (format ("Left %s %d %d %dD %dH", s, cb.KBs, cb.Deaths, cb.DamDone, cb.HealDone)) ---
 
 		else
 			local total = cb.KBs + cb.Deaths + cb.HKs + cb.Honor
 			if total > 0 then
 				local sname = RDXMAP.APIMap.GetShortName (RDX.InBG)
-				Nx.UEvents:AddInfo (format ("Left %s %d %d %d %d", sname, cb.KBs, cb.Deaths, cb.HKs, cb.Honor))
+				Nx.UEvents:AddInfo (format ("Left %s %d %d %d %d", sname, cb.KBs, cb.Deaths, cb.HKs, cb.Honor)) ---
 
 				local tm = GetTime() - cb.BGEnterTime
 				local _, honor = GetCurrencyInfo (392)		--V4
 				local hGain = honor - cb.BGEnterHonor
-				Nx.UEvents:AddInfo (format (" %s +%d honor, +%d hour", VFLT.FormatMinSec (tm), hGain, hGain / tm * 3600))
+				Nx.UEvents:AddInfo (format (" %s +%d honor, +%d hour", VFLT.FormatMinSec (tm), hGain, hGain / tm * 3600)) ---
 
 				local xpGain = UnitXP ("player") - cb.BGEnterXP
 				if xpGain > 0 then
-					Nx.UEvents:AddInfo (format (" +%d xp, +%d hour", xpGain, xpGain / tm * 3600))
+					Nx.UEvents:AddInfo (format (" +%d xp, +%d hour", xpGain, xpGain / tm * 3600)) ---
 				end
 			end
 		end
@@ -1243,7 +1241,7 @@ function RDXMAP.Map:Update (elapsed)
 
 	if moveDist >= .01 * self.BaseScale or abs (ang) > .01 then
 
-		Nx.Com.PlyrChange = GetTime()
+		-- Nx.Com.PlyrChange = GetTime() ---
 
 		if self.MoveLastX ~= -1 then
 			self.MoveDir = math.deg (math.atan2 (x, -y / 1.5))
@@ -1381,7 +1379,9 @@ function RDXMAP.Map:Update (elapsed)
 	self.WorldAlpha = 1
 	
 	-- SIGG TO REMOVE MAP
-	Nx.HUD:Update (self)
+	if Nx and Nx.HUD then
+		Nx.HUD:Update (self)
+	end
 	
 	-- reset icons
 	RDXMAP.APIMap.ResetIcons(self)
@@ -1425,10 +1425,14 @@ function RDXMAP.Map:Update (elapsed)
 
 	-- SHOW punks
 	if self.GOpts["MapShowPunks"] then
-		Nx.Social:UpdateIcons (self)
+		if Nx and Nx.Social then
+			Nx.Social:UpdateIcons (self)
+		end
 	end
 	
-	Nx.UEvents:UpdateMap (self)
+	if Nx and Nx.UEvents then
+		Nx.UEvents:UpdateMap (self)
+	end
 
 --[[
 	if self["DebugHotspots"] then
@@ -1476,7 +1480,7 @@ function RDXMAP.Map:Update (elapsed)
 	--  +4 quest icons
 	--  +5 ?
 	--if self.IconTick == 1 then
-		local comTrackName, comTrackX, comTrackY = Nx.Com:UpdateIcons (self)
+		--local comTrackName, comTrackX, comTrackY = Nx.Com:UpdateIcons (self) ---
 
 		self.Level = self.Level + 2
 		--[[
@@ -1488,17 +1492,18 @@ function RDXMAP.Map:Update (elapsed)
 		
 		]]
 		
-		--RDXMAP.IconGuide.UpdateMapIcons(self, self.Guide)
 		
 		-- Note icons
-		Nx.Fav:UpdateIcons(self)
+		if Nx and Nx.Fav then
+			Nx.Fav:UpdateIcons(self)
+		end
 		
 		RDXMAP.APIMap.UpdateIcons (self, self.LOpts.NXKillShow)
 		self.Level = self.Level - 2
 	--end
 	
 	-- QUEST
-	if Nx.Quest.Enabled then
+	if Nx and Nx.Quest.Enabled then
 		Nx.Quest:UpdateIcons (self)
 	end
 
@@ -1547,7 +1552,9 @@ function RDXMAP.Map:Update (elapsed)
 	RDXMapEvents:Dispatch("Guide:OnMapUpdate")	-- For closest target
 	
 	if #RDXU.MapTargets > 0 then
-		RDXMAP.APIMap.UpdateTargets2(self)
+		RDXMAP.APIMap.UpdateTargets(self)
+		RDXMAP.APIMap.UpdateTracking(self)
+		--RDXMAP.APIMap.UpdateTargets2(self)
 		self.Level = self.Level + 2
 	end
 
