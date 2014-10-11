@@ -9,10 +9,16 @@ RDXMAP = RegisterVFLModule({
 	parent = RDX;
 });
 
+-----------------------
+-- RDX Events
+-----------------------
+RDXMapEvents = DispatchTable:new();
+RDXMapEvents.name = "RDXMapEvents";
+
+
 RDXMAP.Map = {};
 RDXMAP.Travel = {};
 RDXMAP.ContCnt = 6;
-Nx = {};
 
 RDXMAP.Guide = {}
 RDXMAP.Guide.PlayerTargets = {}

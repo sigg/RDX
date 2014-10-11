@@ -12,15 +12,13 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	RDXDB.SetPackageMetadata("RDXDiskMap", "poisG", "infoIsIndelible", true);
 	RDXDB.GetOrCreatePackage("RDXDiskMap", "poisT", "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX package");
 	RDXDB.SetPackageMetadata("RDXDiskMap", "poisT", "infoIsIndelible", true);
-	RDXDB.GetOrCreatePackage("RDXDiskMap", "tabs", "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX package");
-	RDXDB.SetPackageMetadata("RDXDiskMap", "tabs", "infoIsIndelible", true);
 end);
 
 RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 
-	local tabs = RDXDB.GetPackage("RDXDiskMap", "tabs");
+	local tabs = RDXDB.GetPackage("RDXDiskSystem", "tabs");
 	
-	local mbo = RDXDB.TouchObject("RDXDiskMap:tabs:MapFrame1");
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:tabs:MapFrame1");
 	if not mbo.data then
 		mbo.ty = "TabMap"; 
 		mbo.version = 1;

@@ -417,7 +417,7 @@ end
 ---------- Soundspam
 function RDX.Alert.Sound(sound)
 	if (not RDXU.nosound) and (type(sound) == "string") and (string.len(sound) > 0) then
-		PlaySoundFile(sound);
+		VFLIO.PlaySoundFile(sound);
 	end
 end
 

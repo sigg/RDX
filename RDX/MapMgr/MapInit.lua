@@ -4,7 +4,6 @@
 
 function RDXMAP.InitTables()
 
-	--local Nx = Nx
 
 --[[
 	NxData.NXMapDebugZones1 = { GetMapZones (1) }

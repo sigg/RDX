@@ -30,8 +30,8 @@
 --------
 
 function RDXMAP.Travel:Init()
-
-	local gopts = Nx:GetGlobalOpts()
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
+	local gopts = mbo.data
 	self.GOpts = gopts
 
 	self.OrigTakeTaxiNode = TakeTaxiNode
@@ -44,11 +44,6 @@ function RDXMAP.Travel:Init()
 		tr[n] = {}
 		self:Add ("Flight Master", n)
 	end
-
---	if Nx:GetUnitClass() == "DRUID" then
---		local taxiT = NxCData["Taxi"]
---		taxiT[""] = true
---	end
 
 	self.ColdFlyName = GetSpellInfo (54197) or ""
 	self.AzerothFlyName = GetSpellInfo (90267) or ""
@@ -87,7 +82,11 @@ function RDXMAP.Travel:Add (typ, cont)
 
 					local node = {}
 					node.Name = desc
-					node.LocName = NXlTaxiNames[locName] or locName		-- Localize it
+					if NXlTaxiNames then
+						node.LocName = NXlTaxiNames[locName]		-- Localize it
+					else
+						node.LocName = locName
+					end
 					node.MapId = mapId
 					node.WX = wx
 					node.WY = wy

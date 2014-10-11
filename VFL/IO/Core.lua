@@ -234,3 +234,38 @@ ChatFrame_AddMessageGroup(VFLIO.Chatframe2, "PARTY");
 ChatFrame_AddMessageGroup(VFLIO.Chatframe2, "PARTY_LEADER");
 ChatFrame_AddMessageGroup(VFLIO.Chatframe2, "CHANNEL");
 ]]
+
+function VFLIO.PlaySoundFile (file)
+
+	if GetCVar ("Sound_EnableSFX") ~= "0" then
+		PlaySoundFile (file)
+	end
+end
+
+--------
+-- Parse text and set for tooltip
+
+function VFLIO.SetTooltipText (str)
+
+	local s1, s2 = strfind (str, "\n")
+	if s1 then
+
+		local t = { strsplit ("\n", str) }
+
+		GameTooltip:SetText (t[1], 1, 1, 1, 1, 1)		-- Wrap text
+		tremove (t, 1)
+
+		for _, line in ipairs (t) do
+
+			local s1, s2 = strsplit ("\t", line)
+			if s2 then
+				GameTooltip:AddDoubleLine (s1, s2, 1, 1, 1, 1, 1, 1)
+			else
+				GameTooltip:AddLine (line, 1, 1, 1, 1)		-- Wrap text
+			end
+		end
+	else
+		GameTooltip:SetText (str, 1, 1, 1, 1, 1)	-- Wrap text
+	end
+	GameTooltip:Show()
+end

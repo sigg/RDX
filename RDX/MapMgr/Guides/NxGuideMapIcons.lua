@@ -30,15 +30,15 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 			local type = strsub (showType, 2, 2)
 			local longType = type == "H" and "Herb" or type == "M" and "Mine"
 			local fid = folder.Id
-			local data = longType and Nx:GetData (longType) or NxData.NXGather["Misc"]
+			local data = longType and Nx:GetData (longType) or NxData.NXGather["Misc"] ---
 			local zoneT = data[mapId]
 			if zoneT then
 				local nodeT = zoneT[fid]
 				if nodeT then
 					local iconType = fid == "Art" and "!G" or "!Ga"
 					for k, node in ipairs (nodeT) do
-						local x, y = Nx:GatherUnpack (node)
-						local name, tex, skill = Nx:GetGather (type, fid)						
+						local x, y = Nx:GatherUnpack (node) ---
+						local name, tex, skill = Nx:GetGather (type, fid) ---
 						assert (name)
 						local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, x, y)						
 						icon = RDXMAP.APIMap.AddIconPt (map, iconType, wx, wy, nil, "Interface\\Icons\\"..tex)
@@ -67,7 +67,8 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 				local zone = RDXMAP.MapId2Zone[mapId]
 				local stzone = Quest.QGivers[zone]
 				if stzone then
-					local opts = Nx:GetGlobalOpts() ---
+					local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
+					local opts = mbo.data
 					if not RDXU["Level"] then return end 
 					local minLvl = RDXU["Level"] - opts["QMapQuestGiversLowLevel"]
 					local maxLvl = RDXU["Level"] + opts["QMapQuestGiversHighLevel"]
@@ -91,7 +92,7 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 								local col = "|r"
 								local daily = Quest.DailyIds[qId] or Quest.DailyDungeonIds[qId]
 								anyDaily = anyDaily or daily
-								local status, qTime = Nx:GetQuest (qId)
+								local status, qTime = RDXMAP.GetQuest (qId)
 								if daily then
 									col = "|cffa0a0ff"
 									show = true

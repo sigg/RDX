@@ -520,14 +520,14 @@ function RDXMAP.APIMap.IconOnMouseDown (self, button)
 
 				if i == 1 then
 					RDXMAP.APIMap.BuildPlyrLists(map)
-					map.PIconMenu:Open()
+					--map.PIconMenu:Open()
 
 				elseif i == 2 then				-- BG location
 
 					VFLT.ZMUnscheduleId("BGInc")
 
 					map.BGMsg = self.NXData
-					map.BGIconMenu:Open()
+					--map.BGIconMenu:Open()
 
 				elseif i == 3 then
 					map:GMenuOpen (self.NXData, typ)
@@ -574,7 +574,8 @@ function RDXMAP.APIMap.IconOnEnter (self, motion)
 		local owner = self
 		local tippos = "ANCHOR_CURSOR"
 
-		local opts = Nx:GetGlobalOpts()
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
+		local opts = mbo.data
 		if opts["MapTopTooltip"] then
 			owner = map.Win.Frm
 			tippos = "ANCHOR_TOPLEFT"
@@ -584,7 +585,7 @@ function RDXMAP.APIMap.IconOnEnter (self, motion)
 
 		tt:SetOwner (owner, tippos, 0, 0)
 
-		Nx:SetTooltipText (str .. RDXMAP.PlyrNamesTipStr)
+		VFLIO.SetTooltipText (str .. RDXMAP.PlyrNamesTipStr)
 
 		owner["UpdateTooltip"] = RDXMAP.APIMap.IconOnUpdateTooltip
 	end
@@ -642,7 +643,7 @@ function RDXMAP.APIMap.IconOnUpdateTooltip(self)
 		RDXMAP.APIMap.BuildPlyrLists(map)
 
 		local str = strsplit ("~", f.NxTip)
-		Nx:SetTooltipText (str .. RDXMAP.PlyrNamesTipStr)
+		VFLIO.SetTooltipText (str .. RDXMAP.PlyrNamesTipStr)
 
 		if Nx and Nx.Quest and Nx.Quest.Enabled then
 			Nx.Quest:TooltipProcess()

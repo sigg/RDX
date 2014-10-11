@@ -2,7 +2,6 @@
 
 -------------------------------------
 -- Gametooltip
--- Some codes are coming from Tiptop
 -------------------------------------
 local opt;
 

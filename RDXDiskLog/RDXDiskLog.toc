@@ -3,7 +3,7 @@
 ## Notes: Disk Log
 ## Author: Sigg / Rashgarroth
 ## Version: 10.0.0
-## RequiredDeps: RDX
+## RequiredDeps: RDXDiskSystem
 ## SavedVariables: RDXDiskLog
 RDXDiskLog.lua
 tabs.lua

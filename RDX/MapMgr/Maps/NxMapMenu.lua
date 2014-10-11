@@ -53,8 +53,6 @@ end
 
 
 function RDXMAP.Map:BuildMenu(f, gopts, opts)
-	local menu = Nx.Menu:Create (f)
-	self.Menu = menu
 	
 	self.Menu2 = RDXPM.Menu:new();
 	self.Menu2:RegisterMenuFunction(function(ent)
@@ -98,11 +96,15 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 	--	ent.checked = function() return self.NXCitiesUnder; end;
 	--	ent.func = function() VFL.poptree:Release(); RDXMAP.APIMap.SetLevelWorldHotspots(self) end 
 	--end);
-	self.Menu2:RegisterMenuFunction(function(ent)
-		ent.text = VFLI.i18n("Monitor Zone");
-		ent.checked = function() return Nx.Com:IsZoneMonitored(self.MenuMapId) end;
-		ent.func = function() VFL.poptree:Release(); Nx.Com:MonitorZone (self.MenuMapId, not Nx.Com:IsZoneMonitored(self.MenuMapId)) end 
-	end);
+	-- TODO SIGG
+	--self.Menu2:RegisterMenuFunction(function(ent)
+	--	ent.text = VFLI.i18n("Monitor Zone");
+	--	ent.checked = function() return Nx.Com:IsZoneMonitored(self.MenuMapId) end; ---
+	--	ent.func = function() VFL.poptree:Release(); Nx.Com:MonitorZone (self.MenuMapId, not Nx.Com:IsZoneMonitored(self.MenuMapId)) end ---
+	--end);
+	
+	--local menu = Nx.Menu:Create (f) ---
+	--self.Menu = menu ---
 	
 	--menu:AddItem (0, "Goto", self.Menu_OnGoto, self)
 	--menu:AddItem (0, "Clear Goto", self.Menu_OnClearGoto, self)
@@ -159,8 +161,8 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 	end);
 	self.Menu2:RegisterMenuEntry(VFLI.i18n("Route..."), true, function(tree, frame) self.MenuRoute:Open(tree, frame); end)
 
-	local routeMenu = Nx.Menu:Create (f)
-	menu:AddSubMenu (routeMenu, "Route...")
+	--local routeMenu = Nx.Menu:Create (f) ---
+	--menu:AddSubMenu (routeMenu, "Route...") ---
 
 	--local function func (self2)
 	--	RDXMAP.APIMap.RouteGathers(self2)
@@ -189,11 +191,11 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 	--local item = routeMenu:AddItem (0, "Recycle Reached Targets")
 	--item:SetChecked (gopts, "RouteRecycle")
 	-- TODO
-	local item = routeMenu:AddItem (0, "Gather Target Radius")
-	item:SetSlider (gopts, 7, 300, nil, "RouteGatherRadius")
+	--local item = routeMenu:AddItem (0, "Gather Target Radius")
+	--item:SetSlider (gopts, 7, 300, nil, "RouteGatherRadius")
 
-	local item = routeMenu:AddItem (0, "Gather Merge Radius")
-	item:SetSlider (gopts, 0, 100, nil, "RouteMergeRadius")
+	--local item = routeMenu:AddItem (0, "Gather Merge Radius")
+	--item:SetSlider (gopts, 0, 100, nil, "RouteMergeRadius")
 	
 	self.MenuShow = RDXPM.Menu:new();
 	self.MenuShow:RegisterMenuFunction(function(ent)
@@ -345,7 +347,9 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 	
 	-- Create scale sub menu
 	
-	local smenu = Nx.Menu:Create (f)
+	--[[
+	
+	local smenu = Nx.Menu:Create (f) ---
 
 	menu:AddSubMenu (smenu, "Scale...")
 
@@ -388,7 +392,7 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 	
 	-- Create transparency sub menu
 
-	local tmenu = Nx.Menu:Create (f)
+	local tmenu = Nx.Menu:Create (f) ---
 	self.TransMenu = tmenu
 
 	menu:AddSubMenu (tmenu, "Transparency...")
@@ -425,6 +429,7 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 	local item = tmenu:AddItem(0, "Quest Blob Transparency",self.Menu_OnQuestAlpha, self)
 	item:SetSlider (self.QuestAlpha,0,1)
 	
+	--]]
 	-- Options menu
 	
 	self.Menu2:RegisterMenuFunction(function(ent)
@@ -439,10 +444,10 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 
 		--self.DebugMap = true
 
-		local dbmenu = Nx.Menu:Create (f)
+		--local dbmenu = Nx.Menu:Create (f) ---
 
-		menu:AddItem (0, "", nil, self)
-		menu:AddSubMenu (dbmenu, "Debug...")
+		--menu:AddItem (0, "", nil, self)
+		--menu:AddSubMenu (dbmenu, "Debug...")
 		
 		self.MenuDebug = RDXPM.Menu:new();
 		self.MenuDebug:RegisterMenuFunction(function(ent)
@@ -469,11 +474,11 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 			ent.checked = function() return self.DebugFullCoords end;
 			ent.func = function() VFL.poptree:Release(); self.DebugFullCoords = not self.DebugFullCoords; end 
 		end);
-		self.MenuDebug:RegisterMenuFunction(function(ent)
-			ent.text = VFLI.i18n("Quest Debug");
-			ent.checked = function() return Nx.Quest.Debug end;
-			ent.func = function() VFL.poptree:Release(); Nx.Quest.Debug = not Nx.Quest.Debug; end 
-		end);
+		--self.MenuDebug:RegisterMenuFunction(function(ent)
+		--	ent.text = VFLI.i18n("Quest Debug");
+		--	ent.checked = function() return Nx.Quest.Debug end;
+		--	ent.func = function() VFL.poptree:Release(); Nx.Quest.Debug = not Nx.Quest.Debug; end 
+		--end);
 		self.Menu2:RegisterMenuEntry(VFLI.i18n("Debug..."), true, function(tree, frame) self.MenuDebug:Open(tree, frame); end)
 
 
@@ -506,17 +511,17 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 		--local item = dbmenu:AddItem (0, "Quest Debug", self.Menu_OnQuestDebug, self)
 		--item:SetChecked (Nx.Quest.Debug)
 
-		local function func (self2, item)
-			self2.DebugScale = item:GetSlider()
-		end
+		--local function func (self2, item)
+		--	self2.DebugScale = item:GetSlider()
+		--end
 
-		local item = dbmenu:AddItem (0, "Scale", func, self)
-		item:SetSlider (0, 4, 6)
+		--local item = dbmenu:AddItem (0, "Scale", func, self)
+		--item:SetSlider (0, 4, 6)
 	end
 	
 	-- Create player icon menu
-
-	local menu = Nx.Menu:Create (f)
+--[[
+	local menu = Nx.Menu:Create (f) ---
 	self.PIconMenu = menu
 
 	menu:AddItem (0, "Whisper", self.Menu_OnWhisper, self)
@@ -534,28 +539,56 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 	local item = menu:AddItem (0, "Grow Conflict Bars", self.Menu_OnGrowConflictBars, self)
 	item:SetChecked (true)
 	self.BGGrowBars = true
-	
+	]]
 	-- Create general icon menu
 
-	local menug = Nx.Menu:Create (f)
-	self.GIconMenu = menug
+	--local menug = Nx.Menu:Create (f)
+	--self.GIconMenu = menug
+	-- TODO
+	self.GIconMenu2 = RDXPM.Menu:new();
+	self.GIconMenu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Toggle Instance Map");
+		ent.func = function() VFL.poptree:Release(); self:GMenu_OnTogInst(); end 
+	end);
+	self.GIconMenu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Find Note");
+		ent.func = function() VFL.poptree:Release(); self:GMenu_OnFindNote(); end 
+	end);
 
-	self.GIconMenuITogInst = menug:AddItem (0, "Toggle Instance Map", self.GMenu_OnTogInst, self)
-	self.GIconMenuIFindNote = menug:AddItem (0, "Find Note", self.GMenu_OnFindNote, self)
+	--self.GIconMenuITogInst = menug:AddItem (0, "Toggle Instance Map", self.GMenu_OnTogInst, self)
+	--self.GIconMenuIFindNote = menug:AddItem (0, "Find Note", self.GMenu_OnFindNote, self)
+	--if Nx and Nx.Quest then
+	--	Nx.Quest:CreateGiverIconMenu (menug, f)
+	--end
 
-	Nx.Quest:CreateGiverIconMenu (menug, f)
+	self.GIconMenu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Goto");
+		ent.func = function() VFL.poptree:Release(); self:GMenu_OnGoto(); end 
+	end);
+	self.GIconMenu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Clear Goto");
+		ent.func = function() VFL.poptree:Release(); self:Menu_OnClearGoto(); end 
+	end);
+	self.GIconMenu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Paste Link");
+		ent.func = function() VFL.poptree:Release(); self:GMenu_OnPasteLink(); end 
+	end);
+	self.GIconMenu2:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Add Note");
+		ent.func = function() VFL.poptree:Release(); self:Menu_OnAddNote(); end 
+	end);
+	--menug:AddItem (0, "Goto", self.GMenu_OnGoto, self)
+	--menug:AddItem (0, "Clear Goto", self.Menu_OnClearGoto, self)
+	--menug:AddItem (0, "Paste Link", self.GMenu_OnPasteLink, self)
 
-	menug:AddItem (0, "Goto", self.GMenu_OnGoto, self)
-	menug:AddItem (0, "Clear Goto", self.Menu_OnClearGoto, self)
-	menug:AddItem (0, "Paste Link", self.GMenu_OnPasteLink, self)
-
-	menug:AddItem (0, "Add Note", self.Menu_OnAddNote, self)
+	--menug:AddItem (0, "Add Note", self.Menu_OnAddNote, self)
 	
 	-- Create BG icon menu
 
+	--[[
 	self.BGIncNum = 0
 
-	local menub = Nx.Menu:Create (f)
+	local menub = Nx.Menu:Create (f) ---
 	self.BGIconMenu = menub
 
 	for n = 1, #NXlBGMessages, 2 do
@@ -568,7 +601,7 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 	end
 
 	menub:AddItem (0, NXlBGStatus, self.BGMenu_OnStatus, self)
-	
+	]]
 	return menu;
 end
 
@@ -782,6 +815,8 @@ end
 
 function RDXMAP.Map:GMenuOpen (icon, typ)
 
+	-- new menu
+	--[[
 	self.GIconMenuITogInst:Show (false)
 	self.GIconMenuIFindNote:Show (false)
 
@@ -794,10 +829,15 @@ function RDXMAP.Map:GMenuOpen (icon, typ)
 			self.GIconMenuIFindNote:Show()
 		end
 	end
+]]
+	--if Nx and Nx.Quest then
+	--	Nx.Quest:OpenGiverIconMenu (icon, typ)
+	--end
 
-	Nx.Quest:OpenGiverIconMenu (icon, typ)
+	VFL.poptree:Begin(150, 12, self.Frm, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(self.Frm));
+	self.GIconMenu2:Open(VFL.poptree, nil, nil, "TOPLEFT", 0, 0, nil);
 
-	self.GIconMenu:Open()
+	--self.GIconMenu:Open()
 end
 
 --------
@@ -831,19 +871,23 @@ end
 -- Favorite icon
 
 function RDXMAP.Map:GMenu_OnFindNote()
-	Nx.Fav:ShowIconNote (self.ClickIcon)
+	if Nx and Nx.Fav then
+		Nx.Fav:ShowIconNote (self.ClickIcon)
+	end
 end
 
 --------
 -- Generic icon goto
 
 function RDXMAP.Map:GMenu_OnGoto()
-
-	Nx.Quest.Watch:ClearAutoTarget()
+	if Nx and Nx.Quest then
+		Nx.Quest.Watch:ClearAutoTarget()
+	end
 
 	if self.ClickType == 3001 then
-		Nx.Social:GotoPunk (self.ClickIcon)
-
+		if Nx and Nx.Social then
+			Nx.Social:GotoPunk (self.ClickIcon)
+		end
 	else
 		local icon = self.ClickIcon
 		local x = icon.x
@@ -863,7 +907,9 @@ function RDXMAP.Map:GMenu_OnPasteLink()
 	local name
 
 	if self.ClickType == 3001 then
-		name = Nx.Social:GetPunkPasteInfo (self.ClickIcon)
+		if Nx and Nx.Social then
+			name = Nx.Social:GetPunkPasteInfo (self.ClickIcon)
+		end
 	else
 		local icon = self.ClickIcon
 		name = gsub (icon.Tip, "\n", ", ")

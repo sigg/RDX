@@ -253,8 +253,10 @@ function RDXMAP.APIMap.UpdateGroup (map, plX, plY)
 						elseif UnitIsEnemy ("player", unitTarget) then
 
 							tStr = format ("\n|cffffff40%s %d %s %d%%", tName, tLvl, tCls, th)
-
-							if Nx:UnitIsPlusMob (unitTarget) then
+							
+							local c = UnitClassification (unitTarget)
+							--	VFL.vprint ("Class %s", c)
+							if c == "elite" or c == "rareelite" or c == "worldboss" then
 								f.texture:SetTexture (1, .4, 1, 1)
 							else
 								f.texture:SetTexture (1, 1, 0, 1)

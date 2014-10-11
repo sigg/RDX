@@ -60,7 +60,7 @@ local function BuildQuestsList(filter)
 			VFL.vprint("nil quest %s", qId)
 		end
 		local qname, side, lvl, minlvl, next = Nx.Quest:Unpack (quest[1])
-		local status, qTime = Nx:GetQuest (qId)
+		local status, qTime = RDXMAP.GetQuest (qId)
 		local qCompleted = status == "C"
 		
 		if not quest.CNum or quest.CNum == 1 then
@@ -204,7 +204,7 @@ list:SetDataSource(function(cell, data, pos)
 		local quest = data.quest;
 		local qId = data.qId
 		local qname, side, lvl, minlvl, next = Nx.Quest:Unpack(quest[1])
-		local status, qTime = Nx:GetQuest(qId)
+		local status, qTime = RDXMAP.GetQuest(qId)
 		local qCompleted = status == "C"
 		
 		local lvlStr = format ("|cffd0d0d0%2d", lvl)

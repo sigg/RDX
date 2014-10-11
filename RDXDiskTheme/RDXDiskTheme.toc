@@ -3,6 +3,6 @@
 ## Notes: Disk Theme
 ## Author: Sigg / Rashgarroth
 ## Version: 10.0.0
-## RequiredDeps: RDX
+## RequiredDeps: RDXDiskSystem
 ## SavedVariables: RDXDiskTheme
 RDXDiskTheme.lua

@@ -169,7 +169,7 @@ function RDXMAP.APIMap.CheckWorldHotspotsType (map, wx, wy, quad)
 					map.TooltipType = 1
 
 					tt:SetOwner (owner, tippos, 0, 0)
-					Nx:SetTooltipText (owner.NXTip .. RDXMAP.PlyrNamesTipStr)
+					VFLIO.SetTooltipText (owner.NXTip .. RDXMAP.PlyrNamesTipStr)
 
 					owner["UpdateTooltip"] = RDXMAP.Map.OnUpdateTooltip
 				end

@@ -78,7 +78,7 @@ list:SetWidth(280); list:SetHeight(200);
 list:Rebuild(); list:Show();
 
 RDXEvents:Bind("INIT_DEFERRED", nil, function()
-	if Nx then 
+	if Nx and Nx.Quest then 
 		list:SetDataSource(function(cell, data, pos)
 
 			local quest = data.Q

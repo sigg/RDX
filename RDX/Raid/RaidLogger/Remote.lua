@@ -3,7 +3,7 @@
 -- (C)2006 Bill Johnson
 --
 -- Facilities for querying and creating tables on remote machines.
---/script PlaySoundFile("Sound\\Event Sounds\\Wisp\\WispYes1.wav");
+--/script VFLIO.PlaySoundFile("Sound\\Event Sounds\\Wisp\\WispYes1.wav");
 
 ----------------------------------------------
 -- TABLE I/O
@@ -43,7 +43,7 @@ local function Omni_WriteRemoteTable(commInfo, name, symtab, data)
 	tbl:Cleanse(); tbl:SetOpen(nil);
 	-- Notify of received info
 	RDX.printI("|cFFAAFF00Omniscience:|r |cFFFFFFFFReceived new table <" .. name .. "> from " .. commInfo.sender);
-	PlaySoundFile("Sound\\Event Sounds\\Wisp\\WispYes1.wav");
+	VFLIO.PlaySoundFile("Sound\\Event Sounds\\Wisp\\WispYes1.wav");
 end
 RPC.Bind("Omni_WFT", Omni_WriteRemoteTable);
 

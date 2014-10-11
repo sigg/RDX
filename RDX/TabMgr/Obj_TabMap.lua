@@ -46,23 +46,23 @@ RDXDB.RegisterObjectType({
 	end,
 	Instantiate = function(path, md)
 		local mf = VFLUI.AcquireFrame("Frame");
-		if Nx then
-			local m = RDXMAP.Map:Open(1, md.data);
-			m.Frm:SetParent(mf);
-			--m.Frm:SetAllPoints(mf);
-			mf.m = m;
-			
-			local function layout()
-				local w = mf:GetWidth();
-				local h = mf:GetHeight();
-				m.Frm:ClearAllPoints();
-				m.Frm:SetPoint("CENTER", mf, "CENTER");
-				m.Frm:SetWidth(w - 2);
-				m.Frm:SetHeight(h - 2);
-			end
-			mf:SetScript("OnShow", layout);
-			mf:SetScript("OnSizeChanged", layout);
+		
+		local m = RDXMAP.Map:Open(1, md.data);
+		m.Frm:SetParent(mf);
+		--m.Frm:SetAllPoints(mf);
+		mf.m = m;
+		
+		local function layout()
+			local w = mf:GetWidth();
+			local h = mf:GetHeight();
+			m.Frm:ClearAllPoints();
+			m.Frm:SetPoint("CENTER", mf, "CENTER");
+			m.Frm:SetWidth(w - 2);
+			m.Frm:SetHeight(h - 2);
 		end
+		mf:SetScript("OnShow", layout);
+		mf:SetScript("OnSizeChanged", layout);
+
 		
 		return mf;
 	end,

@@ -11,7 +11,7 @@
 
 local function GenPlaySoundFunc(sound)
 	if (type(sound) == "string") and (sound ~= "") then
-		return function()	PlaySoundFile(sound);	end
+		return function()	VFLIO.PlaySoundFile(sound);	end
 	else
 		return VFL.Noop;
 	end

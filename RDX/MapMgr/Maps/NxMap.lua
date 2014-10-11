@@ -62,8 +62,8 @@ NxMapOpts = {
 -- Init map stuff
 
 function RDXMAP.Map:Init()
-
-	local gopts = Nx:GetGlobalOpts()
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
+	local gopts = mbo.data
 	self.GOpts = gopts
 
 	self.Maps = {}
@@ -151,7 +151,8 @@ function RDXMAP.Map:Create (index, data)
 	m.MapEvents = DispatchTable:new();
 	m.DragContext = VFLUI.DragContext:new();
 
-	local gopts = Nx:GetGlobalOpts()
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
+	local gopts = mbo.data
 	m.GOpts = gopts
 	
 	local opts = data
@@ -1495,7 +1496,7 @@ function RDXMAP.Map:Update (elapsed)
 		
 		-- Note icons
 		if Nx and Nx.Fav then
-			Nx.Fav:UpdateIcons(self)
+			--Nx.Fav:UpdateIcons(self)
 		end
 		
 		RDXMAP.APIMap.UpdateIcons (self, self.LOpts.NXKillShow)
@@ -1503,7 +1504,7 @@ function RDXMAP.Map:Update (elapsed)
 	--end
 	
 	-- QUEST
-	if Nx and Nx.Quest.Enabled then
+	if Nx and Nx.Quest and Nx.Quest.Enabled then
 		Nx.Quest:UpdateIcons (self)
 	end
 

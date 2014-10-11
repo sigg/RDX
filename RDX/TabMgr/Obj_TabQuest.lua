@@ -55,7 +55,7 @@ function RDX.QuestFrame:new(path, desc)
 		--if not RDXU.mapSettings.cquests then RDXU.mapSettings.cquests = {}; end
 		--if not RDXU.mapSettings.cquests.hide then RDXU.mapSettings.cquests.hide = {}; end
 		if Nx then
-			local qopts = Nx:GetQuestOpts()
+			local qopts = Nx:GetQuestOpts() ---
 			local hideUnfinished = qopts["NXWHideUnfinished"]
 			local hideGroup = qopts["NXWHideGroup"]
 			local hideNotInZone = qopts["NXWHideNotInZone"]
@@ -76,7 +76,7 @@ function RDX.QuestFrame:new(path, desc)
 				qId = cur.QId
 				qi = cur.QI
 				id = qId > 0 and qId or cur.Title
-				qStatus = Nx:GetQuest (id)
+				qStatus = RDXMAP.GetQuest (id)
 				qWatched = qStatus == "W" or cur.PartyDesc
 				
 				if qWatched and (cur.Distance < hideDist or cur.Distance > 999999) then

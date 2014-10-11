@@ -23,7 +23,7 @@ local function BuildQuestsList(filter)
 
 		local quest = Nx.Quest.IdToQuest[qId]
 
-		local status, qTime = Nx:GetQuest (qId)
+		local status, qTime = RDXMAP.GetQuest (qId)
 		local qCompleted = status == "C"
 
 		local show = qCompleted

@@ -227,6 +227,11 @@ function RDXMAP.APIMap.UpdateTargets(map)
 	end
 
 	local tar = RDXU.MapTargets[1]
+	if not tar.x then 
+		VFL.print("Error Target");
+		RDXU.MapTargets[1] = nil;
+		return;
+	end
 	local x = tar.x - map.myunit.PlyrX
 	local y = tar.y - map.myunit.PlyrY
 	local distYd = (x * x + y * y) ^ .5 * 4.575
@@ -247,7 +252,7 @@ function RDXMAP.APIMap.UpdateTargets(map)
 			end
 
 			if map.GOpts["HUDTSoundOn"] then
-				Nx:PlaySoundFile ("sound\\interface\\magicclick.wav")
+				VFLIO.PlaySoundFile ("sound\\interface\\magicclick.wav")
 			end
 
 			--UIErrorsFrame:AddMessage ("Target " .. tar.TargetName .. " reached", 1, 1, 1, 1)
@@ -347,7 +352,7 @@ function RDXMAP.APIMap.UpdateTargets2(map)
 				tinsert (RDXU.MapTargets, tar)
 			end
 			if map.GOpts["HUDTSoundOn"] then
-				Nx:PlaySoundFile ("sound\\interface\\magicclick.wav")
+				VFLIO.PlaySoundFile ("sound\\interface\\magicclick.wav")
 			end
 			UIErrorsFrame:AddMessage ("Target " .. tar.n .. " reached", 1, 1, 1, 1)
 		end

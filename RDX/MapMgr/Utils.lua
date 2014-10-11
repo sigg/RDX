@@ -257,3 +257,45 @@ function RDXMAP.UnpackLocPtOff (locStr, off)
 	return	((x1 - 35) * 221 + (x2 - 35)) / 100,
 				((y1 - 35) * 221 + (y2 - 35)) / 100
 end
+
+
+--------
+-- Make packed XY string
+-- (xy 0-100)
+
+function RDXMAP.PackXY (x, y)
+
+	x = max (0, min (100, x))
+	y = max (0, min (100, y))
+	return format ("%03x%03x", x * 40.9 + .5, y * 40.9 + .5)		-- Round off
+end
+
+--------
+
+function RDXMAP.UnpackXY (xy)
+
+	local x = tonumber (strsub (xy, 1, 3), 16) / 40.9
+	local y = tonumber (strsub (xy, 4, 6), 16) / 40.9
+	return x, y
+end
+
+-- Get status for a quest
+
+function RDXMAP.GetQuest (qId)
+
+	local quest = RDXU.Q[qId]
+	if not quest then
+		return
+	end
+
+	local s1, s2, status, time = strfind (quest, "(%a)(%d+)")
+
+	return status, time
+end
+
+function RDXMAP.SetQuest (qId, qStatus, qTime)
+
+	qTime = qTime or 0
+
+	RDXU.Q[qId] = qStatus .. qTime
+end

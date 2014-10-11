@@ -145,9 +145,6 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 
 --	if IsControlKeyDown() then		return	end
 
-
-	local Nx = Nx
-
 	local profileTime = GetTime()
 
 	local map = self.NxMap

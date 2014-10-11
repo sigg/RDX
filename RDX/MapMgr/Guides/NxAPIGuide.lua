@@ -14,7 +14,8 @@ function RDXMAP.APIGuide.CaptureItems()
 	if not NxData.NXVendorV then
 		return
 	end
-	local opts = Nx:GetGlobalOpts()
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
+	local opts = mbo.data
 	local myunit = RDXDAL.GetMyUnit();
 	if MerchantFrame:IsVisible() then
 		local vcabr = RDXMAP.VendorCostAbr
@@ -120,17 +121,18 @@ function RDXMAP.APIGuide.SavePlayerNPCTarget()
     end
 		
 	local myunit = RDXDAL.GetMyUnit();
-	local s = Nx:PackXY (myunit.PlyrRZX, myunit.PlyrRZY)
+	local s = RDXMAP.PackXY (myunit.PlyrRZX, myunit.PlyrRZY)
 	PlayerNPCTargetPos = format ("%d^%s", RDXMAP.MapId2Zone[myunit.mapId] or 0, s)
 end
 
 function RDXMAP.APIGuide.CaptureNPC (data)
-	local opts = Nx:GetGlobalOpts()
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
+	local opts = mbo.data
 	if not opts["CaptureEnable"] then
 		return
 	end
-	local cap = Nx:GetCap()
-	local npcs = Nx:CaptureFind (cap, "NPC")
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:capNPC");
+	local npcs = mbo.data;
 	local len = 0
 	for _, str in pairs (npcs) do
 		len = len + 4 + #str + 1
