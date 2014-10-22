@@ -532,13 +532,13 @@ end, function()
 end);
 
 -- Class: ItemWatchbutton
-VFLUI.CreateFramePool("WatchFrameItemButton", function(pool, x)
-	CleanupButton(x);
-end, function()
-	local f = CreateFrame("Button", "Button_" .. GetNextID(), nil, "WatchFrameItemButtonTemplate");
-	FixFontObjectNonsense(f);
-	return f;
-end);
+--VFLUI.CreateFramePool("WatchFrameItemButton", function(pool, x)
+--	CleanupButton(x);
+--end, function()
+--	local f = CreateFrame("Button", "Button_" .. GetNextID(), nil, "WatchFrameItemButtonTemplate");
+--	FixFontObjectNonsense(f);
+--	return f;
+--end);
 
 
 -- Class: EditBox
@@ -585,7 +585,7 @@ end, function() return CreateFrame("StatusBar", "StatusBar_" .. VFL.GetNextID())
 VFLUI.CreateFramePool("Cooldown", function(pool, x)
 	x:SetCooldown(0,0);
 	CleanupFrame(x);
-end, function() return CreateFrame("Cooldown", "Cooldown_" .. VFL.GetNextID()); end);
+end, function() return CreateFrame("Cooldown", "Cooldown_" .. VFL.GetNextID(), nil, "CooldownFrameTemplate"); end);
 
 -- Class: PlayerModel
 VFLUI.CreateFramePool("PlayerModel", function(pool, x)

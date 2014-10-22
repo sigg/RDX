@@ -27,14 +27,28 @@ function VFLUI.CooldownCounter:new(parent, cooldown)
 	s.fs:Show();
 	VFLUI.SetFont(s.fs, cooldown.Font);
 	
-	function s:SetCooldown(start, duration, charges, maxCharges)
+	function s:SetCooldown(start, duration, enable, charges, maxCharges, forceShowDrawEdge)	
 		if start == 0 then
 			self.expiration = 0;
 			if self.cd then self.cd:Hide(); end
 			return;
 		end
 		self.expiration = start + duration;
-		if self.cd then self.cd:Show(); self.cd:SetCooldown(start, duration, charges, maxCharges); end
+		if self.cd then 
+			self.cd:Show();
+			if (enable ~= 0) then
+				local drawEdge = false;
+				if ( duration > 2 and charges and maxCharges and charges ~= 0) then
+					drawEdge = true;
+				end
+				self.cd:SetDrawEdge(drawEdge or forceShowDrawEdge);
+				self.cd:SetDrawSwipe(not drawEdge);
+				self.cd:SetCooldown(start, duration);
+			else
+				self.cd:SetCooldown(0, 0);
+				self.cd:Hide();
+			end
+		end
 	end
 
 	if cooldown.TimerType == "COOLDOWN&TEXT" or cooldown.TimerType == "TEXT" then

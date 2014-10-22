@@ -12,6 +12,8 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	RDXDB.SetPackageMetadata("RDXDiskMap", "poisG", "infoIsIndelible", true);
 	RDXDB.GetOrCreatePackage("RDXDiskMap", "poisT", "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX package");
 	RDXDB.SetPackageMetadata("RDXDiskMap", "poisT", "infoIsIndelible", true);
+	RDXDB.GetOrCreatePackage("RDXDiskSystem", "favs", "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX package");
+	RDXDB.SetPackageMetadata("RDXDiskSystem", "favs", "infoIsIndelible", true);
 end);
 
 RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()

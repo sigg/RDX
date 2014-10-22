@@ -690,11 +690,52 @@ WoWEvents:Bind("VARIABLES_LOADED", nil, function()
 	end
 	
 	if VFLP.IsEnabled() then
-		if RDX then RDX.printW(VFLI.i18n("Profiler Activated !!!")); end
+		--if RDX then RDX.printW(VFLI.i18n("Profiler Activated !!!")); end
 		suf:SetScript("OnUpdate", SummaryUpdate);
 		--euf:SetScript("OnUpdate", EventUpdate);
 		ouf:SetScript("OnUpdate", ObjectUpdate);
 		puf:SetScript("OnUpdate", PoolUpdate);
+		
+		local txt1 = VFLUI.CreateFontString(VFLTOOLTIP);
+		txt1:SetPoint("TOPLEFT",VFLParent,"TOPLEFT", 0, 0);
+		txt1:SetWidth(150); txt1:SetHeight(20);
+		txt1:SetFont("Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf", 12);
+		txt1:SetShadowOffset(1,-1);
+		txt1:SetShadowColor(0,0,0,1);
+		txt1:SetText("Debug Activated");
+		txt1:SetJustifyH("LEFT"); txt1:SetJustifyV("TOP");
+		txt1:Show();
+		
+		local txt2 = VFLUI.CreateFontString(VFLTOOLTIP);
+		txt2:SetPoint("TOPRIGHT",VFLParent,"TOPRIGHT", 0, 0);
+		txt2:SetWidth(150); txt2:SetHeight(20);
+		txt2:SetFont("Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf", 12);
+		txt2:SetShadowOffset(1,-1);
+		txt2:SetShadowColor(0,0,0,1);
+		txt2:SetText("Debug Activated");
+		txt2:SetJustifyH("RIGHT"); txt2:SetJustifyV("TOP");
+		txt2:Show();
+		
+		local txt3 = VFLUI.CreateFontString(VFLTOOLTIP);
+		txt3:SetPoint("BOTTOMLEFT",VFLParent,"BOTTOMLEFT", 0, 0);
+		txt3:SetWidth(150); txt3:SetHeight(20);
+		txt3:SetFont("Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf", 12);
+		txt3:SetShadowOffset(1,-1);
+		txt3:SetShadowColor(0,0,0,1);
+		txt3:SetText("Debug Activated");
+		txt3:SetJustifyH("LEFT"); txt3:SetJustifyV("BOTTOM");
+		txt3:Show();
+		
+		local txt4 = VFLUI.CreateFontString(VFLTOOLTIP);
+		txt4:SetPoint("BOTTOMRIGHT",VFLParent,"BOTTOMRIGHT", 0, 0);
+		txt4:SetWidth(150); txt4:SetHeight(20);
+		txt4:SetFont("Interface\\Addons\\VFL\\Fonts\\LiberationSans-Regular.ttf", 12);
+		txt4:SetShadowOffset(1,-1);
+		txt4:SetShadowColor(0,0,0,1);
+		txt4:SetText("Debug Activated");
+		txt4:SetJustifyH("RIGHT"); txt4:SetJustifyV("BOTTOM");
+		txt4:Show();
+		
 	end
 	
 	--[[
@@ -711,4 +752,5 @@ end);
 function VFLP.ResetCPU()
 	ResetCPUUsage()
 end
+
 

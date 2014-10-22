@@ -1,9 +1,9 @@
-﻿## Interface: 50400
+﻿## Interface: 60000
 ## Title: |c007ffcffRDX|r - Disk Map
 ## Notes: Disk Map
 ## Author: Sigg / Rashgarroth
 ## Version: 10.0.0
 ## RequiredDeps: RDXDiskSystem
 ## SavedVariables: RDXDiskMap
-RDXDiskMap.lua
+main.lua
 globals.lua

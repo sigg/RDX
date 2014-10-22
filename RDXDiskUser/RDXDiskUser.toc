@@ -1,8 +1,8 @@
 ﻿## Interface: 60000
-## Title: |c007ffcffRDX|r - Disk Backup
-## Notes: Disk Backup
+## Title: |c007ffcffRDX|r - Disk User
+## Notes: Disk User
 ## Author: Sigg / Rashgarroth
 ## Version: 10.0.0
 ## RequiredDeps: RDXDiskSystem
-## SavedVariables: RDXDiskBackup
+## SavedVariables: RDXDiskUser
 main.lua
