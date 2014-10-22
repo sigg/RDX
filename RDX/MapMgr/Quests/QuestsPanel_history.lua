@@ -13,7 +13,7 @@ local showOnlyDailies = nil
 local wl = {};
 local function BuildQuestsList(filter)
 	VFL.empty(wl);
-	local mapId = RDXMAP.Map:GetCurrentMapId()
+	local mapId = RDXMAP.APIMap.GetCurrentMapId()
 	local minLevel = UnitLevel ("player") - GetQuestGreenRange()
 	local maxLevel = showHighLevel and MAX_PLAYER_LEVEL or UnitLevel ("player") + 6
 	--local dbTitleIndex = list:ItemGetNum()
@@ -21,9 +21,9 @@ local function BuildQuestsList(filter)
 	
 	for qId in pairs (Nx.CurCharacter.Q) do			-- Loop over quests with history
 
-		local quest = Nx.Quest.IdToQuest[qId]
+		local quest = RDXMAP.Quest.IdToQuest[qId]
 
-		local status, qTime = RDXMAP.GetQuest (qId)
+		local status, qTime = RDXMAP.APIQuest.GetQuest (qId)
 		local qCompleted = status == "C"
 
 		local show = qCompleted
@@ -37,7 +37,7 @@ local function BuildQuestsList(filter)
 			local qname, side_, lvl
 
 			if quest then
-				qname, side_, lvl = Nx.Quest:Unpack (quest[1])
+				qname, side_, lvl = RDXMAP.Unpack (quest[1])
 			else
 				qname = format ("%s?", qId)
 				lvl = 0
@@ -58,11 +58,11 @@ local function BuildQuestsList(filter)
 
 			local dailyName = ""
 
-			local dailyStr = Nx.Quest.DailyIds[qId] or Nx.Quest.DailyDungeonIds[qId] or Nx.Quest.DailyPVPIds[qId]
+			local dailyStr = RDXMAP.Quest.DailyIds[qId] or RDXMAP.Quest.DailyDungeonIds[qId] or RDXMAP.Quest.DailyPVPIds[qId]
 			if dailyStr then
 
 				local typ = strsplit ("^", dailyStr)
-				dailyName = format (" |cffd060d0(%s)", Nx.Quest.DailyTypes[typ])
+				dailyName = format (" |cffd060d0(%s)", RDXMAP.Quest.DailyTypes[typ])
 
 				local age = time() - qTime
 				local dayChange = 86400 - GetQuestResetTime()
@@ -96,7 +96,7 @@ local function BuildQuestsList(filter)
 
 				local haveStr = ""
 
-				if Nx.Quest.QIds[qId] then
+				if RDXMAP.Quest.QIds[qId] then
 					haveStr = "|cffe0e0e0+ "
 				end
 

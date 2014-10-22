@@ -10,7 +10,7 @@ local descg = {};
 local TooltipsList = {
 	ShoppingTooltip1,
 	ShoppingTooltip2,
-	ShoppingTooltip3,
+	--ShoppingTooltip3,
 	GameTooltip,
 	ItemRefShoppingTooltip1,
 	ItemRefShoppingTooltip2,
@@ -53,9 +53,9 @@ local function SetGameTooltipFont()
 		VFLUI.SetFont(ShoppingTooltip2TextLeft1, font, nil, true);
 		VFLUI.SetFont(ShoppingTooltip2TextLeft2, font, nil, true);
 		VFLUI.SetFont(ShoppingTooltip2TextLeft3, font, nil, true);
-		VFLUI.SetFont(ShoppingTooltip3TextLeft1, font, nil, true);
-		VFLUI.SetFont(ShoppingTooltip3TextLeft2, font, nil, true);
-		VFLUI.SetFont(ShoppingTooltip3TextLeft3, font, nil, true);
+		--VFLUI.SetFont(ShoppingTooltip3TextLeft1, font, nil, true);
+		--VFLUI.SetFont(ShoppingTooltip3TextLeft2, font, nil, true);
+		--VFLUI.SetFont(ShoppingTooltip3TextLeft3, font, nil, true);
 		
 		for i = 1, ShoppingTooltip1:NumLines() do
 			VFLUI.SetFont(_G["ShoppingTooltip1TextRight"..i], font, nil, true);
@@ -63,9 +63,9 @@ local function SetGameTooltipFont()
 		for i = 1, ShoppingTooltip2:NumLines() do
 			VFLUI.SetFont(_G["ShoppingTooltip2TextRight"..i], font, nil, true);
 		end
-		for i = 1, ShoppingTooltip3:NumLines() do
-			VFLUI.SetFont(_G["ShoppingTooltip3TextRight"..i], font, nil, true);
-		end
+		--for i = 1, ShoppingTooltip3:NumLines() do
+		--	VFLUI.SetFont(_G["ShoppingTooltip3TextRight"..i], font, nil, true);
+		--end
 		
 		if GameTooltipMoneyFrame1 then
 			VFLUI.SetFont(GameTooltipMoneyFrame1PrefixText, font, nil, true);
@@ -113,6 +113,9 @@ end
 -- on desktop unlock
 -- Show the moving box
 function RDXDK.SetUnlockGameTooltip()
+	--VFL.print("SetUnlockGameTooltip");
+	--VFL.print("X" .. descg.anchorx);
+	--VFL.print("X" .. descg.anchory);
 	btn:ClearAllPoints();
 	btn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descg.anchorx, descg.anchory);
 	btn:Show();
@@ -192,14 +195,16 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 			v._SetBackdrop = v.SetBackdrop;
 			v.SetBackdrop = VFL.Noop;
 		end
-	
+		-- doesn't work 6.0 ?
 		hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
-			if descg.tooltipmouse then
-				GameTooltip:SetOwner(parent, "ANCHOR_CURSOR");
-			else
-				GameTooltip:SetOwner(parent, "ANCHOR_NONE");
+			--VFL.print("GameTooltip_SetDefaultAnchor");
+			--if descg.tooltipmouse then
+			--	GameTooltip:SetOwner(parent, "ANCHOR_CURSOR");
+			--else
+			--	GameTooltip:SetOwner(parent, "ANCHOR_NONE");
+				GameTooltip:ClearAllPoints();
 				GameTooltip:SetPoint("CENTER", btn, "CENTER");
-			end
+			--end
 		end);
 		
 		local unit, class, level, classif, item, quality, r, g, b, colortable, requestguid, _;
@@ -262,6 +267,12 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 			if descg.hideInCombat and InCombatLockdown() then
 				return self:Hide();
 			end
+			--if descg.tooltipmouse then
+				--GameTooltip:SetOwner(parent, "ANCHOR_CURSOR");
+			--else
+				--GameTooltip:SetOwner(parent, "ANCHOR_NONE");
+				--GameTooltip:SetPoint("CENTER", btn, "CENTER");
+			--end
 		end);
 		GameTooltip:HookScript("OnHide", function(self)
 			self:_SetBackdropBorderColor(1,1,1,1);

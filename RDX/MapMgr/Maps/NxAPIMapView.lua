@@ -19,8 +19,8 @@ function RDXMAP.APIMap.SaveView (map, name)
 	end
 
 	t.Scale = map.Scale
-	t.X = map.MapPosX
-	t.Y = map.MapPosY
+	t.x = map.MapPosX
+	t.y = map.MapPosY
 end
 
 --------
@@ -36,8 +36,8 @@ function RDXMAP.APIMap.RestoreView (map, name)
 
 	if t then
 		map.Scale = t.Scale
-		map.MapPosX = t.X
-		map.MapPosY = t.Y
+		map.MapPosX = t.x
+		map.MapPosY = t.y
 
 		map.StepTime = 5
 	end

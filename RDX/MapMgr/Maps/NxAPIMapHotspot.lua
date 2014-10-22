@@ -49,7 +49,7 @@ function RDXMAP.APIMap.InitHotspots(map)
 
 				local wzone = RDXMAP.APIMap.GetWorldZone (mapId)
 
-				if wzone.City or wzone.StartZone then
+				if wzone.class == "ci" or wzone.StartZone then
 					tinsert (quadCity, spot)
 				else
 					tinsert (quad, spot)
@@ -138,10 +138,6 @@ function RDXMAP.APIMap.CheckWorldHotspotsType (map, wx, wy, quad)
 		if wx >= spot.WX1 and wx <= spot.WX2 and wy >= spot.WY1 and wy <= spot.WY2 then
 
 			local curId = RDXMAP.APIMap.GetCurrentMapId()
-			local winfo = RDXMAP.APIMap.GetWorldZone(curId)
-			if winfo then
-				curId = winfo.Level1Id or curId
-			end
 
 			if spot.MapId ~= curId then
 
@@ -275,8 +271,8 @@ function RDXMAP.Map:PackHotspotsDebug()
 
 			for n, spot in ipairs (mapT) do
 
-				local x = min (max (spot.X * 4095 / 100, 0), 4095)
-				local y = min (max (spot.Y * 4095 / 100, 0), 4095)
+				local x = min (max (spot.x * 4095 / 100, 0), 4095)
+				local y = min (max (spot.y * 4095 / 100, 0), 4095)
 				local w = min (max (spot.W * 4095 / 100, 0), 4095)
 				local h = min (max (spot.H * 4095 / 100, 0), 4095)
 				s = format ("%s%03x%03x%03x%03x", s, x, y, w, h)
@@ -306,7 +302,7 @@ function RDXMAP.Map:UpdateHotspotsDebug()
 
 			local f = RDXMAP.APIMap.GetIcon (self, 0)
 
-			local x, y = RDXMAP.APIMap.GetWorldPos (mapId, spot.X, spot.Y)
+			local x, y = RDXMAP.APIMap.GetWorldPos (mapId, spot.x, spot.y)
 			if RDXMAP.APIMap.ClipFrameTL (self, f, x, y, spot.W * zscale, spot.H * zscale / 1.5) then
 
 				f.NXType = 8000
@@ -314,7 +310,7 @@ function RDXMAP.Map:UpdateHotspotsDebug()
 				f.NXData2 = n
 
 				if IsControlKeyDown() then
-					f.NxTip = format ("%s %d #%d\n%s %s\n%s %s", RDXMAP.APIMap.IdToName (mapId), mapId, n, spot.X, spot.Y, spot.W, spot.H)
+					f.NxTip = format ("%s %d #%d\n%s %s\n%s %s", RDXMAP.APIMap.IdToName (mapId), mapId, n, spot.x, spot.y, spot.W, spot.H)
 				end
 
 				if mapId == curMapId then
@@ -329,7 +325,7 @@ function RDXMAP.Map:UpdateHotspotsDebug()
 				end
 			end
 
---			VFL.vprint ("spot #%d %s %s %s %s", n, spot.X, spot.Y, spot.W, spot.H)
+--			VFL.vprint ("spot #%d %s %s %s %s", n, spot.x, spot.y, spot.W, spot.H)
 		end
 	end
 end
@@ -352,7 +348,7 @@ function RDXMAP.Map:HotspotDebugClick (button)
 		self.HotspotDebugCurI = index
 
 --		local spot = saved[mapId][index]
---		VFL.vprint ("spot #%d %s %s %s %s", n, spot.X, spot.Y, spot.W, spot.H)
+--		VFL.vprint ("spot #%d %s %s %s %s", n, spot.x, spot.y, spot.W, spot.H)
 	end
 end
 
@@ -373,14 +369,14 @@ function RDXMAP.Map:HotspotDebugScroll (x, y)
 
 		if not IsAltKeyDown() then
 
-			spot.X = spot.X + x
-			spot.Y = spot.Y + y
+			spot.x = spot.x + x
+			spot.y = spot.y + y
 		else
 			spot.W = spot.W + x
 			spot.H = spot.H + y
 		end
 
-		VFL.vprint ("%s spot #%d %s %s %s %s", self.DebugMapId, self.HotspotDebugCurI, spot.X, spot.Y, spot.W, spot.H)
+		VFL.vprint ("%s spot #%d %s %s %s %s", self.DebugMapId, self.HotspotDebugCurI, spot.x, spot.y, spot.W, spot.H)
 
 		return true
 	end

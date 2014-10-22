@@ -915,7 +915,7 @@ function RDXDK.Desktop:new(parent)
 		end
 	end, "desktop");
 	
-	DesktopEvents:Bind("DESKTOP_STATE", nil, ChangeState, "desktop");
+	DesktopEvents:Bind("DESKTOP_STATE", nil, SecuredChangeState, "desktop");
 	
 	DesktopEvents:Bind("DESKTOP_RESETSTATE", nil, function()
 		local _, _, auiname = RDXDB.ParsePath(RDXU.AUI);
@@ -1009,7 +1009,7 @@ function RDXDK.Desktop:new(parent)
 	end, "desktop");
 	
 	-- RDX ROSTER
-	RDXEvents:Bind("ROSTER_STATE", nil, SecuredChangeState, "desktop");
+	--RDXEvents:Bind("ROSTER_STATE", nil, SecuredChangeState, "desktop");
 	
 	-- BETA nameplate
 	--local nstate = RDX.GenericWindowState:new();

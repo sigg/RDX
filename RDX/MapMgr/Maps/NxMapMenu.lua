@@ -618,12 +618,22 @@ end
 
 function RDXMAP.Map:Menu_OnAddNote()
 	local wx, wy = RDXMAP.APIMap.FramePosToWorldPos (self, self.ClickFrmX, self.ClickFrmY)
-	local zx, zy = RDXMAP.APIMap.GetZonePos (self.MapId, wx, wy)
-	self:AddNote ("?", self.MapId, zx, zy)
-end
-
-function RDXMAP.Map:AddNote (name, id, x, y)
-	Nx.Fav:Record ("Note", name, id, x, y)
+	VFLUI.MessageBox(VFLI.i18n("Add Note:"), VFLI.i18n("Enter name"), "?", VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), function(newname) 
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:favs:" .. self.MapId)
+		if not mbo.data then
+			mbo.ty = "POISet"; 
+			mbo.version = 1;
+			mbo.data = {};
+		end
+		local tbl1 = {};
+		tbl1.t = "Star";
+		tbl1.z = self.MapId;
+		tbl1.x = wx;
+		tbl1.y = wy;
+		tbl1.n = newname;
+		table.insert(mbo.data, tbl1);
+		self.upp = true;
+	end);
 end
 
 function RDXMAP.Map:Menu_OnMonitorZone (item)
@@ -706,7 +716,9 @@ function RDXMAP.Map:Menu_OnIconNavScale (item)
 end
 
 function RDXMAP.Map:Menu_OnOptions (item)
-	Nx.Opts:Open ("Map")
+	if Nx and Nx.Opts then
+		Nx.Opts:Open ("Map")
+	end
 end
 
 -- Debug sub menu
@@ -904,27 +916,27 @@ end
 
 function RDXMAP.Map:GMenu_OnPasteLink()
 
-	local name
+	--local name
 
-	if self.ClickType == 3001 then
-		if Nx and Nx.Social then
-			name = Nx.Social:GetPunkPasteInfo (self.ClickIcon)
-		end
-	else
-		local icon = self.ClickIcon
-		name = gsub (icon.Tip, "\n", ", ")
-	end
+	--if self.ClickType == 3001 then
+	--	if Nx and Nx.Social then
+	--		name = Nx.Social:GetPunkPasteInfo (self.ClickIcon)
+	--	end
+	--else
+	--	local icon = self.ClickIcon
+	--	name = gsub (icon.Tip, "\n", ", ")
+	--end
 
-	name = gsub (name, "|cff......", "")
-	name = gsub (name, "|r", "")
+	--name = gsub (name, "|cff......", "")
+	--name = gsub (name, "|r", "")
 
-	local frm = DEFAULT_CHAT_FRAME
-	local eb = frm["editBox"]
-	if eb:IsVisible() then
-		eb:SetText (eb:GetText() .. name)
-	else
-		VFL.vprint ("No edit box open!")
-	end
+	--local frm = DEFAULT_CHAT_FRAME
+	--local eb = frm["editBox"]
+	--if eb:IsVisible() then
+	--	eb:SetText (eb:GetText() .. name)
+	--else
+	--	VFL.vprint ("No edit box open!")
+	--end
 end
 
 --------

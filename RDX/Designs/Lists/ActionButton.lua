@@ -80,7 +80,7 @@ local function BorderChangeBS(self, elapsed)
 				self.color = "ca";
 			end
 		-- out of range red color
-		elseif IsActionInRange(self.action) == 0 then
+		elseif IsActionInRange(self.action) == false then
 			if self.color ~= "aa" then
 				VFLUI.SetButtonSkinBorderColor(self, 1, 0, 0, 0.9);
 				self.color = "aa";
@@ -127,7 +127,7 @@ local function BorderChangeBKD(self, elapsed)
 				self.color = "ca";
 			end
 		-- out of range red color
-		elseif IsActionInRange(self.action) == 0 then
+		elseif IsActionInRange(self.action) == false then
 			if self.color ~= "aa" then
 				VFLUI.SetBackdropBorderColor(self, 1, 0, 0, 0.9);
 				self.color = "aa";
@@ -178,7 +178,7 @@ local function KeyChange(self, elapsed)
 				self.color = "ca";
 			end
 		-- out of range red color
-		elseif IsActionInRange(self.action) == 0 then
+		elseif IsActionInRange(self.action) == false then
 			if self.color ~= "aa" then
 				self.txtHotkey:SetTextColor(1, 0, 0, 0.9);
 				self.txtHotkey:Show();
@@ -237,7 +237,7 @@ local function IconVertexChange(self, elapsed)
 				self.color = "ca";
 			end
 		-- out of range red color
-		elseif IsActionInRange(self.action) == 0 then
+		elseif IsActionInRange(self.action) == false then
 			if self.color ~= "aa" then
 				self.icon:SetVertexColor(1, 0, 0, 0.9);
 				self.color = "aa";
@@ -358,6 +358,7 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	-- cooldown
 	self.cd = VFLUI.CooldownCounter:new(self, desc.cd);
 	self.cd:SetAllPoints(self.icon);
+	
 	-- frame for text
 	self.frtxt = VFLUI.AcquireFrame("Frame");
 	self.frtxt:SetParent(self);
@@ -380,12 +381,33 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 	
 	self:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress");
 	
-	local start, duration, enable, charges, maxCharges, spellid = 0, 0, nil, 0, 0, nil;
+	local locStart, locDuration, start, duration, enable, charges, maxCharges, spellid = 0, 0, nil, 0, 0, nil;
 	local function UpdateCooldown()
+		locStart, locDuration = GetActionLossOfControlCooldown(self.action);
 		start, duration, enable, charges, maxCharges = GetActionCooldown(self.action);
-		if ( start > 0 and enable > 0 ) then
-			self.cd:SetCooldown(start, duration, charges, maxCharges);
+		
+		if ( locStart + locDuration > (start + duration)) then
+			if ( self.cd.cd.currentCooldownType ~= COOLDOWN_TYPE_LOSS_OF_CONTROL ) then
+				self.cd.cd:SetEdgeTexture("Interface\\Cooldown\\edge-LoC");
+				self.cd.cd:SetSwipeColor(0.17, 0, 0);
+				self.cd.cd:SetHideCountdownNumbers(true);
+				self.cd.cd.currentCooldownType = COOLDOWN_TYPE_LOSS_OF_CONTROL;
+			end
+			self.cd:SetCooldown(locStart, locDuration, 1, nil, nil, true);
 			self.cd:Show();
+		else
+			if ( self.cd.cd.currentCooldownType ~= COOLDOWN_TYPE_NORMAL ) then
+				self.cd.cd:SetEdgeTexture("Interface\\Cooldown\\edge");
+				self.cd.cd:SetSwipeColor(0, 0, 0);
+				self.cd.cd:SetHideCountdownNumbers(false);
+				self.cd.cd.currentCooldownType = COOLDOWN_TYPE_NORMAL;
+			end
+			--if( locStart > 0 ) then
+			--	self.cd.cd:SetScript("OnCooldownDone", RDXActionButton_OnCooldownDone );
+			--end
+			self.cd:SetCooldown(start, duration, enable, charges, maxCharges);
+			self.cd:Show();
+			
 			-- store your real cooldown
 			-- it is not really nice, but I don't know how to improve that...
 			if duration >= 2 then
@@ -395,11 +417,13 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 					RDXU.CooldownDB[spellid] = duration;
 				end
 			end
-		else
-			self.cd:SetCooldown(0, 0, charges, maxCharges);
-			self.cd:Hide();
 		end
 	end
+	
+	--function ActionButton_OnCooldownDone(self)
+	--self:SetScript("OnCooldownDone", nil);
+	--ActionButton_UpdateCooldown(self:GetParent());
+--end
 	
 	local isUsable, notEnoughMana, count = nil, nil, nil;
 	local function UpdateUsable()
@@ -515,6 +539,8 @@ function RDXUI.ActionButton:new(parent, id, statesString, desc)
 			WoWEvents:Bind("PLAYER_ENTER_COMBAT", nil, UpdateState, "actionButton" .. self.id);
 			WoWEvents:Bind("SPELL_UPDATE_CHARGES", nil, UpdateCharge, "actionButton" .. self.id);
 			WoWEvents:Bind("ACTIONBAR_UPDATE_USABLE", nil, UpdateUsable, "actionButton" .. self.id);
+			WoWEvents:Bind("LOSS_OF_CONTROL_UPDATE", nil, UpdateCooldown, "actionButton" .. self.id);
+			WoWEvents:Bind("LOSS_OF_CONTROL_ADDED", nil, UpdateCooldown, "actionButton" .. self.id);
 			WoWEvents:Bind("ACTIONBAR_UPDATE_COOLDOWN", nil, UpdateCooldown, "actionButton" .. self.id);
 			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW", nil, ShowGlow, "actionButton" .. self.id);
 			WoWEvents:Bind("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE", nil, HideGlow, "actionButton" .. self.id);
@@ -840,11 +866,12 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 	
 	self:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress");
 	
-	local start, duration, enable, charges, maxCharges, spellid = 0, 0, nil, 0, 0, nil;
+	local locStart, locDuration, start, duration, enable, charges, maxCharges, spellid = 0, 0, nil, 0, 0, nil;
 	local function UpdateCooldown()
+		locStart, locDuration = GetActionLossOfControlCooldown(self.action);
 		start, duration, enable, charges, maxCharges = GetActionCooldown(self.action);
-		if ( start > 0 and enable > 0 ) then
-			self.cd:SetCooldown(start, duration, charges, maxCharges);
+		if ( locStart + locDuration > (start + duration)) then
+			self.cd:SetCooldown(start, duration, enable, charges, maxCharges, forceShowDrawEdge);
 			self.cd:Show();
 			-- store your real cooldown
 			-- it is not really nice, but I don't know how to improve that...
@@ -856,8 +883,8 @@ function RDXUI.MultiCastButton:new(parent, id, statesString, desc)
 				end
 			end
 		else
-			self.cd:SetCooldown(0, 0, charges, maxCharges);
-			self.cd:Hide();
+			--self.cd:SetCooldown(0, 0, 0, charges, maxCharges);
+			--self.cd:Hide();
 		end
 	end
 	

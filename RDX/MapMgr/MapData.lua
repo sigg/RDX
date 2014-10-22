@@ -7,6 +7,7 @@ RDXMAP.ContBlks = {
 	[485] = { 1,1,1,1, 1,1,1,1, 1,1,1,1 },
 	[751] = { 1,1,1,0, 1,1,1,0, 1,1,1,0 },
 	[862] = { 1,1,1,1, 1,1,1,1, 1,1,1,1 },
+	[962] = { 1,1,1,1, 1,1,1,1, 1,1,1,1 },
 }
 
 RDXMAP.MapPOITypes = {
@@ -1921,6 +1922,44 @@ RDXMAP.MapWorldInfo = {
 		oldid = 6010,
 		minLvl = 0,
 		maxLvl = 0,
+	},
+	
+	---------------------------------------
+	-- Draenor
+	
+	[962] = {
+		class = "c",
+		id = 7,
+		Name = "Draenor",
+		34.606, -- Scale
+		-3398.85, -2552.91, -- Origin
+		tp = 1,
+		X = -800,	-- Was 0
+		Y = 200,
+		x = -3198.85,	-- Was 0
+		y = -5100.91,
+		s = 34.606,
+		FileName = "Draenor",
+	},
+	
+	[950] = {
+		Name="Nagrand",
+		class = "z",
+		c = 962,
+		Cont = 7,
+		7.850002,
+		-542.19,1713.00,
+		Overlay = "valleyofthefourwinds",
+		Fish = 525,
+		faction = 2,
+		tp = 2,
+		oldid = 6010,
+		minLvl = 0,
+		maxLvl = 0,
+		x = -3198.85,
+		y = -5100.91,
+		s = 11.049,
+		o = "NagrandDraenor",
 	},
 	
 

@@ -216,8 +216,8 @@ end
 --------
 -- Get map id from name
 
-function RDXMAP.APIMap.NameToId (mapName)
-	return RDXMAP.MapNameToId[mapName] or 0;
+function RDXMAP.APIMap.NameToId (mapName, contId)
+	return RDXMAP.MapNameToId[contId][mapName] or 0;
 end
 
 -----------------------------------------------------------
@@ -284,7 +284,7 @@ end
 function RDXMAP.APIMap.GetMiniInfo (mapId)
 
 	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
-	if not winfo then VFL.print(mapId); return; end
+	--if not winfo then VFL.print(mapId); return; end
 	local id = winfo.MId
 
 	if not id then id = winfo.c; end

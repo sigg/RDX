@@ -98,6 +98,122 @@ function RDXMAP.UnpackObjective (obj)
 end
 
 --------
+-- Unpack start/end
+-- Format: name index (byte x2), zone (byte), location data (may start with space)
+-- Example: 00,1, xxyy
+-- Example: 00,1,xywh
+
+function RDXMAP.UnpackSE (obj)
+
+	if not obj then
+		return
+	end
+
+	local i = (strbyte (obj) - 35) * 221 + (strbyte (obj, 2) - 35)
+	-- test sigg
+	
+	local name = Nx.QuestStartEnd[i]
+	--local name = self.QuestStartEnd[i]
+
+	if not name then
+--		VFL.vprint ("UnpackSE err %s (%s)", i, obj)
+		name = "?"
+	end
+
+	if #obj == 2 then
+		return name
+	end
+
+	local zone = strbyte (obj, 3) - 35
+
+	return name, zone, 4
+end
+
+--------
+-- Get centered position of start/end
+
+function RDXMAP.GetSEPos (str)
+
+	local name, zone, loc = RDXMAP.UnpackSE (str)
+
+	if zone then
+		return name, zone, RDXMAP.GetPosLoc (str, loc)		-- x, y
+	end
+end
+
+function RDXMAP.CheckQuestSE (q, n)
+
+	local _, zone, x, y = RDXMAP.GetSEPos (q[n])
+	local mapId = RDXMAP.Zone2MapId[zone]
+
+	if (x == 0 or y == 0) and mapId and not RDXMAP.APIMap.IsInstanceMap (mapId) then
+		q[n] = format ("%s# ####", strsub (q[n], 1, 2))	-- Zero it to get a red button
+--		local oName = RDXMAP.UnpackSE (q[n])
+--		VFL.vprint ("zeroed %s, %s", RDXMAP.UnpackName (q[1]), oName)
+	end
+end
+
+function RDXMAP.CheckQuestObj (q, n)
+
+	local oName, zone, x, y = RDXMAP.GetObjectivePos (q[n])
+	local mapId = RDXMAP.Zone2MapId[zone]
+
+	if (x == 0 or y == 0) and mapId and not RDXMAP.APIMap.IsInstanceMap (mapId) then		
+		q[n] = format ("%c%s# ####", #oName + 35, oName)	-- Zero it to get a red button
+--		VFL.vprint ("zeroed %s, %s", RDXMAP.UnpackName (q[1]), oName)
+	end
+end
+
+
+--------
+-- Unpack quest info
+-- Format: (b) is byte
+--  name len (b), name str, side (b), level (b), min lvl (b), next id (b3), category (b)
+
+function RDXMAP.Unpack (info)
+
+	local strbyte = strbyte
+	local i = strbyte (info, 1) - 35 + 1
+	local name = strsub (info, 2, i)
+	local side, lvl, minlvl, n1, n2, n3 = strbyte (info, i + 1, i + 6)
+	local nextId = (n1 - 35) * 48841 + (n2 - 35) * 221 + n3 - 35
+--	if nextId > 0 then
+--		nextId = (nextId + 3) / 2 - 7
+--	end
+
+	return name, side - 35, lvl - 35, minlvl - 35, nextId
+end
+
+--------
+-- Unpack quest name
+
+function RDXMAP.UnpackName (info)
+
+	local i = strbyte (info, 1) - 35 + 1
+	return strsub (info, 2, i)
+end
+
+--------
+-- Unpack quest next id
+
+function RDXMAP.UnpackNext (info)
+
+	local sb = strbyte
+	local i = sb (info, 1) - 35 + 1
+	return (sb (info, i + 4) - 35) * 48841 + (sb (info, i + 5) - 35) * 221 + sb (info, i + 6) - 35
+end
+
+--------
+-- Unpack quest category
+
+function RDXMAP.UnpackCategory (info)
+
+	local i = strbyte (info, 1) - 35 + 1 + 7
+	return strbyte (info, i) - 35
+end
+
+
+--------
 -- Get centered position from location string
 
 function RDXMAP.GetPosLoc (str, loc)
@@ -160,6 +276,22 @@ function RDXMAP.GetPosLoc (str, loc)
 
 	return ox, oy
 end
+
+--------
+-- Get type of objective (not start/end)
+
+function RDXMAP.GetObjectiveType (obj)
+
+	local loc = strbyte (obj) - 35 + 3
+	local typ = strbyte (obj, loc) or 0			-- Can be nil somehow
+
+	if typ <= 33 then  -- Points
+		return 0
+	end
+
+	return 1		-- Spans
+end
+
 
 --------
 -- Unpack location data " xywh" or "xxyy"
@@ -279,23 +411,3 @@ function RDXMAP.UnpackXY (xy)
 	return x, y
 end
 
--- Get status for a quest
-
-function RDXMAP.GetQuest (qId)
-
-	local quest = RDXU.Q[qId]
-	if not quest then
-		return
-	end
-
-	local s1, s2, status, time = strfind (quest, "(%a)(%d+)")
-
-	return status, time
-end
-
-function RDXMAP.SetQuest (qId, qStatus, qTime)
-
-	qTime = qTime or 0
-
-	RDXU.Q[qId] = qStatus .. qTime
-end

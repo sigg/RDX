@@ -103,6 +103,8 @@ function RDXMAP.APIGuide.CaptureItems()
 	end
 end
 
+NXlLEVELSPC = "Level "
+
 function RDXMAP.APIGuide.SavePlayerNPCTarget()
     local visible = GameTooltip:IsVisible()
     GameTooltip:SetOwner(MerchantFrame) 

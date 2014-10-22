@@ -10,14 +10,14 @@ local function CheckShow (mapId, index)
 
 	while true do
 
-		local qId = Quest.Sorted[index]
+		local qId = RDXMAP.Quest.Sorted[index]
 
 		if Quest:CheckShow (mapId, qId) then
 			return true
 		end
 
-		local quest = Quest.IdToQuest[qId]
-		local next = Quest:UnpackNext (quest[1])
+		local quest = RDXMAP.Quest.IdToQuest[qId]
+		local next = RDXMAP.UnpackNext (quest[1])
 
 		if next == 0 then		-- End?
 			return
@@ -36,7 +36,7 @@ local showOnlyDailies = nil
 local wl = {};
 local function BuildQuestsList(filter)
 	VFL.empty(wl);
-	local mapId = RDXMAP.Map:GetCurrentMapId()
+	local mapId = RDXMAP.APIMap.GetCurrentMapId()
 	local minLevel = UnitLevel ("player") - GetQuestGreenRange()
 	local maxLevel = showHighLevel and MAX_PLAYER_LEVEL or UnitLevel ("player") + 6
 	
@@ -54,13 +54,13 @@ local function BuildQuestsList(filter)
 	local inchain
 	local showchain
 	
-	for qsIndex, qId in ipairs (Nx.Quest.Sorted) do
-		local quest = Nx.Quest.IdToQuest[qId]
+	for qsIndex, qId in ipairs (RDXMAP.Quest.Sorted) do
+		local quest = RDXMAP.Quest.IdToQuest[qId]
 		if not quest then
 			VFL.vprint("nil quest %s", qId)
 		end
-		local qname, side, lvl, minlvl, next = Nx.Quest:Unpack (quest[1])
-		local status, qTime = RDXMAP.GetQuest (qId)
+		local qname, side, lvl, minlvl, next = RDXMAP.Unpack (quest[1])
+		local status, qTime = RDXMAP.APIQuest.GetQuest (qId)
 		local qCompleted = status == "C"
 		
 		if not quest.CNum or quest.CNum == 1 then
@@ -92,7 +92,7 @@ local function BuildQuestsList(filter)
 			showchain = show
 		end
 		
-		if not Nx.Quest.DailyIds[qId] then
+		if not RDXMAP.Quest.DailyIds[qId] then
 			if (not showFinished and qCompleted) or showOnlyDailies then
 				show = false
 			end
@@ -114,7 +114,7 @@ local function BuildQuestsList(filter)
 	end
 	--table.sort(wl, function(x1,x2) return x1.T>x2.T; end);
 	
-	local str = (showAllZones and "Full" or RDXMAP.Map:IdToName (mapId)) .. " Database"
+	local str = (showAllZones and "Full" or RDXMAP.APIMap.IdToName (mapId)) .. " Database"
 	local t = {};
 	t.title = true;
 	t.text = format("|cffc0c0c0--- %s (%d) ---", str, dbTitleNum)
@@ -203,14 +203,14 @@ list:SetDataSource(function(cell, data, pos)
 	else
 		local quest = data.quest;
 		local qId = data.qId
-		local qname, side, lvl, minlvl, next = Nx.Quest:Unpack(quest[1])
-		local status, qTime = RDXMAP.GetQuest(qId)
+		local qname, side, lvl, minlvl, next = RDXMAP.Unpack(quest[1])
+		local status, qTime = RDXMAP.APIQuest.GetQuest(qId)
 		local qCompleted = status == "C"
 		
 		local lvlStr = format ("|cffd0d0d0%2d", lvl)
 		local title = qname
 		
-		local cati = Nx.Quest:UnpackCategory (quest[1])
+		local cati = RDXMAP.UnpackCategory (quest[1])
 		if cati > 0 then
 			title = title .. " <" .. Nx.QuestCategory[cati] .. ">"
 		end
@@ -221,28 +221,28 @@ list:SetDataSource(function(cell, data, pos)
 			title = title .. format (" (Part %d)", quest.CNum)
 		end
 		local tag = qCompleted and "(History) " or ""
-		local dailyStr = Nx.Quest.DailyIds[qId] or Nx.Quest.DailyDungeonIds[qId]
+		local dailyStr = RDXMAP.Quest.DailyIds[qId] or RDXMAP.Quest.DailyDungeonIds[qId]
 		if dailyStr then
 			local typ, money, rep, req = strsplit ("^", dailyStr)
-			tag = format ("|cffd060d0(%s %.2fg", Nx.Quest.DailyTypes[typ], money / 100)
+			tag = format ("|cffd060d0(%s %.2fg", RDXMAP.Quest.DailyTypes[typ], money / 100)
 			for n = 0, 1 do	-- Only support 2 reps
 				local i = n * 4 + 1
 				local repChar = strsub (rep or "", i, i)
 				if repChar == "" then
 					break
 				end
-				tag = format ("%s, %s %s", tag, strsub (rep, i + 1, i + 3), Nx.Quest.Reputations[repChar])
+				tag = format ("%s, %s %s", tag, strsub (rep, i + 1, i + 3), RDXMAP.Quest.Reputations[repChar])
 			end
-			if req and Nx.Quest.Requirements[req] then	-- 1 and 2 (Ally, Horde) not in table
-				tag = tag .. ", |cffe0c020Need " .. Nx.Quest.Requirements[req]
+			if req and RDXMAP.Quest.Requirements[req] then	-- 1 and 2 (Ally, Horde) not in table
+				tag = tag .. ", |cffe0c020Need " .. RDXMAP.Quest.Requirements[req]
 			end
 			tag = tag .. ")"
 		end
 		
 		--dbTitleNum = dbTitleNum + 1
-		local trackMode = Nx.Quest.Tracking[qId] or 0
+		local trackMode = RDXMAP.Quest.Tracking[qId] or 0
 		local haveStr = ""
-		if Nx.Quest.QIds[qId] then
+		if RDXMAP.Quest.QIds[qId] then
 			haveStr = "|cffe0e0e0+ "
 		end
 		

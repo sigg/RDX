@@ -67,16 +67,16 @@ function RDX.QuestFrame:new(path, desc)
 		
 		--oldSel = GetQuestLogSelection()
 		
-			curq = Nx.Quest.CurQ
+			curq = RDXMAP.Quest.CurQ
 		
 		
 			for n, cur in ipairs (curq) do
-				--cur = Nx.Quest.CurQ[n]
+				--cur = RDXMAP.Quest.CurQ[n]
 				quest = cur.Q
 				qId = cur.QId
 				qi = cur.QI
 				id = qId > 0 and qId or cur.Title
-				qStatus = RDXMAP.GetQuest (id)
+				qStatus = RDXMAP.APIQuest.GetQuest (id)
 				qWatched = qStatus == "W" or cur.PartyDesc
 				
 				if qWatched and (cur.Distance < hideDist or cur.Distance > 999999) then
@@ -193,7 +193,7 @@ function RDX.QuestFrame:new(path, desc)
 				
 				-- objectives
 				
-				local trackMode = Nx.Quest.Tracking[qId] or 0
+				local trackMode = RDXMAP.Quest.Tracking[qId] or 0
 				
 				local num = GetNumQuestLeaderBoards (qn)
 
@@ -266,11 +266,11 @@ function RDX.QuestFrame:new(path, desc)
 		--self:SetHighlightTexture(hltTexture);
 		
 		-- icon button
-		local wfibut = VFLUI.AcquireFrame("WatchFrameItemButton");
-		wfibut:SetParent(self);
-		wfibut:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -3);
-		wfibut:SetWidth(20); wfibut:SetHeight(20); wfibut:Hide();
-		self.wfibut = wfibut;
+		--local wfibut = VFLUI.AcquireFrame("WatchFrameItemButton");
+		--wfibut:SetParent(self);
+		--wfibut:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -3);
+		--wfibut:SetWidth(20); wfibut:SetHeight(20); wfibut:Hide();
+		--self.wfibut = wfibut;
 		
 		local chk = VFLUI.ColoredButton:new(self, _grey, _yellow);
 		chk:SetPoint("TOPLEFT", self, "TOPLEFT", 27, 0);
@@ -296,7 +296,7 @@ function RDX.QuestFrame:new(path, desc)
 			-- Destroy allocated regions
 			--VFLUI.ReleaseRegion(hltTexture); hltTexture = nil;
 			VFLUI.ReleaseRegion(self.text); self.text = nil;
-			self.wfibut:Destroy(); self.wfibut = nil;
+			--self.wfibut:Destroy(); self.wfibut = nil;
 			self.chk:Destroy(); self.chk = nil;
 		end, self.Destroy);
 
@@ -355,17 +355,17 @@ function RDX.QuestFrame:new(path, desc)
 		end
 		
 		if data.ItemImg then
-			cell.wfibut:SetID (tonumber(data.qn))
-			SetItemButtonTexture(cell.wfibut, data.ItemImg);
-			local ic = tonumber (data.ItemCharges);
-			if ic and ic > 0 then
-				SetItemButtonCount (cell.wfibut, ic);
-			end
-			local _, dur = GetQuestLogSpecialItemCooldown (tonumber (data.qn))
-			if dur then
-				WatchFrameItem_UpdateCooldown(cell.wfibut)
-			end
-			cell.wfibut:Show();
+			--cell.wfibut:SetID (tonumber(data.qn))
+			--SetItemButtonTexture(cell.wfibut, data.ItemImg);
+			--local ic = tonumber (data.ItemCharges);
+			--if ic and ic > 0 then
+			--	SetItemButtonCount (cell.wfibut, ic);
+			--end
+			--local _, dur = GetQuestLogSpecialItemCooldown (tonumber (data.qn))
+			--if dur then
+			--	WatchFrameItem_UpdateCooldown(cell.wfibut)
+			--end
+			--cell.wfibut:Show();
 			--cell:SetHeight(22);
 			if data.sub then
 				cell:SetHeight(12);
@@ -373,7 +373,7 @@ function RDX.QuestFrame:new(path, desc)
 				cell:SetHeight(22);
 			end
 		else
-			cell.wfibut:Hide();
+			--cell.wfibut:Hide();
 			cell:SetHeight(12);
 		end
 		
@@ -381,7 +381,7 @@ function RDX.QuestFrame:new(path, desc)
 		
 		--[[--VFL.print(data);
 		local n = bit.band (data, 0xff)
-		curq = Nx.Quest.CurQ
+		curq = RDXMAP.Quest.CurQ
 		cur = curq[n]
 		qId = cur.QId
 		
@@ -431,7 +431,7 @@ function RDX.QuestFrame:new(path, desc)
 				nameStr = nameStr .. (isComplete == 1 and "|cff80ff80 (Complete)" or "|cfff04040 - " .. FAILED)
 
 			else
-				local desc = Nx.Quest:UnpackSE (obj)
+				local desc = RDXMAP.UnpackSE (obj)
 				nameStr = format ("%s |cffffffff(%s)", nameStr, desc)
 			end
 		end

@@ -637,7 +637,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		-- call
 		f:CheckAndShow();
 		
-	elseif class == "PRIEST" then
+	elseif class == "PRIESTA" then
 		
 		-- create
 		for i = 1, PRIEST_BAR_NUM_ORBS do

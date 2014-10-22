@@ -995,6 +995,7 @@ local function ProcessRoster()
 				-- init the myunit
 				if nunit.me then
 					myunit = nunit;
+					myunit.contId = GetCurrentMapContinent();
 					myunit.mapId = 14;
 					myunit.PlyrRZX = 0;
 					myunit.PlyrRZY = 0;

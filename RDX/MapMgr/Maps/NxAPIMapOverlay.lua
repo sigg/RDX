@@ -35,7 +35,7 @@ function RDXMAP.APIMap.TargetOverlayUnexplored(map)
 	RDXMAP.APIMap.ClearTargets()		-- Will change current mapid
 
 	wzone = RDXMAP.APIMap.GetWorldZone (mapId)
-	if wzone and wzone.City then
+	if wzone and wzone.class == "ci" then
 		return
 	end
 
@@ -83,7 +83,7 @@ function RDXMAP.APIMap.UpdateOverlayUnexplored(map)
 
 	wzone = RDXMAP.APIMap.GetWorldZone (mapId)
 	if wzone then
-		if wzone.City then
+		if wzone.class == "ci" then
 			return
 		end
 		s = wzone.o
@@ -152,7 +152,7 @@ function RDXMAP.APIMap.UpdateOverlay (map, mapId, bright, noUnexplored, main)
 	wzone = RDXMAP.APIMap.GetWorldZone (mapId)
 	-- sigg startzone isssu pandaria
 	--if wzone and (wzone.City or wzone.StartZone or RDXMAP.APIMap.IsMicroDungeon(mapId)) then
-	if wzone and wzone.City then
+	if wzone and wzone.class == "ci" then
 		return
 	end
 

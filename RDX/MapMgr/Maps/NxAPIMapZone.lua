@@ -67,7 +67,7 @@ function RDXMAP.APIMap.MoveCurZoneTiles (map, clear)
 	local myunit = RDXDAL.GetMyUnit();
 
 	--if not clear and (not wzone or wzone.City or (wzone.StartZone and myunit.mapId == mapId) or RDXMAP.APIMap.IsBattleGroundMap (mapId)) or RDXMAP.APIMap.IsMicroDungeon(mapId) then
-	if not clear and (not wzone or wzone.City or wzone.StartZone or RDXMAP.APIMap.IsBattleGroundMap (mapId)) then
+	if not clear and (not wzone or wzone.class == "ci" or wzone.StartZone or RDXMAP.APIMap.IsBattleGroundMap (mapId)) then
 --		VFL.vprint ("MoveCurZoneTiles %d", mapId)
 		--VFL.print("RDXMAP.APIMap.MoveCurZoneTiles " .. mapId);
 

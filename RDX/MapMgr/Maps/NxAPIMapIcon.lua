@@ -89,8 +89,8 @@ function RDXMAP.APIMap.AddIconPt (map, iconType, x, y, color, texture)
 	local icon = {}
 	tdata[tdata.Num] = icon
 
-	icon.X = x
-	icon.Y = y
+	icon.x = x
+	icon.y = y
 	icon.Color = color
 	icon.Tex = texture
 
@@ -113,7 +113,7 @@ end
 function RDXMAP.APIMap.GetIconPt (map, iconType, index)
 
 	local icon = map.Data[iconType][index]
-	return icon.X, icon.Y
+	return icon.x, icon.y
 end
 
 --------
@@ -133,10 +133,10 @@ function RDXMAP.APIMap.AddIconRect (map, iconType, mapId, x, y, x2, y2, color)
 	tdata[tdata.Num] = icon
 
 	icon.MapId = mapId
-	icon.X = x
-	icon.Y = y
-	icon.X2 = x2
-	icon.Y2 = y2
+	icon.x = x
+	icon.y = y
+	icon.x2 = x2
+	icon.y2 = y2
 	icon.Color = color
 
 	return icon
@@ -534,7 +534,7 @@ function RDXMAP.APIMap.IconOnMouseDown (self, button)
 
 				elseif i == 9 then				-- Quest
 					if Nx and Nx.Quest then
-						Nx.Quest:IconOnMouseDown (self)
+						RDXMAP.Quest.IconOnMouseDown (self)
 					end
 				end
 			end
@@ -594,7 +594,7 @@ function RDXMAP.APIMap.IconOnEnter (self, motion)
 
 	if t >= 9000 then	-- Quest
 		if Nx and Nx.Quest then
-			Nx.Quest:IconOnEnter (self)
+			RDXMAP.Quest.IconOnEnter (self)
 		end
 	end
 end
@@ -608,7 +608,7 @@ function RDXMAP.APIMap.IconOnLeave (self, motion)
 
 	if t >= 9000 then -- Quest
 		if Nx and Nx.Quest then
-			Nx.Quest:IconOnLeave (self)
+			RDXMAP.Quest.IconOnLeave (self)
 		end
 	end
 
@@ -646,6 +646,7 @@ function RDXMAP.APIMap.IconOnUpdateTooltip(self)
 		VFLIO.SetTooltipText (str .. RDXMAP.PlyrNamesTipStr)
 
 		if Nx and Nx.Quest and Nx.Quest.Enabled then
+			--ABC
 			Nx.Quest:TooltipProcess()
 		end
 
@@ -697,7 +698,7 @@ function RDXMAP.APIMap.UpdateIcons (map, drawNonGuide)
 					local icon = v[n]
 					local f = RDXMAP.APIMap.GetIconStatic (map, v.Lvl)
 
-					if RDXMAP.APIMap.ClipFrameZ (map, f, icon.X, icon.Y, w, h, 0) then
+					if RDXMAP.APIMap.ClipFrameZ (map, f, icon.x, icon.y, w, h, 0) then
 
 						f.NxTip = icon.Tip
 
@@ -732,7 +733,7 @@ function RDXMAP.APIMap.UpdateIcons (map, drawNonGuide)
 						local icon = v[n]
 						local f = RDXMAP.APIMap.GetIconStatic (map, v.Lvl)
 
-						if v.ClipFunc (map, f, icon.X, icon.Y, w, h, 0) then
+						if v.ClipFunc (map, f, icon.x, icon.y, w, h, 0) then
 
 							f.NxTip = icon.Tip
 							f.NXType = 3000
@@ -750,7 +751,7 @@ function RDXMAP.APIMap.UpdateIcons (map, drawNonGuide)
 
 							local a = v.Alpha
 
-							local dist = (icon.X - myunit.PlyrX) ^ 2 + (icon.Y - myunit.PlyrY) ^ 2
+							local dist = (icon.x - myunit.PlyrX) ^ 2 + (icon.y - myunit.PlyrY) ^ 2
 							if dist < 306 then	-- 80 yards * 4.575 ^ 2
 								a = aNear
 --								VFL.vprint ("fade %s %s", dist ^ .5, a)
@@ -766,7 +767,7 @@ function RDXMAP.APIMap.UpdateIcons (map, drawNonGuide)
 						local icon = v[n]
 						local f = RDXMAP.APIMap.GetIconStatic (map, v.Lvl)
 
-						if v.ClipFunc (map, f, icon.X, icon.Y, w, h, 0) then
+						if v.ClipFunc (map, f, icon.x, icon.y, w, h, 0) then
 
 							f.NxTip = icon.Tip
 							f.NXType = 3000
@@ -800,12 +801,12 @@ function RDXMAP.APIMap.UpdateIcons (map, drawNonGuide)
 					local icon = v[n]
 					local f = RDXMAP.APIMap.GetIconStatic (map, v.Lvl)
 
---					VFL.vprint ("ZR #%d %f %f %f %f", n, icon.X, icon.Y, icon.X2, icon.Y2)
+--					VFL.vprint ("ZR #%d %f %f %f %f", n, icon.x, icon.y, icon.x2, icon.y2)
 
 					f.NxTip = icon.Tip
 
-					x, y = RDXMAP.APIMap.GetWorldPos (icon.MapId, icon.X, icon.Y)
-					x2, y2 = RDXMAP.APIMap.GetWorldPos (icon.MapId, icon.X2, icon.Y2)
+					x, y = RDXMAP.APIMap.GetWorldPos (icon.MapId, icon.x, icon.y)
+					x2, y2 = RDXMAP.APIMap.GetWorldPos (icon.MapId, icon.x2, icon.y2)
 
 --					VFL.vprint ("%f %f %f %f", x, y, x2, y2)
 

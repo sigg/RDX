@@ -18,7 +18,22 @@ RDXMapEvents.name = "RDXMapEvents";
 
 RDXMAP.Map = {};
 RDXMAP.Travel = {};
-RDXMAP.ContCnt = 6;
+RDXMAP.ContCnt = 7;
+
+RDXMAP.Quest = {};
+
+RDXMAP.Quest.IdToQuest = {};
+RDXMAP.Quest.QIds = {};
+RDXMAP.Quest.QIdsNew = {};
+RDXMAP.Quest.Tracking = {};
+RDXMAP.Quest.IconTracking = {};
+RDXMAP.Quest.Sorted = {}
+RDXMAP.Quest.CurQ = {};
+RDXMAP.Quest.RealQ = {}
+RDXMAP.Quest.PartyQ = {}
+RDXMAP.Quest.IdToCurQ = {}
+
+RDXMAP.Quest.QGivers = {}
 
 RDXMAP.Guide = {}
 RDXMAP.Guide.PlayerTargets = {}
@@ -109,10 +124,10 @@ local function CreateMap(parent)
 		RDXG.GMap[0].NXWorldShow = true;
 	end
 	
-	--local m = RDXMAP.Map:Open(2, RDXG.GMap);
-	--m.Frm:SetParent(ca);
-	--m.Frm:SetFrameLevel(ca:GetFrameLevel() + 2);
-	--ca.m = m;
+	local m = RDXMAP.Map:Open(2, RDXG.GMap);
+	m.Frm:SetParent(ca);
+	m.Frm:SetFrameLevel(ca:GetFrameLevel() + 2);
+	ca.m = m;
 	
 	local function layout()
 		local w = ca:GetWidth();
@@ -122,8 +137,8 @@ local function CreateMap(parent)
 		m.Frm:SetWidth(w - 2);
 		m.Frm:SetHeight(h - 2);
 	end
-	--ca:SetScript("OnShow", layout);
-	--ca:SetScript("OnSizeChanged", layout);
+	ca:SetScript("OnShow", layout);
+	ca:SetScript("OnSizeChanged", layout);
 	
 	local savebtn = VFLUI.SaveButton:new()
 	savebtn:SetScript("OnClick", Save);

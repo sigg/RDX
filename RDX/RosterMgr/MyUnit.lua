@@ -10,6 +10,24 @@ local RidingSpells = {
 	[375] = GetSpellInfo (90265) or "",		-- Master
 }
 
+function SSS()
+	for i = 1, 99 do
+
+		-- Terrokar has 4 overlays with "" for name
+		zname, zw, zh, zx, zy = GetMapOverlayInfo (i)
+		if not zname then
+			break
+		end
+		VFL.print(zname .. ":" .. zw .. "," .. zh .. "," .. zx .. "," .. zy);
+	end
+end
+-- /script SSS()
+function RRR()
+	local mapFileName, textureHeight, _, isMicroDungeon, microDungeonMapName = GetMapInfo();
+	VFL.print(mapFileName);
+end
+-- /script RRR()
+-- /script VFL.print(GetCurrentMapAreaID());
 local function ProcessMyUnit(self, elapsed)
 	-- Player real mapid
 	zName = GetRealZoneText()
@@ -18,8 +36,10 @@ local function ProcessMyUnit(self, elapsed)
 	gcmd = GetCurrentMapDungeonLevel();
 	
 	if zName then
-		mapId = RDXMAP.MapNameToId[zName]; -- Carbonite
+		mapId = RDXMAP.MapNameToId[myunit.contId][zName]; -- Carbonite
+		--mapId = RDXMAP.APIMap.NameToId (zName, contId)
 		if not mapId then
+			VFL.print("Continent " .. myunit.contId);
 			--SetMapToCurrentZone();
 			--cmaId = GetCurrentMapAreaID()
 			--gcmd = GetCurrentMapDungeonLevel();
@@ -136,12 +156,14 @@ RDXEvents:Bind("INIT_POST", nil, function()
 	end
 	
 	myunit.speed = 2 / 4.5
-	if myunit.SkillRiding < 75 then
-		myunit.speed = 1 / 4.5
-	elseif myunit.SkillRiding < 150 then
-		myunit.speed = 1.6 / 4.5
-	elseif myunit.SkillRiding >= 225 then
-		myunit.speed = 2.5 / 4.5
+	if myunit.SkillRiding then
+		if myunit.SkillRiding < 75 then
+			myunit.speed = 1 / 4.5
+		elseif myunit.SkillRiding < 150 then
+			myunit.speed = 1.6 / 4.5
+		elseif myunit.SkillRiding >= 225 then
+			myunit.speed = 2.5 / 4.5
+		end
 	end
 	
 end);
@@ -271,10 +293,6 @@ function VFL.GetBGName(name)
 end
 
 
-
-
-
-
 --WoWEvents:Bind("ZONE_CHANGED", nil, function() 
 --	VFL.print("ZONE_CHANGED");
 --	SetMapToCurrentZone()
@@ -285,10 +303,13 @@ end
 --	SetMapToCurrentZone()
 --end);
 
---WoWEvents:Bind("ZONE_CHANGED_NEW_AREA", nil, function() 
---	VFL.print("ZONE_CHANGED_NEW_AREA");
---	SetMapToCurrentZone()
---end);
+WoWEvents:Bind("ZONE_CHANGED_NEW_AREA", nil, function() 
+	SetMapToCurrentZone();
+	if myunit then
+		myunit.contId = GetCurrentMapContinent();
+		--VFL.print("ZONE_CHANGED_NEW_AREA continent " .. myunit.contId);
+	end
+end);
 
 --function RDX.PPZ()
 --	VFL.print(GetCurrentMapAreaID())

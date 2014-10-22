@@ -61,11 +61,11 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 				RDXMAP.APIMap.SetIconUserData (icon, folder.InstMapId)
 			end
 		elseif mode == 38 then		
-			if Quest and Quest.QGivers then	
+			if RDXMAP.Quest.QGivers then	
 				local mapId = RDXMAP.APIMap.GetCurrentMapId()
 				mapId=RDXMAP.APIMap.GCMI_OVERRIDE(mapId) 
 				local zone = RDXMAP.MapId2Zone[mapId]
-				local stzone = Quest.QGivers[zone]
+				local stzone = RDXMAP.Quest.QGivers[zone]
 				if stzone then
 					local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
 					local opts = mbo.data
@@ -75,7 +75,7 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 					local state = RDXU.Opts[folder.Persist]
 					local debugMap = NxData.DebugMap
 					local showComplete = RDXG.MapGuide.ShowQuestGiverCompleted
-					local qIds = Quest.QIds
+					local qIds = RDXMAP.Quest.QIds
 					for namex, qdata in pairs (stzone) do
 						local name = strsplit ("=", namex)
 						local anyDaily
@@ -83,16 +83,16 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 						local s = name
 						for n = 1, #qdata, 4 do
 							local qId = tonumber (strsub (qdata, n, n + 3), 16)
-							local quest = Quest.IdToQuest[qId]
-							local qname, _, lvl, minlvl = Quest:Unpack (quest[1])
+							local quest = RDXMAP.Quest.IdToQuest[qId]
+							local qname, _, lvl, minlvl = RDXMAP.Unpack (quest[1])
 							if lvl < 1 then	
 								lvl = RDXU["Level"]
 							end
 							if lvl >= minLvl and lvl <= maxLvl then
 								local col = "|r"
-								local daily = Quest.DailyIds[qId] or Quest.DailyDungeonIds[qId]
+								local daily = RDXMAP.Quest.DailyIds[qId] or RDXMAP.Quest.DailyDungeonIds[qId]
 								anyDaily = anyDaily or daily
-								local status, qTime = RDXMAP.GetQuest (qId)
+								local status, qTime = RDXMAP.APIQuest.GetQuest (qId)
 								if daily then
 									col = "|cffa0a0ff"
 									show = true
@@ -104,7 +104,7 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 									end
 									show = true
 								end
-								local qcati = Quest:UnpackCategory (quest[1])
+								local qcati = RDXMAP.UnpackCategory (quest[1])
 								if qcati > 0 then
 									qname = qname .. " <" .. Nx.QuestCategory[qcati] .. ">" ---
 								end
@@ -113,7 +113,7 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 									s = s .. format (" (Part %d)", quest.CNum)
 								end
 								if daily then
-									s = s .. (Quest.DailyDungeonIds[qId] and " (Dungeon Daily" or " (Daily")
+									s = s .. (RDXMAP.Quest.DailyDungeonIds[qId] and " (Dungeon Daily" or " (Daily")
 									local typ, money, rep, req = strsplit ("^", daily)
 									if rep and #rep > 0 then
 										s = s .. ", "
@@ -123,7 +123,7 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 											if repChar == "" then
 												break
 											end
-											s = s .. " " ..  Quest.Reputations[repChar]
+											s = s .. " " ..  RDXMAP.Quest.Reputations[repChar]
 										end
 									end
 									s = s .. ")"
@@ -139,8 +139,8 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 						end
 						if show or showComplete then
 							local qId = tonumber (strsub (qdata, 1, 4), 16)
-							local quest = Quest.IdToQuest[qId]
-							local startName, zone, x, y = Quest:GetSEPos (quest[2])
+							local quest = RDXMAP.Quest.IdToQuest[qId]
+							local startName, zone, x, y = RDXMAP.GetSEPos (quest[2])
 							local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, x, y)
 							local tx = anyDaily and "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconExclaimB" or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconExclaim" 
 							local icon = RDXMAP.APIMap.AddIconPt (map, show and "!GQ" or "!GQC", wx, wy, nil, tx)
@@ -359,8 +359,8 @@ function RDXMAP.IconGuide.UpdateMapGeneralIcons2 (map, cont, showType, hideFac, 
 						
 						local f = VFLUI.POIIcon:new(map, 4)
 						f.texture:SetTexture(tx)
-						f.X = x
-						f.Y = y
+						f.x = x
+						f.y = y
 						f.NXType = 3000
 						if (RDXMAP.APIMap.IdToName(mapId) == nil) then
 							VFL.vprint("ERROR: No Map Name For " .. mapId)
@@ -407,8 +407,8 @@ function RDXMAP.IconGuide.UpdateMapGeneralIcons2 (map, cont, showType, hideFac, 
 							
 							local f = VFLUI.POIIcon:new(map, 4)
 							f.texture:SetTexture(tx)
-							f.X = x
-							f.Y = y
+							f.x = x
+							f.y = y
 							f.NXType = 3000
 							local str = format ("%s\n%s\n%s %.1f %.1f", name, desc:gsub("\239\188\140.*$",""), mapName, x, y)  
 							--RDXMAP.APIMap.SetIconTip (icon, str)
@@ -423,8 +423,8 @@ function RDXMAP.IconGuide.UpdateMapGeneralIcons2 (map, cont, showType, hideFac, 
 						
 						local f = VFLUI.POIIcon:new(map, 4)
 							f.texture:SetTexture(tx)
-							f.X = x
-							f.Y = y
+							f.x = x
+							f.y = y
 							f.NXType = 3000
 						local str = format ("%s\n%s\n%s %.1f %.1f", name, desc:gsub("\239\188\140.*$",""), mapName, x, y)
 						--RDXMAP.APIMap.SetIconTip (icon, str)
@@ -466,8 +466,8 @@ function RDXMAP.IconGuide.UpdateMapGeneralIcons3 (map, cont, showType, hideFac, 
 						
 						local f = VFLUI.POIIcon:new(map, 4)
 						f.texture:SetTexture(tx)
-						f.X = x
-						f.Y = y
+						f.x = x
+						f.y = y
 						f.NXType = 3000
 						if (RDXMAP.APIMap.IdToName(mapId) == nil) then
 							VFL.vprint("ERROR: No Map Name For " .. mapId)
@@ -514,8 +514,8 @@ function RDXMAP.IconGuide.UpdateMapGeneralIcons3 (map, cont, showType, hideFac, 
 							
 							local f = VFLUI.POIIcon:new(map, 4)
 							f.texture:SetTexture(tx)
-							f.X = x
-							f.Y = y
+							f.x = x
+							f.y = y
 							f.NXType = 3000
 							local str = format ("%s\n%s\n%s %.1f %.1f", name, desc:gsub("\239\188\140.*$",""), mapName, x, y)  
 							--RDXMAP.APIMap.SetIconTip (icon, str)
@@ -530,8 +530,8 @@ function RDXMAP.IconGuide.UpdateMapGeneralIcons3 (map, cont, showType, hideFac, 
 						
 						local f = VFLUI.POIIcon:new(map, 4)
 							f.texture:SetTexture(tx)
-							f.X = x
-							f.Y = y
+							f.x = x
+							f.y = y
 							f.NXType = 3000
 						local str = format ("%s\n%s\n%s %.1f %.1f", name, desc:gsub("\239\188\140.*$",""), mapName, x, y)
 						--RDXMAP.APIMap.SetIconTip (icon, str)

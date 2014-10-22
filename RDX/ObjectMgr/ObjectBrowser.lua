@@ -119,7 +119,6 @@ function RDXDB.ExplorerInstance:new(parent)
 		local qq = RDXDB.AccessPath(a,b,c);
 		if (not FilterFile(a,b,c,qq)) then
 			selFeedback:SetText(VFLI.i18n("|cFFFF0000File does not match filter.|r"));
-			selLink:SetText("");
 		else
 			-- symlink
 			local obj = RDXDB._AccessPathRaw(a,b,c);

@@ -741,8 +741,8 @@ function RDXMAP.Travel:FindFlight (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 		local node1 = {}
 		node1.NoSplit = true
 		node1.MapId = t1Node.MapId
-		node1.X = t1x
-		node1.Y = t1y
+		node1.x = t1x
+		node1.y = t1y
 		node1.Name = name
 
 		node1.Tex = "Interface\\Icons\\Ability_Mount_Wyvern_01"
@@ -751,8 +751,8 @@ function RDXMAP.Travel:FindFlight (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 		local node2 = {}
 		node2.Flight = true
 		node2.MapId = bt2Node.MapId
-		node2.X = bt2Node.WX
-		node2.Y = bt2Node.WY
+		node2.x = bt2Node.WX
+		node2.y = bt2Node.WY
 		node2.Name = name
 		node2.Tex = "Interface\\Icons\\Ability_Mount_Wyvern_01"
 		tinsert (path, node2)

@@ -2,18 +2,18 @@
 
 local descb = {};
 
-local watchframebtn = VFLUI.Button:new();
-watchframebtn:SetHeight(WatchFrame:GetHeight()); 
-watchframebtn:SetWidth(WatchFrame:GetWidth());
-watchframebtn:SetText(VFLI.i18n("WatchFrame"));
-watchframebtn:SetClampedToScreen(true);
-watchframebtn:SetFrameStrata("FULLSCREEN_DIALOG");
-watchframebtn:Hide();
+--local watchframebtn = VFLUI.Button:new();
+--watchframebtn:SetHeight(WatchFrame:GetHeight()); 
+--watchframebtn:SetWidth(WatchFrame:GetWidth());
+--watchframebtn:SetText(VFLI.i18n("WatchFrame"));
+--watchframebtn:SetClampedToScreen(true);
+--watchframebtn:SetFrameStrata("FULLSCREEN_DIALOG");
+--watchframebtn:Hide();
 
-WatchFrame._ClearAllPoints = WatchFrame.ClearAllPoints;
-WatchFrame.ClearAllPoints = VFL.Noop;
-WatchFrame._SetPoint = WatchFrame.SetPoint;
-WatchFrame.SetPoint = VFL.Noop;
+--WatchFrame._ClearAllPoints = WatchFrame.ClearAllPoints;
+--WatchFrame.ClearAllPoints = VFL.Noop;
+--WatchFrame._SetPoint = WatchFrame.SetPoint;
+--WatchFrame.SetPoint = VFL.Noop;
 
 local vehicleseatbtn = VFLUI.Button:new();
 vehicleseatbtn:SetHeight(VehicleSeatIndicator:GetHeight()); vehicleseatbtn:SetWidth(VehicleSeatIndicator:GetWidth());
@@ -82,21 +82,21 @@ PlayerPowerBarAlt._SetPoint = PlayerPowerBarAlt.SetPoint;
 PlayerPowerBarAlt.SetPoint = VFL.Noop;
 
 local function SetLocation()
-	if descb.quest and descb.quest.anchorx and descb.quest.anchory then
-		watchframebtn:ClearAllPoints();
-		watchframebtn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.quest.anchorx, descb.quest.anchory);
-		WatchFrame:_ClearAllPoints();
-		WatchFrame:_SetPoint("TOPLEFT", watchframebtn, "TOPLEFT");
-		WatchFrame:SetHeight(descb.quest.h or 400);
-		watchframebtn:SetHeight(descb.quest.h or 400);
-	else
-		watchframebtn:ClearAllPoints();
-		watchframebtn:SetPoint("CENTER", RDXParent, "CENTER", 200, 0);
-		WatchFrame:_ClearAllPoints();
-		WatchFrame:_SetPoint("TOPLEFT", watchframebtn, "TOPLEFT");
-		WatchFrame:SetHeight(400);
-		watchframebtn:SetHeight(400);
-	end
+	--if descb.quest and descb.quest.anchorx and descb.quest.anchory then
+	--	watchframebtn:ClearAllPoints();
+	--	watchframebtn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.quest.anchorx, descb.quest.anchory);
+	--	WatchFrame:_ClearAllPoints();
+	--	WatchFrame:_SetPoint("TOPLEFT", watchframebtn, "TOPLEFT");
+	--	WatchFrame:SetHeight(descb.quest.h or 400);
+	--	watchframebtn:SetHeight(descb.quest.h or 400);
+	--else
+	--	watchframebtn:ClearAllPoints();
+	--	watchframebtn:SetPoint("CENTER", RDXParent, "CENTER", 200, 0);
+	--	WatchFrame:_ClearAllPoints();
+	--	WatchFrame:_SetPoint("TOPLEFT", watchframebtn, "TOPLEFT");
+	--	WatchFrame:SetHeight(400);
+	--	watchframebtn:SetHeight(400);
+	--end
 	if descb.vehicle and descb.vehicle.anchorx and descb.vehicle.anchory then
 		vehicleseatbtn:ClearAllPoints();
 		vehicleseatbtn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.vehicle.anchorx, descb.vehicle.anchory);
@@ -163,17 +163,17 @@ function RDXDK.SetUnlockBlizzard()
 	if not descb.quest.anchorx then descb.quest.anchorx = 400; end
 	if not descb.quest.anchory then descb.quest.anchory = 400; end
 	
-	watchframebtn:ClearAllPoints();
-	watchframebtn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.quest.anchorx, descb.quest.anchory);
-	watchframebtn:Show();
-	watchframebtn:SetMovable(true);
-	watchframebtn:SetScript("OnMouseDown", function(th) th:StartMoving(); end);
-	watchframebtn:SetScript("OnMouseUp", function(th) th:StopMovingOrSizing();
-		descb.quest.anchorx,_,_,descb.quest.anchory = VFLUI.GetUniversalBoundary(watchframebtn);
-		WatchFrame:_ClearAllPoints();
-		WatchFrame:_SetPoint("TOPLEFT", th, "TOPLEFT");
-		WatchFrame:SetHeight(200);
-	end);
+	--watchframebtn:ClearAllPoints();
+	--watchframebtn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.quest.anchorx, descb.quest.anchory);
+	--watchframebtn:Show();
+	--watchframebtn:SetMovable(true);
+	--watchframebtn:SetScript("OnMouseDown", function(th) th:StartMoving(); end);
+	--watchframebtn:SetScript("OnMouseUp", function(th) th:StopMovingOrSizing();
+	--	descb.quest.anchorx,_,_,descb.quest.anchory = VFLUI.GetUniversalBoundary(watchframebtn);
+	--	WatchFrame:_ClearAllPoints();
+	--	WatchFrame:_SetPoint("TOPLEFT", th, "TOPLEFT");
+	--	WatchFrame:SetHeight(200);
+	--end);
 	
 	vehicleseatbtn:ClearAllPoints();
 	vehicleseatbtn:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.vehicle.anchorx, descb.vehicle.anchory);
@@ -228,10 +228,10 @@ end
 -- Hide the moving box
 -- return all data to desktop
 function RDXDK.GetLockBlizzard()
-	watchframebtn:SetMovable(nil);
-	watchframebtn:SetScript("OnMouseDown", nil);
-	watchframebtn:SetScript("OnMouseUp", nil);
-	watchframebtn:Hide();
+	--watchframebtn:SetMovable(nil);
+	--watchframebtn:SetScript("OnMouseDown", nil);
+	--watchframebtn:SetScript("OnMouseUp", nil);
+	--watchframebtn:Hide();
 	
 	vehicleseatbtn:SetMovable(nil);
 	vehicleseatbtn:SetScript("OnMouseDown", nil);

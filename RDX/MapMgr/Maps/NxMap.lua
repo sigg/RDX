@@ -450,7 +450,6 @@ function RDXMAP.Map:Create (index, data)
 	
 	-- Real map switch
 	RDXEvents:Bind("PlayerZoneChanged", nil, function(rid)
-		VFL.vprint ("PlayerZoneChanged %d, %d", rid, mapId)
 		m:SwitchOptions(rid)
 		RDXMAP.APIMap.SwitchRealMap(m, rid)
 		m.Scale = m.RealScale
@@ -945,13 +944,13 @@ function RDXMAP.Map:UpdateWorld()
 
 	local mapId = RDXMAP.APIMap.GetCurrentMapId()
 	
-	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
+	--local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 	
-	if winfo and winfo.MapLevel then
-		if GetCurrentMapDungeonLevel() ~= winfo.MapLevel then	-- Wrong level?
-			SetDungeonMapLevel (winfo.MapLevel)
-		end
-	end
+	--if winfo and winfo.MapLevel then
+	--	if GetCurrentMapDungeonLevel() ~= winfo.MapLevel then	-- Wrong level?
+	--		SetDungeonMapLevel (winfo.MapLevel)
+	--	end
+	--end
 
 	local i = RDXMAP.APIMap.GetExploredOverlayNum(self)
 
@@ -1034,8 +1033,8 @@ function RDXMAP.Map:Update (elapsed)
 
 	local mapId = RDXMAP.APIMap.GetCurrentMapId()
 
-	if self.MapId ~= mapId then
-		
+	if self.MapId ~= mapId or self.upp then
+		self.upp = nil;
 		--self.MapEvents:Dispatch("MAP_CHANGED", mapId);
 
 		if self.Debug then
@@ -1104,7 +1103,7 @@ function RDXMAP.Map:Update (elapsed)
 		--	end
 		--end
 		local mbo = RDXDB.TouchObject("RDXDiskMap:poisG:" .. mapId)
-		if mbo then
+		if mbo and mbo.data then
 			for i,v in ipairs(mbo.data) do
 				if v.s == RDX.PlFactionNum or v.s == 2 then
 					local f = VFLUI.POIIcon:new(self, 4)
@@ -1112,7 +1111,7 @@ function RDXMAP.Map:Update (elapsed)
 					f.NxTip = format ("%s\n%s %.1f %.1f", RDXMAP.iconIdToName[v.t], RDXMAP.APIMap.IdToName(mapId), v.x, v.y) 
 					f.x = v.x
 					f.y = v.y
-					f.NXType = 3000
+					f.NXType = 3001
 					f.MapId = mapId
 					f.n = f.NxTip
 					f.NXData = v
@@ -1121,12 +1120,30 @@ function RDXMAP.Map:Update (elapsed)
 			end
 		end
 		
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:favs:" .. mapId)
+		if mbo and mbo.data then
+			for i,v in ipairs(mbo.data) do
+				--if v.s == RDX.PlFactionNum or v.s == 2 then
+					local f = VFLUI.POIIcon:new(self, 4)
+					f.texture:SetTexture(RDXMAP.icontex[v.t])
+					f.NxTip = format ("%s\n%s %.1f %.1f", v.n or "toto", RDXMAP.APIMap.IdToName(mapId), v.x, v.y) 
+					f.x = v.x
+					f.y = v.y
+					f.NXType = 3002
+					f.MapId = mapId
+					f.n = f.NxTip
+					f.NXData = v
+					table.insert(self.Icon3Frms, f);
+				--end
+			end
+		end
+		
 		-- add instances
 		for mapid, info in pairs (RDXMAP.APIMap.MapWorldInfo()) do
 			if info.tp == 4 and info.EntryMId == self.MapId then
 				local f = VFLUI.POIIcon:new(self, 4)
 				f.NxTip = info.localname
-				f.NXType = 3000
+				f.NXType = 3003
 				f.UData = mapid;
 				f.NXData = f
 				f.texture:SetTexture ("Interface\\Icons\\INV_Misc_ShadowEgg")
@@ -1504,9 +1521,9 @@ function RDXMAP.Map:Update (elapsed)
 	--end
 	
 	-- QUEST
-	if Nx and Nx.Quest and Nx.Quest.Enabled then
-		Nx.Quest:UpdateIcons (self)
-	end
+	--if Nx and Nx.Quest and Nx.Quest.Enabled then
+		RDXMAP.Quest.UpdateIcons(self)
+	--end
 
 	self.Level = self.Level + 7
 

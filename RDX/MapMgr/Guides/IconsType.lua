@@ -44,6 +44,9 @@ iconIdToName["TRA"] = "Transmogrifier";
 iconIdToName["VOS"] = "Void Storage";
 iconIdToName["WLT"] = "Warlock Trainer";
 iconIdToName["WRT"] = "Warrior Trainer";
+
+
+
 RDXMAP.iconIdToName = iconIdToName;
 local iconNameToId = VFL.invert(iconIdToName);
 
@@ -95,6 +98,15 @@ icontex["WLT"] = "Interface\\Icons\\Spell_Nature_FaerieFire";
 icontex["WRT"] = "Interface\\Icons\\INV_Sword_27";
 icontex["D"] = "Interface\\Minimap\\POIIcons";
 icontex["Goto"] = "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconWayTarget";
+
+icontex["Star"] = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_1";
+icontex["Circle"] = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_2";
+icontex["Diamond"] = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_3";
+icontex["Triangle"] = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_4";
+icontex["Moon"] = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_5";
+icontex["Square"] = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_6";
+icontex["Cross"] = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_7";
+icontex["Skull"] = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8";
 
 RDXMAP.icontex = icontex;
 

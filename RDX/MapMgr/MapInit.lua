@@ -4,18 +4,12 @@
 
 function RDXMAP.InitTables()
 
-
---[[
-	NxData.NXMapDebugZones1 = { GetMapZones (1) }
-	NxData.NXMapDebugZones2 = { GetMapZones (2) }
-	NxData.NXMapDebugZones3 = { GetMapZones (3) }
-	NxData.NXMapDebugZones4 = { GetMapZones (4) }
---]]
-
 	local worldInfo = RDXMAP.MapWorldInfo
 
 	RDXMAP.MapNameToId = {}
+	
 	RDXMAP.MapIdToName = {}
+	
 	RDXMAP.mapIdToCarbId = {}
 	RDXMAP.carbIdToMapId = {}
 	--RDXMAP.MapIdToNxzone = {}
@@ -24,10 +18,14 @@ function RDXMAP.InitTables()
 	
 	RDXMAP.MapInfo = {}
 	
+	local mapIdToContId = {};
+	
 	for mapid, winfo in pairs (worldInfo) do
 		if winfo.class == "c" and winfo.id and not RDXMAP.MapInfo[winfo.id] then
 			winfo.mapid = mapid;
 			RDXMAP.MapInfo[winfo.id] = winfo;
+			mapIdToContId[mapid] = winfo.id;
+			RDXMAP.MapNameToId[winfo.id] = {}
 		end
 	end
 	
@@ -41,32 +39,33 @@ function RDXMAP.InitTables()
 		end
 	end
 	
-	for id, area in pairs (RDXMAP.MapGenAreas) do
+	--for id, area in pairs (RDXMAP.MapGenAreas) do
 
-		local winfo = worldInfo[id]
-		if winfo then
-			winfo[1] = area[1]				-- Scale
-			winfo[2] = area[2]				-- X
-			winfo[3] = area[3]				-- Y
+	--	local winfo = worldInfo[id]
+	--	if winfo then
+	--		winfo[1] = area[1]				-- Scale
+	--		winfo[2] = area[2]				-- X
+	--		winfo[3] = area[3]				-- Y
 
-			if winfo.XOff then	-- Had pos offset?
-				winfo[2] = winfo[2] + winfo.XOff	-- X
-				winfo[3] = winfo[3] + winfo.YOff	-- Y
-				winfo.XOff = nil
-				winfo.YOff = nil
-			end
+	--		if winfo.XOff then	-- Had pos offset?
+	--			winfo[2] = winfo[2] + winfo.XOff	-- X
+	--			winfo[3] = winfo[3] + winfo.YOff	-- Y
+	--			winfo.XOff = nil
+	--			winfo.YOff = nil
+	--		end
 
-			winfo.Overlay = area[4]
-		else
-			VFL.print("InitTables MapGenAreas mapid unknown " .. id)
-		end
-	end
+	--		winfo.Overlay = area[4]
+	--	else
+	--		VFL.print("InitTables MapGenAreas mapid unknown " .. id)
+	--	end
+	--end
 	--RDXMAP.MapGenAreas = nil;
 	
-	local info, cx, cy, scale
+	local info, cx, cy, scale, contId;
 
 	for mapid, winfo in pairs (worldInfo) do
 		winfo.localname = GetMapNameByID(mapid);
+		contId = mapIdToContId[winfo.c]
 		if not winfo.localname then
 			local name;
 			if winfo.aa then 
@@ -75,11 +74,12 @@ function RDXMAP.InitTables()
 				name = winfo.Name
 			end
 			--VFL.print("InitTables no localname " .. mapid)
-			if not RDXMAP.MapNameToId[name] then
-				RDXMAP.MapNameToId[name] = mapid;
+			if not RDXMAP.MapNameToId[contId][name] then
+				--RDXMAP.MapNameToId[name] = mapid;
+				RDXMAP.MapNameToId[contId][name] = mapid;
 			else
-				VFL.print("InitTables double name " .. name .. " mapid " .. mapid)
-				VFL.print("InitTables double name " .. name .. " mapid " .. RDXMAP.MapNameToId[name])
+				--VFL.print("InitTables double name " .. name .. " mapid " .. mapid)
+				--VFL.print("InitTables double name " .. name .. " mapid " .. RDXMAP.MapNameToId[name])
 				--RDXMAP.MapNameToId[winfo.Name] = nil; -- clear so the engine will use mapid
 			end
 			RDXMAP.MapIdToName[mapid] = name;
@@ -90,12 +90,18 @@ function RDXMAP.InitTables()
 			else
 				name = winfo.localname
 			end
-			if not RDXMAP.MapNameToId[name] then
-				RDXMAP.MapNameToId[name] = mapid;
-			else
-				VFL.print("InitTables double name " .. name .. " mapid " .. mapid)
-				VFL.print("InitTables double name " .. name .. " mapid " .. RDXMAP.MapNameToId[name])
-				--RDXMAP.MapNameToId[winfo.localname] = nil; -- clear so the engine will use mapid
+			if winfo.class == "c" then
+			
+			elseif winfo.class == "z" or winfo.class == "ci" then
+				if not RDXMAP.MapNameToId[contId][name] then
+					RDXMAP.MapNameToId[contId][name] = mapid;
+				else
+					VFL.print(contId)
+					VFL.print(name)
+					VFL.print(mapid)
+					--VFL.print("InitTables double name " .. name .. " mapid " .. RDXMAP.MapNameToId[name])
+					--RDXMAP.MapNameToId[winfo.localname] = nil; -- clear so the engine will use mapid
+				end
 			end
 			RDXMAP.MapIdToName[mapid] = name;
 		end

@@ -35,8 +35,8 @@ local function BuildQuestsList(filter)
 	
 	oldSel = GetQuestLogSelection()
 	
-	for n = 1, Nx.Quest.CurQ and #Nx.Quest.CurQ or 0 do		
-		cur = Nx.Quest.CurQ[n]
+	for n = 1, RDXMAP.Quest.CurQ and #RDXMAP.Quest.CurQ or 0 do		
+		cur = RDXMAP.Quest.CurQ[n]
 		quest = cur.Q
 		qId = cur.QId
 		qn = cur.QI
@@ -132,7 +132,7 @@ local function BuildQuestsList(filter)
 				
 				-- objectives
 				
-				local trackMode = Nx.Quest.Tracking[qId] or 0
+				local trackMode = RDXMAP.Quest.Tracking[qId] or 0
 				
 				local num = GetNumQuestLeaderBoards (qn)
 

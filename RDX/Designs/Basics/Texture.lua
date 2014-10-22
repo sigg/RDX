@@ -17,7 +17,7 @@ RDX.RegisterTextureIndicator({
 	name = "Blue";
 	title = VFLI.i18n("Blue");
 	emitClosureCode = [[
-local rdxset_blue = RDXDAL.FindSet({class = "file", file = "sets:set_blue"});
+local rdxset_blue = RDXDAL.FindSet({class = "file", file = "RDXDiskSystem:sets:set_blue"});
 if not rdxset_blue:IsOpen() then rdxset_blue:Open(); end
 ]];
 	createCode = [[
@@ -40,7 +40,7 @@ RDX.RegisterTextureIndicator({
 	name = "Red";
 	title = VFLI.i18n("Red");
 	emitClosureCode = [[
-local rdxset_red = RDXDAL.FindSet({class = "file", file = "sets:set_red"});
+local rdxset_red = RDXDAL.FindSet({class = "file", file = "RDXDiskSystem:sets:set_red"});
 if not rdxset_red:IsOpen() then rdxset_red:Open(); end
 ]];
 	createCode = [[
@@ -63,7 +63,7 @@ RDX.RegisterTextureIndicator({
 	name = "Green";
 	title = VFLI.i18n("Green");
 	emitClosureCode = [[
-local rdxset_green = RDXDAL.FindSet({class = "file", file = "sets:set_green"});
+local rdxset_green = RDXDAL.FindSet({class = "file", file = "RDXDiskSystem:sets:set_green"});
 if not rdxset_green:IsOpen() then rdxset_green:Open(); end
 ]];
 	createCode = [[
@@ -86,7 +86,7 @@ RDX.RegisterTextureIndicator({
 	name = "Yellow";
 	title = VFLI.i18n("Yellow");
 	emitClosureCode = [[
-local rdxset_yellow = RDXDAL.FindSet({class = "file", file = "sets:set_yellow"});
+local rdxset_yellow = RDXDAL.FindSet({class = "file", file = "RDXDiskSystem:sets:set_yellow"});
 if not rdxset_yellow:IsOpen() then rdxset_yellow:Open(); end
 ]];
 	createCode = [[

@@ -140,7 +140,7 @@ RDXEvents:Bind("INIT_DEFERRED", nil, function()
 					WindowListRightClick(self, data); 
 				end
 			end);
-		end, VFL.ArrayLiterator(Nx.Quest.CurQ));
+		end, VFL.ArrayLiterator(RDXMAP.Quest.CurQ));
 	end
 end);
 

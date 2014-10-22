@@ -26,7 +26,7 @@ function RDXMAP.APIMap.CenterMap(map, mapId, scale)
 --]]
 	local winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 	if winfo then
-		if winfo.City then
+		if winfo.class == "ci" then
 			scale = 1
 		end
 	else
@@ -111,8 +111,10 @@ function RDXMAP.APIMap.SetInstanceMap (map, mapId)
 		map.InstMapId = mapId
 		map.InstMapInfo = iinfo
 		winfo = RDXMAP.APIMap.GetWorldZone(mapId)
-		wx = winfo[4]
-		wy = winfo[5]
+		--wx = winfo[4]
+		--wy = winfo[5]
+		wx = winfo.x
+		wy = winfo.y
 		map.InstMapWX1 = wx
 		map.InstMapWY1 = wy
 		map.InstMapWX2 = wx + x / 256
@@ -136,8 +138,10 @@ function RDXMAP.APIMap.UpdateInstanceMap(map)
 
 	if map.InstMapAtlas then
 
-		wx = winfo[2]
-		wy = winfo[3]
+		--wx = winfo[2]
+		--wy = winfo[3]
+		wx = winfo.x
+		wy = winfo.y
 
 		for n = 1, #iinfo, 3 do
 
@@ -155,8 +159,10 @@ function RDXMAP.APIMap.UpdateInstanceMap(map)
 
 	else
 
-		wx = winfo[2]
-		wy = winfo[3]
+		--wx = winfo[2]
+		--wy = winfo[3]
+		wx = winfo.x
+		wy = winfo.y
 
 		for n = 1, #iinfo, 3 do
 

@@ -1,4 +1,4 @@
-﻿## Interface: 50400
+﻿## Interface: 60000
 ## Title: |c007ffcffRDX|r
 ## Notes: RDX is Raid Data Exchange - UI and raid mods.
 ## Author: Raid Informatics / OpenRDX Project
@@ -275,11 +275,7 @@ MapMgr\Data\Guide.lua
 MapMgr\Data\Others.lua
 MapMgr\Data\Items.lua
 
-MapMgr\Quests\QuestsPanel.lua
-MapMgr\Quests\QuestsPanel_current.lua
-MapMgr\Quests\QuestsPanel_history.lua
-MapMgr\Quests\QuestsPanel_database.lua
-MapMgr\Quests\QuestsPanel_player.lua
+
 
 
 MapMgr\Maps\NxMapMenu.lua
@@ -301,6 +297,16 @@ MapMgr\Maps\ZoneConnections.lua
 MapMgr\Maps\MapWorldHotspots.lua
 #Maps\NxMapMinimap.lua
 #Maps\NxMapIntegration.lua
+
+MapMgr\Quests\NxAPIQuest.lua
+MapMgr\Quests\NxQuestData.lua
+MapMgr\Quests\NxQuestsMenu.lua
+MapMgr\Quests\NxQuestMap.lua
+MapMgr\Quests\QuestsPanel.lua
+MapMgr\Quests\QuestsPanel_current.lua
+MapMgr\Quests\QuestsPanel_history.lua
+MapMgr\Quests\QuestsPanel_database.lua
+MapMgr\Quests\QuestsPanel_player.lua
 
 MapMgr\Guides\NxGuide.lua
 MapMgr\Guides\NxAPIGuide.lua

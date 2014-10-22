@@ -45,6 +45,29 @@ end);
 RDXPM.AUIMenu = RDXPM.Menu:new();
 RDXPM.CompactMenu:RegisterMenuEntry(VFLI.i18n("Themes"), true, function(tree, frame) RDXPM.AUIMenu:Open(tree, frame); end)
 
+RDXPM.DkStateMenu = RDXPM.Menu:new();
+RDXPM.DkStateMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Solo");
+	ent.func = function() VFL.poptree:Release(); DesktopEvents:Dispatch("DESKTOP_STATE", "SOLO"); RDX.SetRDXColor(1,1,1); end 
+end);
+RDXPM.DkStateMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Party");
+	ent.func = function() VFL.poptree:Release(); DesktopEvents:Dispatch("DESKTOP_STATE", "PARTY"); RDX.SetRDXColor(1,0,1); end 
+end);
+RDXPM.DkStateMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Raid");
+	ent.func = function() VFL.poptree:Release(); DesktopEvents:Dispatch("DESKTOP_STATE", "RAID"); RDX.SetRDXColor(0,1,0); end 
+end);
+RDXPM.DkStateMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Battleground");
+	ent.func = function() VFL.poptree:Release(); DesktopEvents:Dispatch("DESKTOP_STATE", "BATTLEGROUND"); RDX.SetRDXColor(0,1,1); end 
+end);
+RDXPM.DkStateMenu:RegisterMenuFunction(function(ent)
+	ent.text = VFLI.i18n("Arena");
+	ent.func = function() VFL.poptree:Release(); DesktopEvents:Dispatch("DESKTOP_STATE", "ARENA"); RDX.SetRDXColor(1,1,0); end 
+end);
+
+RDXPM.CompactMenu:RegisterMenuEntry(VFLI.i18n("State"), true, function(tree, frame) RDXPM.DkStateMenu:Open(tree, frame); end)
 --RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 --	ent.text = VFLI.i18n("Themes");
 --	ent.notCheckable = true;
@@ -52,6 +75,8 @@ RDXPM.CompactMenu:RegisterMenuEntry(VFLI.i18n("Themes"), true, function(tree, fr
 --	ent.keepShownOnClick = false;
 --	ent.menuList = RDXPM.subMenus;
 --end);
+
+
 
 ------------------------------------------------------------------------------
 -- KEY BINDINGS
@@ -384,6 +409,11 @@ local function CreateMiniPane()
 		end
 	end
 	
+	function mini:SetColor(r,g,b)
+		txtpower:SetTextColor(r,g,b,1);
+		txtrdx:SetTextColor(r,g,b,1);
+	end
+	
 	function mini:SetIcon(mtxt)
 		if mtxt == "poweredbyrdx"  then
 			mtxtsave = mtxt;
@@ -473,6 +503,10 @@ function RDX.ToggleRDXIcon(mtxt)
 	miniPane:SetIcon(mtxt);
 end
 
+function RDX.SetRDXColor(r,g,b)
+	miniPane:SetColor(r,g,b);
+end
+
 -- clean icon used
 
 function RDX.ToggleCleanIcons()
@@ -497,6 +531,17 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	miniPane = CreateMiniPane();
 	miniPane:Layout();
 	miniPane:SetIcon("default");
+	if RDXU.currentstate == "SOLO" then
+		miniPane:SetColor(1,1,1);
+	elseif RDXU.currentstate == "PARTY" then
+		miniPane:SetColor(1,0,1);
+	elseif RDXU.currentstate == "RAID" then
+		miniPane:SetColor(0,1,0);
+	elseif RDXU.currentstate == "BATTLEGROUND" then
+		miniPane:SetColor(0,1,1);
+	elseif RDXU.currentstate == "ARENA" then
+		miniPane:SetColor(1,1,0);
+	end
 end);
 
 function RDXPM.GetMiniPane() return miniPane; end
