@@ -23,12 +23,21 @@ ricon("Font Picker", "fontsel");
 local ICON_PATH = GetMacroIcons( MACRO_ICON_FILENAMES );
 for i=1,#ICON_PATH do
 	local name = string.format("bicon%03d", i);
+	local path, pathid;
+	local texture = ICON_PATH[i];
+	if(type(texture) == "number") then
+		pathid = texture
+	else
+		path = "Interface\\Icons\\" .. texture;
+	end
 	VFLUI.RegisterTexture({
 		name = name;
 		category = "Blizzard Icons";
 		title = name;
-		path = "Interface\\Icons\\" .. ICON_PATH[i];
-		dx=32; dy=32;
+		path = path;
+		pathid = pathid;
+		dx=32; 
+		dy=32;
 	}, true);
 end
 

@@ -86,6 +86,26 @@ function RDXPM.RDXManage(parent)
 	if opt and opt.eb then chk_eb:SetChecked(true); else chk_eb:SetChecked(); end
 	ui:InsertFrame(chk_eb);
 	
+	local chk_eu = VFLUI.Checkbox:new(ui); chk_eu:Show();
+	chk_eu:SetText(VFLI.i18n("Enable Unitframes"));
+	if opt and opt.eu then chk_eu:SetChecked(true); else chk_eu:SetChecked(); end
+	ui:InsertFrame(chk_eu);
+	
+	local chk_ep = VFLUI.Checkbox:new(ui); chk_ep:Show();
+	chk_ep:SetText(VFLI.i18n("Enable Partyframes"));
+	if opt and opt.ep then chk_ep:SetChecked(true); else chk_ep:SetChecked(); end
+	ui:InsertFrame(chk_ep);
+	
+	local chk_er = VFLUI.Checkbox:new(ui); chk_er:Show();
+	chk_er:SetText(VFLI.i18n("Enable Raidframes"));
+	if opt and opt.er then chk_er:SetChecked(true); else chk_er:SetChecked(); end
+	ui:InsertFrame(chk_er);
+	
+	local chk_ebo = VFLUI.Checkbox:new(ui); chk_ebo:Show();
+	chk_ebo:SetText(VFLI.i18n("Enable Bossframes"));
+	if opt and opt.ebo then chk_ebo:SetChecked(true); else chk_ebo:SetChecked(); end
+	ui:InsertFrame(chk_ebo);
+	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 	
 	--dlg:Show();
@@ -113,6 +133,10 @@ function RDXPM.RDXManage(parent)
 		opt.ec = chk_ec:GetChecked();
 		opt.ea = chk_ea:GetChecked();
 		opt.eb = chk_eb:GetChecked();
+		opt.eu = chk_eu:GetChecked();
+		opt.ep = chk_ep:GetChecked();
+		opt.er = chk_er:GetChecked();
+		opt.ebo = chk_ebo:GetChecked();
 		if opt.upp then
 			SetCVar("uiScale", 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"));
 		end

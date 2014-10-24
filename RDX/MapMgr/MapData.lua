@@ -1977,6 +1977,8 @@ RDXMAP.MapWorldInfo = {
 		Short = "AV",
 		faction = 3,
 		tp = 5,
+		c = 14,
+		Cont = 2,
 	},
 	[461] = {		-- AB
 		Name = "Arathi Basin",
@@ -1986,6 +1988,8 @@ RDXMAP.MapWorldInfo = {
 		Short = "AB",
 		faction = 3,
 		tp = 5,
+		c = 14,
+		Cont = 2,
 	},
 	[482] = {		-- EOS
 		Name = "Eye of the Storm",
@@ -1995,6 +1999,8 @@ RDXMAP.MapWorldInfo = {
 		Short = "EOS",
 		faction = 3,
 		tp = 5,
+		c = 466,
+		Cont = 3,
 	},
 	[540] = {		-- IC
 		Name = "Isle of Conquest",
@@ -2004,6 +2010,8 @@ RDXMAP.MapWorldInfo = {
 		Short = "IC",
 		faction = 3,
 		tp = 5,
+		c = 485,
+		Cont = 4,
 	},
 	[860] = {
 		Name = "Silvershard Mines",
@@ -2014,6 +2022,8 @@ RDXMAP.MapWorldInfo = {
 		MapBaseName = "STVDiamondMineBG1_",
 		faction = 3,
 		tp = 5,
+		c = 14,
+		Cont = 2,
 	},
 	[512] = {		-- SoA
 		Name = "Strand of the Ancients",
@@ -2023,6 +2033,8 @@ RDXMAP.MapWorldInfo = {
 		Short = "SoA",
 		faction = 3,
 		tp = 5,
+		c = 485,
+		Cont = 4,
 	},
 	[856] = {
 		Name = "Temple of Kotmogu",
@@ -2032,6 +2044,8 @@ RDXMAP.MapWorldInfo = {
 		Short = "TK",
 		faction = 3,
 		tp = 5,
+		c = 862,
+		Cont = 6,
 	},
 	[736] = {
 		Name = "The Battle for Gilneas",
@@ -2041,12 +2055,16 @@ RDXMAP.MapWorldInfo = {
 		Short = "TBG",
 		faction = 3,
 		tp = 5,
+		c = 14,
+		Cont = 2,
 	},
 	--[9014] = {
 	--	Name = "Tol'vir Proving Grounds",
 	--	3.0,
 	--	-14500,6000,
 	--	Short = "TPG",
+	-- 	c = 14,
+	--	Cont = 2,
 	--},
 	[626] = {
 		Name = "Twin Peaks",
@@ -2056,6 +2074,8 @@ RDXMAP.MapWorldInfo = {
 		Short = "TP",
 		faction = 3,
 		tp = 5,
+		c = 14,
+		Cont = 2,
 	},
 	[443] = {		-- WG
 		Name = "Warsong Gulch",
@@ -2065,8 +2085,18 @@ RDXMAP.MapWorldInfo = {
 		Short = "WG",
 		faction = 3,
 		tp = 5,
+		c = 13,
+		Cont = 1,
 	},
 	
+	--Deepwind Gorge
+	--c = 862,
+	--	Cont = 6,
+	
+	
+	-- Wintergrasp 
+	--c = 485,
+	--	Cont = 4,
 	
 	--[9005] = {		-- Blade's Edge Arena
 	--	Name = "Blade's Edge Arena",
@@ -2111,6 +2141,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 16,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[756] = {
 		["minLvl"] = 15,
@@ -2121,6 +2153,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 16,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[749] = {
 		["minLvl"] = 17,
@@ -2131,6 +2165,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 20,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[764] = {
 		["minLvl"] = 18,
@@ -2141,6 +2177,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 21,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[690] = {
 		["minLvl"] = 22,
@@ -2151,6 +2189,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 25,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[688] = {
 		["minLvl"] = 22,
@@ -2161,6 +2201,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 25,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[691] = {
 		["minLvl"] = 26,
@@ -2171,6 +2213,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 29,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	--[12233] = {
 	--	["minLvl"] = 31,
@@ -2197,6 +2241,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 35,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[750] = {
 		["minLvl"] = 36,
@@ -2207,6 +2253,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 39,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	--[12075] = {
 	--	["minLvl"] = 40,
@@ -2225,6 +2273,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 45,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[699] = {
 		["minLvl"] = 44,
@@ -2235,6 +2285,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 47,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[686] = {
 		["minLvl"] = 46,
@@ -2245,6 +2297,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 49,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[765] = {
 		["minLvl"] = 48,
@@ -2255,6 +2309,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 51,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[687] = {
 		["minLvl"] = 52,
@@ -2265,6 +2321,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 55,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[704] = {
 		["minLvl"] = 53,
@@ -2275,6 +2333,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 56,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[721] = {
 		["minLvl"] = 58,
@@ -2285,6 +2345,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 58,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[755] = {
 		["minLvl"] = 60,
@@ -2295,6 +2357,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 63,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[766] = {
 		["minLvl"] = 60,
@@ -2305,6 +2369,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 63,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[717] = {
 		["minLvl"] = 60,
@@ -2315,6 +2381,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 63,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[696] = {
 		["minLvl"] = 60,
@@ -2325,6 +2393,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 63,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	----------------------------------
 	[797] = {
@@ -2336,6 +2406,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 62,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[725] = {
 		["minLvl"] = 61,
@@ -2346,6 +2418,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 63,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[728] = {
 		["minLvl"] = 62,
@@ -2356,6 +2430,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 64,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[726] = {
 		["minLvl"] = 63,
@@ -2366,6 +2442,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 65,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[732] = {
 		["minLvl"] = 64,
@@ -2376,6 +2454,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 66,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[722] = {
 		["minLvl"] = 65,
@@ -2386,6 +2466,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 67,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[734] = {
 		["minLvl"] = 66,
@@ -2396,6 +2478,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 68,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[723] = {
 		["minLvl"] = 67,
@@ -2406,6 +2490,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 68,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[724] = {
 		["minLvl"] = 67,
@@ -2416,6 +2502,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 75,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[729] = {
 		["minLvl"] = 67,
@@ -2426,6 +2514,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 75,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[710] = {
 		["minLvl"] = 67,
@@ -2436,6 +2526,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 75,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[727] = {
 		["minLvl"] = 67,
@@ -2446,6 +2538,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 75,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[730] = {
 		["minLvl"] = 67,
@@ -2456,6 +2550,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 75,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[733] = {
 		["minLvl"] = 68,
@@ -2466,6 +2562,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 75,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[798] = {
 		["minLvl"] = 68,
@@ -2476,6 +2574,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 75,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[731] = {
 		["minLvl"] = 68,
@@ -2486,6 +2586,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 75,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	
 	[796] = {
@@ -2497,6 +2599,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 73,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[780] = {
 		["minLvl"] = 70,
@@ -2507,6 +2611,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 73,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[776] = {
 		["minLvl"] = 70,
@@ -2517,6 +2623,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 73,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[779] = {
 		["minLvl"] = 70,
@@ -2527,6 +2635,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 73,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 466,
+		["Cont"] = 3,
 	},
 	[775] = {
 		["minLvl"] = 70,
@@ -2537,6 +2647,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 73,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[789] = {
 		["minLvl"] = 70,
@@ -2547,6 +2659,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 73,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[799] = {
 		["minLvl"] = 70,
@@ -2557,6 +2671,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 73,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	--[13093] = {
 	--	["minLvl"] = 70,
@@ -2578,6 +2694,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 72,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[520] = {
 		["minLvl"] = 71,
@@ -2588,6 +2706,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 73,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[533] = {
 		["minLvl"] = 72,
@@ -2598,6 +2718,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 74,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[522] = {
 		["minLvl"] = 73,
@@ -2608,6 +2730,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 75,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[534] = {
 		["minLvl"] = 74,
@@ -2618,6 +2742,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 76,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[536] = {
 		["minLvl"] = 75,
@@ -2628,6 +2754,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 77,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[530] = {
 		["minLvl"] = 76,
@@ -2638,6 +2766,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 78,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[526] = {
 		["minLvl"] = 77,
@@ -2648,6 +2778,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 78,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[542] = {
 		["minLvl"] = 78,
@@ -2658,6 +2790,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 82,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[525] = {
 		["minLvl"] = 79,
@@ -2668,6 +2802,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 79,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[521] = {
 		["minLvl"] = 79,
@@ -2678,6 +2814,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 79,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[528] = {
 		["minLvl"] = 79,
@@ -2688,6 +2826,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 79,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[524] = {
 		["minLvl"] = 79,
@@ -2698,6 +2838,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 79,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[543] = {
 		["minLvl"] = 80,
@@ -2708,6 +2850,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 83,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[527] = {
 		["minLvl"] = 80,
@@ -2718,6 +2862,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 83,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[531] = {
 		["minLvl"] = 80,
@@ -2728,6 +2874,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 83,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[718] = {
 		["minLvl"] = 80,
@@ -2738,6 +2886,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 83,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[532] = {
 		["minLvl"] = 80,
@@ -2748,6 +2898,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 83,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[604] = {
 		["minLvl"] = 80,
@@ -2758,6 +2910,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 83,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[602] = {
 		["minLvl"] = 80,
@@ -2768,6 +2922,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 82,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[609] = {
 		["minLvl"] = 80,
@@ -2778,6 +2934,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 83,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[601] = {
 		["minLvl"] = 80,
@@ -2788,6 +2946,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 82,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[603] = {
 		["minLvl"] = 80,
@@ -2798,6 +2958,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 82,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	[529] = {
 		["minLvl"] = 80,
@@ -2808,6 +2970,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 83,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	
 	-----------------------------------------------
@@ -2820,6 +2984,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 83,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[767] = {
 		["minLvl"] = 80,
@@ -2830,6 +2996,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 83,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[768] = {
 		["minLvl"] = 81,
@@ -2840,6 +3008,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 751,
+		["Cont"] = 5,
 	},
 	[769] = {
 		["minLvl"] = 81,
@@ -2850,6 +3020,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[757] = {
 		["minLvl"] = 84,
@@ -2860,6 +3032,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[759] = {
 		["minLvl"] = 84,
@@ -2870,6 +3044,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[793] = {
 		["minLvl"] = 85,
@@ -2880,6 +3056,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[752] = {
 		["minLvl"] = 85,
@@ -2890,6 +3068,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[747] = {
 		["minLvl"] = 85,
@@ -2900,6 +3080,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[754] = {
 		["minLvl"] = 85,
@@ -2910,6 +3092,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[758] = {
 		["minLvl"] = 85,
@@ -2920,6 +3104,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[781] = {
 		["minLvl"] = 85,
@@ -2930,6 +3116,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 	[800] = {
 		["minLvl"] = 85,
@@ -2940,6 +3128,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[820] = {
 		["minLvl"] = 85,
@@ -2950,6 +3140,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[816] = {
 		["minLvl"] = 85,
@@ -2960,6 +3152,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[819] = {
 		["minLvl"] = 85,
@@ -2970,6 +3164,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[824] = {
 		["minLvl"] = 85,
@@ -2980,6 +3176,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	[773] = {
 		["minLvl"] = 85,
@@ -2990,6 +3188,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 85,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 13,
+		["Cont"] = 1,
 	},
 	
 	-----------------------------------------------
@@ -3002,6 +3202,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 87,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 862,
+		["Cont"] = 6,
 	},
 	[867] = {
 		["minLvl"] = 87,
@@ -3012,6 +3214,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 90,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 862,
+		["Cont"] = 6,
 	},
 	[885] = {
 		["minLvl"] = 87,
@@ -3022,6 +3226,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 90,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 862,
+		["Cont"] = 6,
 	},
 	[877] = {
 		["minLvl"] = 87,
@@ -3032,6 +3238,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 90,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 862,
+		["Cont"] = 6,
 	},
 	--[11232] = {
 	--	["minLvl"] = 90,
@@ -3050,6 +3258,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 90,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 862,
+		["Cont"] = 6,
 	},
 	[896] = {
 		["minLvl"] = 90,
@@ -3060,6 +3270,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 90,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 862,
+		["Cont"] = 6,
 	},
 	[886] = {
 		["minLvl"] = 90,
@@ -3070,6 +3282,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 90,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 862,
+		["Cont"] = 6,
 	},
 	--[16234] = {
 	--	["minLvl"] = 90,
@@ -3168,6 +3382,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 90,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 862,
+		["Cont"] = 6,
 	},
 	--[16252] = {
 	--	["minLvl"] = 90,
@@ -3185,16 +3401,17 @@ RDXMAP.MapWorldInfo = {
 	--	["Name"] = "Isle of Thunder Scenario",
 	--	["maxLvl"] = 90,
 	--},
-	[897] = {
-		["minLvl"] = 90,
-		[2] = 34.7,
-		["EntryMId"] = 585,
-		[3] = 41.1,
-		["Name"] = "Heart of Fear",
-		["maxLvl"] = 90,
-		["faction"] = 3,
-		["tp"] = 4,
-	},
+	--[897] = {
+	--	["minLvl"] = 90,
+	--	[2] = 34.7,
+	--	["EntryMId"] = 585,
+	--	[3] = 41.1,
+	--	["Name"] = "Heart of Fear",
+	--	["maxLvl"] = 90,
+	--	["faction"] = 3,
+	--	["tp"] = 4,
+		
+	--},
 	--[11231] = {
 	--	["minLvl"] = 90,
 	--	[2] = 55.9,
@@ -3214,6 +3431,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 83,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 485,
+		["Cont"] = 4,
 	},
 	
 	[887] = {
@@ -3225,6 +3444,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 90,
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 862,
+		["Cont"] = 6,
 	},
 	--[13247] = {
 	--	["minLvl"] = "90",
@@ -3245,6 +3466,8 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = "40",
 		["faction"] = 3,
 		["tp"] = 4,
+		["c"] = 14,
+		["Cont"] = 2,
 	},
 }
 

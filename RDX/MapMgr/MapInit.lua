@@ -92,7 +92,7 @@ function RDXMAP.InitTables()
 			end
 			if winfo.class == "c" then
 			
-			elseif winfo.class == "z" or winfo.class == "ci" then
+			else
 				if not RDXMAP.MapNameToId[contId][name] then
 					RDXMAP.MapNameToId[contId][name] = mapid;
 				else

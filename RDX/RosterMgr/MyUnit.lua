@@ -39,11 +39,11 @@ local function ProcessMyUnit(self, elapsed)
 		mapId = RDXMAP.MapNameToId[myunit.contId][zName]; -- Carbonite
 		--mapId = RDXMAP.APIMap.NameToId (zName, contId)
 		if not mapId then
-			VFL.print("Continent " .. myunit.contId);
+			--VFL.print("Continent " .. myunit.contId);
 			--SetMapToCurrentZone();
 			--cmaId = GetCurrentMapAreaID()
 			--gcmd = GetCurrentMapDungeonLevel();
-			VFL.print("ProcessMyUnit no mapId found " .. zName);
+			--VFL.print("ProcessMyUnit no mapId found " .. zName);
 			mapId = cmaId;
 		end
 	end	
@@ -129,6 +129,7 @@ end
 
 RDXEvents:Bind("INIT_POST", nil, function() 
 	myunit = RDXDAL.GetMyUnit();
+	myunit.contId = 1;
 	local hist = {}
 	hist.LastX = -99999999
 	hist.LastY = -99999999

@@ -418,329 +418,370 @@ local function DisableAll()
 		findButtons();
 	end
 	
-	local disabledframes = {
-		-- AlternatePowerBar.xml
-		"PlayerFrameAlternateManaBar",
-		-- Bufframe.xml
-		"BuffFrame",
-		"ConsolidatedBuffs",
-		"ConsolidatedBuffsTooltip",
-		"TemporaryEnchantFrame",
-		"TempEnchant1",
-		"TempEnchant2",
-		"TempEnchant3",
-		-- CastingBarFrame.xml
-		"CastingBarFrame",
-		-- ComboFrame.xml
-		"ComboPoint1",
-		"ComboPoint2",
-		"ComboPoint3",
-		"ComboPoint4",
-		"ComboPoint5",
-		"ComboFrame",
-		-- EclipseBarframe.xml
-		"EclipseBarFrame",
-		-- FocusFrame.xml
-		--"FocusFrameDebuff1",
-		--"FocusFrameDebuff2",
-		--"FocusFrameDebuff3",
-		--"FocusFrameDebuff4",
-		--"FocusFrameDebuff5",
-		--"FocusFrameDebuff6",
-		--"FocusFrameDebuff7",
-		--"FocusFrameDebuff8",
-		"FocusFrameNumericalThreat",
-		"FocusFrameSpellBar",
-		"FocusFrameManaBar",
-		"FocusFrameHealthBar",
-		--"FocusFrameTextureFrameFullSize",
-		--"FocusFrameTextureFrameSmall",
-		"FocusFrameTextureFrame",
-		"FocusFrame",
-		-- to be tested
-		--"TargetofFocusFrameDebuff1",
-		--"TargetofFocusFrameDebuff2",
-		--"TargetofFocusFrameDebuff3",
-		--"TargetofFocusFrameDebuff4",
-		--"TargetofFocusManaBar",
-		--"TargetofFocusHealthBar",
-		--"TargetofFocusTextureFrame",
-		--"TargetofFocusFrame",
-		
-		"PaladinPowerBar",
-		"PartyMemberFrame1Debuff1",
-		"PartyMemberFrame1Debuff2",
-		"PartyMemberFrame1Debuff3",
-		"PartyMemberFrame1Debuff4",
-		"PartyMemberFrame1PowerBarAlt",
-		"PartyMemberFrame1HealthBar",
-		"PartyMemberFrame1ManaBar",
-		--"PartyMemberFrame1MyHealPredictionBar",
-		--"PartyMemberFrame1OtherHealPredictionBar",
-		"PartyMemberFrame1Speaker",
-		"PartyMemberFrame1SpeakerFrame",
-		"PartyMemberFrame1ReadyCheck",
-		--"PartyMemberFrame1PhasingIcon",
-		"PartyMemberFrame1",
-		"PartyMemberFrame2Debuff1",
-		"PartyMemberFrame2Debuff2",
-		"PartyMemberFrame2Debuff3",
-		"PartyMemberFrame2Debuff4",
-		"PartyMemberFrame2PowerBarAlt",
-		"PartyMemberFrame2HealthBar",
-		"PartyMemberFrame2ManaBar",
-		--"PartyMemberFrame2MyHealPredictionBar",
-		--"PartyMemberFrame2OtherHealPredictionBar",
-		"PartyMemberFrame2Speaker",
-		"PartyMemberFrame2SpeakerFrame",
-		"PartyMemberFrame2ReadyCheck",
-		--"PartyMemberFrame2PhasingIcon",
-		"PartyMemberFrame2",
-		"PartyMemberFrame3Debuff1",
-		"PartyMemberFrame3Debuff2",
-		"PartyMemberFrame3Debuff3",
-		"PartyMemberFrame3Debuff4",
-		"PartyMemberFrame3PowerBarAlt",
-		"PartyMemberFrame3HealthBar",
-		"PartyMemberFrame3ManaBar",
-		--"PartyMemberFrame3MyHealPredictionBar",
-		--"PartyMemberFrame3OtherHealPredictionBar",
-		"PartyMemberFrame3Speaker",
-		"PartyMemberFrame3SpeakerFrame",
-		"PartyMemberFrame3ReadyCheck",
-		--"PartyMemberFrame3PhasingIcon",
-		"PartyMemberFrame3",
-		"PartyMemberFrame4Debuff1",
-		"PartyMemberFrame4Debuff2",
-		"PartyMemberFrame4Debuff3",
-		"PartyMemberFrame4Debuff4",
-		"PartyMemberFrame4PowerBarAlt",
-		"PartyMemberFrame4HealthBar",
-		"PartyMemberFrame4ManaBar",
-		--"PartyMemberFrame4MyHealPredictionBar",
-		--"PartyMemberFrame4OtherHealPredictionBar",
-		"PartyMemberFrame4Speaker",
-		"PartyMemberFrame4SpeakerFrame",
-		"PartyMemberFrame4ReadyCheck",
-		--"PartyMemberFrame4PhasingIcon",
-		"PartyMemberFrame4",
-		"PartyMemberFrame1PetFrameDebuff1",
-		"PartyMemberFrame1PetFrameDebuff2",
-		"PartyMemberFrame1PetFrameDebuff3",
-		"PartyMemberFrame1PetFrameDebuff4",
-		"PartyMemberFrame1PetFrameHealthBar",
-		"PartyMemberFrame1PetFrame",
-		"PartyMemberFrame2PetFrameDebuff1",
-		"PartyMemberFrame2PetFrameDebuff2",
-		"PartyMemberFrame2PetFrameDebuff3",
-		"PartyMemberFrame2PetFrameDebuff4",
-		"PartyMemberFrame2PetFrameHealthBar",
-		"PartyMemberFrame2PetFrame",
-		"PartyMemberFrame3PetFrameDebuff1",
-		"PartyMemberFrame3PetFrameDebuff2",
-		"PartyMemberFrame3PetFrameDebuff3",
-		"PartyMemberFrame3PetFrameDebuff4",
-		"PartyMemberFrame3PetFrameHealthBar",
-		"PartyMemberFrame3PetFrame",
-		"PartyMemberFrame4PetFrameDebuff1",
-		"PartyMemberFrame4PetFrameDebuff2",
-		"PartyMemberFrame4PetFrameDebuff3",
-		"PartyMemberFrame4PetFrameDebuff4",
-		"PartyMemberFrame4PetFrameHealthBar",
-		"PartyMemberFrame4PetFrame",
-		
-		"PetFrameDebuff1",
-		"PetFrameDebuff2",
-		"PetFrameDebuff3",
-		"PetFrameDebuff4",
-		"PetFrameHealthBar",
-		"PetFrameManaBar",
-		--"PetFrameMyHealPredictionBar",
-		--"PetFrameOtherHealPredictionBar",
-		"PetFrame",
-		"PetCastingBarFrame",
-		"PlayerFrameHealthBar",
-		"PlayerFrameManaBar",
-		--"PlayerFrameMyHealPredictionBar",
-		--"PlayerFrameOtherHealPredictionBar",
-		"PlayerSpeakerFrame",
-		"PlayerFrameReadyCheck",
-		"PlayerPVPIconHitArea",
-		"PlayerStatusGlow",
-		"PlayerPlayTime",
-		"PlayerFrameGroupIndicator",
-		"PlayerFrame",
-		"RuneButtonIndividual1",
-		"RuneButtonIndividual2",
-		"RuneButtonIndividual3",
-		"RuneButtonIndividual4",
-		"RuneButtonIndividual5",
-		"RuneButtonIndividual6",
-		"RuneFrame",
-		
-		"ShardBarFrameShard1",
-		"ShardBarFrameShard2",
-		"ShardBarFrameShard3",
-		"ShardBarFrame",
-		--"TargetFrameToTNumericalThreat",
-		--"TargetFrameToTDebuffs",
-		--"TargetFrameToTBuffs",
-		"TargetFrameToTManaBar",
-		--"TargetFrameToTOtherHealPredictionBar",
-		--"TargetFrameToTMyHealPredictionBar",
-		"TargetFrameToTHealthBar",
-		"TargetFrameToTTextureFrame",
-		--"TargetFrameToTPowerBarAlt",
-		--"TargetFrameToTSpellBar",
-		"TargetFrameToT",
-		"TargetFrameDebuffs",
-		"TargetFrameBuffs",
-		"TargetFrameHealthBar",
-		"TargetFrameManaBar",
-		--"TargetFrameMyHealPredictionBar",
-		--"TargetFrameOtherHealPredictionBar",
-		"TargetFrameNumericalThreat",
-		"TargetFrameTextureFrame",
-		"TargetFramePowerBarAlt",
-		"TargetFrameSpellBar",
-		"TargetFrame",
-		--"FocusFrameToTNumericalThreat",
-		--"FocusFrameToTDebuffs",
-		--"FocusFrameToTBuffs",
-		"FocusFrameToTManaBar",
-		--"FocusFrameToTOtherHealPredictionBar",
-		--"FocusFrameToTMyHealPredictionBar",
-		"FocusFrameToTHealthBar",
-		"FocusFrameToTTextureFrame",
-		--"FocusFrameToTPowerBarAlt",
-		--"FocusFrameToTSpellBar",
-		"FocusFrameToT",
-		"FocusFrameNumericalThreat",
-		"FocusFrameDebuffs",
-		"FocusFrameBuffs",
-		"FocusFrameManaBar",
-		--"FocusFrameOtherHealPredictionBar",
-		--"FocusFrameMyHealPredictionBar",
-		"FocusFrameHealthBar",
-		"FocusFrameTextureFrame",
-		"FocusFramePowerBarAlt",
-		"FocusFrameSpellBar",
-		"FocusFrame",
-		"Boss1TargetFrameNumericalThreat",
-		"Boss1TargetFrameDebuffs",
-		"Boss1TargetFrameBuffs",
-		"Boss1TargetFrameManaBar",
-		--"Boss1TargetFrameOtherHealPredictionBar",
-		--"Boss1TargetFrameMyHealPredictionBar",
-		"Boss1TargetFrameHealthBar",
-		"Boss1TargetFrameTextureFrame",
-		"Boss1TargetFramePowerBarAlt",
-		"Boss1TargetFrame",
-		"Boss2TargetFrameNumericalThreat",
-		"Boss2TargetFrameDebuffs",
-		"Boss2TargetFrameBuffs",
-		"Boss2TargetFrameManaBar",
-		--"Boss2TargetFrameOtherHealPredictionBar",
-		--"Boss2TargetFrameMyHealPredictionBar",
-		"Boss2TargetFrameHealthBar",
-		"Boss2TargetFrameTextureFrame",
-		"Boss2TargetFramePowerBarAlt",
-		"Boss2TargetFrame",
-		"Boss3TargetFrameNumericalThreat",
-		"Boss3TargetFrameDebuffs",
-		"Boss3TargetFrameBuffs",
-		"Boss3TargetFrameManaBar",
-		--"Boss3TargetFrameOtherHealPredictionBar",
-		--"Boss3TargetFrameMyHealPredictionBar",
-		"Boss3TargetFrameHealthBar",
-		"Boss3TargetFrameTextureFrame",
-		"Boss3TargetFramePowerBarAlt",
-		"Boss3TargetFrame",
-		"Boss4TargetFrameNumericalThreat",
-		"Boss4TargetFrameDebuffs",
-		"Boss4TargetFrameBuffs",
-		"Boss4TargetFrameManaBar",
-		--"Boss4TargetFrameOtherHealPredictionBar",
-		--"Boss4TargetFrameMyHealPredictionBar",
-		"Boss4TargetFrameHealthBar",
-		"Boss4TargetFrameTextureFrame",
-		"Boss4TargetFramePowerBarAlt",
-		"Boss4TargetFrame",
-		"TotemFrameTotem4",
-		"TotemFrameTotem3",
-		"TotemFrameTotem2",
-		"TotemFrameTotem1",
-		"TotemFrame",
-		--"VehicleMenuBarActionButton1",
-		--"VehicleMenuBarActionButton2",
-		--"VehicleMenuBarActionButton3",
-		--"VehicleMenuBarActionButton4",
-		--"VehicleMenuBarActionButton5",
-		--"VehicleMenuBarActionButton6",
-		--"VehicleMenuBarHealthBar",    
-		--"VehicleMenuBarPowerBar",
-		--"VehicleMenuBar",
-		--"ReputationFrame",
-		"ReputationWatchBar",
-	};
+	if not opt.eu then
+		local disabledframes = {
+			-- AlternatePowerBar.xml
+			"PlayerFrameAlternateManaBar",
+			-- Bufframe.xml
+			"BuffFrame",
+			"ConsolidatedBuffs",
+			"ConsolidatedBuffsTooltip",
+			"TemporaryEnchantFrame",
+			"TempEnchant1",
+			"TempEnchant2",
+			"TempEnchant3",
+			-- CastingBarFrame.xml
+			"CastingBarFrame",
+			-- ComboFrame.xml
+			"ComboPoint1",
+			"ComboPoint2",
+			"ComboPoint3",
+			"ComboPoint4",
+			"ComboPoint5",
+			"ComboFrame",
+			-- EclipseBarframe.xml
+			"EclipseBarFrame",
+			-- FocusFrame.xml
+			--"FocusFrameDebuff1",
+			--"FocusFrameDebuff2",
+			--"FocusFrameDebuff3",
+			--"FocusFrameDebuff4",
+			--"FocusFrameDebuff5",
+			--"FocusFrameDebuff6",
+			--"FocusFrameDebuff7",
+			--"FocusFrameDebuff8",
+			"FocusFrameNumericalThreat",
+			"FocusFrameSpellBar",
+			"FocusFrameManaBar",
+			"FocusFrameHealthBar",
+			--"FocusFrameTextureFrameFullSize",
+			--"FocusFrameTextureFrameSmall",
+			"FocusFrameTextureFrame",
+			"FocusFrame",
+			-- to be tested
+			--"TargetofFocusFrameDebuff1",
+			--"TargetofFocusFrameDebuff2",
+			--"TargetofFocusFrameDebuff3",
+			--"TargetofFocusFrameDebuff4",
+			--"TargetofFocusManaBar",
+			--"TargetofFocusHealthBar",
+			--"TargetofFocusTextureFrame",
+			--"TargetofFocusFrame",
+			
+			"PaladinPowerBar",
+			
+			"PetFrameDebuff1",
+			"PetFrameDebuff2",
+			"PetFrameDebuff3",
+			"PetFrameDebuff4",
+			"PetFrameHealthBar",
+			"PetFrameManaBar",
+			--"PetFrameMyHealPredictionBar",
+			--"PetFrameOtherHealPredictionBar",
+			"PetFrame",
+			"PetCastingBarFrame",
+			"PlayerFrameHealthBar",
+			"PlayerFrameManaBar",
+			--"PlayerFrameMyHealPredictionBar",
+			--"PlayerFrameOtherHealPredictionBar",
+			"PlayerSpeakerFrame",
+			"PlayerFrameReadyCheck",
+			"PlayerPVPIconHitArea",
+			"PlayerStatusGlow",
+			"PlayerPlayTime",
+			"PlayerFrameGroupIndicator",
+			"PlayerFrame",
+			"RuneButtonIndividual1",
+			"RuneButtonIndividual2",
+			"RuneButtonIndividual3",
+			"RuneButtonIndividual4",
+			"RuneButtonIndividual5",
+			"RuneButtonIndividual6",
+			"RuneFrame",
+			
+			"ShardBarFrameShard1",
+			"ShardBarFrameShard2",
+			"ShardBarFrameShard3",
+			"ShardBarFrame",
+			--"TargetFrameToTNumericalThreat",
+			--"TargetFrameToTDebuffs",
+			--"TargetFrameToTBuffs",
+			"TargetFrameToTManaBar",
+			--"TargetFrameToTOtherHealPredictionBar",
+			--"TargetFrameToTMyHealPredictionBar",
+			"TargetFrameToTHealthBar",
+			"TargetFrameToTTextureFrame",
+			--"TargetFrameToTPowerBarAlt",
+			--"TargetFrameToTSpellBar",
+			"TargetFrameToT",
+			"TargetFrameDebuffs",
+			"TargetFrameBuffs",
+			"TargetFrameHealthBar",
+			"TargetFrameManaBar",
+			--"TargetFrameMyHealPredictionBar",
+			--"TargetFrameOtherHealPredictionBar",
+			"TargetFrameNumericalThreat",
+			"TargetFrameTextureFrame",
+			"TargetFramePowerBarAlt",
+			"TargetFrameSpellBar",
+			"TargetFrame",
+			--"FocusFrameToTNumericalThreat",
+			--"FocusFrameToTDebuffs",
+			--"FocusFrameToTBuffs",
+			"FocusFrameToTManaBar",
+			--"FocusFrameToTOtherHealPredictionBar",
+			--"FocusFrameToTMyHealPredictionBar",
+			"FocusFrameToTHealthBar",
+			"FocusFrameToTTextureFrame",
+			--"FocusFrameToTPowerBarAlt",
+			--"FocusFrameToTSpellBar",
+			"FocusFrameToT",
+			"FocusFrameNumericalThreat",
+			"FocusFrameDebuffs",
+			"FocusFrameBuffs",
+			"FocusFrameManaBar",
+			--"FocusFrameOtherHealPredictionBar",
+			--"FocusFrameMyHealPredictionBar",
+			"FocusFrameHealthBar",
+			"FocusFrameTextureFrame",
+			"FocusFramePowerBarAlt",
+			"FocusFrameSpellBar",
+			"FocusFrame",
+			"TotemFrameTotem4",
+			"TotemFrameTotem3",
+			"TotemFrameTotem2",
+			"TotemFrameTotem1",
+			"TotemFrame",
+			--"VehicleMenuBarActionButton1",
+			--"VehicleMenuBarActionButton2",
+			--"VehicleMenuBarActionButton3",
+			--"VehicleMenuBarActionButton4",
+			--"VehicleMenuBarActionButton5",
+			--"VehicleMenuBarActionButton6",
+			--"VehicleMenuBarHealthBar",    
+			--"VehicleMenuBarPowerBar",
+			--"VehicleMenuBar",
+			--"ReputationFrame",
+			"ReputationWatchBar",
+		};
 
-	for i,v in ipairs(disabledframes) do
-		f = _G[v];
-		if f and f.UnregisterAllEvents then
-			f:UnregisterAllEvents();
-			f:SetScript("OnUpdate", nil);
-			f:SetScript("OnHide", nil);
-			f:SetScript("OnShow", f.Hide);
-			f:Hide();
-		else
-			VFL.print("BD:This object do not exist " .. v);
-		end
-	end
-	
-	RaidOptionsFrame_UpdatePartyFrames = VFL.Noop;
-	
-	-- disable focus function
-	for _, menu in pairs(UnitPopupMenus) do
-		for button, name in pairs(menu) do
-			if (name == 'SET_FOCUS') then
-				table.remove(menu, button);
-			elseif (name == 'CLEAR_FOCUS') then
-				table.remove(menu, button);
-			elseif (name == 'MOVE_PLAYER_FRAME') then
-				table.remove(menu, button);
-			elseif (name == 'MOVE_TARGET_FRAME') then
-				table.remove(menu, button);
-			elseif (name == 'LOCK_FOCUS_FRAME') then
-				table.remove(menu, button);
-			elseif (name == 'UNLOCK_FOCUS_FRAME') then
-				table.remove(menu, button);
-			elseif (name == 'PET_DISMISS') then
-				table.remove(menu, button);
+		for i,v in ipairs(disabledframes) do
+			f = _G[v];
+			if f and f.UnregisterAllEvents then
+				f:UnregisterAllEvents();
+				f:SetScript("OnUpdate", nil);
+				f:SetScript("OnHide", nil);
+				f:SetScript("OnShow", f.Hide);
+				f:Hide();
+			else
+				VFL.print("BD:This object do not exist " .. v);
 			end
 		end
+		
+		-- disable focus function
+		for _, menu in pairs(UnitPopupMenus) do
+			for button, name in pairs(menu) do
+				if (name == 'SET_FOCUS') then
+					table.remove(menu, button);
+				elseif (name == 'CLEAR_FOCUS') then
+					table.remove(menu, button);
+				elseif (name == 'MOVE_PLAYER_FRAME') then
+					table.remove(menu, button);
+				elseif (name == 'MOVE_TARGET_FRAME') then
+					table.remove(menu, button);
+				elseif (name == 'LOCK_FOCUS_FRAME') then
+					table.remove(menu, button);
+				elseif (name == 'UNLOCK_FOCUS_FRAME') then
+					table.remove(menu, button);
+				elseif (name == 'PET_DISMISS') then
+					table.remove(menu, button);
+				end
+			end
+		end
+		
+		AuraButton_Update = VFL.Noop;
+	
+		CastingBarFrame.ignoreFramePositionManager = true;    
+		PlayerPowerBarAlt.ignoreFramePositionManager = true;
+		
+		ReputationWatchBar.ignoreFramePositionManager = true;
+		
+		ReputationWatchBar_Update = VFL.Noop;
+	
 	end
 	
-	-- boss
-	for i=1,4 do
-		f = _G["Boss"..i.."TargetFrame"];
-		f:SetScript("OnShow", f.Hide);
-		f.SetScript = VFL.Noop;
+	if not opt.ep then
+		local disabledframes = {
+			"PartyMemberFrame1Debuff1",
+			"PartyMemberFrame1Debuff2",
+			"PartyMemberFrame1Debuff3",
+			"PartyMemberFrame1Debuff4",
+			"PartyMemberFrame1PowerBarAlt",
+			"PartyMemberFrame1HealthBar",
+			"PartyMemberFrame1ManaBar",
+			--"PartyMemberFrame1MyHealPredictionBar",
+			--"PartyMemberFrame1OtherHealPredictionBar",
+			"PartyMemberFrame1Speaker",
+			"PartyMemberFrame1SpeakerFrame",
+			"PartyMemberFrame1ReadyCheck",
+			--"PartyMemberFrame1PhasingIcon",
+			"PartyMemberFrame1",
+			"PartyMemberFrame2Debuff1",
+			"PartyMemberFrame2Debuff2",
+			"PartyMemberFrame2Debuff3",
+			"PartyMemberFrame2Debuff4",
+			"PartyMemberFrame2PowerBarAlt",
+			"PartyMemberFrame2HealthBar",
+			"PartyMemberFrame2ManaBar",
+			--"PartyMemberFrame2MyHealPredictionBar",
+			--"PartyMemberFrame2OtherHealPredictionBar",
+			"PartyMemberFrame2Speaker",
+			"PartyMemberFrame2SpeakerFrame",
+			"PartyMemberFrame2ReadyCheck",
+			--"PartyMemberFrame2PhasingIcon",
+			"PartyMemberFrame2",
+			"PartyMemberFrame3Debuff1",
+			"PartyMemberFrame3Debuff2",
+			"PartyMemberFrame3Debuff3",
+			"PartyMemberFrame3Debuff4",
+			"PartyMemberFrame3PowerBarAlt",
+			"PartyMemberFrame3HealthBar",
+			"PartyMemberFrame3ManaBar",
+			--"PartyMemberFrame3MyHealPredictionBar",
+			--"PartyMemberFrame3OtherHealPredictionBar",
+			"PartyMemberFrame3Speaker",
+			"PartyMemberFrame3SpeakerFrame",
+			"PartyMemberFrame3ReadyCheck",
+			--"PartyMemberFrame3PhasingIcon",
+			"PartyMemberFrame3",
+			"PartyMemberFrame4Debuff1",
+			"PartyMemberFrame4Debuff2",
+			"PartyMemberFrame4Debuff3",
+			"PartyMemberFrame4Debuff4",
+			"PartyMemberFrame4PowerBarAlt",
+			"PartyMemberFrame4HealthBar",
+			"PartyMemberFrame4ManaBar",
+			--"PartyMemberFrame4MyHealPredictionBar",
+			--"PartyMemberFrame4OtherHealPredictionBar",
+			"PartyMemberFrame4Speaker",
+			"PartyMemberFrame4SpeakerFrame",
+			"PartyMemberFrame4ReadyCheck",
+			--"PartyMemberFrame4PhasingIcon",
+			"PartyMemberFrame4",
+			"PartyMemberFrame1PetFrameDebuff1",
+			"PartyMemberFrame1PetFrameDebuff2",
+			"PartyMemberFrame1PetFrameDebuff3",
+			"PartyMemberFrame1PetFrameDebuff4",
+			"PartyMemberFrame1PetFrameHealthBar",
+			"PartyMemberFrame1PetFrame",
+			"PartyMemberFrame2PetFrameDebuff1",
+			"PartyMemberFrame2PetFrameDebuff2",
+			"PartyMemberFrame2PetFrameDebuff3",
+			"PartyMemberFrame2PetFrameDebuff4",
+			"PartyMemberFrame2PetFrameHealthBar",
+			"PartyMemberFrame2PetFrame",
+			"PartyMemberFrame3PetFrameDebuff1",
+			"PartyMemberFrame3PetFrameDebuff2",
+			"PartyMemberFrame3PetFrameDebuff3",
+			"PartyMemberFrame3PetFrameDebuff4",
+			"PartyMemberFrame3PetFrameHealthBar",
+			"PartyMemberFrame3PetFrame",
+			"PartyMemberFrame4PetFrameDebuff1",
+			"PartyMemberFrame4PetFrameDebuff2",
+			"PartyMemberFrame4PetFrameDebuff3",
+			"PartyMemberFrame4PetFrameDebuff4",
+			"PartyMemberFrame4PetFrameHealthBar",
+			"PartyMemberFrame4PetFrame",
+		};
+
+		for i,v in ipairs(disabledframes) do
+			f = _G[v];
+			if f and f.UnregisterAllEvents then
+				f:UnregisterAllEvents();
+				f:SetScript("OnUpdate", nil);
+				f:SetScript("OnHide", nil);
+				f:SetScript("OnShow", f.Hide);
+				f:Hide();
+			else
+				VFL.print("BD:This object do not exist " .. v);
+			end
+		end
+		
 	end
 	
-	CompactRaidFrameManager:UnregisterAllEvents();
-	CompactRaidFrameManager:Hide();
-	CompactRaidFrameContainer:UnregisterEvent("RAID_ROSTER_UPDATE");
-	CompactRaidFrameContainer:UnregisterEvent("UNIT_PET");
-	CompactRaidFrameContainer:Hide();
+	if not opt.ebo then
+		local disabledframes = {
+			"Boss1TargetFrameNumericalThreat",
+			"Boss1TargetFrameDebuffs",
+			"Boss1TargetFrameBuffs",
+			"Boss1TargetFrameManaBar",
+			--"Boss1TargetFrameOtherHealPredictionBar",
+			--"Boss1TargetFrameMyHealPredictionBar",
+			"Boss1TargetFrameHealthBar",
+			"Boss1TargetFrameTextureFrame",
+			"Boss1TargetFramePowerBarAlt",
+			"Boss1TargetFrame",
+			"Boss2TargetFrameNumericalThreat",
+			"Boss2TargetFrameDebuffs",
+			"Boss2TargetFrameBuffs",
+			"Boss2TargetFrameManaBar",
+			--"Boss2TargetFrameOtherHealPredictionBar",
+			--"Boss2TargetFrameMyHealPredictionBar",
+			"Boss2TargetFrameHealthBar",
+			"Boss2TargetFrameTextureFrame",
+			"Boss2TargetFramePowerBarAlt",
+			"Boss2TargetFrame",
+			"Boss3TargetFrameNumericalThreat",
+			"Boss3TargetFrameDebuffs",
+			"Boss3TargetFrameBuffs",
+			"Boss3TargetFrameManaBar",
+			--"Boss3TargetFrameOtherHealPredictionBar",
+			--"Boss3TargetFrameMyHealPredictionBar",
+			"Boss3TargetFrameHealthBar",
+			"Boss3TargetFrameTextureFrame",
+			"Boss3TargetFramePowerBarAlt",
+			"Boss3TargetFrame",
+			"Boss4TargetFrameNumericalThreat",
+			"Boss4TargetFrameDebuffs",
+			"Boss4TargetFrameBuffs",
+			"Boss4TargetFrameManaBar",
+			--"Boss4TargetFrameOtherHealPredictionBar",
+			--"Boss4TargetFrameMyHealPredictionBar",
+			"Boss4TargetFrameHealthBar",
+			"Boss4TargetFrameTextureFrame",
+			"Boss4TargetFramePowerBarAlt",
+			"Boss4TargetFrame",
+		};
+
+		for i,v in ipairs(disabledframes) do
+			f = _G[v];
+			if f and f.UnregisterAllEvents then
+				f:UnregisterAllEvents();
+				f:SetScript("OnUpdate", nil);
+				f:SetScript("OnHide", nil);
+				f:SetScript("OnShow", f.Hide);
+				f:Hide();
+			else
+				VFL.print("BD:This object do not exist " .. v);
+			end
+		end
+		-- boss
+		for i=1,4 do
+			f = _G["Boss"..i.."TargetFrame"];
+			f:SetScript("OnShow", f.Hide);
+			f.SetScript = VFL.Noop;
+		end
+	end
 	
-	AuraButton_Update = VFL.Noop;
-	
-	CastingBarFrame.ignoreFramePositionManager = true;    
-	PlayerPowerBarAlt.ignoreFramePositionManager = true;
-	
-	ReputationWatchBar.ignoreFramePositionManager = true;
-	
-	ReputationWatchBar_Update = VFL.Noop;
+	if not opt.er then
+		RaidOptionsFrame_UpdatePartyFrames = VFL.Noop;
+		
+		CompactRaidFrameManager:UnregisterAllEvents();
+		CompactRaidFrameManager:Hide();
+		CompactRaidFrameContainer:UnregisterEvent("RAID_ROSTER_UPDATE");
+		CompactRaidFrameContainer:UnregisterEvent("UNIT_PET");
+		CompactRaidFrameContainer:Hide();
+	end
 	
 	-- hack
 	--SetCVar("chatStyle", "classic");

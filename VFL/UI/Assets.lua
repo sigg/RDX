@@ -167,6 +167,7 @@ function VFLUI.CopyTexture(tex)
 	local ret = {};
 	if tex.color then ret.color = VFL.copy(tex.color); end
 	if tex.path then ret.path = tex.path; end
+	if tex.pathid then ret.pathid = tex.pathid; end
 	ret.blendMode = tex.blendMode;
 	ret.gradDir = tex.gradDir;
 	if tex.vertexColor then ret.vertexColor = VFL.copy(tex.vertexColor); end
@@ -186,6 +187,8 @@ function VFLUI.SetTexture(obj, descr)
 			obj:SetTexture(VFL.explodeRGBA(descr.color));
 		elseif descr.path then
 			obj:SetTexture(descr.path);
+		elseif descr.pathid then
+			obj:SetToFileData(descr.pathid);
 		else
 			return;
 		end
@@ -220,6 +223,8 @@ function VFLUI.GenerateSetTextureCode(obj, descr)
 		ret = obj .. ":SetTexture(" .. c.r .. "," .. c.g .. "," .. c.b .. "," .. c.a .. "); ";
 	elseif descr.path then
 		ret = obj .. ":SetTexture(" .. string.format("%q", descr.path) .. "); ";
+	elseif descr.pathid then
+		ret = obj .. ":SetToFileData(" .. string.format("%q", descr.pathid) .. "); ";
 	end
 	ret = ret .. obj .. ":SetBlendMode(" .. string.format("%q", descr.blendMode) .. "); ";
 	if descr.vertexColor then

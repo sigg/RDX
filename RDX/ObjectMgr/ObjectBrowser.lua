@@ -97,7 +97,7 @@ function RDXDB.ExplorerInstance:new(parent)
 	end);]]
 
 	----------------- Pathbar implementation
-	selEd:SetScript("OnTextChanged", function()
+	--[[selEd:SetScript("OnTextChanged", function()
 		local txt = selEd:GetText();
 		if(not txt) or (txt == "") then return; end
 		local a,b,c = RDXDB.ParsePath(txt);
@@ -140,7 +140,7 @@ function RDXDB.ExplorerInstance:new(parent)
 				selFeedback:SetText("");
 			end
 		end
-	end);
+	end);]]
 	----------------- Left side (disk list)
 	local decor0 = VFLUI.AcquireFrame("Frame");
 	decor0:SetParent(dlg);
@@ -398,9 +398,10 @@ function RDXDB.ExplorerInstance:new(parent)
 	function dlg:Rebuild() UpdateDiskList(); UpdatePackageList(); UpdateFileList(); end
 	function dlg:SetPath(initPath)
 		if type(initPath) ~= "string" then return; end
+		VFL.print(initPath);
 		local a,b,c = RDXDB.ParsePath(initPath);
 		if c then
-			SetActiveDisk(a):
+			SetActiveDisk(a);
 			SetActivePackage(b);
 			SelectFile(a,b,c);
 		end
