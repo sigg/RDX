@@ -75,7 +75,7 @@ function RDXMAP.InitTables()
 			end
 			if winfo.class == "c" then
 			
-			elseif winfo.class == "i" then
+			elseif winfo.class == "i" or winfo.class == "bg" then
 				if not RDXMAP.InstanceNameToId[name] then
 					RDXMAP.InstanceNameToId[name] = mapid;
 				end
@@ -100,7 +100,7 @@ function RDXMAP.InitTables()
 			end
 			if winfo.class == "c" then
 			
-			elseif winfo.class == "i" then
+			elseif winfo.class == "i" or winfo.class == "bg" then
 				if not RDXMAP.InstanceNameToId[name] then
 					RDXMAP.InstanceNameToId[name] = mapid;
 				end
