@@ -28,18 +28,31 @@ function RRR()
 end
 -- /script RRR()
 -- /script VFL.print(GetCurrentMapAreaID());
+local contbl
 local function ProcessMyUnit(self, elapsed)
 	-- Player real mapid
 	zName = GetRealZoneText()
 	a, a, a, isIndoor, indoorMapFileName = GetMapInfo();
 	cmaId = GetCurrentMapAreaID()
 	gcmd = GetCurrentMapDungeonLevel();
+	mapId = nil;
 	
 	if zName then
-		mapId = RDXMAP.MapNameToId[myunit.contId][zName]; -- Carbonite
+		if myunit.contId then
+			contbl = RDXMAP.MapNameToId[myunit.contId]
+			if contbl then
+				mapId = contbl[zName]; -- Carbonite	
+			end
+		end
+		
+		if not mapId then
+			mapId = RDXMAP.InstanceNameToId[zName]; -- Carbonite	
+		end
+		
 		--mapId = RDXMAP.APIMap.NameToId (zName, contId)
 		if not mapId then
-			--VFL.print("Continent " .. myunit.contId);
+			--VFL.print("ZONE_CHANGED_NEW_AREA continent " .. myunit.contId);
+
 			--SetMapToCurrentZone();
 			--cmaId = GetCurrentMapAreaID()
 			--gcmd = GetCurrentMapDungeonLevel();
@@ -47,6 +60,9 @@ local function ProcessMyUnit(self, elapsed)
 			mapId = cmaId;
 		end
 	end	
+	--VFL.print(zName);
+	--VFL.print(mapId);
+	
 	
 	--VFL.print("ProcessMyUnit mapId " .. mapId);
 	myunit.mapId = mapId;

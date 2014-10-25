@@ -47,6 +47,11 @@ local function ParsePath(path)
 end
 RDXDB.ParsePath = ParsePath;
 
+local function ParsePathOld(path)
+	if not path or type(path) ~= "string" then return nil; end
+	local _, _, a, b = string.find(path, "^(.*):(.*)$");
+	return a,b;
+end
 -- Generate a path from components (a, b --> a:b)
 local function MakePath(dk, pkg, obj)
 	if obj then
@@ -165,7 +170,7 @@ function RDXDB.copy10(T)
 			if type(v) == "string" and k ~= "feature" and k ~= "infoAuthorWebSite" then
 			 	local a, b, c = ParsePath(v);
 				if not c then
-					local a, b = ParsePath(v);
+					local a, b = ParsePathOld(v);
 					if a and b then
 						if a == "default" or a == "tabs" or a == "bindings" or a == "scripts" or a == "desktops" or a == "aurafilters" or a == "sets" then
 							v = "RDXDiskSystem:" .. a .. ":" .. b;

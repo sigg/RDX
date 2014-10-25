@@ -1147,8 +1147,8 @@ function RDXMAP.Map:Update (elapsed)
 				f.UData = mapid;
 				f.NXData = f
 				f.texture:SetTexture ("Interface\\Icons\\INV_Misc_ShadowEgg")
-				f.x = info[4] --* 100
-				f.y = info[5] --* 100
+				f.x = info.x --* 100
+				f.y = info.y --* 100
 				f.MapId = mapId
 				f.n = f.NxTip
 				table.insert(self.Icon3Frms, f); 

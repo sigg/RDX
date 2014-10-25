@@ -250,7 +250,7 @@ end
 function RDXMAP.APIMap.IsInstanceMap (mapId)
 	local a = RDXMAP.APIMap.GetWorldZone(mapId)
 	if a then
-		return a.tp == 4
+		return a.class == "i"
 	end
 end
 

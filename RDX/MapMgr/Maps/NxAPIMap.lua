@@ -136,63 +136,38 @@ function RDXMAP.APIMap.UpdateInstanceMap(map)
 
 --	VFL.vprint ("Inst id %s", mapId)
 
-	if map.InstMapAtlas then
+	wx = winfo.x
+	wy = winfo.y
 
-		--wx = winfo[2]
-		--wy = winfo[3]
-		wx = winfo.x
-		wy = winfo.y
+	for n = 1, #iinfo, 3 do
 
-		for n = 1, #iinfo, 3 do
+		j = 1
 
-			i = 668 / 256
-			frm = RDXMAP.APIMap.GetIconNI(map)
+		offx = 0		-- iinfo[n] * .04 * 1002 / 1024
+		offy = iinfo[n + 1] * .03 * 668 / 768
 
-			if RDXMAP.APIMap.ClipFrameTL (map, frm, wx, wy + (n - 1) * 668 / 768, i, i) then
-				tex = iinfo[n + 2]
-				tex = "Interface\\Addons\\Atlas\\Images\\Maps\\" .. tex
-				frm.texture:SetTexture (tex)
-			end
-		end
+		for by = 0, 2 do
 
-		map.Level = map.Level + 1
+			for bx = 0, 3 do
 
-	else
-
-		--wx = winfo[2]
-		--wy = winfo[3]
-		wx = winfo.x
-		wy = winfo.y
-
-		for n = 1, #iinfo, 3 do
-
-			j = 1
-
-			offx = 0		-- iinfo[n] * .04 * 1002 / 1024
-			offy = iinfo[n + 1] * .03 * 668 / 768
-
-			for by = 0, 2 do
-
-				for bx = 0, 3 do
-
-					i = 1
-					frm = RDXMAP.APIMap.GetIconNI(map)
+				i = 1
+				frm = RDXMAP.APIMap.GetIconNI(map)
 
 --					VFL.vprint ("Inst %s, %s %s %s %s", mapId, wx, wy, bx, by)
 
-					if RDXMAP.APIMap.ClipFrameTL (map, frm, wx + bx - offx, wy + by - offy, i, i) then
-						tex = iinfo[n + 2]
-						tex = "Interface\\WorldMap\\" .. tex .. j
-						frm.texture:SetTexture (tex)
-					end
-
-					j = j + 1
+				if RDXMAP.APIMap.ClipFrameTL (map, frm, wx + bx - offx, wy + by - offy, i, i) then
+					tex = iinfo[n + 2]
+					tex = "Interface\\WorldMap\\" .. tex .. j
+					frm.texture:SetTexture (tex)
 				end
+
+				j = j + 1
 			end
 		end
-
-		map.Level = map.Level + 1
 	end
+
+	map.Level = map.Level + 1
+
 end
 --------
 -- Switch to a new map

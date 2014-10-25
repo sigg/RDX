@@ -7,8 +7,8 @@ function RDXMAP.InitTables()
 	local worldInfo = RDXMAP.MapWorldInfo
 
 	RDXMAP.MapNameToId = {}
-	
 	RDXMAP.MapIdToName = {}
+	RDXMAP.InstanceNameToId = {}
 	
 	RDXMAP.mapIdToCarbId = {}
 	RDXMAP.carbIdToMapId = {}
@@ -73,14 +73,22 @@ function RDXMAP.InitTables()
 			else
 				name = winfo.Name
 			end
-			--VFL.print("InitTables no localname " .. mapid)
-			if not RDXMAP.MapNameToId[contId][name] then
-				--RDXMAP.MapNameToId[name] = mapid;
-				RDXMAP.MapNameToId[contId][name] = mapid;
+			if winfo.class == "c" then
+			
+			elseif winfo.class == "i" then
+				if not RDXMAP.InstanceNameToId[name] then
+					RDXMAP.InstanceNameToId[name] = mapid;
+				end
 			else
-				--VFL.print("InitTables double name " .. name .. " mapid " .. mapid)
-				--VFL.print("InitTables double name " .. name .. " mapid " .. RDXMAP.MapNameToId[name])
-				--RDXMAP.MapNameToId[winfo.Name] = nil; -- clear so the engine will use mapid
+				--VFL.print("InitTables no localname " .. mapid)
+				if not RDXMAP.MapNameToId[contId][name] then
+					--RDXMAP.MapNameToId[name] = mapid;
+					RDXMAP.MapNameToId[contId][name] = mapid;
+				else
+					--VFL.print("InitTables double name " .. name .. " mapid " .. mapid)
+					--VFL.print("InitTables double name " .. name .. " mapid " .. RDXMAP.MapNameToId[name])
+					--RDXMAP.MapNameToId[winfo.Name] = nil; -- clear so the engine will use mapid
+				end
 			end
 			RDXMAP.MapIdToName[mapid] = name;
 		else
@@ -92,6 +100,10 @@ function RDXMAP.InitTables()
 			end
 			if winfo.class == "c" then
 			
+			elseif winfo.class == "i" then
+				if not RDXMAP.InstanceNameToId[name] then
+					RDXMAP.InstanceNameToId[name] = mapid;
+				end
 			else
 				if not RDXMAP.MapNameToId[contId][name] then
 					RDXMAP.MapNameToId[contId][name] = mapid;
@@ -131,6 +143,9 @@ function RDXMAP.InitTables()
 				winfo[1] = 1002 / 25600 
 				winfo[4] = info.x + winfo[2] * scale
 				winfo[5] = info.y + winfo[3] * scale / 1.5
+				winfo.s = winfo[1]
+				winfo.x = winfo[4]
+				winfo.y = winfo[5]
 			else
 				VFL.print("InitTables instance " .. winfo.EntryMId);
 			end

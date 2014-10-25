@@ -2133,6 +2133,7 @@ RDXMAP.MapWorldInfo = {
 	--	["maxLvl"] = 0,
 	--},
 	[680] = {
+		["class"] = "i",
 		["minLvl"] = 15,
 		[2] = 51.9,
 		["EntryMId"] = 321,
@@ -2145,6 +2146,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[756] = {
+		["class"] = "i",
 		["minLvl"] = 15,
 		[2] = 42.56,
 		["EntryMId"] = 39,
@@ -2157,6 +2159,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[749] = {
+		["class"] = "i",
 		["minLvl"] = 17,
 		[2] = 39,
 		["EntryMId"] = 11,
@@ -2169,6 +2172,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[764] = {
+		["class"] = "i",
 		["minLvl"] = 18,
 		[2] = 44.86,
 		["EntryMId"] = 21,
@@ -2181,6 +2185,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[690] = {
+		["class"] = "i",
 		["minLvl"] = 22,
 		[2] = 51.4,
 		["EntryMId"] = 301,
@@ -2193,6 +2198,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[688] = {
+		["class"] = "i",
 		["minLvl"] = 22,
 		[2] = 14.15,
 		["EntryMId"] = 43,
@@ -2205,6 +2211,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[691] = {
+		["class"] = "i",
 		["minLvl"] = 26,
 		[2] = 24.38,
 		["EntryMId"] = 27,
@@ -2233,6 +2240,7 @@ RDXMAP.MapWorldInfo = {
 	--	["maxLvl"] = 34,
 	--},
 	[761] = {
+		["class"] = "i",
 		["minLvl"] = 32,
 		[2] = 42.5,
 		["EntryMId"] = 607,
@@ -2245,6 +2253,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[750] = {
+		["class"] = "i",
 		["minLvl"] = 36,
 		[2] = 29.48,
 		["EntryMId"] = 101,
@@ -2265,6 +2274,7 @@ RDXMAP.MapWorldInfo = {
 	--	["maxLvl"] = 43,
 	--},
 	[760] = {
+		["class"] = "i",
 		["minLvl"] = 42,
 		[2] = 43.2,
 		["EntryMId"] = 61,
@@ -2277,6 +2287,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[699] = {
+		["class"] = "i",
 		["minLvl"] = 44,
 		[2] = 59.1,
 		["EntryMId"] = 121,
@@ -2289,6 +2300,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[686] = {
+		["class"] = "i",
 		["minLvl"] = 46,
 		[2] = 39.2,
 		["EntryMId"] = 161,
@@ -2301,6 +2313,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[765] = {
+		["class"] = "i",
 		["minLvl"] = 48,
 		[2] = 27.09,
 		["EntryMId"] = 23,
@@ -2313,6 +2326,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[687] = {
+		["class"] = "i",
 		["minLvl"] = 52,
 		[2] = 69.83,
 		["EntryMId"] = 38,
@@ -2325,6 +2339,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[704] = {
+		["class"] = "i",
 		["minLvl"] = 53,
 		[2] = 34.91,
 		["EntryMId"] = 28,
@@ -2337,6 +2352,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[721] = {
+		["class"] = "i",
 		["minLvl"] = 58,
 		[2] = 34.91,
 		["EntryMId"] = 28,
@@ -2349,6 +2365,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[755] = {
+		["class"] = "i",
 		["minLvl"] = 60,
 		[2] = 34.91,
 		["EntryMId"] = 28,
@@ -2361,6 +2378,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[766] = {
+		["class"] = "i",
 		["minLvl"] = 60,
 		[2] = 47,
 		["EntryMId"] = 772,
@@ -2373,6 +2391,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[717] = {
+		["class"] = "i",
 		["minLvl"] = 60,
 		[2] = 59.1,
 		["EntryMId"] = 772,
@@ -2385,6 +2404,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[696] = {
+		["class"] = "i",
 		["minLvl"] = 60,
 		[2] = 34.91,
 		["EntryMId"] = 28,
@@ -2398,6 +2418,7 @@ RDXMAP.MapWorldInfo = {
 	},
 	----------------------------------
 	[797] = {
+		["class"] = "i",
 		["minLvl"] = 59,
 		[2] = 47.64,
 		["EntryMId"] = 465,
@@ -2410,6 +2431,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[725] = {
+		["class"] = "i",
 		["minLvl"] = 61,
 		[2] = 46.03,
 		["EntryMId"] = 465,
@@ -2422,6 +2444,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[728] = {
+		["class"] = "i",
 		["minLvl"] = 62,
 		[2] = 50.37,
 		["EntryMId"] = 467,
@@ -2434,6 +2457,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[726] = {
+		["class"] = "i",
 		["minLvl"] = 63,
 		[2] = 50.43,
 		["EntryMId"] = 467,
@@ -2446,6 +2470,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[732] = {
+		["class"] = "i",
 		["minLvl"] = 64,
 		[2] = 39.63,
 		["EntryMId"] = 478,
@@ -2458,6 +2483,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[722] = {
+		["class"] = "i",
 		["minLvl"] = 65,
 		[2] = 37.3,
 		["EntryMId"] = 478,
@@ -2470,6 +2496,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[734] = {
+		["class"] = "i",
 		["minLvl"] = 66,
 		[2] = 65.34,
 		["EntryMId"] = 161,
@@ -2482,6 +2509,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[723] = {
+		["class"] = "i",
 		["minLvl"] = 67,
 		[2] = 41.98,
 		["EntryMId"] = 478,
@@ -2494,6 +2522,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[724] = {
+		["class"] = "i",
 		["minLvl"] = 67,
 		[2] = 39.63,
 		["EntryMId"] = 478,
@@ -2506,6 +2535,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[729] = {
+		["class"] = "i",
 		["minLvl"] = 67,
 		[2] = 71.7,
 		["EntryMId"] = 479,
@@ -2518,6 +2548,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[710] = {
+		["class"] = "i",
 		["minLvl"] = 67,
 		[2] = 48.02,
 		["EntryMId"] = 465,
@@ -2530,6 +2561,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[727] = {
+		["class"] = "i",
 		["minLvl"] = 67,
 		[2] = 50.38999999999999,
 		["EntryMId"] = 467,
@@ -2542,6 +2574,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[730] = {
+		["class"] = "i",
 		["minLvl"] = 67,
 		[2] = 70.54000000000001,
 		["EntryMId"] = 479,
@@ -2554,6 +2587,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[733] = {
+		["class"] = "i",
 		["minLvl"] = 68,
 		[2] = 65.34,
 		["EntryMId"] = 161,
@@ -2566,6 +2600,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[798] = {
+		["class"] = "i",
 		["minLvl"] = 68,
 		[2] = 61.18,
 		["EntryMId"] = 499,
@@ -2578,6 +2613,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[731] = {
+		["class"] = "i",
 		["minLvl"] = 68,
 		[2] = 74.37000000000001,
 		["EntryMId"] = 479,
@@ -2591,6 +2627,7 @@ RDXMAP.MapWorldInfo = {
 	},
 	
 	[796] = {
+		["class"] = "i",
 		["minLvl"] = 70,
 		[2] = 71.03,
 		["EntryMId"] = 473,
@@ -2603,6 +2640,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[780] = {
+		["class"] = "i",
 		["minLvl"] = 70,
 		[2] = 50.41,
 		["EntryMId"] = 467,
@@ -2615,6 +2653,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[776] = {
+		["class"] = "i",
 		["minLvl"] = 70,
 		[2] = 68.20999999999999,
 		["EntryMId"] = 475,
@@ -2627,6 +2666,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[779] = {
+		["class"] = "i",
 		["minLvl"] = 70,
 		[2] = 46.63,
 		["EntryMId"] = 465,
@@ -2639,6 +2679,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 3,
 	},
 	[775] = {
+		["class"] = "i",
 		["minLvl"] = 70,
 		[2] = 65.34,
 		["EntryMId"] = 161,
@@ -2651,6 +2692,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[789] = {
+		["class"] = "i",
 		["minLvl"] = 70,
 		[2] = 44.27,
 		["EntryMId"] = 499,
@@ -2663,6 +2705,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[799] = {
+		["class"] = "i",
 		["minLvl"] = 70,
 		[2] = 47,
 		["EntryMId"] = 32,
@@ -2686,6 +2729,7 @@ RDXMAP.MapWorldInfo = {
 	
 	----------------------------------------
 	[523] = {
+		["class"] = "i",
 		["minLvl"] = 69,
 		[2] = 57.28,
 		["EntryMId"] = 491,
@@ -2698,6 +2742,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[520] = {
+		["class"] = "i",
 		["minLvl"] = 71,
 		[2] = 27.5,
 		["EntryMId"] = 486,
@@ -2710,6 +2755,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[533] = {
+		["class"] = "i",
 		["minLvl"] = 72,
 		[2] = 26.01,
 		["EntryMId"] = 488,
@@ -2722,6 +2768,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[522] = {
+		["class"] = "i",
 		["minLvl"] = 73,
 		[2] = 28.46,
 		["EntryMId"] = 488,
@@ -2734,6 +2781,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[534] = {
+		["class"] = "i",
 		["minLvl"] = 74,
 		[2] = 17.43,
 		["EntryMId"] = 490,
@@ -2746,6 +2794,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[536] = {
+		["class"] = "i",
 		["minLvl"] = 75,
 		[2] = 67,
 		["EntryMId"] = 504,
@@ -2758,6 +2807,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[530] = {
+		["class"] = "i",
 		["minLvl"] = 76,
 		[2] = 83.59999999999999,
 		["EntryMId"] = 496,
@@ -2770,6 +2820,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[526] = {
+		["class"] = "i",
 		["minLvl"] = 77,
 		[2] = 39.5,
 		["EntryMId"] = 495,
@@ -2782,6 +2833,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[542] = {
+		["class"] = "i",
 		["minLvl"] = 78,
 		[2] = 74.2,
 		["EntryMId"] = 492,
@@ -2794,6 +2846,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[525] = {
+		["class"] = "i",
 		["minLvl"] = 79,
 		[2] = 45.4,
 		["EntryMId"] = 495,
@@ -2806,6 +2859,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[521] = {
+		["class"] = "i",
 		["minLvl"] = 79,
 		[2] = 65.34,
 		["EntryMId"] = 161,
@@ -2818,6 +2872,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[528] = {
+		["class"] = "i",
 		["minLvl"] = 79,
 		[2] = 27.52,
 		["EntryMId"] = 486,
@@ -2830,6 +2885,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[524] = {
+		["class"] = "i",
 		["minLvl"] = 79,
 		[2] = 57.28,
 		["EntryMId"] = 491,
@@ -2842,6 +2898,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[543] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 75.09999999999999,
 		["EntryMId"] = 492,
@@ -2854,6 +2911,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[527] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 27.5,
 		["EntryMId"] = 486,
@@ -2866,6 +2924,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[531] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 59.8,
 		["EntryMId"] = 488,
@@ -2878,6 +2937,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[718] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 52.41,
 		["EntryMId"] = 141,
@@ -2890,6 +2950,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[532] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 50,
 		["EntryMId"] = 501,
@@ -2902,6 +2963,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[604] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 53.3,
 		["EntryMId"] = 492,
@@ -2914,6 +2976,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[602] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 54.5,
 		["EntryMId"] = 492,
@@ -2926,6 +2989,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[609] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 0,
 		["EntryMId"] = 488,
@@ -2938,6 +3002,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[601] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 54.5,
 		["EntryMId"] = 492,
@@ -2950,6 +3015,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[603] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 54.8,
 		["EntryMId"] = 492,
@@ -2962,6 +3028,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 4,
 	},
 	[529] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 41.6,
 		["EntryMId"] = 495,
@@ -2976,6 +3043,7 @@ RDXMAP.MapWorldInfo = {
 	
 	-----------------------------------------------
 	[753] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 34.91,
 		["EntryMId"] = 28,
@@ -2988,6 +3056,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[767] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 70.7,
 		["EntryMId"] = 614,
@@ -3000,6 +3069,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[768] = {
+		["class"] = "i",
 		["minLvl"] = 81,
 		[2] = 47,
 		["EntryMId"] = 640,
@@ -3012,6 +3082,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 5,
 	},
 	[769] = {
+		["class"] = "i",
 		["minLvl"] = 81,
 		[2] = 76.7,
 		["EntryMId"] = 720,
@@ -3024,6 +3095,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[757] = {
+		["class"] = "i",
 		["minLvl"] = 84,
 		[2] = 19.2,
 		["EntryMId"] = 700,
@@ -3036,6 +3108,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[759] = {
+		["class"] = "i",
 		["minLvl"] = 84,
 		[2] = 71.8,
 		["EntryMId"] = 720,
@@ -3048,6 +3121,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[793] = {
+		["class"] = "i",
 		["minLvl"] = 85,
 		[2] = 67.2,
 		["EntryMId"] = 37,
@@ -3060,6 +3134,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[752] = {
+		["class"] = "i",
 		["minLvl"] = 85,
 		[2] = 51,
 		["EntryMId"] = 708,
@@ -3072,6 +3147,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[747] = {
+		["class"] = "i",
 		["minLvl"] = 85,
 		[2] = 60.5,
 		["EntryMId"] = 720,
@@ -3084,6 +3160,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[754] = {
+		["class"] = "i",
 		["minLvl"] = 85,
 		[2] = 34.91,
 		["EntryMId"] = 28,
@@ -3096,6 +3173,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[758] = {
+		["class"] = "i",
 		["minLvl"] = 85,
 		[2] = 33.9,
 		["EntryMId"] = 700,
@@ -3108,6 +3186,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[781] = {
+		["class"] = "i",
 		["minLvl"] = 85,
 		[2] = 81.51000000000001,
 		["EntryMId"] = 463,
@@ -3120,6 +3199,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 2,
 	},
 	[800] = {
+		["class"] = "i",
 		["minLvl"] = 85,
 		[2] = 46.2,
 		["EntryMId"] = 606,
@@ -3132,6 +3212,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[820] = {
+		["class"] = "i",
 		["minLvl"] = 85,
 		[2] = 65.37000000000001,
 		["EntryMId"] = 161,
@@ -3144,6 +3225,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[816] = {
+		["class"] = "i",
 		["minLvl"] = 85,
 		[2] = 65.37000000000001,
 		["EntryMId"] = 161,
@@ -3156,6 +3238,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[819] = {
+		["class"] = "i",
 		["minLvl"] = 85,
 		[2] = 65.37000000000001,
 		["EntryMId"] = 161,
@@ -3168,6 +3251,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[824] = {
+		["class"] = "i",
 		["minLvl"] = 85,
 		[2] = 65.37000000000001,
 		["EntryMId"] = 161,
@@ -3180,6 +3264,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 1,
 	},
 	[773] = {
+		["class"] = "i",
 		["minLvl"] = 85,
 		[2] = 38.4,
 		["EntryMId"] = 720,
@@ -3194,6 +3279,7 @@ RDXMAP.MapWorldInfo = {
 	
 	-----------------------------------------------
 	[876] = {
+		["class"] = "i",
 		["minLvl"] = 86,
 		[2] = 39.1,
 		["EntryMId"] = 807,
@@ -3206,6 +3292,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 6,
 	},
 	[867] = {
+		["class"] = "i",
 		["minLvl"] = 87,
 		[2] = 55.88,
 		["EntryMId"] = 806,
@@ -3218,6 +3305,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 6,
 	},
 	[885] = {
+		["class"] = "i",
 		["minLvl"] = 87,
 		[2] = 74.2,
 		["EntryMId"] = 811,
@@ -3230,6 +3318,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 6,
 	},
 	[877] = {
+		["class"] = "i",
 		["minLvl"] = 87,
 		[2] = 36,
 		["EntryMId"] = 809,
@@ -3250,6 +3339,7 @@ RDXMAP.MapWorldInfo = {
 	--	["maxLvl"] = 90,
 	--},
 	[875] = {
+		["class"] = "i",
 		["minLvl"] = 90,
 		[2] = 14,
 		["EntryMId"] = 811,
@@ -3262,6 +3352,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 6,
 	},
 	[896] = {
+		["class"] = "i",
 		["minLvl"] = 90,
 		[2] = 74.5,
 		["EntryMId"] = 809,
@@ -3274,6 +3365,7 @@ RDXMAP.MapWorldInfo = {
 		["Cont"] = 6,
 	},
 	[886] = {
+		["class"] = "i",
 		["minLvl"] = 90,
 		[2] = 49.3,
 		["EntryMId"] = 873,
@@ -3374,6 +3466,7 @@ RDXMAP.MapWorldInfo = {
 		["maxLvl"] = 90,
 	},]]
 	[930] = {
+		["class"] = "i",
 		["minLvl"] = 90,
 		[2] = 55.97,
 		["EntryMId"] = 928,
@@ -3423,6 +3516,7 @@ RDXMAP.MapWorldInfo = {
 	
 	
 	[535] = {
+		["class"] = "i",
 		["minLvl"] = 80,
 		[2] = 87.3,
 		["EntryMId"] = 488,
@@ -3436,6 +3530,7 @@ RDXMAP.MapWorldInfo = {
 	},
 	
 	[887] = {
+		["class"] = "i",
 		["minLvl"] = 90,
 		[2] = 38.1,
 		["EntryMId"] = 810,
@@ -3458,6 +3553,7 @@ RDXMAP.MapWorldInfo = {
 	
 
 	[692] = {
+		["class"] = "i",
 		["minLvl"] = 37,
 		[2] = 44.44,
 		["EntryMId"] = 17,
