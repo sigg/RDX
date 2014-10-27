@@ -249,9 +249,9 @@ function RDXMAP.APIMap.UpdateZones(map)
 	winfo = RDXMAP.APIMap.GetWorldZone(mapId)
 	if not winfo then
 		if map.MapId then
-			VFL.print("UpdateZones MapId unknown " .. map.MapId);
+			--VFL.print("UpdateZones MapId unknown " .. map.MapId);
 		else
-			VFL.print("UpdateZones no MapId");
+			--VFL.print("UpdateZones no MapId");
 		end
 		return
 	end

@@ -1585,7 +1585,7 @@ function ww:OnOK()
 		state:AddFeature({
 			feature = "Data Source: Secure Set";
 			set = {
-				file = "default:Party_fset",
+				file = "RDXDiskSystem:default:Party_fset",
 				class = "file",
 			},
 			rostertype = "RAID";
@@ -1608,7 +1608,7 @@ function ww:OnOK()
 		state:AddFeature({
 			feature = "Data Source: Secure Set";
 			set = {
-				file = "default:Party_fset",
+				file = "RDXDiskSystem:default:Party_fset",
 				class = "file",
 			},
 			rostertype = "RAID";
@@ -1623,7 +1623,7 @@ function ww:OnOK()
 	--	state:AddFeature({
 	--		feature = "Data Source: Secure Set";
 	--		set = {
-	--			file = "default:Party_fset",
+	--			file = "RDXDiskSystem:default:Party_fset",
 	--			class = "file",
 	--		},
 	--		rostertype = "RAID";
@@ -1664,7 +1664,7 @@ function ww:OnOK()
 		state:AddFeature({
 			feature = "Data Source: Secure Set";
 			set = {
-				file = "default:Boss_fset",
+				file = "RDXDiskSystem:default:Boss_fset",
 				class = "file",
 			},
 			rostertype = "BOSS";
@@ -1685,7 +1685,7 @@ function ww:OnOK()
 		state:AddFeature({
 			feature = "Data Source: Secure Set";
 			set = {
-				file = "default:Arena_fset",
+				file = "RDXDiskSystem:default:Arena_fset",
 				class = "file",
 			},
 			rostertype = "ARENA";
@@ -1706,7 +1706,7 @@ function ww:OnOK()
 		state:AddFeature({
 			feature = "Data Source: Secure Set";
 			set = {
-				file = "default:Arenapet_fset",
+				file = "RDXDiskSystem:default:Arenapet_fset",
 				class = "file",
 			},
 			rostertype = "ARENAPET";

@@ -71,7 +71,7 @@ end
 local function CreateErrWindow(state)
 	state:AddFeature({feature = "Frame: Lightweight", title = VFLI.i18n("Error compilation"), showtitlebar = true});
 	state:_SetSlotFunction("SetTitleText", VFL.Noop);
-	state:AddFeature({feature = "Design", design = "default:Health_ds"});
+	state:AddFeature({feature = "Design", design = "RDXDiskSystem:default:Health_ds"});
 	state:AddFeature({feature = "layout_single_unitframe", unit = "player", clickable = true});
 end
 

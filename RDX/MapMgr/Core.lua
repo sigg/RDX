@@ -201,6 +201,8 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	if not RDXU.Profs then RDXU.Profs = {}; end
 	if not RDXU.TBar then RDXU.TBar = {}; end
 	
+	if not RDXG["TaxiTime"] then RDXG["TaxiTime"] = {}; end
+	
 	WoWEvents:Bind("MERCHANT_SHOW", nil, RDXMAP.APIGuide.OnMerchant_show);
 	WoWEvents:Bind("MERCHANT_UPDATE", nil, RDXMAP.APIGuide.OnMerchant_update);
 	WoWEvents:Bind("GOSSIP_SHOW", nil, RDXMAP.APIGuide.OnGossip_show);

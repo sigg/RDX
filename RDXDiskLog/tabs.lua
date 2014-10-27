@@ -301,11 +301,11 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	if not tabs["CombatLogs1"] then
-		tabs["CombatLogs1"] = {
-			["ty"] = "TabCombatLogs",
-			["version"] = 1,
-			["data"] = {
+	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:CombatLogs1_" .. RDX.pspace);
+	if not mbo.data then
+		mbo.ty = "TabCombatLogs"; 
+		mbo.version = 1;
+		mbo.data = {
 				["title"] = "Player",
 				["filter"] = 1,
 				["tabwidth"] = "80",
@@ -347,15 +347,19 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 					},
 					["src"] = "player",
 				},
-			},
-		};
+			};
 	end
 	
-	if not tabs["CombatLogs2"] then
-		tabs["CombatLogs2"] = {
-			["ty"] = "TabCombatLogs",
-			["version"] = 1,
-			["data"] = {
+	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:CombatLogs1");
+	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "CombatLogs1_", ty = "TabCombatLogs"};
+	end
+	
+	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:CombatLogs2_" .. RDX.pspace);
+	if not mbo.data then
+		mbo.ty = "TabCombatLogs"; 
+		mbo.version = 1;
+		mbo.data = {
 				["title"] = "All",
 				["filter"] = 1,
 				["tabwidth"] = "80",
@@ -397,8 +401,12 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 					},
 					["src"] = "*",
 				},
-			},
-		};
+			};
+	end
+	
+	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:CombatLogs2");
+	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "CombatLogs2_", ty = "TabCombatLogs"};
 	end
 	
 	if not tabs["CombatLogs3"] then

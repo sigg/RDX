@@ -119,20 +119,20 @@ function RDXMAP.Travel:CaptureTaxi()
 
 	self.TaxiNameStart = false
 
-	local taxiT = NxCData["Taxi"]
+	--local taxiT = NxCData["Taxi"]
 
 	for n = 1, NumTaxiNodes() do
 
 --		local locName = strsplit (",", TaxiNodeName (n))
 		local locName = TaxiNodeName (n)
 
-		taxiT[locName] = true
+		--taxiT[locName] = true
 
 		if TaxiNodeGetType (n) == "CURRENT" then
 
 			self.TaxiNameStart = locName
 
-			if NxData.DebugMap then
+			if RDXG.DebugMap then
 				local name = RDXMAP.APITravel.FindTaxis2(n)
 				VFL.vprint ("Taxi current %s (%s)", name or "nil", locName)
 			end
@@ -248,14 +248,14 @@ function RDXMAP.Travel:TaxiCalcTime (dest)
 				local routeName = srcName .. "#" .. destName
 
 				if t == 0 then
-
-					local tt = NxData.NXTravel["TaxiTime"]
+					-- todo
+					local tt = RDXG["TaxiTime"]
 
 					t = tt[routeName]
 
 					if not t then
 
-						if NxData.DebugMap then
+						if RDXG.DebugMap then
 							VFL.vprint (" No taxi data %s to %s", srcName, destName)
 						end
 
@@ -269,7 +269,7 @@ function RDXMAP.Travel:TaxiCalcTime (dest)
 
 				tm = tm + t
 
-				if NxData.DebugMap then
+				if RDXG.DebugMap then
 					VFL.vprint (" #%s %s to %s, %s secs", n, srcName, destName, t)
 				end
 
@@ -382,7 +382,7 @@ function RDXMAP.Travel:TaxiSaveTime (tm)
 
 	if self.TaxiSaveName then		-- Need?
 
-		NxData.NXTravel["TaxiTime"][self.TaxiSaveName] = tm
+		RDXG["TaxiTime"][self.TaxiSaveName] = tm
 		self.TaxiSaveName = false
 	end
 end

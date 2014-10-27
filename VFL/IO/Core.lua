@@ -148,6 +148,7 @@ ChatEdit_SetLastActiveWindow = function(editBox)
 	if editBox.edittex then editBox.edittex:Show(); end
 	VFL_DEFAULT_CHATFRAME = editBox.chatFrame;
 	DEFAULT_CHAT_FRAME = editBox.chatFrame;
+	ACTIVE_CHAT_EDIT_BOX = editBox;
 	cslaw(editBox);
 end
 

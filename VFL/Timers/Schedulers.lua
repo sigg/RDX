@@ -112,7 +112,10 @@ local ads2 = {};
 
 function VFLT.AdaptiveSchedule2(id, interval, func)
 	if not id then VFL.print("id is null"); return; end
-	if ads2[id] then VFL.print("id already exist" .. id); return; end
+	if ads2[id] then 
+		VFL.print("id already exist" .. id); 
+		return;
+	end
 	local asframe = VFLUI.AcquireFrame("Frame");
 	asframe:Show();
 	asframe.elapsed = 0;

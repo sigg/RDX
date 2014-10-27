@@ -15,7 +15,7 @@ local function BuildWindowList(pkgfilter)
 				if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "^Window$") then
 					local hide = RDXDB.HasFeature(md.data, "WindowListHide");
 					if not hide then
-						table.insert(wl, {path = RDXDB.MakePath("RDXDiskTheme", pkg, file), data = md.data});
+						table.insert(wl, {text = (pkg .. ":" .. file), path = RDXDB.MakePath("RDXDiskTheme", pkg, file), data = md.data});
 					end
 				end
 			end
@@ -253,9 +253,9 @@ list:Rebuild(); list:Show();
 list:SetDataSource(function(cell, data, pos)
 	local p = data.path;
 	if RDXDB.PathHasInstance(p) then
-		cell.text:SetText("|cFF00FF00" .. p .. "|r");
+		cell.text:SetText("|cFF00FF00" .. data.text .. "|r");
 	else
-		cell.text:SetText(p);
+		cell.text:SetText(data.text);
 	end
 	cell:SetScript("OnClick", function(self, arg1)
 		if arg1 == "LeftButton" then
