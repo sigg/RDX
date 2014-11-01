@@ -393,15 +393,17 @@ local function InitObjectDB()
 	--- Get a package's contents, creating it if it doesn't exist.
 	function RDXDB.GetOrCreatePackage(dk, pkg, infoversion, infoname, inforealm, infoemail, infowebsite, infocomment)
 		local disk = RDXDB.GetDisk(dk);
-		local d = disk[pkg];
-		if not d then
-			if RDXDB.CreatePackage(dk, pkg, infoversion, infoname, inforealm, infoemail, infowebsite, infocomment) then
-				return disk[pkg];
-			else
-				return nil;
+		if disk then
+			local d = disk[pkg];
+			if not d then
+				if RDXDB.CreatePackage(dk, pkg, infoversion, infoname, inforealm, infoemail, infowebsite, infocomment) then
+					return disk[pkg];
+				else
+					return nil;
+				end
 			end
+			return d;
 		end
-		return d;
 	end
 
 	--- Create a package. Returns (NIL, error code) on failure.

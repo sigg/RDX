@@ -134,7 +134,9 @@ end
 -- cette fonction récupère le mapid ou se trouve le joueur
 -- ne remonte plus le subzone dans la version RDX
 function RDXMAP.APIMap.GetRealMapId()
-	return myunit.mapId
+	if myunit then 
+		return myunit.mapId
+	end
 end
 
 --------

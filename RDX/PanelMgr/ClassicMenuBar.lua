@@ -541,6 +541,28 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	elseif RDXU.currentstate == "ARENA" then
 		miniPane:SetColor(1,1,0);
 	end
+
+	--[[
+	local btn = VFLUI.Button:new();
+	btn:SetHeight(30); btn:SetWidth(100);
+	btn:SetText(VFLI.i18n("Menu"));
+	btn:SetClampedToScreen(true);
+	btn:SetFrameStrata("FULLSCREEN_DIALOG");
+	btn:Show();
+	btn:ClearAllPoints();
+	btn:SetPoint("CENTER", RDXParent, "CENTER");
+	if RDXPM.Ismanaged("MenuBar") then RDXPM.RestoreLayout(btn, "MenuBar"); end
+	btn:SetMovable(true);
+	
+	UpdateMicroButtonsParent(btn)
+	MoveMicroButtons("TOPLEFT", btn, "TOPLEFT", 10, 25)
+	
+	btn:SetScript("OnMouseDown", function(th) th:StartMoving(); end);
+	btn:SetScript("OnMouseUp", function(th) th:StopMovingOrSizing(); RDXPM.StoreLayout(btn, "MenuBar"); end);
+	
+	MoveMicroButtons = VFL.Noop;
+	UpdateMicroButtonsParent = VFL.Noop;
+	]]
 end);
 
 function RDXPM.GetMiniPane() return miniPane; end

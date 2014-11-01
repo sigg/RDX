@@ -168,15 +168,19 @@ function RDXDK.Desktop:new(parent)
 		RDXDK.SetRealid(desc);
 	end
 	
+	local function UpdateBlizzMenu(desc)
+		RDXDK.SetBlizzMenu(desc);
+	end
+	
 	local function LockGameTooltip()
 		RDXDK:Debug(6, "LockGameTooltip");
 		local desc = RDXDK.GetLockGameTooltip();
 		local desc2 = RDXDK.GetLockRealid();
+		local desc3 = RDXDK.GetLockBlizzMenu();
 		if framepropsroot then
-			if not framepropsroot.gametooltip then framepropsroot.gametooltip = {}; end
-			if not framepropsroot.realid then framepropsroot.realid = {}; end
 			framepropsroot.gametooltip = desc;
 			framepropsroot.realid = desc2;
+			framepropsroot.blizzmenu = desc3;
 		end
 	end
 	
@@ -184,6 +188,7 @@ function RDXDK.Desktop:new(parent)
 		RDXDK:Debug(6, "UnlockGameTooltip");
 		RDXDK.SetUnlockGameTooltip();
 		RDXDK.SetUnlockRealid();
+		RDXDK.SetUnlockBlizzMenu();
 	end
 	
 	-- ALERT
@@ -302,6 +307,7 @@ function RDXDK.Desktop:new(parent)
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP_LOCK", nil, LockGameTooltip, "desktop");
 	DesktopEvents:Bind("DESKTOP_GAMETOOLTIP_UNLOCK", nil, UnlockGameTooltip, "desktop");
 	DesktopEvents:Bind("DESKTOP_REALID", nil, UpdateRealid, "desktop");
+	DesktopEvents:Bind("DESKTOP_BLIZZMENU", nil, UpdateBlizzMenu, "desktop");
 	DesktopEvents:Bind("DESKTOP_RDXICON_POSITION", nil, UpdateRDXIconPosition, "desktop");
 	DesktopEvents:Bind("DESKTOP_RDXICON_TYPE", nil, UpdateRDXIconType, "desktop");
 	DesktopEvents:Bind("DESKTOP_ALERTS", nil, UpdateAlerts, "desktop");
@@ -1264,7 +1270,7 @@ RDXDB.RegisterObjectType({
 				text = VFLI.i18n("Copy from default"),
 				func = function()
 					VFL.poptree:Release();
-					RDXDB.Copy("RDXDiskSystem:desktops:" .. pkg .. "_default", path, "FORCE")
+					RDXDB.Copy("RDXDiskSystem:desktops:" .. dk .. "_" .. pkg .. "_default", path, "FORCE")
 				end
 			});
 			table.insert(mnu, {
@@ -1282,6 +1288,20 @@ RDXDB.RegisterObjectType({
 		end
 	end,
 });
+
+function RDXDK.CopyDesktopDefault()
+	local pkg = RDXDB.GetPackage("RDXDiskSystem", "desktops")
+	for objName, obj in pairs(pkg) do
+		if type(obj) == "table" and obj.ty == "Desktop" then 
+			local _, _, a, b, c = string.find(objName, "^(.*)_(.*)_(.*)$");
+			if b and RDXDB.GetDisk(a) and c == "default" then
+				--VFL.print("RDXDiskSystem:desktops:" .. a .. "_" .. b .. "_" .. c);
+				--VFL.print(RDXDB.MakePath(a, b, "autodesk"));
+				RDXDB.Copy("RDXDiskSystem:desktops:" .. a .. "_" .. b .. "_" .. c, RDXDB.MakePath(a, b, "autodesk"), "FORCE")
+			end
+		end
+	end
+end
 
 ---------------------------
 -- 

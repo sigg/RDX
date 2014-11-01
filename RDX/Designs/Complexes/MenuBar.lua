@@ -2,41 +2,24 @@
 -- OpenRDX
 -- Sigg Rashgarroth EU
 
+-- DEPRECATED
+
 -- taille normal : 58 28 25 18  6, 6
 -- taille petit  : 36 19 15 11  4, 4
 
 --table.insert(MICRO_BUTTONS, "FriendsMicroButton");
 
+RDXUpdateMicroButtonsParent = UpdateMicroButtonsParent
+RDXMoveMicroButtons = MoveMicroButtons
+
+UpdateMicroButtonsParent = VFL.Noop;
+MoveMicroButtons = VFL.Noop;
+
 local function _EmitCreateCode(objname, desc)
-	desc.nIcons = #MICRO_BUTTONS;
 	local createCode = [[
-	frame.]] .. objname .. [[ = {};
 	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
-	local error;
-	for i=1, ]] .. desc.nIcons .. [[ do
-		btn = VFLUI.AcquireFrame("BlizzardElement", MICRO_BUTTONS[i]);
-		if btn then
-			btn:SetParent(btnOwner);
-			btn:SetFrameLevel(btnOwner:GetFrameLevel());
-			btn:Show();
-		else
-			error = true;
-		end
-		frame.]] .. objname .. [[[i] = btn;
-	end
-	if error then
-		RDX.printE("BlizzardMicroButtons already used");
-	else
-]];
-	createCode = createCode .. RDXUI.LayoutCodeMultiRows(objname, desc);
-	createCode = createCode .. [[
-	-- PATCH Micromenu button anwful
-	MainMenuMicroButton._SetPoint = MainMenuMicroButton.SetPoint;
-	MainMenuMicroButton.SetPoint = VFL.noop;
-	HelpMicroButton._Hide = HelpMicroButton.Hide;
-	HelpMicroButton.Hide = VFL.noop;
-	--
-end
+	RDXUpdateMicroButtonsParent(btnOwner)
+	RDXMoveMicroButtons("TOPLEFT", btnOwner, "TOPLEFT", 0, 22)
 ]];
 	return createCode;
 end
@@ -77,18 +60,6 @@ RDX.RegisterFeature({
 		
 		------------------ On frame destruction.
 		local destroyCode = [[
-		-- PATCH
-		HelpMicroButton.Hide = HelpMicroButton._Hide;
-		HelpMicroButton._Hide = nil;
-		MainMenuMicroButton.SetPoint = MainMenuMicroButton._SetPoint
-		MainMenuMicroButton._SetPoint = nil;
-		--
-		local btn = nil;
-		for i=1, ]] .. desc.nIcons .. [[ do
-			btn = frame.]] .. objname .. [[[i];
-			if btn then btn:Destroy(); btn = nil; end
-		end
-		frame.]] .. objname .. [[ = nil;
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 

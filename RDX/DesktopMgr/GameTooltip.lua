@@ -180,6 +180,56 @@ function RDXDK.GetLockRealid()
 	return descr;
 end
 
+------------------------------
+-- Menu Blizzard
+------------------------------
+local descb = {};
+local anchorxmb, anchorymb = 0, 0;
+local btnmb = VFLUI.Button:new();
+btnmb:SetHeight(30); btnmb:SetWidth(100);
+btnmb:SetText(VFLI.i18n("BlizzMenu"));
+btnmb:SetClampedToScreen(true);
+btnmb:SetFrameStrata("FULLSCREEN_DIALOG");
+btnmb:Hide();
+btnmb:ClearAllPoints();
+btnmb:SetPoint("CENTER", RDXParent, "CENTER");
+--UpdateMicroButtonsParent(btnmb)
+--MoveMicroButtons("TOPLEFT", btnmb, "TOPLEFT", 10, 25)
+
+-- on desktop update
+-- update Realid
+function RDXDK.SetBlizzMenu(desc)
+	--VFL.copyInto(descr, desc);
+	descb = desc;
+	if descb.anchorxmb and descb.anchorymb then
+		btnmb:ClearAllPoints();
+		btnmb:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.anchorxmb, descb.anchorymb);
+	end
+end
+
+-- on desktop unlock
+-- Show the moving box
+function RDXDK.SetUnlockBlizzMenu()
+	btnmb:ClearAllPoints();
+	btnmb:SetPoint("BOTTOMLEFT", RDXParent, "BOTTOMLEFT", descb.anchorxmb, descb.anchorymb);
+	btnmb:Show();
+	btnmb:SetMovable(true);
+	btnmb:SetScript("OnMouseDown", function(th) th:StartMoving(); end);
+	btnmb:SetScript("OnMouseUp", function(th) th:StopMovingOrSizing(); descb.anchorxmb,_,_,descb.anchorymb = VFLUI.GetUniversalBoundary(btnmb); end);
+end
+
+-- on desktop lock
+-- Hide the moving box
+-- return all data to desktop
+function RDXDK.GetLockBlizzMenu()
+	btnmb:SetMovable(nil);
+	btnmb:SetScript("OnMouseDown", nil);
+	btnmb:SetScript("OnMouseUp", nil);
+	--btnmb:Hide();
+	return descb;
+end
+
+
 -- Hook secure
 RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	opt =  RDXG.RDXopt;
@@ -438,3 +488,4 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 		BNToastFrame:SetPoint("CENTER", btnrid, "CENTER");
 	end
 end);
+

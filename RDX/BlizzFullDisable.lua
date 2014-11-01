@@ -228,7 +228,6 @@ local function DisableAll()
 		MainMenuBarArtFrame:SetScript("OnUpdate", nil);
 		MainMenuBarArtFrame:Hide();
 		MainMenuBar_ToPlayerArt = VFL.Noop;
-		MoveMicroButtons = VFL.Noop;
 		
 		MainMenuBar:UnregisterEvent("BAG_UPDATE");
 		MainMenuBar:UnregisterEvent("ACTIONBAR_PAGE_CHANGED");
@@ -236,8 +235,6 @@ local function DisableAll()
 		MainMenuBar:UnregisterEvent("ADDON_LOADED");
 		--MainMenuBar:UnregisterEvent("UNIT_LEVEL");
 		ActionBarController_UpdateAll = VFL.Noop;
-		UpdateMicroButtonsParent = VFL.Noop;
-		MoveMicroButtons = VFL.Noop;
 		StanceBar_Update = VFL.Noop;
 		MainMenuBarVehicleLeaveButton_OnEvent = VFL.Noop;
 		MainMenuBarVehicleLeaveButton:SetScript("OnShow", MainMenuBarVehicleLeaveButton.Hide);

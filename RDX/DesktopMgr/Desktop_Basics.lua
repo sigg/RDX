@@ -52,6 +52,12 @@ RDX.RegisterFeature({
 		desc.anchorxrid = nil;
 		desc.anchoryrid = nil;
 		
+		if not desc.blizzmenu then
+			desc.blizzmenu = {};
+			desc.blizzmenu.anchorxmb = 200;
+			desc.blizzmenu.anchorymb = 200;
+		end
+		
 		if not desc.nameplates then
 			desc.nameplates = {};
 			desc.nameplates.bkd = { _bkdtype = 2; borl = 2; bors = 1; _border = "fer9"; bgFile = "Interface\\Addons\\VFL\\Skin\\white"; tileSize = 16; tile = true; _backdrop = "solid"; edgeSize =8; edgeFile = "Interface\\AddOns\\RDX_mediapack\\Ferous\\Borders\\fer9"; kr = 0; kg = 0; kb = 0; ka = 0.5};
@@ -180,6 +186,7 @@ DesktopEvents:Dispatch("WINDOW_OPEN", "root");
 DesktopEvents:Dispatch("DESKTOP_VIEWPORT", ]] .. useviewport .. [[, ]] .. desc.offsetleft .. [[, ]] .. desc.offsettop .. [[, ]] .. desc.offsetright .. [[, ]] .. desc.offsetbottom .. [[);
 DesktopEvents:Dispatch("DESKTOP_GAMETOOLTIP", ]] .. Serialize(desc.gametooltip) .. [[);
 DesktopEvents:Dispatch("DESKTOP_REALID", ]] .. Serialize(desc.realid) .. [[);
+DesktopEvents:Dispatch("DESKTOP_BLIZZMENU", ]] .. Serialize(desc.blizzmenu) .. [[);
 DesktopEvents:Dispatch("DESKTOP_RDXICON_POSITION", ]] .. desc.rdxiconx .. [[, ]] .. desc.rdxicony .. [[);
 DesktopEvents:Dispatch("DESKTOP_RDXICON_TYPE", ']] .. desc.rdxmtxt  .. [[');
 DesktopEvents:Dispatch("DESKTOP_ALERTS", ]] .. Serialize(desc.topstack_props) .. [[, ]] .. Serialize(desc.bottomstack_props) .. [[);
