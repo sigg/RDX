@@ -9,17 +9,19 @@
 -- The windows list container
 local wl = {};
 local function BuildWindowList()
-	local path = RDXU.AUI;
-	local _, _, pkgfilter = RDXDB.ParsePath(path);
 	VFL.empty(wl);
-	local desc = nil;
-	for pkg,data in pairs(RDXDB.GetDisk("RDXTheme")) do
-		if pkg == pkgfilter or RDXDB.IsCommonPackage("RDXTheme", pkg) then
-			for file,md in pairs(data) do
-				if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "Window$") then
-					local hide = RDXDB.HasFeature(md.data, "WindowListHide");
-					if not hide then
-						table.insert(wl, {text = RDXDB.MakePath("RDXTheme", pkg, file)});
+	local _, _, auiname = RDXDB.ParsePath(RDXU.AUI);
+	local _, _, a, b = string.find(auiname, "^(.*)_(.*)$");
+	if b then
+		local desc = nil;
+		for pkg,data in pairs(RDXDB.GetDisk(a)) do
+			if pkg == b or RDXDB.IsCommonPackage(a, pkg) then
+				for file,md in pairs(data) do
+					if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "Window$") then
+						local hide = RDXDB.HasFeature(md.data, "WindowListHide");
+						if not hide then
+							table.insert(wl, {text = RDXDB.MakePath(a, b, file)});
+						end
 					end
 				end
 			end

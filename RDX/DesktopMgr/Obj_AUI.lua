@@ -258,7 +258,7 @@ end);
 ----------------------------
 
 RDXEvents:Bind("INIT_DESKTOP", nil, function()
-	if not RDXU.AUI and not RDXDB.ResolvePath(RDXU.AUI) then RDXU.AUI = "RDXDiskSystem:desktops:default"; end
+	if not RDXU.AUI and not RDXDB.ResolvePath(RDXU.AUI) then RDXU.AUI = "RDXDiskSystem:desktops:RDXDiskTheme_default"; end
 	if not RDXU.AUIState then RDXU.AUIState = "default"; end
 	
 	ChangeAUI(RDXU.AUI, RDXU.AUIState, true);
@@ -284,29 +284,32 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 end);
 
 local function ManageAutoDesk()
-	for pkg,dir in pairs(RDXDB.GetDisk("RDXDiskTheme")) do
-		local aex, adesk, isexist = nil, nil, nil;
-		adesk = dir["autodesk"];
-		if adesk and adesk.ty == "Desktop" then
-			isexist = RDXDB.CheckObject("RDXDiskSystem:desktops:".. pkg, "AUI");
+	
+	local aex, adesk, isexist
+	RDXDB.Foreach(function(dk, pkg, file, md)
+		local ty = RDXDB.GetObjectType(md.ty);
+		if not ty then return; end
+		if file == "autodesk" and md.ty == "Desktop" then
+			aex, adesk, isexist = nil, nil, nil;
+			isexist = RDXDB.CheckObject("RDXDiskSystem:desktops:".. dk .. "_" .. pkg, "AUI");
 			if not isexist then 
-				local mbo = RDXDB.TouchObject("RDXDiskSystem:desktops:".. pkg);
+				local mbo = RDXDB.TouchObject("RDXDiskSystem:desktops:".. dk .. "_" .. pkg);
 				mbo.data = {};
 				mbo.ty = "AUI"; 
 				mbo.version = 2;
 				table.insert(mbo.data, "default");
 			else
-				local mbo = RDXDB.TouchObject("RDXDiskSystem:desktops:".. pkg);
+				local mbo = RDXDB.TouchObject("RDXDiskSystem:desktops:".. dk .. "_" .. pkg);
 				if not VFL.vfind(mbo.data, "default") then
 					table.insert(mbo.data, "default");
 				end
 			end
-			local isexist2 = RDXDB.CheckObject("RDXDiskSystem:desktops:".. pkg .. "_default", "Desktop");
+			local isexist2 = RDXDB.CheckObject("RDXDiskSystem:desktops:".. dk .. "_" .. pkg .. "_default", "Desktop");
 			if not isexist2 then 
-				RDXDB.Copy("RDXDiskTheme:".. pkg .. ":autodesk", "RDXDiskSystem:desktops:".. pkg .. "_default");
+				RDXDB.Copy(dk ..":".. pkg .. ":autodesk", "RDXDiskSystem:desktops:".. dk .. "_" .. pkg .. "_default");
 			end
 		end
-	end
+	end);
 end
 RDXDK.ManageAutoDesk = ManageAutoDesk;
 

@@ -477,13 +477,12 @@ local function CreateMiniPane()
 		if mmvg then
 			mmvg = nil;
 			mini:StopMovingOrSizing();
-			--RDXPM.StoreLayout(mini, "MiniButton");
 			local anchorx,_,_,anchory = VFLUI.GetUniversalBoundary(mini);
 			DesktopEvents:Dispatch("DESKTOP_RDXICON_POSITION", anchorx, anchory, true);
 			return;
 		end
 		if(arg1 == "LeftButton") then
-			VFL.poptree:Begin(150, 12, mini, relpoint, VFLUI.GetRelativeLocalMousePosition(mini));
+			VFL.poptree:Begin(220, 12, mini, relpoint, VFLUI.GetRelativeLocalMousePosition(mini));
 			RDXPM.CompactMenu:Open(VFL.poptree, nil, nil, "TOPLEFT", 0, 0, nil);
 		end
 	end);

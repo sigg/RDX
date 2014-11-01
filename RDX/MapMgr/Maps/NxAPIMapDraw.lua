@@ -588,7 +588,7 @@ function RDXMAP.APIMap.DrawTracking (map, srcX, srcY, dstX, dstY, tex, name)
 
 		f.NxTip = format ("%s\n%d yds", s, dist * 4.575)
 
-		f.texture:SetTexture (RDXMAP.icontex[tex] or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconWayTarget")
+		f.texture:SetTexture (RDXMAP.icontex[tex] or "Interface\\AddOns\\RDX\\Skin\\Map\\IconWayTarget")
 		if RDXMAP.icontexCoord[tex] then
 			local tbl = RDXMAP.icontexCoord[tex];
 			f.texture:SetTexCoord (tbl[1], tbl[2], tbl[3], tbl[4])
@@ -654,7 +654,7 @@ function RDXMAP.APIMap.DrawTracking (map, srcX, srcY, dstX, dstY, tex, name)
 
 				if RDXMAP.APIMap.ClipFrameW (map, f, wx, wy, size, size, dir) then
 
-					f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconArrowGrad")
+					f.texture:SetTexture ("Interface\\AddOns\\RDX\\Skin\\Map\\IconArrowGrad")
 
 --					local a = n == pulse and .8 or .2
 --					f.texture:SetVertexColor (1, 1, 1, a)

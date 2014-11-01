@@ -142,7 +142,7 @@ function RDXMAP.IconGuide.UpdateMapIcons(map, guide)
 							local quest = RDXMAP.Quest.IdToQuest[qId]
 							local startName, zone, x, y = RDXMAP.GetSEPos (quest[2])
 							local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, x, y)
-							local tx = anyDaily and "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconExclaimB" or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconExclaim" 
+							local tx = anyDaily and "Interface\\AddOns\\RDX\\Skin\\Map\\IconExclaimB" or "Interface\\AddOns\\RDX\\Skin\\Map\\IconExclaim" 
 							local icon = RDXMAP.APIMap.AddIconPt (map, show and "!GQ" or "!GQC", wx, wy, nil, tx)
 							RDXMAP.APIMap.SetIconTip (icon, s)
 							icon.UDataQuestGiverD = qdata

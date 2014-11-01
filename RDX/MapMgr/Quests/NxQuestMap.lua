@@ -68,7 +68,7 @@ function RDXMAP.Quest.UpdateIcons (map)
 					if cur.PartyNames then
 						f.NxTip = f.NxTip .. "\n" .. cur.PartyNames
 					end
-					f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconQuestion")
+					f.texture:SetTexture ("Interface\\AddOns\\RDX\\Skin\\Map\\IconQuestion")
 				end
 			end
 		end
@@ -128,7 +128,7 @@ function RDXMAP.Quest.UpdateIcons (map)
 
 					if RDXMAP.APIMap.ClipFrameW (map, f, wx, wy, navscale, navscale, 0) then
 						f.NxTip = format ("%s\nStart: %s (%.1f %.1f)", qname, startName, x, y)
-						f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconExclaim")
+						f.texture:SetTexture ("Interface\\AddOns\\RDX\\Skin\\Map\\IconExclaim")
 					end
 				end
 			else
@@ -158,8 +158,8 @@ function RDXMAP.Quest.UpdateIcons (map)
 						f.NxTip = f.NxTip .. "\n" .. cur.PartyNames
 					end
 					f.texture:SetVertexColor (.6, 1, .6, 1)
-					f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconQuestion")
---					f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconQTarget")
+					f.texture:SetTexture ("Interface\\AddOns\\RDX\\Skin\\Map\\IconQuestion")
+--					f.texture:SetTexture ("Interface\\AddOns\\RDX\\Skin\\Map\\IconQTarget")
 				end
 			end
 		end
@@ -242,10 +242,10 @@ function RDXMAP.Quest.UpdateIcons (map)
 									end
 
 									if cnt == 1 then
-										f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconQTarget")
+										f.texture:SetTexture ("Interface\\AddOns\\RDX\\Skin\\Map\\IconQTarget")
 										f.texture:SetVertexColor (r, g, b, .9)
 									else
-										f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCirclePlus")
+										f.texture:SetTexture ("Interface\\AddOns\\RDX\\Skin\\Map\\IconCirclePlus")
 										f.texture:SetVertexColor (r, g, b, .5)
 									end
 								end
@@ -287,7 +287,7 @@ function RDXMAP.Quest.UpdateIcons (map)
 									f.NXData = cur
 									f.NxTip = tip
 
-									f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconAreaArrows")
+									f.texture:SetTexture ("Interface\\AddOns\\RDX\\Skin\\Map\\IconAreaArrows")
 
 									if tracking then
 										f.texture:SetVertexColor (.8, .8, .8, 1)

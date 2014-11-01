@@ -33,62 +33,66 @@ local function AUIList()
 	local pkg = RDXDB.GetPackage("RDXDiskSystem", "desktops")
 	for objName, obj in pairs(pkg) do
 		if type(obj) == "table" and obj.ty == "AUI" then 
-			local path = RDXDB.MakePath("RDXDiskSystem", "desktops", objName);
-			local newMenu;
-			local submenu = {};
-			local flag = nil;
-			local data = obj.data;
-			if #data > 1 then
-				table.insert(submenu,{ text = VFLI.i18n("**** Layout ****"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop });
-				for i, v in ipairs(data)do
-					table.insert(submenu, { 
-							text = v,
-							checked = function()
-								if path == RDXU.AUI and v == RDXU.AUIState then return true; else return nil; end
-							end,
-							func = function()
-								VFL.poptree:Release();
-								RDXDK.SecuredChangeAUI(path, v);
-								AUIList();
-							end,
-						}
-					);
-				end
-				flag = true;
-			end
-			local tbl = thirdpartymenu[objName];
-			if tbl then
-				VFL.copyInto(submenu, tbl);
-				flag = true;
-			end
-			if flag then
-				newMenu = {
-					text = objName,
-					checked = function()
-						if path == RDXU.AUI then return true; else return nil; end
-					end,
-					func = function()
-						VFL.poptree:Release();
-						RDXDK.SecuredChangeAUI(path, "default");
-						AUIList();
-					end,
-					hasArrow = true;
-					menuList = submenu;
-				};
-			else
-				newMenu = {
-					text = objName,
-					checked = function()
-						if path == RDXU.AUI then return true; else return nil; end
-					end,
-					func = function()
-						VFL.poptree:Release();
-						RDXDK.SecuredChangeAUI(path, "default");
-						AUIList();
+			local _, _, a, b = string.find(objName, "^(.*)_(.*)$");
+			if b and RDXDB.GetDisk(a) then
+				
+				local path = RDXDB.MakePath("RDXDiskSystem", "desktops", objName);
+				local newMenu;
+				local submenu = {};
+				local flag = nil;
+				local data = obj.data;
+				if #data > 1 then
+					table.insert(submenu,{ text = VFLI.i18n("**** Layout ****"), isTitle = true, notCheckable = true, keepShownOnClick = false, func = VFL.Noop });
+					for i, v in ipairs(data)do
+						table.insert(submenu, { 
+								text = v,
+								checked = function()
+									if path == RDXU.AUI and v == RDXU.AUIState then return true; else return nil; end
+								end,
+								func = function()
+									VFL.poptree:Release();
+									RDXDK.SecuredChangeAUI(path, v);
+									AUIList();
+								end,
+							}
+						);
 					end
-				};
+					flag = true;
+				end
+				local tbl = thirdpartymenu[objName];
+				if tbl then
+					VFL.copyInto(submenu, tbl);
+					flag = true;
+				end
+				if flag then
+					newMenu = {
+						text = objName,
+						checked = function()
+							if path == RDXU.AUI then return true; else return nil; end
+						end,
+						func = function()
+							VFL.poptree:Release();
+							RDXDK.SecuredChangeAUI(path, "default");
+							AUIList();
+						end,
+						hasArrow = true;
+						menuList = submenu;
+					};
+				else
+					newMenu = {
+						text = objName,
+						checked = function()
+							if path == RDXU.AUI then return true; else return nil; end
+						end,
+						func = function()
+							VFL.poptree:Release();
+							RDXDK.SecuredChangeAUI(path, "default");
+							AUIList();
+						end
+					};
+				end
+				table.insert(sortDUI, newMenu);
 			end
-			table.insert(sortDUI, newMenu);
 		end
 	end
 	table.sort(sortDUI, function(x1,x2) return x1.text < x2.text; end);
@@ -113,6 +117,7 @@ local function AUIList()
 		end
 	end
 	
+	--[[
 	RDXPM.AUIMenu:RegisterMenuFunction(function(ent)
 		ent.text = "*****************";
 		ent.isTitle = true;
@@ -131,8 +136,8 @@ local function AUIList()
 		ent.text = VFLI.i18n("Duplicate a theme");
 		ent.notCheckable = true;
 		--ent.hasArrow = true;
-		ent.func = function() VFL.poptree:Release(); DXDK.DuplicateAUI(); end;
-	end);
+		ent.func = function() VFL.poptree:Release(); RDXDK.DuplicateAUI(); end;
+	end);]]
 	
 	if RDXU.AUI then
 		local dk, pkg, file = RDXDB.ParsePath(RDXU.AUI);

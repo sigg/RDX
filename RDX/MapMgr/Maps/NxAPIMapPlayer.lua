@@ -59,7 +59,7 @@ function RDXMAP.APIMap.UpdatePlyrHistory(map)
 
 			if RDXMAP.APIMap.ClipFrameW (map, f, x, y, size, size, dir) then
 
-				f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCircleFade")
+				f.texture:SetTexture ("Interface\\AddOns\\RDX\\Skin\\Map\\IconCircleFade")
 				local a = (fadeTime - tmdif) / fadeTime * .9
 				f.texture:SetVertexColor (1, 0, 0, a)
 			end
@@ -172,7 +172,7 @@ function RDXMAP.APIMap.UpdateGroup (map, plX, plY)
 					txName = txName.."C"
 				end
 
-				f1.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\"..txName)
+				f1.texture:SetTexture ("Interface\\AddOns\\RDX\\Skin\\Map\\"..txName)
 
 --				VFL.vprint ("#%d %.1f %.1f", i, pX, pY)
 

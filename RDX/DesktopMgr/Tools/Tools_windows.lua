@@ -6,21 +6,33 @@
 
 -- The windows list container
 local wl = {};
-local function BuildWindowList(pkgfilter)
+local function BuildWindowList(dkfilter, pkgfilter)
 	VFL.empty(wl);
 	local desc = nil;
-	for pkg,data in pairs(RDXDB.GetDisk("RDXDiskTheme")) do
-		if not pkgfilter or pkg == pkgfilter or RDXDB.IsCommonPackage("RDXDiskTheme", pkg) then
+	for pkg,data in pairs(RDXDB.GetDisk(dkfilter)) do
+		if not pkgfilter or pkg == pkgfilter then
 			for file,md in pairs(data) do
 				if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "^Window$") then
 					local hide = RDXDB.HasFeature(md.data, "WindowListHide");
 					if not hide then
-						table.insert(wl, {text = (pkg .. ":" .. file), path = RDXDB.MakePath("RDXDiskTheme", pkg, file), data = md.data});
+						table.insert(wl, {text = (pkg .. ":" .. file), path = RDXDB.MakePath(dkfilter, pkg, file), data = md.data});
 					end
 				end
 			end
 		end
 	end
+	
+	RDXDB.Foreach(function(dk, pkg, file, md)
+		if RDXDB.IsCommonPackage(dk, pkg) then
+			if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "^Window$") then
+				local hide = RDXDB.HasFeature(md.data, "WindowListHide");
+				if not hide then
+					table.insert(wl, {text = (pkg .. ":" .. file), path = RDXDB.MakePath(dk, pkg, file), data = md.data});
+				end
+			end
+		end
+	end);
+	
 	table.sort(wl, function(x1,x2) return x1.path<x2.path; end);
 end
 
@@ -268,8 +280,11 @@ end, VFL.ArrayLiterator(wl));
 
 function RDXDK.ToolsWindowUpdate()
 	local _, _, auiname = RDXDB.ParsePath(RDXU.AUI);
-	BuildWindowList(auiname);
-	list:Update();
+	local _, _, a, b = string.find(auiname, "^(.*)_(.*)$");
+	if b then
+		BuildWindowList(a, b);
+		list:Update();
+	end
 end;
 
 -- Windows less
@@ -392,8 +407,11 @@ local function SetFramew(froot)
 	if not scale then scale = 1; end
 	slGScale:SetValue(scale);
 	
-	BuildWindowList(auiname);
-	list:Update();
+	local _, _, a, b = string.find(auiname, "^(.*)_(.*)$");
+	if b then
+		BuildWindowList(a, b);
+		list:Update();
+	end
 	BuildWindowLessList();
 	list2:Update();
 	DesktopEvents:Dispatch("DESKTOP_UNLOCK");

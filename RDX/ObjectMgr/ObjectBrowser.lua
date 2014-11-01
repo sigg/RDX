@@ -615,11 +615,9 @@ RDXDB.RegisterPackageMenuHandler(function(mnu, dk, pkg, dialog)
 end);
 
 RDXDB.RegisterPackageMenuHandler(function(mnu, dk, pkg, dialog)
-	if dk == "RDXData" then
-		table.insert(mnu, {
-			text = VFLI.i18n("Migrate disk"), func = function() VFL.poptree:Release(); MigratePackage(dk, pkg); end
-		});
-	end
+	table.insert(mnu, {
+		text = VFLI.i18n("Migrate disk"), func = function() VFL.poptree:Release(); MigratePackage(dk, pkg); end
+	});
 end);
 
 RDXDB.RegisterPackageMenuHandler(function(mnu, dk, pkg, dialog)

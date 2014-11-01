@@ -29,14 +29,14 @@ function VFLUI.IsMouseOver (frm)
 	local left = frm:GetLeft()
 	local right = frm:GetRight()
 
-	if x >= left and x <= right then
+	if x and x >= left and x <= right then
 
 		y = y / frm:GetEffectiveScale()
 
 		local top = frm:GetTop()
 		local bottom = frm:GetBottom()
 
-		if y >= bottom and y <= top then
+		if y and y >= bottom and y <= top then
 			return x - left, y - bottom
 		end
 	end

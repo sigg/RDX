@@ -97,7 +97,7 @@ icontex["VOS"] = "Interface\\Icons\\spell_nature_astralrecalgroup";
 icontex["WLT"] = "Interface\\Icons\\Spell_Nature_FaerieFire";
 icontex["WRT"] = "Interface\\Icons\\INV_Sword_27";
 icontex["D"] = "Interface\\Minimap\\POIIcons";
-icontex["Goto"] = "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconWayTarget";
+icontex["Goto"] = "Interface\\AddOns\\RDX\\Skin\\Map\\IconWayTarget";
 
 icontex["Star"] = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_1";
 icontex["Circle"] = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_2";
