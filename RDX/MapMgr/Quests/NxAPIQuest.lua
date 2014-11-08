@@ -62,6 +62,30 @@ function RDXMAP.APIQuest.FindCur (qId, qIndex)
 	end
 end
 
+function RDXMAP.APIQuest.GetLogIdLevel (index)
+	--VFL.print("INDEX " .. index);
+	if index > 0 then
+		local qlink = GetQuestLink (index)
+		if qlink then
+			local s1, _, id, level = strfind (qlink, "Hquest:(%d+):(.%d*)")
+			if s1 then
+
+--				VFL.vprint ("qlink %s", gsub (qlink, "|", "^"))
+
+				return tonumber (id), tonumber (level)
+			end
+		end
+	end
+end
+
+function RDXMAP.APIQuest.CreateLink (qId, realLevel, title)
+
+	if realLevel <= 0 then	-- Could be a 0
+		realLevel = -1
+	end
+	return format ("|cffffff00|Hquest:%s:%s|h[%s]|h|r", qId, realLevel, title)
+end
+
 function RDXMAP.APIQuest.ExtractTitle (title)
 
 --	VFL.vprint ("Orig '%s'", title)

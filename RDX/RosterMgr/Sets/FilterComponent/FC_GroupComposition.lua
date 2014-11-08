@@ -164,7 +164,7 @@ RDXDAL.RegisterFilterComponent({
 		ui:SetText(VFLI.i18n("Classes"));
 		local checks = VFLUI.CheckGroup:new(ui);
 		ui:SetChild(checks);
-		checks:SetLayout(11, 2);
+		checks:SetLayout(12, 2);
 		-- Populate checkboxes
 		for i=1,11 do 
 			checks.checkBox[i]:SetText(VFL.strtcolor(RDXMD.GetClassColor(i)) .. RDXMD.GetClassMnemonic(i) .. "|r"); 
@@ -470,7 +470,8 @@ RDXDAL.RegisterFilterComponent({
 		return "(" .. v .. "[unit:PowerType()])";
 	end,
 	EventsFromDescriptor = function(desc, metadata)
-		RDXDAL.FilterEvents_UnitUpdate(metadata, "UNIT_DISPLAYPOWER");
+		--RDXDAL.FilterEvents_UnitUpdate(metadata, "UNIT_DISPLAYPOWER");
+		RDXDAL.FilterEvents_UnitUpdate(metadata, "UNIT_POWER");
 	end,
 	SetsFromDescriptor = VFL.Noop,
 	ValidateDescriptor = VFL.True,

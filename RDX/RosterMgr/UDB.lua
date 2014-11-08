@@ -1844,6 +1844,7 @@ end);]]
 
 -- Powertype change
 WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function(arg1)
+	--VFL.print("UNIT_DISPLAYPOWER");
 	local x =_rtouched[strlower(arg1)];
 	if x then
 		RDXEvents:Dispatch("UNIT_DISPLAYPOWER", x, x.nid, arg1);
