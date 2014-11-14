@@ -19,8 +19,8 @@ local function BuildQuestsList(filter)
 	--local dbTitleIndex = list:ItemGetNum()
 	local dbTitleNum = 0
 	
-	for qId in pairs (Nx.CurCharacter.Q) do			-- Loop over quests with history
-
+	--for qId in pairs (Nx.CurCharacter.Q) do			-- Loop over quests with history
+	for qId in pairs (RDXU.Q) do
 		local quest = RDXMAP.Quest.IdToQuest[qId]
 
 		local status, qTime = RDXMAP.APIQuest.GetQuest (qId)
@@ -29,7 +29,7 @@ local function BuildQuestsList(filter)
 		local show = qCompleted
 
 		if show and not showAllZones then
-			show = Nx.Quest:CheckShow (mapId, qId)
+			show = RDXMAP.Quest.CheckShow (mapId, qId)
 		end
 
 		if show then
@@ -100,7 +100,7 @@ local function BuildQuestsList(filter)
 					haveStr = "|cffe0e0e0+ "
 				end
 
-				local color = Nx.Quest:GetDifficultyColor (lvl)
+				local color = GetQuestDifficultyColor (lvl)
 				color = format ("|cff%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255)
 
 				t.Desc = format ("%s %s%s%s", lvlStr, haveStr, color, title)

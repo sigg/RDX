@@ -112,7 +112,7 @@ function RDXMAP.UnpackSE (obj)
 	local i = (strbyte (obj) - 35) * 221 + (strbyte (obj, 2) - 35)
 	-- test sigg
 	
-	local name = Nx.QuestStartEnd[i]
+	local name = RDXMAP.QuestDataStartEnd[i]
 	--local name = self.QuestStartEnd[i]
 
 	if not name then

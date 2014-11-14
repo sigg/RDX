@@ -2,9 +2,36 @@ RDXMAP.APIQuest = {}
 
 -- Get status for a quest
 
+--------
+-- Do Blizzard select quest
+
+function RDXMAP.APIQuest.SelectBlizz (qi)
+
+	if qi > 0 then
+
+		SelectQuestLogEntry (qi)
+
+--		QuestLog_SetSelection (qi)
+--		QuestLog_Update()
+
+--[[
+		local lh = getglobal ("LightHeaded")
+		if lh then
+
+			if lh["SelectQuestLogEntry"] then
+				lh["SelectQuestLogEntry"](lh)
+			elseif lh["QuestLogTitleButton_OnClick"] then
+				lh["QuestLogTitleButton_OnClick"](lh)
+			end
+		end
+--]]
+	end
+end
+
 function RDXMAP.APIQuest.GetQuest (qId)
 
-	local quest = Nx.CurCharacter.Q[qId]
+	--local quest = Nx.CurCharacter.Q[qId]
+	local quest = RDXU.Q[qId]
 	if not quest then
 		return
 	end
@@ -18,7 +45,8 @@ function RDXMAP.APIQuest.SetQuest (qId, qStatus, qTime)
 
 	qTime = qTime or 0
 
-	Nx.CurCharacter.Q[qId] = qStatus .. qTime
+	--Nx.CurCharacter.Q[qId] = qStatus .. qTime
+	RDXU.Q[qId] = qStatus .. qTime
 end
 
 

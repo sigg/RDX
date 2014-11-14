@@ -56,8 +56,14 @@ local c2_]] .. objname .. " = " .. Serialize(desc.color2) .. [[
 		-- Creation
 		local orientation = "HORIZONTAL";
 		if desc.orientation == "VERTICAL" then orientation = "VERTICAL"; end
-		local reducey = desc.reducey or "false";
-		local reducex = desc.reducex or "false";
+		local reducey = "false";
+		if desc.reducey then
+			reducey = "true";
+		end
+		local reducex = "false";
+		if desc.reducex then
+			reducex = "true";
+		end
 		local createCode = [[
 	local _t = VFLUI.StatusBarTexture:new(]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[, ]] ..reducey..[[, ]] ..reducex..[[, "]] .. (desc.drawLayer or "ARTWORK") .. [[", ]] .. (desc.sublevel or "1") .. [[);
 	frame.]] .. objname .. [[ = _t;

@@ -34,7 +34,7 @@ end);
 		--{ text = VFLI.i18n("Package Explorer"), notCheckable = true, func = RDXDB.ToggleObjectBrowser },
 		--{ text = VFLI.i18n("Package Updater"), notCheckable = true, func = RDXDB.ToggleRAU },
 --		{ text = VFLI.i18n("Switch Talent"), notCheckable = true, func = function() 
---			local index = GetActiveTalentGroup();
+--			local index = GetActiveSpecGroup();
 --			if index == 1 then index = 2; else index = 1; end
 --			SetActiveTalentGroup(index); 
 --			end 

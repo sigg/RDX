@@ -5,14 +5,11 @@
 -------------------
 local function CheckShow (mapId, index)
 
-	local NxzoneToMapId = RDXMAP.Zone2MapId
-	local Quest = Nx.Quest
-
 	while true do
 
 		local qId = RDXMAP.Quest.Sorted[index]
 
-		if Quest:CheckShow (mapId, qId) then
+		if RDXMAP.Quest.CheckShow (mapId, qId) then
 			return true
 		end
 
@@ -212,7 +209,7 @@ list:SetDataSource(function(cell, data, pos)
 		
 		local cati = RDXMAP.UnpackCategory (quest[1])
 		if cati > 0 then
-			title = title .. " <" .. Nx.QuestCategory[cati] .. ">"
+			title = title .. " <" .. RDXMAP.QuestDataCategory[cati] .. ">"
 		end
 		if quest.CNum then
 --			if quest.CNum > 1 then
@@ -246,7 +243,7 @@ list:SetDataSource(function(cell, data, pos)
 			haveStr = "|cffe0e0e0+ "
 		end
 		
-		local color = Nx.Quest:GetDifficultyColor (lvl)
+		local color = GetQuestDifficultyColor (lvl)
 		color = format ("|cff%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255)
 
 		local str = format ("%s %s%s%s", lvlStr, haveStr, color, title)

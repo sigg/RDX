@@ -5,6 +5,12 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.version = 1;
 		mbo.data = {};
 	end
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:capQuest");
+	if not mbo.data then
+		mbo.ty = "Global"; 
+		mbo.version = 1;
+		mbo.data = {};
+	end
 	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
 	if not mbo.data then
 		mbo.ty = "Global"; 
@@ -263,5 +269,33 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.data["GryphonsHide"] = true;
 		mbo.data["SkinWinBdColor"] = 3435986943;
 		mbo.data["FontSH"] = 0;
+	end
+	
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:quest");
+	if not mbo.data then
+		mbo.ty = "Global"; 
+		mbo.version = 1;
+		mbo.data = {};
+		
+		mbo.data["NXShowHeaders"] = true;
+		mbo.data["NXSortWatchMode"] = 1;
+
+		mbo.data["NXWAutoMax"] = nil;
+		mbo.data["NXWVisMax"] = 8;
+		mbo.data["NXWShowOnMap"] = true;
+		mbo.data["NXWWatchParty"] = true;
+
+		mbo.data["NXWHideUnfinished"] = false;
+		mbo.data["NXWHideGroup"] = false;
+		mbo.data["NXWHideNotInZone"] = false;
+		mbo.data["NXWHideNotInCont"] = false;
+		mbo.data["NXWHideDist"] = 20000;
+
+		mbo.data["NXWPriDist"] = 1;
+		mbo.data["NXWPriComplete"] = 50;
+		mbo.data["NXWPriLevel"] = 20;
+
+		mbo.data["NXWPriGroup"] = -100;			-- Not used yet
+		
 	end
 end);

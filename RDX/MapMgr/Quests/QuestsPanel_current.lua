@@ -84,7 +84,7 @@ local function BuildQuestsList(filter)
 				lvlStr = format ("|cffd0d0d0%2d", level)
 			end
 
-			color = Nx.Quest:GetDifficultyColor (level)
+			color = GetQuestDifficultyColor (level)
 			color = format ("|cff%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255)
 
 			nameStr = format ("%s %s%s", lvlStr, color, title)

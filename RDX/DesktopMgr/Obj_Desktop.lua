@@ -377,7 +377,7 @@ function RDXDK.Desktop:new(parent)
 			--frame:SetClampedToScreen(frameprops.cts);
 			frame:WMGetPositionalFrame():SetClampedToScreen(true); --frameprops.cts);
 			local ap, l = frameprops.ap, frameprops.l;
-			local sp = GetSavePosition(name)
+			--local sp = GetSavePosition(name)
 			if name == "root" then
 				frame:WMGetPositionalFrame():SetAllPoints(RDXParent);
 				RDXDK:Debug(9, "   -- LayoutFrame AllPoints(RDXParent)");
@@ -385,9 +385,9 @@ function RDXDK.Desktop:new(parent)
 				if not ap or ap == "Auto" then ap = "TOPLEFT"; end
 				VFLUI.SetAnchorFramebyPosition(frame:WMGetPositionalFrame(), ap, frameprops.l, frameprops.t, frameprops.r, frameprops.b);
 				RDXDK:Debug(9, "   -- LayoutFrame Position(".. ap ..",".. frameprops.l ..")");
-			elseif name ~= "root" and sp then
-				VFLUI.SetAnchorFramebyPosition(frame:WMGetPositionalFrame(), "TOPLEFT", sp.l, sp.t, sp.r, sp.b);
-				VFL.copyInto(frameprops, sp);
+			--elseif name ~= "root" and frameprops then
+			--	VFLUI.SetAnchorFramebyPosition(frame:WMGetPositionalFrame(), "TOPLEFT", frameprops.l, frameprops.t, frameprops.r, frameprops.b);
+				--VFL.copyInto(frameprops, sp);
 			else
 				frame:WMGetPositionalFrame():SetPoint("CENTER", RDXParent, "CENTER");
 				local rgn = frame:WMGetPositionalFrame();
@@ -637,23 +637,31 @@ function RDXDK.Desktop:new(parent)
 				end
 				local dolayout = nil;
 				if not frameprops then
-					frameprops = {
-						feature = wtype;
-						name = name;
-						open = true;
-						scale = 1;
-						alpha = 1;
-						strata = "MEDIUM";
-						anchor = "TOPLEFT";
-					};
-					RDXDB.AddFeatureData(self._path, wtype, "name", name, frameprops);
-					dolayout = true;
+					frameprops = GetSavePosition(name);
+					if frameprops then
+						RDXDB.AddFeatureData(self._path, wtype, "name", name, frameprops);
+						dolayout = true;
+					else
+						frameprops = {
+							feature = wtype;
+							name = name;
+							open = true;
+							scale = 1;
+							alpha = 1;
+							strata = "MEDIUM";
+							anchor = "TOPLEFT";
+						};
+						RDXDB.AddFeatureData(self._path, wtype, "name", name, frameprops);
+						dolayout = true;
+					end
 				end
 				RDXDK.AddUnlockOverlay(frame, frameprops);
 				RDXDK.ImbueManagedFrame(frame, name);
 				frameList[name] = frame;
 				framePropsList[name] = frameprops;
-				if dolayout then LayoutFrame(name); end
+				if dolayout then 
+					LayoutFrame(name);
+				end
 				if not lockstate then frame:Unlock(frameprops); end
 			end
 		else

@@ -38,7 +38,10 @@ RDX.RegisterFeature({
 	ApplyFeature = function(desc, state)
 		local alpha = desc.alpha or 1;
 		local dx,dy = desc.w, desc.h;
-		local hlt = desc.hlt or "false";
+		local hlt = "false";
+		if desc.hlt then
+			hlt = "true";
+		end
 		local createCode = [[
 	local BaseWidth = ]] .. dx .. [[;
 	local BaseHeight = ]] .. dy .. [[;

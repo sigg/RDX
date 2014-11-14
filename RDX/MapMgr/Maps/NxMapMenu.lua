@@ -892,9 +892,10 @@ end
 -- Generic icon goto
 
 function RDXMAP.Map:GMenu_OnGoto()
-	if Nx and Nx.Quest then
+	--if Nx and Nx.Quest then
 		Nx.Quest.Watch:ClearAutoTarget()
-	end
+		RDXMapEvents:Dispatch("Watch:ClearAutoTarget");
+	--end
 
 	if self.ClickType == 3001 then
 		if Nx and Nx.Social then

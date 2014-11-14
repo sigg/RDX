@@ -282,7 +282,7 @@ end
 
 local function ICW_SetScale(self, scale)
 	if not self.clientArea then return; end
-	self.clientArea:SetScale(scale);
+	self.clientArea:SetScale(scale or 1);
 end
 
 local function ICW_SetAlpha(self, alpha)

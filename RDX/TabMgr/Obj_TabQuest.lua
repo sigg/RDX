@@ -55,7 +55,9 @@ function RDX.QuestFrame:new(path, desc)
 		--if not RDXU.mapSettings.cquests then RDXU.mapSettings.cquests = {}; end
 		--if not RDXU.mapSettings.cquests.hide then RDXU.mapSettings.cquests.hide = {}; end
 		if Nx then
-			local qopts = Nx:GetQuestOpts() ---
+			local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:quest");
+			local qopts = mbo.data
+			--local qopts = Nx:GetQuestOpts() ---
 			local hideUnfinished = qopts["NXWHideUnfinished"]
 			local hideGroup = qopts["NXWHideGroup"]
 			local hideNotInZone = qopts["NXWHideNotInZone"]
@@ -134,7 +136,7 @@ function RDX.QuestFrame:new(path, desc)
 					lvlStr = format ("|cffd0d0d0%2d", level)
 				end
 
-				color = Nx.Quest:GetDifficultyColor (level)
+				color = GetQuestDifficultyColor (level)
 				--color = format ("|cff%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255)
 
 				nameStr = format ("%s %s%s", lvlStr, "|cfff4ac00", title)
@@ -413,7 +415,7 @@ function RDX.QuestFrame:new(path, desc)
 		
 		local lvlStr = ""
 		if level > 0 then
-			local col = Nx.Quest:GetDifficultyColor (level)
+			local col = GetQuestDifficultyColor (level)
 			lvlStr = format ("|cff%02x%02x%02x%2d%s ", col.r * 255, col.g * 255, col.b * 255, level, cur.TagShort)
 		end
 		--local nameStr = format ("%s%s%s", lvlStr, color, cur.Title)

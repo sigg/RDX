@@ -435,7 +435,7 @@ function RDXDK.SetFramew_window(frameprops)
 			lblStrata:Show(); ddStrata:Show();
 			lblLayout:Show(); ddLayout:Show();
 		end
-		slScale:SetValue(frameprops.scale, true);
+		slScale:SetValue(frameprops.scale or 1, true);
 		slAlpha:SetValue(frameprops.alpha, true);
 		ddStrata:SetSelection(frameprops.strata, true);
 		ddLayout:SetSelection(frameprops.raidlayout, true);

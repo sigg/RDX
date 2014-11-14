@@ -112,7 +112,7 @@ local function CreateMainPane()
 			--VFL.poptree:Begin(160, 14, self, "BOTTOMLEFT", VFLUI.GetRelativeLocalMousePosition(self));
 			--RDXPM.CharacterMenu:Open(nil, nil, nil, nil, nil, VFL.poptree);
 		elseif(arg1 == "RightButton") then
-			local index = GetActiveTalentGroup();
+			local index = GetActiveSpecGroup();
 			if index == 1 then index = 2; else index = 1; end
 			SetActiveTalentGroup(index);
 		end

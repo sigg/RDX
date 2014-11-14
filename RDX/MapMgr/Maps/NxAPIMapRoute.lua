@@ -268,9 +268,8 @@ end
 
 function RDXMAP.APIMap.RouteToTargets (map, route, targetIcon)
 
-	if Nx and Nx.Quest then
-		Nx.Quest.Watch:ClearAutoTarget()
-	end
+	--Nx.Quest.Watch:ClearAutoTarget()
+	RDXMapEvents:Dispatch("Watch:ClearAutoTarget");
 
 	local mapId = map.MapId
 

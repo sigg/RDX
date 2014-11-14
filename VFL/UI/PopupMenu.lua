@@ -44,7 +44,7 @@ local function UnivMenuApplyData(cell, data)
 	-- Set pictorials
 	if(data.hasArrow) then 
 		cell.icon:Show();
-	elseif data.checked and data.checked() then
+	elseif data.checked and type(data.checked) == "function" and data.checked() then
 		cell.icon:SetTexture("Interface\\AddOns\\VFL\\Skin\\DotOn");
 		cell.icon:Show();
 	elseif(data.texture) then

@@ -1,17 +1,20 @@
 
+local ChoicesQAreaTex = {
+		["SolidTexture"] = "Interface\\Buttons\\White8x8",
+		["HGrad"] = "Interface\\AddOns\\Carbonite\\Gfx\\Map\\AreaGrad",
+	}
+
 --------
 -- Update map icons (called by map)
 
 function RDXMAP.Quest.UpdateIcons (map)
-	if not Nx then return; end
-	local Nx = Nx
-	local Quest = Nx.Quest
 	
-	local qLocColors = Quest.QLocColors
+	local qLocColors = RDXMAP.Quest.QLocColors
 	local ptSz = 4 * map.ScaleDraw
 
 	local navscale = map.LOpts.NXIconNavScale * 16
-	local showOnMap = Quest.Watch.ButShowOnMap:GetPressed()
+	--local showOnMap = Quest.Watch.ButShowOnMap:GetPressed()
+	local showOnMap = true
 
 	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
 	local opts = mbo.data
@@ -30,8 +33,8 @@ function RDXMAP.Quest.UpdateIcons (map)
 		local i, cur = RDXMAP.APIQuest.FindCur (qid)
 
 		if cur then
-			Quest:CalcDistances (cur.Index, cur.Index)
-			Quest:TrackOnMap (cur.QId, tid % 100, cur.QI > 0 or cur.Party, true, true)
+			RDXMAP.Quest.CalcDistances (cur.Index, cur.Index)
+			RDXMAP.Quest.TrackOnMap (cur.QId, tid % 100, cur.QI > 0 or cur.Party, true, true)
 
 --			VFL.vprint ("UpIcons target %s %s", typ or "nil", tid or "nil")
 		end
@@ -100,7 +103,7 @@ function RDXMAP.Quest.UpdateIcons (map)
 
 	-- Draw
 
-	local areaTex = Nx.Opts.ChoicesQAreaTex[opts["QMapWatchAreaGfx"]]
+	local areaTex = ChoicesQAreaTex[opts["QMapWatchAreaGfx"]]
 
 	local colorPerQ = opts["QMapWatchColorPerQ"]
 	local colMax = opts["QMapWatchColorCnt"]
@@ -351,7 +354,6 @@ function RDXMAP.Quest.UpdateIcons (map)
 												f.texture:SetTexture (r, g, b, col[4])
 											end
 										end
-
 									end
 								end
 							end
@@ -391,5 +393,414 @@ function RDXMAP.Quest.IconOnMouseDown (frm)
 		Nx.Quest.IconMenu:Open(VFL.poptree, nil, nil, "TOPLEFT", 0, 0, nil);
 		
 		--self.IconMenu:Open()
+	end
+end
+
+
+--------
+-- Track quest on map
+
+function RDXMAP.Quest.TrackOnMap (qId, qObj, useEnd, target, skipSame)
+	
+	local BlizIndex = nil    
+	local quest = RDXMAP.Quest.IdToQuest[qId]
+	
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
+	local GOpts = mbo.data
+	
+	if GOpts["QSync"] then		
+		local i = 1
+		while GetQuestLogTitle(i) do
+			local _, _, _, _, _, _, _, questID = GetQuestLogTitle(i)
+			if questID == qId then
+				BlizIndex = i
+			else
+				if (IsQuestWatched(i)) then
+					RemoveQuestWatch(i)
+				end
+			end
+		i = i + 1
+		end	
+	end
+	if quest then
+
+		local tbits = RDXMAP.Quest.Tracking[qId] or 0
+--[[
+		if tbits == 0 then	-- Nothing tracked?
+
+			local typ, tid = RDXMAP.APIMap.GetTargetInfo()
+			if typ == "Q" then
+
+				local tqid = floor (tid / 100)
+				if tqid == qId then		-- Same as us?
+					RDXMAP.APIMap.ClearTargets()
+				end
+			end
+			return
+		end
+--]]
+		local track = bit.band (tbits, bit.lshift (1, qObj))
+
+		local questObj
+		local name, zone, loc
+
+		if qObj == 0 then
+			questObj = useEnd and quest[3] or quest[2]
+			name, zone, loc = RDXMAP.UnpackSE (questObj)
+		else
+			questObj = quest[qObj + 3]
+			name, zone, loc = RDXMAP.UnpackObjective (questObj)
+		end
+
+--		VFL.vprint ("TrackOnMap %s %s %s %s %s", qId, qObj, track, name, zone)
+
+		if track > 0 and zone then
+			if GOpts["QSync"] then
+				if BlizIndex then
+					if not (IsQuestWatched(BlizIndex)) then
+						AddQuestWatch(BlizIndex)
+					end	
+				end
+			end
+			
+			--local QMap = NxMap1.NxMap
+			--[[
+			local QMap = Nx.Map:GetMap (1) ---
+			if not InCombatLockdown() then	
+				local cur = RDXMAP.Quest.QIds[qId]
+				if cur then
+					if not cur.Complete then		
+						QMap.QuestWin:DrawNone();
+						if RDXU.Opts["MapShowQuestBlobs"] then
+							QMap.QuestWin:DrawBlob(qId,true)
+							RDXMAP.APIMap.ClipZoneFrm( QMap, QMap.Cont, QMap.Zone, QMap.QuestWin, 1 )
+							QMap.QuestWin:SetFrameLevel(QMap.Level)		
+							QMap.QuestWin:SetFillAlpha(255 * QMap.QuestAlpha)
+							QMap.QuestWin:SetBorderAlpha( 255 * QMap.QuestAlpha )		
+							QMap.QuestWin:Show()		
+						else
+							QMap.QuestWin:Hide()
+						end
+					end
+				end
+			end
+			]]
+	
+			local mId = RDXMAP.Zone2MapId[zone]
+			if mId then
+
+				if target then
+
+					local x1, y1, x2, y2
+
+					if qObj > 0 then
+
+						local myunit = RDXDAL.GetMyUnit();
+						local px = myunit.PlyrX
+						local py = myunit.PlyrY
+
+						-- FIX!!!!!!!!!!!!
+
+--						x1, y1, x2, y2 = Quest:GetClosestObjectiveRect (questObj, mId, px, py)
+						x1, y1 = RDXMAP.APIQuest.GetClosestObjectivePos (questObj, loc, mId, px, py)
+						x2 = x1
+						y2 = y1
+					else
+
+						x1, y1, x2, y2 = RDXMAP.GetObjectiveRect (questObj, loc)
+						x1, y1 = RDXMAP.APIMap.GetWorldPos (mId, x1, y1)
+						x2, y2 = RDXMAP.APIMap.GetWorldPos (mId, x2, y2)
+						
+						x1 = (x1 + x2) * .5
+						y1 = (y1 + y2) * .5
+					end
+
+					local cur = RDXMAP.Quest.QIds[qId]
+--					local _, cur = RDXMAP.APIQuest.FindCur (qId)
+					if cur then
+						if qObj > 0 then
+							name = cur[qObj] or name
+--							VFL.vprint ("TrackOnMap name %s", name)
+						end
+
+						if cur.Complete then
+							name = name .. " |cff80ff80(Complete)"
+						end
+					end
+
+					if skipSame then
+						--if RDXMAP.APIQuest.IsTargeted (qId, qObj, x1, y1, x2, y2) then
+						if RDXMAP.APIQuest.IsTargeted (qId, qObj, x1, y1) then
+							RDXMAP.APIMap.SetTargetName (name)
+							return
+						end
+					end
+					
+					
+					
+					RDXMAP.APIMap.SetTarget ("Q", x1, y1, qId * 100 + qObj, name, false, mId)
+--					VFL.vprint ("TrackOnMap %s %s %s", qId, qObj, name)
+
+					RDXMapEvents:Dispatch("Guide:ClearAll")
+				end
+
+				RDXMapEvents:Dispatch("GotoPlayer")
+
+			else
+				RDXMAP.Quest.MsgNotInDB ("Z")
+--				VFL.vprint ("quest zone %s", zone)
+			end
+
+		else	-- Clear tracking
+
+			local typ, tid = RDXMAP.APIMap.GetTargetInfo()
+			if typ == "Q" then
+
+				local tqid = floor (tid / 100)
+				if tqid == qId then		-- Same quest as us?
+
+					if tbits == 0 or (tid == qId * 100 + qObj) then
+						if GOpts["QSync"] then
+							RemoveQuestWatch(BlizIndex)
+						end
+	
+						RDXMAP.APIMap.ClearTargets()
+					end
+				end
+			end
+		end
+	end
+end
+
+--------
+-- Track quest on map
+
+function RDXMAP.Quest.CalcAutoTrack (cur)
+
+	local curq = RDXMAP.Quest.CurQ
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:quest");
+	local qopts = mbo.data
+	--local qopts = Nx:GetQuestOpts()
+
+	RDXMAP.Quest.Tracking = {}
+	local closest = false
+	local dist = 99999999
+
+	if cur.Q then
+
+--		RDXMAP.Quest.Tracking[cur.QId] = cur.TrackMask
+
+		local closeI = cur.CloseObjI
+		if closeI and closeI >= 0 then
+
+			RDXMAP.Quest.Tracking[cur.QId] = cur.TrackMask			-- bit.lshift (1, closeI)
+			RDXMAP.Quest.TrackOnMap (cur.QId, closeI, cur.QI > 0 or cur.Party, true, true)
+		end
+
+		for objn = 1, 15 do
+
+			local obj = cur.Q[objn + 3]
+			if not obj then
+				break
+			end
+
+			local obit = bit.lshift (1, objn)
+			if bit.band (cur.TrackMask, obit) > 0 then
+
+				if RDXMAP.GetObjectiveType (obj) == 1 then
+
+					local d = cur["OD"..objn]
+
+					if d and d < dist then
+						dist = d
+						closest = cur
+--						Quest.ClosestSpanI = objn
+					end
+				end
+			end
+		end
+	end
+
+--	Quest.ClosestSpanCur = closest
+end
+
+--------
+-- Check if any part of quest in the map
+
+function RDXMAP.Quest.CheckShow (mapId, qId)
+
+	local nxid = RDXMAP.MapId2Zone[mapId]
+	local quest = RDXMAP.Quest.IdToQuest[qId]
+
+	if not quest then
+		return
+	end
+
+	local qname, side, lvl, minlvl, next = RDXMAP.Unpack (quest[1])
+
+	--	Check start, end and objectives
+--[[
+	if not quest[2] then
+		VFL.vprint ("quest error: %s %s", qname, qId)
+		assert (quest[2])
+	end
+--]]
+	local _, startMapId = RDXMAP.UnpackSE (quest[2])
+	if startMapId then
+		if startMapId == nxid then
+			return true
+		end
+	end
+
+	if quest[3] then
+		local _, endMapId = RDXMAP.UnpackSE (quest[3])
+		if endMapId then
+			if endMapId == nxid then
+				return true
+			end
+		end
+	end
+
+	for n = 1, 15 do
+
+		local obj = quest[n + 3]
+		if not obj then
+			break
+		end
+
+		local _, objMapId = RDXMAP.UnpackObjective (obj)
+
+		if objMapId then
+
+			if objMapId == nxid then
+				return true
+			end
+		end
+	end
+end
+
+
+--------
+-- Calc watch distance
+
+function RDXMAP.Quest.CalcDistances (n1, n2)
+
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:quest");
+	local qopts = mbo.data
+	---local qopts = Nx:GetQuestOpts()
+	local myunit = RDXDAL.GetMyUnit();
+	local px = myunit.PlyrX
+	local py = myunit.PlyrY
+	local playerLevel = UnitLevel ("player")
+
+	local curq = RDXMAP.Quest.CurQ
+	if not curq then	-- Bad stuff?
+		return
+	end
+
+	for n = n1, n2 do
+
+		local cur = curq[n]
+
+		if not cur then
+			break
+		end
+
+		local qi = cur.QI
+		local qId = cur.QId
+
+		local id = qId > 0 and qId or cur.Title
+		local qStatus = RDXMAP.APIQuest.GetQuest (id)
+		local qWatched = (qStatus == "W")
+		local quest = cur.Q
+
+		cur.Priority = 1
+		cur.Distance = 999999999
+		cur.CloseObjI = -1
+
+		if cur.Complete and cur.IsAutoComplete then
+			cur.Distance = 0
+		end
+
+--		if quest and (qWatched or Nx.Free) then
+		if quest then
+
+			local cnt = (cur.CompleteMerge or cur.LBCnt == 0) and 0 or 99
+
+			for qObj = 0, cnt do
+
+				local questObj
+
+				if qObj == 0 then
+					questObj = (qi > 0 or cur.Party) and quest[3] or quest[2]	-- Start if goto or no end?
+				else
+					questObj = quest[qObj + 3]
+				end
+
+				if not questObj then
+					break
+				end
+
+				if bit.band (cur.TrackMask, bit.lshift (1, qObj)) > 0 then
+
+					local _, zone, loc
+
+					if qObj == 0 then
+						_, zone, loc = RDXMAP.UnpackSE (questObj)
+					else
+						_, zone, loc = RDXMAP.UnpackObjective (questObj)
+					end
+
+					if zone then
+
+						local mId = RDXMAP.Zone2MapId[zone]
+						if mId then
+
+							local x, y = RDXMAP.APIQuest.GetClosestObjectivePos (questObj, loc, mId, px, py)
+							local dist = ((x - px) ^ 2 + (y - py) ^ 2) ^ .5
+
+							if dist < cur.Distance then
+								cur.CloseObjI = qObj
+								cur.Distance = dist
+							end
+
+							cur["OX"..qObj] = x
+							cur["OY"..qObj] = y
+							cur["OD"..qObj] = dist
+						end
+					end
+				end
+			end
+
+--PAIDS!
+			local pri = 0
+
+			-- Player lvl 30. PriLevel = 20
+			-- Q1  100 Lvl 30: 0 ldif = 0
+			-- Q2  400 Lvl 20: 10 ldif = 200, .1, 90% = 360
+			-- Q3 2000 Lvl 25: 5 ldif = 100, .05, 95% = 1900
+
+			-- Player lvl 30. PriLevel = 200
+			-- Q1  100 Lvl 30: 0 ldif = 0
+			-- Q2  400 Lvl 20: 10 ldif = 2000, .99, 1% = 4
+			-- Q3 2000 Lvl 25: 5 ldif = 1000, .5, 50% = 1000
+
+			-- Formula: cur.Distance * priDist * cur.Priority * 10 + cur.Priority * 100
+
+			if cur.CompleteMerge then
+				pri = qopts.NXWPriComplete * 8	-- +-1600
+
+			else
+				-- 20 default. 10 lvls max diff * 200 = +-2000
+				local l = min (playerLevel - cur.Level, 10)
+				l = max (l, -10)
+				pri = l * qopts.NXWPriLevel
+			end
+
+			cur.Priority = 1 - pri / 2010
+
+			cur.InZone = RDXMAP.Quest.CheckShow (myunit.mapId, qId)
+--PAIDE!
+		end
 	end
 end

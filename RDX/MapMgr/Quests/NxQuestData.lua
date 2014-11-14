@@ -417,16 +417,27 @@ RDXMAP.Quest.DailyDungeonIds = {
 }
 
 RDXMAP.Quest.DailyPVPIds = {	-- For not auto watching
-		[11335] = "1",	-- AV, AB, EOS, WG both sides
-		[11336] = "1",
-		[11337] = "1",
-		[11338] = "1",
-		[11339] = "1",
-		[11340] = "1",
-		[11341] = "1",
-		[11342] = "1",
-		[13405] = "1",	-- SoA
-		[13407] = "1",
-		[14163] = "1",	-- IoC
-		[14164] = "1",
-	}
+	[11335] = "1",	-- AV, AB, EOS, WG both sides
+	[11336] = "1",
+	[11337] = "1",
+	[11338] = "1",
+	[11339] = "1",
+	[11340] = "1",
+	[11341] = "1",
+	[11342] = "1",
+	[13405] = "1",	-- SoA
+	[13407] = "1",
+	[14163] = "1",	-- IoC
+	[14164] = "1",
+}
+
+RDXMAP.Quest.OptsDataSounds = {
+	"Interface\\AddOns\\Carbonite\\Snd\\QuestComplete.ogg",
+	"Sound\\Creature\\Peon\\PeonBuildingComplete1.wav",
+	"Sound\\Character\\Scourge\\ScourgeVocalMale\\UndeadMaleCongratulations02.wav",
+	"Sound\\Character\\Human\\HumanVocalFemale\\HumanFemaleCongratulations01.wav",
+	"Sound\\Character\\Dwarf\\DwarfVocalMale\\DwarfMaleCongratulations04.wav",
+	"Sound\\Character\\Gnome\\GnomeVocalMale\\GnomeMaleCongratulations03.wav",
+	"Sound\\Creature\\Tauren\\TaurenYes3.wav",
+	"Sound\\Creature\\UndeadMaleWarriorNPC\\UndeadMaleWarriorNPCGreeting01.wav",
+}

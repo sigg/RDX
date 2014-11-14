@@ -2,7 +2,7 @@
 ## Title: |c007ffcffRDX|r
 ## Notes: RDX is Raid Data Exchange - UI and raid mods.
 ## Author: Raid Informatics / OpenRDX Project
-## Version: 10.0.5
+## Version: 10.0.6
 ## RequiredDeps: VFL, RDX_mediapack
 ## OptionalDeps: RDX_languagepack_frFR, RDX_languagepack_deDE, RDX_languagepack_ruRU
 ## SavedVariables: RDXSession
@@ -298,10 +298,17 @@ MapMgr\Maps\MapWorldHotspots.lua
 #Maps\NxMapMinimap.lua
 #Maps\NxMapIntegration.lua
 
+MapMgr\Quests\QuestsData.lua
 MapMgr\Quests\NxAPIQuest.lua
 MapMgr\Quests\NxQuestData.lua
-MapMgr\Quests\NxQuestsMenu.lua
+MapMgr\Quests\NxQuestMenu.lua
 MapMgr\Quests\NxQuestMap.lua
+MapMgr\Quests\NxQuestUtil.lua
+MapMgr\Quests\NxQuestHook.lua
+MapMgr\Quests\NxQuestCapture.lua
+MapMgr\Quests\NxQuestScan.lua
+MapMgr\Quests\NxQuestRecord.lua
+MapMgr\Quests\NxQuestCom.lua
 MapMgr\Quests\QuestsPanel.lua
 MapMgr\Quests\QuestsPanel_current.lua
 MapMgr\Quests\QuestsPanel_history.lua

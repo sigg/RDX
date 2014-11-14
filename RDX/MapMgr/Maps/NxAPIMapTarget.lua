@@ -17,9 +17,7 @@ end
 
 function RDXMAP.APIMap.SetTargetXY (mid, zx, zy, name, keep)           
 
-	if Nx and Nx.Quest then
-		Nx.Quest.Watch:ClearAutoTarget()
-	end
+	RDXMapEvents:Dispatch("Watch:ClearAutoTarget");
 
 	local wx, wy = RDXMAP.APIMap.GetWorldPos (mid, zx, zy)
 	return RDXMAP.APIMap.SetTarget ("Goto", wx, wy, nil, name or "", keep, mid)
@@ -30,9 +28,8 @@ end
 
 function RDXMAP.APIMap.SetTargetAtClick(map)
 
-	if Nx and Nx.Quest then
-		Nx.Quest.Watch:ClearAutoTarget()
-	end
+	RDXMapEvents:Dispatch("Watch:ClearAutoTarget");
+
 
 	local wx, wy = RDXMAP.APIMap.FramePosToWorldPos (map, map.ClickFrmX, map.ClickFrmY)
 	local zx, zy = RDXMAP.APIMap.GetZonePos (map.MapId, wx, wy)

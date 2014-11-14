@@ -33,6 +33,8 @@ RDXMAP.Quest.RealQ = {}
 RDXMAP.Quest.PartyQ = {}
 RDXMAP.Quest.IdToCurQ = {}
 
+RDXMAP.Quest.RealQEntries = 0
+
 RDXMAP.Quest.QGivers = {}
 
 RDXMAP.Guide = {}
@@ -188,6 +190,7 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 
 	RDXMAP.Map:Init();
 	RDXMAP.Travel:Init();
+	RDXMAP.Quest:Init();
 	WoWEvents:Bind("TAXIMAP_OPENED", nil, RDXMAP.Travel.OnTaximap_opened);
 	
 	if not RDXU.MapTargets then RDXU.MapTargets = {}; end
@@ -207,7 +210,8 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	WoWEvents:Bind("MERCHANT_UPDATE", nil, RDXMAP.APIGuide.OnMerchant_update);
 	WoWEvents:Bind("GOSSIP_SHOW", nil, RDXMAP.APIGuide.OnGossip_show);
 	WoWEvents:Bind("TRAINER_SHOW", nil, RDXMAP.APIGuide.OnTrainer_show);
---		"PET_STABLE_SHOW", Guide.OnPet_stable_show,
+	WoWEvents:Bind("CHAT_MSG_COMBAT_FACTION_CHANGE", nil, RDXMAP.Quest.OnChat_msg_combat_faction_change);
+
 end);
 
 

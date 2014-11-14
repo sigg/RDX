@@ -193,7 +193,7 @@ RDXDB.RegisterSymLinkClass({
 	name = "talent";
 	title = "talent";
 	GetTargetPath = function(data)
-		return data["talentpath_" .. GetActiveTalentGroup()];
+		return data["talentpath_" .. GetActiveSpecGroup()];
 	end;
 	Register = function(path)
 		--VFL.print("REGISTER " .. path);
@@ -340,7 +340,7 @@ RDXDB.RegisterSymLinkClass({
 	name = "classtalent";
 	title = "class&talent";
 	GetTargetPath = function(data)
-		return data["targetpath_" .. RDXMD.GetClassID(select(2, UnitClass("PLAYER"))) .. "_" .. GetActiveTalentGroup()];
+		return data["targetpath_" .. RDXMD.GetClassID(select(2, UnitClass("PLAYER"))) .. "_" .. GetActiveSpecGroup()];
 	end;
 	Register = function(path)
 		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function()

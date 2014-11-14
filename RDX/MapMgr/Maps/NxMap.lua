@@ -1155,9 +1155,7 @@ function RDXMAP.Map:Update (elapsed)
 			end
 		end
 
-		if Nx and Nx.Quest then
-			Nx.Quest:MapChanged()
-		end
+		RDXMAP.Quest.MapChanged()
 		self:UpdateAll()
 		
 		self.MoveLastX = self.myunit.PlyrX

@@ -152,6 +152,14 @@ function VFL.explodeHexNumberRGBA(colors)
 	return r, g, b, a
 end
 
+--------
+-- Convert hex color number to alpha float (0-1)
+-- (RRGGBBAA number)
+function VFL.Util_num2a (colors)
+
+	return bit.band (colors, 0xff) / 255
+end
+
 -- COLOR OBJECT
 -- Object oriented color manipulations.
 
