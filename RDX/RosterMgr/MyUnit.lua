@@ -56,7 +56,7 @@ local function ProcessMyUnit(self, elapsed)
 			--SetMapToCurrentZone();
 			--cmaId = GetCurrentMapAreaID()
 			--gcmd = GetCurrentMapDungeonLevel();
-			--VFL.print("ProcessMyUnit no mapId found " .. zName);
+			--VFL.print("ProcessMyUnit no mapId found " .. zName .. " " .. cmaId);
 			mapId = cmaId;
 		end
 	end	
@@ -328,7 +328,7 @@ WoWEvents:Bind("ZONE_CHANGED_NEW_AREA", nil, function()
 	end
 end);
 
---function RDX.PPZ()
---	VFL.print(GetCurrentMapAreaID())
---end
+function RDX.PPZ()
+	VFL.print(GetCurrentMapAreaID())
+end
 -- /script RDX.PPZ();

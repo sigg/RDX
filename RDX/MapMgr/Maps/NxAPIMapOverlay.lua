@@ -42,6 +42,7 @@ function RDXMAP.APIMap.TargetOverlayUnexplored(map)
 	t = map.CurOverlays
 
 	if not t then	-- Not found? New stuff probably
+		VFL.print("EROOR T");
 		return
 	end
 
@@ -97,8 +98,8 @@ function RDXMAP.APIMap.UpdateOverlayUnexplored(map)
 
 	if not t or not map.LOpts.NXShowUnexplored then
 
---		local overlayNum = GetNumMapOverlays()		-- Cartographer makes this return 0
---		VFL.vprint ("Overlays %s", overlayNum)
+		--local overlayNum = GetNumMapOverlays()		-- Cartographer makes this return 0
+		--VFL.vprint ("Overlays %s", overlayNum)
 
 		--local s1, s2, file
 		local ol = {}
@@ -119,6 +120,8 @@ function RDXMAP.APIMap.UpdateOverlayUnexplored(map)
 			if not zname then
 				break
 			end
+			--VFL.print(zname);
+			--VFL.print(zw .. "," .. zh .. "," .. zx .."," .. zy);
 
 			s1, s2, folder, file = strfind (zname, ".+\\.+\\(.+)\\(.+)")
 			if s1 then
@@ -129,7 +132,7 @@ function RDXMAP.APIMap.UpdateOverlayUnexplored(map)
 				file = strlower (file)
 				t[file] = format ("%d,%d,%d,%d", zx - 10000, zy, zw, zh)
 
---				VFL.vprint (" %s %s", zname, t[file])
+				--VFL.vprint (" %s %s", zname, format ("%d,%d,%d,%d", zx, zy, zw, zh))
 			end
 		end
 
@@ -137,8 +140,6 @@ function RDXMAP.APIMap.UpdateOverlayUnexplored(map)
 			t = false
 		end
 	end
-	
-	
 
 	map.CurOverlays = t
 	map.CurOverlaysTexFolder = s
@@ -151,7 +152,7 @@ function RDXMAP.APIMap.UpdateOverlay (map, mapId, bright, noUnexplored, main)
 
 	wzone = RDXMAP.APIMap.GetWorldZone (mapId)
 	-- sigg startzone isssu pandaria
-	--if wzone and (wzone.City or wzone.StartZone or RDXMAP.APIMap.IsMicroDungeon(mapId)) then
+	--if wzone and (wzone.class == "ci" or wzone.StartZone or RDXMAP.APIMap.IsMicroDungeon(mapId)) then
 	if wzone and wzone.class == "ci" then
 		return
 	end

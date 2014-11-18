@@ -1,7 +1,7 @@
 ﻿
 RDX.RegisterFeature({
 	name = "var_isDeath";
-	title = VFLI.i18n("Var IsDeath?");
+	title = VFLI.i18n("Var IsDeathOrGhost?");
 	category = VFLI.i18n("Variables True/False");
 	test = true;
 	IsPossible = function(state)
@@ -21,6 +21,9 @@ local isDeath = true;
 		else
 			code:AppendCode([[
 local isDeath = UnitIsDead(uid);
+if not isDeath then
+	isDeath = UnitIsGhost(uid)
+end
 ]]);
 		end
 		end);

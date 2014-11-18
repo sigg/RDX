@@ -1962,6 +1962,20 @@ RDXMAP.MapWorldInfo = {
 		o = "NagrandDraenor",
 	},
 	
+	[970] = {
+		Name = "aa",
+		class = "z",
+		c = 962,
+		Cont = 7,
+		StartZone = true,
+		faction = 2,
+		tp = 2,
+		minLvl = 0,
+		maxLvl = 0,
+		x = -2500,
+		y = -4100,
+		s = 2.7,
+	},
 
 	-- Battlegrounds
 	
@@ -9067,6 +9081,13 @@ RDXMAP.MiniMapBlks = {
 		850, 2225-2500+800,
 		"World\\Minimaps\\HawaiiMainLand"
 	},
+	--[962] = {
+	--	RDXMAP.PandariaMapBlks,
+	--	1816,
+	--	18, 16,
+	--	850, 2225-2500+800,
+	--	"World\\Minimaps\\Draeanor"
+	--},
 	[1003] = {
 		RDXMAP.DraeneiMapBlks,
 		5033,

@@ -5,13 +5,24 @@ local myunit;
 RDXEvents:Bind("INIT_POST", nil, function() myunit = RDXDAL.GetMyUnit(); end);	
 
 -- Get world zone from mapId
+-- deprecated
 function RDXMAP.APIMap.MapWorldInfo()
 	return RDXMAP.MapWorldInfo
 end
 
 -- Get world zone from mapId
 function RDXMAP.APIMap.GetWorldZone (mapId)
-	return RDXMAP.MapWorldInfo[mapId]
+	if mapId then
+		local mbo = RDXDB.TouchObject("RDXDiskMap:maps:" .. mapId);
+		if not mbo.data then
+			mbo.ty = "MapInfo"; 
+			mbo.version = 1;
+			mbo.data = {}
+		end
+		if mbo.data.mf then
+			return mbo.data.mf;
+		end
+	end
 end
 
 --------
@@ -23,7 +34,7 @@ function RDXMAP.APIMap.GetWorldZoneInfo (mapId)
 		return "unknown", 0, 0, 1, 1.5
 	end
 	local scale = winfo.s * 100
-	return winfo.localname or winfo.Name, winfo.x, winfo.y, scale, scale / 1.5
+	return RDXMAP.MapIdToName[mapId] or winfo.Name, winfo.x, winfo.y, scale, scale / 1.5
 end
 
 --------
@@ -66,7 +77,7 @@ function RDXMAP.APIMap.GetMapNameDesc (mapId)
 		infoStr = "Any"
 	end
 	
-	if winfo and winfo.City then
+	if winfo and winfo.class == "ci" then
 		infoStr = "City"
 		minLvl = -1
 	end
@@ -261,7 +272,7 @@ end
 function RDXMAP.APIMap.IsBattleGroundMap (mapId)
 	local a = RDXMAP.APIMap.GetWorldZone(mapId)
 	if a then
-		return a.tp == 5
+		return a.class == "bg"
 	end
 end
 
@@ -272,7 +283,7 @@ end
 function RDXMAP.APIMap.IsScenario(mapId)
 	local a = RDXMAP.APIMap.GetWorldZone(mapId)
 	if a then
-		return a.tp == 6
+		return a.class == "s"
 	end
 end
 
@@ -289,7 +300,7 @@ function RDXMAP.APIMap.GetMiniInfo (mapId)
 	--if not winfo then VFL.print(mapId); return; end
 	local id = winfo.MId
 
-	if not id then id = winfo.c; end
+	if not id or id == 0 then id = winfo.c; end
 	if not id then return; end
 
 	local t = RDXMAP.MiniMapBlks[id]

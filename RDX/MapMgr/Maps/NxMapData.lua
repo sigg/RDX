@@ -3652,7 +3652,26 @@ NxMap.ZoneOverlays = {
 		["isleofthethunderking"] = "0,0,1024,768",	-- Manual
 		["HORDE"] = "183,95,278,325",
 		["LOCK4"] = "396,9,446,429",
-	},	
+	},
+	["FrostfireRidge"] = {
+		["bladespirefortress"] = "38,117,356,303",
+		["bloodmaulstronghold"] = "311,4,258,217",
+		["bonesofagurak"] = "729,319,273,349",
+		["daggermawravine"] = "284,91,255,191",
+		["frostwinddunes"] = "121,0,274,214",
+		["grimfrosthill"] = "597,210,178,203",
+		["grombolash"] = "483,33,217,239",
+		["gromgar"] = "505,323,282,341",
+		["hordegarrison"] = "336,327,267,257",
+		["ironsiegeworks"] = "673,156,329,294",
+		["magnarok"] = "609,33,213,278",
+		["ironwaystation"] = "641,304,199,335",
+		["stonefangoutpost"] = "306,281,251,191",
+		["theboneslag"] = "290,192,256,210",
+		["thecracklingplains"] = "439,137,266,293",
+		["worgol"] = "72,292,317,233",
+	},
+	
 }
 
 

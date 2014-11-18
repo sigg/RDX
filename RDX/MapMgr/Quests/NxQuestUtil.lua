@@ -41,6 +41,23 @@ function RDXMAP.Quest.PlaySound (sndI)
 	end
 end
 
+
+RDXMAP.Quest.PerColors = {
+	"|cffc00000", "|cffc03000", "|cffc06000", "|cffc09000", "|cffc0c000", "|cff90c000", "|cff60c000", "|cff30c000", "|cff00c000",
+}
+
+function RDXMAP.Quest.CalcPercentColor (desc, done)
+
+	local s1, _, i, total = strfind (desc, ": (%d+)/(%d+)")
+
+	if done then
+		return RDXMAP.Quest.PerColors[9], s1
+	else
+		i = s1 and floor (tonumber (i) / tonumber (total) * 8.99) + 1 or 1
+		return RDXMAP.Quest.PerColors[i], s1
+	end
+end
+	
 --------
 -- Calculate the watch colors
 

@@ -358,7 +358,39 @@ function RDXMAP.Map:Create (index, data)
 	m.ContFrms = {}
 
 	local n = 1;
-	for k, v in pairs(RDXMAP.APIMap.MapWorldInfo()) do
+	
+	local k, v;
+	local pkg = RDXDB.GetPackage("RDXDiskMap", "maps")
+	for objname, obj in pairs(pkg) do
+		if type(obj) == "table" and obj.ty == "MapInfo" then
+			k = tonumber(objname);
+			v = obj.data.mf
+			if v then
+				if v.class == "c" then
+					m.ContFrms[n] = {}
+					m.ContFrms[n].mapid = k;
+					local mapFileName = v.FileName
+					for i = 1, 12 do
+						if RDXMAP.ContBlks[k][i] ~= 0 then
+							local cf = VFLUI.AcquireFrame("Frame");
+							cf:SetParent(f);
+							m.ContFrms[n][i] = cf
+
+							local t = VFLUI.CreateTexture(cf)
+							t:SetAllPoints (cf)
+							cf.texture = t
+							t:SetTexture ("Interface\\WorldMap\\"..mapFileName.."\\"..mapFileName..i)
+						end
+					end
+					n = n + 1;
+				end
+			else
+				--VFL.print("error k " .. k);
+			end
+		end
+	end
+	
+	--[[for k, v in pairs(RDXMAP.APIMap.MapWorldInfo()) do
 		if v.class == "c" then
 			m.ContFrms[n] = {}
 			m.ContFrms[n].mapid = k;
@@ -377,7 +409,7 @@ function RDXMAP.Map:Create (index, data)
 			end
 			n = n + 1;
 		end
-	end
+	end]]
 	
 	m.MiniFrms = {}
 
@@ -625,12 +657,12 @@ function RDXMAP.Map:UpdateWorldMap()
 
 	local f = self.WorldMapFrm
 	
-	for factionIndex = 1, GetNumFactions() do
-		local name, description, standingId, bottomValue, topValue, earnedValue, atWarWith,canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfo(factionIndex)				
-		if (name == "Operation: Shieldwall") or (name == "Dominance Offensive") then
-			RDXMAP.MapWorldInfo[857].o = "krasarang_terrain1"
-		end
-	end
+	--for factionIndex = 1, GetNumFactions() do
+	--	local name, description, standingId, bottomValue, topValue, earnedValue, atWarWith,canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfo(factionIndex)				
+	--	if (name == "Operation: Shieldwall") or (name == "Dominance Offensive") then
+	--		RDXMAP.MapWorldInfo[857].o = "krasarang_terrain1"
+	--	end
+	--end
 	
 	if f then
 
@@ -936,9 +968,9 @@ end
 
 function RDXMAP.Map:UpdateWorld()
 
-	if self.Debug then
-		VFL.vprint ("%d Map UpdateWorld1 %d L%d", self.Tick, RDXMAP.APIMap.GetCurrentMapId(), GetCurrentMapDungeonLevel())
-	end
+	--if self.Debug then
+	--	VFL.vprint ("%d Map UpdateWorld1 %d L%d", self.Tick, RDXMAP.APIMap.GetCurrentMapId(), GetCurrentMapDungeonLevel())
+	--end
 
 	self.NeedWorldUpdate = false
 
@@ -1139,19 +1171,27 @@ function RDXMAP.Map:Update (elapsed)
 		end
 		
 		-- add instances
-		for mapid, info in pairs (RDXMAP.APIMap.MapWorldInfo()) do
-			if info.tp == 4 and info.EntryMId == self.MapId then
-				local f = VFLUI.POIIcon:new(self, 4)
-				f.NxTip = info.localname
-				f.NXType = 3003
-				f.UData = mapid;
-				f.NXData = f
-				f.texture:SetTexture ("Interface\\Icons\\INV_Misc_ShadowEgg")
-				f.x = info.x --* 100
-				f.y = info.y --* 100
-				f.MapId = mapId
-				f.n = f.NxTip
-				table.insert(self.Icon3Frms, f); 
+		local mapid, info;
+		local pkg = RDXDB.GetPackage("RDXDiskMap", "maps")
+		for objname, obj in pairs(pkg) do
+			if type(obj) == "table" and obj.ty == "MapInfo" then
+				mapid = tonumber(objname);
+				info = obj.data.mf
+				if info then
+					if info.class == "i" and info.EntryMId == self.MapId then
+						local f = VFLUI.POIIcon:new(self, 4)
+						f.NxTip = RDXMAP.MapIdToName[mapid]
+						f.NXType = 3003
+						f.UData = mapid;
+						f.NXData = f
+						f.texture:SetTexture ("Interface\\Icons\\INV_Misc_ShadowEgg")
+						f.x = info.x --* 100
+						f.y = info.y --* 100
+						f.MapId = mapId
+						f.n = f.NxTip
+						table.insert(self.Icon3Frms, f); 
+					end
+				end
 			end
 		end
 

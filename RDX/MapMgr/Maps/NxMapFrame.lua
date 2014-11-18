@@ -250,7 +250,7 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 		local speed = myunit.PlyrSpeed
 		local sa
 		local winfo = RDXMAP.APIMap.GetWorldZone(map.MapId)
-		if winfo then
+		if winfo and winfo.ScaleAdjust and winfo.ScaleAdjust ~= 0 then
 			sa = winfo.ScaleAdjust
 		end 
 		if sa then

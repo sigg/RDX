@@ -187,9 +187,9 @@ function RDXMAP.APIMap.Route (map, points)
 
 	if #points > 1 then
 
-		local x = points[1].X
-		local y = points[1].Y
-		if x == points[#points].X and y == points[#points].Y then	-- End same as start?
+		local x = points[1].x
+		local y = points[1].y
+		if x == points[#points].x and y == points[#points].y then	-- End same as start?
 			tremove (points)
 		end
 	end

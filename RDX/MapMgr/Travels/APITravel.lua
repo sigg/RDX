@@ -41,10 +41,14 @@ function RDXMAP.APITravel.FindTaxis2(node)
 	local cont = RDXMAP.APIMap.GetContinent(mapId)
 	if cont then
 		local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. cont);
-		for k,v in ipairs (mbo.data) do
-			if x1 == v.fx and y1 == v.fy then
-				wx, wy = v.x, v.y
+		if mbo.data then
+			for k,v in ipairs (mbo.data) do
+				if x1 == v.fx and y1 == v.fy then
+					wx, wy = v.x, v.y
+				end
 			end
+		else
+		
 		end
 	end
 	return name, wx, wy;
@@ -127,7 +131,7 @@ function RDXMAP.APITravel.MakePath (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 
 		local node1 = {}
 		node1.m = srcMapId
-		VFL.print(srcMapId);
+		--VFL.print(srcMapId);
 		node1.x = srcX
 		node1.y = srcY
 		tinsert (path, node1)

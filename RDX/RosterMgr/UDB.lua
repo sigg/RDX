@@ -1801,7 +1801,7 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	local hasMainHandEnchant, mainHandExpiration, hasOffHandEnchant, offHandExpiration;
 	local function weaponsupdate()
 		if myunit then
-			hasMainHandEnchant, mainHandExpiration, _, hasOffHandEnchant, offHandExpiration = GetWeaponEnchantInfo();
+			hasMainHandEnchant, mainHandExpiration, _, _, hasOffHandEnchant, offHandExpiration = GetWeaponEnchantInfo();
 			if hasMainHandEnchant then
 				if mainHandExpiration > timemh then
 					_sig_rdx_unit_buffweapon_update:Raise(myunit, myunit.nid, myunit.uid);

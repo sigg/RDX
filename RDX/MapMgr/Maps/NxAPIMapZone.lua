@@ -66,7 +66,7 @@ function RDXMAP.APIMap.MoveCurZoneTiles (map, clear)
 	wzone = RDXMAP.APIMap.GetWorldZone (mapId)
 	local myunit = RDXDAL.GetMyUnit();
 
-	--if not clear and (not wzone or wzone.City or (wzone.StartZone and myunit.mapId == mapId) or RDXMAP.APIMap.IsBattleGroundMap (mapId)) or RDXMAP.APIMap.IsMicroDungeon(mapId) then
+	--if not clear and (not wzone or wzone.class == "ci" or (wzone.StartZone and myunit.mapId == mapId) or RDXMAP.APIMap.IsBattleGroundMap (mapId)) or RDXMAP.APIMap.IsMicroDungeon(mapId) then
 	if not clear and (not wzone or wzone.class == "ci" or wzone.StartZone or RDXMAP.APIMap.IsBattleGroundMap (mapId)) then
 --		VFL.vprint ("MoveCurZoneTiles %d", mapId)
 		--VFL.print("RDXMAP.APIMap.MoveCurZoneTiles " .. mapId);
@@ -264,8 +264,8 @@ function RDXMAP.APIMap.UpdateZones(map)
 	flag = map.ScaleDraw <= s
 	--flag = false
 	--local myunit = RDXDAL.GetMyUnit();
-	--if flag or winfo.City or (winfo.StartZone and myunit.mapId == mapId) or RDXMAP.APIMap.IsBattleGroundMap (mapId) or RDXMAP.APIMap.IsMicroDungeon(mapId) then
-	if flag or winfo.City or winfo.StartZone or RDXMAP.APIMap.IsBattleGroundMap (mapId) then
+	--if flag or winfo.class == "ci" or (winfo.StartZone and myunit.mapId == mapId) or RDXMAP.APIMap.IsBattleGroundMap (mapId) or RDXMAP.APIMap.IsMicroDungeon(mapId) then
+	if flag or winfo.class == "ci" or winfo.StartZone or RDXMAP.APIMap.IsBattleGroundMap (mapId) then
 	
 --		if flag and map.MapIdOld and map.MapIdOld ~= mapId then
 --			RDXMAP.APIMap.UpdateOverlay (map, id, .8, true)
@@ -321,7 +321,7 @@ function RDXMAP.APIMap.UpdateZones(map)
 				end
 			end
 --]]
-		if winfo.City then
+		if winfo.class == "ci" then
 --			VFL.vprint ("city %s", map.Level)
 			RDXMAP.APIMap.UpdateMiniFrames(map)
 			RDXMAP.APIMap.MoveCurZoneTiles(map)
@@ -377,7 +377,7 @@ function RDXMAP.APIMap.UpdateMiniFrames(map)
 
 --	i = .1
 
---	or winfo.City
+--	or winfo.class == "ci"
 
 	if map.ScaleDraw <= i or opts.NXDetailAlpha <= 0 or RDXMAP.APIMap.IsBattleGroundMap (mapId) then
 		RDXMAP.APIMap.HideMiniFrames(map)

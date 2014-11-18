@@ -11,71 +11,80 @@ function RDXMAP.APIMap.InitHotspots(map)
 	local quadCity = {}
 	map.WorldHotspotsCity = quadCity
 	
-	for mapId, winfo in pairs (RDXMAP.APIMap.MapWorldInfo()) do
-		if winfo.class == "z" or winfo.class == "ci" then
-			cname = RDXMAP.APIMap.GetWorldZoneInfo(winfo.c) --get data continent name
-			zname = winfo.localname or winfo.Name
-			color, infoStr = RDXMAP.APIMap.GetMapNameDesc (mapId)
-			tipStr = format ("%s, %s%s (%s)", cname, color, zname, infoStr)
-			loc = RDXMAP.MapWorldHotspots2[mapId]
-			if loc then
-				locSize = 12
-			else
-				locSize = 4
-				loc = format ("%c%c%c%c", 85, 85, 135, 135)
-			end
-			
-			for n = 0, 100 do
-
-				local locN = n * locSize + 1
-
-				local loc1 = strsub (loc, locN, locN + locSize - 1)
-				if loc1 == "" then
-					break
-				end
-
-				local zx, zy, zw, zh
-
-				if locSize == 4 then
-					zx, zy, zw, zh = RDXMAP.UnpackLocRect (loc1)
+	local mapId, winfo;
+	
+	local pkg = RDXDB.GetPackage("RDXDiskMap", "maps")
+	for objName, obj in pairs(pkg) do
+		if type(obj) == "table" and obj.ty == "MapInfo" then
+			mapId = tonumber(objName);
+			winfo = obj.data.mf;
+			if winfo and (winfo.class == "z" or winfo.class == "ci") then
+				cname = RDXMAP.APIMap.GetWorldZoneInfo(winfo.c) --get data continent name
+				zname = RDXMAP.MapIdToName[mapId] or winfo.Name
+				color, infoStr = RDXMAP.APIMap.GetMapNameDesc (mapId)
+				tipStr = format ("%s, %s%s (%s)", cname, color, zname, infoStr)
+				loc = RDXMAP.MapWorldHotspots2[mapId]
+				if loc then
+					locSize = 12
 				else
-					zx = tonumber (strsub (loc1, 1, 3), 16) * 100 / 4095
-					zy = tonumber (strsub (loc1, 4, 6), 16) * 100 / 4095
-					zw = tonumber (strsub (loc1, 7, 9), 16) * 1002 / 4095
-					zh = tonumber (strsub (loc1, 10, 12), 16) * 668 / 4095
+					locSize = 4
+					loc = format ("%c%c%c%c", 85, 85, 135, 135)
 				end
+				
+				for n = 0, 100 do
 
-				local spot = {}
+					local locN = n * locSize + 1
 
-				local wzone = RDXMAP.APIMap.GetWorldZone (mapId)
+					local loc1 = strsub (loc, locN, locN + locSize - 1)
+					if loc1 == "" then
+						break
+					end
 
-				if wzone.class == "ci" or wzone.StartZone then
-					tinsert (quadCity, spot)
-				else
-					tinsert (quad, spot)
+					local zx, zy, zw, zh
+
+					if locSize == 4 then
+						zx, zy, zw, zh = RDXMAP.UnpackLocRect (loc1)
+					else
+						zx = tonumber (strsub (loc1, 1, 3), 16) * 100 / 4095
+						zy = tonumber (strsub (loc1, 4, 6), 16) * 100 / 4095
+						zw = tonumber (strsub (loc1, 7, 9), 16) * 1002 / 4095
+						zh = tonumber (strsub (loc1, 10, 12), 16) * 668 / 4095
+					end
+
+					local spot = {}
+
+					local wzone = RDXMAP.APIMap.GetWorldZone (mapId)
+
+					if wzone.class == "ci" or wzone.StartZone then
+						tinsert (quadCity, spot)
+					else
+						tinsert (quad, spot)
+					end
+
+					spot.MapId = mapId
+
+					local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, zx, zy)
+					spot.WX1 = wx
+					spot.WY1 = wy
+					zw = zw / 1002 * 100
+					zh = zh / 668 * 100
+					local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, zx + zw, zy + zh)
+					spot.WX2 = wx
+					spot.WY2 = wy
+
+					spot.NxTipBase = tipStr
+
+	--				if contN == 5 then
+	--					VFL.vprintVar ("Spot", spot)
+	--				end
+
 				end
-
-				spot.MapId = mapId
-
-				local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, zx, zy)
-				spot.WX1 = wx
-				spot.WY1 = wy
-				zw = zw / 1002 * 100
-				zh = zh / 668 * 100
-				local wx, wy = RDXMAP.APIMap.GetWorldPos (mapId, zx + zw, zy + zh)
-				spot.WX2 = wx
-				spot.WY2 = wy
-
-				spot.NxTipBase = tipStr
-
---				if contN == 5 then
---					VFL.vprintVar ("Spot", spot)
---				end
-
 			end
-			
 		end
 	end
+	--for mapId, winfo in pairs (RDXMAP.APIMap.MapWorldInfo()) do
+		
+	--end
 end
 
 --------

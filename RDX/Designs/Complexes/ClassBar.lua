@@ -24,6 +24,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	f:SetHeight(desc.h);
 	f:Show();
 	f.list = {};
+	f.list2 = {};
 	
 	local os = 0;
 	if desc.driver == 2 then
@@ -44,7 +45,6 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	elseif desc.orientation == "UP" then
 		opri1 = "BOTTOM"; opri2 = "TOP"; osec1 = "LEFT"; osec2 = "RIGHT"; csx = 0; csy = tonumber(desc.iconspy); csxm = tonumber(desc.iconspx); csym = 0;
 	end
-	
 	
 	if class == "DEATHKNIGHT" then
 	
@@ -581,10 +581,9 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		f:CheckAndShow();
 		
 	elseif class == "MONK" then
-	
-		for i = 1, 4 do
+		for i = 1, 6 do
 			btn = VFLUI.AcquireFrame("Frame");
-			btn:SetWidth(desc.w /4); btn:SetHeight(desc.h);
+			btn:SetWidth(desc.w /6); btn:SetHeight(desc.h);
 			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
 			btn:Hide(); -- hide by default
 			
@@ -611,9 +610,11 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			f.list[i] = btn;
 		end
 		
+		
 		f.Update = function(self)
 			local numOrbs = UnitPower(root:GetAttribute("unit") or "player", SPELL_POWER_CHI);
-			for i = 1, 4 do
+			local maxLight = UnitPowerMax("player", SPELL_POWER_CHI );
+			for i = 1, 6 do
 				local orb = self.list[i];
 				local shouldShow = i <= numOrbs;
 				if shouldShow then
@@ -622,6 +623,15 @@ function RDXUI.ClassBar:new(parent, root, desc)
 					self.list[i]:Hide();
 				end
 			end
+			
+			-- in case number of rune change, resize width
+			if self.maxLight ~= maxLight then
+				for i = 1, maxLight do
+					local btn = self.list[i];
+					btn:SetWidth(desc.w / maxLight);
+				end				
+				self.maxLight = maxLight;
+			end		
 		end
 		
 		f.CheckAndShow = function(self)
@@ -637,12 +647,11 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		-- call
 		f:CheckAndShow();
 		
-	elseif class == "PRIESTA" then
-		
+	elseif class == "PRIEST" then
 		-- create
-		for i = 1, PRIEST_BAR_NUM_ORBS do
+		for i = 1, 5 do
 			btn = VFLUI.AcquireFrame("Frame");
-			btn:SetWidth(desc.w /PRIEST_BAR_NUM_ORBS); btn:SetHeight(desc.h);
+			btn:SetWidth(desc.w /3); btn:SetHeight(desc.h);
 			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
 			btn:Hide(); -- hide by default
 			
@@ -670,9 +679,19 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		end
 		
 		f.Update = function(self)
-			local numOrbs = UnitPower(root:GetAttribute("unit") or "player", SPELL_POWER_SHADOW_ORBS);
-			for i = 1, PRIEST_BAR_NUM_ORBS do
-				local orb = self.list[i];
+			local numOrbs = UnitPower(root:GetAttribute("unit") or "player" or "vehicle", SPELL_POWER_SHADOW_ORBS);
+			if (IsSpellKnown(SHADOW_ORB_MINOR_TALENT_ID)) then
+				for i = 1, 5 do
+					local btn = self.list[i];
+					btn:SetWidth(desc.w / 5);
+				end
+			else
+				for i = 1, 5 do
+					local btn = self.list[i];
+					btn:SetWidth(desc.w / 3);
+				end
+			end
+			for i = 1, 5 do
 				local shouldShow = i <= numOrbs;
 				if shouldShow then
 					self.list[i]:Show();
@@ -687,7 +706,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			if ( spec == SPEC_PRIEST_SHADOW ) then
 				WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
 				WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(arg1, arg2) 
-					if (arg1 == root:GetAttribute("unit") or "player") and ( arg2 == "SHADOW_ORBS" ) then
+					if (arg1 == root:GetAttribute("unit") or "player" or "vehicle") and ( arg2 == "SHADOW_ORBS" ) then
 						self:Update();
 					end 
 				end, self.id);
@@ -719,7 +738,14 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		s2.Update = nil;
 		s2.CheckAndShow = nil;
 		s2.maxHolyPower = nil;
+		s2.maxLight = nil;
 		for i,v in pairs(s2.list) do
+			if v.tex then v.tex:Destroy(); v.tex = nil; end
+			if v.txt then v.txt:Destroy(); v.txt = nil; end
+			if v.sb then v.sb:Destroy(); v.sb = nil; end
+			v:Destroy(); v = nil;
+		end
+		for i,v in pairs(s2.list2) do
 			if v.tex then v.tex:Destroy(); v.tex = nil; end
 			if v.txt then v.txt:Destroy(); v.txt = nil; end
 			if v.sb then v.sb:Destroy(); v.sb = nil; end

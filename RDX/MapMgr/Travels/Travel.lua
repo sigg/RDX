@@ -134,7 +134,7 @@ function RDXMAP.Travel:CaptureTaxi()
 
 			if RDXG.DebugMap then
 				local name = RDXMAP.APITravel.FindTaxis2(n)
-				VFL.vprint ("Taxi current %s (%s)", name or "nil", locName)
+				--VFL.vprint ("Taxi current %s (%s)", name or "nil", locName)
 			end
 		end
 	end
@@ -160,14 +160,16 @@ function RDXMAP.Travel.TakeTaxiNode (node)
 	local info = RDXMAP.APIMap.GetWorldZone(mapId)
 	if info and info.c then
 		local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. info.c);
-		for k,v in ipairs (mbo.data) do
-			if x1 == v.fx and y1 == v.fy then
-				ff = true;
-				x, y = v.x, v.y
+		if mbo.data then
+			for k,v in ipairs (mbo.data) do
+				if x1 == v.fx and y1 == v.fy then
+					ff = true;
+					x, y = v.x, v.y
+				end
 			end
 		end
 		if ff then
-			VFL.print("TakeTaxiNode : get data from RDX FS");
+			--VFL.print("TakeTaxiNode : get data from RDX FS");
 		end
 	end
 	
@@ -177,15 +179,19 @@ function RDXMAP.Travel.TakeTaxiNode (node)
 		local info = RDXMAP.APIMap.GetWorldZone(mapId)
 		if info and info.c then
 			local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. info.c);
-			for k,v in ipairs (mbo.data) do
-				if v.n == RDXMAP.TaxiName then
-					ff = true;
-					v.fx = x1
-					v.fy = y1
+			if mbo.data then 
+				for k,v in ipairs (mbo.data) do
+					if v.n == RDXMAP.TaxiName then
+						ff = true;
+						v.fx = x1
+						v.fy = y1
+					end
 				end
+			else
+				--
 			end
 			if not ff2 then
-				VFL.print("TakeTaxiNode : Insert Not found, English only " .. RDXMAP.TaxiName);
+				--VFL.print("TakeTaxiNode : Insert Not found, English only " .. RDXMAP.TaxiName);
 			end
 		end
 	end
@@ -198,7 +204,7 @@ function RDXMAP.Travel.TakeTaxiNode (node)
 	local tm = self:TaxiCalcTime (node)
 	if tm > 0 and self.TaxiNameStart then
 
-		self.TaxiTimeEnd = GetTime() + tm
+		RDXMAP.Travel.TaxiTimeEnd = GetTime() + tm
 		VFLT.AdaptiveSchedule2("TaxiTime", 1, self.TaxiTimer);
 	end
 
@@ -260,7 +266,7 @@ function RDXMAP.Travel:TaxiCalcTime (dest)
 						end
 
 						if rCnt == 1 then
-							self.TaxiSaveName = routeName
+							RDXMAP.Travel.TaxiSaveName = routeName
 						end
 
 						return 0
@@ -353,11 +359,11 @@ function RDXMAP.Travel:TaxiFindConnectionTime (srcNode, destNode)
 						return ((c1 - 35) * 221 + c2 - 35) / 10
 					end
 				else
-					VFL.vprint ("Travel: missing dnpc %s %s", destNPCName, i)
+					--VFL.vprint ("Travel: missing dnpc %s %s", destNPCName, i)
 				end
 			end
 		else
-			VFL.vprint ("Travel: missing snpc %s %s", srcNPCName, i)
+			--VFL.vprint ("Travel: missing snpc %s %s", srcNPCName, i)
 		end
 	end
 
@@ -368,7 +374,7 @@ function RDXMAP.Travel:TaxiTimer()
 
 	if UnitOnTaxi ("player") then
 
-		RDXMAP.TaxiETA = max (0, self.TaxiTimeEnd - GetTime())
+		RDXMAP.TaxiETA = max (0, RDXMAP.Travel.TaxiTimeEnd - GetTime())
 
 	else
 		VFLT.AdaptiveUnschedule2("TaxiTime");
@@ -380,10 +386,10 @@ end
 
 function RDXMAP.Travel:TaxiSaveTime (tm)
 
-	if self.TaxiSaveName then		-- Need?
+	if RDXMAP.Travel.TaxiSaveName then		-- Need?
 
-		RDXG["TaxiTime"][self.TaxiSaveName] = tm
-		self.TaxiSaveName = false
+		RDXG["TaxiTime"][RDXMAP.Travel.TaxiSaveName] = tm
+		RDXMAP.Travel.TaxiSaveName = false
 	end
 end
 
@@ -396,7 +402,7 @@ local function ProcessTaxi(self, elapsed)
 			RDXMAP.TaxiStartTime = GetTime()
 			RDXMAP.TaxiOn = true
 			if RDXG.DebugMap then
-				VFL.vprint ("Taxi start")
+				--VFL.vprint ("Taxi start")
 			end
 		end
 
@@ -409,7 +415,7 @@ local function ProcessTaxi(self, elapsed)
 		RDXMAP.Travel:TaxiSaveTime (tm)
 
 		if RDXG.DebugMap then
-			VFL.vprint ("Taxi time %.1f seconds", tm)
+			--VFL.vprint ("Taxi time %.1f seconds", tm)
 		end
 	end
 end
@@ -936,7 +942,7 @@ function RDXMAP.Travel:DebugCaptureTaxi()
 			local name = TaxiNodeName (n)
 			local typ = TaxiNodeGetType (n)		-- NONE, CURRENT, REACHABLE, DISTANT
 			local x, y = TaxiNodePosition (n)
-			VFL.vprint ("Taxi #%s %s, %s %f %f", n, name, typ, x, y)
+			--VFL.vprint ("Taxi #%s %s, %s %f %f", n, name, typ, x, y)
 			tinsert (d, name)
 		end
 --[[

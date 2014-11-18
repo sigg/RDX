@@ -144,10 +144,10 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 		ent.text = VFLI.i18n("Unexplored Locations");
 		ent.func = function() 
 			VFL.poptree:Release();
-			self.LOpts.NXShowUnexplored = false
-			RDXMAP.APIMap.UpdateOverlayUnexplored(self)
-			RDXMAP.APIMap.TargetOverlayUnexplored(self)
-			RDXMAP.APIMap.RouteTargets(self)
+			--self.LOpts.NXShowUnexplored = false
+			--RDXMAP.APIMap.UpdateOverlayUnexplored(self)
+			--RDXMAP.APIMap.TargetOverlayUnexplored(self)
+			--RDXMAP.APIMap.RouteTargets(self)
 		end 
 	end);
 	self.MenuRoute:RegisterMenuFunction(function(ent)

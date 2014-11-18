@@ -1,4 +1,19 @@
 
+function RDXMAP.loadTables()
+	for k,v in pairs(RDXMAP.MapWorldInfo) do
+		local mbo = RDXDB.TouchObject("RDXDiskMap:maps:" .. k);
+		mbo.ty = "MapInfo"; 
+		mbo.version = 1;
+		mbo.data = {}
+		mbo.data.mf = VFL.copy(v);
+		mbo.data.mf[1] = nil;
+		mbo.data.mf[2] = nil;
+		mbo.data.mf[3] = nil;
+		mbo.data.mf[4] = nil;
+		mbo.data.mf[5] = nil;
+	end
+end
+-- /script RDXMAP.loadTables()
 --------
 -- Init map tables
 
@@ -9,149 +24,111 @@ function RDXMAP.InitTables()
 	RDXMAP.MapNameToId = {}
 	RDXMAP.MapIdToName = {}
 	RDXMAP.InstanceNameToId = {}
-	
 	RDXMAP.mapIdToCarbId = {}
 	RDXMAP.carbIdToMapId = {}
-	--RDXMAP.MapIdToNxzone = {}
-	--RDXMAP.NxzoneToMapId = {}
 	RDXMAP.MapOverlayToMapId = {}
-	
 	RDXMAP.MapInfo = {}
 	
 	local mapIdToContId = {};
 	
-	for mapid, winfo in pairs (worldInfo) do
-		if winfo.class == "c" and winfo.id and not RDXMAP.MapInfo[winfo.id] then
-			winfo.mapid = mapid;
-			RDXMAP.MapInfo[winfo.id] = winfo;
-			mapIdToContId[mapid] = winfo.id;
-			RDXMAP.MapNameToId[winfo.id] = {}
-		end
-	end
+	local mapid, winfo;
 	
-	for id, area in pairs (RDXMAP.MapGenAreas2) do
-		local winfo = worldInfo[id]
-		if winfo then
-			winfo.x = area.x;
-			winfo.y = area.y;
-			winfo.s = area.s;
-			winfo.o = area.o;
-		end
-	end
-	
-	--for id, area in pairs (RDXMAP.MapGenAreas) do
-
-	--	local winfo = worldInfo[id]
-	--	if winfo then
-	--		winfo[1] = area[1]				-- Scale
-	--		winfo[2] = area[2]				-- X
-	--		winfo[3] = area[3]				-- Y
-
-	--		if winfo.XOff then	-- Had pos offset?
-	--			winfo[2] = winfo[2] + winfo.XOff	-- X
-	--			winfo[3] = winfo[3] + winfo.YOff	-- Y
-	--			winfo.XOff = nil
-	--			winfo.YOff = nil
-	--		end
-
-	--		winfo.Overlay = area[4]
-	--	else
-	--		VFL.print("InitTables MapGenAreas mapid unknown " .. id)
-	--	end
-	--end
-	--RDXMAP.MapGenAreas = nil;
-	
-	local info, cx, cy, scale, contId;
-
-	for mapid, winfo in pairs (worldInfo) do
-		winfo.localname = GetMapNameByID(mapid);
-		contId = mapIdToContId[winfo.c]
-		if not winfo.localname then
-			local name;
-			if winfo.aa then 
-				name = winfo.Name .. winfo.aa
-			else
-				name = winfo.Name
+	local pkg = RDXDB.GetPackage("RDXDiskMap", "maps")
+	for objName, obj in pairs(pkg) do
+		if type(obj) == "table" and obj.ty == "MapInfo" then
+			mapid = tonumber(objName);
+			winfo = obj.data.mf;
+			if winfo and winfo.class == "c" and winfo.id then
+				winfo.mapid = mapid;
+				mapIdToContId[mapid] = winfo.id;
+				RDXMAP.MapNameToId[winfo.id] = {}
 			end
-			if winfo.class == "c" then
-			
-			elseif winfo.class == "i" or winfo.class == "bg" then
-				if not RDXMAP.InstanceNameToId[name] then
-					RDXMAP.InstanceNameToId[name] = mapid;
-				end
-			else
-				--VFL.print("InitTables no localname " .. mapid)
-				if not RDXMAP.MapNameToId[contId][name] then
-					--RDXMAP.MapNameToId[name] = mapid;
-					RDXMAP.MapNameToId[contId][name] = mapid;
+		end
+	end
+	
+	local info, cx, cy, scale, contId, localname;
+	
+	for objName, obj in pairs(pkg) do
+		if type(obj) == "table" and obj.ty == "MapInfo" then
+			mapid = tonumber(objName);
+			winfo = obj.data.mf;
+			if winfo then
+				localname = GetMapNameByID(mapid);
+				contId = mapIdToContId[winfo.c]
+				if not localname then
+					local name;
+					--if winfo.aa then 
+					--	name = winfo.Name .. winfo.aa
+					--else
+						name = winfo.Name
+					--end
+					if winfo.class == "c" then
+					
+					elseif winfo.class == "i" or winfo.class == "bg" then
+						if not RDXMAP.InstanceNameToId[name] then
+							RDXMAP.InstanceNameToId[name] = mapid;
+						end
+					else
+						--VFL.print("InitTables no localname " .. mapid)
+						if not RDXMAP.MapNameToId[contId][name] then
+							--RDXMAP.MapNameToId[name] = mapid;
+							RDXMAP.MapNameToId[contId][name] = mapid;
+						else
+							--VFL.print("InitTables double name " .. name .. " mapid " .. mapid)
+							--VFL.print("InitTables double name " .. name .. " mapid " .. RDXMAP.MapNameToId[name])
+							--RDXMAP.MapNameToId[winfo.Name] = nil; -- clear so the engine will use mapid
+						end
+					end
+					RDXMAP.MapIdToName[mapid] = name;
 				else
-					--VFL.print("InitTables double name " .. name .. " mapid " .. mapid)
-					--VFL.print("InitTables double name " .. name .. " mapid " .. RDXMAP.MapNameToId[name])
-					--RDXMAP.MapNameToId[winfo.Name] = nil; -- clear so the engine will use mapid
+					local name;
+					--if winfo.aa then 
+					--	name = localname .. winfo.aa
+					--else
+						name = localname
+					--end
+					if winfo.class == "c" then
+					
+					elseif winfo.class == "i" or winfo.class == "bg" then
+						if not RDXMAP.InstanceNameToId[name] then
+							RDXMAP.InstanceNameToId[name] = mapid;
+						end
+					else
+						if not RDXMAP.MapNameToId[contId][name] then
+							RDXMAP.MapNameToId[contId][name] = mapid;
+						else
+							VFL.print(contId)
+							VFL.print(name)
+							VFL.print(mapid)
+							--VFL.print("InitTables double name " .. name .. " mapid " .. RDXMAP.MapNameToId[name])
+							--RDXMAP.MapNameToId[localname] = nil; -- clear so the engine will use mapid
+						end
+					end
+					RDXMAP.MapIdToName[mapid] = name;
 				end
-			end
-			RDXMAP.MapIdToName[mapid] = name;
-		else
-			local name;
-			if winfo.aa then 
-				name = winfo.localname .. winfo.aa
-			else
-				name = winfo.localname
-			end
-			if winfo.class == "c" then
-			
-			elseif winfo.class == "i" or winfo.class == "bg" then
-				if not RDXMAP.InstanceNameToId[name] then
-					RDXMAP.InstanceNameToId[name] = mapid;
+				if winfo.oldid then
+					RDXMAP.carbIdToMapId[winfo.oldid] = mapid
 				end
-			else
-				if not RDXMAP.MapNameToId[contId][name] then
-					RDXMAP.MapNameToId[contId][name] = mapid;
-				else
-					VFL.print(contId)
-					VFL.print(name)
-					VFL.print(mapid)
-					--VFL.print("InitTables double name " .. name .. " mapid " .. RDXMAP.MapNameToId[name])
-					--RDXMAP.MapNameToId[winfo.localname] = nil; -- clear so the engine will use mapid
+				
+				--if RDX.PlFactionNum == 0 and winfo.QAchievementIdA then
+				--	winfo.QAchievementId = winfo.QAchievementIdA				-- Copy Ally Id to generic Id
+				--end
+				--if RDX.PlFactionNum == 1 and winfo.QAchievementIdH then
+				--	winfo.QAchievementId = winfo.QAchievementIdH				-- Copy Horde Id to generic Id
+				--end
+				
+				-- Overlay
+				local ov = winfo.o
+				if ov then
+					RDXMAP.MapOverlayToMapId[ov] = mapid;
 				end
-			end
-			RDXMAP.MapIdToName[mapid] = name;
-		end
-		if winfo.oldid then
-			RDXMAP.carbIdToMapId[winfo.oldid] = mapid
-		end
-		
-		--if RDX.PlFactionNum == 0 and winfo.QAchievementIdA then
-		--	winfo.QAchievementId = winfo.QAchievementIdA				-- Copy Ally Id to generic Id
-		--end
-		--if RDX.PlFactionNum == 1 and winfo.QAchievementIdH then
-		--	winfo.QAchievementId = winfo.QAchievementIdH				-- Copy Horde Id to generic Id
-		--end
-		
-		-- Overlay
-		local ov = winfo.o
-		if ov then
-			RDXMAP.MapOverlayToMapId[ov] = mapid;
-		end
-	end
-	-- World coord for instance
-	for mapid, winfo in pairs (worldInfo) do
-		if winfo.EntryMId then --instance
-			info = worldInfo[winfo.EntryMId]
-			if info then
-				scale = info.s
-				winfo[1] = 1002 / 25600 
-				winfo[4] = info.x + winfo[2] * scale
-				winfo[5] = info.y + winfo[3] * scale / 1.5
-				winfo.s = winfo[1]
-				winfo.x = winfo[4]
-				winfo.y = winfo[5]
-			else
-				VFL.print("InitTables instance " .. winfo.EntryMId);
 			end
 		end
 	end
+
 	
+	
+	--[[
 	-- Zone connections
 	for mapid, winfo in pairs (worldInfo) do
 		local cons = {}
@@ -224,16 +201,15 @@ function RDXMAP.InitTables()
 					end
 				end
 			end
-	end
+	end]]
 	
 end
 
 
 
---RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	RDXMAP.InitTables()
-	RDX.mapsw = true;
---end);
+end);
 
 function dumpgenmap()
 	if not RDXG.genmap then RDXG.genmap = {}; end
