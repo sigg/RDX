@@ -83,6 +83,8 @@ RDX.RegisterFeature({
 		local bs = desc.bs or VFLUI.defaultButtonSkin;
 		local bkd = desc.bkd or VFLUI.defaultBackdrop;
 		
+		if not desc.nIcons then desc.nIcons = 3; end
+		
 		local os = 0;
 		if driver == 2 then
 			if desc.bs and desc.bs.insets then os = desc.bs.insets or 0; end

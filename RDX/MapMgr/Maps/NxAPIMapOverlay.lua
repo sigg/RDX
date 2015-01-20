@@ -153,9 +153,9 @@ function RDXMAP.APIMap.UpdateOverlay (map, mapId, bright, noUnexplored, main)
 	wzone = RDXMAP.APIMap.GetWorldZone (mapId)
 	-- sigg startzone isssu pandaria
 	--if wzone and (wzone.class == "ci" or wzone.StartZone or RDXMAP.APIMap.IsMicroDungeon(mapId)) then
-	if wzone and wzone.class == "ci" then
-		return
-	end
+	--if wzone and wzone.class == "ci" then
+	--	return
+	--end
 
 	s = wzone and wzone.o or ""
 	t = NxMap.ZoneOverlays[s]

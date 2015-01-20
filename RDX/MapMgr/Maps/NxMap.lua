@@ -4,56 +4,6 @@
 ---------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------
 
---[[
-World
-s
-x
-y
-mid
-name function
-localname function
-class = w
-
-
-zone
-s
-x
-y
-wx
-wy
-mid
-name
-localname
-class = z
-
-instance
-s
-x
-y
-wx
-wy
-mid
-name
-localname
-class = i
-
-battleground
-s
-x
-y
-wx
-wy
-mid
-name
-localname
-class = j
-
-
-
-
-
-]]
-
 NxMapOpts = {
 	Version = 0
 }
@@ -1064,6 +1014,8 @@ function RDXMAP.Map:Update (elapsed)
 	self.Level = self.Frm:GetFrameLevel() + 1
 
 	local mapId = RDXMAP.APIMap.GetCurrentMapId()
+	local rid = RDXMAP.APIMap.GetRealMapId()
+	local inBG = RDXMAP.APIMap.IsBattleGroundMap (rid)
 
 	if self.MapId ~= mapId or self.upp then
 		self.upp = nil;
@@ -1075,10 +1027,26 @@ function RDXMAP.Map:Update (elapsed)
 
 		self.CurMapBG = RDXMAP.APIMap.IsBattleGroundMap (mapId)
 
-		if not RDXMAP.APIMap.IsBattleGroundMap (self.MapId) then
 --			self.MapIdOld = self.MapId
-			RDXMAP.APIMap.AddOldMap (self, mapId)
+		--RDXMAP.APIMap.AddOldMap (self, mapId)
+		local oi = self.GOpts["MapZoneDrawCnt"]
+	
+		if mapId and RDXMAP.APIMap.IsZoneMap (mapId) then
+			VFL.vremove(self.MapsDrawnOrder, mapId)
+			tinsert (self.MapsDrawnOrder, mapId)
+			if #self.MapsDrawnOrder > oi then
+				tremove (self.MapsDrawnOrder, 1)
+			end
 		end
+		
+		if rid and RDXMAP.APIMap.IsZoneMap(rid) then
+			VFL.vremove(self.MapsDrawnOrder, rid)
+			tinsert (self.MapsDrawnOrder, rid)
+			if #self.MapsDrawnOrder > oi then
+				tremove (self.MapsDrawnOrder, 1)
+			end
+		end
+		
 
 		self.MapId = mapId
 
@@ -1205,8 +1173,7 @@ function RDXMAP.Map:Update (elapsed)
 	-- TODO To be checked later
 
 	
-	local rid = RDXMAP.APIMap.GetRealMapId()
-	local inBG = RDXMAP.APIMap.IsBattleGroundMap (rid)
+	
 	--[[
 	if RDX.InBG and RDX.InBG ~= rid then	-- Left or changed BG?
 
@@ -1438,6 +1405,7 @@ function RDXMAP.Map:Update (elapsed)
 	if Nx and Nx.HUD then
 		Nx.HUD:Update (self)
 	end
+	RDXMAP.Hud.Update (self)
 	
 	-- reset icons
 	RDXMAP.APIMap.ResetIcons(self)
@@ -1447,6 +1415,7 @@ function RDXMAP.Map:Update (elapsed)
 	RDXMAP.APIMap.UpdateZones(self)
 	RDXMAP.APIMap.UpdateInstanceMap(self)
 	self:UpdateWorldMap() -- archeology
+	RDXMAP.APIMap.UpdateMiniFrames(self) --(minimap)
 	
 	-------------- END MAIN Update zone instance 
 	

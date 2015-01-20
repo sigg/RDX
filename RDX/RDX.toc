@@ -2,7 +2,7 @@
 ## Title: |c007ffcffRDX|r
 ## Notes: RDX is Raid Data Exchange - UI and raid mods.
 ## Author: Raid Informatics / OpenRDX Project
-## Version: 10.0.7
+## Version: 10.0.8
 ## RequiredDeps: VFL, RDX_mediapack
 ## OptionalDeps: RDX_languagepack_frFR, RDX_languagepack_deDE, RDX_languagepack_ruRU
 ## SavedVariables: RDXSession
@@ -323,6 +323,8 @@ MapMgr\Guides\IconsType.lua
 MapMgr\Travels\APITravel.lua
 MapMgr\Travels\Travel.lua
 MapMgr\Travels\Taxi.lua
+
+MapMgr\Hud\Hud.lua
 
 
 # Tab Manager

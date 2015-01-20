@@ -25,73 +25,6 @@ local zname
 local zx, zy, zw, zh
 
 --------
--- Update continent frames
-
-function RDXMAP.APIMap.UpdateContinents(map)
-
-	if map.CurOpts.NXWorldShow then
-		
-		for contN = 1, #map.ContFrms do
-			i = contN <= 2 and map.Level or map.Level + 1
-			RDXMAP.APIMap.MoveZoneTiles (map, map.ContFrms[contN].mapid, map.ContFrms[contN], map.WorldAlpha, i)
-		end
-
-		map.Level = map.Level + 2
-
-	else
-		
-		for contN = 1, #Nmap.ContFrms do
-			frms = map.ContFrms[contN]
-
-			for i = 1, 12 do
-				frm = frms[i]
-				if frm then
-					frm:Hide()
-				end
-			end
-		end
-
-		if map.ContFillFrm then
-			map.ContFillFrm:Hide()
-		end
-	end
-end
-
---------
--- Update map zone tiles
-
-function RDXMAP.APIMap.MoveCurZoneTiles (map, clear)
-
-	mapId = map.MapId
-	wzone = RDXMAP.APIMap.GetWorldZone (mapId)
-	local myunit = RDXDAL.GetMyUnit();
-
-	--if not clear and (not wzone or wzone.class == "ci" or (wzone.StartZone and myunit.mapId == mapId) or RDXMAP.APIMap.IsBattleGroundMap (mapId)) or RDXMAP.APIMap.IsMicroDungeon(mapId) then
-	if not clear and (not wzone or wzone.class == "ci" or wzone.StartZone or RDXMAP.APIMap.IsBattleGroundMap (mapId)) then
---		VFL.vprint ("MoveCurZoneTiles %d", mapId)
-		--VFL.print("RDXMAP.APIMap.MoveCurZoneTiles " .. mapId);
-
-		alpha = map.BackgndAlpha * (wzone.Alpha or 1)
-
-		RDXMAP.APIMap.MoveZoneTiles (map, mapId, map.TileFrms, alpha, map.Level)
-		map.Level = map.Level + 1
-
-	else
-
-		frms = map.TileFrms
-
-		for i = 1, 12 do
-		frm = frms[i]
-			if frm then
-				frm:Hide()
-			end
-		end
-	end
-end
-
-
-
---------
 -- Hide extra (Dalaran) map zone tiles
 
 function RDXMAP.APIMap.HideExtraZoneTiles(map)
@@ -101,7 +34,6 @@ function RDXMAP.APIMap.HideExtraZoneTiles(map)
 	frms[9]:Hide()
 	frms[12]:Hide()
 end
-
 
 --------
 -- Update map zone tiles (4x3 blocks)
@@ -193,50 +125,40 @@ function RDXMAP.APIMap.MoveZoneTiles (map, mapid, frms, alpha, level)
 	end
 end
 
+
 --------
--- Add old map zone to list
+-- Update continent frames
 
-function RDXMAP.APIMap.AddOldMap (map, newMapId)
-	
-	if map.MapId == 0 then		-- Happens on startup
-		return
-	end
+function RDXMAP.APIMap.UpdateContinents(map)
 
-	-- Remove any for new zone
-
-	i = 1
-	flag = nil;
-
-	for n = 1, #map.MapsDrawnOrder do
-		if map.MapsDrawnOrder[i] == newMapId then
-			tremove (map.MapsDrawnOrder, i)
-			flag = true
-		else
-			i = i + 1
+	if map.CurOpts.NXWorldShow then
+		
+		for contN = 1, #map.ContFrms do
+			i = contN <= 2 and map.Level or map.Level + 1
+			RDXMAP.APIMap.MoveZoneTiles (map, map.ContFrms[contN].mapid, map.ContFrms[contN], map.WorldAlpha, i)
 		end
-	end
 
-	i = map.GOpts["MapZoneDrawCnt"]
+		map.Level = map.Level + 2
 
-	if not flag then
+	else
+		
+		for contN = 1, #Nmap.ContFrms do
+			frms = map.ContFrms[contN]
 
---		VFL.vprint ("no dup")
-
-		j = #map.MapsDrawnOrder - i + 2
-		for n = 1, j do
-			tremove (map.MapsDrawnOrder, 1)
+			for i = 1, 12 do
+				frm = frms[i]
+				if frm then
+					frm:Hide()
+				end
+			end
 		end
-	end
 
-	if i > 1 then
-
-		map.MapsDrawnFade[map.MapId] = -1
-		tinsert (map.MapsDrawnOrder, map.MapId)		-- Newest at end
-
---		VFL.vprint ("Cur map %s", RDXMAP.APIMap.GetCurrentMapId())
---		VFL.vprintVar ("order", map.MapsDrawnOrder)
+		if map.ContFillFrm then
+			map.ContFillFrm:Hide()
+		end
 	end
 end
+
 
 --------
 -- Update the zones or city or micro
@@ -262,81 +184,48 @@ function RDXMAP.APIMap.UpdateZones(map)
 
 	-- freeOrScale
 	flag = map.ScaleDraw <= s
-	--flag = false
-	--local myunit = RDXDAL.GetMyUnit();
-	--if flag or winfo.class == "ci" or (winfo.StartZone and myunit.mapId == mapId) or RDXMAP.APIMap.IsBattleGroundMap (mapId) or RDXMAP.APIMap.IsMicroDungeon(mapId) then
-	if flag or winfo.class == "ci" or winfo.StartZone or RDXMAP.APIMap.IsBattleGroundMap (mapId) then
-	
---		if flag and map.MapIdOld and map.MapIdOld ~= mapId then
---			RDXMAP.APIMap.UpdateOverlay (map, id, .8, true)
---		end
+	if flag then
 		for n, id in ipairs (map.MapsDrawnOrder) do
 			RDXMAP.APIMap.UpdateOverlay (map, id, .8, true)
 		end
---[[
-		if flag then
+	end
+	
+	if RDXMAP.APIMap.IsCityMap (mapId) or RDXMAP.APIMap.IsStartZoneMap (mapId) then
+		RDXMAP.APIMap.MoveCurZoneTiles(map)
+	else
+		RDXMAP.APIMap.MoveCurZoneTiles (map, true)
+	end
+end
 
-			local abs = abs
+--------
+-- Update map zone tiles
+-- tileFrms is used by city, start zone, bg
 
-			for id, fade in pairs (map.MapsDrawnFade) do
+function RDXMAP.APIMap.MoveCurZoneTiles (map, clear)
 
-				if id ~= mapId then
-					RDXMAP.APIMap.UpdateOverlay (map, id, abs (fade) * .8, true)
-				end
+	mapId = map.MapId
+	wzone = RDXMAP.APIMap.GetWorldZone (mapId)
+	local myunit = RDXDAL.GetMyUnit();
 
-				if fade > 0 then
-					fade = fade + .1
-					map.MapsDrawnFade[id] = fade <= 1 and fade or 1
+	if not clear and not RDXMAP.APIMap.IsZoneMap (mapId) then
+--		VFL.vprint ("MoveCurZoneTiles %d", mapId)
+		--VFL.print("RDXMAP.APIMap.MoveCurZoneTiles " .. mapId);
 
-				elseif fade < 0 then
-					fade = fade + .1
-					map.MapsDrawnFade[id] = fade < 0 and fade or nil
-				end
-			end
-		end
---]]
---[[
-			if mapId >= 1000 and mapId <= 1999 then
+		alpha = map.BackgndAlpha * (wzone.Alpha or 1)
 
-				for id = 1001, 1024 do
-					if id ~= mapId then
-						RDXMAP.APIMap.UpdateOverlay (map,  id, .8)
-					end
-				end
-
-			elseif mapId >= 2000 and mapId <= 2999 then
-
-				for id = 2001, 2028 do
-					if id ~= mapId then
-						RDXMAP.APIMap.UpdateOverlay (map, id, .8)
-					end
-				end
-
-			elseif mapId >= 3000 and mapId <= 3999 then
-
-				for id = 3001, 3008 do
-					if id ~= mapId then
-						RDXMAP.APIMap.UpdateOverlay (map, id, .8)
-					end
-				end
-			end
---]]
-		if winfo.class == "ci" then
---			VFL.vprint ("city %s", map.Level)
-			RDXMAP.APIMap.UpdateMiniFrames(map)
-			RDXMAP.APIMap.MoveCurZoneTiles(map)
-
-		else
-			--RDXMAP.APIMap.UpdateOverlayUnexplored(map)
-			RDXMAP.APIMap.MoveCurZoneTiles(map)   -- contour ?
-			RDXMAP.APIMap.UpdateOverlay (map, mapId, 1, nil, true)
-			RDXMAP.APIMap.UpdateMiniFrames(map)
-		end
+		RDXMAP.APIMap.MoveZoneTiles (map, mapId, map.TileFrms, alpha, map.Level)
+		map.Level = map.Level + 1
 
 	else
-		RDXMAP.APIMap.MoveCurZoneTiles (map, true)		-- Clear
-		RDXMAP.APIMap.UpdateMiniFrames(map)
 
+		frms = map.TileFrms
+
+		for i = 1, 12 do
+		frm = frms[i]
+			if frm then
+				frm:Hide()
+			end
+		end
 	end
 end
 
@@ -377,9 +266,8 @@ function RDXMAP.APIMap.UpdateMiniFrames(map)
 
 --	i = .1
 
---	or winfo.class == "ci"
 
-	if map.ScaleDraw <= i or opts.NXDetailAlpha <= 0 or RDXMAP.APIMap.IsBattleGroundMap (mapId) then
+	if map.ScaleDraw <= i or opts.NXDetailAlpha <= 0 or (not RDXMAP.APIMap.IsZoneMap (mapId) and not RDXMAP.APIMap.IsStartZoneMap (mapId)) then
 		RDXMAP.APIMap.HideMiniFrames(map)
 		return
 	end

@@ -372,7 +372,7 @@ local function InitObjectDB()
 		if not dk then return nil; end
 		if pkg then
 			local disk = RDXDB.GetDisk(dk);
-			if not disk then VFL.print(dk); end
+			if not disk then VFL.print(dk); return; end
 			return disk[pkg];
 		end
 	end

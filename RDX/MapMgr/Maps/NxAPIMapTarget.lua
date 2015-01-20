@@ -306,6 +306,7 @@ function RDXMAP.APIMap.UpdateTracking(map)
 	local dir1
 	local srcX = map.myunit.PlyrX
 	local srcY = map.myunit.PlyrY
+	local tx, ty
 
 	for n = 1, #RDXMAP.Tracking do
 
@@ -317,6 +318,8 @@ function RDXMAP.APIMap.UpdateTracking(map)
 			map.TrackName = tr.n
 			dist1 = map.TrackDistYd
 			dir1 = map.TrackDir
+			tx = map.TrackX
+			ty = map.TrackY
 		end
 
 		srcX = tr.x
@@ -325,6 +328,8 @@ function RDXMAP.APIMap.UpdateTracking(map)
 
 	map.TrackDistYd = dist1
 	map.TrackDir = dir1
+	map.TrackX = tx
+	map.TrackY = ty
 end
 
 

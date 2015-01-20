@@ -130,4 +130,10 @@ activate
 
 /framestack showHidden
 /fstack showHidden
+
+/run SetConsoleKey("z")
+ExportInterfaceFiles code
+ExportInterfaceFiles art
+
+
 ]]

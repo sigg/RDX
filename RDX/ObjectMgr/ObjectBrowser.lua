@@ -316,6 +316,9 @@ function RDXDB.ExplorerInstance:new(parent)
 		for k,v in pairs(pkg) do
 			if (type(v) == "table") then
 				tbl = {name = k, path = RDXDB.MakePath(activeDk, activePkg, k)};
+				if v.data and v.data.Name then
+					tbl.text = v.data.Name;
+				end
 				-- Handle symlinks
 				if v.ty == "SymLink" then
 					if type(v.data) ~= "table" then 
@@ -339,7 +342,11 @@ function RDXDB.ExplorerInstance:new(parent)
 					if tbl.link then
 						tbl.text = k .. " |cFFAAAAAA->|r |cFF00FFFF" .. tbl.link .. "|r|cFFAAAAAA (" .. v.ty .. " v" .. v.version .. ")|r";
 					else
-						tbl.text = k .. "  |cFFAAAAAA(" .. v.ty .. " v" .. v.version .. ")|r";
+						if v.data and v.data.mf and v.data.mf.class and v.data.mf.Name then --MapInfo
+							tbl.text = k .. "  |cFFAAAAAA(" .. v.ty .. " v" .. v.version .. ") " .. v.data.mf.class .. " " .. v.data.mf.Name .. "|r";
+						else
+							tbl.text = k .. "  |cFFAAAAAA(" .. v.ty .. " v" .. v.version .. ")|r";
+						end
 					end
 					table.insert(dir, tbl);
 				end

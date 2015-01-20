@@ -20,6 +20,8 @@ RDXMAP.Map = {};
 RDXMAP.Travel = {};
 RDXMAP.ContCnt = 7;
 
+RDXMAP.Hud = {};
+
 RDXMAP.Quest = {};
 
 RDXMAP.Quest.IdToQuest = {};
@@ -191,6 +193,7 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	RDXMAP.Map:Init();
 	RDXMAP.Travel:Init();
 	RDXMAP.Quest:Init();
+	RDXMAP.Hud.Create(VFLParent);
 	WoWEvents:Bind("TAXIMAP_OPENED", nil, RDXMAP.Travel.OnTaximap_opened);
 	
 	if not RDXU.MapTargets then RDXU.MapTargets = {}; end

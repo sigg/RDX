@@ -893,7 +893,7 @@ end
 
 function RDXMAP.Map:GMenu_OnGoto()
 	--if Nx and Nx.Quest then
-		Nx.Quest.Watch:ClearAutoTarget()
+		--Nx.Quest.Watch:ClearAutoTarget()
 		RDXMapEvents:Dispatch("Watch:ClearAutoTarget");
 	--end
 

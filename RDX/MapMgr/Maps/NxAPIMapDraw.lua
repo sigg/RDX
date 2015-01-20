@@ -602,6 +602,8 @@ function RDXMAP.APIMap.DrawTracking (map, srcX, srcY, dstX, dstY, tex, name)
 		local dir = math.deg (math.atan2 (y, x)) + 90
 
 		map.TrackDir = dir
+		map.TrackX = dstX
+		map.TrackY = dstY
 
 		local sx = map.ScaleDraw
 		local sy = map.ScaleDraw / 1.5

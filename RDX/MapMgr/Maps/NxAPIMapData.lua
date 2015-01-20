@@ -250,6 +250,20 @@ function RDXMAP.APIMap.IsZoneMap (mapId)
 		return a.class == "z"
 	end
 end
+
+function RDXMAP.APIMap.IsCityMap (mapId)
+	local a = RDXMAP.APIMap.GetWorldZone(mapId)
+	if a then
+		return a.class == "ci"
+	end
+end
+
+function RDXMAP.APIMap.IsStartZoneMap (mapId)
+	local a = RDXMAP.APIMap.GetWorldZone(mapId)
+	if a then
+		return a.class == "sz"
+	end
+end
 --
 function RDXMAP.APIMap.IsOutlandMap (mapId)
 	local a = RDXMAP.APIMap.GetWorldZone(mapId)
@@ -310,7 +324,7 @@ function RDXMAP.APIMap.GetMiniInfo (mapId)
 --		if RDXG.DebugMap then
 --			VFL.vprint ("GetMiniInfo: missing %s", id)
 --		end
-		VFL.print("NxMap.MiniMapBlks error mapId " .. mapId);
+		--VFL.print("NxMap.MiniMapBlks error mapId " .. mapId);
 		return
 	end
 

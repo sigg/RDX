@@ -18,7 +18,7 @@ function RDXMAP.APIMap.InitHotspots(map)
 		if type(obj) == "table" and obj.ty == "MapInfo" then
 			mapId = tonumber(objName);
 			winfo = obj.data.mf;
-			if winfo and (winfo.class == "z" or winfo.class == "ci") then
+			if winfo and (winfo.class == "z" or winfo.class == "sz" or winfo.class == "ci") then
 				cname = RDXMAP.APIMap.GetWorldZoneInfo(winfo.c) --get data continent name
 				zname = RDXMAP.MapIdToName[mapId] or winfo.Name
 				color, infoStr = RDXMAP.APIMap.GetMapNameDesc (mapId)
@@ -55,7 +55,7 @@ function RDXMAP.APIMap.InitHotspots(map)
 
 					local wzone = RDXMAP.APIMap.GetWorldZone (mapId)
 
-					if wzone.class == "ci" or wzone.StartZone then
+					if wzone.class == "ci" or RDXMAP.APIMap.IsStartZoneMap (mapId) then
 						tinsert (quadCity, spot)
 					else
 						tinsert (quad, spot)
