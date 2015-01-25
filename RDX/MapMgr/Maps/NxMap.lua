@@ -1031,7 +1031,7 @@ function RDXMAP.Map:Update (elapsed)
 		--RDXMAP.APIMap.AddOldMap (self, mapId)
 		local oi = self.GOpts["MapZoneDrawCnt"]
 	
-		if mapId and RDXMAP.APIMap.IsZoneMap (mapId) then
+		if mapId and RDXMAP.APIMap.IsZoneMap(mapId) then
 			VFL.vremove(self.MapsDrawnOrder, mapId)
 			tinsert (self.MapsDrawnOrder, mapId)
 			if #self.MapsDrawnOrder > oi then
@@ -1102,41 +1102,51 @@ function RDXMAP.Map:Update (elapsed)
 				
 		--	end
 		--end
-		local mbo = RDXDB.TouchObject("RDXDiskMap:poisG:" .. mapId)
-		if mbo and mbo.data then
-			for i,v in ipairs(mbo.data) do
-				if v.s == RDX.PlFactionNum or v.s == 2 then
-					local f = VFLUI.POIIcon:new(self, 4)
-					f.texture:SetTexture(RDXMAP.icontex[v.t])
-					f.NxTip = format ("%s\n%s %.1f %.1f", RDXMAP.iconIdToName[v.t], RDXMAP.APIMap.IdToName(mapId), v.x, v.y) 
-					f.x = v.x
-					f.y = v.y
-					f.NXType = 3001
-					f.MapId = mapId
-					f.n = f.NxTip
-					f.NXData = v
-					table.insert(self.Icon3Frms, f);
+		
+		for n, id in ipairs (self.MapsDrawnOrder) do
+			
+			local mbo = RDXDB.TouchObject("RDXDiskMap:poisG:" .. id)
+			if mbo and mbo.data then
+				for i,v in ipairs(mbo.data) do
+					if v.s == RDX.PlFactionNum or v.s == 2 then
+						local f = VFLUI.POIIcon:new(self, 4)
+						f.texture:SetTexture(RDXMAP.icontex[v.t])
+						f.NxTip = format ("%s\n%s %.1f %.1f", RDXMAP.iconIdToName[v.t], RDXMAP.APIMap.IdToName(id), v.x, v.y) 
+						f.x = v.x
+						f.y = v.y
+						f.NXType = 3001
+						f.MapId = id
+						f.n = f.NxTip
+						f.NXData = v
+						table.insert(self.Icon3Frms, f);
+					end
 				end
 			end
+			
+			local mbo = RDXDB.TouchObject("RDXDiskSystem:favs:" .. id)
+			if mbo and mbo.data then
+				for i,v in ipairs(mbo.data) do
+					--if v.s == RDX.PlFactionNum or v.s == 2 then
+						local f = VFLUI.POIIcon:new(self, 4)
+						f.texture:SetTexture(RDXMAP.icontex[v.t])
+						f.NxTip = format ("%s\n%s %.1f %.1f", v.n or "toto", RDXMAP.APIMap.IdToName(id), v.x, v.y) 
+						f.x = v.x
+						f.y = v.y
+						f.NXType = 3002
+						f.MapId = id
+						f.n = f.NxTip
+						f.NXData = v
+						table.insert(self.Icon3Frms, f);
+					--end
+				end
+			end
+			
+			
+			
 		end
 		
-		local mbo = RDXDB.TouchObject("RDXDiskSystem:favs:" .. mapId)
-		if mbo and mbo.data then
-			for i,v in ipairs(mbo.data) do
-				--if v.s == RDX.PlFactionNum or v.s == 2 then
-					local f = VFLUI.POIIcon:new(self, 4)
-					f.texture:SetTexture(RDXMAP.icontex[v.t])
-					f.NxTip = format ("%s\n%s %.1f %.1f", v.n or "toto", RDXMAP.APIMap.IdToName(mapId), v.x, v.y) 
-					f.x = v.x
-					f.y = v.y
-					f.NXType = 3002
-					f.MapId = mapId
-					f.n = f.NxTip
-					f.NXData = v
-					table.insert(self.Icon3Frms, f);
-				--end
-			end
-		end
+		
+		
 		
 		-- add instances
 		local mapid, info;
@@ -1402,9 +1412,9 @@ function RDXMAP.Map:Update (elapsed)
 	self.WorldAlpha = 1
 	
 	-- SIGG TO REMOVE MAP
-	if Nx and Nx.HUD then
-		Nx.HUD:Update (self)
-	end
+	--if Nx and Nx.HUD then
+	--	Nx.HUD:Update (self)
+	--end
 	RDXMAP.Hud.Update (self)
 	
 	-- reset icons

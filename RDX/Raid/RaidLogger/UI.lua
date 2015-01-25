@@ -362,11 +362,11 @@ function Omni.Open(path, parent)
 	VFL.AddEscapeHandler(esch);
 	
 	function dlg:_esch()
-		esch();
+		VFL.EscapeTo(esch);
 	end
 	
 	local btnClose = VFLUI.CloseButton:new(dlg);
-	btnClose:SetScript("OnClick", function() esch(); end);
+	btnClose:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
 	dlg:AddButton(btnClose);
 
 	dlg.Destroy = VFL.hook(function(s)

@@ -588,3 +588,81 @@ end);
 -- Register the announce button.
 --RDXEvents:Bind("INIT_PRELOAD", nil, function() RDX.AddToolbarButton(anbtn, true); end);
 
+-- FOG system
+
+local textop, texleft, texright, texbottom
+
+local function createFog()
+	textop = VFLUI.CreateTexture(AlertParent)
+	textop:SetPoint("TOP", AlertParent, "TOP");
+	textop:SetWidth(AlertParent:GetWidth());
+	textop:SetHeight(30);
+	textop:SetTexture(1,1,1,1);
+	
+	textop:Show();
+	
+	texleft = VFLUI.CreateTexture(AlertParent)
+	texleft:SetPoint("LEFT", AlertParent, "LEFT");
+	texleft:SetWidth(30);
+	texleft:SetHeight(AlertParent:GetHeight());
+	texleft:SetTexture(1,1,1,1);
+	
+	texleft:Show();
+	
+	texright = VFLUI.CreateTexture(AlertParent)
+	texright:SetPoint("RIGHT", AlertParent, "RIGHT");
+	texright:SetWidth(30);
+	texright:SetHeight(AlertParent:GetHeight());
+	texright:SetTexture(1,1,1,1);
+	
+	texright:Show();
+	
+	texbottom = VFLUI.CreateTexture(AlertParent)
+	texbottom:SetPoint("BOTTOM", AlertParent, "BOTTOM");
+	texbottom:SetWidth(AlertParent:GetWidth());
+	texbottom:SetHeight(30);
+	texbottom:SetTexture(1,1,1,1);
+	
+	texbottom:Show();
+
+end
+
+function RDX.SetFogColor(r,g,b,a)
+	textop:SetGradientAlpha("VERTICAL", 0, 0, 0, 0, r, g, b, a)
+	texleft:SetGradientAlpha("HORIZONTAL", r, g, b, a, 0, 0, 0, 0)
+	texright:SetGradientAlpha("HORIZONTAL", 0, 0, 0, 0, r, g, b, a)
+	texbottom:SetGradientAlpha("VERTICAL", r, g, b, a, 0, 0, 0, 0)
+end
+
+RDXEvents:Bind("INIT_POST", nil, function()
+	createFog();
+	RDX.SetFogColor (0,0,0,0);
+	
+	local myunit = RDXDAL.GetMyUnit();
+	
+	local set1 = RDXDAL.FindSet({ file = "RDXDiskSystem:sets:set_debuff_magic", class = "file"});
+	local set2 = RDXDAL.FindSet({ file = "RDXDiskSystem:sets:set_debuff_poison", class = "file"});
+	local set3 = RDXDAL.FindSet({ file = "RDXDiskSystem:sets:set_debuff_disease", class = "file"});
+	local set4 = RDXDAL.FindSet({ file = "RDXDiskSystem:sets:set_debuff_curse", class = "file"});
+	
+	local function changeFog()
+		if set1:IsMember(myunit) then
+			RDX.SetFogColor (0,0,1,1);
+		elseif set2:IsMember(myunit) then
+			RDX.SetFogColor (0,1,0,1);
+		elseif set3:IsMember(myunit) then
+			RDX.SetFogColor (1,1,0,1);
+		elseif set4:IsMember(myunit) then
+			RDX.SetFogColor (0.5,0,1,1);
+		else
+			RDX.SetFogColor (0,0,0,0);
+		end
+	end
+	
+	set1:ConnectDelta("fog", changeFog);
+	set2:ConnectDelta("fog", changeFog);
+	set3:ConnectDelta("fog", changeFog);
+	set4:ConnectDelta("fog", changeFog);
+	
+	
+end);

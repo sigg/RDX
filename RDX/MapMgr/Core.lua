@@ -68,13 +68,13 @@ local function CreateMap(parent)
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
-	--dlg:SetPoint("CENTER", RDXParent, "CENTER");
-	--dlg:SetWidth(1000); dlg:SetHeight(800);
-	dlg:SetAllPoints(RDXParent)
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
+	dlg:SetWidth(1200); dlg:SetHeight(800);
+	--dlg:SetAllPoints(RDXParent)
 	dlg:SetText("Central map");
 	dlg:SetClampedToScreen(true);
-	--VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
-	--if RDXPM.Ismanaged("Central map") then RDXPM.RestoreLayout(dlg, "Central map"); end
+	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
+	if RDXPM.Ismanaged("Central map") then RDXPM.RestoreLayout(dlg, "Central map"); end
 
 	--local esch = function()
 		--dlg:_Hide(RDX.smooth, nil, function()
@@ -95,6 +95,12 @@ local function CreateMap(parent)
 	--	VFL.EscapeTo(esch);
 	--end
 	local ca = dlg:GetClientArea()
+	
+	----------------- Left side (content list)
+	local decor = VFLUI.AcquireFrame("Frame");
+	decor:SetParent(ca);
+	decor:SetBackdrop(VFLUI.BlackDialogBackdrop);
+	decor:Show();
 	
 	if not RDXG.GMap then
 		RDXG.GMap = {};
@@ -136,13 +142,21 @@ local function CreateMap(parent)
 	local function layout()
 		local w = ca:GetWidth();
 		local h = ca:GetHeight();
+		decor:ClearAllPoints();
+		decor:SetPoint("TOPLEFT", ca, "TOPLEFT");
+		decor:SetWidth(200); decor:SetHeight(h); 
+	
+		
 		m.Frm:ClearAllPoints();
 		m.Frm:SetPoint("CENTER", ca, "CENTER");
-		m.Frm:SetWidth(w - 2);
+		m.Frm:SetWidth(w - 402);
 		m.Frm:SetHeight(h - 2);
 	end
 	ca:SetScript("OnShow", layout);
 	ca:SetScript("OnSizeChanged", layout);
+	
+	
+	
 	
 	local savebtn = VFLUI.SaveButton:new()
 	savebtn:SetScript("OnClick", Save);
@@ -172,6 +186,7 @@ function RDXMAP.CentralMap(parent)
 end
 
 function RDXMAP.CloseCentralMap()
+	RDXPM.StoreLayout(dlg, "Central map");
 	dlg:Hide();
 end
 
