@@ -11,7 +11,7 @@ function RDXMAP.APIMap.UpdatePlyrHistory(map)
 
 	local tm = GetTime()
 
-	local scale = map.BaseScale
+	local scale = RDXMAP.BaseScale
 
 	local x = hist.LastX - map.MoveLastX
 	local y = hist.LastY - map.MoveLastY
@@ -40,7 +40,7 @@ function RDXMAP.APIMap.UpdatePlyrHistory(map)
 		hist.Next = a + 1
 	end
 
-	local size = min (max (4 * map.ScaleDraw * map.BaseScale, 3), 25)
+	local size = min (max (4 * map.ScaleDraw * RDXMAP.BaseScale, 3), 25)
 
 	local fadeTime = map.GOpts["MapTrailTime"]
 

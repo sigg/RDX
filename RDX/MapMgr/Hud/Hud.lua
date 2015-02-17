@@ -40,14 +40,26 @@ end
 
 local twoPi = math.pi * 2
 
-function RDXMAP.Hud.Update (map)
-	local gopts = f.GOpts
-	local srcX = map.myunit.PlyrX
-	local srcY = map.myunit.PlyrY
-	local tarX = map.TrackX
-	local tarY = map.TrackY
-	--local angle = map.myunit.PlyrDir
-	if map.TrackDir and not gopts["HUDHide"] and not (RDX.InBG and gopts["HUDHideInBG"]) then
+
+local myunit = {};
+myunit.PlyrX = 0;
+myunit.PlyrY = 0;
+myunit.mapId = 13;
+local gopts;
+RDXEvents:Bind("INIT_POST", nil, function() 
+	myunit = RDXDAL.GetMyUnit();
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
+	gopts = mbo.data
+end);	
+
+
+function RDXMAP.Hud.Update()
+	if #RDXMAP.Tracking > 0 and not gopts["HUDHide"] and not (RDX.InBG and gopts["HUDHideInBG"]) then
+		local srcX = myunit.PlyrX
+		local srcY = myunit.PlyrY
+		local tr = RDXMAP.Tracking[1];
+		local tarX = tr.x
+		local tarY = tr.y
 		f.hud:Show()
 		local dx = (tarX - srcX) --* MininoteLib.Conversion[continentID][0].xscale;
 		local dy = (tarY - srcY) --* MininoteLib.Conversion[continentID][0].yscale;
@@ -80,3 +92,10 @@ function RDXMAP.Hud.Update (map)
 		f.hud:Hide()
 	end
 end
+
+RDXEvents:Bind("INIT_DESKTOP", nil, function()
+	VFLT.AdaptiveSchedule2("UpdateHUD", 0.05, function() 
+		RDXMAP.Hud.Update()
+	end);
+end);
+

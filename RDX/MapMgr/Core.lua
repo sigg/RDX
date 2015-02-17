@@ -54,6 +54,11 @@ RDXMAP.PlyrNames = {};
 RDXMAP.AFKers = {};
 RDXMAP.PlyrNamesTipStr = "";
 
+RDXMAP.UpdateTargetDelay = 0;
+RDXMAP.UpdateTrackingDelay = 0;
+
+RDXMAP.BaseScale = 1
+
 RDXMAP.BGTimers = {};
 
 

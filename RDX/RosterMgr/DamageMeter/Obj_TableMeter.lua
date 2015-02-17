@@ -36,6 +36,10 @@ function RDXLF.TableMeter:Size()
 	return VFL.tsize(self.data);
 end
 
+function RDXLF.TableMeter:GetData()
+	return self.data;
+end
+
 function RDXLF.TableMeter:GetInfo(GUID)
 	local tableinfo = self.data[GUID];
 	if tableinfo then

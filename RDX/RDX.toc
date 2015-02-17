@@ -334,6 +334,7 @@ TabMgr\Obj_TabCombatLogs.lua
 TabMgr\Obj_TabWindow.lua
 TabMgr\Obj_TabMap.lua
 TabMgr\Obj_TabQuest.lua
+TabMgr\Obj_TabMeter.lua
 
 # Design Library
 Designs\Obj_Design.lua

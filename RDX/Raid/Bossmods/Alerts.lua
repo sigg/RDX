@@ -645,8 +645,12 @@ RDXEvents:Bind("INIT_POST", nil, function()
 	local set3 = RDXDAL.FindSet({ file = "RDXDiskSystem:sets:set_debuff_disease", class = "file"});
 	local set4 = RDXDAL.FindSet({ file = "RDXDiskSystem:sets:set_debuff_curse", class = "file"});
 	
+	local lowhealth = false;
+	
 	local function changeFog()
-		if set1:IsMember(myunit) then
+		if lowhealth then
+			RDX.SetFogColor (1,0,0,1);
+		elseif set1:IsMember(myunit) then
 			RDX.SetFogColor (0,0,1,1);
 		elseif set2:IsMember(myunit) then
 			RDX.SetFogColor (0,1,0,1);
@@ -664,5 +668,18 @@ RDXEvents:Bind("INIT_POST", nil, function()
 	set3:ConnectDelta("fog", changeFog);
 	set4:ConnectDelta("fog", changeFog);
 	
+	local function checkHealth()
+		if myunit:FracHealth() <= 0.15 and lowhealth == false then
+			lowhealth = true
+			changeFog()
+		elseif myunit:FracHealth() > 0.15 and lowhealth == true then
+			lowhealth = false
+			changeFog()
+		end
+	end
+	
+	RDXEvents:Bind("UNIT_HEALTH", nil, function(unit)
+		if unit:IsPlayer() then checkHealth(); end
+	end, "fog2");
 	
 end);

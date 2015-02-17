@@ -200,6 +200,8 @@ local function DisableAll()
 			end
 		end
 		
+		ActionButton_OnEvent = VFL.Noop
+		
 		-- ActionBarController
 		--[[
 		ActionBarController:UnregisterEvent("PLAYER_ENTERING_WORLD");

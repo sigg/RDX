@@ -69,10 +69,10 @@ function RDXMAP.APIMap.SetCurrentMap (map, mapId)
 
 	if mapId then
 
-		map.BaseScale = 1
+		RDXMAP.BaseScale = 1
 		
 		if RDXMAP.APIMap.IsInstanceMap(mapId) then
-			map.BaseScale = .025
+			RDXMAP.BaseScale = .025
 			SetMapByID (mapId)
 			SetDungeonMapLevel (1)
 		elseif map.myunit.mapId == mapId then

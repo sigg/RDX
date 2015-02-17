@@ -514,7 +514,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		
 		
 	elseif class == "PALADIN" then
-		local maxHolyPower = UnitPowerMax(root:GetAttribute("unit"), SPELL_POWER_HOLY_POWER);
+		local maxHolyPower = UnitPowerMax(root:GetAttribute("unit") or "player", SPELL_POWER_HOLY_POWER);
 		f.maxHolyPower = maxHolyPower;
 		for i = 1, 5 do
 			btn = VFLUI.AcquireFrame("Frame");

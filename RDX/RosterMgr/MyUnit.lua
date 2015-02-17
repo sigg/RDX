@@ -61,6 +61,7 @@ local function ProcessMyUnit(self, elapsed)
 		end
 	end	
 	--VFL.print(zName);
+	--VFL.print(myunit.contId);
 	--VFL.print(mapId);
 	
 	
@@ -143,6 +144,29 @@ local function ProcessMyUnit(self, elapsed)
 	end
 end
 
+--WoWEvents:Bind("ZONE_CHANGED", nil, function() 
+--	VFL.print("ZONE_CHANGED");
+--	SetMapToCurrentZone()
+--end);
+
+--WoWEvents:Bind("ZONE_CHANGED_INDOORS", nil, function() 
+--	VFL.print("ZONE_CHANGED_INDOORS");
+--	SetMapToCurrentZone()
+--end);
+
+local function initCont()
+	SetMapToCurrentZone();
+	if myunit then
+		myunit.contId = GetCurrentMapContinent();
+		--VFL.print("ZONE_CHANGED_NEW_AREA continent " .. myunit.contId);
+	end
+end
+
+WoWEvents:Bind("ZONE_CHANGED_NEW_AREA", nil, function() 
+	initCont();
+end);
+
+
 RDXEvents:Bind("INIT_POST", nil, function() 
 	myunit = RDXDAL.GetMyUnit();
 	myunit.contId = 1;
@@ -158,6 +182,8 @@ RDXEvents:Bind("INIT_POST", nil, function()
 		hist[n + 3] = 0		-- Direction
 	end
 	myunit.PlyrHist = hist;
+	
+	initCont();
 	
 	-- local myunit = RDXDAL.GetMyUnit();
 	-- myunit.mapId
@@ -308,25 +334,6 @@ function VFL.GetBGName(name)
 	-- Record the target
 	if bg_name then return bg_name; else return name; end
 end
-
-
---WoWEvents:Bind("ZONE_CHANGED", nil, function() 
---	VFL.print("ZONE_CHANGED");
---	SetMapToCurrentZone()
---end);
-
---WoWEvents:Bind("ZONE_CHANGED_INDOORS", nil, function() 
---	VFL.print("ZONE_CHANGED_INDOORS");
---	SetMapToCurrentZone()
---end);
-
-WoWEvents:Bind("ZONE_CHANGED_NEW_AREA", nil, function() 
-	SetMapToCurrentZone();
-	if myunit then
-		myunit.contId = GetCurrentMapContinent();
-		--VFL.print("ZONE_CHANGED_NEW_AREA continent " .. myunit.contId);
-	end
-end);
 
 function RDX.PPZ()
 	VFL.print(GetCurrentMapAreaID())

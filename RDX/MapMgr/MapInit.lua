@@ -72,6 +72,7 @@ function RDXMAP.InitTables()
 						--VFL.print("InitTables no localname " .. mapid)
 						if not RDXMAP.MapNameToId[contId][name] then
 							--RDXMAP.MapNameToId[name] = mapid;
+							--VFL.print("con " .. contId .. ", name " .. name .. ", mapid " ..mapid);
 							RDXMAP.MapNameToId[contId][name] = mapid;
 						else
 							--VFL.print("InitTables double name " .. name .. " mapid " .. mapid)
@@ -95,6 +96,7 @@ function RDXMAP.InitTables()
 						end
 					else
 						if not RDXMAP.MapNameToId[contId][name] then
+							--VFL.print("con " .. contId .. ", name " .. name .. ", mapid " ..mapid);
 							RDXMAP.MapNameToId[contId][name] = mapid;
 						else
 							VFL.print(contId)

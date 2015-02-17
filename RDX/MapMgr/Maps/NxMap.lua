@@ -138,7 +138,7 @@ function RDXMAP.Map:Create (index, data)
 	m.Scrolling = false
 	m.StepTime = 0
 	m.MapId = 0
-	m.BaseScale = 1										-- Scale values, because instances are smaller
+
 	--m.PlyrX = 0
 	--m.PlyrY = 0
 	m.PlyrRZX = 0
@@ -163,9 +163,6 @@ function RDXMAP.Map:Create (index, data)
 	
 	m.ArrowPulse = 1
 	m.ArrowScroll = 0
-
-	m.UpdateTargetDelay = 0
-	m.UpdateTrackingDelay = 0
 
 	m.Data = {}
 	m.IconFrms = {}
@@ -452,7 +449,7 @@ function RDXMAP.Map:Create (index, data)
 	RDXMapEvents:Bind("VehicleDumpPos", nil, function() m:VehicleDumpPos() end, "RDXMap" .. m.MapIndex);
 	
 	RDXMapEvents:Bind("SetTarget2", nil, function(keep) 
-		m.UpdateTrackingDelay = 0
+		RDXMAP.UpdateTrackingDelay = 0
 		local sbt = m.ScaleBeforeTarget
 		--	if m.ScaleBeforeTarget then
 		--		m.Scale = m.ScaleBeforeTarget
@@ -1270,9 +1267,9 @@ function RDXMAP.Map:Update (elapsed)
 
 	local moveDist = (x * x + y * y) ^ .5
 
---	if moveDist > 0 then VFL.vprint ("MoveDist %f %f", moveDist, self.BaseScale) end
+--	if moveDist > 0 then VFL.vprint ("MoveDist %f %f", moveDist, RDXMAP.BaseScale) end
 
-	if moveDist >= .01 * self.BaseScale or abs (ang) > .01 then
+	if moveDist >= .01 * RDXMAP.BaseScale or abs (ang) > .01 then
 
 		-- Nx.Com.PlyrChange = GetTime() ---
 
@@ -1415,7 +1412,7 @@ function RDXMAP.Map:Update (elapsed)
 	--if Nx and Nx.HUD then
 	--	Nx.HUD:Update (self)
 	--end
-	RDXMAP.Hud.Update (self)
+	--RDXMAP.Hud.Update (self)
 	
 	-- reset icons
 	RDXMAP.APIMap.ResetIcons(self)
@@ -1587,50 +1584,49 @@ function RDXMAP.Map:Update (elapsed)
 	RDXMapEvents:Dispatch("Guide:OnMapUpdate")	-- For closest target
 	
 	if #RDXU.MapTargets > 0 then
-		RDXMAP.APIMap.UpdateTargets(self)
+		--RDXMAP.APIMap.UpdateTargets(self)
 		RDXMAP.APIMap.UpdateTracking(self)
-		--RDXMAP.APIMap.UpdateTargets2(self)
 		self.Level = self.Level + 2
 	end
 
 	self.TrackETA = false
 
-	local cX, cY = GetCorpseMapPosition()
+	--local cX, cY = GetCorpseMapPosition()
 
-	if (cX > 0 or cY > 0) and not inBG then	-- We dead, but not in BG?
+	--if (cX > 0 or cY > 0) and not inBG then	-- We dead, but not in BG?
 
-		if self.GOpts["HUDATCorpse"] then
+	--	if self.GOpts["HUDATCorpse"] then
 
-			self.TrackName = "Corpse"
+		--	self.TrackName = "Corpse"
 
-			local x, y = RDXMAP.APIMap.GetWorldPos (mapId, cX * 100, cY * 100)
-			RDXMAP.APIMap.DrawTracking (self, plX, plY, x, y, "D", "Your corpse")
+			--local x, y = RDXMAP.APIMap.GetWorldPos (mapId, cX * 100, cY * 100)
+			--RDXMAP.APIMap.DrawTracking (self, plX, plY, x, y, "D", "Your corpse")
 
-			--f.texture:SetTexCoord (.571, .635, 0, .039)
-			--self.Level = s   elf.Level + 2
-		end
+			--self.Level = self.Level + 2
+		--end
 
-	elseif RDXMAP.ontaxi and RDXMAP.TaxiX then
+	--else
+	--if RDXMAP.ontaxi and RDXMAP.TaxiX then
 
-		if self.GOpts["HUDATTaxi"] then
+	--	if self.GOpts["HUDATTaxi"] then
 
-			self.TrackName = RDXMAP.TaxiName
-			self.TrackETA = RDXMAP.TaxiETA
+	--		self.TrackName = RDXMAP.TaxiName
+	--		self.TrackETA = RDXMAP.TaxiETA
 
-			local x, y = RDXMAP.TaxiX, RDXMAP.TaxiY
-			RDXMAP.APIMap.DrawTracking (self, plX, plY, x, y, "F")
+	--		local x, y = RDXMAP.TaxiX, RDXMAP.TaxiY
+	--		RDXMAP.APIMap.DrawTracking (self, plX, plY, x, y, "F")
 
 --			VFL.vprint ("taxi %s %s", x, y)
 
-			local f = RDXMAP.APIMap.GetIcon (self, 1)
+	--		local f = RDXMAP.APIMap.GetIcon (self, 1)
 
-			f.NxTip = RDXMAP.TaxiName
-			f.texture:SetTexture ("Interface\\Icons\\Ability_Mount_Wyvern_01")
-			RDXMAP.APIMap.ClipFrameW (self, f, x, y, 16, 16, 0)
+	--		f.NxTip = RDXMAP.TaxiName
+	--		f.texture:SetTexture ("Interface\\Icons\\Ability_Mount_Wyvern_01")
+	--		RDXMAP.APIMap.ClipFrameW (self, f, x, y, 16, 16, 0)
 
-			self.Level = self.Level + 2
-		end
-	end
+	--		self.Level = self.Level + 2
+	--	end
+	--end
 
 	-- Battle ground or manual pal tracking
 
