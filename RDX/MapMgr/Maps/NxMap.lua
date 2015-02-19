@@ -1028,6 +1028,14 @@ function RDXMAP.Map:Update (elapsed)
 		--RDXMAP.APIMap.AddOldMap (self, mapId)
 		local oi = self.GOpts["MapZoneDrawCnt"]
 	
+		if rid and RDXMAP.APIMap.IsZoneMap(rid) then
+			VFL.vremove(self.MapsDrawnOrder, rid)
+			tinsert (self.MapsDrawnOrder, rid)
+			if #self.MapsDrawnOrder > oi then
+				tremove (self.MapsDrawnOrder, 1)
+			end
+		end
+		
 		if mapId and RDXMAP.APIMap.IsZoneMap(mapId) then
 			VFL.vremove(self.MapsDrawnOrder, mapId)
 			tinsert (self.MapsDrawnOrder, mapId)
@@ -1036,13 +1044,7 @@ function RDXMAP.Map:Update (elapsed)
 			end
 		end
 		
-		if rid and RDXMAP.APIMap.IsZoneMap(rid) then
-			VFL.vremove(self.MapsDrawnOrder, rid)
-			tinsert (self.MapsDrawnOrder, rid)
-			if #self.MapsDrawnOrder > oi then
-				tremove (self.MapsDrawnOrder, 1)
-			end
-		end
+		
 		
 
 		self.MapId = mapId

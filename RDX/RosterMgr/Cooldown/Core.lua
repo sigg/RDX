@@ -76,7 +76,10 @@ function RDXCD.RegisterCooldown(race, boss, class, talent, spellid, duration, gr
 	local spellname, _, icon = GetSpellInfo(spellid);
 	if gicon then icon = gicon; end
 	if gtext then spellname = gtext; end
-	--if not spellname then VFL.print(VFLI.i18n("|cFFFF0000[RDX]|r Info : unknown spellid ") .. spellid .. "."); return; end
+	if not spellname then 
+		--VFL.print(VFLI.i18n("|cFFFF0000[RDX]|r Info : unknown spellid ") .. spellid .. "."); 
+		return;
+	end
 	local text = "";
 	if race then text = text .. race .. ":"; end
 	if boss then text = text .. boss .. ":"; end
