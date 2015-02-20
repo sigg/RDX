@@ -502,6 +502,10 @@ function RDXMAP.Map:Create (index, data)
 		end
 	end, "RDXMap" .. m.MapIndex);
 	
+	RDXMapEvents:Bind("UpdateWorld", nil, function() 
+		m:UpdateWorld()
+	end, "RDXMap" .. m.MapIndex);
+	
 	----
 	
 	m.Destroy = VFL.hook(function(s)
@@ -915,9 +919,9 @@ end
 
 function RDXMAP.Map:UpdateWorld()
 
-	--if self.Debug then
-	--	VFL.vprint ("%d Map UpdateWorld1 %d L%d", self.Tick, RDXMAP.APIMap.GetCurrentMapId(), GetCurrentMapDungeonLevel())
-	--end
+	if self.Debug then
+		VFL.vprint ("%d Map UpdateWorld1 %d L%d", self.Tick, RDXMAP.APIMap.GetCurrentMapId(), GetCurrentMapDungeonLevel())
+	end
 
 	self.NeedWorldUpdate = false
 
@@ -1175,8 +1179,8 @@ function RDXMAP.Map:Update (elapsed)
 		RDXMAP.Quest.MapChanged()
 		self:UpdateAll()
 		
-		self.MoveLastX = self.myunit.PlyrX
-		self.MoveLastY = self.myunit.PlyrY
+		--self.MoveLastX = self.myunit.PlyrX
+		--self.MoveLastY = self.myunit.PlyrY
 	end
 	
 	-- TODO To be checked later
@@ -1260,33 +1264,34 @@ function RDXMAP.Map:Update (elapsed)
 	--	self.Scale = self.RealScale
 	--end
 	
-	local plX = self.myunit.PlyrX
-	local plY = self.myunit.PlyrY
+	--local plX = self.myunit.PlyrX
+	--local plY = self.myunit.PlyrY
 
-	local x = plX - self.MoveLastX
-	local y = plY - self.MoveLastY
-	local ang = self.myunit.PlyrDir - self.PlyrLastDir
+	--local x = self.myunit.PlyrX - self.myunit.MoveLastX
+	--local y = self.myunit.PlyrY - self.myunit.MoveLastY
+	--local ang = self.myunit.PlyrDir - self.myunit.PlyrLastDir
 
-	local moveDist = (x * x + y * y) ^ .5
+	--local moveDist = (x * x + y * y) ^ .5
 
 --	if moveDist > 0 then VFL.vprint ("MoveDist %f %f", moveDist, RDXMAP.BaseScale) end
 
-	if moveDist >= .01 * RDXMAP.BaseScale or abs (ang) > .01 then
+	--if moveDist >= .01 * RDXMAP.BaseScale or abs (ang) > .01 then
+	if self.myunit.movetick then
 
 		-- Nx.Com.PlyrChange = GetTime() ---
 
-		if self.MoveLastX ~= -1 then
-			self.MoveDir = math.deg (math.atan2 (x, -y / 1.5))
+		if self.myunit.MoveLastX ~= -1 then
+			self.MoveDir = math.deg (math.atan2 (self.myunit.DistX, -self.myunit.DistY / 1.5))
 		end
 
-		self.MoveLastX = plX
-		self.MoveLastY = plY
+		--self.myunit.MoveLastX = plX
+		--self.myunit.MoveLastY = plY
 
 --		if not rotOk then
 --			self.PlyrDir = self.MoveDir
 --		end
 
-		self.PlyrLastDir = self.myunit.PlyrDir
+		--self.myunit.PlyrLastDir = self.myunit.PlyrDir
 
 		if not self.Scrolling and not self.MouseIsOver and not WorldMapFrame:IsVisible() then
 
@@ -1297,7 +1302,7 @@ function RDXMAP.Map:Update (elapsed)
 				if plZX ~= 0 or plZY ~= 0 then
 					
 					if #RDXMAP.Tracking == 0 or not scOn then
-						RDXMAP.APIMap.Move (self, plX, plY, nil, 60)
+						RDXMAP.APIMap.Move (self, self.myunit.PlyrX, self.myunit.PlyrY, nil, 60)
 					end
 				end
 
@@ -1807,9 +1812,10 @@ function RDXMAP.APIMap.DropOn(target, proxy, source, context)
 end
 
 
-
-
-
+function RDXWMap()
+	RDXMapEvents:Dispatch("UpdateWorld")
+end
+-- /script RDXWMap()
 
 
 

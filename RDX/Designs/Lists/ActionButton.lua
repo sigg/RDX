@@ -1920,7 +1920,7 @@ end
 -------------------------------------------
 -- Vehicle Button
 -------------------------------------------
-
+-- old
 VFLUI.CreateFramePool("ButtonVehicle",
 	function(pool, x)
 		if (not x) then return; end
@@ -1933,7 +1933,7 @@ VFLUI.CreateFramePool("ButtonVehicle",
 	function(_, key)
 		local f = nil;
 		if key > 0 and key < 11 then
-			f = CreateFrame("CheckButton", "VFLVehicleButton" .. key, nil, "SecureUnitButtonTemplate");
+			f = CreateFrame("Button", "VFLVehicleButton" .. key);
 			VFLUI._FixFontObjectNonsense(f);
 		end
 		return f;
@@ -2006,6 +2006,9 @@ function RDXUI.VehicleButton:new(parent, id, statesString, desc)
 	
 	self:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress");
 	
+	self.icon:Hide();
+	self:Hide();
+	
 	local function UpdateNewAction()
 		if self.id == 1 then
 			self.icon:SetTexture("Interface\\Vehicles\\UI-Vehicles-Button-Pitch-Up");
@@ -2017,17 +2020,17 @@ function RDXUI.VehicleButton:new(parent, id, statesString, desc)
 			self.icon:SetTexture("Interface\\Vehicles\\UI-Vehicles-Button-Exit-Up");
 			self.icon:SetTexCoord(0.140625, 0.859375, 0.140625, 0.859375);
 		end
-		if IsVehicleAimAngleAdjustable() then
-			if self.id == 1 or self.id == 2 then
-				self.icon:Show();
-				self:Show();
-			end
-		else
-			if self.id == 1 or self.id == 2 then
-				self.icon:Hide();
-				self:Hide();
-			end
-		end
+		--if IsVehicleAimAngleAdjustable() then
+		--	if self.id == 1 or self.id == 2 then
+		--		self.icon:Show();
+		--		self:Show();
+		--	end
+		--else
+		--	if self.id == 1 or self.id == 2 then
+		--		self.icon:Hide();
+		--		self:Hide();
+		--	end
+		--end
 		if CanExitVehicle() then
 			if self.id == 3 then
 				self.icon:Show();
@@ -2048,22 +2051,24 @@ function RDXUI.VehicleButton:new(parent, id, statesString, desc)
 	
 	self:SetScript("OnLeave", ABVHideGameTooltip);
 	self:SetScript("OnEnter", ABVShowGameTooltip);
-	self:SetAttribute("unit", "player");
+	--self:SetAttribute("unit", "player");
 	
 	if self.id == 1 then
 		self.tooltipName = "Target UP";
-		self:SetAttribute("type", "macro");
-		self:SetAttribute("macrotext", "/run VehicleAimIncrement()");
+		--self:SetAttribute("type", "macro");
+		--self:SetAttribute("macrotext", "/run VehicleAimIncrement()");
 	elseif self.id == 2 then
 		self.tooltipName = "Target DOWN";
-		self:SetAttribute("type", "macro");
-		self:SetAttribute("macrotext", "/run VehicleAimDecrement()");
+		--self:SetAttribute("type", "macro");
+		--self:SetAttribute("macrotext", "/run VehicleAimDecrement()");
 	elseif self.id == 3 then
 		self.tooltipName = "Vehicle Exit";
 		self:SetScript("OnClick", VehicleExit);
 	end
 	
 	WoWEvents:Bind("UNIT_ENTERED_VEHICLE", nil, UpdateAction, "actionButtonVehicle" .. self.id);
+	WoWEvents:Bind("UNIT_EXITED_VEHICLE", nil, UpdateAction, "actionButtonVehicle" .. self.id);
+	WoWEvents:Bind("VEHICLE_UPDATE", nil, UpdateAction, "actionButtonVehicle" .. self.id);
 	
 	----------------------------------- Bindings
 	

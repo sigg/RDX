@@ -11,34 +11,34 @@ function RDXMAP.APIMap.UpdatePlyrHistory(map)
 
 	local tm = GetTime()
 
-	local scale = RDXMAP.BaseScale
+	--local scale = RDXMAP.BaseScale
 
-	local x = hist.LastX - map.MoveLastX
-	local y = hist.LastY - map.MoveLastY
-	local moveDist = (x * x + y * y) ^ .5
+	--local x = hist.LastX - map.MoveLastX
+	--local y = hist.LastY - map.MoveLastY
+	--local moveDist = (x * x + y * y) ^ .5
 
-	if moveDist > map.GOpts["MapTrailDist"] * scale then
+	--if moveDist > map.GOpts["MapTrailDist"] * scale then
 
-		hist.LastX = map.MoveLastX
-		hist.LastY = map.MoveLastY
+	--	hist.LastX = map.MoveLastX
+	--	hist.LastY = map.MoveLastY
 
-		hist.Time = tm
+	--	hist.Time = tm
 
-		local a = hist.Next
-		local o = a * 4 - 3
+	--	local a = hist.Next
+	--	local o = a * 4 - 3
 
-		hist[o] = GetTime()
-		hist[o + 1] = myunit.PlyrX
-		hist[o + 2] = myunit.PlyrY
-		hist[o + 3] = map.PlyrDir
+	--	hist[o] = GetTime()
+	--	hist[o + 1] = myunit.PlyrX
+	--	hist[o + 2] = myunit.PlyrY
+	--	hist[o + 3] = myunit.PlyrDir
 		
 
-		if a >= hist.Cnt then
-			a = 0
-		end
+	--	if a >= hist.Cnt then
+	--		a = 0
+	--	end
 
-		hist.Next = a + 1
-	end
+	--	hist.Next = a + 1
+	--end
 
 	local size = min (max (4 * map.ScaleDraw * RDXMAP.BaseScale, 3), 25)
 

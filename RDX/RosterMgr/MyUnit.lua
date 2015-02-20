@@ -1,4 +1,4 @@
-﻿local a, myunit, plZX, plZY, x, y, zName, isIndoor, IndoorFlag, indoorMapFileName, mapId, cmaId, gcmd, tmDif, lvl, ang, moveDist
+﻿local a, o, myunit, plZX, plZY, x, y, zName, isIndoor, IndoorFlag, indoorMapFileName, mapId, cmaId, gcmd, tmDif, lvl, ang, moveDist, tm
 
 local mapIdsave; -- when entering mini dungeon
 
@@ -36,6 +36,8 @@ local function ProcessMyUnit(self, elapsed)
 	cmaId = GetCurrentMapAreaID()
 	gcmd = GetCurrentMapDungeonLevel();
 	mapId = nil;
+	
+	tm = GetTime()
 	
 	if zName then
 		if myunit.contId then
@@ -101,7 +103,7 @@ local function ProcessMyUnit(self, elapsed)
 		
 		if elapsed > 0 then
 			if x == myunit.PlyrX and y == myunit.PlyrY then	-- Not moving?
-				myunit.PlyrSpeedCalcTime = GetTime()
+				myunit.PlyrSpeedCalcTime = tm
 				myunit.PlyrSpeed = 0
 				myunit.PlyrSpeedX = x
 				myunit.PlyrSpeedY = y
@@ -109,7 +111,7 @@ local function ProcessMyUnit(self, elapsed)
 			else
 				tmDif = GetTime() - myunit.PlyrSpeedCalcTime
 				if tmDif > .5 then
-					myunit.PlyrSpeedCalcTime = GetTime()
+					myunit.PlyrSpeedCalcTime = tm
 					myunit.PlyrSpeed = ((x - myunit.PlyrSpeedX) ^ 2 + (y - myunit.PlyrSpeedY) ^ 2) ^ .5 * 4.575 / tmDif
 					myunit.PlyrSpeedX = x
 					myunit.PlyrSpeedY = y
@@ -118,6 +120,9 @@ local function ProcessMyUnit(self, elapsed)
 		end
 		myunit.PlyrX = x
 		myunit.PlyrY = y
+		
+		--myunit.MoveLastX = x;
+		--myunit.MoveLastY = y;
 		
 		--VFL.print("bliz " .. plZX);
 		--VFL.print("carb " .. x);
@@ -142,6 +147,50 @@ local function ProcessMyUnit(self, elapsed)
 		--SetMapToCurrentZone();
 		mapIdsave = mapId;
 	end
+	
+	myunit.DistX = myunit.PlyrX - myunit.MoveLastX
+	myunit.DistY = myunit.PlyrY - myunit.MoveLastY
+	ang = myunit.PlyrDir - myunit.PlyrLastDir
+	moveDist = (myunit.DistX * myunit.DistX + myunit.DistY * myunit.DistY) ^ .5
+	
+	if moveDist >= .01 * RDXMAP.BaseScale or abs (ang) > .01 then
+		myunit.MoveLastX = myunit.PlyrX
+		myunit.MoveLastY = myunit.PlyrY
+		myunit.PlyrLastDir = myunit.PlyrDir
+		myunit.movetick = true;
+		--VFL.print("MOVE")
+	else
+		myunit.movetick = false;
+	end
+	
+	x = myunit.PlyrHist.LastX - myunit.MoveLastX
+	y = myunit.PlyrHist.LastY - myunit.MoveLastY
+	moveDist = (x * x + y * y) ^ .5
+	
+	--if moveDist > map.GOpts["MapTrailDist"] * RDXMAP.BaseScale then
+	if moveDist > 2 * RDXMAP.BaseScale then
+
+		myunit.PlyrHist.LastX = myunit.MoveLastX
+		myunit.PlyrHist.LastY = myunit.MoveLastY
+
+		myunit.PlyrHist.Time = tm
+
+		a = myunit.PlyrHist.Next
+		o = a * 4 - 3
+
+		myunit.PlyrHist[o] = tm
+		myunit.PlyrHist[o + 1] = myunit.PlyrX
+		myunit.PlyrHist[o + 2] = myunit.PlyrY
+		myunit.PlyrHist[o + 3] = myunit.PlyrDir
+		
+
+		if a >= myunit.PlyrHist.Cnt then
+			a = 0
+		end
+
+		myunit.PlyrHist.Next = a + 1
+	end
+	
 end
 
 --WoWEvents:Bind("ZONE_CHANGED", nil, function() 

@@ -42,7 +42,7 @@ function RDXMAP.APIMap.TargetOverlayUnexplored(map)
 	t = map.CurOverlays
 
 	if not t then	-- Not found? New stuff probably
-		VFL.print("EROOR T");
+		VFL.print("ERROR T");
 		return
 	end
 

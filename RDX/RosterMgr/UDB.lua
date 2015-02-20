@@ -1003,11 +1003,16 @@ local function ProcessRoster()
 					myunit.PlyrY = 0;
 					myunit.SaveLastX = 0;
 					myunit.SaveLastY = 0;
+					myunit.MoveLastX = 0;
+					myunit.MoveLastY = 0;
+					myunit.DistX = 0;
+					myunit.DistY = 0;
 					myunit.PlyrSpeedCalcTime = 0;
 					myunit.PlyrSpeed = 0;
 					myunit.PlyrSpeedX = 0;
 					myunit.PlyrSpeedY = 0;
 					myunit.PlyrDir = 0;
+					myunit.PlyrLastDir = 0;
 				end
 			end
 			nunit.rosterName = iunit.rosterName;

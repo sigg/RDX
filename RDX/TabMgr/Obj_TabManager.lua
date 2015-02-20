@@ -106,7 +106,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 						color = _submenu_color,
 					});
 					
-					local _, _, aui = RDXDB.ParsePath(RDXU.AUI);
+					--[[local _, _, aui = RDXDB.ParsePath(RDXU.AUI);
 					local disk = RDXDB.GetDisk("RDXDiskTheme")
 					local pkg = disk[aui];
 					local tbl = {};
@@ -142,7 +142,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 								end
 							});
 						end
-					end
+					end]]
 				end,
 				true,
 				nil

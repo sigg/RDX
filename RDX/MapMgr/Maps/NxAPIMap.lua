@@ -239,6 +239,9 @@ function RDXMAP.APIMap.GotoPlayer(map)
 
 	map.MoveLastX = -1
 	map.MoveLastY = -1
+	map.myunit.MoveLastX = -1
+	map.myunit.MoveLastY = -1
+	
 end
 
 --------
