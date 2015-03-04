@@ -54,9 +54,9 @@ function RDXMAP.APITravel.FindTaxis2(node)
 	return name, wx, wy;
 end
 
-function RDXMAP.APITravel.MakePath (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
+function RDXMAP.APITravel.MakePath (tr, srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 
-	local tr;
+	--local tr;
 	
 	--if not self.GOpts["MapRouteUse"] then
 	--	return
@@ -144,7 +144,7 @@ function RDXMAP.APITravel.MakePath (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 
 --		VFL.vprint ("** path nodes start %s to %s", srcMapId, dstMapId)
 
-		local watchdog = 10
+		--local watchdog = 10
 
 		--repeat
 
@@ -268,7 +268,7 @@ function RDXMAP.APITravel.MakePath (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 		end
 	end
 	
-	return tr;
+	--return tr;
 end
 
 function RDXMAP.APITravel.FindFlight (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
@@ -363,28 +363,32 @@ function RDXMAP.APITravel.FindClosestFlight (mapId, posX, posY)
 	local cont = RDXMAP.APIMap.GetContinent(mapId)
 	if cont then
 		local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. cont);
-		for k,v in ipairs (mbo.data) do
-			if v.s == 2 or v.s == RDX.PlFactionNum then
-				local dist
-				if v.z == mapId then
-					dist = (v.x - posX) ^ 2 + (v.y - posY) ^ 2
-				else
-					dist = RDXMAP.APITravel.FindZoneConnection (mapId, posX, posY, v.z, v.x, v.y)
-					if not dist then
-						dist = 9900111222333444
+		if mbo and mbo.data then
+			for k,v in ipairs (mbo.data) do
+				if v.s == 2 or v.s == RDX.PlFactionNum then
+					local dist
+					if v.z == mapId then
+						dist = (v.x - posX) ^ 2 + (v.y - posY) ^ 2
 					else
-						dist = dist ^ 2
+						dist = RDXMAP.APITravel.FindZoneConnection (mapId, posX, posY, v.z, v.x, v.y)
+						if not dist then
+							dist = 9900111222333444
+						else
+							dist = dist ^ 2
+						end
+					end
+					if dist < closeDist then
+		--				VFL.vprint ("Close %s %d (%s %d %d)", node.Name, dist ^ .5, mapId, posX, posY)
+						closeDist = dist
+						closeNode = v;
 					end
 				end
-				if dist < closeDist then
-	--				VFL.vprint ("Close %s %d (%s %d %d)", node.Name, dist ^ .5, mapId, posX, posY)
-					closeDist = dist
-					closeNode = v;
-				end
 			end
-		end
-		if closeNode then
-			return closeDist ^ .5, closeNode
+			if closeNode then
+				return closeDist ^ .5, closeNode
+			end
+		else
+			return closeDist
 		end
 	end
 end
@@ -396,23 +400,25 @@ function RDXMAP.APITravel.FindZoneConnection (srcMapId, srcX, srcY, dstMapId, ds
 	local closeDist = 9000111222333444;
 	
 	local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:ZC_" .. srcMapId);
-	for k,v in pairs(mbo.data) do
-		if v.zcr == dstMapId then
-			found = true;
-			local mbo2 = RDXDB.TouchObject("RDXDiskMap:poisT:ZC_" .. dstMapId);
-			local v2 = mbo2.data[v.icr];
-			local dist1 = ((v.x - srcX) ^ 2 + (v.y - srcY) ^ 2) ^ .5
-			local dist2 = ((v2.x - dstX) ^ 2 + (v2.y - dstY) ^ 2) ^ .5
-			local d = dist1 + dist2
-			local din = 0
-			if v.t == 1 then
-				din = (((v.x - v2.x) ^ 2 + (v.y - v2.y) ^ 2) ^ .5)
-			end
-			d = d + din;
-			if d < closeDist then
-				closeDist = d
-				closeConS = v
-				closeConD = v2
+	if mbo and mbo.data then
+		for k,v in pairs(mbo.data) do
+			if v.zcr == dstMapId then
+				found = true;
+				local mbo2 = RDXDB.TouchObject("RDXDiskMap:poisT:ZC_" .. dstMapId);
+				local v2 = mbo2.data[v.icr];
+				local dist1 = ((v.x - srcX) ^ 2 + (v.y - srcY) ^ 2) ^ .5
+				local dist2 = ((v2.x - dstX) ^ 2 + (v2.y - dstY) ^ 2) ^ .5
+				local d = dist1 + dist2
+				local din = 0
+				if v.t == 1 then
+					din = (((v.x - v2.x) ^ 2 + (v.y - v2.y) ^ 2) ^ .5)
+				end
+				d = d + din;
+				if d < closeDist then
+					closeDist = d
+					closeConS = v
+					closeConD = v2
+				end
 			end
 		end
 	end

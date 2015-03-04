@@ -69,7 +69,7 @@ RDXDB.RegisterObjectType({
 		md.data = {};
 	end,
 	Edit = function(path, md, parent)
-		--RDX.EditWindow(parent, path, md);
+		RDX.EditTableMeterDialog(parent or VFLFULLSCREEN, path, md, function(data) local inst = RDXDB.GetObjectInstance(path); inst:SetFilter(RDXLF.SelectFunctor(data)); inst:Reset(); end);
 	end,
 	Instantiate = function(path, md)
 		local mf = VFLUI.AcquireFrame("Frame");
@@ -90,8 +90,10 @@ RDXDB.RegisterObjectType({
 		mf:SetScript("OnShow", layout);
 		mf:SetScript("OnSizeChanged", layout);
 		
-		local tbmeter = RDXDB.GetObjectInstance("");
-		mf.tbmeter = tbmeter;
+		local x = RDXLF.GetTM(path);
+		x:SetFilter(RDXLF.SelectFunctor(md.data));
+		RDXEvents:Bind("LOG_ROW_ADDED", x, x.Update, x);
+		mf.tbmeter = x;
 		
 		mf.a = {};
 		mf.cp = 0;

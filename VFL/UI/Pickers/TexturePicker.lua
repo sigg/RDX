@@ -42,9 +42,14 @@ pathEdit:SetWidth(400); pathEdit:SetHeight(24);
 pathEdit:SetPoint("TOPLEFT", ca, "TOPLEFT");
 pathEdit:Show();
 
+local pathIDEdit = VFLUI.Edit:new(ca);
+pathIDEdit:SetWidth(100); pathIDEdit:SetHeight(24);
+pathIDEdit:SetPoint("LEFT", pathEdit, "RIGHT");
+pathIDEdit:Show();
+
 local chk_sc = VFLUI.Checkbox:new(ca);
 chk_sc:SetHeight(16); chk_sc:SetWidth(100);
-chk_sc:SetPoint("LEFT", pathEdit, "RIGHT", 25, 0);
+chk_sc:SetPoint("LEFT", pathIDEdit, "RIGHT", 25, 0);
 chk_sc:SetText("Use solid color"); chk_sc:Show();
 chk_sc.check:SetScript("OnClick", function() pathEdit:SetText(""); end);
 
@@ -68,10 +73,12 @@ end);
 function BaseTextureUpdate()
 	if chk_sc:GetChecked() then
 		curTex.path = nil;
+		curTex.pathid = nil;
 		curTex.color = cs_sc:GetColor();
 	else
 		curTex.color = nil;
 		curTex.path = pathEdit:GetText();
+		curTex.pathid = pathIDEdit:GetNumber();
 	end
 	UpdatePicker();
 end
@@ -293,12 +300,14 @@ end
 
 ----------- Updater
 function UpdatePicker()
-	VFLUI.SetTexture(pvw, curTex, true);
-	if curTex.path then
+	VFLUI.SetTexture(pvw, curTex);
+	if curTex.path and curTex.path ~= "" then
 		local resx, resy = 32, 32;
 		local t = VFLUI.GetTextureByPath(curTex.path);
-		if t then	resx, resy = VFLUI.AspectConstrainedFit(t.dx, t.dy, 192, 192); end
+		if t then resx, resy = VFLUI.AspectConstrainedFit(t.dx, t.dy, 192, 192); end
 		pvw:SetWidth(resx); pvw:SetHeight(resy);
+	--elseif curTex.pathid and curTex.pathid ~= 0 then
+	--	pvw:SetWidth(100); pvw:SetHeight(100);
 	else
 		pvw:SetWidth(192); pvw:SetHeight(192);
 	end
@@ -371,7 +380,12 @@ local function BrowserCellOnClick(cell)
 	curTex = VFLUI.CopyTexture(cell._texture);
 	if curTex.path then
 		pathEdit:SetText(curTex.path);
+		pathIDEdit:SetText("")
+	elseif curTex.pathid then
+		pathEdit:SetText("");
+		pathIDEdit:SetText(curTex.pathid)
 	else
+		
 	end
 end
 
@@ -465,9 +479,14 @@ end
 
 ----------- Init
 local function InitPicker()
-	if curTex.path then
+	if curTex.path and curTex.path ~= "" then
 		chk_sc:SetChecked(nil);
 		pathEdit:SetText(curTex.path);
+		pathIDEdit:SetText("");
+	elseif curTex.pathid and curTex.pathid ~= 0 then
+		chk_sc:SetChecked(nil);
+		pathEdit:SetText("");
+		pathIDEdit:SetText(curTex.pathid);
 	elseif curTex.color then
 		chk_sc:SetChecked(true);
 		cs_sc:SetColor(VFL.explodeRGBA(curTex.color));
@@ -563,6 +582,8 @@ function VFLUI.CloseTexturePicker() ClosePicker(); end
 local function GetTexInfoString(texture)
 	if texture.path then
 		return string.match(texture.path, "([^%/%\\]*)$") or "[unknown]";
+	elseif texture.pathid then
+		return "ID: " .. texture.pathid 
 	elseif texture.color then
 		local c = texture.color
 		return "(" .. string.format("%0.1f", c.r) .. "," .. string.format("%0.1f", c.g) .. "," .. string.format("%0.1f", c.b) .. "," .. string.format("%0.1f", c.a) .. ")";

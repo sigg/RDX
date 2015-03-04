@@ -217,6 +217,7 @@ function RDXMAP.Map:Create (index, data)
 	t:SetTexture (0, 0, 0, .2)
 	t:SetAllPoints (f)
 	f.texture = t
+	t:Show();
 
 	f:Show()
 
@@ -250,6 +251,7 @@ function RDXMAP.Map:Create (index, data)
 	ftip.texture = t
 	t:SetAllPoints (ftip)
 	t:SetTexture (0, 0, 0, .85)
+	t:Show();
 
 	-- Font strings
 
@@ -282,6 +284,7 @@ function RDXMAP.Map:Create (index, data)
 	plf.texture = t
 	t:SetTexture ("Interface\\Minimap\\MinimapArrow")
 	t:SetAllPoints (plf)
+	t:Show();
 
 	plf:SetPoint ("CENTER", 0, (m.TitleH - 1) * -.5)
 	plf:Show()
@@ -295,10 +298,10 @@ function RDXMAP.Map:Create (index, data)
 		tf:SetParent(f);
 		m.TileFrms[i] = tf
 
-
 		local t = VFLUI.CreateTexture(tf)
 		t:SetAllPoints (tf)
 		tf.texture = t
+		t:Show();
 	end
 	
 	-- Create continent frames
@@ -327,6 +330,7 @@ function RDXMAP.Map:Create (index, data)
 							t:SetAllPoints (cf)
 							cf.texture = t
 							t:SetTexture ("Interface\\WorldMap\\"..mapFileName.."\\"..mapFileName..i)
+							t:Show();
 						end
 					end
 					n = n + 1;
@@ -352,6 +356,7 @@ function RDXMAP.Map:Create (index, data)
 					t:SetAllPoints (cf)
 					cf.texture = t
 					t:SetTexture ("Interface\\WorldMap\\"..mapFileName.."\\"..mapFileName..i)
+					t:Show();
 				end
 			end
 			n = n + 1;
@@ -369,6 +374,7 @@ function RDXMAP.Map:Create (index, data)
 		local t = VFLUI.CreateTexture(tf)
 		tf.texture = t
 		t:SetAllPoints (tf)
+		t:Show();
 	end
 
 	RDXMAP.APIMap.InitHotspots(m)
@@ -432,7 +438,7 @@ function RDXMAP.Map:Create (index, data)
 		m:SwitchOptions(rid)
 		RDXMAP.APIMap.SwitchRealMap(m, rid)
 		m.Scale = m.RealScale
-	end)
+	end, "RDXMap" .. m.MapIndex)
 
 	m:UpdateAll()
 
@@ -506,12 +512,30 @@ function RDXMAP.Map:Create (index, data)
 		m:UpdateWorld()
 	end, "RDXMap" .. m.MapIndex);
 	
+	m:UpdateWorld();
 	----
 	
 	m.Destroy = VFL.hook(function(s)
 		s.MapEvents:Unbind("RDXMap" .. s.MapIndex);
 		RDXMapEvents:Unbind("RDXMap" .. s.MapIndex);
 		WoWEvents:Unbind("RDXMap" .. s.MapIndex);
+		RDXEvents:Unbind("RDXMap" .. s.MapIndex);
+		
+		s.GIconMenu2:Destroy();
+		if s.MenuDebug then s.MenuDebug:Destroy(); end
+		s.MenuShow:Destroy();
+		s.MenuRoute:Destroy();
+		
+		s.Menu2:Destroy();
+		
+		
+		for n = 1, #s.Icon2Frms do
+			s.Icon2Frms[n]:Destroy(); s.Icon2Frms[n] = nil;
+		end
+		
+		for n = 1, #s.Icon3Frms do
+			s.Icon3Frms[n]:Destroy(); s.Icon3Frms[n] = nil;
+		end
 		
 		s.Arch:Destroy(); s.Arch = nil;
 		
@@ -521,12 +545,14 @@ function RDXMAP.Map:Create (index, data)
 		end
 		s.MiniFrms = nil;
 		for n = 1, #s.ContFrms do
+			local k = s.ContFrms[n].mapid;
 			for i = 1, 12 do
-				if RDXMAP.ContBlks[n][i] ~= 0 then
+				if RDXMAP.ContBlks[k][i] ~= 0 then
 					VFLUI.ReleaseRegion(s.ContFrms[n][i].texture); s.ContFrms[n][i].texture = nil;
 					s.ContFrms[n][i]:Destroy(); s.ContFrms[n][i] = nil;
 				end
 			end
+			s.ContFrms[n].mapid = nil;
 			s.ContFrms[n] = nil;
 		end
 		s.ContFrms = nil;
@@ -542,11 +568,21 @@ function RDXMAP.Map:Create (index, data)
 		end
 		VFLUI.ReleaseRegion(s.LocTipFrm.texture); s.LocTipFrm.texture = nil;
 		s.LocTipFrm:Destroy(); s.LocTipFrm = nil;
+		
+		s.TextScFrm:SetScrollChild(nil);
+		s.TextFrm:Destroy(); s.TextFrm = nil;
 		s.TextScFrm:Destroy(); s.TextScFrm = nil;
-		VFLUI.ReleaseRegion(s.texture); s.texture = nil;
+		
+		VFLUI.ReleaseRegion(s.Frm.texture); s.Frm.texture = nil;
 		s.Frm.OnDrop = nil;
 		s.Frm.NxMap = nil;
 		s.Frm:Destroy(); s.Frm = nil;
+		
+		VFL.empty(s.WorldHotspots); s.WorldHotspots = nil;
+		VFL.empty(s.WorldHotspotsCity); s.WorldHotspotsCity = nil;
+		
+		s.RMapId = nil;
+		
 	end, m.Destroy);
 
 	return m
@@ -1144,8 +1180,23 @@ function RDXMAP.Map:Update (elapsed)
 				end
 			end
 			
-			
-			
+			local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:ZC_" .. id);
+			if mbo and mbo.data then
+				for i,v in ipairs(mbo.data) do
+					--if v.s == RDX.PlFactionNum or v.s == 2 then
+						local f = VFLUI.POIIcon:new(self, 4)
+						f.texture:SetTexture(RDXMAP.icontex["F"])
+						f.NxTip = format ("%s\n%s %.1f %.1f", "Zone Connection", RDXMAP.APIMap.IdToName(id), v.x, v.y) 
+						f.x = v.x
+						f.y = v.y
+						f.NXType = 3001
+						f.MapId = id
+						f.n = f.NxTip
+						f.NXData = v
+						table.insert(self.Icon3Frms, f);
+					--end
+				end
+			end
 		end
 		
 		

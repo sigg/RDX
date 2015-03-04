@@ -7,12 +7,13 @@
 
 RDXLF.TableMeter = {};
 RDXLF.TableMeter.__index = RDXLF.TableMeter;
-function RDXLF.TableMeter:new(name)
+function RDXLF.TableMeter:new(name, desc)
 	local self = {};
 	setmetatable(self, RDXLF.TableMeter);
 	if name then self.name = name; else self.name = "(anonymous)"; end
 	self.valuemax = 1; self.valuetotal = 0;
-	self.data = {};
+	if not desc.data then desc.data = {}; end
+	self.data = desc.data;
 	self.sig = RDXEvents:LockSignal(name .. "UNIT_METER_UPDATE");
 	self.filter = nil;
 	return self;
@@ -22,7 +23,8 @@ function RDXLF.TableMeter:Destroy()
 	self.filter = nil;
 	RDXEvents:DeleteKey(self.name .. "UNIT_METER_UPDATE");
 	self.sig = nil;
-	VFL.empty(self.data); self.data = nil;
+	--VFL.empty(self.data); data stay in FS after destroying
+	self.data = nil;
 	self.valuemax = nil; self.valuetotal = nil;
 	self.name = nil;
 end
@@ -306,6 +308,7 @@ local function EditTableMeterDialog(parent, path, md, callback)
 		ui = nil; sf = nil;
 	end, dlg.Destroy);
 end
+RDX.EditTableMeterDialog = EditTableMeterDialog
 
 -- Registration and controls for the TableMeter object type.
 RDXDB.RegisterObjectType({
@@ -321,7 +324,7 @@ RDXDB.RegisterObjectType({
 		RDXDB.GetObjectInstance(path);
 	end,
 	Instantiate = function(path, md)
-		local x = RDXLF.TableMeter:new(path);
+		local x = RDXLF.TableMeter:new(path, md.data);
 		x:SetFilter(RDXLF.SelectFunctor(md.data));
 		RDXEvents:Bind("LOG_ROW_ADDED", x, x.Update, x);
 		return x;
@@ -339,13 +342,16 @@ RDXDB.RegisterObjectType({
 				RDXDB.OpenObject(path, "Edit"); 
 			end
 		});
-		--table.insert(mnu, {
-		--	text = VFLI.i18n("Analyse..."),
-		--	func = function() 
-		--		VFL.poptree:Release(); 
-		--		Omni.ToggleOmniBrowser(path); 
-		--	end
-		--});
+		table.insert(mnu, {
+			text = VFLI.i18n("Wipe data"),
+			func = function() 
+				VFL.poptree:Release(); 
+				local x = RDXDB.GetObjectInstance(path);
+				x:Reset();
+				local dk, pkg, file = RDXDB.ParsePath(path);
+				RDXDBEvents:Dispatch("OBJECT_UPDATED", dk, pkg, file);
+			end
+		});
 		if not RDXDB.PathHasInstance(path) then
 			table.insert(mnu, {
 				text = VFLI.i18n("Open"),

@@ -98,7 +98,10 @@ RDX.RegisterFeature({
 					table.insert(mnu, {
 						text = VFLI.i18n("Change faction");
 						hasArrow = true;
-						func = function(self) factionMenu:Open(nil, self, nil, nil, nil, VFL.poptree, 20); end
+						func = function(self) 
+							--factionMenu:Open(nil, self, nil, nil, nil, VFL.poptree, 20);
+							factionMenu:Open(VFL.poptree, self, nil, nil, nil, nil, 20);
+						end
 					});
 				end);
 			end

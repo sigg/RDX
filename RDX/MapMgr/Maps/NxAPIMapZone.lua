@@ -132,7 +132,6 @@ end
 function RDXMAP.APIMap.UpdateContinents(map)
 
 	if map.CurOpts.NXWorldShow then
-		
 		for contN = 1, #map.ContFrms do
 			i = contN <= 2 and map.Level or map.Level + 1
 			RDXMAP.APIMap.MoveZoneTiles (map, map.ContFrms[contN].mapid, map.ContFrms[contN], map.WorldAlpha, i)
@@ -142,7 +141,7 @@ function RDXMAP.APIMap.UpdateContinents(map)
 
 	else
 		
-		for contN = 1, #Nmap.ContFrms do
+		for contN = 1, #map.ContFrms do
 			frms = map.ContFrms[contN]
 
 			for i = 1, 12 do

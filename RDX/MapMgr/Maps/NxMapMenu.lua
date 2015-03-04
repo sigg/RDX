@@ -273,6 +273,11 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 		ent.checked = function() return opts.NXKillShow; end;
 		ent.func = function() VFL.poptree:Release(); opts.NXKillShow = not opts.NXKillShow; end 
 	end);
+	self.MenuShow:RegisterMenuFunction(function(ent)
+		ent.text = VFLI.i18n("Show Zone connections");
+		ent.checked = function() return opts.NXKZCShow; end;
+		ent.func = function() VFL.poptree:Release(); opts.NXKZCShow = not opts.NXKZCShow; end 
+	end);
 	self.Menu2:RegisterMenuEntry(VFLI.i18n("Show..."), true, function(tree, frame) self.MenuShow:Open(tree, frame); end)
 
 	-- Create show sub menu

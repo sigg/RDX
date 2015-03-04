@@ -129,6 +129,8 @@ function RDXMAP.APIMap.SetTarget (typ, x1, y1, id, name, keep, mapId)
 
 	tar.m = mapId
 
+	RDXMAP.APIMap.CalcTracking()
+	
 	return tar
 end
 
@@ -160,7 +162,7 @@ end
 
 function RDXMAP.APIMap.ClearTargetsType (matchType)
 	VFL.removeFieldMatches(RDXU.MapTargets, "t", matchType)
-	RDXMAP.Tracking = {}
+	--RDXMAP.Tracking = {}
 	RDXMapEvents:Dispatch("ClearTargets");	
 end
 
@@ -197,7 +199,7 @@ function RDXMAP.APIMap.ChangeTargetOrder (srcI, dstI)
 	local t = tremove (RDXU.MapTargets, srcI)
 	tinsert (RDXU.MapTargets, dstI, t)
 
-	RDXMAP.Tracking = {}
+	--RDXMAP.Tracking = {}
 end
 
 --------
@@ -215,7 +217,7 @@ function RDXMAP.APIMap.ReverseTargets()
 		n2 = n2 - 1
 	end
 
-	RDXMAP.Tracking = {}
+	--RDXMAP.Tracking = {}
 end
 
 
@@ -289,6 +291,7 @@ function RDXMAP.APIMap.CalcTracking()
 	for n, tar in ipairs (RDXU.MapTargets) do
 
 		--RDXMAP.Travel:MakePath (tr, srcMapId, srcX, srcY, tar.m, tar.x, tar.y, tar.t)
+		RDXMAP.APITravel.MakePath(tr, srcMapId, srcX, srcY, tar.m, tar.x, tar.y, tar.t)
 		tinsert (tr, tar)
 
 		srcX = tar.x
@@ -360,7 +363,13 @@ RDXEvents:Bind("INIT_DESKTOP", nil, function()
 		
 		if #RDXU.MapTargets > 0 then
 			RDXMAP.APIMap.UpdateTargets()
-			RDXMAP.APIMap.CalcTracking() -- calculer les routes
+			--RDXMAP.APIMap.CalcTracking() -- calculer les routes
 		end
+	end);
+	
+	VFLT.AdaptiveSchedule2("UpdateTargets2", 5, function()
+		--if #RDXU.MapTargets > 0 then
+			RDXMAP.APIMap.CalcTracking() -- calculer les routes
+		--end
 	end);
 end);

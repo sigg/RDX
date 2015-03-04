@@ -68,15 +68,15 @@ RDXDB.RegisterObjectType({
 	end,
 	Deinstantiate = function(instance, path, md)
 		--instance:_Hide(RDX.smooth, nil, function() instance:Destroy(); instance._path = nil; instance = nil; end);
-		--if instance.m then
-		--	instance.m:Destroy();
-		--	instance.m = nil;
-		--end
-		--instance:Destroy();
+		if instance.m then
+			instance.m:Destroy();
+			instance.m = nil;
+		end
+		instance:Destroy();
 		instance = nil;
 	end,
 	OpenTab = function(tabbox, path, md, objdesc, desc, tm)
-		local tabtitle, tabwidth = "Tab", 80;
+		local tabtitle, tabwidth = "Map", 80;
 		for k, v in pairs(md.data) do
 			--if v.feature == "taboptions" then
 			--	tabtitle = v.tabtitle;
@@ -88,7 +88,6 @@ RDXDB.RegisterObjectType({
 			tabbox:SetClient(f);
 			VFLUI.SetBackdrop(f, desc.bkd);
 			--f.font = desc.font;
-			--if f.NxWin then f.NxWin:Enable(); end
 		end,
 		function()
 			--if f.NxWin then f.NxWin:Disable(); end

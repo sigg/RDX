@@ -682,4 +682,6 @@ RDXEvents:Bind("INIT_POST", nil, function()
 		if unit:IsPlayer() then checkHealth(); end
 	end, "fog2");
 	
+	VFLT.AdaptiveSchedule("FOG", 5, function() checkHealth(); end);
+	
 end);

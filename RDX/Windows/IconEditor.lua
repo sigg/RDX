@@ -262,10 +262,20 @@ RDX.RegisterFeature({
 					RDXDB.OpenObject(path, "Edit", VFLDIALOG);
 				end;
 			});
+			table.insert(mnu, {
+				text = VFLI.i18n("Wipe Data");
+				func = function()
+					VFL.poptree:Release(); 
+					local x = RDXDB.GetObjectInstance(path);
+					x:Reset();
+					local dk, pkg, file = RDXDB.ParsePath(path);
+					RDXDBEvents:Dispatch("OBJECT_UPDATED", dk, pkg, file);
+				end;
+			});
 		end);
 		
 		state:Attach("Create", true, function(w)
-			RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(up, uf)
+			RDXDBEvents:Bind("OBJECT_UPDATED", nil, function(ud, up, uf)
 				if (ud == dk) and (up == pkg) and (uf == file) then RDXDK.QueueLockdownAction(RDXDK._AsyncRebuildWindowRDX, w._path); end
 			end, w._path .. path);
 		end);

@@ -65,6 +65,12 @@ local function AccessPathRaw(dk, pkg, obj)
 	if not dk then return nil; end
 	if obj then
 		local disk = RDXDB.GetDisk(dk);
+		if not disk then 
+			VFL.print(dk)
+			VFL.print(pkg)
+			VFL.print(obj)
+			return nil; 
+		end
 		local qq = disk[pkg];
 		if not qq or (type(qq[obj]) ~= "table") then return nil; end
 		return qq[obj];
