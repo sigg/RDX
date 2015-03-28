@@ -67,6 +67,7 @@ function RDXMAP.APITravel.MakePath (tr, srcMapId, srcX, srcY, dstMapId, dstX, ds
 	--end
 	-- instance trick
 	local srcInfo = RDXMAP.APIMap.GetWorldZone(srcMapId)
+	if not srcInfo then return; end
 	--if srcInfo.EntryMId then
 	--	srcMapId = srcInfo.EntryMId
 	--	srcInfo = RDXMAP.APIMap.GetWorldZone(srcInfo.EntryMId)

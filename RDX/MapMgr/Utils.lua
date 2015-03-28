@@ -143,7 +143,7 @@ end
 
 function RDXMAP.CheckQuestSE (q, n)
 
-	local _, zone, x, y = RDXMAP.GetSEPos (q[n])
+	local name, zone, x, y = RDXMAP.GetSEPos (q[n])
 	local mapId = RDXMAP.Zone2MapId[zone]
 
 	if (x == 0 or y == 0) and mapId and not RDXMAP.APIMap.IsInstanceMap (mapId) then
@@ -409,5 +409,9 @@ function RDXMAP.UnpackXY (xy)
 	local x = tonumber (strsub (xy, 1, 3), 16) / 40.9
 	local y = tonumber (strsub (xy, 4, 6), 16) / 40.9
 	return x, y
+end
+
+function QuestsBuild()
+
 end
 

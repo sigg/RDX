@@ -1,0 +1,8 @@
+﻿## Interface: 60100
+## Title: |c007ffcffRDX|r - Disk Quests Horde
+## Notes: Disk Quests Horde
+## Author: Sigg / Rashgarroth
+## Version: 10.0.0
+## RequiredDeps: RDXDiskSystem
+## SavedVariables: RDXDiskQuestsHorde
+main.lua

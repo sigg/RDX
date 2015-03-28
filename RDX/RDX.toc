@@ -266,6 +266,7 @@ MapMgr\MapData.lua
 MapMgr\MapInit.lua
 MapMgr\Obj_MapInfo.lua
 MapMgr\Obj_Poi.lua
+MapMgr\Obj_Quests.lua
 #Metadata\Maps.lua
 #MapMgr\MapEngine.lua
 

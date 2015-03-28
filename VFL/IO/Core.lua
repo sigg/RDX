@@ -67,7 +67,7 @@ VFLUI.CreateFramePool("ChatFrame2",
 		f.cfbg = CreateFrame("Frame");
 		f.cfbg:SetParent(f);
 		f.cfbg:SetWidth(f:GetWidth()); f.cfbg:SetHeight(f:GetHeight() - 26);
-		f.cfbg:SetPoint("TOPLEFT", f, "TOPLEFT");
+		f.cfbg:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -1);
 		f.cfbg:Show();
 		-- eb bg
 		f.ebbg = CreateFrame("Frame");

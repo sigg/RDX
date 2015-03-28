@@ -241,11 +241,11 @@ function RDXDAL.Unit:FracMissingHealth()
 end
 
 function RDXDAL.Unit:SmartHealth(source)
-	return UnitGetIncomingHeals(self.uid, source) + self:Health() + UnitGetTotalHealAbsorbs(self.uid);
+	return UnitGetIncomingHeals(self.uid, source) + self:Health() + UnitGetTotalAbsorbs(self.uid);
 end
 
 function RDXDAL.Unit:FracSmartHealth(source)
-	local ih, ha, h, mh = UnitGetIncomingHeals(self.uid, source), UnitGetTotalHealAbsorbs(self.uid), self:Health(), self:MaxHealth();
+	local ih, ha, h, mh = UnitGetIncomingHeals(self.uid, source), UnitGetTotalAbsorbs(self.uid), self:Health(), self:MaxHealth();
 	if not ih then ih = 0; end
 	if not ha then ha = 0; end
 	if(mh <= 1) then return 0; end
@@ -254,11 +254,12 @@ function RDXDAL.Unit:FracSmartHealth(source)
 end
 
 function RDXDAL.Unit:AllSmartHealth(source)
-	local ih, ha, h, mh = UnitGetIncomingHeals(self.uid, source), UnitGetTotalHealAbsorbs(self.uid), self:Health(), self:MaxHealth();
+	local ih, ha, h, mh = UnitGetIncomingHeals(self.uid, source), UnitGetTotalAbsorbs(self.uid), self:Health(), self:MaxHealth();
 	if not ih then ih = 0; end
 	if not ha then ha = 0; end
 	if(mh <= 1) then return 1, 1, 0; end
-	h = h+ih+ha; local x = h/mh;
+	h = (h+ih+ha); 
+	local x = h/mh;
 	if x<0 then
 		return h, mh, 0, ih + ha;
 	elseif x>1 then

@@ -28,6 +28,7 @@ local function SingleUnitMuxEventTranslator_MaskUnit(ev, mask, mux, rd)
 		WoWEvents:Bind("UNIT_MAXHEALTH", nil, filter, mux);
 	elseif(ev == "UNIT_HEAL_PREDICTION") then
 		WoWEvents:Bind("UNIT_HEAL_PREDICTION", nil, filter, mux);
+		WoWEvents:Bind("UNIT_ABSORB_AMOUNT_CHANGED", nil, filter, mux);
 		WoWEvents:Bind("UNIT_HEAL_ABSORB_AMOUNT_CHANGED", nil, filter, mux);
 	elseif(ev == "UNIT_POWER") then
 		WoWEvents:Bind("UNIT_POWER", nil, filter, mux);
