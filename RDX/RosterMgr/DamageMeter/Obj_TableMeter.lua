@@ -11,10 +11,13 @@ function RDXLF.TableMeter:new(name, desc)
 	local self = {};
 	setmetatable(self, RDXLF.TableMeter);
 	if name then self.name = name; else self.name = "(anonymous)"; end
-	self.valuemax = 1; self.valuetotal = 0;
 	if not desc.data then desc.data = {}; end
 	self.data = desc.data;
+	
+	self.data.valuemax = 1; self.data.valuetotal = 0; self.data.list = {}
+	
 	self.sig = RDXEvents:LockSignal(name .. "UNIT_METER_UPDATE");
+	self.sig2 = RDXEvents:LockSignal(name .. "UNIT_METER_LIST_UPDATE");
 	self.filter = nil;
 	return self;
 end
@@ -22,41 +25,42 @@ end
 function RDXLF.TableMeter:Destroy()
 	self.filter = nil;
 	RDXEvents:DeleteKey(self.name .. "UNIT_METER_UPDATE");
+	RDXEvents:DeleteKey(self.name .. "UNIT_METER_LIST_UPDATE");
 	self.sig = nil;
 	--VFL.empty(self.data); data stay in FS after destroying
 	self.data = nil;
-	self.valuemax = nil; self.valuetotal = nil;
 	self.name = nil;
 end
 
 function RDXLF.TableMeter:Reset()
-	self.valuemax = 1; self.valuetotal = 0;
-	VFL.empty(self.data);
+	self.data.valuemax = 1; self.data.valuetotal = 0;
+	VFL.empty(self.data.list);
+	self.sig2:Raise();
 end
 
 function RDXLF.TableMeter:Size()
-	return VFL.tsize(self.data);
+	return VFL.tsize(self.data.list);
 end
 
-function RDXLF.TableMeter:GetData()
-	return self.data;
+function RDXLF.TableMeter:GetList()
+	return self.data.list;
 end
 
 function RDXLF.TableMeter:GetInfo(GUID)
-	local tableinfo = self.data[GUID];
+	local tableinfo = self.data.list[GUID];
 	if tableinfo then
-		return true, tableinfo.value, self.valuemax, self.valuetotal;
+		return true, tableinfo.value, self.data.valuemax, self.data.valuetotal;
 	else
 		return nil;
 	end
 end
 
 function RDXLF.TableMeter:GetValue(GUID)
-	local tableinfo = self.data[GUID];
+	local tableinfo = self.data.list[GUID];
 	if tableinfo then
 		return tableinfo.value;
 	else
-		return O;
+		return 0;
 	end
 end
 
@@ -68,18 +72,19 @@ local flag, data, un;
 function RDXLF.TableMeter:Update(log, unitsrc, unittgt)
 	flag, data, un = self.filter(log, unitsrc, unittgt);
 	if flag then
-		local tableinfo = self.data[log.sg];
+		local tableinfo = self.data.list[log.sg];
 		if not tableinfo then
 			tableinfo = {}; 
 			tableinfo.value = 0;
 			tableinfo.unit = un;
-			self.data[log.sg] = tableinfo;
+			self.data.list[log.sg] = tableinfo;
+			self.sig2:Raise();
 		end
 		if tableinfo then
-			if type(data) ~= "number" then data = 1; end
-			self.valuetotal = self.valuetotal + data;
+			if type(data) ~= "number" then data = 0; end
+			self.data.valuetotal = self.data.valuetotal + data;
 			tableinfo.value = tableinfo.value + data;
-			if (tableinfo.value > self.valuemax) then self.valuemax = tableinfo.value; end
+			if (tableinfo.value > self.data.valuemax) then self.data.valuemax = tableinfo.value; end
 			self.sig:Raise(tableinfo.unit, tableinfo.unit.nid, tableinfo.unit.uid);
 		end
 	end
@@ -308,7 +313,7 @@ local function EditTableMeterDialog(parent, path, md, callback)
 		ui = nil; sf = nil;
 	end, dlg.Destroy);
 end
-RDX.EditTableMeterDialog = EditTableMeterDialog
+
 
 -- Registration and controls for the TableMeter object type.
 RDXDB.RegisterObjectType({

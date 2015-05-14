@@ -1068,7 +1068,7 @@ function RDXMAP.Map:Update (elapsed)
 		--RDXMAP.APIMap.AddOldMap (self, mapId)
 		local oi = self.GOpts["MapZoneDrawCnt"]
 	
-		if rid and RDXMAP.APIMap.IsZoneMap(rid) then
+		if rid and RDXMAP.APIMap.IsZoneMap(rid) or RDXMAP.APIMap.IsCityMap(rid) or RDXMAP.APIMap.IsStartZoneMap(rid) then
 			VFL.vremove(self.MapsDrawnOrder, rid)
 			tinsert (self.MapsDrawnOrder, rid)
 			if #self.MapsDrawnOrder > oi then
@@ -1076,7 +1076,7 @@ function RDXMAP.Map:Update (elapsed)
 			end
 		end
 		
-		if mapId and RDXMAP.APIMap.IsZoneMap(mapId) then
+		if mapId and RDXMAP.APIMap.IsZoneMap(mapId) or RDXMAP.APIMap.IsCityMap(mapId) or RDXMAP.APIMap.IsStartZoneMap(mapId) then
 			VFL.vremove(self.MapsDrawnOrder, mapId)
 			tinsert (self.MapsDrawnOrder, mapId)
 			if #self.MapsDrawnOrder > oi then
@@ -1185,7 +1185,7 @@ function RDXMAP.Map:Update (elapsed)
 				for i,v in ipairs(mbo.data) do
 					--if v.s == RDX.PlFactionNum or v.s == 2 then
 						local f = VFLUI.POIIcon:new(self, 4)
-						f.texture:SetTexture(RDXMAP.icontex["F"])
+						f.texture:SetTexture(RDXMAP.icontex["ZC"])
 						f.NxTip = format ("%s\n%s %.1f %.1f", "Zone Connection", RDXMAP.APIMap.IdToName(id), v.x, v.y) 
 						f.x = v.x
 						f.y = v.y

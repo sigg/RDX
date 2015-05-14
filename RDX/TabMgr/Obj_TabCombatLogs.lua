@@ -249,9 +249,13 @@ function RDX.CombatLogs:new(path, desc)
 	list:SetPoint("CENTER", obj, "CENTER");
 	list:SetScrollBarEnabled(true);
 	list:SetScript("OnSizeChanged", function(self2) 
+		--self2:SetDataSource(
+		--	function(cell, data, pos, absPos) LWApplyData(obj.table, cell, data, pos); end,
+		--	LastNLiterator(obj.table.data, math.floor(self2:GetHeight() / 10))
+		--);
 		self2:SetDataSource(
 			function(cell, data, pos, absPos) LWApplyData(obj.table, cell, data, pos); end,
-			LastNLiterator(obj.table.data, math.floor(self2:GetHeight() / 10))
+			VFL.ArrayLiterator(obj.table.data)
 		);
 		self2:Rebuild();
 		local ft = obj.font;
@@ -297,9 +301,10 @@ function RDX.CombatLogs:new(path, desc)
 			});
 		end
 		self2:Update();
+		self2:SetScroll(1, true);
 	end);
 	list:Show();
-	OmniEvents:Bind("TABLE_DATA_CHANGED", nil, function(tbl) if tbl.path == obj.path then list:Update(); end; end, "omni" .. obj.path);
+	OmniEvents:Bind("TABLE_DATA_CHANGED", nil, function(tbl) if tbl.path == obj.path then list:Update(); list:SetScroll(1, true); end; end, "omni" .. obj.path);
 	obj.list = list;
 	
 	obj:SetScript("OnSizeChanged", function(self2)

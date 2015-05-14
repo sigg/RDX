@@ -154,7 +154,11 @@ RDX.RegisterFeature({
 			-- If not ICLD, resize the window
 			if not InCombatLockdown() then
 				faux:SetWidth(GetWindowWidth());
-				faux:SetHeight(gridT:GetHeight());
+				if gridT:GetHeight() < 30 then
+					faux:SetHeight(30);
+				else
+					faux:SetHeight(gridT:GetHeight());
+				end
 			end
 			-- Update the unit map
 			for k in pairs(umap) do umap[k] = nil; end

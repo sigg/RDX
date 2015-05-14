@@ -12,8 +12,8 @@ local function buildlist()
 	repeat
 	for i = start, finish do
 		name, _, _, _, _, _, _, _, isHeader, isCollapsed, _, _, _ = GetFactionInfo(i);
-
-		table.insert(factionList, { text = name, value = i });
+		
+		table.insert(factionList, { text = name, value = i, isTitle = isHeader });
 
 		if(isHeader and isCollapsed) then
 			collapsedHeaders[i] = true;
@@ -77,19 +77,24 @@ RDX.RegisterFeature({
 			for k,v in pairs(list) do
 				factionMenu:RegisterMenuFunction(function(ent)
 					ent.text = v.text;
-					ent.func = function()
-						--v.value
-						local x = RDXDB.GetObjectData(designpath); 
-						if x then
-							local feat = RDXDB.HasFeature(x.data, "Variables: Detailed Faction Info", name, desc.name);
-							if feat then
-								feat.factionName = v.text;
-								feat.factionID = v.value;
-							end
-							RDXDK._AsyncRebuildWindowRDX(winpath);
-						end					
-						VFL.poptree:Release();
-					end;
+					if v.isTitle then
+						ent.isTitle = true;
+						ent.color = _yellow;
+					else
+						ent.func = function()
+							--v.value
+							local x = RDXDB.GetObjectData(designpath); 
+							if x then
+								local feat = RDXDB.HasFeature(x.data, "Variables: Detailed Faction Info", name, desc.name);
+								if feat then
+									feat.factionName = v.text;
+									feat.factionID = v.value;
+								end
+								RDXDK._AsyncRebuildWindowRDX(winpath);
+							end					
+							VFL.poptree:Release();
+						end;
+					end
 				end);
 			end
 			local wstate = state:GetContainingWindowState();

@@ -20,6 +20,9 @@ cffilter["CombatLogs2"] = true;
 cffilter["CombatLogs3"] = true;
 cffilter["CombatLogs4"] = true;
 cffilter["CombatLogs5"] = true;
+cffilter["Meter1"] = true;
+cffilter["Meter2"] = true;
+cffilter["Meter3"] = true;
 
 -- the instance
 -- data is object data (list of tabs)
@@ -74,7 +77,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 						local ty = RDXDB.GetObjectType(md.ty);
 						if not ty then return; end
 						if dk ~= "RDXData" and pkg == "tabs" then
-							if (md.ty == "SymLink" and cffilter[file]) or (md.ty == "TabChatFrame" and cffilter[file]) or (md.ty == "TabCombatLogs" and cffilter[file]) or md.ty == "TabWindow" or md.ty == "TabMap" or md.ty == "TabQuest" then 
+							if (md.ty == "SymLink" and cffilter[file]) or (md.ty == "TabChatFrame" and cffilter[file]) or (md.ty == "TabCombatLogs" and cffilter[file]) or md.ty == "TabWindow" or md.ty == "TabMap" or (md.ty == "TabQuest" and cffilter[file]) then 
 								local path = RDXDB.MakePath(dk, pkg, file);
 								if not RDXDB.PathHasInstance(path) then
 									local data = md.data;
@@ -184,6 +187,7 @@ function RDX.TabManager:new(parent, path, data, desc)
 			VFLUI.SetBackdrop(tab, self.desc.bkd);
 			VFLUI.SetFont(tab.font, self.desc.font);
 		end
+		tabbox:GetTabBar():SelectTabId(1);
 	end
 	
 	function self:RemoveTab(tabpath, save)

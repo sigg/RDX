@@ -97,6 +97,7 @@ icontex["VOS"] = "Interface\\Icons\\spell_nature_astralrecalgroup";
 icontex["WLT"] = "Interface\\Icons\\Spell_Nature_FaerieFire";
 icontex["WRT"] = "Interface\\Icons\\INV_Sword_27";
 icontex["F"] = "Interface\\Icons\\Ability_Mount_Wyvern_01";
+icontex["ZC"] = "Interface\\Icons\\Spell_Nature_FarSight";
 icontex["D"] = "Interface\\Minimap\\POIIcons";
 icontex["Goto"] = "Interface\\AddOns\\RDX\\Skin\\Map\\IconWayTarget";
 

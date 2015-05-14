@@ -207,7 +207,7 @@ RDX.RegisterFeature({
 					faux:SetHeight(szy + .1);
 				else
 					-- Empty window handling..
-					faux:SetWidth(dx); faux:SetHeight(.1);
+					faux:SetWidth(dx); faux:SetHeight(30);
 					if desc.countTitle then setTitle(" (0)"); end
 				end
 			end

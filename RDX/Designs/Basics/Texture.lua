@@ -128,9 +128,7 @@ RDX.RegisterTextureIcon({
 		btn:Show();
 ]];
 	paintCode = [[
-		_name = UnitName(uid);
-		myunit = RDXDAL.GetMyUnit();
-		if UnitAffectingCombat(uid) or ((myunit.rosterName == _name) and IsResting()) then
+		if UnitAffectingCombat(uid) or (UnitIsUnit(uid, "player") and IsResting()) then
 			btn._t:SetTexCoord(0, 0.5, 0, 0.421875);
 			if UnitAffectingCombat(uid) then btn._t:SetTexCoord(0.5, 1, 0, 0.49); end
 			if not btn:IsShown() then btn:Show(); end
@@ -242,8 +240,7 @@ RDX.RegisterTextureIcon({
 		elseif _tl then
 			_name = UnitName(uid);
 			_meta = UnitName("party" .. _tl);
-			myunit = RDXDAL.GetMyUnit();
-			if (_tl == 0) and (myunit.rosterName == _name) then
+			if (_tl == 0) and (UnitIsUnit(uid, "player")) then
 				if not btn:IsShown() then btn:Show(); end
 			elseif (_name == _meta) then
 				if not btn:IsShown() then btn:Show(); end

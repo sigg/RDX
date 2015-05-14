@@ -870,7 +870,7 @@ function RDXDK.Desktop:new(parent)
 	
 	local function ChangeState(value)
 		if framepropsroot then
-			RDX.printI(VFLI.i18n("Leave mode: ") .. RDXU.currentstate);
+			--RDX.printI(VFLI.i18n("Leave mode: ") .. RDXU.currentstate);
 		
 			--local tbl = framepropsroot.states[RDXU.currentstate].OnUnselect;
 			-- close windows
@@ -1427,10 +1427,14 @@ local function ChangeDesktop(path, nosave)
 			currentpath = path;
 			currentDesktop = RDXDB.GetObjectInstance(path);
 			--currentDesktop:ShowAll();
+			if not RDXU.currentstate then RDXU.currentstate = "SOLO"; end
+			DesktopEvents:Dispatch("DESKTOP_STATE", RDXU.currentstate);
 		end);
 	else
 		currentpath = path;
 		currentDesktop = RDXDB.GetObjectInstance(path);
+		if not RDXU.currentstate then RDXU.currentstate = "SOLO"; end
+		DesktopEvents:Dispatch("DESKTOP_STATE", RDXU.currentstate);
 		--currentDesktop:ShowAll();
 	end
 	
@@ -1460,6 +1464,9 @@ local function ChangeDesktop(path, nosave)
 		--	RDXPM.SetStatusText("|cFFFF0000ERROR|r");
 		--end
 	--end
+	
+	-- state
+	
 end
 RDXDK._ChangeDesktop = ChangeDesktop;
 

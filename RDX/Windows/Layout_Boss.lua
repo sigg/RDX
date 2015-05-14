@@ -167,7 +167,7 @@ RDX.RegisterFeature({
 				end
 				-- Resize the container
 				if(n == 0) then
-					faux:SetWidth(dx); faux:SetHeight(.1);
+					faux:SetWidth(dx); faux:SetHeight(30);
 				else
 					faux:SetWidth(grid:GetWidth());  faux:SetHeight(grid:GetHeight());
 				end

@@ -26,6 +26,8 @@ VFLUI.CreateFramePool("BlizzButton",
 			else
 				f:Hide();
 			end
+		elseif f:GetName() == "GarrisonLandingPageMinimapButton" then
+			f:Show();
 		elseif f:GetName() == "MiniMapBattlefieldFrame" then
 			PVP_UpdateStatus(1);
 		elseif f:GetName() == "MiniMapLFGFrame" then

@@ -651,6 +651,8 @@ RDXDB.RegisterObjectType({
 		md.data.discussion["PARTY_LEADER"] = true;
 		md.data.discussion["RAID"] = true;
 		md.data.discussion["RAID_LEADER"] = true;
+		md.data.discussion["INSTANCE_CHAT"] = true;
+		md.data.discussion["INSTANCE_CHAT_LEADER"] = true;
 		md.data.discussion["RAID_WARNING"] = true;
 		md.data.discussion["BATTLEGROUND"] = true;
 		md.data.discussion["BATTLEGROUND_LEADER"] = true;

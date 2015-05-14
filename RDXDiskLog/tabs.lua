@@ -459,4 +459,75 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			},
 		};
 	end
+	
+	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:Meter1_" .. RDX.pspace);
+	if not mbo.data then
+		mbo.ty = "TabMeter"; 
+		mbo.version = 1;
+		mbo.data = {
+				["title"] = "MH",
+				["tabwidth"] = "30",
+				["filters"] = {
+					["etypes"] = {
+						[8]=true,
+					},
+					["dtypes"] = {
+						[1]=true,
+					},
+				},
+			};
+	end
+	
+	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:Meter1");
+	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "Meter1_", ty = "TabMeter"};
+	end
+	
+	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:Meter2_" .. RDX.pspace);
+	if not mbo.data then
+		mbo.ty = "TabMeter"; 
+		mbo.version = 1;
+		mbo.data = {
+				["title"] = "MOH",
+				["tabwidth"] = "30",
+				["filters"] = {
+					["etypes"] = {
+						[44]=true,
+					},
+					["dtypes"] = {
+						[1]=true,
+					},
+				},
+			};
+	end
+	
+	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:Meter2");
+	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "Meter2_", ty = "TabMeter"};
+	end
+	
+	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:Meter3_" .. RDX.pspace);
+	if not mbo.data then
+		mbo.ty = "TabMeter"; 
+		mbo.version = 1;
+		mbo.data = {
+				["title"] = "MD",
+				["tabwidth"] = "40",
+				["filters"] = {
+					["etypes"] = {
+						[2]=true,
+					},
+					["dtypes"] = {
+						[1]=true,
+					},
+				},
+			};
+	end
+	
+	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:Meter3");
+	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "Meter3_", ty = "TabMeter"};
+	end
+
+	
 end);

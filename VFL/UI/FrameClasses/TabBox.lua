@@ -16,9 +16,9 @@ local function NewTabBox(fp, parent, tabHeight, orientation, offsetx, offsety)
 	
 	local tabBar = VFLUI.TabBar:new(self, tabHeight, orientation);
 	if orientation == "TOP" then
-		tabBar:SetPoint("TOPLEFT", self, "TOPLEFT", 0, -2);
+		tabBar:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0);
 	elseif orientation == "BOTTOM" then
-		tabBar:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 2);
+		tabBar:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 1);
 	end
 	tabBar:Show();
 
