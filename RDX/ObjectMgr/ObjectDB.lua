@@ -589,7 +589,7 @@ local function InitObjectDB()
 	end
 
 	--- Create a new object at a node where no object is.
-	function RDXDB.CreateObject(dk, pkg, file, ty, forcename)
+	function RDXDB.CreateObject(dk, pkg, file, ty, forcename, a, b, c)
 		if (not dk) or (not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
 		local t = RDXDB.GetObjectType(ty);
 		if (not t) or (not t.New) then return nil, VFLI.i18n("Invalid object type."); end
@@ -604,7 +604,7 @@ local function InitObjectDB()
 		-- Create the object
 		local fmd = { ty = ty, version = 0, data = {} };
 		p[file] = fmd;
-		t.New(RDXDB.MakePath(dk, pkg, file), fmd);
+		t.New(RDXDB.MakePath(dk, pkg, file), fmd, a, b ,c);
 		VFLT.NextFrame(math.random(100000000), function()
 			RDXDBEvents:Dispatch("OBJECT_CREATED", dk, pkg, file, fmd);
 		end);

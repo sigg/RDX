@@ -283,25 +283,32 @@ local function EditChatFrameDialog(parent, path, md)
 	dlg:Show();
 	local ca = dlg:GetClientArea();
 	
-	local ed_name = VFLUI.LabeledEdit:new(ca, 150);
-	ed_name:SetText(VFLI.i18n("Tab Title"));
-	ed_name.editBox:SetText(md.data.title);
-	ed_name:SetHeight(25); ed_name:SetWidth(250);
-	ed_name:SetPoint("TOPLEFT", ca, "TOPLEFT");
-	ed_name:Show();
-	dlg.ed_name = ed_name;
+	local ed_tabtitle = VFLUI.LabeledEdit:new(ca, 150);
+	ed_tabtitle:SetText(VFLI.i18n("Tab Title"));
+	ed_tabtitle.editBox:SetText(md.data.tabtitle);
+	ed_tabtitle:SetHeight(25); ed_tabtitle:SetWidth(250);
+	ed_tabtitle:SetPoint("TOPLEFT", ca, "TOPLEFT");
+	ed_tabtitle:Show();
+	dlg.ed_tabtitle = ed_tabtitle;
 	
-	local cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Change chat color"), 150);
-	cbtn:SetPoint("TOPLEFT", ed_name, "TOPRIGHT", 50, 0);
+	local ed_title = VFLUI.LabeledEdit:new(ca, 100);
+	ed_title:SetText(VFLI.i18n("Title"));
+	ed_title.editBox:SetText(md.data.title);
+	ed_title:SetHeight(25); ed_title:SetWidth(150);
+	ed_title:SetPoint("TOPLEFT", ed_tabtitle, "TOPRIGHT");
+	ed_title:Show();
+	dlg.ed_title = ed_title;
 	
 	local ed_tabwidth = VFLUI.LabeledEdit:new(ca, 150);
 	ed_tabwidth:SetText(VFLI.i18n("Tab Width"));
 	ed_tabwidth.editBox:SetText(md.data.tabwidth);
 	ed_tabwidth:SetHeight(25); ed_tabwidth:SetWidth(250);
-	ed_tabwidth:SetPoint("TOPLEFT", ed_name, "BOTTOMLEFT");
+	ed_tabwidth:SetPoint("TOPLEFT", ed_tabtitle, "BOTTOMLEFT");
 	ed_tabwidth:Show();
 	dlg.ed_tabwidth = ed_tabwidth;
 	
+	local cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Change chat color"), 150);
+	cbtn:SetPoint("TOPLEFT", ed_tabwidth, "TOPRIGHT", 50, 0);
 	
 	local tabbox = VFLUI.TabBox:new(dlg, 22, "TOP");
 	tabbox:SetWidth(480); tabbox:SetHeight(300);
@@ -436,16 +443,17 @@ local function EditChatFrameDialog(parent, path, md)
 	VFL.AddEscapeHandler(esch);
 
 	local function Save()
-		md.data.title = ed_name.editBox:GetText();
+		md.data.tabtitle = ed_tabtitle.editBox:GetText();
+		md.data.title = ed_title.editBox:GetText();
 		md.data.tabwidth = ed_tabwidth.editBox:GetText();
 		dlg.tabbox:GetTabBar():UnSelectTab();
 		--RDXDB.NotifyUpdate(path);
 		-- See if this chatframe was already instantiated...
 		local inst = RDXDB.GetObjectInstance(path, true);
 		if inst then 
-			inst:RemoveMessages();
-			inst:AddMessages(md.data);
-			inst:SetTabOptions(md.data);
+			inst.mtab:RemoveMessages();
+			inst.mtab:AddMessages(md.data);
+			inst.mtab:SetTabOptions(md.data);
 		end
 		VFL.EscapeTo(esch);
 	end
@@ -467,7 +475,8 @@ local function EditChatFrameDialog(parent, path, md)
 	dlg.Destroy = VFL.hook(function(s)
 		s.tabbox:Destroy(); s.tabbox = nil;
 		s.ed_tabwidth:Destroy(); s.ed_tabwidth = nil;
-		s.ed_name:Destroy(); s.ed_name = nil;
+		s.ed_title:Destroy(); s.ed_title = nil;
+		s.ed_tabtitle:Destroy(); s.ed_tabtitle = nil;
 	end, dlg.Destroy);
 end
 
@@ -636,6 +645,7 @@ RDXDB.RegisterObjectType({
 		md.version = 1;
 		md.data = {};
 		md.data.title = "Chat";
+		md.data.tabtitle = "C";
 		md.data.tabwidth = 80;
 		md.data.discussion = {};
 		md.data.discussion["SAY"] = true;
@@ -685,13 +695,74 @@ RDXDB.RegisterObjectType({
 	Edit = function(path, md, parent)
 		EditChatFrameDialog(parent or VFLDIALOG, path, md);
 	end;
+	CopyPaste = function(path, md, parent)
+		local inst = RDXDB.GetObjectInstance(path, true);
+		if inst then 
+			EditScriptDialog(parent or VFLDIALOG, inst.mtab.msgs);
+		end
+	end;
+	Clear = function(path, md, parent)
+		local inst = RDXDB.GetObjectInstance(path, true);
+		if inst then 
+			inst.mtab.cf:Clear();
+		end
+	end;
 	Instantiate = function(path, md)
-		local cf = RDX.ChatFrame:new(path);
+		local dlgtab = VFLUI.Window:new();
+		dlgtab:SetFraming(VFLUI.Framing.Sleek, 25, VFLUI.BorderlessDialogBackdrop2);
+		dlgtab:SetTitleColor(0,.5,0);
+		if not md.data.title then
+			dlgtab:SetText(VFLI.i18n("Chat"));
+		else
+			dlgtab:SetText(VFLI.i18n("Chat") .. " : " .. md.data.title);
+		end
+		
+		local ca = dlgtab:GetClientArea();
+		
+		local mtab = RDX.ChatFrame:new(path);
 		-- Attempt to setup the window; if it fails, just bail out.
-		if not SetupChatFrame(path, cf, md.data) then cf:Destroy(); return nil; end
-		return cf;
+		if not SetupChatFrame(path, mtab, md.data) then mtab:Destroy(); return nil; end
+		
+		mtab:SetParent(ca);
+		mtab:SetAllPoints(ca);
+		dlgtab.mtab = mtab;
+		
+		local function layout()
+			local w = ca:GetWidth();
+			local h = ca:GetHeight();
+			mtab:ClearAllPoints();
+			mtab:SetPoint("CENTER", ca, "CENTER");
+			mtab:SetWidth(w);
+			mtab:SetHeight(h);
+		end
+		ca:SetScript("OnShow", layout);
+		ca:SetScript("OnSizeChanged", layout);
+		
+		local syncbtn = VFLUI.SyncButton:new()
+		syncbtn:SetScript("OnClick", function()
+			RDXDB.OpenObject(path, "Clear", dlgtab);
+		end);
+		dlgtab:AddButton(syncbtn);
+		
+		local mgbtn = VFLUI.MagGlassButton:new()
+		mgbtn:SetScript("OnClick", function()
+			RDXDB.OpenObject(path, "CopyPaste", dlgtab);
+		end);
+		dlgtab:AddButton(mgbtn);
+		
+		local markbtn = VFLUI.MarkButton:new()
+		markbtn:SetScript("OnClick", function()
+			RDXDB.OpenObject(path, "Edit", dlgtab);
+		end);
+		dlgtab:AddButton(markbtn);
+		
+		return dlgtab;
 	end,
 	Deinstantiate = function(instance, path, md)
+		if instance.mtab then
+			instance.mtab:Destroy();
+			instance.mtab = nil;
+		end
 		instance:Destroy();
 		instance = nil;
 	end,
@@ -699,49 +770,49 @@ RDXDB.RegisterObjectType({
 		local f = RDXDB.GetObjectInstance(path);
 		local tab = tabbox:GetTabBar():AddTab(md.data.tabwidth, function(self, arg1)
 			tabbox:SetClient(f);
-			ChatEdit_SetLastActiveWindow(f.cf.editBox);
-			VFLUI.SetBackdrop(f.cfbg, desc.bkd);
-			VFLUI.SetBackdrop(f.ebbg, desc.bkd);
-			VFLUI.SetFont(f.cf, desc.font);
+			VFLUI.SetBackdrop(f, desc.bkd);
+			ChatEdit_SetLastActiveWindow(f.mtab.cf.editBox);
+			--VFLUI.SetBackdrop(f.mtab.cfbg, desc.bkd);
+			--VFLUI.SetBackdrop(f.mtab.ebbg, desc.bkd);
+			VFLUI.SetFont(f.mtab.cf, desc.font);
+			f:SetTitleColor(VFL.explodeRGBA(desc.titleColor));
 		end,
 		function() end, 
 		function(mnu, dlg) 
 			return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg, tm)
 		end);
-		tab.font:SetText(md.data.title);
+		if md.data.tabtitle then
+			tab.font:SetText(md.data.tabtitle);
+		else
+			tab.font:SetText(md.data.title);
+		end
 		tab.f = f;
 		f.tab = tab;
 		return tab;
 	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg, tm)
-		table.insert(mnu, {
-			text = VFLI.i18n("Edit"),
-			func = function() 
-				VFL.poptree:Release(); 
-				RDXDB.OpenObject(path, "Edit", dlg);
-			end
-		});
+		--table.insert(mnu, {
+			--text = VFLI.i18n("Edit"),
+			--func = function() 
+			--	VFL.poptree:Release(); 
+			--	RDXDB.OpenObject(path, "Edit", dlg);
+			--end
+		--});
 		if tm then 
-			table.insert(mnu, {
-				text = VFLI.i18n("Open copy paste");
-				func = function()
-					VFL.poptree:Release();
-					local inst = RDXDB.GetObjectInstance(path, true);
-					if inst then 
-						EditScriptDialog(dlg, inst.msgs);
-					end
-				end;
-			});
-			table.insert(mnu, {
-				text = VFLI.i18n("Clear Messages");
-				func = function()
-					VFL.poptree:Release();
-					local inst = RDXDB.GetObjectInstance(path, true);
-					if inst then 
-						inst.cf:Clear();
-					end
-				end;
-			});
+			--table.insert(mnu, {
+			--	text = VFLI.i18n("Open copy paste");
+			--	func = function()
+			--		VFL.poptree:Release();
+			--		RDXDB.OpenObject(path, "CopyPaste", dlg);
+			--	end;
+			--});
+			--table.insert(mnu, {
+			--	text = VFLI.i18n("Clear Messages");
+			--	func = function()
+			--		VFL.poptree:Release();
+			--		RDXDB.OpenObject(path, "Clear", dlg);
+			--	end;
+			--});
 			table.insert(mnu, {
 				text = VFLI.i18n("Close Tab");
 				func = function()

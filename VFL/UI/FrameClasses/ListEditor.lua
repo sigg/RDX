@@ -33,7 +33,7 @@ VFLUI.ListEditor = {};
 -- @param fnApplyData The function used to paint the cells of the list.
 -- @param fnAcceptEntry Called whenever an entry is made to the edit box/dropdown;
 --   should add the entry to the list if it is to be accepted.
-function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcceptEntry)
+function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcceptEntry, fnNewEntry, fnEditEntry)
 	if not parent then error("parent is required"); end
 	if not list then
 		error("VFLUI.ListEditor:new: list is required.");
@@ -73,11 +73,23 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 				edit:SetText(x.text);
 			end, btnlist, "CENTER");
 		end);
+	elseif fnNewEntry then
+		btnlist:Enable();
+		btnlist:SetScript("OnClick", function()
+			fnNewEntry(le, function(x)
+				table.insert(list, x);
+				listCtl:Update();
+			end);
+		end);
 	end
 		
 	edit = VFLUI.Edit:new(le);
 	edit:SetPoint("LEFT", btnlist, "RIGHT"); edit:SetHeight(25);
-	edit:Show();
+	if not fnNewEntry then 
+		edit:Show();
+	else
+		edit:Hide();
+	end
 	edit:SetScript("OnEnterPressed", function(self)
 		OnEntry("EDIT", self, self:GetText());
 	end);
@@ -111,7 +123,16 @@ function VFLUI.ListEditor:new(parent, list, fnApplyData, fnBuildDropdown, fnAcce
 		else
 			cell.selTexture:Hide();
 		end
-		cell:SetScript("OnClick", function() Select(pos); end);
+		cell:SetScript("OnClick", function(self2, arg1)
+			if(arg1 == "LeftButton") then
+				Select(pos);
+			else
+				Select(pos);
+				if fnEditEntry then
+					fnEditEntry(data)
+				end
+			end
+		end);
 	end, VFL.ArrayLiterator(list));
 
 	local btnRemove = VFLUI.Button:new(le);

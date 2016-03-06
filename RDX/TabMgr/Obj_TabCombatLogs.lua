@@ -83,7 +83,7 @@ local function LWApplyData(tbl, cell, data, pos)
 end
 
 -- Create the local session.
-local localSess = Omni.Session:new("Local");
+local localSess = Omni.Session:new("Local Combat Logs");
 localSess.isLocal = true;
 
 local n, row;
@@ -118,7 +118,7 @@ local function EditCombatLogsDialog(parent, path, md)
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
-	dlg:SetWidth(370); dlg:SetHeight(520);
+	dlg:SetWidth(370); dlg:SetHeight(535);
 	dlg:SetText(VFLI.i18n("Edit CombatLogs: ") .. path);
 	dlg:SetClampedToScreen(true);
 	if RDXPM.Ismanaged("CombatLogs") then RDXPM.RestoreLayout(dlg, "CombatLogs"); end
@@ -126,19 +126,27 @@ local function EditCombatLogsDialog(parent, path, md)
 	dlg:Show();
 	local ca = dlg:GetClientArea();
 	
-	local ed_name = VFLUI.LabeledEdit:new(ca, 150);
-	ed_name:SetText(VFLI.i18n("Tab Title"));
-	ed_name.editBox:SetText(md.data.title);
-	ed_name:SetHeight(25); ed_name:SetWidth(250);
-	ed_name:SetPoint("TOPLEFT", ca, "TOPLEFT");
-	ed_name:Show();
-	dlg.ed_name = ed_name;
+	local ed_title = VFLUI.LabeledEdit:new(ca, 150);
+	ed_title:SetText(VFLI.i18n("Title"));
+	ed_title.editBox:SetText(md.data.title);
+	ed_title:SetHeight(25); ed_title:SetWidth(250);
+	ed_title:SetPoint("TOPLEFT", ca, "TOPLEFT");
+	ed_title:Show();
+	dlg.ed_title = ed_title;
+	
+	local ed_tabtitle = VFLUI.LabeledEdit:new(ca, 150);
+	ed_tabtitle:SetText(VFLI.i18n("Tab Title"));
+	ed_tabtitle.editBox:SetText(md.data.tabtitle);
+	ed_tabtitle:SetHeight(25); ed_tabtitle:SetWidth(250);
+	ed_tabtitle:SetPoint("TOPLEFT", ed_title, "BOTTOMLEFT");
+	ed_tabtitle:Show();
+	dlg.ed_tabtitle = ed_tabtitle;
 	
 	local ed_tabwidth = VFLUI.LabeledEdit:new(ca, 150);
 	ed_tabwidth:SetText(VFLI.i18n("Tab Width"));
 	ed_tabwidth.editBox:SetText(md.data.tabwidth);
 	ed_tabwidth:SetHeight(25); ed_tabwidth:SetWidth(250);
-	ed_tabwidth:SetPoint("TOPLEFT", ed_name, "BOTTOMLEFT");
+	ed_tabwidth:SetPoint("TOPLEFT", ed_tabtitle, "BOTTOMLEFT");
 	ed_tabwidth:Show();
 	dlg.ed_tabwidth = ed_tabwidth;
 	
@@ -180,13 +188,14 @@ local function EditCombatLogsDialog(parent, path, md)
 		if chk_fe:GetChecked() then 
 			md.data.filters = fe:GetDescriptor();
 		end
-		md.data.title = ed_name.editBox:GetText();
+		md.data.tabtitle = ed_tabtitle.editBox:GetText();
+		md.data.title = ed_title.editBox:GetText();
 		md.data.tabwidth = ed_tabwidth.editBox:GetText();
 		-- See if this combatlogs was already instantiated...
 		local inst = RDXDB.GetObjectInstance(path, true);
 		if inst then
-			inst:SetFilters(md.data);
-			inst:SetTabOptions(md.data);
+			inst.mtab:SetFilters(md.data);
+			inst.mtab:SetTabOptions(md.data);
 		end
 		VFL.EscapeTo(esch);
 	end
@@ -203,7 +212,8 @@ local function EditCombatLogsDialog(parent, path, md)
 		VFLUI.DestroyScrollingCompoundFrame(ui, sf);
 		ui = nil; sf = nil;
 		s.ed_tabwidth:Destroy(); s.ed_tabwidth = nil;
-		s.ed_name:Destroy(); s.ed_name = nil;
+		s.ed_title:Destroy(); s.ed_title = nil;
+		s.ed_tabtitle:Destroy(); s.ed_tabtitle = nil;
 	end, dlg.Destroy);
 end
 
@@ -227,6 +237,7 @@ function RDX.CombatLogs:new(path, desc)
 	x.source = UnitName("player");
 	x.data = desc.logs;
 	x.timeOffset = 0;
+	x:SetFormat("LOCAL Combat Logs")
 	local sysEpoch = VFLT.GetSystemEpoch();
 	if sysEpoch then
 		x.timeOffset = math.modf(sysEpoch:GetKernelTimeCorrection() * 10);
@@ -368,6 +379,7 @@ RDXDB.RegisterObjectType({
 		md.version = 1;
 		md.data = {};
 		md.data.title = "Combat";
+		md.data.tabtitle = "CO";
 		md.data.tabwidth = 80;
 		md.data.size = 1000;
 		md.data.logs = {};
@@ -375,13 +387,63 @@ RDXDB.RegisterObjectType({
 	Edit = function(path, md, parent)
 		EditCombatLogsDialog(parent or VFLDIALOG, path, md);
 	end;
+	Analyse = function(path, md, parent)
+		local inst = RDXDB.GetObjectInstance(path, true);
+		if inst then
+			Omni.Open(path, RDXParent);
+			Omni.SetActiveTable(inst.mtab.table);
+		end
+	end;
 	Instantiate = function(path, md)
-		local cl = RDX.CombatLogs:new(path, md.data);
+		local dlgtab = VFLUI.Window:new();
+		dlgtab:SetFraming(VFLUI.Framing.Sleek, 25, VFLUI.BorderlessDialogBackdrop2);
+		dlgtab:SetTitleColor(0,.5,0);
+		if not md.data.title then
+			dlgtab:SetText(VFLI.i18n("Combat Logs"));
+		else
+			dlgtab:SetText(VFLI.i18n("Combat Logs") .. " : " .. md.data.title);
+		end
+		
+		local ca = dlgtab:GetClientArea();
+		
+		local mtab = RDX.CombatLogs:new(path, md.data);
 		-- Attempt to setup the window; if it fails, just bail out.
-		if not SetupCombatLogs(path, cl, md.data) then cl:Destroy(); return nil; end
-		return cl;
+		if not SetupCombatLogs(path, mtab, md.data) then mtab:Destroy(); return nil; end
+		
+		mtab:SetParent(ca);
+		mtab:SetAllPoints(ca);
+		dlgtab.mtab = mtab;
+		
+		local function layout()
+			local w = ca:GetWidth();
+			local h = ca:GetHeight();
+			mtab:ClearAllPoints();
+			mtab:SetPoint("CENTER", ca, "CENTER");
+			mtab:SetWidth(w);
+			mtab:SetHeight(h);
+		end
+		ca:SetScript("OnShow", layout);
+		ca:SetScript("OnSizeChanged", layout);
+		
+		local menubtn = VFLUI.MenuButton:new()
+		menubtn:SetScript("OnClick", function()
+			RDXDB.OpenObject(path, "Analyse", dlgtab);
+		end);
+		dlgtab:AddButton(menubtn);
+		
+		local markbtn = VFLUI.MarkButton:new()
+		markbtn:SetScript("OnClick", function()
+			RDXDB.OpenObject(path, "Edit", dlgtab);
+		end);
+		dlgtab:AddButton(markbtn);
+		
+		return dlgtab;
 	end,
 	Deinstantiate = function(instance, path, md)
+		if instance.mtab then
+			instance.mtab:Destroy();
+			instance.mtab = nil;
+		end
 		instance:Destroy();
 		instance = nil;
 	end,
@@ -390,35 +452,36 @@ RDXDB.RegisterObjectType({
 		local tab = tabbox:GetTabBar():AddTab(md.data.tabwidth, function(self, arg1)
 			tabbox:SetClient(f);
 			VFLUI.SetBackdrop(f, desc.bkd);
-			f.font = desc.font;
+			f.mtab.font = desc.font;
+			f:SetTitleColor(VFL.explodeRGBA(desc.titleColor));
 		end,
 		function() end, 
 		function(mnu, dlg) 
 			return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg, tm)
 		end);
-		tab.font:SetText(md.data.title);
+		if md.data.tabtitle then
+			tab.font:SetText(md.data.tabtitle);
+		else
+			tab.font:SetText(md.data.title);
+		end
 		tab.f = f;
 		return tab;
 	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg, tm)
-		table.insert(mnu, {
-			text = VFLI.i18n("Edit"),
-			func = function() 
-				VFL.poptree:Release(); 
-				RDXDB.OpenObject(path, "Edit", dlg);
-			end
-		});
-		table.insert(mnu, {
-			text = VFLI.i18n("Analyse");
-			func = function()
-				VFL.poptree:Release();
-				local inst = RDXDB.GetObjectInstance(path, true);
-				if inst then
-					Omni.Open(path, RDXParent);
-					Omni.SetActiveTable(inst.table);
-				end
-			end;
-		});
+		--table.insert(mnu, {
+		--	text = VFLI.i18n("Edit"),
+		--	func = function() 
+		--		VFL.poptree:Release(); 
+		--		RDXDB.OpenObject(path, "Edit", dlg);
+		--	end
+		--});
+		--table.insert(mnu, {
+		--	text = VFLI.i18n("Analyse");
+		--	func = function()
+		--		VFL.poptree:Release();
+		--		RDXDB.OpenObject(path, "Analyse", dlg);
+		--	end;
+		--});
 		if tm then 
 			table.insert(mnu, {
 				text = VFLI.i18n("Close Tab");

@@ -27,7 +27,7 @@ RDXDB.RegisterObjectType({
 		dlg:SetClampedToScreen(true);
 		
 		VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
-		if RDXPM.Ismanaged("POISet") then RDXPM.RestoreLayout(dlg, "POISet"); end
+		if RDXPM.Ismanaged("QuestSet") then RDXPM.RestoreLayout(dlg, "QuestSet"); end
 
 		local le_names = VFLUI.ListEditor:new(dlg, md.data, function(cell,data) 
 			cell.text:SetText(data);

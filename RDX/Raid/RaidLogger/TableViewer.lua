@@ -10,13 +10,13 @@ local zeropad = VFL.zeropad;
 local _green, _red = {r=0,g=0.75,b=0}, {r=0.75,g=0,b=0};
 
 local colspec = {
-	{ title = "Time", width = 70},
-	{ title = "Source", width = 100},
-	{ title = "Target", width = 100},
-	{ title = "HP", width = 78},
-	{ title = "Amt", width = 50},
-	{ title = "Ability", width = 150},
-	{ title = "Misc", width = 130},
+	{ title = "Time", width = 100},
+	{ title = "Source", width = 200},
+	{ title = "Target", width = 200},
+	{ title = "HP", width = 150},
+	{ title = "Amt", width = 100},
+	{ title = "Ability", width = 250},
+	{ title = "Misc", width = 100},
 };
 
 -- The onclick function for omni table cells.
@@ -296,14 +296,22 @@ function Omni._TitleRow(c)
 end
 
 Omni.RegisterTableFormat({
-	name = "LOCAL";
+	name = "LOCAL Combat Logs";
 	colspec = colspec;
 	TitleRow = Omni._TitleRow;
 	ApplyData = Omni._ApplyData;
 });
 
 Omni.RegisterTableFormat({
-	name = "REMOTE";
+	name = "REMOTE Combat Logs";
+	colspec = colspec;
+	TitleRow = Omni._TitleRow;
+	ApplyData = Omni._ApplyData;
+});
+
+
+Omni.RegisterTableFormat({
+	name = "LOCAL Damage Meter";
 	colspec = colspec;
 	TitleRow = Omni._TitleRow;
 	ApplyData = Omni._ApplyData;

@@ -108,11 +108,6 @@ RDXDB.RegisterObjectType({
 	end,
 });
 
-RDXDB.RegisterObjectType({
-	name = "POIFlightSet",
-	New = function(path, md)
-		md.version = 1;
-	end,
-});
+
 
 

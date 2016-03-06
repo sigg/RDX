@@ -103,10 +103,15 @@ local function EditTableMeterDialog(parent, path, md, callback)
 	
 	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Tab parameters")));
 	
-	local ed_name = VFLUI.LabeledEdit:new(ui, 150); ed_name:Show();
-	ed_name:SetText(VFLI.i18n("Tab Title"));
-	if md and md.data and md.data.title then ed_name.editBox:SetText(md.data.title); end
-	ui:InsertFrame(ed_name);
+	local ed_title = VFLUI.LabeledEdit:new(ui, 150); ed_title:Show();
+	ed_title:SetText(VFLI.i18n("Title"));
+	if md and md.data and md.data.title then ed_title.editBox:SetText(md.data.title); end
+	ui:InsertFrame(ed_title);
+	
+	local ed_tabtitle = VFLUI.LabeledEdit:new(ui, 150); ed_tabtitle:Show();
+	ed_tabtitle:SetText(VFLI.i18n("Tab Title"));
+	if md and md.data and md.data.tabtitle then ed_tabtitle.editBox:SetText(md.data.tabtitle); end
+	ui:InsertFrame(ed_tabtitle);
 	
 	local ed_tabwidth = VFLUI.LabeledEdit:new(ui, 150); ed_tabwidth:Show();
 	ed_tabwidth:SetText(VFLI.i18n("Tab Width"));
@@ -134,7 +139,8 @@ local function EditTableMeterDialog(parent, path, md, callback)
 	VFL.AddEscapeHandler(esch);
 
 	local function Save()
-		md.data.title = ed_name.editBox:GetText();
+		md.data.title = ed_title.editBox:GetText();
+		md.data.tabtitle = ed_tabtitle.editBox:GetText();
 		md.data.tabwidth = ed_tabwidth.editBox:GetText();
 		md.data.filters = fe:GetDescriptor();
 		if callback then callback(md.data); end
@@ -171,60 +177,111 @@ RDXDB.RegisterObjectType({
 	Edit = function(path, md, parent)
 		EditTableMeterDialog(parent or VFLFULLSCREEN, path, md, function(data) local inst = RDXDB.GetObjectInstance(path, true); if inst then inst.tm:SetFilter(RDXLF.SelectFunctor(data)); inst.tm:Reset(); end end);
 	end,
+	Clear = function(path, md, parent)
+		local x = RDXDB.GetObjectInstance(path);
+		if x then
+			x.tm:Reset();
+			x.ml:Update();
+		end
+	end,
+	Analyse = function(path, md, parent)
+		local inst = RDXDB.GetObjectInstance(path, true);
+		if inst then
+			Omni.Open(path, RDXParent);
+			--Omni.SetActiveTable(inst.mtab.table);
+		end
+	end;
 	Instantiate = function(path, md)
-		local mf = VFLUI.AcquireFrame("Frame");
+		local dlgtab = VFLUI.Window:new();
+		dlgtab:SetFraming(VFLUI.Framing.Sleek, 25, VFLUI.BorderlessDialogBackdrop2);
+		dlgtab:SetTitleColor(0,.5,0);
+		if not md.data.title then
+			dlgtab:SetText(VFLI.i18n("Damage Meter"));
+		else
+			dlgtab:SetText(VFLI.i18n("Damage Meter") .. " : " .. md.data.title);
+		end
 		
-		local l = VFLUI.List:new(mf, 12, CreateCell); 
-		l:Show();
-		mf.ml = l;
+		local ca = dlgtab:GetClientArea();
+		
+		--local mf = VFLUI.AcquireFrame("Frame");
+		
+		local ml = VFLUI.List:new(ca, 12, CreateCell); 
+		ml:Show();
+		dlgtab.ml = ml;
 		
 		local x = RDXLF.TableMeter:new(path, md.data);
 		x:SetFilter(RDXLF.SelectFunctor(md.data.filters));
 		RDXEvents:Bind("LOG_ROW_ADDED", x, x.Update, x);
-		mf.tm = x
+		dlgtab.tm = x
 		
 		local function layout()
-			local w = mf:GetWidth();
-			local h = mf:GetHeight();
-			mf.ml:ClearAllPoints();
-			mf.ml:SetPoint("CENTER", mf, "CENTER", 0, -15);
-			mf.ml:SetWidth(w - 2);
-			mf.ml:SetHeight(h - 2 - 15);
-			mf.ml:Rebuild();
+			local w = ca:GetWidth();
+			local h = ca:GetHeight();
+			ml:ClearAllPoints();
+			ml:SetPoint("CENTER", ca, "CENTER");
+			ml:SetWidth(w - 2);
+			ml:SetHeight(h - 2);
+			ml:Rebuild();
 		end
-		mf:SetScript("OnShow", layout);
-		mf:SetScript("OnSizeChanged", layout);
+		ca:SetScript("OnShow", layout);
+		ca:SetScript("OnSizeChanged", layout);
 		
-		mf.a = {};
+		dlgtab.a = {};
 		
-		mf.ml:SetDataSource(function(cell, data, pos, absPos)
+		ml:SetDataSource(function(cell, data, pos, absPos)
 			cell:SetScript("OnClick", nil);
 			cell.nameText:SetText(data.unit.name or "None");
-			cell.nText:SetText(data.value .. " / " .. string.format("%d", VFL.clamp(data.value/mf.tm.data.valuetotal, 0, 1) * 100) .. "%");
-			cell.sbt:SetValueAndColorTable(VFL.clamp(data.value/mf.tm.data.valuemax, 0, 1), _blue);
-		end, VFL.ArrayLiterator(mf.a));
+			cell.nText:SetText(data.value .. " / " .. string.format("%d", VFL.clamp(data.value/dlgtab.tm.data.valuetotal, 0, 1) * 100) .. "%");
+			cell.sbt:SetValueAndColorTable(VFL.clamp(data.value/dlgtab.tm.data.valuemax, 0, 1), _blue);
+		end, VFL.ArrayLiterator(dlgtab.a));
 		
 		local function updatelist()
-			VFL.empty(mf.a);
-			for k, v in pairs (mf.tm.data.list) do
-				table.insert(mf.a, v);
+			VFL.empty(dlgtab.a);
+			for k, v in pairs (dlgtab.tm.data.list) do
+				table.insert(dlgtab.a, v);
 			end
 		end
 		
 		--function
 		VFLT.AdaptiveUnschedule2("TabMeter" .. path)
 		VFLT.AdaptiveSchedule2("TabMeter" .. path, 2, function()
-			if mf.tm and mf.tm.data and mf.tm.data.valuetotal > 0 then
+			if dlgtab.tm and dlgtab.tm.data and dlgtab.tm.data.valuetotal > 0 then
 				--sort
-				table.sort(mf.a, function(x1,x2) return x1.value > x2.value; end);
-				mf.ml:Update();
+				table.sort(dlgtab.a, function(x1,x2) return x1.value > x2.value; end);
+				dlgtab.ml:Update();
 			end
 		end)
 		
 		-- update list size
 		RDXEvents:Bind(path .. "UNIT_METER_LIST_UPDATE", nil, updatelist, path .. "UNIT_METER_LIST_UPDATE")
 		updatelist();
-		return mf;
+		
+		local syncbtn = VFLUI.SyncButton:new()
+		syncbtn:SetScript("OnClick", function()
+			RDXDB.OpenObject(path, "Clear", dlgtab);
+		end);
+		dlgtab:AddButton(syncbtn);
+		
+		local menubtn = VFLUI.MenuButton:new()
+		menubtn:SetScript("OnClick", function()
+			RDXDB.OpenObject(path, "Analyse", dlgtab);
+		end);
+		dlgtab:AddButton(menubtn);
+		
+		local savebtn = VFLUI.SaveButton:new()
+		savebtn:SetScript("OnClick", function()
+			--RDXDB.OpenObject(path, "Save", dlgtab);
+		end);
+		dlgtab:AddButton(savebtn);
+		
+		local markbtn = VFLUI.MarkButton:new()
+		markbtn:SetScript("OnClick", function()
+			RDXDB.OpenObject(path, "Edit", dlgtab);
+		end);
+		dlgtab:AddButton(markbtn);
+		
+		
+		return dlgtab;
 	end,
 	Deinstantiate = function(instance, path, md)
 		--instance:_Hide(RDX.smooth, nil, function() instance:Destroy(); instance._path = nil; instance = nil; end);
@@ -244,16 +301,15 @@ RDXDB.RegisterObjectType({
 		instance = nil;
 	end,
 	OpenTab = function(tabbox, path, md, objdesc, desc, tm)
-		local tabtitle, tabwidth = md.data.title or "Tab", md.data.tabwidth or 80;
+		local tabtitle, tabwidth = md.data.tabtitle or "Tab", md.data.tabwidth or 80;
 		local f = RDXDB.GetObjectInstance(path);
 		local tab = tabbox:GetTabBar():AddTab(tabwidth, function(self, arg1)
 			tabbox:SetClient(f);
 			VFLUI.SetBackdrop(f, desc.bkd);
-			--f.font = desc.font;
-			--if f.NxWin then f.NxWin:Enable(); end
+			f:SetTitleColor(VFL.explodeRGBA(desc.titleColor));
 		end,
 		function()
-			--if f.NxWin then f.NxWin:Disable(); end
+			
 		end, 
 		function(mnu, dlg) 
 			return objdesc.GenerateBrowserMenu(mnu, path, nil, dlg, tm)
@@ -263,40 +319,24 @@ RDXDB.RegisterObjectType({
 		return tab;
 	end,
 	GenerateBrowserMenu = function(mnu, path, md, dlg, tm)
-		table.insert(mnu, {
-			text = VFLI.i18n("Edit"),
-			func = function()
-				VFL.poptree:Release();
-				RDXDB.OpenObject(path, "Edit", dlg);
-			end
-		});
-		table.insert(mnu, {
-			text = VFLI.i18n("Wipe data"),
-			func = function() 
-				VFL.poptree:Release(); 
-				local x = RDXDB.GetObjectInstance(path);
-				x.tm:Reset();
-				x.ml:Update();
+		--table.insert(mnu, {
+		--	text = VFLI.i18n("Edit"),
+		--	func = function()
+		--		VFL.poptree:Release();
+		--		RDXDB.OpenObject(path, "Edit", dlg);
+		--	end
+		--});
+		--table.insert(mnu, {
+		--	text = VFLI.i18n("Wipe data"),
+		--	func = function() 
+		--		VFL.poptree:Release(); 
+		--		local x = RDXDB.GetObjectInstance(path);
+		--		x.tm:Reset();
+		--		x.ml:Update();
 				--local dk, pkg, file = RDXDB.ParsePath(path);
 				--RDXDBEvents:Dispatch("OBJECT_UPDATED", dk, pkg, file);
-			end
-		});
-		local feat = RDXDB.GetFeatureData(path, "Design");
-		if not feat then feat = RDXDB.GetFeatureData(path, "Assist Frames"); end
-		if feat then
-			local upath = feat["design"];
-			table.insert(mnu, {
-				text = VFLI.i18n("Edit Design"),
-				func = function() 
-					VFL.poptree:Release();
-					if IsShiftKeyDown() then
-						RDXDB.OpenObject(upath, "Edit", VFLDIALOG, true);
-					else
-						RDXDB.OpenObject(upath, "Edit", VFLDIALOG);
-					end
-				end
-			});
-		end
+		--	end
+		--});
 		if tm then 
 			table.insert(mnu, {
 				text = VFLI.i18n("Close Tab");

@@ -70,6 +70,7 @@ end
 
 local flag, data, un;
 function RDXLF.TableMeter:Update(log, unitsrc, unittgt)
+	if not self.filter then return; end
 	flag, data, un = self.filter(log, unitsrc, unittgt);
 	if flag then
 		local tableinfo = self.data.list[log.sg];

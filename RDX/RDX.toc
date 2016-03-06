@@ -1,4 +1,4 @@
-﻿## Interface: 60100
+﻿## Interface: 60200
 ## Title: |c007ffcffRDX|r
 ## Notes: RDX is Raid Data Exchange - UI and raid mods.
 ## Author: Raid Informatics / OpenRDX Project
@@ -222,6 +222,7 @@ Raid\RaidLogger\Remote.lua
 Raid\RaidLogger\Search.lua
 # deprecated
 #Raid\RaidLogger\Obj_TableLog.lua
+Raid\RaidLogger\Obj_SaveLog.lua
 
 # Raid Status
 Raid\RaidStatus\Obj_Status.lua
@@ -266,6 +267,7 @@ MapMgr\MapData.lua
 MapMgr\MapInit.lua
 MapMgr\Obj_MapInfo.lua
 MapMgr\Obj_Poi.lua
+MapMgr\Obj_PoiFlightSet.lua
 MapMgr\Obj_Quests.lua
 #Metadata\Maps.lua
 #MapMgr\MapEngine.lua

@@ -152,7 +152,98 @@ end
 VFLUI.SaveButton = {};
 function VFLUI.SaveButton:new(parent, dim)
 	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\disk2");
-	ret:SetHighlightColor(0,1,0,1);
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.MinimizeButton = {};
+function VFLUI.MinimizeButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\minimize");
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.MaximizeButton = {};
+function VFLUI.MaximizeButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\crosshair");
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.MenuButton = {};
+function VFLUI.MenuButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\menu");
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.MarkButton = {};
+function VFLUI.MarkButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\mark");
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.FolderButton = {};
+function VFLUI.FolderButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\folder");
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.FunnelButton = {};
+function VFLUI.FunnelButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\funnel");
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.MagGlassButton = {};
+function VFLUI.MagGlassButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\mag_glass");
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.MinusButton = {};
+function VFLUI.MinusButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\minus");
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.PlusButton = {};
+function VFLUI.PlusButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\plus");
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.PlayButton = {};
+function VFLUI.PlayButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\play");
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.PlayIButton = {};
+function VFLUI.PlayIButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\play_i");
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.StopButton = {};
+function VFLUI.StopButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\stop");
+	ret:SetHighlightColor(1,1,0,1);
+	return ret;
+end
+
+VFLUI.SyncButton = {};
+function VFLUI.SyncButton:new(parent, dim)
+	local ret = VFLUI.TexturedButton:new(parent, dim, "Interface\\Addons\\VFL\\Skin\\sync");
+	ret:SetHighlightColor(1,1,0,1);
 	return ret;
 end
 

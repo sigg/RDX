@@ -31,6 +31,7 @@ RDX.RegisterFeature({
 	end;
 	ApplyFeature = function(desc, state)
 		local objname = "Frame_" .. desc.name;
+		desc.titleColor = desc.titleColor or _black;
 		------------------ On frame creation
 		local createCode = [[
 	if not RDXDB.PathHasInstance("]] .. desc.cfm .. [[") then
@@ -148,6 +149,9 @@ RDX.RegisterFeature({
 		er:EmbedChild(bkd); er:Show();
 		ui:InsertFrame(er);
 		
+		local titleColor = RDXUI.GenerateColorSwatch(ui, VFLI.i18n("Title color"));
+		if desc and desc.titleColor then titleColor:SetColor(VFL.explodeRGBA(desc.titleColor)); end
+		
 		function ui:GetDescriptor()
 			return { 
 				feature = "tabmanager"; version = 1;
@@ -164,6 +168,7 @@ RDX.RegisterFeature({
 				font = fontsel:GetSelectedFont();
 				--fading = chk_fading:GetChecked();
 				bkd = bkd:GetSelectedBackdrop();
+				titleColor = titleColor:GetColor();
 			};
 		end
 

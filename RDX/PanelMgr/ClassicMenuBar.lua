@@ -142,23 +142,23 @@ RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
 	ent.checked = RDX.UseCleanIcons;
 	ent.func = function() VFL.poptree:Release(); RDX.ToggleCleanIcons(); end 
 end);
-RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
-	ent.text = "*************";
-	ent.isTitle = true;
-	ent.color = _yellow;
-	ent.notCheckable = true;
-	ent.func = VFL.Noop;
-end);
-RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Launch Themes Installer");
-	ent.notCheckable = true;
-	ent.func = function() VFL.poptree:Release(); RDX.StartInstaller(true); end 
-end);
-RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
-	ent.text = VFLI.i18n("Uninstall Themes");
-	ent.notCheckable = true;
-	ent.func = function() VFL.poptree:Release(); RDXDB.DeleteThemes(); end 
-end);
+--RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+--	ent.text = "*************";
+--	ent.isTitle = true;
+--	ent.color = _yellow;
+--	ent.notCheckable = true;
+--	ent.func = VFL.Noop;
+--end);
+--RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+--	ent.text = VFLI.i18n("Launch Themes Installer");
+--	ent.notCheckable = true;
+--	ent.func = function() VFL.poptree:Release(); RDX.StartInstaller(true); end 
+--end);
+--RDXPM.SettingsMenu:RegisterMenuFunction(function(ent)
+--	ent.text = VFLI.i18n("Uninstall Themes");
+--	ent.notCheckable = true;
+--	ent.func = function() VFL.poptree:Release(); RDXDB.DeleteThemes(); end 
+--end);
 
 RDXPM.CompactMenu:RegisterMenuEntry(VFLI.i18n("Settings"), true, function(tree, frame) RDXPM.SettingsMenu:Open(tree, frame); end)
 
@@ -301,6 +301,7 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.func = function() VFL.poptree:Release(); RDXDB.ToggleObjectBrowser(); end;
 end);
 
+--[[
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Favoris");
 	ent.notCheckable = true;
@@ -342,7 +343,7 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.notCheckable = true;
 	ent.func = function() VFL.poptree:Release(); RDX.NewWindowWizard(); end;
 end);
-
+]]
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = "**************";
 	ent.isTitle = true;

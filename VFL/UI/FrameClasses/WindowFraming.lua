@@ -94,7 +94,7 @@ end
 -----------------------------------------------------
 function VFLUI.Framing.Default(self, titleHeight, bkdp)
 	-------------------------- WINDOW DECOR
-	self.bkdp = bkdp or VFLUI.BlizzardDialogBackdrop;
+	self.bkdp = bkdp; -- or VFLUI.BlizzardDialogBackdrop;
 
 	local titleBar = self:GetTitleBar();
 	titleBar:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -5);
@@ -145,10 +145,11 @@ function VFLUI.Framing.Default(self, titleHeight, bkdp)
 
 	---------------------------- FIXED ELEMENT LAYOUT
 	if self.SetInsets then
-		if self.bkd and self.bkd.insets then
-			self:SetInsets(self.bkd.insets.left or 1, titleHeight + (self.bkd.insets.top or 1), self.bkd.insets.right or 1, self.bkd.insets.bottom or 1);
+		if self.bkdp and self.bkdp.insets then
+			self:SetInsets(self.bkdp.insets.left or 1, titleHeight + (self.bkdp.insets.top or 1), self.bkdp.insets.right or 1, self.bkdp.insets.bottom or 1);
 		else
 			self:SetInsets(5, titleHeight + 2, 5, 5);
+			--self:SetInsets(0, titleHeight, 0, 0);
 		end
 	else
 		local clientArea = self:GetClientArea();
@@ -227,7 +228,8 @@ function VFLUI.Framing.Sleek(self, titleHeight, bkdp)
 	decor:SetParent(self);
 	decor:ClearAllPoints();
 	decor:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0); decor:SetHeight(14);
-	decor:SetBackdrop(plainBackdrop); decor:Show();	
+	decor:SetBackdrop(plainBackdrop);
+	decor:Show();	
 
 	local titleBar = self:GetTitleBar();
 	titleBar:ClearAllPoints(); 	titleBar:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0);
@@ -237,7 +239,7 @@ function VFLUI.Framing.Sleek(self, titleHeight, bkdp)
 	local titleText = VFLUI.CreateFontString(titleBar);
 	titleText:SetPoint("LEFT", decor, "LEFT", 4, 0);
 	titleText:SetHeight(14);
-	VFLUI.SetFont(titleText, Fonts.Default, 10);
+	VFLUI.SetFont(titleText, Fonts.DefaultShadowed, 10);
 	titleText:SetJustifyH("LEFT"); titleText:Show();
 	
 	function self:SetText(txt) titleText:SetText(txt); end
@@ -328,7 +330,7 @@ function VFLUI.Framing.Sleek(self, titleHeight, bkdp)
 			local ca = self:GetClientArea();
 			ca:SetWidth(tw - 2); ca:SetHeight(self:GetHeight() - 15);
 		end
-		if self.bkdp then VFLUI.SetBackdrop(self, self.bkdp); end
+		--if self.bkdp then VFLUI.SetBackdrop(self, self.bkdp); end
 	end
 
 	function self:_FrameDestroy()

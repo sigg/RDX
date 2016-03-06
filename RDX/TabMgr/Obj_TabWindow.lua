@@ -15,25 +15,32 @@ RDXDB.RegisterObjectType({
 		RDX.EditWindow(parent, path, md);
 	end,
 	Instantiate = function(path, md)
-		local f = VFLUI.AcquireFrame("Frame");
-		local w = RDX.Window:new(f);
+		local dlgtab = VFLUI.Window:new();
+		dlgtab:SetFraming(VFLUI.Framing.Sleek, 25, VFLUI.BorderlessDialogBackdrop2);
+		dlgtab:SetTitleColor(0,.5,0);
+		dlgtab:SetText(VFLI.i18n("Windows"));
+		
+		local ca = dlgtab:GetClientArea();
+		
+		--local f = VFLUI.AcquireFrame("Frame");
+		local mtab = RDX.Window:new(ca);
 		-- Attempt to setup the window; if it fails, just bail out.
-		if not RDX.SetupWindow(path, w, md.data) then 
-			w:Destroy();
-		else
-			RDXDK.StdMove(w, w:GetTitleBar());
-			RDX:Debug(5, "Instantiate WindowObject<", path, ">");
-			w:WMGetPositionalFrame():SetPoint("TOPLEFT", f, "TOPLEFT", 2, -2);
-			f.w = w;
-		end
-		return f;
+		if not RDX.SetupWindow(path, mtab, md.data) then mtab:Destroy(); return nil; end
+		
+		mtab:SetParent(ca);
+		--mtab:SetAllPoints(ca);
+		dlgtab.mtab = mtab;
+		
+		mtab:WMGetPositionalFrame():SetPoint("TOPLEFT", ca, "TOPLEFT", 2, -2);
+		
+		return dlgtab;
 	end,
 	Deinstantiate = function(instance, path, md)
 		--instance:_Hide(RDX.smooth, nil, function() instance:Destroy(); instance._path = nil; instance = nil; end);
-		if instance.w then
-			instance.w:Destroy();
-			instance.w._path = nil;
-			instance.w = nil;
+		if instance.mtab then
+			instance.mtab:Destroy();
+			instance.mtab._path = nil;
+			instance.mtab = nil;
 		end
 		instance:Destroy();
 		instance = nil;
@@ -51,6 +58,7 @@ RDXDB.RegisterObjectType({
 			tabbox:SetClient(f);
 			VFLUI.SetBackdrop(f, desc.bkd);
 			--f.font = desc.font;
+			f:SetTitleColor(VFL.explodeRGBA(desc.titleColor));
 		end,
 		function() end, 
 		function(mnu, dlg) 

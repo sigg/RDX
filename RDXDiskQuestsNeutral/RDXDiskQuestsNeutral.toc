@@ -1,0 +1,9 @@
+﻿## Interface: 60200
+## Title: |c007ffcffRDX|r - Disk Quests Neutral
+## Notes: Disk Quests Neutral
+## Author: Sigg / Rashgarroth
+## Version: 10.0.0
+## RequiredDeps: RDXDiskSystem
+## SavedVariables: RDXDiskQuestsNeutral
+main.lua
+quests.lua

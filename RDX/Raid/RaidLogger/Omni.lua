@@ -29,18 +29,22 @@ OmniEvents = DispatchTable:new();
 --------- Load saved tables
 RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	-- Verify saved variables
-	if not Omni_SavedTables then Omni_SavedTables = {}; end
+	--if not Omni_SavedTables then Omni_SavedTables = {}; end
 	-- Create the saved session
-	local saved = Omni.Session:new("Saved Tables");
-	saved.isLocal = true;
-	saved.tablespace = Omni_SavedTables;
+	--local saved = Omni.Session:new("Saved Tables");
+	--saved.isLocal = true;
+	--saved.tablespace = Omni_SavedTables;
 	-- Remap the metadata for the tables in the saved session.
-	for _,tbl in pairs(saved.tablespace) do
-		setmetatable(tbl, Omni.Table);
-		tbl:SetFormat(tbl.format);
-		tbl.session = saved;
-	end
+	--for _,tbl in pairs(saved.tablespace) do
+	--	setmetatable(tbl, Omni.Table);
+	--	tbl:SetFormat(tbl.format);
+	--	tbl.session = saved;
+	--end
 	-- Cleanse the tables
-	saved:Cleanse();
+	--saved:Cleanse();
+	
+	
+	
+	
 end);
 

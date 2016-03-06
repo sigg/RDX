@@ -1,16 +1,60 @@
 
+--------
+-- Unpack start/end
+-- Format: name index (byte x2), zone (byte), location data (may start with space)
+-- Example: 00,1, xxyy
+-- Example: 00,1,xywh
+
+function RDXMAP.UnpackSE (obj)
+
+	if not obj then
+		return
+	end
+
+	local i = (strbyte (obj) - 35) * 221 + (strbyte (obj, 2) - 35)
+	-- test sigg
+	
+	local name = RDXMAP.QuestDataStartEnd[i]
+	--local name = self.QuestStartEnd[i]
+
+	if not name then
+--		VFL.vprint ("UnpackSE err %s (%s)", i, obj)
+		name = "?"
+	end
+
+	if #obj == 2 then
+		return name
+	end
+
+	local zone = strbyte (obj, 3) - 35
+
+	return name, zone, 4
+end
 
 --------
--- Get centered position of objective
+-- Get centered position of start/end
 
-function RDXMAP.GetObjectivePos (str)
+function RDXMAP.GetSEPos (str)
 
-	local name, zone, loc = RDXMAP.UnpackObjective (str)
+	local name, zone, loc = RDXMAP.UnpackSE (str)
 
 	if zone then
 		return name, zone, RDXMAP.GetPosLoc (str, loc)		-- x, y
 	end
 end
+
+function RDXMAP.CheckQuestSE (q, n)
+
+	local name, zone, x, y = RDXMAP.GetSEPos (q[n])
+	local mapId = RDXMAP.Zone2MapId[zone]
+
+	if (x == 0 or y == 0) and mapId and not RDXMAP.APIMap.IsInstanceMap (mapId) then
+		q[n] = format ("%s# ####", strsub (q[n], 1, 2))	-- Zero it to get a red button
+--		local oName = RDXMAP.UnpackSE (q[n])
+--		VFL.vprint ("zeroed %s, %s", RDXMAP.UnpackName (q[1]), oName)
+	end
+end
+
 
 
 --------
@@ -97,59 +141,16 @@ function RDXMAP.UnpackObjective (obj)
 	return desc, zone, i + 2
 end
 
---------
--- Unpack start/end
--- Format: name index (byte x2), zone (byte), location data (may start with space)
--- Example: 00,1, xxyy
--- Example: 00,1,xywh
-
-function RDXMAP.UnpackSE (obj)
-
-	if not obj then
-		return
-	end
-
-	local i = (strbyte (obj) - 35) * 221 + (strbyte (obj, 2) - 35)
-	-- test sigg
-	
-	local name = RDXMAP.QuestDataStartEnd[i]
-	--local name = self.QuestStartEnd[i]
-
-	if not name then
---		VFL.vprint ("UnpackSE err %s (%s)", i, obj)
-		name = "?"
-	end
-
-	if #obj == 2 then
-		return name
-	end
-
-	local zone = strbyte (obj, 3) - 35
-
-	return name, zone, 4
-end
 
 --------
--- Get centered position of start/end
+-- Get centered position of objective
 
-function RDXMAP.GetSEPos (str)
+function RDXMAP.GetObjectivePos (str)
 
-	local name, zone, loc = RDXMAP.UnpackSE (str)
+	local name, zone, loc = RDXMAP.UnpackObjective (str)
 
 	if zone then
 		return name, zone, RDXMAP.GetPosLoc (str, loc)		-- x, y
-	end
-end
-
-function RDXMAP.CheckQuestSE (q, n)
-
-	local name, zone, x, y = RDXMAP.GetSEPos (q[n])
-	local mapId = RDXMAP.Zone2MapId[zone]
-
-	if (x == 0 or y == 0) and mapId and not RDXMAP.APIMap.IsInstanceMap (mapId) then
-		q[n] = format ("%s# ####", strsub (q[n], 1, 2))	-- Zero it to get a red button
---		local oName = RDXMAP.UnpackSE (q[n])
---		VFL.vprint ("zeroed %s, %s", RDXMAP.UnpackName (q[1]), oName)
 	end
 end
 
@@ -474,6 +475,9 @@ end
 	}
 	o = { -- objectives
 		[1] = {
+			z = zone
+			t = type
+			
 		}
 		[2] = {
 		}
@@ -508,3 +512,170 @@ end
 
 
 ]]
+
+
+	
+local function pp(obj)
+	if not obj then
+		return
+	end
+	
+	local i = (strbyte (obj) - 35) * 221 + (strbyte (obj, 2) - 35)
+	
+	if #obj == 2 then
+		return i
+	else
+		--VFL.print("local pp name only");
+	end
+
+	local zone = strbyte (obj, 3) - 35
+	if zone then 
+		return i, RDXMAP.Zone2MapId[zone], RDXMAP.GetPosLoc (obj, 4)
+	else
+		VFL.print("local pp no zone");
+	end
+end
+
+--RDXDiskQuestsHorde
+-- /script RDXMAP.QQ()
+function RDXMAP.QQ()
+
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:mapmanager");
+	local opts = mbo.data
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:quest");
+	local qopts = mbo.data
+	
+	local mbo = RDXDB.TouchObject("RDXDiskQuestsHorde:quests:quests");
+	local qhorde = mbo.data;
+	
+	-- RDX   0 = Ally, 1 = Horde, 2 = Neutral
+	-- Quest 1 = Horde, 2 = Ally
+	
+	local enFact = RDX.PlFactionNum == 1 and 1 or 2		-- Remap 0 to 2, 1 to 1
+	local qLoadLevel = UnitLevel ("player") - opts["QLevelsToLoad3"]
+	local qMaxLevel = 999
+
+	local qCnt = 0
+	local maxid = 0
+	local sameCnt = 0
+	
+	local n, z, x, y
+
+	for mungeId, q in pairs(RDXMAP.QuestsData) do
+		local id = (mungeId + 3) / 2 - 7
+		qCnt = qCnt + 1
+		maxid = max (id, maxid)
+		
+		local name, side, level, minlvl, next = RDXMAP.Unpack (q[1])
+		
+		local tbl = {};
+		tbl.n = name;
+		tbl.sl = minlvl;
+		tbl.el = level;
+		tbl.i = next;
+		
+		if q[2] then
+			local tbl2 = {}
+			n, z, x, y = pp(q[2])
+			tbl2.ni = n;
+			tbl2.z = z;
+			tbl2.t = 32;
+			tbl2.x = x;
+			tbl2.y = y;
+			tbl.s = tbl2;
+		end
+		if q[3] then
+			local tbl2 = {}
+			n, z, x, y = pp(q[3])
+			tbl2.ni = n;
+			tbl2.z = z;
+			tbl2.t = 32;
+			tbl2.x = x;
+			tbl2.y = y;
+			tbl.e = tbl2;
+		end
+		
+		if q[4] then
+			tbl.o = {};
+		end
+		
+		local x1 = 0
+		local y1 = 0
+		local x2 = 0
+		local y2 = 0
+		
+		for n = 4, 99 do
+			if not q[n] then
+				break
+			end
+			local name, zone, loc = RDXMAP.UnpackObjective (q[n])
+			if loc then 
+				local typ = strbyte (q[n], loc)
+				local mapId = RDXMAP.Zone2MapId[zone]
+				local tbl2 = {}
+				tbl2.n = name;
+				tbl2.z = mapId;
+				table.insert(tbl.o, tbl2);
+				
+				if typ == 32 or typ == 33 then
+					local x1, y1, x2, y2 = RDXMAP.GetObjectiveRect (q[n], loc)
+					local tbl3 = {};
+					tbl3.t = typ;
+					tbl3.x1 = x1;
+					tbl3.y1 = y1;
+					tbl3.x2 = x2;
+					tbl3.y2 = y2;
+					table.insert(tbl2, tbl3);
+					VFL.print("FOUND OTHER 35");
+				else
+					-- multiple points
+					typ = 35
+					loc = loc - 1
+
+					local cnt = floor ((#q[n] - loc) / 4)
+
+					for locN = loc + 1, loc + cnt * 4, 4 do
+
+						local loc1 = strsub (q[n], locN, locN + 3)
+			--			assert (loc1 ~= "")
+
+						local x, y, w, h = RDXMAP.UnpackLocRect (loc1)
+
+						--x1 = min (x1, x)
+						--y1 = min (y1, y)
+						--x2 = max (x2, x + w / 1002 * 100)
+						--y2 = max (y2, y + h / 668 * 100)
+						
+						local tbl3 = {};
+						--tbl3.t = typ;
+						--tbl3.x1 = x1;
+						--tbl3.y1 = y1;
+						--tbl3.x2 = x2;
+						--tbl3.y2 = y2;
+						tbl3.x = x;
+						tbl3.y = y;
+						tbl3.w = w;
+						tbl3.h = h;
+						table.insert(tbl2, tbl3);
+			--			VFL.vprint ("Rect %f %f %f %f", x, y, w, h)
+					end
+				end
+			else
+			
+			end
+		end
+		
+		--VFL.print(side);
+		if side == 1 then
+			qhorde[id] = tbl;
+		elseif side == 2 then
+			RDXDiskQuestsAlliance[id] = tbl;
+		else
+			RDXDiskQuestsNeutral[id] = tbl;
+		--	VFL.print("Side error code");
+		end
+		
+	end
+end
+
+-- /script RDXDiskQuestsHorde = {}

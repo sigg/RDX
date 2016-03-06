@@ -159,7 +159,22 @@ local function TableRightClick(cell, tbl, dialog)
 end
 
 Omni.RegisterTableMenuHandler(function(mnu, tbl, dialog)
-	if (not tbl:IsImmutable()) then
+	if (tbl.session and tbl.session.name == "Save Logs") then
+		table.insert(mnu, {text="Remove", func = function() 
+			VFL.poptree:Release();
+			--local x = tbl.session:RemoveTable(tbl);
+			--if (x == tblCur) then Omni.SetActiveTable(nil); end
+			--RDXDB.OpenObject(tbl.name, "Close");
+			RDXDB.DeleteObject(tbl.name)
+			Omni.SetActiveTable(nil);
+		end});
+		--table.insert(mnu, {text="Rename", func = function()
+		--	VFL.poptree:Release();
+		--	VFLUI.MessageBox("Rename " .. tbl.name, "Enter new name for table '" .. tbl.name .. "'", "", "Cancel", VFL.Noop, "OK", function(newName) 
+		--		Omni.RenameTable(tbl, newName);
+		--	end);
+		--end});
+	elseif (not tbl:IsImmutable()) then
 		table.insert(mnu, {text="Remove", func = function() 
 			VFL.poptree:Release();
 			local x = tbl.session:RemoveTable(tbl);
@@ -170,11 +185,26 @@ Omni.RegisterTableMenuHandler(function(mnu, tbl, dialog)
 			VFLUI.MessageBox("Rename " .. tbl.name, "Enter new name for table '" .. tbl.name .. "'", "", "Cancel", VFL.Noop, "OK", function(newName) Omni.RenameTable(tbl, newName); end);
 		end});
 	end
-	if(tbl.session and tbl.session.name ~= "Saved Tables") then
+	if(tbl.session and tbl.session.name ~= "Saved Logs") then
 		table.insert(mnu, {text="Save", func = function()
 			VFL.poptree:Release();
-			local sts = Omni.GetSessionByName("Saved Tables"); if not sts then return; end
-			sts:AddTable(tbl:MakeCopy());
+			--local sts = Omni.GetSessionByName("Saved Logs"); if not sts then return; end
+			--sts:AddTable(tbl:MakeCopy());
+			--VFLUI.MessageBox("Save " .. tbl.name, "Enter a name for table '" .. tbl.name .. "'", "", "Cancel", VFL.Noop, "OK", function(newName) 
+				local dk, pkg, obj = RDXDB.ParsePath(tbl.name);
+				--local tmptbl = tbl:MakeCopy();
+				--tmptbl.name = RDXDB.MakePath("RDXDiskLog", "save", obj);
+				local x1, x2 = RDXDB.CreateObject("RDXDiskLog", "save", obj, "SaveLog", nil, tbl.format, VFL.copy(tbl.data));
+				if x1 then -- all OK
+					--VFL.EscapeTo(esch);
+					RDXDB.OpenObject(RDXDB.MakePath("RDXDiskLog", "save", obj), "Open");
+				else -- error :\
+					VFL.print("|cFFFF0000" .. x2 .. "|r");
+					return;
+				end
+				
+				--Omni.RenameTable(tbl, newName);
+			--end);
 		end});
 	end
 end);
@@ -190,7 +220,7 @@ function Omni.Open(path, parent)
 	dlg:SetTitleColor(0,.6,0);
 	dlg:SetText("Omniscience");
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
-	dlg:SetHeight(550); dlg:SetWidth(842);
+	dlg:SetHeight(555); dlg:SetWidth(1370);
 	dlg:SetClampedToScreen(true);
 
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
@@ -207,7 +237,7 @@ function Omni.Open(path, parent)
 		return c;
 	end);
 	ctlTblList:SetPoint("TOPLEFT", ca, "TOPLEFT",0,-25);
-	ctlTblList:SetWidth(156); ctlTblList:SetHeight(500); 
+	ctlTblList:SetWidth(256); ctlTblList:SetHeight(500); 
 	ctlTblList:Rebuild(); ctlTblList:Show();
 
 	local tlist = {};
@@ -231,9 +261,10 @@ function Omni.Open(path, parent)
 
 	local function CreateTableEntry(sess, tbl, idx)
 		local str = VFL.strcolor(0,1,0);
+		if not tbl.name then tbl.name = "temp"; end
 		str = str .. tbl.name .. "|r"
 		local tinfo = { text = str, 
-			func = function(self, arg1)
+			OnClick = function(self, arg1)
 				if(arg1 == "LeftButton") then
 					Omni.SetActiveTable(tbl); 
 				elseif(arg1 == "RightButton") then
@@ -263,7 +294,7 @@ function Omni.Open(path, parent)
 
 	local ctlTbl = VFLUI.List:new(dlg, 10, function(x) return Omni._CreateCell(x, "Button"); end);
 	ctlTbl:SetPoint("TOPLEFT", ctlTblList, "TOPRIGHT");
-	ctlTbl:SetWidth(676); ctlTbl:SetHeight(500);
+	ctlTbl:SetWidth(1100); ctlTbl:SetHeight(500);
 	ctlTbl:Rebuild(); ctlTbl:Show();
 	
 	-- Refresh the table viewer

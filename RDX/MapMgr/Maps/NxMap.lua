@@ -1097,7 +1097,7 @@ function RDXMAP.Map:Update (elapsed)
 			self.Icon2Frms[n]:Destroy(); self.Icon2Frms[n] = nil;
 		end
 		-- add
-		local poiNum = GetNumMapLandmarks()
+		--[[local poiNum = GetNumMapLandmarks()
 		for i = 1, poiNum do
 			local name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)
 			if txIndex ~= 0 then
@@ -1123,7 +1123,36 @@ function RDXMAP.Map:Update (elapsed)
 				f.n = f.NxTip
 				table.insert(self.Icon2Frms, f);
 			end
+		end]]
+		
+		local c = RDXMAP.APIMap.GetContinent(mapId)
+		
+		if c then
+		
+		local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. c);
+		if mbo and mbo.data then
+			for i,v in ipairs(mbo.data) do
+				--if v.s == RDX.PlFactionNum or v.s == 2 then
+					local f = VFLUI.POIIcon:new(self, 4)
+					f.texture:SetTexture(RDXMAP.icontex["F"])
+					if v.fx then
+						f.NxTip = format ("%s\n%s %.1f %.1f, %.6f %.6f", "Flight", v.n, v.x, v.y, v.fx, v.fy)
+					else
+						f.NxTip = format ("%s\n%s %.1f %.1f", "Flight", v.n, v.x, v.y)
+					end
+					f.x = v.x
+					f.y = v.y
+					f.NXType = 3001
+					f.MapId = id
+					f.n = f.NxTip
+					f.NXData = v
+					table.insert(self.Icon2Frms, f);
+				--end
+			end
 		end
+		
+		end
+		
 		
 		-- Zone icons data
 		for n = 1, #self.Icon3Frms do

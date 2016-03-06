@@ -2,6 +2,88 @@
 -- OpenRDX
 --
 
+----------------------------------------------
+local dlg = nil;
+local function EditTabMapDialog(parent, path, md, callback)
+	if dlg then return nil; end
+	dlg = VFLUI.Window:new(parent);
+	VFLUI.Window.SetDefaultFraming(dlg, 22);
+	dlg:SetTitleColor(0,0,.6);
+	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
+	dlg:SetPoint("CENTER", RDXParent, "CENTER");
+	dlg:SetWidth(370); dlg:SetHeight(520);
+	dlg:SetText("TabMeter object: " .. path);
+	dlg:SetClampedToScreen(true);
+	
+	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
+	if RDXPM.Ismanaged("TabMeter") then RDXPM.RestoreLayout(dlg, "TabMeter"); end
+	
+	local ui, sf = VFLUI.CreateScrollingCompoundFrame(dlg);
+	sf:SetWidth(346); sf:SetHeight(480);
+	sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
+	
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Tab parameters")));
+	
+	local ed_title = VFLUI.LabeledEdit:new(ui, 150); ed_title:Show();
+	ed_title:SetText(VFLI.i18n("Title"));
+	if md and md.data and md.data.title then ed_title.editBox:SetText(md.data.title); end
+	ui:InsertFrame(ed_title);
+	
+	local ed_tabtitle = VFLUI.LabeledEdit:new(ui, 150); ed_tabtitle:Show();
+	ed_tabtitle:SetText(VFLI.i18n("Tab Title"));
+	if md and md.data and md.data.tabtitle then ed_tabtitle.editBox:SetText(md.data.tabtitle); end
+	ui:InsertFrame(ed_tabtitle);
+	
+	local ed_tabwidth = VFLUI.LabeledEdit:new(ui, 150); ed_tabwidth:Show();
+	ed_tabwidth:SetText(VFLI.i18n("Tab Width"));
+	if md and md.data and md.data.tabwidth then ed_tabwidth.editBox:SetText(md.data.tabwidth); end
+	ui:InsertFrame(ed_tabwidth);
+	
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Filtering parameters")));
+	
+	local fe = RDXLF.SelectEditor:new(dlg); fe:Show();
+	fe:SetDescriptor(md.data.filters);
+	ui:InsertFrame(fe);
+	
+	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
+
+	--dlg:Show();
+	dlg:_Show(RDX.smooth);
+
+	local esch = function()
+		dlg:_Hide(RDX.smooth, nil, function()
+			RDXPM.StoreLayout(dlg, "TabMeter");
+			dlg:Destroy(); dlg = nil;
+		end);
+	end
+	
+	VFL.AddEscapeHandler(esch);
+
+	local function Save()
+		md.data.title = ed_title.editBox:GetText();
+		md.data.tabtitle = ed_tabtitle.editBox:GetText();
+		md.data.tabwidth = ed_tabwidth.editBox:GetText();
+		md.data.filters = fe:GetDescriptor();
+		if callback then callback(md.data); end
+		RDXDB.NotifyUpdate(path);
+		VFL.EscapeTo(esch);
+	end
+	
+	local savebtn = VFLUI.SaveButton:new()
+	savebtn:SetScript("OnClick", Save);
+	dlg:AddButton(savebtn);
+
+	local closebtn = VFLUI.CloseButton:new(dlg);
+	closebtn:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
+	dlg:AddButton(closebtn);
+
+	dlg.Destroy = VFL.hook(function(s)
+		VFLUI.DestroyScrollingCompoundFrame(ui, sf);
+		ui = nil; sf = nil;
+	end, dlg.Destroy);
+end
+
+
 
 
 -- The Window object type.
@@ -45,32 +127,40 @@ RDXDB.RegisterObjectType({
 		RDX.EditWindow(parent, path, md);
 	end,
 	Instantiate = function(path, md)
-		local mf = VFLUI.AcquireFrame("Frame");
+		local dlgtab = VFLUI.Window:new();
+		dlgtab:SetFraming(VFLUI.Framing.Sleek, 25, VFLUI.BorderlessDialogBackdrop2);
+		dlgtab:SetTitleColor(0,.5,0);
+		dlgtab:SetText(VFLI.i18n("Map"));
 		
-		local m = RDXMAP.Map:Open(1, md.data);
-		m.Frm:SetParent(mf);
-		--m.Frm:SetAllPoints(mf);
-		mf.m = m;
+		local ca = dlgtab:GetClientArea();
+		
+		local mtab = RDXMAP.Map:Open(1, md.data);
+		mtab.Frm:SetParent(ca);
+		mtab.Frm:SetAllPoints(ca);
+		dlgtab.mtab = mtab;
 		
 		local function layout()
-			local w = mf:GetWidth();
-			local h = mf:GetHeight();
-			m.Frm:ClearAllPoints();
-			m.Frm:SetPoint("CENTER", mf, "CENTER");
-			m.Frm:SetWidth(w - 2);
-			m.Frm:SetHeight(h - 2);
+			local w = ca:GetWidth();
+			local h = ca:GetHeight();
+			mtab.Frm:ClearAllPoints();
+			mtab.Frm:SetPoint("CENTER", ca, "CENTER");
+			mtab.Frm:SetWidth(w);
+			mtab.Frm:SetHeight(h);
 		end
-		mf:SetScript("OnShow", layout);
-		mf:SetScript("OnSizeChanged", layout);
-
+		ca:SetScript("OnShow", layout);
+		ca:SetScript("OnSizeChanged", layout);
 		
-		return mf;
+		local closebtn = VFLUI.CloseButton:new()
+		closebtn:SetScript("OnClick", function() VFL.print("hello"); end);
+		dlgtab:AddButton(closebtn);
+		
+		return dlgtab;
 	end,
 	Deinstantiate = function(instance, path, md)
 		--instance:_Hide(RDX.smooth, nil, function() instance:Destroy(); instance._path = nil; instance = nil; end);
-		if instance.m then
-			instance.m:Destroy();
-			instance.m = nil;
+		if instance.mtab then
+			instance.mtab:Destroy();
+			instance.mtab = nil;
 		end
 		instance:Destroy();
 		instance = nil;
@@ -88,6 +178,7 @@ RDXDB.RegisterObjectType({
 			tabbox:SetClient(f);
 			VFLUI.SetBackdrop(f, desc.bkd);
 			--f.font = desc.font;
+			f:SetTitleColor(VFL.explodeRGBA(desc.titleColor));
 		end,
 		function()
 			--if f.NxWin then f.NxWin:Disable(); end

@@ -163,9 +163,9 @@ local CreateNameplate = function(frame)
 	
 	local _, castbarOverlay, shieldedRegion, spellIconRegion = castBar:GetRegions();
 	castbarOverlay:SetTexture(nil);
-	shieldedRegion:SetTexture(nil);
+	--shieldedRegion:SetTexture(nil);
 	castBar.castbarOverlay = castbarOverlay;
-	castBar.shieldedRegion = shieldedRegion;
+	--castBar.shieldedRegion = shieldedRegion;
 	castBar.spellIconRegion = spellIconRegion;
 
 	--frame.oldname = nameTextRegion

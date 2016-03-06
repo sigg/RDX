@@ -44,6 +44,11 @@ VFLUI.BorderlessDialogBackdrop = {
 	bgFile="Interface\\DialogFrame\\UI-DialogBox-Background", tile = true, tileSize = 16,
 };
 
+VFLUI.BorderlessDialogBackdrop2 = {
+	bgFile="Interface\\DialogFrame\\UI-DialogBox-Background", tile = true, tileSize = 16,
+	insets = { left = 0, right = 0, top = 0, bottom = 0 }
+};
+
 VFLUI.WhiteBackdrop = {
 	bgFile="Interface\\Addons\\VFL\\Skin\\white", tile = true, tileSize = 16,
 	insets = { left = 0, right = 0, top = 0, bottom = 0 },
