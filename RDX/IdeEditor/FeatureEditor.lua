@@ -365,7 +365,7 @@ function RDXIE.FeatureEditor(state, callback, path, parent, offline, allowcode)
 	local function ImportFeature(self)
 		local xp = RDXDB.ExplorerPopup(self);
 		xp:SetPoint("BOTTOMLEFT", self, "TOPLEFT"); xp:Show();
-		xp:SetFileFilter(function(_,_,md) if type(md) == "table" then return (md.ty == "FeatureData"); end; end); 
+		xp:SetFileFilter(function(_,_,_,md) if type(md) == "table" then return (md.ty == "FeatureData"); end; end); 
 		xp:Rebuild();
 		xp:EnableFeedback(function(zz) ImportFeatureFrom(zz:GetPath(), self); end);
 	end

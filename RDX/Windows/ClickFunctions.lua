@@ -249,7 +249,7 @@ RDX.RegisterClickAction({
 		-- Build the UI
 		local ui = VFLUI.CompoundFrame:new(parent);
 
-		local scriptsel = RDXDB.ObjectFinder:new(ui, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Macro")); end);
+		local scriptsel = RDXDB.ObjectFinder:new(ui, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Macro")); end);
 		scriptsel:SetLabel(VFLI.i18n("Macro")); scriptsel:Show();
 		if desc and desc.script then scriptsel:SetPath(desc.script); end
 		ui:InsertFrame(scriptsel);

@@ -97,7 +97,7 @@ RDX.RegisterFeature({
 		if desc and desc.anchor then anchor:SetAnchorInfo(desc.anchor); end
 		ui:InsertFrame(anchor);
 		
-		local cfmsel = RDXDB.ObjectFinder:new(ui, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "TabManager")); end);
+		local cfmsel = RDXDB.ObjectFinder:new(ui, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "TabManager")); end);
 		cfmsel:SetLabel(VFLI.i18n("Tab Manager")); cfmsel:Show();
 		if desc and desc.cfm then cfmsel:SetPath(desc.cfm); end
 		ui:InsertFrame(cfmsel);

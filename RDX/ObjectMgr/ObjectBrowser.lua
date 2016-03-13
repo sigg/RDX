@@ -334,7 +334,7 @@ function RDXDB.ExplorerInstance:new(parent)
 						table.insert(dir, tbl);
 					end
 				end
-				if v and FilterFile(activePkg, k, v) then
+				if v and FilterFile(activeDk, activePkg, k, v) then
 					tbl.ty = v.ty; tbl.version = v.version;
 					if RDXDB.PathHasInstance(RDXDB.MakePath(activeDk, activePkg, k)) then
 						k = "|cFF00FF00" .. k .. "|r";

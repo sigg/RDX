@@ -142,7 +142,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
-		local ofMB = RDXDB.ObjectFinder:new(ui, function(p,f,md) return (md and type(md) == "table" and md.ty=="MouseBindings"); end);
+		local ofMB = RDXDB.ObjectFinder:new(ui, function(d,p,f,md) return (md and type(md) == "table" and md.ty=="MouseBindings"); end);
 		ofMB:SetLabel(VFLI.i18n("Mouse bindings"));
 		if desc and desc.mbFriendly then ofMB:SetPath(desc.mbFriendly); end
 		ui:InsertFrame(ofMB);

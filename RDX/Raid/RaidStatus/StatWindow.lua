@@ -73,7 +73,7 @@ RDX.RegisterFeature({
 		as(si);
 	end;
 	UIFromDescriptor = function(desc, parent)
-		local ui = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Statistic$")); end);
+		local ui = RDXDB.ObjectFinder:new(parent, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Statistic$")); end);
 		ui:SetLabel(VFLI.i18n("Statistic"));
 		if desc and desc.stat then ui:SetPath(desc.stat); end
 

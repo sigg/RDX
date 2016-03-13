@@ -189,8 +189,10 @@ local function OpenRaidWindow(parent)
 	VFL.AddEscapeHandler(esch);
 
 	local btnClose = VFLUI.CloseButton:new(dlg);
-	btnClose:SetScript("OnClick", function() esch(); end);
+	btnClose:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
 	dlg:AddButton(btnClose);
+	
+	dlg.esch = esch;
 
 	dlg.Destroy = VFL.hook(function(s)
 		-- Cleanup the temp vars we stored on the cells.
@@ -199,6 +201,7 @@ local function OpenRaidWindow(parent)
 		btnGroup:Destroy(); btnClass:Destroy(); btnAlpha:Destroy();
 		btnGroup = nil; btnClass = nil; btnAlpha = nil;
 		grid:Destroy(); grid = nil;
+		s.esch = nil;
 		dlg = nil;
 	end, dlg.Destroy);
 
@@ -210,6 +213,6 @@ end
 RDX.OpenRosterWindow = OpenRaidWindow;
 
 function RDX.CloseRosterWindow()
-	if dlg and dlg.Destroy then dlg:Destroy(); end
+	if dlg and dlg.esch then VFL.EscapeTo(dlg.esch); end
 end
 

@@ -256,7 +256,7 @@ RDX.RegisterFeature({
 		er:EmbedChild(dd_rostertype); er:Show();
 		ui:InsertFrame(er);
 		
-		local of = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Sort$")); end);
+		local of = RDXDB.ObjectFinder:new(parent, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Sort$")); end);
 		of:SetLabel(VFLI.i18n("Sort"));
 		if desc and desc.sortPath then of:SetPath(desc.sortPath); end
 		of:Show();
@@ -319,7 +319,7 @@ RDX.RegisterFeature({
 --		er:EmbedChild(dd_rostertype); er:Show();
 --		ui:InsertFrame(er);
 		
---		local of = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "SecureSort$")); end);
+--		local of = RDXDB.ObjectFinder:new(parent, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "SecureSort$")); end);
 --		of:SetLabel(VFLI.i18n("Secure sort"));
 --		if desc and desc.sortPath then of:SetPath(desc.sortPath); end
 --		of:Show();

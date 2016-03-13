@@ -254,6 +254,7 @@ local function DisableAll()
 		MultiCastActionBarFrame.ignoreFramePositionManager = true;
 		ExtraActionBarFrame.ignoreFramePositionManager = true;
 		PlayerPowerBarAlt.ignoreFramePositionManager = true;
+		VoiceChatTalkers.ignoreFramePositionManager = true;
 		
 		--SHOW_MULTI_ACTIONBAR_1 = nil;
 		--SHOW_MULTI_ACTIONBAR_2 = nil;

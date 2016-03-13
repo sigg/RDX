@@ -102,7 +102,7 @@ local function findfont()
     
     local ui = VFLUI.CompoundFrame:new(dlg);
     
-    local of = RDXDB.ObjectFinder:new(ui, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Design")); end);
+    local of = RDXDB.ObjectFinder:new(ui, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Design")); end);
     of:SetLabel("Design Object"); of:Show();
     
     ui:InsertFrame(of);

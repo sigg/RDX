@@ -263,7 +263,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		
-		local ofDesign = RDXDB.ObjectFinder:new(ui, function(p,f,md) return (md and type(md) == "table" and md.ty=="Design"); end);
+		local ofDesign = RDXDB.ObjectFinder:new(ui, function(d,p,f,md) return (md and type(md) == "table" and md.ty=="Design"); end);
 		ofDesign:SetLabel(VFLI.i18n("Design"));
 		if desc and desc.design then ofDesign:SetPath(desc.design); end
 		ui:InsertFrame(ofDesign);

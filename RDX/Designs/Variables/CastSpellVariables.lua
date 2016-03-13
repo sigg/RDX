@@ -187,7 +187,7 @@ local _fnames = ]];
 		ui:InsertFrame(chk_filterName);
 		
 		local chk_external = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use external spell list"));
-		local file_external = RDXDB.ObjectFinder:new(chk_external, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "SpellFilter$")); end);
+		local file_external = RDXDB.ObjectFinder:new(chk_external, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "SpellFilter$")); end);
 		file_external:SetWidth(200); file_external:Show();
 		chk_external:EmbedChild(file_external); chk_external:Show();
 		ui:InsertFrame(chk_external);

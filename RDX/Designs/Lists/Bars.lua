@@ -732,7 +732,7 @@ end
 		ui:InsertFrame(chk_filterName);
 
 		local chk_external = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use external aura list"));
-		local file_external = RDXDB.ObjectFinder:new(chk_external, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "AuraFilter$")); end);
+		local file_external = RDXDB.ObjectFinder:new(chk_external, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "AuraFilter$")); end);
 		file_external:SetWidth(200); file_external:Show();
 		chk_external:EmbedChild(file_external); chk_external:Show();
 		ui:InsertFrame(chk_external);
@@ -786,7 +786,7 @@ end
 		ui:InsertFrame(chk_filterNamecd);
 
 		local chk_externalcd = VFLUI.CheckEmbedRight(ui, VFLI.i18n("Use external cooldown list"));
-		local file_externalcd = RDXDB.ObjectFinder:new(chk_externalcd, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "CooldownFilter$")); end);
+		local file_externalcd = RDXDB.ObjectFinder:new(chk_externalcd, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "CooldownFilter$")); end);
 		file_externalcd:SetWidth(200); file_externalcd:Show();
 		chk_externalcd:EmbedChild(file_externalcd); chk_externalcd:Show();
 		ui:InsertFrame(chk_externalcd);

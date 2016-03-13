@@ -235,7 +235,7 @@ local function GeneralIntegrate(si, dk, data, targets)
 	local myunit = RDXDAL.GetMyUnit();
 	local name = si.sender;	if not name then RPC:Debug(1, "Ignoring integrate with unknown sender."); return; end
 	-- Don't integrate my own stuff.
-	if(name == myunit.name) then RPC:Debug(2, "Ignoring integrate from self."); end
+	if(name == myunit.name) then RPC:Debug(2, "Ignoring integrate from self."); VFL.print("Receive data from self... ignore"); return; end
 	-- Check against allowedSenders and deniedSenders.
 	local d = RDXDB.GetObjectData("RDXDiskSystem:default:allowedSenders");
 	if d and d.data then

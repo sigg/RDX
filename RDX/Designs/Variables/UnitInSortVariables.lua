@@ -68,7 +68,7 @@ local ]] .. desc.name .. [[ = RDXDB.GetObjectInstance("]] .. desc.sort .. [[");
 		if desc and desc.name then name.editBox:SetText(desc.name); end
 		ui:InsertFrame(name);
 
-		local sort = RDXDB.ObjectFinder:new(ui, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Sort$")); end);
+		local sort = RDXDB.ObjectFinder:new(ui, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Sort$")); end);
 		sort:SetLabel(VFLI.i18n("Sort")); sort:Show();
 		if desc and desc.sort then sort:SetPath(desc.sort); end
 		ui:InsertFrame(sort);

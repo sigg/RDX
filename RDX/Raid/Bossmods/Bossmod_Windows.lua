@@ -30,7 +30,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent)
 		local ui = VFLUI.CompoundFrame:new(parent);
 		
-		local file_external = RDXDB.ObjectFinder:new(ui, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Window$")); end);
+		local file_external = RDXDB.ObjectFinder:new(ui, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Window$")); end);
 		file_external:SetLabel(VFLI.i18n("Window File"));
 		file_external:SetWidth(200); file_external:Show();
 		ui:InsertFrame(file_external);

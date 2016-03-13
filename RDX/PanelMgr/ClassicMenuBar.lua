@@ -337,13 +337,13 @@ RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.notCheckable = true;
 	ent.func = function() VFL.poptree:Release(); if Nx and Nx.UEvents then Nx.UEvents.List:Open(); end end;
 end);
-
+]]
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = VFLI.i18n("Window Wizard");
 	ent.notCheckable = true;
 	ent.func = function() VFL.poptree:Release(); RDX.NewWindowWizard(); end;
 end);
-]]
+
 RDXPM.CompactMenu:RegisterMenuFunction(function(ent)
 	ent.text = "**************";
 	ent.isTitle = true;

@@ -185,7 +185,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
-		local tw = RDXDB.ObjectFinder:new(ui, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Window$")); end);
+		local tw = RDXDB.ObjectFinder:new(ui, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Window$")); end);
 		tw:SetLabel(VFLI.i18n("Target window")); tw:Show();
 		if desc and desc.tw then tw:SetPath(desc.tw); end
 		ui:InsertFrame(tw);
@@ -363,7 +363,7 @@ RDX.RegisterFeature({
 	UIFromDescriptor = function(desc, parent, state)
 		local ui = VFLUI.CompoundFrame:new(parent);
 
-		local sort = RDXDB.ObjectFinder:new(ui, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Sort$")); end);
+		local sort = RDXDB.ObjectFinder:new(ui, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "Sort$")); end);
 		sort:SetLabel(VFLI.i18n("Sort")); sort:Show();
 		if desc and desc.sort then sort:SetPath(desc.sort); end
 		ui:InsertFrame(sort);

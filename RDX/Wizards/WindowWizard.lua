@@ -176,9 +176,11 @@ ww:RegisterPage(GetNextPageId(), "wtype", {
 			local st = VFL.trim(edSfx:GetText());
 			if (st ~= "") and (not string.find(st, "_$")) then st = "_" .. st; end
 			local dk, pkg, file = RDXDB.ParsePath(RDXU.AUI);
+			local _, _, a, b = string.find(file, "^(.*)_(.*)$");
 			return {
 				wtype = dd_wtype:GetSelection();
-				pkg = file;
+				dk = a;
+				pkg = b;
 				suffix = st;
 				title = edTtl:GetText();
 			};
@@ -210,11 +212,12 @@ ww:RegisterPage(GetNextPageId(), "chkwin", {
 		-- Formulate our page first.
 		local txt = "";
 		local pld = wizard:GetPageDescriptor(nil, "wtype");
-		if not RDXDB.GetPackage(pld.pkg) then
+		
+		if not RDXDB.GetPackage(pld.dk, pld.pkg) then
 			txt = txt .. "The package '" .. pld.pkg .. "' does not exist and will be created.\n";
 		end
 
-		local chk = pld.pkg .. ":" .. pld.wtype;
+		local chk = pld.dk .. ":" .. pld.pkg .. ":" .. pld.wtype;
 		if pld.suffix then chk = chk .. pld.suffix; end
 		if RDXDB.GetObjectData(chk) then
 			txt = txt .. "The data files for this window already exist. If you proceed, they will be overwritten and the window will be rebuilt from scratch.\n";
@@ -430,9 +433,9 @@ ww:RegisterPage(GetNextPageId(), "design", {
 		-- Design chooser box
 		local ofDesign;
 		if wizard:GetPageDescriptor(nil, "designtype").designType == 1 then
-			ofDesign = RDXDB.ObjectFinder:new(page, function(p,f,md) return (md and type(md) == "table" and md.ty == "Design" and string.find(f, pld.wtype)) end);
+			ofDesign = RDXDB.ObjectFinder:new(page, function(d,p,f,md) return (md and type(md) == "table" and md.ty == "Design" and string.find(f, pld.wtype)) end);
 		else
-			ofDesign = RDXDB.ObjectFinder:new(page, function(p,f,md) return (md and type(md) == "table" and md.ty == "Design" and p == pld.pkg) end);
+			ofDesign = RDXDB.ObjectFinder:new(page, function(d,p,f,md) return (md and type(md) == "table" and md.ty == "Design" and p == pld.pkg) end);
 		end
 		ofDesign:SetPoint("BOTTOM", page, "BOTTOM");
 		ofDesign:SetWidth(300); ofDesign:Show();
@@ -1274,7 +1277,7 @@ ww:RegisterPage(GetNextPageId(), "mousebindings", {
 		btype_intl:SetWidth(300); btype_intl:Show();
 		btype_intl:SetText("Use RDX mouse bindings");
 
-		local ofMB = RDXDB.ObjectFinder:new(page, function(p,f,md) return (md and type(md) == "table" and md.ty=="MouseBindings"); end);
+		local ofMB = RDXDB.ObjectFinder:new(page, function(d,p,f,md) return (md and type(md) == "table" and md.ty=="MouseBindings"); end);
 		ofMB:SetWidth(300); ofMB:SetPoint("TOPLEFT", btype_intl, "BOTTOMLEFT"); ofMB:Show();
 		ofMB:SetLabel("Bindings:");
 		if desc and desc.mb then ofMB:SetPath(desc.mb); end
@@ -1403,24 +1406,24 @@ function ww:OnOK()
 	--if type(wtype) ~= "number" then error("Bad window type (should be impossible!)"); end
 	-- Setup the package/prefix
 	pd = self:GetPageDescriptor(nil, "wtype");
-	local wtype, pkg, suffix, title = pd.wtype, pd.pkg, pd.suffix, pd.title;
+	local wtype, dk, pkg, suffix, title = pd.wtype, pd.dk, pd.pkg, pd.suffix, pd.title;
 	--local pkgData = RDXDB.GetOrCreatePackage(pkg);
 	--if not pkgData then error("Bad package in window wizard (should be impossible!)"); end
 
 	------------------------- CLOSE EXISTING
-	DesktopEvents:Dispatch("WINDOW_CLOSE", RDXDB.MakePath(pkg, wtype .. suffix));
+	DesktopEvents:Dispatch("WINDOW_CLOSE", RDXDB.MakePath(dk, pkg, wtype .. suffix));
 	------------------------- CLEANUP PREEXISTING
 	-- Delete all preexisting files in that package, destroying instances as well.
-	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_set"));
-	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_sort"));
-	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_tm"));
-	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_ds"));
-	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix));
-	RDXDB.DeleteObject(RDXDB.MakePath(pkg, wtype .. suffix .. "_wz")); -- wizard
+	RDXDB.DeleteObject(RDXDB.MakePath(dk, pkg, wtype .. suffix .. "_set"));
+	RDXDB.DeleteObject(RDXDB.MakePath(dk, pkg, wtype .. suffix .. "_sort"));
+	RDXDB.DeleteObject(RDXDB.MakePath(dk, pkg, wtype .. suffix .. "_tm"));
+	RDXDB.DeleteObject(RDXDB.MakePath(dk, pkg, wtype .. suffix .. "_ds"));
+	RDXDB.DeleteObject(RDXDB.MakePath(dk, pkg, wtype .. suffix));
+	RDXDB.DeleteObject(RDXDB.MakePath(dk, pkg, wtype .. suffix .. "_wz")); -- wizard
 	
 	-------------------------- GENERATE TABMANAGER IF NECESSARY
 	if wtype == "TabManager1" or wtype == "TabManager2" or wtype == "TabManager3" then
-		obj = RDXDB._DirectCreateObject("RDXDiskTheme", pkg, wtype .. suffix .. "_tm");
+		obj = RDXDB._DirectCreateObject(dk, pkg, wtype .. suffix .. "_tm");
 		obj.ty = "TabManager"; obj.version = 2;
 		obj.data = {
 			"root",
@@ -1466,8 +1469,8 @@ function ww:OnOK()
 	if self:GetPageDescriptor(nil, "designtype").designType == 1 or self:GetPageDescriptor(nil, "designtype").designType == 2 then
 		-- Copy the unitframe object
 		local design = RDXDB.ResolvePath(self:GetPageDescriptor(nil, "design").design);
-		RDXDB.Copy(design, RDXDB.MakePath(pkg, wtype .. suffix .. "_ds"), nil, true);
-		local ufd = RDXDB.GetObjectData(RDXDB.MakePath(pkg, wtype .. suffix .. "_ds"));
+		RDXDB.Copy(design, RDXDB.MakePath(dk, pkg, wtype .. suffix .. "_ds"), nil, true);
+		local ufd = RDXDB.GetObjectData(RDXDB.MakePath(dk, pkg, wtype .. suffix .. "_ds"));
 		if not ufd then error("Missing design in wizard"); end
 	elseif self:GetPageDescriptor(nil, "designtype").designType == 3 then
 		-- do nothing, reuse a existing design
@@ -1523,7 +1526,7 @@ function ww:OnOK()
 			dState:AddFeature({feature = "base_default", version = 1, h = 20, w = 100, alpha = 1, });
 		end
 		
-		obj = RDXDB._DirectCreateObject("RDXDiskTheme", pkg, wtype .. suffix .. "_ds");
+		obj = RDXDB._DirectCreateObject(dk, pkg, wtype .. suffix .. "_ds");
 		obj.ty = "Design"; obj.version = 1;
 		obj.data = dState:GetDescriptor();
 		dState = nil;
@@ -1551,15 +1554,15 @@ function ww:OnOK()
 	state:AddFeature({feature = frame, title = title, });
 	-- Design
 	if self:GetPageDescriptor(nil, "designtype").designType == 1 or self:GetPageDescriptor(nil, "designtype").designType == 2 or self:GetPageDescriptor(nil, "designtype").designType == 4 then
-		state:AddFeature({feature = "Design", design = RDXDB.MakePath(pkg, wtype .. suffix .. "_ds"), });
+		state:AddFeature({feature = "Design", design = RDXDB.MakePath(dk, pkg, wtype .. suffix .. "_ds"), });
 	else
 		state:AddFeature({feature = "Design", design = self:GetPageDescriptor(nil, "design").design});
 	end
 	-- Datasource and Layout
 	--if(wtype == 4) then
-	--	state:AddFeature({feature = "Data Source: Secure", sortPath = RDXDB.MakePath(pkg, prefix .. "sort"); });
+	--	state:AddFeature({feature = "Data Source: Secure", sortPath = RDXDB.MakePath(dk, pkg, prefix .. "sort"); });
 	--elseif(wtype == 1) or (wtype == 3) then
-	--	state:AddFeature({feature = "Data Source: Sort", sortPath = RDXDB.MakePath(pkg, prefix .. "sort"); });
+	--	state:AddFeature({feature = "Data Source: Sort", sortPath = RDXDB.MakePath(dk, pkg, prefix .. "sort"); });
 	--end
 	if wtype == "ActionBar1" or wtype == "ActionBar3" or wtype == "ActionBar4" or wtype == "ActionBar5" or wtype == "ActionBar6" or wtype == "ActionBarStance" or wtype == "ActionBarPet" or wtype == "ActionBarVehicle" then
 		state:AddFeature({feature = "layout_single_unitframe", version = 1, unit = "player", });
@@ -1755,19 +1758,19 @@ function ww:OnOK()
 	--end
 	-- MouseBindings
 	if wtype == "Player_Main" or wtype == "Pet_Main" or wtype == "Targettarget_Main" or wtype == "Focustarget_Main" or wtype == "Party_Main" or wtype == "Partypet_Main" or wtype == "Raid_Main" or wtype == "Raidpet_Main" then
-		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "heal", mbFriendly = "bindings:bindings_heal", });
-		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "player", mbFriendly = "bindings:bindings_player", });
-		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "decurse", mbFriendly = "bindings:bindings_decurse", });
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "heal", mbFriendly = "RDXDiskSystem:bindings:bindings_heal", });
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "player", mbFriendly = "RDXDiskSystem:bindings:bindings_player", });
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "decurse", mbFriendly = "RDXDiskSystem:bindings:bindings_decurse", });
 	elseif wtype == "Target_Main" or wtype == "Pettarget_Main" or wtype == "Focus_Main" or wtype == "Partytarget_Main" or wtype == "Boss_Main" or wtype == "Bosspet_Main" or wtype == "Arena_Main" or wtype == "Arenapet_Main" then
-		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "dmg", mbFriendly = "bindings:bindings_dmg", });
-		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "target", mbFriendly = "bindings:bindings_target", });
-		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "interrupt", mbFriendly = "bindings:bindings_interrupt", });
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "dmg", mbFriendly = "RDXDiskSystem:bindings:bindings_dmg", });
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "target", mbFriendly = "RDXDiskSystem:bindings:bindings_target", });
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "interrupt", mbFriendly = "RDXDiskSystem:bindings:bindings_interrupt", });
 	elseif wtype == "Target_CastBar" then
-		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "interrupt", mbFriendly = "bindings:bindings_interrupt", });
+		state:AddFeature({feature = "mousebindings", version = 1, hotspot = "interrupt", mbFriendly = "RDXDiskSystem:bindings:bindings_interrupt", });
 	end
 
 	-- Create the subobjects
-	obj = RDXDB._DirectCreateObject("RDXDiskTheme", pkg, wtype .. suffix);
+	obj = RDXDB._DirectCreateObject(dk, pkg, wtype .. suffix);
 	obj.ty = "Window"; obj.version = 1;
 	obj.data = state:GetDescriptor();
 	state = nil;
@@ -1778,7 +1781,7 @@ function ww:OnOK()
 	--obj.data = self:GetDescriptor();
 
 	-- Open the window!
-	DesktopEvents:Dispatch("WINDOW_OPEN", RDXDB.MakePath(pkg, wtype .. suffix), true);
+	DesktopEvents:Dispatch("WINDOW_OPEN", RDXDB.MakePath(dk, pkg, wtype .. suffix), true);
 end
 
 ww.title = "Window Wizard";

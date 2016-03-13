@@ -34,7 +34,7 @@ RDX.RegisterFeature({
 		end
 	end;
 	UIFromDescriptor = function(desc, parent, state)
-		local ui = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "FeatureData$")); end);
+		local ui = RDXDB.ObjectFinder:new(parent, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "FeatureData$")); end);
 		ui:SetLabel("Feature data");
 		if desc and desc.file then ui:SetPath(desc.file); end
 

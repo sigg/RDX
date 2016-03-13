@@ -8,7 +8,8 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.version = 1;
 		mbo.data = {
 				["title"] = "General",
-				["tabwidth"] = 80,
+				["tabtitle"] = "CG",
+				["tabwidth"] = 30,
 				["discussion"] = {
 					["SAY"] = true,
 					["EMOTE"] = true,
@@ -74,7 +75,8 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.version = 1;
 		mbo.data = {
 				["title"] = "Guild",
-				["tabwidth"] = 80,
+				["tabtitle"] = "CGU",
+				["tabwidth"] = 30,
 				["discussion"] = {
 					["GUILD"] = true,
 					["OFFICER"] = true,
@@ -113,7 +115,8 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.version = 1;
 		mbo.data = {
 				["title"] = "Loot",
-				["tabwidth"] = 80,
+				["tabtitle"] = "CL",
+				["tabwidth"] = 30,
 				["discussion"] = {
 				},
 				["creature"] = {
@@ -140,8 +143,9 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.ty = "TabChatFrame"; 
 		mbo.version = 1;
 		mbo.data = {
-				["title"] = "Pvp",
-				["tabwidth"] = 80,
+				["title"] = "PVP",
+				["tabtitle"] = "CP",
+				["tabwidth"] = 30,
 				["discussion"] = {
 					["PARTY"] = true,
 					["PARTY_LEADER"] = true,
@@ -178,7 +182,8 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.version = 1;
 		mbo.data = {
 				["title"] = "Creature",
-				["tabwidth"] = 80,
+				["tabtitle"] = "CC",
+				["tabwidth"] = 30,
 				["discussion"] = {
 				},
 				["creature"] = {
@@ -211,7 +216,8 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.version = 1;
 		mbo.data = {
 				["title"] = "System",
-				["tabwidth"] = 80,
+				["tabtitle"] = "CS",
+				["tabwidth"] = 30,
 				["discussion"] = {
 				},
 				["creature"] = {
@@ -238,7 +244,8 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["version"] = 1,
 			["data"] = {
 				["title"] = "Undefined",
-				["tabwidth"] = 80,
+				["tabtitle"] = "CU",
+				["tabwidth"] = 30,
 				["discussion"] = {
 				},
 				["creature"] = {
@@ -261,7 +268,8 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["version"] = 1,
 			["data"] = {
 				["title"] = "Undefined",
-				["tabwidth"] = 80,
+				["tabtitle"] = "CU",
+				["tabwidth"] = 30,
 				["discussion"] = {
 				},
 				["creature"] = {
@@ -284,7 +292,8 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["version"] = 1,
 			["data"] = {
 				["title"] = "Undefined",
-				["tabwidth"] = 80,
+				["tabtitle"] = "CU",
+				["tabwidth"] = 30,
 				["discussion"] = {
 				},
 				["creature"] = {
@@ -307,8 +316,9 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.version = 1;
 		mbo.data = {
 				["title"] = "Player",
+				["tabtitle"] = "LP",
 				["filter"] = 1,
-				["tabwidth"] = "80",
+				["tabwidth"] = 30,
 				["size"] = 1000,
 				["filters"] = {
 					["targ"] = "player",
@@ -361,8 +371,9 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.version = 1;
 		mbo.data = {
 				["title"] = "All",
+				["tabtitle"] = "LA",
 				["filter"] = 1,
-				["tabwidth"] = "80",
+				["tabwidth"] = 30,
 				["size"] = 1000,
 				["filters"] = {
 					["targ"] = "*",
@@ -415,8 +426,9 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["version"] = 1,
 			["data"] = {
 				["title"] = "Undefined",
+				["tabtitle"] = "LU",
 				["filter"] = 1,
-				["tabwidth"] = "80",
+				["tabwidth"] = 30,
 				["size"] = 1000,
 				["filters"] = {
 					["targ"] = "*",
@@ -432,8 +444,9 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["version"] = 1,
 			["data"] = {
 				["title"] = "Undefined",
+				["tabtitle"] = "LU",
 				["filter"] = 1,
-				["tabwidth"] = "80",
+				["tabwidth"] = 30,
 				["size"] = 1000,
 				["filters"] = {
 					["targ"] = "*",
@@ -449,8 +462,9 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["version"] = 1,
 			["data"] = {
 				["title"] = "Undefined",
+				["tabtitle"] = "LU",
 				["filter"] = 1,
-				["tabwidth"] = "80",
+				["tabwidth"] = 30,
 				["size"] = 1000,
 				["filters"] = {
 					["targ"] = "*",
@@ -465,8 +479,9 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.ty = "TabMeter"; 
 		mbo.version = 1;
 		mbo.data = {
-				["title"] = "MH",
-				["tabwidth"] = "30",
+				["title"] = "Heal Done",
+				["tabtitle"] = "MH",
+				["tabwidth"] = 30,
 				["filters"] = {
 					["etypes"] = {
 						[8]=true,
@@ -488,8 +503,9 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.ty = "TabMeter"; 
 		mbo.version = 1;
 		mbo.data = {
-				["title"] = "MOH",
-				["tabwidth"] = "30",
+				["title"] = "OverHeal Done",
+				["tabtitle"] = "MOH",
+				["tabwidth"] = 30,
 				["filters"] = {
 					["etypes"] = {
 						[44]=true,
@@ -511,8 +527,9 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.ty = "TabMeter"; 
 		mbo.version = 1;
 		mbo.data = {
-				["title"] = "MD",
-				["tabwidth"] = "40",
+				["title"] = "Damage Done",
+				["tabtitle"] = "MD",
+				["tabwidth"] = 30,
 				["filters"] = {
 					["etypes"] = {
 						[2]=true,

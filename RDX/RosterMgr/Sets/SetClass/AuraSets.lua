@@ -401,7 +401,7 @@ RDXDAL.RegisterSetClass({
 	name = "bufffilterfile",
 	title = VFLI.i18n("BuffFilter File"),
 	GetUI = function(parent, desc)
-		local ui = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "AuraFilter$")); end);
+		local ui = RDXDB.ObjectFinder:new(parent, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "AuraFilter$")); end);
 		ui:SetLabel(VFLI.i18n("BuffFilter File")); ui:Show();
 		if desc and desc.file then ui:SetPath(desc.file); end
 		ui.GetDescriptor = function()
@@ -426,7 +426,7 @@ RDXDAL.RegisterSetClass({
 	name = "debufffilterfile",
 	title = VFLI.i18n("DebuffFilter File"),
 	GetUI = function(parent, desc)
-		local ui = RDXDB.ObjectFinder:new(parent, function(p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "AuraFilter$")); end);
+		local ui = RDXDB.ObjectFinder:new(parent, function(d,p,f,md) return (md and type(md) == "table" and md.ty and string.find(md.ty, "AuraFilter$")); end);
 		ui:SetLabel(VFLI.i18n("DebuffFilter File")); ui:Show();
 		if desc and desc.file then ui:SetPath(desc.file); end
 		ui.GetDescriptor = function()

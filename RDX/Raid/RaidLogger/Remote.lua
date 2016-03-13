@@ -266,8 +266,8 @@ Omni.RegisterTableMenuHandler(function(mnu, tbl, dialog)
 			VFL.poptree:Release();
 			-- First timeshift the table
 			local r1 = tbl:GetRow(1);
-			if r1 and r1.t then
-				tbl:Timeshift(-r1.t);
+			if r1 and r1.tm then
+				tbl:Timeshift(-r1.tm);
 			end
 			Omni.SendWholeTable(tbl, nil, UnitName("player") .. ": " .. tbl.name);
 		end});

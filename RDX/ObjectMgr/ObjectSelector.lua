@@ -43,7 +43,7 @@ function RDXDB.ObjectFinder:new(parent, fileFilter)
 	local function CheckValid()
 		local dk, pkg, file = RDXDB.ParsePath(editBox:GetText());
 		local d = RDXDB.GetObjectData(editBox:GetText());
-		return (d and fileFilter(pkg,file,d));
+		return (d and fileFilter(dk,pkg,file,d));
 	end
 	editBox:SetScript("OnTextChanged", function(self)
 		if CheckValid() then

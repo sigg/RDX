@@ -184,7 +184,7 @@ local function WindowListRightClick(self, path)
 			btnOK:SetScript("OnClick", function()
 				local new_path = ed_path.editBox:GetText();
 				local new_upath = ed_upath.editBox:GetText();
-				if not RDXDB.CheckObject(new_path) and not RDXDB.CheckObject(new_upath) then
+				if not (RDXDB.CheckObject(new_path) and RDXDB.CheckObject(new_upath)) then
 					-- Do the clone
 					RDXDB.Copy(path, new_path);
 					RDXDB.Copy(upath, new_upath);
