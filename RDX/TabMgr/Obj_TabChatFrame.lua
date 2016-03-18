@@ -274,7 +274,7 @@ local function EditChatFrameDialog(parent, path, md)
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
-	dlg:SetWidth(490); dlg:SetHeight(383);
+	dlg:SetWidth(490); dlg:SetHeight(403);
 	dlg:SetText(VFLI.i18n("Edit ChatFrame: ") .. path);
 	dlg:SetClampedToScreen(true);
 	if RDXPM.Ismanaged("ChatFrame") then RDXPM.RestoreLayout(dlg, "ChatFrame"); end
@@ -310,9 +310,15 @@ local function EditChatFrameDialog(parent, path, md)
 	local cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Change chat color"), 150);
 	cbtn:SetPoint("TOPLEFT", ed_tabwidth, "TOPRIGHT", 50, 0);
 	
+	local chk_main = VFLUI.Checkbox:new(dlg); chk_main:Show();
+	chk_main:SetHeight(20); chk_main:SetWidth(120);
+	chk_main:SetPoint("TOPLEFT", ed_tabwidth, "BOTTOMLEFT");
+	chk_main:SetText("Main Chatframe");
+	if md.data and md.data.main then chk_main:SetChecked(true); else chk_main:SetChecked(); end
+	
 	local tabbox = VFLUI.TabBox:new(dlg, 22, "TOP");
 	tabbox:SetWidth(480); tabbox:SetHeight(300);
-	tabbox:SetPoint("TOPLEFT", ed_tabwidth, "BOTTOMLEFT", 0, 0);
+	tabbox:SetPoint("TOPLEFT", chk_main, "BOTTOMLEFT", 0, 0);
 	tabbox:SetBackdrop(nil);
 	
 	local tab = nil;
@@ -446,6 +452,7 @@ local function EditChatFrameDialog(parent, path, md)
 		md.data.tabtitle = ed_tabtitle.editBox:GetText();
 		md.data.title = ed_title.editBox:GetText();
 		md.data.tabwidth = ed_tabwidth.editBox:GetText();
+		md.data.main = chk_main:GetChecked();
 		dlg.tabbox:GetTabBar():UnSelectTab();
 		--RDXDB.NotifyUpdate(path);
 		-- See if this chatframe was already instantiated...
@@ -522,6 +529,17 @@ local function EditScriptDialog(parent, data)
 	end, dlg2.Destroy);
 end
 
+local pp = nil;
+
+local function Acquire()
+	if not pp then
+		return VFLIO.Chatframe1;
+	else
+		pp = true;
+		return VFLUI.AcquireFrame("ChatFrame2");
+	end
+end
+
 --------------------------------------------------
 -- The object.
 -- Provides slots for Create, Destroy, Show, and Hide events.
@@ -529,8 +547,13 @@ end
 -- framing.
 --------------------------------------------------
 RDX.ChatFrame = {};
-function RDX.ChatFrame:new(path, parent)
-	local self = VFLUI.AcquireFrame("ChatFrame2");
+function RDX.ChatFrame:new(path, flag)
+	local self ;
+	if flag then
+		self = Acquire();
+	else
+		self = VFLUI.AcquireFrame("ChatFrame2");
+	end
 	
 	self.msgmax = 1000;
 	self.msgs = {};
@@ -546,6 +569,9 @@ function RDX.ChatFrame:new(path, parent)
 	
 	function self:RemoveMessages()
 		ChatFrame_RemoveAllMessageGroups(self.cf);
+	end
+	
+	function self:RemoveChannels()
 		ChatFrame_RemoveAllChannels(self.cf);
 	end
 	
@@ -618,7 +644,7 @@ function RDX.ChatFrame:new(path, parent)
 		WoWEvents:Unbind("whisp_" .. path);
 		s.cf.AddMessage = s.cf._AddMessage;
 		s.SetTabOptions = nil;
-		s.AddMessages = nil; s.RemoveMessages = nil;
+		s.AddMessages = nil; s.RemoveMessages = nil; s.RemoveChannels = nil;
 		s.tab = nil;
 	end, self.Destroy);
 
@@ -631,7 +657,7 @@ end
 -- Master priming function for compiling windows.
 local function SetupChatFrame(path, cf, desc)
 	if (not cf) or (not desc) then return nil; end
-	cf:RemoveMessages();
+	cf:RemoveChannels();
 	cf:AddMessages(desc);
 	cf:SetTabOptions(desc);
 	return true;
@@ -704,7 +730,7 @@ RDXDB.RegisterObjectType({
 	Clear = function(path, md, parent)
 		local inst = RDXDB.GetObjectInstance(path, true);
 		if inst then 
-			inst.mtab.cf:Clear();
+			--inst.mtab.cf:Clear();
 		end
 	end;
 	Instantiate = function(path, md)
@@ -719,7 +745,7 @@ RDXDB.RegisterObjectType({
 		
 		local ca = dlgtab:GetClientArea();
 		
-		local mtab = RDX.ChatFrame:new(path);
+		local mtab = RDX.ChatFrame:new(path, md.data.main);
 		-- Attempt to setup the window; if it fails, just bail out.
 		if not SetupChatFrame(path, mtab, md.data) then mtab:Destroy(); return nil; end
 		
@@ -760,6 +786,7 @@ RDXDB.RegisterObjectType({
 	end,
 	Deinstantiate = function(instance, path, md)
 		if instance.mtab then
+			instance.mtab:RemoveMessages();
 			instance.mtab:Destroy();
 			instance.mtab = nil;
 		end

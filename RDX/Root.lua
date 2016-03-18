@@ -58,13 +58,13 @@ function RDX.printI(str)
 end
 
 function RDX.printW(str)
-	VFL.print(" |cFFAAAAAARDX|r |cFFFFFF00WARNING:|r" .. str);
-	RDXEvents:Dispatch("WARNING", " |cFFFFFF00WARNING:|r" .. str);
+	VFL.print(" |cFFAAAAAARDX|r |cFFFFFF00WARNING:|r " .. str);
+	RDXEvents:Dispatch("WARNING", " |cFFFFFF00WARNING:|r " .. str);
 end
 
 function RDX.printE(str)
-	VFL.print(" |cFFAAAAAARDX|r |cFFFF0000ERROR:|r" .. str);
-	RDXEvents:Dispatch("ERROR", " |cFFFF0000ERROR:|r" .. str);
+	VFL.print(" |cFFAAAAAARDX|r |cFFFF0000ERROR:|r " .. str);
+	RDXEvents:Dispatch("ERROR", " |cFFFF0000ERROR:|r " .. str);
 end
 
 -- Generate a unique ID number

@@ -17,11 +17,17 @@ function VFL.OpenConsoleDialog()
 	local ca = dlg:GetClientArea();
 
 	---------------- Console
-	--VFLIO.Console:SetAllPoints(ca);
+	VFLIO.Console:SetAllPoints(ca);
 	VFLIO.Console:SetPoint("TOPLEFT", ca, "TOPLEFT");
 	VFLIO.Console:SetWidth(400); VFLIO.Console:SetHeight(330);
 	VFLIO.Console:SetParent(ca);
 	VFLIO.Console:Show();
+	
+	--VFLIO.Chatframe1:SetPoint("TOPLEFT", ca, "TOPLEFT");
+	--VFLIO.Chatframe1:SetWidth(400); VFLIO.Chatframe1:SetHeight(330);
+	--VFLIO.Chatframe1:SetParent(ca);
+	--VFLIO.Chatframe1:Show();
+
 
 	dlg:Show();
 

@@ -1416,7 +1416,7 @@ local function ChangeDesktop(path, nosave)
 	if RDXDK.IsDesktopToolsOpen() then RDXDK.ToggleDesktopTools(); end
 	if currentpath == path then return; end
 	RDXDK:Debug(4, "ChangeDesktop(".. path ..")");
-	RDX.printI("Change desktop " .. path);
+	--RDX.printI("Change desktop " .. path);
 	-- close
 	if currentDesktop then
 		RDXDB._RemoveInstance(currentDesktop._path, nosave);

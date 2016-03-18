@@ -36,7 +36,7 @@ VFLUI.CreateFramePool("ChatFrame",
 		local id = VFL.GetNextID()
 		local f = CreateFrame("ScrollingMessageFrame", "SMF" .. id, nil, "VFLChatFrameTemplate");
 		f:UnregisterEvent("UPDATE_CHAT_WINDOWS");
-		f:UnregisterEvent("UPDATE_CHAT_COLOR");
+		--f:UnregisterEvent("UPDATE_CHAT_COLOR");
 		f:SetScript("OnMouseWheel", scroll);
 		f:EnableMouseWheel(true);
 		f:SetID(1);
@@ -84,7 +84,7 @@ VFLUI.CreateFramePool("ChatFrame2",
 		f.cf:Show();
 		
 		f.cf:UnregisterEvent("UPDATE_CHAT_WINDOWS");
-		f.cf:UnregisterEvent("UPDATE_CHAT_COLOR");
+		--f.cf:UnregisterEvent("UPDATE_CHAT_COLOR");
 		f.cf:SetScript("OnMouseWheel", scroll);
 		f.cf:EnableMouseWheel(true);
 		f.cf:SetID(1);
@@ -110,7 +110,7 @@ VFLUI.CreateFramePool("ChatFrame2",
 	function(_, f) -- on acquired
 		--f:Show();
 		--f:ClearAllPoints();
-		ChatFrame_RemoveAllMessageGroups(f.cf);
+		--ChatFrame_RemoveAllMessageGroups(f.cf);
 		f.cf.channelList = {};
 		f.cf.zoneChannelList = {};
 		
@@ -174,57 +174,64 @@ VFLUI.CreateFramePool("ChatFrameEditBox",
 
 VFLIO.Console = VFLUI.AcquireFrame("ChatFrame");
 ChatFrame_AddMessageGroup(VFLIO.Console, "SYSTEM");
+ChatFrame_AddMessageGroup(VFLIO.Console, "ERRORS");
+ChatFrame_AddMessageGroup(VFLIO.Console, "GUILD");
+ChatFrame_AddMessageGroup(VFLIO.Console, "OPENING");
+ChatFrame_AddMessageGroup(VFLIO.Console, "CHANNEL");
+ChatFrame_AddMessageGroup(VFLIO.Console, "GUILD_ACHIEVEMENT");
+ChatFrame_AddMessageGroup(VFLIO.Console, "OFFICER");
 
+
+VFLIO.Chatframe1 = VFLUI.AcquireFrame("ChatFrame2");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "SYSTEM");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "SAY");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "EMOTE");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "YELL");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "WHISPER");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "BN_WHISPER");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "PARTY");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "PARTY_LEADER");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "RAID");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "RAID_LEADER");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "RAID_WARNING");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "BATTLEGROUND");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "BATTLEGROUND_LEADER");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "GUILD");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "OFFICER");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "MONSTER_SAY");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "MONSTER_YELL");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "MONSTER_EMOTE");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "MONSTER_WHISPER");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "MONSTER_BOSS_EMOTE");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "MONSTER_BOSS_WHISPER");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "ERRORS");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "AFK");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "DND");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "IGNORED");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "BG_HORDE");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "BG_ALLIANCE");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "BG_NEUTRAL");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "COMBAT_XP_GAIN");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "COMBAT_HONOR_GAIN");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "COMBAT_FACTION_CHANGE");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "SKILL");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "LOOT");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "CURRENCY");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "MONEY");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "OPENING");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "TRADESKILLS");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "PET_INFO");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "COMBAT_MISC_INFO");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "ACHIEVEMENT");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "GUILD_ACHIEVEMENT");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "CHANNEL");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "TARGETICONS");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "BN_WHISPER");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "BN_CONVERSATION");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "BN_INLINE_TOAST_ALERT");
+ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "COMBAT_GUILD_XP_GAIN");
 
 --[[
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "SYSTEM");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "SAY");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "EMOTE");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "YELL");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "WHISPER");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "BN_WHISPER");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "PARTY");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "PARTY_LEADER");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "RAID");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "RAID_LEADER");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "RAID_WARNING");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "BATTLEGROUND");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "BATTLEGROUND_LEADER");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "GUILD");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "OFFICER");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "MONSTER_SAY");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "MONSTER_YELL");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "MONSTER_EMOTE");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "MONSTER_WHISPER");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "MONSTER_BOSS_EMOTE");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "MONSTER_BOSS_WHISPER");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "ERRORS");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "AFK");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "DND");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "IGNORED");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "BG_HORDE");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "BG_ALLIANCE");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "BG_NEUTRAL");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "COMBAT_XP_GAIN");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "COMBAT_HONOR_GAIN");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "COMBAT_FACTION_CHANGE");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "SKILL");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "LOOT");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "CURRENCY");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "MONEY");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "OPENING");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "TRADESKILLS");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "PET_INFO");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "COMBAT_MISC_INFO");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "ACHIEVEMENT");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "GUILD_ACHIEVEMENT");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "CHANNEL");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "TARGETICONS");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "BN_WHISPER");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "BN_CONVERSATION");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "BN_INLINE_TOAST_ALERT");
-ChatFrame_AddMessageGroup(VFLIO.Chatframe1, "COMBAT_GUILD_XP_GAIN");
-
 VFLIO.Chatframe2 = VFLUI.AcquireFrame("ChatFrame");
 ChatFrame_AddMessageGroup(VFLIO.Chatframe2, "SAY");
 ChatFrame_AddMessageGroup(VFLIO.Chatframe2, "YELL");
