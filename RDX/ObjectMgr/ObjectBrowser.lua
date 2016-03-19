@@ -69,8 +69,7 @@ function RDXDB.ExplorerInstance:new(parent)
 	selFeedback:SetPoint("TOPLEFT", selEd, "BOTTOMLEFT", 5, 0);
 
 	----------------- Finder implementation
-	-- SIGG TODO
-	--[[find:SetScript("OnTextChanged", function()
+	find:SetScript("OnTextChanged", function()
 		local txt = find:GetText();
 		if(not txt) or (txt == "") then
 			FindFilterFile = VFL.True;
@@ -92,9 +91,11 @@ function RDXDB.ExplorerInstance:new(parent)
 			end;
 		end
 		if not FilterPackage(activeDk, activePkg) then activePkg = nil; end
+		if not Filterdisk(activeDk) then activeDk = nil; end
+		UpdateDiskList();
 		UpdatePackageList();
 		UpdateFileList();
-	end);]]
+	end);
 
 	----------------- Pathbar implementation
 	--[[selEd:SetScript("OnTextChanged", function()
@@ -157,14 +158,6 @@ function RDXDB.ExplorerInstance:new(parent)
 	dkList:Rebuild(); dkList:Show();
 	
 	dkList:SetDataSource(function(cell, data, pos)
-		--local mem;
-		--if data == "RDXDiskSystem" then
-		--	mem = GetAddOnMemoryUsage("RDX_disk_system");
-		--elseif data == "RDXDiskTheme" then
-		--	mem = GetAddOnMemoryUsage("RDX_disk_theme");
-		--end
-		--if not mem then mem = 0; end
-		--cell.text:SetText(data .. " (" .. mem .. ")");
 		cell.text:SetText(data);
 		if(data == activeDk) then
 			cell.selTexture:SetVertexColor(0,0,1); cell.selTexture:Show();
@@ -188,7 +181,6 @@ function RDXDB.ExplorerInstance:new(parent)
 			--end
 		end
 		table.sort(dks, function(a,b) return a<b; end);
-		--UpdateAddOnMemoryUsage();
 		dkList:Update();
 	end
 	
@@ -247,9 +239,9 @@ function RDXDB.ExplorerInstance:new(parent)
 		VFL.empty(pkgs); local i = 0;
 		if activeDk then
 			for k,_ in pairs(RDXDB.GetDisk(activeDk)) do 
-				--if FilterPackage(k) then
+				if FilterPackage(activeDk, k) then
 					i=i+1; pkgs[i] = k;
-				--end
+				end
 			end
 		end
 		table.sort(pkgs, function(a,b) return a<b; end);
@@ -259,16 +251,16 @@ function RDXDB.ExplorerInstance:new(parent)
 	function SetActivePackage(pkg)
 		if pkg ~= activePkg then
 			VFL.poptree:Release(); -- release any dangling menus
-			--if FilterPackage(pkg) then 
+			if FilterPackage(activeDk, pkg) then 
 				activePkg = pkg;
 				if activeDk and activePkg then
 					selEd:SetText(activeDk .. ":" .. activePkg .. ":");
 				elseif activeDk then
 					selEd:SetText(activeDk .. ":");
 				end
-			--else 
-			--	activePkg = nil; 
-			--end
+			else 
+				activePkg = nil; 
+			end
 			pkgList:Update();
 			UpdateFileList();
 		end

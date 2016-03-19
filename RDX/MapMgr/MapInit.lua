@@ -99,9 +99,9 @@ function RDXMAP.InitTables()
 							--VFL.print("con " .. contId .. ", name " .. name .. ", mapid " ..mapid);
 							RDXMAP.MapNameToId[contId][name] = mapid;
 						else
-							VFL.print(contId)
-							VFL.print(name)
-							VFL.print(mapid)
+							--VFL.print(contId)
+							--VFL.print(name)
+							--VFL.print(mapid)
 							--VFL.print("InitTables double name " .. name .. " mapid " .. RDXMAP.MapNameToId[name])
 							--RDXMAP.MapNameToId[localname] = nil; -- clear so the engine will use mapid
 						end

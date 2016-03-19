@@ -18,13 +18,13 @@ function SSS()
 		if not zname then
 			break
 		end
-		VFL.print(zname .. ":" .. zw .. "," .. zh .. "," .. zx .. "," .. zy);
+		--VFL.print(zname .. ":" .. zw .. "," .. zh .. "," .. zx .. "," .. zy);
 	end
 end
 -- /script SSS()
 function RRR()
 	local mapFileName, textureHeight, _, isMicroDungeon, microDungeonMapName = GetMapInfo();
-	VFL.print(mapFileName);
+	--VFL.print(mapFileName);
 end
 -- /script RRR()
 -- /script VFL.print(GetCurrentMapAreaID());
@@ -385,6 +385,6 @@ function VFL.GetBGName(name)
 end
 
 function RDX.PPZ()
-	VFL.print(GetCurrentMapAreaID())
+	--VFL.print(GetCurrentMapAreaID())
 end
 -- /script RDX.PPZ();
