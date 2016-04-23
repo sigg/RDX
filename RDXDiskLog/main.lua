@@ -8,4 +8,6 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	RDXDB.SetPackageMetadata("RDXDiskLog", "tabs", "infoIsIndelible", true);
 	RDXDB.GetOrCreatePackage("RDXDiskLog", "save", "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX package");
 	RDXDB.SetPackageMetadata("RDXDiskLog", "save", "infoIsIndelible", true);
+	RDXDB.GetOrCreatePackage("RDXDiskSystem", RDX.pspace, "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX User Package");
+	RDXDB.SetPackageMetadata("RDXDiskSystem", RDX.pspace, "infoIsIndelible", true);
 end);

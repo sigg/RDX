@@ -155,19 +155,12 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	if not default["TabManager1_tm"] then
 		default["TabManager1_tm"] = {
 			["ty"] = "TabManager",
-			["version"] = 1,
+			["version"] = 2,
 			["data"] = {
-				["cfm"] = {
-					{
-						["op"] = "RDXDiskSystem:tabs:ChatFrame1",
-					},
-					{
-						["op"] = "RDXDiskSystem:tabs:ChatFrame2",
-					},
-					{
-						["op"] = "RDXDiskSystem:tabs:ChatFrame3",
-					},
-				},
+				"RDXDiskSystem:tabs:ChatFrame1", -- [1]
+				"RDXDiskSystem:tabs:ChatFrame2", -- [2]
+				"RDXDiskSystem:tabs:ChatFrame3", -- [3]
+				"root", -- [4]
 			},
 		};
 	end
@@ -269,13 +262,10 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	if not default["TabManager2_tm"] then
 		default["TabManager2_tm"] = {
 			["ty"] = "TabManager",
-			["version"] = 1,
+			["version"] = 2,
 			["data"] = {
-				["cfm"] = {
-					{
-						["op"] = "RDXDiskSystem:tabs:CombatLogs1",
-					},
-				},
+				"RDXDiskSystem:tabs:CombatLogs1", -- [1]
+				"root", -- [2]
 			},
 		};
 	end

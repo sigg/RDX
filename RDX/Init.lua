@@ -67,7 +67,7 @@ local function VariablesLoaded()
 		
 		local mbo = RDXDB.TouchObject("RDXDiskSystem:globals:rdx");
 		RDXG = mbo.data;
-		local mbo = RDXDB.TouchObject("RDXDiskSystem:users:" .. RDX.pspace);
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:" .. RDX.pspace .. ":data");
 		RDXU = mbo.data;
 		
 		RDX:Debug(3, "DISPATCH INIT_POST_VARIABLES_LOADED");

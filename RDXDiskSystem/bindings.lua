@@ -229,7 +229,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	local bindings = RDXDB.GetPackage("RDXDiskSystem", "bindings");
 	
 	for i=1,GetNumSpecializations() do
-		local mbo = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_player_" .. RDX.pspace .. i);
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:" .. RDX.pspace .. ":bindings_player_" .. i);
 		if not mbo.data then
 			mbo.data = {
 				["1"] = {
@@ -245,7 +245,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	end
 	local mbsl = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_player");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", pkg = "bindings", prefixfile = "bindings_player_", ty = "MouseBindings"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", prefixfile = "bindings_player_", ty = "MouseBindings"};
 	end
 	
 	--
@@ -254,7 +254,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	-- type talent&name&realm
 	
 	for i=1,GetNumSpecializations() do
-		local mbo = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_target_" .. RDX.pspace .. i);
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:" .. RDX.pspace .. ":bindings_target_" .. i);
 		if not mbo.data then
 			mbo.data = {
 				["1"] = {
@@ -273,13 +273,13 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	end
 	local mbsl = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_target");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", pkg = "bindings", prefixfile = "bindings_target_", ty = "MouseBindings"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", prefixfile = "bindings_target_", ty = "MouseBindings"};
 	end
 	
 	-- heal bindings
 	
 	for i=1,GetNumSpecializations() do
-		local mbo = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_heal_" .. RDX.pspace .. i);
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:" .. RDX.pspace .. ":bindings_heal_" .. i);
 		if not mbo.data then
 			mbo.data = heal_default();
 			mbo.ty = "MouseBindings"; 
@@ -289,13 +289,13 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_heal");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", pkg = "bindings", prefixfile = "bindings_heal_", ty = "MouseBindings"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", prefixfile = "bindings_heal_", ty = "MouseBindings"};
 	end
 	
 	-- damage
 
 	for i=1,GetNumSpecializations() do
-		local mbo = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_dmg_" .. RDX.pspace .. i);
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:" .. RDX.pspace .. ":bindings_dmg_" .. i);
 		if not mbo.data then
 			mbo.data = dmg_default();
 			mbo.ty = "MouseBindings"; 
@@ -305,7 +305,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_dmg");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", pkg = "bindings", prefixfile = "bindings_dmg_", ty = "MouseBindings"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", prefixfile = "bindings_dmg_", ty = "MouseBindings"};
 	end
 	
 	-- decurse

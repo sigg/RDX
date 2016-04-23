@@ -6,8 +6,8 @@ end);
 RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	RDXDB.GetOrCreatePackage("RDXDiskSystem", "globals", "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX package");
 	RDXDB.SetPackageMetadata("RDXDiskSystem", "globals", "infoIsIndelible", true);
-	RDXDB.GetOrCreatePackage("RDXDiskSystem", "users", "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX package");
-	RDXDB.SetPackageMetadata("RDXDiskSystem", "users", "infoIsIndelible", true);
+	--RDXDB.GetOrCreatePackage("RDXDiskSystem", "users", "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX package");
+	--RDXDB.SetPackageMetadata("RDXDiskSystem", "users", "infoIsIndelible", true);
 	RDXDB.GetOrCreatePackage("RDXDiskSystem", "locales", "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX package");
 	RDXDB.SetPackageMetadata("RDXDiskSystem", "locales", "infoIsIndelible", true);
 	RDXDB.GetOrCreatePackage("RDXDiskSystem", "default", "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX package");
@@ -24,4 +24,7 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	RDXDB.SetPackageMetadata("RDXDiskSystem", "aurafilters", "infoIsIndelible", true);
 	RDXDB.GetOrCreatePackage("RDXDiskSystem", "sets", "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX package");
 	RDXDB.SetPackageMetadata("RDXDiskSystem", "sets", "infoIsIndelible", true);
+	-- new
+	RDXDB.GetOrCreatePackage("RDXDiskSystem", RDX.pspace, "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX User Package");
+	RDXDB.SetPackageMetadata("RDXDiskSystem", RDX.pspace, "infoIsIndelible", true);
 end);

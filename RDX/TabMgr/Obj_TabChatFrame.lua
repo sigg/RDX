@@ -562,7 +562,7 @@ function RDX.ChatFrame:new(path, flag)
 	self.cf._AddMessage = self.cf.AddMessage;
 	
 	self.cf.AddMessage = function(frame, msg, ...)
-		if(#self.msgs >= self.msgmax) then table.remove(self.msgs, 1); end
+		if self.msgs and (#self.msgs >= self.msgmax) then table.remove(self.msgs, 1); end
 		table.insert(self.msgs, msg);
 		frame:_AddMessage(msg, ...)
 	end
@@ -730,7 +730,7 @@ RDXDB.RegisterObjectType({
 	Clear = function(path, md, parent)
 		local inst = RDXDB.GetObjectInstance(path, true);
 		if inst then 
-			--inst.mtab.cf:Clear();
+			inst.mtab.cf:Clear();
 		end
 	end;
 	Instantiate = function(path, md)

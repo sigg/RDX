@@ -2,7 +2,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 
 	local tabs = RDXDB.GetPackage("RDXDiskLog", "tabs");
 	
-	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:ChatFrame1_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("RDXDiskLog:" .. RDX.pspace .. ":ChatFrame1");
 	if not mbo.data then
 		mbo.ty = "TabChatFrame"; 
 		mbo.version = 1;
@@ -10,6 +10,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 				["title"] = "General",
 				["tabtitle"] = "CG",
 				["tabwidth"] = 30,
+				["main"] = true,
 				["discussion"] = {
 					["SAY"] = true,
 					["EMOTE"] = true,
@@ -66,10 +67,10 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	
 	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:ChatFrame1");
 	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "ChatFrame1_", ty = "TabChatFrame"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", prefixfile = "ChatFrame1", ty = "TabChatFrame"};
 	end
 	
-	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:ChatFrame2_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("RDXDiskLog:" .. RDX.pspace .. ":ChatFrame2");
 	if not mbo.data then
 		mbo.ty = "TabChatFrame"; 
 		mbo.version = 1;
@@ -106,10 +107,10 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	
 	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:ChatFrame2");
 	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "ChatFrame2_", ty = "TabChatFrame"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", prefixfile = "ChatFrame2", ty = "TabChatFrame"};
 	end
 	
-	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:ChatFrame3_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("RDXDiskLog:" .. RDX.pspace .. ":ChatFrame3");
 	if not mbo.data then
 		mbo.ty = "TabChatFrame"; 
 		mbo.version = 1;
@@ -135,10 +136,10 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	
 	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:ChatFrame3");
 	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "ChatFrame3_", ty = "TabChatFrame"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", prefixfile = "ChatFrame3", ty = "TabChatFrame"};
 	end
 	
-	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:ChatFrame4_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("RDXDiskLog:" .. RDX.pspace .. ":ChatFrame4");
 	if not mbo.data then
 		mbo.ty = "TabChatFrame"; 
 		mbo.version = 1;
@@ -173,10 +174,10 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	
 	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:ChatFrame4");
 	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "ChatFrame4_", ty = "TabChatFrame"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", prefixfile = "ChatFrame4", ty = "TabChatFrame"};
 	end
 	
-	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:ChatFrame5_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("RDXDiskLog:" .. RDX.pspace .. ":ChatFrame5");
 	if not mbo.data then
 		mbo.ty = "TabChatFrame"; 
 		mbo.version = 1;
@@ -207,10 +208,10 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	
 	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:ChatFrame5");
 	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "ChatFrame5_", ty = "TabChatFrame"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", prefixfile = "ChatFrame5", ty = "TabChatFrame"};
 	end
 	
-	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:ChatFrame6_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("RDXDiskLog:" .. RDX.pspace .. ":ChatFrame6");
 	if not mbo.data then
 		mbo.ty = "TabChatFrame"; 
 		mbo.version = 1;
@@ -236,6 +237,11 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 				["channels"] = {
 				},
 			};
+	end
+	
+	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:ChatFrame6");
+	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", prefixfile = "ChatFrame6", ty = "TabChatFrame"};
 	end
 	
 	if not tabs["ChatFrame7"] then
@@ -310,7 +316,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:CombatLogs1_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("RDXDiskLog:" .. RDX.pspace .. ":CombatLogs1");
 	if not mbo.data then
 		mbo.ty = "TabCombatLogs"; 
 		mbo.version = 1;
@@ -362,10 +368,10 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	
 	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:CombatLogs1");
 	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "CombatLogs1_", ty = "TabCombatLogs"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", prefixfile = "CombatLogs1", ty = "TabCombatLogs"};
 	end
 	
-	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:CombatLogs2_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("RDXDiskLog:" .. RDX.pspace .. ":CombatLogs2");
 	if not mbo.data then
 		mbo.ty = "TabCombatLogs"; 
 		mbo.version = 1;
@@ -417,7 +423,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	
 	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:CombatLogs2");
 	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "CombatLogs2_", ty = "TabCombatLogs"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", prefixfile = "CombatLogs2", ty = "TabCombatLogs"};
 	end
 	
 	if not tabs["CombatLogs3"] then
@@ -474,7 +480,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		};
 	end
 	
-	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:Meter1_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("RDXDiskLog:" .. RDX.pspace .. ":Meter1");
 	if not mbo.data then
 		mbo.ty = "TabMeter"; 
 		mbo.version = 1;
@@ -495,10 +501,10 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	
 	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:Meter1");
 	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "Meter1_", ty = "TabMeter"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", prefixfile = "Meter1", ty = "TabMeter"};
 	end
 	
-	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:Meter2_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("RDXDiskLog:" .. RDX.pspace .. ":Meter2");
 	if not mbo.data then
 		mbo.ty = "TabMeter"; 
 		mbo.version = 1;
@@ -519,10 +525,10 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	
 	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:Meter2");
 	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "Meter2_", ty = "TabMeter"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", prefixfile = "Meter2", ty = "TabMeter"};
 	end
 	
-	local mbo = RDXDB.TouchObject("RDXDiskLog:tabs:Meter3_" .. RDX.pspace);
+	local mbo = RDXDB.TouchObject("RDXDiskLog:" .. RDX.pspace .. ":Meter3");
 	if not mbo.data then
 		mbo.ty = "TabMeter"; 
 		mbo.version = 1;
@@ -543,7 +549,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	
 	local mbsl = RDXDB.TouchObject("RDXDiskLog:tabs:Meter3");
 	if mbsl.ty ~= "SymLink" or mbsl.data.class ~= "name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", pkg = "tabs", prefixfile = "Meter3_", ty = "TabMeter"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "name&realm", dk = "RDXDiskLog", prefixfile = "Meter3", ty = "TabMeter"};
 	end
 
 	

@@ -11,6 +11,8 @@
 
 RDXUpdateMicroButtonsParent = UpdateMicroButtonsParent
 RDXMoveMicroButtons = MoveMicroButtons
+RDXUpdateMicroButtonsParent(UIParent)
+RDXMoveMicroButtons("TOP", UIParent, "TOP", 0, 22)
 
 UpdateMicroButtonsParent = VFL.Noop;
 MoveMicroButtons = VFL.Noop;
@@ -60,6 +62,8 @@ RDX.RegisterFeature({
 		
 		------------------ On frame destruction.
 		local destroyCode = [[
+		RDXUpdateMicroButtonsParent(UIParent)
+		RDXMoveMicroButtons("TOP", UIParent, "TOP", 0, 22)
 ]];
 		state:Attach(state:Slot("EmitDestroy"), true, function(code) code:AppendCode(destroyCode); end);
 

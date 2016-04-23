@@ -216,7 +216,7 @@ WoWEvents:Bind("ZONE_CHANGED_NEW_AREA", nil, function()
 end);
 
 
-RDXEvents:Bind("INIT_POST", nil, function() 
+RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function() 
 	myunit = RDXDAL.GetMyUnit();
 	myunit.contId = 1;
 	local hist = {}

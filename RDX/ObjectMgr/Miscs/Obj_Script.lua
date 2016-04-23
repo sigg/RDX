@@ -145,7 +145,7 @@ end);
 -- When we login (post DB load) run our auto_USER script.
 -- Also run all autoexec scripts in sub-packages.
 RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
-	RDXDB.OpenObject("RDXDiskSystem:scripts:auto_u_" .. RDX.pspace);
+	RDXDB.OpenObject("RDXDiskSystem:" .. RDX.pspace .. ":auto_u_script");
 	
 	RDXDB.Foreach(function(dk, pkg, file, md)
 		local ty = RDXDB.GetObjectType(md.ty);

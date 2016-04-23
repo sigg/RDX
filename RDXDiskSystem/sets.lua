@@ -193,7 +193,7 @@ end);
 RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	-- Create player-specific set yellow if they don't exist
 	for i=1,GetNumSpecializations() do
-		local mbo = RDXDB.TouchObject("RDXDiskSystem:sets:set_yellow_" .. RDX.pspace .. i);
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:" .. RDX.pspace .. ":set_yellow_" .. i);
 		if not mbo.data then 
 			mbo.ty = "FilterSet"; 
 			mbo.version = 1;
@@ -208,12 +208,12 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("RDXDiskSystem:sets:set_yellow");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", pkg = "sets", prefixfile = "set_yellow_", ty = "FilterSet"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", prefixfile = "set_yellow_", ty = "FilterSet"};
 	end
 	
 	-- Create player-specific set red if they don't exist
 	for i=1,GetNumSpecializations() do
-		local mbo = RDXDB.TouchObject("RDXDiskSystem:sets:set_red_" .. RDX.pspace .. i);
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:" .. RDX.pspace .. ":set_red_" .. i);
 		if not mbo.data then
 			mbo.ty = "FilterSet";
 			mbo.version = 1;
@@ -228,12 +228,12 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("RDXDiskSystem:sets:set_red");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", pkg = "sets", prefixfile = "set_red_", ty = "FilterSet"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", prefixfile = "set_red_", ty = "FilterSet"};
 	end
 	
 	-- Create player-specific set green if they don't exist
 	for i=1,GetNumSpecializations() do
-		local mbo = RDXDB.TouchObject("RDXDiskSystem:sets:set_green_" .. RDX.pspace .. i);
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:" .. RDX.pspace .. ":set_green_" .. i);
 		if not mbo.data then
 			mbo.ty = "FilterSet"; 
 			mbo.version = 1;
@@ -248,12 +248,12 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("RDXDiskSystem:sets:set_green");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", pkg = "sets", prefixfile = "set_green_", ty = "FilterSet"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", prefixfile = "set_green_", ty = "FilterSet"};
 	end
 	
 	-- Create player-specific set blue if they don't exist
 	for i=1,GetNumSpecializations() do
-		local mbo = RDXDB.TouchObject("RDXDiskSystem:sets:set_blue_" .. RDX.pspace .. i);
+		local mbo = RDXDB.TouchObject("RDXDiskSystem:" .. RDX.pspace .. ":set_blue_" .. i);
 		if not mbo.data then
 			mbo.ty = "FilterSet"; 
 			mbo.version = 1;
@@ -268,7 +268,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 	-- Create symlink if it doesn't exist
 	local mbsl = RDXDB.TouchObject("RDXDiskSystem:sets:set_blue");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "talent&name&realm" then
-		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", pkg = "sets", prefixfile = "set_blue_", ty = "FilterSet"};
+		mbsl.ty = "SymLink"; mbsl.version = 3; mbsl.data = {class = "talent&name&realm", dk = "RDXDiskSystem", prefixfile = "set_blue_", ty = "FilterSet"};
 	end
 	
 end);

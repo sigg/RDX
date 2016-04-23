@@ -429,7 +429,7 @@ RDX.RegisterTextureIcon({
 		btn:Show();
 ]];
 	paintCode = [[
-		if UnitIsPartyLeader(uid) then
+		if UnitIsGroupLeader(uid) then
 			if not btn:IsShown() then btn:Show(); end
 		else
 			if btn:IsShown() then btn:Hide(); end

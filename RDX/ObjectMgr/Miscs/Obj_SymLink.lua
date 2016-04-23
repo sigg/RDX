@@ -535,11 +535,11 @@ RDXDB.RegisterSymLinkClass({
 	name = "name&realm";
 	title = "name&realm";
 	GetTargetPath = function(data)
-		if not data.dk or not data.pkg or not data.prefixfile or not data.ty then return nil; end
-		if data.pkg ~= "default" then
-			RDXDB.CreateObject(data.dk, data.pkg, data.prefixfile .. RDX.pspace, data.ty);
+		if not data.dk or not data.prefixfile or not data.ty then return nil; end
+		if not RDXDB.AccessPath(data.dk, RDX.pspace, data.prefixfile) then
+			RDXDB.CreateObject(data.dk, RDX.pspace, data.prefixfile, data.ty);
 		end
-		return data.dk .. ":" .. data.pkg .. ":" .. data.prefixfile .. RDX.pspace;
+		return data.dk .. ":" .. RDX.pspace .. ":" .. data.prefixfile;
 	end;
 	Unregister = function(path)
 		VFLEvents:Unbind("symlink_" .. path);
@@ -552,13 +552,8 @@ RDXDB.RegisterSymLinkClass({
 		if desc and desc.dk then ed_dk.editBox:SetText(desc.dk); end
 		ui:InsertFrame(ed_dk);
 		
-		local ed_pkg = VFLUI.LabeledEdit:new(ui, 150); ed_pkg:Show();
-		ed_pkg:SetText(VFLI.i18n("Package"));
-		if desc and desc.pkg then ed_pkg.editBox:SetText(desc.pkg); end
-		ui:InsertFrame(ed_pkg);
-		
 		local ed_prefixfile = VFLUI.LabeledEdit:new(ui, 150); ed_prefixfile:Show();
-		ed_prefixfile:SetText(VFLI.i18n("Prefix"));
+		ed_prefixfile:SetText(VFLI.i18n("file"));
 		if desc and desc.prefixfile then ed_prefixfile.editBox:SetText(desc.prefixfile); end
 		ui:InsertFrame(ed_prefixfile);
 		
@@ -577,7 +572,6 @@ RDXDB.RegisterSymLinkClass({
 			return {
 				class = "name&realm", 
 				dk = ed_dk.editBox:GetText(),
-				pkg = ed_pkg.editBox:GetText(),
 				prefixfile = ed_prefixfile.editBox:GetText(),
 				ty = dd_objectType:GetSelection();
 			};
@@ -593,14 +587,11 @@ RDXDB.RegisterSymLinkClass({
 	name = "talent&name&realm";
 	title = "talent&name&realm";
 	GetTargetPath = function(data)
-		if not data.dk or not data.pkg or not data.prefixfile or not data.ty then return nil; end
-		if data.pkg ~= "default" then
-			RDXDB.CreateObject(data.dk, data.pkg, data.prefixfile .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex(), data.ty);
+		if not data.dk or not data.prefixfile or not data.ty then return nil; end
+		if not RDXDB.AccessPath(data.dk, RDX.pspace, data.prefixfile .. RDXMD.GetSelfTalentNoIndex()) then
+			RDXDB.CreateObject(data.dk, RDX.pspace, data.prefixfile .. RDXMD.GetSelfTalentNoIndex(), data.ty);
 		end
-		if not RDXDB.AccessPath(data.dk, data.pkg, data.prefixfile .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex()) then
-			RDXDB.CreateObject(data.dk, data.pkg, data.prefixfile .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex(), data.ty);
-		end
-		return data.dk .. ":" .. data.pkg .. ":" .. data.prefixfile .. RDX.pspace .. RDXMD.GetSelfTalentNoIndex();
+		return data.dk .. ":" .. RDX.pspace .. ":" .. data.prefixfile .. RDXMD.GetSelfTalentNoIndex();
 	end;
 	Register = function(path)
 		--VFL.print("REGISTER " .. path);
@@ -623,13 +614,8 @@ RDXDB.RegisterSymLinkClass({
 		if desc and desc.dk then ed_dk.editBox:SetText(desc.dk); end
 		ui:InsertFrame(ed_dk);
 		
-		local ed_pkg = VFLUI.LabeledEdit:new(ui, 150); ed_pkg:Show();
-		ed_pkg:SetText(VFLI.i18n("Package"));
-		if desc and desc.pkg then ed_pkg.editBox:SetText(desc.pkg); end
-		ui:InsertFrame(ed_pkg);
-		
 		local ed_prefixfile = VFLUI.LabeledEdit:new(ui, 150); ed_prefixfile:Show();
-		ed_prefixfile:SetText(VFLI.i18n("Prefix"));
+		ed_prefixfile:SetText(VFLI.i18n("File"));
 		if desc and desc.prefixfile then ed_prefixfile.editBox:SetText(desc.prefixfile); end
 		ui:InsertFrame(ed_prefixfile);
 		
@@ -648,7 +634,6 @@ RDXDB.RegisterSymLinkClass({
 			return {
 				class = "talent&name&realm",
 				dk = ed_dk.editBox:GetText(),
-				pkg = ed_pkg.editBox:GetText(),
 				prefixfile = ed_prefixfile.editBox:GetText(),
 				ty = dd_objectType:GetSelection();
 			};

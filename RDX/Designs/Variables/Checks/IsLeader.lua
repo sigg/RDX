@@ -26,7 +26,7 @@ if GetNumRaidMembers() > 0 then
 	_,israidpartyleader = GetRaidRosterInfo(RDXDAL.UIDToNumber(uid));
 	if israidpartyleader < 2 then israidpartyleader = nil; end
 else
-	israidpartyleader = UnitIsPartyLeader(uid);
+	israidpartyleader = UnitIsGroupLeader(uid);
 end
 ]]);
 		end

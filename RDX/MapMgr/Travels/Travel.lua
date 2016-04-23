@@ -262,7 +262,7 @@ function RDXMAP.Travel:TaxiCalcTime (dest)
 					if not t then
 
 						if RDXG.DebugMap then
-							VFL.vprint (" No taxi data %s to %s", srcName, destName)
+							--VFL.vprint (" No taxi data %s to %s", srcName, destName)
 						end
 
 						if rCnt == 1 then

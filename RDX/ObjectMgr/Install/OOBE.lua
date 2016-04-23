@@ -414,7 +414,7 @@ local function StartInstaller(force)
 --RDX.SelectDesktop("default:desktop_]] .. RDX.pspace .. [[");
 ]];
 		-- Save to our autoexec script
-		local so = RDXDB.TouchObject("RDXDiskSystem:scripts:auto_e_default_u_" .. RDX.pspace);
+		local so = RDXDB.TouchObject("RDXDiskSystem:" .. RDX.pspace .. ":auto_e_default_u_script");
 		so.ty = "Script"; so.version = 1; so.data = { script = script };
 		rlui_flag = true; -- We need to reload ui after setting a default desktop.
 	end;
