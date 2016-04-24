@@ -26,5 +26,4 @@ RDXEvents:Bind("INIT_DATABASE_LOADED", nil, function()
 	RDXDB.SetPackageMetadata("RDXDiskSystem", "sets", "infoIsIndelible", true);
 	-- new
 	RDXDB.GetOrCreatePackage("RDXDiskSystem", RDX.pspace, "1.0.0", "WoWRDX", "", "team@wowrdx.com", "http://www.wowrdx.com", "RDX User Package");
-	RDXDB.SetPackageMetadata("RDXDiskSystem", RDX.pspace, "infoIsIndelible", true);
 end);

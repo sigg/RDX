@@ -357,20 +357,29 @@ local function InitObjectDB()
 	RDX:Debug(1, "InitObjectDB()");
 	
 	-- langage
-	local lc = GetLocale();
-	if lc == "ruRU" or lc == "koKR" or lc == "zhCN" or lc == "zhTW"  then 
-		function RDXDB.IsValidFileName(x)
-			if (type(x) ~= "string") or (x == "") or (x == "ty") then return nil; end
-			return true;
-		end
-	else
+	--local lc = GetLocale();
+	--if lc == "ruRU" or lc == "koKR" or lc == "zhCN" or lc == "zhTW"  then 
+	--	function RDXDB.IsValidFileName(x)
+	--		if (type(x) ~= "string") or (x == "") or (x == "ty") then return nil; end
+	--		return true;
+	--	end
+	--else
 		--- Returns TRUE iff the name passed is valid for storage in the RDX object database,
 		-- NIL otherwise.
 		-- A valid file name is pure alphanumeric with no whitespace.
-		function RDXDB.IsValidFileName(x)
-			if (type(x) ~= "string") or (x == "") or (x == "ty") then return nil; end
-			if string.find(x, "^[%w_]+$") then return true; else return nil; end
-		end
+		--function RDXDB.IsValidFileName(x)
+		--	if (type(x) ~= "string") or (x == "") or (x == "ty") then return nil; end
+		--	if string.find(x, "^[%w_]+$") then return true; else return nil; end
+		--end
+	--end
+	
+	function RDXDB.IsValidFileName(x)
+		if (type(x) ~= "string") or (x == "") or (x == "ty") then return nil; end
+		if string.find(x, "%s+") then VFL.print("ValidFileName space"); return nil; end		
+		if string.find(x, "[!#%$%%&%(%)%*%+,%-%./:;<=>?@%[%]%^`%{|%}~]") then return nil; end
+		-- !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+		-- ( ) . % + - * ? [ ^ $
+		return true;
 	end
 
 	--- Get a package's contents if it exists; return NIL if it doesn't
@@ -593,7 +602,7 @@ local function InitObjectDB()
 		if (not dk) or (not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
 		local t = RDXDB.GetObjectType(ty);
 		if (not t) or (not t.New) then return nil, VFLI.i18n("Invalid object type."); end
-		if (not RDXDB.IsValidFileName(file)) and (not forcename) then return nil, VFLI.i18n("Invalid filename. Filenames must be alphanumeric."); end
+		if (not RDXDB.IsValidFileName2(file)) and (not forcename) then return nil, VFLI.i18n("Invalid filename. Filenames must be alphanumeric."); end
 		if (RDXDB.IsReserveWord(file)) then return nil, VFLI.i18n("Invalid filename. Filename protected."); end
 		local p = RDXDB.GetPackage(dk, pkg);
 		if not p then return nil, VFLI.i18n("Package does not exist."); end

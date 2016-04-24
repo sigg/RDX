@@ -20,16 +20,9 @@ local function Preload()
 	-- Player name
 	local pn = string.lower(UnitName("player"));
 	local rn = string.lower(GetRealmName());
-	-- BUGFIX: Quash all non-alpha-numerics in realmname, replace with underscores
-	--local lc = GetLocale();
-	--if lc == "ruRU" or lc == "koKR" or lc == "zhCN" or lc == "zhTW"  then
-		-- do nothing
-	--else
-	--	pn = string.gsub(pn, "[^%w_]", "");
-	--	rn = string.gsub(rn, "[^%w_]", "");
-	--end
 
-	--rn = string.gsub(rn, "[ ]", "_");
+	pn = string.gsub(pn, "[ ]", "");
+	rn = string.gsub(rn, "[ ]", "");
 	RDX.pspace = rn .. "_" .. pn;
 	
 	local fact = UnitFactionGroup ("player")
