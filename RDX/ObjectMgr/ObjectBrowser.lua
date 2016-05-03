@@ -397,7 +397,7 @@ function RDXDB.ExplorerInstance:new(parent)
 	function dlg:Rebuild() UpdateDiskList(); UpdatePackageList(); UpdateFileList(); end
 	function dlg:SetPath(initPath)
 		if type(initPath) ~= "string" then return; end
-		VFL.print(initPath);
+		--VFL.print(initPath);
 		local a,b,c = RDXDB.ParsePath(initPath);
 		if c then
 			SetActiveDisk(a);

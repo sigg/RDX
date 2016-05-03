@@ -22,15 +22,15 @@ function VFL.print(str)
 	elseif type(str) == "function" then str = "function";
 	elseif type(str) == "table" then str = "table";
 	end
-	--if DEFAULT_CHAT_FRAME then
-	--	DEFAULT_CHAT_FRAME:AddMessage("|cFFFFFFFF[VFL]|r " .. str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
-	--end
+	if DEFAULT_CHAT_FRAME then
+		DEFAULT_CHAT_FRAME:AddMessage("|cFFFFFFFF[VFL]|r " .. str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+	end
 	if VFLIO and VFLIO.Console then
 		VFLIO.Console:AddMessage("|cFFFFFFFF[VFL]|r " .. str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
 	end
-	if VFLIO and VFLIO.Chatframe1 then
-		VFLIO.Chatframe1.cf:AddMessage("|cFFFFFFFF[VFL]|r " .. str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
-	end
+	--if VFLIO and VFLIO.Chatframe1 then
+	--	VFLIO.Chatframe1.cf:AddMessage("|cFFFFFFFF[VFL]|r " .. str, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+	--end
 end
 
 --- Print a single line after format it.

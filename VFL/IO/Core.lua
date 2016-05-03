@@ -181,7 +181,7 @@ ChatFrame_AddMessageGroup(VFLIO.Console, "CHANNEL");
 ChatFrame_AddMessageGroup(VFLIO.Console, "GUILD_ACHIEVEMENT");
 ChatFrame_AddMessageGroup(VFLIO.Console, "OFFICER");
 
-
+--[[
 VFLIO.Chatframe1 = VFLUI.AcquireFrame("ChatFrame2");
 ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "SYSTEM");
 ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "SAY");
@@ -230,7 +230,7 @@ ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "BN_WHISPER");
 ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "BN_CONVERSATION");
 ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "BN_INLINE_TOAST_ALERT");
 ChatFrame_AddMessageGroup(VFLIO.Chatframe1.cf, "COMBAT_GUILD_XP_GAIN");
-
+]]
 --[[
 VFLIO.Chatframe2 = VFLUI.AcquireFrame("ChatFrame");
 ChatFrame_AddMessageGroup(VFLIO.Chatframe2, "SAY");

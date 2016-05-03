@@ -65,10 +65,7 @@ local function AccessPathRaw(dk, pkg, obj)
 	if not dk then return nil; end
 	if obj then
 		local disk = RDXDB.GetDisk(dk);
-		if not disk then 
-			VFL.print(dk)
-			VFL.print(pkg)
-			VFL.print(obj)
+		if not disk then
 			return nil; 
 		end
 		local qq = disk[pkg];
@@ -602,7 +599,7 @@ local function InitObjectDB()
 		if (not dk) or (not pkg) or (not file) then return nil, VFLI.i18n("Invalid path."); end
 		local t = RDXDB.GetObjectType(ty);
 		if (not t) or (not t.New) then return nil, VFLI.i18n("Invalid object type."); end
-		if (not RDXDB.IsValidFileName2(file)) and (not forcename) then return nil, VFLI.i18n("Invalid filename. Filenames must be alphanumeric."); end
+		if (not RDXDB.IsValidFileName(file)) and (not forcename) then return nil, VFLI.i18n("Invalid filename. Filenames must be alphanumeric."); end
 		if (RDXDB.IsReserveWord(file)) then return nil, VFLI.i18n("Invalid filename. Filename protected."); end
 		local p = RDXDB.GetPackage(dk, pkg);
 		if not p then return nil, VFLI.i18n("Package does not exist."); end

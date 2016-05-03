@@ -310,15 +310,16 @@ local function EditChatFrameDialog(parent, path, md)
 	local cbtn = VFLUI.MakeButton(nil, dlg, VFLI.i18n("Change chat color"), 150);
 	cbtn:SetPoint("TOPLEFT", ed_tabwidth, "TOPRIGHT", 50, 0);
 	
-	local chk_main = VFLUI.Checkbox:new(dlg); chk_main:Show();
-	chk_main:SetHeight(20); chk_main:SetWidth(120);
-	chk_main:SetPoint("TOPLEFT", ed_tabwidth, "BOTTOMLEFT");
-	chk_main:SetText("Main Chatframe");
-	if md.data and md.data.main then chk_main:SetChecked(true); else chk_main:SetChecked(); end
+	--local chk_main = VFLUI.Checkbox:new(dlg); chk_main:Show();
+	--chk_main:SetHeight(20); chk_main:SetWidth(120);
+	--chk_main:SetPoint("TOPLEFT", ed_tabwidth, "BOTTOMLEFT");
+	--chk_main:SetText("Main Chatframe");
+	--if md.data and md.data.main then chk_main:SetChecked(true); else chk_main:SetChecked(); end
+	--dlg.chk_main = chk_main;
 	
 	local tabbox = VFLUI.TabBox:new(dlg, 22, "TOP");
 	tabbox:SetWidth(480); tabbox:SetHeight(300);
-	tabbox:SetPoint("TOPLEFT", chk_main, "BOTTOMLEFT", 0, 0);
+	tabbox:SetPoint("TOPLEFT", ed_tabwidth, "BOTTOMLEFT", 0, 0);
 	tabbox:SetBackdrop(nil);
 	
 	local tab = nil;
@@ -452,7 +453,7 @@ local function EditChatFrameDialog(parent, path, md)
 		md.data.tabtitle = ed_tabtitle.editBox:GetText();
 		md.data.title = ed_title.editBox:GetText();
 		md.data.tabwidth = ed_tabwidth.editBox:GetText();
-		md.data.main = chk_main:GetChecked();
+		--md.data.main = chk_main:GetChecked();
 		dlg.tabbox:GetTabBar():UnSelectTab();
 		--RDXDB.NotifyUpdate(path);
 		-- See if this chatframe was already instantiated...
@@ -484,6 +485,7 @@ local function EditChatFrameDialog(parent, path, md)
 		s.ed_tabwidth:Destroy(); s.ed_tabwidth = nil;
 		s.ed_title:Destroy(); s.ed_title = nil;
 		s.ed_tabtitle:Destroy(); s.ed_tabtitle = nil;
+		--s.chk_main:Destroy(); s.chk_main = nil;
 	end, dlg.Destroy);
 end
 
@@ -529,16 +531,16 @@ local function EditScriptDialog(parent, data)
 	end, dlg2.Destroy);
 end
 
-local pp = nil;
+--local pp = nil;
 
-local function Acquire()
-	if not pp then
-		return VFLIO.Chatframe1;
-	else
-		pp = true;
-		return VFLUI.AcquireFrame("ChatFrame2");
-	end
-end
+--local function Acquire()
+--	if not pp then
+--		return VFLIO.Chatframe1;
+--	else
+--		pp = true;
+--		return VFLUI.AcquireFrame("ChatFrame2");
+--	end
+--end
 
 --------------------------------------------------
 -- The object.
@@ -549,11 +551,11 @@ end
 RDX.ChatFrame = {};
 function RDX.ChatFrame:new(path, flag)
 	local self ;
-	if flag then
-		self = Acquire();
-	else
+	--if flag then
+	--	self = Acquire();
+	--else
 		self = VFLUI.AcquireFrame("ChatFrame2");
-	end
+	--end
 	
 	self.msgmax = 1000;
 	self.msgs = {};
@@ -562,7 +564,7 @@ function RDX.ChatFrame:new(path, flag)
 	self.cf._AddMessage = self.cf.AddMessage;
 	
 	self.cf.AddMessage = function(frame, msg, ...)
-		if self.msgs and (#self.msgs >= self.msgmax) then table.remove(self.msgs, 1); end
+		if (#self.msgs >= self.msgmax) then table.remove(self.msgs, 1); end
 		table.insert(self.msgs, msg);
 		frame:_AddMessage(msg, ...)
 	end
@@ -582,7 +584,7 @@ function RDX.ChatFrame:new(path, flag)
 	end
 
 	function self:AddMessages(desc)
-		if not desc.logs then desc.logs = {}; end
+		if not desc.logs or type(desc.logs) ~= "table" then desc.logs = {}; end
 		self.msgs = desc.logs;
 		
 		for k,v in pairs(desc.discussion) do
@@ -745,7 +747,7 @@ RDXDB.RegisterObjectType({
 		
 		local ca = dlgtab:GetClientArea();
 		
-		local mtab = RDX.ChatFrame:new(path, md.data.main);
+		local mtab = RDX.ChatFrame:new(path);
 		-- Attempt to setup the window; if it fails, just bail out.
 		if not SetupChatFrame(path, mtab, md.data) then mtab:Destroy(); return nil; end
 		
@@ -785,11 +787,19 @@ RDXDB.RegisterObjectType({
 		return dlgtab;
 	end,
 	Deinstantiate = function(instance, path, md)
-		if instance.mtab then
-			instance.mtab:RemoveMessages();
-			instance.mtab:Destroy();
-			instance.mtab = nil;
-		end
+		--if md.data.main then
+		--	if instance.mtab then
+		--		instance.mtab:Hide();
+		--		instance.mtab:SetParent(VFLParent);
+		--		instance.mtab = nil;
+			--	pp = nil;
+		--	end
+		--else
+			if instance.mtab then
+				instance.mtab:Destroy();
+				instance.mtab = nil;
+			end
+		--end
 		instance:Destroy();
 		instance = nil;
 	end,

@@ -20,8 +20,10 @@ MoveMicroButtons = VFL.Noop;
 local function _EmitCreateCode(objname, desc)
 	local createCode = [[
 	local btn, btnOwner = nil, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[;
+	--RDXUpdateMicroButtonsParent(btnOwner)
+	--RDXMoveMicroButtons("TOPLEFT", btnOwner, "TOPLEFT", 0, 22)
 	RDXUpdateMicroButtonsParent(btnOwner)
-	RDXMoveMicroButtons("TOPLEFT", btnOwner, "TOPLEFT", 0, 22)
+	RDXMoveMicroButtons(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[)
 ]];
 	return createCode;
 end
