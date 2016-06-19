@@ -12,7 +12,7 @@ local function BuildWindowList(dkfilter, pkgfilter)
 	for pkg,data in pairs(RDXDB.GetDisk(dkfilter)) do
 		if not pkgfilter or pkg == pkgfilter then
 			for file,md in pairs(data) do
-				if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "^Window$") then
+				if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "Window$") then
 					local hide = RDXDB.HasFeature(md.data, "WindowListHide");
 					if not hide then
 						table.insert(wl, {text = (pkg .. ":" .. file), path = RDXDB.MakePath(dkfilter, pkg, file), data = md.data});
@@ -24,7 +24,7 @@ local function BuildWindowList(dkfilter, pkgfilter)
 	
 	RDXDB.Foreach(function(dk, pkg, file, md)
 		if RDXDB.IsCommonPackage(dk, pkg) then
-			if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "^Window$") then
+			if (type(md) == "table") and md.data and md.ty and string.find(md.ty, "Window$") then
 				local hide = RDXDB.HasFeature(md.data, "WindowListHide");
 				if not hide then
 					table.insert(wl, {text = (pkg .. ":" .. file), path = RDXDB.MakePath(dk, pkg, file), data = md.data});
@@ -109,126 +109,128 @@ local function WindowListRightClick(self, path)
 	});
 	
 	local feat = RDXDB.GetFeatureData(path, "Design");
-	local upath = feat["design"];
-	
-	if upath then
+	if feat then
+		local upath = feat["design"];
+		
+		if upath then
+			table.insert(mnu, {
+				text = VFLI.i18n("Edit Design");
+				func = function()
+					VFL.poptree:Release();
+					RDXDB.OpenObject(upath, "Edit", VFLDIALOG);
+				end;
+			});
+		end
+		
 		table.insert(mnu, {
-			text = VFLI.i18n("Edit Design");
-			func = function()
+			text = "********************";
+			func = VFL.Noop;
+		});
+		
+		local dlg = nil;
+		table.insert(mnu, {
+			text = VFLI.i18n("Clone Window"),
+			func = function() 
 				VFL.poptree:Release();
-				RDXDB.OpenObject(upath, "Edit", VFLDIALOG);
+				if dlg then return; end
+				
+				dlg = VFLUI.Window:new(VFLDIALOG);
+				VFLUI.Window.SetDefaultFraming(dlg, 22);
+				dlg:SetTitleColor(0,.6,0);
+				dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
+				dlg:SetPoint("CENTER", RDXParent, "CENTER");
+				dlg:SetWidth(330); dlg:SetHeight(125);
+				dlg:SetText("Clone Window");
+				dlg:SetClampedToScreen(true);
+				VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
+				if RDXPM.Ismanaged("rdx_clonewindows") then RDXPM.RestoreLayout(dlg, "rdx_clonewindows"); end
+				
+				local ui, sf = VFLUI.CreateScrollingCompoundFrame(dlg);
+				sf:SetWidth(300); sf:SetHeight(70);
+				sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
+				
+				local ed_path = VFLUI.LabeledEdit:new(ui, 200); ed_path:Show();
+				ed_path:SetText(VFLI.i18n("Enter new window Path"));
+				if path then ed_path.editBox:SetText(path); else ed_path.editBox:SetText("null"); end
+				ui:InsertFrame(ed_path);
+				
+				local ed_upath = VFLUI.LabeledEdit:new(ui, 200); ed_upath:Show();
+				ed_upath:SetText(VFLI.i18n("Enter new design Path"));
+				if upath then ed_upath.editBox:SetText(upath); else ed_upath.editBox:SetText("null"); end
+				ui:InsertFrame(ed_upath);
+				
+				VFLUI.ActivateScrollingCompoundFrame(ui, sf);
+				
+				--dlg:Show();
+				dlg:_Show(RDX.smooth);
+
+				local esch = function()
+					dlg:_Hide(RDX.smooth, nil, function()
+						RDXPM.StoreLayout(dlg, "rdx_clonewindows");
+						dlg:Destroy(); dlg = nil;
+					end);
+				end
+				
+				VFL.AddEscapeHandler(esch);
+				function dlg:_esch() VFL.EscapeTo(esch); end
+				
+				local btnClose = VFLUI.CloseButton:new(dlg);
+				dlg:AddButton(btnClose);
+				btnClose:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
+				
+				local btnOK = VFLUI.OKButton:new(dlg);
+				btnOK:SetHeight(25); btnOK:SetWidth(60);
+				btnOK:SetPoint("BOTTOMRIGHT", dlg:GetClientArea(), "BOTTOMRIGHT", -15, 0);
+				btnOK:SetText("OK"); btnOK:Show();
+				btnOK:SetScript("OnClick", function()
+					local new_path = ed_path.editBox:GetText();
+					local new_upath = ed_upath.editBox:GetText();
+					if not (RDXDB.CheckObject(new_path) and RDXDB.CheckObject(new_upath)) then
+						-- Do the clone
+						RDXDB.Copy(path, new_path);
+						RDXDB.Copy(upath, new_upath);
+						RDXDB.SetFeatureData(new_path, "Design", nil, nil, { feature = "Design", design = new_upath });
+						-- Open it on the desktop
+						RDXDK._OpenWindowRDX(new_path);
+						VFLT.NextFrame(math.random(10000000), function()
+							RDXDK.ToolsWindowUpdate();
+						end);
+					else
+						VFL.print("error target path exist");
+					end
+					VFL.EscapeTo(esch);
+				end);
+
+				-- Destructor
+				dlg.Destroy = VFL.hook(function(s)
+					btnOK:Destroy(); btnOK = nil;
+					VFLUI.DestroyScrollingCompoundFrame(ui, sf);
+					ui = nil; sf = nil;
+				end, dlg.Destroy);
+				
 			end;
 		});
-	end
-	
-	table.insert(mnu, {
-		text = "********************";
-		func = VFL.Noop;
-	});
-	
-	local dlg = nil;
-	table.insert(mnu, {
-		text = VFLI.i18n("Clone Window"),
-		func = function() 
-			VFL.poptree:Release();
-			if dlg then return; end
-			
-			dlg = VFLUI.Window:new(VFLDIALOG);
-			VFLUI.Window.SetDefaultFraming(dlg, 22);
-			dlg:SetTitleColor(0,.6,0);
-			dlg:SetBackdrop(VFLUI.DefaultDialogBackdrop);
-			dlg:SetPoint("CENTER", RDXParent, "CENTER");
-			dlg:SetWidth(330); dlg:SetHeight(125);
-			dlg:SetText("Clone Window");
-			dlg:SetClampedToScreen(true);
-			VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
-			if RDXPM.Ismanaged("rdx_clonewindows") then RDXPM.RestoreLayout(dlg, "rdx_clonewindows"); end
-			
-			local ui, sf = VFLUI.CreateScrollingCompoundFrame(dlg);
-			sf:SetWidth(300); sf:SetHeight(70);
-			sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
-			
-			local ed_path = VFLUI.LabeledEdit:new(ui, 200); ed_path:Show();
-			ed_path:SetText(VFLI.i18n("Enter new window Path"));
-			if path then ed_path.editBox:SetText(path); else ed_path.editBox:SetText("null"); end
-			ui:InsertFrame(ed_path);
-			
-			local ed_upath = VFLUI.LabeledEdit:new(ui, 200); ed_upath:Show();
-			ed_upath:SetText(VFLI.i18n("Enter new design Path"));
-			if upath then ed_upath.editBox:SetText(upath); else ed_upath.editBox:SetText("null"); end
-			ui:InsertFrame(ed_upath);
-			
-			VFLUI.ActivateScrollingCompoundFrame(ui, sf);
-			
-			--dlg:Show();
-			dlg:_Show(RDX.smooth);
-
-			local esch = function()
-				dlg:_Hide(RDX.smooth, nil, function()
-					RDXPM.StoreLayout(dlg, "rdx_clonewindows");
-					dlg:Destroy(); dlg = nil;
-				end);
+		
+		table.insert(mnu, {
+			text = VFLI.i18n("Delete Window"),
+			func = function()
+				VFL.poptree:Release();
+				if InCombatLockdown() then return; end
+				VFLUI.MessageBox(VFLI.i18n("Delete window: ") .. path, VFLI.i18n("Are you sure you want to delete the window ") .. path .. VFLI.i18n("?"), nil, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), 
+					function()
+						local inst = RDXDB.GetObjectInstance(path, true);
+						if inst then
+							RDXDB.OpenObject(path, "Close");
+						end
+						RDXDB.DeleteObject(path .. "_ds");
+						RDXDB.DeleteObject(path);
+						VFLT.NextFrame(math.random(10000000), function()
+							RDXDK.ToolsWindowUpdate();
+						end);
+					end);
 			end
-			
-			VFL.AddEscapeHandler(esch);
-			function dlg:_esch() VFL.EscapeTo(esch); end
-			
-			local btnClose = VFLUI.CloseButton:new(dlg);
-			dlg:AddButton(btnClose);
-			btnClose:SetScript("OnClick", function() VFL.EscapeTo(esch); end);
-			
-			local btnOK = VFLUI.OKButton:new(dlg);
-			btnOK:SetHeight(25); btnOK:SetWidth(60);
-			btnOK:SetPoint("BOTTOMRIGHT", dlg:GetClientArea(), "BOTTOMRIGHT", -15, 0);
-			btnOK:SetText("OK"); btnOK:Show();
-			btnOK:SetScript("OnClick", function()
-				local new_path = ed_path.editBox:GetText();
-				local new_upath = ed_upath.editBox:GetText();
-				if not (RDXDB.CheckObject(new_path) and RDXDB.CheckObject(new_upath)) then
-					-- Do the clone
-					RDXDB.Copy(path, new_path);
-					RDXDB.Copy(upath, new_upath);
-					RDXDB.SetFeatureData(new_path, "Design", nil, nil, { feature = "Design", design = new_upath });
-					-- Open it on the desktop
-					RDXDK._OpenWindowRDX(new_path);
-					VFLT.NextFrame(math.random(10000000), function()
-						RDXDK.ToolsWindowUpdate();
-					end);
-				else
-					VFL.print("error target path exist");
-				end
-				VFL.EscapeTo(esch);
-			end);
-
-			-- Destructor
-			dlg.Destroy = VFL.hook(function(s)
-				btnOK:Destroy(); btnOK = nil;
-				VFLUI.DestroyScrollingCompoundFrame(ui, sf);
-				ui = nil; sf = nil;
-			end, dlg.Destroy);
-			
-		end;
-	});
-	
-	table.insert(mnu, {
-		text = VFLI.i18n("Delete Window"),
-		func = function()
-			VFL.poptree:Release();
-			if InCombatLockdown() then return; end
-			VFLUI.MessageBox(VFLI.i18n("Delete window: ") .. path, VFLI.i18n("Are you sure you want to delete the window ") .. path .. VFLI.i18n("?"), nil, VFLI.i18n("Cancel"), VFL.Noop, VFLI.i18n("OK"), 
-				function()
-					local inst = RDXDB.GetObjectInstance(path, true);
-					if inst then
-						RDXDB.OpenObject(path, "Close");
-					end
-					RDXDB.DeleteObject(path .. "_ds");
-					RDXDB.DeleteObject(path);
-					VFLT.NextFrame(math.random(10000000), function()
-						RDXDK.ToolsWindowUpdate();
-					end);
-				end);
-		end
-	});
+		});
+	end
 	
 	VFL.poptree:Begin(150, 12, self, "TOPLEFT", VFLUI.GetRelativeLocalMousePosition(self));
 	VFL.poptree:Expand(nil, mnu);

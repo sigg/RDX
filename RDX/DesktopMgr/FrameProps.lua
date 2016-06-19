@@ -42,8 +42,8 @@ function RDXDK.FrameProperties(frame)
 		});
 	end
 	
-	local feat = RDXDB.GetFeatureData(frameprops.name, "Design");
-	local upath = feat["design"];
+	--local feat = RDXDB.GetFeatureData(frameprops.name, "Design");
+	--local upath = feat["design"];
 	--table.insert(mnu, {text = VFLI.i18n("Clone Window"), func = function() 
 	--	VFL.poptree:Release();
 	--	RDX.CloneWindow(frameprops.name, upath, VFLDIALOG); 

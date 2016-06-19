@@ -55,10 +55,16 @@ function VFLUI.GetCurrentResolution()
 	--VFL.print(x);
 	--VFL.print(VFLUI.GetCurrentEffectiveScale());
 	--local d = 1 + 1 - VFLUI.GetCurrentEffectiveScale();
-	--VFL.print(d);
+	--VFL.print(x .."x" .. y);
 	--VFL.print(x*d);
 	return x,y;
 
+end
+
+function VFLUI.GetCurrentResolutionString()
+	local res = VFLUI.GetVideoResolution();
+	local x, y = ParseResolution(res);
+	return x .. "x" .. y;
 end
 
 local resolutiondd = {};
@@ -68,7 +74,7 @@ end
 
 function VFLUI.ResolutionsDropdownFunction() return resolutiondd; end
 
--- /script VFL.print(VFLUI.GetCurrentResolution());
+-- /script VFLUI.GetCurrentResolution();
 
 
 --WoWEvents:Bind("VARIABLES_LOADED", nil, function()

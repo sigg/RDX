@@ -73,13 +73,14 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 	end
 	
 	local function Save()
+		local _, _, dks, pks = string.find(file, "^(.*)_(.*)$");
 		local lst = le_names:GetList();
 		if lst then			
 			-- new layout are created
 			for i, v in ipairs(lst) do
 				local isexist2 = RDXDB.CheckObject(path .. "_" .. v, "Desktop");
 				if not isexist2 then 
-					RDXDB.Copy(file .. ":autodesk", path .. "_" .. v);
+					RDXDB.Copy(dks .. ":" .. pks .. ":autodesk", path .. "_" .. v);
 				end
 			end
 			

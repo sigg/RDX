@@ -108,7 +108,7 @@ VFLUI.CreateFramePool("ChatFrame2",
 		return f;
 	end, 
 	function(_, f) -- on acquired
-		--f:Show();
+		f:Show();
 		--f:ClearAllPoints();
 		--ChatFrame_RemoveAllMessageGroups(f.cf);
 		f.cf.channelList = {};

@@ -2,10 +2,9 @@
 ## Title: |c007ffcffRDX|r
 ## Notes: RDX is Raid Data Exchange - UI and raid mods.
 ## Author: Raid Informatics / OpenRDX Project
-## Version: 10.1.1
+## Version: 10.1.2
 ## RequiredDeps: VFL, RDX_mediapack
 ## OptionalDeps: RDX_languagepack_frFR, RDX_languagepack_deDE, RDX_languagepack_ruRU
-## SavedVariables: RDXSession
 
 RDX.xml
 
