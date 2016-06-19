@@ -59,8 +59,10 @@ end
 function RDXDK.SetDockOffset(frameprops, point, x, y)
 	if frameprops and frameprops.dock then
 		local a = frameprops.dock[point];
-		a.x = x;
-		a.y = y;
+		if a then
+			a.x = x;
+			a.y = y;
+		end
 	end
 end
 
