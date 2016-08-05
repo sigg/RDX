@@ -568,12 +568,17 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		end
 		
 		f.CheckAndShow = function(self)
-			WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
-			WoWEvents:Bind("UNIT_POWER", nil, function(arg1, arg2) 
-				if (arg1 == root:GetAttribute("unit") or "player") and ( arg2 == "HOLY_POWER" ) then
-					self:Update();
-				end 
-			end, self.id);
+			local spec = GetSpecialization();
+			if ( spec == SPEC_PALADIN_RETRIBUTION ) then
+				WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
+				WoWEvents:Bind("UNIT_POWER", nil, function(arg1, arg2) 
+					if (arg1 == root:GetAttribute("unit") or "player") and ( arg2 == "HOLY_POWER" ) then
+						self:Update();
+					end 
+				end, self.id);
+			else
+				WoWEvents:Unbind(self.id);
+			end
 			self:Update();
 		end
 		
