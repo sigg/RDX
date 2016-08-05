@@ -635,14 +635,24 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		end
 		
 		f.CheckAndShow = function(self)
-			WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
-			WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(arg1, arg2) 
-				if (arg1 == root:GetAttribute("unit") or "player") and ( arg2 == "CHI" ) then
-					self:Update();
-				end 
-			end, self.id);
+			local spec = GetSpecialization();
+			if ( spec == SPEC_MONK_WINDWALKER ) then
+				WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
+				WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(arg1, arg2) 
+					if (arg1 == root:GetAttribute("unit") or "player") and ( arg2 == "CHI" ) then
+						self:Update();
+					end 
+				end, self.id);
+			else
+				WoWEvents:Unbind(self.id);
+			end
 			self:Update();
 		end
+		
+		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() 
+			--PLAYER_FORM_UPDATE
+			f:CheckAndShow();
+		end, f.id .. "h");
 		
 		-- call
 		f:CheckAndShow();
@@ -724,6 +734,139 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		-- call
 		f:CheckAndShow();
 		
+	elseif class == "MAGE" then
+		-- create
+		for i = 1, 4 do
+			btn = VFLUI.AcquireFrame("Frame");
+			btn:SetWidth(desc.w / 4); btn:SetHeight(desc.h);
+			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
+			btn:Hide(); -- hide by default
+			
+			if desc.driver == 2 then
+				VFLUI.SetButtonSkin(btn, desc.bs);
+			elseif desc.driver == 3 then
+				VFLUI.SetBackdrop(btn, desc.bkd);
+			end
+
+			btn.tex = VFLUI.CreateTexture(btn);
+			btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", os, -os);
+			btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -os, os);
+			btn.tex:SetDrawLayer("ARTWORK", 3);
+			VFLUI.SetTexture(btn.tex, desc.texture);
+			btn.tex:SetVertexColor(0.5,0,1,1);
+			btn.tex:Show();
+				
+			if i == 1 then
+				btn:SetPoint(opri1, f, opri1);
+			else
+				btn:SetPoint(opri1, f.list[i-1], opri2, csx, csy);
+			end
+			
+			f.list[i] = btn;
+		end
+		
+		f.Update = function(self)
+			
+			local power = UnitPower("player", SPELL_POWER_ARCANE_CHARGES, true);
+			for i = 1, 4 do
+				local shouldShow = i <= power;
+				if shouldShow then
+					self.list[i]:Show();
+				else
+					self.list[i]:Hide();
+				end
+			end
+		end
+		
+		f.CheckAndShow = function(self)
+			local spec = GetSpecialization();
+			if ( spec == SPEC_MAGE_ARCANE ) then
+				WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
+				WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(arg1, arg2) 
+					if (arg1 == root:GetAttribute("unit") or "player" or "vehicle") and ( arg2 == "ARCANE_CHARGES" ) then
+						self:Update();
+					end 
+				end, self.id);
+			else
+				WoWEvents:Unbind(self.id);
+			end
+			self:Update();
+		end
+		
+		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() 
+			--PLAYER_FORM_UPDATE
+			f:CheckAndShow();
+		end, f.id .. "h");
+		
+		-- call
+		f:CheckAndShow();
+		
+	elseif class == "ROGUE" then
+		-- create
+		for i = 1, 5 do
+			btn = VFLUI.AcquireFrame("Frame");
+			btn:SetWidth(desc.w / 5); btn:SetHeight(desc.h);
+			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
+			btn:Hide(); -- hide by default
+			
+			if desc.driver == 2 then
+				VFLUI.SetButtonSkin(btn, desc.bs);
+			elseif desc.driver == 3 then
+				VFLUI.SetBackdrop(btn, desc.bkd);
+			end
+
+			btn.tex = VFLUI.CreateTexture(btn);
+			btn.tex:SetPoint("TOPLEFT", btn, "TOPLEFT", os, -os);
+			btn.tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -os, os);
+			btn.tex:SetDrawLayer("ARTWORK", 3);
+			VFLUI.SetTexture(btn.tex, desc.texture);
+			btn.tex:SetVertexColor(0.5,0,1,1);
+			btn.tex:Show();
+				
+			if i == 1 then
+				btn:SetPoint(opri1, f, opri1);
+			else
+				btn:SetPoint(opri1, f.list[i-1], opri2, csx, csy);
+			end
+			
+			f.list[i] = btn;
+		end
+		
+		f.Update = function(self)
+			
+			local combo = UnitPower("player", SPELL_POWER_COMBO_POINTS);
+			for i = 1, 5 do
+				local shouldShow = i <= combo;
+				if shouldShow then
+					self.list[i]:Show();
+				else
+					self.list[i]:Hide();
+				end
+			end
+		end
+		
+		f.CheckAndShow = function(self)
+			--local spec = GetSpecialization();
+			--if ( spec == SPEC_MAGE_ARCANE ) then
+				WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
+				WoWEvents:Bind("UNIT_POWER_FREQUENT", nil, function(arg1, arg2) 
+					if (arg1 == root:GetAttribute("unit") or "player" or "vehicle") and ( arg2 == "COMBO_POINTS" ) then
+						self:Update();
+					end 
+				end, self.id);
+			--else
+			--	WoWEvents:Unbind(self.id);
+			--end
+			self:Update();
+		end
+		
+		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() 
+			--PLAYER_FORM_UPDATE
+			f:CheckAndShow();
+		end, f.id .. "h");
+		
+		-- call
+		f:CheckAndShow();
 	else
 		-- do nothing
 	end
