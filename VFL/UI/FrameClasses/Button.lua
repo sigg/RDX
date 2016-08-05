@@ -19,7 +19,7 @@ function VFLUI.Button:new(parent)
 
 	-- Textures Bkg
 	local tex = VFLUI.CreateTexture(btn);
-	tex:SetTexture(1, 1, 1, 0.1);
+	tex:SetColorTexture(1, 1, 1, 0.1);
 	tex:SetDrawLayer("ARTWORK", 1);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -28,7 +28,7 @@ function VFLUI.Button:new(parent)
 
 	-- Normal Texture is owned by the button
 	tex = VFLUI.CreateTexture(btn);
-	tex:SetTexture(1, 1, 1, 0);
+	tex:SetColorTexture(1, 1, 1, 0);
 	tex:SetDrawLayer("ARTWORK", 2);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -38,7 +38,7 @@ function VFLUI.Button:new(parent)
 
 	-- Disabled Texture is owned by the button
 	tex = VFLUI.CreateTexture(btn);
-	tex:SetTexture(0.5, 0.5, 0.5, 1);
+	tex:SetColorTexture(0.5, 0.5, 0.5, 1);
 	tex:SetDrawLayer("ARTWORK", 2);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -48,7 +48,7 @@ function VFLUI.Button:new(parent)
 
 	-- Highlight Texture is owned by the button
 	tex = VFLUI.CreateTexture(btn);
-	tex:SetTexture(1, 1, 1, 0.2);
+	tex:SetColorTexture(1, 1, 1, 0.2);
 	tex:SetDrawLayer("ARTWORK", 2);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -58,7 +58,7 @@ function VFLUI.Button:new(parent)
 
 	-- Pushed Texture is owned by the button
 	tex = VFLUI.CreateTexture(btn);
-	tex:SetTexture(1, 1, 1, 0.4);
+	tex:SetColorTexture(1, 1, 1, 0.4);
 	tex:SetDrawLayer("ARTWORK", 2);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);

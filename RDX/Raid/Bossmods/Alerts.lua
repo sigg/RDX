@@ -157,14 +157,14 @@ function RDX.Alert.DefaultStyle(alert, w, h, noTimer)
 	_tl:SetPoint('RIGHT',sb,'LEFT',-1,0);
 	_tl:SetWidth(20); _tl:SetHeight(20);
 	_tl:Hide();
-	_tl:SetTexture(1,1,1); _tl:SetBlendMode("BLEND"); _tl:SetVertexColor(1,1,1);
+	_tl:SetColorTexture(1,1,1,1); _tl:SetBlendMode("BLEND"); _tl:SetVertexColor(1,1,1);
 	alert._tl = _tl;
 	local _tr = VFLUI.CreateTexture(sb);
 	_tr:SetDrawLayer("ARTWORK");
 	_tr:SetPoint('LEFT',sb,'RIGHT',1,0);
 	_tr:SetWidth(20); _tr:SetHeight(20);
 	_tr:Hide();
-	_tr:SetTexture(1,1,1); _tr:SetBlendMode("BLEND"); _tr:SetVertexColor(1,1,1);
+	_tr:SetColorTexture(1,1,1,1); _tr:SetBlendMode("BLEND"); _tr:SetVertexColor(1,1,1);
 	alert._tr = _tr;
 	
 	if not noTimer then
@@ -597,7 +597,7 @@ local function createFog()
 	textop:SetPoint("TOP", AlertParent, "TOP");
 	textop:SetWidth(AlertParent:GetWidth());
 	textop:SetHeight(30);
-	textop:SetTexture(1,1,1,1);
+	textop:SetColorTexture(1,1,1,1);
 	
 	textop:Show();
 	
@@ -605,7 +605,7 @@ local function createFog()
 	texleft:SetPoint("LEFT", AlertParent, "LEFT");
 	texleft:SetWidth(30);
 	texleft:SetHeight(AlertParent:GetHeight());
-	texleft:SetTexture(1,1,1,1);
+	texleft:SetColorTexture(1,1,1,1);
 	
 	texleft:Show();
 	
@@ -613,7 +613,7 @@ local function createFog()
 	texright:SetPoint("RIGHT", AlertParent, "RIGHT");
 	texright:SetWidth(30);
 	texright:SetHeight(AlertParent:GetHeight());
-	texright:SetTexture(1,1,1,1);
+	texright:SetColorTexture(1,1,1,1);
 	
 	texright:Show();
 	
@@ -621,7 +621,7 @@ local function createFog()
 	texbottom:SetPoint("BOTTOM", AlertParent, "BOTTOM");
 	texbottom:SetWidth(AlertParent:GetWidth());
 	texbottom:SetHeight(30);
-	texbottom:SetTexture(1,1,1,1);
+	texbottom:SetColorTexture(1,1,1,1);
 	
 	texbottom:Show();
 

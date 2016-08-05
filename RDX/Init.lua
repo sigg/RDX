@@ -71,6 +71,7 @@ local function VariablesLoaded()
 		RDXEvents:Dispatch("INIT_DESKTOP");
 		RDXEvents:DeleteKey("INIT_DESKTOP");
 		
+		
 		VFLT.NextFrame(math.random(10000000), function()
 			RDX:Debug(3, "DISPATCH INIT_SPELL");
 			RDXEvents:Dispatch("INIT_SPELL");
@@ -85,7 +86,7 @@ local function VariablesLoaded()
 			RDXEvents:Dispatch("INIT_1");
 			RDXEvents:DeleteKey("INIT_1");
 		end);
-	
+		
 		VFLT.ZMSchedule(4, function()
 			RDX:Debug(3, "DISPATCH INIT_DEFERRED");
 			RDXEvents:Dispatch("INIT_DEFERRED");
@@ -101,6 +102,7 @@ local function VariablesLoaded()
 			-- flag
 			RDX.deferreddone = true;
 		end);
+		
 		loaded = true;
 	end
 end

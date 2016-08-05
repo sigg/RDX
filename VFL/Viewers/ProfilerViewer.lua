@@ -126,7 +126,7 @@ local function CreateCell(parent)
 	selTexture:Hide();
 	selTexture:SetDrawLayer("ARTWORK", 1);
 	selTexture:SetAllPoints(self);
-	selTexture:SetTexture(0, 0, 0.6, 0.6);
+	selTexture:SetColorTexture(0, 0, 0.6, 0.6);
 	self.selTexture = selTexture;
 
 	-- Update the Destroy function
@@ -223,7 +223,7 @@ local function SetSummaryMode()
 	data:SetDataSource(function(cell, data, pos, absPos)
 		local col = cell.col;
 		if(absPos == 1) then
-			cell.selTexture:Show(); cell.selTexture:SetTexture(0,0,0.6,0.6);
+			cell.selTexture:Show(); cell.selTexture:SetColorTexture(0,0,0.6,0.6);
 			PaintTitle(colspec_summ, col);
 		else
 			cell.selTexture:Hide();
@@ -267,11 +267,11 @@ local function SetObjectMode()
 	data:SetDataSource(function(cell, data, pos, absPos)
 		local col = cell.col;
 		if(absPos == 1) then
-			cell.selTexture:Show(); cell.selTexture:SetTexture(0,0,0.6,0.6);
+			cell.selTexture:Show(); cell.selTexture:SetColorTexture(0,0,0.6,0.6);
 			PaintTitle(colspec_obj, col);
 		else
 			if data.type == "category" then
-				cell.selTexture:Show(); cell.selTexture:SetTexture(0,0.6,0.6,1);
+				cell.selTexture:Show(); cell.selTexture:SetColorTexture(0,0.6,0.6,1);
 			else
 				cell.selTexture:Hide();
 				
@@ -322,11 +322,11 @@ local function SetEventMode()
 	data:SetDataSource(function(cell, data, pos, absPos)
 		local col = cell.col;
 		if(absPos == 1) then
-			cell.selTexture:Show(); cell.selTexture:SetTexture(0,0,0.6,0.6);
+			cell.selTexture:Show(); cell.selTexture:SetColorTexture(0,0,0.6,0.6);
 			PaintTitle(colspec_event, col);
 		else
 			if data.type == "category" then
-				cell.selTexture:Show(); cell.selTexture:SetTexture(0,0.6,0.6,1);
+				cell.selTexture:Show(); cell.selTexture:SetColorTexture(0,0.6,0.6,1);
 			else
 				cell.selTexture:Hide();
 				cell:SetScript("OnClick", nil);
@@ -362,11 +362,11 @@ local function SetPoolMode()
 	data:SetDataSource(function(cell, data, pos, absPos)
 		local col = cell.col;
 		if(absPos == 1) then
-			cell.selTexture:Show(); cell.selTexture:SetTexture(0,0,0.6,0.6);
+			cell.selTexture:Show(); cell.selTexture:SetColorTexture(0,0,0.6,0.6);
 			PaintTitle(colspec_pool, col);
 		else
 			if data.type == "category" then
-				cell.selTexture:Show(); cell.selTexture:SetTexture(0,0.6,0.6,1);
+				cell.selTexture:Show(); cell.selTexture:SetColorTexture(0,0.6,0.6,1);
 			else
 				cell.selTexture:Hide();
 				cell:SetScript("OnClick", nil);

@@ -225,7 +225,7 @@ function VFLUI.ListOneButtonFnAlloc(parent, height, ty, RowOnClick, nbc, colSpec
 		selTexture:Hide();
 		selTexture:SetDrawLayer("ARTWORK", 1);
 		selTexture:SetAllPoints(self);
-		selTexture:SetTexture(1, 1, 1, 1);
+		selTexture:SetColorTexture(1, 1, 1, 1);
 		self.selTexture = selTexture;
 	end
 

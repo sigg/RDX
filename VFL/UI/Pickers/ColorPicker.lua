@@ -90,7 +90,7 @@ as_bkg:SetDrawLayer("ARTWORK");
 as_bkg:SetPoint("TOPLEFT", as, "TOPLEFT", 0, -7);
 as_bkg:SetWidth(as:GetWidth()); as_bkg:SetHeight(as:GetHeight() - 14);
 as_bkg:Show();
-as_bkg:SetTexture(1,1,1,1);
+as_bkg:SetColorTexture(1,1,1,1);
 
 -- Swatch frame
 local sf = VFLUI.AcquireFrame("Frame");
@@ -105,7 +105,7 @@ sf:Show();
 
 local swatch = sf:CreateTexture();
 swatch:SetAllPoints(sf);
-swatch:SetTexture(1,1,1,1);
+swatch:SetColorTexture(1,1,1,1);
 swatch:Show();
 
 -- RGBA boxes

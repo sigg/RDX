@@ -145,7 +145,7 @@ function RDXDAL.GenerateFilterDropTarget(parent)
 	tex:SetDrawLayer("ARTWORK", 1);
 	tex:SetPoint("TOPLEFT", self, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -4, 4);
-	tex:SetTexture(1, 1, 1, 0.2);
+	tex:SetColorTexture(1, 1, 1, 0.2);
 	tex:Hide();
 	
 	self:SetBackdrop(VFLUI.DefaultDialogBackdrop);
@@ -157,11 +157,11 @@ function RDXDAL.GenerateFilterDropTarget(parent)
 	-- Empty OnLayout method
 	self.DialogOnLayout = VFL.Noop;
 	-- On drag start/stop, highlight
-	self.OnDragStart = function() tex:SetTexture(1, 1, 1, 0.2); tex:Show(); end
+	self.OnDragStart = function() tex:SetColorTexture(1, 1, 1, 0.2); tex:Show(); end
 	self.OnDragStop = function() tex:Hide(); end
 	-- On drag enter/leave, highlight brightly
-	self.OnDragEnter = function() tex:SetTexture(1, 1, 1, 0.4); end
-	self.OnDragLeave = function() tex:SetTexture(1, 1, 1, 0.2); end
+	self.OnDragEnter = function() tex:SetColorTexture(1, 1, 1, 0.4); end
+	self.OnDragLeave = function() tex:SetColorTexture(1, 1, 1, 0.2); end
 
 	self.Destroy = VFL.hook(function(s)
 		s.DialogOnLayout = nil;

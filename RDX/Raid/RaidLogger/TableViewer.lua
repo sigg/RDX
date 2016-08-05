@@ -77,7 +77,7 @@ function Omni._CreateCell(ctr, ty)
 		selTexture:Hide();
 		selTexture:SetDrawLayer("BACKGROUND");
 		selTexture:SetAllPoints(self);
-		selTexture:SetTexture(1, 1, 1, 1);
+		selTexture:SetColorTexture(1, 1, 1, 1);
 		self.selTexture = selTexture;
 	end
 

@@ -359,8 +359,9 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 					-- color BackdropBorder
 					if UnitIsDead(unit) or not UnitIsConnected(unit) then
 						self:_SetBackdropBorderColor(_grey.r, _grey.g, _grey.b, _grey.a);
-					elseif not UnitPlayerControlled(unit) and UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit) then
-						self:_SetBackdropBorderColor(_grey.r, _grey.g, _grey.b, _grey.a);
+					-- TODO
+					--elseif not UnitPlayerControlled(unit) and UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit) then
+					--	self:_SetBackdropBorderColor(_grey.r, _grey.g, _grey.b, _grey.a);
 					elseif UnitIsFriend("player", unit) then
 						self:_SetBackdropBorderColor(RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b, 1);
 					elseif descg.showDiffColor and level then

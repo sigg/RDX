@@ -207,7 +207,7 @@ local function CreateCell(parent, ty)
 		selTexture:Hide();
 		selTexture:SetDrawLayer("BACKGROUND");
 		selTexture:SetAllPoints(self);
-		selTexture:SetTexture(1, 1, 1, 1);
+		selTexture:SetColorTexture(1, 1, 1, 1);
 		self.selTexture = selTexture;
 	end
 
@@ -234,7 +234,7 @@ local function CreateCell(parent, ty)
 	-- Create the selection texture
 	--local selTexture = VFLUI.CreateTexture(self);
 	--selTexture:Hide(); selTexture:SetDrawLayer("BACKGROUND");	selTexture:SetAllPoints(self);
-	--selTexture:SetTexture(0, 0, 0.6, 0.6);
+	--selTexture:SetColorTexture(0, 0, 0.6, 0.6);
 	--self.selTexture = selTexture;
 
 	-- Update the Destroy function
@@ -373,7 +373,7 @@ local function SetPackstoreMode()
 	data:SetDataSource(function(cell, data, pos, absPos)
 		local col = cell.col;
 		if(absPos == 1) then
-			cell.selTexture:Show(); cell.selTexture:SetTexture(0,0,0.6,0.6);
+			cell.selTexture:Show(); cell.selTexture:SetColorTexture(0,0,0.6,0.6);
 			PaintTitle(colspec_packstore, col);
 		else
 			PaintData(colspec_packstore, col, data);
@@ -423,7 +423,7 @@ local function SetGuildMode()
 	data:SetDataSource(function(cell, data, pos, absPos)
 		local col = cell.col;
 		if(absPos == 1) then
-			cell.selTexture:Show(); cell.selTexture:SetTexture(0,0,0.6,0.6);
+			cell.selTexture:Show(); cell.selTexture:SetColorTexture(0,0,0.6,0.6);
 			PaintTitle(colspec_srch, col);
 		else
 			PaintData(colspec_srch, col, data);
@@ -478,7 +478,7 @@ local function SetPackageMode()
 	data:SetDataSource(function(cell, data, pos, absPos)
 		local col = cell.col;
 		if(absPos == 1) then
-			cell.selTexture:Show(); cell.selTexture:SetTexture(0,0,0.6,0.6);
+			cell.selTexture:Show(); cell.selTexture:SetColorTexture(0,0,0.6,0.6);
 			PaintTitle(colspec_pkg, col);
 		else
 			PaintData(colspec_pkg, col, data);
@@ -538,7 +538,7 @@ local function SetTransfertMode()
 	data:SetDataSource(function(cell, data, pos, absPos)
 		local col = cell.col;
 		if(absPos == 1) then
-			cell.selTexture:Show(); cell.selTexture:SetTexture(0,0,0.6,0.6);
+			cell.selTexture:Show(); cell.selTexture:SetColorTexture(0,0,0.6,0.6);
 			PaintTitle(colspec_transfert, col);
 		else
 			PaintData(colspec_transfert, col, data);

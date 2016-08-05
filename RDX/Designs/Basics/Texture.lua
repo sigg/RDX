@@ -21,7 +21,7 @@ local rdxset_blue = RDXDAL.FindSet({class = "file", file = "RDXDiskSystem:sets:s
 if not rdxset_blue:IsOpen() then rdxset_blue:Open(); end
 ]];
 	createCode = [[
-	btn._t:SetTexture(0,0,1,1);
+	btn._t:SetColorTexture(0,0,1,1);
 ]];
 	paintCodeTest = [[
 		if not btn:IsShown() then btn:Show(); end
@@ -44,7 +44,7 @@ local rdxset_red = RDXDAL.FindSet({class = "file", file = "RDXDiskSystem:sets:se
 if not rdxset_red:IsOpen() then rdxset_red:Open(); end
 ]];
 	createCode = [[
-	btn._t:SetTexture(1,0,0,1);
+	btn._t:SetColorTexture(1,0,0,1);
 ]];
 	paintCodeTest = [[
 		if not btn:IsShown() then btn:Show(); end
@@ -67,7 +67,7 @@ local rdxset_green = RDXDAL.FindSet({class = "file", file = "RDXDiskSystem:sets:
 if not rdxset_green:IsOpen() then rdxset_green:Open(); end
 ]];
 	createCode = [[
-	btn._t:SetTexture(0,1,0,1);
+	btn._t:SetColorTexture(0,1,0,1);
 ]];
 	paintCodeTest = [[
 		if not btn:IsShown() then btn:Show(); end
@@ -90,7 +90,7 @@ local rdxset_yellow = RDXDAL.FindSet({class = "file", file = "RDXDiskSystem:sets
 if not rdxset_yellow:IsOpen() then rdxset_yellow:Open(); end
 ]];
 	createCode = [[
-	btn._t:SetTexture(1,1,0,1);
+	btn._t:SetColorTexture(1,1,0,1);
 ]];
 	paintCodeTest = [[
 		if not btn:IsShown() then btn:Show(); end

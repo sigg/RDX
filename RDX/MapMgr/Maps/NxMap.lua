@@ -214,7 +214,7 @@ function RDXMAP.Map:Create (index, data)
 	f:SetMinResize (50, 50)
 
 	local t = VFLUI.CreateTexture(f)
-	t:SetTexture (0, 0, 0, .2)
+	t:SetColorTexture (0, 0, 0, .2)
 	t:SetAllPoints (f)
 	f.texture = t
 	t:Show();
@@ -250,7 +250,7 @@ function RDXMAP.Map:Create (index, data)
 	local t = VFLUI.CreateTexture(ftip)
 	ftip.texture = t
 	t:SetAllPoints (ftip)
-	t:SetTexture (0, 0, 0, .85)
+	t:SetColorTexture (0, 0, 0, .85)
 	t:Show();
 
 	-- Font strings

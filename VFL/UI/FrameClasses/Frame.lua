@@ -224,7 +224,7 @@ function VFLUI.Separator:new(parent, str, objHeight, fontHeight)
 
 	local tex = VFLUI.CreateTexture(f);
 	tex:SetAllPoints(f); tex:Show();
-	tex:SetTexture(0,0,0.6); tex:SetGradient("HORIZONTAL", 1,1,1,0.1,0.1,0.1);
+	tex:SetColorTexture(0,0,0.6); tex:SetGradient("HORIZONTAL", 1,1,1,0.1,0.1,0.1);
 
 	local function Layout()
 		txt:SetWidth(VFL.clamp(f:GetWidth() - 10, 0.1, 10000));

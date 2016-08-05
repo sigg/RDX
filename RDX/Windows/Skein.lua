@@ -323,7 +323,7 @@ RDX.RegisterFeature({
 		local frames = {};
 		local function MakeFrame()
 			local tex = VFLUI.CreateTexture(win);
-			tex:SetTexture(1,1,1,1); tex:Hide();
+			tex:SetColorTexture(1,1,1,1); tex:Hide();
 			return tex;
 		end
 		local function GetFrame(n)

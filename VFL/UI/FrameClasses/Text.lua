@@ -79,7 +79,7 @@ function VFLUI.SeparatorText:new(parent, nblines, width)
 	
 	local tex = VFLUI.CreateTexture(self);
 	tex:SetAllPoints(self);
-	tex:SetTexture(0,0,0.6); tex:SetGradient("HORIZONTAL", 1,1,1,0.1,0.1,0.1);
+	tex:SetColorTexture(0,0,0.6); tex:SetGradient("HORIZONTAL", 1,1,1,0.1,0.1,0.1);
 	tex:Show();
 	self.tex = tex;
 

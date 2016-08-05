@@ -266,6 +266,7 @@ local function search()
 end
 VFLP.RegisterFunc("RDX", "Nameplates", search, true);
 
+--[[
 RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	local opt =  RDXG.RDXopt;
 	if not opt.dnp then
@@ -285,3 +286,4 @@ RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function()
 	end
 
 end);
+]]

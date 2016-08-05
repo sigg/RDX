@@ -117,6 +117,7 @@ function VFLT.AdaptiveSchedule2(id, interval, func)
 		return;
 	end
 	local asframe = VFLUI.AcquireFrame("Frame");
+	asframe:SetParent(VFLParent);
 	asframe:Show();
 	asframe.elapsed = 0;
 	function asframe.as(self, elapsed)

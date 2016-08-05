@@ -867,7 +867,7 @@ end
 local p_tex = VFL.Pool:new();
 p_tex.name = "Textures"; 
 p_tex.OnRelease = function(pool, x) 
-	x:Hide(); x:SetTexture(nil); 
+	x:Hide(); x:SetTexture(nil); x:SetColorTexture(0,0,0,0);
 	x:SetParent(VFLOrphan); x:ClearAllPoints(); x:SetAlpha(1);
 	x:SetDesaturated(nil);
 	x:SetTexCoord(0,1,0,1);

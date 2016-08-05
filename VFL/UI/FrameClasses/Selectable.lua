@@ -23,7 +23,7 @@ function VFLUI.Selectable:new(_, font)
 	selTexture:Hide();
 	selTexture:SetDrawLayer("ARTWORK", 1);
 	selTexture:SetAllPoints(self);
-	selTexture:SetTexture(1, 1, 1, 1);
+	selTexture:SetColorTexture(1, 1, 1, 1);
 	self.selTexture = selTexture;
 	-- Create the text
 	local text = VFLUI.CreateFontString(self);

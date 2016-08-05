@@ -188,18 +188,18 @@ function RDXMAP.APIMap.UpdateGroup (map, plX, plY)
 
 					local sc = map.ScaleDraw
 					RDXMAP.APIMap.ClipFrameTL (map, f, wx - 9 / sc, wy - 10 / sc, 16 * per / sc, 1 / sc)
-					f.texture:SetTexture (1, 1, 1, 1)
+					f.texture:SetColorTexture (1, 1, 1, 1)
 
 				else
 					RDXMAP.APIMap.ClipFrameW (map, f, wx, wy, 7, 7, 0)
 
 					if per > 0 then
-						f.texture:SetTexture (1, .1, .1, 1 - per * 2)
+						f.texture:SetColorTexture (1, .1, .1, 1 - per * 2)
 					else
 						if inactive then
-							f.texture:SetTexture (1, 0, 1, .7)	-- Punk
+							f.texture:SetColorTexture (1, 0, 1, .7)	-- Punk
 						else
-							f.texture:SetTexture (0, 0, 0, .5)	-- Dead
+							f.texture:SetColorTexture (0, 0, 0, .5)	-- Dead
 						end
 					end
 				end
@@ -234,7 +234,7 @@ function RDXMAP.APIMap.UpdateGroup (map, plX, plY)
 
 						-- Horizontal green bar
 						RDXMAP.APIMap.ClipFrameTL (map, f, wx - 9 / sc, wy - 2 / sc, 16 * per / sc, 1 / sc)
-						f.texture:SetTexture (0, 1, 0, 1)
+						f.texture:SetColorTexture (0, 1, 0, 1)
 
 						tStr = format ("\n|cff80ff80%s %d %s %d", tName, tLvl, tCls, th)
 
@@ -248,7 +248,7 @@ function RDXMAP.APIMap.UpdateGroup (map, plX, plY)
 
 							tEnPlayer = true
 							tStr = format ("\n|cffff4040%s %d %s %d%%", tName, tLvl, tCls, th)
-							f.texture:SetTexture (redGlow, .1, 0, 1)
+							f.texture:SetColorTexture (redGlow, .1, 0, 1)
 
 						elseif UnitIsEnemy ("player", unitTarget) then
 
@@ -257,14 +257,14 @@ function RDXMAP.APIMap.UpdateGroup (map, plX, plY)
 							local c = UnitClassification (unitTarget)
 							--	VFL.vprint ("Class %s", c)
 							if c == "elite" or c == "rareelite" or c == "worldboss" then
-								f.texture:SetTexture (1, .4, 1, 1)
+								f.texture:SetColorTexture (1, .4, 1, 1)
 							else
-								f.texture:SetTexture (1, 1, 0, 1)
+								f.texture:SetColorTexture (1, 1, 0, 1)
 							end
 
 						else
 							tStr = format ("\n|cffc0c0ff%s %d %s %d%%", tName, tLvl, tCls, th)
-							f.texture:SetTexture (.7, .7, 1, 1)
+							f.texture:SetColorTexture (.7, .7, 1, 1)
 						end
 					end
 				end

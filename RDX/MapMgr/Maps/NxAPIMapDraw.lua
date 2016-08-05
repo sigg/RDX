@@ -560,7 +560,7 @@ function RDXMAP.Map:DrawZoneRect (mapId, x, y, w, h, tip)
 
 	if RDXMAP.APIMap.ClipFrameTL (self, f, wx, wy, w * scale, h * scale) then
 		f.NxTip = tip
-		f.texture:SetTexture (r, g, b, .5)
+		f.texture:SetColorTexture (r, g, b, .5)
 	end
 end
 --]]

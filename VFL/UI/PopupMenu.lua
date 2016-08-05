@@ -222,7 +222,7 @@ function VFLUI.PopMenu:Expand(aFrame, data, limit)
 	-- Create the decor frame to "look pretty"
 	local decor = VFLUI.AcquireFrame("Frame");
 	decor:SetParent(VFLTOOLTIP);
-	decor:SetFrameLevel(10);
+	decor:SetFrameLevel(1);
 	decor:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	
 	-- Create the menu

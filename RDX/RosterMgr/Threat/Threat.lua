@@ -5,11 +5,11 @@ local sig_unit_threat = RDXEvents:LockSignal("UNIT_THREAT");
 -- Signal an update to ALL player threat.
 -- There is no event for one unit fire when rawthread change erf
 local function GlobalThreatUpdate()
-	RDXDAL.BeginEventBatch();
-	for _,unit in RDXDAL.Raid() do
-		sig_unit_threat:Raise(unit, unit.nid, unit.uid);
-	end
-	RDXDAL.EndEventBatch();
+	--RDXDAL.BeginEventBatch();
+	--for _,unit in RDXDAL.Raid() do
+	--	sig_unit_threat:Raise(unit, unit.nid, unit.uid);
+	--end
+	--RDXDAL.EndEventBatch();
 end
 
 ---------------------------------------------------

@@ -37,7 +37,7 @@ local function NewTabButtonTop(parent)
 
 	-- Textures
 	local tex = VFLUI.CreateTexture(btn);
-	tex:SetTexture(1, 1, 1, 0.1);
+	tex:SetColorTexture(1, 1, 1, 0.1);
 	tex:SetDrawLayer("ARTWORK", 1);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -46,7 +46,7 @@ local function NewTabButtonTop(parent)
 
 	-- Normal Texture is owned by the button
 	tex = btn:CreateTexture();
-	tex:SetTexture(1, 1, 1, 0);
+	tex:SetColorTexture(1, 1, 1, 0);
 	tex:SetDrawLayer("ARTWORK", 2);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -55,7 +55,7 @@ local function NewTabButtonTop(parent)
 
 	-- Disabled Texture is owned by the button
 	tex = btn:CreateTexture();
-	tex:SetTexture(0.5, 0.5, 0.5, 1);
+	tex:SetColorTexture(0.5, 0.5, 0.5, 1);
 	tex:SetDrawLayer("ARTWORK", 2);	
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -64,7 +64,7 @@ local function NewTabButtonTop(parent)
 
 	-- Highlight Texture IS NOT OWNED by the button
 	tex = VFLUI.CreateTexture(btn);
-	tex:SetTexture(1, 1, 1, 0.2);
+	tex:SetColorTexture(1, 1, 1, 0.2);
 	tex:SetDrawLayer("ARTWORK", 2);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -74,7 +74,7 @@ local function NewTabButtonTop(parent)
 
 	-- Pushed Texture is owned by the button
 	tex = btn:CreateTexture();
-	tex:SetTexture(1, 1, 1, 0.4);
+	tex:SetColorTexture(1, 1, 1, 0.4);
 	tex:SetDrawLayer("ARTWORK", 2);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -130,7 +130,7 @@ local function NewTabButtonBottom(parent)
 
 	-- Textures
 	local tex = VFLUI.CreateTexture(btn);
-	tex:SetTexture(1, 1, 1, 0.1);
+	tex:SetColorTexture(1, 1, 1, 0.1);
 	tex:SetDrawLayer("ARTWORK", 1);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -139,7 +139,7 @@ local function NewTabButtonBottom(parent)
 
 	-- Normal Texture is owned by the button
 	tex = btn:CreateTexture();
-	tex:SetTexture(1, 1, 1, 0);
+	tex:SetColorTexture(1, 1, 1, 0);
 	tex:SetDrawLayer("ARTWORK", 1);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -148,7 +148,7 @@ local function NewTabButtonBottom(parent)
 
 	-- Disabled Texture is owned by the button
 	tex = btn:CreateTexture();
-	tex:SetTexture(0.5, 0.5, 0.5, 1);
+	tex:SetColorTexture(0.5, 0.5, 0.5, 1);
 	tex:SetDrawLayer("ARTWORK", 1);	
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -157,7 +157,7 @@ local function NewTabButtonBottom(parent)
 
 	-- Highlight Texture IS NOT OWNED by the button
 	tex = VFLUI.CreateTexture(btn);
-	tex:SetTexture(1, 1, 1, 0.2);
+	tex:SetColorTexture(1, 1, 1, 0.2);
 	tex:SetDrawLayer("ARTWORK", 1);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -167,7 +167,7 @@ local function NewTabButtonBottom(parent)
 
 	-- Pushed Texture is owned by the button
 	tex = btn:CreateTexture();
-	tex:SetTexture(1, 1, 1, 0.4);
+	tex:SetColorTexture(1, 1, 1, 0.4);
 	tex:SetDrawLayer("ARTWORK", 1);
 	tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);

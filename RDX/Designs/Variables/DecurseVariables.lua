@@ -80,6 +80,7 @@ deTex_cf[4] = ]] .. string.format("%q", desc.texture4.path) .. [[;
 			decurse_possible = true;
 		else
 			decurseColor = deColor_cf[5];
+			decurseIcon = nil;
 			decurse_possible = false
 		end
 ]]);

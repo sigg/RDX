@@ -182,9 +182,10 @@ end
 function VFLUI.SetTexture(obj, descr)
 	if not descr then
 		obj:SetTexture(nil);
+		obj:SetColorTexture(0, 0, 0, 0);
 	else
 		if descr.color then
-			obj:SetTexture(VFL.explodeRGBA(descr.color));
+			obj:SetColorTexture(VFL.explodeRGBA(descr.color));
 		elseif descr.path then
 			obj:SetTexture(descr.path);
 		elseif descr.pathid then
@@ -220,7 +221,7 @@ function VFLUI.GenerateSetTextureCode(obj, descr)
 	local ret = "";
 	if descr.color then
 		local c = descr.color;
-		ret = obj .. ":SetTexture(" .. c.r .. "," .. c.g .. "," .. c.b .. "," .. c.a .. "); ";
+		ret = obj .. ":SetColorTexture(" .. c.r .. "," .. c.g .. "," .. c.b .. "," .. c.a .. "); ";
 	elseif descr.path then
 		ret = obj .. ":SetTexture(" .. string.format("%q", descr.path) .. "); ";
 	elseif descr.pathid then
@@ -765,15 +766,15 @@ function VFLUI.SetBackdrop(frame, bkdp)
 			frame._rdxbf:rsize();
 			
 			if bkdp.br then
-				frame._rdxbf._l:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
-				frame._rdxbf._t:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
-				frame._rdxbf._r:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
-				frame._rdxbf._b:SetTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+				frame._rdxbf._l:SetColorTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+				frame._rdxbf._t:SetColorTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+				frame._rdxbf._r:SetColorTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
+				frame._rdxbf._b:SetColorTexture(bkdp.br or 1, bkdp.bg or 1, bkdp.bb or 1, bkdp.ba or 1);
 			else
-				frame._rdxbf._l:SetTexture(1,1,1,1);
-				frame._rdxbf._t:SetTexture(1,1,1,1);
-				frame._rdxbf._r:SetTexture(1,1,1,1);
-				frame._rdxbf._b:SetTexture(1,1,1,1);
+				frame._rdxbf._l:SetColorTexture(1,1,1,1);
+				frame._rdxbf._t:SetColorTexture(1,1,1,1);
+				frame._rdxbf._r:SetColorTexture(1,1,1,1);
+				frame._rdxbf._b:SetColorTexture(1,1,1,1);
 			end
 			frame._rdxbf._l:SetDrawLayer(bkdp.dl, bkdp.borl);
 			frame._rdxbf._t:SetDrawLayer(bkdp.dl, bkdp.borl);
@@ -785,9 +786,10 @@ function VFLUI.SetBackdrop(frame, bkdp)
 			--frame._rdxbf._b:SetVertexColor(1,1,1,1);
 			
 			if bkdp.kr then
-				frame._bg:SetTexture(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
+				frame._bg:SetColorTexture(bkdp.kr or 1, bkdp.kg or 1, bkdp.kb or 1, bkdp.ka or 1);
 			else
 				frame._bg:SetTexture(nil);
+				frame._bg:SetColorTexture(0, 0, 0, 0);
 			end
 			
 			frame._bg:SetDrawLayer(bkdp.dl, bkdp.bgl or 1);
@@ -802,7 +804,7 @@ function VFLUI.SetBackdropColor(frame, r, g, b, a)
 	if frame._fbd then
 		frame._fbd:SetBackdropColor(r or 1, g or 1, b or 1, a or 1);
 	elseif frame._rdxbf then
-		frame._bg:SetTexture(r or 1, g or 1, b or 1, a or 1);
+		frame._bg:SetColorTexture(r or 1, g or 1, b or 1, a or 1);
 	else
 		frame:SetBackdropColor(r or 1, g or 1, b or 1, a or 1);
 	end
@@ -812,10 +814,10 @@ function VFLUI.SetBackdropBorderColor(frame, r, g, b, a)
 	if frame._fbd then
 		frame._fbb:SetBackdropBorderColor(r or 1, g or 1, b or 1, a or 1);
 	elseif frame._rdxbf then
-		frame._rdxbf._l:SetTexture(r or 1, g or 1, b or 1, a or 1);
-		frame._rdxbf._t:SetTexture(r or 1, g or 1, b or 1, a or 1);
-		frame._rdxbf._r:SetTexture(r or 1, g or 1, b or 1, a or 1);
-		frame._rdxbf._b:SetTexture(r or 1, g or 1, b or 1, a or 1);
+		frame._rdxbf._l:SetColorTexture(r or 1, g or 1, b or 1, a or 1);
+		frame._rdxbf._t:SetColorTexture(r or 1, g or 1, b or 1, a or 1);
+		frame._rdxbf._r:SetColorTexture(r or 1, g or 1, b or 1, a or 1);
+		frame._rdxbf._b:SetColorTexture(r or 1, g or 1, b or 1, a or 1);
 	else
 		frame:SetBackdropBorderColor(r or 1, g or 1, b or 1, a or 1);
 	end
@@ -926,10 +928,10 @@ function VFLUI.SetBackdropBorderRDX(frame, color, drawlayer, sublevel, size, bgc
 	local _t = VFLUI.CreateTexture(frame);
 	local _r = VFLUI.CreateTexture(frame);
 	local _b = VFLUI.CreateTexture(frame);
-	_l:SetTexture(VFL.explodeRGBA(color));
-	_t:SetTexture(VFL.explodeRGBA(color));
-	_r:SetTexture(VFL.explodeRGBA(color));
-	_b:SetTexture(VFL.explodeRGBA(color));
+	_l:SetColorTexture(VFL.explodeRGBA(color));
+	_t:SetColorTexture(VFL.explodeRGBA(color));
+	_r:SetColorTexture(VFL.explodeRGBA(color));
+	_b:SetColorTexture(VFL.explodeRGBA(color));
 	_l:SetDrawLayer(drawlayer, sublevel);
 	_t:SetDrawLayer(drawlayer, sublevel);
 	_r:SetDrawLayer(drawlayer, sublevel);
@@ -959,7 +961,7 @@ function VFLUI.SetBackdropBorderRDX(frame, color, drawlayer, sublevel, size, bgc
 	
 	if bgcolor then
 		local _bg = VFLUI.CreateTexture(frame);
-		_bg:SetTexture(VFL.explodeRGBA(bgcolor));
+		_bg:SetColorTexture(VFL.explodeRGBA(bgcolor));
 		_bg:SetDrawLayer("BACKGROUND", 0);
 		_bg:SetVertexColor(1,1,1,1);
 		_bg:SetAllPoints(frame);
@@ -995,10 +997,10 @@ end
 function VFLUI.ApplyColorBackdropBorderRDX(frame, color)
 	if (type(frame) ~= "table") or (type(color) ~= "table") then return; end
 	if not frame._rdxbl then error("Owner frame does not have a backdrop border RDX"); end
-	frame._rdxbl:SetTexture(VFL.explodeRGBA(color));
-	frame._rdxbt:SetTexture(VFL.explodeRGBA(color));
-	frame._rdxbr:SetTexture(VFL.explodeRGBA(color));
-	frame._rdxbb:SetTexture(VFL.explodeRGBA(color));
+	frame._rdxbl:SetColorTexture(VFL.explodeRGBA(color));
+	frame._rdxbt:SetColorTexture(VFL.explodeRGBA(color));
+	frame._rdxbr:SetColorTexture(VFL.explodeRGBA(color));
+	frame._rdxbb:SetColorTexture(VFL.explodeRGBA(color));
 end
 
 -------------------------------

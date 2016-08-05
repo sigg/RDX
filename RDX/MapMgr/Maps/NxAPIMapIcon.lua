@@ -239,7 +239,7 @@ function VFLUI.POIIcon:new(map, levelAdd)
 
 	-- Textures
 	local tex = VFLUI.CreateTexture(btn);
-	tex:SetTexture(1, 1, 1, 0.1);
+	tex:SetColorTexture(1, 1, 1, 0.1);
 	tex:SetDrawLayer("ARTWORK", 1);
 	--tex:SetPoint("TOPLEFT", btn, "TOPLEFT", 4, -4);
 	--tex:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -4, 4);
@@ -922,7 +922,7 @@ function RDXMAP.APIMap.UpdateIconsPOI(map)
 
 					local f2 = RDXMAP.APIMap.GetIcon (map, 0)
 					RDXMAP.APIMap.ClipFrameZTLO (map, f2, pX, pY, sz, sz, -15, -15)
-					f2.texture:SetTexture (0, 0, 0, .35)
+					f2.texture:SetColorTexture (0, 0, 0, .35)
 
 					f2.NXType = 2000
 					f2.NxTip = tip
@@ -938,14 +938,14 @@ function RDXMAP.APIMap.UpdateIconsPOI(map)
 
 							local f3 = RDXMAP.APIMap.GetIconNI (map, 2)
 							RDXMAP.APIMap.ClipFrameZTLO (map, f3, pX, pY, sz * (10 - leftDur) * .1, 3 / map.ScaleDraw, -15, -15)
-							f3.texture:SetTexture (.5, 1, .5, al)
+							f3.texture:SetColorTexture (.5, 1, .5, al)
 
 							local f3 = RDXMAP.APIMap.GetIconNI (map, 2)
 							RDXMAP.APIMap.ClipFrameZTLO (map, f3, pX, pY, sz * (10 - leftDur) * .1, 3 / map.ScaleDraw, -15, 12)
-							f3.texture:SetTexture (.5, 1, .5, al)
+							f3.texture:SetColorTexture (.5, 1, .5, al)
 						end
 
---						f2.texture:SetTexture (.5, 1, .5, abs (GetTime() % .6 - .3) / .3 * .7 + .3)
+--						f2.texture:SetColorTexture (.5, 1, .5, abs (GetTime() % .6 - .3) / .3 * .7 + .3)
 					end
 
 					local red = .3
@@ -955,7 +955,7 @@ function RDXMAP.APIMap.UpdateIconsPOI(map)
 						blue = .3
 					end
 
-					f2.texture:SetTexture (red, .3, blue, abs (GetTime() % 2 - 1) * .5 + .5)
+					f2.texture:SetColorTexture (red, .3, blue, abs (GetTime() % 2 - 1) * .5 + .5)
 
 					local per = leftDur / doneDur
 					local vper = per > .1 and 1 or per * 10
@@ -985,13 +985,13 @@ function RDXMAP.APIMap.UpdateIconsPOI(map)
 --					VFL.vprintCtrl ("I %s %s %s", name, txIndex, iconType or "nil")
 
 					if iconType == 1 then	-- Ally?
-						f2.texture:SetTexture (0, 0, 1, .3)
+						f2.texture:SetColorTexture (0, 0, 1, .3)
 --						VFL.vprintCtrl ("Blue")
 					elseif iconType == 2 then	-- Horde?
-						f2.texture:SetTexture (1, 0, 0, .3)
+						f2.texture:SetColorTexture (1, 0, 0, .3)
 --						VFL.vprintCtrl ("Red")
 					else
-						f2.texture:SetTexture (0, 0, 0, .3)
+						f2.texture:SetColorTexture (0, 0, 0, .3)
 					end
 
 					f2.NXType = 2000

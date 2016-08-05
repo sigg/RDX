@@ -325,12 +325,12 @@ function RDXMAP.Map:UpdateHotspotsDebug()
 				if mapId == curMapId then
 
 					if mapT == self.HotspotDebugCurT and n == self.HotspotDebugCurI then
-						f.texture:SetTexture (.2, .2, .5, .5)
+						f.texture:SetColorTexture (.2, .2, .5, .5)
 					else
-						f.texture:SetTexture (0, 0, .4, .35)
+						f.texture:SetColorTexture (0, 0, .4, .35)
 					end
 				else
-					f.texture:SetTexture (.1, 0, 0, .3)
+					f.texture:SetColorTexture (.1, 0, 0, .3)
 				end
 			end
 

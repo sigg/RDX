@@ -647,7 +647,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		-- call
 		f:CheckAndShow();
 		
-	elseif class == "PRIEST" then
+	elseif class == "PRIEST_DISABLE" then
 		-- create
 		for i = 1, 5 do
 			btn = VFLUI.AcquireFrame("Frame");

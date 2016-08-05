@@ -97,7 +97,7 @@ pvwf:Show();
 local pvw = pvwf:CreateTexture();
 pvw:SetPoint("CENTER", pvwf, "CENTER");
 pvw:SetWidth(192); pvw:SetHeight(192);
-pvw:SetTexture(1,1,1,0.4); pvw:Show();
+pvw:SetColorTexture(1,1,1,0.4); pvw:Show();
 
 ----------- Blend
 local hadd = {
@@ -396,7 +396,7 @@ local function BrowserAcquireCell(parent)
 	f:SetScript("OnClick", BrowserCellOnClick);
 
 	local hltTex = VFLUI.CreateTexture(f);
-	hltTex:SetTexture(1,1,1,0.1);
+	hltTex:SetColorTexture(1,1,1,0.1);
 	hltTex:SetAllPoints();
 	hltTex:Show();
 	f:SetHighlightTexture(hltTex);

@@ -116,13 +116,13 @@ function VFLUI.Framing.Default(self, titleHeight, bkdp)
     
 	local tx2 = VFLUI.CreateTexture(titleBar);
 	tx2:SetDrawLayer("ARTWORK");
-	tx2:SetTexture(1,1,1); tx2:SetGradient("VERTICAL",1,1,1,0.3,0.3,0.3);
+	tx2:SetColorTexture(1,1,1,1); tx2:SetGradient("VERTICAL",1,1,1,0.3,0.3,0.3);
 	tx2:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -5);
 	tx2:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -5, -titleHeight);
 	tx2:Show();
 
 	function self:SetText(txt) titleText:SetText(txt); end
-	function self:SetTitleColor(r,g,b) tx2:SetTexture(r,g,b); end
+	function self:SetTitleColor(r,g,b) tx2:SetColorTexture(r,g,b); end
 	
 	local perf, perfText;
 	if VFLP.IsEnabled() and activateperftext then

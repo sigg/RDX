@@ -254,7 +254,7 @@ function RDXMAP.APIMap.UpdateOverlay (map, mapId, bright, noUnexplored, main)
 				if RDXMAP.APIMap.ClipFrameTL (map, frm, wx, wy, txFileW * scale, txFileH * scale) then
 
 --					if IsShiftKeyDown() then
---						frm.texture:SetTexture (1, 0, 0)
+--						frm.texture:SetColorTexture (1, 0, 0)
 --					end
 --[[
 					if IsAltKeyDown() then		-- DEBUG!

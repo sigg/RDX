@@ -347,11 +347,11 @@ function RDXMAP.Quest.UpdateIcons (map)
 											f.NxTip = tip
 
 											if hover then
-												f.texture:SetTexture (hovR, hovG, hovB, hovA)
+												f.texture:SetColorTexture (hovR, hovG, hovB, hovA)
 											elseif tracking then
-												f.texture:SetTexture (trkR, trkG, trkB, trkA)
+												f.texture:SetColorTexture (trkR, trkG, trkB, trkA)
 											else
-												f.texture:SetTexture (r, g, b, col[4])
+												f.texture:SetColorTexture (r, g, b, col[4])
 											end
 										end
 									end

@@ -37,7 +37,7 @@ local pvwBkg = VFLUI.CreateTexture(pvwf);
 pvwBkg:SetDrawLayer("ARTWORK");
 pvwBkg:SetPoint("TOPLEFT", pvwf, "TOPLEFT", 5, -5);
 pvwBkg:SetWidth(110); pvwBkg:SetHeight(170);
-pvwBkg:SetTexture(.5,.5,.5,1); pvwBkg:Show();
+pvwBkg:SetColorTexture(.5,.5,.5,1); pvwBkg:Show();
 
 local pvw = VFLUI.CreateFontString(pvwf);
 pvw:SetDrawLayer("OVERLAY");
