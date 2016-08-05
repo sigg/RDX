@@ -13,7 +13,7 @@ RDXMD = RegisterVFLModule({
 local idToClass = { 
 	"PRIEST", "DRUID", "PALADIN", 
 	"SHAMAN", "WARRIOR", "WARLOCK", 
-	"MAGE", "ROGUE", "HUNTER", "DEATHKNIGHT", "MONK"
+	"MAGE", "ROGUE", "HUNTER", "DEATHKNIGHT", "MONK", "DEMONHUNTER"
 };
 local classToID = VFL.invert(idToClass);
 
@@ -21,7 +21,7 @@ local idToLocalName = {
 	VFLI.i18n("Priest"), VFLI.i18n("Druid"), VFLI.i18n("Paladin"), 
 	VFLI.i18n("Shaman"), VFLI.i18n("Warrior"), VFLI.i18n("Warlock"), 
 	VFLI.i18n("Mage"), VFLI.i18n("Rogue"), VFLI.i18n("Hunter"), 
-	VFLI.i18n("DeathKnight"), VFLI.i18n("Monk"),
+	VFLI.i18n("DeathKnight"), VFLI.i18n("Monk"), VFLI.i18n("DemonHunter"),
 };
 local localNameToID = VFL.invert(idToLocalName);
 
@@ -34,7 +34,26 @@ local nameToClassColor = RAID_CLASS_COLORS;
 local _grey = { r=.5, g=.5, b=.5};
 
 local classIcons = {
-	["WARRIOR"] = {0, 0.25, 0, 0.25},
+	["WARRIOR"]		= {0, 0.25, 0, 0.25},
+	["MAGE"]		= {0.25, 0.49609375, 0, 0.25},
+	["ROGUE"]		= {0.49609375, 0.7421875, 0, 0.25},
+	["DRUID"]		= {0.7421875, 0.98828125, 0, 0.25},
+	["HUNTER"]		= {0, 0.25, 0.25, 0.5},
+	["SHAMAN"]	 	= {0.25, 0.49609375, 0.25, 0.5},
+	["PRIEST"]		= {0.49609375, 0.7421875, 0.25, 0.5},
+	["WARLOCK"]		= {0.7421875, 0.98828125, 0.25, 0.5},
+	["PALADIN"]		= {0, 0.25, 0.5, 0.75},
+	["DEATHKNIGHT"]	= {0.25, .5, 0.5, .75},
+	["MONK"]		= {0.5, 0.73828125, 0.5, .75},
+	["DEMONHUNTER"]	= {0.7421875, 0.98828125, 0.5, 0.75},
+	["PETS"] = {0, 1, 0, 1},
+	["MAINTANK"] = {0, 1, 0, 1},
+	["MAINASSIST"] = {0, 1, 0, 1}
+};
+local class_un = {0, 0, 0, 0};
+
+--[[
+["WARRIOR"] = {0, 0.25, 0, 0.25},
 	["MAGE"] = {0.25, 0.5, 0, 0.25},
 	["ROGUE"] = {0.5, 0.75, 0, 0.25},
 	["DRUID"] = {0.74, 1, 0, 0.25},
@@ -45,11 +64,8 @@ local classIcons = {
 	["PALADIN"] = {0, 0.25, 0.5, 0.75},
 	["DEATHKNIGHT"]	= {0.25, .5, 0.5, .75},
 	["MONK"]	= {0.5, .75, 0.5, .75},
-	["PETS"] = {0, 1, 0, 1},
-	["MAINTANK"] = {0, 1, 0, 1},
-	["MAINASSIST"] = {0, 1, 0, 1}
-};
-local class_un = {0, 0, 0, 0};
+	["DEMONHUNTER"]	= {0.7421875, 0.98828125, 0.5, 0.75},
+]]
 
 --- Retrieve the class ID for the class with the given proper name.
 -- The proper name is the SECOND parameter returned from UnitClass(), and is
@@ -112,6 +128,7 @@ local idToLocalsubclass = {
 	"Assassination","Combat", "Subtlety",
 	"Beast Mastery", "Marksmanship", "Survival",
 	"Blood", "Frost", "Unholy",
+	"DH1", "DH2", "DH3",
 };
 local localsubclassToID = VFL.invert(idToLocalsubclass);
 local _unsubclass = "Unknown";
@@ -128,6 +145,7 @@ talentIndex["ROGUE"] = 23;
 talentIndex["HUNTER"] = 26;
 talentIndex["DEATHKNIGHT"] = 29;
 talentIndex["MONK"] = 32;
+talentIndex["DEMONHUNTER"] = 35;
 
 local idToSubClassColor = { 
 	RAID_CLASS_COLORS["PRIEST"], RAID_CLASS_COLORS["PRIEST"], RAID_CLASS_COLORS["PRIEST"],
@@ -141,6 +159,7 @@ local idToSubClassColor = {
 	RAID_CLASS_COLORS["HUNTER"], RAID_CLASS_COLORS["HUNTER"], RAID_CLASS_COLORS["HUNTER"],
 	RAID_CLASS_COLORS["DEATHKNIGHT"], RAID_CLASS_COLORS["DEATHKNIGHT"], RAID_CLASS_COLORS["DEATHKNIGHT"],
 	RAID_CLASS_COLORS["MONK"], RAID_CLASS_COLORS["MONK"], RAID_CLASS_COLORS["MONK"],
+	RAID_CLASS_COLORS["DEMONHUNTER"], RAID_CLASS_COLORS["DEMONHUNTER"], RAID_CLASS_COLORS["DEMONHUNTER"],
 };
 local localSubClassColorToID = VFL.invert(idToSubClassColor);
 local _unsbColor = { r=.5, g=.5, b=.5};
@@ -183,6 +202,9 @@ idToTexture[31] = "Interface\\Icons\\Spell_Deathknight_UnholyPresence";
 idToTexture[32] = "Interface\\Icons\\Spell_Monk_Brewmaster_Spec";
 idToTexture[33] = "Interface\\Icons\\Spell_Monk_MistWeaver_Spec";
 idToTexture[34] = "Interface\\Icons\\Spell_Monk_WindWalker_Spec";
+idToTexture[35] = "Interface\\Icons\\Spell_Monk_Brewmaster_Spec";
+idToTexture[36] = "Interface\\Icons\\Spell_Monk_MistWeaver_Spec";
+idToTexture[37] = "Interface\\Icons\\Spell_Monk_WindWalker_Spec";
 
 local _unsbTex = "Interface\\InventoryItems\\WoWUnknownItem01.blp";
 

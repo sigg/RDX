@@ -223,7 +223,6 @@ function VFLUI.PopMenu:Expand(aFrame, data, limit)
 	local decor = VFLUI.AcquireFrame("Frame");
 	decor:SetParent(VFLTOOLTIP);
 	decor:SetFrameLevel(1);
-	decor:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	
 	-- Create the menu
 	local menuSz = table.getn(data);
@@ -244,6 +243,8 @@ function VFLUI.PopMenu:Expand(aFrame, data, limit)
 	menu.decor = decor;
 	decor:SetPoint("TOPLEFT", menu, "TOPLEFT", -5, 4);
 	decor:SetPoint("BOTTOMRIGHT", menu, "BOTTOMRIGHT", 5, -5);
+	
+	decor:SetBackdrop(VFLUI.BlackDialogBackdrop);
 
 	-- Anchor the menu to the appropriate point
 	menu:SetPoint(aGrabPoint, aFrame, aHoldPoint, VFLUI.TransformCoords(aFrame, VFLParent, dx, dy));

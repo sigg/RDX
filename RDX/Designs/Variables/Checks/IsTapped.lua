@@ -20,7 +20,8 @@ local tapped = true;
 ]]);
 		else
 			code:AppendCode([[
-local tapped = UnitIsTapped(uid) and (not UnitIsTappedByPlayer(uid));
+--local tapped = UnitIsTapped(uid) and (not UnitIsTappedByPlayer(uid));
+local tap = nil;
 ]]);
 		end
 		end);

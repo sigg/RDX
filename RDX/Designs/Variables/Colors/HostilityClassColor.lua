@@ -22,6 +22,7 @@ RDX.RegisterFeature({
     ApplyFeature = function(desc, state)
     	if not desc.friendlyDeathKnightColor then desc.friendlyDeathKnightColor = {r=0.77, g=0.12, b=0.23,a=1}; end
     	if not desc.friendlyMonkColor then desc.friendlyMonkColor = {r=0, g=1, b=0.59,a=1}; end
+		if not desc.friendlyDemonHunterColor then desc.friendlyDemonHunterColor = {r=0.64, g=0.19, b=0.79,a=1}; end
         state:Attach(state:Slot("EmitClosure"), true, function(code)
             code:AppendCode([[
 local hostileColor_class_cf = {};
@@ -39,6 +40,7 @@ hostileColor_class_cf[11] = ]] .. Serialize(desc.friendlyShamanColor) .. [[;
 hostileColor_class_cf[12] = ]] .. Serialize(desc.friendlyRogueColor) .. [[;
 hostileColor_class_cf[13] = ]] .. Serialize(desc.friendlyDeathKnightColor) .. [[;
 hostileColor_class_cf[14] = ]] .. Serialize(desc.friendlyMonkColor) .. [[;
+hostileColor_class_cf[15] = ]] .. Serialize(desc.friendlyDemonHunterColor) .. [[;
 ]]);
         end);
         state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
@@ -68,6 +70,8 @@ hostileColor_class_cf[14] = ]] .. Serialize(desc.friendlyMonkColor) .. [[;
 				]] .. desc.name .. [[  = hostileColor_class_cf[13];
 			elseif _name == "MONK" then
 				]] .. desc.name .. [[  = hostileColor_class_cf[14];
+			elseif _name == "DEMONHUNTER" then
+				]] .. desc.name .. [[  = hostileColor_class_cf[15];
 			else
 				]] .. desc.name .. [[  = hostileColor_class_cf[1];
 			end
@@ -157,7 +161,7 @@ hostileColor_class_cf[14] = ]] .. Serialize(desc.friendlyMonkColor) .. [[;
         er:EmbedChild(swatch_friendlyRogueColor); er:Show();
         ui:InsertFrame(er);
 	
-	local er = VFLUI.EmbedRight(ui, VFLI.i18n("Friendly Deathknight color"));
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Friendly Deathknight color"));
         local swatch_friendlyDeathKnightColor = VFLUI.ColorSwatch:new(er);
         swatch_friendlyDeathKnightColor:Show();
         if desc and desc.friendlyDeathKnightColor then swatch_friendlyDeathKnightColor:SetColor(VFL.explodeRGBA(desc.friendlyDeathKnightColor)); end
@@ -169,6 +173,13 @@ hostileColor_class_cf[14] = ]] .. Serialize(desc.friendlyMonkColor) .. [[;
         swatch_friendlyMonkColor:Show();
         if desc and desc.friendlyMonkColor then swatch_friendlyMonkColor:SetColor(VFL.explodeRGBA(desc.friendlyMonkColor)); end
         er:EmbedChild(swatch_friendlyMonkColor); er:Show();
+        ui:InsertFrame(er);
+		
+		local er = VFLUI.EmbedRight(ui, VFLI.i18n("Friendly Demon Hunter color"));
+        local swatch_friendlyDemonHunterColor = VFLUI.ColorSwatch:new(er);
+        swatch_friendlyDemonHunterColor:Show();
+        if desc and desc.friendlyDemonHunterColor then swatch_friendlyDemonHunterColor:SetColor(VFL.explodeRGBA(desc.friendlyDemonHunterColor)); end
+        er:EmbedChild(swatch_friendlyDemonHunterColor); er:Show();
         ui:InsertFrame(er);
        
         local er = VFLUI.EmbedRight(ui, VFLI.i18n("Neutral color"));
@@ -199,8 +210,9 @@ hostileColor_class_cf[14] = ]] .. Serialize(desc.friendlyMonkColor) .. [[;
                 friendlyDruidColor = swatch_friendlyDruidColor:GetColor();
                 friendlyShamanColor = swatch_friendlyShamanColor:GetColor();   
                 friendlyRogueColor = swatch_friendlyRogueColor:GetColor();   
-		friendlyDeathKnightColor = swatch_friendlyDeathKnightColor:GetColor();
-		friendlyMonkColor = swatch_friendlyMonkColor:GetColor();
+				friendlyDeathKnightColor = swatch_friendlyDeathKnightColor:GetColor();
+				friendlyMonkColor = swatch_friendlyMonkColor:GetColor();
+				friendlyDemonHunterColor = swatch_friendlyDemonHunterColor:GetColor();
                 neutralColor = swatch_neutralColor:GetColor();
                 hostileColor = swatch_hostileColor:GetColor();
             };
@@ -214,16 +226,17 @@ hostileColor_class_cf[14] = ]] .. Serialize(desc.friendlyMonkColor) .. [[;
             name = "hostilityclassColor";
             friendlyColor = {r=0, g=0.75, b=0,a=1};
             friendlyPriestColor = {r=1.0, g=1.0, b=1.0,a=1}; 
-             friendlyWarlockColor = {r=0.58, g=0.51, b=0.79,a=1};
-             friendlyHunterColor = {r=0.67, g=0.83, b=0.45,a=1};
-             friendlyWarriorColor = {r=0.78, g=0.61, b=0.43,a=1};
-             friendlyPaladinColor = {r=0.96, g=0.55, b=0.73,a=1};   
-             friendlyMageColor = {r=0.41, g=0.8, b=0.94,a=1};
-             friendlyDruidColor = {r=1.0, g=0.49, b=0.04,a=1};
-             friendlyShamanColor = {r=0.14, g=0.34, b=1.0,a=1};   
-             friendlyRogueColor = {r=1.0, g=0.96, b=0.41,a=1};
-	     friendlyDeathKnightColor = {r=0.77, g=0.12, b=0.23,a=1};
-	     friendlyMonkColor = {r=0, g=1, b=0.59,a=1};
+            friendlyWarlockColor = {r=0.58, g=0.51, b=0.79,a=1};
+            friendlyHunterColor = {r=0.67, g=0.83, b=0.45,a=1};
+            friendlyWarriorColor = {r=0.78, g=0.61, b=0.43,a=1};
+            friendlyPaladinColor = {r=0.96, g=0.55, b=0.73,a=1};   
+            friendlyMageColor = {r=0.41, g=0.8, b=0.94,a=1};
+            friendlyDruidColor = {r=1.0, g=0.49, b=0.04,a=1};
+            friendlyShamanColor = {r=0.14, g=0.34, b=1.0,a=1};   
+            friendlyRogueColor = {r=1.0, g=0.96, b=0.41,a=1};
+			friendlyDeathKnightColor = {r=0.77, g=0.12, b=0.23,a=1};
+			friendlyMonkColor = {r=0, g=1, b=0.59,a=1};
+			friendlyDemonHunterColor = {r=0.64, g=0.19, b=0.79,a=1};
             neutralColor = {r=0.75,g=0.75,b=0,a=1};
             hostileColor = {r=0.75,g=0.15,b=0,a=1};
         };

@@ -11,6 +11,7 @@
 	ExposeFeature = function(desc, state, errs)
 		state:AddSlot("Var_combopoint");
 		state:AddSlot("NumberVar_combopoint");
+		state:AddSlot("NumberVar_combopointmax");
 		state:AddSlot("FracVar_combopoints");
 		return true;
 	end;
@@ -21,7 +22,7 @@
 		local combopoint = 5;
 		local combopoints = 1;
 ]]);
-		elseif desc.useplayer then
+		elseif desc.useplayerdisable then
 			code:AppendCode([[
 		local combopoint = 0;
 		if UnitExists("vehicle") then
@@ -38,16 +39,17 @@
 ]]); 
 		else
 			code:AppendCode([[
-		local combopoint = GetComboPoints(uid);
-		local combopoints = GetComboPoints(uid) / 5;
+		local combopoint = UnitPower(uid, SPELL_POWER_COMBO_POINTS);
+		local combopointmax = UnitPowerMax(uid, SPELL_POWER_COMBO_POINTS);
+		local combopoints = combopoint / combopointmax;
 ]]); 
 		end
 		end);
 		local wstate = state:GetContainingWindowState();
 		if wstate then
 			local mux = wstate:GetSlotValue("Multiplexer");
-			local mask = mux:GetPaintMask("COMBO_POINTS");
-			mux:Event_UnitMask("UNIT_COMBO_POINTS", mask);
+			local mask = mux:GetPaintMask("POWER");
+			mux:Event_UnitMask("UNIT_POWER", mask);
 		end
 	end;
 	UIFromDescriptor = function(desc, parent, state)

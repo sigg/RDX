@@ -264,8 +264,6 @@ RDXDB.GetObjectInstance(]] .. string.format("%q", desc.externalNameFiltercd) .. 
 				state:Attach("EmitClosure", true, function(code) code:AppendCode(closureCode); end);
 			end
 		elseif desc.ftype == 3 then
-			desc.nIcons = 5;
-			desc.rows = 1
 			local closureCode = [[
 local color]] .. objname .. [[ = {};
 color]] .. objname .. [[[1] = ]] .. Serialize(desc.color1) .. [[;
