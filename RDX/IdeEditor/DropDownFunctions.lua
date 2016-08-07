@@ -148,6 +148,8 @@ local power = {
     { text = "SPELL_POWER_HOLY_POWER" },
     { text = "SPELL_POWER_SHADOW_ORBS" },
     { text = "SPELL_POWER_LIGHT_FORCE" },
+	{ text = "SPELL_POWER_CHI" },
+	{ text = "SPELL_POWER_COMBO_POINTS" },
     { text = "ALTERNATE_POWER_INDEX" },
 };
 function RDXUI.PowerSelectionFunc() return power; end
