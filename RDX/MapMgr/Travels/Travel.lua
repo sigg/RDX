@@ -34,8 +34,9 @@ function RDXMAP.Travel:Init()
 	local gopts = mbo.data
 	self.GOpts = gopts
 
-	self.OrigTakeTaxiNode = TakeTaxiNode
-	TakeTaxiNode = self.TakeTaxiNode		-- Hook it
+	--TODO
+	--self.OrigTakeTaxiNode = TakeTaxiNode
+	--TakeTaxiNode = self.TakeTaxiNode		-- Hook it
 
 	local tr = {}
 	self.Travel = tr
@@ -421,9 +422,10 @@ local function ProcessTaxi(self, elapsed)
 end
 
 RDXEvents:Bind("INIT_POST", nil, function() 
-	local taxiFrame = CreateFrame("Frame");
-	taxiFrame:SetScript("OnUpdate", ProcessTaxi);
-	VFLP.RegisterFunc("RDXMAP", "ProcessTaxi", ProcessTaxi, true);
+	--TODO
+	--local taxiFrame = CreateFrame("Frame");
+	--taxiFrame:SetScript("OnUpdate", ProcessTaxi);
+	--VFLP.RegisterFunc("RDXMAP", "ProcessTaxi", ProcessTaxi, true);
 end);
 
 -------------------------------------------------------------------------------

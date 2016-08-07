@@ -48,13 +48,15 @@ function RDXUI.ClassBar:new(parent, root, desc)
 	
 	if class == "DEATHKNIGHT" then
 	
+		local maxRune = UnitPowerMax(root:GetAttribute("unit") or "player", SPELL_POWER_RUNES);
+		f.maxRune = maxRune;
 		local ftc = FreeTimer.CreateFreeTimerClass(true, true, nil, VFLUI.GetTextTimerTypesString("Seconds"), false, false, FreeTimer.SB_Full, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, FreeTimer.SB_Full, FreeTimer.Text_None, FreeTimer.TextInfo_None, FreeTimer.TexIcon_Hide, nil, nil);
 	
-		for i = 1, 6 do
+		for i = 1, 7 do
 			btn = VFLUI.AcquireFrame("Frame");
-			btn:SetWidth(desc.w /6); btn:SetHeight(desc.h);
+			btn:SetWidth(desc.w /maxRune); btn:SetHeight(desc.h);
 			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
-			btn:Show(); -- hide by default
+			btn:Hide(); -- hide by default
 			
 			if desc.driver == 2 then
 				VFLUI.SetButtonSkin(btn, desc.bs);
@@ -66,14 +68,15 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			btn.sb:SetParent(btn);
 			btn.sb:SetOrientation("HORIZONTAL");
 			btn.sb:SetPoint("LEFT", btn, "LEFT", os, 0);
-			btn.sb:SetWidth(desc.w /6 - (2*os)); btn.sb:SetHeight(desc.h - (2*os));
+			btn.sb:SetWidth(desc.w /maxRune - (2*os)); btn.sb:SetHeight(desc.h - (2*os));
 			VFLUI.SetTexture(btn.sb, desc.texture);
 			btn.sb:Show();
 			
-			local runeType = GetRuneType(i);
-			if (runeType) then
-				btn.sb:SetVertexColor(unpack(runeColors[runeType]));
-			end
+			--local runeType = GetRuneType(i);
+			--if (runeType) then
+			--	btn.sb:SetVertexColor(unpack(runeColors[runeType]));
+				btn.sb:SetVertexColor(0.8, 0.1, 1, 1);
+			--end
 			
 			btn.txt = VFLUI.CreateFontString(btn);
 			btn.txt:SetAllPoints(btn);
@@ -92,9 +95,29 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			f.list[i] = btn;
 		end
 		
+		f.Update = function(self)
+			local maxRune = UnitPowerMax( root:GetAttribute("unit") or "player", SPELL_POWER_RUNES );
+			for i = 1, 7 do
+				local shouldShow = i <= maxRune;
+				if shouldShow then
+					self.list[i]:Show();
+				else
+					self.list[i]:Hide();
+				end
+			end
+			-- in case number of rune change, resize width
+			if self.maxRune ~= maxRune then
+				for i = 1, 7 do
+					local btn = self.list[i];
+					btn:SetWidth(desc.w / maxRune);
+				end				
+				self.maxRune = maxRune;
+			end			
+		end
+		
 		f.CheckAndShow = function(self)
 			WoWEvents:Bind("RUNE_POWER_UPDATE", nil, function(runeIndex, isEnergize)
-				if runeIndex and runeIndex >= 1 and runeIndex <= 6  then 
+				if runeIndex and runeIndex >= 1 and runeIndex <= self.maxRune  then 
 					local btn = self.list[runeIndex];
 					local start, duration, runeReady = GetRuneCooldown(runeIndex);
 					
@@ -115,6 +138,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 				else 
 					--assert(false, "Bad rune index")
 				end
+				self:Update();
 			end, self.id);
 			WoWEvents:Bind("RUNE_TYPE_UPDATE", nil, function(runeIndex) 
 				if ( runeIndex and runeIndex >= 1 and runeIndex <= 6 ) then
@@ -125,7 +149,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 					end
 				end
 			end, self.id);
-			--self:Update();
+			self:Update();
 		end
 		
 		-- call
@@ -134,9 +158,9 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		
 	elseif class == "WARLOCK" then
 		-- affliction
-		for i = 1, 4 do
+		for i = 1, 5 do
 			btn = VFLUI.AcquireFrame("Frame");
-			btn:SetWidth(desc.w /4); btn:SetHeight(desc.h);
+			btn:SetWidth(desc.w /5); btn:SetHeight(desc.h);
 			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
 			btn:Hide(); -- hide by default
 			
@@ -163,7 +187,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			f.list[i] = btn;
 		end
 		-- destruction
-		for i = 1, 4 do
+		--[[for i = 1, 4 do
 			btn = VFLUI.AcquireFrame("Frame");
 			btn:SetWidth(desc.w /4); btn:SetHeight(desc.h);
 			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
@@ -199,9 +223,10 @@ function RDXUI.ClassBar:new(parent, root, desc)
 			end
 			
 			f.list[i + 4] = btn;
-		end
+		end]]
 		
 		-- create the bar demonology
+		--[[
 		btn = VFLUI.AcquireFrame("Frame");
 		btn:SetWidth(desc.w); btn:SetHeight(desc.h);
 		btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
@@ -224,13 +249,14 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		btn.sb:Show();
 		btn.sb:SetValue(0);
 		f.list[9] = btn;
+		]]
 		
 		f.Update = function(self, id)
-			if id == "SOUL_SHARDS" and self.spec == SPEC_WARLOCK_AFFLICTION then
+			--if id == "SOUL_SHARDS" and self.spec == SPEC_WARLOCK_AFFLICTION then
 				local numShards = UnitPower( root:GetAttribute("unit") or "player", SPELL_POWER_SOUL_SHARDS );
 				local maxShards = UnitPowerMax( root:GetAttribute("unit") or "player", SPELL_POWER_SOUL_SHARDS );
 				
-				local numOrbs = UnitPower(root:GetAttribute("unit") or "player", SPELL_POWER_SHADOW_ORBS);
+				--local numOrbs = UnitPower(root:GetAttribute("unit") or "player", SPELL_POWER_SHADOW_ORBS);
 				for i = 1, maxShards do
 					local shard = self.list[i];
 					local shouldShow = i <= numShards;
@@ -241,14 +267,14 @@ function RDXUI.ClassBar:new(parent, root, desc)
 					end
 				end
 				
-				if ( self.shardCount ~= maxShards ) then
-					for i = 1, 4 do
-						local btn = self.list[i];
-						btn:SetWidth(desc.w / maxShards);
-					end
-					self.shardCount = maxShards;
-				end
-			elseif id == "BURNING_EMBERS" and self.spec == SPEC_WARLOCK_DESTRUCTION then
+				--if ( self.shardCount ~= maxShards ) then
+				--	for i = 1, 4 do
+				--		local btn = self.list[i];
+				--		btn:SetWidth(desc.w / maxShards);
+				--	end
+				--	self.shardCount = maxShards;
+				--end
+			--[[elseif id == "BURNING_EMBERS" and self.spec == SPEC_WARLOCK_DESTRUCTION then
 				local power = UnitPower( root:GetAttribute("unit") or "player", SPELL_POWER_BURNING_EMBERS, true );
 				local maxPower = UnitPowerMax( root:GetAttribute("unit") or "player", SPELL_POWER_BURNING_EMBERS, true );
 				local numEmbers = floor(maxPower / MAX_POWER_PER_EMBER);
@@ -286,11 +312,20 @@ function RDXUI.ClassBar:new(parent, root, desc)
 				--local maxPower = UnitPowerMax( root:GetAttribute("unit") or "player", SPELL_POWER_DEMONIC_FURY );
 				--local demonic = self.list[9];
 				--demonic.sb:SetValue(power/maxPower, 0.2);
-			end
+			end]]
 		end
 		
 		f.CheckAndShow = function(self)
-			local spec = GetSpecialization();
+				WoWEvents:Bind("UNIT_DISPLAYPOWER", nil, function() self:Update(); end, self.id);
+				WoWEvents:Bind("UNIT_POWER", nil, function(arg1, arg2) 
+					if (arg1 == root:GetAttribute("unit") or "player") and ( arg2 == "SOUL_SHARDS" ) then
+						self:Update();
+					end 
+				end, self.id);
+				
+				self:Update();
+				
+			--[[local spec = GetSpecialization();
 			if ( spec == SPEC_WARLOCK_AFFLICTION ) then
 				if ( self.spec ~= spec ) then
 					self.spec = spec;
@@ -356,12 +391,12 @@ function RDXUI.ClassBar:new(parent, root, desc)
 				-- nospec
 				VFLT.AdaptiveUnschedule2(self.id)
 				WoWEvents:Unbind(self.id);
-			end
+			end]]
 		end
 		
-		VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() 
-			f:CheckAndShow();
-		end, f.id .. "h");
+		--VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, function() 
+		--	f:CheckAndShow();
+		--end, f.id .. "h");
 		
 		-- call
 		f:CheckAndShow();
@@ -807,10 +842,12 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		f:CheckAndShow();
 		
 	elseif class == "ROGUE" then
+		local maxcombo = UnitPowerMax(root:GetAttribute("unit") or "player", SPELL_POWER_COMBO_POINTS);
+		f.maxcombo = maxcombo;
 		-- create
-		for i = 1, 5 do
+		for i = 1, 8 do
 			btn = VFLUI.AcquireFrame("Frame");
-			btn:SetWidth(desc.w / 5); btn:SetHeight(desc.h);
+			btn:SetWidth(desc.w / maxcombo); btn:SetHeight(desc.h);
 			btn:SetParent(f); btn:SetFrameLevel(f:GetFrameLevel());
 			btn:Hide(); -- hide by default
 			
@@ -838,9 +875,9 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		end
 		
 		f.Update = function(self)
-			
-			local combo = UnitPower("player", SPELL_POWER_COMBO_POINTS);
-			for i = 1, 5 do
+			local combo = UnitPower( root:GetAttribute("unit") or "player", SPELL_POWER_COMBO_POINTS );
+			local maxcombo = UnitPowerMax( root:GetAttribute("unit") or "player", SPELL_POWER_COMBO_POINTS );
+			for i = 1, 8 do
 				local shouldShow = i <= combo;
 				if shouldShow then
 					self.list[i]:Show();
@@ -848,6 +885,15 @@ function RDXUI.ClassBar:new(parent, root, desc)
 					self.list[i]:Hide();
 				end
 			end
+			-- in case number of rune change, resize width
+			if self.maxcombo ~= maxcombo then
+				for i = 1, 8 do
+					local btn = self.list[i];
+					btn:SetWidth(desc.w / maxcombo);
+				end				
+				self.maxcombo = maxcombo;
+			end	
+			
 		end
 		
 		f.CheckAndShow = function(self)
@@ -885,6 +931,7 @@ function RDXUI.ClassBar:new(parent, root, desc)
 		s2.id = nil;
 		s2.Update = nil;
 		s2.CheckAndShow = nil;
+		s2.maxcombo = nil;
 		s2.maxHolyPower = nil;
 		s2.maxLight = nil;
 		for i,v in pairs(s2.list) do
