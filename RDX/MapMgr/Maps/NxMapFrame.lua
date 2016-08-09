@@ -280,11 +280,11 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 
 			local wx, wy = RDXMAP.APIMap.FramePosToWorldPos (map, winx, winy)
 
-			--if not menuOpened then
+			if not VFL.poptree:MouseIsOver() then
 --				local tm = GetTime()
 				RDXMAP.APIMap.CheckWorldHotspots (map, wx, wy)
 --				VFL.vprint ("CheckWorldHotspots Time %s", GetTime() - tm)
-			--end
+			end
 
 			local x, y = RDXMAP.APIMap.GetZonePos (map.MapId, wx, wy)
 
