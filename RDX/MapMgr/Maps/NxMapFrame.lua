@@ -215,8 +215,6 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 	local title = ""
 
 	if gopts["MapShowTitleName"] then
-	
-		local myunit = RDXDAL.GetMyUnit();
 
 		title = RDXMAP.APIMap.IdToName (myunit.mapId)
 
@@ -240,8 +238,6 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 	end
 	
 	title = title .. format (" mapid %s", map.MapId)
-	
-	local myunit = RDXDAL.GetMyUnit();
 
 	if myunit.PlyrSpeed > 0 and gopts["MapShowTitleSpeed"] then
 
