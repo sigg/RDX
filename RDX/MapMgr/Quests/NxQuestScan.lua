@@ -1,13 +1,4 @@
 
-function RDXMAP.Quest.MapChanged()
-
---	VFL.vprint ("MapChanged %s", RDXMAP.APIMap.GetCurrentMapId())
-
-	if RDXMAP.Quest.IdToQuest then	-- Quests inited?
-		RDXMAP.Quest.ScanBlizzQuestDataZone()
-	end
-end
-
 function RDXMAP.Quest.ScanBlizzQuestDataZone()
 
 	local num = QuestMapUpdateAllQuests()		-- Blizz calls these in this order
@@ -16,7 +7,7 @@ function RDXMAP.Quest.ScanBlizzQuestDataZone()
 
 		QuestPOIUpdateIcons()
 
-		local mapId = RDXMAP.APIMap.GetCurrentMapId()
+		local mapId = RDXMAP.APIMap.GetRealMapId()
 		local zone = RDXMAP.MapId2Zone[mapId]
 
 		if not zone then
@@ -92,3 +83,9 @@ function RDXMAP.Quest.ScanBlizzQuestDataZone()
 		end
 	end
 end
+
+RDXEvents:Bind("PlayerZoneChanged", nil, function(rid)
+	if RDXMAP.Quest.IdToQuest then
+		RDXMAP.Quest.ScanBlizzQuestDataZone()
+	end
+end, "RDXMapQuestScan");

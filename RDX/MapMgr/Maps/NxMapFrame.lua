@@ -114,8 +114,6 @@ function RDXMAP.APIMap.OnEvent (self, event, ...)
 
 	if event == "WORLD_MAP_UPDATE" then
 		--VFL.print("CALL WORLD_MAP_UPDATE");
-		RDXMAP.Quest.MapChanged()
-
 		--if this:IsVisible() then
 			map:UpdateAll()
 		--end

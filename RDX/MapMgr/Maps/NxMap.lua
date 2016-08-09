@@ -1256,7 +1256,6 @@ function RDXMAP.Map:Update (elapsed)
 			end
 		end
 
-		RDXMAP.Quest.MapChanged()
 		self:UpdateAll()
 		
 		--self.MoveLastX = self.myunit.PlyrX
