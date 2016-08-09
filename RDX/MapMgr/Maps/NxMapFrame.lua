@@ -264,8 +264,6 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 	local cursorLocStr = ""
 	local cursorLocXY = ""
 
-
-
 	if winx then
 
 		map.BackgndAlphaTarget = map.LOpts.NXBackgndAlphaFull
@@ -305,7 +303,7 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 --			GameTooltip:Hide()
 --		end
 
-		if not map.Scrolling and not menuOpened then
+		if not map.Scrolling and not VFL.poptree:MouseIsOver() then
 
 			map.BackgndAlphaTarget = map.LOpts.NXBackgndAlphaFade
 
