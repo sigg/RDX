@@ -205,9 +205,6 @@ function RDXMAP.APIMap.GotoCurrentZone(map)
 	if myunit.InstanceId then
 		RDXMAP.APIMap.Move (map, myunit.PlyrX, myunit.PlyrY, 20, 30)
 	else
-
-		--RDXMAP.APIMap.SetToCurrentZone()
-		--mapId = RDXMAP.APIMap.GetCurrentMapId()
 		RDXMAP.APIMap.CenterMap (map, myunit.mapId)
 	end
 end

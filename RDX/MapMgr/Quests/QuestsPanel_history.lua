@@ -13,7 +13,7 @@ local showOnlyDailies = nil
 local wl = {};
 local function BuildQuestsList(filter)
 	VFL.empty(wl);
-	local mapId = RDXMAP.APIMap.GetCurrentMapId()
+	local mapId = RDXMAP.APIMap.GetRealMapId()
 	local minLevel = UnitLevel ("player") - GetQuestGreenRange()
 	local maxLevel = showHighLevel and MAX_PLAYER_LEVEL or UnitLevel ("player") + 6
 	--local dbTitleIndex = list:ItemGetNum()

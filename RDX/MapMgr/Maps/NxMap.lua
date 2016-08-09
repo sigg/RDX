@@ -949,7 +949,6 @@ function RDXMAP.Map:UpdateAll()
 
 	self.NeedWorldUpdate = true
 
---	VFL.vprint ("%d Map UpdateAll %d (%d)", self.Tick, RDXMAP.APIMap.GetCurrentMapId(), self.MapId)
 end
 
 
