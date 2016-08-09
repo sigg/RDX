@@ -437,7 +437,7 @@ function RDXMAP.Map:Create (index, data)
 	RDXEvents:Bind("PlayerZoneChanged", nil, function(rid)
 		m:SwitchOptions(rid)
 		RDXMAP.APIMap.SwitchRealMap(m, rid)
-		m.Scale = m.RealScale
+		--m.Scale = m.RealScale
 	end, "RDXMap" .. m.MapIndex)
 
 	m:UpdateAll()

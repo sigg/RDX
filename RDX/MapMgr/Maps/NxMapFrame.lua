@@ -167,7 +167,7 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 
 	map.MouseIsOver = winx
 	
-	if map.Scrolling then
+	if winx and map.Scrolling then
 
 		local cx, cy = GetCursorPosition()
 		cx = cx / map.EffScale
@@ -211,8 +211,8 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 
 	local cursorLocStr = ""
 	local cursorLocXY = ""
-
-	if winx then
+	
+	if winx and not map.Scrolling then
 
 		map.BackgndAlphaTarget = map.LOpts.NXBackgndAlphaFull
 
@@ -223,9 +223,9 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 			local wx, wy = RDXMAP.APIMap.FramePosToWorldPos (map, winx, winy)
 
 			if not VFL.poptree:MouseIsOver() then
---				local tm = GetTime()
+	--				local tm = GetTime()
 				RDXMAP.APIMap.CheckWorldHotspots (map, wx, wy)
---				VFL.vprint ("CheckWorldHotspots Time %s", GetTime() - tm)
+	--				VFL.vprint ("CheckWorldHotspots Time %s", GetTime() - tm)
 			end
 
 			local x, y = RDXMAP.APIMap.GetZonePos (map.MapId, wx, wy)
@@ -241,54 +241,56 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 			if name then
 				cursorLocStr = format ("%s\n|cffafafaf%s", cursorLocStr, name)
 			end
+			
 		end
 
-	else
+	end
+	
 
---		if GameTooltip:IsOwned (map.Win.Frm) and map.TooltipType == 1 then
---			VFL.vprint ("map TT hide")
---			map.TooltipType = 0
---			GameTooltip:Hide()
---		end
+		--		if GameTooltip:IsOwned (map.Win.Frm) and map.TooltipType == 1 then
+		--			VFL.vprint ("map TT hide")
+		--			map.TooltipType = 0
+		--			GameTooltip:Hide()
+		--		end
 
-		if not map.Scrolling and not VFL.poptree:MouseIsOver() then
+	--[[
+	if not VFL.poptree:MouseIsOver() then
 
-			map.BackgndAlphaTarget = map.LOpts.NXBackgndAlphaFade
+		map.BackgndAlphaTarget = map.LOpts.NXBackgndAlphaFade
 
-			local rid = RDXMAP.APIMap.GetRealMapId()			
-			if rid ~= 9000 and not WorldMapFrame:IsShown() then
+		local rid = RDXMAP.APIMap.GetRealMapId()
+		if rid ~= 9000 and not WorldMapFrame:IsShown() then
 
-				local mapId = RDXMAP.APIMap.GetCurrentMapId()
-				if RDXMAP.APIMap.IsInstanceMap (rid) then					
-					if not RDXMAP.Map.InstanceInfo[rid] then		-- Don't convert WotLK/Cata instances
-						local winfo = RDXMAP.APIMap.GetWorldZone(rid)
-						if winfo then
-							rid = winfo.EntryMId
-						end
-					end					
-					if RDXMAP.APIMap.IsInstanceMap(rid) then
-					  map.Scale = 120					  
-					else
-					  map.Scale = map.RealScale					  
+			local mapId = RDXMAP.APIMap.GetCurrentMapId()
+			if RDXMAP.APIMap.IsInstanceMap (rid) then					
+				if not RDXMAP.Map.InstanceInfo[rid] then		-- Don't convert WotLK/Cata instances
+					local winfo = RDXMAP.APIMap.GetWorldZone(rid)
+					if winfo then
+						rid = winfo.EntryMId
 					end
-					local lvl = GetCurrentMapDungeonLevel()
-					if lvl ~= map.InstLevelSet then
-						mapId = 0	-- Force set
---						VFL.vprint ("map force set inst")
-					end
+				end					
+				if RDXMAP.APIMap.IsInstanceMap(rid) then
+				  map.Scale = 120					  
+				else
+				  map.Scale = map.RealScale					  
 				end
+				local lvl = GetCurrentMapDungeonLevel()
+				if lvl ~= map.InstLevelSet then
+					mapId = 0	-- Force set
+--						VFL.vprint ("map force set inst")
+				end
+			end
 
-				if mapId ~= rid then
-					if RDXMAP.APIMap.IsBattleGroundMap (rid) then						
-						--SetMapToCurrentZone()
-					else
-						RDXMAP.APIMap.SetCurrentMap (map, rid)
-					end
+			if mapId ~= rid then
+				if RDXMAP.APIMap.IsBattleGroundMap (rid) then						
+					SetMapToCurrentZone()
+				else
+					RDXMAP.APIMap.SetCurrentMap (map, rid)
 				end
 			end
 		end
 	end
-	
+	]]
 	----------------------
 	-- Update mapid zone
 	----------------------

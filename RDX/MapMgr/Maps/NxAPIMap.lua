@@ -94,6 +94,7 @@ end
 function RDXMAP.APIMap.SetInstanceMap (map, mapId)	
 	map.InstMapId = nil
 	if not mapId then
+		map.Scale = map.RealScale
 		return
 	end
 
@@ -119,6 +120,7 @@ function RDXMAP.APIMap.SetInstanceMap (map, mapId)
 		map.InstMapWY1 = wy
 		map.InstMapWX2 = wx + x / 256
 		map.InstMapWY2 = wy + y / 256 * #iinfo / 3
+		map.Scale = 120.0
 	end
 end
 
@@ -179,19 +181,19 @@ function RDXMAP.APIMap.SwitchRealMap (map, id)
 		RDXMAP.APIMap.SetInstanceMap(map)				-- Turn it off
 	end
 
-	if map.GOpts["MapMMInstanceTogFullSize"] then
-		map.LOpts.NXMMFull = false
-		if RDXMAP.APIMap.IsInstanceMap (id) then
-			map.LOpts.NXMMFull = true
-		end
-	else
-		if RDXMAP.APIMap.IsInstanceMap(id) then		
-			s = map.Scale
-			map.Scale = 120.0			
-		else
-			map.Scale = map.RealScale			
-		end
-	end
+	--if map.GOpts["MapMMInstanceTogFullSize"] then
+	--	map.LOpts.NXMMFull = false
+	--	if RDXMAP.APIMap.IsInstanceMap (id) then
+	--		map.LOpts.NXMMFull = true
+	--	end
+	--else
+	--	if RDXMAP.APIMap.IsInstanceMap(id) then		
+	--		s = map.Scale
+	--		map.Scale = 120.0			
+	--	else
+	--		map.Scale = map.RealScale			
+	--	end
+	--end
 end
 
 --------
