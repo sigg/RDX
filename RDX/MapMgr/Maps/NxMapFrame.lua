@@ -154,6 +154,10 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 
 	map:UpdateOptions()
 
+	---------------------------
+	-- Scroll map with mouse
+	---------------------------
+	
 	local winx, winy = VFLUI.IsMouseOver (self)
 
 	if not self:IsVisible() or not map.MouseEnabled then
@@ -161,14 +165,8 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 		map.Scrolling = false
 	end
 
-	--if map.MMZoomType == 0 and VFLUI.IsMouseOver (map.MMFrm) then
-	--	winx = nil
-	--end
-
 	map.MouseIsOver = winx
-
-	-- Scroll map with mouse
-
+	
 	if map.Scrolling then
 
 		local cx, cy = GetCursorPosition()
@@ -206,60 +204,10 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 		map.MapPosY = map.MapPosYDraw
 		map.Scale = map.ScaleDraw
 	end
-
-	-- Update mapid zone
-	map:Update (elapsed)
-
-	-- Title text
-
-	local title = ""
-
-	if gopts["MapShowTitleName"] then
-
-		title = RDXMAP.APIMap.IdToName (myunit.mapId)
-
---		for n = 1, MAX_BATTLEFIELD_QUEUES do
-		for n = 1, GetMaxBattlefieldID() do		-- Patch 4.3
-
-			local status, _, instId = GetBattlefieldStatus (n)
-			if status == "active" then
-				title = title .. format (" #%s", instId)
-				break
-			end
-		end
-	end
-
-	if gopts["MapShowTitleXY"] then
-		if map.DebugFullCoords then
-			title = title .. format (" %4.2f, %4.2f", myunit.PlyrRZX, myunit.PlyrRZY)
-		else
-			title = title .. format (" %4.1f, %4.1f", myunit.PlyrRZX, myunit.PlyrRZY)
-		end
-	end
 	
-	title = title .. format (" mapid %s", map.MapId)
-
-	if myunit.PlyrSpeed > 0 and gopts["MapShowTitleSpeed"] then
-
-		local speed = myunit.PlyrSpeed
-		local sa
-		local winfo = RDXMAP.APIMap.GetWorldZone(map.MapId)
-		if winfo and winfo.ScaleAdjust and winfo.ScaleAdjust ~= 0 then
-			sa = winfo.ScaleAdjust
-		end 
-		if sa then
-			speed = speed * sa
-		end
-
-		speed = speed / 6.4 * 100 - 100
-		if abs (speed) < .5 then	-- Removes small -0%
-			speed = 0
-		end
-		title = title..format (" |cffa0a0a0Speed %+.0f%%", speed)
---		VFL.vprint ("Speed %f %f, Tm %.4f, %.3f %.3f", myunit.PlyrSpeed, speed, elapsed, myunit.PlyrX, myunit.PlyrY)		-- DEBUG!
-	end
-
---	title = title..format (" Dir %.1f", map.myunit.PlyrDir)
+	----------------------
+	-- HOTSPOT
+	----------------------
 
 	local cursorLocStr = ""
 	local cursorLocXY = ""
@@ -340,11 +288,69 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 			end
 		end
 	end
-
 	
+	----------------------
+	-- Update mapid zone
+	----------------------
+	map:Update (elapsed)
 
+	--------------
+	-- Title text
+	--------------
+	
+	local title = ""
+
+	if gopts["MapShowTitleName"] then
+
+		title = RDXMAP.APIMap.IdToName (myunit.mapId)
+
+--		for n = 1, MAX_BATTLEFIELD_QUEUES do
+		for n = 1, GetMaxBattlefieldID() do		-- Patch 4.3
+
+			local status, _, instId = GetBattlefieldStatus (n)
+			if status == "active" then
+				title = title .. format (" #%s", instId)
+				break
+			end
+		end
+	end
+
+	if gopts["MapShowTitleXY"] then
+		if map.DebugFullCoords then
+			title = title .. format (" %4.2f, %4.2f", myunit.PlyrRZX, myunit.PlyrRZY)
+		else
+			title = title .. format (" %4.1f, %4.1f", myunit.PlyrRZX, myunit.PlyrRZY)
+		end
+	end
+	
+	title = title .. format (" mapid %s", map.MapId)
+
+	if myunit.PlyrSpeed > 0 and gopts["MapShowTitleSpeed"] then
+
+		local speed = myunit.PlyrSpeed
+		local sa
+		local winfo = RDXMAP.APIMap.GetWorldZone(map.MapId)
+		if winfo and winfo.ScaleAdjust and winfo.ScaleAdjust ~= 0 then
+			sa = winfo.ScaleAdjust
+		end 
+		if sa then
+			speed = speed * sa
+		end
+
+		speed = speed / 6.4 * 100 - 100
+		if abs (speed) < .5 then	-- Removes small -0%
+			speed = 0
+		end
+		title = title..format (" |cffa0a0a0Speed %+.0f%%", speed)
+--		VFL.vprint ("Speed %f %f, Tm %.4f, %.3f %.3f", myunit.PlyrSpeed, speed, elapsed, myunit.PlyrX, myunit.PlyrY)		-- DEBUG!
+	end
+
+--	title = title..format (" Dir %.1f", map.myunit.PlyrDir)
+	
+	---------------
 	-- Profiling
-
+	---------------
+	
 	--if map.DebugTime then
 
 	--	profileTime = GetTime() - profileTime
@@ -372,6 +378,10 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 
 	-- TEST X, Y
 
+	---------------
+	-- Tip
+	---------------
+	
 	if VFLT.GetFrameCounter() % 3 == 0 then	-- Do less often, since tip makes garbage
 
 		local tip = format (" %s", cursorLocStr)
