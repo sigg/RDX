@@ -107,7 +107,9 @@ end
 
 -- Determine if the mouse is over this menu
 function VFLUI.PopMenu:MouseIsOver()
-	for k,v in pairs(self.menus) do if MouseIsOver(v) then return true; end end
+	if self.menus then
+		for k,v in pairs(self.menus) do if MouseIsOver(v) then return true; end end
+	end
 	return false;
 end
 
