@@ -181,6 +181,7 @@ function RDXMAP.APIMap.GetInstanceMapTextures(mapId)
         SetMapByID(areaId)
         local mapName = GetMapInfo();
         local levels, first = GetNumDungeonMapLevels() 
+		if first == nil then first = levels; end
         local useTerrainMap = DungeonUsesTerrainMap()
 		if (areaId == 824) then
 		  levels = 7		  
