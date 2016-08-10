@@ -253,8 +253,8 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 		--			GameTooltip:Hide()
 		--		end
 
-	--[[
-	if not VFL.poptree:MouseIsOver() then
+
+	if not winx then
 
 		map.BackgndAlphaTarget = map.LOpts.NXBackgndAlphaFade
 
@@ -262,6 +262,7 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 		if rid ~= 9000 and not WorldMapFrame:IsShown() then
 
 			local mapId = RDXMAP.APIMap.GetCurrentMapId()
+			--[[
 			if RDXMAP.APIMap.IsInstanceMap (rid) then					
 				if not RDXMAP.Map.InstanceInfo[rid] then		-- Don't convert WotLK/Cata instances
 					local winfo = RDXMAP.APIMap.GetWorldZone(rid)
@@ -279,7 +280,7 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 					mapId = 0	-- Force set
 --						VFL.vprint ("map force set inst")
 				end
-			end
+			end]]
 
 			if mapId ~= rid then
 				if RDXMAP.APIMap.IsBattleGroundMap (rid) then						
@@ -290,7 +291,7 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 			end
 		end
 	end
-	]]
+	
 	----------------------
 	-- Update mapid zone
 	----------------------
