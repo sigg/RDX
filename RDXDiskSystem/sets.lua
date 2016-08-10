@@ -21,6 +21,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["targetpath_9"] = "RDXDiskSystem:sets:set_debuff_none",
 			["targetpath_6"] = "RDXDiskSystem:sets:set_debuff_magic",
 			["targetpath_11"] = "RDXDiskSystem:sets:set_debuff_none",
+			["targetpath_12"] = "RDXDiskSystem:sets:set_debuff_none",
 		};
 	end
 	local mbo = RDXDB.TouchObject("RDXDiskSystem:sets:set_debuff_secondary");
@@ -40,6 +41,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["targetpath_9"] = "RDXDiskSystem:sets:set_debuff_none",
 			["targetpath_6"] = "RDXDiskSystem:sets:set_debuff_none",
 			["targetpath_11"] = "RDXDiskSystem:sets:set_debuff_none",
+			["targetpath_12"] = "RDXDiskSystem:sets:set_debuff_none",
 		};
 	end
 	local mbo = RDXDB.TouchObject("RDXDiskSystem:sets:set_debuff");

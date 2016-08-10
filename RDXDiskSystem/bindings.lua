@@ -104,6 +104,13 @@ local function heal_default()
 			--["spell"] = 57934,
 		 --   },
 		};
+	elseif class == "DEMONHUNTER" then
+		ret = {
+		   -- ["1"] = {
+			--["action"] = "cast",
+			--["spell"] = 57934,
+		 --   },
+		};
 	else
 		ret = {};
 	end
@@ -205,6 +212,17 @@ local function dmg_default()
 		    },
 		};
 	elseif class == "MONK" then
+		ret = {
+		   -- ["1"] = {
+			--["action"] = "cast",
+			--["spell"] = 47541,
+		 --   },
+		   -- ["2"] = {
+			--["action"] = "cast",
+			--["spell"] = 77575,
+		    --},
+		};
+	elseif class == "DEMONHUNTER" then
 		ret = {
 		   -- ["1"] = {
 			--["action"] = "cast",
@@ -382,6 +400,18 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		};
 	end
 	
+	--local mbo = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_decurse_demonhunter");
+	--if not mbo.data then 
+	--	mbo.ty = "MouseBindings"; 
+	--	mbo.version = 1;
+	--	mbo.data = {
+	--		["1"] = {
+	--			["action"] = "cast",
+	--			["spell"] = 115450,
+	--		},
+	--	};
+	--end
+	
 	local mbo = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_default");
 	if not mbo.data then 
 		mbo.ty = "MouseBindings"; 
@@ -407,6 +437,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["targetpath_9"] = "RDXDiskSystem:bindings:bindings_default",
 			["targetpath_6"] = "RDXDiskSystem:bindings:bindings_default",
 			["targetpath_11"] = "RDXDiskSystem:bindings:bindings_decurse_monk",
+			["targetpath_12"] = "RDXDiskSystem:bindings:bindings_default",
 		};
 	end
 	
@@ -452,6 +483,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["targetpath_9"] = "RDXDiskSystem:bindings:bindings_default",
 			["targetpath_6"] = "RDXDiskSystem:bindings:bindings_default",
 			["targetpath_11"] = "RDXDiskSystem:bindings:bindings_default",
+			["targetpath_12"] = "RDXDiskSystem:bindings:bindings_default",
 		};
 	end
 	
@@ -541,6 +573,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["targetpath_9"] = "RDXDiskSystem:bindings:bindings_default",
 			["targetpath_6"] = "RDXDiskSystem:bindings:bindings_default",
 			["targetpath_11"] = "RDXDiskSystem:bindings:bindings_default",
+			["targetpath_12"] = "RDXDiskSystem:bindings:bindings_default",
 		};
 	end
 	
@@ -697,6 +730,14 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		};
 	end
 	
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_interrupt_demonhunter");
+	if not mbo.data then 
+		mbo.ty = "MouseBindings"; 
+		mbo.version = 1;
+		mbo.data = {
+		};
+	end
+	
 	local mbo = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_interrupt");
 	if not mbo.data then 
 		mbo.ty = "SymLink"; 
@@ -714,6 +755,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["targetpath_9"] = "RDXDiskSystem:bindings:bindings_interrupt_hunter",
 			["targetpath_6"] = "RDXDiskSystem:bindings:bindings_interrupt_warlock",
 			["targetpath_11"] = "RDXDiskSystem:bindings:bindings_interrupt_monk",
+			["targetpath_12"] = "RDXDiskSystem:bindings:bindings_interrupt_demonhunter",
 		};
 	end
 	

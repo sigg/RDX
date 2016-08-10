@@ -312,6 +312,12 @@ RDXDB.RegisterSymLinkClass({
 		if desc and desc.targetpath_11 then ff11:SetPath(desc.targetpath_11); end
 		ff11:Show();
 		ui:InsertFrame(ff11);
+		
+		local ff12 = RDXDB.ObjectFinder:new(parent, function(d,p,f,md) return (md and type(md) == "table"); end);
+		ff12:SetLabel(VFLI.i18n("DEMONHUNTER"));
+		if desc and desc.targetpath_12 then ff12:SetPath(desc.targetpath_12); end
+		ff12:Show();
+		ui:InsertFrame(ff12);
 
 		ui.GetDescriptor = function(x)
 			return {
@@ -327,6 +333,7 @@ RDXDB.RegisterSymLinkClass({
 				targetpath_9 = ff9:GetPath(),
 				targetpath_10 = ff10:GetPath(),
 				targetpath_11 = ff11:GetPath(),
+				targetpath_12 = ff12:GetPath(),
 			};
 		end;
 
@@ -488,6 +495,18 @@ RDXDB.RegisterSymLinkClass({
 		if desc and desc.targetpath_11_2 then ff11_2:SetPath(desc.targetpath_11_2); end
 		ff11_2:Show();
 		ui:InsertFrame(ff11_2);
+		
+		local ff12_1 = RDXDB.ObjectFinder:new(parent, function(d,p,f,md) return (md and type(md) == "table"); end);
+		ff12_1:SetLabel(VFLI.i18n("MONK TALENT 1"));
+		if desc and desc.targetpath_12_1 then ff12_1:SetPath(desc.targetpath_12_1); end
+		ff12_1:Show();
+		ui:InsertFrame(ff12_1);
+		
+		local ff12_2 = RDXDB.ObjectFinder:new(parent, function(d,p,f,md) return (md and type(md) == "table"); end);
+		ff12_2:SetLabel(VFLI.i18n("MONK TALENT 2"));
+		if desc and desc.targetpath_12_2 then ff12_2:SetPath(desc.targetpath_12_2); end
+		ff12_2:Show();
+		ui:InsertFrame(ff12_2);
 
 		ui.GetDescriptor = function(x)
 			return {
@@ -503,6 +522,7 @@ RDXDB.RegisterSymLinkClass({
 				targetpath_9_1 = ff9_1:GetPath(),
 				targetpath_10_1 = ff10_1:GetPath(),
 				targetpath_11_1 = ff11_1:GetPath(),
+				targetpath_12_1 = ff12_1:GetPath(),
 				targetpath_1_2 = ff1_2:GetPath(),
 				targetpath_2_2 = ff2_2:GetPath(),
 				targetpath_3_2 = ff3_2:GetPath(),
@@ -514,6 +534,7 @@ RDXDB.RegisterSymLinkClass({
 				targetpath_9_2 = ff9_2:GetPath(),
 				targetpath_10_2 = ff10_2:GetPath(),
 				targetpath_11_2 = ff11_2:GetPath(),
+				targetpath_12_2 = ff12_2:GetPath(),
 			};
 		end;
 

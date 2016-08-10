@@ -110,6 +110,14 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 		mbo.data = {
 		};
 	end
+	
+	local mbo = RDXDB.TouchObject("RDXDiskSystem:aurafilters:aurafilter_demonhunter_buff");
+	if not mbo.data then 
+		mbo.ty = "AuraFilter"; 
+		mbo.version = 1;
+		mbo.data = {
+		};
+	end
 
 	local mbsl = RDXDB.TouchObject("RDXDiskSystem:aurafilters:aurafilter_buff");
 	if not mbsl.data or type(mbsl.data) ~= "table" or mbsl.data.class ~= "class" then
@@ -127,6 +135,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			targetpath_9 = "RDXDiskSystem:aurafilters:aurafilter_hunter_buff",
 			targetpath_10 = "RDXDiskSystem:aurafilters:aurafilter_deathknight_buff",
 			targetpath_11 = "RDXDiskSystem:aurafilters:aurafilter_monk_buff",
+			targetpath_12 = "RDXDiskSystem:aurafilters:aurafilter_demonhunter_buff",
 		};
 	end
 	
