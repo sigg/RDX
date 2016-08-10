@@ -259,7 +259,7 @@ function RDXSS.SpellGroup:new()
 
 	--- Add a spell to this group.
 	function s:AddSpell(id)
-		if not id then error("expected id, got nil"); end
+		if not id then VFL.print("spelll expected id, got nil"); return nil; end
 		if spellsByID[id] then return nil; end
 		local sn = RDXSS.GetSpellFullNameByBookId(id); if not sn then return nil; end
 		table.insert(spells, id);
@@ -353,6 +353,7 @@ end
 
 --- Categorize a spell, assuming both the category and SID are valid.
 local function CategorizeSpell(cat, cn, id)
+	if not id then return; end
 	if cat:HasSpellByID(id) then return; end
 	cat:AddSpell(id);
 	local s = spell2cats[id];
