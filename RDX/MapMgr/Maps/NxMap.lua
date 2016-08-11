@@ -418,16 +418,16 @@ function RDXMAP.Map:Create (index, data)
 	--m.QuestWin:SetBorderTexture([[Interface\WorldMap\UI-QuestBlob-Outside]])
 	--m.QuestWin:SetBorderScalar(0.15)
 	
-	local arch = VFLUI.AcquireFrame("ArchaeologyDigSiteFrame")
-	m.Arch = arch
-    m.Arch:SetParent(m.TextScFrm:GetScrollChild())		
-    m.Arch:Hide()
-	m.Arch:SetSize(WorldMapButton:GetSize())
-	m.Arch:SetFillAlpha(255 * m.LOpts.NXArchAlpha)
-	m.Arch:SetBorderAlpha(255 * m.LOpts.NXArchAlpha )
-	m.Arch:SetFillTexture( [[Interface\WorldMap\UI-ArchaeologyBlob-Inside]] )
-	m.Arch:SetBorderTexture( [[Interface\WorldMap\UI-ArchaeologyBlob-Outside]] )
-	m.Arch:SetBorderScalar( 0.15 )
+	--local arch = VFLUI.AcquireFrame("ArchaeologyDigSiteFrame")
+	--m.Arch = arch
+    --m.Arch:SetParent(m.TextScFrm:GetScrollChild())		
+    --m.Arch:Hide()
+	--m.Arch:SetSize(WorldMapButton:GetSize())
+	--m.Arch:SetFillAlpha(255 * m.LOpts.NXArchAlpha)
+	--m.Arch:SetBorderAlpha(255 * m.LOpts.NXArchAlpha )
+	--m.Arch:SetFillTexture( [[Interface\WorldMap\UI-ArchaeologyBlob-Inside]] )
+	--m.Arch:SetBorderTexture( [[Interface\WorldMap\UI-ArchaeologyBlob-Outside]] )
+	--m.Arch:SetBorderScalar( 0.15 )
 	
 	m.RMapId = 9000		-- Safe default
 
@@ -537,7 +537,7 @@ function RDXMAP.Map:Create (index, data)
 			s.Icon3Frms[n]:Destroy(); s.Icon3Frms[n] = nil;
 		end
 		
-		s.Arch:Destroy(); s.Arch = nil;
+		--s.Arch:Destroy(); s.Arch = nil;
 		
 		for n = 1, s.MiniBlks ^ 2 do
 			VFLUI.ReleaseRegion(s.MiniFrms[n].texture); s.MiniFrms[n].texture = nil;
@@ -637,10 +637,11 @@ function RDXMAP.Map:SetLocationTip (tipStr)
 	end
 end
 
+--[[
 --------
 -- Update Blizzard world map frame if we grabbed it
 
-function RDXMAP.Map:UpdateWorldMap()
+function RDXMAP.Map:UpdateAAWorldMap()
 
 	local f = self.WorldMapFrm
 	
@@ -703,7 +704,7 @@ function RDXMAP.Map:UpdateWorldMap()
 		end
 	end
 end
-
+]]
 --------
 -- Recursively set child levels
 
@@ -1506,7 +1507,7 @@ function RDXMAP.Map:Update (elapsed)
 	RDXMAP.APIMap.UpdateContinents(self)
 	RDXMAP.APIMap.UpdateZones(self)
 	RDXMAP.APIMap.UpdateInstanceMap(self)
-	self:UpdateWorldMap() -- archeology
+	--self:UpdateAAWorldMap() -- archeology
 	RDXMAP.APIMap.UpdateMiniFrames(self) --(minimap)
 	
 	-------------- END MAIN Update zone instance 

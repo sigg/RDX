@@ -117,17 +117,17 @@ function RDXMAP.APIMap.OnEvent (self, event, ...)
 		--if this:IsVisible() then
 			map:UpdateAll()
 		--end
-	elseif event == "PLAYER_REGEN_DISABLED" then
-	  map.Arch:Hide()
+	--elseif event == "PLAYER_REGEN_DISABLED" then
+	  --map.Arch:Hide()
 	  --map.QuestWin:Hide()
-	  map.Arch:SetParent(nil)
+	  --map.Arch:SetParent(nil)
 	  --map.QuestWin:SetParent(nil)
-	  map.Arch:ClearAllPoints()
+	  --map.Arch:ClearAllPoints()
 	  --map.QuestWin:ClearAllPoints()
-	elseif event == "PLAYER_REGEN_ENABLED" then
-	  map.Arch:SetParent(self.NxMap.TextScFrm:GetScrollChild())
+	--elseif event == "PLAYER_REGEN_ENABLED" then
+	  --map.Arch:SetParent(self.NxMap.TextScFrm:GetScrollChild())
 	  --map.QuestWin:SetParent(self.NxMap.TextScFrm:GetScrollChild())
-	  map.Arch:Show()
+	  --map.Arch:Show()
 	  --map.QuestWin:Hide()
 	end
 end

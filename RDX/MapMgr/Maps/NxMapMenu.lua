@@ -232,11 +232,11 @@ function RDXMAP.Map:BuildMenu(f, gopts, opts)
 		ent.checked = function() return gopts.MapShowPunks; end;
 		ent.func = function() VFL.poptree:Release(); gopts.MapShowPunks = not gopts.MapShowPunks; end 
 	end);
-	self.MenuShow:RegisterMenuFunction(function(ent)
-		ent.text = VFLI.i18n("Show Archaeology Blobs");
-		ent.checked = function() return RDXU.Opts.MapShowArchBlobs; end;
-		ent.func = function() VFL.poptree:Release(); RDXU.Opts.MapShowArchBlobs = not RDXU.Opts.MapShowArchBlobs; self.POIDraw = nil; end 
-	end);
+	--self.MenuShow:RegisterMenuFunction(function(ent)
+	--	ent.text = VFLI.i18n("Show Archaeology Blobs");
+	--	ent.checked = function() return RDXU.Opts.MapShowArchBlobs; end;
+	--	ent.func = function() VFL.poptree:Release(); RDXU.Opts.MapShowArchBlobs = not RDXU.Opts.MapShowArchBlobs; self.POIDraw = nil; end 
+	--end);
 	self.MenuShow:RegisterMenuFunction(function(ent)
 		ent.text = VFLI.i18n("Show Quest Blobs");
 		ent.checked = function() return RDXU.Opts.MapShowQuestBlobs; end;
@@ -684,9 +684,9 @@ function RDXMAP.Map:Menu_OnBackgndAlphaFade (item)
 	self.LOpts.NXBackgndAlphaFade = item:GetSlider()
 end
 
-function RDXMAP.Map:Menu_OnArchAlpha (item)
-	self.LOpts.NXArchAlpha = item:GetSlider()
-end
+--function RDXMAP.Map:Menu_OnArchAlpha (item)
+--	self.LOpts.NXArchAlpha = item:GetSlider()
+--end
 
 function RDXMAP.Map:Menu_OnQuestAlpha (item)
 	self.QuestAlpha = item:GetSlider()
