@@ -244,17 +244,13 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 			
 		end
 
-	end
+	else
 	
-
 		--		if GameTooltip:IsOwned (map.Win.Frm) and map.TooltipType == 1 then
 		--			VFL.vprint ("map TT hide")
 		--			map.TooltipType = 0
 		--			GameTooltip:Hide()
 		--		end
-
-
-	if not winx then
 
 		map.BackgndAlphaTarget = map.LOpts.NXBackgndAlphaFade
 

@@ -1,4 +1,4 @@
-﻿local a, o, myunit, plZX, plZY, x, y, zName, isIndoor, IndoorFlag, indoorMapFileName, mapId, cmaId, gcmd, tmDif, lvl, ang, moveDist, tm
+﻿local a, o, myunit, plZX, plZY, x, y, zName, szName, isIndoor, IndoorFlag, indoorMapFileName, mapId, cmaId, gcmd, tmDif, lvl, ang, moveDist, tm
 
 local mapIdsave; -- when entering mini dungeon
 
@@ -32,6 +32,7 @@ local contbl
 local function ProcessMyUnit(self, elapsed)
 	-- Player real mapid
 	zName = GetRealZoneText()
+	szName = GetSubZoneText()
 	a, a, a, isIndoor, indoorMapFileName = GetMapInfo();
 	cmaId = GetCurrentMapAreaID()
 	gcmd = GetCurrentMapDungeonLevel();
@@ -62,10 +63,17 @@ local function ProcessMyUnit(self, elapsed)
 			mapId = cmaId;
 		end
 	end	
-	--VFL.print(zName);
+	--VFL.print(szName);
 	--VFL.print(myunit.contId);
 	--VFL.print(mapId);
 	
+	--VFL.print(mapId .. " " .. gcmd);
+	
+	-- subzone
+	if myunit.szName ~= szName then
+		SetMapToCurrentZone()
+		myunit.szName = szName
+	end
 	
 	--VFL.print("ProcessMyUnit mapId " .. mapId);
 	myunit.mapId = mapId;
@@ -215,7 +223,20 @@ WoWEvents:Bind("ZONE_CHANGED_NEW_AREA", nil, function()
 	initCont();
 end);
 
+--[[
+WoWEvents:Bind("ZONE_CHANGED", nil, function() 
+	VFL.print("ZONE_CHANGED");
+end);
 
+WoWEvents:Bind("ZONE_CHANGED_INDOORS", nil, function() 
+	VFL.print("ZONE_CHANGED_INDOORS");
+	SetMapToCurrentZone();
+end);
+
+WoWEvents:Bind("ZONE_CHANGED_NEW_AREA", nil, function() 
+	VFL.print("ZONE_CHANGED_NEW_AREA");
+end);
+]]
 RDXEvents:Bind("INIT_POST_VARIABLES_LOADED", nil, function() 
 	myunit = RDXDAL.GetMyUnit();
 	myunit.contId = 1;
