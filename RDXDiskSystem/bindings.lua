@@ -440,6 +440,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["targetpath_12"] = "RDXDiskSystem:bindings:bindings_default",
 		};
 	end
+	if mbo.data and not mbo.data.targetpath_12 then mbo.data.targetpath_12 = "RDXDiskSystem:bindings:bindings_default"; end
 	
 	-- dispell a buff on mob
 	local mbo = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_dispell_shaman");
@@ -486,6 +487,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["targetpath_12"] = "RDXDiskSystem:bindings:bindings_default",
 		};
 	end
+	if mbo.data and not mbo.data.targetpath_12 then mbo.data.targetpath_12 = "RDXDiskSystem:bindings:bindings_default"; end
 	
 	-- buff
 	local mbo = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_buff_warrior");
@@ -576,6 +578,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["targetpath_12"] = "RDXDiskSystem:bindings:bindings_default",
 		};
 	end
+	if mbo.data and not mbo.data.targetpath_12 then mbo.data.targetpath_12 = "RDXDiskSystem:bindings:bindings_default"; end
 	
 	-- interrupt
 	local mbo = RDXDB.TouchObject("RDXDiskSystem:bindings:bindings_interrupt_priest");
@@ -758,6 +761,6 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["targetpath_12"] = "RDXDiskSystem:bindings:bindings_interrupt_demonhunter",
 		};
 	end
-	
+	if mbo.data and not mbo.data.targetpath_12 then mbo.data.targetpath_12 = "RDXDiskSystem:bindings:bindings_interrupt_demonhunter"; end
 	
 end);
