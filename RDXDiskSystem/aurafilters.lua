@@ -138,6 +138,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			targetpath_12 = "RDXDiskSystem:aurafilters:aurafilter_demonhunter_buff",
 		};
 	end
+	if mbsl.data and not mbsl.data.targetpath_12 then mbsl.data.targetpath_12 = "RDXDiskSystem:aurafilters:aurafilter_demonhunter_buff"; end
 	
 	local mbo = RDXDB.TouchObject("RDXDiskSystem:aurafilters:aurafilter_dot");
 	if not mbo.data then 
