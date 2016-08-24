@@ -1735,8 +1735,8 @@ function RDXUI.StanceButton:new(parent, id, statesString, desc)
 	
 	WoWEvents:Bind("UPDATE_SHAPESHIFT_FORMS", nil, UpdateAction, "mainactionButtonStance" .. self.id);
 	WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, UpdateNewAction, "mainactionButtonStance" .. self.id);
-	WoWEvents:Bind("LEARNED_SPELL_IN_TAB", nil, UpdateNewAction, "mainactionButtonStance" .. self.id);
-	VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, UpdateNewAction, "mainactionButtonStance" .. self.id);
+	--WoWEvents:Bind("LEARNED_SPELL_IN_TAB", nil, UpdateNewAction, "mainactionButtonStance" .. self.id);
+	--VFLEvents:Bind("PLAYER_TALENT_UPDATE", nil, UpdateNewAction, "mainactionButtonStance" .. self.id);
 	
 	----------------------------------- Bindings
 	
