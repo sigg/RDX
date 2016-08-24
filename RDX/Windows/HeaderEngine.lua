@@ -657,7 +657,7 @@ function RDXUI.ApplyHeaderDescriptor(hdr, hdef)
 	hdr:SetAttribute("unitsPerColumn", hdef.h);
 	hdr:SetAttribute("maxColumns", hdef.w or 1);
 	if hdef.groupType == 2 then
-		hdr:SetAttribute("groupingOrder", "PRIEST,DRUID,PALADIN,SHAMAN,WARRIOR,WARLOCK,MAGE,ROGUE,HUNTER,DEATHKNIGHT,MONK");
+		hdr:SetAttribute("groupingOrder", "PRIEST,DRUID,PALADIN,SHAMAN,WARRIOR,WARLOCK,MAGE,ROGUE,HUNTER,DEATHKNIGHT,MONK,DEMONHUNTER");
 		hdr:SetAttribute("groupBy", "CLASS");
 	elseif hdef.groupType == 3 then
 		hdr:SetAttribute("groupingOrder", "1,2,3,4,5,6,7,8");
