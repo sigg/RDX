@@ -680,7 +680,7 @@ function RDXUI.ApplyHeaderDescriptor(hdr, hdef)
 			for i=1,8 do if hdef.groups[i] then gf = gf .. i .. ","; end end
 		end
 		if hdef.classes then
-			for i=1,11 do if hdef.classes[i] then gf = gf .. RDXMD.GetClassMnemonic(i) .. ","; end end
+			for i=1,12 do if hdef.classes[i] then gf = gf .. RDXMD.GetClassMnemonic(i) .. ","; end end
 		end
 		--if hdef.roles then
 		--	for i=1,4 do if hdef.roles[i] then gf = gf .. RDXMD.GetRoleName(i) .. ","; end end
