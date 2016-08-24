@@ -354,7 +354,7 @@ end
 
 --- @return the WoW Powertype of the unit ("MANA" 0, "RAGE" 1, "ENERGY" 2, "FOCUS" 3)
 function RDXDAL.Unit:GetRoleType()
-	local role = UnitGroupRolesAssigned(uid);
+	local role = UnitGroupRolesAssigned(self.uid);
 	if role == "TANK" then
 		return 1;
 	elseif role == "HEALER" then
