@@ -24,6 +24,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["targetpath_12"] = "RDXDiskSystem:sets:set_debuff_none",
 		};
 	end
+	if mbo.data and not mbo.data.targetpath_12 then mbo.data.targetpath_12 = "RDXDiskSystem:sets:set_debuff_none"; end
 	local mbo = RDXDB.TouchObject("RDXDiskSystem:sets:set_debuff_secondary");
 	if not mbo.data then
 		mbo.ty = "SymLink";
@@ -44,6 +45,7 @@ RDXEvents:Bind("INIT_POST_DATABASE_LOADED", nil, function()
 			["targetpath_12"] = "RDXDiskSystem:sets:set_debuff_none",
 		};
 	end
+	if mbo.data and not mbo.data.targetpath_12 then mbo.data.targetpath_12 = "RDXDiskSystem:sets:set_debuff_none"; end
 	local mbo = RDXDB.TouchObject("RDXDiskSystem:sets:set_debuff");
 	if not mbo.data then
 		mbo.ty = "FilterSet";
