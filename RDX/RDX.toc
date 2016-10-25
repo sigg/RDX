@@ -410,7 +410,7 @@ Designs\Variables\ThreatVariables.lua
 Designs\Variables\TotemsVariables.lua
 Designs\Variables\UnitInSetVar.lua
 Designs\Variables\UnitInSortVariables.lua
-#Designs\Variables\WeaponVariables.lua
+Designs\Variables\WeaponVariables.lua
 Designs\Variables\XPVariables.lua
 Designs\Variables\ComboVariables.lua
 Designs\Variables\Currency.lua

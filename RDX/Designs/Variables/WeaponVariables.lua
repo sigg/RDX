@@ -4,6 +4,7 @@
 RDX.RegisterFeature({
 	name = "Variables: Weapons Buff Info";
 	title = VFLI.i18n("Vars Weapons Enchant Info");
+	invisible = true;
 	category =  VFLI.i18n("Variables");
 	IsPossible = function(state)
 		if not state:Slot("DesignFrame") then return nil; end
@@ -61,4 +62,46 @@ RDX.RegisterFeature({
 	end;
 	UIFromDescriptor = VFL.Nil;
 	CreateDescriptor = function() return { feature = "Variables: Weapons Buff Info" }; end;
+});
+
+RDX.RegisterFeature({
+	name = "Variables: Artifact XP";
+	title = VFLI.i18n("Vars Artifact XP");
+	test = true;
+	category =  VFLI.i18n("Variables");
+	IsPossible = function(state)
+		if not state:Slot("DesignFrame") then return nil; end
+		if not state:Slot("EmitPaintPreamble") then return nil; end
+		return true;
+	end;
+	ExposeFeature = function(desc, state, errs)
+		state:AddSlot("Var_artxp");
+		state:AddSlot("FracVar_artxp");
+		state:AddSlot("TextData_artxptxt");
+		return true;
+	end;
+	ApplyFeature = function(desc, state)
+		state:Attach(state:Slot("EmitPaintPreamble"), true, function(code)
+		if desc.test then
+			code:AppendCode([[	
+		local artxp = 0.5;
+]]);
+		else
+			code:AppendCode([[
+		local itemID, altItemID, name, icon, totalXP, pointsSpent, quality, artifactAppearanceID, appearanceModID, itemAppearanceID, altItemAppearanceID, altOnTop = C_ArtifactUI.GetEquippedArtifactInfo();
+		local numPointsAvailableToSpend, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP);
+		local artxp = xp / xpForNextPoint;
+		local artxptxt = xp .. " / " .. xpForNextPoint;
+]]);
+		end
+		end);
+		local wstate = state:GetContainingWindowState();
+		if wstate then
+			local mux = wstate:GetSlotValue("Multiplexer");
+			local smask = mux:GetPaintMask("ARTIFACT_XP_UPDATE");
+			mux:Event_UnitMask("UNIT_ARTIFACT_XP_UPDATE", smask);
+		end
+	end;
+	UIFromDescriptor = VFL.Nil;
+	CreateDescriptor = function() return { feature = "Variables: Artifact XP" }; end;
 });

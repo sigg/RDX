@@ -242,6 +242,20 @@ local function DisableAll()
 		MainMenuBarVehicleLeaveButton:SetScript("OnShow", MainMenuBarVehicleLeaveButton.Hide);
 		MainMenuBar:EnableMouse(false);
 		
+		ArtifactWatchBar:UnregisterEvent("PLAYER_ENTERING_WORLD");
+		ArtifactWatchBar:UnregisterEvent("UNIT_INVENTORY_CHANGED");
+		ArtifactWatchBar:UnregisterEvent("ARTIFACT_XP_UPDATE");
+		ArtifactWatchBar:UnregisterEvent("CVAR_UPDATE");
+		ArtifactWatchBar:SetScript("OnHide", nil);
+		ArtifactWatchBar:SetScript("OnShow", nil);
+		ArtifactWatchBar:SetScript("OnEnter", nil);
+		ArtifactWatchBar:SetScript("OnLeave", nil);
+		ArtifactWatchBar:Hide();
+		ArtifactWatchBar.StatusBar:Hide();
+		ArtifactWatchBar.OverlayFrame:Hide();
+		
+		MainMenuBar_UpdateExperienceBars = VFL.Noop;
+		
 		TalentMicroButton:UnregisterEvent("PLAYER_TALENT_UPDATE");
 		
 		MainMenuBarBackpackButton_UpdateFreeSlots = VFL.Noop;
