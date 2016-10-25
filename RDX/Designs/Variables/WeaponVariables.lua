@@ -99,7 +99,7 @@ RDX.RegisterFeature({
 		if wstate then
 			local mux = wstate:GetSlotValue("Multiplexer");
 			local smask = mux:GetPaintMask("ARTIFACT_XP_UPDATE");
-			mux:Event_UnitMask("UNIT_ARTIFACT_XP_UPDATE", smask);
+			mux:Event_UnitMask("ARTIFACT_XP_UPDATE", smask);
 		end
 	end;
 	UIFromDescriptor = VFL.Nil;
