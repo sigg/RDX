@@ -21,8 +21,8 @@ local function DisableAll()
 		ChatFrame1Tab:Hide();
 		ChatFrame1Tab:SetScript("OnShow", ChatFrame1Tab.Hide);
 		ChatFrame1:UnregisterAllEvents();
-		FriendsMicroButton:Hide();
-		FriendsMicroButton:UnregisterAllEvents();
+		--FriendsMicroButton:Hide();
+		--FriendsMicroButton:UnregisterAllEvents();
 		ChatFrameMenuButton:Hide();
 		ChatFrameMenuButton:UnregisterAllEvents();
 		ChatFrameMenuButton:SetScript("OnShow", ChatFrameMenuButton.Hide);
