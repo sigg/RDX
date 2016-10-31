@@ -20,12 +20,27 @@ function RDXMAP.APIMap.GetExploredOverlayNum(map)
 
 --	local overlayNum = GetNumMapOverlays()		-- Cartographer makes this return 0
 
-	for i = 1, 999 do
-		s = GetMapOverlayInfo (i)
-		if not s then
-			return i
+	--for i = 1, 999 do
+	--	s = GetMapOverlayInfo (i)
+	--	if not s then
+	--		return i
+	--	end
+	--end
+	
+	wzone = RDXMAP.APIMap.GetWorldZone (map.mapId)
+	if wzone then
+		if wzone.class == "ci" then
+			return
+		end
+		s = wzone.o
+	end
+	if s then
+		t = NxMap.ZoneOverlays[s]
+		if t then
+			return VFL.tsize(t)
 		end
 	end
+	
 end
 
 function RDXMAP.APIMap.TargetOverlayUnexplored(map)

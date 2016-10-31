@@ -132,6 +132,24 @@ function RDXMAP.APIMap.OnEvent (self, event, ...)
 	end
 end
 
+--[[
+-- NxMapFrame
+    gestion de la souris
+	  drag et zoom
+	  hotspot de zone, city et start (indique la mapid de la souris)
+	  
+	
+-- NxMap
+    affichage des continents
+	affichage des zones, city et start
+	affichage minimap de zone
+	affichage des instances
+	affichage des mini dongeons
+
+	affichage des icônes
+
+]]
+
 
 --------
 -- Update event handler
@@ -226,6 +244,10 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 	--				local tm = GetTime()
 				RDXMAP.APIMap.CheckWorldHotspots (map, wx, wy)
 	--				VFL.vprint ("CheckWorldHotspots Time %s", GetTime() - tm)
+				if map.HotspotMapId and map.HotspotMapId ~= map.MapId then
+					RDXMAP.APIMap.SetCurrentMap (map, map.MapId)
+					map.MapId = map.HotspotMapId
+				end
 			end
 
 			local x, y = RDXMAP.APIMap.GetZonePos (map.MapId, wx, wy)
@@ -255,7 +277,7 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 		map.BackgndAlphaTarget = map.LOpts.NXBackgndAlphaFade
 
 		local rid = RDXMAP.APIMap.GetRealMapId()
-		if rid ~= 9000 and not WorldMapFrame:IsShown() then
+		if not WorldMapFrame:IsShown() then
 
 			local mapId = RDXMAP.APIMap.GetCurrentMapId()
 			--[[
@@ -277,6 +299,12 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 --						VFL.vprint ("map force set inst")
 				end
 			end]]
+			
+			--if RDXMAP.APIMap.IsMicroDungeon(mapId) then
+				--map.Scale = 120
+			--else
+				--map.Scale = map.RealScale	
+			--end
 
 			if mapId ~= rid then
 				if RDXMAP.APIMap.IsBattleGroundMap (rid) then						
