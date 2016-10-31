@@ -427,7 +427,7 @@ local function DisableAll()
 				if not flagfoundbutton then child:Hide(); end
 			end
 		end
-		WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, findButtons);
+		--WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, findButtons);
 		RDXEvents:Bind("INIT_DEFERRED", nil, findButtons);
 		findButtons();
 	end
