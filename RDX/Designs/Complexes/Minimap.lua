@@ -33,13 +33,13 @@ RDX.RegisterFeature({
 		mmap = Minimap; 
 	end
 	if mmap then
-		MinimapBackdrop:Hide();
-		GameTimeFrame:Hide();
+		--MinimapBackdrop:Hide();
+		--GameTimeFrame:Hide();
 		mmap:ClearAllPoints();
 		VFLUI.StdSetParent(mmap, ]] .. RDXUI.ResolveFrameReference(desc.owner) .. [[);
 		mmap:SetPoint(]] .. RDXUI.AnchorCodeFromDescriptor(desc.anchor) .. [[);
 		mmap:SetWidth(]] .. desc.w .. [[); mmap:SetHeight(]] .. desc.h .. [[);
-		mmap:SetBlipTexture(VFLUI.GetBlipTexture("]] .. desc.blipType .. [["));
+		--mmap:SetBlipTexture(VFLUI.GetBlipTexture("]] .. desc.blipType .. [["));
 		mmap:SetMaskTexture(VFLUI.GetMaskTexture("]] .. desc.maskType .. [["));
 		mmap:SetZoom(1);
 		mmap:EnableMouseWheel(true);
@@ -62,10 +62,10 @@ RDX.RegisterFeature({
 		local destroyCode = [[
 		local btn = frame.]] .. objname .. [[;
 		if btn then
-			btn:SetZoom(0);
-			btn:SetBlipTexture("Interface\\Minimap\\ObjectIcons");
-			btn:SetMaskTexture("Textures\\MinimapMask");
-			VFLUI._CleanupLayoutFrame(btn);
+			--btn:SetZoom(0);
+			--btn:SetBlipTexture("Interface\\Minimap\\ObjectIcons");
+			--btn:SetMaskTexture("Textures\\MinimapMask");
+			--VFLUI._CleanupLayoutFrame(btn);
 			btn = nil; 
 		end
 ]];

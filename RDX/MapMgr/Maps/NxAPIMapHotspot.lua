@@ -129,6 +129,7 @@ function RDXMAP.APIMap.CheckWorldHotspots (map, wx, wy)
 		return
 	end
 
+	map.HotspotMapId = nil;
 	map.WorldHotspotTipStr = false
 
 --	local tt = GameTooltip
@@ -146,14 +147,21 @@ function RDXMAP.APIMap.CheckWorldHotspotsType (map, wx, wy, quad)
 	for n, spot in ipairs (quad) do
 		if wx >= spot.WX1 and wx <= spot.WX2 and wy >= spot.WY1 and wy <= spot.WY2 then
 
-			local curId = RDXMAP.APIMap.GetCurrentMapId()
+			--local curId = RDXMAP.APIMap.GetCurrentMapId()
+			--local curId = map.MapId
 
-			if spot.MapId ~= curId then
+			--if spot.MapId ~= curId then
 
 --				VFL.vprint ("hotspot %s %s %s %s %s", spot.MapId, spot.WX1, spot.WX2, spot.WY1, spot.WY2)
 				--VFL.print("CHANGE spot " .. spot.MapId);
-				RDXMAP.APIMap.SetCurrentMap (map, spot.MapId)
-			end
+				--RDXMAP.APIMap.SetCurrentMap (map, spot.MapId)
+				
+				--RDXMapEvents:Dispatch("HotspotChangeMap", map.MapIndex, spot.MapId);
+				
+				--map.MapId = spot.MapId;
+			--end
+			
+			map.HotspotMapId = spot.MapId
 
 			map.WorldHotspotTipStr = spot.NxTipBase .. "\n"
 --[[

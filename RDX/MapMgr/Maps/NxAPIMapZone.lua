@@ -194,6 +194,12 @@ function RDXMAP.APIMap.UpdateZones(map)
 	else
 		RDXMAP.APIMap.MoveCurZoneTiles (map, true)
 	end
+	
+	if RDXMAP.APIMap.IsMicroDungeon(mapId) then
+		RDXMAP.APIMap.MoveCurZoneIndoor(map)
+	else
+		RDXMAP.APIMap.MoveCurZoneIndoor (map, true)
+	end
 end
 
 --------
@@ -228,6 +234,34 @@ function RDXMAP.APIMap.MoveCurZoneTiles (map, clear)
 	end
 end
 
+
+function RDXMAP.APIMap.MoveCurZoneIndoor (map, clear)
+
+	mapId = map.MapId
+	wzone = RDXMAP.APIMap.GetWorldZone (mapId)
+	local myunit = RDXDAL.GetMyUnit();
+
+	if not clear then
+--		VFL.vprint ("MoveCurZoneTiles %d", mapId)
+		--VFL.print("RDXMAP.APIMap.MoveCurZoneTiles " .. mapId);
+
+		alpha = map.BackgndAlpha * (wzone.Alpha or 1)
+
+		RDXMAP.APIMap.MoveZoneTiles (map, mapId, map.IndoorFrms, alpha, map.Level)
+		map.Level = map.Level + 1
+
+	else
+
+		frms = map.IndoorFrms
+
+		for i = 1, 12 do
+		frm = frms[i]
+			if frm then
+				frm:Hide()
+			end
+		end
+	end
+end
 --------
 -- Update frames for mini map texture layer (detail layer)
 

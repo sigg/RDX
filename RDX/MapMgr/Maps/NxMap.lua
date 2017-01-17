@@ -304,6 +304,19 @@ function RDXMAP.Map:Create (index, data)
 		t:Show();
 	end
 	
+	-- Create map zone tile frames
+	m.IndoorFrms = {}
+	for i = 1, 12 do
+		local tf = VFLUI.AcquireFrame("Frame");
+		tf:SetParent(f);
+		m.IndoorFrms[i] = tf
+
+		local t = VFLUI.CreateTexture(tf)
+		t:SetAllPoints (tf)
+		tf.texture = t
+		t:Show();
+	end
+	
 	-- Create continent frames
 	m.ContFrms = {}
 
@@ -556,6 +569,11 @@ function RDXMAP.Map:Create (index, data)
 			s.ContFrms[n] = nil;
 		end
 		s.ContFrms = nil;
+		for n = 1, 12 do
+			VFLUI.ReleaseRegion(s.IndoorFrms[n].texture); s.IndoorFrms[n].texture = nil;
+			s.IndoorFrms[n]:Destroy(); s.IndoorFrms[n] = nil;
+		end
+		s.IndoorFrms = nil;
 		for n = 1, 12 do
 			VFLUI.ReleaseRegion(s.TileFrms[n].texture); s.TileFrms[n].texture = nil;
 			s.TileFrms[n]:Destroy(); s.TileFrms[n] = nil;
@@ -981,7 +999,8 @@ function RDXMAP.Map:UpdateWorld()
 	self.CurWorldUpdateOverlayNum = i
     self.LastDungeonLevel = GetCurrentMapDungeonLevel()
 	
-	local mapFileName,_,_,isMicro,microTex = GetMapInfo()	
+	local mapFileName,_,_,isMicro,microTex = GetMapInfo()
+	VFL.print("mapFileName " .. mapFileName);
 	if not mapFileName then
 		if GetCurrentMapContinent() == WORLDMAP_COSMIC_ID then
 			mapFileName = "Cosmic"
@@ -1068,7 +1087,7 @@ function RDXMAP.Map:Update (elapsed)
 		--RDXMAP.APIMap.AddOldMap (self, mapId)
 		local oi = self.GOpts["MapZoneDrawCnt"]
 	
-		if rid and RDXMAP.APIMap.IsZoneMap(rid) or RDXMAP.APIMap.IsCityMap(rid) or RDXMAP.APIMap.IsStartZoneMap(rid) then
+		if RDXMAP.APIMap.IsZoneMap(rid) or RDXMAP.APIMap.IsCityMap(rid) or RDXMAP.APIMap.IsStartZoneMap(rid) then
 			VFL.vremove(self.MapsDrawnOrder, rid)
 			tinsert (self.MapsDrawnOrder, rid)
 			if #self.MapsDrawnOrder > oi then
@@ -1076,7 +1095,7 @@ function RDXMAP.Map:Update (elapsed)
 			end
 		end
 		
-		if mapId and RDXMAP.APIMap.IsZoneMap(mapId) or RDXMAP.APIMap.IsCityMap(mapId) or RDXMAP.APIMap.IsStartZoneMap(mapId) then
+		if RDXMAP.APIMap.IsZoneMap(mapId) or RDXMAP.APIMap.IsCityMap(mapId) or RDXMAP.APIMap.IsStartZoneMap(mapId) then
 			VFL.vremove(self.MapsDrawnOrder, mapId)
 			tinsert (self.MapsDrawnOrder, mapId)
 			if #self.MapsDrawnOrder > oi then
@@ -1506,9 +1525,10 @@ function RDXMAP.Map:Update (elapsed)
 	-------------- START MAIN Update zone instance 
 	RDXMAP.APIMap.UpdateContinents(self)
 	RDXMAP.APIMap.UpdateZones(self)
+	RDXMAP.APIMap.UpdateMiniFrames(self) --(minimap)
 	RDXMAP.APIMap.UpdateInstanceMap(self)
 	--self:UpdateAAWorldMap() -- archeology
-	RDXMAP.APIMap.UpdateMiniFrames(self) --(minimap)
+	
 	
 	-------------- END MAIN Update zone instance 
 	

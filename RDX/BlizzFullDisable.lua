@@ -21,8 +21,8 @@ local function DisableAll()
 		ChatFrame1Tab:Hide();
 		ChatFrame1Tab:SetScript("OnShow", ChatFrame1Tab.Hide);
 		ChatFrame1:UnregisterAllEvents();
-		FriendsMicroButton:Hide();
-		FriendsMicroButton:UnregisterAllEvents();
+		--FriendsMicroButton:Hide();
+		--FriendsMicroButton:UnregisterAllEvents();
 		ChatFrameMenuButton:Hide();
 		ChatFrameMenuButton:UnregisterAllEvents();
 		ChatFrameMenuButton:SetScript("OnShow", ChatFrameMenuButton.Hide);
@@ -242,6 +242,20 @@ local function DisableAll()
 		MainMenuBarVehicleLeaveButton:SetScript("OnShow", MainMenuBarVehicleLeaveButton.Hide);
 		MainMenuBar:EnableMouse(false);
 		
+		ArtifactWatchBar:UnregisterEvent("PLAYER_ENTERING_WORLD");
+		ArtifactWatchBar:UnregisterEvent("UNIT_INVENTORY_CHANGED");
+		ArtifactWatchBar:UnregisterEvent("ARTIFACT_XP_UPDATE");
+		ArtifactWatchBar:UnregisterEvent("CVAR_UPDATE");
+		ArtifactWatchBar:SetScript("OnHide", nil);
+		ArtifactWatchBar:SetScript("OnShow", nil);
+		ArtifactWatchBar:SetScript("OnEnter", nil);
+		ArtifactWatchBar:SetScript("OnLeave", nil);
+		ArtifactWatchBar:Hide();
+		ArtifactWatchBar.StatusBar:Hide();
+		ArtifactWatchBar.OverlayFrame:Hide();
+		
+		MainMenuBar_UpdateExperienceBars = VFL.Noop;
+		
 		TalentMicroButton:UnregisterEvent("PLAYER_TALENT_UPDATE");
 		
 		MainMenuBarBackpackButton_UpdateFreeSlots = VFL.Noop;
@@ -413,7 +427,7 @@ local function DisableAll()
 				if not flagfoundbutton then child:Hide(); end
 			end
 		end
-		WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, findButtons);
+		--WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, findButtons);
 		RDXEvents:Bind("INIT_DEFERRED", nil, findButtons);
 		findButtons();
 	end

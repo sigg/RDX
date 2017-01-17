@@ -1,4 +1,4 @@
-﻿## Interface: 70000
+﻿## Interface: 70100
 ## Title: |c007ffcffRDX|r
 ## Notes: RDX is Raid Data Exchange - UI and raid mods.
 ## Author: Raid Informatics / OpenRDX Project
@@ -410,7 +410,7 @@ Designs\Variables\ThreatVariables.lua
 Designs\Variables\TotemsVariables.lua
 Designs\Variables\UnitInSetVar.lua
 Designs\Variables\UnitInSortVariables.lua
-#Designs\Variables\WeaponVariables.lua
+Designs\Variables\WeaponVariables.lua
 Designs\Variables\XPVariables.lua
 Designs\Variables\ComboVariables.lua
 Designs\Variables\Currency.lua

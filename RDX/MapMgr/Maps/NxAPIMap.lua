@@ -85,9 +85,6 @@ function RDXMAP.APIMap.SetCurrentMap (map, mapId)
 			--SetDungeonMapLevel (GetCurrentMapDungeonLevel)
 		end
 		map.InstLevelSet = GetCurrentMapDungeonLevel()
-	else
-		VFL.print("RDXMAP.APIMap.SetCurrentMap no mapid");
-		--RDXMAP.APIMap.SetToCurrentZone();
 	end
 end
 

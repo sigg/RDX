@@ -5,19 +5,22 @@
 ----------------------------------------------
 local dlg = nil;
 local function EditTabMapDialog(parent, path, md, callback)
-	if dlg then return nil; end
+	if dlg then
+		RDX.printI(VFLI.i18n("A TabMap editor is already open. Please close it first."));
+		return;
+	end
 	dlg = VFLUI.Window:new(parent);
 	VFLUI.Window.SetDefaultFraming(dlg, 22);
 	dlg:SetTitleColor(0,0,.6);
 	dlg:SetBackdrop(VFLUI.BlackDialogBackdrop);
 	dlg:SetPoint("CENTER", RDXParent, "CENTER");
 	dlg:SetWidth(370); dlg:SetHeight(520);
-	dlg:SetText("TabMeter object: " .. path);
+	dlg:SetText("TabMap object: " .. path);
 	dlg:SetClampedToScreen(true);
-	
+	if RDXPM.Ismanaged("TabMap") then RDXPM.RestoreLayout(dlg, "TabMap"); end
+
 	VFLUI.Window.StdMove(dlg, dlg:GetTitleBar());
-	if RDXPM.Ismanaged("TabMeter") then RDXPM.RestoreLayout(dlg, "TabMeter"); end
-	
+		
 	local ui, sf = VFLUI.CreateScrollingCompoundFrame(dlg);
 	sf:SetWidth(346); sf:SetHeight(480);
 	sf:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
@@ -52,7 +55,7 @@ local function EditTabMapDialog(parent, path, md, callback)
 
 	local esch = function()
 		dlg:_Hide(RDX.smooth, nil, function()
-			RDXPM.StoreLayout(dlg, "TabMeter");
+			RDXPM.StoreLayout(dlg, "TabMap");
 			dlg:Destroy(); dlg = nil;
 		end);
 	end
@@ -60,10 +63,14 @@ local function EditTabMapDialog(parent, path, md, callback)
 	VFL.AddEscapeHandler(esch);
 
 	local function Save()
-		md.data.title = ed_title.editBox:GetText();
-		md.data.tabtitle = ed_tabtitle.editBox:GetText();
-		md.data.tabwidth = ed_tabwidth.editBox:GetText();
-		md.data.filters = fe:GetDescriptor();
+		md.data.NXAutoScaleOn = ed_title.editBox:GetText();
+		md.data.NXKillShow = ed_tabtitle.editBox:GetText();
+		md.data.NXMMFull = ed_tabwidth.editBox:GetText();
+		md.data.NXMMAlpha = fe:GetDescriptor();
+		
+		
+		
+		
 		if callback then callback(md.data); end
 		RDXDB.NotifyUpdate(path);
 		VFL.EscapeTo(esch);

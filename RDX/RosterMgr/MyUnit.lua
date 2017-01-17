@@ -33,7 +33,6 @@ local function ProcessMyUnit(self, elapsed)
 	-- Player real mapid
 	zName = GetRealZoneText()
 	szName = GetSubZoneText()
-	a, a, a, isIndoor, indoorMapFileName = GetMapInfo();
 	cmaId = GetCurrentMapAreaID()
 	gcmd = GetCurrentMapDungeonLevel();
 	mapId = nil;
@@ -69,6 +68,12 @@ local function ProcessMyUnit(self, elapsed)
 	
 	--VFL.print(mapId .. " " .. gcmd);
 	
+	if mapId == cmaId then
+		a, a, a, isIndoor, indoorMapFileName = GetMapInfo();
+	else
+		isIndoor = nil;
+	end
+	
 	-- subzone
 	if myunit.szName ~= szName then
 		SetMapToCurrentZone()
@@ -93,20 +98,23 @@ local function ProcessMyUnit(self, elapsed)
 	-- Player position and speed (Carbonite)
 	if IsInInstance() then -- instance
 		myunit.InstanceId = mapId
+		myunit.isIndoor = nil;
 		x, y = RDXMAP.APIMap.GetWorldPos (mapId, 0, 0)
-		lvl = max (GetCurrentMapDungeonLevel(), 1)	
+		lvl = max (gcmd, 1)	
 		myunit.PlyrX = x + myunit.PlyrRZX * 1002 / 25600
 		myunit.PlyrY = y + myunit.PlyrRZY * 668 / 25600 + (lvl - 1) * 668 / 256
 		myunit.PlyrSpeed = 0
 	elseif isIndoor then -- micro dungeon
 		myunit.InstanceId = nil;
-		lvl = max (GetCurrentMapDungeonLevel(), 1)	
+		myunit.isIndoor = true;
+		lvl = max (gcmd, 1)	
 		myunit.PlyrX = myunit.SaveLastX + myunit.PlyrRZX * 1002 / 25600
 		myunit.PlyrY = myunit.SaveLastY + myunit.PlyrRZY * 668 / 25600
 		
 	--	myunit.PlyrSpeed = 0
 	else -- external
 		myunit.InstanceId = nil;
+		myunit.isIndoor = nil;
 		x, y = RDXMAP.APIMap.GetWorldPos (mapId, myunit.PlyrRZX, myunit.PlyrRZY)
 		
 		if elapsed > 0 then
