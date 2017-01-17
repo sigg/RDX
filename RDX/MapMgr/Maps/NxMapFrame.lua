@@ -254,10 +254,11 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 
 		map.BackgndAlphaTarget = map.LOpts.NXBackgndAlphaFade
 
-		local rid = RDXMAP.APIMap.GetRealMapId()
-		if rid ~= 9000 and not WorldMapFrame:IsShown() then
+		--[[TEST 17 01 2016]]
+		--local rid = RDXMAP.APIMap.GetRealMapId()
+		--if rid ~= 9000 and not WorldMapFrame:IsShown() then
 
-			local mapId = RDXMAP.APIMap.GetCurrentMapId()
+			--local mapId = RDXMAP.APIMap.GetCurrentMapId()
 			--[[
 			if RDXMAP.APIMap.IsInstanceMap (rid) then					
 				if not RDXMAP.Map.InstanceInfo[rid] then		-- Don't convert WotLK/Cata instances
@@ -278,14 +279,14 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 				end
 			end]]
 
-			if mapId ~= rid then
-				if RDXMAP.APIMap.IsBattleGroundMap (rid) then						
-					SetMapToCurrentZone()
-				else
-					RDXMAP.APIMap.SetCurrentMap (map, rid)
-				end
-			end
-		end
+			--if mapId ~= rid then
+			--	if RDXMAP.APIMap.IsBattleGroundMap (rid) then						
+			--		SetMapToCurrentZone()
+			--	else
+			--		RDXMAP.APIMap.SetCurrentMap (map, rid)
+			--	end
+			--end
+		--end
 	end
 	
 	----------------------
