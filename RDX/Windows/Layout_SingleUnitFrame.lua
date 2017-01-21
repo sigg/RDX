@@ -62,6 +62,8 @@ local function SingleUnitMuxEventTranslator_MaskUnit(ev, mask, mux, rd)
 		WoWEvents:Bind("UPDATE_EXHAUSTION", nil, filter, mux);
 		WoWEvents:Bind("PLAYER_LEVEL_UP", nil, filter, mux);
 		WoWEvents:Bind("UNIT_PET_EXPERIENCE", nil, filter, mux);
+	elseif(ev == "ARTIFACT_XP_UPDATE") then
+		WoWEvents:Bind("ARTIFACT_XP_UPDATE", nil, filter, mux); 
 	elseif( (ev == "UNIT_BUFF_*") or (ev == "UNIT_DEBUFF_*") ) then
 		-- We want to bind to UNIT_AURA, but let's be sure to disallow double binds.
 		-- Also, or the mask with our mask cache for multi masks.
