@@ -92,28 +92,6 @@ end
 
 function RDXMAP.APIMap.CheckWorldHotspots (map, wx, wy)
 
-	if map.InstMapId then
-		if wx >= map.InstMapWX1 and wx <= map.InstMapWX2 and wy >= map.InstMapWY1 and wy <= map.InstMapWY2 then
-			
-			local lvl = floor ((wy - map.InstMapWY1) / 668 * 256) + 1
-
-			if map.InstMapId ~= map.MapId then
-
---				VFL.vprint ("Hit Inst %s, lvl %s", map.InstMapId, lvl)
-
-				RDXMAP.APIMap.SetCurrentMap (map, map.InstMapId)
-			end
-
-			SetDungeonMapLevel (lvl)
-
-			map.InstLevelSet = -1
-
-			map.WorldHotspotTipStr = RDXMAP.APIMap.IdToName(map.InstMapId) .. "\n"
-
-			return
-		end
-	end
-
 	local quad1 = map.WorldHotspotsCity
 	local quad2 = map.WorldHotspots
 

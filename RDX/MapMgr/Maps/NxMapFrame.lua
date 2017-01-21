@@ -173,8 +173,11 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 	map:UpdateOptions()
 
 	---------------------------
-	-- Scroll map with mouse
+	-- Scroll map with mouse and hotspot
 	---------------------------
+
+	local cursorLocStr = ""
+	local cursorLocXY = ""
 	
 	local winx, winy = VFLUI.IsMouseOver (self)
 
@@ -186,7 +189,6 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 	map.MouseIsOver = winx
 	
 	if winx and map.Scrolling then
-
 		local cx, cy = GetCursorPosition()
 		cx = cx / map.EffScale
 		cy = cy / map.EffScale
@@ -221,16 +223,8 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 		map.MapPosX = map.MapPosXDraw
 		map.MapPosY = map.MapPosYDraw
 		map.Scale = map.ScaleDraw
-	end
 	
-	----------------------
-	-- HOTSPOT
-	----------------------
-
-	local cursorLocStr = ""
-	local cursorLocXY = ""
-	
-	if winx and not map.Scrolling then
+	elseif winx and not map.Scrolling then
 
 		map.BackgndAlphaTarget = map.LOpts.NXBackgndAlphaFull
 
@@ -242,11 +236,37 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 
 			if not VFL.poptree:MouseIsOver() then
 	--				local tm = GetTime()
-				RDXMAP.APIMap.CheckWorldHotspots (map, wx, wy)
+				if map.InstMapId then
+					if wx >= map.InstMapWX1 and wx <= map.InstMapWX2 and wy >= map.InstMapWY1 and wy <= map.InstMapWY2 then
+						
+						local lvl = floor ((wy - map.InstMapWY1) / 668 * 256) + 1
+
+						if map.InstMapId ~= map.MapId then
+
+			--				VFL.vprint ("Hit Inst %s, lvl %s", map.InstMapId, lvl)
+
+							RDXMAP.APIMap.SetCurrentMap (map, map.InstMapId)
+						end
+
+						SetDungeonMapLevel (lvl)
+
+						map.InstLevelSet = -1
+
+						map.WorldHotspotTipStr = RDXMAP.APIMap.IdToName(map.InstMapId) .. "\n"
+
+					end
+				else
+					RDXMAP.APIMap.CheckWorldHotspots (map, wx, wy)
 	--				VFL.vprint ("CheckWorldHotspots Time %s", GetTime() - tm)
-				if map.HotspotMapId and map.HotspotMapId ~= map.MapId then
-					RDXMAP.APIMap.SetCurrentMap (map, map.MapId)
-					map.MapId = map.HotspotMapId
+					if map.HotspotMapId and map.HotspotMapId ~= map.MapId then
+						RDXMAP.APIMap.SetCurrentMap (map, map.HotspotMapId)
+
+						VFL.vremove(map.MapsHotspotOrder, map.HotspotMapId)
+						tinsert (map.MapsHotspotOrder, map.HotspotMapId)
+						if #map.MapsHotspotOrder > map.GOpts["MapZoneDrawCnt"] then
+							tremove (map.MapsHotspotOrder, 1)
+						end
+					end
 				end
 			end
 
@@ -265,22 +285,24 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 			end
 			
 		end
+		
+		
 
 	else
-	
+
 		--		if GameTooltip:IsOwned (map.Win.Frm) and map.TooltipType == 1 then
 		--			VFL.vprint ("map TT hide")
 		--			map.TooltipType = 0
 		--			GameTooltip:Hide()
 		--		end
-
+		map.HotspotMapId = nil;
 		map.BackgndAlphaTarget = map.LOpts.NXBackgndAlphaFade
 
-		--[[DISABLE 17012016]]
-		--local rid = RDXMAP.APIMap.GetRealMapId()
-		--if not WorldMapFrame:IsShown() then
 
-			--local mapId = RDXMAP.APIMap.GetCurrentMapId()
+		local rid = RDXMAP.APIMap.GetRealMapId()
+		if not WorldMapFrame:IsShown() then
+
+			local mapId = RDXMAP.APIMap.GetCurrentMapId()
 			--[[
 			if RDXMAP.APIMap.IsInstanceMap (rid) then					
 				if not RDXMAP.Map.InstanceInfo[rid] then		-- Don't convert WotLK/Cata instances
@@ -307,14 +329,18 @@ function RDXMAP.APIMap.OnUpdate (self, elapsed)	--V4 self
 				--map.Scale = map.RealScale	
 			--end
 
-			--if mapId ~= rid then
-			--	if RDXMAP.APIMap.IsBattleGroundMap (rid) then						
-			--		SetMapToCurrentZone()
-			--	else
-			--		RDXMAP.APIMap.SetCurrentMap (map, rid)
-			--	end
-			--end
-		--end
+			if mapId ~= rid then
+				if RDXMAP.APIMap.IsBattleGroundMap (rid) then						
+					SetMapToCurrentZone()
+				else
+					RDXMAP.APIMap.SetCurrentMap (map, rid)
+				end
+			end
+		end
+	end
+	
+	if not map.HotspotMapId then
+		VFL.empty(map.MapsHotspotOrder);
 	end
 	
 	----------------------

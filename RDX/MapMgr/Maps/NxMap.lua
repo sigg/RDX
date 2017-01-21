@@ -153,6 +153,7 @@ function RDXMAP.Map:Create (index, data)
 	m.MapPosY = -100
 	m.MapPosXDraw = m.MapPosX								-- Actual draw position
 	m.MapPosYDraw = m.MapPosY
+	m.MapsHotspotOrder = {}	
 	m.MapsDrawnOrder = {}									-- [index (1st is newest)] = map id
 	m.MapsDrawnFade = {}										-- [map id] = fade
 	m.MiniBlks = gopts["MapDetailSize"]
@@ -1000,7 +1001,7 @@ function RDXMAP.Map:UpdateWorld()
     self.LastDungeonLevel = GetCurrentMapDungeonLevel()
 	
 	local mapFileName,_,_,isMicro,microTex = GetMapInfo()
-	VFL.print("mapFileName " .. mapFileName);
+
 	if not mapFileName then
 		if GetCurrentMapContinent() == WORLDMAP_COSMIC_ID then
 			mapFileName = "Cosmic"
@@ -1083,8 +1084,6 @@ function RDXMAP.Map:Update (elapsed)
 
 		self.CurMapBG = RDXMAP.APIMap.IsBattleGroundMap (mapId)
 
---			self.MapIdOld = self.MapId
-		--RDXMAP.APIMap.AddOldMap (self, mapId)
 		local oi = self.GOpts["MapZoneDrawCnt"]
 	
 		if RDXMAP.APIMap.IsZoneMap(rid) or RDXMAP.APIMap.IsCityMap(rid) or RDXMAP.APIMap.IsStartZoneMap(rid) then
@@ -1148,27 +1147,27 @@ function RDXMAP.Map:Update (elapsed)
 		
 		if c then
 		
-		local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. c);
-		if mbo and mbo.data then
-			for i,v in ipairs(mbo.data) do
-				--if v.s == RDX.PlFactionNum or v.s == 2 then
-					local f = VFLUI.POIIcon:new(self, 4)
-					f.texture:SetTexture(RDXMAP.icontex["F"])
-					if v.fx then
-						f.NxTip = format ("%s\n%s %.1f %.1f, %.6f %.6f", "Flight", v.n, v.x, v.y, v.fx, v.fy)
-					else
-						f.NxTip = format ("%s\n%s %.1f %.1f", "Flight", v.n, v.x, v.y)
-					end
-					f.x = v.x
-					f.y = v.y
-					f.NXType = 3001
-					f.MapId = id
-					f.n = f.NxTip
-					f.NXData = v
-					table.insert(self.Icon2Frms, f);
-				--end
+			local mbo = RDXDB.TouchObject("RDXDiskMap:poisT:F_" .. c);
+			if mbo and mbo.data then
+				for i,v in ipairs(mbo.data) do
+					--if v.s == RDX.PlFactionNum or v.s == 2 then
+						local f = VFLUI.POIIcon:new(self, 4)
+						f.texture:SetTexture(RDXMAP.icontex["F"])
+						if v.fx then
+							f.NxTip = format ("%s\n%s %.1f %.1f, %.6f %.6f", "Flight", v.n, v.x, v.y, v.fx, v.fy)
+						else
+							f.NxTip = format ("%s\n%s %.1f %.1f", "Flight", v.n, v.x, v.y)
+						end
+						f.x = v.x
+						f.y = v.y
+						f.NXType = 3001
+						f.MapId = id
+						f.n = f.NxTip
+						f.NXData = v
+						table.insert(self.Icon2Frms, f);
+					--end
+				end
 			end
-		end
 		
 		end
 		
@@ -1248,8 +1247,6 @@ function RDXMAP.Map:Update (elapsed)
 		end
 		
 		
-		
-		
 		-- add instances
 		local mapid, info;
 		local pkg = RDXDB.GetPackage("RDXDiskMap", "maps")
@@ -1258,7 +1255,7 @@ function RDXMAP.Map:Update (elapsed)
 				mapid = tonumber(objname);
 				info = obj.data.mf
 				if info then
-					if info.class == "i" and info.EntryMId == self.MapId then
+					if info.class == "i" then --and info.EntryMId == self.MapId then
 						local f = VFLUI.POIIcon:new(self, 4)
 						f.NxTip = RDXMAP.MapIdToName[mapid]
 						f.NXType = 3003
@@ -1269,7 +1266,7 @@ function RDXMAP.Map:Update (elapsed)
 						f.y = info.y --* 100
 						f.MapId = mapId
 						f.n = f.NxTip
-						table.insert(self.Icon3Frms, f); 
+						table.insert(self.Icon2Frms, f); 
 					end
 				end
 			end
