@@ -140,7 +140,7 @@ RDX.RegisterFeature({
 		elseif  desc.ftype == 3 then
 			desc.nIcons = 8;
 		elseif  desc.ftype == 4 then
-			desc.nIcons = 3;
+			desc.nIcons = 1;
 		end
 		
 		------------------ On frame creation
@@ -168,7 +168,8 @@ RDX.RegisterFeature({
 ]];
 		elseif desc.ftype == 4 and useheader then
 			createCode = createCode .. [[
-	h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
+	--h = __RDXCreateHeaderHandlerBase(]] .. headervis .. [[);
+	h = VFLUI.AcquireFrame("Frame");
 ]];
 		else
 			createCode = createCode .. [[
@@ -540,7 +541,7 @@ RDX.RegisterFeature({
 			elseif ftype:GetValue() == 3 then
 				nIcons = 8;
 			elseif ftype:GetValue() == 4 then
-				nIcons = 3;
+				nIcons = 1;
 			end
 			return { 
 				feature = "listbuttons"; version = 1;

@@ -1947,12 +1947,16 @@ function ABVShowGameTooltip(self)
 	if ( not self.tooltipName ) then
 		return;
 	end
+	
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 	if self.isToken then
 		GameTooltip:SetText(self.tooltipName..NORMAL_FONT_COLOR_CODE.." ("..GetBindingText(GetBindingKey("VFLVehicleButton"..self.id), "KEY_")..")"..FONT_COLOR_CODE_CLOSE, 1.0, 1.0, 1.0);
 		if ( self.tooltipSubtext ) then
 			GameTooltip:AddLine(self.tooltipSubtext, "", 0.5, 0.5, 0.5);
 		end
+	elseif UnitOnTaxi("player") then
+		GameTooltip:SetText(TAXI_CANCEL, 1, 1, 1);
+		GameTooltip:AddLine(TAXI_CANCEL_DESCRIPTION, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, true);
 	else
 		GameTooltip:SetText(self.tooltipName..NORMAL_FONT_COLOR_CODE, "", 1.0, 1.0, 1.0);
 	end
@@ -2010,13 +2014,14 @@ function RDXUI.VehicleButton:new(parent, id, statesString, desc)
 	self:Hide();
 	
 	local function UpdateNewAction()
+		--if self.id == 1 then
+		--	self.icon:SetTexture("Interface\\Vehicles\\UI-Vehicles-Button-Pitch-Up");
+		--	self.icon:SetTexCoord(0.21875, 0.765625, 0.234375, 0.78125);
+		--elseif self.id == 2 then
+		--	self.icon:SetTexture("Interface\\Vehicles\\UI-Vehicles-Button-PitchDown-Up");
+		--	self.icon:SetTexCoord(0.21875, 0.765625, 0.234375, 0.78125);
+		--elseif 
 		if self.id == 1 then
-			self.icon:SetTexture("Interface\\Vehicles\\UI-Vehicles-Button-Pitch-Up");
-			self.icon:SetTexCoord(0.21875, 0.765625, 0.234375, 0.78125);
-		elseif self.id == 2 then
-			self.icon:SetTexture("Interface\\Vehicles\\UI-Vehicles-Button-PitchDown-Up");
-			self.icon:SetTexCoord(0.21875, 0.765625, 0.234375, 0.78125);
-		elseif self.id == 3 then
 			self.icon:SetTexture("Interface\\Vehicles\\UI-Vehicles-Button-Exit-Up");
 			self.icon:SetTexCoord(0.140625, 0.859375, 0.140625, 0.859375);
 		end
@@ -2032,12 +2037,12 @@ function RDXUI.VehicleButton:new(parent, id, statesString, desc)
 		--	end
 		--end
 		if CanExitVehicle() then
-			if self.id == 3 then
+			if self.id == 1 then
 				self.icon:Show();
 				self:Show();
 			end
 		else
-			if self.id == 3 then
+			if self.id == 1 then
 				self.icon:Hide();
 				self:Hide();
 			end
@@ -2046,29 +2051,43 @@ function RDXUI.VehicleButton:new(parent, id, statesString, desc)
 	
 	-- use when drag new action binding
 	local function UpdateAction(arg1)
-		if arg1 == "player" then UpdateNewAction(); end
+		--if arg1 == "player" then 
+			UpdateNewAction();
+		--end
 	end
 	
 	self:SetScript("OnLeave", ABVHideGameTooltip);
 	self:SetScript("OnEnter", ABVShowGameTooltip);
 	--self:SetAttribute("unit", "player");
 	
-	if self.id == 1 then
-		self.tooltipName = "Target UP";
+	--if self.id == 1 then
+	--	self.tooltipName = "Target UP";
 		--self:SetAttribute("type", "macro");
 		--self:SetAttribute("macrotext", "/run VehicleAimIncrement()");
-	elseif self.id == 2 then
-		self.tooltipName = "Target DOWN";
+	--elseif self.id == 2 then
+	--	self.tooltipName = "Target DOWN";
 		--self:SetAttribute("type", "macro");
 		--self:SetAttribute("macrotext", "/run VehicleAimDecrement()");
-	elseif self.id == 3 then
+	--elseif 
+	if self.id == 1 then
 		self.tooltipName = "Vehicle Exit";
-		self:SetScript("OnClick", VehicleExit);
+		self:SetScript("OnClick", function() 
+			if ( UnitOnTaxi("player") ) then
+				TaxiRequestEarlyLanding();
+				self.icon:Hide();
+				self:Hide();
+			else
+				VehicleExit();
+			end
+		end);
 	end
 	
 	WoWEvents:Bind("UNIT_ENTERED_VEHICLE", nil, UpdateAction, "actionButtonVehicle" .. self.id);
 	WoWEvents:Bind("UNIT_EXITED_VEHICLE", nil, UpdateAction, "actionButtonVehicle" .. self.id);
 	WoWEvents:Bind("VEHICLE_UPDATE", nil, UpdateAction, "actionButtonVehicle" .. self.id);
+	WoWEvents:Bind("PLAYER_ENTERING_WORLD", nil, UpdateAction, "actionButtonVehicle" .. self.id);
+	WoWEvents:Bind("UPDATE_BONUS_ACTIONBAR", nil, UpdateAction, "actionButtonVehicle" .. self.id);
+	WoWEvents:Bind("UPDATE_MULTI_CAST_ACTIONBAR", nil, UpdateAction, "actionButtonVehicle" .. self.id);
 	
 	----------------------------------- Bindings
 	
