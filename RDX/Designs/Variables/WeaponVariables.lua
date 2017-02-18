@@ -89,7 +89,10 @@ RDX.RegisterFeature({
 		else
 			code:AppendCode([[
 		local itemID, altItemID, name, icon, totalXP, pointsSpent, quality, artifactAppearanceID, appearanceModID, itemAppearanceID, altItemAppearanceID, altOnTop = C_ArtifactUI.GetEquippedArtifactInfo();
-		local numPointsAvailableToSpend, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP);
+		local numPointsAvailableToSpend, xp, xpForNextPoint = 0, 1, 1;
+		if pointsSpent then
+			numPointsAvailableToSpend, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP);
+		end
 		local artxp = xp / xpForNextPoint;
 		local artxptxt = xp .. " / " .. xpForNextPoint;
 ]]);
