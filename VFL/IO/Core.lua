@@ -95,6 +95,7 @@ VFLUI.CreateFramePool("ChatFrame2",
 		--l2:SetTexture(nil);
 		--m2:SetTexture(nil);
 		--r2:SetTexture(nil);
+		f.cf:SetHyperlinksEnabled(true);
 		
 		f.cf.editBox:SetScript("OnHide", nil);
 		
