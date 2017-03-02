@@ -140,6 +140,7 @@ RDX.RegisterFeature({
 			frame:Cleanup();
 			acca(nil, hdr, frame);
 			frame._paintmask = defaultPaintMask;
+			frame:SetAttribute("unitsuffix", "target");
 		end
 
 		-- "De-acclimatize" a secure button from this window

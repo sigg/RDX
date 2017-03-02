@@ -408,7 +408,7 @@ function RDX.HeaderGrid:new(parent, htype)
 
 	--- Stuff this header with data
 	function self:Stuff(iterGen, filter, transform, bucket, limit, switchvehicle)
-		if InCombatLockdown() then return; end
+		--if InCombatLockdown() then return; end
 		if not limit then limit = 10000; end
 		VFL.empty(strList);
 		local count, bucketCount, maxBucket, idx = 0, 0, 0, 0;
@@ -505,6 +505,20 @@ RDXUI.HeaderEditor = {};
 function RDXUI.HeaderEditor:new(parent)
 	local ui = VFLUI.CompoundFrame:new(parent);
 
+	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Visibility")));
+	local chk_showRaid = VFLUI.Checkbox:new(ui); 
+	chk_showRaid:Show(); chk_showRaid:SetText(VFLI.i18n("Show in Raid"));
+	ui:InsertFrame(chk_showRaid);
+	local chk_showParty = VFLUI.Checkbox:new(ui); 
+	chk_showParty:Show(); chk_showParty:SetText(VFLI.i18n("Show in Party"));
+	ui:InsertFrame(chk_showParty);
+	local chk_showSolo = VFLUI.Checkbox:new(ui); 
+	chk_showSolo:Show(); chk_showSolo:SetText(VFLI.i18n("Show in Solo"));
+	ui:InsertFrame(chk_showSolo);
+	local chk_showPlayer = VFLUI.Checkbox:new(ui); 
+	chk_showPlayer:Show(); chk_showPlayer:SetText(VFLI.i18n("Show Player"));
+	ui:InsertFrame(chk_showPlayer);
+	
 	--------------- Content section
 	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Content parameters")));
 
@@ -522,8 +536,8 @@ function RDXUI.HeaderEditor:new(parent)
 	ui:InsertFrame(classes); 
 	local groups = RDXUI.GroupFilterUI:new(ui); groups:Show();
 	ui:InsertFrame(groups);
-	--local roles = RDXUI.RoleFilterUI:new(ui); roles:Show();
-	--ui:InsertFrame(roles);
+	local roles = RDXUI.RoleFilterUI:new(ui); roles:Show();
+	ui:InsertFrame(roles);
 
 	-- nset section
 	ui:InsertFrame(driver_NSet);
@@ -560,11 +574,11 @@ function RDXUI.HeaderEditor:new(parent)
 	ui:InsertFrame(VFLUI.Separator:new(ui, VFLI.i18n("Layout parameters")));
 
 	local groupType = VFLUI.RadioGroup:new(ui);
-	groupType:SetLayout(3,2);
+	groupType:SetLayout(4,2);
 	groupType.buttons[1]:SetText(VFLI.i18n("No grouping"));
 	groupType.buttons[2]:SetText(VFLI.i18n("Group by class"));
 	groupType.buttons[3]:SetText(VFLI.i18n("Group by raidgroup"));
-	--groupType.buttons[4]:SetText(VFLI.i18n("Group by role"));
+	groupType.buttons[4]:SetText(VFLI.i18n("Group by role"));
 	ui:InsertFrame(groupType);
 	groupType:SetValue(1);
 
@@ -608,10 +622,14 @@ function RDXUI.HeaderEditor:new(parent)
 		elseif tbl.driver == 2 then
 			classes:SetClasses(tbl.classes);
 			groups:SetGroups(tbl.groups);
-		--	roles:SetRoles(tbl.roles);
+			roles:SetRoles(tbl.roles);
 		end
 		chk_pet:SetChecked(tbl.pet);
 		chk_switchvehicle:SetChecked(tbl.switchvehicle);
+		chk_showRaid:SetChecked(tbl.showRaid);
+		chk_showParty:SetChecked(tbl.showParty);
+		chk_showSolo:SetChecked(tbl.showSolo);
+		chk_showPlayer:SetChecked(tbl.showPlayer);
 	end
 
 	function ui:GetDescriptor()
@@ -633,10 +651,14 @@ function RDXUI.HeaderEditor:new(parent)
 		else
 			desc.classes = classes:GetClasses();
 			desc.groups = groups:GetGroups();
-		--	desc.roles = roles:GetRoles();
+			desc.roles = roles:GetRoles();
 		end
 		desc.pet = chk_pet:GetChecked();
 		desc.switchvehicle = chk_switchvehicle:GetChecked();
+		desc.showRaid = chk_showRaid:GetChecked();
+		desc.showParty = chk_showParty:GetChecked();
+		desc.showSolo = chk_showSolo:GetChecked();
+		desc.showPlayer = chk_showPlayer:GetChecked();
 		return desc;
 	end
 
@@ -650,6 +672,10 @@ function RDXUI.HeaderEditor:new(parent)
 end
 
 function RDXUI.ApplyHeaderDescriptor(hdr, hdef)
+	hdr:SetAttribute("showRaid", hdef.showRaid);
+	hdr:SetAttribute("showParty", hdef.showParty);
+	hdr:SetAttribute("showSolo", hdef.showSolo);
+	hdr:SetAttribute("showPlayer", hdef.showPlayer);
 	hdr:SetAttribute("point", hdef.frameAnchor or "TOP");
 	hdr:SetAttribute("columnAnchorPoint", hdef.colAnchor or "LEFT");
 	hdr:SetAttribute("columnSpacing", hdef.padding or 0);
@@ -662,9 +688,9 @@ function RDXUI.ApplyHeaderDescriptor(hdr, hdef)
 	elseif hdef.groupType == 3 then
 		hdr:SetAttribute("groupingOrder", "1,2,3,4,5,6,7,8");
 		hdr:SetAttribute("groupBy", "GROUP");
-	--elseif hdef.groupType == 4 then
-	--	hdr:SetAttribute("groupingOrder", "TANK,DAMAGER,HEALER");
-	--	hdr:SetAttribute("groupBy", "ROLE");
+	elseif hdef.groupType == 4 then
+		hdr:SetAttribute("groupingOrder", "MAINTANK", "MAINASSIST", "TANK", "HEALER", "DAMAGER", "NONE");
+		hdr:SetAttribute("groupBy", "ROLE");
 	else
 		-- No grouping
 		hdr:SetAttribute("groupBy", nil);
@@ -682,9 +708,9 @@ function RDXUI.ApplyHeaderDescriptor(hdr, hdef)
 		if hdef.classes then
 			for i=1,12 do if hdef.classes[i] then gf = gf .. RDXMD.GetClassMnemonic(i) .. ","; end end
 		end
-		--if hdef.roles then
-		--	for i=1,4 do if hdef.roles[i] then gf = gf .. RDXMD.GetRoleName(i) .. ","; end end
-		--end
+		if hdef.roles then
+			for i=1,6 do if hdef.roles[i] then gf = gf .. RDXMD.GetRoleName(i) .. ","; end end
+		end
 		hdr:SetAttribute("groupFilter", gf);
 	end
 end
