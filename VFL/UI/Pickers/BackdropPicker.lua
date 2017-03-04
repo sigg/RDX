@@ -8,7 +8,7 @@ VFLUI.defaultBackdrop = {
 	_border = "none";
 	_backdrop = "none";
 	_bkdtype = 1;
-	borl = 2;
+	borl = 1;
 	bors = 1;
 };
 
@@ -18,7 +18,7 @@ VFLUI.nilBackdrop = {
 	_backdrop = "none";
 	edgeFile = nil;
 	_bkdtype = 1;
-	borl = 2;
+	borl = 1;
 	bors = 1;
 };
 
