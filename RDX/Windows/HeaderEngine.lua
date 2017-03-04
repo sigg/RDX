@@ -106,6 +106,14 @@ end, function()
 	return f;
 end);
 
+VFLUI.CreateFramePool("SecureHandlerBaseTemplate", function(pool, frame)
+	CleanupHeader(frame);
+end, function()
+	local f = CreateFrame("Frame", "SHBT" .. VFL.GetNextID(), nil, "SecureHandlerBaseTemplate");
+	CleanupHeader(f);
+	return f;
+end);
+
 ------------------------------------------------------------
 -- SMART HEADER
 -- We start by abstracting the header template itself, into an object with some intelligent API.
