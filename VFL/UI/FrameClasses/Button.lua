@@ -15,7 +15,7 @@ function VFLUI.Button:new(parent)
 	end
 	
 	-- Background
-	btn:SetBackdrop(VFLUI.DefaultDialogBorder);
+	VFLUI.SetBackdrop(btn, VFLUI.DefaultDialogBorder);
 
 	-- Textures Bkg
 	local tex = VFLUI.CreateTexture(btn);

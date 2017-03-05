@@ -606,7 +606,7 @@ function VFLUI.ApplyBaseBackdrop(bkdp, border, backdrop)
 	end
 end
 
-function VFLUI.SetBackdrop(frame, bkdp)
+local function ASetBackdrop(frame, bkdp)
 	if (type(frame) ~= "table") then return; end
 	
 	if frame._fbd then
@@ -798,6 +798,12 @@ function VFLUI.SetBackdrop(frame, bkdp)
 			frame._bg:Show();
 		end
 	end
+end
+
+function VFLUI.SetBackdrop(frame, bkdp)
+	VFLT.NextFrame(math.random(100000000), function()
+		ASetBackdrop(frame, bkdp)
+	end);
 end
 
 function VFLUI.SetBackdropColor(frame, r, g, b, a)

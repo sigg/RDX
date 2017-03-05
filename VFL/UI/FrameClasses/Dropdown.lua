@@ -30,7 +30,8 @@ function VFLUI.Dropdown:new(parent, onBuild, onSelChanged, initText, initValue, 
 
 	local self = VFLUI.AcquireFrame("Frame");
 	VFLUI.StdSetParent(self, parent);
-	self:SetBackdrop(VFLUI.BlackDialogBackdrop); self:SetHeight(25);
+	VFLUI.SetBackdrop(self, VFLUI.BlackDialogBackdrop);
+	self:SetHeight(25);
 	self.onBuild = onBuild;
 	
 	if not limit then limit = 20; end

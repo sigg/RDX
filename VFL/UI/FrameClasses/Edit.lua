@@ -17,7 +17,7 @@ function VFLUI.Edit:new(parent, overrideFix)
 	end
 
 	-- Appearance
-	self:SetBackdrop(VFLUI.BlackDialogBackdrop);
+	VFLUI.SetBackdrop(self, VFLUI.BlackDialogBackdrop);
 	VFLUI.SetFont(self, Fonts.Default);
 	self:SetTextInsets(5,5,5,5);
 	self:SetAutoFocus(nil); self:ClearFocus();
