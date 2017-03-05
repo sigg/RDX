@@ -44,15 +44,15 @@ RDXDB.RegisterObjectType({
 		le_names:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 		le_names:SetWidth(600);	le_names:SetHeight(183); le_names:Show();
 		
-		--dlg:Show();
-		dlg:_Show(RDX.smooth);
+		dlg:Show();
+		--dlg:_Show(RDX.smooth);
 
 		local esch = function()
-			dlg:_Hide(RDX.smooth, nil, function()
-				--dlg:Hide();
+			--dlg:_Hide(RDX.smooth, nil, function()
+				dlg:Hide();
 				RDXPM.StoreLayout(dlg, "POISet");
 				dlg:Destroy(); dlg = nil;
-			end);
+			--end);
 		end
 		VFL.AddEscapeHandler(esch);
 		

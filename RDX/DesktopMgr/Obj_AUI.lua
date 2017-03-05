@@ -57,14 +57,14 @@ function RDXDK.OpenAUIEditor(path, md, parent)
 	le_names:SetPoint("TOPLEFT", dlg:GetClientArea(), "TOPLEFT");
 	le_names:SetWidth(260);	le_names:SetHeight(263); le_names:Show();
 	
-	--dlg:Show();
-	dlg:_Show(RDX.smooth);
+	dlg:Show();
+	--dlg:_Show(RDX.smooth);
 	
 	local esch = function()
-		dlg:_Hide(RDX.smooth, nil, function()
+		--dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "AUI_editor");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 	
@@ -444,13 +444,14 @@ function RDXDK.DuplicateAUI()
 	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 	
-	dlg2:_Show(RDX.smooth);
+	dlg2:Show();
+	--dlg2:_Show(RDX.smooth);
 
 	local esch = function()
-		dlg2:_Hide(RDX.smooth, nil, function()
+		--dlg2:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg2, "rdx_duplicate_window");
 			dlg2:Destroy(); dlg2 = nil;
-		end);
+		--end);
 	end
 	
 	VFL.AddEscapeHandler(esch);

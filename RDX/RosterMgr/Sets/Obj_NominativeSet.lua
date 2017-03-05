@@ -56,14 +56,16 @@ local function EditNominativeSetDialog(parent, path, md)
 		dlg = nil;
 	end, dlg.Destroy);
 	
-	--dlg:Show();
-	dlg:_Show(RDX.smooth);
+	dlg:Show();
+	--dlg:_Show(RDX.smooth);
+	
 	local esch = function()
-		dlg:_Hide(RDX.smooth, nil, function()
+		--dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "NominativeSet");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
+	
 	VFL.AddEscapeHandler(esch);
 	local closebtn = VFLUI.CloseButton:new();
 	closebtn:SetScript("OnClick", function() VFL.EscapeTo(esch); end);

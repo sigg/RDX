@@ -431,7 +431,8 @@ local function CleanupFrame(x)
 	-- Frame specific cleanup
 	x:SetFrameStrata("MEDIUM"); x:SetFrameLevel(1);
 	x:SetScale(1);
-	x:SetBackdrop(nil);
+	--x:SetBackdrop(nil);
+	VFLUI.SetBackdrop(x, nil);
 	-- Perform LayoutFrame cleanup...
 	CleanupLayoutFrame(x);
 end
@@ -808,11 +809,11 @@ function VFLUI.AcquireFrame(frameType, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10)
 	frame._VFL = true;
 	frame._sourcePool = pool;
 	frame.Destroy = GenericDestroy;
-	if not frame._hookedHideShow then
-		frame._hookedHideShow = true;
-		frame._Hide = TimerHide2;
-		frame._Show = TimerShow2;
-	end
+	--if not frame._hookedHideShow then
+	--	frame._hookedHideShow = true;
+	--	frame._Hide = TimerHide2;
+	--	frame._Show = TimerShow2;
+	--end
 	--frame.AnimationGroup = frame:CreateAnimationGroup();
 	return frame;
 end

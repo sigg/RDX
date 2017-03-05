@@ -256,13 +256,13 @@ local function BindingCodePopup(parent, callback)
 
 	----------------- INTERACT
 	
-	--dlg:Show();
-	dlg:_Show(RDX.smooth);
+	dlg:Show();
+	--dlg:_Show(RDX.smooth);
 	
 	local esch = function() 
-		dlg:_Hide(RDX.smooth, nil, function() 
+		--dlg:_Hide(RDX.smooth, nil, function() 
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 
@@ -348,14 +348,14 @@ local function EditMouseBindingsDialog(parent, path, md, callback)
 
 	----------------- INTERACT
 	
-	--dlg:Show();
-	dlg:_Show(RDX.smooth);
+	dlg:Show();
+	--dlg:_Show(RDX.smooth);
 
 	local esch = function()
-		dlg:_Hide(RDX.smooth, nil, function()
+		--dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "mbDialog");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	VFL.AddEscapeHandler(esch);
 

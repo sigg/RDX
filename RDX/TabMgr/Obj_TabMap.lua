@@ -50,14 +50,14 @@ local function EditTabMapDialog(parent, path, md, callback)
 	
 	VFLUI.ActivateScrollingCompoundFrame(ui, sf);
 
-	--dlg:Show();
-	dlg:_Show(RDX.smooth);
+	dlg:Show();
+	--dlg:_Show(RDX.smooth);
 
 	local esch = function()
-		dlg:_Hide(RDX.smooth, nil, function()
+		--dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "TabMap");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	
 	VFL.AddEscapeHandler(esch);

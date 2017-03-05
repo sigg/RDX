@@ -53,14 +53,14 @@ local function EditSymlink(parent, path, md)
 	slsel:Show();
 	-- Show the editor
 	
-	--dlg:Show();
-	dlg:_Show(RDX.smooth);
+	dlg:Show();
+	--dlg:_Show(RDX.smooth);
 
 	local esch = function()
-		dlg:_Hide(RDX.smooth, nil, function()
+		--dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "symlink_editor");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 	
 	VFL.AddEscapeHandler(esch);

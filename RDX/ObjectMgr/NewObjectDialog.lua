@@ -106,14 +106,14 @@ function RDXDB.NewObjectDialog(parent, dkName, pkgName)
 		btnOK:Destroy(); btnOK = nil;
 	end, dlg.Destroy);
 	
-	--dlg:Show();
-	dlg:_Show(RDX.smooth);
+	dlg:Show();
+	--dlg:_Show(RDX.smooth);
 
 	local esch = function()
-		dlg:_Hide(RDX.smooth, nil, function()
+		--dlg:_Hide(RDX.smooth, nil, function()
 			RDXPM.StoreLayout(dlg, "nod");
 			dlg:Destroy(); dlg = nil;
-		end);
+		--end);
 	end
 
 	VFL.AddEscapeHandler(esch);
